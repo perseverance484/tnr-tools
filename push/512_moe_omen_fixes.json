@@ -1,0 +1,959 @@
+{
+ "_note": "push/512: Mother of Echoes omen fixes (2026-11-08, director: 'Let's fix the unreliable omens'). (1) An Absence held The Absence Opens while Sayo carried cleanseprevent (her Refraction telegraph), so Opens landed up to 3 rounds after The Absence Settles had faded; the hold rule is removed, so it opens the turn after it settles. (2) Lucid Refraction drew new lines (visuals only) that never broke; it now lays Refraction's telegraph carrier on rows 1/4/7 plus increaserange on Sayo, so next turn Refraction Breaks fires on those lines (Lucid Refraction itself is on cooldown 2). (3) The Silence could cast Stillness and then drift closer in the same turn, so the ring no longer matched where Nothing Moves lands; a rule now ends her turn while she carries robprevent (Stillness's marker), placed before the move rule. Law 18: Sayo unequipped, Lucid Refraction edited, kit re-equipped by literal id (511 list). Hand-built from live records read 2026-11-08.",
+ "items": [
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "targetId": "fJLcH1mpB1XHHGtNWwvzD",
+   "name": "Sayo, Mother of Echoes: moe jutsu off (law 18)",
+   "phase": 10,
+   "data": {
+    "jutsus": [],
+    "items": [
+     {
+      "ids": [
+       "h-V9uiuxbL7lAWkO6nZWt"
+      ],
+      "number": 0
+     }
+    ]
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "targetId": "KfXRK6rC3bt4kpdtdJHDb",
+   "name": "Lucid Refraction: its new lines are marked and break next turn",
+   "phase": 20,
+   "data": {
+    "effects": [
+     {
+      "type": "damage",
+      "power": 1050,
+      "rounds": 0,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "statTypes": [
+       "None"
+      ],
+      "calculation": "static",
+      "description": "The glass breaks",
+      "dmgModifier": 1,
+      "disappearSfx": "",
+      "friendlyFire": "ENEMIES",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "residualModifier": 1,
+      "disappearAnimation": "",
+      "allowBloodlineDamageDecrease": true,
+      "allowBloodlineDamageIncrease": true
+     },
+     {
+      "type": "onehitkill",
+      "power": 15,
+      "rounds": 0,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The glass may remember you",
+      "disappearSfx": "",
+      "friendlyFire": "ENEMIES",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "decreaseheal",
+      "power": 50,
+      "rounds": 1,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "The broken glass",
+      "disappearSfx": "",
+      "friendlyFire": "ENEMIES",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "f-NFGOfBgNZX3uMyB2J4q",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "increasedamagetaken",
+      "power": 20,
+      "rounds": 1,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "The broken glass",
+      "disappearSfx": "",
+      "friendlyFire": "ENEMIES",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "increaseregeneration",
+      "power": 1,
+      "rounds": 1,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "Telegraph: the marked ground",
+      "disappearSfx": "",
+      "friendlyFire": "FRIENDLY",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "mhFAfFxu_P2SrQRFzPQjd",
+      "staticAssetPath": "KIJRVhXBnDPf7wnFwx8ga",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "increaserange",
+      "power": 1,
+      "rounds": 1,
+      "target": "SELF",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "actionsAffected": [],
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "Lucid Refraction: the line, L column 0 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "YJHBYO75-XtDwC6I11bLb",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 1,
+         "longitude": 0
+        },
+        {
+         "latitude": 7,
+         "longitude": 0
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "Lucid Refraction: the line, L column 1 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "jKDyiVxTq9zI7dpXSAx4k",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 1,
+         "longitude": 1
+        },
+        {
+         "latitude": 7,
+         "longitude": 1
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "Lucid Refraction: the line, L column 2 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "iM6HxcGkhFC-C8_DrD6EQ",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 1,
+         "longitude": 2
+        },
+        {
+         "latitude": 7,
+         "longitude": 2
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "Lucid Refraction: the line, L column 3 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "u7Mly2DNqRMAy-wCsfOYh",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 1,
+         "longitude": 3
+        },
+        {
+         "latitude": 7,
+         "longitude": 3
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "Lucid Refraction: the line, L column 4 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "1kbGshZXKBqFkgZPUnxHv",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 1,
+         "longitude": 4
+        },
+        {
+         "latitude": 7,
+         "longitude": 4
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "Lucid Refraction: the line, L column 5 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "wTIhNk4YzkEi6RvgvIwTD",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 1,
+         "longitude": 5
+        },
+        {
+         "latitude": 7,
+         "longitude": 5
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "Lucid Refraction: the line, L column 6 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "TGNYk9LzWcHLESDdXLGT7",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 1,
+         "longitude": 6
+        },
+        {
+         "latitude": 7,
+         "longitude": 6
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "Lucid Refraction: the line, L column 7 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "blGxIlU-PZRWOkwRIiEvi",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 1,
+         "longitude": 7
+        },
+        {
+         "latitude": 7,
+         "longitude": 7
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "Lucid Refraction: the line, L column 8 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "XE1_4pu1sg18KsGQfs6Wt",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 1,
+         "longitude": 8
+        },
+        {
+         "latitude": 7,
+         "longitude": 8
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "Lucid Refraction: the line, R column 3 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "WE7_IFhMMaeuu-V8P5_Fw",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 4,
+         "longitude": 3
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "Lucid Refraction: the line, R column 4 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "3nBq3M8loUOXh2b8EgQt8",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 4,
+         "longitude": 4
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "Lucid Refraction: the line, R column 5 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "sCNwRI7O9wEaxuCUaJf_u",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 4,
+         "longitude": 5
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "Lucid Refraction: the line, R column 6 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "MDttez_JYJeVhAYS3rZhZ",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 4,
+         "longitude": 6
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "Lucid Refraction: the line, R column 7 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "JSeXdoQVIyhlrd9qLZsuZ",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 4,
+         "longitude": 7
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "Lucid Refraction: the line, R column 8 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "76nJQq8zy0Q3vILcklXv-",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 4,
+         "longitude": 8
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "Lucid Refraction: the line, R column 9 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "7z4Axt_t3HJTbUB53WRKw",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 4,
+         "longitude": 9
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "Lucid Refraction: the line, R column 10 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "oGhBMYy-_BwIJv8_Ge1Mq",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 4,
+         "longitude": 10
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "Lucid Refraction: the line, R column 11 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "MouINlqwcc5ZBGBQ_xhZz",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 4,
+         "longitude": 11
+        }
+       ],
+       "randomCount": 1
+      }
+     }
+    ],
+    "injectableInBattle": false
+   }
+  },
+  {
+   "entity": "aiProfile",
+   "slot": "edit",
+   "targetId": "8GPW--ok-9m9CBUfBucV4",
+   "name": "An Absence: opens the turn after it settles",
+   "phase": 20,
+   "data": {
+    "rules": [
+     {
+      "conditions": [],
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "Lw5vl0foNm-Zuj2kbc6-b",
+       "description": "Select specific jutsu"
+      }
+     },
+     {
+      "conditions": [],
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "ILOR6lCGa7FjNsBdR66kY",
+       "description": "Select specific jutsu"
+      }
+     },
+     {
+      "conditions": [],
+      "action": {
+       "type": "end_turn",
+       "description": "End turn"
+      }
+     }
+    ],
+    "includeDefaultRules": false
+   }
+  },
+  {
+   "entity": "aiProfile",
+   "slot": "edit",
+   "targetId": "IhNR-W1FElTsrWw1KfuQ9",
+   "name": "The Silence: holds still after Stillness",
+   "phase": 20,
+   "data": {
+    "rules": [
+     {
+      "conditions": [],
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "WyurLfWSUSGU1pIoBPObD",
+       "description": "Select specific jutsu"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "round_greater_than",
+        "value": 60,
+        "description": "Current round is higher than specified value"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "G_b5yaxm6GMOuQ3eaofKb",
+       "description": "Select specific jutsu"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "has_effect",
+        "threshold": 1,
+        "effectType": "robprevent",
+        "description": "Has effect"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "scGyJW-F0Mqga4FXnj4Jf",
+       "description": "Select specific jutsu"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "target_has_effect",
+        "target": "HIGHEST_MAX_HEALTH_ALLY",
+        "threshold": 1,
+        "effectType": "sealprevent",
+        "description": "Target has effect"
+       },
+       {
+        "type": "does_not_have_summon",
+        "description": "Does not have a summon active"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "EMPTY_GROUND_CLOSEST_TO_OPPONENT",
+       "jutsuId": "q0QcFoX4HIhxO0cpYTL2N",
+       "description": "Select specific jutsu"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "target_has_effect",
+        "target": "HIGHEST_MAX_HEALTH_ALLY",
+        "threshold": 1,
+        "effectType": "sealprevent",
+        "description": "Target has effect"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "VqSpJhDUvjxLP5OtjI1mc",
+       "description": "Select specific jutsu"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "target_has_effect",
+        "target": "HIGHEST_MAX_HEALTH_ALLY",
+        "threshold": 1,
+        "effectType": "sealprevent",
+        "description": "Target has effect"
+       },
+       {
+        "type": "distance_lower_than",
+        "value": 3,
+        "target": "CLOSEST_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "A8c_3evIw6fOfnmKIkTgb",
+       "description": "Select specific jutsu"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "target_has_effect",
+        "target": "HIGHEST_MAX_HEALTH_ALLY",
+        "threshold": 1,
+        "effectType": "sealprevent",
+        "description": "Target has effect"
+       }
+      ],
+      "action": {
+       "type": "end_turn",
+       "description": "End turn"
+      }
+     },
+     {
+      "conditions": [],
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "kfzxZHje97anmOwwph84l",
+       "description": "Select specific jutsu"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "does_not_have_summon",
+        "description": "Does not have a summon active"
+       },
+       {
+        "type": "round_greater_than",
+        "value": 1,
+        "description": "Current round is higher than specified value"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "EMPTY_GROUND_CLOSEST_TO_OPPONENT",
+       "jutsuId": "mqko5kLLXqGAVr6MVoKY0",
+       "description": "Select specific jutsu"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 3,
+        "target": "CLOSEST_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "A8c_3evIw6fOfnmKIkTgb",
+       "description": "Select specific jutsu"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 1,
+        "target": "CLOSEST_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "CLOSEST_OPPONENT",
+       "jutsuId": "basicAttack",
+       "description": "Select specific jutsu"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "has_effect",
+        "threshold": 1,
+        "effectType": "robprevent",
+        "description": "Has effect"
+       }
+      ],
+      "action": {
+       "type": "end_turn",
+       "description": "End turn"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 7,
+        "target": "HIGHEST_MAX_HEALTH_OPPONENT",
+        "description": "Out of reach"
+       }
+      ],
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "HIGHEST_MAX_HEALTH_OPPONENT",
+       "description": "The Silence drifts closer"
+      }
+     },
+     {
+      "conditions": [],
+      "action": {
+       "type": "end_turn",
+       "description": "End turn"
+      }
+     }
+    ],
+    "includeDefaultRules": false
+   }
+  },
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "targetId": "fJLcH1mpB1XHHGtNWwvzD",
+   "name": "Sayo, Mother of Echoes: kit back (law 18)",
+   "phase": 30,
+   "data": {
+    "jutsus": [
+     "-ycht5oRfg137kv1y_LoH",
+     "0g0Iy9PKsIVC6ggG1Exz2",
+     "G_b5yaxm6GMOuQ3eaofKb",
+     "yxP6zO2NmjwqnrnvNXipC",
+     "HIftLq_RQJkIUUqGgBPTE",
+     "qjtaZInyr1nZ5lZmSA_SS",
+     "OTcP-08or5bUKwcMjc54K",
+     "eYzXEQI-Vz3gSIDfP2sX3",
+     "xlmvVot9xaetibexfyc31",
+     "KfXRK6rC3bt4kpdtdJHDb",
+     "IOUn-UrO1gwbi4uJdwYDp",
+     "foDwd-hL5krmhFHsPtQtc",
+     "nwjETj5gD7gD68KomTmxF"
+    ],
+    "items": [
+     {
+      "ids": [
+       "h-V9uiuxbL7lAWkO6nZWt"
+      ],
+      "number": 0
+     }
+    ]
+   }
+  }
+ ]
+}
