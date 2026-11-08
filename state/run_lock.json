@@ -1,11 +1,10 @@
 {
- "holder": "claude",
- "token": "fe9f247f79cb40e4a4d8fa8dcb75a398",
- "job": "MoE 509 remainder (resume)",
- "instance": "/mnt/project-files/tnr/forge_state/moe509",
- "ttlMinutes": 120,
- "claimedAt": "2026-11-07T23:26:52.203Z",
- "heartbeatAt": "2026-11-08T01:06:40.788Z",
- "expiresAt": "2026-11-08T03:06:40.788Z",
- "note": "One game writer per account at a time (RUL-2026-11-07-133). Written only by forge/tools/run_lock.mjs or Forge; do not hand-edit."
+ "holder": null,
+ "token": null,
+ "job": null,
+ "releasedBy": "claude",
+ "releasedInstance": "/mnt/project-files/tnr/forge_state/moe509",
+ "releasedJob": "MoE 509 remainder (resume)",
+ "releasedAt": "2026-11-08T01:09:00.069Z",
+ "note": "Free. Claim with node forge/tools/run_lock.mjs claim --holder NAME --job TEXT (RUL-2026-11-07-133)."
 }
