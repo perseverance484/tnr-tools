@@ -25,6 +25,14 @@
 //   node forge/tools/mcp_run.mjs jobs   --state DIR
 //       Offline. Lists the journal's jobs and their states.
 //
+//   node forge/tools/mcp_run.mjs resend JOB_ID IDX --state DIR
+//       Offline. Re-send the step an ORPHANED item stopped at (the UI's "Re-send <phase>"),
+//       after you have checked the live record. The next resume sends it.
+//
+//   node forge/tools/mcp_run.mjs skip JOB_ID IDX... --reason TEXT --state DIR
+//       Offline. Mark PLANNED items SKIPPED, for edits a separate read showed are already live.
+//       Nothing is sent; the job's outcome stays "unverified", as a skip should.
+//
 // What this host refuses, and why:
 //   - manifests that upload images (@img refs or an imagePack): uploads go to /api/uploadthing,
 //     which is not a tRPC procedure and is not on the MCP surface. Run those in the browser.
@@ -154,6 +162,44 @@ async function main() {
   if (cmd === "jobs") {
     const { deps } = await build({ stateDir, live: false });
     for (const j of deps.journal.listJobs()) out({ type: "job", jobId: j.jobId ?? j.id, state: j.state, manifest: j.manifestPath ?? null });
+    return;
+  }
+  if (cmd === "skip") {
+    // Offline: mark PLANNED items SKIPPED with a reason, for edits a separate read showed are
+    // already live. Never touches an item that was sent; the job outcome stays "unverified".
+    const jobId = process.argv[3];
+    const reasonAt = process.argv.indexOf("--reason");
+    const reason = reasonAt > 0 ? process.argv[reasonAt + 1] : null;
+    const rest = process.argv.slice(4); const stop = rest.findIndex((a) => a.startsWith("--"));
+    const idxs = (stop < 0 ? rest : rest.slice(0, stop)).map(Number);
+    if (idxs.some((n) => !Number.isInteger(n))) die("skip: item indexes must be whole numbers");
+    if (!jobId || !idxs.length || !reason) die("usage: mcp_run.mjs skip JOB_ID IDX... --reason TEXT --state DIR");
+    const { deps } = await build({ stateDir, live: false });
+    const job = deps.journal.get(jobId);
+    if (!job) die(`no job ${jobId}`);
+    for (const i of idxs) {
+      const item = job.items[i];
+      if (!item) die(`no item ${i} in ${jobId}`);
+      if (item.state !== "PLANNED") die(`skip needs a PLANNED item; ${i} is ${item.state}`);
+    }
+    for (const i of idxs) deps.journal.transition(jobId, i, "SKIPPED", { error: null, skipReason: reason });
+    out({ type: "skip", jobId, count: idxs.length, reason });
+    return;
+  }
+  if (cmd === "resend") {
+    // Offline. The UI's "Re-send <phase>" on an ORPHANED item that already has its id: the
+    // operator has checked the record and chooses to send that same step again on resume.
+    const [jobId, idxRaw] = [process.argv[3], process.argv[4]];
+    if (!jobId || idxRaw === undefined) die("usage: mcp_run.mjs resend JOB_ID IDX --state DIR");
+    const { deps } = await build({ stateDir, live: false });
+    const item = deps.journal.get(jobId)?.items[Number(idxRaw)];
+    if (!item) die(`no item ${idxRaw} in ${jobId}`);
+    if (item.state !== "ORPHANED" || !item.entityId) die(`resend needs an ORPHANED item with an id; ${idxRaw} is ${item.state}`);
+    // Not adopt(): its holder check refuses an id that an earlier step of the same manifest also
+    // targets, and this item already holds its id. Same transition adopt() makes for a re-send.
+    deps.journal.transition(jobId, Number(idxRaw), "CONFIRMED", { entityId: item.entityId, phase: item.phase, adopted: true, error: null });
+    const after = deps.journal.get(jobId).items[Number(idxRaw)];
+    out({ type: "resend", jobId, idx: Number(idxRaw), entityId: after.entityId, state: after.state, phase: after.phase });
     return;
   }
   if (cmd === "run" || cmd === "resume") {

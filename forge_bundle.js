@@ -4864,7 +4864,7 @@
     }
     async _rules(jobId, item, planned, userId) {
       const rc = recipe("aiProfile");
-      const rules = planned.data.rules ?? [];
+      const rules = (await this._resolved({ rules: planned.data.rules ?? [] }, jobId)).rules;
       const includeDefaultRules = planned.data.includeDefaultRules !== false;
       if (item.entity === "aiProfile") {
         const problems = this.validator.problems("aiProfile", planned.data, null);
@@ -4925,7 +4925,7 @@
         const pr = await this.reader.get("ai.getAiProfile", item.aiProfileId, { fresh: true });
         if (!pr.ok && classifyError(pr.error) === "SESSION") throw this._authRefused(pr.error, { idx: item.idx, path: "ai.getAiProfile" });
         if (pr.ok && pr.data) {
-          if (!deepEqualPayload(planned.data.rules ?? [], pr.data.rules ?? [])) diffs.push({ key: "rules", sent: planned.data.rules, live: pr.data.rules });
+          if (!deepEqualPayload(data.rules ?? [], pr.data.rules ?? [])) diffs.push({ key: "rules", sent: data.rules, live: pr.data.rules });
           if (planned.data.includeDefaultRules !== void 0 && pr.data.includeDefaultRules !== planned.data.includeDefaultRules) diffs.push({ key: "includeDefaultRules", sent: planned.data.includeDefaultRules, live: pr.data.includeDefaultRules });
         } else {
           this.journal.annotate(jobId, item.idx, { verify: "unread", phase: "verify" });
@@ -5406,7 +5406,7 @@
       if (!item.aiProfileId) return { action: "orphan", candidates: [], note: "rules sent but no aiProfileId recorded" };
       const prof = this._ensureSession("ai.getAiProfile", await this.reader.get("ai.getAiProfile", item.aiProfileId, { fresh: true }));
       if (!prof.ok || !prof.data) return { action: "orphan", candidates: [], note: "ai.getAiProfile unavailable" };
-      const want = ctx.planned ? ctx.planned.data.rules ?? [] : null;
+      const want = ctx.planned ? resolveRefs(ctx.planned.data.rules ?? [], ctx.lookup ?? (() => void 0)).value : null;
       const wantDefault = ctx.planned ? ctx.planned.data.includeDefaultRules : void 0;
       const rulesLanded = want && deepEqualPayload(want, prof.data.rules ?? []);
       const defaultLanded = wantDefault === void 0 || prof.data.includeDefaultRules === wantDefault;
