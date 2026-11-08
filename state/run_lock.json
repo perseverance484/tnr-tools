@@ -1,10 +1,11 @@
 {
- "holder": null,
- "token": null,
- "job": null,
- "releasedBy": "claude",
- "releasedInstance": "/mnt/project-files/tnr/forge_state/wl512",
- "releasedJob": "push/514 Skyglass Wreck expiry (re-pinned contract)",
- "releasedAt": "2026-11-08T16:00:33.752Z",
- "note": "Free. Claim with node forge/tools/run_lock.mjs claim --holder NAME --job TEXT (RUL-2026-11-07-133)."
+ "holder": "claude",
+ "job": "511 moe act1 fixes",
+ "token": "a62d30ae916d4073ba6a12330faf9644",
+ "instance": null,
+ "ttlMinutes": 60,
+ "claimedAt": "2026-11-08T16:02:00.792Z",
+ "heartbeatAt": "2026-11-08T16:02:00.792Z",
+ "expiresAt": "2026-11-08T17:02:00.792Z",
+ "note": "One game writer per account at a time (RUL-2026-11-07-133). Written only by forge/tools/run_lock.mjs or Forge; do not hand-edit."
 }
