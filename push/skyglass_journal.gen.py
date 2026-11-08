@@ -66,7 +66,19 @@ Q = {
     "rotted_reliquary": "FsuXzvaqr_R25p8cEkxoK",  # The Rotted Reliquary tnr_results_1793485978739.json
     "burning_heading": "ozDN-G6nGFXGgKuPZ04Gr",   # The Burning Heading  tnr_results_1793485978739.json
     "crownhold": "fqqpkcp_L4oOsC6yyodlk",       # Crownhold             tnr_results_1793424666625.json
+    # The Haul rooms (EVENT_JOURNAL.md section 3 N14); each live read 2026-11-08: hidden false, maxCompletes 100
+    "trophy_hold": "0_wTZMTqvxM-gvl_s1s7c",     # The Trophy Hold
+    "bone_store": "ww_baSsbBet0mx7MK52yI",      # The Bone Store
+    "snare_room": "vMh6SDID0XTrVJ0f1QmFD",      # The Snare Room
+    "overgrown_stores": "5y9wAYELSdNa8Jgim1sgD",  # The Overgrown Stores
+    "ore_vault": "C1JPScsgSMcVXQUfuFgcs",       # The Ore Vault
+    "bloom_cellar": "UO65dN640MgAbNBBopTVI",    # The Bloom Cellar
 }
+COMMONS = ("low_tide", "night_watch")
+RARES = ("buried_cache", "foundry", "archive", "captains_watch")
+HAULS = ("trophy_hold", "bone_store", "snare_room", "overgrown_stores", "ore_vault", "bloom_cellar")
+RARE_NAMES = "The Buried Cache, The Drowned Foundry, The Quarantined Archive or The Captain's Watch"
+HAUL_NAMES = "The Trophy Hold, The Bone Store, The Snare Room, The Overgrown Stores, The Ore Vault or The Bloom Cellar"
 # Item ids for use_specific_item_combat orders (live reads). Check preventBattleUsage before using one:
 # Skyglass Serum (XhilCv1Hq4eNt-Wddok-m) has preventBattleUsage true (item.get 2026-11-08), so it can't be an order.
 USE = {}
@@ -180,6 +192,74 @@ def entries_page2():
     ]
 
 
+def entries_page3():
+    """The Stores: the Haul (EVENT_JOURNAL.md section 5), from the low decks down to the stores and below."""
+    return [
+        entry("j3_low_decks", "complete_specific_quest",
+              "Walk the low decks first, where the tide leaves the stores.",
+              "<b>Win the Low Tide Run or the Night Watch, 2 times in total.</b>",
+              ("tide_chart", "a Tide Chart"),
+              "Two watches stood. The low decks are counted.",
+              completeQuestIds=runs(*COMMONS), value=2),
+        entry("j3_charts", "complete_specific_quest",
+              "Follow the crew's charts to what they hid from the quartermaster.",
+              f"<b>Win one of these runs, 2 times in total:</b> {RARE_NAMES}.",
+              ("archive_chart_case", "an Archive Chart Case"),
+              "The charts were honest. The quartermaster's ledger was not.",
+              completeQuestIds=runs(*RARES), value=2),
+        entry("j3_haul", "complete_specific_quest",
+              "Open the stores themselves, the rooms where the haul was kept.",
+              f"<b>Win any Haul room, 2 times in total:</b> {HAUL_NAMES}.",
+              ("galley_stores", "Galley Stores"),
+              "Two rooms open. Neither held what the ledger says it did.",
+              completeQuestIds=runs(*HAULS), value=2),
+        entry("j3_below", "complete_specific_quest",
+              "Go below the stores, to the reliquary or the night she fell, and see what was carried down.",
+              "<b>Win The Sealed Reliquary or The Fall once.</b>",
+              ("skyglass_coffer", "a Skyglass Coffer"),
+              "Whatever was carried down, it stayed down.",
+              completeQuestIds=runs("reliquary", "fall"), value=1),
+    ]
+
+
+def entries_page4():
+    """Her Invitation: the finale (EVENT_JOURNAL.md section 5), a climb from the watch to the throne. The Mother of
+    Echoes stays off until she is live; the Lastlight jutsu stays off because only a Crownhold pick has it."""
+    return [
+        entry("j4_watch", "complete_specific_quest",
+              "Stand one more watch before you go. The roster still keeps your name.",
+              "<b>Win the Low Tide Run or the Night Watch once.</b>",
+              ("medicine_inro", "a Medicine Inro"),
+              "The watch is stood. Nobody comes to relieve you.",
+              completeQuestIds=runs(*COMMONS), value=1),
+        entry("j4_chart", "complete_specific_quest",
+              "Take one of the crew's charts below the waterline, one last time.",
+              f"<b>Win one of these runs once:</b> {RARE_NAMES}.",
+              ("archive_chart_case", "an Archive Chart Case"),
+              "The chart's last line is in a new brush.",
+              completeQuestIds=runs(*RARES), value=1),
+        entry("j4_haul", "complete_specific_quest",
+              "Open one of the stores, and take what you will need at the throne.",
+              f"<b>Win any Haul room once:</b> {HAUL_NAMES}.",
+              ("galley_stores", "Galley Stores"),
+              "You carry out more than you carried in.",
+              completeQuestIds=runs(*HAULS), value=1),
+        entry("j4_core", "complete_specific_quest",
+              "Go down where the Core could not hold, twice, clean or rotted.",
+              "<b>Win one of these runs, 2 times in total:</b> The Sealed Reliquary, The Fall, The Rotted Reliquary "
+              "or The Burning Heading.",
+              ("skyglass_coffer", "a Skyglass Coffer"),
+              "Twice down and twice back. The glass below rings as you climb.",
+              completeQuestIds=runs("reliquary", "fall", "rotted_reliquary", "burning_heading"), value=2),
+        entry("j4_throne", "complete_specific_quest",
+              "Carry the last light to the throne, where the page was left for you.",
+              "<b>Win Crownhold once</b> (its way in is a Lastlight Lantern).",
+              ("sealed_treasury", "a Sealed Treasury"),
+              "The throne is empty. The page that called you there is still warm.",
+              completeQuestIds=runs("crownhold"), value=1),
+    ]
+
+
 def chained(objs):
     for a, b in zip(objs, objs[1:]):  # Forge L03 on the create; the publish edit sets consecutiveObjectives false
         a["nextObjectiveId"] = b["id"]
@@ -191,6 +271,12 @@ PAGE1_INTRO = ("The salvager has dried a page of the Ghost Ship's watch log and 
 PAGE2_INTRO = ("The second page came up from the deep hold, and the rot has been at it. Half the officer's brush is "
                "eaten through, and what is left points down, to the rooms the Core spoiled. Your name is at the top "
                "again, in the same ink.")
+PAGE3_INTRO = ("The third page turned up in the galley, folded into a ration tin, and it smells of the stores. The "
+               "officer's brush is steady again: a list of rooms, and how much was taken from each. Your name is at "
+               "the top, in the same ink.")
+PAGE4_INTRO = ("The fourth page was not in the hold. It was left on the throne at Crownhold, face up, as if someone "
+               "meant you to find it. The brush is not the officer's. Your name is at the top, and under it one word: "
+               "come.")
 
 PAGES = {
     1: {"num": 490, "out": "push/490_skyglass_journal_week1.json", "srcId": "sg490_journal_w1",
@@ -206,6 +292,19 @@ PAGES = {
         "success": ("Page complete. The rot stops at your name. The salvager reads it twice before she folds it away. "
                     "\"That one came up from further down than the last.\""),
         "image": "live", "rewards": "DRAFT, awaiting the director (RUL-2026-11-05-121 D3 covered page 1 only)"},
+    # From page 3 a page opens on Saturday's date (00:00 UTC = Friday 6 PM Central) with the Wrecks (start_offset 1)
+    3: {"num": 517, "out": "push/517_skyglass_journal_page3.json", "srcId": "sg517_journal_p3",
+        "publish_num": 518, "publish_out": "push/518_skyglass_journal_page3_publish.json", "start_offset": 1,
+        "name": "The Watch Log: Third Page", "friday": "2026-11-20", "entries": entries_page3, "intro": PAGE3_INTRO,
+        "success": ("Page complete. The salvager counts the stores twice and comes up one short. \"Something down "
+                    "there is eating them.\""),
+        "image": "live", "rewards": "DRAFT, awaiting the director"},
+    4: {"num": 519, "out": "push/519_skyglass_journal_page4.json", "srcId": "sg519_journal_p4",
+        "publish_num": 520, "publish_out": "push/520_skyglass_journal_page4_publish.json", "start_offset": 1,
+        "name": "The Watch Log: Fourth Page", "friday": "2026-11-27", "entries": entries_page4, "intro": PAGE4_INTRO,
+        "success": ("Page complete. The salvager will not touch this one. She asks you to keep it, and to tell her "
+                    "if it writes back."),
+        "image": "live", "rewards": "DRAFT, awaiting the director"},
 }
 
 
@@ -321,13 +420,43 @@ def build_publish(n, bundle):
     print(f"{page['publish_out']}: publish {it['name']} -> {ok[0]['id']}")
 
 
+LIVE_IDS = {1: "mkmZDhFcNIiKDA1pCH3J_",   # push/490, published by push/507 (tnr_results_1794006062657.json)
+            2: "V-i3ZcAqPu0hB3G9IEzGo"}   # push/512 (tnr_results_1794152841684.json)
+
+
+def build_hide(n, num, live_id=None):
+    """The Wednesday hide: hidden true only, fetch-merged by Forge, so the live record keeps everything else (the
+    director's own fixes included). endsAt already stopped new takers on Tuesday; hiding ends the claims."""
+    page = PAGES[n]
+    qid = live_id or LIVE_IDS.get(n)
+    if not qid:
+        raise SystemExit(f"page {n} has no live id yet; pass --id")
+    out = {"_note": (f"push/{num}: hide {page['name']} ({qid}). hidden true only (Forge fetch-merges the live record), "
+                     "so claims end; endsAt already closed it to new takers. Director's plan 2026-11-08: a page "
+                     "closes Monday evening, hides Wednesday 6 PM Central, and is deleted only on his yes. Generated "
+                     "by push/skyglass_journal.gen.py hide; do not hand-edit."),
+           "items": [{"entity": "quest", "slot": "edit", "targetId": qid, "phase": 10,
+                      "name": f"{page['name']}: hide", "data": {"hidden": True}}]}
+    rel = f"push/{num}_skyglass_journal_page{n}_hide.json"
+    with open(os.path.join(ROOT, rel), "w", encoding="utf-8") as fh:
+        json.dump(out, fh, indent=1, ensure_ascii=False)
+        fh.write("\n")
+    print(f"{rel}: hide {page['name']} -> {qid}")
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("mode", nargs="?", default="create", choices=["create", "publish"])
+    ap.add_argument("mode", nargs="?", default="create", choices=["create", "publish", "hide"])
     ap.add_argument("--page", type=int, default=1, choices=sorted(PAGES))
     ap.add_argument("--friday", help="override the page's weekend start (a Friday); endsAt is the Tuesday after")
     ap.add_argument("--from", dest="bundle", help="publish: the create job's results bundle")
+    ap.add_argument("--num", type=int, help="hide: the job number for the output file")
+    ap.add_argument("--id", help="hide: the page's live quest id when LIVE_IDS lacks it")
     a = ap.parse_args()
+    if a.mode == "hide":
+        if not a.num:
+            ap.error("hide needs --num <job number>")
+        return build_hide(a.page, a.num, a.id)
     if a.mode == "publish":
         if not a.bundle:
             ap.error("publish needs --from <results bundle>")

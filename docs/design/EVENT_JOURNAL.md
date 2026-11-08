@@ -96,16 +96,19 @@ one Crownhold pick. The values are the director's (`[[D-reserved-dauntless]]`).
 
 ## 5. Rotation and template
 
-**Rotation.** One quest record per weekend, `startsAt` the Friday, `endsAt` the Tuesday, so it opens 00:00 UTC Friday and
-closes 00:00 UTC Tuesday (the event runs Friday-Sunday, RUL-2026-11-01-096 item 4; Monday is grace, RUL-2026-11-05-122), `maxCompletes: 1`, `retryDelay: none`. Last weekend's page expires on its own; the new page
+**Rotation.** One quest record per weekend, `startsAt` the Saturday, `endsAt` the Tuesday, so it opens 00:00 UTC Saturday
+(Friday 6 PM Central, the same instant the weekly routine reopens both Wrecks; director 2026-11-08: "Friday for both")
+and closes 00:00 UTC Tuesday (Monday 6 PM Central). Pages 1 and 2 opened on the Friday's date; page 2 was re-timed by
+push/516. The Friday routine and the Wednesday hide read `state/skyglass_schedule.json` through
+`scripts/skyglass_weekly.py` (the event runs Friday-Sunday, RUL-2026-11-01-096 item 4; Monday is grace, RUL-2026-11-05-122), `maxCompletes: 1`, `retryDelay: none`. Last weekend's page expires on its own; the new page
 is a new record ("Second Page", "Third Page"). Only one page is ever in its window, so only one can be taken. Pages are
 reusable: an old page can return later as a new record with new dates.
 
 | Page | Theme | Entries (sketch) |
 |---|---|---|
 | Second: "The Rotted Heading" (built: push/512, rewards a draft for the director) | the rot | The Captain's Watch ×1 (Archive Chart Case); the Low Tide Run or the Night Watch ×1 (Medicine Inro; replaced the Serum order 2026-11-08, the Serum can't be used in battle); The Fall ×1 (Galley Stores); The Rotted Reliquary ×1 (Skyglass Coffer); The Burning Heading ×1 (Sealed Treasury); all five: Skyglass Token. Window 2026-11-13 to 2026-11-17 00:00 UTC |
-| Third: "The Stores" | the Haul | any Haul run ×2; any Rare run ×2 (the pages drop there); a common run ×2 |
-| Fourth: "Her Invitation" | the finale | an Epic or tainted run ×2 (Tide shard); a Haul run ×1 (Ledger); Crownhold ×1 (Crown); the Mother of Echoes ×1 as the stretch (the Keel shard's Wreck stays off, D1) |
+| Third: "The Stores" (built: push/517, rewards a draft) | the Haul | a common run ×2 (Tide Chart); a Rare run ×2 (Archive Chart Case); any Haul room ×2 (Galley Stores); The Sealed Reliquary or The Fall ×1 (Skyglass Coffer); all four: Skyglass Token. Window 2026-11-21 to 2026-11-24 00:00 UTC |
+| Fourth: "Her Invitation" (built: push/519, rewards a draft) | the finale | a common run ×1 (Medicine Inro); a Rare run ×1 (Archive Chart Case); a Haul room ×1 (Galley Stores); an Epic or tainted run ×2 (Skyglass Coffer); Crownhold ×1 (Sealed Treasury); all five: Skyglass Token. The Mother of Echoes stays off until she is live; the Lastlight jutsu stays off (only a Crownhold pick has it). Window 2026-11-28 to 2026-12-01 00:00 UTC |
 | Fifth: "Every Deck" | a full tour | one entry per Rare run, ×1 each; raise the Lastlight in battle ×1 |
 
 **Template for any event** (an event sheet adds this as part of item 9, legibility):
@@ -116,7 +119,8 @@ reusable: an old page can return later as a new record with new dates.
 4. **The quest description** opens with one plain line for the dashboard card ("This weekend's orders: N to claim,
    <reward> for all N."), then carries the whole page (voice lines, the numbered plain list, the rules: counts only
    while held, any order, claim before it closes).
-5. **Dates:** startsAt the Friday, endsAt the Tuesday (open 00:00 UTC Friday, closed 00:00 UTC Tuesday).
+5. **Dates:** startsAt the Saturday, endsAt the Tuesday (open 00:00 UTC Saturday = Friday 6 PM Central with the Wrecks,
+   closed 00:00 UTC Tuesday). Hide the Wednesday after (`push/skyglass_journal.gen.py hide`, hidden true only).
 5a. **Two jobs per page** (RUL-2026-11-08-139): `push/skyglass_journal.gen.py --page N` creates it hidden with
    `consecutiveObjectives: true` (Forge L03); `... publish --page N --from <bundle>` re-sends it with `hidden: false`
    and `consecutiveObjectives: false`, so every order is open at once. The page still lists only from its startsAt, so
