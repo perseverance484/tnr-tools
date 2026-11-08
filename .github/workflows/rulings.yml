@@ -1,0 +1,14 @@
+name: rulings
+on:
+  push:
+    paths: ["docs/RULINGS.md", "docs/rulings/**", "scripts/rulings_index.py"]
+  pull_request:
+    paths: ["docs/RULINGS.md", "docs/rulings/**", "scripts/rulings_index.py"]
+
+jobs:
+  index:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Rulings index is current and no entry sits in docs/RULINGS.md
+        run: python3 scripts/rulings_index.py --check
