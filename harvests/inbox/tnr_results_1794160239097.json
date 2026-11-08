@@ -1,0 +1,99 @@
+{
+ "builder": "forge-mcp",
+ "at": "2026-11-08T17:50:39.097Z",
+ "cfg": "forge",
+ "checks": null,
+ "state": "DONE",
+ "outcome": "success",
+ "postflight": {
+  "match": 1,
+  "diff": 0,
+  "unverified": 0,
+  "failed": 0,
+  "skipped": 0,
+  "unresolved": 0
+ },
+ "entries": [
+  {
+   "name": "The Watch Log: Her Invitation",
+   "srcId": "sg519_journal_p4",
+   "entity": "quest",
+   "slot": "create",
+   "op": "create",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 21,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "I_cEOGSfFuahaJlR3FnWC"
+  }
+ ],
+ "captures": [],
+ "idmap": {
+  "sg512_journal_p2": "V-i3ZcAqPu0hB3G9IEzGo",
+  "sg517_journal_p3": "AgGR962c3XNo6Pr0up2qT",
+  "sg519_journal_p4": "I_cEOGSfFuahaJlR3FnWC"
+ },
+ "journal": {
+  "v": 1,
+  "jobId": "519-mw84mf3m",
+  "manifestPath": "push/519_skyglass_journal_page4.json",
+  "manifestNumber": 519,
+  "manifestHash": "eba0371e",
+  "startedAt": "2026-11-08T17:48:58.748Z",
+  "updatedAt": "2026-11-08T17:50:39.094Z",
+  "state": "DONE",
+  "pause": null,
+  "items": [
+   {
+    "idx": 0,
+    "entity": "quest",
+    "op": "create",
+    "name": "The Watch Log: Her Invitation",
+    "srcId": "sg519_journal_p4",
+    "targetId": null,
+    "payloadHash": "28143a99",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "I_cEOGSfFuahaJlR3FnWC",
+    "snapshotKey": "tnr_forge_snap_v1:519-mw84mf3m:quest",
+    "sentAt": "2026-11-08T17:49:44.807Z",
+    "createSentAt": "2026-11-08T17:49:11.345Z",
+    "confirmedAt": "2026-11-08T17:50:26.082Z",
+    "verifiedAt": "2026-11-08T17:50:39.093Z",
+    "error": null,
+    "attempt": 2,
+    "asserted": [
+     "name",
+     "description",
+     "image",
+     "questType",
+     "questRank",
+     "successDescription",
+     "retryDelay",
+     "attemptDelay",
+     "consecutiveObjectives",
+     "hidden",
+     "requiredLevel",
+     "maxLevel",
+     "maxAttempts",
+     "maxCompletes",
+     "prerequisiteQuestId",
+     "tierLevel",
+     "requiredVillage",
+     "requiredBloodlineId",
+     "startsAt",
+     "endsAt",
+     "content"
+    ],
+    "diffs": [],
+    "verify": "match"
+   }
+  ]
+ }
+}

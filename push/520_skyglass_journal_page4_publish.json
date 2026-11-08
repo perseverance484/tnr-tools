@@ -1,0 +1,174 @@
+{
+ "_note": "push/520: publish The Watch Log: Her Invitation (I_cEOGSfFuahaJlR3FnWC, created by push/519). Re-sends the committed create data whole with hidden false and consecutiveObjectives false, so every order is open at once (RUL-2026-11-08-139); the page still lists only from its startsAt. Built from tnr_results_1794160239097.json by push/skyglass_journal.gen.py publish; do not hand-edit.",
+ "items": [
+  {
+   "entity": "quest",
+   "slot": "edit",
+   "targetId": "I_cEOGSfFuahaJlR3FnWC",
+   "phase": 10,
+   "name": "The Watch Log: Her Invitation: publish",
+   "data": {
+    "name": "The Watch Log: Her Invitation",
+    "description": "<i>The fourth page was left on the throne at Crownhold, face up. The brush isn't the officer's. Under your name, one word: come.</i><br><br><b>This weekend's challenges</b><br>1. <b>Win one of these runs once:</b> The Buried Cache, The Drowned Foundry, The Quarantined Archive or The Captain's Watch. <i>Reward: an Archive Chart Case.</i><br>2. <b>Win any Haul room once:</b> The Trophy Hold, The Bone Store, The Snare Room, The Overgrown Stores, The Ore Vault or The Bloom Cellar. <i>Reward: Galley Stores.</i><br>3. <b>Win one of these runs, 2 times in total:</b> The Sealed Reliquary, The Fall, The Rotted Reliquary or The Burning Heading. <i>Reward: a Skyglass Coffer.</i><br>4. <b>Win Crownhold once</b> (its way in is a Lastlight Lantern). <i>Reward: a Sealed Treasury.</i><br>5. <b>Win The Mother of Echoes once.</b> <i>Reward: a Sealed Treasury.</i><br><b>All five:</b> a Skyglass Token.<br><br><b>Rules</b><br>Only wins after you take this page count. Do them in any order, and claim each reward from its card in the Logbook. The page closes at the end of Monday (00:00 UTC Tuesday).",
+    "image": "https://ui0arpl8sm.ufs.sh/f/4xb_93fgzp68t83owGoQQ.webp",
+    "questType": "event",
+    "questRank": "D",
+    "successDescription": "Page complete. The salvager will not touch this one. She asks you to keep it, and to tell her if it writes back.",
+    "retryDelay": "none",
+    "attemptDelay": "none",
+    "consecutiveObjectives": false,
+    "hidden": false,
+    "requiredLevel": 1,
+    "maxLevel": 100,
+    "maxAttempts": 1,
+    "maxCompletes": 1,
+    "prerequisiteQuestId": null,
+    "tierLevel": null,
+    "requiredVillage": null,
+    "requiredBloodlineId": null,
+    "startsAt": "2026-11-28",
+    "endsAt": "2026-12-01",
+    "content": {
+     "objectives": [
+      {
+       "id": "j4_chart",
+       "task": "complete_specific_quest",
+       "description": "Take one of the crew's charts below the waterline, one last time.<br><br><b>Win one of these runs once:</b> The Buried Cache, The Drowned Foundry, The Quarantined Archive or The Captain's Watch. Reward when you claim it: an Archive Chart Case.",
+       "successDescription": "The chart's last line is in a new brush.",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "reward_items": [
+        {
+         "ids": [
+          "B48dTRsoLJGKBWIUbeUoG"
+         ],
+         "number": 100,
+         "quantity": 1
+        }
+       ],
+       "completeQuestIds": [
+        "CgwAVCyZLgNQtEnqgLxxv",
+        "UGHSuhi83C3wRtH3FD4Eu",
+        "-bZ_ZoI6yrUJ_LKT9R5zm",
+        "liljq0yVXWTSna4X6dZE1"
+       ],
+       "value": 1,
+       "nextObjectiveId": "j4_haul"
+      },
+      {
+       "id": "j4_haul",
+       "task": "complete_specific_quest",
+       "description": "Open one of the stores, and take what you will need at the throne.<br><br><b>Win any Haul room once:</b> The Trophy Hold, The Bone Store, The Snare Room, The Overgrown Stores, The Ore Vault or The Bloom Cellar. Reward when you claim it: Galley Stores.",
+       "successDescription": "You carry out more than you carried in.",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "reward_items": [
+        {
+         "ids": [
+          "D-QTnbjgTyIVc593zzdSB"
+         ],
+         "number": 100,
+         "quantity": 1
+        }
+       ],
+       "completeQuestIds": [
+        "0_wTZMTqvxM-gvl_s1s7c",
+        "ww_baSsbBet0mx7MK52yI",
+        "vMh6SDID0XTrVJ0f1QmFD",
+        "5y9wAYELSdNa8Jgim1sgD",
+        "C1JPScsgSMcVXQUfuFgcs",
+        "UO65dN640MgAbNBBopTVI"
+       ],
+       "value": 1,
+       "nextObjectiveId": "j4_core"
+      },
+      {
+       "id": "j4_core",
+       "task": "complete_specific_quest",
+       "description": "Go down where the Core could not hold, twice, clean or rotted.<br><br><b>Win one of these runs, 2 times in total:</b> The Sealed Reliquary, The Fall, The Rotted Reliquary or The Burning Heading. Reward when you claim it: a Skyglass Coffer.",
+       "successDescription": "Twice down and twice back. The glass below rings as you climb.",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "reward_items": [
+        {
+         "ids": [
+          "THo7rfzP-S82_43aN8fs3"
+         ],
+         "number": 100,
+         "quantity": 1
+        }
+       ],
+       "completeQuestIds": [
+        "yZoR_dPSdg8ksO77gDH_A",
+        "H9YInJtnzKCOEMv-sNgzP",
+        "FsuXzvaqr_R25p8cEkxoK",
+        "ozDN-G6nGFXGgKuPZ04Gr"
+       ],
+       "value": 2,
+       "nextObjectiveId": "j4_throne"
+      },
+      {
+       "id": "j4_throne",
+       "task": "complete_specific_quest",
+       "description": "Carry the last light to the throne, where the page was left for you.<br><br><b>Win Crownhold once</b> (its way in is a Lastlight Lantern). Reward when you claim it: a Sealed Treasury.",
+       "successDescription": "The throne is empty. The page that called you there is still warm.",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "reward_items": [
+        {
+         "ids": [
+          "Ma8S90Nmbi0Xvm4u4FzJh"
+         ],
+         "number": 100,
+         "quantity": 1
+        }
+       ],
+       "completeQuestIds": [
+        "fqqpkcp_L4oOsC6yyodlk"
+       ],
+       "value": 1,
+       "nextObjectiveId": "j4_mother"
+      },
+      {
+       "id": "j4_mother",
+       "task": "complete_specific_quest",
+       "description": "Answer the one who wrote it. She is waiting below the throne.<br><br><b>Win The Mother of Echoes once.</b> Reward when you claim it: a Sealed Treasury.",
+       "successDescription": "Her voice stops. For the first time since the Wreck came down, the glass is quiet.",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "reward_items": [
+        {
+         "ids": [
+          "Ma8S90Nmbi0Xvm4u4FzJh"
+         ],
+         "number": 100,
+         "quantity": 1
+        }
+       ],
+       "completeQuestIds": [
+        "IBPNwhAzlAJPXoeEnp8gW"
+       ],
+       "value": 1
+      }
+     ],
+     "sceneBackground": "rX78pJPETsUL2JrsSvGHn",
+     "sceneCharacters": [
+      "Xugt7415D3-tepLfxpwM5"
+     ],
+     "entryItems": [],
+     "reward": {
+      "reward_items": [
+       {
+        "ids": [
+         "nzCW7A-_AuYMzBs2wClnM"
+        ],
+        "number": 100,
+        "quantity": 1
+       }
+      ]
+     }
+    }
+   }
+  }
+ ]
+}

@@ -463,7 +463,9 @@ def build_publish(n, bundle):
 
 
 LIVE_IDS = {1: "mkmZDhFcNIiKDA1pCH3J_",   # push/490, published by push/507 (tnr_results_1794006062657.json)
-            2: "V-i3ZcAqPu0hB3G9IEzGo"}   # push/512 (tnr_results_1794152841684.json)
+            2: "V-i3ZcAqPu0hB3G9IEzGo",   # push/512 (tnr_results_1794152841684.json); renamed push/526
+            3: "AgGR962c3XNo6Pr0up2qT",   # push/517, published push/518 (tnr_results_1794160115789.json)
+            4: "I_cEOGSfFuahaJlR3FnWC"}   # push/519, hidden until Mother of Echoes is live (tnr_results_1794160239097.json)
 
 
 def build_hide(n, num, live_id=None):

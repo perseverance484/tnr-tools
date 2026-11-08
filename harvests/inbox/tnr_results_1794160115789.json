@@ -1,0 +1,98 @@
+{
+ "builder": "forge-mcp",
+ "at": "2026-11-08T17:48:35.788Z",
+ "cfg": "forge",
+ "checks": null,
+ "state": "DONE",
+ "outcome": "success",
+ "postflight": {
+  "match": 1,
+  "diff": 0,
+  "unverified": 0,
+  "failed": 0,
+  "skipped": 0,
+  "unresolved": 0
+ },
+ "entries": [
+  {
+   "name": "The Watch Log: Stolen Stores: publish",
+   "srcId": null,
+   "entity": "quest",
+   "slot": "edit",
+   "op": "update",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 21,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "AgGR962c3XNo6Pr0up2qT"
+  }
+ ],
+ "captures": [],
+ "idmap": {
+  "sg512_journal_p2": "V-i3ZcAqPu0hB3G9IEzGo",
+  "sg517_journal_p3": "AgGR962c3XNo6Pr0up2qT"
+ },
+ "journal": {
+  "v": 1,
+  "jobId": "518-mw84kfsk",
+  "manifestPath": "push/518_skyglass_journal_page3_publish.json",
+  "manifestNumber": 518,
+  "manifestHash": "f8a0fb60",
+  "startedAt": "2026-11-08T17:47:26.334Z",
+  "updatedAt": "2026-11-08T17:48:35.786Z",
+  "state": "DONE",
+  "pause": null,
+  "items": [
+   {
+    "idx": 0,
+    "entity": "quest",
+    "op": "update",
+    "name": "The Watch Log: Stolen Stores: publish",
+    "srcId": null,
+    "targetId": "AgGR962c3XNo6Pr0up2qT",
+    "payloadHash": "91c7f0c8",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "AgGR962c3XNo6Pr0up2qT",
+    "snapshotKey": null,
+    "sentAt": "2026-11-08T17:47:40.365Z",
+    "createSentAt": null,
+    "confirmedAt": "2026-11-08T17:48:21.709Z",
+    "verifiedAt": "2026-11-08T17:48:35.785Z",
+    "error": null,
+    "attempt": 1,
+    "asserted": [
+     "name",
+     "description",
+     "image",
+     "questType",
+     "questRank",
+     "successDescription",
+     "retryDelay",
+     "attemptDelay",
+     "consecutiveObjectives",
+     "hidden",
+     "requiredLevel",
+     "maxLevel",
+     "maxAttempts",
+     "maxCompletes",
+     "prerequisiteQuestId",
+     "tierLevel",
+     "requiredVillage",
+     "requiredBloodlineId",
+     "startsAt",
+     "endsAt",
+     "content"
+    ],
+    "diffs": [],
+    "verify": "match"
+   }
+  ]
+ }
+}

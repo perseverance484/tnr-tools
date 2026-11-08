@@ -1,0 +1,174 @@
+{
+ "_note": "push/518: publish The Watch Log: Stolen Stores (AgGR962c3XNo6Pr0up2qT, created by push/517). Re-sends the committed create data whole with hidden false and consecutiveObjectives false, so every order is open at once (RUL-2026-11-08-139); the page still lists only from its startsAt. Built from tnr_results_1794160015319.json by push/skyglass_journal.gen.py publish; do not hand-edit.",
+ "items": [
+  {
+   "entity": "quest",
+   "slot": "edit",
+   "targetId": "AgGR962c3XNo6Pr0up2qT",
+   "phase": 10,
+   "name": "The Watch Log: Stolen Stores: publish",
+   "data": {
+    "name": "The Watch Log: Stolen Stores",
+    "description": "<i>The third page turned up in a galley ration tin. A list of rooms, and how much was taken from each.</i><br><br><b>This weekend's challenges</b><br>1. <b>Win the Low Tide Run or the Night Watch, 2 times in total.</b> <i>Reward: a Tide Chart.</i><br>2. <b>Win one of these runs, 2 times in total:</b> The Buried Cache, The Drowned Foundry, The Quarantined Archive or The Captain's Watch. <i>Reward: an Archive Chart Case.</i><br>3. <b>Win any Haul room, 2 times in total:</b> The Trophy Hold, The Bone Store, The Snare Room, The Overgrown Stores, The Ore Vault or The Bloom Cellar. <i>Reward: Galley Stores.</i><br>4. <b>Win The Sealed Reliquary or The Fall once.</b> <i>Reward: a Skyglass Coffer.</i><br>5. <b>Win The Rotted Reliquary or The Burning Heading once.</b> <i>Reward: a Sealed Treasury.</i><br><b>All five:</b> a Skyglass Token.<br><br><b>Rules</b><br>Only wins after you take this page count. Do them in any order, and claim each reward from its card in the Logbook. The page closes at the end of Monday (00:00 UTC Tuesday).",
+    "image": "https://ui0arpl8sm.ufs.sh/f/4xb_93fgzp68t83owGoQQ.webp",
+    "questType": "event",
+    "questRank": "D",
+    "successDescription": "Page complete. The salvager counts the stores twice and comes up one short. \"Something down there is eating them.\"",
+    "retryDelay": "none",
+    "attemptDelay": "none",
+    "consecutiveObjectives": false,
+    "hidden": false,
+    "requiredLevel": 1,
+    "maxLevel": 100,
+    "maxAttempts": 1,
+    "maxCompletes": 1,
+    "prerequisiteQuestId": null,
+    "tierLevel": null,
+    "requiredVillage": null,
+    "requiredBloodlineId": null,
+    "startsAt": "2026-11-21",
+    "endsAt": "2026-11-24",
+    "content": {
+     "objectives": [
+      {
+       "id": "j3_low_decks",
+       "task": "complete_specific_quest",
+       "description": "Walk the low decks first, where the tide leaves the stores.<br><br><b>Win the Low Tide Run or the Night Watch, 2 times in total.</b> Reward when you claim it: a Tide Chart.",
+       "successDescription": "Two watches stood. The low decks are counted.",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "reward_items": [
+        {
+         "ids": [
+          "H1s2IwtZ5JqgPEoJ55IVj"
+         ],
+         "number": 100,
+         "quantity": 1
+        }
+       ],
+       "completeQuestIds": [
+        "pFQBaJxU_8RSvSi4Kir1Z",
+        "dnzL-bDrAEVXrKB5xariu"
+       ],
+       "value": 2,
+       "nextObjectiveId": "j3_charts"
+      },
+      {
+       "id": "j3_charts",
+       "task": "complete_specific_quest",
+       "description": "Follow the crew's charts to what they hid from the quartermaster.<br><br><b>Win one of these runs, 2 times in total:</b> The Buried Cache, The Drowned Foundry, The Quarantined Archive or The Captain's Watch. Reward when you claim it: an Archive Chart Case.",
+       "successDescription": "The charts were honest. The quartermaster's ledger was not.",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "reward_items": [
+        {
+         "ids": [
+          "B48dTRsoLJGKBWIUbeUoG"
+         ],
+         "number": 100,
+         "quantity": 1
+        }
+       ],
+       "completeQuestIds": [
+        "CgwAVCyZLgNQtEnqgLxxv",
+        "UGHSuhi83C3wRtH3FD4Eu",
+        "-bZ_ZoI6yrUJ_LKT9R5zm",
+        "liljq0yVXWTSna4X6dZE1"
+       ],
+       "value": 2,
+       "nextObjectiveId": "j3_haul"
+      },
+      {
+       "id": "j3_haul",
+       "task": "complete_specific_quest",
+       "description": "Open the stores themselves, the rooms where the haul was kept.<br><br><b>Win any Haul room, 2 times in total:</b> The Trophy Hold, The Bone Store, The Snare Room, The Overgrown Stores, The Ore Vault or The Bloom Cellar. Reward when you claim it: Galley Stores.",
+       "successDescription": "Two rooms open. Neither held what the ledger says it did.",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "reward_items": [
+        {
+         "ids": [
+          "D-QTnbjgTyIVc593zzdSB"
+         ],
+         "number": 100,
+         "quantity": 1
+        }
+       ],
+       "completeQuestIds": [
+        "0_wTZMTqvxM-gvl_s1s7c",
+        "ww_baSsbBet0mx7MK52yI",
+        "vMh6SDID0XTrVJ0f1QmFD",
+        "5y9wAYELSdNa8Jgim1sgD",
+        "C1JPScsgSMcVXQUfuFgcs",
+        "UO65dN640MgAbNBBopTVI"
+       ],
+       "value": 2,
+       "nextObjectiveId": "j3_below"
+      },
+      {
+       "id": "j3_below",
+       "task": "complete_specific_quest",
+       "description": "Go below the stores, to the reliquary or the night she fell, and see what was carried down.<br><br><b>Win The Sealed Reliquary or The Fall once.</b> Reward when you claim it: a Skyglass Coffer.",
+       "successDescription": "Whatever was carried down, it stayed down.",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "reward_items": [
+        {
+         "ids": [
+          "THo7rfzP-S82_43aN8fs3"
+         ],
+         "number": 100,
+         "quantity": 1
+        }
+       ],
+       "completeQuestIds": [
+        "yZoR_dPSdg8ksO77gDH_A",
+        "H9YInJtnzKCOEMv-sNgzP"
+       ],
+       "value": 1,
+       "nextObjectiveId": "j3_spoiled"
+      },
+      {
+       "id": "j3_spoiled",
+       "task": "complete_specific_quest",
+       "description": "Follow the rot to where the last of the stores spoiled.<br><br><b>Win The Rotted Reliquary or The Burning Heading once.</b> Reward when you claim it: a Sealed Treasury.",
+       "successDescription": "The last of the stores is gone. Something down there was hungrier than the crew.",
+       "sceneBackground": "",
+       "sceneCharacters": [],
+       "reward_items": [
+        {
+         "ids": [
+          "Ma8S90Nmbi0Xvm4u4FzJh"
+         ],
+         "number": 100,
+         "quantity": 1
+        }
+       ],
+       "completeQuestIds": [
+        "FsuXzvaqr_R25p8cEkxoK",
+        "ozDN-G6nGFXGgKuPZ04Gr"
+       ],
+       "value": 1
+      }
+     ],
+     "sceneBackground": "rX78pJPETsUL2JrsSvGHn",
+     "sceneCharacters": [
+      "Xugt7415D3-tepLfxpwM5"
+     ],
+     "entryItems": [],
+     "reward": {
+      "reward_items": [
+       {
+        "ids": [
+         "nzCW7A-_AuYMzBs2wClnM"
+        ],
+        "number": 100,
+        "quantity": 1
+       }
+      ]
+     }
+    }
+   }
+  }
+ ]
+}

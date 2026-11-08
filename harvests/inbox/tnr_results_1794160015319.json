@@ -1,0 +1,98 @@
+{
+ "builder": "forge-mcp",
+ "at": "2026-11-08T17:46:55.319Z",
+ "cfg": "forge",
+ "checks": null,
+ "state": "DONE",
+ "outcome": "success",
+ "postflight": {
+  "match": 1,
+  "diff": 0,
+  "unverified": 0,
+  "failed": 0,
+  "skipped": 0,
+  "unresolved": 0
+ },
+ "entries": [
+  {
+   "name": "The Watch Log: Stolen Stores",
+   "srcId": "sg517_journal_p3",
+   "entity": "quest",
+   "slot": "create",
+   "op": "create",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 21,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "AgGR962c3XNo6Pr0up2qT"
+  }
+ ],
+ "captures": [],
+ "idmap": {
+  "sg512_journal_p2": "V-i3ZcAqPu0hB3G9IEzGo",
+  "sg517_journal_p3": "AgGR962c3XNo6Pr0up2qT"
+ },
+ "journal": {
+  "v": 1,
+  "jobId": "517-mw84hr9s",
+  "manifestPath": "push/517_skyglass_journal_page3.json",
+  "manifestNumber": 517,
+  "manifestHash": "4665e5ea",
+  "startedAt": "2026-11-08T17:45:21.241Z",
+  "updatedAt": "2026-11-08T17:46:55.316Z",
+  "state": "DONE",
+  "pause": null,
+  "items": [
+   {
+    "idx": 0,
+    "entity": "quest",
+    "op": "create",
+    "name": "The Watch Log: Stolen Stores",
+    "srcId": "sg517_journal_p3",
+    "targetId": null,
+    "payloadHash": "52688597",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "AgGR962c3XNo6Pr0up2qT",
+    "snapshotKey": "tnr_forge_snap_v1:517-mw84hr9s:quest",
+    "sentAt": "2026-11-08T17:46:03.710Z",
+    "createSentAt": "2026-11-08T17:45:35.306Z",
+    "confirmedAt": "2026-11-08T17:46:42.240Z",
+    "verifiedAt": "2026-11-08T17:46:55.314Z",
+    "error": null,
+    "attempt": 2,
+    "asserted": [
+     "name",
+     "description",
+     "image",
+     "questType",
+     "questRank",
+     "successDescription",
+     "retryDelay",
+     "attemptDelay",
+     "consecutiveObjectives",
+     "hidden",
+     "requiredLevel",
+     "maxLevel",
+     "maxAttempts",
+     "maxCompletes",
+     "prerequisiteQuestId",
+     "tierLevel",
+     "requiredVillage",
+     "requiredBloodlineId",
+     "startsAt",
+     "endsAt",
+     "content"
+    ],
+    "diffs": [],
+    "verify": "match"
+   }
+  ]
+ }
+}

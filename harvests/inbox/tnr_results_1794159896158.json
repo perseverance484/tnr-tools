@@ -1,0 +1,77 @@
+{
+ "builder": "forge-mcp",
+ "at": "2026-11-08T17:44:56.157Z",
+ "cfg": "forge",
+ "checks": null,
+ "state": "DONE",
+ "outcome": "success",
+ "postflight": {
+  "match": 1,
+  "diff": 0,
+  "unverified": 0,
+  "failed": 0,
+  "skipped": 0,
+  "unresolved": 0
+ },
+ "entries": [
+  {
+   "name": "The Watch Log: Second Page: rename",
+   "srcId": null,
+   "entity": "quest",
+   "slot": "edit",
+   "op": "update",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 1,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "V-i3ZcAqPu0hB3G9IEzGo"
+  }
+ ],
+ "captures": [],
+ "idmap": {
+  "sg512_journal_p2": "V-i3ZcAqPu0hB3G9IEzGo"
+ },
+ "journal": {
+  "v": 1,
+  "jobId": "526-mw84fnkp",
+  "manifestPath": "push/526_skyglass_journal_page2_rename.json",
+  "manifestNumber": 526,
+  "manifestHash": "e3db791f",
+  "startedAt": "2026-11-08T17:43:43.152Z",
+  "updatedAt": "2026-11-08T17:44:56.155Z",
+  "state": "DONE",
+  "pause": null,
+  "items": [
+   {
+    "idx": 0,
+    "entity": "quest",
+    "op": "update",
+    "name": "The Watch Log: Second Page: rename",
+    "srcId": null,
+    "targetId": "V-i3ZcAqPu0hB3G9IEzGo",
+    "payloadHash": "10fceaec",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "V-i3ZcAqPu0hB3G9IEzGo",
+    "snapshotKey": null,
+    "sentAt": "2026-11-08T17:43:56.740Z",
+    "createSentAt": null,
+    "confirmedAt": "2026-11-08T17:44:42.573Z",
+    "verifiedAt": "2026-11-08T17:44:56.153Z",
+    "error": null,
+    "attempt": 1,
+    "asserted": [
+     "name"
+    ],
+    "diffs": [],
+    "verify": "match"
+   }
+  ]
+ }
+}
