@@ -1,0 +1,166 @@
+{
+ "builder": "duet-connector",
+ "at": "2026-11-09T02:34:24Z",
+ "cfg": {
+  "note": "dauntless (Nov 9): 'We need to fix DKI'. Approved ticket yJnW4d165HOOhrtgURO8S had added 6 COORDINATES visual tags; they widened the targeting preview to caster+target columns and let casts land on tiles with no enemy. Removed all 6; mechanics restored exactly to the Oct 22 record; art kept: damage appearAnimation = v7b c0 impact slice (target tile only), increasedamagegiven static = smoulder. Text kept."
+ },
+ "state": "done",
+ "outcome": "ok",
+ "entries": [
+  {
+   "kind": "jutsu",
+   "op": "update",
+   "id": "FytS2iqFInf1go6WhOvUU",
+   "name": "Dragon King's Impact",
+   "change": "6 visual COORDINATES tags removed; damage/increasedamagegiven/afterburn/wound identical to original; art fields only differ",
+   "readBack": "ok",
+   "updatedAt": "2026-11-09T02:34:24.403Z"
+  }
+ ],
+ "before": {
+  "jutsu:FytS2iqFInf1go6WhOvUU": "ticket-applied state at updatedAt 2026-11-09T01:58:59Z (4 mechanics + 6 visual tags); original Oct 22 record in tnr_results_1794182486223.json"
+ },
+ "captures": [
+  {
+   "endpoint": "jutsu.update input",
+   "data": {
+    "id": "FytS2iqFInf1go6WhOvUU",
+    "data": {
+     "name": "Dragon King's Impact",
+     "description": "A forbidden jutsu that burns the user's own lifeforce into a fire dragon, sent climbing into the sky before it dives down on the target and leaves wounds that keep burning. For a short time the user's attacks hit harder, though their scorched body takes extra damage from every hit.",
+     "extraBaseCost": 4500,
+     "effects": [
+      {
+       "type": "damage",
+       "power": 40,
+       "rounds": 0,
+       "target": "INHERIT",
+       "elements": [
+        "Fire",
+        "None"
+       ],
+       "appearSfx": "9-b8hbTXA019dgn8yyr3j",
+       "direction": "offence",
+       "statTypes": [
+        "None"
+       ],
+       "calculation": "formula",
+       "description": "placeholder",
+       "dmgModifier": 1,
+       "disappearSfx": "",
+       "generalTypes": [
+        "Highest"
+       ],
+       "powerPerLevel": 0.4,
+       "appearAnimation": "uRIsse-GUUg3iOGY3FsUI",
+       "staticAnimation": "",
+       "staticAssetPath": "",
+       "residualModifier": 0,
+       "disappearAnimation": "",
+       "allowBloodlineDamageDecrease": true,
+       "allowBloodlineDamageIncrease": true
+      },
+      {
+       "type": "increasedamagegiven",
+       "power": 30,
+       "rounds": 2,
+       "target": "SELF",
+       "appearSfx": "",
+       "direction": "offence",
+       "calculation": "percentage",
+       "description": "placeholder",
+       "disappearSfx": "",
+       "powerPerLevel": 0.4,
+       "appearAnimation": "",
+       "staticAnimation": "MCvrsmsLXk1ES_Q_f5iGC",
+       "staticAssetPath": "",
+       "disappearAnimation": ""
+      },
+      {
+       "type": "afterburn",
+       "power": 20,
+       "rounds": 2,
+       "target": "SELF",
+       "appearSfx": "",
+       "direction": "offence",
+       "calculation": "percentage",
+       "description": "placeholder",
+       "disappearSfx": "",
+       "powerPerLevel": 0,
+       "appearAnimation": "",
+       "staticAnimation": "",
+       "staticAssetPath": "",
+       "disappearAnimation": ""
+      },
+      {
+       "type": "wound",
+       "power": 15,
+       "rounds": 2,
+       "target": "INHERIT",
+       "elements": [
+        "Fire"
+       ],
+       "appearSfx": "",
+       "direction": "offence",
+       "calculation": "percentage",
+       "description": "placeholder",
+       "disappearSfx": "",
+       "friendlyFire": "ENEMIES",
+       "generalTypes": [
+        "Highest"
+       ],
+       "powerPerLevel": 0.4,
+       "appearAnimation": "",
+       "staticAnimation": "",
+       "staticAssetPath": "",
+       "disappearAnimation": ""
+      }
+     ],
+     "target": "OPPONENT",
+     "range": 4,
+     "cooldown": 7,
+     "bloodlineId": "",
+     "requiredLevel": 80,
+     "requiredRank": "JONIN",
+     "jutsuType": "FORBIDDEN",
+     "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJXPZZkSFqIOpAoLKbZ4nW9Rsil2V67yuFwQhq",
+     "jutsuWeapon": "NONE",
+     "statClassification": "None",
+     "elementClassification": "Fire",
+     "battleDescription": "%user forms a rapid chain of hand seals and their lifeforce ignites, flames climbing from their body in a pillar that tears into the sky. The fire takes the shape of a dragon among the clouds, then plunges back to earth with breathtaking speed and crashes down on %target. A fireball blooms where it lands, the dragon's burning face glimpsed for an instant in the heart of the explosion. Its fire lingers in %target's wounds, while the lifeforce it burned leaves %user striking harder but scorched beneath every hit.",
+     "jutsuRank": "S",
+     "actionCostPerc": 60,
+     "staminaCost": 500,
+     "chakraCost": 500,
+     "staminaCostReducePerLvl": 0,
+     "chakraCostReducePerLvl": 0,
+     "healthCostReducePerLvl": 0,
+     "healthCost": 0,
+     "villageId": "",
+     "requiredPetSpeciesId": null,
+     "method": "SINGLE",
+     "coordinateTargeting": null,
+     "methodSize": null,
+     "hidden": false,
+     "injectableInBattle": false,
+     "battleUsageType": "BOTH",
+     "reskinParentJutsuId": null,
+     "bloodlineReskinId": null,
+     "parentJutsuId": null,
+     "requiredNinjutsuMastery": null,
+     "requiredGenjutsuMastery": null,
+     "requiredTaijutsuMastery": null,
+     "requiredBukijutsuMastery": null,
+     "requiredBloodlineMastery": null,
+     "requiredSageMastery": null,
+     "requiredStrength": null,
+     "requiredSpeed": null,
+     "requiredIntelligence": null,
+     "requiredWillpower": null,
+     "requiredSkillId": null,
+     "requiredBloodlineItemId": null
+    }
+   }
+  }
+ ]
+}
