@@ -1,0 +1,53 @@
+{
+ "builder": "duet-connector",
+ "at": "2026-11-09T03:19:30Z",
+ "cfg": {
+  "note": "dauntless (Nov 9 03:13Z, 'Put it live'): approved v6l Dragon King's Impact shrunk whole to one hex (v7i, 40%). Art only: damage.appearAnimation uRIsse-GUUg3iOGY3FsUI -> T6I_l3taKGqFa_RprDgT9, afterburn.appearAnimation mB2F5kqImPij_1JAU_WN5 -> epzi2GKq1xbYZdyU5BGbl. Smoulder on boost and no wound art unchanged. Revert = restore the two old ids."
+ },
+ "state": "done",
+ "outcome": "ok",
+ "entries": [
+  {
+   "kind": "gameAsset",
+   "op": "create+update+unhide",
+   "slot": "target",
+   "id": "T6I_l3taKGqFa_RprDgT9",
+   "image": "https://bbenpyo9uu.ufs.sh/f/0tzd8oDeiVIzCujg9ymjuEvJRLUgP5DkMBqbYxCQXaeNIwl8",
+   "file": "anim_dragon_king_v7i_fit_c0.webp",
+   "frames": 36,
+   "speed": 60,
+   "readBack": "ok",
+   "hidden": false
+  },
+  {
+   "kind": "gameAsset",
+   "op": "create+update+unhide",
+   "slot": "caster",
+   "id": "epzi2GKq1xbYZdyU5BGbl",
+   "image": "https://bbenpyo9uu.ufs.sh/f/0tzd8oDeiVIzALLUZpzHEVMjSX0c317idvgmYIJLOrlfRTZw",
+   "file": "anim_dragon_king_v7i_fit_cast_c0.webp",
+   "frames": 19,
+   "speed": 60,
+   "readBack": "ok",
+   "hidden": false
+  },
+  {
+   "kind": "jutsu",
+   "op": "update",
+   "id": "FytS2iqFInf1go6WhOvUU",
+   "changed": {
+    "effects.0.appearAnimation": "T6I_l3taKGqFa_RprDgT9",
+    "effects.2.appearAnimation": "epzi2GKq1xbYZdyU5BGbl"
+   },
+   "readBack": "ok: method SINGLE, target OPPONENT, range 4, coordinateTargeting null, 4 effects (damage INHERIT 40, increasedamagegiven SELF 30 static MCvrsmsLXk1ES_Q_f5iGC, afterburn SELF 20, wound INHERIT 15 no art), updatedAt 2026-11-09T03:19:04.126Z"
+  }
+ ],
+ "before": {
+  "jutsu:FytS2iqFInf1go6WhOvUU": "updatedAt 2026-11-09T02:40:45.886Z; damage.appearAnimation uRIsse-GUUg3iOGY3FsUI, afterburn.appearAnimation mB2F5kqImPij_1JAU_WN5; full record = harvests/inbox/tnr_results_1794192058168.json input"
+ },
+ "journal": [
+  "director's go 2026-11-09T03:13:44Z: 'Put it live'",
+  "uploaded via duet/moe-uploadthing run 42555452507 (commit 01752a8)",
+  "art on main 927d116"
+ ]
+}
