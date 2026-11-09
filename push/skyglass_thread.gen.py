@@ -2,11 +2,10 @@
 """The salvager's thread: Wreck Sighted rebuilt as an in-game explainer, plus a repeatable copy (RUL-2026-11-07-136).
 
     python3 push/skyglass_thread.gen.py create                  -> push/509_skyglass_thread_create.json  (browser: images)
-    python3 push/skyglass_thread.gen.py extra                   -> push/511_skyglass_thread_boards.json  (browser: images)
-    python3 push/skyglass_thread.gen.py golive --from <509 bundle> <511 bundle> --live <Wreck Sighted read>
+    python3 push/skyglass_thread.gen.py golive --from <509 bundle> --live <Wreck Sighted read>
                                                                 -> push/510_skyglass_thread_golive.json  (connector)
 
-509 creates, all HIDDEN: 17 scene-background boards (art/skyglass_thread/compose_boards.py) and the new repeatable quest
+509 creates, all HIDDEN: 18 scene-background boards (511's three chests boards folded in, RUL-2026-11-09-140) (art/skyglass_thread/compose_boards.py) and the new repeatable quest
 At the Salvager's Fire. Staff can play hidden quests (libs/quest.ts canPlayHiddenQuests), so the director plays the Fire
 quest before anything players see changes.
 
@@ -47,11 +46,13 @@ BOARDS = [  # key, topic label for the asset name
     ("menu", "the board"), ("threes", "go in threes"), ("hulls", "two hulls"), ("loot", "what comes back"),
     ("once", "a chart is good once"), ("ladder", "the chart ladder"), ("pick", "pick a reward"),
     ("seals", "the sealed runs"), ("rot", "steeping"), ("lantern", "lantern and Crownhold"), ("haul", "the Haul"),
-    ("shards", "four shards"), ("below", "below Crownhold"), ("trade", "trade"), ("token", "Skyglass Token"),
+    ("trade", "trade"), ("token", "Skyglass Token"),
     ("logboard", "the watch log"), ("orders", "a page's orders"),
 ]
 # Added after 509 ran (RUL-2026-11-07-138): created hidden by push/511 (browser), unhidden by 510.
 BOARDS_511 = [("chests", "the chests"), ("supplies", "supplies"), ("craft", "crafting")]
+# Held back with the shards topic (RUL-2026-11-09-140): ("shards", "four shards"), ("below", "below Crownhold");
+# their boards stay in EXPORTS and the topic returns as TOPICS ("s_four", "shards", ["s_below"]), ("s_below", "below", "END").
 JOB = {k: 509 for k, _ in BOARDS} | {k: 511 for k, _ in BOARDS_511}
 
 # node, board (None = the shore), next nodes; "END" marks a topic's last scene (Ask something else / I'm ready)
@@ -61,11 +62,10 @@ TOPICS = [
     ("x_chests", "chests", ["x_supplies"]), ("x_supplies", "supplies", ["x_craft"]), ("x_craft", "craft", "END"),
     ("p_seals", "seals", ["p_rot"]), ("p_rot", "rot", ["p_lantern"]), ("p_lantern", "lantern", "END"),
     ("h_haul", "haul", "END"),
-    ("s_four", "shards", ["s_below"]), ("s_below", "below", "END"),
     ("t_trade", "trade", ["t_token"]), ("t_token", "token", "END"),
     ("w_board", "logboard", ["w_orders"]), ("w_orders", "orders", "END"),
 ]
-MENU_TOPICS = ["a_threes", "c_once", "x_chests", "p_seals", "h_haul", "s_four", "t_trade", "w_board"]  # in menu-choice order
+MENU_TOPICS = ["a_threes", "c_once", "x_chests", "p_seals", "h_haul", "t_trade", "w_board"]  # in menu-choice order
 
 # The pose each scene wants (docs/handoffs/SKYGLASS_ART_PROMPTS.md section 11). Until a pose's scene-character id is
 # added to POSE_IDS, its scenes fall back to PT01, so adding a pose later is a one-line change and a quest edit.
@@ -197,20 +197,20 @@ def fire_quest_data():
 
 def create():
     assert not os.path.exists(os.path.join(ROOT, "push/509_skyglass_thread_create.json")), \
-        "push/509 already ran (lock claim 13d91e6, manifest 8603e09); it is the record, do not regenerate it"
+        "push/509 exists; once it has run it is the record. Delete it only if no harvests/inbox bundle has sg509_ ids"
     items = []
-    for key, topic in BOARDS:
+    for key, topic in BOARDS + BOARDS_511:  # 511's three boards fold into 509 (neither had run; RUL-2026-11-09-140)
         name = f"Skyglass thread: board - {topic}"
         assert re.fullmatch(r"[A-Za-z0-9]*", FOLDER)
-        items.append({"entity": "asset", "slot": "create", "srcId": f"sg509_board_{key}", "phase": 1, "name": name,
+        items.append({"entity": "asset", "slot": "create", "srcId": f"sg{JOB[key]}_board_{key}", "phase": 1, "name": name,
                       "data": dict(asset_row(name, True), image=f"@img:sg-thread-board-{key}.webp")})
     data = fire_quest_data()
     items.append({"entity": "quest", "slot": "create", "srcId": "sg509_fire", "phase": 2, "name": data["name"], "data": data})
-    sizes, pack = image_pack(BOARDS)
+    sizes, pack = image_pack(BOARDS + BOARDS_511)
     objectives("wreck")  # the Wreck Sighted graph must build too; it ships in 510
-    note = ("push/509, HIDDEN: the salvager's thread (RUL-2026-11-07-136). 17 scene-background boards (folder "
+    note = (f"push/509, HIDDEN: the salvager's thread (RUL-2026-11-07-136, -140). {len(BOARDS) + len(BOARDS_511)} scene-background boards (folder "
             f"{FOLDER}) and the new repeatable quest At the Salvager's Fire (event, maxAttempts/maxCompletes 100, no "
-            "reward): a menu at the fire with eight topics, each 1 to 3 scenes, ending on Ask something else (reset to "
+            f"reward): a menu at the fire with {len(MENU_TOPICS)} topics, each 1 to 3 scenes, ending on Ask something else (reset to "
             "the menu) or That's all for now. Staff can play it hidden. Wreck Sighted is NOT touched here: push/510 "
             "rewrites it onto the same nodes after the director's playtest. Generated by push/skyglass_thread.gen.py; "
             "do not hand-edit.")
@@ -218,7 +218,8 @@ def create():
 
 
 def extra():
-    """push/511: the three chests-topic boards, hidden (browser Forge: images)."""
+    """push/511: the three chests-topic boards, hidden (browser Forge: images). Retired: folded into 509 (RUL-2026-11-09-140)."""
+    sys.exit("push/511 is folded into push/509 (RUL-2026-11-09-140); run create instead")
     items = []
     for key, topic in BOARDS_511:
         name = f"Skyglass thread: board - {topic}"
@@ -282,7 +283,7 @@ def golive(bundle_paths, live_path):
                             sceneCharacters=[SALVAGER])
     items.append({"entity": "quest", "slot": "edit", "targetId": WRECK_SIGHTED_ID, "phase": 2,
                   "name": "Wreck Sighted: the salvager's thread", "data": wreck})
-    note = ("push/510, LIVE: unhide the 20 thread boards and At the Salvager's Fire, and rewrite Wreck Sighted "
+    note = (f"push/510, LIVE: unhide the {len(BOARDS) + len(BOARDS_511)} thread boards and At the Salvager's Fire, and rewrite Wreck Sighted "
             f"({WRECK_SIGHTED_ID}) onto the thread's nodes. Built from {bundle_path} and a live read "
             f"of Wreck Sighted ({os.path.basename(live_path)}). Players mid-way through the old Wreck Sighted keep their "
             "attempt; editing a live event quest does not restart it.")

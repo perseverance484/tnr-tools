@@ -6288,3 +6288,21 @@ The acceptance carries to rebuilds of 466 (the pass-6 SPEC_REF bump, the art-QA 
 **Canonical destination:** `docs/design/EVENT_JOURNAL.md` sections 2 and 5; `push/skyglass_journal.gen.py`; push/512.
 
 **Amended 2026-11-08:** order 2 of the Second Page was "drink a Skyglass Serum in battle". The director: "I dont think Skyglass Serum can be consumed in combat, it should have the toggle to disable use in battle". Live item.get confirms `preventBattleUsage: true`. Order 2 is now "Win the Low Tide Run or the Night Watch once" (reward unchanged, Medicine Inro). Any future `use_specific_item_combat` order checks `preventBattleUsage` on a live read first.
+
+## RUL-2026-11-09-140 — The salvager's thread: three text fixes, the shards topic held back, 511 folded into 509
+
+**Date:** 2026-11-09
+
+**Domain:** content design / the Skyglass front door
+
+**Status:** ACTIVE. push/509 rebuilt; it runs in browser Forge (images). Open: the director's playtest of the hidden At the Salvager's Fire, then push/510 with the overworld-NPC change.
+
+**Ruling:**
+1. **Level gates match the live Wrecks:** the Faded Skyglass Wreck opens at level 30 and the Skyglass Wreck at level 80 (live `requiredLevel`, read 2026-11-09), replacing "levels 40 to 60" and "level 100".
+2. **The Administration Building, not "Information Board":** the watch log page and the Fire quest are pointed to the Administration Building; Wake Island has one, nearest the Wreck.
+3. **The shards topic is held back.** `s_four` and `s_below` promise the last fight below Crownhold, which is hidden. The menu has seven topics until that fight is live; the text stays in `SKYGLASS_TEXT.md` §1b for its return, with its two boards.
+4. **push/511 is folded into push/509.** Neither had run (the 2026-11-07 lock claim left no bundle; no Fire quest or thread asset was live on 2026-11-09), and the Fire quest needs the chests boards in the same run. 509 now creates 18 boards and the quest, all hidden; 510 builds from the 509 bundle alone.
+
+**Evidence:** Director, 2026-11-07: the text should say the Administration Building, "and there is one at Wake Island". Director, 2026-11-09, to "Should I fix her three lines and run her scenes hidden so you can playtest before Friday?": "That works for now." Shards topic left out for the hidden run (still undecided; relayed 2026-11-09).
+
+**Canonical destination:** `docs/design/SKYGLASS_TEXT.md` §1b; `push/skyglass_thread.gen.py`; push/509; `state/run_queue.json`.

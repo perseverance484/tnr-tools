@@ -195,7 +195,7 @@ Two quests share every node (`push/skyglass_thread.gen.py`):
 - **Wreck Sighted** (the live record, edited in place): one time, pays the Tide Chart.
 - **At the Salvager's Fire** (new): repeatable, no reward, for anyone who wants the explainer again.
 
-Graph: `d_open` -> `d_menu` -> eight topics -> each topic's last scene offers `r_menu` (a `reset_quest` back to
+Graph: `d_open` -> `d_menu` -> seven topics (the shards topic is held back, RUL-2026-11-09-140) -> each topic's last scene offers `r_menu` (a `reset_quest` back to
 `d_menu`) or the ending. Node ids are the generator's; the board each scene shows is in the generator's `SCENES` table.
 Text-box budget: about 330 characters per scene, so it fits the 128 px dialog box on a phone without much scrolling.
 
@@ -206,7 +206,7 @@ At the Salvager's Fire
 
 **`quest:At the Salvager's Fire.description`**
 ```
-The salvager's fire still burns below the Wreck. Sit with her and ask about getting aboard, the charts, the chests, the deep, the Haul, the shards, trading or the watch log.
+The salvager's fire still burns below the Wreck. Sit with her and ask about getting aboard, the charts, the chests, the deep, the Haul, trading or the watch log.
 ```
 
 **`quest:At the Salvager's Fire.successDescription`**
@@ -229,9 +229,8 @@ She nods at a board of driftwood where she pins what the sea gives back. "Ask wh
 - `choice[2]`: `What's in the chests?`
 - `choice[3]`: `What's down in the deep?`
 - `choice[4]`: `What's the Haul?`
-- `choice[5]`: `What are the shards for?`
-- `choice[6]`: `Can I trade what I find?`
-- `choice[7]`: `What's the watch log?`
+- `choice[5]`: `Can I trade what I find?`
+- `choice[6]`: `What's the watch log?`
 
 **`obj:Salvager's thread/back.choice`**: `Ask something else`
 
@@ -243,7 +242,7 @@ She nods at a board of driftwood where she pins what the sea gives back. "Ask wh
 
 **`obj:Salvager's thread/a_hulls.description`**
 ```html
-"She broke in two. The near half is faded and gentler. The far half still remembers every order."<br><br><i>The Faded Skyglass Wreck (sector 210, 16/6) is tuned for levels 40 to 60. The Skyglass Wreck (15/6) is the endgame hull, tuned for level 100.</i>
+"She broke in two. The near half is faded and gentler. The far half still remembers every order."<br><br><i>The Faded Skyglass Wreck (sector 210, 16/6) opens at level 30. The Skyglass Wreck (15/6) is the endgame hull and opens at level 80.</i>
 ```
 - `choice[0]`: `What comes back out?`
 
@@ -308,6 +307,8 @@ She nods at a board of driftwood where she pins what the sea gives back. "Ask wh
 "Some bring back a ledger page or a stores list and go after holds no chart shows. They come back heavy, or not at all."<br><br><i>A page opens The Haul: up to 5 steps of crate, locker or cut through. Deeper, bigger chests of profession materials. Leave after any step to keep them; lose a fight and you keep nothing. Pages drop from the endgame Wreck and the Rare runs.</i>
 ```
 
+*Held back (RUL-2026-11-09-140): `s_four` and `s_below` are not in the menu until the last fight below Crownhold is live. Kept here for when it is.*
+
 **`obj:Salvager's thread/s_four.description`**
 ```html
 "Four of them brought me <b>shards</b>. Different hands, same glass. Lay them side by side and they ring."<br><br><i>Keel: the endgame Wreck. Crown: Crownhold. Tide: the Epic and tainted runs. Ledger: The Haul.</i>
@@ -332,7 +333,7 @@ She nods at a board of driftwood where she pins what the sea gives back. "Ask wh
 
 **`obj:Salvager's thread/w_board.description`**
 ```html
-"I keep their <b>watch log</b>. It washes up a page at a time. I dry one each weekend and pin it on the <b>Information Board</b>."<br><br><i>A new page goes up each weekend on the Information Board in your village's Administration Building. Take it first: only what you do while you carry it counts.</i>
+"I keep their <b>watch log</b>. It washes up a page at a time. I dry one each weekend and pin it up in the <b>Administration Building</b>."<br><br><i>A new page goes up each weekend in your village's Administration Building; Wake Island has one too, nearest the Wreck. Take it first: only what you do while you carry it counts.</i>
 ```
 - `choice[0]`: `What's on a page?`
 
@@ -345,7 +346,7 @@ She nods at a board of driftwood where she pins what the sea gives back. "Ask wh
 
 **`obj:Wreck Sighted (thread)/z_chart.description`**
 ```html
-She pulls a <b>Tide Chart</b> from inside her coat, salt-stiff and still damp at one corner. "Low tide opens her lower hull. Don't sit on it. She's already changing shape."<br><br><i>The fire stays lit: <b>At the Salvager's Fire</b> on the Information Board runs this again.</i>
+She pulls a <b>Tide Chart</b> from inside her coat, salt-stiff and still damp at one corner. "Low tide opens her lower hull. Don't sit on it. She's already changing shape."<br><br><i>The fire stays lit: <b>At the Salvager's Fire</b> in the Administration Building runs this again.</i>
 ```
 - `choice[0]`: `Take the chart`
 
