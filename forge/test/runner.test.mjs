@@ -507,3 +507,15 @@ test("a nested table that cannot be trusted fails closed rather than half-expand
     assert.ok(problems.some((p) => /refusing to send effects unchecked/.test(p)), `${what}: ${problems.join("; ")}`);
   }
 });
+
+test("mergeAi leaves out live ISO date strings (MCP host) unless the manifest asserts them", async () => {
+  const { mergeAi } = await import("../src/runner/recipes.mjs");
+  const live = { userId: "u1", username: "New AI - u1", createdAt: "2026-11-09T09:38:48.989Z", regenAt: "2026-11-09T09:38:48.989Z", level: 1, jutsus: [], items: [] };
+  const out = mergeAi(live, { username: "Driftline Test", level: 50 });
+  assert.equal(out.createdAt, undefined);
+  assert.equal(out.regenAt, undefined);
+  assert.equal(out.username, "Driftline Test");
+  assert.equal(out.userId, "u1");
+  const kept = mergeAi({ ...live, createdAt: new Date("2026-11-09T09:38:48.989Z") }, {});
+  assert.ok(kept.createdAt instanceof Date);
+});

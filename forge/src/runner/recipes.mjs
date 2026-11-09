@@ -155,9 +155,15 @@ export const AI_OMIT = new Set([
   // relation objects and routing keys that are not columns
   "rules", "includeDefaultRules",
 ]);
+// Over the MCP host a read arrives as plain JSON, so the live row's timestamps (joinedVillageAt,
+// createdAt, regenAt, ...) are ISO strings, and updateAi's z.date() refuses a string (push/539's AI,
+// 2026-11-09). Every date column is optional on updateAi, so a live ISO string the manifest did not
+// assert is left out. In the browser the row is superjson-decoded and those values are Dates, so
+// nothing changes there.
+const ISO_DATE = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?Z$/;
 export function mergeAi(live, data) {
   const out = {};
-  if (live) for (const [k, v] of Object.entries(live)) if (!AI_OMIT.has(k)) out[k] = v;
+  if (live) for (const [k, v] of Object.entries(live)) if (!AI_OMIT.has(k) && !(typeof v === "string" && ISO_DATE.test(v) && !(k in data))) out[k] = v;
   if (live && Array.isArray(live.jutsus)) out.jutsus = live.jutsus.map((r) => (typeof r === "string" ? r : r.jutsuId ?? r.id)).filter(Boolean);
   if (live && Array.isArray(live.items)) {
     out.items = live.items.map((r) => (typeof r === "string" ? { ids: [r], number: 0 }

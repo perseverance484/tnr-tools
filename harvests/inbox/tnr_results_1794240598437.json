@@ -1,0 +1,4561 @@
+{
+ "builder": "forge-mcp",
+ "at": "2026-11-09T16:09:58.437Z",
+ "cfg": "forge",
+ "checks": null,
+ "state": "DONE",
+ "outcome": "failed",
+ "postflight": {
+  "match": 0,
+  "diff": 0,
+  "unverified": 0,
+  "failed": 0,
+  "skipped": 0,
+  "unresolved": 0
+ },
+ "entries": [],
+ "captures": [
+  {
+   "phase": "before",
+   "proc": "profile.getAi",
+   "input": {
+    "userId": "g30_Yqj_neO90g9_Dxwap"
+   },
+   "ok": true,
+   "rows": 1,
+   "error": null,
+   "persist": "full",
+   "snapshotKey": "560-mw9gh3y3::before::0",
+   "persistOk": true,
+   "persistError": null,
+   "bytes": 19571,
+   "at": "2026-11-09T16:08:45.664Z",
+   "data": {
+    "userId": "g30_Yqj_neO90g9_Dxwap",
+    "recruiterId": null,
+    "anbuId": null,
+    "clanId": null,
+    "jutsuLoadout": null,
+    "itemLoadout": null,
+    "rankedLoadout": null,
+    "nRecruited": 0,
+    "lastIp": null,
+    "username": "Faded Wayfinder",
+    "gender": "Unknown",
+    "spriteBodyStyle": null,
+    "curHealth": 2550,
+    "maxHealth": 2550,
+    "curChakra": 2550,
+    "maxChakra": 2550,
+    "curEnergy": 100,
+    "maxEnergy": 100,
+    "curStamina": 2550,
+    "maxStamina": 2550,
+    "regeneration": 60,
+    "money": 1000,
+    "bank": 1000,
+    "experience": 637000,
+    "earnedExperience": 2000,
+    "petExperience": 0,
+    "petAcquisitions": 0,
+    "petDailyClaims": null,
+    "activePetId": null,
+    "petSlots": 1,
+    "petTask": null,
+    "rank": "JONIN",
+    "isOutlaw": false,
+    "level": 50,
+    "villageId": null,
+    "bloodlineReskinId": null,
+    "sageModeId": null,
+    "sageMasteryExperience": 0,
+    "status": "AWAKE",
+    "strength": 53093.33,
+    "intelligence": 53093.33,
+    "willpower": 53093.33,
+    "speed": 53093.33,
+    "offence": 53093.33,
+    "defence": 53093.33,
+    "elementalMastery": {},
+    "activeTrainedElement": null,
+    "masteryRanks": {},
+    "ninjutsuMastery": 106186.66,
+    "genjutsuMastery": 106186.66,
+    "taijutsuMastery": 106186.66,
+    "bukijutsuMastery": 106186.66,
+    "bloodlineMastery": 10,
+    "sageMastery": 10,
+    "statsMultiplier": 1,
+    "poolsMultiplier": 1,
+    "primaryElement": null,
+    "secondaryElement": null,
+    "reputationPoints": 11,
+    "reputationPointsTotal": 11,
+    "seichiSilver": 0,
+    "bloodright": [],
+    "bloodrightSpent": 0,
+    "bloodlineId": null,
+    "monthlySkillResets": {
+     "count": 0,
+     "month": ""
+    },
+    "villagePrestige": 9,
+    "federalStatus": "NONE",
+    "tavernUsernameColor": "DEFAULT",
+    "tavernTitleColor": "DEFAULT",
+    "approvedTos": true,
+    "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261018-v7T9_XdGMfP46em0dPuBc-main-84598d9f5e8a.webp",
+    "avatarLight": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+    "avatarFacing": "right",
+    "sector": 0,
+    "longitude": 10,
+    "latitude": 7,
+    "location": null,
+    "joinedVillageAt": "2026-10-24T22:05:06.929Z",
+    "createdAt": "2026-10-31T22:05:06.929Z",
+    "updatedAt": "2026-10-31T22:05:06.929Z",
+    "questFinishAt": "2026-10-31T22:05:06.929Z",
+    "deletionAt": null,
+    "travelFinishAt": null,
+    "isBanned": false,
+    "isSilenced": false,
+    "isWarned": false,
+    "isTradeBanned": false,
+    "role": "USER",
+    "battleId": null,
+    "isAi": true,
+    "isSummon": false,
+    "isEvent": false,
+    "isWarCamp": false,
+    "warMission": null,
+    "inShrines": false,
+    "inArena": false,
+    "inboxNews": 0,
+    "regenAt": "2026-10-31T22:05:06.929Z",
+    "immunityUntil": "2026-10-31T22:05:06.929Z",
+    "robImmunityUntil": "2026-10-31T22:05:06.929Z",
+    "bracketImmunityLiftedUntil": "2026-10-31T22:05:06.929Z",
+    "bracketImmunityPausedAt": null,
+    "warParticipantUntil": "2026-10-31T22:05:06.929Z",
+    "trainingSpeed": "15min",
+    "energyQueueHead": 0,
+    "energyQueueTail": 0,
+    "masteryQueueHead": 0,
+    "elementalQueueHead": 0,
+    "elementalTrainingStartedAt": null,
+    "currentlyTrainingElement": null,
+    "elementalTrainingSpeed": "15min",
+    "masteryTrainingStartedAt": null,
+    "currentlyTrainingMastery": null,
+    "unreadNotifications": 7,
+    "unreadRecruitRewards": 0,
+    "unreadNews": 10,
+    "questData": null,
+    "questPartyId": null,
+    "activeNpcQuestId": null,
+    "senseiId": null,
+    "medicalExperience": 0,
+    "craftingExperience": 0,
+    "huntingExperience": 0,
+    "gatheringExperience": 0,
+    "farmingExperience": 0,
+    "cookingExperience": 0,
+    "farmCurrency": 0,
+    "farmPlotsPurchased": 0,
+    "farmExtractorsOwned": 0,
+    "preferredGeneral1": "Intelligence",
+    "preferredGeneral2": "Speed",
+    "preferredDamageElement": null,
+    "showBattleDescription": true,
+    "defaultAutoCombat": true,
+    "showPvpRecord": false,
+    "pvpFights": 0,
+    "pveFights": 0,
+    "pvpStreak": 0,
+    "pvpWins": 0,
+    "pvpLosses": 0,
+    "pvpExperience": 0,
+    "pvpExperienceDecayAt": "2026-10-31T22:05:06.929Z",
+    "weeklyPvpKills": 0,
+    "weeklyPvpKillsAt": "2026-11-09T00:00:00.000Z",
+    "errands": 0,
+    "missionsD": 0,
+    "missionsC": 0,
+    "missionsB": 0,
+    "missionsA": 0,
+    "missionsS": 0,
+    "missionsH": 0,
+    "crimesD": 0,
+    "crimesC": 0,
+    "crimesB": 0,
+    "crimesA": 0,
+    "crimesS": 0,
+    "crimesH": 0,
+    "dailyArenaFights": 0,
+    "dailySageActivations": 0,
+    "dailyMissions": 0,
+    "dailyErrands": 0,
+    "dailyMedicalMissions": 0,
+    "dailyPvpMissions": 0,
+    "dailyWarMissions": 0,
+    "dailyTrainings": 0,
+    "dailyOverworldQuestRolls": 0,
+    "movedTooFastCount": 0,
+    "extraItemSlots": 0,
+    "extraJutsuSlots": 0,
+    "extraReskinSlots": 2,
+    "npcTitle": "",
+    "activeTitleId": null,
+    "marriageSlots": 1,
+    "aiProfileId": "57tR5W1_H7UZpD-Hf2Itl",
+    "effects": [
+     {
+      "type": "increasedamagegiven",
+      "power": 100,
+      "rounds": 99,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "Increased damage given",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "increasedamagetaken",
+      "power": 100,
+      "rounds": 99,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "Increased damage taken",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "increasedamagetaken",
+      "power": 100,
+      "rounds": 99,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "Increased damage taken",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     }
+    ],
+    "aiCalls": 0,
+    "tavernMessages": 0,
+    "dashboardContentPriority": [],
+    "autoWakeUp": true,
+    "rememberProfileTab": false,
+    "musicOn": true,
+    "sfxOn": true,
+    "buttonSfxOn": true,
+    "iframesMuted": false,
+    "chatMuted": false,
+    "mutedConversationIds": [],
+    "unmutedTavernIds": [],
+    "tutorialStep": 0,
+    "tutorialOn": true,
+    "homeType": "NONE",
+    "homeFurnitureRevision": 0,
+    "staffAccount": false,
+    "rankedLp": 0,
+    "rankedBattles": 0,
+    "rankedWins": 0,
+    "rankedStreak": 0,
+    "skillPoints": 0,
+    "towerDefensePoints": 0,
+    "occupation": null,
+    "occupationSignupAt": null,
+    "stealth": 1000,
+    "sensory": 1000,
+    "stealthActive": false,
+    "stealthActivatedAt": null,
+    "stealthCooldownAt": null,
+    "lastSensoryAt": null,
+    "covertTrainingType": null,
+    "covertTrainingStartedAt": null,
+    "covertTrainingMinutes": null,
+    "jutsus": [
+     {
+      "id": "_sC8lStjTh_nssyIMsA90",
+      "userId": "g30_Yqj_neO90g9_Dxwap",
+      "jutsuId": "_O62ht0B7XNYzlISG1Gp5",
+      "createdAt": "2026-10-31T22:05:07.446Z",
+      "updatedAt": "2026-10-31T22:05:07.446Z",
+      "level": 1,
+      "experience": 0,
+      "equipped": true,
+      "trainingStartedAt": null,
+      "finishTraining": null,
+      "reskinId": null,
+      "jutsu": {
+       "id": "_O62ht0B7XNYzlISG1Gp5",
+       "name": "Eruption: Three-Plank Line",
+       "description": "Strikes the ground its omen marked.",
+       "createdAt": "2026-10-31T06:08:18.212Z",
+       "updatedAt": "2026-10-31T06:08:20.296Z",
+       "extraBaseCost": 0,
+       "effects": [
+        {
+         "type": "damage",
+         "power": 90,
+         "rounds": 0,
+         "target": "INHERIT",
+         "appearSfx": "",
+         "direction": "offence",
+         "statTypes": [
+          "None"
+         ],
+         "calculation": "formula",
+         "description": "Deals damage to target",
+         "dmgModifier": 1,
+         "disappearSfx": "",
+         "friendlyFire": "ENEMIES",
+         "powerPerLevel": 0,
+         "appearAnimation": "Z9j8J7ZmAjiaxH2S4nDy8",
+         "staticAnimation": "",
+         "staticAssetPath": "",
+         "residualModifier": 1,
+         "disappearAnimation": "",
+         "allowBloodlineDamageDecrease": true,
+         "allowBloodlineDamageIncrease": true
+        }
+       ],
+       "target": "GROUND",
+       "range": 0,
+       "cooldown": 3,
+       "bloodlineId": "",
+       "requiredLevel": 1,
+       "requiredRank": "STUDENT",
+       "jutsuType": "AI",
+       "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+       "jutsuWeapon": "NONE",
+       "statClassification": "None",
+       "elementClassification": "None",
+       "battleDescription": "%user lunges down the marked line.",
+       "jutsuRank": "D",
+       "actionCostPerc": 100,
+       "staminaCost": 0.05,
+       "chakraCost": 0.05,
+       "staminaCostReducePerLvl": 0,
+       "chakraCostReducePerLvl": 0,
+       "healthCostReducePerLvl": 0,
+       "healthCost": 0,
+       "villageId": "",
+       "requiredPetSpeciesId": null,
+       "method": "COORDINATES",
+       "coordinateTargeting": {
+        "origin": "CASTER",
+        "selection": "ALL",
+        "coordinates": [
+         {
+          "latitude": 0,
+          "longitude": -1
+         },
+         {
+          "latitude": 0,
+          "longitude": -2
+         },
+         {
+          "latitude": 0,
+          "longitude": -3
+         }
+        ],
+        "randomCount": 1
+       },
+       "methodSize": null,
+       "hidden": true,
+       "injectableInBattle": false,
+       "battleUsageType": "BOTH",
+       "reskinParentJutsuId": null,
+       "bloodlineReskinId": null,
+       "parentJutsuId": null,
+       "requiredNinjutsuMastery": null,
+       "requiredGenjutsuMastery": null,
+       "requiredTaijutsuMastery": null,
+       "requiredBukijutsuMastery": null,
+       "requiredBloodlineMastery": null,
+       "requiredSageMastery": null,
+       "requiredStrength": null,
+       "requiredSpeed": null,
+       "requiredIntelligence": null,
+       "requiredWillpower": null,
+       "requiredSkillId": null,
+       "requiredBloodlineItemId": null
+      }
+     },
+     {
+      "id": "qn3eeHVFgMxY8zmZ9H5ea",
+      "userId": "g30_Yqj_neO90g9_Dxwap",
+      "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
+      "createdAt": "2026-10-31T22:05:07.446Z",
+      "updatedAt": "2026-10-31T22:05:07.446Z",
+      "level": 1,
+      "experience": 0,
+      "equipped": true,
+      "trainingStartedAt": null,
+      "finishTraining": null,
+      "reskinId": null,
+      "jutsu": {
+       "id": "3v9c1SHlD2GLPF2HW1_Sc",
+       "name": "Twin Kunai",
+       "description": "Two quick projectiles in succession.",
+       "createdAt": "2026-07-17T02:18:53.545Z",
+       "updatedAt": "2026-10-21T03:33:45.862Z",
+       "extraBaseCost": 0,
+       "effects": [
+        {
+         "type": "damage",
+         "power": 45,
+         "rounds": 0,
+         "target": "INHERIT",
+         "appearSfx": "",
+         "direction": "offence",
+         "statTypes": [
+          "None"
+         ],
+         "calculation": "formula",
+         "description": "Deals damage to target",
+         "dmgModifier": 1,
+         "disappearSfx": "",
+         "powerPerLevel": 0,
+         "appearAnimation": "",
+         "staticAnimation": "",
+         "staticAssetPath": "",
+         "residualModifier": 1,
+         "disappearAnimation": "",
+         "allowBloodlineDamageDecrease": true,
+         "allowBloodlineDamageIncrease": true
+        }
+       ],
+       "target": "OTHER_USER",
+       "range": 5,
+       "cooldown": 3,
+       "bloodlineId": null,
+       "requiredLevel": 1,
+       "requiredRank": "STUDENT",
+       "jutsuType": "AI",
+       "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+       "jutsuWeapon": "NONE",
+       "statClassification": "None",
+       "elementClassification": "None",
+       "battleDescription": "%user snaps two kunai from their sleeves and releases them in a single motion. They fly side by side and strike %target almost as one.",
+       "jutsuRank": "D",
+       "actionCostPerc": 60,
+       "staminaCost": 0.05,
+       "chakraCost": 0.05,
+       "staminaCostReducePerLvl": 0,
+       "chakraCostReducePerLvl": 0,
+       "healthCostReducePerLvl": 0,
+       "healthCost": 0,
+       "villageId": null,
+       "requiredPetSpeciesId": null,
+       "method": "SINGLE",
+       "coordinateTargeting": null,
+       "methodSize": null,
+       "hidden": true,
+       "injectableInBattle": false,
+       "battleUsageType": "BOTH",
+       "reskinParentJutsuId": null,
+       "bloodlineReskinId": null,
+       "parentJutsuId": null,
+       "requiredNinjutsuMastery": null,
+       "requiredGenjutsuMastery": null,
+       "requiredTaijutsuMastery": null,
+       "requiredBukijutsuMastery": null,
+       "requiredBloodlineMastery": null,
+       "requiredSageMastery": null,
+       "requiredStrength": null,
+       "requiredSpeed": null,
+       "requiredIntelligence": null,
+       "requiredWillpower": null,
+       "requiredSkillId": null,
+       "requiredBloodlineItemId": null
+      }
+     },
+     {
+      "id": "L_rIjJqyvGevYm6nlUa9V",
+      "userId": "g30_Yqj_neO90g9_Dxwap",
+      "jutsuId": "6ByOpd8hiz4hpa2unq-Zs",
+      "createdAt": "2026-10-31T22:05:07.446Z",
+      "updatedAt": "2026-10-31T22:05:07.446Z",
+      "level": 1,
+      "experience": 0,
+      "equipped": true,
+      "trainingStartedAt": null,
+      "finishTraining": null,
+      "reskinId": null,
+      "jutsu": {
+       "id": "6ByOpd8hiz4hpa2unq-Zs",
+       "name": "Chart Mark",
+       "description": "Marks a target on the chart; the crew converge on it.",
+       "createdAt": "2026-10-31T06:08:58.221Z",
+       "updatedAt": "2026-10-31T06:09:04.164Z",
+       "extraBaseCost": 0,
+       "effects": [
+        {
+         "type": "increasedamagetaken",
+         "power": 40,
+         "rounds": 2,
+         "target": "INHERIT",
+         "appearSfx": "",
+         "direction": "offence",
+         "calculation": "percentage",
+         "description": "Increase damage taken of target",
+         "disappearSfx": "",
+         "powerPerLevel": 0,
+         "appearAnimation": "",
+         "staticAnimation": "",
+         "staticAssetPath": "",
+         "disappearAnimation": ""
+        },
+        {
+         "type": "increasepoolcost",
+         "power": 5,
+         "rounds": 2,
+         "target": "INHERIT",
+         "appearSfx": "",
+         "direction": "defence",
+         "calculation": "percentage",
+         "description": "Increase cost of taking actions",
+         "disappearSfx": "",
+         "poolsAffected": [],
+         "powerPerLevel": 0,
+         "appearAnimation": "",
+         "staticAnimation": "",
+         "staticAssetPath": "",
+         "disappearAnimation": ""
+        }
+       ],
+       "target": "OTHER_USER",
+       "range": 5,
+       "cooldown": 4,
+       "bloodlineId": "",
+       "requiredLevel": 1,
+       "requiredRank": "STUDENT",
+       "jutsuType": "AI",
+       "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+       "jutsuWeapon": "NONE",
+       "statClassification": "None",
+       "elementClassification": "None",
+       "battleDescription": "%user marks %target on the chart. \"There.\"",
+       "jutsuRank": "D",
+       "actionCostPerc": 40,
+       "staminaCost": 0.05,
+       "chakraCost": 0.05,
+       "staminaCostReducePerLvl": 0,
+       "chakraCostReducePerLvl": 0,
+       "healthCostReducePerLvl": 0,
+       "healthCost": 0,
+       "villageId": "",
+       "requiredPetSpeciesId": null,
+       "method": "SINGLE",
+       "coordinateTargeting": null,
+       "methodSize": null,
+       "hidden": true,
+       "injectableInBattle": false,
+       "battleUsageType": "BOTH",
+       "reskinParentJutsuId": null,
+       "bloodlineReskinId": null,
+       "parentJutsuId": null,
+       "requiredNinjutsuMastery": null,
+       "requiredGenjutsuMastery": null,
+       "requiredTaijutsuMastery": null,
+       "requiredBukijutsuMastery": null,
+       "requiredBloodlineMastery": null,
+       "requiredSageMastery": null,
+       "requiredStrength": null,
+       "requiredSpeed": null,
+       "requiredIntelligence": null,
+       "requiredWillpower": null,
+       "requiredSkillId": null,
+       "requiredBloodlineItemId": null
+      }
+     },
+     {
+      "id": "qvMPC4rXLBc0-2P-EnOcd",
+      "userId": "g30_Yqj_neO90g9_Dxwap",
+      "jutsuId": "gLsou07qLtM34zyepQRcS",
+      "createdAt": "2026-11-03T14:45:29.836Z",
+      "updatedAt": "2026-11-03T14:45:29.836Z",
+      "level": 1,
+      "experience": 0,
+      "equipped": true,
+      "trainingStartedAt": null,
+      "finishTraining": null,
+      "reskinId": null,
+      "jutsu": {
+       "id": "gLsou07qLtM34zyepQRcS",
+       "name": "Omen: Three-Plank Line",
+       "description": "A warning mark. Whatever it marks is struck on the caster's next turn.",
+       "createdAt": "2026-10-31T06:07:19.209Z",
+       "updatedAt": "2026-11-03T14:45:13.315Z",
+       "extraBaseCost": 0,
+       "effects": [
+        {
+         "type": "increaseregeneration",
+         "power": 1,
+         "rounds": 1,
+         "target": "INHERIT",
+         "appearSfx": "",
+         "direction": "offence",
+         "calculation": "percentage",
+         "description": "Increase out-of-combat regeneration",
+         "disappearSfx": "",
+         "friendlyFire": "FRIENDLY",
+         "powerPerLevel": 0,
+         "appearAnimation": "bJy2IjRKmAVYEoXUYmXv5",
+         "staticAnimation": "dL1vh_PNbZQ9m6nYwGnFa",
+         "staticAssetPath": "dGCN9ZaoyXwDK9E3ZuWgU",
+         "disappearAnimation": "k8J4ic-KEz9ewEq1gAszr"
+        },
+        {
+         "type": "lifesteal",
+         "power": 1,
+         "rounds": 1,
+         "target": "SELF",
+         "appearSfx": "",
+         "direction": "offence",
+         "calculation": "percentage",
+         "description": "Heal based on damage given",
+         "disappearSfx": "",
+         "powerPerLevel": 0,
+         "appearAnimation": "",
+         "staticAnimation": "",
+         "staticAssetPath": "",
+         "disappearAnimation": ""
+        }
+       ],
+       "target": "GROUND",
+       "range": 0,
+       "cooldown": 3,
+       "bloodlineId": "",
+       "requiredLevel": 1,
+       "requiredRank": "STUDENT",
+       "jutsuType": "AI",
+       "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+       "jutsuWeapon": "NONE",
+       "statClassification": "None",
+       "elementClassification": "None",
+       "battleDescription": "%user sights down a short red line toward %target.",
+       "jutsuRank": "D",
+       "actionCostPerc": 40,
+       "staminaCost": 0.05,
+       "chakraCost": 0.05,
+       "staminaCostReducePerLvl": 0,
+       "chakraCostReducePerLvl": 0,
+       "healthCostReducePerLvl": 0,
+       "healthCost": 0,
+       "villageId": "",
+       "requiredPetSpeciesId": null,
+       "method": "COORDINATES",
+       "coordinateTargeting": {
+        "origin": "CASTER",
+        "selection": "ALL",
+        "coordinates": [
+         {
+          "latitude": 0,
+          "longitude": -1
+         },
+         {
+          "latitude": 0,
+          "longitude": -2
+         },
+         {
+          "latitude": 0,
+          "longitude": -3
+         }
+        ],
+        "randomCount": 1
+       },
+       "methodSize": null,
+       "hidden": true,
+       "injectableInBattle": false,
+       "battleUsageType": "BOTH",
+       "reskinParentJutsuId": null,
+       "bloodlineReskinId": null,
+       "parentJutsuId": null,
+       "requiredNinjutsuMastery": null,
+       "requiredGenjutsuMastery": null,
+       "requiredTaijutsuMastery": null,
+       "requiredBukijutsuMastery": null,
+       "requiredBloodlineMastery": null,
+       "requiredSageMastery": null,
+       "requiredStrength": null,
+       "requiredSpeed": null,
+       "requiredIntelligence": null,
+       "requiredWillpower": null,
+       "requiredSkillId": null,
+       "requiredBloodlineItemId": null
+      }
+     },
+     {
+      "id": "0E8Q-dorLcdSywiTUs2dx",
+      "userId": "g30_Yqj_neO90g9_Dxwap",
+      "jutsuId": "LQ26G2ANWkbTRL7Ry__F0",
+      "createdAt": "2026-10-31T22:05:07.446Z",
+      "updatedAt": "2026-10-31T22:05:07.446Z",
+      "level": 1,
+      "experience": 0,
+      "equipped": true,
+      "trainingStartedAt": null,
+      "finishTraining": null,
+      "reskinId": null,
+      "jutsu": {
+       "id": "LQ26G2ANWkbTRL7Ry__F0",
+       "name": "Split Image",
+       "description": "Shared pool record B06. Boss pool. Balance values pending sign-off.",
+       "createdAt": "2026-08-23T21:04:31.453Z",
+       "updatedAt": "2026-10-21T03:29:53.931Z",
+       "extraBaseCost": 0,
+       "effects": [
+        {
+         "type": "clone",
+         "power": 100,
+         "rounds": 3,
+         "target": "INHERIT",
+         "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
+         "direction": "offence",
+         "calculation": "percentage",
+         "description": "placeholder",
+         "disappearSfx": "",
+         "powerPerLevel": 0,
+         "appearAnimation": "FZNt0vFGXlOZeagmPneqc",
+         "staticAnimation": "",
+         "staticAssetPath": "",
+         "disappearAnimation": ""
+        }
+       ],
+       "target": "EMPTY_GROUND",
+       "range": 2,
+       "cooldown": 6,
+       "bloodlineId": "",
+       "requiredLevel": 1,
+       "requiredRank": "STUDENT",
+       "jutsuType": "AI",
+       "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+       "jutsuWeapon": "NONE",
+       "statClassification": "None",
+       "elementClassification": "None",
+       "battleDescription": "%user weaves the Ram seal and presses chakra into the earth at their side. A second %user rises from it, identical down to the dust on their tabi, and steps into the fight.",
+       "jutsuRank": "D",
+       "actionCostPerc": 60,
+       "staminaCost": 0,
+       "chakraCost": 0,
+       "staminaCostReducePerLvl": 0,
+       "chakraCostReducePerLvl": 0,
+       "healthCostReducePerLvl": 0,
+       "healthCost": 0,
+       "villageId": "",
+       "requiredPetSpeciesId": null,
+       "method": "SINGLE",
+       "coordinateTargeting": null,
+       "methodSize": null,
+       "hidden": true,
+       "injectableInBattle": false,
+       "battleUsageType": "BOTH",
+       "reskinParentJutsuId": null,
+       "bloodlineReskinId": null,
+       "parentJutsuId": null,
+       "requiredNinjutsuMastery": null,
+       "requiredGenjutsuMastery": null,
+       "requiredTaijutsuMastery": null,
+       "requiredBukijutsuMastery": null,
+       "requiredBloodlineMastery": null,
+       "requiredSageMastery": null,
+       "requiredStrength": null,
+       "requiredSpeed": null,
+       "requiredIntelligence": null,
+       "requiredWillpower": null,
+       "requiredSkillId": null,
+       "requiredBloodlineItemId": null
+      }
+     },
+     {
+      "id": "QhDBFV3B1KpSxbfMCkpLZ",
+      "userId": "g30_Yqj_neO90g9_Dxwap",
+      "jutsuId": "PdD44PGaNv4MN5fOALhAF",
+      "createdAt": "2026-11-06T02:38:45.353Z",
+      "updatedAt": "2026-11-06T02:38:45.353Z",
+      "level": 1,
+      "experience": 0,
+      "equipped": true,
+      "trainingStartedAt": null,
+      "finishTraining": null,
+      "reskinId": null,
+      "jutsu": {
+       "id": "PdD44PGaNv4MN5fOALhAF",
+       "name": "Keelbind",
+       "description": "Chakra moorings strike and anchor the target while draining health, chakra, and stamina over time.",
+       "createdAt": "2026-04-24T16:31:43.230Z",
+       "updatedAt": "2026-11-06T02:38:32.894Z",
+       "extraBaseCost": 0,
+       "effects": [
+        {
+         "type": "damage",
+         "power": 50,
+         "rounds": 0,
+         "target": "INHERIT",
+         "appearSfx": "",
+         "direction": "offence",
+         "statTypes": [
+          "None"
+         ],
+         "calculation": "formula",
+         "description": "placeholder",
+         "dmgModifier": 1,
+         "disappearSfx": "",
+         "generalTypes": [
+          "Highest"
+         ],
+         "powerPerLevel": 0,
+         "appearAnimation": "5e9lf7wqG6GxNkYeUe3Rk",
+         "staticAnimation": "",
+         "staticAssetPath": "",
+         "residualModifier": 0,
+         "disappearAnimation": "",
+         "allowBloodlineDamageDecrease": true,
+         "allowBloodlineDamageIncrease": true
+        },
+        {
+         "type": "moveprevent",
+         "power": 100,
+         "rounds": 2,
+         "target": "INHERIT",
+         "appearSfx": "",
+         "direction": "offence",
+         "calculation": "static",
+         "description": "placeholder",
+         "disappearSfx": "",
+         "powerPerLevel": 0,
+         "appearAnimation": "",
+         "staticAnimation": "",
+         "staticAssetPath": "",
+         "disappearAnimation": ""
+        },
+        {
+         "type": "drain",
+         "power": 505,
+         "rounds": 2,
+         "target": "INHERIT",
+         "appearSfx": "",
+         "direction": "offence",
+         "calculation": "static",
+         "description": "placeholder",
+         "disappearSfx": "",
+         "poolsAffected": [
+          "Chakra",
+          "Health",
+          "Stamina"
+         ],
+         "powerPerLevel": 0,
+         "appearAnimation": "",
+         "staticAnimation": "",
+         "staticAssetPath": "",
+         "disappearAnimation": ""
+        }
+       ],
+       "target": "OTHER_USER",
+       "range": 5,
+       "cooldown": 8,
+       "bloodlineId": "",
+       "requiredLevel": 1,
+       "requiredRank": "STUDENT",
+       "jutsuType": "AI",
+       "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJRMUOms0udmODoNtpa0FMcwI4k2Eq7nJhyvjl",
+       "jutsuWeapon": "NONE",
+       "statClassification": "None",
+       "elementClassification": "None",
+       "battleDescription": "%user lashes chakra moorings at %target, the lines closing around their footing as a draining pulse runs through each strand.",
+       "jutsuRank": "D",
+       "actionCostPerc": 60,
+       "staminaCost": 0.05,
+       "chakraCost": 0.05,
+       "staminaCostReducePerLvl": 0,
+       "chakraCostReducePerLvl": 0,
+       "healthCostReducePerLvl": 0,
+       "healthCost": 0,
+       "villageId": "",
+       "requiredPetSpeciesId": null,
+       "method": "SINGLE",
+       "coordinateTargeting": null,
+       "methodSize": null,
+       "hidden": true,
+       "injectableInBattle": false,
+       "battleUsageType": "BOTH",
+       "reskinParentJutsuId": null,
+       "bloodlineReskinId": null,
+       "parentJutsuId": null,
+       "requiredNinjutsuMastery": null,
+       "requiredGenjutsuMastery": null,
+       "requiredTaijutsuMastery": null,
+       "requiredBukijutsuMastery": null,
+       "requiredBloodlineMastery": null,
+       "requiredSageMastery": null,
+       "requiredStrength": null,
+       "requiredSpeed": null,
+       "requiredIntelligence": null,
+       "requiredWillpower": null,
+       "requiredSkillId": null,
+       "requiredBloodlineItemId": null
+      }
+     }
+    ],
+    "items": []
+   }
+  },
+  {
+   "phase": "before",
+   "proc": "ai.getAiProfile",
+   "input": {
+    "id": "57tR5W1_H7UZpD-Hf2Itl"
+   },
+   "ok": true,
+   "rows": 1,
+   "error": null,
+   "persist": "full",
+   "snapshotKey": "560-mw9gh3y3::before::1",
+   "persistOk": true,
+   "persistError": null,
+   "bytes": 3701,
+   "at": "2026-11-09T16:08:58.730Z",
+   "data": {
+    "id": "57tR5W1_H7UZpD-Hf2Itl",
+    "userId": "g30_Yqj_neO90g9_Dxwap",
+    "rules": [
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "_O62ht0B7XNYzlISG1Gp5",
+       "description": "Eruption: Short Line (primed)"
+      },
+      "conditions": [
+       {
+        "type": "has_effect",
+        "threshold": 1,
+        "effectType": "lifesteal",
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "HIGHEST_ENMITY_OPPONENT",
+       "jutsuId": "6ByOpd8hiz4hpa2unq-Zs",
+       "description": "Chart Mark on the top threat"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "HIGHEST_ENMITY_OPPONENT",
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "CLOSEST_OPPONENT",
+       "jutsuId": "6ByOpd8hiz4hpa2unq-Zs",
+       "description": "Chart Mark on the closest (top threat out of reach)"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "CLOSEST_OPPONENT",
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "gLsou07qLtM34zyepQRcS",
+       "description": "Omen: Short Line (a player within 3)"
+      },
+      "conditions": [
+       {
+        "type": "player_within_range",
+        "maxRange": 3,
+        "minRange": 1,
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "HIGHEST_ENMITY_OPPONENT",
+       "jutsuId": "PdD44PGaNv4MN5fOALhAF",
+       "description": "Keelbind at range"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "HIGHEST_ENMITY_OPPONENT",
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "EMPTY_GROUND_CLOSEST_TO_SELF",
+       "jutsuId": "LQ26G2ANWkbTRL7Ry__F0",
+       "description": "Afterimage Decoy (live Split Image, a player within 2)"
+      },
+      "conditions": [
+       {
+        "type": "player_within_range",
+        "maxRange": 2,
+        "minRange": 0,
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "HIGHEST_ENMITY_OPPONENT",
+       "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
+       "description": "focus the Chart Mark (HIGHEST_ENMITY_OPPONENT)"
+      },
+      "conditions": [
+       {
+        "type": "target_has_effect",
+        "target": "HIGHEST_ENMITY_OPPONENT",
+        "threshold": 5,
+        "effectType": "increasepoolcost",
+        "description": ""
+       },
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "HIGHEST_ENMITY_OPPONENT",
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "CLOSEST_OPPONENT",
+       "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
+       "description": "focus the Chart Mark (CLOSEST_OPPONENT)"
+      },
+      "conditions": [
+       {
+        "type": "target_has_effect",
+        "target": "CLOSEST_OPPONENT",
+        "threshold": 5,
+        "effectType": "increasepoolcost",
+        "description": ""
+       },
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT",
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "LOWEST_HEALTH_OPPONENT",
+       "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
+       "description": "focus the Chart Mark (LOWEST_HEALTH_OPPONENT)"
+      },
+      "conditions": [
+       {
+        "type": "target_has_effect",
+        "target": "LOWEST_HEALTH_OPPONENT",
+        "threshold": 5,
+        "effectType": "increasepoolcost",
+        "description": ""
+       },
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "LOWEST_HEALTH_OPPONENT",
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "CLOSEST_OPPONENT",
+       "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
+       "description": "Twin Kunai"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT",
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "end_turn",
+       "description": "hold position while the minor mark is up"
+      },
+      "conditions": [
+       {
+        "type": "has_effect",
+        "threshold": 1,
+        "effectType": "lifesteal",
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "CLOSEST_OPPONENT",
+       "description": "keep range: close only when out of reach"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT",
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "CLOSEST_OPPONENT",
+       "jutsuId": "basicAttack",
+       "description": "basic attack (fallback; never a set piece)"
+      },
+      "conditions": []
+     },
+     {
+      "action": {
+       "type": "end_turn",
+       "description": "End turn"
+      },
+      "conditions": []
+     }
+    ],
+    "includeDefaultRules": false
+   }
+  },
+  {
+   "phase": "before",
+   "proc": "profile.getAi",
+   "input": {
+    "userId": "XCDMY6jeLu4XXC71eVxYP"
+   },
+   "ok": true,
+   "rows": 1,
+   "error": null,
+   "persist": "full",
+   "snapshotKey": "560-mw9gh3y3::before::2",
+   "persistOk": true,
+   "persistError": null,
+   "bytes": 44378,
+   "at": "2026-11-09T16:09:13.920Z",
+   "data": {
+    "userId": "XCDMY6jeLu4XXC71eVxYP",
+    "recruiterId": null,
+    "anbuId": null,
+    "clanId": null,
+    "jutsuLoadout": null,
+    "itemLoadout": null,
+    "rankedLoadout": null,
+    "nRecruited": 0,
+    "lastIp": null,
+    "username": "Faded Core Horror",
+    "gender": "Unknown",
+    "spriteBodyStyle": null,
+    "curHealth": 15300,
+    "maxHealth": 15300,
+    "curChakra": 15300,
+    "maxChakra": 15300,
+    "curEnergy": 100,
+    "maxEnergy": 100,
+    "curStamina": 15300,
+    "maxStamina": 15300,
+    "regeneration": 60,
+    "money": 1000,
+    "bank": 1000,
+    "experience": 637000,
+    "earnedExperience": 2000,
+    "petExperience": 0,
+    "petAcquisitions": 0,
+    "petDailyClaims": null,
+    "activePetId": null,
+    "petSlots": 1,
+    "petTask": null,
+    "rank": "JONIN",
+    "isOutlaw": false,
+    "level": 50,
+    "villageId": null,
+    "bloodlineReskinId": null,
+    "sageModeId": null,
+    "sageMasteryExperience": 0,
+    "status": "AWAKE",
+    "strength": 53093.33,
+    "intelligence": 53093.33,
+    "willpower": 53093.33,
+    "speed": 53093.33,
+    "offence": 53093.33,
+    "defence": 53093.33,
+    "elementalMastery": {},
+    "activeTrainedElement": null,
+    "masteryRanks": {},
+    "ninjutsuMastery": 21237.33,
+    "genjutsuMastery": 21237.33,
+    "taijutsuMastery": 21237.33,
+    "bukijutsuMastery": 21237.33,
+    "bloodlineMastery": 10,
+    "sageMastery": 10,
+    "statsMultiplier": 1,
+    "poolsMultiplier": 6,
+    "primaryElement": null,
+    "secondaryElement": null,
+    "reputationPoints": 11,
+    "reputationPointsTotal": 11,
+    "seichiSilver": 0,
+    "bloodright": [],
+    "bloodrightSpent": 0,
+    "bloodlineId": null,
+    "monthlySkillResets": {
+     "count": 0,
+     "month": ""
+    },
+    "villagePrestige": 9,
+    "federalStatus": "NONE",
+    "tavernUsernameColor": "DEFAULT",
+    "tavernTitleColor": "DEFAULT",
+    "approvedTos": true,
+    "avatar": "https://ui0arpl8sm.ufs.sh/f/ai-sprite-20261019-v3-AQi-bHJ-5tHXtxrnc0P9E-main-c26f9dc4befc.webp",
+    "avatarLight": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+    "avatarFacing": "left",
+    "sector": 0,
+    "longitude": 10,
+    "latitude": 7,
+    "location": null,
+    "joinedVillageAt": "2026-10-24T22:05:10.659Z",
+    "createdAt": "2026-10-31T22:05:10.659Z",
+    "updatedAt": "2026-10-31T22:05:10.659Z",
+    "questFinishAt": "2026-10-31T22:05:10.659Z",
+    "deletionAt": null,
+    "travelFinishAt": null,
+    "isBanned": false,
+    "isSilenced": false,
+    "isWarned": false,
+    "isTradeBanned": false,
+    "role": "USER",
+    "battleId": null,
+    "isAi": true,
+    "isSummon": false,
+    "isEvent": false,
+    "isWarCamp": false,
+    "warMission": null,
+    "inShrines": false,
+    "inArena": false,
+    "inboxNews": 0,
+    "regenAt": "2026-10-31T22:05:10.659Z",
+    "immunityUntil": "2026-10-31T22:05:10.659Z",
+    "robImmunityUntil": "2026-10-31T22:05:10.659Z",
+    "bracketImmunityLiftedUntil": "2026-10-31T22:05:10.659Z",
+    "bracketImmunityPausedAt": null,
+    "warParticipantUntil": "2026-10-31T22:05:10.659Z",
+    "trainingSpeed": "15min",
+    "energyQueueHead": 0,
+    "energyQueueTail": 0,
+    "masteryQueueHead": 0,
+    "elementalQueueHead": 0,
+    "elementalTrainingStartedAt": null,
+    "currentlyTrainingElement": null,
+    "elementalTrainingSpeed": "15min",
+    "masteryTrainingStartedAt": null,
+    "currentlyTrainingMastery": null,
+    "unreadNotifications": 7,
+    "unreadRecruitRewards": 0,
+    "unreadNews": 10,
+    "questData": null,
+    "questPartyId": null,
+    "activeNpcQuestId": null,
+    "senseiId": null,
+    "medicalExperience": 0,
+    "craftingExperience": 0,
+    "huntingExperience": 0,
+    "gatheringExperience": 0,
+    "farmingExperience": 0,
+    "cookingExperience": 0,
+    "farmCurrency": 0,
+    "farmPlotsPurchased": 0,
+    "farmExtractorsOwned": 0,
+    "preferredGeneral1": "Strength",
+    "preferredGeneral2": "Willpower",
+    "preferredDamageElement": null,
+    "showBattleDescription": true,
+    "defaultAutoCombat": true,
+    "showPvpRecord": false,
+    "pvpFights": 0,
+    "pveFights": 0,
+    "pvpStreak": 0,
+    "pvpWins": 0,
+    "pvpLosses": 0,
+    "pvpExperience": 0,
+    "pvpExperienceDecayAt": "2026-10-31T22:05:10.659Z",
+    "weeklyPvpKills": 0,
+    "weeklyPvpKillsAt": "2026-11-09T00:00:00.000Z",
+    "errands": 0,
+    "missionsD": 0,
+    "missionsC": 0,
+    "missionsB": 0,
+    "missionsA": 0,
+    "missionsS": 0,
+    "missionsH": 0,
+    "crimesD": 0,
+    "crimesC": 0,
+    "crimesB": 0,
+    "crimesA": 0,
+    "crimesS": 0,
+    "crimesH": 0,
+    "dailyArenaFights": 0,
+    "dailySageActivations": 0,
+    "dailyMissions": 0,
+    "dailyErrands": 0,
+    "dailyMedicalMissions": 0,
+    "dailyPvpMissions": 0,
+    "dailyWarMissions": 0,
+    "dailyTrainings": 0,
+    "dailyOverworldQuestRolls": 0,
+    "movedTooFastCount": 0,
+    "extraItemSlots": 0,
+    "extraJutsuSlots": 0,
+    "extraReskinSlots": 2,
+    "npcTitle": "",
+    "activeTitleId": null,
+    "marriageSlots": 1,
+    "aiProfileId": "64q_dHDYCxhALkrPLhYxK",
+    "effects": [
+     {
+      "type": "increasedamagegiven",
+      "power": 100,
+      "rounds": 99,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "Increased damage given",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "increasedamagegiven",
+      "power": 100,
+      "rounds": 99,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "Increased damage given",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "increasedamagetaken",
+      "power": 100,
+      "rounds": 99,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "Increased damage taken",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     }
+    ],
+    "aiCalls": 0,
+    "tavernMessages": 0,
+    "dashboardContentPriority": [],
+    "autoWakeUp": true,
+    "rememberProfileTab": false,
+    "musicOn": true,
+    "sfxOn": true,
+    "buttonSfxOn": true,
+    "iframesMuted": false,
+    "chatMuted": false,
+    "mutedConversationIds": [],
+    "unmutedTavernIds": [],
+    "tutorialStep": 0,
+    "tutorialOn": true,
+    "homeType": "NONE",
+    "homeFurnitureRevision": 0,
+    "staffAccount": false,
+    "rankedLp": 0,
+    "rankedBattles": 0,
+    "rankedWins": 0,
+    "rankedStreak": 0,
+    "skillPoints": 0,
+    "towerDefensePoints": 0,
+    "occupation": null,
+    "occupationSignupAt": null,
+    "stealth": 1000,
+    "sensory": 1000,
+    "stealthActive": false,
+    "stealthActivatedAt": null,
+    "stealthCooldownAt": null,
+    "lastSensoryAt": null,
+    "covertTrainingType": null,
+    "covertTrainingStartedAt": null,
+    "covertTrainingMinutes": null,
+    "jutsus": [
+     {
+      "id": "I1Xxi_XoWKRTe7FF4l3dY",
+      "userId": "XCDMY6jeLu4XXC71eVxYP",
+      "jutsuId": "_hxcJFYdxVOsjs0ryzrFq",
+      "createdAt": "2026-11-06T02:38:41.956Z",
+      "updatedAt": "2026-11-06T02:38:41.956Z",
+      "level": 1,
+      "experience": 0,
+      "equipped": true,
+      "trainingStartedAt": null,
+      "finishTraining": null,
+      "reskinId": null,
+      "jutsu": {
+       "id": "_hxcJFYdxVOsjs0ryzrFq",
+       "name": "Maw of the Deep",
+       "description": "Core Horror signature (Omen: Last Light): black water and teeth everywhere but the stars; Exposed Seam, x3 damage taken for 1 round.",
+       "createdAt": "2026-10-31T06:08:22.102Z",
+       "updatedAt": "2026-11-06T02:38:23.309Z",
+       "extraBaseCost": 0,
+       "effects": [
+        {
+         "type": "damage",
+         "power": 200,
+         "rounds": 0,
+         "target": "INHERIT",
+         "appearSfx": "",
+         "direction": "offence",
+         "statTypes": [
+          "None"
+         ],
+         "calculation": "formula",
+         "description": "Deals damage to target",
+         "dmgModifier": 1,
+         "disappearSfx": "",
+         "friendlyFire": "ENEMIES",
+         "powerPerLevel": 0,
+         "appearAnimation": "",
+         "staticAnimation": "",
+         "staticAssetPath": "",
+         "residualModifier": 1,
+         "disappearAnimation": "",
+         "allowBloodlineDamageDecrease": true,
+         "allowBloodlineDamageIncrease": true
+        },
+        {
+         "type": "stun",
+         "power": 100,
+         "rounds": 1,
+         "target": "INHERIT",
+         "appearSfx": "",
+         "direction": "offence",
+         "apReduction": 60,
+         "calculation": "static",
+         "description": "Stuns the target",
+         "disappearSfx": "",
+         "friendlyFire": "ENEMIES",
+         "powerPerLevel": 0,
+         "appearAnimation": "",
+         "staticAnimation": "",
+         "staticAssetPath": "",
+         "disappearAnimation": ""
+        },
+        {
+         "type": "weakness",
+         "items": [],
+         "power": 100,
+         "jutsus": [],
+         "rounds": 1,
+         "target": "SELF",
+         "elements": [],
+         "appearSfx": "",
+         "direction": "offence",
+         "statTypes": [
+          "None",
+          "Ninjutsu",
+          "Genjutsu",
+          "Taijutsu",
+          "Bukijutsu"
+         ],
+         "calculation": "static",
+         "description": "Extra raw damage from specific things",
+         "dmgModifier": 3,
+         "disappearSfx": "",
+         "generalTypes": [
+          "Highest",
+          "Strength",
+          "Intelligence",
+          "Willpower",
+          "Speed"
+         ],
+         "powerPerLevel": 0,
+         "appearAnimation": "aeS3STkOZ5RKpHG6RfWS5",
+         "staticAnimation": "",
+         "staticAssetPath": "",
+         "disappearAnimation": ""
+        }
+       ],
+       "target": "CHARACTER",
+       "range": 0,
+       "cooldown": 3,
+       "bloodlineId": "",
+       "requiredLevel": 1,
+       "requiredRank": "STUDENT",
+       "jutsuType": "AI",
+       "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+       "jutsuWeapon": "NONE",
+       "statClassification": "None",
+       "elementClassification": "None",
+       "battleDescription": "%user sinks into the deck, and black water and teeth rise from every plank. The mass splits open along a glowing seam.",
+       "jutsuRank": "D",
+       "actionCostPerc": 100,
+       "staminaCost": 0.05,
+       "chakraCost": 0.05,
+       "staminaCostReducePerLvl": 0,
+       "chakraCostReducePerLvl": 0,
+       "healthCostReducePerLvl": 0,
+       "healthCost": 0,
+       "villageId": "",
+       "requiredPetSpeciesId": null,
+       "method": "COORDINATES",
+       "coordinateTargeting": {
+        "origin": "BATTLEFIELD",
+        "selection": "EXCLUDE",
+        "coordinates": [
+         {
+          "latitude": 2,
+          "longitude": 6
+         },
+         {
+          "latitude": 5,
+          "longitude": 5
+         },
+         {
+          "latitude": 8,
+          "longitude": 6
+         }
+        ],
+        "randomCount": 1
+       },
+       "methodSize": null,
+       "hidden": true,
+       "injectableInBattle": false,
+       "battleUsageType": "BOTH",
+       "reskinParentJutsuId": null,
+       "bloodlineReskinId": null,
+       "parentJutsuId": null,
+       "requiredNinjutsuMastery": null,
+       "requiredGenjutsuMastery": null,
+       "requiredTaijutsuMastery": null,
+       "requiredBukijutsuMastery": null,
+       "requiredBloodlineMastery": null,
+       "requiredSageMastery": null,
+       "requiredStrength": null,
+       "requiredSpeed": null,
+       "requiredIntelligence": null,
+       "requiredWillpower": null,
+       "requiredSkillId": null,
+       "requiredBloodlineItemId": null
+      }
+     },
+     {
+      "id": "IevGsoawH-6ztISQL3cmz",
+      "userId": "XCDMY6jeLu4XXC71eVxYP",
+      "jutsuId": "-IbSdvavSQFqQmGduEi-J",
+      "createdAt": "2026-11-03T14:45:26.424Z",
+      "updatedAt": "2026-11-03T14:45:26.424Z",
+      "level": 1,
+      "experience": 0,
+      "equipped": true,
+      "trainingStartedAt": null,
+      "finishTraining": null,
+      "reskinId": null,
+      "jutsu": {
+       "id": "-IbSdvavSQFqQmGduEi-J",
+       "name": "Omen: Ebb Scatter",
+       "description": "A warning mark. Whatever it marks is struck on the caster's next turn.",
+       "createdAt": "2026-10-31T06:07:09.909Z",
+       "updatedAt": "2026-11-03T14:42:31.998Z",
+       "extraBaseCost": 0,
+       "effects": [
+        {
+         "type": "increaseregeneration",
+         "power": 1,
+         "rounds": 1,
+         "target": "INHERIT",
+         "appearSfx": "",
+         "direction": "offence",
+         "calculation": "percentage",
+         "description": "Increase out-of-combat regeneration",
+         "disappearSfx": "",
+         "friendlyFire": "FRIENDLY",
+         "powerPerLevel": 0,
+         "appearAnimation": "bJy2IjRKmAVYEoXUYmXv5",
+         "staticAnimation": "dL1vh_PNbZQ9m6nYwGnFa",
+         "staticAssetPath": "dGCN9ZaoyXwDK9E3ZuWgU",
+         "disappearAnimation": "k8J4ic-KEz9ewEq1gAszr"
+        },
+        {
+         "type": "robprevent",
+         "power": 100,
+         "rounds": 1,
+         "target": "SELF",
+         "appearSfx": "",
+         "direction": "offence",
+         "calculation": "static",
+         "description": "Prevents robbing of the target",
+         "disappearSfx": "",
+         "powerPerLevel": 0,
+         "appearAnimation": "",
+         "staticAnimation": "",
+         "staticAssetPath": "",
+         "disappearAnimation": ""
+        }
+       ],
+       "target": "GROUND",
+       "range": 0,
+       "cooldown": 4,
+       "bloodlineId": "",
+       "requiredLevel": 1,
+       "requiredRank": "STUDENT",
+       "jutsuType": "AI",
+       "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+       "jutsuWeapon": "NONE",
+       "statClassification": "None",
+       "elementClassification": "None",
+       "battleDescription": "%user stamps once, and the floor swells red in patches.",
+       "jutsuRank": "D",
+       "actionCostPerc": 40,
+       "staminaCost": 0.05,
+       "chakraCost": 0.05,
+       "staminaCostReducePerLvl": 0,
+       "chakraCostReducePerLvl": 0,
+       "healthCostReducePerLvl": 0,
+       "healthCost": 0,
+       "villageId": "",
+       "requiredPetSpeciesId": null,
+       "method": "COORDINATES",
+       "coordinateTargeting": {
+        "origin": "BATTLEFIELD",
+        "selection": "ALL",
+        "coordinates": [
+         {
+          "latitude": 0,
+          "longitude": 0
+         },
+         {
+          "latitude": 2,
+          "longitude": 0
+         },
+         {
+          "latitude": 4,
+          "longitude": 0
+         },
+         {
+          "latitude": 6,
+          "longitude": 0
+         },
+         {
+          "latitude": 8,
+          "longitude": 0
+         },
+         {
+          "latitude": 0,
+          "longitude": 1
+         },
+         {
+          "latitude": 2,
+          "longitude": 1
+         },
+         {
+          "latitude": 4,
+          "longitude": 1
+         },
+         {
+          "latitude": 6,
+          "longitude": 1
+         },
+         {
+          "latitude": 8,
+          "longitude": 1
+         },
+         {
+          "latitude": 1,
+          "longitude": 2
+         },
+         {
+          "latitude": 3,
+          "longitude": 2
+         },
+         {
+          "latitude": 5,
+          "longitude": 2
+         },
+         {
+          "latitude": 7,
+          "longitude": 2
+         },
+         {
+          "latitude": 9,
+          "longitude": 2
+         },
+         {
+          "latitude": 1,
+          "longitude": 3
+         },
+         {
+          "latitude": 3,
+          "longitude": 3
+         },
+         {
+          "latitude": 5,
+          "longitude": 3
+         },
+         {
+          "latitude": 7,
+          "longitude": 3
+         },
+         {
+          "latitude": 9,
+          "longitude": 3
+         },
+         {
+          "latitude": 0,
+          "longitude": 4
+         },
+         {
+          "latitude": 2,
+          "longitude": 4
+         },
+         {
+          "latitude": 4,
+          "longitude": 4
+         },
+         {
+          "latitude": 6,
+          "longitude": 4
+         },
+         {
+          "latitude": 8,
+          "longitude": 4
+         },
+         {
+          "latitude": 0,
+          "longitude": 5
+         },
+         {
+          "latitude": 2,
+          "longitude": 5
+         },
+         {
+          "latitude": 4,
+          "longitude": 5
+         },
+         {
+          "latitude": 6,
+          "longitude": 5
+         },
+         {
+          "latitude": 8,
+          "longitude": 5
+         },
+         {
+          "latitude": 1,
+          "longitude": 6
+         },
+         {
+          "latitude": 3,
+          "longitude": 6
+         },
+         {
+          "latitude": 5,
+          "longitude": 6
+         },
+         {
+          "latitude": 7,
+          "longitude": 6
+         },
+         {
+          "latitude": 9,
+          "longitude": 6
+         },
+         {
+          "latitude": 1,
+          "longitude": 7
+         },
+         {
+          "latitude": 3,
+          "longitude": 7
+         },
+         {
+          "latitude": 5,
+          "longitude": 7
+         },
+         {
+          "latitude": 7,
+          "longitude": 7
+         },
+         {
+          "latitude": 9,
+          "longitude": 7
+         },
+         {
+          "latitude": 0,
+          "longitude": 8
+         },
+         {
+          "latitude": 2,
+          "longitude": 8
+         },
+         {
+          "latitude": 4,
+          "longitude": 8
+         },
+         {
+          "latitude": 6,
+          "longitude": 8
+         },
+         {
+          "latitude": 8,
+          "longitude": 8
+         },
+         {
+          "latitude": 0,
+          "longitude": 9
+         },
+         {
+          "latitude": 2,
+          "longitude": 9
+         },
+         {
+          "latitude": 4,
+          "longitude": 9
+         },
+         {
+          "latitude": 6,
+          "longitude": 9
+         },
+         {
+          "latitude": 8,
+          "longitude": 9
+         },
+         {
+          "latitude": 1,
+          "longitude": 10
+         },
+         {
+          "latitude": 3,
+          "longitude": 10
+         },
+         {
+          "latitude": 5,
+          "longitude": 10
+         },
+         {
+          "latitude": 7,
+          "longitude": 10
+         },
+         {
+          "latitude": 9,
+          "longitude": 10
+         },
+         {
+          "latitude": 1,
+          "longitude": 11
+         },
+         {
+          "latitude": 3,
+          "longitude": 11
+         },
+         {
+          "latitude": 5,
+          "longitude": 11
+         },
+         {
+          "latitude": 7,
+          "longitude": 11
+         },
+         {
+          "latitude": 9,
+          "longitude": 11
+         }
+        ],
+        "randomCount": 1
+       },
+       "methodSize": null,
+       "hidden": true,
+       "injectableInBattle": false,
+       "battleUsageType": "BOTH",
+       "reskinParentJutsuId": null,
+       "bloodlineReskinId": null,
+       "parentJutsuId": null,
+       "requiredNinjutsuMastery": null,
+       "requiredGenjutsuMastery": null,
+       "requiredTaijutsuMastery": null,
+       "requiredBukijutsuMastery": null,
+       "requiredBloodlineMastery": null,
+       "requiredSageMastery": null,
+       "requiredStrength": null,
+       "requiredSpeed": null,
+       "requiredIntelligence": null,
+       "requiredWillpower": null,
+       "requiredSkillId": null,
+       "requiredBloodlineItemId": null
+      }
+     },
+     {
+      "id": "x_B0rgdp6ImmWUSpaToiH",
+      "userId": "XCDMY6jeLu4XXC71eVxYP",
+      "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
+      "createdAt": "2026-10-31T22:05:11.212Z",
+      "updatedAt": "2026-10-31T22:05:11.212Z",
+      "level": 1,
+      "experience": 0,
+      "equipped": true,
+      "trainingStartedAt": null,
+      "finishTraining": null,
+      "reskinId": null,
+      "jutsu": {
+       "id": "3v9c1SHlD2GLPF2HW1_Sc",
+       "name": "Twin Kunai",
+       "description": "Two quick projectiles in succession.",
+       "createdAt": "2026-07-17T02:18:53.545Z",
+       "updatedAt": "2026-10-21T03:33:45.862Z",
+       "extraBaseCost": 0,
+       "effects": [
+        {
+         "type": "damage",
+         "power": 45,
+         "rounds": 0,
+         "target": "INHERIT",
+         "appearSfx": "",
+         "direction": "offence",
+         "statTypes": [
+          "None"
+         ],
+         "calculation": "formula",
+         "description": "Deals damage to target",
+         "dmgModifier": 1,
+         "disappearSfx": "",
+         "powerPerLevel": 0,
+         "appearAnimation": "",
+         "staticAnimation": "",
+         "staticAssetPath": "",
+         "residualModifier": 1,
+         "disappearAnimation": "",
+         "allowBloodlineDamageDecrease": true,
+         "allowBloodlineDamageIncrease": true
+        }
+       ],
+       "target": "OTHER_USER",
+       "range": 5,
+       "cooldown": 3,
+       "bloodlineId": null,
+       "requiredLevel": 1,
+       "requiredRank": "STUDENT",
+       "jutsuType": "AI",
+       "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+       "jutsuWeapon": "NONE",
+       "statClassification": "None",
+       "elementClassification": "None",
+       "battleDescription": "%user snaps two kunai from their sleeves and releases them in a single motion. They fly side by side and strike %target almost as one.",
+       "jutsuRank": "D",
+       "actionCostPerc": 60,
+       "staminaCost": 0.05,
+       "chakraCost": 0.05,
+       "staminaCostReducePerLvl": 0,
+       "chakraCostReducePerLvl": 0,
+       "healthCostReducePerLvl": 0,
+       "healthCost": 0,
+       "villageId": null,
+       "requiredPetSpeciesId": null,
+       "method": "SINGLE",
+       "coordinateTargeting": null,
+       "methodSize": null,
+       "hidden": true,
+       "injectableInBattle": false,
+       "battleUsageType": "BOTH",
+       "reskinParentJutsuId": null,
+       "bloodlineReskinId": null,
+       "parentJutsuId": null,
+       "requiredNinjutsuMastery": null,
+       "requiredGenjutsuMastery": null,
+       "requiredTaijutsuMastery": null,
+       "requiredBukijutsuMastery": null,
+       "requiredBloodlineMastery": null,
+       "requiredSageMastery": null,
+       "requiredStrength": null,
+       "requiredSpeed": null,
+       "requiredIntelligence": null,
+       "requiredWillpower": null,
+       "requiredSkillId": null,
+       "requiredBloodlineItemId": null
+      }
+     },
+     {
+      "id": "qxq7kjr9vR_cy5QuSwMPg",
+      "userId": "XCDMY6jeLu4XXC71eVxYP",
+      "jutsuId": "8RIXlsWIbsMtIh7sCwHSE",
+      "createdAt": "2026-11-03T14:45:26.424Z",
+      "updatedAt": "2026-11-03T14:45:26.424Z",
+      "level": 1,
+      "experience": 0,
+      "equipped": true,
+      "trainingStartedAt": null,
+      "finishTraining": null,
+      "reskinId": null,
+      "jutsu": {
+       "id": "8RIXlsWIbsMtIh7sCwHSE",
+       "name": "Eruption: Flood Scatter",
+       "description": "Strikes the ground its omen marked.",
+       "createdAt": "2026-10-31T06:08:05.691Z",
+       "updatedAt": "2026-11-03T14:42:27.135Z",
+       "extraBaseCost": 0,
+       "effects": [
+        {
+         "type": "damage",
+         "power": 140,
+         "rounds": 0,
+         "target": "INHERIT",
+         "appearSfx": "",
+         "direction": "offence",
+         "statTypes": [
+          "None"
+         ],
+         "calculation": "formula",
+         "description": "Deals damage to target",
+         "dmgModifier": 1,
+         "disappearSfx": "",
+         "friendlyFire": "ENEMIES",
+         "powerPerLevel": 0,
+         "appearAnimation": "Z9j8J7ZmAjiaxH2S4nDy8",
+         "staticAnimation": "",
+         "staticAssetPath": "",
+         "residualModifier": 1,
+         "disappearAnimation": "",
+         "allowBloodlineDamageDecrease": true,
+         "allowBloodlineDamageIncrease": true
+        },
+        {
+         "type": "damage",
+         "power": 30,
+         "rounds": 2,
+         "target": "INHERIT",
+         "appearSfx": "",
+         "direction": "offence",
+         "statTypes": [
+          "None"
+         ],
+         "calculation": "formula",
+         "description": "Deals damage to target",
+         "dmgModifier": 1,
+         "disappearSfx": "",
+         "friendlyFire": "ENEMIES",
+         "powerPerLevel": 0,
+         "appearAnimation": "bJy2IjRKmAVYEoXUYmXv5",
+         "staticAnimation": "qlGYJizxxxdd794Jea6lB",
+         "staticAssetPath": "PoG_KDERWlvyj7MsKSDW2",
+         "residualModifier": 1,
+         "disappearAnimation": "",
+         "allowBloodlineDamageDecrease": true,
+         "allowBloodlineDamageIncrease": true
+        }
+       ],
+       "target": "GROUND",
+       "range": 0,
+       "cooldown": 3,
+       "bloodlineId": "",
+       "requiredLevel": 1,
+       "requiredRank": "STUDENT",
+       "jutsuType": "AI",
+       "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+       "jutsuWeapon": "NONE",
+       "statClassification": "None",
+       "elementClassification": "None",
+       "battleDescription": "%user stamps again, and the swollen ground bursts.",
+       "jutsuRank": "D",
+       "actionCostPerc": 100,
+       "staminaCost": 0.05,
+       "chakraCost": 0.05,
+       "staminaCostReducePerLvl": 0,
+       "chakraCostReducePerLvl": 0,
+       "healthCostReducePerLvl": 0,
+       "healthCost": 0,
+       "villageId": "",
+       "requiredPetSpeciesId": null,
+       "method": "COORDINATES",
+       "coordinateTargeting": {
+        "origin": "BATTLEFIELD",
+        "selection": "ALL",
+        "coordinates": [
+         {
+          "latitude": 1,
+          "longitude": 0
+         },
+         {
+          "latitude": 3,
+          "longitude": 0
+         },
+         {
+          "latitude": 5,
+          "longitude": 0
+         },
+         {
+          "latitude": 7,
+          "longitude": 0
+         },
+         {
+          "latitude": 9,
+          "longitude": 0
+         },
+         {
+          "latitude": 1,
+          "longitude": 1
+         },
+         {
+          "latitude": 3,
+          "longitude": 1
+         },
+         {
+          "latitude": 5,
+          "longitude": 1
+         },
+         {
+          "latitude": 7,
+          "longitude": 1
+         },
+         {
+          "latitude": 9,
+          "longitude": 1
+         },
+         {
+          "latitude": 0,
+          "longitude": 2
+         },
+         {
+          "latitude": 2,
+          "longitude": 2
+         },
+         {
+          "latitude": 4,
+          "longitude": 2
+         },
+         {
+          "latitude": 6,
+          "longitude": 2
+         },
+         {
+          "latitude": 8,
+          "longitude": 2
+         },
+         {
+          "latitude": 0,
+          "longitude": 3
+         },
+         {
+          "latitude": 2,
+          "longitude": 3
+         },
+         {
+          "latitude": 4,
+          "longitude": 3
+         },
+         {
+          "latitude": 6,
+          "longitude": 3
+         },
+         {
+          "latitude": 8,
+          "longitude": 3
+         },
+         {
+          "latitude": 1,
+          "longitude": 4
+         },
+         {
+          "latitude": 3,
+          "longitude": 4
+         },
+         {
+          "latitude": 5,
+          "longitude": 4
+         },
+         {
+          "latitude": 7,
+          "longitude": 4
+         },
+         {
+          "latitude": 9,
+          "longitude": 4
+         },
+         {
+          "latitude": 1,
+          "longitude": 5
+         },
+         {
+          "latitude": 3,
+          "longitude": 5
+         },
+         {
+          "latitude": 7,
+          "longitude": 5
+         },
+         {
+          "latitude": 9,
+          "longitude": 5
+         },
+         {
+          "latitude": 0,
+          "longitude": 6
+         },
+         {
+          "latitude": 4,
+          "longitude": 6
+         },
+         {
+          "latitude": 6,
+          "longitude": 6
+         },
+         {
+          "latitude": 0,
+          "longitude": 7
+         },
+         {
+          "latitude": 2,
+          "longitude": 7
+         },
+         {
+          "latitude": 4,
+          "longitude": 7
+         },
+         {
+          "latitude": 6,
+          "longitude": 7
+         },
+         {
+          "latitude": 8,
+          "longitude": 7
+         },
+         {
+          "latitude": 1,
+          "longitude": 8
+         },
+         {
+          "latitude": 3,
+          "longitude": 8
+         },
+         {
+          "latitude": 5,
+          "longitude": 8
+         },
+         {
+          "latitude": 7,
+          "longitude": 8
+         },
+         {
+          "latitude": 9,
+          "longitude": 8
+         },
+         {
+          "latitude": 1,
+          "longitude": 9
+         },
+         {
+          "latitude": 3,
+          "longitude": 9
+         },
+         {
+          "latitude": 5,
+          "longitude": 9
+         },
+         {
+          "latitude": 7,
+          "longitude": 9
+         },
+         {
+          "latitude": 9,
+          "longitude": 9
+         },
+         {
+          "latitude": 0,
+          "longitude": 10
+         },
+         {
+          "latitude": 2,
+          "longitude": 10
+         },
+         {
+          "latitude": 4,
+          "longitude": 10
+         },
+         {
+          "latitude": 6,
+          "longitude": 10
+         },
+         {
+          "latitude": 8,
+          "longitude": 10
+         },
+         {
+          "latitude": 0,
+          "longitude": 11
+         },
+         {
+          "latitude": 2,
+          "longitude": 11
+         },
+         {
+          "latitude": 4,
+          "longitude": 11
+         },
+         {
+          "latitude": 6,
+          "longitude": 11
+         },
+         {
+          "latitude": 8,
+          "longitude": 11
+         }
+        ],
+        "randomCount": 1
+       },
+       "methodSize": null,
+       "hidden": true,
+       "injectableInBattle": false,
+       "battleUsageType": "BOTH",
+       "reskinParentJutsuId": null,
+       "bloodlineReskinId": null,
+       "parentJutsuId": null,
+       "requiredNinjutsuMastery": null,
+       "requiredGenjutsuMastery": null,
+       "requiredTaijutsuMastery": null,
+       "requiredBukijutsuMastery": null,
+       "requiredBloodlineMastery": null,
+       "requiredSageMastery": null,
+       "requiredStrength": null,
+       "requiredSpeed": null,
+       "requiredIntelligence": null,
+       "requiredWillpower": null,
+       "requiredSkillId": null,
+       "requiredBloodlineItemId": null
+      }
+     },
+     {
+      "id": "HosaZiyfMQ4tRG8LUsI72",
+      "userId": "XCDMY6jeLu4XXC71eVxYP",
+      "jutsuId": "aWxJdkyKpxARs7sHR2dg2",
+      "createdAt": "2026-11-03T15:06:09.613Z",
+      "updatedAt": "2026-11-03T15:06:09.613Z",
+      "level": 1,
+      "experience": 0,
+      "equipped": true,
+      "trainingStartedAt": null,
+      "finishTraining": null,
+      "reskinId": null,
+      "jutsu": {
+       "id": "aWxJdkyKpxARs7sHR2dg2",
+       "name": "Bilge Spit",
+       "description": "A glob of black bilge that bursts on impact and rots health, chakra and stamina.",
+       "createdAt": "2026-11-03T15:03:06.794Z",
+       "updatedAt": "2026-11-03T15:03:07.699Z",
+       "extraBaseCost": 0,
+       "effects": [
+        {
+         "type": "damage",
+         "power": 40,
+         "rounds": 0,
+         "target": "INHERIT",
+         "elements": [],
+         "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
+         "direction": "offence",
+         "statTypes": [
+          "None"
+         ],
+         "calculation": "formula",
+         "description": "<p>placeholder</p>",
+         "dmgModifier": 1,
+         "disappearSfx": "",
+         "generalTypes": [
+          "Highest"
+         ],
+         "powerPerLevel": 0,
+         "appearAnimation": "2xsf5F1YwrfCdW-OoWvBr",
+         "staticAnimation": "hit",
+         "staticAssetPath": "",
+         "residualModifier": 1,
+         "disappearAnimation": "hit",
+         "allowBloodlineDamageDecrease": true,
+         "allowBloodlineDamageIncrease": true
+        },
+        {
+         "type": "poison",
+         "power": 20,
+         "rounds": 2,
+         "target": "INHERIT",
+         "appearSfx": "",
+         "direction": "offence",
+         "calculation": "percentage",
+         "description": "placeholder",
+         "disappearSfx": "",
+         "poolsAffected": [
+          "Health",
+          "Chakra",
+          "Stamina"
+         ],
+         "powerPerLevel": 0,
+         "appearAnimation": "yPAK2p19W6hoW6013bb3D",
+         "staticAnimation": "",
+         "staticAssetPath": "",
+         "disappearAnimation": ""
+        }
+       ],
+       "target": "OTHER_USER",
+       "range": 5,
+       "cooldown": 5,
+       "bloodlineId": "",
+       "requiredLevel": 1,
+       "requiredRank": "STUDENT",
+       "jutsuType": "AI",
+       "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+       "jutsuWeapon": "NONE",
+       "statClassification": "None",
+       "elementClassification": "None",
+       "battleDescription": "%user heaves and spits a glob of black bilge at %target. It bursts on impact, and the rot soaks in.",
+       "jutsuRank": "D",
+       "actionCostPerc": 60,
+       "staminaCost": 0,
+       "chakraCost": 0,
+       "staminaCostReducePerLvl": 0,
+       "chakraCostReducePerLvl": 0,
+       "healthCostReducePerLvl": 0,
+       "healthCost": 0,
+       "villageId": "",
+       "requiredPetSpeciesId": null,
+       "method": "SINGLE",
+       "coordinateTargeting": null,
+       "methodSize": null,
+       "hidden": true,
+       "injectableInBattle": false,
+       "battleUsageType": "BOTH",
+       "reskinParentJutsuId": null,
+       "bloodlineReskinId": null,
+       "parentJutsuId": null,
+       "requiredNinjutsuMastery": null,
+       "requiredGenjutsuMastery": null,
+       "requiredTaijutsuMastery": null,
+       "requiredBukijutsuMastery": null,
+       "requiredBloodlineMastery": null,
+       "requiredSageMastery": null,
+       "requiredStrength": null,
+       "requiredSpeed": null,
+       "requiredIntelligence": null,
+       "requiredWillpower": null,
+       "requiredSkillId": null,
+       "requiredBloodlineItemId": null
+      }
+     },
+     {
+      "id": "XcFmnF1FgasWLoSr7B9HY",
+      "userId": "XCDMY6jeLu4XXC71eVxYP",
+      "jutsuId": "BwlbHwTN4EVYXYJsE18rl",
+      "createdAt": "2026-10-31T22:05:11.212Z",
+      "updatedAt": "2026-10-31T22:05:11.212Z",
+      "level": 1,
+      "experience": 0,
+      "equipped": true,
+      "trainingStartedAt": null,
+      "finishTraining": null,
+      "reskinId": null,
+      "jutsu": {
+       "id": "BwlbHwTN4EVYXYJsE18rl",
+       "name": "Eruption: Cracking Ring",
+       "description": "Strikes the ground its omen marked.",
+       "createdAt": "2026-10-31T06:07:20.726Z",
+       "updatedAt": "2026-10-31T06:07:21.320Z",
+       "extraBaseCost": 0,
+       "effects": [
+        {
+         "type": "damage",
+         "power": 160,
+         "rounds": 0,
+         "target": "INHERIT",
+         "appearSfx": "",
+         "direction": "offence",
+         "statTypes": [
+          "None"
+         ],
+         "calculation": "formula",
+         "description": "Deals damage to target",
+         "dmgModifier": 1,
+         "disappearSfx": "",
+         "friendlyFire": "ENEMIES",
+         "powerPerLevel": 0,
+         "appearAnimation": "Z9j8J7ZmAjiaxH2S4nDy8",
+         "staticAnimation": "",
+         "staticAssetPath": "",
+         "residualModifier": 1,
+         "disappearAnimation": "",
+         "allowBloodlineDamageDecrease": true,
+         "allowBloodlineDamageIncrease": true
+        }
+       ],
+       "target": "GROUND",
+       "range": 2,
+       "cooldown": 3,
+       "bloodlineId": "",
+       "requiredLevel": 1,
+       "requiredRank": "STUDENT",
+       "jutsuType": "AI",
+       "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+       "jutsuWeapon": "NONE",
+       "statClassification": "None",
+       "elementClassification": "None",
+       "battleDescription": "%user closes a fist, and the cracked ring bursts upward.",
+       "jutsuRank": "D",
+       "actionCostPerc": 100,
+       "staminaCost": 0.05,
+       "chakraCost": 0.05,
+       "staminaCostReducePerLvl": 0,
+       "chakraCostReducePerLvl": 0,
+       "healthCostReducePerLvl": 0,
+       "healthCost": 0,
+       "villageId": "",
+       "requiredPetSpeciesId": null,
+       "method": "AOE_SPIRAL_SHOOT",
+       "coordinateTargeting": null,
+       "methodSize": null,
+       "hidden": true,
+       "injectableInBattle": false,
+       "battleUsageType": "BOTH",
+       "reskinParentJutsuId": null,
+       "bloodlineReskinId": null,
+       "parentJutsuId": null,
+       "requiredNinjutsuMastery": null,
+       "requiredGenjutsuMastery": null,
+       "requiredTaijutsuMastery": null,
+       "requiredBukijutsuMastery": null,
+       "requiredBloodlineMastery": null,
+       "requiredSageMastery": null,
+       "requiredStrength": null,
+       "requiredSpeed": null,
+       "requiredIntelligence": null,
+       "requiredWillpower": null,
+       "requiredSkillId": null,
+       "requiredBloodlineItemId": null
+      }
+     },
+     {
+      "id": "bwI48jeaTVTyZBT8OSW_A",
+      "userId": "XCDMY6jeLu4XXC71eVxYP",
+      "jutsuId": "Fq4fAf-UjORQkkFzzGXhN",
+      "createdAt": "2026-11-03T14:45:26.424Z",
+      "updatedAt": "2026-11-03T14:45:26.424Z",
+      "level": 1,
+      "experience": 0,
+      "equipped": true,
+      "trainingStartedAt": null,
+      "finishTraining": null,
+      "reskinId": null,
+      "jutsu": {
+       "id": "Fq4fAf-UjORQkkFzzGXhN",
+       "name": "Omen: Flood Scatter",
+       "description": "A warning mark. Whatever it marks is struck on the caster's next turn.",
+       "createdAt": "2026-10-31T06:07:11.069Z",
+       "updatedAt": "2026-11-03T14:42:34.291Z",
+       "extraBaseCost": 0,
+       "effects": [
+        {
+         "type": "increaseregeneration",
+         "power": 1,
+         "rounds": 1,
+         "target": "INHERIT",
+         "appearSfx": "",
+         "direction": "offence",
+         "calculation": "percentage",
+         "description": "Increase out-of-combat regeneration",
+         "disappearSfx": "",
+         "friendlyFire": "FRIENDLY",
+         "powerPerLevel": 0,
+         "appearAnimation": "bJy2IjRKmAVYEoXUYmXv5",
+         "staticAnimation": "dL1vh_PNbZQ9m6nYwGnFa",
+         "staticAssetPath": "dGCN9ZaoyXwDK9E3ZuWgU",
+         "disappearAnimation": "k8J4ic-KEz9ewEq1gAszr"
+        },
+        {
+         "type": "onehitkillprevent",
+         "power": 100,
+         "rounds": 1,
+         "target": "SELF",
+         "appearSfx": "",
+         "direction": "offence",
+         "calculation": "static",
+         "description": "Prevents instant kill effects",
+         "disappearSfx": "",
+         "powerPerLevel": 0,
+         "appearAnimation": "",
+         "staticAnimation": "",
+         "staticAssetPath": "",
+         "disappearAnimation": ""
+        }
+       ],
+       "target": "GROUND",
+       "range": 0,
+       "cooldown": 4,
+       "bloodlineId": "",
+       "requiredLevel": 1,
+       "requiredRank": "STUDENT",
+       "jutsuType": "AI",
+       "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+       "jutsuWeapon": "NONE",
+       "statClassification": "None",
+       "elementClassification": "None",
+       "battleDescription": "%user stamps once, and the floor swells red in patches.",
+       "jutsuRank": "D",
+       "actionCostPerc": 40,
+       "staminaCost": 0.05,
+       "chakraCost": 0.05,
+       "staminaCostReducePerLvl": 0,
+       "chakraCostReducePerLvl": 0,
+       "healthCostReducePerLvl": 0,
+       "healthCost": 0,
+       "villageId": "",
+       "requiredPetSpeciesId": null,
+       "method": "COORDINATES",
+       "coordinateTargeting": {
+        "origin": "BATTLEFIELD",
+        "selection": "ALL",
+        "coordinates": [
+         {
+          "latitude": 1,
+          "longitude": 0
+         },
+         {
+          "latitude": 3,
+          "longitude": 0
+         },
+         {
+          "latitude": 5,
+          "longitude": 0
+         },
+         {
+          "latitude": 7,
+          "longitude": 0
+         },
+         {
+          "latitude": 9,
+          "longitude": 0
+         },
+         {
+          "latitude": 1,
+          "longitude": 1
+         },
+         {
+          "latitude": 3,
+          "longitude": 1
+         },
+         {
+          "latitude": 5,
+          "longitude": 1
+         },
+         {
+          "latitude": 7,
+          "longitude": 1
+         },
+         {
+          "latitude": 9,
+          "longitude": 1
+         },
+         {
+          "latitude": 0,
+          "longitude": 2
+         },
+         {
+          "latitude": 2,
+          "longitude": 2
+         },
+         {
+          "latitude": 4,
+          "longitude": 2
+         },
+         {
+          "latitude": 6,
+          "longitude": 2
+         },
+         {
+          "latitude": 8,
+          "longitude": 2
+         },
+         {
+          "latitude": 0,
+          "longitude": 3
+         },
+         {
+          "latitude": 2,
+          "longitude": 3
+         },
+         {
+          "latitude": 4,
+          "longitude": 3
+         },
+         {
+          "latitude": 6,
+          "longitude": 3
+         },
+         {
+          "latitude": 8,
+          "longitude": 3
+         },
+         {
+          "latitude": 1,
+          "longitude": 4
+         },
+         {
+          "latitude": 3,
+          "longitude": 4
+         },
+         {
+          "latitude": 5,
+          "longitude": 4
+         },
+         {
+          "latitude": 7,
+          "longitude": 4
+         },
+         {
+          "latitude": 9,
+          "longitude": 4
+         },
+         {
+          "latitude": 1,
+          "longitude": 5
+         },
+         {
+          "latitude": 3,
+          "longitude": 5
+         },
+         {
+          "latitude": 7,
+          "longitude": 5
+         },
+         {
+          "latitude": 9,
+          "longitude": 5
+         },
+         {
+          "latitude": 0,
+          "longitude": 6
+         },
+         {
+          "latitude": 4,
+          "longitude": 6
+         },
+         {
+          "latitude": 6,
+          "longitude": 6
+         },
+         {
+          "latitude": 0,
+          "longitude": 7
+         },
+         {
+          "latitude": 2,
+          "longitude": 7
+         },
+         {
+          "latitude": 4,
+          "longitude": 7
+         },
+         {
+          "latitude": 6,
+          "longitude": 7
+         },
+         {
+          "latitude": 8,
+          "longitude": 7
+         },
+         {
+          "latitude": 1,
+          "longitude": 8
+         },
+         {
+          "latitude": 3,
+          "longitude": 8
+         },
+         {
+          "latitude": 5,
+          "longitude": 8
+         },
+         {
+          "latitude": 7,
+          "longitude": 8
+         },
+         {
+          "latitude": 9,
+          "longitude": 8
+         },
+         {
+          "latitude": 1,
+          "longitude": 9
+         },
+         {
+          "latitude": 3,
+          "longitude": 9
+         },
+         {
+          "latitude": 5,
+          "longitude": 9
+         },
+         {
+          "latitude": 7,
+          "longitude": 9
+         },
+         {
+          "latitude": 9,
+          "longitude": 9
+         },
+         {
+          "latitude": 0,
+          "longitude": 10
+         },
+         {
+          "latitude": 2,
+          "longitude": 10
+         },
+         {
+          "latitude": 4,
+          "longitude": 10
+         },
+         {
+          "latitude": 6,
+          "longitude": 10
+         },
+         {
+          "latitude": 8,
+          "longitude": 10
+         },
+         {
+          "latitude": 0,
+          "longitude": 11
+         },
+         {
+          "latitude": 2,
+          "longitude": 11
+         },
+         {
+          "latitude": 4,
+          "longitude": 11
+         },
+         {
+          "latitude": 6,
+          "longitude": 11
+         },
+         {
+          "latitude": 8,
+          "longitude": 11
+         }
+        ],
+        "randomCount": 1
+       },
+       "methodSize": null,
+       "hidden": true,
+       "injectableInBattle": false,
+       "battleUsageType": "BOTH",
+       "reskinParentJutsuId": null,
+       "bloodlineReskinId": null,
+       "parentJutsuId": null,
+       "requiredNinjutsuMastery": null,
+       "requiredGenjutsuMastery": null,
+       "requiredTaijutsuMastery": null,
+       "requiredBukijutsuMastery": null,
+       "requiredBloodlineMastery": null,
+       "requiredSageMastery": null,
+       "requiredStrength": null,
+       "requiredSpeed": null,
+       "requiredIntelligence": null,
+       "requiredWillpower": null,
+       "requiredSkillId": null,
+       "requiredBloodlineItemId": null
+      }
+     },
+     {
+      "id": "XqWWB5-CT-uS_A-wGmH0s",
+      "userId": "XCDMY6jeLu4XXC71eVxYP",
+      "jutsuId": "pUrUJX8Jml7fUIBXKsPwv",
+      "createdAt": "2026-10-31T22:05:11.212Z",
+      "updatedAt": "2026-10-31T22:05:11.212Z",
+      "level": 1,
+      "experience": 0,
+      "equipped": true,
+      "trainingStartedAt": null,
+      "finishTraining": null,
+      "reskinId": null,
+      "jutsu": {
+       "id": "pUrUJX8Jml7fUIBXKsPwv",
+       "name": "Heavy Strike",
+       "description": "A committed, full-weight blow.",
+       "createdAt": "2026-07-17T02:18:25.078Z",
+       "updatedAt": "2026-10-21T03:33:03.585Z",
+       "extraBaseCost": 0,
+       "effects": [
+        {
+         "type": "damage",
+         "power": 60,
+         "rounds": 0,
+         "target": "INHERIT",
+         "appearSfx": "",
+         "direction": "offence",
+         "statTypes": [
+          "None"
+         ],
+         "calculation": "formula",
+         "description": "Deals damage to target",
+         "dmgModifier": 1,
+         "disappearSfx": "",
+         "powerPerLevel": 0,
+         "appearAnimation": "",
+         "staticAnimation": "",
+         "staticAssetPath": "",
+         "residualModifier": 1,
+         "disappearAnimation": "",
+         "allowBloodlineDamageDecrease": true,
+         "allowBloodlineDamageIncrease": true
+        }
+       ],
+       "target": "OTHER_USER",
+       "range": 3,
+       "cooldown": 5,
+       "bloodlineId": null,
+       "requiredLevel": 1,
+       "requiredRank": "STUDENT",
+       "jutsuType": "AI",
+       "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+       "jutsuWeapon": "NONE",
+       "statClassification": "None",
+       "elementClassification": "None",
+       "battleDescription": "%user plants their feet, twists from the hips, and puts their whole weight behind one heavy strike. It lands on %target with a crack that echoes across the field.",
+       "jutsuRank": "D",
+       "actionCostPerc": 60,
+       "staminaCost": 0.05,
+       "chakraCost": 0.05,
+       "staminaCostReducePerLvl": 0,
+       "chakraCostReducePerLvl": 0,
+       "healthCostReducePerLvl": 0,
+       "healthCost": 0,
+       "villageId": null,
+       "requiredPetSpeciesId": null,
+       "method": "SINGLE",
+       "coordinateTargeting": null,
+       "methodSize": null,
+       "hidden": true,
+       "injectableInBattle": false,
+       "battleUsageType": "BOTH",
+       "reskinParentJutsuId": null,
+       "bloodlineReskinId": null,
+       "parentJutsuId": null,
+       "requiredNinjutsuMastery": null,
+       "requiredGenjutsuMastery": null,
+       "requiredTaijutsuMastery": null,
+       "requiredBukijutsuMastery": null,
+       "requiredBloodlineMastery": null,
+       "requiredSageMastery": null,
+       "requiredStrength": null,
+       "requiredSpeed": null,
+       "requiredIntelligence": null,
+       "requiredWillpower": null,
+       "requiredSkillId": null,
+       "requiredBloodlineItemId": null
+      }
+     },
+     {
+      "id": "ZWhTZOQZN6JAZeSsljXJo",
+      "userId": "XCDMY6jeLu4XXC71eVxYP",
+      "jutsuId": "rFQkMgkBjLDv80CxF_Bom",
+      "createdAt": "2026-11-03T15:06:09.613Z",
+      "updatedAt": "2026-11-03T15:06:09.613Z",
+      "level": 1,
+      "experience": 0,
+      "equipped": true,
+      "trainingStartedAt": null,
+      "finishTraining": null,
+      "reskinId": null,
+      "jutsu": {
+       "id": "rFQkMgkBjLDv80CxF_Bom",
+       "name": "Undertow",
+       "description": "The deck turns to a rip tide beneath the target and drags them in.",
+       "createdAt": "2026-11-03T15:03:08.376Z",
+       "updatedAt": "2026-11-03T15:03:08.962Z",
+       "extraBaseCost": 0,
+       "effects": [
+        {
+         "type": "redirection",
+         "power": 3,
+         "rounds": 0,
+         "target": "INHERIT",
+         "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
+         "direction": "pull",
+         "calculation": "static",
+         "description": "placeholder",
+         "disappearSfx": "",
+         "powerPerLevel": 0,
+         "appearAnimation": "3vKPSGqmwtJn1by7Uk1Ii",
+         "staticAnimation": "",
+         "staticAssetPath": "",
+         "disappearAnimation": ""
+        }
+       ],
+       "target": "OTHER_USER",
+       "range": 5,
+       "cooldown": 6,
+       "bloodlineId": "",
+       "requiredLevel": 1,
+       "requiredRank": "STUDENT",
+       "jutsuType": "AI",
+       "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+       "jutsuWeapon": "NONE",
+       "statClassification": "None",
+       "elementClassification": "None",
+       "battleDescription": "The planks under %target heave like a rip tide, and %user drags them in across the deck.",
+       "jutsuRank": "D",
+       "actionCostPerc": 60,
+       "staminaCost": 0,
+       "chakraCost": 0,
+       "staminaCostReducePerLvl": 0,
+       "chakraCostReducePerLvl": 0,
+       "healthCostReducePerLvl": 0,
+       "healthCost": 0,
+       "villageId": "",
+       "requiredPetSpeciesId": null,
+       "method": "SINGLE",
+       "coordinateTargeting": null,
+       "methodSize": null,
+       "hidden": true,
+       "injectableInBattle": false,
+       "battleUsageType": "BOTH",
+       "reskinParentJutsuId": null,
+       "bloodlineReskinId": null,
+       "parentJutsuId": null,
+       "requiredNinjutsuMastery": null,
+       "requiredGenjutsuMastery": null,
+       "requiredTaijutsuMastery": null,
+       "requiredBukijutsuMastery": null,
+       "requiredBloodlineMastery": null,
+       "requiredSageMastery": null,
+       "requiredStrength": null,
+       "requiredSpeed": null,
+       "requiredIntelligence": null,
+       "requiredWillpower": null,
+       "requiredSkillId": null,
+       "requiredBloodlineItemId": null
+      }
+     },
+     {
+      "id": "fzdPDujJ-IKGPQ6genY9Z",
+      "userId": "XCDMY6jeLu4XXC71eVxYP",
+      "jutsuId": "RJAnu9eJDHuEagLK2Af3A",
+      "createdAt": "2026-11-03T14:45:26.424Z",
+      "updatedAt": "2026-11-03T14:45:26.424Z",
+      "level": 1,
+      "experience": 0,
+      "equipped": true,
+      "trainingStartedAt": null,
+      "finishTraining": null,
+      "reskinId": null,
+      "jutsu": {
+       "id": "RJAnu9eJDHuEagLK2Af3A",
+       "name": "Omen: Three Lights",
+       "description": "A warning mark. Whatever it marks is struck on the caster's next turn.",
+       "createdAt": "2026-10-31T06:07:14.920Z",
+       "updatedAt": "2026-11-03T14:42:38.719Z",
+       "extraBaseCost": 0,
+       "effects": [
+        {
+         "type": "increaseregeneration",
+         "power": 1,
+         "rounds": 1,
+         "target": "INHERIT",
+         "appearSfx": "",
+         "direction": "offence",
+         "calculation": "percentage",
+         "description": "Increase out-of-combat regeneration",
+         "disappearSfx": "",
+         "friendlyFire": "FRIENDLY",
+         "powerPerLevel": 0,
+         "appearAnimation": "bJy2IjRKmAVYEoXUYmXv5",
+         "staticAnimation": "dL1vh_PNbZQ9m6nYwGnFa",
+         "staticAssetPath": "dGCN9ZaoyXwDK9E3ZuWgU",
+         "disappearAnimation": "k8J4ic-KEz9ewEq1gAszr"
+        },
+        {
+         "type": "increaseregeneration",
+         "power": 1,
+         "rounds": 1,
+         "target": "COORDINATES",
+         "appearSfx": "",
+         "direction": "offence",
+         "calculation": "percentage",
+         "description": "Increase out-of-combat regeneration",
+         "disappearSfx": "",
+         "friendlyFire": "FRIENDLY",
+         "powerPerLevel": 0,
+         "appearAnimation": "bJy2IjRKmAVYEoXUYmXv5",
+         "staticAnimation": "v9nA0cPU5NXxBXoONhdLH",
+         "staticAssetPath": "-hIV18piGe0EcC0u6eN8d",
+         "disappearAnimation": "k8J4ic-KEz9ewEq1gAszr",
+         "coordinateTargeting": {
+          "origin": "BATTLEFIELD",
+          "selection": "ALL",
+          "coordinates": [
+           {
+            "latitude": 2,
+            "longitude": 6
+           },
+           {
+            "latitude": 5,
+            "longitude": 5
+           },
+           {
+            "latitude": 8,
+            "longitude": 6
+           }
+          ],
+          "randomCount": 1
+         }
+        },
+        {
+         "type": "summonprevent",
+         "power": 100,
+         "rounds": 1,
+         "target": "SELF",
+         "appearSfx": "",
+         "direction": "offence",
+         "calculation": "static",
+         "description": "Prevents summoning",
+         "disappearSfx": "",
+         "powerPerLevel": 0,
+         "appearAnimation": "",
+         "staticAnimation": "",
+         "staticAssetPath": "",
+         "disappearAnimation": ""
+        }
+       ],
+       "target": "GROUND",
+       "range": 0,
+       "cooldown": 6,
+       "bloodlineId": "",
+       "requiredLevel": 1,
+       "requiredRank": "STUDENT",
+       "jutsuType": "AI",
+       "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+       "jutsuWeapon": "NONE",
+       "statClassification": "None",
+       "elementClassification": "None",
+       "battleDescription": "%user raises both hands, and the whole field darkens red. Three points of skyglass light remain.",
+       "jutsuRank": "D",
+       "actionCostPerc": 40,
+       "staminaCost": 0.05,
+       "chakraCost": 0.05,
+       "staminaCostReducePerLvl": 0,
+       "chakraCostReducePerLvl": 0,
+       "healthCostReducePerLvl": 0,
+       "healthCost": 0,
+       "villageId": "",
+       "requiredPetSpeciesId": null,
+       "method": "COORDINATES",
+       "coordinateTargeting": {
+        "origin": "BATTLEFIELD",
+        "selection": "EXCLUDE",
+        "coordinates": [
+         {
+          "latitude": 2,
+          "longitude": 6
+         },
+         {
+          "latitude": 5,
+          "longitude": 5
+         },
+         {
+          "latitude": 8,
+          "longitude": 6
+         }
+        ],
+        "randomCount": 1
+       },
+       "methodSize": null,
+       "hidden": true,
+       "injectableInBattle": false,
+       "battleUsageType": "BOTH",
+       "reskinParentJutsuId": null,
+       "bloodlineReskinId": null,
+       "parentJutsuId": null,
+       "requiredNinjutsuMastery": null,
+       "requiredGenjutsuMastery": null,
+       "requiredTaijutsuMastery": null,
+       "requiredBukijutsuMastery": null,
+       "requiredBloodlineMastery": null,
+       "requiredSageMastery": null,
+       "requiredStrength": null,
+       "requiredSpeed": null,
+       "requiredIntelligence": null,
+       "requiredWillpower": null,
+       "requiredSkillId": null,
+       "requiredBloodlineItemId": null
+      }
+     },
+     {
+      "id": "wYIr3iYZ73w55qghh1QJY",
+      "userId": "XCDMY6jeLu4XXC71eVxYP",
+      "jutsuId": "s1C6Xtn6El4BtGt4EuXVK",
+      "createdAt": "2026-11-03T14:45:26.424Z",
+      "updatedAt": "2026-11-03T14:45:26.424Z",
+      "level": 1,
+      "experience": 0,
+      "equipped": true,
+      "trainingStartedAt": null,
+      "finishTraining": null,
+      "reskinId": null,
+      "jutsu": {
+       "id": "s1C6Xtn6El4BtGt4EuXVK",
+       "name": "Eruption: Ebb Scatter",
+       "description": "Strikes the ground its omen marked.",
+       "createdAt": "2026-10-31T06:07:24.810Z",
+       "updatedAt": "2026-11-03T14:42:25.966Z",
+       "extraBaseCost": 0,
+       "effects": [
+        {
+         "type": "damage",
+         "power": 140,
+         "rounds": 0,
+         "target": "INHERIT",
+         "appearSfx": "",
+         "direction": "offence",
+         "statTypes": [
+          "None"
+         ],
+         "calculation": "formula",
+         "description": "Deals damage to target",
+         "dmgModifier": 1,
+         "disappearSfx": "",
+         "friendlyFire": "ENEMIES",
+         "powerPerLevel": 0,
+         "appearAnimation": "Z9j8J7ZmAjiaxH2S4nDy8",
+         "staticAnimation": "",
+         "staticAssetPath": "",
+         "residualModifier": 1,
+         "disappearAnimation": "",
+         "allowBloodlineDamageDecrease": true,
+         "allowBloodlineDamageIncrease": true
+        },
+        {
+         "type": "damage",
+         "power": 30,
+         "rounds": 2,
+         "target": "INHERIT",
+         "appearSfx": "",
+         "direction": "offence",
+         "statTypes": [
+          "None"
+         ],
+         "calculation": "formula",
+         "description": "Deals damage to target",
+         "dmgModifier": 1,
+         "disappearSfx": "",
+         "friendlyFire": "ENEMIES",
+         "powerPerLevel": 0,
+         "appearAnimation": "bJy2IjRKmAVYEoXUYmXv5",
+         "staticAnimation": "qlGYJizxxxdd794Jea6lB",
+         "staticAssetPath": "PoG_KDERWlvyj7MsKSDW2",
+         "residualModifier": 1,
+         "disappearAnimation": "",
+         "allowBloodlineDamageDecrease": true,
+         "allowBloodlineDamageIncrease": true
+        }
+       ],
+       "target": "GROUND",
+       "range": 0,
+       "cooldown": 3,
+       "bloodlineId": "",
+       "requiredLevel": 1,
+       "requiredRank": "STUDENT",
+       "jutsuType": "AI",
+       "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+       "jutsuWeapon": "NONE",
+       "statClassification": "None",
+       "elementClassification": "None",
+       "battleDescription": "%user stamps again, and the swollen ground bursts.",
+       "jutsuRank": "D",
+       "actionCostPerc": 100,
+       "staminaCost": 0.05,
+       "chakraCost": 0.05,
+       "staminaCostReducePerLvl": 0,
+       "chakraCostReducePerLvl": 0,
+       "healthCostReducePerLvl": 0,
+       "healthCost": 0,
+       "villageId": "",
+       "requiredPetSpeciesId": null,
+       "method": "COORDINATES",
+       "coordinateTargeting": {
+        "origin": "BATTLEFIELD",
+        "selection": "ALL",
+        "coordinates": [
+         {
+          "latitude": 0,
+          "longitude": 0
+         },
+         {
+          "latitude": 2,
+          "longitude": 0
+         },
+         {
+          "latitude": 4,
+          "longitude": 0
+         },
+         {
+          "latitude": 6,
+          "longitude": 0
+         },
+         {
+          "latitude": 8,
+          "longitude": 0
+         },
+         {
+          "latitude": 0,
+          "longitude": 1
+         },
+         {
+          "latitude": 2,
+          "longitude": 1
+         },
+         {
+          "latitude": 4,
+          "longitude": 1
+         },
+         {
+          "latitude": 6,
+          "longitude": 1
+         },
+         {
+          "latitude": 8,
+          "longitude": 1
+         },
+         {
+          "latitude": 1,
+          "longitude": 2
+         },
+         {
+          "latitude": 3,
+          "longitude": 2
+         },
+         {
+          "latitude": 5,
+          "longitude": 2
+         },
+         {
+          "latitude": 7,
+          "longitude": 2
+         },
+         {
+          "latitude": 9,
+          "longitude": 2
+         },
+         {
+          "latitude": 1,
+          "longitude": 3
+         },
+         {
+          "latitude": 3,
+          "longitude": 3
+         },
+         {
+          "latitude": 5,
+          "longitude": 3
+         },
+         {
+          "latitude": 7,
+          "longitude": 3
+         },
+         {
+          "latitude": 9,
+          "longitude": 3
+         },
+         {
+          "latitude": 0,
+          "longitude": 4
+         },
+         {
+          "latitude": 2,
+          "longitude": 4
+         },
+         {
+          "latitude": 4,
+          "longitude": 4
+         },
+         {
+          "latitude": 6,
+          "longitude": 4
+         },
+         {
+          "latitude": 8,
+          "longitude": 4
+         },
+         {
+          "latitude": 0,
+          "longitude": 5
+         },
+         {
+          "latitude": 2,
+          "longitude": 5
+         },
+         {
+          "latitude": 4,
+          "longitude": 5
+         },
+         {
+          "latitude": 6,
+          "longitude": 5
+         },
+         {
+          "latitude": 8,
+          "longitude": 5
+         },
+         {
+          "latitude": 1,
+          "longitude": 6
+         },
+         {
+          "latitude": 3,
+          "longitude": 6
+         },
+         {
+          "latitude": 5,
+          "longitude": 6
+         },
+         {
+          "latitude": 7,
+          "longitude": 6
+         },
+         {
+          "latitude": 9,
+          "longitude": 6
+         },
+         {
+          "latitude": 1,
+          "longitude": 7
+         },
+         {
+          "latitude": 3,
+          "longitude": 7
+         },
+         {
+          "latitude": 5,
+          "longitude": 7
+         },
+         {
+          "latitude": 7,
+          "longitude": 7
+         },
+         {
+          "latitude": 9,
+          "longitude": 7
+         },
+         {
+          "latitude": 0,
+          "longitude": 8
+         },
+         {
+          "latitude": 2,
+          "longitude": 8
+         },
+         {
+          "latitude": 4,
+          "longitude": 8
+         },
+         {
+          "latitude": 6,
+          "longitude": 8
+         },
+         {
+          "latitude": 8,
+          "longitude": 8
+         },
+         {
+          "latitude": 0,
+          "longitude": 9
+         },
+         {
+          "latitude": 2,
+          "longitude": 9
+         },
+         {
+          "latitude": 4,
+          "longitude": 9
+         },
+         {
+          "latitude": 6,
+          "longitude": 9
+         },
+         {
+          "latitude": 8,
+          "longitude": 9
+         },
+         {
+          "latitude": 1,
+          "longitude": 10
+         },
+         {
+          "latitude": 3,
+          "longitude": 10
+         },
+         {
+          "latitude": 5,
+          "longitude": 10
+         },
+         {
+          "latitude": 7,
+          "longitude": 10
+         },
+         {
+          "latitude": 9,
+          "longitude": 10
+         },
+         {
+          "latitude": 1,
+          "longitude": 11
+         },
+         {
+          "latitude": 3,
+          "longitude": 11
+         },
+         {
+          "latitude": 5,
+          "longitude": 11
+         },
+         {
+          "latitude": 7,
+          "longitude": 11
+         },
+         {
+          "latitude": 9,
+          "longitude": 11
+         }
+        ],
+        "randomCount": 1
+       },
+       "methodSize": null,
+       "hidden": true,
+       "injectableInBattle": false,
+       "battleUsageType": "BOTH",
+       "reskinParentJutsuId": null,
+       "bloodlineReskinId": null,
+       "parentJutsuId": null,
+       "requiredNinjutsuMastery": null,
+       "requiredGenjutsuMastery": null,
+       "requiredTaijutsuMastery": null,
+       "requiredBukijutsuMastery": null,
+       "requiredBloodlineMastery": null,
+       "requiredSageMastery": null,
+       "requiredStrength": null,
+       "requiredSpeed": null,
+       "requiredIntelligence": null,
+       "requiredWillpower": null,
+       "requiredSkillId": null,
+       "requiredBloodlineItemId": null
+      }
+     },
+     {
+      "id": "CIZ6V1Ex9PNP0YUvgMzv_",
+      "userId": "XCDMY6jeLu4XXC71eVxYP",
+      "jutsuId": "yIs11025Lbj3aENsm4YfQ",
+      "createdAt": "2026-11-03T15:06:09.613Z",
+      "updatedAt": "2026-11-03T15:06:09.613Z",
+      "level": 1,
+      "experience": 0,
+      "equipped": true,
+      "trainingStartedAt": null,
+      "finishTraining": null,
+      "reskinId": null,
+      "jutsu": {
+       "id": "yIs11025Lbj3aENsm4YfQ",
+       "name": "The Core Rebuilds",
+       "description": "The Core pours fresh skyglass into the Horror's wounds and seals them over.",
+       "createdAt": "2026-11-03T15:03:05.173Z",
+       "updatedAt": "2026-11-03T15:03:05.784Z",
+       "extraBaseCost": 0,
+       "effects": [
+        {
+         "type": "heal",
+         "power": 15,
+         "rounds": 0,
+         "target": "INHERIT",
+         "appearSfx": "yGzPWg1cLQc6dYd1EpCsl",
+         "direction": "offence",
+         "calculation": "percentage",
+         "description": "placeholder",
+         "disappearSfx": "",
+         "poolsAffected": [
+          "Health"
+         ],
+         "powerPerLevel": 0,
+         "appearAnimation": "GQUruXFN_qNxDvXsRM3kg",
+         "staticAnimation": "",
+         "staticAssetPath": "",
+         "disappearAnimation": ""
+        }
+       ],
+       "target": "SELF",
+       "range": 0,
+       "cooldown": 6,
+       "bloodlineId": "",
+       "requiredLevel": 1,
+       "requiredRank": "STUDENT",
+       "jutsuType": "AI",
+       "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+       "jutsuWeapon": "NONE",
+       "statClassification": "None",
+       "elementClassification": "None",
+       "battleDescription": "Skyglass floods the cracks in %user's body, and the wounds seal over with a low, rising hum.",
+       "jutsuRank": "D",
+       "actionCostPerc": 40,
+       "staminaCost": 0,
+       "chakraCost": 0,
+       "staminaCostReducePerLvl": 0,
+       "chakraCostReducePerLvl": 0,
+       "healthCostReducePerLvl": 0,
+       "healthCost": 0,
+       "villageId": "",
+       "requiredPetSpeciesId": null,
+       "method": "SINGLE",
+       "coordinateTargeting": null,
+       "methodSize": null,
+       "hidden": true,
+       "injectableInBattle": false,
+       "battleUsageType": "BOTH",
+       "reskinParentJutsuId": null,
+       "bloodlineReskinId": null,
+       "parentJutsuId": null,
+       "requiredNinjutsuMastery": null,
+       "requiredGenjutsuMastery": null,
+       "requiredTaijutsuMastery": null,
+       "requiredBukijutsuMastery": null,
+       "requiredBloodlineMastery": null,
+       "requiredSageMastery": null,
+       "requiredStrength": null,
+       "requiredSpeed": null,
+       "requiredIntelligence": null,
+       "requiredWillpower": null,
+       "requiredSkillId": null,
+       "requiredBloodlineItemId": null
+      }
+     },
+     {
+      "id": "aki4_qVIoze2KzY4h0pc0",
+      "userId": "XCDMY6jeLu4XXC71eVxYP",
+      "jutsuId": "Z9B3wJGA12Zlb5s8-MNUh",
+      "createdAt": "2026-11-03T14:45:26.424Z",
+      "updatedAt": "2026-11-03T14:45:26.424Z",
+      "level": 1,
+      "experience": 0,
+      "equipped": true,
+      "trainingStartedAt": null,
+      "finishTraining": null,
+      "reskinId": null,
+      "jutsu": {
+       "id": "Z9B3wJGA12Zlb5s8-MNUh",
+       "name": "Omen: Cracking Ring",
+       "description": "A warning mark. Whatever it marks is struck on the caster's next turn.",
+       "createdAt": "2026-10-31T06:07:03.590Z",
+       "updatedAt": "2026-11-03T14:42:30.665Z",
+       "extraBaseCost": 0,
+       "effects": [
+        {
+         "type": "increaseregeneration",
+         "power": 1,
+         "rounds": 1,
+         "target": "INHERIT",
+         "appearSfx": "",
+         "direction": "offence",
+         "calculation": "percentage",
+         "description": "Increase out-of-combat regeneration",
+         "disappearSfx": "",
+         "friendlyFire": "FRIENDLY",
+         "powerPerLevel": 0,
+         "appearAnimation": "bJy2IjRKmAVYEoXUYmXv5",
+         "staticAnimation": "dL1vh_PNbZQ9m6nYwGnFa",
+         "staticAssetPath": "dGCN9ZaoyXwDK9E3ZuWgU",
+         "disappearAnimation": "k8J4ic-KEz9ewEq1gAszr"
+        },
+        {
+         "type": "increasecooldown",
+         "power": 1,
+         "rounds": 1,
+         "target": "SELF",
+         "appearSfx": "",
+         "direction": "offence",
+         "calculation": "static",
+         "description": "Increase cooldown of basic actions",
+         "disappearSfx": "",
+         "powerPerLevel": 0,
+         "actionsAffected": [],
+         "appearAnimation": "",
+         "staticAnimation": "",
+         "staticAssetPath": "",
+         "disappearAnimation": ""
+        }
+       ],
+       "target": "GROUND",
+       "range": 2,
+       "cooldown": 4,
+       "bloodlineId": "",
+       "requiredLevel": 1,
+       "requiredRank": "STUDENT",
+       "jutsuType": "AI",
+       "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+       "jutsuWeapon": "NONE",
+       "statClassification": "None",
+       "elementClassification": "None",
+       "battleDescription": "%user presses a palm to the floor, and a ring of red cracks opens around them.",
+       "jutsuRank": "D",
+       "actionCostPerc": 40,
+       "staminaCost": 0.05,
+       "chakraCost": 0.05,
+       "staminaCostReducePerLvl": 0,
+       "chakraCostReducePerLvl": 0,
+       "healthCostReducePerLvl": 0,
+       "healthCost": 0,
+       "villageId": "",
+       "requiredPetSpeciesId": null,
+       "method": "AOE_SPIRAL_SHOOT",
+       "coordinateTargeting": null,
+       "methodSize": null,
+       "hidden": true,
+       "injectableInBattle": false,
+       "battleUsageType": "BOTH",
+       "reskinParentJutsuId": null,
+       "bloodlineReskinId": null,
+       "parentJutsuId": null,
+       "requiredNinjutsuMastery": null,
+       "requiredGenjutsuMastery": null,
+       "requiredTaijutsuMastery": null,
+       "requiredBukijutsuMastery": null,
+       "requiredBloodlineMastery": null,
+       "requiredSageMastery": null,
+       "requiredStrength": null,
+       "requiredSpeed": null,
+       "requiredIntelligence": null,
+       "requiredWillpower": null,
+       "requiredSkillId": null,
+       "requiredBloodlineItemId": null
+      }
+     }
+    ],
+    "items": []
+   }
+  },
+  {
+   "phase": "before",
+   "proc": "ai.getAiProfile",
+   "input": {
+    "id": "64q_dHDYCxhALkrPLhYxK"
+   },
+   "ok": true,
+   "rows": 1,
+   "error": null,
+   "persist": "full",
+   "snapshotKey": "560-mw9gh3y3::before::3",
+   "persistOk": true,
+   "persistError": null,
+   "bytes": 4258,
+   "at": "2026-11-09T16:09:28.019Z",
+   "data": {
+    "id": "64q_dHDYCxhALkrPLhYxK",
+    "userId": "XCDMY6jeLu4XXC71eVxYP",
+    "rules": [
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "yIs11025Lbj3aENsm4YfQ",
+       "description": "The Core Rebuilds (live Second Wind, under 70%)"
+      },
+      "conditions": [
+       {
+        "type": "health_below",
+        "value": 70,
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "_hxcJFYdxVOsjs0ryzrFq",
+       "description": "Maw of the Deep (signature, Exposed Seam)"
+      },
+      "conditions": [
+       {
+        "type": "has_effect",
+        "threshold": 1,
+        "effectType": "summonprevent",
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "s1C6Xtn6El4BtGt4EuXVK",
+       "description": "Rupture Field A erupts (pools)"
+      },
+      "conditions": [
+       {
+        "type": "has_effect",
+        "threshold": 1,
+        "effectType": "robprevent",
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "8RIXlsWIbsMtIh7sCwHSE",
+       "description": "Rupture Field B erupts (pools)"
+      },
+      "conditions": [
+       {
+        "type": "has_effect",
+        "threshold": 1,
+        "effectType": "onehitkillprevent",
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "BwlbHwTN4EVYXYJsE18rl",
+       "description": "Collapse (ring blast)"
+      },
+      "conditions": [
+       {
+        "type": "has_effect",
+        "threshold": 1,
+        "effectType": "increasecooldown",
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "RANDOM_OPPONENT",
+       "jutsuId": "rFQkMgkBjLDv80CxF_Bom",
+       "description": "Undertow (live Sovereign Undertow, during a ring mark)"
+      },
+      "conditions": [
+       {
+        "type": "has_effect",
+        "threshold": 1,
+        "effectType": "increasecooldown",
+        "description": ""
+       },
+       {
+        "type": "distance_higher_than",
+        "value": 4,
+        "target": "RANDOM_OPPONENT",
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "RJAnu9eJDHuEagLK2Af3A",
+       "description": "Omen: Last Light (Maw of the Deep, level-50 order: first)"
+      },
+      "conditions": []
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "CLOSEST_OPPONENT",
+       "jutsuId": "pUrUJX8Jml7fUIBXKsPwv",
+       "description": "Splintered Grasp (live Heavy Strike)"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 4,
+        "target": "CLOSEST_OPPONENT",
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "CLOSEST_OPPONENT",
+       "jutsuId": "aWxJdkyKpxARs7sHR2dg2",
+       "description": "Bilge Spit (live Venom Strike)"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT",
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "CLOSEST_OPPONENT",
+       "jutsuId": "3v9c1SHlD2GLPF2HW1_Sc",
+       "description": "Twin Kunai"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT",
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "end_turn",
+       "description": "after lib-omen-ring: end turn"
+      },
+      "conditions": [
+       {
+        "type": "has_effect",
+        "threshold": 1,
+        "effectType": "increasecooldown",
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "end_turn",
+       "description": "after lib-omen-scatter-a: end turn"
+      },
+      "conditions": [
+       {
+        "type": "has_effect",
+        "threshold": 1,
+        "effectType": "robprevent",
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "end_turn",
+       "description": "after lib-omen-scatter-b: end turn"
+      },
+      "conditions": [
+       {
+        "type": "has_effect",
+        "threshold": 1,
+        "effectType": "onehitkillprevent",
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "end_turn",
+       "description": "after lib-omen-last-light: end turn"
+      },
+      "conditions": [
+       {
+        "type": "has_effect",
+        "threshold": 1,
+        "effectType": "summonprevent",
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "-IbSdvavSQFqQmGduEi-J",
+       "description": "Omen: Scatter A (phase 2)"
+      },
+      "conditions": [
+       {
+        "type": "health_below",
+        "value": 70,
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "Fq4fAf-UjORQkkFzzGXhN",
+       "description": "Omen: Scatter B (phase 2)"
+      },
+      "conditions": [
+       {
+        "type": "health_below",
+        "value": 70,
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "Z9B3wJGA12Zlb5s8-MNUh",
+       "description": "Omen: Ring (Collapse, a player within 2)"
+      },
+      "conditions": [
+       {
+        "type": "player_within_range",
+        "maxRange": 2,
+        "minRange": 0,
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "-IbSdvavSQFqQmGduEi-J",
+       "description": "Omen: Scatter A"
+      },
+      "conditions": []
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "Fq4fAf-UjORQkkFzzGXhN",
+       "description": "Omen: Scatter B"
+      },
+      "conditions": []
+     },
+     {
+      "action": {
+       "type": "end_turn",
+       "description": "stationary: hold"
+      },
+      "conditions": []
+     }
+    ],
+    "includeDefaultRules": true
+   }
+  },
+  {
+   "phase": "before",
+   "proc": "profile.getAi",
+   "input": {
+    "userId": "nR5okP-MiRsnSpiJQ8CM-"
+   },
+   "ok": false,
+   "rows": 0,
+   "error": "MALFORMED_ELEMENT",
+   "persist": "full",
+   "snapshotKey": "560-mw9gh3y3::before::4",
+   "persistOk": false,
+   "persistError": "read failed; there is no body to persist"
+  },
+  {
+   "phase": "before",
+   "proc": "ai.getAiProfile",
+   "input": {
+    "id": "Zjasz7cipzsqAOQy0sMWD"
+   },
+   "ok": true,
+   "rows": 1,
+   "error": null,
+   "persist": "full",
+   "snapshotKey": "560-mw9gh3y3::before::5",
+   "persistOk": true,
+   "persistError": null,
+   "bytes": 4600,
+   "at": "2026-11-09T16:09:58.427Z",
+   "data": {
+    "id": "Zjasz7cipzsqAOQy0sMWD",
+    "userId": "nR5okP-MiRsnSpiJQ8CM-",
+    "rules": [
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "CxGrWF_wJepsT6W4MNkuq",
+       "description": "Broadside (signature, rows A)"
+      },
+      "conditions": [
+       {
+        "type": "has_effect",
+        "threshold": 1,
+        "effectType": "increaserange",
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "4mu7BPrMKOHXmvp5WKMmw",
+       "description": "Ship's Bell (signature)"
+      },
+      "conditions": [
+       {
+        "type": "has_effect",
+        "threshold": 1,
+        "effectType": "decreasecooldown",
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "AGLdBcv2D-AAAmA8OuRJ3",
+       "description": "Steady the Helm (phase 2 begins; once)"
+      },
+      "conditions": [
+       {
+        "type": "health_below",
+        "value": 50,
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "EMPTY_GROUND_CLOSEST_TO_OPPONENT",
+       "jutsuId": "Iyb21Vh0j7g2eD1I-YAQw",
+       "description": "Raise the Gunwale (transition; once; he falls back behind the rail)"
+      },
+      "conditions": [
+       {
+        "type": "health_below",
+        "value": 50,
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "cKZVVYKd43hpjTnHl1hUe",
+       "description": "Omen: Binding Ring (Ship's Bell, phase 2)"
+      },
+      "conditions": [
+       {
+        "type": "health_below",
+        "value": 50,
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "-uy2-icY9xbviQewAwOE2",
+       "description": "Omen: Rows A (Broadside, phase 2)"
+      },
+      "conditions": [
+       {
+        "type": "health_below",
+        "value": 50,
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "MG9ZujAV8lK7--YxThVbQ",
+       "description": "Last Stand at the Helm (live Battle Trance)"
+      },
+      "conditions": [
+       {
+        "type": "health_below",
+        "value": 50,
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "STu1VHNcfgeC3x-UiQDgt",
+       "description": "Second Wind (under 25%)"
+      },
+      "conditions": [
+       {
+        "type": "health_below",
+        "value": 25,
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "0Y10JpChssDwFUxNRk6p3",
+       "description": "Hold the Line (live Unbroken Command, opener: party 3+ hexes away)"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 3,
+        "target": "CLOSEST_OPPONENT",
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "HIGHEST_ENMITY_OPPONENT",
+       "jutsuId": "X2P22h8ApDmTZHjWpNO87",
+       "description": "Final Command (duel)"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 4,
+        "target": "HIGHEST_ENMITY_OPPONENT",
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "HIGHEST_ENMITY_OPPONENT",
+       "jutsuId": "PdD44PGaNv4MN5fOALhAF",
+       "description": "Keelbind (duel)"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "HIGHEST_ENMITY_OPPONENT",
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "end_turn",
+       "description": "after lib-omen-rows-a: end turn"
+      },
+      "conditions": [
+       {
+        "type": "has_effect",
+        "threshold": 1,
+        "effectType": "increaserange",
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "end_turn",
+       "description": "after lib-omen-binding-ring: end turn"
+      },
+      "conditions": [
+       {
+        "type": "has_effect",
+        "threshold": 1,
+        "effectType": "decreasecooldown",
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "T3glZGcSd-jS8G-NB43GR",
+       "description": "Counter Stance (duel: a player within 2)"
+      },
+      "conditions": [
+       {
+        "type": "player_within_range",
+        "maxRange": 2,
+        "minRange": 0,
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "HIGHEST_ENMITY_OPPONENT",
+       "jutsuId": "ddbIyVtoxdPQwLRXxSBq8",
+       "description": "Suppression Writ"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 4,
+        "target": "HIGHEST_ENMITY_OPPONENT",
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "CLOSEST_OPPONENT",
+       "jutsuId": "1OhP0StX4VTsosWtCxhsG",
+       "description": "Unraveling Strike"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 4,
+        "target": "CLOSEST_OPPONENT",
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "CLOSEST_OPPONENT",
+       "jutsuId": "o-4SCAhJ4LHdCwcBDgJrV",
+       "description": "Explosive Tag Cataclysm"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT",
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "_9k7kSYUgMtB-AEFgRly5",
+       "description": "Windlash Focus"
+      },
+      "conditions": [
+       {
+        "type": "player_within_range",
+        "maxRange": 4,
+        "minRange": 0,
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "CLOSEST_OPPONENT",
+       "jutsuId": "basicAttack",
+       "description": "basic attack (fallback; never a set piece)"
+      },
+      "conditions": [
+       {
+        "type": "player_within_range",
+        "maxRange": 1,
+        "minRange": 0,
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "CLOSEST_OPPONENT",
+       "description": "Close on the nearest player (none in reach)"
+      },
+      "conditions": []
+     }
+    ],
+    "includeDefaultRules": true
+   }
+  }
+ ],
+ "idmap": {},
+ "journal": {
+  "v": 1,
+  "jobId": "560-mw9gh3y3",
+  "manifestPath": "push/560_driftline_source_capture.json",
+  "manifestNumber": 560,
+  "manifestHash": "ecccb7d2",
+  "startedAt": "2026-11-09T16:08:32.572Z",
+  "updatedAt": "2026-11-09T16:09:58.436Z",
+  "state": "DONE",
+  "pause": null,
+  "items": [],
+  "capturesBeforePartial": null,
+  "capturesBefore": [
+   {
+    "phase": "before",
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "g30_Yqj_neO90g9_Dxwap"
+    },
+    "ok": true,
+    "rows": 1,
+    "error": null,
+    "persist": "full",
+    "snapshotKey": "560-mw9gh3y3::before::0",
+    "persistOk": true,
+    "persistError": null,
+    "bytes": 19571,
+    "at": "2026-11-09T16:08:45.664Z"
+   },
+   {
+    "phase": "before",
+    "proc": "ai.getAiProfile",
+    "input": {
+     "id": "57tR5W1_H7UZpD-Hf2Itl"
+    },
+    "ok": true,
+    "rows": 1,
+    "error": null,
+    "persist": "full",
+    "snapshotKey": "560-mw9gh3y3::before::1",
+    "persistOk": true,
+    "persistError": null,
+    "bytes": 3701,
+    "at": "2026-11-09T16:08:58.730Z"
+   },
+   {
+    "phase": "before",
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "XCDMY6jeLu4XXC71eVxYP"
+    },
+    "ok": true,
+    "rows": 1,
+    "error": null,
+    "persist": "full",
+    "snapshotKey": "560-mw9gh3y3::before::2",
+    "persistOk": true,
+    "persistError": null,
+    "bytes": 44378,
+    "at": "2026-11-09T16:09:13.920Z"
+   },
+   {
+    "phase": "before",
+    "proc": "ai.getAiProfile",
+    "input": {
+     "id": "64q_dHDYCxhALkrPLhYxK"
+    },
+    "ok": true,
+    "rows": 1,
+    "error": null,
+    "persist": "full",
+    "snapshotKey": "560-mw9gh3y3::before::3",
+    "persistOk": true,
+    "persistError": null,
+    "bytes": 4258,
+    "at": "2026-11-09T16:09:28.019Z"
+   },
+   {
+    "phase": "before",
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "nR5okP-MiRsnSpiJQ8CM-"
+    },
+    "ok": false,
+    "rows": 0,
+    "error": "MALFORMED_ELEMENT",
+    "persist": "full",
+    "snapshotKey": "560-mw9gh3y3::before::4",
+    "persistOk": false,
+    "persistError": "read failed; there is no body to persist"
+   },
+   {
+    "phase": "before",
+    "proc": "ai.getAiProfile",
+    "input": {
+     "id": "Zjasz7cipzsqAOQy0sMWD"
+    },
+    "ok": true,
+    "rows": 1,
+    "error": null,
+    "persist": "full",
+    "snapshotKey": "560-mw9gh3y3::before::5",
+    "persistOk": true,
+    "persistError": null,
+    "bytes": 4600,
+    "at": "2026-11-09T16:09:58.427Z"
+   }
+  ]
+ }
+}
