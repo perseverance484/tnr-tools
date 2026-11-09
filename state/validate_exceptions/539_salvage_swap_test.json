@@ -1,0 +1,9 @@
+{
+ "manifest": "push/539_salvage_swap_test.json",
+ "ruling": "Accepted class only: the stale law 14 / L05 'missing preferredStat' rule (field dropped upstream in migration 0056, Forge refuses the key), as accepted for push/262, 272, 344 and 417.",
+ "reason": "Salvager's Trade swap test (director 2026-11-09 09:06 'Build the swap test'). One AI create (Wreck Test Husk) without preferredStat. Nothing else.",
+ "sha256": "0af6f33cc0046507953b4ebfecf3e5dc6267e35ac9cd4976b462911eb4c64d67",
+ "accepted": [
+  "ERROR  [ai:Wreck Test Husk]: law 14: AI create missing required field 'preferredStat' (builder lint L05 rejects this)"
+ ]
+}
