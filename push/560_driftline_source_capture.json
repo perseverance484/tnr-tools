@@ -1,0 +1,50 @@
+{
+ "_note": "push/560, READ-ONLY: source capture for The Driftline (Skyglass for levels 30 to 80, dauntless's go 2026-11-09 'Build it'). profile.getAi + ai.getAiProfile (persist full) of the three live Faded records the Driftline boss records are copied from: Faded Wayfinder, Faded Core Horror, Faded Captain. Zero mutations. push/driftline.gen.py builds push/561 from this run's bundle.",
+ "capture": {
+  "before": [
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "g30_Yqj_neO90g9_Dxwap"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "ai.getAiProfile",
+    "input": {
+     "id": "57tR5W1_H7UZpD-Hf2Itl"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "XCDMY6jeLu4XXC71eVxYP"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "ai.getAiProfile",
+    "input": {
+     "id": "64q_dHDYCxhALkrPLhYxK"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "profile.getAi",
+    "input": {
+     "userId": "nR5okP-MiRsnSpiJQ8CM-"
+    },
+    "persist": "full"
+   },
+   {
+    "proc": "ai.getAiProfile",
+    "input": {
+     "id": "Zjasz7cipzsqAOQy0sMWD"
+    },
+    "persist": "full"
+   }
+  ]
+ },
+ "items": []
+}
