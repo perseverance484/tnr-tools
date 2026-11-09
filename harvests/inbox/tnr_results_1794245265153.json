@@ -1,0 +1,4689 @@
+{
+ "builder": "forge-mcp",
+ "at": "2026-11-09T17:27:45.152Z",
+ "cfg": "forge",
+ "checks": null,
+ "state": "DONE",
+ "outcome": "failed",
+ "postflight": {
+  "match": 22,
+  "diff": 0,
+  "unverified": 0,
+  "failed": 2,
+  "skipped": 0,
+  "unresolved": 0
+ },
+ "entries": [
+  {
+   "name": "Rivet Volley",
+   "srcId": "sg575_rivet",
+   "entity": "jutsu",
+   "slot": "create",
+   "op": "create",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 30,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "CaSrsj2DAkDT7ccDFQdkU"
+  },
+  {
+   "name": "Keel Splitter: Port",
+   "srcId": "sg575_port_mark",
+   "entity": "jutsu",
+   "slot": "create",
+   "op": "create",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 30,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "nuHNNSvMEGhwhv_pV4JgA"
+  },
+  {
+   "name": "Keel Splitter: Starboard",
+   "srcId": "sg575_starboard_mark",
+   "entity": "jutsu",
+   "slot": "create",
+   "op": "create",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 30,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "VGV2ACwA-9P97F4qLPm2A"
+  },
+  {
+   "name": "Keel Splits: Port",
+   "srcId": "sg575_port_break",
+   "entity": "jutsu",
+   "slot": "create",
+   "op": "create",
+   "state": "error",
+   "forgeState": "FAILED",
+   "phase": "update",
+   "detail": "update VALIDATION: [\n  {\n    \"code\": \"invalid_union\",\n    \"errors\": [\n      [\n        {\n          \"code\": \"invalid_value\",\n          \"values\": [\n            \"increaseregeneration\"\n          ],\n          \"path\": [\n            \"type\"\n          ],\n          \"message\": \"Invalid input: expected \\\"increaseregeneration\\\"\"\n        }\n      ],\n      [\n        {\n          \"code\": \"invalid_value\",\n          \"values\": [\n            \"defence\"\n          ],\n          \"path\": [\n            \"direction\"\n          ],\n        …",
+   "verdict": null,
+   "asserted": null,
+   "diffs": [],
+   "id": "o2GE0OEr8A-LixH8CTQs-"
+  },
+  {
+   "name": "Keel Splits: Starboard",
+   "srcId": "sg575_starboard_break",
+   "entity": "jutsu",
+   "slot": "create",
+   "op": "create",
+   "state": "error",
+   "forgeState": "FAILED",
+   "phase": "update",
+   "detail": "update VALIDATION: [\n  {\n    \"code\": \"invalid_union\",\n    \"errors\": [\n      [\n        {\n          \"code\": \"invalid_value\",\n          \"values\": [\n            \"increaseregeneration\"\n          ],\n          \"path\": [\n            \"type\"\n          ],\n          \"message\": \"Invalid input: expected \\\"increaseregeneration\\\"\"\n        }\n      ],\n      [\n        {\n          \"code\": \"invalid_value\",\n          \"values\": [\n            \"defence\"\n          ],\n          \"path\": [\n            \"direction\"\n          ],\n        …",
+   "verdict": null,
+   "asserted": null,
+   "diffs": [],
+   "id": "zPIZwy6ZVbGkdxJK6iT4J"
+  },
+  {
+   "name": "Fresh Planks",
+   "srcId": "sg575_planks_a",
+   "entity": "jutsu",
+   "slot": "create",
+   "op": "create",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 30,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "nOTlcC6BXDLrjMfk1mcMy"
+  },
+  {
+   "name": "Last Planks",
+   "srcId": "sg575_planks_b",
+   "entity": "jutsu",
+   "slot": "create",
+   "op": "create",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 30,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "GeRkebyexZfeWXMLsAI9O"
+  },
+  {
+   "name": "Hammerfall",
+   "srcId": "sg575_hammerfall",
+   "entity": "jutsu",
+   "slot": "create",
+   "op": "create",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 30,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "J2HVPU-zKBGbiXAsk8VDJ"
+  },
+  {
+   "name": "The Hold Groans I",
+   "srcId": "sg575_tier1_mark",
+   "entity": "jutsu",
+   "slot": "create",
+   "op": "create",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 30,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "8eZvWADIoGrZ_s73Oxbnh"
+  },
+  {
+   "name": "The Hold Closes I",
+   "srcId": "sg575_tier1_close",
+   "entity": "jutsu",
+   "slot": "create",
+   "op": "create",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 30,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "nFWnX7iQbJ6Zhq4QatyPf"
+  },
+  {
+   "name": "The Hold Groans II",
+   "srcId": "sg575_tier2_mark",
+   "entity": "jutsu",
+   "slot": "create",
+   "op": "create",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 30,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "8d1rnWZ17a861Js3vHMli"
+  },
+  {
+   "name": "The Hold Closes II",
+   "srcId": "sg575_tier2_close",
+   "entity": "jutsu",
+   "slot": "create",
+   "op": "create",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 30,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "UCWimF3c3medcDw_6tOpp"
+  },
+  {
+   "name": "The Hold Groans III",
+   "srcId": "sg575_tier3_mark",
+   "entity": "jutsu",
+   "slot": "create",
+   "op": "create",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 30,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "XQ1qDNs13B3wG5SvcKm1Q"
+  },
+  {
+   "name": "The Hold Closes III",
+   "srcId": "sg575_tier3_close",
+   "entity": "jutsu",
+   "slot": "create",
+   "op": "create",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 30,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "ZU-tt23npKv7ZwvuEwSNI"
+  },
+  {
+   "name": "The Hold Groans IV",
+   "srcId": "sg575_tier4_mark",
+   "entity": "jutsu",
+   "slot": "create",
+   "op": "create",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 30,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "8iMWmNTtwIME9SPlacajs"
+  },
+  {
+   "name": "The Hold Closes IV",
+   "srcId": "sg575_tier4_close",
+   "entity": "jutsu",
+   "slot": "create",
+   "op": "create",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 30,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "fe8V9FN7ZGoAWLavLbONJ"
+  },
+  {
+   "name": "The Hold Seals",
+   "srcId": "sg575_seal",
+   "entity": "jutsu",
+   "slot": "create",
+   "op": "create",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 30,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "v45dy3l6TH5F5TID_IlUs"
+  },
+  {
+   "name": "Loose Rivet",
+   "srcId": "sg575_loose_rivet",
+   "entity": "jutsu",
+   "slot": "create",
+   "op": "create",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 30,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "uMJdCYzcypL5dXsrNjtUB"
+  },
+  {
+   "name": "Apprentice's Mallet",
+   "srcId": "sg575_apprentice_mallet",
+   "entity": "jutsu",
+   "slot": "create",
+   "op": "create",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 30,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "jfEZMGlAEFB2QlfgL7VNO"
+  },
+  {
+   "name": "Bilge Line: Port",
+   "srcId": "sg575_crew_port_mark",
+   "entity": "jutsu",
+   "slot": "create",
+   "op": "create",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 30,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "9vJ1eCfQkSAZ2CU5LOuOW"
+  },
+  {
+   "name": "Bilge Split: Port",
+   "srcId": "sg575_crew_port_break",
+   "entity": "jutsu",
+   "slot": "create",
+   "op": "create",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 30,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "IaLLe_FBBm-1ySmCA1rwi"
+  },
+  {
+   "name": "Bilge Line: Starboard",
+   "srcId": "sg575_crew_starboard_mark",
+   "entity": "jutsu",
+   "slot": "create",
+   "op": "create",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 30,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "28iX0etEpMOi6TdW5jm8R"
+  },
+  {
+   "name": "Bilge Split: Starboard",
+   "srcId": "sg575_crew_starboard_break",
+   "entity": "jutsu",
+   "slot": "create",
+   "op": "create",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 30,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "U9N_T2vsC3NjVqUg2zOCQ"
+  },
+  {
+   "name": "Chart of the Closing Hold",
+   "srcId": "sg575_chart",
+   "entity": "item",
+   "slot": "create",
+   "op": "create",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 61,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "oQcPHpr0sqmWHfaJPR4T_"
+  }
+ ],
+ "captures": [],
+ "idmap": {
+  "sg575_rivet": "CaSrsj2DAkDT7ccDFQdkU",
+  "sg575_port_mark": "nuHNNSvMEGhwhv_pV4JgA",
+  "sg575_starboard_mark": "VGV2ACwA-9P97F4qLPm2A",
+  "sg575_port_break": "o2GE0OEr8A-LixH8CTQs-",
+  "sg575_starboard_break": "zPIZwy6ZVbGkdxJK6iT4J",
+  "sg575_planks_a": "nOTlcC6BXDLrjMfk1mcMy",
+  "sg575_planks_b": "GeRkebyexZfeWXMLsAI9O",
+  "sg575_hammerfall": "J2HVPU-zKBGbiXAsk8VDJ",
+  "sg575_tier1_mark": "8eZvWADIoGrZ_s73Oxbnh",
+  "sg575_tier1_close": "nFWnX7iQbJ6Zhq4QatyPf",
+  "sg575_tier2_mark": "8d1rnWZ17a861Js3vHMli",
+  "sg575_tier2_close": "UCWimF3c3medcDw_6tOpp",
+  "sg575_tier3_mark": "XQ1qDNs13B3wG5SvcKm1Q",
+  "sg575_tier3_close": "ZU-tt23npKv7ZwvuEwSNI",
+  "sg575_tier4_mark": "8iMWmNTtwIME9SPlacajs",
+  "sg575_tier4_close": "fe8V9FN7ZGoAWLavLbONJ",
+  "sg575_seal": "v45dy3l6TH5F5TID_IlUs",
+  "sg575_loose_rivet": "uMJdCYzcypL5dXsrNjtUB",
+  "sg575_apprentice_mallet": "jfEZMGlAEFB2QlfgL7VNO",
+  "sg575_crew_port_mark": "9vJ1eCfQkSAZ2CU5LOuOW",
+  "sg575_crew_port_break": "IaLLe_FBBm-1ySmCA1rwi",
+  "sg575_crew_starboard_mark": "28iX0etEpMOi6TdW5jm8R",
+  "sg575_crew_starboard_break": "U9N_T2vsC3NjVqUg2zOCQ",
+  "sg575_chart": "oQcPHpr0sqmWHfaJPR4T_"
+ },
+ "journal": {
+  "v": 1,
+  "jobId": "575-mw9hxxn1",
+  "manifestPath": "push/575_hullbound_mender_jutsu.json",
+  "manifestNumber": 575,
+  "manifestHash": "db33249a",
+  "startedAt": "2026-11-09T16:49:37.185Z",
+  "updatedAt": "2026-11-09T17:27:45.140Z",
+  "state": "DONE",
+  "pause": null,
+  "items": [
+   {
+    "idx": 0,
+    "entity": "jutsu",
+    "op": "create",
+    "name": "Rivet Volley",
+    "srcId": "sg575_rivet",
+    "targetId": null,
+    "payloadHash": "c89a024b",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "CaSrsj2DAkDT7ccDFQdkU",
+    "snapshotKey": "tnr_forge_snap_v1:575-mw9hxxn1:jutsu",
+    "sentAt": "2026-11-09T16:50:47.734Z",
+    "createSentAt": "2026-11-09T16:50:16.979Z",
+    "confirmedAt": "2026-11-09T16:51:18.881Z",
+    "verifiedAt": "2026-11-09T16:51:29.839Z",
+    "error": null,
+    "attempt": 2,
+    "asserted": [
+     "extraBaseCost",
+     "bloodlineId",
+     "requiredLevel",
+     "requiredRank",
+     "jutsuType",
+     "image",
+     "jutsuWeapon",
+     "statClassification",
+     "elementClassification",
+     "jutsuRank",
+     "staminaCost",
+     "chakraCost",
+     "staminaCostReducePerLvl",
+     "chakraCostReducePerLvl",
+     "healthCostReducePerLvl",
+     "healthCost",
+     "villageId",
+     "hidden",
+     "injectableInBattle",
+     "battleUsageType",
+     "name",
+     "description",
+     "battleDescription",
+     "effects",
+     "actionCostPerc",
+     "cooldown",
+     "target",
+     "method",
+     "range",
+     "coordinateTargeting"
+    ],
+    "diffs": [],
+    "verify": "match"
+   },
+   {
+    "idx": 1,
+    "entity": "jutsu",
+    "op": "create",
+    "name": "Keel Splitter: Port",
+    "srcId": "sg575_port_mark",
+    "targetId": null,
+    "payloadHash": "d9132c91",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "nuHNNSvMEGhwhv_pV4JgA",
+    "snapshotKey": "tnr_forge_snap_v1:575-mw9hxxn1:jutsu",
+    "sentAt": "2026-11-09T16:51:58.476Z",
+    "createSentAt": "2026-11-09T16:51:29.844Z",
+    "confirmedAt": "2026-11-09T16:52:25.072Z",
+    "verifiedAt": "2026-11-09T16:52:34.971Z",
+    "error": null,
+    "attempt": 2,
+    "asserted": [
+     "extraBaseCost",
+     "bloodlineId",
+     "requiredLevel",
+     "requiredRank",
+     "jutsuType",
+     "image",
+     "jutsuWeapon",
+     "statClassification",
+     "elementClassification",
+     "jutsuRank",
+     "staminaCost",
+     "chakraCost",
+     "staminaCostReducePerLvl",
+     "chakraCostReducePerLvl",
+     "healthCostReducePerLvl",
+     "healthCost",
+     "villageId",
+     "hidden",
+     "injectableInBattle",
+     "battleUsageType",
+     "name",
+     "description",
+     "battleDescription",
+     "effects",
+     "actionCostPerc",
+     "cooldown",
+     "target",
+     "method",
+     "range",
+     "coordinateTargeting"
+    ],
+    "diffs": [],
+    "verify": "match"
+   },
+   {
+    "idx": 2,
+    "entity": "jutsu",
+    "op": "create",
+    "name": "Keel Splitter: Starboard",
+    "srcId": "sg575_starboard_mark",
+    "targetId": null,
+    "payloadHash": "60415dc6",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "VGV2ACwA-9P97F4qLPm2A",
+    "snapshotKey": "tnr_forge_snap_v1:575-mw9hxxn1:jutsu",
+    "sentAt": "2026-11-09T16:53:00.033Z",
+    "createSentAt": "2026-11-09T16:52:34.979Z",
+    "confirmedAt": "2026-11-09T16:53:23.916Z",
+    "verifiedAt": "2026-11-09T16:53:33.841Z",
+    "error": null,
+    "attempt": 2,
+    "asserted": [
+     "extraBaseCost",
+     "bloodlineId",
+     "requiredLevel",
+     "requiredRank",
+     "jutsuType",
+     "image",
+     "jutsuWeapon",
+     "statClassification",
+     "elementClassification",
+     "jutsuRank",
+     "staminaCost",
+     "chakraCost",
+     "staminaCostReducePerLvl",
+     "chakraCostReducePerLvl",
+     "healthCostReducePerLvl",
+     "healthCost",
+     "villageId",
+     "hidden",
+     "injectableInBattle",
+     "battleUsageType",
+     "name",
+     "description",
+     "battleDescription",
+     "effects",
+     "actionCostPerc",
+     "cooldown",
+     "target",
+     "method",
+     "range",
+     "coordinateTargeting"
+    ],
+    "diffs": [],
+    "verify": "match"
+   },
+   {
+    "idx": 3,
+    "entity": "jutsu",
+    "op": "create",
+    "name": "Keel Splits: Port",
+    "srcId": "sg575_port_break",
+    "targetId": null,
+    "payloadHash": "13c61b34",
+    "state": "FAILED",
+    "phase": "update",
+    "entityId": "o2GE0OEr8A-LixH8CTQs-",
+    "snapshotKey": "tnr_forge_snap_v1:575-mw9hxxn1:jutsu",
+    "sentAt": "2026-11-09T16:53:58.308Z",
+    "createSentAt": "2026-11-09T16:53:33.846Z",
+    "confirmedAt": "2026-11-09T16:53:47.927Z",
+    "verifiedAt": null,
+    "error": "update VALIDATION: [\n  {\n    \"code\": \"invalid_union\",\n    \"errors\": [\n      [\n        {\n          \"code\": \"invalid_value\",\n          \"values\": [\n            \"increaseregeneration\"\n          ],\n          \"path\": [\n            \"type\"\n          ],\n          \"message\": \"Invalid input: expected \\\"increaseregeneration\\\"\"\n        }\n      ],\n      [\n        {\n          \"code\": \"invalid_value\",\n          \"values\": [\n            \"defence\"\n          ],\n          \"path\": [\n            \"direction\"\n          ],\n        …",
+    "attempt": 2,
+    "zodError": [
+     {
+      "code": "invalid_union",
+      "errors": [
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "increaseregeneration"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"increaseregeneration\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "defence"
+         ],
+         "path": [
+          "direction"
+         ],
+         "message": "Invalid input: expected \"defence\""
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "percentage"
+         ],
+         "path": [
+          "calculation"
+         ],
+         "message": "Invalid input: expected \"percentage\""
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "absorb"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"absorb\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "activatesagemode"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"activatesagemode\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "afterburn"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"afterburn\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "defence"
+         ],
+         "path": [
+          "direction"
+         ],
+         "message": "Invalid input: expected \"defence\""
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "barrier"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"barrier\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "buffprevent"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"buffprevent\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "cleanseprevent"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"cleanseprevent\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "cleanse"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"cleanse\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "clearprevent"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"clearprevent\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "clear"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"clear\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "percentage"
+         ],
+         "path": [
+          "calculation"
+         ],
+         "message": "Invalid input: expected \"percentage\""
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "clone"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"clone\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "percentage"
+         ],
+         "path": [
+          "calculation"
+         ],
+         "message": "Invalid input: expected \"percentage\""
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "consume"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"consume\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "percentage"
+         ],
+         "path": [
+          "calculation"
+         ],
+         "message": "Invalid input: expected \"percentage\""
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "siphon"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"siphon\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "percentage"
+         ],
+         "path": [
+          "calculation"
+         ],
+         "message": "Invalid input: expected \"percentage\""
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "copy"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"copy\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "damage"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"damage\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "debuffprevent"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"debuffprevent\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "decreaseaggro"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"decreaseaggro\""
+        }
+       ],
+       [
+        {
+         "code": "custom",
+         "path": [
+          "rounds"
+         ],
+         "message": "Activity bonuses have no combat duration"
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "percentage"
+         ],
+         "path": [
+          "calculation"
+         ],
+         "message": "Invalid input: expected \"percentage\""
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "decreasecookingtime"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"decreasecookingtime\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "decreasecooldown"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"decreasecooldown\""
+        }
+       ],
+       [
+        {
+         "code": "custom",
+         "path": [
+          "rounds"
+         ],
+         "message": "Activity bonuses have no combat duration"
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "percentage"
+         ],
+         "path": [
+          "calculation"
+         ],
+         "message": "Invalid input: expected \"percentage\""
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "decreasecraftingtime"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"decreasecraftingtime\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "decreasedamagegiven"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"decreasedamagegiven\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "decreasedamagetaken"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"decreasedamagetaken\""
+        }
+       ],
+       [
+        {
+         "code": "custom",
+         "path": [
+          "rounds"
+         ],
+         "message": "Activity bonuses have no combat duration"
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "percentage"
+         ],
+         "path": [
+          "calculation"
+         ],
+         "message": "Invalid input: expected \"percentage\""
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "decreasefarmingtime"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"decreasefarmingtime\""
+        }
+       ],
+       [
+        {
+         "code": "custom",
+         "path": [
+          "rounds"
+         ],
+         "message": "Activity bonuses have no combat duration"
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "percentage"
+         ],
+         "path": [
+          "calculation"
+         ],
+         "message": "Invalid input: expected \"percentage\""
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "decreasegatheringtime"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"decreasegatheringtime\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "decreaseheal"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"decreaseheal\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "decreasepotency"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"decreasepotency\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "defence"
+         ],
+         "path": [
+          "direction"
+         ],
+         "message": "Invalid input: expected \"defence\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "decreasemaxpools"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"decreasemaxpools\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "decreasemastery"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"decreasemastery\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "decreasestat"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"decreasestat\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "percentage"
+         ],
+         "path": [
+          "calculation"
+         ],
+         "message": "Invalid input: expected \"percentage\""
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "diffuse"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"diffuse\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "disarm"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"disarm\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "drain"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"drain\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "elementaldamage"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"elementaldamage\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "elementalseal"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"elementalseal\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "finalstand"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"finalstand\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "fleeprevent"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"fleeprevent\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "flee"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"flee\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "healprevent"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"healprevent\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "heal"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"heal\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "increaseaggro"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"increaseaggro\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "increasecooldown"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"increasecooldown\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "increasedamagegiven"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"increasedamagegiven\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "increasedamagetaken"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"increasedamagetaken\""
+        }
+       ],
+       [
+        {
+         "code": "custom",
+         "path": [
+          "rounds"
+         ],
+         "message": "Activity bonuses have no combat duration"
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "increasegatheringyield"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"increasegatheringyield\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "increaseheal"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"increaseheal\""
+        }
+       ],
+       [
+        {
+         "code": "custom",
+         "path": [
+          "rounds"
+         ],
+         "message": "Activity bonuses have no combat duration"
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "increasehuntingyield"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"increasehuntingyield\""
+        }
+       ],
+       [
+        {
+         "code": "custom",
+         "path": [
+          "rounds"
+         ],
+         "message": "Jutsu slot grants have no combat duration"
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "increasejutsuslots"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"increasejutsuslots\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "increasepotency"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"increasepotency\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "marriageslotincrease"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"marriageslotincrease\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "noncombatincreasereskins"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"noncombatincreasereskins\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "injectjutsus"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"injectjutsus\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "defence"
+         ],
+         "path": [
+          "direction"
+         ],
+         "message": "Invalid input: expected \"defence\""
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "increasepoolcost"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"increasepoolcost\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "increasemaxpools"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"increasemaxpools\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "increaserange"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"increaserange\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "increasemastery"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"increasemastery\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "increasestat"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"increasestat\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "immunity"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"immunity\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "percentage"
+         ],
+         "path": [
+          "calculation"
+         ],
+         "message": "Invalid input: expected \"percentage\""
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "lifesteal"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"lifesteal\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "percentage"
+         ],
+         "path": [
+          "calculation"
+         ],
+         "message": "Invalid input: expected \"percentage\""
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "mirror"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"mirror\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "moveprevent"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"moveprevent\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "move"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"move\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "noncombatconsumereward"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"noncombatconsumereward\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "noncombatgainskill"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"noncombatgainskill\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "noncombatquest"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"noncombatquest\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "repair"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"repair\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "onehitkillprevent"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"onehitkillprevent\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "onehitkill"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"onehitkill\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "pierce"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"pierce\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "percentage"
+         ],
+         "path": [
+          "calculation"
+         ],
+         "message": "Invalid input: expected \"percentage\""
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "poison"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"poison\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "recoil"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"recoil\""
+        }
+       ],
+       [
+        {
+         "origin": "number",
+         "code": "too_big",
+         "maximum": 0,
+         "inclusive": true,
+         "path": [
+          "rounds"
+         ],
+         "message": "Too big: expected number to be <=0"
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "push",
+          "pull"
+         ],
+         "path": [
+          "direction"
+         ],
+         "message": "Invalid option: expected one of \"push\"|\"pull\""
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "redirection"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"redirection\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "reflect"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"reflect\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "percentage"
+         ],
+         "path": [
+          "calculation"
+         ],
+         "message": "Invalid input: expected \"percentage\""
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "parry"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"parry\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "percentage"
+         ],
+         "path": [
+          "calculation"
+         ],
+         "message": "Invalid input: expected \"percentage\""
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "curse"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"curse\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "percentage"
+         ],
+         "path": [
+          "calculation"
+         ],
+         "message": "Invalid input: expected \"percentage\""
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "removebloodline"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"removebloodline\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "robprevent"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"robprevent\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "rob"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"rob\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "percentage"
+         ],
+         "path": [
+          "calculation"
+         ],
+         "message": "Invalid input: expected \"percentage\""
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "rollbloodline"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"rollbloodline\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "percentage"
+         ],
+         "path": [
+          "calculation"
+         ],
+         "message": "Invalid input: expected \"percentage\""
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "rollsagemode"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"rollsagemode\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "sealprevent"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"sealprevent\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "seal"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"seal\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "shield"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"shield\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "stealth"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"stealth\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "percentage"
+         ],
+         "path": [
+          "calculation"
+         ],
+         "message": "Invalid input: expected \"percentage\""
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "stunprevent"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"stunprevent\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "stun"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"stun\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "summonprevent"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"summonprevent\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "percentage"
+         ],
+         "path": [
+          "calculation"
+         ],
+         "message": "Invalid input: expected \"percentage\""
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "summon"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"summon\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "timecompression"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"timecompression\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "timedilation"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"timedilation\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "unlockitemvariant"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"unlockitemvariant\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "unknown"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"unknown\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "percentage"
+         ],
+         "path": [
+          "calculation"
+         ],
+         "message": "Invalid input: expected \"percentage\""
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "vamp"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"vamp\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "visual"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"visual\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "weakness"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"weakness\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "percentage"
+         ],
+         "path": [
+          "calculation"
+         ],
+         "message": "Invalid input: expected \"percentage\""
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "wound"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"wound\""
+        }
+       ]
+      ],
+      "path": [
+       "data",
+       "effects",
+       1
+      ],
+      "message": "Invalid input"
+     }
+    ]
+   },
+   {
+    "idx": 4,
+    "entity": "jutsu",
+    "op": "create",
+    "name": "Keel Splits: Starboard",
+    "srcId": "sg575_starboard_break",
+    "targetId": null,
+    "payloadHash": "95e1fb99",
+    "state": "FAILED",
+    "phase": "update",
+    "entityId": "zPIZwy6ZVbGkdxJK6iT4J",
+    "snapshotKey": "tnr_forge_snap_v1:575-mw9hxxn1:jutsu",
+    "sentAt": "2026-11-09T16:55:26.298Z",
+    "createSentAt": "2026-11-09T16:54:23.285Z",
+    "confirmedAt": "2026-11-09T16:55:14.787Z",
+    "verifiedAt": null,
+    "error": "update VALIDATION: [\n  {\n    \"code\": \"invalid_union\",\n    \"errors\": [\n      [\n        {\n          \"code\": \"invalid_value\",\n          \"values\": [\n            \"increaseregeneration\"\n          ],\n          \"path\": [\n            \"type\"\n          ],\n          \"message\": \"Invalid input: expected \\\"increaseregeneration\\\"\"\n        }\n      ],\n      [\n        {\n          \"code\": \"invalid_value\",\n          \"values\": [\n            \"defence\"\n          ],\n          \"path\": [\n            \"direction\"\n          ],\n        …",
+    "attempt": 2,
+    "zodError": [
+     {
+      "code": "invalid_union",
+      "errors": [
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "increaseregeneration"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"increaseregeneration\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "defence"
+         ],
+         "path": [
+          "direction"
+         ],
+         "message": "Invalid input: expected \"defence\""
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "percentage"
+         ],
+         "path": [
+          "calculation"
+         ],
+         "message": "Invalid input: expected \"percentage\""
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "absorb"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"absorb\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "activatesagemode"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"activatesagemode\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "afterburn"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"afterburn\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "defence"
+         ],
+         "path": [
+          "direction"
+         ],
+         "message": "Invalid input: expected \"defence\""
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "barrier"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"barrier\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "buffprevent"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"buffprevent\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "cleanseprevent"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"cleanseprevent\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "cleanse"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"cleanse\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "clearprevent"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"clearprevent\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "clear"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"clear\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "percentage"
+         ],
+         "path": [
+          "calculation"
+         ],
+         "message": "Invalid input: expected \"percentage\""
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "clone"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"clone\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "percentage"
+         ],
+         "path": [
+          "calculation"
+         ],
+         "message": "Invalid input: expected \"percentage\""
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "consume"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"consume\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "percentage"
+         ],
+         "path": [
+          "calculation"
+         ],
+         "message": "Invalid input: expected \"percentage\""
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "siphon"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"siphon\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "percentage"
+         ],
+         "path": [
+          "calculation"
+         ],
+         "message": "Invalid input: expected \"percentage\""
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "copy"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"copy\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "damage"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"damage\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "debuffprevent"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"debuffprevent\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "decreaseaggro"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"decreaseaggro\""
+        }
+       ],
+       [
+        {
+         "code": "custom",
+         "path": [
+          "rounds"
+         ],
+         "message": "Activity bonuses have no combat duration"
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "percentage"
+         ],
+         "path": [
+          "calculation"
+         ],
+         "message": "Invalid input: expected \"percentage\""
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "decreasecookingtime"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"decreasecookingtime\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "decreasecooldown"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"decreasecooldown\""
+        }
+       ],
+       [
+        {
+         "code": "custom",
+         "path": [
+          "rounds"
+         ],
+         "message": "Activity bonuses have no combat duration"
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "percentage"
+         ],
+         "path": [
+          "calculation"
+         ],
+         "message": "Invalid input: expected \"percentage\""
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "decreasecraftingtime"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"decreasecraftingtime\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "decreasedamagegiven"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"decreasedamagegiven\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "decreasedamagetaken"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"decreasedamagetaken\""
+        }
+       ],
+       [
+        {
+         "code": "custom",
+         "path": [
+          "rounds"
+         ],
+         "message": "Activity bonuses have no combat duration"
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "percentage"
+         ],
+         "path": [
+          "calculation"
+         ],
+         "message": "Invalid input: expected \"percentage\""
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "decreasefarmingtime"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"decreasefarmingtime\""
+        }
+       ],
+       [
+        {
+         "code": "custom",
+         "path": [
+          "rounds"
+         ],
+         "message": "Activity bonuses have no combat duration"
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "percentage"
+         ],
+         "path": [
+          "calculation"
+         ],
+         "message": "Invalid input: expected \"percentage\""
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "decreasegatheringtime"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"decreasegatheringtime\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "decreaseheal"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"decreaseheal\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "decreasepotency"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"decreasepotency\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "defence"
+         ],
+         "path": [
+          "direction"
+         ],
+         "message": "Invalid input: expected \"defence\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "decreasemaxpools"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"decreasemaxpools\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "decreasemastery"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"decreasemastery\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "decreasestat"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"decreasestat\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "percentage"
+         ],
+         "path": [
+          "calculation"
+         ],
+         "message": "Invalid input: expected \"percentage\""
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "diffuse"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"diffuse\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "disarm"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"disarm\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "drain"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"drain\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "elementaldamage"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"elementaldamage\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "elementalseal"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"elementalseal\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "finalstand"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"finalstand\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "fleeprevent"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"fleeprevent\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "flee"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"flee\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "healprevent"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"healprevent\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "heal"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"heal\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "increaseaggro"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"increaseaggro\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "increasecooldown"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"increasecooldown\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "increasedamagegiven"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"increasedamagegiven\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "increasedamagetaken"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"increasedamagetaken\""
+        }
+       ],
+       [
+        {
+         "code": "custom",
+         "path": [
+          "rounds"
+         ],
+         "message": "Activity bonuses have no combat duration"
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "increasegatheringyield"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"increasegatheringyield\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "increaseheal"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"increaseheal\""
+        }
+       ],
+       [
+        {
+         "code": "custom",
+         "path": [
+          "rounds"
+         ],
+         "message": "Activity bonuses have no combat duration"
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "increasehuntingyield"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"increasehuntingyield\""
+        }
+       ],
+       [
+        {
+         "code": "custom",
+         "path": [
+          "rounds"
+         ],
+         "message": "Jutsu slot grants have no combat duration"
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "increasejutsuslots"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"increasejutsuslots\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "increasepotency"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"increasepotency\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "marriageslotincrease"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"marriageslotincrease\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "noncombatincreasereskins"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"noncombatincreasereskins\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "injectjutsus"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"injectjutsus\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "defence"
+         ],
+         "path": [
+          "direction"
+         ],
+         "message": "Invalid input: expected \"defence\""
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "increasepoolcost"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"increasepoolcost\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "increasemaxpools"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"increasemaxpools\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "increaserange"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"increaserange\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "increasemastery"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"increasemastery\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "increasestat"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"increasestat\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "immunity"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"immunity\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "percentage"
+         ],
+         "path": [
+          "calculation"
+         ],
+         "message": "Invalid input: expected \"percentage\""
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "lifesteal"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"lifesteal\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "percentage"
+         ],
+         "path": [
+          "calculation"
+         ],
+         "message": "Invalid input: expected \"percentage\""
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "mirror"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"mirror\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "moveprevent"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"moveprevent\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "move"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"move\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "noncombatconsumereward"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"noncombatconsumereward\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "noncombatgainskill"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"noncombatgainskill\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "noncombatquest"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"noncombatquest\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "repair"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"repair\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "onehitkillprevent"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"onehitkillprevent\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "onehitkill"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"onehitkill\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "pierce"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"pierce\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "percentage"
+         ],
+         "path": [
+          "calculation"
+         ],
+         "message": "Invalid input: expected \"percentage\""
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "poison"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"poison\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "recoil"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"recoil\""
+        }
+       ],
+       [
+        {
+         "origin": "number",
+         "code": "too_big",
+         "maximum": 0,
+         "inclusive": true,
+         "path": [
+          "rounds"
+         ],
+         "message": "Too big: expected number to be <=0"
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "push",
+          "pull"
+         ],
+         "path": [
+          "direction"
+         ],
+         "message": "Invalid option: expected one of \"push\"|\"pull\""
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "redirection"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"redirection\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "reflect"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"reflect\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "percentage"
+         ],
+         "path": [
+          "calculation"
+         ],
+         "message": "Invalid input: expected \"percentage\""
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "parry"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"parry\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "percentage"
+         ],
+         "path": [
+          "calculation"
+         ],
+         "message": "Invalid input: expected \"percentage\""
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "curse"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"curse\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "percentage"
+         ],
+         "path": [
+          "calculation"
+         ],
+         "message": "Invalid input: expected \"percentage\""
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "removebloodline"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"removebloodline\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "robprevent"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"robprevent\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "rob"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"rob\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "percentage"
+         ],
+         "path": [
+          "calculation"
+         ],
+         "message": "Invalid input: expected \"percentage\""
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "rollbloodline"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"rollbloodline\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "percentage"
+         ],
+         "path": [
+          "calculation"
+         ],
+         "message": "Invalid input: expected \"percentage\""
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "rollsagemode"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"rollsagemode\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "sealprevent"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"sealprevent\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "seal"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"seal\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "shield"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"shield\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "stealth"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"stealth\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "percentage"
+         ],
+         "path": [
+          "calculation"
+         ],
+         "message": "Invalid input: expected \"percentage\""
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "stunprevent"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"stunprevent\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "stun"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"stun\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "summonprevent"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"summonprevent\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "percentage"
+         ],
+         "path": [
+          "calculation"
+         ],
+         "message": "Invalid input: expected \"percentage\""
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "summon"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"summon\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "timecompression"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"timecompression\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "timedilation"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"timedilation\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "unlockitemvariant"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"unlockitemvariant\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "unknown"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"unknown\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "percentage"
+         ],
+         "path": [
+          "calculation"
+         ],
+         "message": "Invalid input: expected \"percentage\""
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "vamp"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"vamp\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "visual"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"visual\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "weakness"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"weakness\""
+        }
+       ],
+       [
+        {
+         "code": "invalid_value",
+         "values": [
+          "percentage"
+         ],
+         "path": [
+          "calculation"
+         ],
+         "message": "Invalid input: expected \"percentage\""
+        },
+        {
+         "code": "invalid_value",
+         "values": [
+          "wound"
+         ],
+         "path": [
+          "type"
+         ],
+         "message": "Invalid input: expected \"wound\""
+        }
+       ]
+      ],
+      "path": [
+       "data",
+       "effects",
+       1
+      ],
+      "message": "Invalid input"
+     }
+    ]
+   },
+   {
+    "idx": 5,
+    "entity": "jutsu",
+    "op": "create",
+    "name": "Fresh Planks",
+    "srcId": "sg575_planks_a",
+    "targetId": null,
+    "payloadHash": "decc8e20",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "nOTlcC6BXDLrjMfk1mcMy",
+    "snapshotKey": "tnr_forge_snap_v1:575-mw9hxxn1:jutsu",
+    "sentAt": "2026-11-09T16:59:01.794Z",
+    "createSentAt": "2026-11-09T16:58:31.651Z",
+    "confirmedAt": "2026-11-09T16:59:23.652Z",
+    "verifiedAt": "2026-11-09T16:59:33.593Z",
+    "error": null,
+    "attempt": 2,
+    "asserted": [
+     "extraBaseCost",
+     "bloodlineId",
+     "requiredLevel",
+     "requiredRank",
+     "jutsuType",
+     "image",
+     "jutsuWeapon",
+     "statClassification",
+     "elementClassification",
+     "jutsuRank",
+     "staminaCost",
+     "chakraCost",
+     "staminaCostReducePerLvl",
+     "chakraCostReducePerLvl",
+     "healthCostReducePerLvl",
+     "healthCost",
+     "villageId",
+     "hidden",
+     "injectableInBattle",
+     "battleUsageType",
+     "name",
+     "description",
+     "battleDescription",
+     "effects",
+     "actionCostPerc",
+     "cooldown",
+     "target",
+     "method",
+     "range",
+     "coordinateTargeting"
+    ],
+    "diffs": [],
+    "verify": "match"
+   },
+   {
+    "idx": 6,
+    "entity": "jutsu",
+    "op": "create",
+    "name": "Last Planks",
+    "srcId": "sg575_planks_b",
+    "targetId": null,
+    "payloadHash": "76c130af",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "GeRkebyexZfeWXMLsAI9O",
+    "snapshotKey": "tnr_forge_snap_v1:575-mw9hxxn1:jutsu",
+    "sentAt": "2026-11-09T16:59:56.585Z",
+    "createSentAt": "2026-11-09T16:59:33.604Z",
+    "confirmedAt": "2026-11-09T17:00:19.963Z",
+    "verifiedAt": "2026-11-09T17:00:30.982Z",
+    "error": null,
+    "attempt": 2,
+    "asserted": [
+     "extraBaseCost",
+     "bloodlineId",
+     "requiredLevel",
+     "requiredRank",
+     "jutsuType",
+     "image",
+     "jutsuWeapon",
+     "statClassification",
+     "elementClassification",
+     "jutsuRank",
+     "staminaCost",
+     "chakraCost",
+     "staminaCostReducePerLvl",
+     "chakraCostReducePerLvl",
+     "healthCostReducePerLvl",
+     "healthCost",
+     "villageId",
+     "hidden",
+     "injectableInBattle",
+     "battleUsageType",
+     "name",
+     "description",
+     "battleDescription",
+     "effects",
+     "actionCostPerc",
+     "cooldown",
+     "target",
+     "method",
+     "range",
+     "coordinateTargeting"
+    ],
+    "diffs": [],
+    "verify": "match"
+   },
+   {
+    "idx": 7,
+    "entity": "jutsu",
+    "op": "create",
+    "name": "Hammerfall",
+    "srcId": "sg575_hammerfall",
+    "targetId": null,
+    "payloadHash": "011d7d7f",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "J2HVPU-zKBGbiXAsk8VDJ",
+    "snapshotKey": "tnr_forge_snap_v1:575-mw9hxxn1:jutsu",
+    "sentAt": "2026-11-09T17:00:52.582Z",
+    "createSentAt": "2026-11-09T17:00:30.996Z",
+    "confirmedAt": "2026-11-09T17:01:24.279Z",
+    "verifiedAt": "2026-11-09T17:01:36.346Z",
+    "error": null,
+    "attempt": 2,
+    "asserted": [
+     "extraBaseCost",
+     "bloodlineId",
+     "requiredLevel",
+     "requiredRank",
+     "jutsuType",
+     "image",
+     "jutsuWeapon",
+     "statClassification",
+     "elementClassification",
+     "jutsuRank",
+     "staminaCost",
+     "chakraCost",
+     "staminaCostReducePerLvl",
+     "chakraCostReducePerLvl",
+     "healthCostReducePerLvl",
+     "healthCost",
+     "villageId",
+     "hidden",
+     "injectableInBattle",
+     "battleUsageType",
+     "name",
+     "description",
+     "battleDescription",
+     "effects",
+     "actionCostPerc",
+     "cooldown",
+     "target",
+     "method",
+     "range",
+     "coordinateTargeting"
+    ],
+    "diffs": [],
+    "verify": "match"
+   },
+   {
+    "idx": 8,
+    "entity": "jutsu",
+    "op": "create",
+    "name": "The Hold Groans I",
+    "srcId": "sg575_tier1_mark",
+    "targetId": null,
+    "payloadHash": "90f5f6ac",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "8eZvWADIoGrZ_s73Oxbnh",
+    "snapshotKey": "tnr_forge_snap_v1:575-mw9hxxn1:jutsu",
+    "sentAt": "2026-11-09T17:02:01.931Z",
+    "createSentAt": "2026-11-09T17:01:36.358Z",
+    "confirmedAt": "2026-11-09T17:02:24.377Z",
+    "verifiedAt": "2026-11-09T17:02:36.770Z",
+    "error": null,
+    "attempt": 2,
+    "asserted": [
+     "extraBaseCost",
+     "bloodlineId",
+     "requiredLevel",
+     "requiredRank",
+     "jutsuType",
+     "image",
+     "jutsuWeapon",
+     "statClassification",
+     "elementClassification",
+     "jutsuRank",
+     "staminaCost",
+     "chakraCost",
+     "staminaCostReducePerLvl",
+     "chakraCostReducePerLvl",
+     "healthCostReducePerLvl",
+     "healthCost",
+     "villageId",
+     "hidden",
+     "injectableInBattle",
+     "battleUsageType",
+     "name",
+     "description",
+     "battleDescription",
+     "effects",
+     "actionCostPerc",
+     "cooldown",
+     "target",
+     "method",
+     "range",
+     "coordinateTargeting"
+    ],
+    "diffs": [],
+    "verify": "match"
+   },
+   {
+    "idx": 9,
+    "entity": "jutsu",
+    "op": "create",
+    "name": "The Hold Closes I",
+    "srcId": "sg575_tier1_close",
+    "targetId": null,
+    "payloadHash": "8e377c73",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "nFWnX7iQbJ6Zhq4QatyPf",
+    "snapshotKey": "tnr_forge_snap_v1:575-mw9hxxn1:jutsu",
+    "sentAt": "2026-11-09T17:02:57.111Z",
+    "createSentAt": "2026-11-09T17:02:36.781Z",
+    "confirmedAt": "2026-11-09T17:03:22.704Z",
+    "verifiedAt": "2026-11-09T17:03:32.624Z",
+    "error": null,
+    "attempt": 2,
+    "asserted": [
+     "extraBaseCost",
+     "bloodlineId",
+     "requiredLevel",
+     "requiredRank",
+     "jutsuType",
+     "image",
+     "jutsuWeapon",
+     "statClassification",
+     "elementClassification",
+     "jutsuRank",
+     "staminaCost",
+     "chakraCost",
+     "staminaCostReducePerLvl",
+     "chakraCostReducePerLvl",
+     "healthCostReducePerLvl",
+     "healthCost",
+     "villageId",
+     "hidden",
+     "injectableInBattle",
+     "battleUsageType",
+     "name",
+     "description",
+     "battleDescription",
+     "effects",
+     "actionCostPerc",
+     "cooldown",
+     "target",
+     "method",
+     "range",
+     "coordinateTargeting"
+    ],
+    "diffs": [],
+    "verify": "match"
+   },
+   {
+    "idx": 10,
+    "entity": "jutsu",
+    "op": "create",
+    "name": "The Hold Groans II",
+    "srcId": "sg575_tier2_mark",
+    "targetId": null,
+    "payloadHash": "83962503",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "8d1rnWZ17a861Js3vHMli",
+    "snapshotKey": "tnr_forge_snap_v1:575-mw9hxxn1:jutsu",
+    "sentAt": "2026-11-09T17:04:00.270Z",
+    "createSentAt": "2026-11-09T17:03:32.633Z",
+    "confirmedAt": "2026-11-09T17:04:25.352Z",
+    "verifiedAt": "2026-11-09T17:04:33.635Z",
+    "error": null,
+    "attempt": 2,
+    "asserted": [
+     "extraBaseCost",
+     "bloodlineId",
+     "requiredLevel",
+     "requiredRank",
+     "jutsuType",
+     "image",
+     "jutsuWeapon",
+     "statClassification",
+     "elementClassification",
+     "jutsuRank",
+     "staminaCost",
+     "chakraCost",
+     "staminaCostReducePerLvl",
+     "chakraCostReducePerLvl",
+     "healthCostReducePerLvl",
+     "healthCost",
+     "villageId",
+     "hidden",
+     "injectableInBattle",
+     "battleUsageType",
+     "name",
+     "description",
+     "battleDescription",
+     "effects",
+     "actionCostPerc",
+     "cooldown",
+     "target",
+     "method",
+     "range",
+     "coordinateTargeting"
+    ],
+    "diffs": [],
+    "verify": "match"
+   },
+   {
+    "idx": 11,
+    "entity": "jutsu",
+    "op": "create",
+    "name": "The Hold Closes II",
+    "srcId": "sg575_tier2_close",
+    "targetId": null,
+    "payloadHash": "348c929a",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "UCWimF3c3medcDw_6tOpp",
+    "snapshotKey": "tnr_forge_snap_v1:575-mw9hxxn1:jutsu",
+    "sentAt": "2026-11-09T17:04:55.978Z",
+    "createSentAt": "2026-11-09T17:04:33.650Z",
+    "confirmedAt": "2026-11-09T17:05:27.703Z",
+    "verifiedAt": "2026-11-09T17:05:38.172Z",
+    "error": null,
+    "attempt": 2,
+    "asserted": [
+     "extraBaseCost",
+     "bloodlineId",
+     "requiredLevel",
+     "requiredRank",
+     "jutsuType",
+     "image",
+     "jutsuWeapon",
+     "statClassification",
+     "elementClassification",
+     "jutsuRank",
+     "staminaCost",
+     "chakraCost",
+     "staminaCostReducePerLvl",
+     "chakraCostReducePerLvl",
+     "healthCostReducePerLvl",
+     "healthCost",
+     "villageId",
+     "hidden",
+     "injectableInBattle",
+     "battleUsageType",
+     "name",
+     "description",
+     "battleDescription",
+     "effects",
+     "actionCostPerc",
+     "cooldown",
+     "target",
+     "method",
+     "range",
+     "coordinateTargeting"
+    ],
+    "diffs": [],
+    "verify": "match"
+   },
+   {
+    "idx": 12,
+    "entity": "jutsu",
+    "op": "create",
+    "name": "The Hold Groans III",
+    "srcId": "sg575_tier3_mark",
+    "targetId": null,
+    "payloadHash": "4ffce15c",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "XQ1qDNs13B3wG5SvcKm1Q",
+    "snapshotKey": "tnr_forge_snap_v1:575-mw9hxxn1:jutsu",
+    "sentAt": "2026-11-09T17:05:59.471Z",
+    "createSentAt": "2026-11-09T17:05:38.185Z",
+    "confirmedAt": "2026-11-09T17:08:00.386Z",
+    "verifiedAt": "2026-11-09T17:08:15.615Z",
+    "error": null,
+    "attempt": 2,
+    "asserted": [
+     "extraBaseCost",
+     "bloodlineId",
+     "requiredLevel",
+     "requiredRank",
+     "jutsuType",
+     "image",
+     "jutsuWeapon",
+     "statClassification",
+     "elementClassification",
+     "jutsuRank",
+     "staminaCost",
+     "chakraCost",
+     "staminaCostReducePerLvl",
+     "chakraCostReducePerLvl",
+     "healthCostReducePerLvl",
+     "healthCost",
+     "villageId",
+     "hidden",
+     "injectableInBattle",
+     "battleUsageType",
+     "name",
+     "description",
+     "battleDescription",
+     "effects",
+     "actionCostPerc",
+     "cooldown",
+     "target",
+     "method",
+     "range",
+     "coordinateTargeting"
+    ],
+    "diffs": [],
+    "verify": "match"
+   },
+   {
+    "idx": 13,
+    "entity": "jutsu",
+    "op": "create",
+    "name": "The Hold Closes III",
+    "srcId": "sg575_tier3_close",
+    "targetId": null,
+    "payloadHash": "1b9639f0",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "ZU-tt23npKv7ZwvuEwSNI",
+    "snapshotKey": "tnr_forge_snap_v1:575-mw9hxxn1:jutsu",
+    "sentAt": "2026-11-09T17:09:46.862Z",
+    "createSentAt": "2026-11-09T17:08:15.626Z",
+    "confirmedAt": "2026-11-09T17:10:09.848Z",
+    "verifiedAt": "2026-11-09T17:10:23.353Z",
+    "error": null,
+    "attempt": 2,
+    "asserted": [
+     "extraBaseCost",
+     "bloodlineId",
+     "requiredLevel",
+     "requiredRank",
+     "jutsuType",
+     "image",
+     "jutsuWeapon",
+     "statClassification",
+     "elementClassification",
+     "jutsuRank",
+     "staminaCost",
+     "chakraCost",
+     "staminaCostReducePerLvl",
+     "chakraCostReducePerLvl",
+     "healthCostReducePerLvl",
+     "healthCost",
+     "villageId",
+     "hidden",
+     "injectableInBattle",
+     "battleUsageType",
+     "name",
+     "description",
+     "battleDescription",
+     "effects",
+     "actionCostPerc",
+     "cooldown",
+     "target",
+     "method",
+     "range",
+     "coordinateTargeting"
+    ],
+    "diffs": [],
+    "verify": "match"
+   },
+   {
+    "idx": 14,
+    "entity": "jutsu",
+    "op": "create",
+    "name": "The Hold Groans IV",
+    "srcId": "sg575_tier4_mark",
+    "targetId": null,
+    "payloadHash": "29345174",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "8iMWmNTtwIME9SPlacajs",
+    "snapshotKey": "tnr_forge_snap_v1:575-mw9hxxn1:jutsu",
+    "sentAt": "2026-11-09T17:11:05.601Z",
+    "createSentAt": "2026-11-09T17:10:23.366Z",
+    "confirmedAt": "2026-11-09T17:11:40.405Z",
+    "verifiedAt": "2026-11-09T17:11:53.943Z",
+    "error": null,
+    "attempt": 2,
+    "asserted": [
+     "extraBaseCost",
+     "bloodlineId",
+     "requiredLevel",
+     "requiredRank",
+     "jutsuType",
+     "image",
+     "jutsuWeapon",
+     "statClassification",
+     "elementClassification",
+     "jutsuRank",
+     "staminaCost",
+     "chakraCost",
+     "staminaCostReducePerLvl",
+     "chakraCostReducePerLvl",
+     "healthCostReducePerLvl",
+     "healthCost",
+     "villageId",
+     "hidden",
+     "injectableInBattle",
+     "battleUsageType",
+     "name",
+     "description",
+     "battleDescription",
+     "effects",
+     "actionCostPerc",
+     "cooldown",
+     "target",
+     "method",
+     "range",
+     "coordinateTargeting"
+    ],
+    "diffs": [],
+    "verify": "match"
+   },
+   {
+    "idx": 15,
+    "entity": "jutsu",
+    "op": "create",
+    "name": "The Hold Closes IV",
+    "srcId": "sg575_tier4_close",
+    "targetId": null,
+    "payloadHash": "183242bd",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "fe8V9FN7ZGoAWLavLbONJ",
+    "snapshotKey": "tnr_forge_snap_v1:575-mw9hxxn1:jutsu",
+    "sentAt": "2026-11-09T17:12:55.397Z",
+    "createSentAt": "2026-11-09T17:11:53.954Z",
+    "confirmedAt": "2026-11-09T17:14:06.088Z",
+    "verifiedAt": "2026-11-09T17:14:17.080Z",
+    "error": null,
+    "attempt": 2,
+    "asserted": [
+     "extraBaseCost",
+     "bloodlineId",
+     "requiredLevel",
+     "requiredRank",
+     "jutsuType",
+     "image",
+     "jutsuWeapon",
+     "statClassification",
+     "elementClassification",
+     "jutsuRank",
+     "staminaCost",
+     "chakraCost",
+     "staminaCostReducePerLvl",
+     "chakraCostReducePerLvl",
+     "healthCostReducePerLvl",
+     "healthCost",
+     "villageId",
+     "hidden",
+     "injectableInBattle",
+     "battleUsageType",
+     "name",
+     "description",
+     "battleDescription",
+     "effects",
+     "actionCostPerc",
+     "cooldown",
+     "target",
+     "method",
+     "range",
+     "coordinateTargeting"
+    ],
+    "diffs": [],
+    "verify": "match"
+   },
+   {
+    "idx": 16,
+    "entity": "jutsu",
+    "op": "create",
+    "name": "The Hold Seals",
+    "srcId": "sg575_seal",
+    "targetId": null,
+    "payloadHash": "411e4671",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "v45dy3l6TH5F5TID_IlUs",
+    "snapshotKey": "tnr_forge_snap_v1:575-mw9hxxn1:jutsu",
+    "sentAt": "2026-11-09T17:15:42.062Z",
+    "createSentAt": "2026-11-09T17:14:17.097Z",
+    "confirmedAt": "2026-11-09T17:16:24.091Z",
+    "verifiedAt": "2026-11-09T17:16:50.700Z",
+    "error": null,
+    "attempt": 2,
+    "asserted": [
+     "extraBaseCost",
+     "bloodlineId",
+     "requiredLevel",
+     "requiredRank",
+     "jutsuType",
+     "image",
+     "jutsuWeapon",
+     "statClassification",
+     "elementClassification",
+     "jutsuRank",
+     "staminaCost",
+     "chakraCost",
+     "staminaCostReducePerLvl",
+     "chakraCostReducePerLvl",
+     "healthCostReducePerLvl",
+     "healthCost",
+     "villageId",
+     "hidden",
+     "injectableInBattle",
+     "battleUsageType",
+     "name",
+     "description",
+     "battleDescription",
+     "effects",
+     "actionCostPerc",
+     "cooldown",
+     "target",
+     "method",
+     "range",
+     "coordinateTargeting"
+    ],
+    "diffs": [],
+    "verify": "match"
+   },
+   {
+    "idx": 17,
+    "entity": "jutsu",
+    "op": "create",
+    "name": "Loose Rivet",
+    "srcId": "sg575_loose_rivet",
+    "targetId": null,
+    "payloadHash": "c3f614e6",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "uMJdCYzcypL5dXsrNjtUB",
+    "snapshotKey": "tnr_forge_snap_v1:575-mw9hxxn1:jutsu",
+    "sentAt": "2026-11-09T17:18:09.266Z",
+    "createSentAt": "2026-11-09T17:16:50.718Z",
+    "confirmedAt": "2026-11-09T17:18:41.059Z",
+    "verifiedAt": "2026-11-09T17:18:57.193Z",
+    "error": null,
+    "attempt": 2,
+    "asserted": [
+     "extraBaseCost",
+     "bloodlineId",
+     "requiredLevel",
+     "requiredRank",
+     "jutsuType",
+     "image",
+     "jutsuWeapon",
+     "statClassification",
+     "elementClassification",
+     "jutsuRank",
+     "staminaCost",
+     "chakraCost",
+     "staminaCostReducePerLvl",
+     "chakraCostReducePerLvl",
+     "healthCostReducePerLvl",
+     "healthCost",
+     "villageId",
+     "hidden",
+     "injectableInBattle",
+     "battleUsageType",
+     "name",
+     "description",
+     "battleDescription",
+     "effects",
+     "actionCostPerc",
+     "cooldown",
+     "target",
+     "method",
+     "range",
+     "coordinateTargeting"
+    ],
+    "diffs": [],
+    "verify": "match"
+   },
+   {
+    "idx": 18,
+    "entity": "jutsu",
+    "op": "create",
+    "name": "Apprentice's Mallet",
+    "srcId": "sg575_apprentice_mallet",
+    "targetId": null,
+    "payloadHash": "aad4a194",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "jfEZMGlAEFB2QlfgL7VNO",
+    "snapshotKey": "tnr_forge_snap_v1:575-mw9hxxn1:jutsu",
+    "sentAt": "2026-11-09T17:19:25.016Z",
+    "createSentAt": "2026-11-09T17:18:57.208Z",
+    "confirmedAt": "2026-11-09T17:20:03.457Z",
+    "verifiedAt": "2026-11-09T17:20:18.564Z",
+    "error": null,
+    "attempt": 2,
+    "asserted": [
+     "extraBaseCost",
+     "bloodlineId",
+     "requiredLevel",
+     "requiredRank",
+     "jutsuType",
+     "image",
+     "jutsuWeapon",
+     "statClassification",
+     "elementClassification",
+     "jutsuRank",
+     "staminaCost",
+     "chakraCost",
+     "staminaCostReducePerLvl",
+     "chakraCostReducePerLvl",
+     "healthCostReducePerLvl",
+     "healthCost",
+     "villageId",
+     "hidden",
+     "injectableInBattle",
+     "battleUsageType",
+     "name",
+     "description",
+     "battleDescription",
+     "effects",
+     "actionCostPerc",
+     "cooldown",
+     "target",
+     "method",
+     "range",
+     "coordinateTargeting"
+    ],
+    "diffs": [],
+    "verify": "match"
+   },
+   {
+    "idx": 19,
+    "entity": "jutsu",
+    "op": "create",
+    "name": "Bilge Line: Port",
+    "srcId": "sg575_crew_port_mark",
+    "targetId": null,
+    "payloadHash": "3186ec7c",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "9vJ1eCfQkSAZ2CU5LOuOW",
+    "snapshotKey": "tnr_forge_snap_v1:575-mw9hxxn1:jutsu",
+    "sentAt": "2026-11-09T17:20:47.171Z",
+    "createSentAt": "2026-11-09T17:20:18.576Z",
+    "confirmedAt": "2026-11-09T17:21:11.104Z",
+    "verifiedAt": "2026-11-09T17:21:25.677Z",
+    "error": null,
+    "attempt": 2,
+    "asserted": [
+     "extraBaseCost",
+     "bloodlineId",
+     "requiredLevel",
+     "requiredRank",
+     "jutsuType",
+     "image",
+     "jutsuWeapon",
+     "statClassification",
+     "elementClassification",
+     "jutsuRank",
+     "staminaCost",
+     "chakraCost",
+     "staminaCostReducePerLvl",
+     "chakraCostReducePerLvl",
+     "healthCostReducePerLvl",
+     "healthCost",
+     "villageId",
+     "hidden",
+     "injectableInBattle",
+     "battleUsageType",
+     "name",
+     "description",
+     "battleDescription",
+     "effects",
+     "actionCostPerc",
+     "cooldown",
+     "target",
+     "method",
+     "range",
+     "coordinateTargeting"
+    ],
+    "diffs": [],
+    "verify": "match"
+   },
+   {
+    "idx": 20,
+    "entity": "jutsu",
+    "op": "create",
+    "name": "Bilge Split: Port",
+    "srcId": "sg575_crew_port_break",
+    "targetId": null,
+    "payloadHash": "0697b32d",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "IaLLe_FBBm-1ySmCA1rwi",
+    "snapshotKey": "tnr_forge_snap_v1:575-mw9hxxn1:jutsu",
+    "sentAt": "2026-11-09T17:22:38.886Z",
+    "createSentAt": "2026-11-09T17:21:25.689Z",
+    "confirmedAt": "2026-11-09T17:23:07.464Z",
+    "verifiedAt": "2026-11-09T17:23:18.480Z",
+    "error": null,
+    "attempt": 2,
+    "asserted": [
+     "extraBaseCost",
+     "bloodlineId",
+     "requiredLevel",
+     "requiredRank",
+     "jutsuType",
+     "image",
+     "jutsuWeapon",
+     "statClassification",
+     "elementClassification",
+     "jutsuRank",
+     "staminaCost",
+     "chakraCost",
+     "staminaCostReducePerLvl",
+     "chakraCostReducePerLvl",
+     "healthCostReducePerLvl",
+     "healthCost",
+     "villageId",
+     "hidden",
+     "injectableInBattle",
+     "battleUsageType",
+     "name",
+     "description",
+     "battleDescription",
+     "effects",
+     "actionCostPerc",
+     "cooldown",
+     "target",
+     "method",
+     "range",
+     "coordinateTargeting"
+    ],
+    "diffs": [],
+    "verify": "match"
+   },
+   {
+    "idx": 21,
+    "entity": "jutsu",
+    "op": "create",
+    "name": "Bilge Line: Starboard",
+    "srcId": "sg575_crew_starboard_mark",
+    "targetId": null,
+    "payloadHash": "e1297064",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "28iX0etEpMOi6TdW5jm8R",
+    "snapshotKey": "tnr_forge_snap_v1:575-mw9hxxn1:jutsu",
+    "sentAt": "2026-11-09T17:23:46.157Z",
+    "createSentAt": "2026-11-09T17:23:18.492Z",
+    "confirmedAt": "2026-11-09T17:24:14.710Z",
+    "verifiedAt": "2026-11-09T17:24:33.023Z",
+    "error": null,
+    "attempt": 2,
+    "asserted": [
+     "extraBaseCost",
+     "bloodlineId",
+     "requiredLevel",
+     "requiredRank",
+     "jutsuType",
+     "image",
+     "jutsuWeapon",
+     "statClassification",
+     "elementClassification",
+     "jutsuRank",
+     "staminaCost",
+     "chakraCost",
+     "staminaCostReducePerLvl",
+     "chakraCostReducePerLvl",
+     "healthCostReducePerLvl",
+     "healthCost",
+     "villageId",
+     "hidden",
+     "injectableInBattle",
+     "battleUsageType",
+     "name",
+     "description",
+     "battleDescription",
+     "effects",
+     "actionCostPerc",
+     "cooldown",
+     "target",
+     "method",
+     "range",
+     "coordinateTargeting"
+    ],
+    "diffs": [],
+    "verify": "match"
+   },
+   {
+    "idx": 22,
+    "entity": "jutsu",
+    "op": "create",
+    "name": "Bilge Split: Starboard",
+    "srcId": "sg575_crew_starboard_break",
+    "targetId": null,
+    "payloadHash": "dafbefa0",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "U9N_T2vsC3NjVqUg2zOCQ",
+    "snapshotKey": "tnr_forge_snap_v1:575-mw9hxxn1:jutsu",
+    "sentAt": "2026-11-09T17:24:58.995Z",
+    "createSentAt": "2026-11-09T17:24:33.039Z",
+    "confirmedAt": "2026-11-09T17:25:24.612Z",
+    "verifiedAt": "2026-11-09T17:25:36.161Z",
+    "error": null,
+    "attempt": 2,
+    "asserted": [
+     "extraBaseCost",
+     "bloodlineId",
+     "requiredLevel",
+     "requiredRank",
+     "jutsuType",
+     "image",
+     "jutsuWeapon",
+     "statClassification",
+     "elementClassification",
+     "jutsuRank",
+     "staminaCost",
+     "chakraCost",
+     "staminaCostReducePerLvl",
+     "chakraCostReducePerLvl",
+     "healthCostReducePerLvl",
+     "healthCost",
+     "villageId",
+     "hidden",
+     "injectableInBattle",
+     "battleUsageType",
+     "name",
+     "description",
+     "battleDescription",
+     "effects",
+     "actionCostPerc",
+     "cooldown",
+     "target",
+     "method",
+     "range",
+     "coordinateTargeting"
+    ],
+    "diffs": [],
+    "verify": "match"
+   },
+   {
+    "idx": 23,
+    "entity": "item",
+    "op": "create",
+    "name": "Chart of the Closing Hold",
+    "srcId": "sg575_chart",
+    "targetId": null,
+    "payloadHash": "545eb55a",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "oQcPHpr0sqmWHfaJPR4T_",
+    "snapshotKey": "tnr_forge_snap_v1:575-mw9hxxn1:item",
+    "sentAt": "2026-11-09T17:27:11.805Z",
+    "createSentAt": "2026-11-09T17:26:47.319Z",
+    "confirmedAt": "2026-11-09T17:27:30.515Z",
+    "verifiedAt": "2026-11-09T17:27:45.136Z",
+    "error": null,
+    "attempt": 2,
+    "asserted": [
+     "itemType",
+     "slot",
+     "cooldown",
+     "weaponType",
+     "target",
+     "method",
+     "cost",
+     "repsCost",
+     "seichiSilverCost",
+     "stackSize",
+     "destroyOnUse",
+     "range",
+     "chakraCost",
+     "staminaCost",
+     "healthCost",
+     "staminaCostReducePerLvl",
+     "chakraCostReducePerLvl",
+     "healthCostReducePerLvl",
+     "actionCostPerc",
+     "battleDescription",
+     "canStack",
+     "maxImbueNumber",
+     "maxDurability",
+     "inShop",
+     "isEventItem",
+     "hidden",
+     "maxEquips",
+     "preventBattleUsage",
+     "requiredLevel",
+     "xpToLevel",
+     "parentItemId",
+     "requiredStrength",
+     "requiredSpeed",
+     "requiredIntelligence",
+     "requiredWillpower",
+     "canBeCrafted",
+     "canBeImbued",
+     "canBeHunted",
+     "canBeGathered",
+     "canBeTraded",
+     "isFarmSeed",
+     "farmGrowTimeSeconds",
+     "farmYieldItemId",
+     "farmMinLevel",
+     "farmPlantExperience",
+     "farmHarvestExperience",
+     "farmSellValue",
+     "farmExtractSeedItemId",
+     "farmExtractSeedCount",
+     "isFarmFertilizer",
+     "farmTimeReductionSeconds",
+     "farmFertilizerExperience",
+     "craftingExperience",
+     "crystalTargetTypes",
+     "bloodlineId",
+     "battleUsageType",
+     "effects",
+     "name",
+     "description",
+     "rarity",
+     "image"
+    ],
+    "diffs": [],
+    "verify": "match"
+   }
+  ]
+ }
+}

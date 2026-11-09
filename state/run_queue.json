@@ -382,9 +382,19 @@
    "manifest": "push/575_hullbound_mender_jutsu.json",
    "what": "Hullbound Mender kit: 23 hidden jutsu + hidden Chart of the Closing Hold",
    "runner": "mcp",
-   "status": "ready",
+   "status": "done",
    "waitsFor": null,
-   "note": "Hullbound Mender thread; nothing live before the Nov 13 release"
+   "note": "Hullbound Mender thread; nothing live before the Nov 13 release Ran 2026-11-09 (job 575-mw9hxxn1): 22 verified, 2 failed (Keel Splits: Port/Starboard, pool-cost marker needed direction defence; created blank and hidden, finished by 578). Bundle harvests/inbox/tnr_results_1794245265153.json."
+  },
+  {
+   "id": "578",
+   "manifest": "push/578_hullbound_mender_keel_fix.json",
+   "what": "Hullbound Mender: finish the 2 Keel Splits 575 left blank (edit by id, hidden)",
+   "runner": "connector",
+   "status": "ready",
+   "waitsFor": "575",
+   "build": "python3 push/hullbound_mender.gen.py fix --jutsu harvests/inbox/tnr_results_1794245265153.json",
+   "note": "No AI equips them yet, so no equip link to sever."
   },
   {
    "id": "576",
@@ -392,7 +402,7 @@
    "what": "Hullbound Mender AIs (Apprentice, Bilge Caulker, Bilge Pump Hand, Mender), hidden; generated from 575's bundle",
    "runner": "mcp",
    "status": "blocked",
-   "waitsFor": "575",
+   "waitsFor": "578",
    "note": "Hullbound Mender thread; nothing live before the Nov 13 release"
   },
   {

@@ -2,8 +2,9 @@
 """The Hullbound Mender: Chart of the Closing Hold, a Skyglass legendary chart run (director 2026-11-09), all HIDDEN.
 
     python3 push/hullbound_mender.gen.py jutsu                          # write push/575 (jutsu + chart item)
-    python3 push/hullbound_mender.gen.py ais --jutsu <575 bundle>       # write push/576 (the four AIs), AFTER 575 ran
-    python3 push/hullbound_mender.gen.py quest --ais <576 bundle> --jutsu <575 bundle>   # write push/577, AFTER 576
+    python3 push/hullbound_mender.gen.py fix --jutsu <575 bundle>       # write push/578 (edit the 2 Keel Splits 575 left blank)
+    python3 push/hullbound_mender.gen.py ais --jutsu <575 bundle> --fix <578 bundle>   # write push/576, AFTER 575 and 578
+    python3 push/hullbound_mender.gen.py quest --ais <576 bundle> --jutsu <575 bundle> --fix <578 bundle>   # push/577
     python3 push/hullbound_mender.gen.py check                          # offline: rule cadence and tile sets
 
 Design of record: docs/design/SKYGLASS_MENDER_PITCH.md (approved for the Nov 13 release; renamed from Okabe). Hull tile
@@ -36,7 +37,7 @@ import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 NANO = re.compile(r"^[A-Za-z0-9_-]{21}$")
-NUM = {"jutsu": 575, "ais": 576, "quest": 577}
+NUM = {"jutsu": 575, "ais": 576, "quest": 577, "fix": 578}
 PFX = {"jutsu": "sg575_", "ais": "sg576_"}
 
 COLS, ROWS = 12, 10            # quest arena at level 40+ (combat battleMaps; pitch section 8)
@@ -139,6 +140,8 @@ def marker(kind, power=1, rounds=1, desc="placeholder"):
     e = fx("none", rounds=rounds, power=power, target="SELF", calculation="static", type=kind, description=desc)
     if kind == "increaserange":
         e["actionsAffected"] = []
+    if kind in ("decreasepoolcost", "increasepoolcost"):
+        e["direction"] = "defence"   # the server's pool-cost tags only take direction "defence" (refused live 2026-11-09)
     return e
 
 
@@ -523,17 +526,34 @@ def check_graph(objs):
         assert "—" not in o["description"] and "–" not in o["description"], o["id"]
 
 
-def ids_from_bundle(path, prefix, keys):
+FIX_KEYS = ("port_break", "starboard_break")   # failed in 575 (pool-cost direction); finished by 578 edits
+
+
+def ids_from_bundle(path, prefix, keys, fix=None):
     b = json.load(open(path))
     out = {}
     for e in b["entries"]:
         src = e.get("srcId") or ""
         if src.startswith(prefix):
+            k = src[len(prefix):]
+            if e["state"] != "ok" and fix is not None and k in FIX_KEYS:
+                continue
             assert e["state"] == "ok" and NANO.match(e["id"]), (src, e.get("state"))
-            out[src[len(prefix):]] = e["id"]
+            out[k] = e["id"]
+    if fix is not None:   # the 578 edit bundle: same ids, now saved with the fixed effects
+        idmap = b["idmap"]
+        for e in json.load(open(fix))["entries"]:
+            k = (e.get("srcId") or "")[len("sg578_"):]
+            if k in FIX_KEYS:
+                assert e["state"] == "ok" and e["id"] == idmap[prefix + k], (k, e.get("state"))
+                out[k] = e["id"]
     missing = set(keys) - set(out)
     assert not missing, missing
     return out
+
+
+def fix_arg():
+    return sys.argv[sys.argv.index("--fix") + 1] if "--fix" in sys.argv else None
 
 
 def write(num, slug, note, items, extra=None):
@@ -565,8 +585,16 @@ def main():
               "chart item (Legendary, placeholder icon). Art fields carry live Skyglass stand-ins until the Mender's "
               "clips are uploaded in the browser.", items)
         return
+    if mode == "fix":
+        idmap = json.load(open(sys.argv[sys.argv.index("--jutsu") + 1]))["idmap"]
+        items = [{"entity": "jutsu", "slot": "edit", "targetId": idmap[PFX["jutsu"] + k], "srcId": "sg578_" + k,
+                  "phase": 1, "name": JUTSU[k]["name"], "data": JUTSU[k]} for k in FIX_KEYS]
+        write(NUM["fix"], "hullbound_mender_keel_fix",
+              "push/578, HIDDEN: finishes the two Keel Splits that 575 created blank (the pool-cost marker needed "
+              "direction defence). Edits by id; no AI equips them yet, so no equip link to sever.", items)
+        return
     if mode == "ais":
-        J = ids_from_bundle(sys.argv[sys.argv.index("--jutsu") + 1], PFX["jutsu"], JUTSU)
+        J = ids_from_bundle(sys.argv[sys.argv.index("--jutsu") + 1], PFX["jutsu"], JUTSU, fix_arg())
         items = build_ais(J)
         write(NUM["ais"], "hullbound_mender_ais",
               "push/576, HIDDEN: the four AIs (fresh creates, equipped once; law 18 applies to any later jutsu edit): "
@@ -576,7 +604,7 @@ def main():
               "bundle.", items, {"_jutsu_ids": J})
         return
     if mode == "quest":
-        J = ids_from_bundle(sys.argv[sys.argv.index("--jutsu") + 1], PFX["jutsu"], list(JUTSU) + ["chart"])
+        J = ids_from_bundle(sys.argv[sys.argv.index("--jutsu") + 1], PFX["jutsu"], list(JUTSU) + ["chart"], fix_arg())
         A = ids_from_bundle(sys.argv[sys.argv.index("--ais") + 1], PFX["ais"],
                             ["apprentice", "caulker", "pump", "mender"])
         q = quest_entry(A, J["chart"])
