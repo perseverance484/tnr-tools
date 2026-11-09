@@ -484,12 +484,12 @@
       "manifest": "push/562_driftline_golive.json",
       "what": "The Driftline go-live: unhide 3 bosses, 2 charts, 5 quests; Into, Beachcombing and the Tally become overworld at the salvager's NPC (Into after Wreck Sighted, dialog steps tied to her placement); Tally text fix; Faded Wreck drops Chart of the Split Hold 20% and Chart of the Broken Stern 5%",
       "runner": "mcp",
-      "status": "waiting",
+      "status": "parked",
       "waitsFor": [
         "545",
         "director's Friday Nov 13 release go"
       ],
-      "note": "Not generated yet on purpose: build it Friday with python3 push/driftline.gen.py golive DIR, DIR = live reads taken AFTER 545 ran (quest_<id>.json for Into, Beachcombing, the Tally; dungeon_j4QEUtjbK_lbOYUPVoidk.json). The generator refuses a Wreck read with no salvage row. Add --no-bind if the dialog binding is not wanted. Her roll pool and placement are the release thread's."
+      "note": "DRAFT, not final (coordinator 2026-11-09 21:25Z): dauntless 3:04 PM CT said the Driftline may be better as new charts for 30-80 with the shore work on her NPC; the one-NPC list and trade menu are still being decided (Into may retire, Split Hold may join the trades). Rework push/driftline.gen.py golive once that settles. Not generated yet on purpose: build it Friday with python3 push/driftline.gen.py golive DIR, DIR = live reads taken AFTER 545 ran (quest_<id>.json for Into, Beachcombing, the Tally; dungeon_j4QEUtjbK_lbOYUPVoidk.json). The generator refuses a Wreck read with no salvage row. Add --no-bind if the dialog binding is not wanted. Her roll pool and placement are the release thread's."
     }
   ]
 }
