@@ -191,12 +191,15 @@ answers in 1 to 4 short scenes while pointing at a board of pinned pages, then t
 Every scene is her line first, then one plain line in italics saying exactly how it works (EVENT_STRUCTURE P6: the tier
 is told by the fiction, the mechanics are told plainly). This supersedes §1a's "no hand holding" brief. Accuracy pass and the chests topic: RUL-2026-11-07-138.
 
-Two quests share every node (`push/skyglass_thread.gen.py`), both handed out by the salvager's one overworld NPC on
-the shore (director 2026-11-09 15:58: "No salvagers fire at wake island, just 1 overworld NPC"); each talk uses one of
-the player's daily NPC rolls:
-- **Wreck Sighted** (the live record, edited in place): one time, pays the Tide Chart. questType overworld at release.
-- **At the Salvager's Fire** (new): repeatable, no reward, for anyone who wants the explainer again. questType
-  overworld at release, with Wreck Sighted as its prerequisite, like the four Salvager's Trade quests (push/542).
+Two quests share every node (`push/skyglass_thread.gen.py`). Director 2026-11-09 19:57 (replaces 15:58 for the Fire):
+the no-reward repeat must not cost a daily NPC roll, so it stays an Administration Building event.
+- **Wreck Sighted** (the live record, edited in place): one time, pays the Tide Chart. questType overworld at release,
+  handed out by her one overworld NPC on the shore (one daily NPC roll). Her introduction and the event's, and the
+  prerequisite for every other salvager quest.
+- **At the Salvager's Fire** (new): repeatable, no reward, for anyone who wants the explainer again. Stays questType
+  event (Events, any Administration Building; Wake Island's is nearest the Wreck), with Wreck Sighted as its
+  prerequisite at release. Not in her NPC pool, so it costs no daily roll.
+- Her NPC pool at release: Wreck Sighted, the four Salvager's Trade quests (push/542/543) and The Driftline's quests.
 
 Graph: `d_open` -> `d_menu` -> seven topics (the shards topic is held back, RUL-2026-11-09-140) -> each topic's last scene offers `r_menu` (a `reset_quest` back to
 `d_menu`) or the ending. Node ids are the generator's; the board each scene shows is in the generator's `SCENES` table.
@@ -209,7 +212,7 @@ At the Salvager's Fire
 
 **`quest:At the Salvager's Fire.description`**
 ```
-The salvager keeps her fire on the shore below the Wreck (sector 210). Sit with her and ask about getting aboard, the charts, the chests, the deep, the Haul, salvage, trading or the watch log.
+Sit with the salvager again and ask about getting aboard, the charts, the chests, the deep, the Haul, salvage, trading or the watch log. No reward, and it uses no daily NPC encounter. Meet her on the shore first (Wreck Sighted).
 ```
 
 **`quest:At the Salvager's Fire.successDescription`**
@@ -338,7 +341,7 @@ She nods at a board of driftwood where she pins what the sea gives back. "Ask wh
 
 **`obj:Salvager's thread/t_prices.description`**
 ```html
-"Four pieces for a deck chart. Ten for one from the hold. The sealed charts and the Lantern, once a week."<br><br><i>Each talk with her on the map uses one daily NPC encounter and offers her fire or a trade. Deck charts 4 (Genin), hold charts 10 (Jonin), a sealed chart 20 weekly, the Lantern 30 weekly (level 80). Back out and she returns the salvage.</i>
+"Four pieces for a deck chart. Ten for one from the hold. The sealed charts and the Lantern, once a week."<br><br><i>Each talk with her on the map uses one daily NPC encounter and may offer a trade. Deck charts 4 (Genin), hold charts 10 (Jonin), a sealed chart 20 weekly, the Lantern 30 weekly (level 80). Back out and she returns the salvage.</i>
 ```
 
 **`obj:Salvager's thread/t_trade.description`**
@@ -367,7 +370,7 @@ She nods at a board of driftwood where she pins what the sea gives back. "Ask wh
 
 **`obj:Wreck Sighted (thread)/z_chart.description`**
 ```html
-She pulls a <b>Tide Chart</b> from inside her coat, salt-stiff and still damp at one corner. "Low tide opens her lower hull. Don't sit on it. She's already changing shape."<br><br><i>The fire stays lit. Talk to her again on the map: each talk uses one daily NPC encounter, and she offers her fire or a salvage trade.</i>
+She pulls a <b>Tide Chart</b> from inside her coat, salt-stiff and still damp at one corner. "Low tide opens her lower hull. Don't sit on it. She's already changing shape."<br><br><i>Talk to her again on the map for salvage trades and work: each talk uses one daily NPC encounter. To hear all this again, sit at her fire from Events in any Administration Building.</i>
 ```
 - `choice[0]`: `Take the chart`
 
