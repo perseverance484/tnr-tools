@@ -398,8 +398,17 @@ STAT = 1391299.95   # the Mother of Echoes stat block (push/463)
 MASTERY = 834780
 
 
+def reuse_ids():
+    """--reuse key=id,...: AIs a failed run already created blank; finish them by id instead of creating twins."""
+    if "--reuse" not in sys.argv: return {}
+    return dict(kv.split("=", 1) for kv in sys.argv[sys.argv.index("--reuse") + 1].split(","))
+
+
 def ai(key, name, avatar, pools, stats_mult, effects, jutsus, rules, items=()):
-    return {"entity": "ai", "slot": "create", "srcId": PFX["ais"] + key, "phase": 1, "name": name, "data": {
+    rid = reuse_ids().get(key)
+    head = {"entity": "ai", "slot": "edit", "targetId": rid} if rid else {"entity": "ai", "slot": "create"}
+    assert pools >= 1, "poolsMultiplier must be >= 1"
+    return {**head, "srcId": PFX["ais"] + key, "phase": 1, "name": name, "data": {
         "avatarFacing": "left", "bloodlineMastery": 10, "bukijutsuMastery": MASTERY, "defence": STAT,
         "gender": "Unknown", "genjutsuMastery": MASTERY, "hidden": True, "includeDefaultRules": False,
         "intelligence": STAT, "isSummon": False, "level": 100, "ninjutsuMastery": MASTERY, "offence": STAT,
@@ -421,13 +430,18 @@ def build_ais(J):
     steady = [innate("stunprevent", 100, "Nothing knocks the Mender off his work"),
               innate("onehitkillprevent", 100, "placeholder", target="SELF", calc="static")]
     return [
-        ai("apprentice", "The Mender's Apprentice", AVATAR["apprentice"], 0.8, 5.83, list(steady),
+        # poolsMultiplier must be >= 1 (profile.updateAi refused 0.8 on 2026-11-09), so at level 100 every AI has at
+        # least 5,050 HP; the planned 4,040 and 2,525 are kept as effective HP with innate damage taken (+25%, +100%).
+        ai("apprentice", "The Mender's Apprentice", AVATAR["apprentice"], 1, 5.83,
+           list(steady) + [innate("increasedamagetaken", 25, "Green hands: takes 25% more damage")],
            [J[k] for k in ("apprentice_mallet", "tier1_close", "tier1_mark", "planks_a", "loose_rivet")],
            apprentice_rules(J)),
-        ai("caulker", "Bilge Caulker", AVATAR["caulker"], 0.5, 5, [],
+        ai("caulker", "Bilge Caulker", AVATAR["caulker"], 1, 5,
+           [innate("increasedamagetaken", 100, "Bilge crew, no armour: takes double damage")],
            [J["crew_port_break"], J["crew_port_mark"], POOL_JUTSU["Tide Bolt"], POOL_JUTSU["Quick Strike"]],
            crew_rules(J, "port", 0)),
-        ai("pump", "Bilge Pump Hand", AVATAR["pump"], 0.5, 5, [],
+        ai("pump", "Bilge Pump Hand", AVATAR["pump"], 1, 5,
+           [innate("increasedamagetaken", 100, "Bilge crew, no armour: takes double damage")],
            [J["crew_starboard_break"], J["crew_starboard_mark"], POOL_JUTSU["Tide Bolt"], POOL_JUTSU["Quick Strike"]],
            crew_rules(J, "starboard", 2)),
         ai("mender", "The Hullbound Mender", AVATAR["mender"], 3.2, 5.83, list(steady),
@@ -660,8 +674,8 @@ def main():
         items = build_ais(J)
         write(NUM["ais"], "hullbound_mender_ais",
               "push/576, HIDDEN: the four AIs (fresh creates, equipped once; law 18 applies to any later jutsu edit): "
-              "The Mender's Apprentice (Veteran Foundry Warden art, 4,040 HP), Bilge Caulker and Bilge Pump Hand "
-              "(Deck Warden and First Blade art, 2,525 HP each, live Quick Strike and Tide Bolt), The Hullbound Mender "
+              "The Mender's Apprentice (Veteran Foundry Warden art, 5,050 HP, +25% damage taken = 4,040 effective), Bilge "
+              "Caulker and Bilge Pump Hand (Deck Warden and First Blade art, 5,050 HP, +100% taken = 2,525 effective, live Quick Strike and Tide Bolt), The Hullbound Mender "
               "(16,160 HP, AI Heavy Armor, stun immune, placeholder avatar). Jutsu by literal id from push/575's "
               "bundle.", items, {"_jutsu_ids": J})
         return
