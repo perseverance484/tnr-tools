@@ -23,6 +23,12 @@ b = json.load(open(a.bundle))
 live = next(c["data"] for c in b["captures"] if c["proc"] == "quests.get" and c["input"]["id"] == QID)
 assert live["name"] == "Larry's Undertow" and live["questType"] == "overworld" and live["consecutiveObjectives"]
 data = {k: v for k, v in live.items() if k not in DROP}
+# Gate laws 72/42: drop nulls the write validator doesn't know and inert NONE ranks (defaults are the same).
+for k in ["petTaskMinutes", "requiredNinjutsuMastery", "requiredGenjutsuMastery", "requiredTaijutsuMastery",
+          "requiredBukijutsuMastery", "requiredBloodlineMastery", "requiredSageMastery"]:
+    if data.get(k) is None: data.pop(k, None)
+for k in ["huntingRank", "gatheringRank", "medicalRank"]:
+    if data.get(k) == "NONE": data.pop(k)
 n = 0
 for o in data["content"]["objectives"]:
     if o["task"] == "dialog":

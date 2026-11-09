@@ -1,0 +1,1217 @@
+{
+ "builder": "forge-mcp",
+ "at": "2026-11-09T21:26:40.259Z",
+ "cfg": "forge",
+ "checks": null,
+ "state": "DONE",
+ "outcome": "success",
+ "postflight": {
+  "match": 0,
+  "diff": 0,
+  "unverified": 0,
+  "failed": 0,
+  "skipped": 0,
+  "unresolved": 0
+ },
+ "entries": [],
+ "captures": [
+  {
+   "phase": "before",
+   "proc": "quests.get",
+   "input": {
+    "id": "4pNH8x9ZOOoIyERKSmPa-"
+   },
+   "ok": true,
+   "rows": 1,
+   "error": null,
+   "persist": "full",
+   "snapshotKey": "549-mw9rtz71::before::0",
+   "persistOk": true,
+   "persistError": null,
+   "bytes": 25403,
+   "at": "2026-11-09T21:26:40.253Z",
+   "data": {
+    "id": "4pNH8x9ZOOoIyERKSmPa-",
+    "name": "Larry's Undertow",
+    "image": "https://ui0arpl8sm.ufs.sh/f/IjeDV1p-9j7O3dyCi0SLy.jpg",
+    "description": "Larry has a game: three riddles down, treasure up. Where you surface decides what you carry out.",
+    "successDescription": "You surfaced from Larry's game with the sea's payment in hand.",
+    "questRank": "C",
+    "medicalRank": "NONE",
+    "huntingRank": "NONE",
+    "gatheringRank": "NONE",
+    "petTaskMinutes": null,
+    "requiredLevel": 1,
+    "requiredFarmingLevel": 0,
+    "prerequisiteQuestId": null,
+    "tierLevel": null,
+    "questType": "overworld",
+    "content": {
+     "reward": {
+      "reward_exp": 0,
+      "reward_rank": "NONE",
+      "reward_items": [],
+      "reward_money": 0,
+      "reward_badges": [],
+      "reward_jutsus": [],
+      "reward_titles": [],
+      "reward_tokens": 0,
+      "reward_prestige": 0,
+      "reward_anbupoints": 0,
+      "reward_bloodlines": [],
+      "reward_clanpoints": 0,
+      "reward_reputation": 0,
+      "reward_sage_modes": [],
+      "reward_war_damage": 0,
+      "reward_skillpoints": 0,
+      "reward_war_healing": 0,
+      "reward_hunter_items": false,
+      "reward_seichi_silver": 0,
+      "reward_gathering_items": false,
+      "reward_hunter_items_ids": [],
+      "reward_hunting_experience": 0,
+      "reward_medical_experience": 0,
+      "reward_village_membership": "NONE",
+      "reward_crafting_experience": 0,
+      "reward_gathering_items_ids": [],
+      "reward_gathering_experience": 0,
+      "reward_sage_mastery_experience": 0
+     },
+     "isolated": false,
+     "entryItems": [],
+     "objectives": [
+      {
+       "id": "d_intro",
+       "task": "dialog",
+       "image": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJpIn7vsbKBAOsGCHyl3Sk0mZFrgWPUdjMJ75D.webp",
+       "attackers": [],
+       "reward_exp": 0,
+       "description": "Larry flags you down from a barrel-top perch. \"Evening, swimmer. Fancy a game? Three riddles down, treasure up. One rule I give free: the deep don't shout.\"",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "nextObjectiveId": [
+        {
+         "text": "Sit down and play.",
+         "nextObjectiveId": "d_l1"
+        }
+       ],
+       "reward_prestige": 0,
+       "sceneBackground": "P4fr3dhK4WLPU7Xl2gCtr",
+       "sceneCharacters": [
+        "_xOCD4ivlp2a_8vYI7gXn"
+       ],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "attackers_scale_gains": 1,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "attackers_max_per_battle": 1,
+       "attackers_scaled_to_user": false,
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "d_l1",
+       "task": "dialog",
+       "image": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJpIn7vsbKBAOsGCHyl3Sk0mZFrgWPUdjMJ75D.webp",
+       "attackers": [],
+       "reward_exp": 0,
+       "description": "\"Three currents leave this harbor. One runs loud over the rocks. One runs wide and easy. One runs under, where the light don't follow. Which do you swim?\"",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "nextObjectiveId": [
+        {
+         "text": "The loud one, over the rocks.",
+         "nextObjectiveId": "d_a2"
+        },
+        {
+         "text": "The wide and easy one.",
+         "nextObjectiveId": "d_b2"
+        },
+        {
+         "text": "The one that runs under.",
+         "nextObjectiveId": "d_c2"
+        }
+       ],
+       "reward_prestige": 0,
+       "sceneBackground": "P4fr3dhK4WLPU7Xl2gCtr",
+       "sceneCharacters": [
+        "_xOCD4ivlp2a_8vYI7gXn"
+       ],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "attackers_scale_gains": 1,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "attackers_max_per_battle": 1,
+       "attackers_scaled_to_user": false,
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "d_a2",
+       "task": "dialog",
+       "image": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJpIn7vsbKBAOsGCHyl3Sk0mZFrgWPUdjMJ75D.webp",
+       "attackers": [],
+       "reward_exp": 0,
+       "description": "\"The rocks sing when the tide turns, and a wreck sits on them, hull full of cargo. What do you do?\"",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "nextObjectiveId": [
+        {
+         "text": "Strip the cargo before the tide turns.",
+         "nextObjectiveId": "d_e3"
+        },
+        {
+         "text": "Turn back. Rocks are no place for a boat.",
+         "nextObjectiveId": "d_mock"
+        },
+        {
+         "text": "Wait for the tide to lift her free.",
+         "nextObjectiveId": "d_a3"
+        }
+       ],
+       "reward_prestige": 0,
+       "sceneBackground": "DcSdQpp6QgZyMf6GmUoCr",
+       "sceneCharacters": [
+        "_xOCD4ivlp2a_8vYI7gXn"
+       ],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "attackers_scale_gains": 1,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "attackers_max_per_battle": 1,
+       "attackers_scaled_to_user": false,
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "d_b2",
+       "task": "dialog",
+       "image": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJpIn7vsbKBAOsGCHyl3Sk0mZFrgWPUdjMJ75D.webp",
+       "attackers": [],
+       "reward_exp": 0,
+       "description": "\"Storm's coming and your net is full. What's the move?\"",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "nextObjectiveId": [
+        {
+         "text": "Haul it in fast, before the storm hits.",
+         "nextObjectiveId": "d_e3"
+        },
+        {
+         "text": "Cut the net loose and run.",
+         "nextObjectiveId": "d_mock"
+        },
+        {
+         "text": "Ride it out. The catch isn't going anywhere.",
+         "nextObjectiveId": "d_b3"
+        }
+       ],
+       "reward_prestige": 0,
+       "sceneBackground": "H-QTjO_AP797JdOB6NDBS",
+       "sceneCharacters": [
+        "_xOCD4ivlp2a_8vYI7gXn"
+       ],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "attackers_scale_gains": 1,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "attackers_max_per_battle": 1,
+       "attackers_scaled_to_user": false,
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "d_c2",
+       "task": "dialog",
+       "image": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJpIn7vsbKBAOsGCHyl3Sk0mZFrgWPUdjMJ75D.webp",
+       "attackers": [],
+       "reward_exp": 0,
+       "description": "\"It is dark down here. Something big passes overhead. What do you do?\"",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "nextObjectiveId": [
+        {
+         "text": "Strike first, before it sees you.",
+         "nextObjectiveId": "d_e3"
+        },
+        {
+         "text": "Kick for the surface.",
+         "nextObjectiveId": "d_mock"
+        },
+        {
+         "text": "Hold still and let it pass.",
+         "nextObjectiveId": "d_c3"
+        }
+       ],
+       "reward_prestige": 0,
+       "sceneBackground": "xjCmTMdk3C_jD1IcDqMoo",
+       "sceneCharacters": [
+        "_xOCD4ivlp2a_8vYI7gXn"
+       ],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "attackers_scale_gains": 1,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "attackers_max_per_battle": 1,
+       "attackers_scaled_to_user": false,
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "d_a3",
+       "task": "dialog",
+       "image": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJpIn7vsbKBAOsGCHyl3Sk0mZFrgWPUdjMJ75D.webp",
+       "attackers": [],
+       "reward_exp": 0,
+       "description": "\"The tide lifts the wreck and her cargo is yours. The rocks kept one chest back. How hard do you pull?\"",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "nextObjectiveId": [
+        {
+         "text": "Break the hull for the last chest.",
+         "nextObjectiveId": "d_e3"
+        },
+        {
+         "text": "Take what came free and go.",
+         "nextObjectiveId": "d_e2"
+        },
+        {
+         "text": "Leave it. The rocks earned their keep.",
+         "nextObjectiveId": "d_e1"
+        }
+       ],
+       "reward_prestige": 0,
+       "sceneBackground": "DcSdQpp6QgZyMf6GmUoCr",
+       "sceneCharacters": [
+        "_xOCD4ivlp2a_8vYI7gXn"
+       ],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "attackers_scale_gains": 1,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "attackers_max_per_battle": 1,
+       "attackers_scaled_to_user": false,
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "d_b3",
+       "task": "dialog",
+       "image": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJpIn7vsbKBAOsGCHyl3Sk0mZFrgWPUdjMJ75D.webp",
+       "attackers": [],
+       "reward_exp": 0,
+       "description": "\"Storm's passed. Your net held, and then some: a second net drifted in, someone else's, still full. What now?\"",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "nextObjectiveId": [
+        {
+         "text": "Take it all. Finders keepers.",
+         "nextObjectiveId": "d_e3"
+        },
+        {
+         "text": "Take the fish, leave the net.",
+         "nextObjectiveId": "d_e2"
+        },
+        {
+         "text": "Cut it free to drift home.",
+         "nextObjectiveId": "d_e1"
+        }
+       ],
+       "reward_prestige": 0,
+       "sceneBackground": "H-QTjO_AP797JdOB6NDBS",
+       "sceneCharacters": [
+        "_xOCD4ivlp2a_8vYI7gXn"
+       ],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "attackers_scale_gains": 1,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "attackers_max_per_battle": 1,
+       "attackers_scaled_to_user": false,
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "d_c3",
+       "task": "dialog",
+       "image": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJpIn7vsbKBAOsGCHyl3Sk0mZFrgWPUdjMJ75D.webp",
+       "attackers": [],
+       "reward_exp": 0,
+       "description": "\"So you found the under-road. The Sea-King will see you now. What do you ask of him?\"",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "nextObjectiveId": [
+        {
+         "text": "His crown.",
+         "nextObjectiveId": "d_e3"
+        },
+        {
+         "text": "His blessing.",
+         "nextObjectiveId": "d_e2"
+        },
+        {
+         "text": "Nothing.",
+         "nextObjectiveId": "d_e0"
+        }
+       ],
+       "reward_prestige": 0,
+       "sceneBackground": "xjCmTMdk3C_jD1IcDqMoo",
+       "sceneCharacters": [
+        "_xOCD4ivlp2a_8vYI7gXn"
+       ],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "attackers_scale_gains": 1,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "attackers_max_per_battle": 1,
+       "attackers_scaled_to_user": false,
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "d_mock",
+       "task": "dialog",
+       "image": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJpIn7vsbKBAOsGCHyl3Sk0mZFrgWPUdjMJ75D.webp",
+       "attackers": [],
+       "reward_exp": 0,
+       "description": "\"Turning tail already? The sea keeps what you leave behind. Swim back and think slower.\"",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "nextObjectiveId": [
+        {
+         "text": "Swim back.",
+         "nextObjectiveId": "r1"
+        }
+       ],
+       "reward_prestige": 0,
+       "sceneBackground": "P4fr3dhK4WLPU7Xl2gCtr",
+       "sceneCharacters": [
+        "_xOCD4ivlp2a_8vYI7gXn"
+       ],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "attackers_scale_gains": 1,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "attackers_max_per_battle": 1,
+       "attackers_scaled_to_user": false,
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "r1",
+       "task": "reset_quest",
+       "reward_exp": 0,
+       "description": "",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "reward_prestige": 0,
+       "sceneBackground": "P4fr3dhK4WLPU7Xl2gCtr",
+       "sceneCharacters": [],
+       "resetObjectiveId": "d_l1",
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "d_e0",
+       "task": "dialog",
+       "image": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJpIn7vsbKBAOsGCHyl3Sk0mZFrgWPUdjMJ75D.webp",
+       "attackers": [],
+       "reward_exp": 0,
+       "description": "\"You want nothing. Then everything is yours, swimmer. The Sea-King grants you audience.\"",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "nextObjectiveId": [
+        {
+         "text": "Rise.",
+         "nextObjectiveId": "win_e0"
+        }
+       ],
+       "reward_prestige": 0,
+       "sceneBackground": "BT1tDatS7ByRDb9Va4Cl8",
+       "sceneCharacters": [
+        "_xOCD4ivlp2a_8vYI7gXn"
+       ],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "attackers_scale_gains": 1,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "attackers_max_per_battle": 1,
+       "attackers_scaled_to_user": false,
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "d_e1",
+       "task": "dialog",
+       "image": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJpIn7vsbKBAOsGCHyl3Sk0mZFrgWPUdjMJ75D.webp",
+       "attackers": [],
+       "reward_exp": 0,
+       "description": "\"A seat at the Sea-King's table. You swam it clean.\"",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "nextObjectiveId": [
+        {
+         "text": "Take your prize.",
+         "nextObjectiveId": "win_e1"
+        }
+       ],
+       "reward_prestige": 0,
+       "sceneBackground": "BT1tDatS7ByRDb9Va4Cl8",
+       "sceneCharacters": [
+        "_xOCD4ivlp2a_8vYI7gXn"
+       ],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "attackers_scale_gains": 1,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "attackers_max_per_battle": 1,
+       "attackers_scaled_to_user": false,
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "d_e2",
+       "task": "dialog",
+       "image": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJpIn7vsbKBAOsGCHyl3Sk0mZFrgWPUdjMJ75D.webp",
+       "attackers": [],
+       "reward_exp": 0,
+       "description": "\"The deep current carried you fair. Fair is still good eating.\"",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "nextObjectiveId": [
+        {
+         "text": "Surface.",
+         "nextObjectiveId": "win_e2"
+        }
+       ],
+       "reward_prestige": 0,
+       "sceneBackground": "xjCmTMdk3C_jD1IcDqMoo",
+       "sceneCharacters": [
+        "_xOCD4ivlp2a_8vYI7gXn"
+       ],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "attackers_scale_gains": 1,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "attackers_max_per_battle": 1,
+       "attackers_scaled_to_user": false,
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "d_e3",
+       "task": "dialog",
+       "image": "https://uploadthing.b-cdn.net/f/Hzww9EQvYURJpIn7vsbKBAOsGCHyl3Sk0mZFrgWPUdjMJ75D.webp",
+       "attackers": [],
+       "reward_exp": 0,
+       "description": "\"The shallows for you tonight. Greed swims heavy. Come back slower tomorrow.\"",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "nextObjectiveId": [
+        {
+         "text": "Wade out.",
+         "nextObjectiveId": "win_e3"
+        }
+       ],
+       "reward_prestige": 0,
+       "sceneBackground": "P4fr3dhK4WLPU7Xl2gCtr",
+       "sceneCharacters": [
+        "_xOCD4ivlp2a_8vYI7gXn"
+       ],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "attackers_scale_gains": 1,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "attackers_max_per_battle": 1,
+       "attackers_scaled_to_user": false,
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "win_e0",
+       "task": "win_quest",
+       "reward_exp": 0,
+       "description": "",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [
+        {
+         "ids": [
+          "v2PXgWqRda_V0LBxgf2O2"
+         ],
+         "number": 75,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "Wc68sUMJqcjttr2lLtMc-"
+         ],
+         "number": 50,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "ZRHGfwypUYLUJIRGcxw2Z"
+         ],
+         "number": 25,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "-w097M1JDuAmTRxxlCHKw"
+         ],
+         "number": 1,
+         "quantity": 1
+        }
+       ],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "reward_prestige": 0,
+       "sceneBackground": "BT1tDatS7ByRDb9Va4Cl8",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "win_e1",
+       "task": "win_quest",
+       "reward_exp": 0,
+       "description": "",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [
+        {
+         "ids": [
+          "v2PXgWqRda_V0LBxgf2O2"
+         ],
+         "number": 75,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "Wc68sUMJqcjttr2lLtMc-"
+         ],
+         "number": 50,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "ZRHGfwypUYLUJIRGcxw2Z"
+         ],
+         "number": 25,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "-w097M1JDuAmTRxxlCHKw"
+         ],
+         "number": 1,
+         "quantity": 1
+        }
+       ],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "reward_prestige": 0,
+       "sceneBackground": "BT1tDatS7ByRDb9Va4Cl8",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "win_e2",
+       "task": "win_quest",
+       "reward_exp": 0,
+       "description": "",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [
+        {
+         "ids": [
+          "v2PXgWqRda_V0LBxgf2O2"
+         ],
+         "number": 75,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "Wc68sUMJqcjttr2lLtMc-"
+         ],
+         "number": 50,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "ZRHGfwypUYLUJIRGcxw2Z"
+         ],
+         "number": 25,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "-w097M1JDuAmTRxxlCHKw"
+         ],
+         "number": 1,
+         "quantity": 1
+        }
+       ],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "reward_prestige": 0,
+       "sceneBackground": "xjCmTMdk3C_jD1IcDqMoo",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "win_e3",
+       "task": "win_quest",
+       "reward_exp": 0,
+       "description": "",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [
+        {
+         "ids": [
+          "v2PXgWqRda_V0LBxgf2O2"
+         ],
+         "number": 75,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "Wc68sUMJqcjttr2lLtMc-"
+         ],
+         "number": 50,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "ZRHGfwypUYLUJIRGcxw2Z"
+         ],
+         "number": 25,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "-w097M1JDuAmTRxxlCHKw"
+         ],
+         "number": 1,
+         "quantity": 1
+        }
+       ],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "reward_prestige": 0,
+       "sceneBackground": "P4fr3dhK4WLPU7Xl2gCtr",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      }
+     ],
+     "rewardMode": "all",
+     "rewardPickCount": 1,
+     "sceneBackground": "P4fr3dhK4WLPU7Xl2gCtr",
+     "sceneCharacters": [
+      "_xOCD4ivlp2a_8vYI7gXn"
+     ]
+    },
+    "hidden": false,
+    "consecutiveObjectives": true,
+    "teamEnabled": false,
+    "publicLocations": false,
+    "requiredVillage": null,
+    "requiredBloodlineId": null,
+    "requiredSageModeId": null,
+    "requiredSageRank": null,
+    "requiredNinjutsuMastery": null,
+    "requiredGenjutsuMastery": null,
+    "requiredTaijutsuMastery": null,
+    "requiredBukijutsuMastery": null,
+    "requiredBloodlineMastery": null,
+    "requiredSageMastery": null,
+    "maxLevel": 100,
+    "maxAttempts": 100,
+    "maxCompletes": 100,
+    "retryDelay": "daily",
+    "attemptDelay": "daily",
+    "createdAt": "2026-08-20T02:39:28.583Z",
+    "updatedAt": "2026-10-22T20:01:40.145Z",
+    "endsAt": null,
+    "startsAt": null,
+    "raidBossMaxHealth": null,
+    "raidBossCurrentHealth": null,
+    "raidStartedAt": null,
+    "raidEndsAt": null,
+    "raidCaptureDeadline": null,
+    "raidGracePeriodEnd": null
+   }
+  }
+ ],
+ "idmap": {},
+ "journal": {
+  "v": 1,
+  "jobId": "549-mw9rtz71",
+  "manifestPath": "push/549_larry_capture.json",
+  "manifestNumber": 549,
+  "manifestHash": "20b54b2d",
+  "startedAt": "2026-11-09T21:26:28.718Z",
+  "updatedAt": "2026-11-09T21:26:40.258Z",
+  "state": "DONE",
+  "pause": null,
+  "items": [],
+  "capturesBeforePartial": null,
+  "capturesBefore": [
+   {
+    "phase": "before",
+    "proc": "quests.get",
+    "input": {
+     "id": "4pNH8x9ZOOoIyERKSmPa-"
+    },
+    "ok": true,
+    "rows": 1,
+    "error": null,
+    "persist": "full",
+    "snapshotKey": "549-mw9rtz71::before::0",
+    "persistOk": true,
+    "persistError": null,
+    "bytes": 25403,
+    "at": "2026-11-09T21:26:40.253Z"
+   }
+  ]
+ }
+}
