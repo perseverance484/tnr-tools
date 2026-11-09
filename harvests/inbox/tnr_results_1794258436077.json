@@ -1,0 +1,91 @@
+{
+ "builder": "forge-mcp",
+ "at": "2026-11-09T21:07:16.077Z",
+ "cfg": "forge",
+ "checks": null,
+ "state": "DONE",
+ "outcome": "success",
+ "postflight": {
+  "match": 1,
+  "diff": 0,
+  "unverified": 0,
+  "failed": 0,
+  "skipped": 0,
+  "unresolved": 0
+ },
+ "entries": [
+  {
+   "name": "Driftline Captain: set rules from push/561",
+   "srcId": null,
+   "entity": "ai",
+   "slot": "edit",
+   "op": "update",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 4,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "xTfDUSDalduRg43MlcCbO"
+  }
+ ],
+ "captures": [],
+ "idmap": {
+  "dl561_wayfinder": "kW67ukAMLxHk-_geH7OVN",
+  "dl561_core-horror": "I4B1qG4P8jsiPAlxjZ_O4",
+  "dl561_captain": "xTfDUSDalduRg43MlcCbO",
+  "dl561_split": "I09yVwwnSQK8YE2vkdl1l",
+  "dl561_stern": "KR5-rVmqtAWeMzpE52aE7",
+  "dl561_q_into": "yZUKtA7Tsmax9LshlRV_v",
+  "dl561_q_beach": "coeU4MbjxOq0iydIfM3xA",
+  "dl561_q_split": "ktVUByCZUfREmWYsvPtzQ",
+  "dl561_q_stern": "BDUY4nScGzYiZoHGkmkxP",
+  "dl561_q_tally": "BlcnJq-OHkeWcl8pxNU6w"
+ },
+ "journal": {
+  "v": 1,
+  "jobId": "561-mw9r0a2x",
+  "manifestPath": "push/561b_driftline_captain_rules.json",
+  "manifestNumber": 561,
+  "manifestHash": "bd14a4de",
+  "startedAt": "2026-11-09T21:03:23.163Z",
+  "updatedAt": "2026-11-09T21:07:16.074Z",
+  "state": "DONE",
+  "pause": null,
+  "items": [
+   {
+    "idx": 0,
+    "entity": "ai",
+    "op": "update",
+    "name": "Driftline Captain: set rules from push/561",
+    "srcId": null,
+    "targetId": "xTfDUSDalduRg43MlcCbO",
+    "payloadHash": "d579a651",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "xTfDUSDalduRg43MlcCbO",
+    "snapshotKey": null,
+    "sentAt": "2026-11-09T21:05:48.595Z",
+    "createSentAt": null,
+    "confirmedAt": "2026-11-09T21:06:32.433Z",
+    "verifiedAt": "2026-11-09T21:07:16.072Z",
+    "error": null,
+    "attempt": 3,
+    "asserted": [
+     "hidden",
+     "jutsus",
+     "includeDefaultRules",
+     "rules"
+    ],
+    "aiProfileId": "vHtA6eUHxexY0pToGstr_",
+    "assertedRules": true,
+    "diffs": [],
+    "verify": "match"
+   }
+  ]
+ }
+}

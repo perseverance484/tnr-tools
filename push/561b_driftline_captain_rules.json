@@ -1,0 +1,339 @@
+{
+  "_note": "push/561b: finish the Driftline Captain (xTfDUSDalduRg43MlcCbO). push/561 created and equipped it, but its rules phase failed on a transcript read. Sets the same 20 rules from push/561, re-sends the same kit. Hidden stays true.",
+  "items": [
+    {
+      "entity": "ai",
+      "slot": "edit",
+      "phase": 1,
+      "targetId": "xTfDUSDalduRg43MlcCbO",
+      "name": "Driftline Captain: set rules from push/561",
+      "data": {
+        "hidden": true,
+        "jutsus": [
+          "_9k7kSYUgMtB-AEFgRly5",
+          "-uy2-icY9xbviQewAwOE2",
+          "0Y10JpChssDwFUxNRk6p3",
+          "1OhP0StX4VTsosWtCxhsG",
+          "4mu7BPrMKOHXmvp5WKMmw",
+          "AGLdBcv2D-AAAmA8OuRJ3",
+          "cKZVVYKd43hpjTnHl1hUe",
+          "CxGrWF_wJepsT6W4MNkuq",
+          "ddbIyVtoxdPQwLRXxSBq8",
+          "Iyb21Vh0j7g2eD1I-YAQw",
+          "MG9ZujAV8lK7--YxThVbQ",
+          "o-4SCAhJ4LHdCwcBDgJrV",
+          "PdD44PGaNv4MN5fOALhAF",
+          "STu1VHNcfgeC3x-UiQDgt",
+          "T3glZGcSd-jS8G-NB43GR",
+          "VuFuBtE7h5B1nnA2J1lFZ",
+          "X2P22h8ApDmTZHjWpNO87"
+        ],
+        "includeDefaultRules": true,
+        "rules": [
+          {
+            "action": {
+              "type": "use_specific_jutsu",
+              "target": "SELF",
+              "jutsuId": "CxGrWF_wJepsT6W4MNkuq",
+              "description": "Broadside (signature, rows A)"
+            },
+            "conditions": [
+              {
+                "type": "has_effect",
+                "threshold": 1,
+                "effectType": "increaserange",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "action": {
+              "type": "use_specific_jutsu",
+              "target": "SELF",
+              "jutsuId": "4mu7BPrMKOHXmvp5WKMmw",
+              "description": "Ship's Bell (signature)"
+            },
+            "conditions": [
+              {
+                "type": "has_effect",
+                "threshold": 1,
+                "effectType": "decreasecooldown",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "action": {
+              "type": "use_specific_jutsu",
+              "target": "SELF",
+              "jutsuId": "AGLdBcv2D-AAAmA8OuRJ3",
+              "description": "Steady the Helm (phase 2 begins; once)"
+            },
+            "conditions": [
+              {
+                "type": "health_below",
+                "value": 50,
+                "description": ""
+              }
+            ]
+          },
+          {
+            "action": {
+              "type": "use_specific_jutsu",
+              "target": "EMPTY_GROUND_CLOSEST_TO_OPPONENT",
+              "jutsuId": "Iyb21Vh0j7g2eD1I-YAQw",
+              "description": "Raise the Gunwale (transition; once; he falls back behind the rail)"
+            },
+            "conditions": [
+              {
+                "type": "health_below",
+                "value": 50,
+                "description": ""
+              }
+            ]
+          },
+          {
+            "action": {
+              "type": "use_specific_jutsu",
+              "target": "SELF",
+              "jutsuId": "cKZVVYKd43hpjTnHl1hUe",
+              "description": "Omen: Binding Ring (Ship's Bell, phase 2)"
+            },
+            "conditions": [
+              {
+                "type": "health_below",
+                "value": 50,
+                "description": ""
+              }
+            ]
+          },
+          {
+            "action": {
+              "type": "use_specific_jutsu",
+              "target": "SELF",
+              "jutsuId": "-uy2-icY9xbviQewAwOE2",
+              "description": "Omen: Rows A (Broadside, phase 2)"
+            },
+            "conditions": [
+              {
+                "type": "health_below",
+                "value": 50,
+                "description": ""
+              }
+            ]
+          },
+          {
+            "action": {
+              "type": "use_specific_jutsu",
+              "target": "SELF",
+              "jutsuId": "MG9ZujAV8lK7--YxThVbQ",
+              "description": "Last Stand at the Helm (live Battle Trance)"
+            },
+            "conditions": [
+              {
+                "type": "health_below",
+                "value": 50,
+                "description": ""
+              }
+            ]
+          },
+          {
+            "action": {
+              "type": "use_specific_jutsu",
+              "target": "SELF",
+              "jutsuId": "STu1VHNcfgeC3x-UiQDgt",
+              "description": "Second Wind (under 25%)"
+            },
+            "conditions": [
+              {
+                "type": "health_below",
+                "value": 25,
+                "description": ""
+              }
+            ]
+          },
+          {
+            "action": {
+              "type": "use_specific_jutsu",
+              "target": "SELF",
+              "jutsuId": "0Y10JpChssDwFUxNRk6p3",
+              "description": "Hold the Line (live Unbroken Command, opener: party 3+ hexes away)"
+            },
+            "conditions": [
+              {
+                "type": "distance_higher_than",
+                "value": 3,
+                "target": "CLOSEST_OPPONENT",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "action": {
+              "type": "use_specific_jutsu",
+              "target": "HIGHEST_ENMITY_OPPONENT",
+              "jutsuId": "X2P22h8ApDmTZHjWpNO87",
+              "description": "Final Command (duel)"
+            },
+            "conditions": [
+              {
+                "type": "distance_lower_than",
+                "value": 4,
+                "target": "HIGHEST_ENMITY_OPPONENT",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "action": {
+              "type": "use_specific_jutsu",
+              "target": "HIGHEST_ENMITY_OPPONENT",
+              "jutsuId": "PdD44PGaNv4MN5fOALhAF",
+              "description": "Keelbind (duel)"
+            },
+            "conditions": [
+              {
+                "type": "distance_lower_than",
+                "value": 5,
+                "target": "HIGHEST_ENMITY_OPPONENT",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "action": {
+              "type": "end_turn",
+              "description": "after lib-omen-rows-a: end turn"
+            },
+            "conditions": [
+              {
+                "type": "has_effect",
+                "threshold": 1,
+                "effectType": "increaserange",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "action": {
+              "type": "end_turn",
+              "description": "after lib-omen-binding-ring: end turn"
+            },
+            "conditions": [
+              {
+                "type": "has_effect",
+                "threshold": 1,
+                "effectType": "decreasecooldown",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "action": {
+              "type": "use_specific_jutsu",
+              "target": "SELF",
+              "jutsuId": "T3glZGcSd-jS8G-NB43GR",
+              "description": "Counter Stance (duel: a player within 2)"
+            },
+            "conditions": [
+              {
+                "type": "player_within_range",
+                "maxRange": 2,
+                "minRange": 0,
+                "description": ""
+              }
+            ]
+          },
+          {
+            "action": {
+              "type": "use_specific_jutsu",
+              "target": "HIGHEST_ENMITY_OPPONENT",
+              "jutsuId": "ddbIyVtoxdPQwLRXxSBq8",
+              "description": "Suppression Writ"
+            },
+            "conditions": [
+              {
+                "type": "distance_lower_than",
+                "value": 4,
+                "target": "HIGHEST_ENMITY_OPPONENT",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "action": {
+              "type": "use_specific_jutsu",
+              "target": "CLOSEST_OPPONENT",
+              "jutsuId": "1OhP0StX4VTsosWtCxhsG",
+              "description": "Unraveling Strike"
+            },
+            "conditions": [
+              {
+                "type": "distance_lower_than",
+                "value": 4,
+                "target": "CLOSEST_OPPONENT",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "action": {
+              "type": "use_specific_jutsu",
+              "target": "CLOSEST_OPPONENT",
+              "jutsuId": "o-4SCAhJ4LHdCwcBDgJrV",
+              "description": "Explosive Tag Cataclysm"
+            },
+            "conditions": [
+              {
+                "type": "distance_lower_than",
+                "value": 6,
+                "target": "CLOSEST_OPPONENT",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "action": {
+              "type": "use_specific_jutsu",
+              "target": "SELF",
+              "jutsuId": "_9k7kSYUgMtB-AEFgRly5",
+              "description": "Windlash Focus"
+            },
+            "conditions": [
+              {
+                "type": "player_within_range",
+                "maxRange": 4,
+                "minRange": 0,
+                "description": ""
+              }
+            ]
+          },
+          {
+            "action": {
+              "type": "use_specific_jutsu",
+              "target": "CLOSEST_OPPONENT",
+              "jutsuId": "basicAttack",
+              "description": "basic attack (fallback; never a set piece)"
+            },
+            "conditions": [
+              {
+                "type": "player_within_range",
+                "maxRange": 1,
+                "minRange": 0,
+                "description": ""
+              }
+            ]
+          },
+          {
+            "action": {
+              "type": "move_towards_opponent",
+              "target": "CLOSEST_OPPONENT",
+              "description": "Close on the nearest player (none in reach)"
+            },
+            "conditions": []
+          }
+        ]
+      }
+    }
+  ]
+}
