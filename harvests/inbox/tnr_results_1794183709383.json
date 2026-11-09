@@ -1,0 +1,52 @@
+{
+ "builder": "duet-connector",
+ "at": "2026-11-09T00:21:49Z",
+ "cfg": {
+  "note": "dauntless (Nov 9): put the DKI v6l animation directly on test jutsu Detour Test 2. Art only: poison appearAnimation 6B_tYbUOECJDL5L02d8NV and appearSfx epidemic-07381e8f-01ad-41cf-8dd7-8a84a34e2976 blanked; 7 DKI visual slices appended (hit sfx on c0). Revert = restore effects from 'before'."
+ },
+ "state": "done",
+ "outcome": "ok",
+ "entries": [
+  {
+   "name": "Detour Test 2",
+   "srcId": "detour2_dki_art",
+   "entity": "jutsu",
+   "slot": "edit",
+   "op": "update",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "verdict": "match",
+   "diffs": [],
+   "id": "3p3biFrc0Nxpf4E-2WX_y"
+  }
+ ],
+ "before": {
+  "id": "3p3biFrc0Nxpf4E-2WX_y",
+  "effects": [
+   {
+    "type": "poison",
+    "power": 50,
+    "rounds": 2,
+    "target": "INHERIT",
+    "appearSfx": "epidemic-07381e8f-01ad-41cf-8dd7-8a84a34e2976",
+    "direction": "offence",
+    "calculation": "percentage",
+    "description": "placeholder",
+    "disappearSfx": "",
+    "poolsAffected": [
+     "Health",
+     "Chakra",
+     "Stamina"
+    ],
+    "powerPerLevel": 0,
+    "appearAnimation": "6B_tYbUOECJDL5L02d8NV",
+    "staticAnimation": "",
+    "staticAssetPath": "",
+    "disappearAnimation": ""
+   }
+  ]
+ },
+ "captures": [],
+ "journal": []
+}
