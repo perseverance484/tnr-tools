@@ -501,6 +501,16 @@
         "director's Friday Nov 13 release go"
       ],
       "note": "DRAFT, not final (coordinator 2026-11-09 21:25Z): dauntless 3:04 PM CT said the Driftline may be better as new charts for 30-80 with the shore work on her NPC; the one-NPC list and trade menu are still being decided (Into may retire, Split Hold may join the trades). Rework push/driftline.gen.py golive once that settles. Not generated yet on purpose: build it Friday with python3 push/driftline.gen.py golive DIR, DIR = live reads taken AFTER 545 ran (quest_<id>.json for Into, Beachcombing, the Tally; dungeon_j4QEUtjbK_lbOYUPVoidk.json). The generator refuses a Wreck read with no salvage row. Add --no-bind if the dialog binding is not wanted. Her roll pool and placement are the release thread's."
+    },
+    {
+      "id": "581",
+      "manifest": "push/581_hullbound_mender_order_fix.json",
+      "what": "Hullbound Mender bug fixes from the Nov 9 hand run: Keel Splits break on GROUND, closes in order I to IV, Last Planks waits for round 16",
+      "runner": "connector",
+      "status": "ready",
+      "waitsFor": [],
+      "build": "python3 push/hullbound_mender.gen.py fix2 --jutsu harvests/inbox/tnr_results_1794245265153.json --fix harvests/inbox/tnr_results_1794245664965.json --art harvests/inbox/tnr_results_1794248097472.json --reuse apprentice=sXqGpkQlGDvPr8Tjf_G0J,caulker=RWaARMwmG6pbM5is6m14e,pump=1d5_FyPFnRyYSLw7Kyfgd,mender=6_c1fpF8YXIjoaLX0mIRT",
+      "note": "Hullbound Mender thread. Coordinator go 2026-11-09 21:25 UTC (bugs against the approved design); dauntless: leave Apprentice and crew tuning. Lock order: trade thread, MoE practice rerun, then this. Hand replay of The Closing Hold after it runs. All hidden."
     }
   ]
 }
