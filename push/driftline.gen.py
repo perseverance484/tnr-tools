@@ -5,8 +5,8 @@
     python3 push/driftline.gen.py check      # build in memory and run the checks; writes nothing
 
 Design of record: /mnt/project-files/tnr/skyglass_band/DRIFTLINE_EVENT.md (approved), its sim SIM_RESULTS.md.
-Defaults dauntless can change (coordinator note 2026-11-09): levels 30 to 80, Driftline charts untradeable,
-the Tally ends in Shard of the Keel.
+dauntless's calls (2026-11-09 17:05, "30 to 80, tradeable. Token"): levels 30 to 80, Driftline charts tradeable,
+the Tally ends in two Skyglass Tokens (a second Token in place of Shard of the Keel).
 
 Source records: push/560's bundle (profile.getAi + ai.getAiProfile of the Faded Wayfinder, Faded Core Horror and
 the Faded Captain's profile), plus state/driftline/faded_captain_getAi_20261109.json: the Faded Captain's
@@ -36,8 +36,8 @@ SRC_BUNDLE = "harvests/inbox/tnr_results_1794240598437.json"  # push/560
 CAPTAIN_GETAI = "state/driftline/faded_captain_getAi_20261109.json"
 
 LEVELS = (30, 80)          # dauntless's default; 30 to 79 is the other option
-TRADEABLE = False          # dauntless's default: band charts untradeable
-TALLY_FINAL = "Shard of the Keel"  # dauntless's default; the other option is a second Skyglass Token
+TRADEABLE = True           # dauntless 2026-11-09 17:05: "tradeable"
+TALLY_FINAL = "Skyglass Token"  # dauntless 2026-11-09 17:05: "Token" (a second Token, not Shard of the Keel)
 # Into the Driftline, Beachcombing and the Tally are handed out by the salvager's one overworld NPC (director
 # 2026-11-09 15:58: "just 1 overworld NPC"; the trades and the entry quest need her first quest). Overworld quests start
 # only from an NPC roll and her placement is inactive until release, so the hidden build uses mastery (startable from
@@ -167,7 +167,7 @@ ITEM_BASE = {
     "farmHarvestExperience": 0, "farmSellValue": 0, "farmExtractSeedItemId": None, "farmExtractSeedCount": 0,
     "isFarmFertilizer": False, "farmTimeReductionSeconds": 0, "farmFertilizerExperience": 0, "craftingExperience": 0,
     "crystalTargetTypes": None, "bloodlineId": None, "battleUsageType": "BOTH", "effects": [],
-}  # push/536's chart create, with canBeTraded per dauntless's default
+}  # push/536's chart create, with canBeTraded per dauntless's call
 
 SPLIT_PICK = [("Medicine Inro", 1), ("Elemental Tool Pouch", 1), ("Galley Stores", 2),
               ("Chart of the Buried Cache", 1), ("Tide Chart", 2), ("Watch Roster", 2)]
@@ -378,7 +378,7 @@ def tally():
 
 
 TALLY_DESC = ("The salvager keeps a tally of who brings what up from the shallows. Four orders, each with a reward to "
-              "claim, and a last reward for all four: one Shard of the Keel and a Skyglass Token.<br><br>"
+              "claim, and a last reward for all four: two Skyglass Tokens.<br><br>"
               "<b>Orders</b>, in any order:<br>1. <b>Win Beachcombing, the Low Tide Run, the Night Watch or the Rotted "
               "Galley, 3 times in total.</b><br>2. <b>Win the Split Hold or the Buried Cache once.</b><br>3. <b>Win the "
               "Split Hold or the Drowned Foundry, 2 times in total.</b><br>4. <b>Win the Broken Stern or the Captain's "
@@ -410,11 +410,11 @@ def build():
                        desc="The Wreck's stern ran aground on the bar, upright and crewed, with its Captain still at the "
                             "helm. Four fights: the gangway, the chart room, the hold and the helm." + intro,
                        success="The Broken Stern is quiet, and its Captain has let go of the wheel."))
-    final = {"reward_items": [{"ids": [ITEM[TALLY_FINAL]], "number": 100, "quantity": 1},
-                              {"ids": [ITEM["Skyglass Token"]], "number": 100, "quantity": 1}]}
+    final = {"reward_items": [{"ids": [ITEM["Skyglass Token"]], "number": 100, "quantity": 2}]}
+    assert TALLY_FINAL == "Skyglass Token"
     items.append(quest("tally", "The Salvager's Tally", tally(), prereq=ref, qtype=HANDOUT, rank="D", completes=1,
                        levels=(LEVELS[0], 100), desc=TALLY_DESC, extra=final,
-                       success="Tally complete. The salvager presses a shard of the keel into your hand. \"You've earned "
+                       success="Tally complete. The salvager presses two Skyglass Tokens into your hand. \"You've earned "
                                "the deep. Don't drown in it.\""))
     return items
 
@@ -502,7 +502,7 @@ def main():
     m = {"_note": (f"push/{NUM}, HIDDEN: The Driftline, Skyglass for levels 30 to 80 (dauntless's go 2026-11-09, 'Build "
                    "it'). Three AI copies of the live Faded Wayfinder, Core Horror and Captain (kit, rules and sprite "
                    "copied whole from push/560's capture; -50% damage given; Core Horror pools 6 -> 3, Captain 4 -> 2, "
-                   "stun immunity kept). Two untradeable chart items (Chart of the Split Hold, Chart of the Broken "
+                   "stun immunity kept). Two tradeable chart items (Chart of the Split Hold, Chart of the Broken "
                    "Stern; placeholder icons). Five quests: Into the Driftline (one-time), "
                    "Beachcombing (daily), The Split Hold, The Broken Stern (chart runs), The Salvager's Tally. Wins pay Wreck "
                    "Salvage (Beachcombing 1, the Split Hold and the Broken Stern 2). Every "
