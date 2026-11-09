@@ -248,6 +248,12 @@ She nods at a board of driftwood where she pins what the sea gives back. "Ask wh
 ```html
 "She broke in two. The near half is faded and gentler. The far half still remembers every order."<br><br><i>The Faded Skyglass Wreck (sector 210, 16/6) opens at level 30. The Skyglass Wreck (15/6) is the endgame hull and opens at level 80.</i>
 ```
+- `choice[0]`: `And on my own?`
+
+**`obj:Salvager's thread/a_drift.description`** (The Driftline, early-game thread; drop this scene if The Driftline is held)
+```html
+"No crew, and not yet 80? Wreckage washes off the near half every tide. I'll show you the Driftline. It's sized to whoever walks it."<br><br><i>The Driftline is for one player, levels 30 to 80. The salvager hands out its way in once Wreck Sighted is done.</i>
+```
 - `choice[0]`: `What comes back out?`
 
 **`obj:Salvager's thread/a_loot.description`**

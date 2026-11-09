@@ -59,7 +59,8 @@ JOB = {k: 509 for k, _ in BOARDS} | {k: 511 for k, _ in BOARDS_511}
 
 # node, board (None = the shore), next nodes; "END" marks a topic's last scene (Ask something else / I'm ready)
 TOPICS = [
-    ("a_threes", "threes", ["a_hulls"]), ("a_hulls", "hulls", ["a_loot"]), ("a_loot", "loot", "END"),
+    ("a_threes", "threes", ["a_hulls"]), ("a_hulls", "hulls", ["a_drift"]), ("a_drift", "hulls", ["a_loot"]),
+    ("a_loot", "loot", "END"),  # a_drift: The Driftline (early-game thread); drop it if The Driftline is held
     ("c_once", "once", ["c_ladder"]), ("c_ladder", "ladder", ["c_pick"]), ("c_pick", "pick", "END"),
     ("x_chests", "chests", ["x_supplies"]), ("x_supplies", "supplies", ["x_craft"]), ("x_craft", "craft", "END"),
     ("p_seals", "seals", ["p_rot"]), ("p_rot", "rot", ["p_lantern"]), ("p_lantern", "lantern", "END"),
@@ -74,7 +75,7 @@ MENU_TOPICS = ["a_threes", "c_once", "x_chests", "p_seals", "h_haul", "t_salvage
 # added to POSE_IDS, its scenes fall back to PT01, so adding a pose later is a one-line change and a quest edit.
 POSE_IDS = {"PT01": SALVAGER}
 SCENE_POSE = {
-    "d_open": "PT06", "d_menu": "PT02", "a_threes": "PT03", "a_hulls": "PT02", "a_loot": "PT01", "c_once": "PT01",
+    "d_open": "PT06", "d_menu": "PT02", "a_threes": "PT03", "a_hulls": "PT02", "a_drift": "PT01", "a_loot": "PT01", "c_once": "PT01",
     "c_ladder": "PT02", "c_pick": "PT01", "x_chests": "PT02", "x_supplies": "PT05", "x_craft": "PT02", "p_seals": "PT02", "p_rot": "PT01", "p_lantern": "PT04", "h_haul": "PT02",
     "s_four": "PT05", "s_below": "PT04", "t_salvage": "PT07", "t_prices": "PT07", "t_trade": "PT07", "t_token": "PT07", "w_board": "PT02", "w_orders": "PT02",
     "z_chart": "PT01", "z_bye": "PT07", "r_menu": "PT02",
