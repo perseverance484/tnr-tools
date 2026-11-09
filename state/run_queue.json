@@ -391,10 +391,19 @@
    "manifest": "push/578_hullbound_mender_keel_fix.json",
    "what": "Hullbound Mender: finish the 2 Keel Splits 575 left blank (edit by id, hidden)",
    "runner": "connector",
-   "status": "ready",
+   "status": "done",
    "waitsFor": "575",
    "build": "python3 push/hullbound_mender.gen.py fix --jutsu harvests/inbox/tnr_results_1794245265153.json",
-   "note": "No AI equips them yet, so no equip link to sever."
+   "note": "No AI equips them yet, so no equip link to sever. Ran 2026-11-09 (job 578-mw9jh1i5): 2 verified, hidden. Bundle harvests/inbox/tnr_results_1794245664965.json."
+  },
+  {
+   "id": "580",
+   "manifest": "push/580_skyglass_icons_painted.json",
+   "what": "dauntless's 4 painted Skyglass icons onto the hidden chart and salvage items (image only)",
+   "runner": "connector",
+   "status": "ready",
+   "waitsFor": [],
+   "note": "Images on the director's UploadThing (duet/moe-uploadthing 53f96959). Items stay hidden until the Friday release."
   },
   {
    "id": "576",
