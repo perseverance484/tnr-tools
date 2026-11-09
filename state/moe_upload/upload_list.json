@@ -1,5 +1,5 @@
 {
- "_note": "push/506 asset creates not yet live (351 of 973 ran 2026-11-06; idmap tnr_results_1794006062657). Uploaded to the director's own UploadThing app by .github/workflows/moe_upload.yml (2026-11-07, director's request); results in uploaded.json. Each file is the source sheet reduced 3x to the 50 px-wide sheet the game's CDN serves (every source is an exact 3x nearest upscale, checked), so these match the 351 already live. Plus avatar_moe_absence_a7.webp at full size, like the other MoE avatars (the only @img in 506 not already uploaded). 2026-11-08: plus anim_moe_etch2_seam_p3_9 (asset GT5IvHAP5vaPg-wCa0E8u, created in 506 but its image never filled). 2026-11-08: plus the 8 Dragon King's Impact v6l strips (dki533_*, push/533 on main), native 112 px, director's yes 23:52 UTC. 2026-11-09: plus the 6 Dragon King's Impact v7b tall-pillar strips (dki_v7b_*, hex size 1), director's yes 00:47 UTC. Plus the v7b smoulder loop (dki_v7b_smoulder), director's yes 01:05 UTC. Plus the 2 Dragon King's Impact v7i strips (dki_v7i_*, v6l shrunk whole to one hex), director's go 03:13 UTC. 2026-11-09: plus the 54 skyglass chakra lens strips for Refraction (18 omen) and Refraction Breaks (18 eruption + 18 upper tile) (refr_lens_sky_*), director's go 04:36 UTC. 2026-11-09: plus the 18 salvager's thread scene boards for push/509 (sg509_board_*, sg511_board_*), director's go 08:30 UTC. 2026-11-09: plus the painted Mother of Echoes set (moe9m_* 29 moves + 40 board strips, moe9j_* Lancet and Echo Strike, moe9_* 4 entrances + 4 auras) and the 36 dark chakra lens strips for Black Refraction and the Black Facet family (refr_lens_dark_omen_s1_*, refr_lens1t_dark_erupt_s1_*), director's go 16:53 UTC (upload hidden). Plus the 18 one-tile sky lens eruption strips (refr_lens1t_sky_erupt_s1_*) for Facet Breaks, Far Refraction Breaks and Lucid Refraction, same go.",
+ "_note": "push/506 asset creates not yet live (351 of 973 ran 2026-11-06; idmap tnr_results_1794006062657). Uploaded to the director's own UploadThing app by .github/workflows/moe_upload.yml (2026-11-07, director's request); results in uploaded.json. Each file is the source sheet reduced 3x to the 50 px-wide sheet the game's CDN serves (every source is an exact 3x nearest upscale, checked), so these match the 351 already live. Plus avatar_moe_absence_a7.webp at full size, like the other MoE avatars (the only @img in 506 not already uploaded). 2026-11-08: plus anim_moe_etch2_seam_p3_9 (asset GT5IvHAP5vaPg-wCa0E8u, created in 506 but its image never filled). 2026-11-08: plus the 8 Dragon King's Impact v6l strips (dki533_*, push/533 on main), native 112 px, director's yes 23:52 UTC. 2026-11-09: plus the 6 Dragon King's Impact v7b tall-pillar strips (dki_v7b_*, hex size 1), director's yes 00:47 UTC. Plus the v7b smoulder loop (dki_v7b_smoulder), director's yes 01:05 UTC. Plus the 2 Dragon King's Impact v7i strips (dki_v7i_*, v6l shrunk whole to one hex), director's go 03:13 UTC. 2026-11-09: plus the 54 skyglass chakra lens strips for Refraction (18 omen) and Refraction Breaks (18 eruption + 18 upper tile) (refr_lens_sky_*), director's go 04:36 UTC. 2026-11-09: plus the 18 salvager's thread scene boards for push/509 (sg509_board_*, sg511_board_*), director's go 08:30 UTC. 2026-11-09: plus the painted Mother of Echoes set (moe9m_* 29 moves + 40 board strips, moe9j_* Lancet and Echo Strike, moe9_* 4 entrances + 4 auras) and the 36 dark chakra lens strips for Black Refraction and the Black Facet family (refr_lens_dark_omen_s1_*, refr_lens1t_dark_erupt_s1_*), director's go 16:53 UTC (upload hidden). Plus the 18 one-tile sky lens eruption strips (refr_lens1t_sky_erupt_s1_*) for Facet Breaks, Far Refraction Breaks and Lucid Refraction, same go. 2026-11-09: plus dauntless's 4 painted Skyglass icons (sgicon_*_bk: Chart of the Spoiled Hold, Wreck Salvage, Chart of the Rotted Galley, Chart of the Glass Nursery) for the hidden items, sent 17:33 UTC for that use; 256 px lossless, ICON preflight clean.",
  "manifest": "push/506_master_2026-11-06.json",
  "files": [
   {
@@ -10999,6 +10999,58 @@
    "size": [
     112,
     4032
+   ]
+  },
+  {
+   "srcId": "sgicon_spoiled_hold_bk",
+   "file": "icon-spoiled-hold-bk.webp",
+   "path": "state/moe_upload/skyglass_icons/icon-spoiled-hold-bk.webp",
+   "sha256": "211c5d0fc840bdfb0721e7972392d34e3efd8da09dce6ad5acd65a6267694f90",
+   "bytes": 53982,
+   "srcPath": "/home/claude/tnr-tools/art/skyglass_event_icons/exports/icon-spoiled-hold-bk.webp",
+   "srcSha256": "211c5d0fc840bdfb0721e7972392d34e3efd8da09dce6ad5acd65a6267694f90",
+   "size": [
+    256,
+    256
+   ]
+  },
+  {
+   "srcId": "sgicon_wreck_salvage_bk",
+   "file": "icon-wreck-salvage-bk.webp",
+   "path": "state/moe_upload/skyglass_icons/icon-wreck-salvage-bk.webp",
+   "sha256": "63b18d9c16f18a3072b693ee84d9e9316a3ad05e23ee16c72a49c8d501818939",
+   "bytes": 58978,
+   "srcPath": "/home/claude/tnr-tools/art/skyglass_event_icons/exports/icon-wreck-salvage-bk.webp",
+   "srcSha256": "63b18d9c16f18a3072b693ee84d9e9316a3ad05e23ee16c72a49c8d501818939",
+   "size": [
+    256,
+    256
+   ]
+  },
+  {
+   "srcId": "sgicon_rotted_galley_bk",
+   "file": "icon-rotted-galley-bk.webp",
+   "path": "state/moe_upload/skyglass_icons/icon-rotted-galley-bk.webp",
+   "sha256": "d0d482c91ed3e814cf9adba9018610181589ed2e666848b1988feb441e0e5ede",
+   "bytes": 60246,
+   "srcPath": "/home/claude/tnr-tools/art/skyglass_event_icons/exports/icon-rotted-galley-bk.webp",
+   "srcSha256": "d0d482c91ed3e814cf9adba9018610181589ed2e666848b1988feb441e0e5ede",
+   "size": [
+    256,
+    256
+   ]
+  },
+  {
+   "srcId": "sgicon_glass_nursery_bk",
+   "file": "icon-glass-nursery-bk.webp",
+   "path": "state/moe_upload/skyglass_icons/icon-glass-nursery-bk.webp",
+   "sha256": "032e9028eb76169b747beb81a2cc52642e749838121ce26231d5024850a01481",
+   "bytes": 51850,
+   "srcPath": "/home/claude/tnr-tools/art/skyglass_event_icons/exports/icon-glass-nursery-bk.webp",
+   "srcSha256": "032e9028eb76169b747beb81a2cc52642e749838121ce26231d5024850a01481",
+   "size": [
+    256,
+    256
    ]
   }
  ]
