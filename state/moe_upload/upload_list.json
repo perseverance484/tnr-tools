@@ -1,5 +1,5 @@
 {
- "_note": "push/506 asset creates not yet live (351 of 973 ran 2026-11-06; idmap tnr_results_1794006062657). Uploaded to the director's own UploadThing app by .github/workflows/moe_upload.yml (2026-11-07, director's request); results in uploaded.json. Each file is the source sheet reduced 3x to the 50 px-wide sheet the game's CDN serves (every source is an exact 3x nearest upscale, checked), so these match the 351 already live. Plus avatar_moe_absence_a7.webp at full size, like the other MoE avatars (the only @img in 506 not already uploaded). 2026-11-08: plus anim_moe_etch2_seam_p3_9 (asset GT5IvHAP5vaPg-wCa0E8u, created in 506 but its image never filled). 2026-11-08: plus the 8 Dragon King's Impact v6l strips (dki533_*, push/533 on main), native 112 px, director's yes 23:52 UTC.",
+ "_note": "push/506 asset creates not yet live (351 of 973 ran 2026-11-06; idmap tnr_results_1794006062657). Uploaded to the director's own UploadThing app by .github/workflows/moe_upload.yml (2026-11-07, director's request); results in uploaded.json. Each file is the source sheet reduced 3x to the 50 px-wide sheet the game's CDN serves (every source is an exact 3x nearest upscale, checked), so these match the 351 already live. Plus avatar_moe_absence_a7.webp at full size, like the other MoE avatars (the only @img in 506 not already uploaded). 2026-11-08: plus anim_moe_etch2_seam_p3_9 (asset GT5IvHAP5vaPg-wCa0E8u, created in 506 but its image never filled). 2026-11-08: plus the 8 Dragon King's Impact v6l strips (dki533_*, push/533 on main), native 112 px, director's yes 23:52 UTC. 2026-11-09: plus the 6 Dragon King's Impact v7b tall-pillar strips (dki_v7b_*, hex size 1), director's yes 00:47 UTC.",
  "manifest": "push/506_master_2026-11-06.json",
  "files": [
   {
@@ -8217,6 +8217,84 @@
    "size": [
     112,
     2688
+   ]
+  },
+  {
+   "srcId": "dki_v7b_n2",
+   "file": "anim_dragon_king_v7b_hv32_n2.webp",
+   "path": "state/moe_upload/dki/anim_dragon_king_v7b_hv32_n2.webp",
+   "sha256": "71f2edbffeb3b14cad07528066ad6a697728685976c85f08a199ae973276790e",
+   "bytes": 83378,
+   "srcPath": "art/dragon_king_impact/exports/anim_dragon_king_v7b_hv32_n2.webp",
+   "srcSha256": "71f2edbffeb3b14cad07528066ad6a697728685976c85f08a199ae973276790e",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "dki_v7b_n1",
+   "file": "anim_dragon_king_v7b_hv32_n1.webp",
+   "path": "state/moe_upload/dki/anim_dragon_king_v7b_hv32_n1.webp",
+   "sha256": "697c657c960602d23b62ed5bacd2e816f9dcf8d746994dd4cf1f453ac6859ba8",
+   "bytes": 308854,
+   "srcPath": "art/dragon_king_impact/exports/anim_dragon_king_v7b_hv32_n1.webp",
+   "srcSha256": "697c657c960602d23b62ed5bacd2e816f9dcf8d746994dd4cf1f453ac6859ba8",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "dki_v7b_c0",
+   "file": "anim_dragon_king_v7b_hv32_c0.webp",
+   "path": "state/moe_upload/dki/anim_dragon_king_v7b_hv32_c0.webp",
+   "sha256": "f750cfa7578d4e37b123e9dc2796e19c5ce9d35a006683e2bd0c3db9af91a236",
+   "bytes": 210514,
+   "srcPath": "art/dragon_king_impact/exports/anim_dragon_king_v7b_hv32_c0.webp",
+   "srcSha256": "f750cfa7578d4e37b123e9dc2796e19c5ce9d35a006683e2bd0c3db9af91a236",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "dki_v7b_cast_n2",
+   "file": "anim_dragon_king_v7b_hv32_cast_n2.webp",
+   "path": "state/moe_upload/dki/anim_dragon_king_v7b_hv32_cast_n2.webp",
+   "sha256": "b08292d045c302940c0f30a4fe8c18144fc2d1d70f27dec08d0aa79f085ffe00",
+   "bytes": 11138,
+   "srcPath": "art/dragon_king_impact/exports/anim_dragon_king_v7b_hv32_cast_n2.webp",
+   "srcSha256": "b08292d045c302940c0f30a4fe8c18144fc2d1d70f27dec08d0aa79f085ffe00",
+   "size": [
+    112,
+    2128
+   ]
+  },
+  {
+   "srcId": "dki_v7b_cast_n1",
+   "file": "anim_dragon_king_v7b_hv32_cast_n1.webp",
+   "path": "state/moe_upload/dki/anim_dragon_king_v7b_hv32_cast_n1.webp",
+   "sha256": "b9f8b455330455d11ea30aeb038bbedbeaffabb3806e1d9562b4b897163d886c",
+   "bytes": 18996,
+   "srcPath": "art/dragon_king_impact/exports/anim_dragon_king_v7b_hv32_cast_n1.webp",
+   "srcSha256": "b9f8b455330455d11ea30aeb038bbedbeaffabb3806e1d9562b4b897163d886c",
+   "size": [
+    112,
+    2128
+   ]
+  },
+  {
+   "srcId": "dki_v7b_cast_c0",
+   "file": "anim_dragon_king_v7b_hv32_cast_c0.webp",
+   "path": "state/moe_upload/dki/anim_dragon_king_v7b_hv32_cast_c0.webp",
+   "sha256": "698f18c4da847d07e81acd3d0ff3f7ae533ef33607b1351bce231286b7df0101",
+   "bytes": 30198,
+   "srcPath": "art/dragon_king_impact/exports/anim_dragon_king_v7b_hv32_cast_c0.webp",
+   "srcSha256": "698f18c4da847d07e81acd3d0ff3f7ae533ef33607b1351bce231286b7df0101",
+   "size": [
+    112,
+    2128
    ]
   }
  ]
