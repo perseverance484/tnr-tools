@@ -1,0 +1,217 @@
+{
+ "builder": "forge-mcp",
+ "at": "2026-11-09T09:40:49.222Z",
+ "cfg": "forge",
+ "checks": null,
+ "state": "DONE",
+ "outcome": "failed",
+ "postflight": {
+  "match": 0,
+  "diff": 0,
+  "unverified": 0,
+  "failed": 2,
+  "skipped": 0,
+  "unresolved": 0
+ },
+ "entries": [
+  {
+   "name": "Okabe Test",
+   "srcId": "sg539_ai",
+   "entity": "ai",
+   "slot": "create",
+   "op": "create",
+   "state": "error",
+   "forgeState": "FAILED",
+   "phase": "update",
+   "detail": "update VALIDATION: [\n  {\n    \"expected\": \"date\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"data\",\n      \"joinedVillageAt\"\n    ],\n    \"message\": \"Invalid input: expected date, received string\"\n  },\n  {\n    \"expected\": \"date\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"data\",\n      \"createdAt\"\n    ],\n    \"message\": \"Invalid input: expected date, received string\"\n  },\n  {\n    \"expected\": \"date\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"data\",\n      \"updatedAt\"\n    ],\n    \"message\": \"Inval…",
+   "verdict": null,
+   "asserted": null,
+   "diffs": [],
+   "id": "KM9dGvBKaV-4jQ-nBZXGR"
+  },
+  {
+   "name": "Okabe Hull Test",
+   "srcId": "sg539_quest",
+   "entity": "quest",
+   "slot": "create",
+   "op": "create",
+   "state": "error",
+   "forgeState": "FAILED",
+   "phase": "update",
+   "detail": "update VALIDATION: [\n  {\n    \"expected\": \"object\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"data\",\n      \"content\",\n      \"reward\"\n    ],\n    \"message\": \"Invalid input: expected object, received undefined\"\n  }\n] data.content.reward: Invalid input: expected object, received undefined",
+   "verdict": null,
+   "asserted": null,
+   "diffs": [],
+   "id": "mCN5Wcx-1mrcXxglsnVQL"
+  }
+ ],
+ "captures": [],
+ "idmap": {
+  "sg539_ai": "KM9dGvBKaV-4jQ-nBZXGR",
+  "sg539_quest": "mCN5Wcx-1mrcXxglsnVQL"
+ },
+ "journal": {
+  "v": 1,
+  "jobId": "539-mw92iqxc",
+  "manifestPath": "push/539b_okabe_hull_test_ai_quest.json",
+  "manifestNumber": 539,
+  "manifestHash": "b82b2982",
+  "startedAt": "2026-11-09T09:37:54.385Z",
+  "updatedAt": "2026-11-09T09:40:49.218Z",
+  "state": "DONE",
+  "pause": null,
+  "items": [
+   {
+    "idx": 0,
+    "entity": "ai",
+    "op": "create",
+    "name": "Okabe Test",
+    "srcId": "sg539_ai",
+    "targetId": null,
+    "payloadHash": "93759c0f",
+    "state": "FAILED",
+    "phase": "update",
+    "entityId": "KM9dGvBKaV-4jQ-nBZXGR",
+    "snapshotKey": "tnr_forge_snap_v1:539-mw92iqxc:ai",
+    "sentAt": "2026-11-09T09:38:48.989Z",
+    "createSentAt": "2026-11-09T09:38:25.379Z",
+    "confirmedAt": "2026-11-09T09:38:35.434Z",
+    "verifiedAt": null,
+    "error": "update VALIDATION: [\n  {\n    \"expected\": \"date\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"data\",\n      \"joinedVillageAt\"\n    ],\n    \"message\": \"Invalid input: expected date, received string\"\n  },\n  {\n    \"expected\": \"date\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"data\",\n      \"createdAt\"\n    ],\n    \"message\": \"Invalid input: expected date, received string\"\n  },\n  {\n    \"expected\": \"date\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"data\",\n      \"updatedAt\"\n    ],\n    \"message\": \"Inval…",
+    "attempt": 2,
+    "zodError": [
+     {
+      "expected": "date",
+      "code": "invalid_type",
+      "path": [
+       "data",
+       "joinedVillageAt"
+      ],
+      "message": "Invalid input: expected date, received string"
+     },
+     {
+      "expected": "date",
+      "code": "invalid_type",
+      "path": [
+       "data",
+       "createdAt"
+      ],
+      "message": "Invalid input: expected date, received string"
+     },
+     {
+      "expected": "date",
+      "code": "invalid_type",
+      "path": [
+       "data",
+       "updatedAt"
+      ],
+      "message": "Invalid input: expected date, received string"
+     },
+     {
+      "expected": "date",
+      "code": "invalid_type",
+      "path": [
+       "data",
+       "questFinishAt"
+      ],
+      "message": "Invalid input: expected date, received string"
+     },
+     {
+      "expected": "date",
+      "code": "invalid_type",
+      "path": [
+       "data",
+       "regenAt"
+      ],
+      "message": "Invalid input: expected date, received string"
+     },
+     {
+      "expected": "date",
+      "code": "invalid_type",
+      "path": [
+       "data",
+       "immunityUntil"
+      ],
+      "message": "Invalid input: expected date, received string"
+     },
+     {
+      "expected": "date",
+      "code": "invalid_type",
+      "path": [
+       "data",
+       "robImmunityUntil"
+      ],
+      "message": "Invalid input: expected date, received string"
+     },
+     {
+      "expected": "date",
+      "code": "invalid_type",
+      "path": [
+       "data",
+       "bracketImmunityLiftedUntil"
+      ],
+      "message": "Invalid input: expected date, received string"
+     },
+     {
+      "expected": "date",
+      "code": "invalid_type",
+      "path": [
+       "data",
+       "warParticipantUntil"
+      ],
+      "message": "Invalid input: expected date, received string"
+     },
+     {
+      "expected": "date",
+      "code": "invalid_type",
+      "path": [
+       "data",
+       "pvpExperienceDecayAt"
+      ],
+      "message": "Invalid input: expected date, received string"
+     },
+     {
+      "expected": "date",
+      "code": "invalid_type",
+      "path": [
+       "data",
+       "weeklyPvpKillsAt"
+      ],
+      "message": "Invalid input: expected date, received string"
+     }
+    ]
+   },
+   {
+    "idx": 1,
+    "entity": "quest",
+    "op": "create",
+    "name": "Okabe Hull Test",
+    "srcId": "sg539_quest",
+    "targetId": null,
+    "payloadHash": "d926fc5c",
+    "state": "FAILED",
+    "phase": "update",
+    "entityId": "mCN5Wcx-1mrcXxglsnVQL",
+    "snapshotKey": "tnr_forge_snap_v1:539-mw92iqxc:quest",
+    "sentAt": "2026-11-09T09:40:30.257Z",
+    "createSentAt": "2026-11-09T09:40:04.954Z",
+    "confirmedAt": "2026-11-09T09:40:20.003Z",
+    "verifiedAt": null,
+    "error": "update VALIDATION: [\n  {\n    \"expected\": \"object\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"data\",\n      \"content\",\n      \"reward\"\n    ],\n    \"message\": \"Invalid input: expected object, received undefined\"\n  }\n] data.content.reward: Invalid input: expected object, received undefined",
+    "attempt": 2,
+    "zodError": [
+     {
+      "expected": "object",
+      "code": "invalid_type",
+      "path": [
+       "data",
+       "content",
+       "reward"
+      ],
+      "message": "Invalid input: expected object, received undefined"
+     }
+    ]
+   }
+  ]
+ }
+}

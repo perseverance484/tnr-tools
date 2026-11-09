@@ -1,0 +1,99 @@
+{
+ "builder": "forge-mcp",
+ "at": "2026-11-09T09:36:22.737Z",
+ "cfg": "forge",
+ "checks": null,
+ "state": "DONE",
+ "outcome": "failed",
+ "postflight": {
+  "match": 0,
+  "diff": 0,
+  "unverified": 0,
+  "failed": 2,
+  "skipped": 0,
+  "unresolved": 0
+ },
+ "entries": [
+  {
+   "name": "Okabe Test",
+   "srcId": "sg539_ai",
+   "entity": "ai",
+   "slot": "create",
+   "op": "create",
+   "state": "error",
+   "forgeState": "FAILED",
+   "phase": "create",
+   "detail": "pre-send validation: unknown key \"preferredStat\" for ai",
+   "verdict": null,
+   "asserted": null,
+   "diffs": [],
+   "id": null
+  },
+  {
+   "name": "Okabe Hull Test",
+   "srcId": "sg539_quest",
+   "entity": "quest",
+   "slot": "create",
+   "op": "create",
+   "state": "error",
+   "forgeState": "FAILED",
+   "phase": "create",
+   "detail": "@ai:sg539_ai is not resolvable yet (at content.objectives[1].opponentAIs[0].ids[0])",
+   "verdict": null,
+   "asserted": null,
+   "diffs": [],
+   "id": null
+  }
+ ],
+ "captures": [],
+ "idmap": {},
+ "journal": {
+  "v": 1,
+  "jobId": "539-mw92f920",
+  "manifestPath": "push/539b_okabe_hull_test_ai_quest.json",
+  "manifestNumber": 539,
+  "manifestHash": "03f5e627",
+  "startedAt": "2026-11-09T09:35:11.258Z",
+  "updatedAt": "2026-11-09T09:36:22.735Z",
+  "state": "DONE",
+  "pause": null,
+  "items": [
+   {
+    "idx": 0,
+    "entity": "ai",
+    "op": "create",
+    "name": "Okabe Test",
+    "srcId": "sg539_ai",
+    "targetId": null,
+    "payloadHash": "1bfe428c",
+    "state": "FAILED",
+    "phase": "create",
+    "entityId": null,
+    "snapshotKey": null,
+    "sentAt": null,
+    "createSentAt": null,
+    "confirmedAt": null,
+    "verifiedAt": null,
+    "error": "pre-send validation: unknown key \"preferredStat\" for ai"
+   },
+   {
+    "idx": 1,
+    "entity": "quest",
+    "op": "create",
+    "name": "Okabe Hull Test",
+    "srcId": "sg539_quest",
+    "targetId": null,
+    "payloadHash": "d926fc5c",
+    "state": "FAILED",
+    "phase": "create",
+    "entityId": null,
+    "snapshotKey": null,
+    "sentAt": null,
+    "createSentAt": null,
+    "confirmedAt": null,
+    "verifiedAt": null,
+    "error": "@ai:sg539_ai is not resolvable yet (at content.objectives[1].opponentAIs[0].ids[0])"
+   }
+  ]
+ }
+}

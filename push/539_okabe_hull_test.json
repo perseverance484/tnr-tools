@@ -1,0 +1,422 @@
+{
+ "_note": "push/539, HIDDEN TEST ONLY: proves the Okabe hull (seal, healprevent, buffprevent, increasedamagetaken 40) on BATTLEFIELD tiles cols 0-5. One hidden jutsu pair, one hidden test AI (90% damage reduction so the fight lasts), one hidden practice quest. Nothing visible to players. dauntless's go 2026-11-09 09:21Z ('Run the image test', relayed as the Okabe test). JOB A of 3: the two hidden test jutsu.",
+ "dedupNames": true,
+ "items": [
+  {
+   "entity": "jutsu",
+   "slot": "create",
+   "srcId": "sg539_hull",
+   "phase": 1,
+   "name": "Okabe Test - Hull",
+   "data": {
+    "name": "Okabe Test - Hull",
+    "description": "TEST ONLY. Glass-grown hull on the left half of the floor.",
+    "extraBaseCost": 0,
+    "effects": [
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "rounds": 20,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "friendlyFire": "ENEMIES",
+      "power": 100,
+      "calculation": "static",
+      "type": "seal",
+      "description": "Hull: bloodline sealed"
+     },
+     {
+      "staticAssetPath": "LAlJN4VbIQmTYNQyl4PWC",
+      "staticAnimation": "",
+      "appearAnimation": "",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "rounds": 20,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "friendlyFire": "ENEMIES",
+      "power": 100,
+      "calculation": "static",
+      "type": "healprevent",
+      "description": "Hull: no healing"
+     },
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "rounds": 20,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "friendlyFire": "ENEMIES",
+      "power": 100,
+      "calculation": "static",
+      "type": "buffprevent",
+      "description": "Hull: no new buffs"
+     },
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "rounds": 20,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "friendlyFire": "ENEMIES",
+      "power": 40,
+      "calculation": "percentage",
+      "type": "increasedamagetaken",
+      "description": "Hull: +40% damage taken"
+     }
+    ],
+    "target": "GROUND",
+    "range": 0,
+    "cooldown": 20,
+    "bloodlineId": "",
+    "requiredLevel": 1,
+    "requiredRank": "STUDENT",
+    "jutsuType": "AI",
+    "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+    "jutsuWeapon": "NONE",
+    "statClassification": "None",
+    "elementClassification": "None",
+    "battleDescription": "The hull closes over the left half of the hold.",
+    "jutsuRank": "D",
+    "actionCostPerc": 40,
+    "staminaCost": 0.05,
+    "chakraCost": 0.05,
+    "staminaCostReducePerLvl": 0,
+    "chakraCostReducePerLvl": 0,
+    "healthCostReducePerLvl": 0,
+    "healthCost": 0,
+    "villageId": "",
+    "method": "COORDINATES",
+    "hidden": true,
+    "injectableInBattle": false,
+    "battleUsageType": "BOTH",
+    "coordinateTargeting": {
+     "origin": "BATTLEFIELD",
+     "selection": "ALL",
+     "coordinates": [
+      {
+       "longitude": 0,
+       "latitude": 0
+      },
+      {
+       "longitude": 0,
+       "latitude": 1
+      },
+      {
+       "longitude": 0,
+       "latitude": 2
+      },
+      {
+       "longitude": 0,
+       "latitude": 3
+      },
+      {
+       "longitude": 0,
+       "latitude": 4
+      },
+      {
+       "longitude": 0,
+       "latitude": 5
+      },
+      {
+       "longitude": 0,
+       "latitude": 6
+      },
+      {
+       "longitude": 0,
+       "latitude": 7
+      },
+      {
+       "longitude": 0,
+       "latitude": 8
+      },
+      {
+       "longitude": 0,
+       "latitude": 9
+      },
+      {
+       "longitude": 1,
+       "latitude": 0
+      },
+      {
+       "longitude": 1,
+       "latitude": 1
+      },
+      {
+       "longitude": 1,
+       "latitude": 2
+      },
+      {
+       "longitude": 1,
+       "latitude": 3
+      },
+      {
+       "longitude": 1,
+       "latitude": 4
+      },
+      {
+       "longitude": 1,
+       "latitude": 5
+      },
+      {
+       "longitude": 1,
+       "latitude": 6
+      },
+      {
+       "longitude": 1,
+       "latitude": 7
+      },
+      {
+       "longitude": 1,
+       "latitude": 8
+      },
+      {
+       "longitude": 1,
+       "latitude": 9
+      },
+      {
+       "longitude": 2,
+       "latitude": 0
+      },
+      {
+       "longitude": 2,
+       "latitude": 1
+      },
+      {
+       "longitude": 2,
+       "latitude": 2
+      },
+      {
+       "longitude": 2,
+       "latitude": 3
+      },
+      {
+       "longitude": 2,
+       "latitude": 4
+      },
+      {
+       "longitude": 2,
+       "latitude": 5
+      },
+      {
+       "longitude": 2,
+       "latitude": 6
+      },
+      {
+       "longitude": 2,
+       "latitude": 7
+      },
+      {
+       "longitude": 2,
+       "latitude": 8
+      },
+      {
+       "longitude": 2,
+       "latitude": 9
+      },
+      {
+       "longitude": 3,
+       "latitude": 0
+      },
+      {
+       "longitude": 3,
+       "latitude": 1
+      },
+      {
+       "longitude": 3,
+       "latitude": 2
+      },
+      {
+       "longitude": 3,
+       "latitude": 3
+      },
+      {
+       "longitude": 3,
+       "latitude": 4
+      },
+      {
+       "longitude": 3,
+       "latitude": 5
+      },
+      {
+       "longitude": 3,
+       "latitude": 6
+      },
+      {
+       "longitude": 3,
+       "latitude": 7
+      },
+      {
+       "longitude": 3,
+       "latitude": 8
+      },
+      {
+       "longitude": 3,
+       "latitude": 9
+      },
+      {
+       "longitude": 4,
+       "latitude": 0
+      },
+      {
+       "longitude": 4,
+       "latitude": 1
+      },
+      {
+       "longitude": 4,
+       "latitude": 2
+      },
+      {
+       "longitude": 4,
+       "latitude": 3
+      },
+      {
+       "longitude": 4,
+       "latitude": 4
+      },
+      {
+       "longitude": 4,
+       "latitude": 5
+      },
+      {
+       "longitude": 4,
+       "latitude": 6
+      },
+      {
+       "longitude": 4,
+       "latitude": 7
+      },
+      {
+       "longitude": 4,
+       "latitude": 8
+      },
+      {
+       "longitude": 4,
+       "latitude": 9
+      },
+      {
+       "longitude": 5,
+       "latitude": 0
+      },
+      {
+       "longitude": 5,
+       "latitude": 1
+      },
+      {
+       "longitude": 5,
+       "latitude": 2
+      },
+      {
+       "longitude": 5,
+       "latitude": 3
+      },
+      {
+       "longitude": 5,
+       "latitude": 4
+      },
+      {
+       "longitude": 5,
+       "latitude": 5
+      },
+      {
+       "longitude": 5,
+       "latitude": 6
+      },
+      {
+       "longitude": 5,
+       "latitude": 7
+      },
+      {
+       "longitude": 5,
+       "latitude": 8
+      },
+      {
+       "longitude": 5,
+       "latitude": 9
+      }
+     ]
+    }
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "create",
+   "srcId": "sg539_mallet",
+   "phase": 1,
+   "name": "Okabe Test - Mallet",
+   "data": {
+    "name": "Okabe Test - Mallet",
+    "description": "TEST ONLY. A steady mallet blow.",
+    "extraBaseCost": 0,
+    "effects": [
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "rounds": 0,
+      "power": 100,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "friendlyFire": "ENEMIES",
+      "calculation": "static",
+      "statTypes": [
+       "None"
+      ],
+      "type": "damage",
+      "description": "Deals damage to target",
+      "residualModifier": 1,
+      "dmgModifier": 1,
+      "allowBloodlineDamageIncrease": true,
+      "allowBloodlineDamageDecrease": true
+     }
+    ],
+    "target": "OTHER_USER",
+    "range": 5,
+    "cooldown": 0,
+    "bloodlineId": "",
+    "requiredLevel": 1,
+    "requiredRank": "STUDENT",
+    "jutsuType": "AI",
+    "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+    "jutsuWeapon": "NONE",
+    "statClassification": "None",
+    "elementClassification": "None",
+    "battleDescription": "The mallet comes down.",
+    "jutsuRank": "D",
+    "actionCostPerc": 60,
+    "staminaCost": 0.05,
+    "chakraCost": 0.05,
+    "staminaCostReducePerLvl": 0,
+    "chakraCostReducePerLvl": 0,
+    "healthCostReducePerLvl": 0,
+    "healthCost": 0,
+    "villageId": "",
+    "method": "SINGLE",
+    "hidden": true,
+    "injectableInBattle": false,
+    "battleUsageType": "BOTH"
+   }
+  }
+ ]
+}

@@ -1,0 +1,207 @@
+{
+ "_note": "push/539, HIDDEN TEST ONLY: proves the Okabe hull (seal, healprevent, buffprevent, increasedamagetaken 40) on BATTLEFIELD tiles cols 0-5. One hidden jutsu pair, one hidden test AI (90% damage reduction so the fight lasts), one hidden practice quest. Nothing visible to players. dauntless's go 2026-11-09 09:21Z ('Run the image test', relayed as the Okabe test). JOB B: the hidden test AI (literal jutsu ids from 539: hull CB7SMA6tu35Splm7esP6K, mallet 3sGasvklexKDPbJbzRRSr) and the hidden practice quest.",
+ "dedupNames": true,
+ "items": [
+  {
+   "entity": "ai",
+   "slot": "create",
+   "srcId": "sg539_ai",
+   "phase": 2,
+   "name": "Okabe Test",
+   "data": {
+    "avatarFacing": "left",
+    "bloodlineMastery": 10,
+    "bukijutsuMastery": 834780,
+    "defence": 1391299.95,
+    "gender": "Unknown",
+    "genjutsuMastery": 834780,
+    "hidden": true,
+    "includeDefaultRules": false,
+    "intelligence": 1391299.95,
+    "isSummon": false,
+    "level": 100,
+    "ninjutsuMastery": 834780,
+    "offence": 1391299.95,
+    "poolsMultiplier": 1,
+    "preferredGeneral1": "Intelligence",
+    "preferredGeneral2": "Speed",
+    "primaryElement": null,
+    "rank": "JONIN",
+    "regeneration": 60,
+    "sageMastery": 10,
+    "secondaryElement": null,
+    "speed": 1391299.95,
+    "statsMultiplier": 5.83,
+    "strength": 1391299.95,
+    "taijutsuMastery": 834780,
+    "username": "Okabe Test",
+    "willpower": 1391299.95,
+    "effects": [
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "rounds": 100,
+      "power": 90,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "calculation": "percentage",
+      "type": "decreasedamagetaken",
+      "description": "Test: tough"
+     }
+    ],
+    "jutsus": [
+     "CB7SMA6tu35Splm7esP6K",
+     "3sGasvklexKDPbJbzRRSr"
+    ],
+    "items": [],
+    "rules": [
+     {
+      "conditions": [],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "CB7SMA6tu35Splm7esP6K",
+       "target": "SELF",
+       "description": "Select specific jutsu"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "CLOSEST_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "jutsuId": "3sGasvklexKDPbJbzRRSr",
+       "target": "CLOSEST_OPPONENT",
+       "description": "Select specific jutsu"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 4,
+        "target": "CLOSEST_OPPONENT",
+        "description": "Distance higher than given value"
+       }
+      ],
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "CLOSEST_OPPONENT",
+       "description": "Move towards opponent"
+      }
+     },
+     {
+      "conditions": [],
+      "action": {
+       "type": "end_turn",
+       "description": "End turn"
+      }
+     }
+    ],
+    "avatar": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+    "inArena": false
+   }
+  },
+  {
+   "entity": "quest",
+   "slot": "create",
+   "srcId": "sg539_quest",
+   "phase": 3,
+   "name": "Okabe Hull Test",
+   "data": {
+    "name": "Okabe Hull Test",
+    "description": "TEST ONLY, hidden. One fight against a test AI that lays glass hull on the left half of the floor.",
+    "successDescription": "Test done.",
+    "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+    "questType": "battlepyramid",
+    "questRank": "D",
+    "hidden": true,
+    "retryDelay": "none",
+    "attemptDelay": "none",
+    "consecutiveObjectives": true,
+    "requiredLevel": 1,
+    "maxLevel": 100,
+    "maxAttempts": 100,
+    "maxCompletes": 100,
+    "prerequisiteQuestId": null,
+    "tierLevel": null,
+    "requiredVillage": null,
+    "requiredBloodlineId": null,
+    "startsAt": null,
+    "endsAt": null,
+    "content": {
+     "sceneBackground": "81DATu13hATfbkPuLT54E",
+     "sceneCharacters": [],
+     "isolated": true,
+     "objectives": [
+      {
+       "id": "d_open",
+       "task": "dialog",
+       "description": "TEST: the hull closes on the left half. Stand in it, then step out.",
+       "sceneBackground": "81DATu13hATfbkPuLT54E",
+       "sceneCharacters": [],
+       "nextObjectiveId": [
+        {
+         "text": "Start",
+         "nextObjectiveId": "b_test"
+        }
+       ]
+      },
+      {
+       "id": "b_test",
+       "task": "start_battle",
+       "description": "Okabe hull test",
+       "sceneBackground": "81DATu13hATfbkPuLT54E",
+       "sceneCharacters": [],
+       "opponentAIs": [
+        {
+         "ids": [
+          "@ai:sg539_ai"
+         ],
+         "number": 1,
+         "quantity": 1
+        }
+       ],
+       "completionOutcome": "Win",
+       "scaleGains": 1,
+       "keepOriginalPools": false,
+       "opponent_scaled_to_user": false,
+       "nextObjectiveId": "w_done",
+       "failObjectiveId": "f_done",
+       "failDescription": "Test over.",
+       "drawDescription": "Test over.",
+       "fleeDescription": "Test over."
+      },
+      {
+       "id": "w_done",
+       "task": "win_quest",
+       "description": "Test over.",
+       "sceneBackground": "81DATu13hATfbkPuLT54E",
+       "sceneCharacters": [],
+       "reward_exp": 0,
+       "reward_money": 0,
+       "reward_items": []
+      },
+      {
+       "id": "f_done",
+       "task": "fail_quest",
+       "description": "Test over.",
+       "sceneBackground": "81DATu13hATfbkPuLT54E",
+       "sceneCharacters": []
+      }
+     ]
+    }
+   }
+  }
+ ]
+}
