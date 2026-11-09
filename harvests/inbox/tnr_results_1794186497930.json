@@ -1,0 +1,348 @@
+{
+ "builder": "duet-connector",
+ "at": "2026-11-09T01:08:17Z",
+ "cfg": {
+  "note": "dauntless (Nov 9): put the DKI v6l animation directly on test jutsu Detour Test 2. Art only: poison appearAnimation 6B_tYbUOECJDL5L02d8NV and appearSfx epidemic-07381e8f-01ad-41cf-8dd7-8a84a34e2976 blanked; 7 DKI visual slices appended (hit sfx on c0). Revert = restore effects from 'before'."
+ },
+ "state": "done",
+ "outcome": "ok",
+ "entries": [
+  {
+   "kind": "gameAsset",
+   "op": "create+update+unhide",
+   "slot": "smoulder",
+   "id": "MCvrsmsLXk1ES_Q_f5iGC",
+   "image": "https://bbenpyo9uu.ufs.sh/f/0tzd8oDeiVIz4X299spZAqlIcWXTdkU8Gpz39eEjMFSVxv7r",
+   "file": "anim_dragon_king_v7b_hv32_smoulder.webp",
+   "frames": 24,
+   "speed": 80,
+   "readBack": "ok",
+   "hidden": false
+  },
+  {
+   "kind": "contentReview",
+   "op": "create",
+   "id": "yJnW4d165HOOhrtgURO8S",
+   "status": "PENDING",
+   "target": "JUTSU FytS2iqFInf1go6WhOvUU",
+   "fields": [
+    "effects",
+    "description",
+    "battleDescription"
+   ]
+  }
+ ],
+ "before": {
+  "jutsu:FytS2iqFInf1go6WhOvUU": "unchanged since 2026-10-22 (updatedAt); full record in harvests/inbox/tnr_results_1794182486223.json"
+ },
+ "captures": [
+  {
+   "endpoint": "contentReview.create input",
+   "data": {
+    "entityType": "JUTSU",
+    "entityId": "FytS2iqFInf1go6WhOvUU",
+    "category": "ANIMATION",
+    "title": "Dragon King's Impact: new animation and matching text",
+    "rationale": "Gives Dragon King's Impact its own animation in place of the stock orange fire, and rewrites its description and battle line to match what players now see. The caster rises in a pillar of flame, a fire dragon dives from the sky onto the target and bursts into a fireball where its face shows for an instant, and the caster smolders while the damage buff lasts. The animation is cut for the current battle hex size. Only art and text change: the stock fire comes off the hit and the buff, six art-only visual slices carry the clip (the hit sound moves onto the impact slice), and damage, effects, targeting and numbers are untouched.",
+    "data": {
+     "name": "Dragon King's Impact",
+     "description": "A forbidden jutsu that burns the user's own lifeforce into a fire dragon, sent climbing into the sky before it dives down on the target and leaves wounds that keep burning. For a short time the user's attacks hit harder, though their scorched body takes extra damage from every hit.",
+     "extraBaseCost": 4500,
+     "effects": [
+      {
+       "type": "damage",
+       "power": 40,
+       "rounds": 0,
+       "target": "INHERIT",
+       "elements": [
+        "Fire",
+        "None"
+       ],
+       "appearSfx": "",
+       "direction": "offence",
+       "statTypes": [
+        "None"
+       ],
+       "calculation": "formula",
+       "description": "placeholder",
+       "dmgModifier": 1,
+       "disappearSfx": "",
+       "generalTypes": [
+        "Highest"
+       ],
+       "powerPerLevel": 0.4,
+       "appearAnimation": "",
+       "staticAnimation": "",
+       "staticAssetPath": "",
+       "residualModifier": 0,
+       "disappearAnimation": "",
+       "allowBloodlineDamageDecrease": true,
+       "allowBloodlineDamageIncrease": true
+      },
+      {
+       "type": "increasedamagegiven",
+       "power": 30,
+       "rounds": 2,
+       "target": "SELF",
+       "appearSfx": "",
+       "direction": "offence",
+       "calculation": "percentage",
+       "description": "placeholder",
+       "disappearSfx": "",
+       "powerPerLevel": 0.4,
+       "appearAnimation": "",
+       "staticAnimation": "MCvrsmsLXk1ES_Q_f5iGC",
+       "staticAssetPath": "",
+       "disappearAnimation": ""
+      },
+      {
+       "type": "afterburn",
+       "power": 20,
+       "rounds": 2,
+       "target": "SELF",
+       "appearSfx": "",
+       "direction": "offence",
+       "calculation": "percentage",
+       "description": "placeholder",
+       "disappearSfx": "",
+       "powerPerLevel": 0,
+       "appearAnimation": "",
+       "staticAnimation": "",
+       "staticAssetPath": "",
+       "disappearAnimation": ""
+      },
+      {
+       "type": "wound",
+       "power": 15,
+       "rounds": 2,
+       "target": "INHERIT",
+       "elements": [
+        "Fire"
+       ],
+       "appearSfx": "",
+       "direction": "offence",
+       "calculation": "percentage",
+       "description": "placeholder",
+       "disappearSfx": "",
+       "friendlyFire": "ENEMIES",
+       "generalTypes": [
+        "Highest"
+       ],
+       "powerPerLevel": 0.4,
+       "appearAnimation": "",
+       "staticAnimation": "",
+       "staticAssetPath": "",
+       "disappearAnimation": ""
+      },
+      {
+       "type": "visual",
+       "power": 2,
+       "rounds": 1,
+       "target": "COORDINATES",
+       "direction": "offence",
+       "calculation": "static",
+       "powerPerLevel": 0,
+       "description": "Dragon King's Impact: rise slice 2 rows above the caster (art only)",
+       "appearAnimation": "PQnx2Z94Ycn9obmj6GJdy",
+       "appearSfx": "",
+       "staticAnimation": "",
+       "staticAssetPath": "",
+       "disappearAnimation": "",
+       "disappearSfx": "",
+       "coordinateTargeting": {
+        "origin": "CASTER",
+        "selection": "ALL",
+        "coordinates": [
+         {
+          "longitude": 0,
+          "latitude": -2
+         }
+        ]
+       }
+      },
+      {
+       "type": "visual",
+       "power": 2,
+       "rounds": 1,
+       "target": "COORDINATES",
+       "direction": "offence",
+       "calculation": "static",
+       "powerPerLevel": 0,
+       "description": "Dragon King's Impact: rise slice 1 row above the caster (art only)",
+       "appearAnimation": "w2gtqRwJWiw525ML6Dm5Y",
+       "appearSfx": "",
+       "staticAnimation": "",
+       "staticAssetPath": "",
+       "disappearAnimation": "",
+       "disappearSfx": "",
+       "coordinateTargeting": {
+        "origin": "CASTER",
+        "selection": "ALL",
+        "coordinates": [
+         {
+          "longitude": 0,
+          "latitude": -1
+         }
+        ]
+       }
+      },
+      {
+       "type": "visual",
+       "power": 2,
+       "rounds": 1,
+       "target": "COORDINATES",
+       "direction": "offence",
+       "calculation": "static",
+       "powerPerLevel": 0,
+       "description": "Dragon King's Impact: rise slice on the caster (art only)",
+       "appearAnimation": "mB2F5kqImPij_1JAU_WN5",
+       "appearSfx": "",
+       "staticAnimation": "",
+       "staticAssetPath": "",
+       "disappearAnimation": "",
+       "disappearSfx": "",
+       "coordinateTargeting": {
+        "origin": "CASTER",
+        "selection": "ALL",
+        "coordinates": [
+         {
+          "longitude": 0,
+          "latitude": 0
+         }
+        ]
+       }
+      },
+      {
+       "type": "visual",
+       "power": 2,
+       "rounds": 1,
+       "target": "COORDINATES",
+       "direction": "offence",
+       "calculation": "static",
+       "powerPerLevel": 0,
+       "description": "Dragon King's Impact: dive slice 2 rows above the target (art only)",
+       "appearAnimation": "vzGzdJUyIvSFR-Vl-dSj3",
+       "appearSfx": "",
+       "staticAnimation": "",
+       "staticAssetPath": "",
+       "disappearAnimation": "",
+       "disappearSfx": "",
+       "coordinateTargeting": {
+        "origin": "TARGET",
+        "selection": "ALL",
+        "coordinates": [
+         {
+          "longitude": 0,
+          "latitude": -2
+         }
+        ]
+       }
+      },
+      {
+       "type": "visual",
+       "power": 2,
+       "rounds": 1,
+       "target": "COORDINATES",
+       "direction": "offence",
+       "calculation": "static",
+       "powerPerLevel": 0,
+       "description": "Dragon King's Impact: dive slice 1 row above the target (art only)",
+       "appearAnimation": "1lVv6Df19ckRErqd0lM3q",
+       "appearSfx": "",
+       "staticAnimation": "",
+       "staticAssetPath": "",
+       "disappearAnimation": "",
+       "disappearSfx": "",
+       "coordinateTargeting": {
+        "origin": "TARGET",
+        "selection": "ALL",
+        "coordinates": [
+         {
+          "longitude": 0,
+          "latitude": -1
+         }
+        ]
+       }
+      },
+      {
+       "type": "visual",
+       "power": 2,
+       "rounds": 1,
+       "target": "COORDINATES",
+       "direction": "offence",
+       "calculation": "static",
+       "powerPerLevel": 0,
+       "description": "Dragon King's Impact: impact slice on the target (art only)",
+       "appearAnimation": "uRIsse-GUUg3iOGY3FsUI",
+       "appearSfx": "9-b8hbTXA019dgn8yyr3j",
+       "staticAnimation": "",
+       "staticAssetPath": "",
+       "disappearAnimation": "",
+       "disappearSfx": "",
+       "coordinateTargeting": {
+        "origin": "TARGET",
+        "selection": "ALL",
+        "coordinates": [
+         {
+          "longitude": 0,
+          "latitude": 0
+         }
+        ]
+       }
+      }
+     ],
+     "target": "OPPONENT",
+     "range": 4,
+     "cooldown": 7,
+     "bloodlineId": "",
+     "requiredLevel": 80,
+     "requiredRank": "JONIN",
+     "jutsuType": "FORBIDDEN",
+     "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJXPZZkSFqIOpAoLKbZ4nW9Rsil2V67yuFwQhq",
+     "jutsuWeapon": "NONE",
+     "statClassification": "None",
+     "elementClassification": "Fire",
+     "battleDescription": "%user forms a rapid chain of hand seals and their lifeforce ignites, flames climbing from their body in a pillar that tears into the sky. The fire takes the shape of a dragon among the clouds, then plunges back to earth with breathtaking speed and crashes down on %target. A fireball blooms where it lands, the dragon's burning face glimpsed for an instant in the heart of the explosion. Its fire lingers in %target's wounds, while the lifeforce it burned leaves %user striking harder but scorched beneath every hit.",
+     "jutsuRank": "S",
+     "actionCostPerc": 60,
+     "staminaCost": 500,
+     "chakraCost": 500,
+     "staminaCostReducePerLvl": 0,
+     "chakraCostReducePerLvl": 0,
+     "healthCostReducePerLvl": 0,
+     "healthCost": 0,
+     "villageId": "",
+     "requiredPetSpeciesId": null,
+     "method": "SINGLE",
+     "coordinateTargeting": null,
+     "methodSize": null,
+     "hidden": false,
+     "injectableInBattle": false,
+     "battleUsageType": "BOTH",
+     "reskinParentJutsuId": null,
+     "bloodlineReskinId": null,
+     "parentJutsuId": null,
+     "requiredNinjutsuMastery": null,
+     "requiredGenjutsuMastery": null,
+     "requiredTaijutsuMastery": null,
+     "requiredBukijutsuMastery": null,
+     "requiredBloodlineMastery": null,
+     "requiredSageMastery": null,
+     "requiredStrength": null,
+     "requiredSpeed": null,
+     "requiredIntelligence": null,
+     "requiredWillpower": null,
+     "requiredSkillId": null,
+     "requiredBloodlineItemId": null
+    }
+   }
+  }
+ ],
+ "journal": [
+  "director's go 2026-11-09T01:05:29Z: 'Yes, submit it'",
+  "old ticket pWH6I2HsinORL3jlvp72v rejected by the director",
+  "uploaded via duet/moe-uploadthing run 42543720360",
+  "art on main fa6705a",
+  "not approved by us (never approve own ticket)"
+ ]
+}
