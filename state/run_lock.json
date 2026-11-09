@@ -1,11 +1,10 @@
 {
- "holder": "claude",
- "token": "e22525d3ddb944c5a112cffe8d5058ae",
- "job": "push/575-577 Hullbound Mender (hidden)",
- "instance": "/mnt/project-files/forge-state/mender",
- "ttlMinutes": 90,
- "claimedAt": "2026-11-09T16:49:05.929Z",
- "heartbeatAt": "2026-11-09T18:54:26.945Z",
- "expiresAt": "2026-11-09T20:24:26.945Z",
- "note": "One game writer per account at a time (RUL-2026-11-07-133). Written only by forge/tools/run_lock.mjs or Forge; do not hand-edit."
+ "holder": null,
+ "token": null,
+ "job": null,
+ "releasedBy": "claude",
+ "releasedInstance": "/mnt/project-files/forge-state/mender",
+ "releasedJob": "push/575-577 Hullbound Mender (hidden)",
+ "releasedAt": "2026-11-09T18:57:29.492Z",
+ "note": "Free. Claim with node forge/tools/run_lock.mjs claim --holder NAME --job TEXT (RUL-2026-11-07-133)."
 }
