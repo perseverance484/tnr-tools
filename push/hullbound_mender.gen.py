@@ -92,8 +92,10 @@ POWER = {"rivet": 20, "splitter": 220, "hammerfall": 310, "seal": 2000,
 PLANK_DR = 75        # Fresh Plank: 75% less damage taken (not pierce)
 HULL_TAKEN = 40      # glass-grown hull: +40% damage taken (not pierce)
 HULL_ROUNDS = 100
-TIERS = [  # (tier, health_below, round_greater_than): marks on whichever comes first; tier 4 is the round-15 enrage
-    (1, 75, 3), (2, 50, 7), (3, 25, 11), (4, None, 14)]
+TIERS = [  # (tier, health_below, round_greater_than); tier 4 is the round-15 enrage. Health triggers are off (None):
+    # the AI profile caps at 20 rules, so the hold closes on the timer alone (rounds 4, 8, 12, 15).
+    (1, None, 3), (2, None, 7), (3, None, 11), (4, None, 14)]
+MAX_RULES = 20       # server: "Maximum of 20 rules allowed"
 SEAL_ROUND = 17      # round_greater_than 17: the hold seals on round 18
 
 
@@ -365,10 +367,10 @@ def mender_rules(J):
               use(J["planks_a"], [has("decreasepoolcost")]),
               use(J["starboard_mark"], [round_gt(4)]),
               use(J["port_mark"]),
-              use(J["planks_b"], [has(CLOSED, 100)]),
               use(J["planks_a"]),
               use(J["rivet"]),      # 33, once a turn
               END]
+    assert len(rules) <= MAX_RULES, f"{len(rules)} rules; the server allows {MAX_RULES}"
     return rules
 
 
@@ -408,6 +410,7 @@ def ai(key, name, avatar, pools, stats_mult, effects, jutsus, rules, items=()):
     rid = reuse_ids().get(key)
     head = {"entity": "ai", "slot": "edit", "targetId": rid} if rid else {"entity": "ai", "slot": "create"}
     assert pools >= 1, "poolsMultiplier must be >= 1"
+    assert len(rules) <= MAX_RULES, f"{name}: {len(rules)} rules; the server allows {MAX_RULES}"
     return {**head, "srcId": PFX["ais"] + key, "phase": 1, "name": name, "data": {
         "avatarFacing": "left", "bloodlineMastery": 10, "bukijutsuMastery": MASTERY, "defence": STAT,
         "gender": "Unknown", "genjutsuMastery": MASTERY, "hidden": True, "includeDefaultRules": False,
@@ -681,8 +684,10 @@ def main():
         return
     if mode == "quest":
         J = ids_from_bundle(sys.argv[sys.argv.index("--jutsu") + 1], PFX["jutsu"], list(JUTSU) + ["chart"], fix_arg())
-        A = ids_from_bundle(sys.argv[sys.argv.index("--ais") + 1], PFX["ais"],
-                            ["apprentice", "caulker", "pump", "mender"])
+        # --ais <bundle>, or --reuse key=id,... when a bundle entry needed finishing by hand (576: the Mender)
+        A = reuse_ids() or ids_from_bundle(sys.argv[sys.argv.index("--ais") + 1], PFX["ais"],
+                                           ["apprentice", "caulker", "pump", "mender"])
+        assert set(A) == {"apprentice", "caulker", "pump", "mender"}, A
         q = quest_entry(A, J["chart"])
         check_graph(q["data"]["content"]["objectives"])
         write(NUM["quest"], "hullbound_mender_quest",
