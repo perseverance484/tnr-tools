@@ -1,0 +1,226 @@
+{
+ "_note": "push/582: Mother of Echoes act 1 tuning (2026-11-09, director's yes: 'Yes, make both'). Hand run 6 (auto-play off) died act 1 R11 with Sayo 3,302/6,060: Glass Lancet hit 800-1,180 and Feelers (2,500 HP, Cradle 90% DR while alive) spawned R2/R6/R10. Changes, all hidden records: Sayo act 1 (fJLcH1mpB1XHHGtNWwvzD) damage given two +100% -> one +100% (stunprevent, onehitkillprevent kept; pools 1.2 kept; effects hand-built from live read 2026-11-09 22:45Z); The Listening (mqko5kLLXqGAVr6MVoKY0) and The Listening, Unbridled (q0QcFoX4HIhxO0cpYTL2N) summon aiHp 2500 -> 1500, data from push 527 items 678/679 (live updatedAt 2026-11-08 00:27/00:28 matches, aiHp 2500 read back). Law 18: both jutsus are equipped only on the Silence (IhNR-W1FElTsrWw1KfuQ9), so the Silence is unequipped first and re-equipped after with its live jutsu list of 8.",
+ "items": [
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "targetId": "IhNR-W1FElTsrWw1KfuQ9",
+   "name": "The Silence: moe jutsu off (law 18)",
+   "phase": 10,
+   "data": {
+    "jutsus": [],
+    "items": [
+     {
+      "ids": [
+       "h-V9uiuxbL7lAWkO6nZWt"
+      ],
+      "number": 0
+     }
+    ]
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "targetId": "mqko5kLLXqGAVr6MVoKY0",
+   "name": "The Listening: Feeler 1,500 HP",
+   "data": {
+    "name": "The Listening",
+    "description": "Something under the floor turns toward the sound of you. A feeler of the deep rises and listens, and while any part of the deep still lives in the hall, it keeps hold of her.",
+    "extraBaseCost": 1500,
+    "effects": [
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "SrFBuUWRMdZt9ryBDy3k_",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "rounds": 8,
+      "power": 40,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "calculation": "percentage",
+      "type": "summon",
+      "description": "placeholder",
+      "aiId": "qFKcwTUkBtRiC-uM_8xG8",
+      "aiHp": 1500,
+      "playerControlled": false
+     }
+    ],
+    "target": "EMPTY_GROUND",
+    "range": 5,
+    "cooldown": 4,
+    "bloodlineId": "",
+    "requiredLevel": 1,
+    "requiredRank": "STUDENT",
+    "jutsuType": "AI",
+    "image": "https://ui0arpl8sm.ufs.sh/f/tTUMGYff8L72ewNF8J7XA.webp",
+    "jutsuWeapon": "NONE",
+    "statClassification": "None",
+    "elementClassification": "None",
+    "battleDescription": "Something under the floor turns toward the sound of you. While it lives, the deep holds her.",
+    "jutsuRank": "A",
+    "actionCostPerc": 40,
+    "staminaCost": 350,
+    "chakraCost": 350,
+    "staminaCostReducePerLvl": 10,
+    "chakraCostReducePerLvl": 10,
+    "healthCostReducePerLvl": 0,
+    "healthCost": 0,
+    "villageId": "",
+    "method": "SINGLE",
+    "hidden": true,
+    "injectableInBattle": false,
+    "battleUsageType": "BOTH"
+   },
+   "phase": 20
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "targetId": "q0QcFoX4HIhxO0cpYTL2N",
+   "name": "The Listening, Unbridled: Feeler 1,500 HP",
+   "data": {
+    "name": "The Listening, Unbridled",
+    "description": "It no longer waits to hear you. The feelers rise one after another now, and as long as one of them lives, the deep keeps its hold on her.",
+    "extraBaseCost": 1500,
+    "effects": [
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "SrFBuUWRMdZt9ryBDy3k_",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "rounds": 8,
+      "power": 40,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "calculation": "percentage",
+      "type": "summon",
+      "description": "placeholder",
+      "aiId": "qFKcwTUkBtRiC-uM_8xG8",
+      "aiHp": 1500,
+      "playerControlled": false
+     }
+    ],
+    "target": "EMPTY_GROUND",
+    "range": 5,
+    "cooldown": 1,
+    "bloodlineId": "",
+    "requiredLevel": 1,
+    "requiredRank": "STUDENT",
+    "jutsuType": "AI",
+    "image": "https://ui0arpl8sm.ufs.sh/f/tTUMGYff8L72ewNF8J7XA.webp",
+    "jutsuWeapon": "NONE",
+    "statClassification": "None",
+    "elementClassification": "None",
+    "battleDescription": "It no longer waits to hear you. Another feeler rises, and the deep tightens its hold on her.",
+    "jutsuRank": "A",
+    "actionCostPerc": 40,
+    "staminaCost": 350,
+    "chakraCost": 350,
+    "staminaCostReducePerLvl": 10,
+    "chakraCostReducePerLvl": 10,
+    "healthCostReducePerLvl": 0,
+    "healthCost": 0,
+    "villageId": "",
+    "method": "SINGLE",
+    "hidden": true,
+    "injectableInBattle": false,
+    "battleUsageType": "BOTH"
+   },
+   "phase": 20
+  },
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "targetId": "IhNR-W1FElTsrWw1KfuQ9",
+   "name": "The Silence: kit back (law 18)",
+   "phase": 30,
+   "data": {
+    "jutsus": [
+     "A8c_3evIw6fOfnmKIkTgb",
+     "G_b5yaxm6GMOuQ3eaofKb",
+     "kfzxZHje97anmOwwph84l",
+     "mqko5kLLXqGAVr6MVoKY0",
+     "q0QcFoX4HIhxO0cpYTL2N",
+     "scGyJW-F0Mqga4FXnj4Jf",
+     "VqSpJhDUvjxLP5OtjI1mc",
+     "WyurLfWSUSGU1pIoBPObD"
+    ],
+    "items": [
+     {
+      "ids": [
+       "h-V9uiuxbL7lAWkO6nZWt"
+      ],
+      "number": 0
+     }
+    ]
+   }
+  },
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "targetId": "fJLcH1mpB1XHHGtNWwvzD",
+   "name": "Sayo, Mother of Echoes (act 1): damage given +200% to +100%",
+   "phase": 30,
+   "data": {
+    "poolsMultiplier": 1.2,
+    "effects": [
+     {
+      "type": "increasedamagegiven",
+      "power": 100,
+      "rounds": 100,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "Increased damage given",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "stunprevent",
+      "power": 100,
+      "rounds": 100,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "Nothing stills the Mother of Echoes",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "onehitkillprevent",
+      "power": 100,
+      "rounds": 100,
+      "target": "SELF",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     }
+    ]
+   }
+  }
+ ]
+}
