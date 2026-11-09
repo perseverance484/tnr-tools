@@ -478,6 +478,18 @@
         "dauntless trade test"
       ],
       "note": "Run after the hidden trade test on dauntless; overworld quests can't be started from the quest log. 2026-11-09 20:21 director go: every dialog step now tied to her placement goagM4WhKWtnVb8oP5euM (taps on her show the scenes). Run after the unbound dauntless test; bound steps only work once her placement is active (Friday live check)."
+    },
+    {
+      "id": "562",
+      "manifest": "push/562_driftline_golive.json",
+      "what": "The Driftline go-live: unhide 3 bosses, 2 charts, 5 quests; Into, Beachcombing and the Tally become overworld at the salvager's NPC (Into after Wreck Sighted, dialog steps tied to her placement); Tally text fix; Faded Wreck drops Chart of the Split Hold 20% and Chart of the Broken Stern 5%",
+      "runner": "mcp",
+      "status": "waiting",
+      "waitsFor": [
+        "545",
+        "director's Friday Nov 13 release go"
+      ],
+      "note": "Not generated yet on purpose: build it Friday with python3 push/driftline.gen.py golive DIR, DIR = live reads taken AFTER 545 ran (quest_<id>.json for Into, Beachcombing, the Tally; dungeon_j4QEUtjbK_lbOYUPVoidk.json). The generator refuses a Wreck read with no salvage row. Add --no-bind if the dialog binding is not wanted. Her roll pool and placement are the release thread's."
     }
   ]
 }

@@ -379,11 +379,11 @@ def tally():
 
 TALLY_DESC = ("The salvager keeps a tally of who brings what up from the shallows. Four orders, each with a reward to "
               "claim, and a last reward for all four: two Skyglass Tokens.<br><br>"
-              "<b>Orders</b>, in any order:<br>1. <b>Win Beachcombing, the Low Tide Run, the Night Watch or the Rotted "
+              "<b>Orders</b>, in this order:<br>1. <b>Win Beachcombing, the Low Tide Run, the Night Watch or the Rotted "
               "Galley, 3 times in total.</b><br>2. <b>Win the Split Hold or the Buried Cache once.</b><br>3. <b>Win the "
               "Split Hold or the Drowned Foundry, 2 times in total.</b><br>4. <b>Win the Broken Stern or the Captain's "
               "Watch once.</b><br><br>Every order has a level-80 run beside it, so the tally still counts after you "
-              "pass 80. Orders count only once you've taken the tally.")
+              "pass 80. Each order counts only once you've taken the tally and finished the order before it.")
 
 
 def build():
@@ -482,8 +482,108 @@ def check(items):
     assert any(e["type"] == "stunprevent" for e in cap["data"]["effects"])
 
 
+# ---------------------------------------------------------------------------------------------------------------
+# Go-live (Friday Nov 13 release only, on the director's go): push/562
+# ---------------------------------------------------------------------------------------------------------------
+# Live ids from push/561 + 561b (bundles tnr_results_1794258114335 / 1794258436077), read back Nov 9 21:06Z.
+BUILT = {
+    "wayfinder": ("ai", "kW67ukAMLxHk-_geH7OVN", "Driftline Wayfinder"),
+    "core-horror": ("ai", "I4B1qG4P8jsiPAlxjZ_O4", "Driftline Core Horror"),
+    "captain": ("ai", "xTfDUSDalduRg43MlcCbO", "Driftline Captain"),
+    "split": ("item", "I09yVwwnSQK8YE2vkdl1l", "Chart of the Split Hold"),
+    "stern": ("item", "KR5-rVmqtAWeMzpE52aE7", "Chart of the Broken Stern"),
+    "q_into": ("quest", "yZUKtA7Tsmax9LshlRV_v", "Into the Driftline"),
+    "q_beach": ("quest", "coeU4MbjxOq0iydIfM3xA", "Beachcombing"),
+    "q_split": ("quest", "ktVUByCZUfREmWYsvPtzQ", "The Split Hold"),
+    "q_stern": ("quest", "BDUY4nScGzYiZoHGkmkxP", "The Broken Stern"),
+    "q_tally": ("quest", "BlcnJq-OHkeWcl8pxNU6w", "The Salvager's Tally"),
+}
+HANDED_OUT = ("q_into", "q_beach", "q_tally")   # her NPC's quests: overworld at release
+FADED_WRECK = ("j4QEUtjbK_lbOYUPVoidk", "Faded Skyglass Wreck")
+WRECK_DROPS = (("split", 20), ("stern", 5))     # design: Split 20%, Stern 5%, at full rate after push/545's halving
+NPC_PLACEMENT = "goagM4WhKWtnVb8oP5euM"         # her one overworld NPC (push/salvager_trade.gen.py)
+SALVAGE_ID = "mW6_ZGtGcCSuXGPhn-H4o"
+
+
+def live_read(d, kind, rid, name):
+    p = os.path.join(d, f"{kind}_{rid}.json")
+    r = json.load(open(p))
+    r = r.get("data", r) if isinstance(r, dict) and "data" in r and "id" not in r else r
+    assert r.get("id") == rid and r.get("name") == name, (p, r.get("id"), r.get("name"))
+    return r
+
+
+def golive(d, bind):
+    items = []
+    for key, (kind, rid, name) in BUILT.items():
+        if kind == "ai":
+            items.append({"entity": "ai", "slot": "edit", "targetId": rid, "phase": 1, "name": f"{name}: unhide",
+                          "data": {"hidden": False}})
+        elif kind == "item":
+            items.append({"entity": "item", "slot": "edit", "targetId": rid, "phase": 1, "name": f"{name}: unhide",
+                          "data": {"hidden": False}})
+    for key, (kind, rid, name) in BUILT.items():
+        if kind != "quest":
+            continue
+        data = {"hidden": False}
+        label = [ "unhide"]
+        if key in HANDED_OUT:
+            data["questType"] = "overworld"
+            label.insert(0, "overworld")
+            if key == "q_into":
+                data["prerequisiteQuestId"] = QUEST["Wreck Sighted"]
+                label.insert(1, "needs Wreck Sighted")
+            if bind:
+                q = live_read(d, "quest", rid, name)
+                content = json.loads(json.dumps(q["content"]))
+                n = 0
+                for o in content["objectives"]:
+                    if o.get("task") == "dialog":
+                        o["overworldPlacementId"] = NPC_PLACEMENT; n += 1
+                if n:
+                    data["content"] = content
+                    label.append(f"{n} dialog steps tied to her NPC")
+        if key == "q_tally":
+            data["description"] = TALLY_DESC
+            label.append("text: orders run in sequence")
+        items.append({"entity": "quest", "slot": "edit", "targetId": rid, "phase": 2,
+                      "name": f"{name}: " + ", ".join(label), "data": data})
+    did, dname = FADED_WRECK
+    w = live_read(d, "dungeon", did, dname)
+    rewards = json.loads(json.dumps(w["rewards"]))
+    drops = rewards["drops"]
+    assert any(x.get("id") == SALVAGE_ID for x in drops), "no salvage drop on the Faded Wreck: run push/545 first, then re-read"
+    for key, chance in WRECK_DROPS:
+        cid = BUILT[key][1]
+        assert not any(x.get("id") == cid for x in drops), f"{BUILT[key][2]} already drops here: the read is stale or 562 ran"
+        drops.append({"type": "item", "id": cid, "chance": chance, "quantity": 1})
+    items.append({"entity": "dungeon", "slot": "edit", "targetId": did, "phase": 3,
+                  "name": f"{dname}: Chart of the Split Hold 20%, Chart of the Broken Stern 5%", "data": {"rewards": rewards}})
+    out = {"_note": ("push/562, LIVE (Friday Nov 13 release only, on the director's go): The Driftline goes live. "
+                     "Unhides the 3 Driftline bosses, both charts and all 5 quests; Into the Driftline, Beachcombing "
+                     "and The Salvager's Tally become overworld at the salvager's NPC (Into after Wreck Sighted"
+                     + (", dialog steps tied to her placement" if bind else "") + "); the Tally's text says its orders "
+                     "run in sequence; the Faded Wreck drops Chart of the Split Hold 20% and Chart of the Broken Stern "
+                     "5%. Run after push/545, from live reads taken after 545 (" + os.path.basename(os.path.normpath(d))
+                     + "). Her roll pool and placement are the release thread's. Generated by push/driftline.gen.py "
+                     "golive; do not hand-edit."), "items": items}
+    path = os.path.join(ROOT, "push", "562_driftline_golive.json")
+    with open(path, "w") as f:
+        json.dump(out, f, indent=1, ensure_ascii=False)
+        f.write("\n")
+    for it in items:
+        print(f"  {it['entity']:7} {it['name']}")
+    print(os.path.relpath(path, ROOT), len(items), "items")
+
+
 def main():
     mode = sys.argv[1] if len(sys.argv) > 1 else ""
+    if mode == "golive":
+        # python3 push/driftline.gen.py golive DIR [--no-bind]
+        # DIR: fresh live reads taken after push/545 ran: quest_<id>.json for Into, Beachcombing and the Tally, and
+        # dungeon_j4QEUtjbK_lbOYUPVoidk.json for the Faded Wreck (same layout as push/salvager_golive.gen.py).
+        golive(sys.argv[2], "--no-bind" not in sys.argv)
+        return
     if mode not in ("build", "check"):
         print(__doc__)
         sys.exit(2)
