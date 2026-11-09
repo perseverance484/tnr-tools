@@ -1,5 +1,5 @@
 {
- "_note": "push/506 asset creates not yet live (351 of 973 ran 2026-11-06; idmap tnr_results_1794006062657). Uploaded to the director's own UploadThing app by .github/workflows/moe_upload.yml (2026-11-07, director's request); results in uploaded.json. Each file is the source sheet reduced 3x to the 50 px-wide sheet the game's CDN serves (every source is an exact 3x nearest upscale, checked), so these match the 351 already live. Plus avatar_moe_absence_a7.webp at full size, like the other MoE avatars (the only @img in 506 not already uploaded). 2026-11-08: plus anim_moe_etch2_seam_p3_9 (asset GT5IvHAP5vaPg-wCa0E8u, created in 506 but its image never filled). 2026-11-08: plus the 8 Dragon King's Impact v6l strips (dki533_*, push/533 on main), native 112 px, director's yes 23:52 UTC. 2026-11-09: plus the 6 Dragon King's Impact v7b tall-pillar strips (dki_v7b_*, hex size 1), director's yes 00:47 UTC. Plus the v7b smoulder loop (dki_v7b_smoulder), director's yes 01:05 UTC. Plus the 2 Dragon King's Impact v7i strips (dki_v7i_*, v6l shrunk whole to one hex), director's go 03:13 UTC.",
+ "_note": "push/506 asset creates not yet live (351 of 973 ran 2026-11-06; idmap tnr_results_1794006062657). Uploaded to the director's own UploadThing app by .github/workflows/moe_upload.yml (2026-11-07, director's request); results in uploaded.json. Each file is the source sheet reduced 3x to the 50 px-wide sheet the game's CDN serves (every source is an exact 3x nearest upscale, checked), so these match the 351 already live. Plus avatar_moe_absence_a7.webp at full size, like the other MoE avatars (the only @img in 506 not already uploaded). 2026-11-08: plus anim_moe_etch2_seam_p3_9 (asset GT5IvHAP5vaPg-wCa0E8u, created in 506 but its image never filled). 2026-11-08: plus the 8 Dragon King's Impact v6l strips (dki533_*, push/533 on main), native 112 px, director's yes 23:52 UTC. 2026-11-09: plus the 6 Dragon King's Impact v7b tall-pillar strips (dki_v7b_*, hex size 1), director's yes 00:47 UTC. Plus the v7b smoulder loop (dki_v7b_smoulder), director's yes 01:05 UTC. Plus the 2 Dragon King's Impact v7i strips (dki_v7i_*, v6l shrunk whole to one hex), director's go 03:13 UTC. 2026-11-09: plus the 54 skyglass chakra lens strips for Refraction (18 omen) and Refraction Breaks (18 eruption + 18 upper tile) (refr_lens_sky_*), director's go 04:36 UTC.",
  "manifest": "push/506_master_2026-11-06.json",
  "files": [
   {
@@ -8334,6 +8334,708 @@
    "size": [
     112,
     2128
+   ]
+  },
+  {
+   "srcId": "refr_lens_sky_erupt_s1_L0_up",
+   "file": "anim_refraction_lens_sky_erupt_s1_L0_up.webp",
+   "path": "state/moe_upload/refraction/anim_refraction_lens_sky_erupt_s1_L0_up.webp",
+   "sha256": "3abb1144c85ecf09bc81745102669721a2315af0767f41c0fd4ff79e1bc29e71",
+   "bytes": 58748,
+   "srcPath": "duet project files: tnr-animation/v8/out/lens/anim_refraction_lens_sky_erupt_s1_L0_up.webp",
+   "srcSha256": "3abb1144c85ecf09bc81745102669721a2315af0767f41c0fd4ff79e1bc29e71",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_sky_erupt_s1_L0",
+   "file": "anim_refraction_lens_sky_erupt_s1_L0.webp",
+   "path": "state/moe_upload/refraction/anim_refraction_lens_sky_erupt_s1_L0.webp",
+   "sha256": "7d83ae1937a1db2acda8c057400d7df88502786adc8c8d35311004fdd31f7467",
+   "bytes": 209172,
+   "srcPath": "duet project files: tnr-animation/v8/out/lens/anim_refraction_lens_sky_erupt_s1_L0.webp",
+   "srcSha256": "7d83ae1937a1db2acda8c057400d7df88502786adc8c8d35311004fdd31f7467",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_sky_erupt_s1_L1_up",
+   "file": "anim_refraction_lens_sky_erupt_s1_L1_up.webp",
+   "path": "state/moe_upload/refraction/anim_refraction_lens_sky_erupt_s1_L1_up.webp",
+   "sha256": "f753792c606ebba561aee5c54bd7e1538fdc705d3ec0b72819dfcdb65a5b5df3",
+   "bytes": 63082,
+   "srcPath": "duet project files: tnr-animation/v8/out/lens/anim_refraction_lens_sky_erupt_s1_L1_up.webp",
+   "srcSha256": "f753792c606ebba561aee5c54bd7e1538fdc705d3ec0b72819dfcdb65a5b5df3",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_sky_erupt_s1_L1",
+   "file": "anim_refraction_lens_sky_erupt_s1_L1.webp",
+   "path": "state/moe_upload/refraction/anim_refraction_lens_sky_erupt_s1_L1.webp",
+   "sha256": "0c876adebd81e0c766a5faf9bc05b741a8748c550af9191a53165282b8e87ce3",
+   "bytes": 205792,
+   "srcPath": "duet project files: tnr-animation/v8/out/lens/anim_refraction_lens_sky_erupt_s1_L1.webp",
+   "srcSha256": "0c876adebd81e0c766a5faf9bc05b741a8748c550af9191a53165282b8e87ce3",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_sky_erupt_s1_L2_up",
+   "file": "anim_refraction_lens_sky_erupt_s1_L2_up.webp",
+   "path": "state/moe_upload/refraction/anim_refraction_lens_sky_erupt_s1_L2_up.webp",
+   "sha256": "5ae0280b321e34c1463a1335611ccb10a61412ed57cf4ee916092d9928a0624b",
+   "bytes": 61342,
+   "srcPath": "duet project files: tnr-animation/v8/out/lens/anim_refraction_lens_sky_erupt_s1_L2_up.webp",
+   "srcSha256": "5ae0280b321e34c1463a1335611ccb10a61412ed57cf4ee916092d9928a0624b",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_sky_erupt_s1_L2",
+   "file": "anim_refraction_lens_sky_erupt_s1_L2.webp",
+   "path": "state/moe_upload/refraction/anim_refraction_lens_sky_erupt_s1_L2.webp",
+   "sha256": "f085c908e3dcff20a739f68c8ea52b363575788da940654dc67b65327a7f55db",
+   "bytes": 202278,
+   "srcPath": "duet project files: tnr-animation/v8/out/lens/anim_refraction_lens_sky_erupt_s1_L2.webp",
+   "srcSha256": "f085c908e3dcff20a739f68c8ea52b363575788da940654dc67b65327a7f55db",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_sky_erupt_s1_L3_up",
+   "file": "anim_refraction_lens_sky_erupt_s1_L3_up.webp",
+   "path": "state/moe_upload/refraction/anim_refraction_lens_sky_erupt_s1_L3_up.webp",
+   "sha256": "0aaf4185dbdb72240437ac477545d1e9c619967dc5c730bdec06698b86af2224",
+   "bytes": 61426,
+   "srcPath": "duet project files: tnr-animation/v8/out/lens/anim_refraction_lens_sky_erupt_s1_L3_up.webp",
+   "srcSha256": "0aaf4185dbdb72240437ac477545d1e9c619967dc5c730bdec06698b86af2224",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_sky_erupt_s1_L3",
+   "file": "anim_refraction_lens_sky_erupt_s1_L3.webp",
+   "path": "state/moe_upload/refraction/anim_refraction_lens_sky_erupt_s1_L3.webp",
+   "sha256": "eab142880029bc17c390994a4fb286ffe06afa7dbe1f28dce950d2b7acc9e198",
+   "bytes": 207930,
+   "srcPath": "duet project files: tnr-animation/v8/out/lens/anim_refraction_lens_sky_erupt_s1_L3.webp",
+   "srcSha256": "eab142880029bc17c390994a4fb286ffe06afa7dbe1f28dce950d2b7acc9e198",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_sky_erupt_s1_L4_up",
+   "file": "anim_refraction_lens_sky_erupt_s1_L4_up.webp",
+   "path": "state/moe_upload/refraction/anim_refraction_lens_sky_erupt_s1_L4_up.webp",
+   "sha256": "4e66fbb69a65e3c031cc8ef427dd413d3a2e68a385e8928c42c40c615902f3b2",
+   "bytes": 62454,
+   "srcPath": "duet project files: tnr-animation/v8/out/lens/anim_refraction_lens_sky_erupt_s1_L4_up.webp",
+   "srcSha256": "4e66fbb69a65e3c031cc8ef427dd413d3a2e68a385e8928c42c40c615902f3b2",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_sky_erupt_s1_L4",
+   "file": "anim_refraction_lens_sky_erupt_s1_L4.webp",
+   "path": "state/moe_upload/refraction/anim_refraction_lens_sky_erupt_s1_L4.webp",
+   "sha256": "b2697877487be4a67d4df4f53245d34036d614846c15a0b12a93b910f924e033",
+   "bytes": 203612,
+   "srcPath": "duet project files: tnr-animation/v8/out/lens/anim_refraction_lens_sky_erupt_s1_L4.webp",
+   "srcSha256": "b2697877487be4a67d4df4f53245d34036d614846c15a0b12a93b910f924e033",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_sky_erupt_s1_L5_up",
+   "file": "anim_refraction_lens_sky_erupt_s1_L5_up.webp",
+   "path": "state/moe_upload/refraction/anim_refraction_lens_sky_erupt_s1_L5_up.webp",
+   "sha256": "9376310f162985ce6de090bc873bcc90b88945d837c6d513c4dfbacc392b38fa",
+   "bytes": 58726,
+   "srcPath": "duet project files: tnr-animation/v8/out/lens/anim_refraction_lens_sky_erupt_s1_L5_up.webp",
+   "srcSha256": "9376310f162985ce6de090bc873bcc90b88945d837c6d513c4dfbacc392b38fa",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_sky_erupt_s1_L5",
+   "file": "anim_refraction_lens_sky_erupt_s1_L5.webp",
+   "path": "state/moe_upload/refraction/anim_refraction_lens_sky_erupt_s1_L5.webp",
+   "sha256": "72b5e3b277e1a5af7e32ad9c0f47ea87c73a26ba13c77c9494240b7d5a8153b7",
+   "bytes": 209354,
+   "srcPath": "duet project files: tnr-animation/v8/out/lens/anim_refraction_lens_sky_erupt_s1_L5.webp",
+   "srcSha256": "72b5e3b277e1a5af7e32ad9c0f47ea87c73a26ba13c77c9494240b7d5a8153b7",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_sky_erupt_s1_L6_up",
+   "file": "anim_refraction_lens_sky_erupt_s1_L6_up.webp",
+   "path": "state/moe_upload/refraction/anim_refraction_lens_sky_erupt_s1_L6_up.webp",
+   "sha256": "efc9fd301573b884018a460626801fa9c8a343fd75379a097608846c3809f608",
+   "bytes": 62914,
+   "srcPath": "duet project files: tnr-animation/v8/out/lens/anim_refraction_lens_sky_erupt_s1_L6_up.webp",
+   "srcSha256": "efc9fd301573b884018a460626801fa9c8a343fd75379a097608846c3809f608",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_sky_erupt_s1_L6",
+   "file": "anim_refraction_lens_sky_erupt_s1_L6.webp",
+   "path": "state/moe_upload/refraction/anim_refraction_lens_sky_erupt_s1_L6.webp",
+   "sha256": "22d2ad33d519979b59edd50abcb2903a781c63cb0600685d4f601ad3e7bd540a",
+   "bytes": 205758,
+   "srcPath": "duet project files: tnr-animation/v8/out/lens/anim_refraction_lens_sky_erupt_s1_L6.webp",
+   "srcSha256": "22d2ad33d519979b59edd50abcb2903a781c63cb0600685d4f601ad3e7bd540a",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_sky_erupt_s1_L7_up",
+   "file": "anim_refraction_lens_sky_erupt_s1_L7_up.webp",
+   "path": "state/moe_upload/refraction/anim_refraction_lens_sky_erupt_s1_L7_up.webp",
+   "sha256": "f577382112df8c54a06bdbe7f8dd238e54db5e9bb35fcc29c491c99cea558f67",
+   "bytes": 61236,
+   "srcPath": "duet project files: tnr-animation/v8/out/lens/anim_refraction_lens_sky_erupt_s1_L7_up.webp",
+   "srcSha256": "f577382112df8c54a06bdbe7f8dd238e54db5e9bb35fcc29c491c99cea558f67",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_sky_erupt_s1_L7",
+   "file": "anim_refraction_lens_sky_erupt_s1_L7.webp",
+   "path": "state/moe_upload/refraction/anim_refraction_lens_sky_erupt_s1_L7.webp",
+   "sha256": "b92d8eff25c6c6603d1628de86ac1fc441e7815d1b6b26501601a60a59c4cef4",
+   "bytes": 202350,
+   "srcPath": "duet project files: tnr-animation/v8/out/lens/anim_refraction_lens_sky_erupt_s1_L7.webp",
+   "srcSha256": "b92d8eff25c6c6603d1628de86ac1fc441e7815d1b6b26501601a60a59c4cef4",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_sky_erupt_s1_L8_up",
+   "file": "anim_refraction_lens_sky_erupt_s1_L8_up.webp",
+   "path": "state/moe_upload/refraction/anim_refraction_lens_sky_erupt_s1_L8_up.webp",
+   "sha256": "09e3b6f705160079c0be75c899bd5793e933b1f2d263ee5b0de55904f5b2a4c2",
+   "bytes": 61722,
+   "srcPath": "duet project files: tnr-animation/v8/out/lens/anim_refraction_lens_sky_erupt_s1_L8_up.webp",
+   "srcSha256": "09e3b6f705160079c0be75c899bd5793e933b1f2d263ee5b0de55904f5b2a4c2",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_sky_erupt_s1_L8",
+   "file": "anim_refraction_lens_sky_erupt_s1_L8.webp",
+   "path": "state/moe_upload/refraction/anim_refraction_lens_sky_erupt_s1_L8.webp",
+   "sha256": "e1617211d3925f6a74ef1e09c6f82031021b43e4ac547259aed1e2686a11b15b",
+   "bytes": 208090,
+   "srcPath": "duet project files: tnr-animation/v8/out/lens/anim_refraction_lens_sky_erupt_s1_L8.webp",
+   "srcSha256": "e1617211d3925f6a74ef1e09c6f82031021b43e4ac547259aed1e2686a11b15b",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_sky_erupt_s1_R3_up",
+   "file": "anim_refraction_lens_sky_erupt_s1_R3_up.webp",
+   "path": "state/moe_upload/refraction/anim_refraction_lens_sky_erupt_s1_R3_up.webp",
+   "sha256": "c7fed4d50a641187a957bf643224462d0ac04005e06d9634c538f0df2e56bfbe",
+   "bytes": 61722,
+   "srcPath": "duet project files: tnr-animation/v8/out/lens/anim_refraction_lens_sky_erupt_s1_R3_up.webp",
+   "srcSha256": "c7fed4d50a641187a957bf643224462d0ac04005e06d9634c538f0df2e56bfbe",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_sky_erupt_s1_R3",
+   "file": "anim_refraction_lens_sky_erupt_s1_R3.webp",
+   "path": "state/moe_upload/refraction/anim_refraction_lens_sky_erupt_s1_R3.webp",
+   "sha256": "1e3e46144afab2d858761fa77d6a324620f73a595e83f020d1b102caa7576abc",
+   "bytes": 208090,
+   "srcPath": "duet project files: tnr-animation/v8/out/lens/anim_refraction_lens_sky_erupt_s1_R3.webp",
+   "srcSha256": "1e3e46144afab2d858761fa77d6a324620f73a595e83f020d1b102caa7576abc",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_sky_erupt_s1_R4_up",
+   "file": "anim_refraction_lens_sky_erupt_s1_R4_up.webp",
+   "path": "state/moe_upload/refraction/anim_refraction_lens_sky_erupt_s1_R4_up.webp",
+   "sha256": "e3bcb64b282c6c4be64cb84cacc8e5f0913019d50eb404a484ceb94095b401cb",
+   "bytes": 61236,
+   "srcPath": "duet project files: tnr-animation/v8/out/lens/anim_refraction_lens_sky_erupt_s1_R4_up.webp",
+   "srcSha256": "e3bcb64b282c6c4be64cb84cacc8e5f0913019d50eb404a484ceb94095b401cb",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_sky_erupt_s1_R4",
+   "file": "anim_refraction_lens_sky_erupt_s1_R4.webp",
+   "path": "state/moe_upload/refraction/anim_refraction_lens_sky_erupt_s1_R4.webp",
+   "sha256": "c53b4e2924a9ce53d26a1f39a00357205f69a4a50126c95d8f57e6461c209e68",
+   "bytes": 202350,
+   "srcPath": "duet project files: tnr-animation/v8/out/lens/anim_refraction_lens_sky_erupt_s1_R4.webp",
+   "srcSha256": "c53b4e2924a9ce53d26a1f39a00357205f69a4a50126c95d8f57e6461c209e68",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_sky_erupt_s1_R5_up",
+   "file": "anim_refraction_lens_sky_erupt_s1_R5_up.webp",
+   "path": "state/moe_upload/refraction/anim_refraction_lens_sky_erupt_s1_R5_up.webp",
+   "sha256": "0feadb412a0bee4b41137135b5bd4b375574f979308cd8221364a267676dfa10",
+   "bytes": 62914,
+   "srcPath": "duet project files: tnr-animation/v8/out/lens/anim_refraction_lens_sky_erupt_s1_R5_up.webp",
+   "srcSha256": "0feadb412a0bee4b41137135b5bd4b375574f979308cd8221364a267676dfa10",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_sky_erupt_s1_R5",
+   "file": "anim_refraction_lens_sky_erupt_s1_R5.webp",
+   "path": "state/moe_upload/refraction/anim_refraction_lens_sky_erupt_s1_R5.webp",
+   "sha256": "8e05e98c1c4e85cdadf7d626f38685882bf64cb98fd776aec4b56061e598a010",
+   "bytes": 205758,
+   "srcPath": "duet project files: tnr-animation/v8/out/lens/anim_refraction_lens_sky_erupt_s1_R5.webp",
+   "srcSha256": "8e05e98c1c4e85cdadf7d626f38685882bf64cb98fd776aec4b56061e598a010",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_sky_erupt_s1_R6_up",
+   "file": "anim_refraction_lens_sky_erupt_s1_R6_up.webp",
+   "path": "state/moe_upload/refraction/anim_refraction_lens_sky_erupt_s1_R6_up.webp",
+   "sha256": "2dfaab2b1fed3fbc751f6897d6b6d33bef09933dd24cde5e73951a20138b7ea4",
+   "bytes": 58726,
+   "srcPath": "duet project files: tnr-animation/v8/out/lens/anim_refraction_lens_sky_erupt_s1_R6_up.webp",
+   "srcSha256": "2dfaab2b1fed3fbc751f6897d6b6d33bef09933dd24cde5e73951a20138b7ea4",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_sky_erupt_s1_R6",
+   "file": "anim_refraction_lens_sky_erupt_s1_R6.webp",
+   "path": "state/moe_upload/refraction/anim_refraction_lens_sky_erupt_s1_R6.webp",
+   "sha256": "6c5e18dfe822a3be8522849da2e0cb543105822536cd83dd4c1e38f9c8560002",
+   "bytes": 209354,
+   "srcPath": "duet project files: tnr-animation/v8/out/lens/anim_refraction_lens_sky_erupt_s1_R6.webp",
+   "srcSha256": "6c5e18dfe822a3be8522849da2e0cb543105822536cd83dd4c1e38f9c8560002",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_sky_erupt_s1_R7_up",
+   "file": "anim_refraction_lens_sky_erupt_s1_R7_up.webp",
+   "path": "state/moe_upload/refraction/anim_refraction_lens_sky_erupt_s1_R7_up.webp",
+   "sha256": "d5fb67ecc99d99a42463d33d725d15759bcc8d368b15f961359b096e1f878e59",
+   "bytes": 62454,
+   "srcPath": "duet project files: tnr-animation/v8/out/lens/anim_refraction_lens_sky_erupt_s1_R7_up.webp",
+   "srcSha256": "d5fb67ecc99d99a42463d33d725d15759bcc8d368b15f961359b096e1f878e59",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_sky_erupt_s1_R7",
+   "file": "anim_refraction_lens_sky_erupt_s1_R7.webp",
+   "path": "state/moe_upload/refraction/anim_refraction_lens_sky_erupt_s1_R7.webp",
+   "sha256": "666fa99fb4a1f844b83e2042c3f620ada441e0522de298166feebef71f9a3995",
+   "bytes": 203612,
+   "srcPath": "duet project files: tnr-animation/v8/out/lens/anim_refraction_lens_sky_erupt_s1_R7.webp",
+   "srcSha256": "666fa99fb4a1f844b83e2042c3f620ada441e0522de298166feebef71f9a3995",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_sky_erupt_s1_R8_up",
+   "file": "anim_refraction_lens_sky_erupt_s1_R8_up.webp",
+   "path": "state/moe_upload/refraction/anim_refraction_lens_sky_erupt_s1_R8_up.webp",
+   "sha256": "5ab052f7d924fa027e6d41af85a8fb87a85a5a20ab8230b5ea19d379d674a9d7",
+   "bytes": 61426,
+   "srcPath": "duet project files: tnr-animation/v8/out/lens/anim_refraction_lens_sky_erupt_s1_R8_up.webp",
+   "srcSha256": "5ab052f7d924fa027e6d41af85a8fb87a85a5a20ab8230b5ea19d379d674a9d7",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_sky_erupt_s1_R8",
+   "file": "anim_refraction_lens_sky_erupt_s1_R8.webp",
+   "path": "state/moe_upload/refraction/anim_refraction_lens_sky_erupt_s1_R8.webp",
+   "sha256": "5947faad43c438f9deb0589bfd7a66f5141b033c39d8431bcabb685bfd2e56cf",
+   "bytes": 207930,
+   "srcPath": "duet project files: tnr-animation/v8/out/lens/anim_refraction_lens_sky_erupt_s1_R8.webp",
+   "srcSha256": "5947faad43c438f9deb0589bfd7a66f5141b033c39d8431bcabb685bfd2e56cf",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_sky_erupt_s1_R9_up",
+   "file": "anim_refraction_lens_sky_erupt_s1_R9_up.webp",
+   "path": "state/moe_upload/refraction/anim_refraction_lens_sky_erupt_s1_R9_up.webp",
+   "sha256": "7c4eef9011e2434a755df1a16045083d6f238bbb748a2d1053092903a29245b8",
+   "bytes": 61342,
+   "srcPath": "duet project files: tnr-animation/v8/out/lens/anim_refraction_lens_sky_erupt_s1_R9_up.webp",
+   "srcSha256": "7c4eef9011e2434a755df1a16045083d6f238bbb748a2d1053092903a29245b8",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_sky_erupt_s1_R9",
+   "file": "anim_refraction_lens_sky_erupt_s1_R9.webp",
+   "path": "state/moe_upload/refraction/anim_refraction_lens_sky_erupt_s1_R9.webp",
+   "sha256": "4ca548b85280ebfdd0d78aac99c9623581b27289aff3e598a7e65a923f59f3a9",
+   "bytes": 202278,
+   "srcPath": "duet project files: tnr-animation/v8/out/lens/anim_refraction_lens_sky_erupt_s1_R9.webp",
+   "srcSha256": "4ca548b85280ebfdd0d78aac99c9623581b27289aff3e598a7e65a923f59f3a9",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_sky_erupt_s1_R10_up",
+   "file": "anim_refraction_lens_sky_erupt_s1_R10_up.webp",
+   "path": "state/moe_upload/refraction/anim_refraction_lens_sky_erupt_s1_R10_up.webp",
+   "sha256": "ec9aa3a5fde3afd485ce9da51439b1f9e6db5527b308dbab4cc7b9b2c4aa9517",
+   "bytes": 63082,
+   "srcPath": "duet project files: tnr-animation/v8/out/lens/anim_refraction_lens_sky_erupt_s1_R10_up.webp",
+   "srcSha256": "ec9aa3a5fde3afd485ce9da51439b1f9e6db5527b308dbab4cc7b9b2c4aa9517",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_sky_erupt_s1_R10",
+   "file": "anim_refraction_lens_sky_erupt_s1_R10.webp",
+   "path": "state/moe_upload/refraction/anim_refraction_lens_sky_erupt_s1_R10.webp",
+   "sha256": "de1b7d11ea13d7dd55c50551def5715a612e77dbf5df681d54e0f5b3f53e5920",
+   "bytes": 205792,
+   "srcPath": "duet project files: tnr-animation/v8/out/lens/anim_refraction_lens_sky_erupt_s1_R10.webp",
+   "srcSha256": "de1b7d11ea13d7dd55c50551def5715a612e77dbf5df681d54e0f5b3f53e5920",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_sky_erupt_s1_R11_up",
+   "file": "anim_refraction_lens_sky_erupt_s1_R11_up.webp",
+   "path": "state/moe_upload/refraction/anim_refraction_lens_sky_erupt_s1_R11_up.webp",
+   "sha256": "39b40c28187c49590106c7313b2d867263dc37f059deda21c1b5b4660ac29d15",
+   "bytes": 58748,
+   "srcPath": "duet project files: tnr-animation/v8/out/lens/anim_refraction_lens_sky_erupt_s1_R11_up.webp",
+   "srcSha256": "39b40c28187c49590106c7313b2d867263dc37f059deda21c1b5b4660ac29d15",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_sky_erupt_s1_R11",
+   "file": "anim_refraction_lens_sky_erupt_s1_R11.webp",
+   "path": "state/moe_upload/refraction/anim_refraction_lens_sky_erupt_s1_R11.webp",
+   "sha256": "34723d7bb27c42f116a07e1686926bcf2dc6b4cc8b011f1cd1c88a6aed10d673",
+   "bytes": 209172,
+   "srcPath": "duet project files: tnr-animation/v8/out/lens/anim_refraction_lens_sky_erupt_s1_R11.webp",
+   "srcSha256": "34723d7bb27c42f116a07e1686926bcf2dc6b4cc8b011f1cd1c88a6aed10d673",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_sky_omen_s1_L0",
+   "file": "anim_refraction_lens_sky_omen_s1_L0.webp",
+   "path": "state/moe_upload/refraction/anim_refraction_lens_sky_omen_s1_L0.webp",
+   "sha256": "d5875c140f28ae75de0cb423f22f6f202af8fd0bfcbc249eda48fe98f2e67470",
+   "bytes": 173978,
+   "srcPath": "duet project files: tnr-animation/v8/out/lens/anim_refraction_lens_sky_omen_s1_L0.webp",
+   "srcSha256": "d5875c140f28ae75de0cb423f22f6f202af8fd0bfcbc249eda48fe98f2e67470",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_sky_omen_s1_L1",
+   "file": "anim_refraction_lens_sky_omen_s1_L1.webp",
+   "path": "state/moe_upload/refraction/anim_refraction_lens_sky_omen_s1_L1.webp",
+   "sha256": "626c082c571beb71cf30842b86386f5b2c9921a8d82bd5951ad057b79a35d0fd",
+   "bytes": 173448,
+   "srcPath": "duet project files: tnr-animation/v8/out/lens/anim_refraction_lens_sky_omen_s1_L1.webp",
+   "srcSha256": "626c082c571beb71cf30842b86386f5b2c9921a8d82bd5951ad057b79a35d0fd",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_sky_omen_s1_L2",
+   "file": "anim_refraction_lens_sky_omen_s1_L2.webp",
+   "path": "state/moe_upload/refraction/anim_refraction_lens_sky_omen_s1_L2.webp",
+   "sha256": "6968fa59a9e4b7c3b7615569f43113a7e24f966b4da51ca5ef392d8bbd700c8c",
+   "bytes": 174092,
+   "srcPath": "duet project files: tnr-animation/v8/out/lens/anim_refraction_lens_sky_omen_s1_L2.webp",
+   "srcSha256": "6968fa59a9e4b7c3b7615569f43113a7e24f966b4da51ca5ef392d8bbd700c8c",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_sky_omen_s1_L3",
+   "file": "anim_refraction_lens_sky_omen_s1_L3.webp",
+   "path": "state/moe_upload/refraction/anim_refraction_lens_sky_omen_s1_L3.webp",
+   "sha256": "a517ec4fd43daaeed657b1f553fe7a7ff74f171c0455b62057c83f71e5992cd4",
+   "bytes": 173892,
+   "srcPath": "duet project files: tnr-animation/v8/out/lens/anim_refraction_lens_sky_omen_s1_L3.webp",
+   "srcSha256": "a517ec4fd43daaeed657b1f553fe7a7ff74f171c0455b62057c83f71e5992cd4",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_sky_omen_s1_L4",
+   "file": "anim_refraction_lens_sky_omen_s1_L4.webp",
+   "path": "state/moe_upload/refraction/anim_refraction_lens_sky_omen_s1_L4.webp",
+   "sha256": "48091fbf2796d5db1d4bd67d6ed7135a08a1035331e77c8ea6f87e47862b80aa",
+   "bytes": 174078,
+   "srcPath": "duet project files: tnr-animation/v8/out/lens/anim_refraction_lens_sky_omen_s1_L4.webp",
+   "srcSha256": "48091fbf2796d5db1d4bd67d6ed7135a08a1035331e77c8ea6f87e47862b80aa",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_sky_omen_s1_L5",
+   "file": "anim_refraction_lens_sky_omen_s1_L5.webp",
+   "path": "state/moe_upload/refraction/anim_refraction_lens_sky_omen_s1_L5.webp",
+   "sha256": "6fa1900a3d08d6804c8015b126dff7cd405b5e8da590160ab4dc7c20609ecdfb",
+   "bytes": 173332,
+   "srcPath": "duet project files: tnr-animation/v8/out/lens/anim_refraction_lens_sky_omen_s1_L5.webp",
+   "srcSha256": "6fa1900a3d08d6804c8015b126dff7cd405b5e8da590160ab4dc7c20609ecdfb",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_sky_omen_s1_L6",
+   "file": "anim_refraction_lens_sky_omen_s1_L6.webp",
+   "path": "state/moe_upload/refraction/anim_refraction_lens_sky_omen_s1_L6.webp",
+   "sha256": "bf0489b7136fbe976b6d325f8a16a240d6d29d66a4469f051ca2ebd9f938f1b4",
+   "bytes": 174096,
+   "srcPath": "duet project files: tnr-animation/v8/out/lens/anim_refraction_lens_sky_omen_s1_L6.webp",
+   "srcSha256": "bf0489b7136fbe976b6d325f8a16a240d6d29d66a4469f051ca2ebd9f938f1b4",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_sky_omen_s1_L7",
+   "file": "anim_refraction_lens_sky_omen_s1_L7.webp",
+   "path": "state/moe_upload/refraction/anim_refraction_lens_sky_omen_s1_L7.webp",
+   "sha256": "ec4ea268c0517bb679d626980e11b60fdda9c684a01042759d822e0eca3af511",
+   "bytes": 173978,
+   "srcPath": "duet project files: tnr-animation/v8/out/lens/anim_refraction_lens_sky_omen_s1_L7.webp",
+   "srcSha256": "ec4ea268c0517bb679d626980e11b60fdda9c684a01042759d822e0eca3af511",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_sky_omen_s1_L8",
+   "file": "anim_refraction_lens_sky_omen_s1_L8.webp",
+   "path": "state/moe_upload/refraction/anim_refraction_lens_sky_omen_s1_L8.webp",
+   "sha256": "e252eb6c73302036af4f5afaca831a73bcb5fe5ffd295f40103049e6f64de230",
+   "bytes": 173876,
+   "srcPath": "duet project files: tnr-animation/v8/out/lens/anim_refraction_lens_sky_omen_s1_L8.webp",
+   "srcSha256": "e252eb6c73302036af4f5afaca831a73bcb5fe5ffd295f40103049e6f64de230",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_sky_omen_s1_R3",
+   "file": "anim_refraction_lens_sky_omen_s1_R3.webp",
+   "path": "state/moe_upload/refraction/anim_refraction_lens_sky_omen_s1_R3.webp",
+   "sha256": "3836f19017edda9fdf095f19f626cb10b69729ad90e0e6670e385e20de4dbf5c",
+   "bytes": 173876,
+   "srcPath": "duet project files: tnr-animation/v8/out/lens/anim_refraction_lens_sky_omen_s1_R3.webp",
+   "srcSha256": "3836f19017edda9fdf095f19f626cb10b69729ad90e0e6670e385e20de4dbf5c",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_sky_omen_s1_R4",
+   "file": "anim_refraction_lens_sky_omen_s1_R4.webp",
+   "path": "state/moe_upload/refraction/anim_refraction_lens_sky_omen_s1_R4.webp",
+   "sha256": "f04370b626889ce4a1918a54f6a27deb201b60bb4d2045a375efb5ba6900a555",
+   "bytes": 173978,
+   "srcPath": "duet project files: tnr-animation/v8/out/lens/anim_refraction_lens_sky_omen_s1_R4.webp",
+   "srcSha256": "f04370b626889ce4a1918a54f6a27deb201b60bb4d2045a375efb5ba6900a555",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_sky_omen_s1_R5",
+   "file": "anim_refraction_lens_sky_omen_s1_R5.webp",
+   "path": "state/moe_upload/refraction/anim_refraction_lens_sky_omen_s1_R5.webp",
+   "sha256": "4de45164f3901b1aec8b82efc3d93c7f76f5cbff8eb7ca497c1bca8b57b58947",
+   "bytes": 174096,
+   "srcPath": "duet project files: tnr-animation/v8/out/lens/anim_refraction_lens_sky_omen_s1_R5.webp",
+   "srcSha256": "4de45164f3901b1aec8b82efc3d93c7f76f5cbff8eb7ca497c1bca8b57b58947",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_sky_omen_s1_R6",
+   "file": "anim_refraction_lens_sky_omen_s1_R6.webp",
+   "path": "state/moe_upload/refraction/anim_refraction_lens_sky_omen_s1_R6.webp",
+   "sha256": "65350653ab7a50d602443adf6e9eb8c238e25f0a98bc980632736590809462b7",
+   "bytes": 173332,
+   "srcPath": "duet project files: tnr-animation/v8/out/lens/anim_refraction_lens_sky_omen_s1_R6.webp",
+   "srcSha256": "65350653ab7a50d602443adf6e9eb8c238e25f0a98bc980632736590809462b7",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_sky_omen_s1_R7",
+   "file": "anim_refraction_lens_sky_omen_s1_R7.webp",
+   "path": "state/moe_upload/refraction/anim_refraction_lens_sky_omen_s1_R7.webp",
+   "sha256": "c1eaa8c21463647cd40c123c46ac14a59ad587437f42db049fe443a2beed23c3",
+   "bytes": 174078,
+   "srcPath": "duet project files: tnr-animation/v8/out/lens/anim_refraction_lens_sky_omen_s1_R7.webp",
+   "srcSha256": "c1eaa8c21463647cd40c123c46ac14a59ad587437f42db049fe443a2beed23c3",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_sky_omen_s1_R8",
+   "file": "anim_refraction_lens_sky_omen_s1_R8.webp",
+   "path": "state/moe_upload/refraction/anim_refraction_lens_sky_omen_s1_R8.webp",
+   "sha256": "f102d6faae60960967629528fe4d0b7173fd7b17144d962aacc34a0d639423fa",
+   "bytes": 173892,
+   "srcPath": "duet project files: tnr-animation/v8/out/lens/anim_refraction_lens_sky_omen_s1_R8.webp",
+   "srcSha256": "f102d6faae60960967629528fe4d0b7173fd7b17144d962aacc34a0d639423fa",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_sky_omen_s1_R9",
+   "file": "anim_refraction_lens_sky_omen_s1_R9.webp",
+   "path": "state/moe_upload/refraction/anim_refraction_lens_sky_omen_s1_R9.webp",
+   "sha256": "326e1d1f40aadc4b2277b6d7cac8dd1ad45d82a9bbdc7f7f44e1cbb86d09fe09",
+   "bytes": 174092,
+   "srcPath": "duet project files: tnr-animation/v8/out/lens/anim_refraction_lens_sky_omen_s1_R9.webp",
+   "srcSha256": "326e1d1f40aadc4b2277b6d7cac8dd1ad45d82a9bbdc7f7f44e1cbb86d09fe09",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_sky_omen_s1_R10",
+   "file": "anim_refraction_lens_sky_omen_s1_R10.webp",
+   "path": "state/moe_upload/refraction/anim_refraction_lens_sky_omen_s1_R10.webp",
+   "sha256": "92caf99a686e15a0b79fe7ad13efd3592b94e9870b33ba5f01a7144de5cc9444",
+   "bytes": 173448,
+   "srcPath": "duet project files: tnr-animation/v8/out/lens/anim_refraction_lens_sky_omen_s1_R10.webp",
+   "srcSha256": "92caf99a686e15a0b79fe7ad13efd3592b94e9870b33ba5f01a7144de5cc9444",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_sky_omen_s1_R11",
+   "file": "anim_refraction_lens_sky_omen_s1_R11.webp",
+   "path": "state/moe_upload/refraction/anim_refraction_lens_sky_omen_s1_R11.webp",
+   "sha256": "811ee26530a83d7938275a30a197351f5664083099ea050fe5cbdc2955bcb8f4",
+   "bytes": 173978,
+   "srcPath": "duet project files: tnr-animation/v8/out/lens/anim_refraction_lens_sky_omen_s1_R11.webp",
+   "srcSha256": "811ee26530a83d7938275a30a197351f5664083099ea050fe5cbdc2955bcb8f4",
+   "size": [
+    112,
+    4032
    ]
   }
  ]
