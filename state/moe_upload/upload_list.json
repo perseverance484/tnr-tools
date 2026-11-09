@@ -1,5 +1,5 @@
 {
- "_note": "push/506 asset creates not yet live (351 of 973 ran 2026-11-06; idmap tnr_results_1794006062657). Uploaded to the director's own UploadThing app by .github/workflows/moe_upload.yml (2026-11-07, director's request); results in uploaded.json. Each file is the source sheet reduced 3x to the 50 px-wide sheet the game's CDN serves (every source is an exact 3x nearest upscale, checked), so these match the 351 already live. Plus avatar_moe_absence_a7.webp at full size, like the other MoE avatars (the only @img in 506 not already uploaded). 2026-11-08: plus anim_moe_etch2_seam_p3_9 (asset GT5IvHAP5vaPg-wCa0E8u, created in 506 but its image never filled). 2026-11-08: plus the 8 Dragon King's Impact v6l strips (dki533_*, push/533 on main), native 112 px, director's yes 23:52 UTC. 2026-11-09: plus the 6 Dragon King's Impact v7b tall-pillar strips (dki_v7b_*, hex size 1), director's yes 00:47 UTC. Plus the v7b smoulder loop (dki_v7b_smoulder), director's yes 01:05 UTC. Plus the 2 Dragon King's Impact v7i strips (dki_v7i_*, v6l shrunk whole to one hex), director's go 03:13 UTC. 2026-11-09: plus the 54 skyglass chakra lens strips for Refraction (18 omen) and Refraction Breaks (18 eruption + 18 upper tile) (refr_lens_sky_*), director's go 04:36 UTC. 2026-11-09: plus the 18 salvager's thread scene boards for push/509 (sg509_board_*, sg511_board_*), director's go 08:30 UTC. 2026-11-09: plus the painted Mother of Echoes set (moe9m_* 29 moves + 40 board strips, moe9j_* Lancet and Echo Strike, moe9_* 4 entrances + 4 auras) and the 36 dark chakra lens strips for Black Refraction and the Black Facet family (refr_lens_dark_omen_s1_*, refr_lens1t_dark_erupt_s1_*), director's go 16:53 UTC (upload hidden). Plus the 18 one-tile sky lens eruption strips (refr_lens1t_sky_erupt_s1_*) for Facet Breaks, Far Refraction Breaks and Lucid Refraction, same go. 2026-11-09: plus dauntless's 4 painted Skyglass icons (sgicon_*_bk: Chart of the Spoiled Hold, Wreck Salvage, Chart of the Rotted Galley, Chart of the Glass Nursery) for the hidden items, sent 17:33 UTC for that use; 256 px lossless, ICON preflight clean. 2026-11-09: plus the 9 Hullbound Mender v2 clips (sg579_*, 112 px one-hex strips, 24 x 50 ms), approved by dauntless 17:39 UTC (\"Looks good\"), for the hidden Mender build.",
+ "_note": "push/506 asset creates not yet live (351 of 973 ran 2026-11-06; idmap tnr_results_1794006062657). Uploaded to the director's own UploadThing app by .github/workflows/moe_upload.yml (2026-11-07, director's request); results in uploaded.json. Each file is the source sheet reduced 3x to the 50 px-wide sheet the game's CDN serves (every source is an exact 3x nearest upscale, checked), so these match the 351 already live. Plus avatar_moe_absence_a7.webp at full size, like the other MoE avatars (the only @img in 506 not already uploaded). 2026-11-08: plus anim_moe_etch2_seam_p3_9 (asset GT5IvHAP5vaPg-wCa0E8u, created in 506 but its image never filled). 2026-11-08: plus the 8 Dragon King's Impact v6l strips (dki533_*, push/533 on main), native 112 px, director's yes 23:52 UTC. 2026-11-09: plus the 6 Dragon King's Impact v7b tall-pillar strips (dki_v7b_*, hex size 1), director's yes 00:47 UTC. Plus the v7b smoulder loop (dki_v7b_smoulder), director's yes 01:05 UTC. Plus the 2 Dragon King's Impact v7i strips (dki_v7i_*, v6l shrunk whole to one hex), director's go 03:13 UTC. 2026-11-09: plus the 54 skyglass chakra lens strips for Refraction (18 omen) and Refraction Breaks (18 eruption + 18 upper tile) (refr_lens_sky_*), director's go 04:36 UTC. 2026-11-09: plus the 18 salvager's thread scene boards for push/509 (sg509_board_*, sg511_board_*), director's go 08:30 UTC. 2026-11-09: plus the painted Mother of Echoes set (moe9m_* 29 moves + 40 board strips, moe9j_* Lancet and Echo Strike, moe9_* 4 entrances + 4 auras) and the 36 dark chakra lens strips for Black Refraction and the Black Facet family (refr_lens_dark_omen_s1_*, refr_lens1t_dark_erupt_s1_*), director's go 16:53 UTC (upload hidden). Plus the 18 one-tile sky lens eruption strips (refr_lens1t_sky_erupt_s1_*) for Facet Breaks, Far Refraction Breaks and Lucid Refraction, same go. 2026-11-09: plus dauntless's 4 painted Skyglass icons (sgicon_*_bk: Chart of the Spoiled Hold, Wreck Salvage, Chart of the Rotted Galley, Chart of the Glass Nursery) for the hidden items, sent 17:33 UTC for that use; 256 px lossless, ICON preflight clean. 2026-11-09: plus the 9 Hullbound Mender v2 clips (sg579_*, 112 px one-hex strips, 24 x 50 ms), approved by dauntless 17:39 UTC (\"Looks good\"), for the hidden Mender build. 2026-11-09: plus the 3 Fury of The White Tiger v15d strips (tiger_v15d_*: claw strike, fading aura burst, sparks loop), director's yes 18:57 UTC.",
  "manifest": "push/506_master_2026-11-06.json",
  "files": [
   {
@@ -11168,6 +11168,45 @@
    "size": [
     112,
     2688
+   ]
+  },
+  {
+   "srcId": "tiger_v15d_strike",
+   "file": "anim_tiger_fury_v15d_target_damage.webp",
+   "path": "state/moe_upload/tiger/anim_tiger_fury_v15d_target_damage.webp",
+   "sha256": "d69d9e2c4ee47764f945986639a4b7f202dc7e798e7cea55c120cb304727ab45",
+   "bytes": 253532,
+   "srcPath": "art/fury_white_tiger/exports/v15d/anim_tiger_fury_v15d_target_damage.webp",
+   "srcSha256": "d69d9e2c4ee47764f945986639a4b7f202dc7e798e7cea55c120cb304727ab45",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "tiger_v15d_burst",
+   "file": "anim_tiger_fury_v15d_caster_afterburn.webp",
+   "path": "state/moe_upload/tiger/anim_tiger_fury_v15d_caster_afterburn.webp",
+   "sha256": "b0af05effbee2638cde94e9ebedd0b5ab035607a225e9c4db21032b8add31f77",
+   "bytes": 85694,
+   "srcPath": "art/fury_white_tiger/exports/v15d/anim_tiger_fury_v15d_caster_afterburn.webp",
+   "srcSha256": "b0af05effbee2638cde94e9ebedd0b5ab035607a225e9c4db21032b8add31f77",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "tiger_v15d_sparks",
+   "file": "anim_tiger_fury_v15d_caster_buff.webp",
+   "path": "state/moe_upload/tiger/anim_tiger_fury_v15d_caster_buff.webp",
+   "sha256": "e5fc38eaf2b23bead59a2b4b4414c09b59d80dc59062ab36d8bc5b01f9dde851",
+   "bytes": 14384,
+   "srcPath": "art/fury_white_tiger/exports/v15d/anim_tiger_fury_v15d_caster_buff.webp",
+   "srcSha256": "e5fc38eaf2b23bead59a2b4b4414c09b59d80dc59062ab36d8bc5b01f9dde851",
+   "size": [
+    112,
+    1792
    ]
   }
  ]
