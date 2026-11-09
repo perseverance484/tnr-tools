@@ -385,8 +385,8 @@ def crew_rules(J, side, delay):
     mk = "increaserange" if side == "port" else "fleeprevent"
     return [use(J[f"crew_{side}_break"], [has(mk)]),
             use(J[f"crew_{side}_mark"], [round_gt(delay)] if delay else []),
-            use(POOL_JUTSU["Tide Bolt"], [dist_lt(5)], target="CLOSEST_OPPONENT"),
-            use(POOL_JUTSU["Quick Strike"], [dist_lt(3)], target="CLOSEST_OPPONENT"),
+            use(POOL_JUTSU["Tide Bolt"], [dist_lt(6)], target="CLOSEST_OPPONENT"),
+            use(POOL_JUTSU["Quick Strike"], [dist_lt(4)], target="CLOSEST_OPPONENT"),
             chase([dist_gt(2)]),
             END]
 
