@@ -29,15 +29,15 @@ sys.path.insert(0, os.path.join(ROOT, "push"))
 import salvager_trade as T  # noqa: E402  (push/salvager_trade.gen.py is imported through a shim below)
 
 SALVAGE = T.SALVAGE
-RUNS = {  # quest id: (name, salvage per win)
+RUNS = {  # quest id: (name, salvage per win). Every id read back by name with quests.get, Nov 9 16:35Z
     "pFQBaJxU_8RSvSi4Kir1Z": ("The Low Tide Run", 1), "dnzL-bDrAEVXrKB5xariu": ("The Night Watch", 1),
-    "CgwAVCyZLgNQtEnqgLxxv": ("The Buried Cache", 2), "tpLUAnYVCTyrsdZ5sOssM": ("The Drowned Foundry", 2),
-    "-bZ_ZoI6yrUJ_LKT9R5zm": ("The Quarantined Archive", 2), "iUnQO8Fek3yJ-tL4Djv99": ("The Captain's Watch", 2),
-    "iQ5tqJaUKSvqbOybqVVDy": ("The Spoiled Hold", 2), "ww_baSsbBet0mx7MK52yI": ("The Rotted Galley", 2),
+    "CgwAVCyZLgNQtEnqgLxxv": ("The Buried Cache", 2), "UGHSuhi83C3wRtH3FD4Eu": ("The Drowned Foundry", 2),
+    "-bZ_ZoI6yrUJ_LKT9R5zm": ("The Quarantined Archive", 2), "liljq0yVXWTSna4X6dZE1": ("The Captain's Watch", 2),
+    "iRMyb0WN_ip--EDbvAgLc": ("The Spoiled Hold", 2), "x7ByC_5ssbpibxTB60Ag1": ("The Rotted Galley", 2),
     "F2eGqpysfQ02E6pXvKqJJ": ("The Glass Nursery", 2),
     "0_wTZMTqvxM-gvl_s1s7c": ("The Trophy Hold", 2), "5y9wAYELSdNa8Jgim1sgD": ("The Overgrown Stores", 2),
-    "C1JPScsgSMcVXQUfuFgcs": ("The Ore Vault", 2), "UGHSuhi83C3wRtH3FD4Eu": ("The Bloom Cellar", 2),
-    "VjT93rkmWlWlrdG6Pp46e": ("The Snare Room", 2), "vMh6SDID0XTrVJ0f1QmFD": ("The Bone Store", 2),
+    "C1JPScsgSMcVXQUfuFgcs": ("The Ore Vault", 2), "UO65dN640MgAbNBBopTVI": ("The Bloom Cellar", 2),
+    "vMh6SDID0XTrVJ0f1QmFD": ("The Snare Room", 2), "ww_baSsbBet0mx7MK52yI": ("The Bone Store", 2),
     "yZoR_dPSdg8ksO77gDH_A": ("The Sealed Reliquary", 3), "H9YInJtnzKCOEMv-sNgzP": ("The Fall", 3),
     "FsuXzvaqr_R25p8cEkxoK": ("The Rotted Reliquary", 3), "ozDN-G6nGFXGgKuPZ04Gr": ("The Burning Heading", 3),
     "fqqpkcp_L4oOsC6yyodlk": ("Crownhold", 3),
