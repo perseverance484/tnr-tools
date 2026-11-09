@@ -1,5 +1,5 @@
 {
- "_note": "push/506 asset creates not yet live (351 of 973 ran 2026-11-06; idmap tnr_results_1794006062657). Uploaded to the director's own UploadThing app by .github/workflows/moe_upload.yml (2026-11-07, director's request); results in uploaded.json. Each file is the source sheet reduced 3x to the 50 px-wide sheet the game's CDN serves (every source is an exact 3x nearest upscale, checked), so these match the 351 already live. Plus avatar_moe_absence_a7.webp at full size, like the other MoE avatars (the only @img in 506 not already uploaded). 2026-11-08: plus anim_moe_etch2_seam_p3_9 (asset GT5IvHAP5vaPg-wCa0E8u, created in 506 but its image never filled). 2026-11-08: plus the 8 Dragon King's Impact v6l strips (dki533_*, push/533 on main), native 112 px, director's yes 23:52 UTC. 2026-11-09: plus the 6 Dragon King's Impact v7b tall-pillar strips (dki_v7b_*, hex size 1), director's yes 00:47 UTC. Plus the v7b smoulder loop (dki_v7b_smoulder), director's yes 01:05 UTC. Plus the 2 Dragon King's Impact v7i strips (dki_v7i_*, v6l shrunk whole to one hex), director's go 03:13 UTC. 2026-11-09: plus the 54 skyglass chakra lens strips for Refraction (18 omen) and Refraction Breaks (18 eruption + 18 upper tile) (refr_lens_sky_*), director's go 04:36 UTC. 2026-11-09: plus the 18 salvager's thread scene boards for push/509 (sg509_board_*, sg511_board_*), director's go 08:30 UTC. 2026-11-09: plus the painted Mother of Echoes set (moe9m_* 29 moves + 40 board strips, moe9j_* Lancet and Echo Strike, moe9_* 4 entrances + 4 auras) and the 36 dark chakra lens strips for Black Refraction and the Black Facet family (refr_lens_dark_omen_s1_*, refr_lens1t_dark_erupt_s1_*), director's go 16:53 UTC (upload hidden).",
+ "_note": "push/506 asset creates not yet live (351 of 973 ran 2026-11-06; idmap tnr_results_1794006062657). Uploaded to the director's own UploadThing app by .github/workflows/moe_upload.yml (2026-11-07, director's request); results in uploaded.json. Each file is the source sheet reduced 3x to the 50 px-wide sheet the game's CDN serves (every source is an exact 3x nearest upscale, checked), so these match the 351 already live. Plus avatar_moe_absence_a7.webp at full size, like the other MoE avatars (the only @img in 506 not already uploaded). 2026-11-08: plus anim_moe_etch2_seam_p3_9 (asset GT5IvHAP5vaPg-wCa0E8u, created in 506 but its image never filled). 2026-11-08: plus the 8 Dragon King's Impact v6l strips (dki533_*, push/533 on main), native 112 px, director's yes 23:52 UTC. 2026-11-09: plus the 6 Dragon King's Impact v7b tall-pillar strips (dki_v7b_*, hex size 1), director's yes 00:47 UTC. Plus the v7b smoulder loop (dki_v7b_smoulder), director's yes 01:05 UTC. Plus the 2 Dragon King's Impact v7i strips (dki_v7i_*, v6l shrunk whole to one hex), director's go 03:13 UTC. 2026-11-09: plus the 54 skyglass chakra lens strips for Refraction (18 omen) and Refraction Breaks (18 eruption + 18 upper tile) (refr_lens_sky_*), director's go 04:36 UTC. 2026-11-09: plus the 18 salvager's thread scene boards for push/509 (sg509_board_*, sg511_board_*), director's go 08:30 UTC. 2026-11-09: plus the painted Mother of Echoes set (moe9m_* 29 moves + 40 board strips, moe9j_* Lancet and Echo Strike, moe9_* 4 entrances + 4 auras) and the 36 dark chakra lens strips for Black Refraction and the Black Facet family (refr_lens_dark_omen_s1_*, refr_lens1t_dark_erupt_s1_*), director's go 16:53 UTC (upload hidden). Plus the 18 one-tile sky lens eruption strips (refr_lens1t_sky_erupt_s1_*) for Facet Breaks, Far Refraction Breaks and Lucid Refraction, same go.",
  "manifest": "push/506_master_2026-11-06.json",
  "files": [
   {
@@ -10762,6 +10762,240 @@
    "bytes": 240780,
    "srcPath": "/mnt/project-files/tnr-animation/v8/out/lens1t/anim_refraction_lens1t_dark_erupt_s1_R9.webp",
    "srcSha256": "33a126f11ed1df28dacd04a32d10f534ceb94c1bd84663b98c833e30eded7220",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens1t_sky_erupt_s1_L0",
+   "file": "anim_refraction_lens1t_sky_erupt_s1_L0.webp",
+   "path": "state/moe_upload/moe_v9/anim_refraction_lens1t_sky_erupt_s1_L0.webp",
+   "sha256": "df0368e8285594535e651b641ae9175e701538c2bef442c050c1ae8cc67bf993",
+   "bytes": 196156,
+   "srcPath": "/mnt/project-files/tnr-animation/v8/out/lens1t/anim_refraction_lens1t_sky_erupt_s1_L0.webp",
+   "srcSha256": "df0368e8285594535e651b641ae9175e701538c2bef442c050c1ae8cc67bf993",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens1t_sky_erupt_s1_L1",
+   "file": "anim_refraction_lens1t_sky_erupt_s1_L1.webp",
+   "path": "state/moe_upload/moe_v9/anim_refraction_lens1t_sky_erupt_s1_L1.webp",
+   "sha256": "309633fb4402fcbad3b4f8793f5c5000792b9d7dec7bc462cd65eda70882aa28",
+   "bytes": 192372,
+   "srcPath": "/mnt/project-files/tnr-animation/v8/out/lens1t/anim_refraction_lens1t_sky_erupt_s1_L1.webp",
+   "srcSha256": "309633fb4402fcbad3b4f8793f5c5000792b9d7dec7bc462cd65eda70882aa28",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens1t_sky_erupt_s1_L2",
+   "file": "anim_refraction_lens1t_sky_erupt_s1_L2.webp",
+   "path": "state/moe_upload/moe_v9/anim_refraction_lens1t_sky_erupt_s1_L2.webp",
+   "sha256": "dd4e182eb21e64686de7f15c273d903f2b407f5be0a47f897e2f90c59c027eec",
+   "bytes": 188426,
+   "srcPath": "/mnt/project-files/tnr-animation/v8/out/lens1t/anim_refraction_lens1t_sky_erupt_s1_L2.webp",
+   "srcSha256": "dd4e182eb21e64686de7f15c273d903f2b407f5be0a47f897e2f90c59c027eec",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens1t_sky_erupt_s1_L3",
+   "file": "anim_refraction_lens1t_sky_erupt_s1_L3.webp",
+   "path": "state/moe_upload/moe_v9/anim_refraction_lens1t_sky_erupt_s1_L3.webp",
+   "sha256": "e4fab4b5afa41d5aabe2ab8b315bde497497058faa6287540ace489e419d9e15",
+   "bytes": 194596,
+   "srcPath": "/mnt/project-files/tnr-animation/v8/out/lens1t/anim_refraction_lens1t_sky_erupt_s1_L3.webp",
+   "srcSha256": "e4fab4b5afa41d5aabe2ab8b315bde497497058faa6287540ace489e419d9e15",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens1t_sky_erupt_s1_L4",
+   "file": "anim_refraction_lens1t_sky_erupt_s1_L4.webp",
+   "path": "state/moe_upload/moe_v9/anim_refraction_lens1t_sky_erupt_s1_L4.webp",
+   "sha256": "93faadbc96998eb90be510ee84355964255641784b67bc932ab5f99e17ec5b49",
+   "bytes": 189744,
+   "srcPath": "/mnt/project-files/tnr-animation/v8/out/lens1t/anim_refraction_lens1t_sky_erupt_s1_L4.webp",
+   "srcSha256": "93faadbc96998eb90be510ee84355964255641784b67bc932ab5f99e17ec5b49",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens1t_sky_erupt_s1_L5",
+   "file": "anim_refraction_lens1t_sky_erupt_s1_L5.webp",
+   "path": "state/moe_upload/moe_v9/anim_refraction_lens1t_sky_erupt_s1_L5.webp",
+   "sha256": "023fb00b14ad766e3d21c3a5148eed6f3126ae725f24abe9c418c81b12b676fa",
+   "bytes": 196060,
+   "srcPath": "/mnt/project-files/tnr-animation/v8/out/lens1t/anim_refraction_lens1t_sky_erupt_s1_L5.webp",
+   "srcSha256": "023fb00b14ad766e3d21c3a5148eed6f3126ae725f24abe9c418c81b12b676fa",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens1t_sky_erupt_s1_L6",
+   "file": "anim_refraction_lens1t_sky_erupt_s1_L6.webp",
+   "path": "state/moe_upload/moe_v9/anim_refraction_lens1t_sky_erupt_s1_L6.webp",
+   "sha256": "6b58cfeb80ea825176a9ef7f6aa3d377a7607b114441b0c56eb8bc239fbb9da2",
+   "bytes": 192704,
+   "srcPath": "/mnt/project-files/tnr-animation/v8/out/lens1t/anim_refraction_lens1t_sky_erupt_s1_L6.webp",
+   "srcSha256": "6b58cfeb80ea825176a9ef7f6aa3d377a7607b114441b0c56eb8bc239fbb9da2",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens1t_sky_erupt_s1_L7",
+   "file": "anim_refraction_lens1t_sky_erupt_s1_L7.webp",
+   "path": "state/moe_upload/moe_v9/anim_refraction_lens1t_sky_erupt_s1_L7.webp",
+   "sha256": "8f573a5085bac252bf21b885e64cf1fcf9107c8a14f629e81df270b4d341bb50",
+   "bytes": 188508,
+   "srcPath": "/mnt/project-files/tnr-animation/v8/out/lens1t/anim_refraction_lens1t_sky_erupt_s1_L7.webp",
+   "srcSha256": "8f573a5085bac252bf21b885e64cf1fcf9107c8a14f629e81df270b4d341bb50",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens1t_sky_erupt_s1_L8",
+   "file": "anim_refraction_lens1t_sky_erupt_s1_L8.webp",
+   "path": "state/moe_upload/moe_v9/anim_refraction_lens1t_sky_erupt_s1_L8.webp",
+   "sha256": "03b22a7b893f4487d8eaf87816887a5a41124fefdc34c7a7c369355fe12f72df",
+   "bytes": 194878,
+   "srcPath": "/mnt/project-files/tnr-animation/v8/out/lens1t/anim_refraction_lens1t_sky_erupt_s1_L8.webp",
+   "srcSha256": "03b22a7b893f4487d8eaf87816887a5a41124fefdc34c7a7c369355fe12f72df",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens1t_sky_erupt_s1_R10",
+   "file": "anim_refraction_lens1t_sky_erupt_s1_R10.webp",
+   "path": "state/moe_upload/moe_v9/anim_refraction_lens1t_sky_erupt_s1_R10.webp",
+   "sha256": "425a1e12ced5fd64dbbd58faf18182a85fc9c0f320012eeb00cc7f04eeb26b9a",
+   "bytes": 192372,
+   "srcPath": "/mnt/project-files/tnr-animation/v8/out/lens1t/anim_refraction_lens1t_sky_erupt_s1_R10.webp",
+   "srcSha256": "425a1e12ced5fd64dbbd58faf18182a85fc9c0f320012eeb00cc7f04eeb26b9a",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens1t_sky_erupt_s1_R11",
+   "file": "anim_refraction_lens1t_sky_erupt_s1_R11.webp",
+   "path": "state/moe_upload/moe_v9/anim_refraction_lens1t_sky_erupt_s1_R11.webp",
+   "sha256": "6b8c61191a2b942bcb0c8e4ae1d16b535cc4c1a175a43c64767016c06a48bddf",
+   "bytes": 196156,
+   "srcPath": "/mnt/project-files/tnr-animation/v8/out/lens1t/anim_refraction_lens1t_sky_erupt_s1_R11.webp",
+   "srcSha256": "6b8c61191a2b942bcb0c8e4ae1d16b535cc4c1a175a43c64767016c06a48bddf",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens1t_sky_erupt_s1_R3",
+   "file": "anim_refraction_lens1t_sky_erupt_s1_R3.webp",
+   "path": "state/moe_upload/moe_v9/anim_refraction_lens1t_sky_erupt_s1_R3.webp",
+   "sha256": "f6135fa7366074e0c0e448de3d4cf64c2e6c5603e8e8cb344530b1e44a1365a4",
+   "bytes": 194878,
+   "srcPath": "/mnt/project-files/tnr-animation/v8/out/lens1t/anim_refraction_lens1t_sky_erupt_s1_R3.webp",
+   "srcSha256": "f6135fa7366074e0c0e448de3d4cf64c2e6c5603e8e8cb344530b1e44a1365a4",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens1t_sky_erupt_s1_R4",
+   "file": "anim_refraction_lens1t_sky_erupt_s1_R4.webp",
+   "path": "state/moe_upload/moe_v9/anim_refraction_lens1t_sky_erupt_s1_R4.webp",
+   "sha256": "0140d11dc9e9c0f226cdf015ddde860f12089eecb3253ba5bc25b61de328b478",
+   "bytes": 188508,
+   "srcPath": "/mnt/project-files/tnr-animation/v8/out/lens1t/anim_refraction_lens1t_sky_erupt_s1_R4.webp",
+   "srcSha256": "0140d11dc9e9c0f226cdf015ddde860f12089eecb3253ba5bc25b61de328b478",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens1t_sky_erupt_s1_R5",
+   "file": "anim_refraction_lens1t_sky_erupt_s1_R5.webp",
+   "path": "state/moe_upload/moe_v9/anim_refraction_lens1t_sky_erupt_s1_R5.webp",
+   "sha256": "6b1aa34b6c0c4d21ab3214b6f77d464d318dc65c883943486451687cabd0cf64",
+   "bytes": 192704,
+   "srcPath": "/mnt/project-files/tnr-animation/v8/out/lens1t/anim_refraction_lens1t_sky_erupt_s1_R5.webp",
+   "srcSha256": "6b1aa34b6c0c4d21ab3214b6f77d464d318dc65c883943486451687cabd0cf64",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens1t_sky_erupt_s1_R6",
+   "file": "anim_refraction_lens1t_sky_erupt_s1_R6.webp",
+   "path": "state/moe_upload/moe_v9/anim_refraction_lens1t_sky_erupt_s1_R6.webp",
+   "sha256": "05381e41be507140ec304ad2654a5ae9e221741e8c4907fb60ae628283eb919a",
+   "bytes": 196060,
+   "srcPath": "/mnt/project-files/tnr-animation/v8/out/lens1t/anim_refraction_lens1t_sky_erupt_s1_R6.webp",
+   "srcSha256": "05381e41be507140ec304ad2654a5ae9e221741e8c4907fb60ae628283eb919a",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens1t_sky_erupt_s1_R7",
+   "file": "anim_refraction_lens1t_sky_erupt_s1_R7.webp",
+   "path": "state/moe_upload/moe_v9/anim_refraction_lens1t_sky_erupt_s1_R7.webp",
+   "sha256": "21d15ef57b1a69413ad491ee8a47bc871d2dfc1ff523c132e3317591001f33bf",
+   "bytes": 189744,
+   "srcPath": "/mnt/project-files/tnr-animation/v8/out/lens1t/anim_refraction_lens1t_sky_erupt_s1_R7.webp",
+   "srcSha256": "21d15ef57b1a69413ad491ee8a47bc871d2dfc1ff523c132e3317591001f33bf",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens1t_sky_erupt_s1_R8",
+   "file": "anim_refraction_lens1t_sky_erupt_s1_R8.webp",
+   "path": "state/moe_upload/moe_v9/anim_refraction_lens1t_sky_erupt_s1_R8.webp",
+   "sha256": "2db571be2b757ceebccd205eb8dcbfca218c7f535193a1bda64ca738cc0b5cf3",
+   "bytes": 194596,
+   "srcPath": "/mnt/project-files/tnr-animation/v8/out/lens1t/anim_refraction_lens1t_sky_erupt_s1_R8.webp",
+   "srcSha256": "2db571be2b757ceebccd205eb8dcbfca218c7f535193a1bda64ca738cc0b5cf3",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens1t_sky_erupt_s1_R9",
+   "file": "anim_refraction_lens1t_sky_erupt_s1_R9.webp",
+   "path": "state/moe_upload/moe_v9/anim_refraction_lens1t_sky_erupt_s1_R9.webp",
+   "sha256": "420e58ba72ac6f626cad086a318e05f46511cafa899d3ef344fed1f1253d272b",
+   "bytes": 188426,
+   "srcPath": "/mnt/project-files/tnr-animation/v8/out/lens1t/anim_refraction_lens1t_sky_erupt_s1_R9.webp",
+   "srcSha256": "420e58ba72ac6f626cad086a318e05f46511cafa899d3ef344fed1f1253d272b",
    "size": [
     112,
     4032
