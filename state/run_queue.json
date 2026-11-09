@@ -116,12 +116,10 @@
    "id": "509",
    "manifest": "push/509_skyglass_thread_create.json",
    "what": "Salvager's thread: 18 board assets + At the Salvager's Fire quest (all hidden)",
-   "runner": "browser",
+   "runner": "connector",
    "status": "ready",
-   "waitsFor": [
-    "director's Forge run (images)"
-   ],
-   "note": "Image job (18 scene backgrounds, v2 lacquer panels, RUL-2026-11-07-137; imagePack pinned to 27c8966), so browser Forge. Rebuilt 2026-11-09 (RUL-2026-11-09-140): the three salvager text fixes, the shards topic held back, 511's three chests boards folded in. It had never run (lock claimed 2026-11-07 17:32 UTC, no bundle; no Fire quest or thread asset live on 2026-11-09). Hidden; staff can play the Fire quest to test. Director go for the hidden run relayed 2026-11-09 08:15 UTC."
+   "waitsFor": [],
+   "note": "Image job (18 scene backgrounds, v2 lacquer panels, RUL-2026-11-07-137; imagePack pinned to 27c8966), so browser Forge. Rebuilt 2026-11-09 (RUL-2026-11-09-140): the three salvager text fixes, the shards topic held back, 511's three chests boards folded in. It had never run (lock claimed 2026-11-07 17:32 UTC, no bundle; no Fire quest or thread asset live on 2026-11-09). Hidden; staff can play the Fire quest to test. Director go for the hidden run relayed 2026-11-09 08:15 UTC. 2026-11-09 08:32 UTC: boards uploaded to the director's UploadThing app (his go 08:30 UTC; branch duet/moe-uploadthing 84b82a79; copy state/skyglass_thread_uploaded.json); 509 rebuilt in connector form (create --uploaded), runs over mcp_run."
   },
   {
    "id": "511",
