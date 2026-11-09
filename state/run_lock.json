@@ -1,11 +1,10 @@
 {
- "holder": "duet",
- "token": "13e01124d84944b4bc80ef5b97df8e04",
- "job": "push/509",
- "instance": "/mnt/project-files/tnr/forge_state/509",
- "ttlMinutes": 30,
- "claimedAt": "2026-11-09T08:33:47.202Z",
- "heartbeatAt": "2026-11-09T08:54:04.046Z",
- "expiresAt": "2026-11-09T09:24:04.046Z",
- "note": "One game writer per account at a time (RUL-2026-11-07-133). Written only by forge/tools/run_lock.mjs or Forge; do not hand-edit."
+ "holder": null,
+ "token": null,
+ "job": null,
+ "releasedBy": "duet",
+ "releasedInstance": "/mnt/project-files/tnr/forge_state/509",
+ "releasedJob": "push/509",
+ "releasedAt": "2026-11-09T08:54:06.654Z",
+ "note": "Free. Claim with node forge/tools/run_lock.mjs claim --holder NAME --job TEXT (RUL-2026-11-07-133)."
 }
