@@ -191,9 +191,12 @@ answers in 1 to 4 short scenes while pointing at a board of pinned pages, then t
 Every scene is her line first, then one plain line in italics saying exactly how it works (EVENT_STRUCTURE P6: the tier
 is told by the fiction, the mechanics are told plainly). This supersedes §1a's "no hand holding" brief. Accuracy pass and the chests topic: RUL-2026-11-07-138.
 
-Two quests share every node (`push/skyglass_thread.gen.py`):
-- **Wreck Sighted** (the live record, edited in place): one time, pays the Tide Chart.
-- **At the Salvager's Fire** (new): repeatable, no reward, for anyone who wants the explainer again.
+Two quests share every node (`push/skyglass_thread.gen.py`), both handed out by the salvager's one overworld NPC on
+the shore (director 2026-11-09 15:58: "No salvagers fire at wake island, just 1 overworld NPC"); each talk uses one of
+the player's daily NPC rolls:
+- **Wreck Sighted** (the live record, edited in place): one time, pays the Tide Chart. questType overworld at release.
+- **At the Salvager's Fire** (new): repeatable, no reward, for anyone who wants the explainer again. questType
+  overworld at release, with Wreck Sighted as its prerequisite, like the four Salvager's Trade quests (push/542).
 
 Graph: `d_open` -> `d_menu` -> seven topics (the shards topic is held back, RUL-2026-11-09-140) -> each topic's last scene offers `r_menu` (a `reset_quest` back to
 `d_menu`) or the ending. Node ids are the generator's; the board each scene shows is in the generator's `SCENES` table.
@@ -206,7 +209,7 @@ At the Salvager's Fire
 
 **`quest:At the Salvager's Fire.description`**
 ```
-The salvager's fire still burns below the Wreck. Sit with her and ask about getting aboard, the charts, the chests, the deep, the Haul, trading or the watch log.
+The salvager keeps her fire on the shore below the Wreck (sector 210). Sit with her and ask about getting aboard, the charts, the chests, the deep, the Haul, salvage, trading or the watch log.
 ```
 
 **`quest:At the Salvager's Fire.successDescription`**
@@ -229,8 +232,9 @@ She nods at a board of driftwood where she pins what the sea gives back. "Ask wh
 - `choice[2]`: `What's in the chests?`
 - `choice[3]`: `What's down in the deep?`
 - `choice[4]`: `What's the Haul?`
-- `choice[5]`: `Can I trade what I find?`
-- `choice[6]`: `What's the watch log?`
+- `choice[5]`: `What do you want with salvage?`
+- `choice[6]`: `Can I trade what I find?`
+- `choice[7]`: `What's the watch log?`
 
 **`obj:Salvager's thread/back.choice`**: `Ask something else`
 
@@ -248,7 +252,7 @@ She nods at a board of driftwood where she pins what the sea gives back. "Ask wh
 
 **`obj:Salvager's thread/a_loot.description`**
 ```html
-"Coin, stores and paper. <b>Charts</b>, wet ones, drawn by the crew themselves."<br><br><i>Every clear pays ryo and EXP and can drop charts. The endgame hull also drops the rarer charts, ledger pages, the Lantern and a shard.</i>
+"Coin, stores and paper. <b>Charts</b>, wet ones, drawn by the crew themselves."<br><br><i>Every clear pays ryo, EXP and Wreck Salvage, and can drop charts. The endgame hull also drops the rarer charts, ledger pages, the Lantern and a shard.</i>
 ```
 
 **`obj:Salvager's thread/c_once.description`**
@@ -259,7 +263,7 @@ She nods at a board of driftwood where she pins what the sea gives back. "Ask wh
 
 **`obj:Salvager's thread/c_ladder.description`**
 ```html
-"The low-tide charts and the rosters take you to the lower decks. Down there are the crew's own charts: what they buried, the works, the archive, the helm. Those lead to the places the crew sealed shut."<br><br><i>Most runs can drop the next chart down. The Captain's Watch chart comes only from the endgame Wreck or an Archive Chart Case.</i>
+"The low-tide charts and the rosters take you to the lower decks. Down there are the crew's own charts: what they buried, the works, the archive, the helm. Those lead to the places the crew sealed shut."<br><br><i>Most runs can drop the next chart down, or trade salvage for one. The endgame Wreck and Archive Chart Cases also drop the Captain's Watch chart.</i>
 ```
 - `choice[0]`: `What do I get for winning?`
 
@@ -287,7 +291,7 @@ She nods at a board of driftwood where she pins what the sea gives back. "Ask wh
 
 **`obj:Salvager's thread/p_seals.description`**
 ```html
-"Some doors the crew sealed. The Reliquary Seal opens the reliquary. The Last Heading takes you back to the night she fell."<br><br><i>These are the Epic runs, The Sealed Reliquary and The Fall. Their charts drop from the Archive and the Captain's Watch.</i>
+"Some doors the crew sealed. The Reliquary Seal opens the reliquary. The Last Heading takes you back to the night she fell."<br><br><i>These are the Epic runs, The Sealed Reliquary and The Fall. Their charts drop from the Archive and the Captain's Watch, and the salvager trades one a week.</i>
 ```
 - `choice[0]`: `And the rot?`
 
@@ -299,7 +303,7 @@ She nods at a board of driftwood where she pins what the sea gives back. "Ask wh
 
 **`obj:Salvager's thread/p_lantern.description`**
 ```html
-"Some come back from the deep with a <b>lantern</b> that won't go out. It points at the mountain, at <b>Crownhold</b>, the castle she sailed from. Someone still gives orders there."<br><br><i>A Lastlight Lantern opens Crownhold. It drops from the Epic and tainted runs, and rarely from the endgame Wreck.</i>
+"Some come back from the deep with a <b>lantern</b> that won't go out. It points at the mountain, at <b>Crownhold</b>, the castle she sailed from. Someone still gives orders there."<br><br><i>A Lastlight Lantern opens Crownhold. It drops from the Epic and tainted runs and rarely from the endgame Wreck, and from level 80 the salvager trades one a week.</i>
 ```
 
 **`obj:Salvager's thread/h_haul.description`**
@@ -320,9 +324,20 @@ She nods at a board of driftwood where she pins what the sea gives back. "Ask wh
 "Under Crownhold the stair stops where the rock does. I've stood at the bottom. Something beneath it listens back."<br><br><i>One of each shard opens the last fight, below Crownhold. You go alone, all four are spent when it starts, and a loss pays nothing. A win pays ryo, EXP and a pick of Crown's Hoard, Coffers or Tokens.</i>
 ```
 
+**`obj:Salvager's thread/t_salvage.description`**
+```html
+"Bring me what you pull off her. Brass, glass, rope. I pay in charts."<br><br><i>Every Skyglass win pays <b>Wreck Salvage</b>: Wreck clears, chart runs and watch log orders. It can't be traded. Bring it to her and trade it for charts.</i>
+```
+- `choice[0]`: `What does it buy?`
+
+**`obj:Salvager's thread/t_prices.description`**
+```html
+"Four pieces for a deck chart. Ten for one from the hold. The sealed charts and the Lantern, once a week."<br><br><i>Each talk with her on the map uses one daily NPC encounter and offers her fire or a trade. Deck charts 4 (Genin), hold charts 10 (Jonin), a sealed chart 20 weekly, the Lantern 30 weekly (level 80). Back out and she returns the salvage.</i>
+```
+
 **`obj:Salvager's thread/t_trade.description`**
 ```html
-"What you can't use, trade. Every chart and every shard has a buyer."<br><br><i>Charts, Core Rot, Haul pages, shards and Skyglass Tokens can be traded. Crown's Hoard, Unmarked Cargo, the Haul's chests and some once-only rewards cannot.</i>
+"What you can't use, trade. Every chart and every shard has a buyer."<br><br><i>Charts, Core Rot, Haul pages, shards and Skyglass Tokens can be traded. Crown's Hoard, Unmarked Cargo, Wreck Salvage, the Haul's chests and some once-only rewards cannot.</i>
 ```
 - `choice[0]`: `What's a Skyglass Token?`
 
@@ -346,7 +361,7 @@ She nods at a board of driftwood where she pins what the sea gives back. "Ask wh
 
 **`obj:Wreck Sighted (thread)/z_chart.description`**
 ```html
-She pulls a <b>Tide Chart</b> from inside her coat, salt-stiff and still damp at one corner. "Low tide opens her lower hull. Don't sit on it. She's already changing shape."<br><br><i>The fire stays lit: <b>At the Salvager's Fire</b> in the Administration Building runs this again.</i>
+She pulls a <b>Tide Chart</b> from inside her coat, salt-stiff and still damp at one corner. "Low tide opens her lower hull. Don't sit on it. She's already changing shape."<br><br><i>The fire stays lit. Talk to her again on the map: each talk uses one daily NPC encounter, and she offers her fire or a salvage trade.</i>
 ```
 - `choice[0]`: `Take the chart`
 

@@ -347,6 +347,15 @@
    "status": "ready",
    "waitsFor": [],
    "note": "Director go 2026-11-09 15:53/15:58 (relayed). Hidden only. 543 (overworld + Wreck Sighted prerequisite) follows the test."
+  },
+  {
+   "id": "544",
+   "manifest": "push/544_skyglass_thread_fire_text.json",
+   "what": "At the Salvager's Fire (hidden): text for one overworld salvager NPC (no Administration Building for her) plus a salvage topic; stays event so it can be playtested",
+   "runner": "mcp",
+   "status": "ready",
+   "waitsFor": [],
+   "note": "Director 2026-11-09 15:58 (relayed): her entire tutorial updated for the one-NPC setup. 510 golive now also makes the Fire and Wreck Sighted questType overworld (Fire needs Wreck Sighted)."
   }
  ]
 }
