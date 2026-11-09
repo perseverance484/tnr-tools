@@ -1,0 +1,222 @@
+#!/usr/bin/env python3
+"""Independent QA render of Mother of Echoes FX as the pixi engine (theninjarpg@3314d122) would show them.
+
+Pipeline per asset (vs docs/design/mother_of_echoes_fx/preview.py, which scales the 150 px source):
+  1. CDN rendition: textureImageUrl(path, 50) -> Bunny ?width=50 (new uploads carry an extension, so the
+     optimizer engages): strip resized to 50 px wide (Lanczos assumed; optional lossy webp q85).
+  2. GPU: Sprite of tile.height*2.5 with LINEAR sampling, no mipmaps (createSpriteClip, nearest never passed),
+     premultiplied alpha. Emulated with an affine bilinear transform on premultiplied RGBa (no antialias).
+  3. Order: board, effects.ground (staticAssetPath stretched to tile w x h), actors (+bars), effects.container
+     (appear zIndex 1, loop zIndex 2).
+AI actor: avatar square h*1.6 at y=0.9h (Y-up; i.e. 0.4h above hex centre), rendition 256, linear;
+HP bar w/2 x h/10 at y = h + w/3 - (h/8)*(0.3h-2)/3. Player: still's own token (marker + masked avatar + bars).
+"""
+import io, os, sys
+from PIL import Image, ImageDraw, ImageEnhance
+
+QA = os.path.dirname(os.path.abspath(__file__))
+WT = os.path.join(QA, '..', 'wt_custom')
+MODE = os.environ.get('MODE', 'after')
+OUT = os.path.join(QA, 'out_' + MODE)
+MOE = os.path.join(WT, 'art/mother_of_echoes_fx/exports')
+SKY = os.path.join(WT, 'art/skyglass_boss_fx/exports')
+AV = os.path.join(WT, 'art/mother_of_echoes/exports')
+STILL = os.path.join(WT, 'docs/design/celestial_dew_animation/battle_still_2026-10-24b.png')
+HX, HY, COL, ROW, HW, HH = 311.0, 225.5, 99.0, 66.0, 132, 66
+K = round(HH * float(os.environ.get('CLIP_RATIO', '2.5')))  # 2.5 at pin 3314d122; 1 since 338126cb
+LOSSY = '--lossy' in sys.argv
+
+
+def gpu(img, w, h):
+    """Linear magnification/minification without mipmaps, premultiplied."""
+    p = img.convert('RGBa')
+    sw, sh = p.size
+    ax, ay = sw / w, sh / h
+    q = p.transform((w, h), Image.AFFINE, (ax, 0, (ax - 1) / 2, 0, ay, (ay - 1) / 2), resample=Image.BILINEAR)
+    return q.convert('RGBA')
+
+
+def rendition(img, width):
+    if img.width <= width:
+        r = img.copy()
+    else:
+        r = img.resize((width, round(img.height * width / img.width)), Image.LANCZOS)
+    if LOSSY:
+        b = io.BytesIO(); r.save(b, 'WEBP', quality=85); b.seek(0); r = Image.open(b).convert('RGBA')
+    return r
+
+
+def clip(path):
+    s = rendition(Image.open(path).convert('RGBA'), 50)
+    w = s.width
+    return [gpu(s.crop((0, i * w, w, i * w + w)), K, K) for i in range(s.height // w)]
+
+
+def tile(path):
+    return gpu(rendition(Image.open(path).convert('RGBA'), 50), HW, HH)
+
+
+def centre(q, r):
+    return HX + COL * q, HY + ROW * r - (ROW / 2 if q % 2 else 0)
+
+
+bg_light = Image.open(STILL).convert('RGBA')
+m = Image.new('L', bg_light.size, 0)
+d = ImageDraw.Draw(m)
+d.ellipse([278, 158.7, 344, 224.7], fill=255); d.rectangle([277, 144, 344, 162], fill=255); d.ellipse([300, 223.3, 322, 243.3], fill=255)
+box = m.getbbox(); TOK = bg_light.crop(box); TOK.putalpha(m.crop(box)); OFF = (box[0] - HX, box[1] - HY)
+# erase the still's own token so we place our own
+clean = bg_light.copy()
+for dx in (-COL, ):
+    pass
+patch = bg_light.crop((int(HX - COL * 2 - 66), int(HY - 81), int(HX - COL * 2 + 66), int(HY + 20)))
+clean.paste(patch, (int(HX - 66), int(HY - 81)))
+bg_light = clean
+# dark board: stone-night grade of the same geometry
+dk = ImageEnhance.Brightness(bg_light.convert('RGB')).enhance(0.28)
+dk = Image.blend(dk, Image.new('RGB', dk.size, (22, 26, 40)), 0.35)
+bg_dark = dk.convert('RGBA')
+
+
+def ai_sprite(name):
+    a = rendition(Image.open(os.path.join(AV, name)).convert('RGBA'), 256)
+    return gpu(a, round(HH * 1.6), round(HH * 1.6))
+
+
+AI_CACHE = {}
+
+
+def draw_ai(im, c, name='avatar_moe_sayo_v2.webp'):
+    if name not in AI_CACHE:
+        AI_CACHE[name] = ai_sprite(name)
+    s = AI_CACHE[name]
+    x, y = centre(*c)
+    im.alpha_composite(s, (int(x - s.width / 2), int(y - 0.4 * HH - s.height / 2)))
+    # hp bar: y(local, Y-up) = h + w/3 - (h/8)*(0.3h-2)/3 ; hex centre at h/2
+    by = HH + HW / 3 - (HH / 8) * (HH * 0.3 - 2) / 3 - HH / 2
+    dd = ImageDraw.Draw(im)
+    dd.rectangle([x - HW / 4, y - by - HH / 20, x + HW / 4, y - by + HH / 20], fill=(178, 34, 34), outline=(0, 0, 0))
+
+
+def draw_player(im, c):
+    x, y = centre(*c)
+    if os.environ.get('LPC') == '1':
+        # LPC character (303c6cbc, combatActors.ts:604-618; envelope as art/subaku_palace/gates/build_gates.py): the
+        # 64 px LPC frame is 1.35h tall centred 0.825h above the hex bottom; a typical body spans LPC px x 18-46,
+        # y 10-62: feet 0.234h above the hex bottom, head top ~1.29h, shoulders ~0.6h wide, legs ~0.44h.
+        bot = y + HH / 2; feet = bot - 0.234 * HH; top = bot - 1.29 * HH
+        d = ImageDraw.Draw(im)
+        d.ellipse([x - 0.2 * HH, feet - 0.05 * HH, x + 0.2 * HH, feet + 0.05 * HH], fill=(0, 0, 0))
+        d.ellipse([x - 0.14 * HH, top, x + 0.14 * HH, top + 0.3 * HH], fill=(214, 170, 140), outline=(30, 24, 30))
+        d.rectangle([x - 0.3 * HH, top + 0.3 * HH, x + 0.3 * HH, feet - 0.42 * HH], fill=(52, 60, 96), outline=(30, 24, 30))
+        d.rectangle([x - 0.22 * HH, feet - 0.42 * HH, x - 0.02 * HH, feet], fill=(40, 40, 52), outline=(30, 24, 30))
+        d.rectangle([x + 0.02 * HH, feet - 0.42 * HH, x + 0.22 * HH, feet], fill=(40, 40, 52), outline=(30, 24, 30))
+        d.rectangle([x - HW / 4, top - 0.14 * HH, x + HW / 4, top - 0.06 * HH], fill=(40, 160, 60), outline=(0, 0, 0))
+        return
+    im.alpha_composite(TOK, (int(x + OFF[0]), int(y + OFF[1])))
+
+
+M = lambda n: os.path.join(MOE, n)
+S = lambda n: os.path.join(SKY, n)
+TILES = {'etch': tile(M('tile_moe_etch_v3.webp' if MODE == 'after' else 'tile_moe_etch_v2.webp')), 'heavy': tile(S('tile_heavy_v3.webp')),
+         'control': tile(S('tile_control_v3.webp')), 'linger': tile(S('tile_linger_v3.webp')),
+         'safe': tile(S('tile_safe_v3.webp'))}
+GLINT = {'etch': clip(M('anim_moe_etch_glint_v1.webp')), 'heavy': clip(S('anim_heavy_glint_v3.webp')),
+         'control': clip(S('anim_control_glint_v3.webp')), 'linger': clip(S('anim_linger_glint_v3.webp')),
+         'safe': clip(S('anim_safe_glint_v3.webp'))}
+FILES = {'recast': 'anim_moe_recast_v1.webp', 'guard_open': 'anim_moe_guard_open_v1.webp',
+         'quiet': 'anim_moe_quiet_v1.webp', 'lancet': 'anim_moe_lancet_v1.webp', 'feeler': 'anim_moe_feeler_v1.webp',
+         'lull': 'anim_moe_lull_v2.webp', 'stillness': 'anim_moe_still_dark_v1.webp',
+         'breathless': 'anim_moe_breath_draw_v1.webp', 'lucid': 'anim_moe_lucid_aura_v1.webp',
+         'likeness': 'anim_moe_likeness_rise_v1.webp', 'worn': 'anim_moe_worn_rise_v1.webp',
+         'cradle': 'anim_moe_cradle_v1.webp', 'flood': 'anim_moe_flood_faces_v1.webp'}
+if MODE == 'after':
+    FILES.update({'guard_open': 'anim_moe_guard_open_v2.webp', 'lancet': 'anim_moe_lancet_v2.webp',
+                  'feeler': 'anim_moe_feeler_v2.webp', 'lull': 'anim_moe_lull_v3.webp',
+                  'stillness': 'anim_moe_still_dark_v2.webp', 'likeness': 'anim_moe_likeness_ring_v2.webp',
+                  'worn': 'anim_moe_worn_ash_v2.webp', 'cradle': 'anim_moe_cradle_v2.webp',
+                  })
+CLIP = {n: clip(M(f)) for n, f in FILES.items()}
+CLIP['eruption'] = clip(S('anim_dt_heavy_v2.webp'))
+CLIP['shard'] = clip(S('anim_dt_shard_v2.webp'))
+
+P0, P1, P2 = (0, 0), (2, -1), (-2, 0)
+PLAYERS = [P0, P1, P2]
+SAYO = (0, -2)
+BAND = [(q, r) for q in range(-3, 4) for r in (-1, 0)]
+OTHERS = {'heavy': [(-3, 1)], 'control': [(-1, 1)], 'linger': [(1, 1)], 'safe': [(3, 1)]}
+SAFE3 = [(-2, 0), (1, 1), (3, 0)]
+FIELD19 = [(q, r) for q in range(-3, 4) for r in (-1, 0, 1)]
+# name: (ticks, ground{kind:cells}, loops{clip:cells}, shots{clip:cells}, players, ais{cell:avatar})
+SC = {
+    'etch_field': (16, {'etch': BAND, **OTHERS}, {'etch': BAND, **OTHERS}, {}, PLAYERS, {SAYO: 'avatar_moe_sayo_v2.webp'}),
+    'recast': (12, {}, {}, {'recast': BAND}, PLAYERS, {SAYO: 'avatar_moe_sayo_v2.webp'}),
+    'guard_open_on_sayo': (16, {}, {'guard_open': [SAYO]}, {}, PLAYERS, {SAYO: 'avatar_moe_sayo_v2.webp'}),
+    'lancet': (10, {}, {}, {'lancet': [P0]}, PLAYERS, {SAYO: 'avatar_moe_sayo_v2.webp'}),
+    'quiet': (12, {}, {}, {'quiet': [P0]}, PLAYERS, {SAYO: 'avatar_moe_sayo_v2.webp'}),
+    'stillness': (12, {}, {}, {'stillness': [P0]}, PLAYERS, {SAYO: 'avatar_moe_saint.webp'}),
+    'breathless': (12, {'safe': SAFE3}, {'safe': SAFE3}, {'breathless': [P0, P1]}, [P0, P1, (-1, 1)], {SAYO: 'avatar_moe_saint.webp'}),
+    'feeler': (14, {}, {}, {'feeler': [(1, 0)]}, PLAYERS, {SAYO: 'avatar_moe_silence.webp', (1, 0): 'avatar_moe_feeler.webp'}),
+    'likeness': (14, {}, {}, {'likeness': [(-1, 0)]}, PLAYERS, {SAYO: 'avatar_moe_sayo_stilling.webp', (-1, 0): 'avatar_moe_likeness.webp'}),
+    'worn': (14, {}, {}, {'worn': [(1, -1), (-3, 0)]}, PLAYERS, {SAYO: 'avatar_moe_sayo_stilling.webp', (1, -1): 'avatar_moe_worn_porter.webp', (-3, 0): 'avatar_moe_worn_hana.webp'}),
+    'cradle_on_sayo': (16, {}, {'cradle': [SAYO]}, {}, PLAYERS, {SAYO: 'avatar_moe_sayo_v2.webp', (1, -1): 'avatar_moe_feeler.webp'}),
+    'lucid_on_sayo': (32, {}, {'lucid': [SAYO]}, {}, PLAYERS, {SAYO: 'avatar_moe_sayo_v2.webp'}),
+    'lull_on_sayo': (32, {}, {'lull': [SAYO]}, {}, PLAYERS, {SAYO: 'avatar_moe_sayo_v2.webp'}),
+    'flood': (14, {}, {}, {'flood': FIELD19}, PLAYERS, {SAYO: 'avatar_moe_saint.webp'}),
+    'flood_vs_eruption': (14, {}, {}, {'flood': [(-2, 0), (-1, 0), (-2, 1)], 'eruption': [(2, -1), (1, 0), (2, 0)]}, PLAYERS, {SAYO: 'avatar_moe_saint.webp'}),
+}
+
+if os.environ.get('SILENCE_RIM'):
+    for k, v in SC.items():
+        v[5].update({c: 'avatar_moe_silence_rim.webp' for c, n in v[5].items() if n == 'avatar_moe_silence.webp'})
+
+
+def render(name, bg):
+    n, under, loops, shots, players, ais = SC[name]
+    frames = []
+    for t in range(n):
+        im = bg.copy()
+        for kind, cells in under.items():
+            for c in cells:
+                x, y = centre(*c)
+                im.alpha_composite(TILES[kind], (int(x - HW / 2), int(y - HH / 2)))
+        for c in sorted(list(players) + list(ais), key=lambda c: -centre(*c)[1]):
+            if c in ais: draw_ai(im, c, ais[c])
+            else: draw_player(im, c)
+        for kind, cells in shots.items():
+            fr = CLIP[kind]
+            if t < len(fr):
+                for c in cells:
+                    x, y = centre(*c)
+                    im.alpha_composite(fr[t], (int(x - K / 2), int(y - K / 2)))
+        for kind, cells in loops.items():
+            fr = GLINT.get(kind) or CLIP[kind]
+            f = fr[t % len(fr)]
+            for c in cells:
+                x, y = centre(*c)
+                im.alpha_composite(f, (int(x - K / 2), int(y - K / 2)))
+        frames.append(im.convert('RGB'))
+    return frames
+
+
+if __name__ == '__main__':
+    tag = '_lossy' if LOSSY else ''
+    os.makedirs(os.path.join(OUT, 'gif'), exist_ok=True)
+    os.makedirs(os.path.join(OUT, 'keys'), exist_ok=True)
+    only = [a for a in sys.argv[1:] if not a.startswith('--')]
+    for name in SC:
+        if only and name not in only: continue
+        for bgname, bg in (('light', bg_light), ('dark', bg_dark)):
+            fr = render(name, bg)
+            if os.environ.get('GIF'): fr[0].save(os.path.join(OUT, 'gif', f'{name}_{bgname}{tag}.gif'), save_all=True, append_images=fr[1:],
+                       duration=50, loop=0)
+            n = len(fr)
+            picks = sorted(set([0, n // 6, n // 3, n // 2, (2 * n) // 3, n - 1]))
+            w, h = fr[0].size
+            sheet = Image.new('RGB', (w * 3, (h) * 2 + 16), (12, 14, 18))
+            dd = ImageDraw.Draw(sheet)
+            dd.text((4, 2), f'{name} [{bgname}{tag}] ticks {picks} of {n} @50ms; CDN 50px rendition, linear GPU, clip {K}px', fill=(230, 230, 230))
+            for i, t in enumerate(picks[:6]):
+                sheet.paste(fr[t], ((i % 3) * w, 16 + (i // 3) * h))
+            sheet.save(os.path.join(OUT, 'keys', f'{name}_{bgname}{tag}.png'))
+        print('done', name)
