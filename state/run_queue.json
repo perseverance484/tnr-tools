@@ -507,10 +507,11 @@
       "manifest": "push/581_hullbound_mender_order_fix.json",
       "what": "Hullbound Mender bug fixes from the Nov 9 hand run: Keel Splits break on GROUND, closes in order I to IV, Last Planks waits for round 16",
       "runner": "connector",
-      "status": "ready",
+      "status": "done",
       "waitsFor": [],
       "build": "python3 push/hullbound_mender.gen.py fix2 --jutsu harvests/inbox/tnr_results_1794245265153.json --fix harvests/inbox/tnr_results_1794245664965.json --art harvests/inbox/tnr_results_1794248097472.json --reuse apprentice=sXqGpkQlGDvPr8Tjf_G0J,caulker=RWaARMwmG6pbM5is6m14e,pump=1d5_FyPFnRyYSLw7Kyfgd,mender=6_c1fpF8YXIjoaLX0mIRT",
-      "note": "Hullbound Mender thread. Coordinator go 2026-11-09 21:25 UTC (bugs against the approved design); dauntless: leave Apprentice and crew tuning. Lock order: trade thread, MoE practice rerun, then this. Hand replay of The Closing Hold after it runs. All hidden."
+      "note": "Hullbound Mender thread. Coordinator go 2026-11-09 21:25 UTC (bugs against the approved design); dauntless: leave Apprentice and crew tuning. Lock order: trade thread, MoE practice rerun, then this. Hand replay of The Closing Hold after it runs. All hidden. Ran 2026-11-09 21:48 UTC (job 581-mw9seoz9): both Keel Splits verified on GROUND; Mender unequip and re-equip confirmed, 17 jutsus, 20 rules read back in the new order. Drift is only the usual stat rescale (law 71).",
+      "bundle": "harvests/inbox/tnr_results_1794260925241.json"
     }
   ]
 }

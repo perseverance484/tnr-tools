@@ -1,0 +1,542 @@
+{
+ "builder": "forge-mcp",
+ "at": "2026-11-09T21:48:45.240Z",
+ "cfg": "forge",
+ "checks": null,
+ "state": "INCOMPLETE",
+ "outcome": "unverified",
+ "postflight": {
+  "match": 2,
+  "diff": 2,
+  "unverified": 0,
+  "failed": 0,
+  "skipped": 0,
+  "unresolved": 2
+ },
+ "entries": [
+  {
+   "name": "The Hullbound Mender",
+   "srcId": "sg581_mender_off",
+   "entity": "ai",
+   "slot": "edit",
+   "op": "update",
+   "state": "ok",
+   "forgeState": "CONFIRMED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "drift",
+   "asserted": {
+    "ok": 27,
+    "fail": [
+     {
+      "k": "defence",
+      "c": "mismatch",
+      "d": [
+       "sent 1391299.95  live 1622255.8"
+      ]
+     },
+     {
+      "k": "intelligence",
+      "c": "mismatch",
+      "d": [
+       "sent 1391299.95  live 1622255.8"
+      ]
+     },
+     {
+      "k": "offence",
+      "c": "mismatch",
+      "d": [
+       "sent 1391299.95  live 1622255.8"
+      ]
+     },
+     {
+      "k": "speed",
+      "c": "mismatch",
+      "d": [
+       "sent 1391299.95  live 1622255.8"
+      ]
+     },
+     {
+      "k": "strength",
+      "c": "mismatch",
+      "d": [
+       "sent 1391299.95  live 1622255.8"
+      ]
+     },
+     {
+      "k": "willpower",
+      "c": "mismatch",
+      "d": [
+       "sent 1391299.95  live 1622255.8"
+      ]
+     }
+    ]
+   },
+   "diffs": [
+    {
+     "key": "defence",
+     "sent": 1391299.95,
+     "live": 1622255.8
+    },
+    {
+     "key": "intelligence",
+     "sent": 1391299.95,
+     "live": 1622255.8
+    },
+    {
+     "key": "offence",
+     "sent": 1391299.95,
+     "live": 1622255.8
+    },
+    {
+     "key": "speed",
+     "sent": 1391299.95,
+     "live": 1622255.8
+    },
+    {
+     "key": "strength",
+     "sent": 1391299.95,
+     "live": 1622255.8
+    },
+    {
+     "key": "willpower",
+     "sent": 1391299.95,
+     "live": 1622255.8
+    }
+   ],
+   "id": "6_c1fpF8YXIjoaLX0mIRT"
+  },
+  {
+   "name": "Keel Splits: Port",
+   "srcId": "sg581_port_break",
+   "entity": "jutsu",
+   "slot": "edit",
+   "op": "update",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 30,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "o2GE0OEr8A-LixH8CTQs-"
+  },
+  {
+   "name": "Keel Splits: Starboard",
+   "srcId": "sg581_starboard_break",
+   "entity": "jutsu",
+   "slot": "edit",
+   "op": "update",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 30,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "zPIZwy6ZVbGkdxJK6iT4J"
+  },
+  {
+   "name": "The Hullbound Mender",
+   "srcId": "sg581_mender_on",
+   "entity": "ai",
+   "slot": "edit",
+   "op": "update",
+   "state": "ok",
+   "forgeState": "CONFIRMED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "drift",
+   "asserted": {
+    "ok": 27,
+    "fail": [
+     {
+      "k": "defence",
+      "c": "mismatch",
+      "d": [
+       "sent 1391299.95  live 1622255.8"
+      ]
+     },
+     {
+      "k": "intelligence",
+      "c": "mismatch",
+      "d": [
+       "sent 1391299.95  live 1622255.8"
+      ]
+     },
+     {
+      "k": "offence",
+      "c": "mismatch",
+      "d": [
+       "sent 1391299.95  live 1622255.8"
+      ]
+     },
+     {
+      "k": "speed",
+      "c": "mismatch",
+      "d": [
+       "sent 1391299.95  live 1622255.8"
+      ]
+     },
+     {
+      "k": "strength",
+      "c": "mismatch",
+      "d": [
+       "sent 1391299.95  live 1622255.8"
+      ]
+     },
+     {
+      "k": "willpower",
+      "c": "mismatch",
+      "d": [
+       "sent 1391299.95  live 1622255.8"
+      ]
+     }
+    ]
+   },
+   "diffs": [
+    {
+     "key": "defence",
+     "sent": 1391299.95,
+     "live": 1622255.8
+    },
+    {
+     "key": "intelligence",
+     "sent": 1391299.95,
+     "live": 1622255.8
+    },
+    {
+     "key": "offence",
+     "sent": 1391299.95,
+     "live": 1622255.8
+    },
+    {
+     "key": "speed",
+     "sent": 1391299.95,
+     "live": 1622255.8
+    },
+    {
+     "key": "strength",
+     "sent": 1391299.95,
+     "live": 1622255.8
+    },
+    {
+     "key": "willpower",
+     "sent": 1391299.95,
+     "live": 1622255.8
+    }
+   ],
+   "id": "6_c1fpF8YXIjoaLX0mIRT"
+  }
+ ],
+ "captures": [],
+ "idmap": {
+  "sg581_mender_off": "6_c1fpF8YXIjoaLX0mIRT",
+  "sg581_port_break": "o2GE0OEr8A-LixH8CTQs-",
+  "sg581_starboard_break": "zPIZwy6ZVbGkdxJK6iT4J",
+  "sg581_mender_on": "6_c1fpF8YXIjoaLX0mIRT"
+ },
+ "journal": {
+  "v": 1,
+  "jobId": "581-mw9seoz9",
+  "manifestPath": "push/581_hullbound_mender_order_fix.json",
+  "manifestNumber": 581,
+  "manifestHash": "a0a04a18",
+  "startedAt": "2026-11-09T21:42:35.259Z",
+  "updatedAt": "2026-11-09T21:48:45.238Z",
+  "state": "INCOMPLETE",
+  "pause": null,
+  "items": [
+   {
+    "idx": 0,
+    "entity": "ai",
+    "op": "update",
+    "name": "The Hullbound Mender",
+    "srcId": "sg581_mender_off",
+    "targetId": "6_c1fpF8YXIjoaLX0mIRT",
+    "payloadHash": "45e37656",
+    "state": "CONFIRMED",
+    "phase": "verify",
+    "entityId": "6_c1fpF8YXIjoaLX0mIRT",
+    "snapshotKey": null,
+    "sentAt": "2026-11-09T21:43:38.577Z",
+    "createSentAt": null,
+    "confirmedAt": "2026-11-09T21:44:15.196Z",
+    "verifiedAt": null,
+    "error": null,
+    "attempt": 2,
+    "asserted": [
+     "avatarFacing",
+     "bloodlineMastery",
+     "bukijutsuMastery",
+     "defence",
+     "gender",
+     "genjutsuMastery",
+     "hidden",
+     "includeDefaultRules",
+     "intelligence",
+     "isSummon",
+     "level",
+     "ninjutsuMastery",
+     "offence",
+     "poolsMultiplier",
+     "preferredGeneral1",
+     "preferredGeneral2",
+     "primaryElement",
+     "rank",
+     "regeneration",
+     "sageMastery",
+     "secondaryElement",
+     "speed",
+     "statsMultiplier",
+     "strength",
+     "taijutsuMastery",
+     "username",
+     "willpower",
+     "effects",
+     "jutsus",
+     "items",
+     "rules",
+     "avatar",
+     "inArena"
+    ],
+    "aiProfileId": "QRHEBPIsNkProz6lBfB7c",
+    "assertedRules": true,
+    "diffs": [
+     {
+      "key": "defence",
+      "sent": 1391299.95,
+      "live": 1622255.8
+     },
+     {
+      "key": "intelligence",
+      "sent": 1391299.95,
+      "live": 1622255.8
+     },
+     {
+      "key": "offence",
+      "sent": 1391299.95,
+      "live": 1622255.8
+     },
+     {
+      "key": "speed",
+      "sent": 1391299.95,
+      "live": 1622255.8
+     },
+     {
+      "key": "strength",
+      "sent": 1391299.95,
+      "live": 1622255.8
+     },
+     {
+      "key": "willpower",
+      "sent": 1391299.95,
+      "live": 1622255.8
+     }
+    ],
+    "verify": "drift"
+   },
+   {
+    "idx": 1,
+    "entity": "jutsu",
+    "op": "update",
+    "name": "Keel Splits: Port",
+    "srcId": "sg581_port_break",
+    "targetId": "o2GE0OEr8A-LixH8CTQs-",
+    "payloadHash": "26d6b10c",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "o2GE0OEr8A-LixH8CTQs-",
+    "snapshotKey": null,
+    "sentAt": "2026-11-09T21:44:49.710Z",
+    "createSentAt": null,
+    "confirmedAt": "2026-11-09T21:45:24.187Z",
+    "verifiedAt": "2026-11-09T21:45:36.249Z",
+    "error": null,
+    "attempt": 1,
+    "asserted": [
+     "extraBaseCost",
+     "bloodlineId",
+     "requiredLevel",
+     "requiredRank",
+     "jutsuType",
+     "image",
+     "jutsuWeapon",
+     "statClassification",
+     "elementClassification",
+     "jutsuRank",
+     "staminaCost",
+     "chakraCost",
+     "staminaCostReducePerLvl",
+     "chakraCostReducePerLvl",
+     "healthCostReducePerLvl",
+     "healthCost",
+     "villageId",
+     "hidden",
+     "injectableInBattle",
+     "battleUsageType",
+     "name",
+     "description",
+     "battleDescription",
+     "effects",
+     "actionCostPerc",
+     "cooldown",
+     "target",
+     "method",
+     "range",
+     "coordinateTargeting"
+    ],
+    "diffs": [],
+    "verify": "match"
+   },
+   {
+    "idx": 2,
+    "entity": "jutsu",
+    "op": "update",
+    "name": "Keel Splits: Starboard",
+    "srcId": "sg581_starboard_break",
+    "targetId": "zPIZwy6ZVbGkdxJK6iT4J",
+    "payloadHash": "2a5b6cea",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "zPIZwy6ZVbGkdxJK6iT4J",
+    "snapshotKey": null,
+    "sentAt": "2026-11-09T21:45:49.464Z",
+    "createSentAt": null,
+    "confirmedAt": "2026-11-09T21:46:17.287Z",
+    "verifiedAt": "2026-11-09T21:46:30.817Z",
+    "error": null,
+    "attempt": 1,
+    "asserted": [
+     "extraBaseCost",
+     "bloodlineId",
+     "requiredLevel",
+     "requiredRank",
+     "jutsuType",
+     "image",
+     "jutsuWeapon",
+     "statClassification",
+     "elementClassification",
+     "jutsuRank",
+     "staminaCost",
+     "chakraCost",
+     "staminaCostReducePerLvl",
+     "chakraCostReducePerLvl",
+     "healthCostReducePerLvl",
+     "healthCost",
+     "villageId",
+     "hidden",
+     "injectableInBattle",
+     "battleUsageType",
+     "name",
+     "description",
+     "battleDescription",
+     "effects",
+     "actionCostPerc",
+     "cooldown",
+     "target",
+     "method",
+     "range",
+     "coordinateTargeting"
+    ],
+    "diffs": [],
+    "verify": "match"
+   },
+   {
+    "idx": 3,
+    "entity": "ai",
+    "op": "update",
+    "name": "The Hullbound Mender",
+    "srcId": "sg581_mender_on",
+    "targetId": "6_c1fpF8YXIjoaLX0mIRT",
+    "payloadHash": "0be0e9f9",
+    "state": "CONFIRMED",
+    "phase": "verify",
+    "entityId": "6_c1fpF8YXIjoaLX0mIRT",
+    "snapshotKey": null,
+    "sentAt": "2026-11-09T21:47:45.474Z",
+    "createSentAt": null,
+    "confirmedAt": "2026-11-09T21:48:21.205Z",
+    "verifiedAt": null,
+    "error": null,
+    "attempt": 2,
+    "asserted": [
+     "avatarFacing",
+     "bloodlineMastery",
+     "bukijutsuMastery",
+     "defence",
+     "gender",
+     "genjutsuMastery",
+     "hidden",
+     "includeDefaultRules",
+     "intelligence",
+     "isSummon",
+     "level",
+     "ninjutsuMastery",
+     "offence",
+     "poolsMultiplier",
+     "preferredGeneral1",
+     "preferredGeneral2",
+     "primaryElement",
+     "rank",
+     "regeneration",
+     "sageMastery",
+     "secondaryElement",
+     "speed",
+     "statsMultiplier",
+     "strength",
+     "taijutsuMastery",
+     "username",
+     "willpower",
+     "effects",
+     "jutsus",
+     "items",
+     "rules",
+     "avatar",
+     "inArena"
+    ],
+    "aiProfileId": "QRHEBPIsNkProz6lBfB7c",
+    "assertedRules": true,
+    "diffs": [
+     {
+      "key": "defence",
+      "sent": 1391299.95,
+      "live": 1622255.8
+     },
+     {
+      "key": "intelligence",
+      "sent": 1391299.95,
+      "live": 1622255.8
+     },
+     {
+      "key": "offence",
+      "sent": 1391299.95,
+      "live": 1622255.8
+     },
+     {
+      "key": "speed",
+      "sent": 1391299.95,
+      "live": 1622255.8
+     },
+     {
+      "key": "strength",
+      "sent": 1391299.95,
+      "live": 1622255.8
+     },
+     {
+      "key": "willpower",
+      "sent": 1391299.95,
+      "live": 1622255.8
+     }
+    ],
+    "verify": "drift"
+   }
+  ]
+ }
+}
