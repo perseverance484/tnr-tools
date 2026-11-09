@@ -1,0 +1,65 @@
+{
+ "builder": "duet-connector",
+ "at": "2026-11-09T19:05:09Z",
+ "cfg": {
+  "note": "dauntless (Nov 9 18:57Z, 'Yes' to upload v15d and send the review desk ticket): Fury of The White Tiger v15d art as a review ticket (suggest mode). Ticket changes only effects: damage.appearAnimation re4P1TqEXbfs5rCZOz67m -> strike, increasedamagegiven.staticAnimation 1HQecvAYR-TkK11ELt7HM -> sparks, afterburn.appearAnimation '' -> burst. Live jutsu NOT changed until a reviewer approves."
+ },
+ "state": "done",
+ "outcome": "ok",
+ "entries": [
+  {
+   "kind": "gameAsset",
+   "op": "create+update+unhide",
+   "slot": "target",
+   "id": "waJwepo2V40MYNf6hAWzl",
+   "image": "https://bbenpyo9uu.ufs.sh/f/0tzd8oDeiVIznHUlyd1oIh94dGgfrWlF5OoBsxwKYCSbA31Z",
+   "file": "anim_tiger_fury_v15d_target_damage.webp",
+   "frames": 36,
+   "speed": 50,
+   "folder": "FuryOfTheWhiteTiger",
+   "readBack": "ok",
+   "hidden": false
+  },
+  {
+   "kind": "gameAsset",
+   "op": "create+update+unhide",
+   "slot": "caster",
+   "id": "vP8EISrZnxvKV4dMBQ8x7",
+   "image": "https://bbenpyo9uu.ufs.sh/f/0tzd8oDeiVIzwrT2slY7EeYLC1pXB0nTPo9vMg35tkqhJm6O",
+   "file": "anim_tiger_fury_v15d_caster_afterburn.webp",
+   "frames": 36,
+   "speed": 60,
+   "folder": "FuryOfTheWhiteTiger",
+   "readBack": "ok",
+   "hidden": false
+  },
+  {
+   "kind": "gameAsset",
+   "op": "create+update+unhide",
+   "slot": "caster loop",
+   "id": "iBl5_M2fonkk8yiBLQgwU",
+   "image": "https://bbenpyo9uu.ufs.sh/f/0tzd8oDeiVIzn6XIBpoIh94dGgfrWlF5OoBsxwKYCSbA31ZE",
+   "file": "anim_tiger_fury_v15d_caster_buff.webp",
+   "frames": 16,
+   "speed": 70,
+   "folder": "FuryOfTheWhiteTiger",
+   "readBack": "ok",
+   "hidden": false
+  },
+  {
+   "kind": "contentReview",
+   "op": "create",
+   "id": "fBn5KTZmurVwgSju_DPSs",
+   "entity": "JUTSU QXE9J0fnu1t-DAGTGbaCX",
+   "readBack": "PENDING, source STAFF, created by dauntless, fields [effects]; after adds animationScale 1 per effect (server default). Not approved by us."
+  }
+ ],
+ "before": {
+  "jutsu:QXE9J0fnu1t-DAGTGbaCX": "updatedAt 2026-10-22T00:10:47.096Z (unchanged, re-read before submit)"
+ },
+ "journal": [
+  "director's yes 2026-11-09T18:57:57Z",
+  "art on main d0b1adb",
+  "uploaded via duet/moe-uploadthing run 42679180452 (commit 46ecf31)"
+ ]
+}
