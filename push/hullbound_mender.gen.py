@@ -3,6 +3,7 @@
 
     python3 push/hullbound_mender.gen.py jutsu                          # write push/575 (jutsu + chart item)
     python3 push/hullbound_mender.gen.py fix --jutsu <575 bundle>       # write push/578 (edit the 2 Keel Splits 575 left blank)
+    python3 push/hullbound_mender.gen.py art --jutsu <575 bundle> --uploaded <uploaded.json>   # push/579: v2 clips
     python3 push/hullbound_mender.gen.py ais --jutsu <575 bundle> --fix <578 bundle>   # write push/576, AFTER 575 and 578
     python3 push/hullbound_mender.gen.py quest --ais <576 bundle> --jutsu <575 bundle> --fix <578 bundle>   # push/577
     python3 push/hullbound_mender.gen.py check                          # offline: rule cadence and tile sets
@@ -37,7 +38,7 @@ import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 NANO = re.compile(r"^[A-Za-z0-9_-]{21}$")
-NUM = {"jutsu": 575, "ais": 576, "quest": 577, "fix": 578}
+NUM = {"jutsu": 575, "ais": 576, "quest": 577, "fix": 578, "art": 579}
 PFX = {"jutsu": "sg575_", "ais": "sg576_"}
 
 COLS, ROWS = 12, 10            # quest arena at level 40+ (combat battleMaps; pitch section 8)
@@ -248,6 +249,49 @@ def build_jutsu():
         jutsu(f"crew_{side}_break", f"Bilge Split: {Side}", f"Pierces everyone on the {side} half the line marked.",
               f"The bilge boards split along the line, and the {side} side bursts.",
               [dmg(POWER["crew_splitter"], "pierce")], COST["payoff"], 2, tiles, target="CHARACTER")
+
+
+# The Mender's own clips (v2, dauntless's "Looks good" 2026-11-09 17:39 UTC): 112 px one-hex strips, 24 x 50 ms, on the
+# director's UploadThing (duet/moe-uploadthing state/moe_upload/uploaded.json, srcIds sg579_<key>). push/579 creates
+# them as hidden ANIMATION assets and points the 575 kit at them by @scene ref.
+CLIPS_V2 = ["a1_hull_omen", "a2_hull_close", "a2_hull_floor", "a3_split_omen", "a4_split_break", "a5_fresh_plank",
+            "a6_hammerfall", "a7_rivet_volley", "a8_last_tier_aura"]
+CLIP_NAME = {"a1_hull_omen": "omen, seams of light (loop)", "a2_hull_close": "hull closes, plates punch up",
+             "a2_hull_floor": "glass-grown floor (loop)", "a3_split_omen": "chalk line (loop)",
+             "a4_split_break": "the line splits", "a5_fresh_plank": "fresh plank (loop)", "a6_hammerfall": "hammerfall",
+             "a7_rivet_volley": "rivet volley", "a8_last_tier_aura": "he works faster (loop)"}
+HIT_CLIP = {"rivet": "a7_rivet_volley", "loose_rivet": "a7_rivet_volley", "port_break": "a4_split_break",
+            "starboard_break": "a4_split_break", "crew_port_break": "a4_split_break",
+            "crew_starboard_break": "a4_split_break", "hammerfall": "a6_hammerfall",
+            "apprentice_mallet": "a6_hammerfall", "seal": "a6_hammerfall"}
+ART_FIELDS = ("staticAssetPath", "staticAnimation", "appearAnimation", "disappearAnimation")
+
+
+def apply_art(ref):
+    """Swap the live stand-in strips for the Mender's clips. ref(key) -> asset id or @scene ref."""
+    def put(e, static="", appear=""):
+        e.update({"staticAssetPath": "", "staticAnimation": static and ref(static), "appearAnimation": appear and ref(appear),
+                  "disappearAnimation": ""})
+    changed = set()
+    for k, d in JUTSU.items():
+        before = json.dumps(d["effects"])
+        for e in d["effects"]:
+            t = e["type"]
+            if t in ("damage", "pierce"):
+                put(e, appear=HIT_CLIP[k])
+            elif t == "increaseregeneration":                     # the telegraph tile
+                put(e, static="a1_hull_omen" if k.startswith("tier") else "a3_split_omen")
+            elif t == "decreasedamagetaken":                      # Fresh Plank
+                put(e, static="a5_fresh_plank")
+            elif t == "healprevent":                              # one carrier per hull tile
+                put(e, static="a2_hull_floor", appear="a2_hull_close")
+            elif t == "increasedamagegiven":                      # tier 3: he works faster
+                put(e, static="a8_last_tier_aura")
+            elif any(e.get(f) for f in ART_FIELDS):
+                put(e)
+        if json.dumps(d["effects"]) != before:
+            changed.add(k)
+    return changed
 
 
 # ---------------------------------------------------------------------------------------------------------------
@@ -592,6 +636,24 @@ def main():
         write(NUM["fix"], "hullbound_mender_keel_fix",
               "push/578, HIDDEN: finishes the two Keel Splits that 575 created blank (the pool-cost marker needed "
               "direction defence). Edits by id; no AI equips them yet, so no equip link to sever.", items)
+        return
+    if mode == "art":
+        idmap = json.load(open(sys.argv[sys.argv.index("--jutsu") + 1]))["idmap"]
+        urls = json.load(open(sys.argv[sys.argv.index("--uploaded") + 1]))["files"]
+        assets = [{"entity": "asset", "slot": "create", "phase": 1, "srcId": "sg579_" + c,
+                   "name": "Hullbound Mender - " + CLIP_NAME[c],
+                   "data": {"name": "Hullbound Mender - " + CLIP_NAME[c], "type": "ANIMATION",
+                            "image": urls["sg579_" + c]["url"], "folder": "HullboundMender", "frames": 24, "speed": 50,
+                            "hidden": True, "onInitialBattleField": False, "licenseDetails": "TNR"}}
+                  for c in CLIPS_V2]
+        changed = apply_art(lambda c: "@scene:sg579_" + c)
+        edits = [{"entity": "jutsu", "slot": "edit", "targetId": idmap[PFX["jutsu"] + k], "srcId": "sg579j_" + k,
+                  "phase": 2, "name": JUTSU[k]["name"], "data": JUTSU[k]} for k in JUTSU if k in changed]
+        write(NUM["art"], "hullbound_mender_art",
+              "push/579, HIDDEN: the Mender's v2 clips (approved 2026-11-09 17:39 UTC) as 9 hidden ANIMATION assets "
+              "(images already on the director's UploadThing), then the 575 kit edited by id to use them in place of "
+              "the live Skyglass stand-ins. No AI equips these jutsu yet (576 runs after), so no equip link to sever.",
+              assets + edits)
         return
     if mode == "ais":
         J = ids_from_bundle(sys.argv[sys.argv.index("--jutsu") + 1], PFX["jutsu"], JUTSU, fix_arg())

@@ -406,12 +406,22 @@
    "note": "Images on the director's UploadThing (duet/moe-uploadthing 53f96959). Items stay hidden until the Friday release. Ran 2026-11-09 (job 580-mw9jw3lz): 4 verified, all hidden. Bundle harvests/inbox/tnr_results_1794246468893.json."
   },
   {
+   "id": "579",
+   "manifest": "push/579_hullbound_mender_art.json",
+   "what": "Hullbound Mender v2 clips: 9 hidden ANIMATION assets, then the 575 kit edited by id to use them",
+   "runner": "connector",
+   "status": "ready",
+   "waitsFor": "578",
+   "build": "python3 push/hullbound_mender.gen.py art --jutsu harvests/inbox/tnr_results_1794245265153.json --uploaded <duet/moe-uploadthing state/moe_upload/uploaded.json>",
+   "note": "dauntless's 'Looks good' 2026-11-09 17:39 UTC. Images on the director's UploadThing (duet/moe-uploadthing 2c408094). Runs before 576 so no AI equip link exists yet. Ledger state/validate_exceptions/579_hullbound_mender_art.json."
+  },
+  {
    "id": "576",
    "manifest": "push/576_hullbound_mender_ais.json",
    "what": "Hullbound Mender AIs (Apprentice, Bilge Caulker, Bilge Pump Hand, Mender), hidden; generated from 575's bundle",
    "runner": "mcp",
    "status": "blocked",
-   "waitsFor": "578",
+   "waitsFor": "579",
    "note": "Hullbound Mender thread; nothing live before the Nov 13 release"
   },
   {
