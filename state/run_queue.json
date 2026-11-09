@@ -445,28 +445,39 @@
       "manifest": "push/579_hullbound_mender_art.json",
       "what": "Hullbound Mender v2 clips: 9 hidden ANIMATION assets, then the 575 kit edited by id to use them",
       "runner": "connector",
-      "status": "ready",
+      "status": "done",
       "waitsFor": "578",
       "build": "python3 push/hullbound_mender.gen.py art --jutsu harvests/inbox/tnr_results_1794245265153.json --uploaded <duet/moe-uploadthing state/moe_upload/uploaded.json>",
-      "note": "dauntless's 'Looks good' 2026-11-09 17:39 UTC. Images on the director's UploadThing (duet/moe-uploadthing 2c408094). Runs before 576 so no AI equip link exists yet. Ledger state/validate_exceptions/579_hullbound_mender_art.json."
+      "note": "dauntless's 'Looks good' 2026-11-09 17:39 UTC. Images on the director's UploadThing (duet/moe-uploadthing 2c408094). Runs before 576 so no AI equip link exists yet. Ledger state/validate_exceptions/579_hullbound_mender_art.json. Ran 2026-11-09 (job 579-mw9k4mq7): 32 verified (9 assets, 23 jutsu edits), all hidden. Bundle harvests/inbox/tnr_results_1794248097472.json."
     },
     {
       "id": "576",
       "manifest": "push/576_hullbound_mender_ais.json",
       "what": "Hullbound Mender AIs (Apprentice, Bilge Caulker, Bilge Pump Hand, Mender), hidden; generated from 575's bundle",
-      "runner": "mcp",
-      "status": "blocked",
+      "runner": "connector",
+      "status": "done",
       "waitsFor": "579",
-      "note": "Hullbound Mender thread; nothing live before the Nov 13 release"
+      "note": "Hullbound Mender thread; nothing live before Nov 13. Nov 9: all 4 AIs live hidden. Bundle marks the Mender FAILED (runner got a truncated getAi, then the server capped rules at 20); his 20-rule profile was set and read back by hand. Manifest now regenerates as edits of the 4 ids.",
+      "build": "python3 push/hullbound_mender.gen.py ais --jutsu harvests/inbox/tnr_results_1794245265153.json --fix harvests/inbox/tnr_results_1794245664965.json --reuse apprentice=sXqGpkQlGDvPr8Tjf_G0J,caulker=RWaARMwmG6pbM5is6m14e,pump=1d5_FyPFnRyYSLw7Kyfgd,mender=6_c1fpF8YXIjoaLX0mIRT",
+      "bundle": "harvests/inbox/tnr_results_1794249116568.json",
+      "ids": {
+        "apprentice": "sXqGpkQlGDvPr8Tjf_G0J",
+        "caulker": "RWaARMwmG6pbM5is6m14e",
+        "pump": "1d5_FyPFnRyYSLw7Kyfgd",
+        "mender": "6_c1fpF8YXIjoaLX0mIRT"
+      }
     },
     {
       "id": "577",
       "manifest": "push/577_hullbound_mender_quest.json",
       "what": "The Closing Hold quest, hidden; generated from 575+576 bundles",
       "runner": "mcp",
-      "status": "blocked",
+      "status": "done",
       "waitsFor": "576",
-      "note": "Hullbound Mender thread; nothing live before the Nov 13 release"
+      "note": "Hullbound Mender thread; The Closing Hold live HIDDEN Nov 9, verified. Goes visible only in the Nov 13 release.",
+      "build": "python3 push/hullbound_mender.gen.py quest --jutsu harvests/inbox/tnr_results_1794245265153.json --fix harvests/inbox/tnr_results_1794245664965.json --reuse apprentice=sXqGpkQlGDvPr8Tjf_G0J,caulker=RWaARMwmG6pbM5is6m14e,pump=1d5_FyPFnRyYSLw7Kyfgd,mender=6_c1fpF8YXIjoaLX0mIRT",
+      "bundle": "harvests/inbox/tnr_results_1794249534860.json",
+      "questId": "pCFFWT8ZNDMfXCrvR-0hk"
     },
     {
       "id": "543",
