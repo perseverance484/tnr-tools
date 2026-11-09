@@ -1,0 +1,341 @@
+{
+ "builder": "duet-connector",
+ "at": "2026-11-09T00:53:42Z",
+ "cfg": {
+  "note": "dauntless (Nov 9): put the DKI v6l animation directly on test jutsu Detour Test 2. Art only: poison appearAnimation 6B_tYbUOECJDL5L02d8NV and appearSfx epidemic-07381e8f-01ad-41cf-8dd7-8a84a34e2976 blanked; 7 DKI visual slices appended (hit sfx on c0). Revert = restore effects from 'before'."
+ },
+ "state": "done",
+ "outcome": "ok",
+ "entries": [
+  {
+   "kind": "gameAsset",
+   "op": "create+update+unhide",
+   "slot": "cast_n2",
+   "id": "PQnx2Z94Ycn9obmj6GJdy",
+   "image": "https://bbenpyo9uu.ufs.sh/f/0tzd8oDeiVIzXOffYobKts3mxFVTvPkQZzAOnq1Ye5LGlDpo",
+   "file": "anim_dragon_king_v7b_hv32_cast_n2.webp",
+   "frames": 19,
+   "speed": 60,
+   "readBack": "ok",
+   "hidden": false
+  },
+  {
+   "kind": "gameAsset",
+   "op": "create+update+unhide",
+   "slot": "cast_n1",
+   "id": "w2gtqRwJWiw525ML6Dm5Y",
+   "image": "https://bbenpyo9uu.ufs.sh/f/0tzd8oDeiVIzUOwW7fX4tgG54rhZmyW79QeA2jMJuavVRloU",
+   "file": "anim_dragon_king_v7b_hv32_cast_n1.webp",
+   "frames": 19,
+   "speed": 60,
+   "readBack": "ok",
+   "hidden": false
+  },
+  {
+   "kind": "gameAsset",
+   "op": "create+update+unhide",
+   "slot": "cast_c0",
+   "id": "mB2F5kqImPij_1JAU_WN5",
+   "image": "https://bbenpyo9uu.ufs.sh/f/0tzd8oDeiVIz9cTTXPt6zkoaRDLdSZETu5XYg9icKxsqHCrB",
+   "file": "anim_dragon_king_v7b_hv32_cast_c0.webp",
+   "frames": 19,
+   "speed": 60,
+   "readBack": "ok",
+   "hidden": false
+  },
+  {
+   "kind": "gameAsset",
+   "op": "create+update+unhide",
+   "slot": "n2",
+   "id": "vzGzdJUyIvSFR-Vl-dSj3",
+   "image": "https://bbenpyo9uu.ufs.sh/f/0tzd8oDeiVIzULrvxI4tgG54rhZmyW79QeA2jMJuavVRloUz",
+   "file": "anim_dragon_king_v7b_hv32_n2.webp",
+   "frames": 36,
+   "speed": 60,
+   "readBack": "ok",
+   "hidden": false
+  },
+  {
+   "kind": "gameAsset",
+   "op": "create+update+unhide",
+   "slot": "n1",
+   "id": "1lVv6Df19ckRErqd0lM3q",
+   "image": "https://bbenpyo9uu.ufs.sh/f/0tzd8oDeiVIzkBrUB3pgTEWCgRcq1QomvB3suLUXxZJ6AS4Y",
+   "file": "anim_dragon_king_v7b_hv32_n1.webp",
+   "frames": 36,
+   "speed": 60,
+   "readBack": "ok",
+   "hidden": false
+  },
+  {
+   "kind": "gameAsset",
+   "op": "create+update+unhide",
+   "slot": "c0",
+   "id": "uRIsse-GUUg3iOGY3FsUI",
+   "image": "https://bbenpyo9uu.ufs.sh/f/0tzd8oDeiVIzjase0RImc39ZTe6WMYKBx5v7QSbuFdLykit8",
+   "file": "anim_dragon_king_v7b_hv32_c0.webp",
+   "frames": 36,
+   "speed": 60,
+   "readBack": "ok",
+   "hidden": false
+  },
+  {
+   "kind": "jutsu",
+   "op": "update",
+   "id": "3p3biFrc0Nxpf4E-2WX_y",
+   "name": "Detour Test 2",
+   "change": "7 DKI v6l (ratio 2.5) visual tags replaced by 6 v7b tall-pillar (hex size 1) tags; poison unchanged; hit sfx on target c0",
+   "readBack": "ok"
+  }
+ ],
+ "before": {
+  "jutsu:3p3biFrc0Nxpf4E-2WX_y": "see harvests/inbox/tnr_results_1794183709383.json (after state of that run = before of this one)"
+ },
+ "captures": [
+  {
+   "endpoint": "jutsu.update input",
+   "data": {
+    "id": "3p3biFrc0Nxpf4E-2WX_y",
+    "data": {
+     "name": "Detour Test 2",
+     "description": "New jutsu description",
+     "extraBaseCost": 0,
+     "effects": [
+      {
+       "type": "poison",
+       "power": 50,
+       "rounds": 2,
+       "target": "INHERIT",
+       "appearSfx": "",
+       "direction": "offence",
+       "calculation": "percentage",
+       "description": "placeholder",
+       "disappearSfx": "",
+       "poolsAffected": [
+        "Health",
+        "Chakra",
+        "Stamina"
+       ],
+       "powerPerLevel": 0,
+       "appearAnimation": "",
+       "staticAnimation": "",
+       "staticAssetPath": "",
+       "disappearAnimation": ""
+      },
+      {
+       "type": "visual",
+       "power": 2,
+       "rounds": 1,
+       "target": "COORDINATES",
+       "appearSfx": "",
+       "direction": "offence",
+       "calculation": "static",
+       "description": "Dragon King's Impact v7 (hex size 1): rise slice 2 rows above the caster (art only)",
+       "disappearSfx": "",
+       "powerPerLevel": 0,
+       "appearAnimation": "PQnx2Z94Ycn9obmj6GJdy",
+       "staticAnimation": "",
+       "staticAssetPath": "",
+       "disappearAnimation": "",
+       "coordinateTargeting": {
+        "origin": "CASTER",
+        "selection": "ALL",
+        "coordinates": [
+         {
+          "latitude": -2,
+          "longitude": 0
+         }
+        ],
+        "randomCount": 1
+       }
+      },
+      {
+       "type": "visual",
+       "power": 2,
+       "rounds": 1,
+       "target": "COORDINATES",
+       "appearSfx": "",
+       "direction": "offence",
+       "calculation": "static",
+       "description": "Dragon King's Impact v7 (hex size 1): rise slice 1 row above the caster (art only)",
+       "disappearSfx": "",
+       "powerPerLevel": 0,
+       "appearAnimation": "w2gtqRwJWiw525ML6Dm5Y",
+       "staticAnimation": "",
+       "staticAssetPath": "",
+       "disappearAnimation": "",
+       "coordinateTargeting": {
+        "origin": "CASTER",
+        "selection": "ALL",
+        "coordinates": [
+         {
+          "latitude": -1,
+          "longitude": 0
+         }
+        ],
+        "randomCount": 1
+       }
+      },
+      {
+       "type": "visual",
+       "power": 2,
+       "rounds": 1,
+       "target": "COORDINATES",
+       "appearSfx": "",
+       "direction": "offence",
+       "calculation": "static",
+       "description": "Dragon King's Impact v7 (hex size 1): rise slice on the caster (art only)",
+       "disappearSfx": "",
+       "powerPerLevel": 0,
+       "appearAnimation": "mB2F5kqImPij_1JAU_WN5",
+       "staticAnimation": "",
+       "staticAssetPath": "",
+       "disappearAnimation": "",
+       "coordinateTargeting": {
+        "origin": "CASTER",
+        "selection": "ALL",
+        "coordinates": [
+         {
+          "latitude": 0,
+          "longitude": 0
+         }
+        ],
+        "randomCount": 1
+       }
+      },
+      {
+       "type": "visual",
+       "power": 2,
+       "rounds": 1,
+       "target": "COORDINATES",
+       "appearSfx": "",
+       "direction": "offence",
+       "calculation": "static",
+       "description": "Dragon King's Impact v7 (hex size 1): dive slice 2 rows above the target (art only)",
+       "disappearSfx": "",
+       "powerPerLevel": 0,
+       "appearAnimation": "vzGzdJUyIvSFR-Vl-dSj3",
+       "staticAnimation": "",
+       "staticAssetPath": "",
+       "disappearAnimation": "",
+       "coordinateTargeting": {
+        "origin": "TARGET",
+        "selection": "ALL",
+        "coordinates": [
+         {
+          "latitude": -2,
+          "longitude": 0
+         }
+        ],
+        "randomCount": 1
+       }
+      },
+      {
+       "type": "visual",
+       "power": 2,
+       "rounds": 1,
+       "target": "COORDINATES",
+       "appearSfx": "",
+       "direction": "offence",
+       "calculation": "static",
+       "description": "Dragon King's Impact v7 (hex size 1): dive slice 1 row above the target (art only)",
+       "disappearSfx": "",
+       "powerPerLevel": 0,
+       "appearAnimation": "1lVv6Df19ckRErqd0lM3q",
+       "staticAnimation": "",
+       "staticAssetPath": "",
+       "disappearAnimation": "",
+       "coordinateTargeting": {
+        "origin": "TARGET",
+        "selection": "ALL",
+        "coordinates": [
+         {
+          "latitude": -1,
+          "longitude": 0
+         }
+        ],
+        "randomCount": 1
+       }
+      },
+      {
+       "type": "visual",
+       "power": 2,
+       "rounds": 1,
+       "target": "COORDINATES",
+       "appearSfx": "9-b8hbTXA019dgn8yyr3j",
+       "direction": "offence",
+       "calculation": "static",
+       "description": "Dragon King's Impact v7 (hex size 1): impact slice on the target (art only)",
+       "disappearSfx": "",
+       "powerPerLevel": 0,
+       "appearAnimation": "uRIsse-GUUg3iOGY3FsUI",
+       "staticAnimation": "",
+       "staticAssetPath": "",
+       "disappearAnimation": "",
+       "coordinateTargeting": {
+        "origin": "TARGET",
+        "selection": "ALL",
+        "coordinates": [
+         {
+          "latitude": 0,
+          "longitude": 0
+         }
+        ],
+        "randomCount": 1
+       }
+      }
+     ],
+     "target": "OPPONENT",
+     "range": 5,
+     "cooldown": 5,
+     "bloodlineId": "",
+     "requiredLevel": 1,
+     "requiredRank": "STUDENT",
+     "jutsuType": "SPECIAL",
+     "image": "https://utfs.io/f/Hzww9EQvYURJEDc0MKLfKL5D7TAFe29bymSaPCIQ846MdzGg",
+     "jutsuWeapon": "NONE",
+     "statClassification": "None",
+     "elementClassification": "None",
+     "battleDescription": "heals",
+     "jutsuRank": "D",
+     "actionCostPerc": 40,
+     "staminaCost": 175,
+     "chakraCost": 175,
+     "staminaCostReducePerLvl": 0,
+     "chakraCostReducePerLvl": 0,
+     "healthCostReducePerLvl": 0,
+     "healthCost": 0,
+     "villageId": "",
+     "requiredPetSpeciesId": null,
+     "method": "SINGLE",
+     "coordinateTargeting": null,
+     "methodSize": null,
+     "hidden": false,
+     "injectableInBattle": true,
+     "battleUsageType": "BOTH",
+     "reskinParentJutsuId": null,
+     "bloodlineReskinId": null,
+     "parentJutsuId": null,
+     "requiredNinjutsuMastery": null,
+     "requiredGenjutsuMastery": null,
+     "requiredTaijutsuMastery": null,
+     "requiredBukijutsuMastery": null,
+     "requiredBloodlineMastery": null,
+     "requiredSageMastery": null,
+     "requiredStrength": null,
+     "requiredSpeed": null,
+     "requiredIntelligence": null,
+     "requiredWillpower": null,
+     "requiredSkillId": null,
+     "requiredBloodlineItemId": null
+    }
+   }
+  }
+ ],
+ "journal": [
+  "director's go 2026-11-09T00:47:30Z: 'Lets upload tall pillar to the detour test jutsu'",
+  "uploaded via duet/moe-uploadthing run 42542253976",
+  "art on main 18ec5f5",
+  "DKI jutsu and pending ticket pWH6I2HsinORL3jlvp72v untouched"
+ ]
+}
