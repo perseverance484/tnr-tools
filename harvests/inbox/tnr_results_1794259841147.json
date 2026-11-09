@@ -1,0 +1,100 @@
+{
+ "builder": "forge-mcp",
+ "at": "2026-11-09T21:30:41.147Z",
+ "cfg": "forge",
+ "checks": null,
+ "state": "DONE",
+ "outcome": "success",
+ "postflight": {
+  "match": 1,
+  "diff": 0,
+  "unverified": 0,
+  "failed": 0,
+  "skipped": 0,
+  "unresolved": 0
+ },
+ "entries": [
+  {
+   "name": "Larry's Undertow: dialog tied to Larry",
+   "srcId": null,
+   "entity": "quest",
+   "slot": "edit",
+   "op": "update",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 26,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "4pNH8x9ZOOoIyERKSmPa-"
+  }
+ ],
+ "captures": [],
+ "idmap": {},
+ "journal": {
+  "v": 1,
+  "jobId": "550-mw9rw6s0",
+  "manifestPath": "push/550_larry_dialog_bind.json",
+  "manifestNumber": 550,
+  "manifestHash": "19e8915a",
+  "startedAt": "2026-11-09T21:28:11.864Z",
+  "updatedAt": "2026-11-09T21:30:41.145Z",
+  "state": "DONE",
+  "pause": null,
+  "items": [
+   {
+    "idx": 0,
+    "entity": "quest",
+    "op": "update",
+    "name": "Larry's Undertow: dialog tied to Larry",
+    "srcId": null,
+    "targetId": "4pNH8x9ZOOoIyERKSmPa-",
+    "payloadHash": "dad994a5",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "4pNH8x9ZOOoIyERKSmPa-",
+    "snapshotKey": null,
+    "sentAt": "2026-11-09T21:28:24.401Z",
+    "createSentAt": null,
+    "confirmedAt": "2026-11-09T21:30:27.615Z",
+    "verifiedAt": "2026-11-09T21:30:41.144Z",
+    "error": null,
+    "attempt": 1,
+    "asserted": [
+     "name",
+     "image",
+     "description",
+     "successDescription",
+     "questRank",
+     "requiredLevel",
+     "requiredFarmingLevel",
+     "prerequisiteQuestId",
+     "tierLevel",
+     "questType",
+     "content",
+     "hidden",
+     "consecutiveObjectives",
+     "teamEnabled",
+     "publicLocations",
+     "requiredVillage",
+     "requiredBloodlineId",
+     "requiredSageModeId",
+     "requiredSageRank",
+     "maxLevel",
+     "maxAttempts",
+     "maxCompletes",
+     "retryDelay",
+     "attemptDelay",
+     "endsAt",
+     "startsAt"
+    ],
+    "diffs": [],
+    "verify": "match"
+   }
+  ]
+ }
+}
