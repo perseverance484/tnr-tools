@@ -56,6 +56,7 @@ ITEM = {
     "Galley Stores": "D-QTnbjgTyIVc593zzdSB", "Skyglass Token": "nzCW7A-_AuYMzBs2wClnM",
     "Skyglass Coffer": "THo7rfzP-S82_43aN8fs3", "Sealed Treasury": "Ma8S90Nmbi0Xvm4u4FzJh",
     "Shard of the Keel": "uKnlqlfyE_k1QjLuaVml_",  # push/417 bundle tnr_results_1793716872408.json
+    "Wreck Salvage": "mW6_ZGtGcCSuXGPhn-H4o",  # push/539, hidden until the Friday go-live
     "Chart of the Split Hold": "@item:" + PFX + "split", "Chart of the Broken Stern": "@item:" + PFX + "stern",
 }
 QUEST = {  # live quest ids, for the Tally's orders
@@ -278,7 +279,7 @@ def beach():
         battle("b1", "keel_walk", "The Deck Warden calls the watch, and the Seal Charge comes in low.",
                ["chart:deck-warden", "chart:seal-charge"], "w_done"),
         win("w_done", "keel_walk", "The tideline is quiet until the next tide. You pick through what they were "
-            "guarding.", STEP_EXP["I"], []),
+            "guarding.", STEP_EXP["I"], [("Wreck Salvage", 100, 1)]),
         fail("keel_walk", "The watch drives you off the sand. The tide will turn again tomorrow."),
     ]
 
@@ -301,9 +302,9 @@ def split():
         battle("b3_star", "chart_room", "The Wayfinder marks you on his chart, and the Oathkeeper raises his blade.",
                ["driftline:wayfinder", "chart:oathkeeper"], "w_star"),
         win("w_port", "deck_b", "The armory is yours, what the sea left of it.", STEP_EXP["III"],
-            [("Sealed Treasury", 3), ("Chart of the Broken Stern", 20)]),
+            [("Wreck Salvage", 100, 2), ("Sealed Treasury", 3), ("Chart of the Broken Stern", 20)]),
         win("w_star", "chart_room", "The Wayfinder's chart is ruined, but the stores behind him are not.",
-            STEP_EXP["III"], [("Sealed Treasury", 3), ("Chart of the Broken Stern", 20)]),
+            STEP_EXP["III"], [("Wreck Salvage", 100, 2), ("Sealed Treasury", 3), ("Chart of the Broken Stern", 20)]),
         fail("hold", "The sea pours into the hold behind you, and the run is over."),
     ]
 
@@ -329,7 +330,7 @@ def stern():
         battle("b4", "helm", "The Driftline Captain lets go of the wheel.", ["driftline:captain"], "w_done"),
         win("w_done", "helm", "The Captain fades with his hands back on the wheel. The stern is quiet, and the tide "
             "lifts her a little, as if she were finally free to go.", STEP_EXP["IV"],
-            [("Sealed Treasury", 4), ("Chart of the Captain's Watch", 5)]),
+            [("Wreck Salvage", 100, 2), ("Sealed Treasury", 4), ("Chart of the Captain's Watch", 5)]),
         fail("helm", "The stern keeps her crew, and you wash back up on the sand."),
     ]
 
@@ -469,6 +470,14 @@ def check(items):
         if it["entity"] == "ai":
             cut = [e for e in it["data"]["effects"] if e["type"] == "decreasedamagegiven"]
             assert len(cut) == 1 and cut[0]["power"] == 50, it["name"]
+    # salvage on every Driftline run's win (Nov 13 plan: Beachcombing 1, Split Hold and Broken Stern 2 each)
+    want = {"Beachcombing": 1, "The Split Hold": 2, "The Broken Stern": 2}
+    for it in items:
+        if it["entity"] == "quest" and it["name"] in want:
+            for o in it["data"]["content"]["objectives"]:
+                if o["task"] == "win_quest":
+                    got = [r["quantity"] for r in o["reward_items"] if r["ids"] == [ITEM["Wreck Salvage"]]]
+                    assert got == [want[it["name"]]], (it["name"], o["id"], got)
     cap = [it for it in items if it["srcId"] == PFX + "captain"][0]
     assert any(e["type"] == "stunprevent" for e in cap["data"]["effects"])
 
@@ -495,7 +504,8 @@ def main():
                    "copied whole from push/560's capture; -50% damage given; Core Horror pools 6 -> 3, Captain 4 -> 2, "
                    "stun immunity kept). Two untradeable chart items (Chart of the Split Hold, Chart of the Broken "
                    "Stern; placeholder icons). Five quests: Into the Driftline (one-time), "
-                   "Beachcombing (daily), The Split Hold, The Broken Stern (chart runs), The Salvager's Tally. Every "
+                   "Beachcombing (daily), The Split Hold, The Broken Stern (chart runs), The Salvager's Tally. Wins pay Wreck "
+                   "Salvage (Beachcombing 1, the Split Hold and the Broken Stern 2). Every "
                    "fight scaled to the player with a full refill (givePools 100); a lost fight ends the run. Nothing "
                    "visible to players. Into, Beachcombing and the Tally are mastery so they can be playtested hidden; the go-live batch makes them overworld at the salvager's NPC (Into after Wreck Sighted), adds the Faded Wreck drop rows and unhides. Generated "
                    "by push/driftline.gen.py; do not hand-edit."),
