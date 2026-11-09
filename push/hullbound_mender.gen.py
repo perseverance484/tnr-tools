@@ -6,6 +6,7 @@
     python3 push/hullbound_mender.gen.py art --jutsu <575 bundle> --uploaded <uploaded.json>   # push/579: v2 clips
     python3 push/hullbound_mender.gen.py ais --jutsu <575 bundle> --fix <578 bundle>   # write push/576, AFTER 575 and 578
     python3 push/hullbound_mender.gen.py quest --ais <576 bundle> --jutsu <575 bundle> --fix <578 bundle>   # push/577
+    python3 push/hullbound_mender.gen.py fix2 --ais <576 bundle> --jutsu <575 bundle> --fix <578 bundle>   # push/581
     python3 push/hullbound_mender.gen.py check                          # offline: rule cadence and tile sets
 
 Design of record: docs/design/SKYGLASS_MENDER_PITCH.md (approved for the Nov 13 release; renamed from Okabe). Hull tile
@@ -22,7 +23,8 @@ So a turn is one of: a mark and a rivet; a payoff and a rivet; a tier mark and a
 The tiers no longer eat a payoff turn (the pitch's 40/60 split did; push/hullbound_mender.gen.py check shows both).
 
 Marker effects (on him only, harmless to him): Port increaserange, Starboard fleeprevent, Planks robprevent, tier mark
-increaseheal; each close adds summonprevent 25 for 100 rounds, so "closed >= k" is summonprevent >= 25k; a Splitter
+increaseheal; each close adds summonprevent 25 for 100 rounds (has_effect ignores thresholds live, so it only says
+"a tier has closed"; the closes run in order by rule position and cooldown, push/581); a Splitter
 break leaves decreasepoolcost 1 for 2 rounds, which puts Planks first on his next mark (Splitter and Hammerfall
 alternate instead of the tiers starving the Hammerfall).
 
@@ -38,7 +40,7 @@ import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 NANO = re.compile(r"^[A-Za-z0-9_-]{21}$")
-NUM = {"jutsu": 575, "ais": 576, "quest": 577, "fix": 578, "art": 579}
+NUM = {"jutsu": 575, "ais": 576, "quest": 577, "fix": 578, "art": 579, "fix2": 581}
 PFX = {"jutsu": "sg575_", "ais": "sg576_"}
 
 COLS, ROWS = 12, 10            # quest arena at level 40+ (combat battleMaps; pitch section 8)
@@ -195,10 +197,10 @@ def build_jutsu():
     after = marker("decreasepoolcost", 1, 2, "The Mender reaches for fresh planks")
     jutsu("port_break", "Keel Splits: Port", "Pierces everyone on the port half the chalk line marked.",
           "The deck splits along the chalk line, and the port side bursts up in splinters and glass.",
-          [dmg(POWER["splitter"], "pierce"), after], COST["payoff"], 2, PORT, target="CHARACTER")
+          [dmg(POWER["splitter"], "pierce"), after], COST["payoff"], 2, PORT)
     jutsu("starboard_break", "Keel Splits: Starboard", "Pierces everyone on the starboard half the chalk line marked.",
           "The deck splits along the chalk line, and the starboard side bursts up in splinters and glass.",
-          [dmg(POWER["splitter"], "pierce"), dict(after)], COST["payoff"], 2, STARBOARD, target="CHARACTER")
+          [dmg(POWER["splitter"], "pierce"), dict(after)], COST["payoff"], 2, STARBOARD)
     plank = fx("safe", rounds=2, power=PLANK_DR, target="INHERIT", friendlyFire="ENEMIES", calculation="percentage",
                type="decreasedamagetaken", description="Fresh Plank: 75% less damage from the mallet")
     jutsu("planks_a", "Fresh Planks", "Lays three warm new planks inside the hold. Stand on one before he swings.",
@@ -352,10 +354,10 @@ def mender_rules(J):
              use(J["port_break"], [has("increaserange")]),
              use(J["starboard_break"], [has("fleeprevent")]),
              use(J["hammerfall"], [has("robprevent")])]
-    # closes (34): the newest marked tier, gated on how many have closed
-    for k in (4, 3, 2, 1):
-        conds = [has("increaseheal")] + ([has(CLOSED, 25 * (k - 1))] if k > 1 else [])
-        rules.append(use(J[f"tier{k}_close"], conds))
+    # closes (34): in order 1 to 4. has_effect ignores its threshold live (hand run 2026-11-09: IV closed first), so
+    # the order comes from the rule list and each close's 100-round cooldown, not from summonprevent counts.
+    for k in (1, 2, 3, 4):
+        rules.append(use(J[f"tier{k}_close"], [has("increaseheal")]))
     # tier marks (67): health or round, whichever comes first, in order
     for k, hb, rg in TIERS:
         gate = [has(CLOSED, 25 * (k - 1))] if k > 1 else []
@@ -363,7 +365,7 @@ def mender_rules(J):
             rules.append(use(J[f"tier{k}_mark"], gate + [health_below(hb)]))
         rules.append(use(J[f"tier{k}_mark"], gate + [round_gt(rg)]))
     # marks (66): planks right after a split, then the Splitter (Starboard from round 5), then planks
-    rules += [use(J["planks_b"], [has("decreasepoolcost"), has(CLOSED, 100)]),
+    rules += [use(J["planks_b"], [has("decreasepoolcost"), round_gt(TIERS[3][2] + 1)]),
               use(J["planks_a"], [has("decreasepoolcost")]),
               use(J["starboard_mark"], [round_gt(4)]),
               use(J["port_mark"]),
@@ -696,6 +698,31 @@ def main():
               "Apprentice, the Bilge Crew, the Hullbound Mender; pick 2 of Coffer x2 / Sealed Treasury / Token x2 / "
               "Galley Stores x3; Lantern 30%, Core Rot 40%, Shard of the Keel 50%, Sealed Treasury 6%, 5,000 exp. "
               "Chart drop rows wait for the Friday go-live.", [q], {"_ai_ids": A, "_chart_id": J["chart"]})
+        return
+    if mode == "fix2":
+        # push/581: the two hand-run bugs (2026-11-09). Keel Splits break on GROUND (a CHARACTER cast found no target when
+        # nobody stood on starboard, so the payoff skipped), closes in order 1 to 4, Last Planks gated on the round.
+        J = ids_from_bundle(sys.argv[sys.argv.index("--jutsu") + 1], PFX["jutsu"], JUTSU, fix_arg())
+        art = json.load(open(sys.argv[sys.argv.index("--art") + 1]))["idmap"]
+        apply_art(lambda c: art["sg579_" + c])          # keep the live clips (579), not the stand-ins
+        A = reuse_ids()
+        assert set(A) >= {"mender"}, "--reuse mender=<id> (and the other three) from the 576 row"
+        mender = [x for x in build_ais(J) if x["srcId"] == PFX["ais"] + "mender"][0]
+        assert mender["targetId"] == A["mender"]
+        breaks = {J["port_break"], J["starboard_break"]}
+        off = json.loads(json.dumps(mender))            # law 18: unequip, edit, re-equip
+        off["data"]["jutsus"] = [j for j in off["data"]["jutsus"] if j not in breaks]
+        off["data"]["rules"] = [r for r in off["data"]["rules"] if r["action"].get("jutsuId") not in breaks]
+        off.update(srcId="sg581_mender_off", phase=1)
+        edits = [{"entity": "jutsu", "slot": "edit", "targetId": J[k], "srcId": "sg581_" + k, "phase": 2,
+                  "name": JUTSU[k]["name"], "data": JUTSU[k]} for k in ("port_break", "starboard_break")]
+        on = dict(mender, srcId="sg581_mender_on", phase=3)
+        write(NUM["fix2"], "hullbound_mender_order_fix",
+              "push/581, HIDDEN: the two Closing Hold bugs from the 2026-11-09 hand run. Keel Splits: Port/Starboard now "
+              "break on GROUND (the CHARACTER cast had no target when nobody stood on starboard, so the starboard payoff "
+              "skipped). The Mender's closes run in order I to IV (has_effect thresholds are ignored live, so IV closed "
+              "first); Last Planks waits for round 16. Law 18: the Mender drops both Keel Splits, they are edited, he "
+              "re-equips them with the new rules. Art kept at the 579 clips.", [off] + edits + [on])
         return
     print(__doc__)
     sys.exit(2)
