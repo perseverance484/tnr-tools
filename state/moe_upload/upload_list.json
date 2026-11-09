@@ -1,5 +1,5 @@
 {
- "_note": "push/506 asset creates not yet live (351 of 973 ran 2026-11-06; idmap tnr_results_1794006062657). Uploaded to the director's own UploadThing app by .github/workflows/moe_upload.yml (2026-11-07, director's request); results in uploaded.json. Each file is the source sheet reduced 3x to the 50 px-wide sheet the game's CDN serves (every source is an exact 3x nearest upscale, checked), so these match the 351 already live. Plus avatar_moe_absence_a7.webp at full size, like the other MoE avatars (the only @img in 506 not already uploaded). 2026-11-08: plus anim_moe_etch2_seam_p3_9 (asset GT5IvHAP5vaPg-wCa0E8u, created in 506 but its image never filled). 2026-11-08: plus the 8 Dragon King's Impact v6l strips (dki533_*, push/533 on main), native 112 px, director's yes 23:52 UTC. 2026-11-09: plus the 6 Dragon King's Impact v7b tall-pillar strips (dki_v7b_*, hex size 1), director's yes 00:47 UTC.",
+ "_note": "push/506 asset creates not yet live (351 of 973 ran 2026-11-06; idmap tnr_results_1794006062657). Uploaded to the director's own UploadThing app by .github/workflows/moe_upload.yml (2026-11-07, director's request); results in uploaded.json. Each file is the source sheet reduced 3x to the 50 px-wide sheet the game's CDN serves (every source is an exact 3x nearest upscale, checked), so these match the 351 already live. Plus avatar_moe_absence_a7.webp at full size, like the other MoE avatars (the only @img in 506 not already uploaded). 2026-11-08: plus anim_moe_etch2_seam_p3_9 (asset GT5IvHAP5vaPg-wCa0E8u, created in 506 but its image never filled). 2026-11-08: plus the 8 Dragon King's Impact v6l strips (dki533_*, push/533 on main), native 112 px, director's yes 23:52 UTC. 2026-11-09: plus the 6 Dragon King's Impact v7b tall-pillar strips (dki_v7b_*, hex size 1), director's yes 00:47 UTC. Plus the v7b smoulder loop (dki_v7b_smoulder), director's yes 01:05 UTC.",
  "manifest": "push/506_master_2026-11-06.json",
  "files": [
   {
@@ -8295,6 +8295,19 @@
    "size": [
     112,
     2128
+   ]
+  },
+  {
+   "srcId": "dki_v7b_smoulder",
+   "file": "anim_dragon_king_v7b_hv32_smoulder.webp",
+   "path": "state/moe_upload/dki/anim_dragon_king_v7b_hv32_smoulder.webp",
+   "sha256": "b40950a4f328b44a51e659ab95aef2ee79ce4491d19bed1959934ad94d8236d0",
+   "bytes": 83220,
+   "srcPath": "art/dragon_king_impact/exports/anim_dragon_king_v7b_hv32_smoulder.webp",
+   "srcSha256": "b40950a4f328b44a51e659ab95aef2ee79ce4491d19bed1959934ad94d8236d0",
+   "size": [
+    112,
+    2688
    ]
   }
  ]
