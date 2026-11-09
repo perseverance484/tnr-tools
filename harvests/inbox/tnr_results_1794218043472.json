@@ -1,0 +1,117 @@
+{
+ "builder": "forge-mcp",
+ "at": "2026-11-09T09:54:03.472Z",
+ "cfg": "forge",
+ "checks": null,
+ "state": "DONE",
+ "outcome": "success",
+ "postflight": {
+  "match": 2,
+  "diff": 0,
+  "unverified": 0,
+  "failed": 0,
+  "skipped": 0,
+  "unresolved": 0
+ },
+ "entries": [
+  {
+   "name": "Salvage Swap Test: Grant: questType mastery (test start)",
+   "srcId": null,
+   "entity": "quest",
+   "slot": "edit",
+   "op": "update",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 1,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "x5-kg5W6sHoyXM8yJk-M4"
+  },
+  {
+   "name": "Salvage Swap Test: Tide Chart: questType mastery (test start)",
+   "srcId": null,
+   "entity": "quest",
+   "slot": "edit",
+   "op": "update",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 1,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "cRbdFOUqJLQIgBV0EKTx7"
+  }
+ ],
+ "captures": [],
+ "idmap": {},
+ "journal": {
+  "v": 1,
+  "jobId": "541-mw930wbl",
+  "manifestPath": "push/541_salvage_swap_test_mastery.json",
+  "manifestNumber": 541,
+  "manifestHash": "b521e256",
+  "startedAt": "2026-11-09T09:52:01.186Z",
+  "updatedAt": "2026-11-09T09:54:03.469Z",
+  "state": "DONE",
+  "pause": null,
+  "items": [
+   {
+    "idx": 0,
+    "entity": "quest",
+    "op": "update",
+    "name": "Salvage Swap Test: Grant: questType mastery (test start)",
+    "srcId": null,
+    "targetId": "x5-kg5W6sHoyXM8yJk-M4",
+    "payloadHash": "a9f4ea8f",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "x5-kg5W6sHoyXM8yJk-M4",
+    "snapshotKey": null,
+    "sentAt": "2026-11-09T09:52:13.240Z",
+    "createSentAt": null,
+    "confirmedAt": "2026-11-09T09:52:42.451Z",
+    "verifiedAt": "2026-11-09T09:52:54.132Z",
+    "error": null,
+    "attempt": 1,
+    "asserted": [
+     "questType"
+    ],
+    "diffs": [],
+    "verify": "match"
+   },
+   {
+    "idx": 1,
+    "entity": "quest",
+    "op": "update",
+    "name": "Salvage Swap Test: Tide Chart: questType mastery (test start)",
+    "srcId": null,
+    "targetId": "cRbdFOUqJLQIgBV0EKTx7",
+    "payloadHash": "59435709",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "cRbdFOUqJLQIgBV0EKTx7",
+    "snapshotKey": null,
+    "sentAt": "2026-11-09T09:53:03.571Z",
+    "createSentAt": null,
+    "confirmedAt": "2026-11-09T09:53:47.293Z",
+    "verifiedAt": "2026-11-09T09:54:03.468Z",
+    "error": null,
+    "attempt": 1,
+    "asserted": [
+     "questType"
+    ],
+    "diffs": [],
+    "verify": "match"
+   }
+  ]
+ }
+}

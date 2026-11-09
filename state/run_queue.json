@@ -318,6 +318,26 @@
     "dauntless's go on the full Friday Skyglass release"
    ],
    "note": "Ships inside this week's single Skyglass release (Fri Nov 13, 6 PM CT) with the rest of the larger update, per dauntless Nov 9. Nothing added tonight; all 3 charts and 3 runs stay hidden until his go on the full release."
+  },
+  {
+   "id": "540",
+   "manifest": "push/540_salvage_swap_test.json",
+   "what": "Hidden Salvager's Trade swap test: Wreck Salvage item, harmless one-hit Wreck Test Husk, grant quest and trade quest (4 salvage entry, pays Tide Chart x1)",
+   "runner": "mcp",
+   "status": "done",
+   "waitsFor": [],
+   "note": "Ran 2026-11-09 by Duet via mcp_run; verified hidden. Test only, never goes live. Bundle harvests/inbox/tnr_results_1794216102650.json. (Okabe hull test used the label 539 separately.)"
+  },
+  {
+   "id": "541",
+   "manifest": "push/541_salvage_swap_test_mastery.json",
+   "what": "Swap-test quests event -> mastery so they start in Shirohana (no Administration Building)",
+   "runner": "mcp",
+   "status": "done",
+   "waitsFor": [
+    "540"
+   ],
+   "note": "Ran 2026-11-09; 2/2 verified. Swap test then run on dauntless: 4 salvage taken at quest start, Tide Chart x1 paid, husk only ended its turn (5050/5050 HP). Bundle harvests/inbox/tnr_results_1794218043472.json."
   }
  ]
 }
