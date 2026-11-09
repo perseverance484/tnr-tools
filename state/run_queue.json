@@ -518,12 +518,12 @@
       "manifest": "push/583_the_whole_wreck.json",
       "what": "The Whole Wreck: one HIDDEN staff walk-through quest (battlepyramid, NOT isolated, rank D, no entry item). The salvager explains each Skyglass piece, hands over the real items (Tide Chart, 30 Wreck Salvage, 6 deep charts, Closing Hold chart, Lantern, 4 MoE shards) and offers each boss as players face it, or Move on. Reuses live AIs only.",
       "runner": "connector",
-      "status": "waiting",
-      "waitsFor": [
-        "run lock after the MoE practice rerun"
-      ],
+      "status": "done",
+      "waitsFor": [],
       "build": "python3 push/whole_wreck.gen.py",
-      "note": "Master-quest thread. dauntless go 2026-11-09 22:55 UTC ('build the whole wreck now, hidden, for staff testing'). Never make it questType event: converting to event bulk-assigns it to every active user, hidden or not (quests.ts ~986). Read back: hidden true, battlepyramid, isolated false, 32 objectives from d_s1 to w_done, reward_items on d_s1/d_s3/d_s5/d_s7/d_s8/d_s9, b_m2/b_m3 without givePools. Then hand test on dauntless in the master-quest thread's lock turn."
+      "note": "Master-quest thread. dauntless go 2026-11-09 22:55 UTC ('build the whole wreck now, hidden, for staff testing'). Never make it questType event: converting to event bulk-assigns it to every active user, hidden or not (quests.ts ~986). Read back: hidden true, battlepyramid, isolated false, 32 objectives from d_s1 to w_done, reward_items on d_s1/d_s3/d_s5/d_s7/d_s8/d_s9, b_m2/b_m3 without givePools. Then hand test on dauntless in the master-quest thread's lock turn.",
+      "bundle": "harvests/inbox/tnr_results_1794267386373.json",
+      "result": "Created hidden quest VcZuZmu4db0A6EF32WW3h 2026-11-09 23:36 UTC; read back VERIFIED (battlepyramid, hidden, not isolated, 32 objectives)."
     }
   ]
 }

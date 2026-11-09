@@ -1,0 +1,97 @@
+{
+ "builder": "forge-mcp",
+ "at": "2026-11-09T23:36:26.373Z",
+ "cfg": "forge",
+ "checks": null,
+ "state": "DONE",
+ "outcome": "success",
+ "postflight": {
+  "match": 1,
+  "diff": 0,
+  "unverified": 0,
+  "failed": 0,
+  "skipped": 0,
+  "unresolved": 0
+ },
+ "entries": [
+  {
+   "name": "The Whole Wreck",
+   "srcId": "ww_quest",
+   "entity": "quest",
+   "slot": "create",
+   "op": "create",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 21,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "VcZuZmu4db0A6EF32WW3h"
+  }
+ ],
+ "captures": [],
+ "idmap": {
+  "ww_quest": "VcZuZmu4db0A6EF32WW3h"
+ },
+ "journal": {
+  "v": 1,
+  "jobId": "583-mw9wb3q0",
+  "manifestPath": "push/583_the_whole_wreck.json",
+  "manifestNumber": 583,
+  "manifestHash": "42c13692",
+  "startedAt": "2026-11-09T23:31:46.203Z",
+  "updatedAt": "2026-11-09T23:36:26.367Z",
+  "state": "DONE",
+  "pause": null,
+  "items": [
+   {
+    "idx": 0,
+    "entity": "quest",
+    "op": "create",
+    "name": "The Whole Wreck",
+    "srcId": "ww_quest",
+    "targetId": null,
+    "payloadHash": "dd181db0",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "VcZuZmu4db0A6EF32WW3h",
+    "snapshotKey": "tnr_forge_snap_v1:583-mw9wb3q0:quest",
+    "sentAt": "2026-11-09T23:33:53.800Z",
+    "createSentAt": "2026-11-09T23:32:06.695Z",
+    "confirmedAt": "2026-11-09T23:36:13.658Z",
+    "verifiedAt": "2026-11-09T23:36:26.366Z",
+    "error": null,
+    "attempt": 2,
+    "asserted": [
+     "name",
+     "description",
+     "image",
+     "questType",
+     "questRank",
+     "successDescription",
+     "retryDelay",
+     "attemptDelay",
+     "consecutiveObjectives",
+     "hidden",
+     "requiredLevel",
+     "maxLevel",
+     "maxAttempts",
+     "maxCompletes",
+     "prerequisiteQuestId",
+     "tierLevel",
+     "requiredVillage",
+     "requiredBloodlineId",
+     "startsAt",
+     "endsAt",
+     "content"
+    ],
+    "diffs": [],
+    "verify": "match"
+   }
+  ]
+ }
+}
