@@ -321,12 +321,12 @@
   },
   {
    "id": "540",
-   "manifest": "push/540_salvage_swap_test.json",
-   "what": "Hidden Salvager's Trade swap test: Wreck Salvage item, harmless one-hit Wreck Test Husk, grant quest and trade quest (4 salvage entry, pays Tide Chart x1)",
+   "manifest": "push/539_salvage_swap_test.json + push/540_salvage_swap_test_quests.json",
+   "what": "Hidden Salvager's Trade swap test: Wreck Salvage item and harmless Wreck Test Husk (539), then grant quest and trade quest with 4 salvage entry paying Tide Chart x1 (540)",
    "runner": "mcp",
    "status": "done",
    "waitsFor": [],
-   "note": "Ran 2026-11-09 by Duet via mcp_run; verified hidden. Test only, never goes live. Bundle harvests/inbox/tnr_results_1794216102650.json. (Okabe hull test used the label 539 separately.)"
+   "note": "Ran 2026-11-09 by Duet via mcp_run; verified hidden. Test only, never goes live. Bundle harvests/inbox/tnr_results_1794216102650.json. push/539 number also used by the Okabe hull test (539_okabe_hull_test.json); both are separate files."
   },
   {
    "id": "541",
