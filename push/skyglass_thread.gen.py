@@ -36,7 +36,8 @@ import skyglass_text as T  # noqa: E402
 
 SHARED = "Salvager's thread"
 WRECK_Q, FIRE_Q = "Wreck Sighted (thread)", "At the Salvager's Fire"
-WRECK_SIGHTED_ID = "_zp1l7Y9a_77pgonAdsYx"   # live, published by push/507
+WRECK_SIGHTED_ID = "_zp1l7Y9a_77pgonAdsYx"
+NPC_PLACEMENT = "goagM4WhKWtnVb8oP5euM"   # the salvager's one overworld NPC (sector 210)   # live, published by push/507
 TIDE_CHART = "H1s2IwtZ5JqgPEoJ55IVj"
 SALVAGER = "Xugt7415D3-tepLfxpwM5"           # PT01 scene character (push/374)
 SHORE = "rX78pJPETsUL2JrsSvGHn"              # the shore scene background (push/385)
@@ -296,7 +297,10 @@ def golive(bundle_paths, live_path):
     items.append({"entity": "quest", "slot": "edit", "targetId": ids["sg509_fire"], "phase": 2,
                   "name": "At the Salvager's Fire: publish", "data": fire})
     wreck = {k: v for k, v in live.items() if k not in ("id", "createdAt", "updatedAt")}
-    wreck["content"] = dict(live["content"], objectives=resolve(objectives("wreck")), sceneBackground=SHORE,
+    # Every dialog step tied to her NPC: tapping her opens the scene and choices, no roll (director 2026-11-09 20:21).
+    wobjs = [dict(o, overworldPlacementId=NPC_PLACEMENT) if o["task"] == "dialog" else o
+             for o in resolve(objectives("wreck"))]
+    wreck["content"] = dict(live["content"], objectives=wobjs, sceneBackground=SHORE,
                             sceneCharacters=[SALVAGER])
     wreck["questType"] = "overworld"  # one-off at her NPC, no longer an Administration Building event (15:58)
     items.append({"entity": "quest", "slot": "edit", "targetId": WRECK_SIGHTED_ID, "phase": 2,

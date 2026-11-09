@@ -150,7 +150,7 @@
     "director go"
    ],
    "build": "python3 push/skyglass_thread.gen.py golive --from <509 bundle> --live <live read of Wreck Sighted taken AFTER Duet's change>",
-   "note": "Rewrites the whole Wreck Sighted record: build from a read taken after Duet's overworld change so questType and placement carry over (golive copies every field but content.objectives/scene). Also rewrites the Fire quest. The shards topic is held back until the Mother of Echoes is live (RUL-2026-11-09-140). Director 2026-11-09 19:57 (relayed): the Fire stays an Administration Building event (no reward, no daily NPC roll); 510 only adds Wreck Sighted as its prerequisite and unhides it. Wreck Sighted still goes overworld at her NPC. Wreck Sighted's z_chart text now points to the Fire in Events."
+   "note": "Rewrites the whole Wreck Sighted record: build from a read taken after Duet's overworld change so questType and placement carry over (golive copies every field but content.objectives/scene). Also rewrites the Fire quest. The shards topic is held back until the Mother of Echoes is live (RUL-2026-11-09-140). Director 2026-11-09 19:57 (relayed): the Fire stays an Administration Building event (no reward, no daily NPC roll); 510 only adds Wreck Sighted as its prerequisite and unhides it. Wreck Sighted still goes overworld at her NPC. Wreck Sighted's z_chart text now points to the Fire in Events. 2026-11-09 20:21 director go: golive ties every Wreck Sighted dialog step to her placement goagM4WhKWtnVb8oP5euM; the Fire (Admin Building event) stays unbound."
   },
   {
    "id": "512",
@@ -369,6 +369,30 @@
    "note": "Director 2026-11-09 19:57 (relayed): the no-reward Fire stays an event quest at the Administration Building so the tutorial costs no daily NPC roll. Hidden text edit only; stays questType event. Built by skyglass_thread.gen.py firetext --num 548 from the 509 bundle. Gates 0 errors."
   },
   {
+   "id": "549",
+   "manifest": "push/549_larry_capture.json",
+   "what": "Read-only capture of Larry's Undertow for the dialog binding",
+   "runner": "mcp",
+   "status": "ready",
+   "waitsFor": [
+    "run lock"
+   ],
+   "note": "Director go 2026-11-09 20:21 ('fix Larry too')."
+  },
+  {
+   "id": "550",
+   "manifest": null,
+   "what": "Larry's Undertow (LIVE): tie its 14 dialog steps to Larry's placement so taps show the scenes",
+   "runner": "mcp",
+   "status": "waiting",
+   "waitsFor": [
+    "549 bundle",
+    "run lock"
+   ],
+   "build": "python3 push/larry_bind.gen.py --from <549 bundle>",
+   "note": "Director go 2026-11-09 20:21 ('Tie them and fix Larry too'). Then check live: tap Larry with dauntless by hand."
+  },
+  {
    "id": "560",
    "manifest": "push/560_driftline_source_capture.json",
    "what": "Read-only capture of the three Faded source records (Wayfinder, Core Horror, Captain) for the Driftline copies",
@@ -453,7 +477,7 @@
    "waitsFor": [
     "dauntless trade test"
    ],
-   "note": "Run after the hidden trade test on dauntless; overworld quests can't be started from the quest log."
+   "note": "Run after the hidden trade test on dauntless; overworld quests can't be started from the quest log. 2026-11-09 20:21 director go: every dialog step now tied to her placement goagM4WhKWtnVb8oP5euM (taps on her show the scenes). Run after the unbound dauntless test; bound steps only work once her placement is active (Friday live check)."
   }
  ]
 }
