@@ -1,10 +1,11 @@
 {
- "holder": null,
- "token": null,
- "job": null,
- "releasedBy": "claude",
- "releasedInstance": null,
- "releasedJob": "MoE practice run 5 (pyramid active: editor writes refused ~1h)",
- "releasedAt": "2026-11-09T20:38:47.577Z",
- "note": "Free. Claim with node forge/tools/run_lock.mjs claim --holder NAME --job TEXT (RUL-2026-11-07-133)."
+ "holder": "claude",
+ "job": "push/561 Driftline hidden build",
+ "token": "ca77684dd56e4225ab2c31c6906de2aa",
+ "instance": "/mnt/project-files/tnr/driftline/state",
+ "ttlMinutes": 60,
+ "claimedAt": "2026-11-09T20:40:01.593Z",
+ "heartbeatAt": "2026-11-09T20:40:01.593Z",
+ "expiresAt": "2026-11-09T21:40:01.593Z",
+ "note": "One game writer per account at a time (RUL-2026-11-07-133). Written only by forge/tools/run_lock.mjs or Forge; do not hand-edit."
 }
