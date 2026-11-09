@@ -1,6 +1,6 @@
 # Skill overhaul: implementation brief
 
-Status: DRAFT for the director's approval (2026-11-09). Once approved, this file is the build
+Status: APPROVED by the director 2026-11-09 (decisions in §11, RUL-2026-11-09-137). This file is the build
 contract (CLAUDE.md §11). The roadmap it implies can be loaded as a content workstream
 (`python3 scripts/content_workstream.py`), but this brief still governs.
 
@@ -71,8 +71,9 @@ The overhaul turns that practice into skills, templates, libraries and tools.
   pinned game source. Eval runs build manifests; they do not run them.
 - **Game engine execution.** The encounter simulator (§5.4) runs the game's combat engine offline,
   in a socket-denied child. CLAUDE.md §6 says to read the source but not run it unless a task
-  authorizes execution. **This brief asks the director to authorize that one use** (§11, decision 1).
-  Until he does, the simulator phase stays read-only design work.
+  authorizes execution. **The director authorized that use as standing design-time tooling**
+  (RUL-2026-11-09-137): offline, socket-denied, pinned engine SHA, no network, no credentials, never
+  the live game.
 - **Gates.** Every phase passes:
   - doctrine: `doctrinemap.py`, `render_doctrine.py --check`, `build_packs.py --check`, `lawmap.py`;
   - its own selftests: socket-free, with exit codes never masked.
@@ -466,21 +467,24 @@ Examples:
 
 ---
 
-## 11. Director decisions needed
+## 11. Director decisions (taken 2026-11-09, RUL-2026-11-09-137)
 
-1. **Authorize the encounter simulator to run the game's combat engine offline** (socket-denied,
-   pinned SHA, no network, no credentials) as standing, design-time tooling. This was used for
-   Mother of Echoes, but it was never written down as a ruling. It is needed for P4.
-2. **Clear-rate and timing targets per content kind:** finale boss, event boss, dungeon floor,
-   weekly page. Start from the Mother of Echoes numbers.
-3. **Reward-table gaps** P0 finds (ratify, or leave as slots).
-4. **Skill names and split:** `designing-tnr-content` and `animating-tnr-combat`, or fold animation
-   into `producing-tnr-art`.
-5. **Who implements:** a Fable or Claude session per phase, or Duet for P0 inventory.
-6. **Account installation:** whether skills update in your account from `dist/*.zip` per phase, or
-   once at P7.
-
----
+1. **Engine execution: AUTHORIZED.** The encounter simulator may run the game's combat engine offline
+   as standing design-time tooling: socket-denied, pinned engine SHA, no network, no credentials,
+   never the live game.
+2. **Clear-rate and timing targets: to be reviewed in detail with the director.** P4 brings the
+   Mother of Echoes numbers and a proposed table per content kind (finale boss, event boss, dungeon
+   floor, weekly page) as a go card. Until then the simulator reports measured rates without a
+   pass/fail verdict.
+3. **Reward-table gaps: reviewed with the director when P0 finds them.** Each gap is listed in
+   `INVENTORY.md` and stays an open slot in the tools until ruled.
+4. **Names and split: as proposed.** Two new skills, `designing-tnr-content` and
+   `animating-tnr-combat`. Animation stays out of `producing-tnr-art`, which is still art.
+5. **Implementer: a separate Claude agent (Fable 5.2, medium effort), started by the director.** One
+   phase per handoff; ChatGPT reviews each frozen SHA.
+6. **Installation: as soon as each skill is complete.** When a phase completes a skill, or an update
+   to one, and its review passes, the implementer builds its `dist/*.zip` through the existing
+   `skillpack.yml` path and tells the director it is ready to install. Do not wait for P7.
 
 ## 12. Handoff per phase
 

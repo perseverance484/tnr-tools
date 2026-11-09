@@ -6306,3 +6306,21 @@ The acceptance carries to rebuilds of 466 (the pass-6 SPEC_REF bump, the art-QA 
 **Evidence:** Director, 2026-11-07: the text should say the Administration Building, "and there is one at Wake Island". Director, 2026-11-09, to "Should I fix her three lines and run her scenes hidden so you can playtest before Friday?": "That works for now." Shards topic left out for the hidden run (still undecided; relayed 2026-11-09).
 
 **Canonical destination:** `docs/design/SKYGLASS_TEXT.md` §1b; `push/skyglass_thread.gen.py`; push/509; `state/run_queue.json`.
+
+## RUL-2026-11-09-137 — Skill overhaul approved; the encounter simulator may run the engine offline
+
+**Date:** 2026-11-09
+
+**Domain:** skills / design tooling / engine execution
+
+**Status:** ACTIVE.
+
+**Ruling:**
+1. `state/prompt_skill_overhaul.md` is approved as the build contract for the skill overhaul. That covers the new `designing-tnr-content` and `animating-tnr-combat` skills and the updates to the two existing ones.
+2. The encounter simulator may run the game's combat engine offline as standing design-time tooling: socket-denied, pinned engine SHA, no network, no credentials, never the live game. This is the explicit authorization CLAUDE.md §6 requires, and it covers that tool only.
+3. Clear-rate and timing targets and reward-table gaps come back to the director for detailed review. The tools leave them open until ruled.
+4. The implementer is a separate Claude agent (Fable 5.2, medium), one phase per reviewed handoff. Each completed skill is packaged and offered for installation as soon as its review passes.
+
+**Evidence:** Director, 2026-11-09: "1. Authorized. 2. We'll review in detail 3. We'll review when that happens 4. Whatever is appropriate 5. Separate Claude agent ... Fable 5.2 medium 6. As soon as they are complete".
+
+**Canonical destination:** `state/prompt_skill_overhaul.md` §2 and §11.
