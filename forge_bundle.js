@@ -3702,10 +3702,11 @@
     "rules",
     "includeDefaultRules"
   ]);
+  var ISO_DATE = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?Z$/;
   function mergeAi(live, data) {
     const out = {};
     if (live) {
-      for (const [k, v] of Object.entries(live)) if (!AI_OMIT.has(k)) out[k] = v;
+      for (const [k, v] of Object.entries(live)) if (!AI_OMIT.has(k) && !(typeof v === "string" && ISO_DATE.test(v) && !(k in data))) out[k] = v;
     }
     if (live && Array.isArray(live.jutsus)) out.jutsus = live.jutsus.map((r) => typeof r === "string" ? r : r.jutsuId ?? r.id).filter(Boolean);
     if (live && Array.isArray(live.items)) {

@@ -35,9 +35,9 @@ NPC_PLACEMENT = "goagM4WhKWtnVb8oP5euM"     # her one overworld NPC (sector 210)
 HUSK = "Yk1LNNncF2dt7jY_TVSXc"              # the harmless end_turn husk (push/539)
 WRECK_SIGHTED = "_zp1l7Y9a_77pgonAdsYx"     # push/507
 GRANT_QID = "x5-kg5W6sHoyXM8yJk-M4"         # Salvage Swap Test: Grant (hidden, test only)
-IDS = {}  # tier key -> live quest id, filled from push/542_ids.json once 542 has run
-if os.path.exists(os.path.join(ROOT, "push/542_ids.json")):
-    IDS = json.load(open(os.path.join(ROOT, "push/542_ids.json")))
+IDS = {}  # tier key -> live quest id, filled from state/salvager_trade/542_ids.json once 542 has run
+if os.path.exists(os.path.join(ROOT, "state/salvager_trade/542_ids.json")):
+    IDS = json.load(open(os.path.join(ROOT, "state/salvager_trade/542_ids.json")))
 
 CH = {
     "tide": ("H1s2IwtZ5JqgPEoJ55IVj", "Tide Chart"),
@@ -195,6 +195,6 @@ def final(ids):
 
 if __name__ == "__main__":
     if "--final" in sys.argv:
-        final(json.load(open(os.path.join(ROOT, "push/542_ids.json"))))
+        final(json.load(open(os.path.join(ROOT, "state/salvager_trade/542_ids.json"))))
     else:
         build()
