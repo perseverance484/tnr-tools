@@ -38,6 +38,13 @@ CAPTAIN_GETAI = "state/driftline/faded_captain_getAi_20261109.json"
 LEVELS = (30, 80)          # dauntless's default; 30 to 79 is the other option
 TRADEABLE = False          # dauntless's default: band charts untradeable
 TALLY_FINAL = "Shard of the Keel"  # dauntless's default; the other option is a second Skyglass Token
+# Into the Driftline, Beachcombing and the Tally are handed out by the salvager's one overworld NPC (director
+# 2026-11-09 15:58: "just 1 overworld NPC"; the trades and the entry quest need her first quest). Overworld quests start
+# only from an NPC roll and her placement is inactive until release, so the hidden build uses mastery (startable from
+# the quest log, as push/542 does for the trades) with no prerequisite on Into. The go-live batch sets questType
+# overworld and Into's prerequisite, Wreck Sighted. maxAttempts stays 100 (lifetime for overworld), so a lost
+# Into fight can be tried again; maxCompletes 1 keeps Into and the Tally one-time.
+HANDOUT = "mastery"
 
 # ---------------------------------------------------------------------------------------------------------------
 # Live ids
@@ -341,8 +348,6 @@ def quest(key, name, objs, *, desc, success, rank="C", qtype="battlepyramid", en
             "hidden": True, "requiredLevel": levels[0], "maxLevel": levels[1], "maxAttempts": 100,
             "maxCompletes": completes, "prerequisiteQuestId": prereq, "tierLevel": None, "requiredVillage": None,
             "requiredBloodlineId": None, "startsAt": None, "endsAt": None, "content": content}
-    if completes == 1 and qtype == "event":
-        data["maxAttempts"] = 1
     return {"entity": "quest", "slot": "create", "srcId": PFX + "q_" + key, "phase": phase, "name": name, "data": data}
 
 
@@ -384,13 +389,13 @@ def build():
     prof, rules = load_sources()
     items = [ai_entry(k, prof, rules) for k in RECORDS] + [item_entry(k) for k in CHARTS]
     intro = ("<br><br><i>" + CARD_LINE + " " + RUN_RULES + "</i>")
-    items.append(quest("into", "Into the Driftline", into(), prereq=QUEST["Wreck Sighted"], completes=1, phase=2,
+    items.append(quest("into", "Into the Driftline", into(), prereq=None, qtype=HANDOUT, completes=1, phase=2,
                        desc="The salvager has found something on the beach below the Wreck: pieces of her, broken off "
                             "and drifted ashore, with Faded crew still standing their posts. She wants you to see."
                             + intro,
-                       success="The salvager showed you the Driftline. Its runs wait for you in the Battle Arena."))
+                       success="The salvager showed you the Driftline. Come back to her fire each day to walk the tideline, and carry its charts to the Battle Arena."))
     ref = "@quest:" + PFX + "q_into"
-    items.append(quest("beach", "Beachcombing", beach(), prereq=ref, retry="daily", pick=BEACH_PICK,
+    items.append(quest("beach", "Beachcombing", beach(), prereq=ref, qtype=HANDOUT, retry="daily", pick=BEACH_PICK,
                        desc="Every tide leaves more of the Wreck on the sand, and more of her crew walking it. Once a "
                             "day, walk the tideline and take what they guard." + intro,
                        success="You walked the tideline and came back with the tide's leavings."))
@@ -406,7 +411,7 @@ def build():
                        success="The Broken Stern is quiet, and its Captain has let go of the wheel."))
     final = {"reward_items": [{"ids": [ITEM[TALLY_FINAL]], "number": 100, "quantity": 1},
                               {"ids": [ITEM["Skyglass Token"]], "number": 100, "quantity": 1}]}
-    items.append(quest("tally", "The Salvager's Tally", tally(), prereq=ref, qtype="event", rank="D", completes=1,
+    items.append(quest("tally", "The Salvager's Tally", tally(), prereq=ref, qtype=HANDOUT, rank="D", completes=1,
                        levels=(LEVELS[0], 100), desc=TALLY_DESC, extra=final,
                        success="Tally complete. The salvager presses a shard of the keel into your hand. \"You've earned "
                                "the deep. Don't drown in it.\""))
@@ -489,10 +494,10 @@ def main():
                    "it'). Three AI copies of the live Faded Wayfinder, Core Horror and Captain (kit, rules and sprite "
                    "copied whole from push/560's capture; -50% damage given; Core Horror pools 6 -> 3, Captain 4 -> 2, "
                    "stun immunity kept). Two untradeable chart items (Chart of the Split Hold, Chart of the Broken "
-                   "Stern; placeholder icons). Five quests: Into the Driftline (one-time, after Wreck Sighted), "
+                   "Stern; placeholder icons). Five quests: Into the Driftline (one-time), "
                    "Beachcombing (daily), The Split Hold, The Broken Stern (chart runs), The Salvager's Tally. Every "
                    "fight scaled to the player with a full refill (givePools 100); a lost fight ends the run. Nothing "
-                   "visible to players. Faded Wreck drop rows and the unhide are the Friday go-live batch. Generated "
+                   "visible to players. Into, Beachcombing and the Tally are mastery so they can be playtested hidden; the go-live batch makes them overworld at the salvager's NPC (Into after Wreck Sighted), adds the Faded Wreck drop rows and unhides. Generated "
                    "by push/driftline.gen.py; do not hand-edit."),
          "dedupNames": True, "items": items}
     path = os.path.join(ROOT, "push", f"{NUM}_driftline_build.json")
