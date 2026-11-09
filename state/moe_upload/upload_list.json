@@ -1,5 +1,5 @@
 {
- "_note": "push/506 asset creates not yet live (351 of 973 ran 2026-11-06; idmap tnr_results_1794006062657). Uploaded to the director's own UploadThing app by .github/workflows/moe_upload.yml (2026-11-07, director's request); results in uploaded.json. Each file is the source sheet reduced 3x to the 50 px-wide sheet the game's CDN serves (every source is an exact 3x nearest upscale, checked), so these match the 351 already live. Plus avatar_moe_absence_a7.webp at full size, like the other MoE avatars (the only @img in 506 not already uploaded). 2026-11-08: plus anim_moe_etch2_seam_p3_9 (asset GT5IvHAP5vaPg-wCa0E8u, created in 506 but its image never filled). 2026-11-08: plus the 8 Dragon King's Impact v6l strips (dki533_*, push/533 on main), native 112 px, director's yes 23:52 UTC. 2026-11-09: plus the 6 Dragon King's Impact v7b tall-pillar strips (dki_v7b_*, hex size 1), director's yes 00:47 UTC. Plus the v7b smoulder loop (dki_v7b_smoulder), director's yes 01:05 UTC. Plus the 2 Dragon King's Impact v7i strips (dki_v7i_*, v6l shrunk whole to one hex), director's go 03:13 UTC. 2026-11-09: plus the 54 skyglass chakra lens strips for Refraction (18 omen) and Refraction Breaks (18 eruption + 18 upper tile) (refr_lens_sky_*), director's go 04:36 UTC.",
+ "_note": "push/506 asset creates not yet live (351 of 973 ran 2026-11-06; idmap tnr_results_1794006062657). Uploaded to the director's own UploadThing app by .github/workflows/moe_upload.yml (2026-11-07, director's request); results in uploaded.json. Each file is the source sheet reduced 3x to the 50 px-wide sheet the game's CDN serves (every source is an exact 3x nearest upscale, checked), so these match the 351 already live. Plus avatar_moe_absence_a7.webp at full size, like the other MoE avatars (the only @img in 506 not already uploaded). 2026-11-08: plus anim_moe_etch2_seam_p3_9 (asset GT5IvHAP5vaPg-wCa0E8u, created in 506 but its image never filled). 2026-11-08: plus the 8 Dragon King's Impact v6l strips (dki533_*, push/533 on main), native 112 px, director's yes 23:52 UTC. 2026-11-09: plus the 6 Dragon King's Impact v7b tall-pillar strips (dki_v7b_*, hex size 1), director's yes 00:47 UTC. Plus the v7b smoulder loop (dki_v7b_smoulder), director's yes 01:05 UTC. Plus the 2 Dragon King's Impact v7i strips (dki_v7i_*, v6l shrunk whole to one hex), director's go 03:13 UTC. 2026-11-09: plus the 54 skyglass chakra lens strips for Refraction (18 omen) and Refraction Breaks (18 eruption + 18 upper tile) (refr_lens_sky_*), director's go 04:36 UTC. 2026-11-09: plus the 18 salvager's thread scene boards for push/509 (sg509_board_*, sg511_board_*), director's go 08:30 UTC.",
  "manifest": "push/506_master_2026-11-06.json",
  "files": [
   {
@@ -9036,6 +9036,240 @@
    "size": [
     112,
     4032
+   ]
+  },
+  {
+   "srcId": "sg509_board_menu",
+   "file": "sg-thread-board-menu.webp",
+   "path": "state/moe_upload/thread/sg-thread-board-menu.webp",
+   "sha256": "1d9c8ab1776f2264ea33c7b42144fd32116e816c57166538952041388d7062a2",
+   "bytes": 41470,
+   "srcPath": "tnr-tools main: art/skyglass_thread/exports/board-menu.webp (push/509 imagePack ref 30cb342f)",
+   "srcSha256": "1d9c8ab1776f2264ea33c7b42144fd32116e816c57166538952041388d7062a2",
+   "size": [
+    512,
+    341
+   ]
+  },
+  {
+   "srcId": "sg509_board_threes",
+   "file": "sg-thread-board-threes.webp",
+   "path": "state/moe_upload/thread/sg-thread-board-threes.webp",
+   "sha256": "38d5e446f279762db61b1bbb84bd9b02a739a53f22274ca1f21b47ab2b82c4ee",
+   "bytes": 55648,
+   "srcPath": "tnr-tools main: art/skyglass_thread/exports/board-threes.webp (push/509 imagePack ref 30cb342f)",
+   "srcSha256": "38d5e446f279762db61b1bbb84bd9b02a739a53f22274ca1f21b47ab2b82c4ee",
+   "size": [
+    512,
+    341
+   ]
+  },
+  {
+   "srcId": "sg509_board_hulls",
+   "file": "sg-thread-board-hulls.webp",
+   "path": "state/moe_upload/thread/sg-thread-board-hulls.webp",
+   "sha256": "0b8595ebd9bb004c235b55527f0ef58c6d1de390db2d9d3811d19857081a7167",
+   "bytes": 42114,
+   "srcPath": "tnr-tools main: art/skyglass_thread/exports/board-hulls.webp (push/509 imagePack ref 30cb342f)",
+   "srcSha256": "0b8595ebd9bb004c235b55527f0ef58c6d1de390db2d9d3811d19857081a7167",
+   "size": [
+    512,
+    341
+   ]
+  },
+  {
+   "srcId": "sg509_board_loot",
+   "file": "sg-thread-board-loot.webp",
+   "path": "state/moe_upload/thread/sg-thread-board-loot.webp",
+   "sha256": "a104b9c9bef795ffbc52ee696b00e25fa2192a40caadb2b7a87fa4c0bc9b6042",
+   "bytes": 50596,
+   "srcPath": "tnr-tools main: art/skyglass_thread/exports/board-loot.webp (push/509 imagePack ref 30cb342f)",
+   "srcSha256": "a104b9c9bef795ffbc52ee696b00e25fa2192a40caadb2b7a87fa4c0bc9b6042",
+   "size": [
+    512,
+    341
+   ]
+  },
+  {
+   "srcId": "sg509_board_once",
+   "file": "sg-thread-board-once.webp",
+   "path": "state/moe_upload/thread/sg-thread-board-once.webp",
+   "sha256": "39a93bf8f0b81056239548cdd6e59133026bf70c62a95f2d541d466d320294d3",
+   "bytes": 56464,
+   "srcPath": "tnr-tools main: art/skyglass_thread/exports/board-once.webp (push/509 imagePack ref 30cb342f)",
+   "srcSha256": "39a93bf8f0b81056239548cdd6e59133026bf70c62a95f2d541d466d320294d3",
+   "size": [
+    512,
+    341
+   ]
+  },
+  {
+   "srcId": "sg509_board_ladder",
+   "file": "sg-thread-board-ladder.webp",
+   "path": "state/moe_upload/thread/sg-thread-board-ladder.webp",
+   "sha256": "4623fad952a227a32117e987ae71b1a887f0e78aedbdb59b97b532890a503211",
+   "bytes": 66178,
+   "srcPath": "tnr-tools main: art/skyglass_thread/exports/board-ladder.webp (push/509 imagePack ref 30cb342f)",
+   "srcSha256": "4623fad952a227a32117e987ae71b1a887f0e78aedbdb59b97b532890a503211",
+   "size": [
+    512,
+    341
+   ]
+  },
+  {
+   "srcId": "sg509_board_pick",
+   "file": "sg-thread-board-pick.webp",
+   "path": "state/moe_upload/thread/sg-thread-board-pick.webp",
+   "sha256": "8999efdcf0bca89975f789ed3a9d1a726ac2b5f7a4d14340775031c21e8e9cdc",
+   "bytes": 48934,
+   "srcPath": "tnr-tools main: art/skyglass_thread/exports/board-pick.webp (push/509 imagePack ref 30cb342f)",
+   "srcSha256": "8999efdcf0bca89975f789ed3a9d1a726ac2b5f7a4d14340775031c21e8e9cdc",
+   "size": [
+    512,
+    341
+   ]
+  },
+  {
+   "srcId": "sg509_board_seals",
+   "file": "sg-thread-board-seals.webp",
+   "path": "state/moe_upload/thread/sg-thread-board-seals.webp",
+   "sha256": "0974266d767bf625ac8c5bb961e53117ed61e1bb2d13f42584cef05a02dd3032",
+   "bytes": 54480,
+   "srcPath": "tnr-tools main: art/skyglass_thread/exports/board-seals.webp (push/509 imagePack ref 30cb342f)",
+   "srcSha256": "0974266d767bf625ac8c5bb961e53117ed61e1bb2d13f42584cef05a02dd3032",
+   "size": [
+    512,
+    341
+   ]
+  },
+  {
+   "srcId": "sg509_board_rot",
+   "file": "sg-thread-board-rot.webp",
+   "path": "state/moe_upload/thread/sg-thread-board-rot.webp",
+   "sha256": "8611e0e17363507bb9fc04e392acf993c00af14fee4442a59b54d82a97968031",
+   "bytes": 69304,
+   "srcPath": "tnr-tools main: art/skyglass_thread/exports/board-rot.webp (push/509 imagePack ref 30cb342f)",
+   "srcSha256": "8611e0e17363507bb9fc04e392acf993c00af14fee4442a59b54d82a97968031",
+   "size": [
+    512,
+    341
+   ]
+  },
+  {
+   "srcId": "sg509_board_lantern",
+   "file": "sg-thread-board-lantern.webp",
+   "path": "state/moe_upload/thread/sg-thread-board-lantern.webp",
+   "sha256": "bb38c8238d7eedf84fa0d3b22facbcbf6adb99b782cd6a9644c1881f4faf6c0a",
+   "bytes": 58094,
+   "srcPath": "tnr-tools main: art/skyglass_thread/exports/board-lantern.webp (push/509 imagePack ref 30cb342f)",
+   "srcSha256": "bb38c8238d7eedf84fa0d3b22facbcbf6adb99b782cd6a9644c1881f4faf6c0a",
+   "size": [
+    512,
+    341
+   ]
+  },
+  {
+   "srcId": "sg509_board_haul",
+   "file": "sg-thread-board-haul.webp",
+   "path": "state/moe_upload/thread/sg-thread-board-haul.webp",
+   "sha256": "f8719e4f5187224ff70319c3bfd05ee599116267ce7fb0f47507b0cde2db983c",
+   "bytes": 48710,
+   "srcPath": "tnr-tools main: art/skyglass_thread/exports/board-haul.webp (push/509 imagePack ref 30cb342f)",
+   "srcSha256": "f8719e4f5187224ff70319c3bfd05ee599116267ce7fb0f47507b0cde2db983c",
+   "size": [
+    512,
+    341
+   ]
+  },
+  {
+   "srcId": "sg509_board_trade",
+   "file": "sg-thread-board-trade.webp",
+   "path": "state/moe_upload/thread/sg-thread-board-trade.webp",
+   "sha256": "a9a50a8bd04e0b4b735d238b42cf634a7130603659ac1723849e97dad1eb325f",
+   "bytes": 43276,
+   "srcPath": "tnr-tools main: art/skyglass_thread/exports/board-trade.webp (push/509 imagePack ref 30cb342f)",
+   "srcSha256": "a9a50a8bd04e0b4b735d238b42cf634a7130603659ac1723849e97dad1eb325f",
+   "size": [
+    512,
+    341
+   ]
+  },
+  {
+   "srcId": "sg509_board_token",
+   "file": "sg-thread-board-token.webp",
+   "path": "state/moe_upload/thread/sg-thread-board-token.webp",
+   "sha256": "05b3e86812e407749aa976f5c35d79c4276256abbdfe93e33ab35680d174361b",
+   "bytes": 42812,
+   "srcPath": "tnr-tools main: art/skyglass_thread/exports/board-token.webp (push/509 imagePack ref 30cb342f)",
+   "srcSha256": "05b3e86812e407749aa976f5c35d79c4276256abbdfe93e33ab35680d174361b",
+   "size": [
+    512,
+    341
+   ]
+  },
+  {
+   "srcId": "sg509_board_logboard",
+   "file": "sg-thread-board-logboard.webp",
+   "path": "state/moe_upload/thread/sg-thread-board-logboard.webp",
+   "sha256": "0170b7d9ec318d048fba3f1d5cab849e2aef742718db6e8599e052943141e556",
+   "bytes": 44058,
+   "srcPath": "tnr-tools main: art/skyglass_thread/exports/board-logboard.webp (push/509 imagePack ref 30cb342f)",
+   "srcSha256": "0170b7d9ec318d048fba3f1d5cab849e2aef742718db6e8599e052943141e556",
+   "size": [
+    512,
+    341
+   ]
+  },
+  {
+   "srcId": "sg509_board_orders",
+   "file": "sg-thread-board-orders.webp",
+   "path": "state/moe_upload/thread/sg-thread-board-orders.webp",
+   "sha256": "692faa7a2ae20ca7b8b59c6feaa344b58944974208e7a648754947d548ae0955",
+   "bytes": 46314,
+   "srcPath": "tnr-tools main: art/skyglass_thread/exports/board-orders.webp (push/509 imagePack ref 30cb342f)",
+   "srcSha256": "692faa7a2ae20ca7b8b59c6feaa344b58944974208e7a648754947d548ae0955",
+   "size": [
+    512,
+    341
+   ]
+  },
+  {
+   "srcId": "sg511_board_chests",
+   "file": "sg-thread-board-chests.webp",
+   "path": "state/moe_upload/thread/sg-thread-board-chests.webp",
+   "sha256": "e8805d3ec730b1122ceb18364af1da8c092824fa290af807a326a806028f5e46",
+   "bytes": 56590,
+   "srcPath": "tnr-tools main: art/skyglass_thread/exports/board-chests.webp (push/509 imagePack ref 30cb342f)",
+   "srcSha256": "e8805d3ec730b1122ceb18364af1da8c092824fa290af807a326a806028f5e46",
+   "size": [
+    512,
+    341
+   ]
+  },
+  {
+   "srcId": "sg511_board_supplies",
+   "file": "sg-thread-board-supplies.webp",
+   "path": "state/moe_upload/thread/sg-thread-board-supplies.webp",
+   "sha256": "ba88676432cdd154752dd5cc404f306130f1b4cd1f6f61d2ffcda502f22b2fbe",
+   "bytes": 56922,
+   "srcPath": "tnr-tools main: art/skyglass_thread/exports/board-supplies.webp (push/509 imagePack ref 30cb342f)",
+   "srcSha256": "ba88676432cdd154752dd5cc404f306130f1b4cd1f6f61d2ffcda502f22b2fbe",
+   "size": [
+    512,
+    341
+   ]
+  },
+  {
+   "srcId": "sg511_board_craft",
+   "file": "sg-thread-board-craft.webp",
+   "path": "state/moe_upload/thread/sg-thread-board-craft.webp",
+   "sha256": "8187fca01a5a17f7b79181331651d754e7567fc9ee926da76f46f77bbcafea76",
+   "bytes": 68162,
+   "srcPath": "tnr-tools main: art/skyglass_thread/exports/board-craft.webp (push/509 imagePack ref 30cb342f)",
+   "srcSha256": "8187fca01a5a17f7b79181331651d754e7567fc9ee926da76f46f77bbcafea76",
+   "size": [
+    512,
+    341
    ]
   }
  ]
