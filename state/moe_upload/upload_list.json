@@ -1,5 +1,5 @@
 {
- "_note": "push/506 asset creates not yet live (351 of 973 ran 2026-11-06; idmap tnr_results_1794006062657). Uploaded to the director's own UploadThing app by .github/workflows/moe_upload.yml (2026-11-07, director's request); results in uploaded.json. Each file is the source sheet reduced 3x to the 50 px-wide sheet the game's CDN serves (every source is an exact 3x nearest upscale, checked), so these match the 351 already live. Plus avatar_moe_absence_a7.webp at full size, like the other MoE avatars (the only @img in 506 not already uploaded). 2026-11-08: plus anim_moe_etch2_seam_p3_9 (asset GT5IvHAP5vaPg-wCa0E8u, created in 506 but its image never filled). 2026-11-08: plus the 8 Dragon King's Impact v6l strips (dki533_*, push/533 on main), native 112 px, director's yes 23:52 UTC. 2026-11-09: plus the 6 Dragon King's Impact v7b tall-pillar strips (dki_v7b_*, hex size 1), director's yes 00:47 UTC. Plus the v7b smoulder loop (dki_v7b_smoulder), director's yes 01:05 UTC. Plus the 2 Dragon King's Impact v7i strips (dki_v7i_*, v6l shrunk whole to one hex), director's go 03:13 UTC. 2026-11-09: plus the 54 skyglass chakra lens strips for Refraction (18 omen) and Refraction Breaks (18 eruption + 18 upper tile) (refr_lens_sky_*), director's go 04:36 UTC. 2026-11-09: plus the 18 salvager's thread scene boards for push/509 (sg509_board_*, sg511_board_*), director's go 08:30 UTC. 2026-11-09: plus the painted Mother of Echoes set (moe9m_* 29 moves + 40 board strips, moe9j_* Lancet and Echo Strike, moe9_* 4 entrances + 4 auras) and the 36 dark chakra lens strips for Black Refraction and the Black Facet family (refr_lens_dark_omen_s1_*, refr_lens1t_dark_erupt_s1_*), director's go 16:53 UTC (upload hidden). Plus the 18 one-tile sky lens eruption strips (refr_lens1t_sky_erupt_s1_*) for Facet Breaks, Far Refraction Breaks and Lucid Refraction, same go. 2026-11-09: plus dauntless's 4 painted Skyglass icons (sgicon_*_bk: Chart of the Spoiled Hold, Wreck Salvage, Chart of the Rotted Galley, Chart of the Glass Nursery) for the hidden items, sent 17:33 UTC for that use; 256 px lossless, ICON preflight clean.",
+ "_note": "push/506 asset creates not yet live (351 of 973 ran 2026-11-06; idmap tnr_results_1794006062657). Uploaded to the director's own UploadThing app by .github/workflows/moe_upload.yml (2026-11-07, director's request); results in uploaded.json. Each file is the source sheet reduced 3x to the 50 px-wide sheet the game's CDN serves (every source is an exact 3x nearest upscale, checked), so these match the 351 already live. Plus avatar_moe_absence_a7.webp at full size, like the other MoE avatars (the only @img in 506 not already uploaded). 2026-11-08: plus anim_moe_etch2_seam_p3_9 (asset GT5IvHAP5vaPg-wCa0E8u, created in 506 but its image never filled). 2026-11-08: plus the 8 Dragon King's Impact v6l strips (dki533_*, push/533 on main), native 112 px, director's yes 23:52 UTC. 2026-11-09: plus the 6 Dragon King's Impact v7b tall-pillar strips (dki_v7b_*, hex size 1), director's yes 00:47 UTC. Plus the v7b smoulder loop (dki_v7b_smoulder), director's yes 01:05 UTC. Plus the 2 Dragon King's Impact v7i strips (dki_v7i_*, v6l shrunk whole to one hex), director's go 03:13 UTC. 2026-11-09: plus the 54 skyglass chakra lens strips for Refraction (18 omen) and Refraction Breaks (18 eruption + 18 upper tile) (refr_lens_sky_*), director's go 04:36 UTC. 2026-11-09: plus the 18 salvager's thread scene boards for push/509 (sg509_board_*, sg511_board_*), director's go 08:30 UTC. 2026-11-09: plus the painted Mother of Echoes set (moe9m_* 29 moves + 40 board strips, moe9j_* Lancet and Echo Strike, moe9_* 4 entrances + 4 auras) and the 36 dark chakra lens strips for Black Refraction and the Black Facet family (refr_lens_dark_omen_s1_*, refr_lens1t_dark_erupt_s1_*), director's go 16:53 UTC (upload hidden). Plus the 18 one-tile sky lens eruption strips (refr_lens1t_sky_erupt_s1_*) for Facet Breaks, Far Refraction Breaks and Lucid Refraction, same go. 2026-11-09: plus dauntless's 4 painted Skyglass icons (sgicon_*_bk: Chart of the Spoiled Hold, Wreck Salvage, Chart of the Rotted Galley, Chart of the Glass Nursery) for the hidden items, sent 17:33 UTC for that use; 256 px lossless, ICON preflight clean. 2026-11-09: plus the 9 Hullbound Mender v2 clips (sg579_*, 112 px one-hex strips, 24 x 50 ms), approved by dauntless 17:39 UTC (\"Looks good\"), for the hidden Mender build.",
  "manifest": "push/506_master_2026-11-06.json",
  "files": [
   {
@@ -11051,6 +11051,123 @@
    "size": [
     256,
     256
+   ]
+  },
+  {
+   "srcId": "sg579_a1_hull_omen",
+   "file": "anim_mender_a1_hull_omen_v2s1.webp",
+   "path": "state/moe_upload/mender_v2/anim_mender_a1_hull_omen_v2s1.webp",
+   "sha256": "c4582c5e2bc47c16b9973d078462796142c039881967a2a8c1a92170bed6db3c",
+   "bytes": 136366,
+   "srcPath": "/home/claude/tnr-tools/art/hullbound_mender_fx/exports/anim_mender_a1_hull_omen_v2s1.webp",
+   "srcSha256": "c4582c5e2bc47c16b9973d078462796142c039881967a2a8c1a92170bed6db3c",
+   "size": [
+    112,
+    2688
+   ]
+  },
+  {
+   "srcId": "sg579_a2_hull_close",
+   "file": "anim_mender_a2_hull_close_v2s1.webp",
+   "path": "state/moe_upload/mender_v2/anim_mender_a2_hull_close_v2s1.webp",
+   "sha256": "0c7cd9e3083498672292ee4dcecb42d254f108b5a876fdda1cea58204be96285",
+   "bytes": 120938,
+   "srcPath": "/home/claude/tnr-tools/art/hullbound_mender_fx/exports/anim_mender_a2_hull_close_v2s1.webp",
+   "srcSha256": "0c7cd9e3083498672292ee4dcecb42d254f108b5a876fdda1cea58204be96285",
+   "size": [
+    112,
+    2688
+   ]
+  },
+  {
+   "srcId": "sg579_a2_hull_floor",
+   "file": "anim_mender_a2_hull_floor_v2s1.webp",
+   "path": "state/moe_upload/mender_v2/anim_mender_a2_hull_floor_v2s1.webp",
+   "sha256": "9a127e9125e6d44c5a325c398280ca549bf3f2e1d65db4cbae8b8faddf458a44",
+   "bytes": 70798,
+   "srcPath": "/home/claude/tnr-tools/art/hullbound_mender_fx/exports/anim_mender_a2_hull_floor_v2s1.webp",
+   "srcSha256": "9a127e9125e6d44c5a325c398280ca549bf3f2e1d65db4cbae8b8faddf458a44",
+   "size": [
+    112,
+    2688
+   ]
+  },
+  {
+   "srcId": "sg579_a3_split_omen",
+   "file": "anim_mender_a3_split_omen_v2s1.webp",
+   "path": "state/moe_upload/mender_v2/anim_mender_a3_split_omen_v2s1.webp",
+   "sha256": "e95f27304a5e4ce968cb271176c6423028f9a99d465427afea78d2a4139504f2",
+   "bytes": 91880,
+   "srcPath": "/home/claude/tnr-tools/art/hullbound_mender_fx/exports/anim_mender_a3_split_omen_v2s1.webp",
+   "srcSha256": "e95f27304a5e4ce968cb271176c6423028f9a99d465427afea78d2a4139504f2",
+   "size": [
+    112,
+    2688
+   ]
+  },
+  {
+   "srcId": "sg579_a4_split_break",
+   "file": "anim_mender_a4_split_break_v2s1.webp",
+   "path": "state/moe_upload/mender_v2/anim_mender_a4_split_break_v2s1.webp",
+   "sha256": "e489aadf93357758d873e8b140d00ba710f70a137e61399355c12a66528fd21e",
+   "bytes": 175038,
+   "srcPath": "/home/claude/tnr-tools/art/hullbound_mender_fx/exports/anim_mender_a4_split_break_v2s1.webp",
+   "srcSha256": "e489aadf93357758d873e8b140d00ba710f70a137e61399355c12a66528fd21e",
+   "size": [
+    112,
+    2688
+   ]
+  },
+  {
+   "srcId": "sg579_a5_fresh_plank",
+   "file": "anim_mender_a5_fresh_plank_v2s1.webp",
+   "path": "state/moe_upload/mender_v2/anim_mender_a5_fresh_plank_v2s1.webp",
+   "sha256": "03aef8187cfb512074ff49daa37a41c1604d62d9dc543c8906c48ae5fb28bc45",
+   "bytes": 156978,
+   "srcPath": "/home/claude/tnr-tools/art/hullbound_mender_fx/exports/anim_mender_a5_fresh_plank_v2s1.webp",
+   "srcSha256": "03aef8187cfb512074ff49daa37a41c1604d62d9dc543c8906c48ae5fb28bc45",
+   "size": [
+    112,
+    2688
+   ]
+  },
+  {
+   "srcId": "sg579_a6_hammerfall",
+   "file": "anim_mender_a6_hammerfall_v2s1.webp",
+   "path": "state/moe_upload/mender_v2/anim_mender_a6_hammerfall_v2s1.webp",
+   "sha256": "1099e8a99f7a0a4bf9883cbe78ded96ac003aa4478020220bdf65705db386888",
+   "bytes": 170354,
+   "srcPath": "/home/claude/tnr-tools/art/hullbound_mender_fx/exports/anim_mender_a6_hammerfall_v2s1.webp",
+   "srcSha256": "1099e8a99f7a0a4bf9883cbe78ded96ac003aa4478020220bdf65705db386888",
+   "size": [
+    112,
+    2688
+   ]
+  },
+  {
+   "srcId": "sg579_a7_rivet_volley",
+   "file": "anim_mender_a7_rivet_volley_v2s1.webp",
+   "path": "state/moe_upload/mender_v2/anim_mender_a7_rivet_volley_v2s1.webp",
+   "sha256": "04eb316a3b826ae4ddfcbba2c9fdee3d7d92cf5b0f3dee718cc2df4d33adac98",
+   "bytes": 33830,
+   "srcPath": "/home/claude/tnr-tools/art/hullbound_mender_fx/exports/anim_mender_a7_rivet_volley_v2s1.webp",
+   "srcSha256": "04eb316a3b826ae4ddfcbba2c9fdee3d7d92cf5b0f3dee718cc2df4d33adac98",
+   "size": [
+    112,
+    2688
+   ]
+  },
+  {
+   "srcId": "sg579_a8_last_tier_aura",
+   "file": "anim_mender_a8_last_tier_aura_v2s1.webp",
+   "path": "state/moe_upload/mender_v2/anim_mender_a8_last_tier_aura_v2s1.webp",
+   "sha256": "7b10f0f90175e1f4b041dada8a0b731776dedca33fbb6766932e14d9b2214e40",
+   "bytes": 104192,
+   "srcPath": "/home/claude/tnr-tools/art/hullbound_mender_fx/exports/anim_mender_a8_last_tier_aura_v2s1.webp",
+   "srcSha256": "7b10f0f90175e1f4b041dada8a0b731776dedca33fbb6766932e14d9b2214e40",
+   "size": [
+    112,
+    2688
    ]
   }
  ]
