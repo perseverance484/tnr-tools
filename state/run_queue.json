@@ -344,18 +344,18 @@
    "manifest": "push/542_salvager_trade.json",
    "what": "Salvager's Trade: 4 hidden trade quests (deck 4, hold 10, sealed 20 weekly, Lantern 30 weekly L80) as mastery for the dauntless test; Wreck Salvage text; test grant pays 70",
    "runner": "mcp",
-   "status": "ready",
+   "status": "done",
    "waitsFor": [],
-   "note": "Director go 2026-11-09 15:53/15:58 (relayed). Hidden only. 543 (overworld + Wreck Sighted prerequisite) follows the test."
+   "note": "Director go 2026-11-09 15:53/15:58 (relayed). Hidden only. 543 (overworld + Wreck Sighted prerequisite) follows the test. Ran Nov 9: 6 verified (tnr_results_1794242693960). Ids in push/542_ids.json."
   },
   {
    "id": "544",
    "manifest": "push/544_skyglass_thread_fire_text.json",
    "what": "At the Salvager's Fire (hidden): text for one overworld salvager NPC (no Administration Building for her) plus a salvage topic; stays event so it can be playtested",
    "runner": "mcp",
-   "status": "ready",
+   "status": "done",
    "waitsFor": [],
-   "note": "Director 2026-11-09 15:58 (relayed): her entire tutorial updated for the one-NPC setup. 510 golive now also makes the Fire and Wreck Sighted questType overworld (Fire needs Wreck Sighted)."
+   "note": "Director 2026-11-09 15:58 (relayed): her entire tutorial updated for the one-NPC setup. 510 golive now also makes the Fire and Wreck Sighted questType overworld (Fire needs Wreck Sighted). Ran Nov 9: 1 verified (tnr_results_1794242854002)."
   },
   {
    "id": "560",
@@ -403,6 +403,17 @@
    "status": "blocked",
    "waitsFor": "576",
    "note": "Hullbound Mender thread; nothing live before the Nov 13 release"
+  },
+  {
+   "id": "543",
+   "manifest": "push/543_salvager_trade_final.json",
+   "what": "Salvager's Trade: the 4 trade quests become overworld with Wreck Sighted as prerequisite, full record (fixes 'the The Last Heading'); still hidden",
+   "runner": "mcp",
+   "status": "blocked",
+   "waitsFor": [
+    "dauntless trade test"
+   ],
+   "note": "Run after the hidden trade test on dauntless; overworld quests can't be started from the quest log."
   }
  ]
 }

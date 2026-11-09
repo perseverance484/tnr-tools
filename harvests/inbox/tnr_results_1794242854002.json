@@ -1,0 +1,95 @@
+{
+ "builder": "forge-mcp",
+ "at": "2026-11-09T16:47:34.001Z",
+ "cfg": "forge",
+ "checks": null,
+ "state": "DONE",
+ "outcome": "success",
+ "postflight": {
+  "match": 1,
+  "diff": 0,
+  "unverified": 0,
+  "failed": 0,
+  "skipped": 0,
+  "unresolved": 0
+ },
+ "entries": [
+  {
+   "name": "At the Salvager's Fire: one NPC, salvage topic",
+   "srcId": null,
+   "entity": "quest",
+   "slot": "edit",
+   "op": "update",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 21,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "lEg5pVXqA8lzJpIPrykNi"
+  }
+ ],
+ "captures": [],
+ "idmap": {},
+ "journal": {
+  "v": 1,
+  "jobId": "544-mw9ht278",
+  "manifestPath": "push/544_skyglass_thread_fire_text.json",
+  "manifestNumber": 544,
+  "manifestHash": "ace79523",
+  "startedAt": "2026-11-09T16:45:49.798Z",
+  "updatedAt": "2026-11-09T16:47:34.000Z",
+  "state": "DONE",
+  "pause": null,
+  "items": [
+   {
+    "idx": 0,
+    "entity": "quest",
+    "op": "update",
+    "name": "At the Salvager's Fire: one NPC, salvage topic",
+    "srcId": null,
+    "targetId": "lEg5pVXqA8lzJpIPrykNi",
+    "payloadHash": "800966d5",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "lEg5pVXqA8lzJpIPrykNi",
+    "snapshotKey": null,
+    "sentAt": "2026-11-09T16:46:04.840Z",
+    "createSentAt": null,
+    "confirmedAt": "2026-11-09T16:47:18.469Z",
+    "verifiedAt": "2026-11-09T16:47:33.999Z",
+    "error": null,
+    "attempt": 1,
+    "asserted": [
+     "name",
+     "description",
+     "image",
+     "questType",
+     "questRank",
+     "successDescription",
+     "retryDelay",
+     "attemptDelay",
+     "consecutiveObjectives",
+     "hidden",
+     "requiredLevel",
+     "maxLevel",
+     "maxAttempts",
+     "maxCompletes",
+     "prerequisiteQuestId",
+     "tierLevel",
+     "requiredVillage",
+     "requiredBloodlineId",
+     "startsAt",
+     "endsAt",
+     "content"
+    ],
+    "diffs": [],
+    "verify": "match"
+   }
+  ]
+ }
+}
