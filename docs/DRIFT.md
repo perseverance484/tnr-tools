@@ -1,6 +1,6 @@
-# DRIFT.md - upstream contract drift (2026-11-08)
+# DRIFT.md - upstream contract drift (2026-11-09)
 
-Upstream: studie-tech/TheNinjaRPG@d6cdee0f30662fd129c310a55223befdea88364e
+Upstream: studie-tech/TheNinjaRPG@b6a4b916aa68195cb82abdba41f6cb54e26e2690
 
 Signal only. Nothing below is adopted until the structural diff gate passes.
 
@@ -129,7 +129,7 @@ ADDITIONS
   enum-member  AllTags.IncreaseStatTag.elements  Lava
   enum-member  AllTags.IncreaseStatTag.elements  Light
   enum-member  AllTags.IncreaseStatTag.elements  Lightning
-  ... 215 more
+  ... 220 more
 
 BREAKING: 4494 change(s) - DO NOT ADOPT (exit 1)
 == 45d_DATA_entity_schemas ==
@@ -260,6 +260,11 @@ ADDITIONS
   const-member  HP_DAMAGE_KEYS  poison
   const-member  HP_DAMAGE_KEYS  residual
   const-member  HP_DAMAGE_KEYS  wound
+  const-member  INITIATIVE_PVP_STREAK_BONUSES  0.0025
+  const-member  INITIATIVE_PVP_STREAK_BONUSES  0.005
+  const-member  INITIATIVE_PVP_STREAK_BONUSES  0.01
+  const-member  INITIATIVE_PVP_STREAK_BONUSES  0.015
+  const-member  INITIATIVE_PVP_STREAK_BONUSES  0.02
   const-member  MISSION_HALL_QUEST_TYPES  crime
   const-member  MISSION_HALL_QUEST_TYPES  errand
   const-member  MISSION_HALL_QUEST_TYPES  medical
@@ -271,14 +276,9 @@ ADDITIONS
   const-member  MISSION_HALL_SOLO_QUEST_TYPES  medical
   const-member  MISSION_HALL_SOLO_QUEST_TYPES  mission
   const-member  MISSION_HALL_SOLO_QUEST_TYPES  pvp
-  const-member  NonBattleItemTypes  COOKING
-  const-member  NonBattleItemTypes  CRYSTAL
-  const-member  NonBattleItemTypes  FURNITURE
-  const-member  NonBattleItemTypes  MATERIAL
-  const-member  OBJECTIVE_TAG_TYPES  curse
-  const-member  OBJECTIVE_TAG_TYPES  parry
-  const-member  PET_TASK_QUEST_TYPES  gathering
-  ... 78 more
+  const-member  MPVP_QUEUE_BATTLE_TYPES  RAID
+  const-member  MPVP_QUEUE_BATTLE_TYPES  SHRINE_WAR
+  ... 110 more
 
 BREAKING: 224 change(s) - DO NOT ADOPT (exit 1)
 ~~~
