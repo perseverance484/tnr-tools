@@ -1,5 +1,5 @@
 {
- "_note": "push/506 asset creates not yet live (351 of 973 ran 2026-11-06; idmap tnr_results_1794006062657). Uploaded to the director's own UploadThing app by .github/workflows/moe_upload.yml (2026-11-07, director's request); results in uploaded.json. Each file is the source sheet reduced 3x to the 50 px-wide sheet the game's CDN serves (every source is an exact 3x nearest upscale, checked), so these match the 351 already live. Plus avatar_moe_absence_a7.webp at full size, like the other MoE avatars (the only @img in 506 not already uploaded). 2026-11-08: plus anim_moe_etch2_seam_p3_9 (asset GT5IvHAP5vaPg-wCa0E8u, created in 506 but its image never filled). 2026-11-08: plus the 8 Dragon King's Impact v6l strips (dki533_*, push/533 on main), native 112 px, director's yes 23:52 UTC. 2026-11-09: plus the 6 Dragon King's Impact v7b tall-pillar strips (dki_v7b_*, hex size 1), director's yes 00:47 UTC. Plus the v7b smoulder loop (dki_v7b_smoulder), director's yes 01:05 UTC.",
+ "_note": "push/506 asset creates not yet live (351 of 973 ran 2026-11-06; idmap tnr_results_1794006062657). Uploaded to the director's own UploadThing app by .github/workflows/moe_upload.yml (2026-11-07, director's request); results in uploaded.json. Each file is the source sheet reduced 3x to the 50 px-wide sheet the game's CDN serves (every source is an exact 3x nearest upscale, checked), so these match the 351 already live. Plus avatar_moe_absence_a7.webp at full size, like the other MoE avatars (the only @img in 506 not already uploaded). 2026-11-08: plus anim_moe_etch2_seam_p3_9 (asset GT5IvHAP5vaPg-wCa0E8u, created in 506 but its image never filled). 2026-11-08: plus the 8 Dragon King's Impact v6l strips (dki533_*, push/533 on main), native 112 px, director's yes 23:52 UTC. 2026-11-09: plus the 6 Dragon King's Impact v7b tall-pillar strips (dki_v7b_*, hex size 1), director's yes 00:47 UTC. Plus the v7b smoulder loop (dki_v7b_smoulder), director's yes 01:05 UTC. Plus the 2 Dragon King's Impact v7i strips (dki_v7i_*, v6l shrunk whole to one hex), director's go 03:13 UTC.",
  "manifest": "push/506_master_2026-11-06.json",
  "files": [
   {
@@ -8308,6 +8308,32 @@
    "size": [
     112,
     2688
+   ]
+  },
+  {
+   "srcId": "dki_v7i_c0",
+   "file": "anim_dragon_king_v7i_fit_c0.webp",
+   "path": "state/moe_upload/dki/anim_dragon_king_v7i_fit_c0.webp",
+   "sha256": "c4cc65b86afcc411774b9708583e95fa9f1b3cc7b8e46821d7f0fb1b13223805",
+   "bytes": 197460,
+   "srcPath": "art/dragon_king_impact/exports/anim_dragon_king_v7i_fit_c0.webp",
+   "srcSha256": "c4cc65b86afcc411774b9708583e95fa9f1b3cc7b8e46821d7f0fb1b13223805",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "dki_v7i_cast_c0",
+   "file": "anim_dragon_king_v7i_fit_cast_c0.webp",
+   "path": "state/moe_upload/dki/anim_dragon_king_v7i_fit_cast_c0.webp",
+   "sha256": "233fc8aace9a9ca6158a10b7930e2da6642aa202a197be3cfb4fb74e5471f254",
+   "bytes": 25422,
+   "srcPath": "art/dragon_king_impact/exports/anim_dragon_king_v7i_fit_cast_c0.webp",
+   "srcSha256": "233fc8aace9a9ca6158a10b7930e2da6642aa202a197be3cfb4fb74e5471f254",
+   "size": [
+    112,
+    2128
    ]
   }
  ]
