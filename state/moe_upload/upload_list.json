@@ -1,5 +1,5 @@
 {
- "_note": "push/506 asset creates not yet live (351 of 973 ran 2026-11-06; idmap tnr_results_1794006062657). Uploaded to the director's own UploadThing app by .github/workflows/moe_upload.yml (2026-11-07, director's request); results in uploaded.json. Each file is the source sheet reduced 3x to the 50 px-wide sheet the game's CDN serves (every source is an exact 3x nearest upscale, checked), so these match the 351 already live. Plus avatar_moe_absence_a7.webp at full size, like the other MoE avatars (the only @img in 506 not already uploaded). 2026-11-08: plus anim_moe_etch2_seam_p3_9 (asset GT5IvHAP5vaPg-wCa0E8u, created in 506 but its image never filled). 2026-11-08: plus the 8 Dragon King's Impact v6l strips (dki533_*, push/533 on main), native 112 px, director's yes 23:52 UTC. 2026-11-09: plus the 6 Dragon King's Impact v7b tall-pillar strips (dki_v7b_*, hex size 1), director's yes 00:47 UTC. Plus the v7b smoulder loop (dki_v7b_smoulder), director's yes 01:05 UTC. Plus the 2 Dragon King's Impact v7i strips (dki_v7i_*, v6l shrunk whole to one hex), director's go 03:13 UTC. 2026-11-09: plus the 54 skyglass chakra lens strips for Refraction (18 omen) and Refraction Breaks (18 eruption + 18 upper tile) (refr_lens_sky_*), director's go 04:36 UTC. 2026-11-09: plus the 18 salvager's thread scene boards for push/509 (sg509_board_*, sg511_board_*), director's go 08:30 UTC.",
+ "_note": "push/506 asset creates not yet live (351 of 973 ran 2026-11-06; idmap tnr_results_1794006062657). Uploaded to the director's own UploadThing app by .github/workflows/moe_upload.yml (2026-11-07, director's request); results in uploaded.json. Each file is the source sheet reduced 3x to the 50 px-wide sheet the game's CDN serves (every source is an exact 3x nearest upscale, checked), so these match the 351 already live. Plus avatar_moe_absence_a7.webp at full size, like the other MoE avatars (the only @img in 506 not already uploaded). 2026-11-08: plus anim_moe_etch2_seam_p3_9 (asset GT5IvHAP5vaPg-wCa0E8u, created in 506 but its image never filled). 2026-11-08: plus the 8 Dragon King's Impact v6l strips (dki533_*, push/533 on main), native 112 px, director's yes 23:52 UTC. 2026-11-09: plus the 6 Dragon King's Impact v7b tall-pillar strips (dki_v7b_*, hex size 1), director's yes 00:47 UTC. Plus the v7b smoulder loop (dki_v7b_smoulder), director's yes 01:05 UTC. Plus the 2 Dragon King's Impact v7i strips (dki_v7i_*, v6l shrunk whole to one hex), director's go 03:13 UTC. 2026-11-09: plus the 54 skyglass chakra lens strips for Refraction (18 omen) and Refraction Breaks (18 eruption + 18 upper tile) (refr_lens_sky_*), director's go 04:36 UTC. 2026-11-09: plus the 18 salvager's thread scene boards for push/509 (sg509_board_*, sg511_board_*), director's go 08:30 UTC. 2026-11-09: plus the painted Mother of Echoes set (moe9m_* 29 moves + 40 board strips, moe9j_* Lancet and Echo Strike, moe9_* 4 entrances + 4 auras) and the 36 dark chakra lens strips for Black Refraction and the Black Facet family (refr_lens_dark_omen_s1_*, refr_lens1t_dark_erupt_s1_*), director's go 16:53 UTC (upload hidden).",
  "manifest": "push/506_master_2026-11-06.json",
  "files": [
   {
@@ -9270,6 +9270,1501 @@
    "size": [
     512,
     341
+   ]
+  },
+  {
+   "srcId": "moe9m_absence_erup",
+   "file": "anim_moe_absence_erupt_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_absence_erupt_s1_v9m.webp",
+   "sha256": "2d544b854cfdf827875b4329ed2d83fdf4876923a9ca03ae67fa89c8d59b10cb",
+   "bytes": 123178,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/anim_moe_absence_erupt_s1_v9m.webp",
+   "srcSha256": "2d544b854cfdf827875b4329ed2d83fdf4876923a9ca03ae67fa89c8d59b10cb",
+   "size": [
+    112,
+    2688
+   ]
+  },
+  {
+   "srcId": "moe9m_absence_idl",
+   "file": "anim_moe_absence_idle_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_absence_idle_s1_v9m.webp",
+   "sha256": "a3de4317836f02343bd32a969ca73d34181aa48eddf78c82951032bd89744293",
+   "bytes": 17630,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/anim_moe_absence_idle_s1_v9m.webp",
+   "srcSha256": "a3de4317836f02343bd32a969ca73d34181aa48eddf78c82951032bd89744293",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "moe9m_absence_ris",
+   "file": "anim_moe_absence_rise_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_absence_rise_s1_v9m.webp",
+   "sha256": "c7c04efa61b4ff221d65615530cc60d0fd231a3363f496567502faad22768704",
+   "bytes": 103314,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/anim_moe_absence_rise_s1_v9m.webp",
+   "srcSha256": "c7c04efa61b4ff221d65615530cc60d0fd231a3363f496567502faad22768704",
+   "size": [
+    112,
+    2912
+   ]
+  },
+  {
+   "srcId": "moe9m_absence_splatte",
+   "file": "anim_moe_absence_splatter_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_absence_splatter_s1_v9m.webp",
+   "sha256": "3d27ad97415e876a9ee91ad5d2036d44be77f5206616e93b55f6d075a80406ec",
+   "bytes": 90330,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/anim_moe_absence_splatter_s1_v9m.webp",
+   "srcSha256": "3d27ad97415e876a9ee91ad5d2036d44be77f5206616e93b55f6d075a80406ec",
+   "size": [
+    112,
+    2464
+   ]
+  },
+  {
+   "srcId": "moe9m_breathless_pul",
+   "file": "anim_moe_breathless_pull_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_breathless_pull_s1_v9m.webp",
+   "sha256": "a8ad09ff2ce938f088aa9bc53bb16c6690a2754f4706232584da5d19bfcd19ad",
+   "bytes": 81538,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/anim_moe_breathless_pull_s1_v9m.webp",
+   "srcSha256": "a8ad09ff2ce938f088aa9bc53bb16c6690a2754f4706232584da5d19bfcd19ad",
+   "size": [
+    112,
+    3136
+   ]
+  },
+  {
+   "srcId": "moe9m_close_in_i",
+   "file": "anim_moe_close_in_ii_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_close_in_ii_s1_v9m.webp",
+   "sha256": "36839d6fd2b2a84759cb4e1568c1d9d15eba40f682437dd74a5ca260f7396a7e",
+   "bytes": 103260,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/anim_moe_close_in_ii_s1_v9m.webp",
+   "srcSha256": "36839d6fd2b2a84759cb4e1568c1d9d15eba40f682437dd74a5ca260f7396a7e",
+   "size": [
+    112,
+    3360
+   ]
+  },
+  {
+   "srcId": "moe9m_close_in_ii",
+   "file": "anim_moe_close_in_iii_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_close_in_iii_s1_v9m.webp",
+   "sha256": "e7356c0cf2ce66f0da4e6152267339f9be8b15609db505594f16f2705e35ec12",
+   "bytes": 105324,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/anim_moe_close_in_iii_s1_v9m.webp",
+   "srcSha256": "e7356c0cf2ce66f0da4e6152267339f9be8b15609db505594f16f2705e35ec12",
+   "size": [
+    112,
+    3360
+   ]
+  },
+  {
+   "srcId": "moe9m_cradl",
+   "file": "anim_moe_cradle_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_cradle_s1_v9m.webp",
+   "sha256": "3f80bd1e98a1e523e9fcaf72d5e552455dbc682dbe1b7f45aaf3f3fde3a23a25",
+   "bytes": 141696,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/anim_moe_cradle_s1_v9m.webp",
+   "srcSha256": "3f80bd1e98a1e523e9fcaf72d5e552455dbc682dbe1b7f45aaf3f3fde3a23a25",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "moe9m_gras",
+   "file": "anim_moe_grasp_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_grasp_s1_v9m.webp",
+   "sha256": "cba1f8d70e1e791f9dbe1779407e8c9ec271435e3f37ee125174da14e4168d6e",
+   "bytes": 99614,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/anim_moe_grasp_s1_v9m.webp",
+   "srcSha256": "cba1f8d70e1e791f9dbe1779407e8c9ec271435e3f37ee125174da14e4168d6e",
+   "size": [
+    112,
+    3136
+   ]
+  },
+  {
+   "srcId": "moe9m_guard_ope",
+   "file": "anim_moe_guard_open_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_guard_open_s1_v9m.webp",
+   "sha256": "ed71895dd0e6490944d46a9f5c3fc824b4fa2a6e81570b716b4c180d60c83e4a",
+   "bytes": 89148,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/anim_moe_guard_open_s1_v9m.webp",
+   "srcSha256": "ed71895dd0e6490944d46a9f5c3fc824b4fa2a6e81570b716b4c180d60c83e4a",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "moe9m_heavy_appear_",
+   "file": "anim_moe_heavy_appear_i_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_heavy_appear_i_s1_v9m.webp",
+   "sha256": "c3f9220182e1bb3b75aff90534b40f3e24daaa323e108ccb521869f8be53364d",
+   "bytes": 74066,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/anim_moe_heavy_appear_i_s1_v9m.webp",
+   "srcSha256": "c3f9220182e1bb3b75aff90534b40f3e24daaa323e108ccb521869f8be53364d",
+   "size": [
+    112,
+    2464
+   ]
+  },
+  {
+   "srcId": "moe9m_heavy_appear_i",
+   "file": "anim_moe_heavy_appear_ii_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_heavy_appear_ii_s1_v9m.webp",
+   "sha256": "33477132295234e7cd76acb7b83871897857c44dc256bc6073f2357f25fcf53d",
+   "bytes": 78182,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/anim_moe_heavy_appear_ii_s1_v9m.webp",
+   "srcSha256": "33477132295234e7cd76acb7b83871897857c44dc256bc6073f2357f25fcf53d",
+   "size": [
+    112,
+    2464
+   ]
+  },
+  {
+   "srcId": "moe9m_heavy_loop_",
+   "file": "anim_moe_heavy_loop_i_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_heavy_loop_i_s1_v9m.webp",
+   "sha256": "d8505286cc618ecbaeb936ffb14bde1b1418191ccef7cbc544f50524e3d10128",
+   "bytes": 41982,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/anim_moe_heavy_loop_i_s1_v9m.webp",
+   "srcSha256": "d8505286cc618ecbaeb936ffb14bde1b1418191ccef7cbc544f50524e3d10128",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "moe9m_heavy_loop_ii",
+   "file": "anim_moe_heavy_loop_iii_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_heavy_loop_iii_s1_v9m.webp",
+   "sha256": "d20f56b29369b05fc1dad11f2cee50f57c25d7b8f3c026464d2142b4d86545a0",
+   "bytes": 49030,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/anim_moe_heavy_loop_iii_s1_v9m.webp",
+   "srcSha256": "d20f56b29369b05fc1dad11f2cee50f57c25d7b8f3c026464d2142b4d86545a0",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "moe9m_hush_lock_arriv",
+   "file": "anim_moe_hush_lock_arrive_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_hush_lock_arrive_s1_v9m.webp",
+   "sha256": "04317c1dc6d8a35e7a49d0ecf435128c85ec4b6aff8afc748ce416af3eb4d431",
+   "bytes": 70648,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/anim_moe_hush_lock_arrive_s1_v9m.webp",
+   "srcSha256": "04317c1dc6d8a35e7a49d0ecf435128c85ec4b6aff8afc748ce416af3eb4d431",
+   "size": [
+    112,
+    2688
+   ]
+  },
+  {
+   "srcId": "moe9m_hush_lock_loo",
+   "file": "anim_moe_hush_lock_loop_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_hush_lock_loop_s1_v9m.webp",
+   "sha256": "fcac346738f84d089527ea5e400c983aff0a546871278f0884fcb8c2e87d446a",
+   "bytes": 37392,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/anim_moe_hush_lock_loop_s1_v9m.webp",
+   "srcSha256": "fcac346738f84d089527ea5e400c983aff0a546871278f0884fcb8c2e87d446a",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "moe9m_luci",
+   "file": "anim_moe_lucid_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_lucid_s1_v9m.webp",
+   "sha256": "54d46f8efbdbada63dec6897f5160c0e64da802cae8800d15e82705412b8723d",
+   "bytes": 27246,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/anim_moe_lucid_s1_v9m.webp",
+   "srcSha256": "54d46f8efbdbada63dec6897f5160c0e64da802cae8800d15e82705412b8723d",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "moe9m_lul",
+   "file": "anim_moe_lull_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_lull_s1_v9m.webp",
+   "sha256": "6ea72c69dfd4424f358359254989e6d9c07b027df80e1759fbd9117ff5459db3",
+   "bytes": 87276,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/anim_moe_lull_s1_v9m.webp",
+   "srcSha256": "6ea72c69dfd4424f358359254989e6d9c07b027df80e1759fbd9117ff5459db3",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "moe9m_men",
+   "file": "anim_moe_mend_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_mend_s1_v9m.webp",
+   "sha256": "ce3dfb01d185d4201fbf99ce1513a77d778ae7eb8cf4e8a6d1fc761a1602b8fd",
+   "bytes": 81092,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/anim_moe_mend_s1_v9m.webp",
+   "srcSha256": "ce3dfb01d185d4201fbf99ce1513a77d778ae7eb8cf4e8a6d1fc761a1602b8fd",
+   "size": [
+    112,
+    2912
+   ]
+  },
+  {
+   "srcId": "moe9m_quie",
+   "file": "anim_moe_quiet_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_quiet_s1_v9m.webp",
+   "sha256": "3e96b842760173d3163bffb06cee3f85371f7376b754184daf813dfff8dc33cb",
+   "bytes": 121688,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/anim_moe_quiet_s1_v9m.webp",
+   "srcSha256": "3e96b842760173d3163bffb06cee3f85371f7376b754184daf813dfff8dc33cb",
+   "size": [
+    112,
+    3360
+   ]
+  },
+  {
+   "srcId": "moe9m_rise_feele",
+   "file": "anim_moe_rise_feeler_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_rise_feeler_s1_v9m.webp",
+   "sha256": "87b43b616f0a259e9c70edc50eb1a14ef3781150e6a0b14d332699a3a7d3618a",
+   "bytes": 30636,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/anim_moe_rise_feeler_s1_v9m.webp",
+   "srcSha256": "87b43b616f0a259e9c70edc50eb1a14ef3781150e6a0b14d332699a3a7d3618a",
+   "size": [
+    112,
+    3136
+   ]
+  },
+  {
+   "srcId": "moe9m_rise_likenes",
+   "file": "anim_moe_rise_likeness_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_rise_likeness_s1_v9m.webp",
+   "sha256": "debe0332c0635b06087daae85dab26c30b53162562c0fa1801fe40b6dbd1f209",
+   "bytes": 80670,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/anim_moe_rise_likeness_s1_v9m.webp",
+   "srcSha256": "debe0332c0635b06087daae85dab26c30b53162562c0fa1801fe40b6dbd1f209",
+   "size": [
+    112,
+    3136
+   ]
+  },
+  {
+   "srcId": "moe9m_rise_wor",
+   "file": "anim_moe_rise_worn_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_rise_worn_s1_v9m.webp",
+   "sha256": "8a98cb334fa4df434fe44eef4bdfeb0d7d046e989c338cd4ef1f17d55e92dab7",
+   "bytes": 96110,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/anim_moe_rise_worn_s1_v9m.webp",
+   "srcSha256": "8a98cb334fa4df434fe44eef4bdfeb0d7d046e989c338cd4ef1f17d55e92dab7",
+   "size": [
+    112,
+    3136
+   ]
+  },
+  {
+   "srcId": "moe9m_safe_pane_arriv",
+   "file": "anim_moe_safe_pane_arrive_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_safe_pane_arrive_s1_v9m.webp",
+   "sha256": "0c7b60459aff8f12702fd92835ee90c206f49c2ee262baf9b2ac03414881bdbd",
+   "bytes": 63166,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/anim_moe_safe_pane_arrive_s1_v9m.webp",
+   "srcSha256": "0c7b60459aff8f12702fd92835ee90c206f49c2ee262baf9b2ac03414881bdbd",
+   "size": [
+    112,
+    2688
+   ]
+  },
+  {
+   "srcId": "moe9m_safe_pane_loo",
+   "file": "anim_moe_safe_pane_loop_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_safe_pane_loop_s1_v9m.webp",
+   "sha256": "1af4481ebeba416a9b87ca9b7b0f26c52b5e101b12f2a23d5c1e50e94fbd4a5f",
+   "bytes": 70358,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/anim_moe_safe_pane_loop_s1_v9m.webp",
+   "srcSha256": "1af4481ebeba416a9b87ca9b7b0f26c52b5e101b12f2a23d5c1e50e94fbd4a5f",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "moe9m_shov",
+   "file": "anim_moe_shove_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_shove_s1_v9m.webp",
+   "sha256": "2d5cab60f5319b54fff1f091eebe25fa6ea746e0fa07fb5d9008595f94d4df62",
+   "bytes": 44758,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/anim_moe_shove_s1_v9m.webp",
+   "srcSha256": "2d5cab60f5319b54fff1f091eebe25fa6ea746e0fa07fb5d9008595f94d4df62",
+   "size": [
+    112,
+    2464
+   ]
+  },
+  {
+   "srcId": "moe9m_stil",
+   "file": "anim_moe_still_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_still_s1_v9m.webp",
+   "sha256": "4a0f1d9fd2ebd0a00669b444dcd4438033bc18a76475a81159125f5209c2fd58",
+   "bytes": 114740,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/anim_moe_still_s1_v9m.webp",
+   "srcSha256": "4a0f1d9fd2ebd0a00669b444dcd4438033bc18a76475a81159125f5209c2fd58",
+   "size": [
+    112,
+    3136
+   ]
+  },
+  {
+   "srcId": "moe9m_swee",
+   "file": "anim_moe_sweep_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_sweep_s1_v9m.webp",
+   "sha256": "31b481f30ac748dd7a948730fd6276bd650b9229cc97afdf9ae68010d235a8aa",
+   "bytes": 48992,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/anim_moe_sweep_s1_v9m.webp",
+   "srcSha256": "31b481f30ac748dd7a948730fd6276bd650b9229cc97afdf9ae68010d235a8aa",
+   "size": [
+    112,
+    2912
+   ]
+  },
+  {
+   "srcId": "moe9m_tethe",
+   "file": "anim_moe_tether_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_tether_s1_v9m.webp",
+   "sha256": "42307f48ad2f885804c799ec69094940ad542ac4fa4caac6a4e85fa43927bb8d",
+   "bytes": 66424,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/anim_moe_tether_s1_v9m.webp",
+   "srcSha256": "42307f48ad2f885804c799ec69094940ad542ac4fa4caac6a4e85fa43927bb8d",
+   "size": [
+    112,
+    2688
+   ]
+  },
+  {
+   "srcId": "moe9j_lancet",
+   "file": "anim_moe_lancet_s1_v9j.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_lancet_s1_v9j.webp",
+   "sha256": "9e8c9e49bf9c4fe13c969fc0e37156121c7c285e601c143c45ab3e9a6d1030f5",
+   "bytes": 78762,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/anim_moe_lancet_s1_v9j.webp",
+   "srcSha256": "9e8c9e49bf9c4fe13c969fc0e37156121c7c285e601c143c45ab3e9a6d1030f5",
+   "size": [
+    112,
+    2688
+   ]
+  },
+  {
+   "srcId": "moe9j_echo_strike",
+   "file": "anim_moe_echo_strike_s1_v9j.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_echo_strike_s1_v9j.webp",
+   "sha256": "33d3c8f2f13bd58afe7886871274d9a58d73b29f2d1f54da1daba460e28cfbf2",
+   "bytes": 81678,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/anim_moe_echo_strike_s1_v9j.webp",
+   "srcSha256": "33d3c8f2f13bd58afe7886871274d9a58d73b29f2d1f54da1daba460e28cfbf2",
+   "size": [
+    112,
+    2464
+   ]
+  },
+  {
+   "srcId": "moe9_entrance_sayo1_v9b",
+   "file": "anim_moe_entrance_sayo1_s1_v9b.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_entrance_sayo1_s1_v9b.webp",
+   "sha256": "48f6ac21ba0c991d2b579c81b6a53ae79e63d4b6d576775e4a0073d9805e1d15",
+   "bytes": 234056,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/anim_moe_entrance_sayo1_s1_v9b.webp",
+   "srcSha256": "48f6ac21ba0c991d2b579c81b6a53ae79e63d4b6d576775e4a0073d9805e1d15",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "moe9_aura_sayo1_v9b",
+   "file": "anim_moe_aura_sayo1_s1_v9b.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_aura_sayo1_s1_v9b.webp",
+   "sha256": "a2678aed828e5bf0269b33a1e317b0948bb67e89fc2dfe630673d2a1dfbb9071",
+   "bytes": 251836,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/anim_moe_aura_sayo1_s1_v9b.webp",
+   "srcSha256": "a2678aed828e5bf0269b33a1e317b0948bb67e89fc2dfe630673d2a1dfbb9071",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "moe9_entrance_sayo2_v9d",
+   "file": "anim_moe_entrance_sayo2_s1_v9d.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_entrance_sayo2_s1_v9d.webp",
+   "sha256": "8746891a03394f13946547eca537e169311cb387d46468f82958874bfebcc716",
+   "bytes": 272980,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/anim_moe_entrance_sayo2_s1_v9d.webp",
+   "srcSha256": "8746891a03394f13946547eca537e169311cb387d46468f82958874bfebcc716",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "moe9_aura_sayo2_v9d",
+   "file": "anim_moe_aura_sayo2_s1_v9d.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_aura_sayo2_s1_v9d.webp",
+   "sha256": "f4a37f725e5de719a6b7b178717ff2ee5d3b04a2b3fdbf16fa14d5d6c6a03006",
+   "bytes": 253804,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/anim_moe_aura_sayo2_s1_v9d.webp",
+   "srcSha256": "f4a37f725e5de719a6b7b178717ff2ee5d3b04a2b3fdbf16fa14d5d6c6a03006",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "moe9_entrance_silence_v9d",
+   "file": "anim_moe_entrance_silence_s1_v9d.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_entrance_silence_s1_v9d.webp",
+   "sha256": "dbcb96f61b0dc7b49c2a39ee77589792bce005236f55d9c3bc9a77ed936e1715",
+   "bytes": 257342,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/anim_moe_entrance_silence_s1_v9d.webp",
+   "srcSha256": "dbcb96f61b0dc7b49c2a39ee77589792bce005236f55d9c3bc9a77ed936e1715",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "moe9_aura_silence_v9b",
+   "file": "anim_moe_aura_silence_s1_v9b.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_aura_silence_s1_v9b.webp",
+   "sha256": "296f36a844bc532a75737f18fa0cabf4df0f4b669aadd0a8db1ff0f41144790c",
+   "bytes": 184376,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/anim_moe_aura_silence_s1_v9b.webp",
+   "srcSha256": "296f36a844bc532a75737f18fa0cabf4df0f4b669aadd0a8db1ff0f41144790c",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "moe9_entrance_saint_v9k",
+   "file": "anim_moe_entrance_saint_s1_v9k.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_entrance_saint_s1_v9k.webp",
+   "sha256": "bd1a79a8eb2ced383b70d5e24134082bea17cccbca4f1f20b09b8fd0b378fb0a",
+   "bytes": 278900,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/anim_moe_entrance_saint_s1_v9k.webp",
+   "srcSha256": "bd1a79a8eb2ced383b70d5e24134082bea17cccbca4f1f20b09b8fd0b378fb0a",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "moe9_aura_saint_v9b",
+   "file": "anim_moe_aura_saint_s1_v9b.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_aura_saint_s1_v9b.webp",
+   "sha256": "4e7913d672c140adbf478b6e4f1654b6496970457e88b2b674a26141a79b9542",
+   "bytes": 223718,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/anim_moe_aura_saint_s1_v9b.webp",
+   "srcSha256": "4e7913d672c140adbf478b6e4f1654b6496970457e88b2b674a26141a79b9542",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "moe9m_board_etch_ember_",
+   "file": "anim_moe_etch_ember_a_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_etch_ember_a_s1_v9m.webp",
+   "sha256": "3b0e11d4dd982544dbe74a64065fe36a082f4355e2c9e6d5c8c499ee01ae57d8",
+   "bytes": 55412,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/board/anim_moe_etch_ember_a_s1_v9m.webp",
+   "srcSha256": "3b0e11d4dd982544dbe74a64065fe36a082f4355e2c9e6d5c8c499ee01ae57d8",
+   "size": [
+    112,
+    2464
+   ]
+  },
+  {
+   "srcId": "moe9m_board_etch_ember_",
+   "file": "anim_moe_etch_ember_b_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_etch_ember_b_s1_v9m.webp",
+   "sha256": "390e31a8531404b8f9a4708c3aa23487a957d6232026f063d7c5928a3a61a818",
+   "bytes": 56048,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/board/anim_moe_etch_ember_b_s1_v9m.webp",
+   "srcSha256": "390e31a8531404b8f9a4708c3aa23487a957d6232026f063d7c5928a3a61a818",
+   "size": [
+    112,
+    2464
+   ]
+  },
+  {
+   "srcId": "moe9m_board_etch_hail_",
+   "file": "anim_moe_etch_hail_a_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_etch_hail_a_s1_v9m.webp",
+   "sha256": "23abde44deb9bbfe1b168adb6f21e99e0ac6a6f429349a7933a1a2208b4c00bb",
+   "bytes": 45582,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/board/anim_moe_etch_hail_a_s1_v9m.webp",
+   "srcSha256": "23abde44deb9bbfe1b168adb6f21e99e0ac6a6f429349a7933a1a2208b4c00bb",
+   "size": [
+    112,
+    2464
+   ]
+  },
+  {
+   "srcId": "moe9m_board_etch_hail_",
+   "file": "anim_moe_etch_hail_b_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_etch_hail_b_s1_v9m.webp",
+   "sha256": "ffdc770a93cf94c2b919f4ba8be1e79510ed5b96c5e5c9190048f4ba9f948d23",
+   "bytes": 45960,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/board/anim_moe_etch_hail_b_s1_v9m.webp",
+   "srcSha256": "ffdc770a93cf94c2b919f4ba8be1e79510ed5b96c5e5c9190048f4ba9f948d23",
+   "size": [
+    112,
+    2464
+   ]
+  },
+  {
+   "srcId": "moe9m_board_etch_heart_",
+   "file": "anim_moe_etch_heart_a_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_etch_heart_a_s1_v9m.webp",
+   "sha256": "3b1e6fdb4c34792ff0c0ad5d06daf60765b641223a563e36d6f8630ad1528eac",
+   "bytes": 61644,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/board/anim_moe_etch_heart_a_s1_v9m.webp",
+   "srcSha256": "3b1e6fdb4c34792ff0c0ad5d06daf60765b641223a563e36d6f8630ad1528eac",
+   "size": [
+    112,
+    2464
+   ]
+  },
+  {
+   "srcId": "moe9m_board_etch_heart_",
+   "file": "anim_moe_etch_heart_b_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_etch_heart_b_s1_v9m.webp",
+   "sha256": "bec9addb7230366dff09d01d11732072f15535d58364bb372e52a8b617fe5e0a",
+   "bytes": 61798,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/board/anim_moe_etch_heart_b_s1_v9m.webp",
+   "srcSha256": "bec9addb7230366dff09d01d11732072f15535d58364bb372e52a8b617fe5e0a",
+   "size": [
+    112,
+    2464
+   ]
+  },
+  {
+   "srcId": "moe9m_board_etch_rime_",
+   "file": "anim_moe_etch_rime_a_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_etch_rime_a_s1_v9m.webp",
+   "sha256": "2747a44665f859c301180a218442be0c0cf721f3233a0095cb79068c2d8fa625",
+   "bytes": 57982,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/board/anim_moe_etch_rime_a_s1_v9m.webp",
+   "srcSha256": "2747a44665f859c301180a218442be0c0cf721f3233a0095cb79068c2d8fa625",
+   "size": [
+    112,
+    2464
+   ]
+  },
+  {
+   "srcId": "moe9m_board_etch_rime_",
+   "file": "anim_moe_etch_rime_b_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_etch_rime_b_s1_v9m.webp",
+   "sha256": "166aa06972d19171b501dacaaa6f5b8d7b679ca4f17cb5c9cba166b3ed772e92",
+   "bytes": 58888,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/board/anim_moe_etch_rime_b_s1_v9m.webp",
+   "srcSha256": "166aa06972d19171b501dacaaa6f5b8d7b679ca4f17cb5c9cba166b3ed772e92",
+   "size": [
+    112,
+    2464
+   ]
+  },
+  {
+   "srcId": "moe9m_board_etch_seam_",
+   "file": "anim_moe_etch_seam_a_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_etch_seam_a_s1_v9m.webp",
+   "sha256": "bf8321f5bb30de324efb6dca75768cbb670a656a3659376a5db5eb64c2cbfdc0",
+   "bytes": 30658,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/board/anim_moe_etch_seam_a_s1_v9m.webp",
+   "srcSha256": "bf8321f5bb30de324efb6dca75768cbb670a656a3659376a5db5eb64c2cbfdc0",
+   "size": [
+    112,
+    2464
+   ]
+  },
+  {
+   "srcId": "moe9m_board_etch_seam_",
+   "file": "anim_moe_etch_seam_b_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_etch_seam_b_s1_v9m.webp",
+   "sha256": "d5f66d0d6634edace2e87f2c935cc7fa65a17d65f086c5097937eb1b6595af1c",
+   "bytes": 31098,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/board/anim_moe_etch_seam_b_s1_v9m.webp",
+   "srcSha256": "d5f66d0d6634edace2e87f2c935cc7fa65a17d65f086c5097937eb1b6595af1c",
+   "size": [
+    112,
+    2464
+   ]
+  },
+  {
+   "srcId": "moe9m_board_glassfall_first_",
+   "file": "anim_moe_glassfall_first_a_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_glassfall_first_a_s1_v9m.webp",
+   "sha256": "da053f9a6c42f1a7ea7ae02fb5c055d67aa39885464f4539d9dab8254877f95e",
+   "bytes": 130850,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/board/anim_moe_glassfall_first_a_s1_v9m.webp",
+   "srcSha256": "da053f9a6c42f1a7ea7ae02fb5c055d67aa39885464f4539d9dab8254877f95e",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "moe9m_board_glassfall_first_",
+   "file": "anim_moe_glassfall_first_b_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_glassfall_first_b_s1_v9m.webp",
+   "sha256": "e43ea52e48c099265864cd4a1de3372543d066651b54b8952af1934321e9fa05",
+   "bytes": 131690,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/board/anim_moe_glassfall_first_b_s1_v9m.webp",
+   "srcSha256": "e43ea52e48c099265864cd4a1de3372543d066651b54b8952af1934321e9fa05",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "moe9m_board_glassfall_last_",
+   "file": "anim_moe_glassfall_last_a_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_glassfall_last_a_s1_v9m.webp",
+   "sha256": "e43bd2649e3a40c19afc329a96582bd9a9f6997674a57f052aa56423cefed4d3",
+   "bytes": 149324,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/board/anim_moe_glassfall_last_a_s1_v9m.webp",
+   "srcSha256": "e43bd2649e3a40c19afc329a96582bd9a9f6997674a57f052aa56423cefed4d3",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "moe9m_board_glassfall_last_",
+   "file": "anim_moe_glassfall_last_b_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_glassfall_last_b_s1_v9m.webp",
+   "sha256": "d5eac1dcbcfac6360cd012c016d4d8f608b791c98d0982c525045023f16f566a",
+   "bytes": 149970,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/board/anim_moe_glassfall_last_b_s1_v9m.webp",
+   "srcSha256": "d5eac1dcbcfac6360cd012c016d4d8f608b791c98d0982c525045023f16f566a",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "moe9m_board_glassfall_second_",
+   "file": "anim_moe_glassfall_second_a_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_glassfall_second_a_s1_v9m.webp",
+   "sha256": "2d0c730f3668b6ac52f2b77b55c0e0fb921ee5665b5ba5078b233b2a80d7e106",
+   "bytes": 139718,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/board/anim_moe_glassfall_second_a_s1_v9m.webp",
+   "srcSha256": "2d0c730f3668b6ac52f2b77b55c0e0fb921ee5665b5ba5078b233b2a80d7e106",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "moe9m_board_glassfall_second_",
+   "file": "anim_moe_glassfall_second_b_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_glassfall_second_b_s1_v9m.webp",
+   "sha256": "872abac932d2ee4e935146cedd8c597b11200a305ff3c99e45dbc3fa96ad37d7",
+   "bytes": 140074,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/board/anim_moe_glassfall_second_b_s1_v9m.webp",
+   "srcSha256": "872abac932d2ee4e935146cedd8c597b11200a305ff3c99e45dbc3fa96ad37d7",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "moe9m_board_names_ember_",
+   "file": "anim_moe_names_ember_a_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_names_ember_a_s1_v9m.webp",
+   "sha256": "915479d67db2207a5b15860da9b1ef42abed1d7a35693a36442ec37cff82293f",
+   "bytes": 112756,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/board/anim_moe_names_ember_a_s1_v9m.webp",
+   "srcSha256": "915479d67db2207a5b15860da9b1ef42abed1d7a35693a36442ec37cff82293f",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "moe9m_board_names_ember_",
+   "file": "anim_moe_names_ember_b_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_names_ember_b_s1_v9m.webp",
+   "sha256": "f8c8209b1e6dbf7f2329f20a1dbec2b1859695c832796590f39e19d1e65e259f",
+   "bytes": 109242,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/board/anim_moe_names_ember_b_s1_v9m.webp",
+   "srcSha256": "f8c8209b1e6dbf7f2329f20a1dbec2b1859695c832796590f39e19d1e65e259f",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "moe9m_board_names_heart_",
+   "file": "anim_moe_names_heart_a_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_names_heart_a_s1_v9m.webp",
+   "sha256": "78cf404473568e5a176fc1aa57064f93c9ac496e2f3680060c8068a18428560f",
+   "bytes": 102786,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/board/anim_moe_names_heart_a_s1_v9m.webp",
+   "srcSha256": "78cf404473568e5a176fc1aa57064f93c9ac496e2f3680060c8068a18428560f",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "moe9m_board_names_heart_",
+   "file": "anim_moe_names_heart_b_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_names_heart_b_s1_v9m.webp",
+   "sha256": "0317ddb559bd51793dec32b8498995221d8d7e2956b1b548d073b5b376a037df",
+   "bytes": 98728,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/board/anim_moe_names_heart_b_s1_v9m.webp",
+   "srcSha256": "0317ddb559bd51793dec32b8498995221d8d7e2956b1b548d073b5b376a037df",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "moe9m_board_names_rime_",
+   "file": "anim_moe_names_rime_a_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_names_rime_a_s1_v9m.webp",
+   "sha256": "2fe7cd66327697d7f76df241c8f11d05138ce8bcca093937fe33885817c21539",
+   "bytes": 97608,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/board/anim_moe_names_rime_a_s1_v9m.webp",
+   "srcSha256": "2fe7cd66327697d7f76df241c8f11d05138ce8bcca093937fe33885817c21539",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "moe9m_board_names_rime_",
+   "file": "anim_moe_names_rime_b_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_names_rime_b_s1_v9m.webp",
+   "sha256": "141d3e9e6c373bbc86b02985a5aac3c9ee7b51df397452bbc1b8eaf3c17fadb5",
+   "bytes": 94002,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/board/anim_moe_names_rime_b_s1_v9m.webp",
+   "srcSha256": "141d3e9e6c373bbc86b02985a5aac3c9ee7b51df397452bbc1b8eaf3c17fadb5",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "moe9m_board_recast_ember_",
+   "file": "anim_moe_recast_ember_a_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_recast_ember_a_s1_v9m.webp",
+   "sha256": "3f91f7351c6a058d834691281b65f7f8425365c7d0de66d8bf44cd64adb8f8fe",
+   "bytes": 147686,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/board/anim_moe_recast_ember_a_s1_v9m.webp",
+   "srcSha256": "3f91f7351c6a058d834691281b65f7f8425365c7d0de66d8bf44cd64adb8f8fe",
+   "size": [
+    112,
+    3808
+   ]
+  },
+  {
+   "srcId": "moe9m_board_recast_ember_",
+   "file": "anim_moe_recast_ember_b_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_recast_ember_b_s1_v9m.webp",
+   "sha256": "88b041484863e996cc8973c06396fcf373ecdce9c27d6c2013a83b9418ec0d6b",
+   "bytes": 145456,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/board/anim_moe_recast_ember_b_s1_v9m.webp",
+   "srcSha256": "88b041484863e996cc8973c06396fcf373ecdce9c27d6c2013a83b9418ec0d6b",
+   "size": [
+    112,
+    3808
+   ]
+  },
+  {
+   "srcId": "moe9m_board_recast_hail_",
+   "file": "anim_moe_recast_hail_a_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_recast_hail_a_s1_v9m.webp",
+   "sha256": "dd7b53fb0354f4e6d5433d8e79581d3a0073b7217f39cd711fce32eae8f1c15d",
+   "bytes": 141716,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/board/anim_moe_recast_hail_a_s1_v9m.webp",
+   "srcSha256": "dd7b53fb0354f4e6d5433d8e79581d3a0073b7217f39cd711fce32eae8f1c15d",
+   "size": [
+    112,
+    3808
+   ]
+  },
+  {
+   "srcId": "moe9m_board_recast_hail_",
+   "file": "anim_moe_recast_hail_b_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_recast_hail_b_s1_v9m.webp",
+   "sha256": "a5017d3a8e9e55868ca652d995e360362877dd59b9c498ab7a8822f60de6a936",
+   "bytes": 139256,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/board/anim_moe_recast_hail_b_s1_v9m.webp",
+   "srcSha256": "a5017d3a8e9e55868ca652d995e360362877dd59b9c498ab7a8822f60de6a936",
+   "size": [
+    112,
+    3808
+   ]
+  },
+  {
+   "srcId": "moe9m_board_recast_heart_",
+   "file": "anim_moe_recast_heart_a_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_recast_heart_a_s1_v9m.webp",
+   "sha256": "1fd60de1943826ee66a34c19a8a51ed1ca4ac38e7cbdb3003ba4131485c24be2",
+   "bytes": 155924,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/board/anim_moe_recast_heart_a_s1_v9m.webp",
+   "srcSha256": "1fd60de1943826ee66a34c19a8a51ed1ca4ac38e7cbdb3003ba4131485c24be2",
+   "size": [
+    112,
+    3808
+   ]
+  },
+  {
+   "srcId": "moe9m_board_recast_heart_",
+   "file": "anim_moe_recast_heart_b_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_recast_heart_b_s1_v9m.webp",
+   "sha256": "218f19ffad91b8e59cfcb49c1d6174092fdcd8c4932789aae569bde19b456ee7",
+   "bytes": 153952,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/board/anim_moe_recast_heart_b_s1_v9m.webp",
+   "srcSha256": "218f19ffad91b8e59cfcb49c1d6174092fdcd8c4932789aae569bde19b456ee7",
+   "size": [
+    112,
+    3808
+   ]
+  },
+  {
+   "srcId": "moe9m_board_recast_rime_",
+   "file": "anim_moe_recast_rime_a_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_recast_rime_a_s1_v9m.webp",
+   "sha256": "b990ef21dedc44a4f2c4b583d2b4ac948119fe2913b4f57a3562e34fe75ff2d4",
+   "bytes": 150210,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/board/anim_moe_recast_rime_a_s1_v9m.webp",
+   "srcSha256": "b990ef21dedc44a4f2c4b583d2b4ac948119fe2913b4f57a3562e34fe75ff2d4",
+   "size": [
+    112,
+    3808
+   ]
+  },
+  {
+   "srcId": "moe9m_board_recast_rime_",
+   "file": "anim_moe_recast_rime_b_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_recast_rime_b_s1_v9m.webp",
+   "sha256": "c074b531d2ebf967cb67005769e27fe318df68b2f65a9961acedc37ebf0b7e5f",
+   "bytes": 148332,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/board/anim_moe_recast_rime_b_s1_v9m.webp",
+   "srcSha256": "c074b531d2ebf967cb67005769e27fe318df68b2f65a9961acedc37ebf0b7e5f",
+   "size": [
+    112,
+    3808
+   ]
+  },
+  {
+   "srcId": "moe9m_board_recast_seam_",
+   "file": "anim_moe_recast_seam_a_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_recast_seam_a_s1_v9m.webp",
+   "sha256": "785ad0a2f0b8dac8134549db6cab8b1b616515630769583f29feb6fad27fcba1",
+   "bytes": 132576,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/board/anim_moe_recast_seam_a_s1_v9m.webp",
+   "srcSha256": "785ad0a2f0b8dac8134549db6cab8b1b616515630769583f29feb6fad27fcba1",
+   "size": [
+    112,
+    3808
+   ]
+  },
+  {
+   "srcId": "moe9m_board_recast_seam_",
+   "file": "anim_moe_recast_seam_b_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_recast_seam_b_s1_v9m.webp",
+   "sha256": "6670f122d429716394279c8395c9b3efb7bb73a2dd7fc9397b788dbc4c325195",
+   "bytes": 130004,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/board/anim_moe_recast_seam_b_s1_v9m.webp",
+   "srcSha256": "6670f122d429716394279c8395c9b3efb7bb73a2dd7fc9397b788dbc4c325195",
+   "size": [
+    112,
+    3808
+   ]
+  },
+  {
+   "srcId": "moe9m_board_remembers_d0_",
+   "file": "anim_moe_remembers_d0_a_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_remembers_d0_a_s1_v9m.webp",
+   "sha256": "10b5f2402072b24963a8811d4f92b7b192a469d5c8b8359bb28dc541b081389b",
+   "bytes": 99360,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/board/anim_moe_remembers_d0_a_s1_v9m.webp",
+   "srcSha256": "10b5f2402072b24963a8811d4f92b7b192a469d5c8b8359bb28dc541b081389b",
+   "size": [
+    112,
+    2688
+   ]
+  },
+  {
+   "srcId": "moe9m_board_remembers_d0_",
+   "file": "anim_moe_remembers_d0_b_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_remembers_d0_b_s1_v9m.webp",
+   "sha256": "c18441e13b280067cc5c9e3c5a0b07797ef928e93a86e50394db33f18dc4867f",
+   "bytes": 99360,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/board/anim_moe_remembers_d0_b_s1_v9m.webp",
+   "srcSha256": "c18441e13b280067cc5c9e3c5a0b07797ef928e93a86e50394db33f18dc4867f",
+   "size": [
+    112,
+    2688
+   ]
+  },
+  {
+   "srcId": "moe9m_board_remembers_d2_",
+   "file": "anim_moe_remembers_d2_a_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_remembers_d2_a_s1_v9m.webp",
+   "sha256": "dd9b51570f2a9724149c6e9280b3832714d93aa484f70313e9e78ef5767be93b",
+   "bytes": 99356,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/board/anim_moe_remembers_d2_a_s1_v9m.webp",
+   "srcSha256": "dd9b51570f2a9724149c6e9280b3832714d93aa484f70313e9e78ef5767be93b",
+   "size": [
+    112,
+    2912
+   ]
+  },
+  {
+   "srcId": "moe9m_board_remembers_d2_",
+   "file": "anim_moe_remembers_d2_b_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_remembers_d2_b_s1_v9m.webp",
+   "sha256": "c27110ccc70f96a29b828779aa3aecef282a0a86eed2008f4e38bfbadbb25a4a",
+   "bytes": 99492,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/board/anim_moe_remembers_d2_b_s1_v9m.webp",
+   "srcSha256": "c27110ccc70f96a29b828779aa3aecef282a0a86eed2008f4e38bfbadbb25a4a",
+   "size": [
+    112,
+    2912
+   ]
+  },
+  {
+   "srcId": "moe9m_board_remembers_d4_",
+   "file": "anim_moe_remembers_d4_a_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_remembers_d4_a_s1_v9m.webp",
+   "sha256": "c99ffedf0a7ec004546308b6ef44a8a083e64487ad909c5df52003f6e561b38a",
+   "bytes": 99786,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/board/anim_moe_remembers_d4_a_s1_v9m.webp",
+   "srcSha256": "c99ffedf0a7ec004546308b6ef44a8a083e64487ad909c5df52003f6e561b38a",
+   "size": [
+    112,
+    3136
+   ]
+  },
+  {
+   "srcId": "moe9m_board_remembers_d4_",
+   "file": "anim_moe_remembers_d4_b_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_remembers_d4_b_s1_v9m.webp",
+   "sha256": "b9cf5360c4e967f83e64ae858aa87510b717805e6c27d9d1001196cf699adc41",
+   "bytes": 99292,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/board/anim_moe_remembers_d4_b_s1_v9m.webp",
+   "srcSha256": "b9cf5360c4e967f83e64ae858aa87510b717805e6c27d9d1001196cf699adc41",
+   "size": [
+    112,
+    3136
+   ]
+  },
+  {
+   "srcId": "moe9m_board_remembers_d6_",
+   "file": "anim_moe_remembers_d6_a_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_remembers_d6_a_s1_v9m.webp",
+   "sha256": "aae985ff0fba5f92260ae20fe48f84502128f0d9cc51c8e8694ebd37d6dd4305",
+   "bytes": 99580,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/board/anim_moe_remembers_d6_a_s1_v9m.webp",
+   "srcSha256": "aae985ff0fba5f92260ae20fe48f84502128f0d9cc51c8e8694ebd37d6dd4305",
+   "size": [
+    112,
+    3360
+   ]
+  },
+  {
+   "srcId": "moe9m_board_remembers_d6_",
+   "file": "anim_moe_remembers_d6_b_s1_v9m.webp",
+   "path": "state/moe_upload/moe_v9/anim_moe_remembers_d6_b_s1_v9m.webp",
+   "sha256": "d84249be743d8faec44af8e187a9f3cde04dbce314d0f90e12f0ac1aa1b09690",
+   "bytes": 99698,
+   "srcPath": "/mnt/project-files/tnr-animation/v9/out/board/anim_moe_remembers_d6_b_s1_v9m.webp",
+   "srcSha256": "d84249be743d8faec44af8e187a9f3cde04dbce314d0f90e12f0ac1aa1b09690",
+   "size": [
+    112,
+    3360
+   ]
+  },
+  {
+   "srcId": "refr_lens_dark_omen_s1_L0",
+   "file": "anim_refraction_lens_dark_omen_s1_L0.webp",
+   "path": "state/moe_upload/moe_v9/anim_refraction_lens_dark_omen_s1_L0.webp",
+   "sha256": "dbdbb66688c0218b37d1d0dfbaa433d5301ac3ef36fd7893c3a54955b819935c",
+   "bytes": 233108,
+   "srcPath": "/mnt/project-files/tnr-animation/v8/out/lens/anim_refraction_lens_dark_omen_s1_L0.webp",
+   "srcSha256": "dbdbb66688c0218b37d1d0dfbaa433d5301ac3ef36fd7893c3a54955b819935c",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_dark_omen_s1_L1",
+   "file": "anim_refraction_lens_dark_omen_s1_L1.webp",
+   "path": "state/moe_upload/moe_v9/anim_refraction_lens_dark_omen_s1_L1.webp",
+   "sha256": "2bbca7a275dd39f6dd723d90b00bdd6e48f246c2852d2f048255ecb7f12c8dfa",
+   "bytes": 233512,
+   "srcPath": "/mnt/project-files/tnr-animation/v8/out/lens/anim_refraction_lens_dark_omen_s1_L1.webp",
+   "srcSha256": "2bbca7a275dd39f6dd723d90b00bdd6e48f246c2852d2f048255ecb7f12c8dfa",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_dark_omen_s1_L2",
+   "file": "anim_refraction_lens_dark_omen_s1_L2.webp",
+   "path": "state/moe_upload/moe_v9/anim_refraction_lens_dark_omen_s1_L2.webp",
+   "sha256": "54bb2f27667ad18186b9214ea139ebbbf3f540c014387554f2412d05c0768f4f",
+   "bytes": 233302,
+   "srcPath": "/mnt/project-files/tnr-animation/v8/out/lens/anim_refraction_lens_dark_omen_s1_L2.webp",
+   "srcSha256": "54bb2f27667ad18186b9214ea139ebbbf3f540c014387554f2412d05c0768f4f",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_dark_omen_s1_L3",
+   "file": "anim_refraction_lens_dark_omen_s1_L3.webp",
+   "path": "state/moe_upload/moe_v9/anim_refraction_lens_dark_omen_s1_L3.webp",
+   "sha256": "56a5b3bdaf9f9f0a35ea52b2e9ee9e6214eb2f0cd1046199a04b72c9e03bf1d3",
+   "bytes": 232880,
+   "srcPath": "/mnt/project-files/tnr-animation/v8/out/lens/anim_refraction_lens_dark_omen_s1_L3.webp",
+   "srcSha256": "56a5b3bdaf9f9f0a35ea52b2e9ee9e6214eb2f0cd1046199a04b72c9e03bf1d3",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_dark_omen_s1_L4",
+   "file": "anim_refraction_lens_dark_omen_s1_L4.webp",
+   "path": "state/moe_upload/moe_v9/anim_refraction_lens_dark_omen_s1_L4.webp",
+   "sha256": "d6aae24195a3d16d14db197000230ccae9ae017e9cf62852054fcf9cec848b95",
+   "bytes": 233840,
+   "srcPath": "/mnt/project-files/tnr-animation/v8/out/lens/anim_refraction_lens_dark_omen_s1_L4.webp",
+   "srcSha256": "d6aae24195a3d16d14db197000230ccae9ae017e9cf62852054fcf9cec848b95",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_dark_omen_s1_L5",
+   "file": "anim_refraction_lens_dark_omen_s1_L5.webp",
+   "path": "state/moe_upload/moe_v9/anim_refraction_lens_dark_omen_s1_L5.webp",
+   "sha256": "23cb57d80ccd5f2fe92c2ca625d75e0ab1e36bad04ab6d4ef0f4ef6cbf89ccda",
+   "bytes": 232864,
+   "srcPath": "/mnt/project-files/tnr-animation/v8/out/lens/anim_refraction_lens_dark_omen_s1_L5.webp",
+   "srcSha256": "23cb57d80ccd5f2fe92c2ca625d75e0ab1e36bad04ab6d4ef0f4ef6cbf89ccda",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_dark_omen_s1_L6",
+   "file": "anim_refraction_lens_dark_omen_s1_L6.webp",
+   "path": "state/moe_upload/moe_v9/anim_refraction_lens_dark_omen_s1_L6.webp",
+   "sha256": "35df05b352b4bb6c08a08e18acc85cf8b80601d41f694230f3c21ae7c92a2724",
+   "bytes": 232872,
+   "srcPath": "/mnt/project-files/tnr-animation/v8/out/lens/anim_refraction_lens_dark_omen_s1_L6.webp",
+   "srcSha256": "35df05b352b4bb6c08a08e18acc85cf8b80601d41f694230f3c21ae7c92a2724",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_dark_omen_s1_L7",
+   "file": "anim_refraction_lens_dark_omen_s1_L7.webp",
+   "path": "state/moe_upload/moe_v9/anim_refraction_lens_dark_omen_s1_L7.webp",
+   "sha256": "3f0f1de40daa7de4c6bcf639259db7aef6f218a73f027db25140ebc8da7bfb31",
+   "bytes": 233184,
+   "srcPath": "/mnt/project-files/tnr-animation/v8/out/lens/anim_refraction_lens_dark_omen_s1_L7.webp",
+   "srcSha256": "3f0f1de40daa7de4c6bcf639259db7aef6f218a73f027db25140ebc8da7bfb31",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_dark_omen_s1_L8",
+   "file": "anim_refraction_lens_dark_omen_s1_L8.webp",
+   "path": "state/moe_upload/moe_v9/anim_refraction_lens_dark_omen_s1_L8.webp",
+   "sha256": "da1b4274dedc84fb0b8a5e36850a43339f0b9b79ae238a6767ede79e03f47e29",
+   "bytes": 233698,
+   "srcPath": "/mnt/project-files/tnr-animation/v8/out/lens/anim_refraction_lens_dark_omen_s1_L8.webp",
+   "srcSha256": "da1b4274dedc84fb0b8a5e36850a43339f0b9b79ae238a6767ede79e03f47e29",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_dark_omen_s1_R10",
+   "file": "anim_refraction_lens_dark_omen_s1_R10.webp",
+   "path": "state/moe_upload/moe_v9/anim_refraction_lens_dark_omen_s1_R10.webp",
+   "sha256": "018146dc9717f3b93d0445d92feb92a7a2baeadb125c9be76bc8c6acf03669bd",
+   "bytes": 233512,
+   "srcPath": "/mnt/project-files/tnr-animation/v8/out/lens/anim_refraction_lens_dark_omen_s1_R10.webp",
+   "srcSha256": "018146dc9717f3b93d0445d92feb92a7a2baeadb125c9be76bc8c6acf03669bd",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_dark_omen_s1_R11",
+   "file": "anim_refraction_lens_dark_omen_s1_R11.webp",
+   "path": "state/moe_upload/moe_v9/anim_refraction_lens_dark_omen_s1_R11.webp",
+   "sha256": "1c967634be79aafa5c9afc90e6988c51c449f3d920acba5347921308e0cb0c01",
+   "bytes": 233108,
+   "srcPath": "/mnt/project-files/tnr-animation/v8/out/lens/anim_refraction_lens_dark_omen_s1_R11.webp",
+   "srcSha256": "1c967634be79aafa5c9afc90e6988c51c449f3d920acba5347921308e0cb0c01",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_dark_omen_s1_R3",
+   "file": "anim_refraction_lens_dark_omen_s1_R3.webp",
+   "path": "state/moe_upload/moe_v9/anim_refraction_lens_dark_omen_s1_R3.webp",
+   "sha256": "80fcb80f8fcc6b416d39ea281b09e16191cd2b99ffebdea7370f048ab797ce1b",
+   "bytes": 233698,
+   "srcPath": "/mnt/project-files/tnr-animation/v8/out/lens/anim_refraction_lens_dark_omen_s1_R3.webp",
+   "srcSha256": "80fcb80f8fcc6b416d39ea281b09e16191cd2b99ffebdea7370f048ab797ce1b",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_dark_omen_s1_R4",
+   "file": "anim_refraction_lens_dark_omen_s1_R4.webp",
+   "path": "state/moe_upload/moe_v9/anim_refraction_lens_dark_omen_s1_R4.webp",
+   "sha256": "f2f93659c13918db08f9f15f7869dc4b62946c671fe852fca229f561cab2e768",
+   "bytes": 233184,
+   "srcPath": "/mnt/project-files/tnr-animation/v8/out/lens/anim_refraction_lens_dark_omen_s1_R4.webp",
+   "srcSha256": "f2f93659c13918db08f9f15f7869dc4b62946c671fe852fca229f561cab2e768",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_dark_omen_s1_R5",
+   "file": "anim_refraction_lens_dark_omen_s1_R5.webp",
+   "path": "state/moe_upload/moe_v9/anim_refraction_lens_dark_omen_s1_R5.webp",
+   "sha256": "d06751cb732952055759fc1dd7346e3e01c292d5e343b20c9abb12d6e174e7ad",
+   "bytes": 232872,
+   "srcPath": "/mnt/project-files/tnr-animation/v8/out/lens/anim_refraction_lens_dark_omen_s1_R5.webp",
+   "srcSha256": "d06751cb732952055759fc1dd7346e3e01c292d5e343b20c9abb12d6e174e7ad",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_dark_omen_s1_R6",
+   "file": "anim_refraction_lens_dark_omen_s1_R6.webp",
+   "path": "state/moe_upload/moe_v9/anim_refraction_lens_dark_omen_s1_R6.webp",
+   "sha256": "f885f3c0bc2b9748d832e520fc3ba99f11b7be14b3740a14d1cef8ba9da62b27",
+   "bytes": 232864,
+   "srcPath": "/mnt/project-files/tnr-animation/v8/out/lens/anim_refraction_lens_dark_omen_s1_R6.webp",
+   "srcSha256": "f885f3c0bc2b9748d832e520fc3ba99f11b7be14b3740a14d1cef8ba9da62b27",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_dark_omen_s1_R7",
+   "file": "anim_refraction_lens_dark_omen_s1_R7.webp",
+   "path": "state/moe_upload/moe_v9/anim_refraction_lens_dark_omen_s1_R7.webp",
+   "sha256": "1ccd0dd1d68180b8f2f9cf3dc32dd5f501846323a8bdf9f8c0e19710cd3e2428",
+   "bytes": 233840,
+   "srcPath": "/mnt/project-files/tnr-animation/v8/out/lens/anim_refraction_lens_dark_omen_s1_R7.webp",
+   "srcSha256": "1ccd0dd1d68180b8f2f9cf3dc32dd5f501846323a8bdf9f8c0e19710cd3e2428",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_dark_omen_s1_R8",
+   "file": "anim_refraction_lens_dark_omen_s1_R8.webp",
+   "path": "state/moe_upload/moe_v9/anim_refraction_lens_dark_omen_s1_R8.webp",
+   "sha256": "f9d023c51fce90879752b9a11ba3f58fe9b815ce2e796e5bd82a8910792cf9d8",
+   "bytes": 232880,
+   "srcPath": "/mnt/project-files/tnr-animation/v8/out/lens/anim_refraction_lens_dark_omen_s1_R8.webp",
+   "srcSha256": "f9d023c51fce90879752b9a11ba3f58fe9b815ce2e796e5bd82a8910792cf9d8",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens_dark_omen_s1_R9",
+   "file": "anim_refraction_lens_dark_omen_s1_R9.webp",
+   "path": "state/moe_upload/moe_v9/anim_refraction_lens_dark_omen_s1_R9.webp",
+   "sha256": "a88a079ab88f2115e077721522101cde45857966dadc31479f791190b9dff56d",
+   "bytes": 233302,
+   "srcPath": "/mnt/project-files/tnr-animation/v8/out/lens/anim_refraction_lens_dark_omen_s1_R9.webp",
+   "srcSha256": "a88a079ab88f2115e077721522101cde45857966dadc31479f791190b9dff56d",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens1t_dark_erupt_s1_L0",
+   "file": "anim_refraction_lens1t_dark_erupt_s1_L0.webp",
+   "path": "state/moe_upload/moe_v9/anim_refraction_lens1t_dark_erupt_s1_L0.webp",
+   "sha256": "e546bf5f7fb402afb6c290482c88e5bac2c2936159eae8164e6a9af514f599bc",
+   "bytes": 250048,
+   "srcPath": "/mnt/project-files/tnr-animation/v8/out/lens1t/anim_refraction_lens1t_dark_erupt_s1_L0.webp",
+   "srcSha256": "e546bf5f7fb402afb6c290482c88e5bac2c2936159eae8164e6a9af514f599bc",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens1t_dark_erupt_s1_L1",
+   "file": "anim_refraction_lens1t_dark_erupt_s1_L1.webp",
+   "path": "state/moe_upload/moe_v9/anim_refraction_lens1t_dark_erupt_s1_L1.webp",
+   "sha256": "489d980a4acbe94cd40192cca807dda1250de18761c8a5260dc9a91e80273c9f",
+   "bytes": 244824,
+   "srcPath": "/mnt/project-files/tnr-animation/v8/out/lens1t/anim_refraction_lens1t_dark_erupt_s1_L1.webp",
+   "srcSha256": "489d980a4acbe94cd40192cca807dda1250de18761c8a5260dc9a91e80273c9f",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens1t_dark_erupt_s1_L2",
+   "file": "anim_refraction_lens1t_dark_erupt_s1_L2.webp",
+   "path": "state/moe_upload/moe_v9/anim_refraction_lens1t_dark_erupt_s1_L2.webp",
+   "sha256": "689765106fc6d4d72662803c4798172825d12071b1140e5f9aaa3c755d053ce9",
+   "bytes": 240780,
+   "srcPath": "/mnt/project-files/tnr-animation/v8/out/lens1t/anim_refraction_lens1t_dark_erupt_s1_L2.webp",
+   "srcSha256": "689765106fc6d4d72662803c4798172825d12071b1140e5f9aaa3c755d053ce9",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens1t_dark_erupt_s1_L3",
+   "file": "anim_refraction_lens1t_dark_erupt_s1_L3.webp",
+   "path": "state/moe_upload/moe_v9/anim_refraction_lens1t_dark_erupt_s1_L3.webp",
+   "sha256": "8dd6a9ec224b9042f8e21ceb13ccef4cd3cb057397a3bef4a3661c080b853b90",
+   "bytes": 247428,
+   "srcPath": "/mnt/project-files/tnr-animation/v8/out/lens1t/anim_refraction_lens1t_dark_erupt_s1_L3.webp",
+   "srcSha256": "8dd6a9ec224b9042f8e21ceb13ccef4cd3cb057397a3bef4a3661c080b853b90",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens1t_dark_erupt_s1_L4",
+   "file": "anim_refraction_lens1t_dark_erupt_s1_L4.webp",
+   "path": "state/moe_upload/moe_v9/anim_refraction_lens1t_dark_erupt_s1_L4.webp",
+   "sha256": "c8089efc50060296ea88fefb69acc3e9f2633af097295be97dc10f27344bcea5",
+   "bytes": 242312,
+   "srcPath": "/mnt/project-files/tnr-animation/v8/out/lens1t/anim_refraction_lens1t_dark_erupt_s1_L4.webp",
+   "srcSha256": "c8089efc50060296ea88fefb69acc3e9f2633af097295be97dc10f27344bcea5",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens1t_dark_erupt_s1_L5",
+   "file": "anim_refraction_lens1t_dark_erupt_s1_L5.webp",
+   "path": "state/moe_upload/moe_v9/anim_refraction_lens1t_dark_erupt_s1_L5.webp",
+   "sha256": "1e7ae46fa7e8c060931b63f9839d04cd6e641087160bb7ebde3bf315334bf162",
+   "bytes": 249844,
+   "srcPath": "/mnt/project-files/tnr-animation/v8/out/lens1t/anim_refraction_lens1t_dark_erupt_s1_L5.webp",
+   "srcSha256": "1e7ae46fa7e8c060931b63f9839d04cd6e641087160bb7ebde3bf315334bf162",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens1t_dark_erupt_s1_L6",
+   "file": "anim_refraction_lens1t_dark_erupt_s1_L6.webp",
+   "path": "state/moe_upload/moe_v9/anim_refraction_lens1t_dark_erupt_s1_L6.webp",
+   "sha256": "625a080eccd2a89befe81b129b2be13ed5ff815be471ed0809bc84bb0185047a",
+   "bytes": 245006,
+   "srcPath": "/mnt/project-files/tnr-animation/v8/out/lens1t/anim_refraction_lens1t_dark_erupt_s1_L6.webp",
+   "srcSha256": "625a080eccd2a89befe81b129b2be13ed5ff815be471ed0809bc84bb0185047a",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens1t_dark_erupt_s1_L7",
+   "file": "anim_refraction_lens1t_dark_erupt_s1_L7.webp",
+   "path": "state/moe_upload/moe_v9/anim_refraction_lens1t_dark_erupt_s1_L7.webp",
+   "sha256": "bfb25e0b966bde554072ab3bace6aecb5baa0afb23755255858a816f7a0df602",
+   "bytes": 240854,
+   "srcPath": "/mnt/project-files/tnr-animation/v8/out/lens1t/anim_refraction_lens1t_dark_erupt_s1_L7.webp",
+   "srcSha256": "bfb25e0b966bde554072ab3bace6aecb5baa0afb23755255858a816f7a0df602",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens1t_dark_erupt_s1_L8",
+   "file": "anim_refraction_lens1t_dark_erupt_s1_L8.webp",
+   "path": "state/moe_upload/moe_v9/anim_refraction_lens1t_dark_erupt_s1_L8.webp",
+   "sha256": "a8a2395ce9b5f7e2aa013fc1dd9631425622d7c53ca1a5ec2457824280b7573e",
+   "bytes": 247318,
+   "srcPath": "/mnt/project-files/tnr-animation/v8/out/lens1t/anim_refraction_lens1t_dark_erupt_s1_L8.webp",
+   "srcSha256": "a8a2395ce9b5f7e2aa013fc1dd9631425622d7c53ca1a5ec2457824280b7573e",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens1t_dark_erupt_s1_R10",
+   "file": "anim_refraction_lens1t_dark_erupt_s1_R10.webp",
+   "path": "state/moe_upload/moe_v9/anim_refraction_lens1t_dark_erupt_s1_R10.webp",
+   "sha256": "68604c1595ee4f74cf01134a78521341792d04637d40adb8247f1a55ac718730",
+   "bytes": 244824,
+   "srcPath": "/mnt/project-files/tnr-animation/v8/out/lens1t/anim_refraction_lens1t_dark_erupt_s1_R10.webp",
+   "srcSha256": "68604c1595ee4f74cf01134a78521341792d04637d40adb8247f1a55ac718730",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens1t_dark_erupt_s1_R11",
+   "file": "anim_refraction_lens1t_dark_erupt_s1_R11.webp",
+   "path": "state/moe_upload/moe_v9/anim_refraction_lens1t_dark_erupt_s1_R11.webp",
+   "sha256": "d6cf9c83dfbda69031248b84b57748e3521b30a9de1e3e29b9c35e4d0da49119",
+   "bytes": 250048,
+   "srcPath": "/mnt/project-files/tnr-animation/v8/out/lens1t/anim_refraction_lens1t_dark_erupt_s1_R11.webp",
+   "srcSha256": "d6cf9c83dfbda69031248b84b57748e3521b30a9de1e3e29b9c35e4d0da49119",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens1t_dark_erupt_s1_R3",
+   "file": "anim_refraction_lens1t_dark_erupt_s1_R3.webp",
+   "path": "state/moe_upload/moe_v9/anim_refraction_lens1t_dark_erupt_s1_R3.webp",
+   "sha256": "a79a2eb571852864cd2acc7c994b214257333729c2cf7ebd0d35cdcdbac133f9",
+   "bytes": 247318,
+   "srcPath": "/mnt/project-files/tnr-animation/v8/out/lens1t/anim_refraction_lens1t_dark_erupt_s1_R3.webp",
+   "srcSha256": "a79a2eb571852864cd2acc7c994b214257333729c2cf7ebd0d35cdcdbac133f9",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens1t_dark_erupt_s1_R4",
+   "file": "anim_refraction_lens1t_dark_erupt_s1_R4.webp",
+   "path": "state/moe_upload/moe_v9/anim_refraction_lens1t_dark_erupt_s1_R4.webp",
+   "sha256": "ad61008402134f67131a0368cbdf04acc0511737dccd0796538b48ca6b98280c",
+   "bytes": 240854,
+   "srcPath": "/mnt/project-files/tnr-animation/v8/out/lens1t/anim_refraction_lens1t_dark_erupt_s1_R4.webp",
+   "srcSha256": "ad61008402134f67131a0368cbdf04acc0511737dccd0796538b48ca6b98280c",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens1t_dark_erupt_s1_R5",
+   "file": "anim_refraction_lens1t_dark_erupt_s1_R5.webp",
+   "path": "state/moe_upload/moe_v9/anim_refraction_lens1t_dark_erupt_s1_R5.webp",
+   "sha256": "b37d0987636cabec1c2612138e5672987b9b82b7d670860d9b3d4f955eb86048",
+   "bytes": 245006,
+   "srcPath": "/mnt/project-files/tnr-animation/v8/out/lens1t/anim_refraction_lens1t_dark_erupt_s1_R5.webp",
+   "srcSha256": "b37d0987636cabec1c2612138e5672987b9b82b7d670860d9b3d4f955eb86048",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens1t_dark_erupt_s1_R6",
+   "file": "anim_refraction_lens1t_dark_erupt_s1_R6.webp",
+   "path": "state/moe_upload/moe_v9/anim_refraction_lens1t_dark_erupt_s1_R6.webp",
+   "sha256": "5a66fe7017eac1c54b0148d8762515ec5bd508ace7e245d3dde6d1974b759270",
+   "bytes": 249844,
+   "srcPath": "/mnt/project-files/tnr-animation/v8/out/lens1t/anim_refraction_lens1t_dark_erupt_s1_R6.webp",
+   "srcSha256": "5a66fe7017eac1c54b0148d8762515ec5bd508ace7e245d3dde6d1974b759270",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens1t_dark_erupt_s1_R7",
+   "file": "anim_refraction_lens1t_dark_erupt_s1_R7.webp",
+   "path": "state/moe_upload/moe_v9/anim_refraction_lens1t_dark_erupt_s1_R7.webp",
+   "sha256": "075b03f6efd1adf20bcdcd3b968df170f3d359dcd93edf4d779861f48bef40cb",
+   "bytes": 242312,
+   "srcPath": "/mnt/project-files/tnr-animation/v8/out/lens1t/anim_refraction_lens1t_dark_erupt_s1_R7.webp",
+   "srcSha256": "075b03f6efd1adf20bcdcd3b968df170f3d359dcd93edf4d779861f48bef40cb",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens1t_dark_erupt_s1_R8",
+   "file": "anim_refraction_lens1t_dark_erupt_s1_R8.webp",
+   "path": "state/moe_upload/moe_v9/anim_refraction_lens1t_dark_erupt_s1_R8.webp",
+   "sha256": "434db317ead56fbc7e48605f3a767bd9bcc2b66cdae5a45058ba17379a5fb2fd",
+   "bytes": 247428,
+   "srcPath": "/mnt/project-files/tnr-animation/v8/out/lens1t/anim_refraction_lens1t_dark_erupt_s1_R8.webp",
+   "srcSha256": "434db317ead56fbc7e48605f3a767bd9bcc2b66cdae5a45058ba17379a5fb2fd",
+   "size": [
+    112,
+    4032
+   ]
+  },
+  {
+   "srcId": "refr_lens1t_dark_erupt_s1_R9",
+   "file": "anim_refraction_lens1t_dark_erupt_s1_R9.webp",
+   "path": "state/moe_upload/moe_v9/anim_refraction_lens1t_dark_erupt_s1_R9.webp",
+   "sha256": "33a126f11ed1df28dacd04a32d10f534ceb94c1bd84663b98c833e30eded7220",
+   "bytes": 240780,
+   "srcPath": "/mnt/project-files/tnr-animation/v8/out/lens1t/anim_refraction_lens1t_dark_erupt_s1_R9.webp",
+   "srcSha256": "33a126f11ed1df28dacd04a32d10f534ceb94c1bd84663b98c833e30eded7220",
+   "size": [
+    112,
+    4032
    ]
   }
  ]
