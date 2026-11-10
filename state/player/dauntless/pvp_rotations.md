@@ -181,6 +181,20 @@ If he Clears on his R3 reply, his Clear is gone: move to K1 for the rest of the 
 As **P1** this lock only works from round 2 (Clear his live R1 buffs before his R2 cash-out; Seal blocks his R3
 buffs, not his R2 rebuff). Prefer K2 as P1.
 
+### Director coaching (2026-11-09, 22:57)
+"If you want to cut damage the best combo is seal subaku especially if going first. If you want to reflect and
+mitigate the best is forbidden Chakra Fury and chakra shield, although that can be pierced very effectively. Smoke
+bomb is also often countered by pierce. Seal of Nullification debuff prevent can be used to prevent ethereal rebirth
+and smoke bombs self debuffs. Subaku Palace applies to enemies."
+- **Cut damage: Seal + Subaku (80 AP), best as P1.** Subaku's ground zone on his hex is instant (-25% his damage,
+  3 rounds); Seal blocks his buffs next round and wards me 2 rounds. Fill with Def. Stance / Panacea.
+- **Reflect and mitigate: Fury on his hex + Chakra Shield.** Pierce beats it (pierce destroys shields and ignores
+  recoil), so don't use it into a player holding Stormblade/Night's Testament-style pierce.
+- **Smoke is countered by pierce** (pierce ignores the -70%). Don't rely on Smoke against a pierce holder.
+- **Seal's debuff-block also blocks my own self-debuffs:** Ethereal's -15% and Smoke's -70% on me. Seal, then next
+  turn Smoke + Ethereal: he is smoked, I'm not.
+- Subaku Palace's zone applies to enemies (not me).
+
 ### D1. Instant Wall (P1's answer to "his burst lands on his reply")
 | Actions | Effect on his immediate reply |
 |---|---|
