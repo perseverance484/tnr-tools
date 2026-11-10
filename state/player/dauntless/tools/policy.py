@@ -237,6 +237,12 @@ def act(a):
                 bonus[tuple(sorted(rule["bundles"][0]))] = delta
     ranked = sorted(((bundle_value(net, x, h, b, cd_cost) + bonus.get(tuple(sorted(s for s in b if s != "step")), 0), b)
                      for b in bundles), key=lambda t: -t[0])
+    # hard rule: a flat pierce that kills beats any scored plan (Night's 631, Stormblade 707)
+    if a.en_hp > 0:
+        killers = [r for r in ranked if ("nights" in r[1] and a.en_hp <= 631) or ("stormblade" in r[1] and a.en_hp <= 707)]
+        if killers:
+            ranked = killers + [r for r in ranked if r not in killers]
+            print("LETHAL: flat pierce kills")
     on = [k for k, v in zip(FEATURES, x) if v and k not in ("bias", "my_hp_frac", "en_hp_frac", "en_idg")]
     print(f"r{a.round} {ap} AP dist {a.dist}  on: {', '.join(on) or 'none'}  (en_idg {c['en_idg']:+.0%})")
     if not ranked:
