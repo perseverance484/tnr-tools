@@ -76,6 +76,7 @@ No clone means no state. Say so rather than working from memory.
 
 | Task | Use |
 |---|---|
+| Designing content before it is built (an enemy, a line, a boss, a quest, a dungeon, an event) | skill `designing-tnr-content`: `design.py new`, `check`, `explain`; the sheet is the contract the build compiles |
 | Any manifest, before handoff | `validate.py m.json` MANDATORY, zero errors, run from skill `data/`, say it ran |
 | A Skyglass manifest, before handoff | `scripts/skyglass_check.py m.json` as well as `validate.py`: zero errors (RUL-2026-10-28-028); `docs/workflows/SKYGLASS_CHECK.md` |
 | Building any payload | `factory.py` CONSTRUCTS it (cwd = skill `data/`); hand-authoring is the fallback |

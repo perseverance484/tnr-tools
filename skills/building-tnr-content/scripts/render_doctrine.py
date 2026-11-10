@@ -15,6 +15,7 @@ MOUNTED = os.path.join(ROOT, "state", "mounted_instructions.txt")
 SKILLS = {
     "skill-build": os.path.join(ROOT, "skills", "building-tnr-content", "SKILL.md"),
     "skill-art": os.path.join(ROOT, "skills", "producing-tnr-art", "SKILL.md"),
+    "skill-design": os.path.join(ROOT, "skills", "designing-tnr-content", "SKILL.md"),
 }
 PIPELINE = os.path.join(ROOT, "skills", "building-tnr-content", "references", "pipeline.md")
 BUNDLE = os.path.join(ROOT, "builder_bundle.js")

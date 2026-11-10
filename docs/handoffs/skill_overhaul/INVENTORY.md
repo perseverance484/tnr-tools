@@ -212,7 +212,7 @@ the phase that needs it creates the owner. P0 creates none.
 | Id | Missing rule | Evidence | Needed by | Suggested owner (not created) |
 |---|---|---|---|---|
 | G-01 | The AI rule cap has no law number. The constant is generated and `validate.py` enforces it, but with its own literal, and no engine law exists for a library entry to cite "by number" (brief §5.3). | brief §3 names `docs/ENGINE_LAWS.md` as the owner; no match there. | P2 (rule patterns state their count) | a new engine law citing `AI_PROFILE_MAX_RULES`, through reconciliation; `validate.py` and `design.py check` read the constant |
-| G-02 | Shared cooldowns: which effect types share a lock, the lock length, per-caster scope, AI not exempt. Introduced upstream after the contract pin (C-01). | recorded only in `TNR_ANIMATION_HANDOFF.md` §1.5, RUL-2026-11-06-128, `SKYGLASS_BOSS_FIGHTS.md` §6 | P2 (loadout pacing, lock map), P4 | regenerated `45e` under the adopt gate, plus an engine law |
+| G-02 | Shared cooldowns: which effect types share a lock, the lock length, per-caster scope, AI not exempt. Introduced upstream after the contract pin (C-01). | recorded only in `TNR_ANIMATION_HANDOFF.md` §1.5, RUL-2026-11-06-128, `SKYGLASS_BOSS_FIGHTS.md` §6 | P2 (loadout pacing, lock map), P4 | an engine law, with the facts read from the game source at a stated pin; no contract regeneration (the director's D-10 answer, §6.4; RUL-2026-11-09-141 item 4) |
 | G-03 | AI archetypes beyond three role names. `standard`, `elite` and `boss` have a defaults table (`references/ai.md` §1.8) that `enemy.py` treats as ratified, though the table records no ratification (C-05); `calc.py` has stat shapes named skirmisher, support and others with no ratification record; the brief wants bruiser, skirmisher, caster, support, summoner, controller, boss by rank band. | `references/ai.md` §1.8; `enemy.py` ("a shape is a balance opinion"); `calc.py` `ROLES` | P2 (library 1) | library data file, every value a director slot until ruled (D-05) |
 | G-04 | Rule patterns as named, reusable groups. The behaviours exist only inside shipped records, generators and the unmerged `library_spec.json`. | `SKYGLASS_BOSS_FIGHTS.md` §5a, §6; `push/*.gen.py` | P2 (library 2) | library data plus one reference page |
 | G-05 | AI attack weights by level and rank. `references/balance.md` §2 and `references/event.md` step 2 point to `references/ai.md` §1.6.1, which says "Superseded"; `references/jutsu.md` §4 and §8 also refer to "the AI curve". | the three files named | P2 (library 3: damage tier per slot) | see RG-08 |
@@ -232,7 +232,7 @@ the phase that needs it creates the owner. P0 creates none.
 
 | Id | Conflict | Detail | Proposed handling |
 |---|---|---|---|
-| C-01 | More than one engine pin is in use. | Generated contracts: 3314d122 (2026-10-29). Harness `run.sh` default: c86f43f4. Animation handoff and final Mother of Echoes tuning: cb755375. Shared cooldowns arrived in b54541f1; the clip-ratio change in 338126cb. | Each phase states its pin. P2 and P4 need a pin that includes shared cooldowns, which means a contract regeneration under the adopt gate (`D-adopt-gate`). Reviewer and director to confirm before P2 (D-10). |
+| C-01 | More than one engine pin is in use. | Generated contracts: 3314d122 (2026-10-29). Harness `run.sh` default: c86f43f4. Animation handoff and final Mother of Echoes tuning: cb755375. Shared cooldowns arrived in b54541f1; the clip-ratio change in 338126cb. | Each phase states its pin. P2 and P4 need a pin that includes shared cooldowns and read them from the game source at that pin; the generated contracts stay at 3314d122 and are not regenerated for the overhaul (the director's D-10 answer, §6.4; RUL-2026-11-09-141 item 4). |
 | C-02 | `includeDefaultRules` has three answers. | `references/ai.md` §7 gotchas: keep it true. Same file, "confirmed rule vocabulary": this project runs it false. `references/event.md` step 4: true. `references/pipeline.md` §1.5 (the worked skeleton): true. `SKYGLASS_BOSS_FIGHTS.md` §6: off, with backup rules restated. `12b_LAWS_coverage.md` law 41: the final-rule check applies only when it is false. | One owner sentence in `references/ai.md`, the others cite it. Lane A edit in the phase that touches it (P2), not P0. |
 | C-03 | "40 AP self-buff jutsu are unreliable as actions" (`references/ai.md` §7) against law 41b, which describes the Verge line opening every kit with a stance, and against the set-piece recipe's 40 AP mark. | as stated | Evidence check in P2 before the opener pattern is written. |
 | C-04 | `SKYGLASS_BOSS_FIGHTS.md` §6 still says a mark is a `visual` ground jutsu. RUL-2026-11-02-101 moved marks off `visual`, and says its own destination doc has an out-of-date renderer description. | as stated | The boss-grammar page cites the ruling; the design doc fix is Skyglass work (RUL-2026-11-05-119 item 6 schedules doc fixes). |
@@ -283,7 +283,7 @@ Worked-example sources named in the brief were all found on main, with two excep
 | Id | Table | Owner | Ratified by | Scope |
 |---|---|---|---|---|
 | R-01 | Individual mission reward ladder, ranks D to S (exp, ryo, prestige, tokens, clan points) | `data/48_DATA_mission_profiles.json` (`ranks.*.reward`, `_reward_ratified`) | director, 2026-08-26 | `questType: mission` only |
-| R-02 | Mission gates and shape per rank. **Mixed standing; see the breakdown below.** | `data/48` (`_ratified_2026-08-27` and per-rank notes) | see below | ranks D to A; S is open (RG-07) |
+| R-02 | Mission gates and shape per rank. **Mixed standing; see the breakdown below.** | `data/48` (`_ratified_2026-08-27` and per-rank notes) | see below | ranks D to A; six S fields are open (RG-07) |
 | R-03 | Hunting drop chance by hunting rank and item rarity | `45e` `HUNTING_ITEM_DROP_CHANCES` (law 67) | engine constant | hunting quests |
 | R-04 | Dungeon reward and drop limits | `45e` `DUNGEON_MAX_*` | engine constants | dungeons (limits, not payouts) |
 | R-05 | Verge line stat anchors | `references/lines.md` ("Rulings (2026-08-26)") | director, 2026-08-26 | three built rungs |
@@ -312,7 +312,7 @@ approved defaults.
 | **Upper bound of the A level band** | **an inference, not a ruling**: "55+" was given open-ended and the ceiling was written from `LVL_CAP` | `enemy_level_band.A_ceiling` |
 | **`max_enemies_per_battle` for D** | **proposed, not given** | `encounter_doctrine.D_caps_proposed` |
 | **`objective_count` for `D_story`** | **proposed, not measured** | `ranks.D_story._variant_note` |
-| Everything for S | deferred; `AWAITING_RULING` | `_awaiting`, `ranks.S._deferred` |
+| Six S fields: `requiredLevel` and the five shape fields | deferred; `AWAITING_RULING`. The rest of S is filled and usable: its reward ladder (R-01) and its other quest fields. | `_awaiting`, `ranks.S._deferred` |
 
 The file also records that some live content now sits outside the ratified bands
 (`live_content_now_outside_its_band`). The three bold rows are added to the open decisions as D-12.
@@ -634,3 +634,7 @@ Not rebased for this handoff: the branch still sits on `fca8625b`. Main has sinc
 heartbeat and one ledger entry, RUL-2026-11-09-138 on a skill research program that follows P7);
 neither touches a file this inventory cites a claim from, apart from the ledger count in §0 and
 T-15, which were true at `fca8625b`.
+
+Wording cleanups made with the P1 handoff, as the P0 approval asked: G-02 and C-01 no longer
+prescribe a contract regeneration (they follow the D-10 answer), and the R-02 breakdown now says
+that only six S fields are deferred. The ledger entry named in §6.4 is RUL-2026-11-09-141.

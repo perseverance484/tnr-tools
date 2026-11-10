@@ -1,0 +1,919 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "tnr-tools/designing-tnr-content/design_sheet/1",
+ "_meta": {
+  "purpose": "The one contract between design and build. A sheet carries creative and structural choices and named open slots. It never carries an engine field the factory derives.",
+  "family": {
+   "design_sheet": "this file; envelope for every kind",
+   "mission_sheet": "the creative half read by building-tnr-content/scripts/mission.py; rides unchanged under `mission`; a bare mission sheet is accepted and wrapped as kind quest",
+   "event_sheet": "an instance of building-tnr-content/data/26x_EVENT_sheet_schema.json; rides unchanged under `event`; a bare instance is accepted and wrapped as kind event"
+  },
+  "slot_literals": {
+   "AWAITING_RULING": "a balance, reward, tuning or taste value that is the director's; never guessed",
+   "AUTHOR": "creative text not written yet",
+   "dauntless": "the event sheet's older spelling of AWAITING_RULING, accepted inside `event` only"
+  },
+  "kind_blocks": {
+   "ai": "enemy",
+   "ai_line": "line",
+   "boss": "boss",
+   "quest": "quest",
+   "quest_chain": "chain",
+   "dungeon": "dungeon",
+   "event": "event"
+  },
+  "validator": "design.py implements the subset of JSON Schema this file uses (type, const, enum, pattern, minLength, minimum, minItems, required, properties, additionalProperties, items, anyOf, local $ref) plus x-slot: a leaf marked x-slot may hold a slot literal (AWAITING_RULING or AUTHOR) instead of a value, and nothing else outside its type.",
+  "text_entities": {
+   "note": "sheet entity name -> entity name in building-tnr-content/data/45d_DATA_entity_schemas.json; null = no generated contract, so no bound can be checked",
+   "jutsu": "jutsu",
+   "item": "item",
+   "quest": "quest",
+   "asset": "gameAsset",
+   "badge": "badge",
+   "title": "title",
+   "variant": "itemVariant",
+   "pet": "petSpecies",
+   "ai": null
+  },
+  "text_fields": {
+   "note": "sheet field -> record field for the bound lookup; null = an objective-level field with no entity bound",
+   "name": "name",
+   "description": "description",
+   "battleDescription": "battleDescription",
+   "successDescription": "successDescription",
+   "item_description": "description",
+   "dialog": null,
+   "choice": null,
+   "log_line": "battleDescription"
+  }
+ },
+ "type": "object",
+ "required": [
+  "sheet_version",
+  "kind",
+  "id",
+  "title",
+  "brief"
+ ],
+ "additionalProperties": false,
+ "properties": {
+  "sheet_version": {
+   "type": "string",
+   "const": "1"
+  },
+  "kind": {
+   "type": "string",
+   "enum": [
+    "ai",
+    "ai_line",
+    "boss",
+    "quest",
+    "quest_chain",
+    "dungeon",
+    "event"
+   ]
+  },
+  "id": {
+   "type": "string",
+   "pattern": "^[a-z0-9][a-z0-9_]{1,62}$"
+  },
+  "title": {
+   "type": "string",
+   "minLength": 1,
+   "x-slot": true
+  },
+  "brief": {
+   "$ref": "#/$defs/brief"
+  },
+  "concept": {
+   "$ref": "#/$defs/concept"
+  },
+  "voice": {
+   "type": "object",
+   "additionalProperties": false,
+   "properties": {
+    "register": {
+     "type": "string"
+    },
+    "banned_words": {
+     "type": "array",
+     "items": {
+      "type": "string",
+      "minLength": 1
+     }
+    }
+   }
+  },
+  "enemy": {
+   "$ref": "#/$defs/enemy"
+  },
+  "line": {
+   "type": "object",
+   "required": [
+    "name",
+    "rungs"
+   ],
+   "additionalProperties": false,
+   "properties": {
+    "name": {
+     "type": "string",
+     "x-slot": true
+    },
+    "premise": {
+     "type": "string",
+     "x-slot": true
+    },
+    "rungs": {
+     "type": "array",
+     "minItems": 2,
+     "items": {
+      "$ref": "#/$defs/enemy"
+     }
+    },
+    "build_order": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    }
+   }
+  },
+  "boss": {
+   "type": "object",
+   "required": [
+    "enemy",
+    "acts"
+   ],
+   "additionalProperties": false,
+   "properties": {
+    "enemy": {
+     "$ref": "#/$defs/enemy"
+    },
+    "bible": {
+     "type": "string",
+     "x-slot": true
+    },
+    "allies": {
+     "type": "array",
+     "items": {
+      "$ref": "#/$defs/enemy"
+     }
+    },
+    "acts": {
+     "type": "array",
+     "minItems": 1,
+     "items": {
+      "type": "object",
+      "required": [
+       "id",
+       "title"
+      ],
+      "additionalProperties": false,
+      "properties": {
+       "id": {
+        "type": "string"
+       },
+       "title": {
+        "type": "string",
+        "x-slot": true
+       },
+       "script": {
+        "type": "array",
+        "items": {
+         "type": "object",
+         "required": [
+          "when",
+          "beat"
+         ],
+         "additionalProperties": false,
+         "properties": {
+          "when": {
+           "type": "string"
+          },
+          "beat": {
+           "type": "string",
+           "x-slot": true
+          }
+         }
+        }
+       },
+       "telegraphs": {
+        "type": "array",
+        "items": {
+         "type": "object",
+         "required": [
+          "omen",
+          "payoff"
+         ],
+         "additionalProperties": false,
+         "properties": {
+          "omen": {
+           "type": "string",
+           "x-slot": true
+          },
+          "payoff": {
+           "type": "string",
+           "x-slot": true
+          },
+          "rounds_between": {
+           "type": "integer",
+           "x-slot": true,
+           "minimum": 0
+          }
+         }
+        }
+       }
+      }
+     }
+    },
+    "anti_camping": {
+     "$ref": "#/$defs/libref"
+    },
+    "enrage": {
+     "$ref": "#/$defs/sourced"
+    },
+    "checklists": {
+     "type": "object"
+    }
+   }
+  },
+  "mission": {
+   "type": "object"
+  },
+  "quest": {
+   "type": "object",
+   "required": [
+    "structure"
+   ],
+   "additionalProperties": false,
+   "properties": {
+    "structure": {
+     "type": "string",
+     "pattern": "^[a-z0-9_]+(/[a-z0-9_]+)*/v[0-9]+$"
+    },
+    "params": {
+     "type": "object"
+    },
+    "summary": {
+     "type": "string",
+     "x-slot": true
+    },
+    "gating": {
+     "type": "string",
+     "x-slot": true
+    },
+    "enemies": {
+     "type": "array",
+     "items": {
+      "$ref": "#/$defs/enemy"
+     }
+    },
+    "setup": {
+     "type": "array",
+     "items": {
+      "$ref": "#/$defs/libref"
+     }
+    },
+    "mission": {
+     "type": "object"
+    }
+   }
+  },
+  "chain": {
+   "type": "object",
+   "required": [
+    "quests"
+   ],
+   "additionalProperties": false,
+   "properties": {
+    "premise": {
+     "type": "string",
+     "x-slot": true
+    },
+    "quests": {
+     "type": "array",
+     "minItems": 2,
+     "items": {
+      "type": "object",
+      "required": [
+       "id",
+       "structure"
+      ],
+      "additionalProperties": false,
+      "properties": {
+       "id": {
+        "type": "string"
+       },
+       "structure": {
+        "type": "string",
+        "pattern": "^[a-z0-9_]+(/[a-z0-9_]+)*/v[0-9]+$"
+       },
+       "params": {
+        "type": "object"
+       },
+       "summary": {
+        "type": "string",
+        "x-slot": true
+       },
+       "after": {
+        "type": "string"
+       }
+      }
+     }
+    },
+    "enemies": {
+     "type": "array",
+     "items": {
+      "$ref": "#/$defs/enemy"
+     }
+    }
+   }
+  },
+  "dungeon": {
+   "type": "object",
+   "required": [
+    "floors"
+   ],
+   "additionalProperties": false,
+   "properties": {
+    "premise": {
+     "type": "string",
+     "x-slot": true
+    },
+    "floors": {
+     "type": "array",
+     "minItems": 1,
+     "items": {
+      "type": "object",
+      "required": [
+       "id",
+       "waves"
+      ],
+      "additionalProperties": false,
+      "properties": {
+       "id": {
+        "type": "string"
+       },
+       "boss_floor": {
+        "type": "boolean"
+       },
+       "waves": {
+        "type": "array",
+        "minItems": 1,
+        "items": {
+         "type": "object",
+         "required": [
+          "enemies"
+         ],
+         "additionalProperties": false,
+         "properties": {
+          "enemies": {
+           "type": "array",
+           "minItems": 1,
+           "items": {
+            "type": "object",
+            "required": [
+             "key",
+             "count"
+            ],
+            "additionalProperties": false,
+            "properties": {
+             "key": {
+              "type": "string"
+             },
+             "count": {
+              "type": "integer",
+              "x-slot": true,
+              "minimum": 1
+             }
+            }
+           }
+          },
+          "delay_rounds": {
+           "type": "integer",
+           "x-slot": true,
+           "minimum": 0
+          }
+         }
+        }
+       }
+      }
+     }
+    },
+    "enemies": {
+     "type": "array",
+     "items": {
+      "$ref": "#/$defs/enemy"
+     }
+    }
+   }
+  },
+  "event": {
+   "type": "object"
+  },
+  "payout": {
+   "type": "object",
+   "required": [
+    "entries"
+   ],
+   "additionalProperties": false,
+   "properties": {
+    "entries": {
+     "type": "array",
+     "items": {
+      "type": "object",
+      "required": [
+       "for",
+       "what",
+       "value"
+      ],
+      "additionalProperties": false,
+      "properties": {
+       "for": {
+        "type": "string"
+       },
+       "what": {
+        "type": "string"
+       },
+       "value": {
+        "$ref": "#/$defs/sourced"
+       }
+      }
+     }
+    }
+   }
+  },
+  "tuning": {
+   "type": "object",
+   "additionalProperties": false,
+   "properties": {
+    "targets": {
+     "type": "array",
+     "items": {
+      "type": "object",
+      "required": [
+       "profile",
+       "metric",
+       "value"
+      ],
+      "additionalProperties": false,
+      "properties": {
+       "profile": {
+        "type": "string"
+       },
+       "metric": {
+        "type": "string"
+       },
+       "value": {
+        "$ref": "#/$defs/sourced"
+       }
+      }
+     }
+    },
+    "notes": {
+     "type": "string"
+    }
+   }
+  },
+  "text": {
+   "type": "object",
+   "required": [
+    "entries"
+   ],
+   "additionalProperties": false,
+   "properties": {
+    "entries": {
+     "type": "array",
+     "items": {
+      "type": "object",
+      "required": [
+       "for",
+       "entity",
+       "field",
+       "text"
+      ],
+      "additionalProperties": false,
+      "properties": {
+       "for": {
+        "type": "string"
+       },
+       "entity": {
+        "type": "string",
+        "enum": [
+         "jutsu",
+         "item",
+         "quest",
+         "ai",
+         "asset",
+         "badge",
+         "title",
+         "variant",
+         "pet"
+        ]
+       },
+       "field": {
+        "type": "string",
+        "enum": [
+         "name",
+         "description",
+         "battleDescription",
+         "successDescription",
+         "dialog",
+         "choice",
+         "log_line",
+         "item_description"
+        ]
+       },
+       "text": {
+        "type": "string",
+        "x-slot": true
+       },
+       "player_facing": {
+        "type": "boolean"
+       }
+      }
+     }
+    }
+   }
+  },
+  "art": {
+   "type": "object",
+   "required": [
+    "slots"
+   ],
+   "additionalProperties": false,
+   "properties": {
+    "slots": {
+     "type": "array",
+     "items": {
+      "type": "object",
+      "required": [
+       "id",
+       "for",
+       "handoff"
+      ],
+      "additionalProperties": false,
+      "properties": {
+       "id": {
+        "type": "string"
+       },
+       "for": {
+        "type": "string"
+       },
+       "target": {
+        "type": "string"
+       },
+       "handoff": {
+        "type": "string",
+        "enum": [
+         "producing-tnr-art",
+         "animating-tnr-combat"
+        ]
+       },
+       "note": {
+        "type": "string"
+       }
+      }
+     }
+    }
+   }
+  },
+  "decisions": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "required": [
+     "id",
+     "topic",
+     "status"
+    ],
+    "additionalProperties": false,
+    "properties": {
+     "id": {
+      "type": "string"
+     },
+     "topic": {
+      "type": "string"
+     },
+     "status": {
+      "type": "string",
+      "enum": [
+       "open",
+       "ruled"
+      ]
+     },
+     "ruling": {
+      "type": "string"
+     },
+     "options": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     },
+     "consequence": {
+      "type": "string"
+     },
+     "blocks": {
+      "type": "string"
+     }
+    }
+   }
+  },
+  "notes": {
+   "type": "string"
+  }
+ },
+ "$defs": {
+  "brief": {
+   "type": "object",
+   "required": [
+    "purpose",
+    "audience",
+    "home",
+    "size"
+   ],
+   "additionalProperties": false,
+   "properties": {
+    "purpose": {
+     "type": "string",
+     "minLength": 1,
+     "x-slot": true
+    },
+    "audience": {
+     "type": "string",
+     "minLength": 1,
+     "x-slot": true
+    },
+    "home": {
+     "type": "string",
+     "minLength": 1,
+     "x-slot": true
+    },
+    "size": {
+     "type": "string",
+     "enum": [
+      "single",
+      "small",
+      "event"
+     ]
+    },
+    "agreed": {
+     "type": "boolean"
+    }
+   }
+  },
+  "concept": {
+   "type": "object",
+   "additionalProperties": false,
+   "properties": {
+    "hook": {
+     "type": "string",
+     "x-slot": true
+    },
+    "fantasy": {
+     "type": "string",
+     "x-slot": true
+    },
+    "references": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "options": {
+     "type": "array",
+     "items": {
+      "type": "object",
+      "required": [
+       "id",
+       "pitch"
+      ],
+      "additionalProperties": false,
+      "properties": {
+       "id": {
+        "type": "string"
+       },
+       "pitch": {
+        "type": "string"
+       }
+      }
+     }
+    },
+    "chosen": {
+     "type": "string",
+     "x-slot": true
+    }
+   }
+  },
+  "libref": {
+   "type": "object",
+   "required": [
+    "use"
+   ],
+   "additionalProperties": false,
+   "properties": {
+    "use": {
+     "type": "string",
+     "pattern": "^[a-z0-9_]+(/[a-z0-9_]+)*/v[0-9]+$"
+    },
+    "params": {
+     "type": "object"
+    },
+    "note": {
+     "type": "string"
+    }
+   }
+  },
+  "sourced": {
+   "anyOf": [
+    {
+     "type": "string",
+     "const": "AWAITING_RULING"
+    },
+    {
+     "type": "object",
+     "required": [
+      "value",
+      "source"
+     ],
+     "additionalProperties": false,
+     "properties": {
+      "value": {
+       "type": [
+        "number",
+        "string",
+        "array",
+        "boolean"
+       ]
+      },
+      "source": {
+       "type": "string",
+       "minLength": 3
+      },
+      "note": {
+       "type": "string"
+      }
+     }
+    },
+    {
+     "type": "object",
+     "required": [
+      "reward_package"
+     ],
+     "additionalProperties": false,
+     "properties": {
+      "reward_package": {
+       "type": "string",
+       "minLength": 1
+      },
+      "note": {
+       "type": "string"
+      }
+     }
+    }
+   ]
+  },
+  "enemy": {
+   "type": "object",
+   "required": [
+    "name",
+    "role",
+    "level",
+    "rules",
+    "loadout"
+   ],
+   "additionalProperties": false,
+   "properties": {
+    "key": {
+     "type": "string",
+     "pattern": "^[a-z0-9_]{2,40}$"
+    },
+    "name": {
+     "type": "string",
+     "minLength": 1,
+     "x-slot": true
+    },
+    "title": {
+     "type": "string"
+    },
+    "role": {
+     "type": "string",
+     "minLength": 1,
+     "x-slot": true
+    },
+    "level": {
+     "type": "integer",
+     "x-slot": true,
+     "minimum": 1
+    },
+    "rank_flavour": {
+     "type": "string"
+    },
+    "element": {
+     "type": "string"
+    },
+    "combat_role": {
+     "type": "string",
+     "x-slot": true
+    },
+    "tactical_read": {
+     "type": "string",
+     "x-slot": true
+    },
+    "tagline": {
+     "type": "string",
+     "x-slot": true
+    },
+    "rules": {
+     "type": "array",
+     "items": {
+      "$ref": "#/$defs/libref"
+     }
+    },
+    "phases": {
+     "type": "array",
+     "items": {
+      "type": "object",
+      "required": [
+       "id",
+       "trigger",
+       "rules"
+      ],
+      "additionalProperties": false,
+      "properties": {
+       "id": {
+        "type": "string"
+       },
+       "trigger": {
+        "type": "string",
+        "x-slot": true
+       },
+       "rules": {
+        "type": "array",
+        "items": {
+         "$ref": "#/$defs/libref"
+        }
+       },
+       "cue": {
+        "type": "string",
+        "x-slot": true
+       }
+      }
+     }
+    },
+    "loadout": {
+     "type": "object",
+     "required": [
+      "kit"
+     ],
+     "additionalProperties": false,
+     "properties": {
+      "recipe": {
+       "type": "string"
+      },
+      "kit": {
+       "type": "array",
+       "items": {
+        "type": "string",
+        "pattern": "^[A-Z]{1,3}[0-9]{1,3}$"
+       }
+      },
+      "signatures": {
+       "type": "array",
+       "items": {
+        "type": "object",
+        "required": [
+         "name",
+         "intent"
+        ],
+        "additionalProperties": false,
+        "properties": {
+         "name": {
+          "type": "string",
+          "x-slot": true
+         },
+         "intent": {
+          "type": "string"
+         },
+         "telegraphs": {
+          "type": "boolean"
+         }
+        }
+       }
+      }
+     }
+    },
+    "art": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "notes": {
+     "type": "string"
+    }
+   }
+  }
+ }
+}

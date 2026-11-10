@@ -7,12 +7,12 @@ outward by `scripts/render_doctrine.py`. Edit here; never edit a rendered block.
 resolves; `render_doctrine.py --check` fails CI when a projection drifts.
 
 Format per assertion: `### D-id`, a `targets:` line (which projections carry
-it: mounted, skill-build, skill-art), an optional `short:` line (compact form
+it: mounted, skill-build, skill-art, skill-design), an optional `short:` line (compact form
 for the mounted paste; body used when absent), blank line, then the canonical
 body. `[[D-id]]` elsewhere in docs is a reference, audited but not rendered.
 
 ### D-no-staging
-targets: skill-build skill-art
+targets: skill-build skill-art skill-design
 
 TNR is a live browser game with no staging environment: a bad push lands on
 players. Every rule in the mounted project instructions and in this block
@@ -20,7 +20,7 @@ exists because a push failed, or because a record went live wrong and someone
 had to repair it by hand on a phone.
 
 ### D-doctrine-pointer
-targets: skill-build skill-art
+targets: skill-build skill-art skill-design
 
 **Doctrine rides the mounted project instructions.** docs/DOCTRINE.md is the
 single source; this block carries only what the mounted paste does not. If
@@ -152,7 +152,7 @@ choice text. Commas, colons and hyphens instead. Everywhere else they are
 fine. `validate.py` checks this (L11).
 
 ### D-pool-codes
-targets: skill-build
+targets: skill-build skill-design
 
 **Pool codes over raw ids** when referring to shared AI records, so a renamed
 record does not silently repoint.
