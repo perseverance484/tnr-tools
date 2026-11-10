@@ -1,7 +1,6 @@
 # playing-tnr: an AI player for the director's account
 
-Status: APPROVED in principle by the director, 2026-11-09 (RUL-2026-11-09-139). Live play starts
-only after §2's prerequisites are met. This file is the build contract for the skill (CLAUDE.md §11).
+Status: APPROVED by the director, 2026-11-09 (RUL-2026-11-09-139, amended by RUL-2026-11-09-145). This file is the build contract for the skill (CLAUDE.md §11).
 
 The director's account owner authorizes an AI to play his account as a real player would, PvE and
 PvP, across all content. TNR's rules permit this through the official MCP server (rules §7.4, quoted
@@ -46,19 +45,18 @@ an account that is actually played.
 
 ---
 
-## 2. Prerequisites before the first live action (the director's)
+## 2. Prerequisites before the first live action
 
-1. **Public profile.** The account's public profile clearly says it is played by an AI, with the
-   director as its human owner. The skill can set this text through the profile endpoint once the
-   director approves the wording.
-2. **Moderator report.** Report the AI-played account to moderators, naming the human owner. The
-   skill drafts the message; the director sends it, or approves the skill sending it through the
-   official support channel.
-3. **The director's go** on the endpoint allowlist (§4.2) and the conduct rules (§5).
-
-Until all three are done, the skill runs offline only (simulator, §6.1).
-
----
+1. **Disclosure.** The director states (RUL-2026-11-09-145) that he arranged this AI play directly
+   with the game's admin and owner, and that no public-profile notice or moderator report is needed
+   for this account. Rules §7.4 as published still asks AI-played accounts to identify themselves
+   and be reported. The director is responsible for that arrangement; agents do not announce or
+   report on his behalf unless he asks. Never use the director's real name anywhere: profile text,
+   logs, reports, commits or the repo.
+2. **The endpoint allowlist** (§4.2): the director's go. The first live sessions use the draft list,
+   and only gameplay endpoints.
+3. **No communication with other players** (director, 2026-11-09): no chat, messages, forum posts,
+   comments or trade requests.
 
 ## 3. Goal
 
@@ -264,9 +262,9 @@ Lane A, `fable/*` branches, reviewed handoffs as for the overhaul.
 
 | Phase | Delivers | Depends on |
 |---|---|---|
-| PL0 | Inventory of the MCP router surface: every endpoint's schema, kind and prerequisites → `data/player_allowlist.json` draft + the never-list check. The prerequisite texts (§2): profile wording, moderator message. | — |
+| PL0 | Inventory of the MCP router surface: every endpoint's schema, kind and prerequisites → `data/player_allowlist.json` draft + the never-list check. | — |
 | PL1 | Offline player: the battle policy and profiles running inside the encounter simulator (overhaul P4, engine execution per RUL-2026-11-09-137), measured against the existing clear-rate profiles. | overhaul P4 |
-| PL2 | Live runner: the session loop over the connector with the allowlist, the run lock as `player`, pacing, safety stops, session logs. Read-only dry run first (observe and decide, no act). | PL0, §2 done |
+| PL2 | Live runner: the session loop over the connector with the allowlist, the run lock as `player`, pacing, safety stops, session logs. Read-only dry run first (observe and decide, no act). | PL0 |
 | PL3 | Playbooks and plans: combat PvE and PvP, training, professions, economy, travel, social, events; notebook; weekly summary. | PL2 |
 | PL4 | Findings pipeline: bug reports through the official channel, the repo findings log, the weekly summary. | PL2 |
 | PL5 | Evals: scripted scenarios in the simulator, plus a week of live play reviewed with the director. | PL3, PL4 |
@@ -295,7 +293,6 @@ profiles in evidence.
 
 ## 7. Director decisions
 
-1. Approve the public profile wording and the moderator report (or send them yourself).
 2. Approve the endpoint allowlist after PL0.
 3. Choose the default play profile and goals for your account.
 4. Enable or disable chat and forum posting (default: off).
