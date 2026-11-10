@@ -1,0 +1,784 @@
+#!/usr/bin/env python3
+"""
+design.py - the design sheet: scaffold it, check it, explain it, compile it.
+
+A design sheet is the one contract between designing-tnr-content and building-tnr-content. It
+holds the creative and structural half of a piece of content and names every decision that is
+still open. It never holds an engine field the build tools derive: mission.py's rule ("a sheet
+cannot reach a profile field") is kept and extended here, not loosened.
+
+    design.py new <kind> [--id ID] [--title T] [--from SHEET.json] [-o OUT.json]
+    design.py check <sheet.json> [--json]
+    design.py explain <sheet.json> [-o OUT.md]
+    design.py compile <sheet.json> -o push/NNN_x.json
+    design.py --selftest
+
+kinds: ai, ai_line, boss, quest, quest_chain, dungeon, event
+
+What `check` does, and where each rule comes from (this tool cites owners, it states no rule):
+  schema      data/design_sheet.schema.json
+  engine      a sheet key that the build tools own is refused. The key list is READ from
+              building-tnr-content: 48_DATA_mission_profiles.json `_field_routing`, and
+              enemy.py STAT_FIELDS / ROLE_DEFAULTS. Nothing is listed here by hand except the
+              three AI record fields noted at ENGINE_AI_EXTRA.
+  libraries   every `use` / `structure` / `recipe` id must resolve in data/libraries/*.json.
+              A family with no library file yet is reported as pending, not as an error;
+              `compile` refuses while any reference is pending.
+  slots       every AWAITING_RULING / AUTHOR left in the sheet, by path. Open slots do not
+              fail `check`; they are the list the director is shown.
+  payout      a number in `payout` or `tuning` must carry its source (an owner path or a
+              ruling id), or be a reward-package reference, or be AWAITING_RULING. A bare
+              number is refused: docs/DOCTRINE.md D-reserved-dauntless.
+  text        references/writing.md lists the owners of each lint.
+
+Exit codes: 0 clean (open slots allowed), 1 errors, 2 usage or unreadable input,
+3 compile refused.
+
+Stdlib only. Socket-free. Reads repository or skill files and nothing else.
+"""
+from __future__ import annotations
+
+import argparse
+import copy
+import json
+import os
+import re
+import sys
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+SKILL = os.path.dirname(HERE)
+SCHEMA_PATH = os.path.join(SKILL, "data", "design_sheet.schema.json")
+LIB_DIR = os.path.join(SKILL, "data", "libraries")
+SLOTS = ("AWAITING_RULING", "AUTHOR")
+LEGACY_SLOT = "dauntless"          # event sheet (26x) spelling, accepted inside `event` only
+KINDS = ("ai", "ai_line", "boss", "quest", "quest_chain", "dungeon", "event")
+# Phase that ships `compile` for each kind (state/prompt_skill_overhaul.md section 8).
+COMPILE_PHASE = {"ai": "P2", "ai_line": "P2", "quest": "P3", "quest_chain": "P3",
+                 "dungeon": "P3", "event": "P3", "boss": "P4"}
+# AI record fields the factory derives that enemy.py does not expose as a constant:
+# law 14 (rank), law 15 (pools are overwritten). Cited, not restated.
+ENGINE_AI_EXTRA = ("rank", "maxHealth", "curHealth", "maxChakra", "curChakra",
+                   "maxStamina", "curStamina")
+BATTLE_PLACEHOLDERS = ("%user", "%target", "%jutsu")   # owner: building references/jutsu.md 2
+EM_DASH = "—"
+DIALOG_FIELDS = ("dialog", "choice")                   # owner: D-emdash-dialog, lint L11
+
+
+class DesignError(Exception):
+    """Usage or input problem (exit 2)."""
+
+
+# ------------------------------------------------------------------ locating the build skill
+
+def build_skill_dirs() -> list:
+    env = os.environ.get("TNR_BUILD_SKILL")
+    roots = [env] if env else []
+    roots += [os.path.join(os.path.dirname(SKILL), "building-tnr-content"),
+              "/mnt/skills/user/building-tnr-content"]
+    return [r for r in roots if r and os.path.isdir(r)]
+
+
+def build_file(*parts) -> str | None:
+    for root in build_skill_dirs():
+        p = os.path.join(root, *parts)
+        if os.path.exists(p):
+            return p
+    return None
+
+
+def engine_keys() -> dict:
+    """Keys a sheet may not carry, read from their owners. Returns {key: owner}."""
+    out = {}
+    prof = build_file("data", "48_DATA_mission_profiles.json")
+    if not prof:
+        raise DesignError("cannot find building-tnr-content (48_DATA_mission_profiles.json); "
+                          "set TNR_BUILD_SKILL or install the skill beside this one")
+    routing = json.load(open(prof))["_field_routing"]
+    owner = "48_DATA_mission_profiles.json _field_routing"
+    for key in routing["profile"]:
+        out[key.split(".")[-1]] = owner + ".profile"
+    for key in routing["fixed"]:
+        out[key] = owner + ".fixed"
+    for key in routing["null_by_design"]:
+        out[key] = owner + ".null_by_design"
+    scripts = build_file("scripts", "enemy.py")
+    if scripts:
+        sys.path.insert(0, os.path.dirname(scripts))
+        try:
+            import enemy as enemy_mod
+            for key in enemy_mod.STAT_FIELDS:
+                out[key] = "enemy.py STAT_FIELDS"
+            for role in enemy_mod.ROLE_DEFAULTS.values():
+                for key in role:
+                    if key[0].islower() and key[1:] != key[1:].lower():   # camelCase = record field
+                        out[key] = "enemy.py ROLE_DEFAULTS"
+        finally:
+            sys.path.pop(0)
+    for key in ENGINE_AI_EXTRA:
+        out[key] = "engine laws 14, 15 (derived by enemy.py)"
+    return out
+
+
+def entity_bounds() -> dict:
+    """{entity: {field: (min, max)}} from 45d, when the build skill is present."""
+    path = build_file("data", "45d_DATA_entity_schemas.json")
+    if not path:
+        return {}
+    out = {}
+    for name, ent in json.load(open(path)).get("entities", {}).items():
+        fields = ent.get("fields") if isinstance(ent, dict) else None
+        if isinstance(fields, dict):
+            out[name] = {f: (v.get("min"), v.get("max")) for f, v in fields.items()
+                         if isinstance(v, dict) and ("min" in v or "max" in v)}
+    return out
+
+
+# ------------------------------------------------------------------ schema subset validator
+
+def _is_type(value, name: str) -> bool:
+    if name == "string":
+        return isinstance(value, str)
+    if name == "integer":
+        return isinstance(value, int) and not isinstance(value, bool)
+    if name == "number":
+        return isinstance(value, (int, float)) and not isinstance(value, bool)
+    if name == "boolean":
+        return isinstance(value, bool)
+    if name == "array":
+        return isinstance(value, list)
+    if name == "object":
+        return isinstance(value, dict)
+    return False
+
+
+def validate(value, node: dict, root: dict, path: str, errs: list) -> None:
+    if "$ref" in node:
+        ref = node["$ref"]
+        if not ref.startswith("#/$defs/"):
+            raise DesignError(f"schema: unsupported $ref {ref}")
+        node = root["$defs"][ref.split("/")[-1]]
+    if "anyOf" in node:
+        trials = []
+        for option in node["anyOf"]:
+            sub = []
+            validate(value, option, root, path, sub)
+            if not sub:
+                return
+            trials.append(sub)
+        errs.append(f"{path}: matches none of the allowed forms "
+                    f"(closest: {min(trials, key=len)[0].split(': ', 1)[-1]})")
+        return
+    if node.get("x-slot") and value in SLOTS:
+        return
+    types = node.get("type")
+    if types:
+        types = [types] if isinstance(types, str) else types
+        if not any(_is_type(value, t) for t in types):
+            errs.append(f"{path}: expected {' or '.join(types)}, got {type(value).__name__}")
+            return
+    if "const" in node and value != node["const"]:
+        errs.append(f"{path}: must be {node['const']!r}")
+    if "enum" in node and value not in node["enum"]:
+        errs.append(f"{path}: {value!r} is not one of {', '.join(map(str, node['enum']))}")
+    if isinstance(value, str):
+        if "pattern" in node and not re.search(node["pattern"], value):
+            errs.append(f"{path}: {value!r} does not match {node['pattern']}")
+        if len(value) < node.get("minLength", 0):
+            errs.append(f"{path}: shorter than {node['minLength']} characters")
+    if isinstance(value, list):
+        if len(value) < node.get("minItems", 0):
+            errs.append(f"{path}: needs at least {node['minItems']} item(s)")
+        if "items" in node:
+            for i, item in enumerate(value):
+                validate(item, node["items"], root, f"{path}[{i}]", errs)
+    if isinstance(value, dict):
+        props = node.get("properties", {})
+        for key in node.get("required", []):
+            if key not in value:
+                errs.append(f"{path}.{key}: required")
+        for key, item in value.items():
+            if key in props:
+                validate(item, props[key], root, f"{path}.{key}", errs)
+            elif node.get("additionalProperties") is False:
+                errs.append(f"{path}.{key}: not a sheet field")
+
+
+# ------------------------------------------------------------------ sheet handling
+
+def load_schema() -> dict:
+    return json.load(open(SCHEMA_PATH))
+
+
+def normalise(raw: dict) -> tuple:
+    """Accept the two older sheet forms unchanged. Returns (sheet, note)."""
+    if "kind" in raw:
+        return raw, None
+    if "rank" in raw and "objectives" in raw:          # a bare mission.py sheet
+        sid = re.sub(r"[^a-z0-9_]", "_", str(raw.get("srcId") or raw.get("name") or "mission").lower())
+        return ({"sheet_version": "1", "kind": "quest", "id": sid[:63] or "mission",
+                 "title": raw.get("name") or "AUTHOR",
+                 "brief": {"purpose": "AUTHOR", "audience": f"rank {raw['rank']} mission",
+                           "home": "mission hall", "size": "single"},
+                 "mission": raw},
+                "read as a mission sheet (mission.py form) and wrapped as kind quest")
+    if "identity" in raw and "structure" in raw:       # a bare 26x event sheet instance
+        name = (raw.get("identity") or {}).get("name") or "event"
+        sid = re.sub(r"[^a-z0-9_]", "_", str(name).lower())
+        return ({"sheet_version": "1", "kind": "event", "id": sid[:63] or "event",
+                 "title": name,
+                 "brief": {"purpose": (raw["identity"].get("theme") or "AUTHOR"),
+                           "audience": "AUTHOR", "home": "AUTHOR", "size": "event"},
+                 "event": raw},
+                "read as an event sheet (26x form) and wrapped as kind event")
+    raise DesignError("not a design sheet: no `kind`, and not a mission or event sheet either")
+
+
+def walk(value, path=""):
+    yield path, value
+    if isinstance(value, dict):
+        for key, item in value.items():
+            yield from walk(item, f"{path}.{key}" if path else key)
+    elif isinstance(value, list):
+        for i, item in enumerate(value):
+            yield from walk(item, f"{path}[{i}]")
+
+
+def find_slots(sheet: dict) -> list:
+    out = []
+    for path, value in walk(sheet):
+        if value in SLOTS:
+            out.append((path, value))
+        elif value == LEGACY_SLOT and (path == "event" or path.startswith("event.")
+                                       or path.startswith("event[")):
+            out.append((path, "AWAITING_RULING"))
+    return out
+
+
+def library_index() -> dict:
+    """{family: set(ids)} from data/libraries/<family>.json: {"entries": {"<id>": {...}}}."""
+    index = {}
+    if os.path.isdir(LIB_DIR):
+        for name in sorted(os.listdir(LIB_DIR)):
+            if name.endswith(".json"):
+                data = json.load(open(os.path.join(LIB_DIR, name)))
+                index[name[:-5]] = set(data.get("entries", {}))
+    return index
+
+
+def library_refs(sheet: dict) -> list:
+    refs = []
+    for path, value in walk(sheet):
+        if path.startswith("mission") or path.startswith("event"):
+            continue
+        leaf = path.rsplit(".", 1)[-1]
+        if leaf in ("use", "structure", "recipe") and isinstance(value, str) and value not in SLOTS:
+            refs.append((path, value))
+    return refs
+
+
+def check_engine_keys(sheet: dict, forbidden: dict, errs: list) -> None:
+    for path, value in walk(sheet):
+        if not path or path == "event" or path.startswith("event.") or path.startswith("event["):
+            continue                                  # the 26x form predates this rule; see sheet.md
+        if ".params" in path or path.endswith("params"):
+            continue                                  # library parameters are bounded by their entry
+        leaf = re.sub(r"\[\d+\]$", "", path.rsplit(".", 1)[-1])
+        if path.startswith("mission.") and path.count(".") > 1:
+            continue                                  # only the mission sheet's top level is the sheet
+        if path.startswith("mission.") and not forbidden.get(leaf, "").startswith("48_"):
+            continue                                  # `rank` selects the profile there; it is not the AI field
+        if leaf in forbidden:
+            errs.append(f"{path}: a sheet cannot reach `{leaf}`; it is derived at build time "
+                        f"(owner: {forbidden[leaf]})")
+
+
+def check_payout(sheet: dict, errs: list) -> None:
+    for block in ("payout", "tuning"):
+        for path, value in walk(sheet.get(block) or {}, block):
+            if isinstance(value, bool) or not isinstance(value, (int, float)):
+                continue
+            parent = path.rsplit(".", 1)[0]
+            holder = sheet
+            for part in re.findall(r"[^.\[\]]+", parent):
+                holder = holder[int(part)] if part.isdigit() else holder[part]
+            if not (isinstance(holder, dict) and holder.get("source")):
+                errs.append(f"{path}: a number with no source; cite its owner or leave "
+                            f"AWAITING_RULING (D-reserved-dauntless)")
+
+
+def lint_text(sheet: dict, bounds: dict, errs: list, warns: list) -> None:
+    banned = [w for w in (sheet.get("voice") or {}).get("banned_words", []) if w]
+    for i, entry in enumerate((sheet.get("text") or {}).get("entries", [])):
+        where = f"text.entries[{i}] ({entry.get('for')}, {entry.get('field')})"
+        text, field = entry.get("text"), entry.get("field")
+        if text in SLOTS or not isinstance(text, str):
+            continue
+        if not text.strip():
+            errs.append(f"{where}: empty text; write it or leave AUTHOR")
+            continue
+        if field in DIALOG_FIELDS and EM_DASH in text:
+            errs.append(f"{where}: em dash in player-facing dialog (D-emdash-dialog, lint L11)")
+        elif EM_DASH in text and entry.get("player_facing", True):
+            warns.append(f"{where}: em dash in player-facing text; banned in dialog only, but "
+                         f"shipped events keep it out of all player text (references/writing.md)")
+        if field == "battleDescription":
+            for token in re.findall(r"%[A-Za-z]+", text):
+                if token not in BATTLE_PLACEHOLDERS:
+                    errs.append(f"{where}: unknown placeholder {token}; the engine knows "
+                                f"{', '.join(BATTLE_PLACEHOLDERS)} (references/jutsu.md 2)")
+        lo, hi = bounds.get(entry.get("entity") or "", {}).get(field, (None, None))
+        if hi is not None and len(text) > hi:
+            errs.append(f"{where}: {len(text)} characters, over the schema bound of {hi} (45d)")
+        if lo is not None and len(text) < lo:
+            errs.append(f"{where}: under the schema bound of {lo} characters (45d)")
+        if entry.get("player_facing", True):
+            for word in banned:
+                if re.search(r"\b" + re.escape(word) + r"\b", text, re.I):
+                    errs.append(f"{where}: banned word '{word}' (this sheet's voice.banned_words)")
+    if banned == [] and (sheet.get("text") or {}).get("entries"):
+        warns.append("voice.banned_words is empty; an event with a story bible should list its "
+                     "\"never use\" words here")
+
+
+def check(raw: dict) -> dict:
+    sheet, note = normalise(raw)
+    schema = load_schema()
+    errs, warns = [], []
+    if note:
+        warns.append(note)
+    validate(sheet, schema, schema, "sheet", errs)
+    kind = sheet.get("kind")
+    block = schema["_meta"]["kind_blocks"].get(kind)
+    wrapped_mission = kind == "quest" and "mission" in sheet and "quest" not in sheet
+    if block and block not in sheet and not wrapped_mission:
+        errs.append(f"sheet.{block}: required for kind {kind}")
+    try:
+        check_engine_keys(sheet, engine_keys(), errs)
+        bounds = entity_bounds()
+    except DesignError as err:
+        errs.append(str(err))
+        bounds = {}
+    check_payout(sheet, errs)
+    lint_text(sheet, bounds, errs, warns)
+
+    index = library_index()
+    pending, missing = [], []
+    for path, ref in library_refs(sheet):
+        family = ref.split("/", 1)[0]
+        if family not in index:
+            pending.append((path, ref))
+        elif ref not in index[family]:
+            missing.append((path, ref))
+            errs.append(f"{path}: '{ref}' is not in the {family} library")
+    slots = find_slots(sheet)
+    open_decisions = [d for d in sheet.get("decisions", []) if d.get("status") == "open"]
+    return {"sheet": sheet, "errors": errs, "warnings": warns, "slots": slots,
+            "pending_library_refs": pending, "open_decisions": open_decisions}
+
+
+# ------------------------------------------------------------------ new
+
+def _enemy(key: str) -> dict:
+    return {"key": key, "name": "AUTHOR", "role": "AWAITING_RULING", "level": "AWAITING_RULING",
+            "combat_role": "AUTHOR", "tactical_read": "AUTHOR", "rules": [],
+            "loadout": {"kit": [], "signatures": []}, "art": []}
+
+
+def scaffold(kind: str, sid: str, title: str) -> dict:
+    sheet = {
+        "sheet_version": "1", "kind": kind, "id": sid, "title": title,
+        "brief": {"purpose": "AUTHOR", "audience": "AUTHOR", "home": "AUTHOR",
+                  "size": {"ai": "single", "ai_line": "small", "quest": "single"}.get(kind, "event"),
+                  "agreed": False},
+        "concept": {"hook": "AUTHOR", "fantasy": "AUTHOR", "references": [], "options": [],
+                    "chosen": "AWAITING_RULING"},
+        "voice": {"register": "", "banned_words": []},
+    }
+    if kind == "ai":
+        sheet["enemy"] = _enemy("enemy")
+    elif kind == "ai_line":
+        sheet["line"] = {"name": "AUTHOR", "premise": "AUTHOR",
+                         "rungs": [_enemy("rung_1"), _enemy("rung_2")], "build_order": []}
+    elif kind == "boss":
+        sheet["boss"] = {"enemy": _enemy("boss"), "bible": "AUTHOR",
+                         "acts": [{"id": "act1", "title": "AUTHOR",
+                                   "script": [{"when": "round 1", "beat": "AUTHOR"}],
+                                   "telegraphs": [{"omen": "AUTHOR", "payoff": "AUTHOR",
+                                                   "rounds_between": "AWAITING_RULING"}]}],
+                         "enrage": "AWAITING_RULING"}
+        sheet["tuning"] = {"targets": [{"profile": "AWAITING_RULING", "metric": "clear rate",
+                                        "value": "AWAITING_RULING"}]}
+    elif kind == "quest":
+        sheet["quest"] = {"structure": "quest_structure/single_battle/v1", "summary": "AUTHOR",
+                          "gating": "AUTHOR", "enemies": [], "setup": []}
+    elif kind == "quest_chain":
+        sheet["chain"] = {"premise": "AUTHOR", "quests": [
+            {"id": "q1", "structure": "quest_structure/single_battle/v1", "summary": "AUTHOR"},
+            {"id": "q2", "structure": "quest_structure/single_battle/v1", "summary": "AUTHOR",
+             "after": "q1"}], "enemies": []}
+    elif kind == "dungeon":
+        sheet["dungeon"] = {"premise": "AUTHOR", "enemies": [_enemy("mob")], "floors": [
+            {"id": "floor1", "waves": [{"enemies": [{"key": "mob", "count": "AWAITING_RULING"}],
+                                        "delay_rounds": "AWAITING_RULING"}]}]}
+    elif kind == "event":
+        sheet["event"] = {"identity": {"name": title, "theme": "AUTHOR"}, "structure": {},
+                          "enemies": {"roster": []}, "economy": {}}
+    if kind != "ai":
+        sheet["payout"] = {"entries": [{"for": sid, "what": "completion reward",
+                                        "value": "AWAITING_RULING"}]}
+    sheet["text"] = {"entries": []}
+    sheet["art"] = {"slots": []}
+    sheet["decisions"] = []
+    return sheet
+
+
+def cmd_new(args) -> int:
+    if args.kind not in KINDS:
+        raise DesignError(f"kind must be one of: {', '.join(KINDS)}")
+    sid = args.id or f"new_{args.kind}"
+    if getattr(args, "source", None):
+        sheet, _ = normalise(json.load(open(args.source)))
+        sheet = copy.deepcopy(sheet)
+        if sheet["kind"] != args.kind:
+            raise DesignError(f"--from sheet is kind {sheet['kind']}, not {args.kind}")
+        sheet["id"] = sid
+        if args.title:
+            sheet["title"] = args.title
+    else:
+        sheet = scaffold(args.kind, sid, args.title or "AUTHOR")
+    text = json.dumps(sheet, indent=1, ensure_ascii=False) + "\n"
+    if args.out:
+        open(args.out, "w", encoding="utf-8").write(text)
+        print(f"wrote {args.out}")
+    else:
+        sys.stdout.write(text)
+    return 0
+
+
+# ------------------------------------------------------------------ check / explain / compile
+
+def report(result: dict) -> str:
+    lines = []
+    for e in result["errors"]:
+        lines.append(f"ERROR  {e}")
+    for w in result["warnings"]:
+        lines.append(f"note   {w}")
+    for path, ref in result["pending_library_refs"]:
+        lines.append(f"pending library  {path}: '{ref}' (its library has not shipped; compile will refuse)")
+    for path, kind in result["slots"]:
+        lines.append(f"open slot  {kind}  {path}")
+    for d in result["open_decisions"]:
+        lines.append(f"open decision  {d['id']}: {d['topic']}")
+    lines.append(f"\n{len(result['errors'])} error(s), {len(result['slots'])} open slot(s), "
+                 f"{len(result['pending_library_refs'])} pending library reference(s), "
+                 f"{len(result['open_decisions'])} open decision(s)")
+    return "\n".join(lines)
+
+
+def cmd_check(args) -> int:
+    result = check(json.load(open(args.sheet)))
+    if args.json:
+        out = {k: v for k, v in result.items() if k != "sheet"}
+        print(json.dumps(out, indent=1))
+    else:
+        print(report(result))
+    return 1 if result["errors"] else 0
+
+
+def _cell(value) -> str:
+    if isinstance(value, dict):
+        if "reward_package" in value:
+            return f"reward package `{value['reward_package']}`"
+        if "value" in value:
+            return f"{value['value']} (source: {value['source']})"
+    return str(value).replace("|", "/")
+
+
+def _enemy_md(e: dict) -> list:
+    out = [f"**{e.get('name')}**" + (f", {e['title']}" if e.get("title") else ""),
+           f"- Role: {e.get('role')}. Level: {e.get('level')}."
+           + (f" Element: {e['element']}." if e.get("element") else "")]
+    for label, key in (("In a fight", "combat_role"), ("How to beat it", "tactical_read")):
+        if e.get(key):
+            out.append(f"- {label}: {e[key]}")
+    if e.get("rules"):
+        out.append("- Behaviour: " + "; ".join(r["use"] for r in e["rules"]))
+    for ph in e.get("phases", []):
+        out.append(f"- Phase {ph['id']} ({ph['trigger']}): " + "; ".join(r["use"] for r in ph["rules"]))
+    kit = e.get("loadout", {})
+    if kit.get("kit"):
+        out.append("- Kit (pool codes): " + ", ".join(kit["kit"]))
+    for sig in kit.get("signatures", []):
+        out.append(f"- Signature: {sig['name']}: {sig['intent']}"
+                   + (" (telegraphed)" if sig.get("telegraphs") else ""))
+    return out + [""]
+
+
+def explain(result: dict) -> str:
+    s = result["sheet"]
+    md = [f"# {s['title']}", "",
+          "<!-- GENERATED by design.py explain from the design sheet. Edit the sheet, never this file. -->",
+          "", f"Kind: {s['kind']}. Sheet id: `{s['id']}`.", "", "## Brief", ""]
+    b = s["brief"]
+    md += [f"- Purpose: {b['purpose']}", f"- Audience: {b['audience']}", f"- Where it lives: {b['home']}",
+           f"- Size: {b['size']}", f"- Agreed by the director: {'yes' if b.get('agreed') else 'not yet'}", ""]
+    c = s.get("concept")
+    if c:
+        md += ["## Concept", "", f"- Hook: {c.get('hook')}", f"- Fantasy: {c.get('fantasy')}"]
+        for opt in c.get("options", []):
+            md.append(f"- Option {opt['id']}: {opt['pitch']}")
+        md += [f"- Chosen: {c.get('chosen')}", ""]
+    enemies = []
+    if "enemy" in s:
+        enemies = [s["enemy"]]
+    elif "line" in s:
+        md += ["## Line", "", f"{s['line'].get('name')}: {s['line'].get('premise', '')}", ""]
+        enemies = s["line"]["rungs"]
+    elif "boss" in s:
+        enemies = [s["boss"]["enemy"]] + s["boss"].get("allies", [])
+    else:
+        for key in ("quest", "chain", "dungeon"):
+            enemies += (s.get(key) or {}).get("enemies", [])
+    if "quest" in s:
+        md += ["## Quest", "", f"- Structure: `{s['quest']['structure']}`",
+               f"- Summary: {s['quest'].get('summary')}", f"- Gating: {s['quest'].get('gating')}", ""]
+    if "mission" in s:
+        m = s["mission"]
+        md += ["## Mission sheet", "", f"- Rank {m.get('rank')}: {m.get('name')}",
+               f"- {len(m.get('objectives', []))} objective(s), {len(m.get('roster') or [])} enemy(ies)", ""]
+    if "chain" in s:
+        md += ["## Chain", ""] + [f"- `{q['id']}`: `{q['structure']}`"
+                                  + (f", after `{q['after']}`" if q.get("after") else "")
+                                  + f": {q.get('summary')}" for q in s["chain"]["quests"]] + [""]
+    if "dungeon" in s:
+        md += ["## Dungeon", ""]
+        for fl in s["dungeon"]["floors"]:
+            waves = "; ".join(" + ".join(f"{m['count']} x {m['key']}" for m in w["enemies"])
+                              for w in fl["waves"])
+            md.append(f"- {fl['id']}{' (boss floor)' if fl.get('boss_floor') else ''}: {waves}")
+        md.append("")
+    if "event" in s:
+        ident = s["event"].get("identity", {})
+        md += ["## Event sheet", "", f"- {ident.get('name')}: {ident.get('theme')}", ""]
+    if enemies:
+        md += ["## Enemies", ""]
+        for e in enemies:
+            md += _enemy_md(e)
+    if "boss" in s:
+        md += ["## Fight", "", f"Character bible: {s['boss'].get('bible')}", ""]
+        for act in s["boss"]["acts"]:
+            md.append(f"### {act['id']}: {act['title']}")
+            md += [f"- {beat['when']}: {beat['beat']}" for beat in act.get("script", [])]
+            md += [f"- Telegraph: {t['omen']} then {t['payoff']} "
+                   f"({t.get('rounds_between', '?')} round(s) later)" for t in act.get("telegraphs", [])]
+            md.append("")
+        md.append(f"Enrage: {_cell(s['boss'].get('enrage', 'not set'))}\n")
+    for title, block, cols in (("Payouts", "payout", ("for", "what")), ("Tuning targets", "tuning", ("profile", "metric"))):
+        rows = (s.get(block) or {}).get("entries" if block == "payout" else "targets", [])
+        if rows:
+            md += [f"## {title}", "", f"| {cols[0].title()} | {cols[1].title()} | Value |", "|---|---|---|"]
+            md += [f"| {r[cols[0]]} | {r[cols[1]]} | {_cell(r['value'])} |" for r in rows] + [""]
+    rows = (s.get("text") or {}).get("entries", [])
+    if rows:
+        md += ["## Text", "", "| For | Field | Text |", "|---|---|---|"]
+        md += [f"| {r['for']} | {r['field']} | {_cell(r['text'])} |" for r in rows] + [""]
+    rows = (s.get("art") or {}).get("slots", [])
+    if rows:
+        md += ["## Art slots", "", "| Slot | For | Goes to |", "|---|---|---|"]
+        md += [f"| {r['id']} | {r['for']} | {r['handoff']} |" for r in rows] + [""]
+    md += ["## Open items", ""]
+    if not (result["slots"] or result["pending_library_refs"] or result["open_decisions"] or result["errors"]):
+        md.append("None. The sheet is complete.")
+    md += [f"- Error: {e}" for e in result["errors"]]
+    md += [f"- {kind}: `{path}`" for path, kind in result["slots"]]
+    md += [f"- Library not shipped yet: `{ref}` at `{path}`" for path, ref in result["pending_library_refs"]]
+    for d in result["open_decisions"]:
+        md += ["", "```", f"GO? {d['id']} {d['topic']}",
+               f"What changes:  {d.get('consequence', '-')}",
+               f"Needs you:  {' / '.join(d.get('options', [])) or 'a decision'}",
+               f"Blocks:  {d.get('blocks', '-')}", "```"]
+    return "\n".join(md).rstrip() + "\n"
+
+
+def cmd_explain(args) -> int:
+    text = explain(check(json.load(open(args.sheet))))
+    if args.out:
+        open(args.out, "w", encoding="utf-8").write(text)
+        print(f"wrote {args.out}")
+    else:
+        sys.stdout.write(text)
+    return 0
+
+
+def compile_refusal(result: dict) -> list:
+    """Why this sheet cannot be compiled. Empty only when a compiler for its kind exists."""
+    why = [f"error: {e}" for e in result["errors"]]
+    why += [f"open slot: {kind} at {path}" for path, kind in result["slots"]]
+    why += [f"library not shipped: {ref} at {path}" for path, ref in result["pending_library_refs"]]
+    why += [f"open decision: {d['id']}" for d in result["open_decisions"]]
+    kind = result["sheet"]["kind"]
+    why.append(f"compile for kind '{kind}' is delivered in phase {COMPILE_PHASE[kind]} of the "
+               f"skill overhaul; this build has new, check and explain only")
+    return why
+
+
+def cmd_compile(args) -> int:
+    why = compile_refusal(check(json.load(open(args.sheet))))
+    print("compile refused:")
+    for line in why:
+        print("  " + line)
+    return 3
+
+
+# ------------------------------------------------------------------ selftest
+
+def selftest() -> int:
+    checks, failures = [], []
+
+    def want(cond, label):
+        checks.append(label)
+        if not cond:
+            failures.append(label)
+
+    schema = load_schema()
+    want(set(schema["_meta"]["kind_blocks"]) == set(KINDS), "schema and tool agree on the kinds")
+
+    # 1. Every scaffold is schema-clean and reports its open slots instead of failing.
+    for kind in KINDS:
+        r = check(scaffold(kind, f"t_{kind}", "Test"))
+        want(not r["errors"], f"new {kind}: scaffold checks clean ({r['errors'][:1]})")
+        want(len(r["slots"]) >= 3, f"new {kind}: open slots are reported, not hidden")
+        want(compile_refusal(r) != [], f"new {kind}: compile refuses")
+
+    base = scaffold("ai", "t_ai", "Test")
+
+    # 2. A sheet cannot reach an engine field.
+    bad = copy.deepcopy(base)
+    bad["enemy"]["poolsMultiplier"] = 2
+    r = check(bad)
+    want(any("cannot reach `poolsMultiplier`" in e for e in r["errors"]),
+         "an AI multiplier on the sheet is refused, naming its owner")
+    bad = copy.deepcopy(scaffold("quest", "t_q", "Test"))
+    bad["maxAttempts"] = 3
+    want(any("cannot reach `maxAttempts`" in e for e in check(bad)["errors"]),
+         "a mission profile field on the sheet is refused")
+    wrapped = {"rank": "D", "name": "Old Sheet", "description": "x", "successDescription": "y",
+               "objectives": [{"id": "n1", "task": "dialog"}]}
+    r = check(wrapped)
+    want(not r["errors"] and r["sheet"]["kind"] == "quest", "a bare mission sheet is accepted and wrapped")
+    want(any("cannot reach `maxAttempts`" in e for e in check(dict(wrapped, maxAttempts=9))["errors"]),
+         "the mission sheet's top level is held to the same rule")
+    want(not check(dict(wrapped, objectives=[{"id": "n1", "task": "dialog", "hidden": True}]))["errors"],
+         "objective nodes inside a mission sheet are the build skill's to check, not this rule's")
+
+    # 3. The event sheet form rides unchanged, and its older slot word counts as open.
+    ev = {"identity": {"name": "Tide Fair", "theme": "t", "gates": {"maxAttempts": "dauntless"}},
+          "structure": {"pattern": "pyramid"}}
+    r = check(ev)
+    want(not r["errors"] and r["sheet"]["kind"] == "event", "a bare event sheet is accepted and wrapped")
+    want(("event.identity.gates.maxAttempts", "AWAITING_RULING") in r["slots"],
+         "'dauntless' in an event sheet is reported as an open ruling slot")
+
+    # 4. Numbers need a source.
+    pay = copy.deepcopy(scaffold("quest", "t_q", "Test"))
+    pay["payout"]["entries"][0]["value"] = 5000
+    want(any("none of the allowed forms" in e for e in check(pay)["errors"]), "a bare payout number is refused")
+    pay["payout"]["entries"][0]["value"] = {"value": 5000, "source": "RUL-0000-00-00-000"}
+    want(not check(pay)["errors"], "a number with its source is accepted")
+    pay["payout"]["entries"][0]["value"] = {"reward_package": "S-Rank Dungeons Level 100"}
+    want(not check(pay)["errors"], "a reward-package reference is accepted")
+    pay["payout"]["entries"][0]["value"] = {"value": 5000, "source": ""}
+    want(check(pay)["errors"] != [], "an empty source is refused")
+
+    # 5. Library references: pending while no library exists, never silently accepted.
+    lib = copy.deepcopy(base)
+    lib["enemy"]["rules"] = [{"use": "rule_pattern/telegraph_payoff/v1", "params": {"statsMultiplier": 1}}]
+    r = check(lib)
+    want(r["pending_library_refs"] == [("enemy.rules[0].use", "rule_pattern/telegraph_payoff/v1")]
+         or "rule_pattern" in library_index(), "an unshipped library reference is reported as pending")
+    want(not any("statsMultiplier" in e for e in r["errors"]),
+         "library parameters are not mistaken for sheet fields")
+    lib["enemy"]["rules"] = [{"use": "Telegraph Payoff"}]
+    want(any("does not match" in e for e in check(lib)["errors"]), "a library id must be a versioned id")
+
+    # 6. Text lint.
+    txt = copy.deepcopy(base)
+    txt["text"]["entries"] = [
+        {"for": "n1", "entity": "quest", "field": "dialog", "text": "Wait — not yet."},
+        {"for": "j1", "entity": "jutsu", "field": "battleDescription", "text": "%user strikes %enemy"},
+        {"for": "j2", "entity": "jutsu", "field": "battleDescription", "text": "%user strikes %target"},
+        {"for": "q", "entity": "quest", "field": "name", "text": "x" * 400},
+        {"for": "j3", "entity": "jutsu", "field": "description", "text": "AUTHOR"},
+        {"for": "j4", "entity": "jutsu", "field": "description", "text": "It hums like a lattice."}]
+    txt["voice"]["banned_words"] = ["lattice"]
+    r = check(txt)
+    want(any("em dash" in e and "entries[0]" in e for e in r["errors"]), "em dash in dialog is refused")
+    want(any("%enemy" in e for e in r["errors"]), "an unknown battle placeholder is refused")
+    want(not any("entries[2]" in e for e in r["errors"]), "a correct battle line passes")
+    want(any("entries[3]" in e and "bound" in e for e in r["errors"]) or not entity_bounds(),
+         "a name over the schema bound is refused")
+    want(("text.entries[4].text", "AUTHOR") in r["slots"], "unwritten text is an open slot, not an error")
+    want(any("banned word 'lattice'" in e for e in r["errors"]), "the sheet's banned words are enforced")
+
+    # 7. Structure errors are named by path.
+    broken = copy.deepcopy(base)
+    del broken["enemy"]["loadout"]
+    broken["enemy"]["surprise"] = 1
+    r = check(broken)
+    want(any(e.startswith("sheet.enemy.loadout: required") for e in r["errors"]), "a missing block is named")
+    want(any("sheet.enemy.surprise: not a sheet field" in e for e in r["errors"]), "an unknown key is named")
+    want(any("required for kind ai" in e for e in check({k: v for k, v in base.items() if k != "enemy"})["errors"]),
+         "the kind's own block is required")
+
+    # 8. explain is generated from the sheet and carries the open items and the go card.
+    done = copy.deepcopy(base)
+    done["decisions"] = [{"id": "D-x", "topic": "Does it drop anything?", "status": "open",
+                          "options": ["no drops", "a shared token"], "blocks": "build handoff"}]
+    doc = explain(check(done))
+    want("GENERATED by design.py explain" in doc and "GO? D-x Does it drop anything?" in doc,
+         "explain renders the design doc and a go card per open decision")
+    want("AWAITING_RULING: `enemy.level`" in doc, "explain lists every open slot by path")
+    want(explain(check(done)) == doc, "explain is deterministic")
+
+    # 9. Without the build skill the engine-field rule cannot run, and check says so loudly.
+    global build_skill_dirs
+    real = build_skill_dirs
+    build_skill_dirs = lambda: []
+    try:
+        r = check(copy.deepcopy(base))
+        want(any("cannot find building-tnr-content" in e for e in r["errors"]),
+             "a missing build skill is an error, never a silently skipped check")
+    finally:
+        build_skill_dirs = real
+
+    for label in failures:
+        print(f"  FAIL  {label}")
+    print(f"\n{len(checks) - len(failures)} passed, {len(failures)} failed")
+    return 1 if failures else 0
+
+
+def main(argv=None) -> int:
+    argv = sys.argv[1:] if argv is None else argv
+    if argv[:1] == ["--selftest"]:
+        return selftest()
+    ap = argparse.ArgumentParser(prog="design.py", description=__doc__.split("\n\n")[0])
+    sub = ap.add_subparsers(dest="cmd", required=True)
+    p = sub.add_parser("new"); p.add_argument("kind"); p.add_argument("--id"); p.add_argument("--title")
+    p.add_argument("--from", dest="source"); p.add_argument("-o", "--out"); p.set_defaults(fn=cmd_new)
+    p = sub.add_parser("check"); p.add_argument("sheet"); p.add_argument("--json", action="store_true")
+    p.set_defaults(fn=cmd_check)
+    p = sub.add_parser("explain"); p.add_argument("sheet"); p.add_argument("-o", "--out"); p.set_defaults(fn=cmd_explain)
+    p = sub.add_parser("compile"); p.add_argument("sheet"); p.add_argument("-o", "--out"); p.set_defaults(fn=cmd_compile)
+    args = ap.parse_args(argv)
+    try:
+        return args.fn(args)
+    except DesignError as err:
+        print(f"design.py: {err}", file=sys.stderr)
+        return 2
+    except (OSError, json.JSONDecodeError) as err:
+        print(f"design.py: cannot read input: {err}", file=sys.stderr)
+        return 2
+
+
+if __name__ == "__main__":
+    sys.exit(main())

@@ -10,12 +10,12 @@ import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, "..", "..", ".."))
-SKILL = os.path.join(ROOT, "skills", "building-tnr-content")
-REFS = os.path.join(SKILL, "references")
-TOC_DIR = os.path.join(REFS, "_toc")
-PACK_DIR = os.path.join(SKILL, "packs")
-PACKS_JSON = os.path.join(PACK_DIR, "PACKS.json")
-TOC_FILES = ["jutsu.md", "ai.md", "quest.md", "pipeline.md", "item.md"]
+# One row per skill that has section TOCs. A skill gets packs only if it has packs/PACKS.json.
+# Add a skill here; never build its TOCs or packs by another route.
+SKILL_TOCS = {
+    "building-tnr-content": ["jutsu.md", "ai.md", "quest.md", "pipeline.md", "item.md"],
+    "designing-tnr-content": ["sheet.md", "writing.md"],
+}
 HEADING = re.compile(r"^(#{2,3}) (.+)$", re.M)
 
 
@@ -49,17 +49,31 @@ def toc_of(path):
 
 
 def render():
+    rendered = {}
+    for skill_name, toc_files in SKILL_TOCS.items():
+        rendered.update(render_skill(os.path.join(ROOT, "skills", skill_name), toc_files))
+    return rendered
+
+
+def render_skill(skill, toc_files):
+    refs = os.path.join(skill, "references")
+    toc_dir = os.path.join(refs, "_toc")
+    pack_dir = os.path.join(skill, "packs")
+    packs_json = os.path.join(pack_dir, "PACKS.json")
+    os.makedirs(toc_dir, exist_ok=True)
     rendered, texts, tocs = {}, {}, {}
-    for filename in TOC_FILES:
-        path = os.path.join(REFS, filename)
+    for filename in toc_files:
+        path = os.path.join(refs, filename)
         toc, text = toc_of(path)
         texts[filename] = text
         tocs[filename] = toc
-        rendered[os.path.join(TOC_DIR, filename.replace(".md", ".json"))] = (
+        rendered[os.path.join(toc_dir, filename.replace(".md", ".json"))] = (
             json.dumps(toc, indent=1) + "\n"
         )
 
-    packs = json.load(open(PACKS_JSON))
+    if not os.path.exists(packs_json):
+        return rendered
+    packs = json.load(open(packs_json))
     for name, spec in packs.items():
         parts, sources = [], []
         for source in spec["sources"]:
@@ -86,7 +100,7 @@ def render():
             "sources, never this file -->\n# Pack: %s\n\n%s\n\n"
             % (name, " + ".join(sources), name, spec.get("note", ""))
         )
-        rendered[os.path.join(PACK_DIR, name + ".md")] = (
+        rendered[os.path.join(pack_dir, name + ".md")] = (
             header + "\n\n---\n\n".join(parts) + "\n"
         )
     return rendered
@@ -94,8 +108,6 @@ def render():
 
 def main():
     mode = sys.argv[1] if len(sys.argv) > 1 else "--check"
-    for directory in (TOC_DIR, PACK_DIR):
-        os.makedirs(directory, exist_ok=True)
     rendered = render()
 
     if mode == "--write":
