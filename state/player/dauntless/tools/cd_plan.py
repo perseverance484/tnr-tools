@@ -33,7 +33,7 @@ ACTIONS = {
     "shield": (40, 7, None, "500 shield (instant) + absorb 35 (next round)"),
     "severed": (40, 7, None, "-50% healing, +30% taken"),
     "smoke": (20, 10, None, "-70% given both, NEXT round"),
-    "kims": (20, 10, "clearprevent", "clear/debuff prevent"),
+    "kims": (20, 10, "clearprevent", "clear/debuff prevent, next round only"),
     "pill": (20, 4, None, "+15 given, lifesteal 20"),
     "panacea": (20, 6, None, "-25% taken 2 r"),
     "jewel": (20, 6, None, "+15 given, -10 taken 3 r"),
@@ -42,9 +42,10 @@ ACTIONS = {
     "nights": (40, 6, "pierce", "pierce 631 + 200 heal, buff-prevent immunity"),
     "aetherion": (40, 6, None, "elemental dmg + target taken"),
     "yuki": (40, 7, "drain", "drain 200 x2 + -25% given"),
-    "clear": (60, 10, "clearfam", "strip their positives"),
-    "cleanse": (60, 10, "clearfam", "strip my negatives (not stun)"),
+    "clear": (60, 10, "clear", "strip their positives"),
+    "cleanse": (60, 10, "cleanse", "strip my negatives (not stun)"),
     "replace": (20, 2, None, "move up to 5"),
+    "basicheal": (60, 5, None, "heal 600 instant (engine actions.ts)"),
     "basic": (20, 1, None, "basic attack, range 1 (finisher)"),
     "defstance": (20, 1, None, "-15% taken next round (filler)"),
     "offstance": (20, 1, None, "filler"),
@@ -56,9 +57,13 @@ RANGE = {"basic": 1, "rebirth": 4, "shrapnel": 4, "lotus": 4, "fury": 4, "ember"
          "disaster": 4, "nights": 4, "aetherion": 4, "yuki": 3, "clear": 4}
 MOVES = {"phantom": 5, "replace": 5, "step": 1}  # reposition before targeted actions
 ACTIONS["step"] = (10, 0, None, "basic move 1 hex (last resort)")
-LOCKS = {"buffprevent": 4, "debuffprevent": 4, "clearfam": 3, "pierce": 3, "stun": 4, "seal": 3, "drain": 3, "poison": 3, "clearprevent": 3}
-EXTRA_TAGS = {"nights": ("drain",), "kims": ("debuffprevent",), "sealnull": ("buffprevent", "debuffprevent"),
-              "lotus": ("buffprevent",)}  # 2026-11-10 Hikuro R5: Seal refused 2 rounds after Kim's  # secondary tags that also take a shared lock
+# live misc.getSharedCooldowns (2026-11-10 23:58 UTC; supersedes the pinned source's flat 3): using an action with
+# cooldown > 0 locks every other action carrying the SAME tag type. Clear and Cleanse are different tag types, so they
+# do NOT lock each other (old "clearfam" grouping was wrong). Night's Testament is pierce + immunity (no drain).
+LOCKS = {"barrier": 3, "buffprevent": 4, "cleanse": 3, "cleanseprevent": 3, "clear": 3, "clearprevent": 3,
+         "consume": 3, "debuffprevent": 4, "drain": 3, "increasepoolcost": 3, "increasepotency": 3, "moveprevent": 3,
+         "pierce": 3, "poison": 3, "seal": 3, "siphon": 3, "stun": 4, "summon": 3, "vamp": 3}
+EXTRA_TAGS = {"kims": ("debuffprevent",), "sealnull": ("buffprevent", "debuffprevent"), "lotus": ("buffprevent",)}  # 2026-11-10 Hikuro R5: Seal refused 2 rounds after Kim's  # secondary tags that also take a shared lock
 LOADOUTS = {
     "pvp1": ["rebirth", "shrapnel", "lotus", "fury", "ember", "danse", "stormblade", "subaku", "overflow",
              "thunders", "parry", "eclipse", "sealnull", "phantom", "shield",

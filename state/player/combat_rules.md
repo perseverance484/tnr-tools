@@ -86,6 +86,10 @@ Using any action with tag T locks every other action carrying T for N rounds:
 | 4 | stun, buffprevent, debuffprevent |
 | 3 | pierce, clear, cleanse, clearprevent, cleanseprevent, seal, moveprevent, increasepotency, drain, poison, vamp, consume, siphon, barrier, summon, increasepoolcost |
 
+Each tag locks only actions carrying that exact tag type: Clear (tag `clear`) and Cleanse (tag `cleanse`) do NOT
+lock each other (both usable in the same fight two rounds apart; Aurora_Dusk 2026-11-10 R2 Cleanse, R4 Clear).
+The lock only fires when the used action has its own cooldown > 0 (engine `applyActionCooldowns`, pin 107d7a868).
+
 In this account's kit:
 - Stormblade Arc and Night's Testament lock each other (pierce, 3).
 - Seal of Nullification, Dr. Kim's Potion and Lotus Dance lock each other (buff/debuff-prevent, 4).
