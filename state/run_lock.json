@@ -1,10 +1,11 @@
 {
- "holder": null,
- "token": null,
- "job": null,
- "releasedBy": "player",
- "releasedInstance": null,
- "releasedJob": "PvP hunt 1h",
- "releasedAt": "2026-11-10T15:57:20.170Z",
- "note": "Free. Claim with node forge/tools/run_lock.mjs claim --holder NAME --job TEXT (RUL-2026-11-07-133)."
+ "holder": "player",
+ "job": "dauntless PvP hunt (policy net), 2h/10 fights",
+ "token": "b7f86f72850542e7b16214882ffec5bb",
+ "instance": null,
+ "ttlMinutes": 130,
+ "claimedAt": "2026-11-10T16:14:18.768Z",
+ "heartbeatAt": "2026-11-10T16:14:18.768Z",
+ "expiresAt": "2026-11-10T18:24:18.768Z",
+ "note": "One game writer per account at a time (RUL-2026-11-07-133). Written only by forge/tools/run_lock.mjs or Forge; do not hand-edit."
 }
