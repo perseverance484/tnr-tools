@@ -120,3 +120,53 @@ Read: Winta vs Gario and vs Choris1717; DDXXD vs Korin and vs Enduyn; Ziharkk vs
 | PvE (missions, bosses, arena) | PvE `w6SGSCzCfnyzAhqKebKzI` | PvE `q94r_70pLKJjXfRTc6OBp` |
 Switch with `jutsu.selectJutsuLoadout {id}` / `item.selectItemLoadout {id}` before the fight; switch back to PvP
 before hunting. No consumables vs mission AI. Other loadouts on the account: jutsu "2", "P1", "P2"; items "2", "3", "5".
+
+## Study 2: close fights between top PvPers, last 24 h (2026-11-10)
+Director: "Take a look at all the PvP battles from the last 24 hours and find some good ones to learn from. Look for
+close fights from good pvpers." Method: top 25 by `orderBy:"PvP"` -> `combat.getBattleHistory {userId,
+secondsBack:86400}` for Shigeo, DDXXD, Hohenheim, Winta, Ziharkk, Gario (~110 fights) -> round count of each
+top-vs-top fight -> full logs of the long ones, net damage summed per side. Most top-player kills end in 1-4
+rounds (burst on weaker targets); the close ones:
+
+| Fight | Rounds | Result | Net damage taken (after heals/leech) |
+|---|---|---|---|
+| Zaruza v Gario (`oHMHeqq_Xv5o2ObOJuEI8`) | 15 | Gario | Gario ~3,150, Zaruza ~5,150 + 1,250 drain |
+| DDXXD v Korin (`QBs_--mYyI50PJqn781mu`) | 9 | DDXXD | Korin ~5,270, DDXXD ~4,830 (closest) |
+| HikuroHatake v Winta (`T7gZYvtD5LTyMxZHQSLDU`) | 9 | Winta | Hikuro ~5,500, Winta ~3,400 |
+| Winta v Gario (`m5RIbYPjAUBEF2SYkYjo1`) | 9 | Gario | one-sided (Gario stun + 60% leech) |
+
+**What the winners did that we don't yet:**
+1. **Damage that ignores DR: drain.** Gario's Herald of the Black Night (250 HP/CP/SP x2 rounds) and DDXXD's
+   Inferno Leech (300 HP x2) did ~600-1,250 free damage into stacked -25/-35% DR. Our only DR answer is pierce
+   (Stormblade, Night's Testament, shared 3-round lock); drain is a second channel that doesn't share it.
+2. **Anti-heal before the kill.** DDXXD cast Raimei Gen (-40% healing on target) the round before finishing Korin,
+   so Thornsilver/lifesteal couldn't pull him back. We own Severed Pulse (anti-heal + dmg taken), not equipped.
+3. **A -damage-given rider on every hit.** Gario's hits carry -30% (Oni Hammer Swing) or -15% (Thornsilver) given
+   on the target, so Zaruza's buff rounds landed at about half. Ember Blade gives +taken; nothing we hit with
+   lowers their output.
+4. **Lifesteal stacked on every buff.** Gario: Otherworldly Conduit 40% + Thornsilver 60% + Chakra Pill 20%;
+   Winta: absorb 30% + reflect 40% + Stone of the Withering 35%. That sustain is what wins rounds 9-15. Our Eclipse
+   Drain (35%) and Chakra Pill are the equivalents; keep one live on burst turns.
+5. **Stun opener that is also the buff.** DDXXD: Cyclone Palm Strike R1 and Ancient Demon Roar R8 (stun + 35%
+   given). Opponent plays 2 rounds at 80 AP while the buff is live. Our Stunning Jab + Chakra Invigoration is the
+   same shape (PvE only right now).
+6. **Clear on the stack, Cleanse on the stack.** Gario held Clear until Zaruza had Overflow x2 + absorb + heal up
+   (R12), and Cleansed only when afterburn + wound + drain were on him (R6). Neither was spent early.
+7. **Ground marks.** Phantom Step leaves a decreasedamagetaken mark; Subaku Palace a decreasedamagegiven mark (3
+   rounds). Fighting on your own mark and off theirs is free DR; Gario and Korin both repositioned onto them.
+
+**What lost close fights:**
+- Zaruza: two Chakra Overflows + time dilation + extra-action setup, then ate Clear and a Smoke. Heavy setup with no
+  Dr. Kim's lock is the exact R1 risk in `pvp_rotations.md`.
+- Korin: recoil 40% + wounds on DDXXD nearly won it; DDXXD lost ~400 to recoil/wound by hitting through it. When
+  recoil is on us: pierce, drain or defend, don't basic-attack.
+- Winta took 1,360 in one hit after Hikuro's +35% taken landed; one unanswered debuff round decides close fights.
+
+**Kit names seen** (for reading future logs): Gario: Oni Hammer Swing, Thornsilver, Otherworldly Conduit, Herald of
+the Black Night, Eternal Darkness, Chakra Resistance, Phantom Step. DDXXD: Cyclone Palm Strike, Ancient Demon Roar,
+Raimei Gen, Inferno Leech, Adamantine Fortress, Demonic Vitae, Stone of the Withering, Kosai Shippu, Bloodthorn
+Kunai, Ethereal Nexus, First Chakra Gate. Korin: Terra Shift, Crystal Sphere, Crystal Cave, Prism, Summoning: Jade,
+Shrapnel Clone Barrage. Winta: Abyssal Surge, Harmonious Slash, Equilibrium Guard Strike, Inner Peace, Mizukumi.
+Zaruza: Lightning Release (stun + 35% afterburn + extra actions), Planetary Devastation, Chakra Overflow.
+**Loadout ideas (director's call):** Severed Pulse for anti-heal; a drain source; Chakra Resonance or Eternity Flux
+as a stun opener.
