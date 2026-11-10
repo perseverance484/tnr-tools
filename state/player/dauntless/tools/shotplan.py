@@ -1,0 +1,318 @@
+#!/usr/bin/env python3
+"""Shot planner: simulate the outcome of candidate turns before firing them (director, 2026-11-10: "a script that lets
+you see the outcome of a set of moves, so you can predict enemy moves, respond with the highest value actions and plan
+future combinations").
+
+Model (engine timing rules from combat_rules.md):
+  - a tag cast in round N is live from round N+1 for its duration; instant effects (damage, pierce, shield, Clear,
+    Cleanse, stun AP loss, seal, Subaku's -given, Fury's recoil ground) apply at once.
+  - damage = base x prod(1 + attacker +given) x prod(1 + target +taken) x prod(1 - target DR) [x 0.3 smoked];
+    pierce = flat (no boosts, no DR, breaks shields); drains = flat per round on the victim's action, not absorbed.
+    Target absorb heals back that share; attacker lifesteal heals its share; recoil ground returns 40% to the hitter.
+  - base damage per action is calibrated per opponent from real logs (DMG tables below; scale by --scale).
+Search: for each legal bundle of mine this round (policy.legal: AP, cooldowns, shared locks, range), simulate
+  my turn + his predicted turn (enemy_model habit prediction, plus his top alternative), then my best follow-up next
+  round + his next predicted turn. Score = HP swing (dealt - taken), +/-5000 for a kill/death, small credit for
+  setup still live. Prints the top plans with predicted HP after each turn.
+
+Usage:
+  shotplan.py LOG ROUND --enemy Luka --battle B --dist 1 --ap 100 --my-hp N --en-hp N [--first] [--top 5]
+  (LOG = the same "<round>|<effect text>" file policy.py reads; live tags are rebuilt from it.)
+"""
+import argparse
+import copy
+import json
+import os
+import re
+
+import policy
+from cd_plan import ACTIONS, LOADOUTS, load
+from enemy_model import PROFILES, _predict
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+
+# my actions: base damage vs an average target before his DR (calibrated from 2026-11-10 logs vs Luka/Shisui:
+# Fury 649-776 under +60% given & DR35 -> ~620; Rebirth 433-689; Shrapnel 442-645; Lotus 317-776; Ember 100-682;
+# kunai 194-337; basic ~150), plus the tags each applies: (who, kind, value, rounds, instant?)
+MINE = {
+    "rebirth": (600, [("me", "given", -0.15, 2), ("me", "absorb", 0.35, 3)]),
+    "shrapnel": (600, [("en", "afterburn", 0.30, 2)]),
+    "lotus": (560, [("en", "buffblock", 1, 1)]),
+    "fury": (620, [("en", "recoil", 0.40, 1, True)]),
+    "ember": (560, [("me", "given", 0.35, 2), ("en", "taken", 0.35, 2)]),
+    "danse": (420, [("en", "seal", 1, 2, True)]),
+    "stormblade": (707, [("me", "reflect", 0.35, 2)], "pierce"),
+    "nights": (631, [("me", "heal", 200, 0, True)], "pierce"),
+    "resonance": (450, [("en", "stun", 20, 2, True)]),
+    "leech": (0, [("en", "drain", 300, 2), ("me", "absorb", 0.21, 2)]),
+    "yuki": (0, [("en", "drain", 200, 2), ("en", "given", -0.25, 2)]),
+    "aetherion": (350, [("en", "taken", 0.20, 2)]),
+    "kunai": (280, [("en", "wound", 30, 2)]),
+    "basic": (150, []),
+    "subaku": (0, [("en", "given", -0.25, 1, True), ("me", "given", 0.30, 2)]),
+    "overflow": (0, [("me", "given", 0.35, 2), ("me", "given", 0.35, 2)]),
+    "thunders": (0, [("me", "given", 0.30, 2), ("me", "reflect", 0.35, 2)]),
+    "parry": (0, [("me", "given", 0.30, 2), ("me", "parry", 0.20, 2)]),
+    "eclipse": (0, [("me", "given", 0.30, 2), ("me", "lifesteal", 0.35, 2)]),
+    "sealnull": (0, [("en", "buffblock", 1, 1), ("me", "debuffimmune", 1, 2)]),
+    "phantom": (0, [("me", "given", 0.30, 2), ("me", "dr", 0.25, 2)]),
+    "shield": (0, [("me", "shield", 500, 2, True), ("me", "absorb", 0.35, 2)]),
+    "severed": (0, [("en", "healcut", 0.5, 2), ("en", "taken", 0.30, 2)]),
+    "smoke": (0, [("en", "given", -0.70, 1), ("me", "given", -0.70, 1), ("me", "dr", 0.25, 2)]),
+    "kims": (0, [("me", "debuffimmune", 1, 1), ("me", "clearimmune", 1, 1)]),
+    "pill": (0, [("me", "given", 0.15, 2), ("me", "lifesteal", 0.20, 2)]),
+    "panacea": (0, [("me", "dr", 0.25, 2)]),
+    "jewel": (0, [("me", "given", 0.15, 3), ("me", "dr", 0.10, 3)]),
+    "disaster": (0, [("en", "taken", 0.20, 2)]),
+    "clear": (0, [("en", "clear", 1, 0, True)]),
+    "cleanse": (0, [("me", "cleanse", 1, 0, True)]),
+    "replace": (0, []), "step": (0, []), "defstance": (0, [("me", "dr", 0.15, 1)]),
+    "offstance": (0, [("me", "given", 0.15, 1)]),
+}
+# his actions (Luka, from 6 logged fights): base damage before my multipliers, tags applied
+ENEMY = {
+    "luka": {
+        "resward": (650, [("me", "taken", 0.35, 2), ("me", "recoil_self", 0.40, 2)]),
+        "shieldbreak": (735, [("me", "wound", 182, 2)], "pierce"),
+        "dki": (650, [("en", "given", 0.40, 2), ("me", "wound", 250, 2)]),
+        "absorbhit": (450, [("en", "absorb", 0.30, 2)]),
+        "decree": (330, [("me", "taken", 0.20, 2)]),
+        "afterburnground": (480, []),
+        "draingiven": (380, [("me", "drain", 150, 2), ("en", "given", 0.30, 2)]),
+        "kunai": (220, []), "basic": (180, []), "nights": (631, [], "pierce"),
+        "absorbstack": (0, [("en", "given", 0.40, 2), ("en", "absorb", 0.40, 2)]),
+        "middleguard": (0, [("en", "given", 0.35, 2), ("en", "dr", 0.35, 2), ("en", "debuffimmune", 1, 1)]),
+        "potency": (0, [("en", "given", 0.208, 2)]),
+        "pill2": (0, [("en", "given", 0.15, 2), ("en", "lifesteal", 0.20, 2)]),
+        "lsdebuff": (0, [("me", "taken", 0.30, 2), ("en", "lifesteal", 0.35, 2)]),
+        "lsshield": (0, [("en", "lifesteal", 0.35, 2)]),
+        "vacuum": (0, [("me", "given", -0.334, 2), ("me", "taken", 0.334, 2)]),
+        "afterburnme": (0, [("me", "taken", 0.15, 2)]),
+        "eternaldark": (0, [("me", "given", -0.30, 2), ("en", "dr", 0.30, 2)]),
+        "echo": (0, [("me", "stun", 20, 2, True), ("me", "recoil_self", 0.35, 2)]),
+        "panacea": (0, [("en", "dr", 0.25, 2)]),
+        "smoke": (0, [("me", "given", -0.70, 1), ("en", "given", -0.70, 1), ("en", "dr", 0.25, 2)]),
+        "clear": (0, [("me", "clear", 1, 0, True)]),
+        "cleanse": (0, [("en", "cleanse", 1, 0, True)]),
+        "kims": (0, [("en", "debuffimmune", 1, 1), ("en", "clearimmune", 1, 1)]),
+        "phantom": (0, [("en", "given", 0.30, 2), ("en", "dr", 0.25, 2)]),
+        "replace": (0, []), "healitem": (0, [("en", "heal", 700, 0, True)]),
+    },
+}
+POSITIVE = {"given+", "absorb", "lifesteal", "reflect", "parry", "dr", "shield", "debuffimmune", "clearimmune"}
+
+
+class Side:
+    def __init__(self, hp):
+        self.hp = hp
+        self.tags = []  # [kind, value, first_round, last_round]
+
+    def live(self, kind, r):
+        return [t for t in self.tags if t[0] == kind and t[2] <= r <= t[3]]
+
+    def mult(self, kind, r):
+        m = 1.0
+        for t in self.live(kind, r):
+            m *= 1 + t[1]
+        return m
+
+    def total(self, kind, r):
+        return sum(t[1] for t in self.live(kind, r))
+
+
+def positive(t):
+    k, v = t[0], t[1]
+    return (k == "given" and v > 0) or k in POSITIVE - {"given+"}
+
+
+def rebuild(lines, me_name, en_name, my_hp, en_hp):
+    me, en = Side(my_hp), Side(en_hp)
+    pat = [("damage given", "given"), ("damage taken", "taken"), ("will absorb", "absorb"), ("will steal", "lifesteal"),
+           ("will reflect", "reflect"), ("will parry", "parry"), ("healing ability is decreased", "healcut")]
+    for line in lines:
+        r, t = line.split("|", 1)
+        r = int(r)
+        who = me if t.startswith(me_name) else en if t.startswith(en_name) else None
+        if who is None:
+            continue
+        if "cleared of all positive" in t:
+            who.tags = [x for x in who.tags if not positive(x)]
+            continue
+        if "cleared of all negative" in t:
+            who.tags = [x for x in who.tags if positive(x)]
+            continue
+        n = int(m.group(1)) if (m := re.search(r"next (\d+) rounds?", t)) else 1
+        v = float(m.group(1)) / 100 if (m := re.search(r"([\d.]+)%", t)) else 0
+        for key, kind in pat:
+            if key in t:
+                if kind in ("given", "taken"):
+                    if "decreased" in t:
+                        kind, v = ("given", -v) if kind == "given" else ("dr", v)
+                who.tags.append([kind, v, r + 1, r + n])
+                break
+        else:
+            if "cannot be debuffed" in t:
+                who.tags.append(["debuffimmune", 1, r + 1, r + n])
+            elif "wound damage for" in t:
+                who.tags.append(["wound", float(re.search(r"take ([\d.]+) wound", t).group(1)), r + 1, r + n])
+            elif "will be drained" in t:
+                who.tags.append(["drain", float(re.search(r"drained ([\d.]+)", t).group(1)), r + 1, r + n])
+            elif "will recoil" in t:
+                who.tags.append(["recoil_self", v, r + 1, r + n])
+            elif "shield with" in t:
+                who.tags.append(["shield", float(re.search(r"with ([\d.]+)", t).group(1)), r, r + n - 1])
+    return me, en
+
+
+def apply(src_side, dst_side, spec, r, actor_is_me):
+    """Apply one action: damage then tags. Returns (damage to target, damage to actor)."""
+    base, tags = spec[0], spec[1]
+    pierce = len(spec) > 2 and spec[2] == "pierce"
+    to_tgt = to_self = 0.0
+    # tick my own wound/drain on my first action is handled by the caller
+    if base:
+        if pierce:
+            dmg = base
+            dst_side.tags = [t for t in dst_side.tags if t[0] != "shield"]
+        else:
+            dmg = base * src_side.mult("given", r) * dst_side.mult("taken", r)
+            for t in dst_side.live("dr", r):
+                dmg *= 1 - t[1]
+            dmg *= 0.5 / 0.5  # system DR already inside the calibrated base
+            sh = sum(t[1] for t in dst_side.live("shield", r))
+            if sh:
+                used = min(sh, dmg)
+                dmg -= used
+                dst_side.tags = [t for t in dst_side.tags if t[0] != "shield"]
+        dmg = max(dmg, 0.0)
+        heal_cut = 1 - dst_side.total("healcut", r)
+        to_tgt += dmg - dmg * min(0.9, dst_side.total("absorb", r)) * heal_cut
+        to_self -= dmg * src_side.total("lifesteal", r) * (1 - src_side.total("healcut", r))
+        to_self += dmg * src_side.total("recoil_self", r)
+        to_self += dmg * sum(t[1] for t in src_side.live("recoil", r))  # standing on recoil ground
+        to_self += dmg * dst_side.total("reflect", r) + dmg * dst_side.total("parry", r)
+    for t in tags:
+        who, kind, val, dur = t[0], t[1], t[2], t[3]
+        instant = len(t) > 4 and t[4]
+        side = src_side if who == ("me" if actor_is_me else "en") or (who == "me" and actor_is_me) else None
+        side = src_side if (who == "me") == actor_is_me else dst_side
+        if kind == "clear":
+            if not side.live("clearimmune", r):
+                side.tags = [x for x in side.tags if not positive(x)]
+            continue
+        if kind == "cleanse":
+            side.tags = [x for x in side.tags if positive(x)]
+            continue
+        if kind == "heal":
+            if side is src_side:
+                to_self -= val
+            continue
+        hostile = side is dst_side and (val < 0 or kind in ("taken", "wound", "drain", "recoil_self", "stun", "healcut", "seal"))
+        if hostile and side.live("debuffimmune", r):
+            continue
+        if side is src_side and src_side.live("buffblock", r) and kind in ("given", "absorb", "lifesteal", "dr", "reflect") and val > 0:
+            continue
+        first, last = (r, r + max(dur, 1) - 1) if instant else (r + 1, r + dur)
+        side.tags.append([kind, val, first, last])
+    return to_tgt, to_self
+
+
+def run_turn(actor, other, acts, kit, r, actor_is_me):
+    dealt = taken = 0.0
+    if acts:  # wound + drain tick on the first action of the turn
+        taken += actor.total("wound", r) + actor.total("drain", r)
+    for a in acts:
+        spec = kit.get(a)
+        if spec is None:
+            continue
+        d, s = apply(actor, other, spec, r, actor_is_me)
+        dealt += d
+        taken += s
+    other.hp -= dealt
+    actor.hp -= taken
+    return dealt, taken
+
+
+def enemy_options(enemy, battle, r):
+    bundle, threats, ready, kit, cands = _predict(enemy, battle, r)
+    alt = [a for s, a in cands if a not in bundle][:2]
+    opts = [bundle]
+    if alt:
+        opts.append(alt)
+    return opts
+
+
+def score(me, en, my0, en0):
+    s = (en0 - en.hp) - (my0 - me.hp)
+    if en.hp <= 0:
+        s += 5000
+    if me.hp <= 0:
+        s -= 5000
+    return s
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("log"); ap.add_argument("round", type=int)
+    ap.add_argument("--enemy", required=True); ap.add_argument("--battle", required=True)
+    ap.add_argument("--dist", type=int, default=1); ap.add_argument("--ap", type=int, default=100)
+    ap.add_argument("--my-hp", type=float, required=True); ap.add_argument("--en-hp", type=float, required=True)
+    ap.add_argument("--first", action="store_true"); ap.add_argument("--top", type=int, default=5)
+    ap.add_argument("--scale", type=float, default=1.0)
+    a = ap.parse_args()
+    lines = [l.strip() for l in open(a.log) if "|" in l]
+    opp = a.enemy.lower()
+    ekit = ENEMY.get(opp, ENEMY["luka"])
+    mykit = {k: ((v[0] * a.scale,) + v[1:]) for k, v in MINE.items()}
+    st = load(a.battle)
+    me0, en0 = rebuild(lines, "dauntless", a.enemy, a.my_hp, a.en_hp)
+    R = a.round
+    ap_now = a.ap - (20 if me0.live("stun", R) else 0)
+    bundles = policy.legal(st, R, ap_now, bool(en0.live("debuffimmune", R)), set(), st["loadout"], a.dist)
+    his_now = enemy_options(opp, a.battle, R) if opp in PROFILES else [["basic"]]
+    his_next = enemy_options(opp, a.battle, R + 1) if opp in PROFILES else [["basic"]]
+    results = []
+    for b in bundles:
+        worst = None
+        for h in his_now:
+            me, en = copy.deepcopy(me0), copy.deepcopy(en0)
+            log = []
+            if a.first:
+                d, t = run_turn(me, en, list(b), mykit, R, True); log.append(("me", R, b, d, t, me.hp, en.hp))
+                if en.hp > 0:
+                    d, t = run_turn(en, me, h, ekit, R, False); log.append(("him", R, h, d, t, me.hp, en.hp))
+            else:
+                d, t = run_turn(me, en, list(b), mykit, R, True); log.append(("me", R, b, d, t, me.hp, en.hp))
+                if en.hp > 0:
+                    d, t = run_turn(en, me, his_next[0], ekit, R + 1, False); log.append(("him", R + 1, his_next[0], d, t, me.hp, en.hp))
+            # greedy follow-up next round: best single high-value bundle among simple options (ignores cooldown detail)
+            if me.hp > 0 and en.hp > 0:
+                best_f = None
+                for f in (("rebirth", "kunai", "pill"), ("fury", "parry"), ("stormblade", "thunders"), ("nights", "ember"),
+                          ("leech", "jewel", "pill"), ("ember", "overflow"), ("clear", "sealnull"), ("cleanse", "shield")):
+                    if not all(x in st["loadout"] for x in f) or any(x in b for x in f):
+                        continue
+                    m2, e2 = copy.deepcopy(me), copy.deepcopy(en)
+                    run_turn(m2, e2, list(f), mykit, R + 1, True)
+                    v = (en.hp - e2.hp) - (me.hp - m2.hp) + (5000 if e2.hp <= 0 else 0)
+                    if best_f is None or v > best_f[0]:
+                        best_f = (v, f)
+                follow = best_f
+            else:
+                follow = None
+            sc = score(me, en, a.my_hp, a.en_hp) + (0.5 * follow[0] if follow else 0)
+            if worst is None or sc < worst[0]:
+                worst = (sc, log, follow, h)
+        results.append((worst[0], b, worst))
+    results.sort(key=lambda t: -t[0])
+    print(f"round {R}: {len(bundles)} legal bundles, me {a.my_hp:.0f} / him {a.en_hp:.0f}, AP {ap_now}; "
+          f"his likely now {his_now}, next {his_next[0]}")
+    for sc, b, (s, log, follow, h) in results[:a.top]:
+        steps = "; ".join(f"{w} R{r} {'+'.join(x)}: dealt {d:.0f} self {t:+.0f} -> me {mh:.0f}/him {eh:.0f}"
+                          for w, r, x, d, t, mh, eh in log)
+        fu = f" | then {'+'.join(follow[1])} ({follow[0]:+.0f})" if follow else ""
+        print(f"{sc:+7.0f}  {'+'.join(b):32s} vs his {'+'.join(h)} :: {steps}{fu}")
+
+
+if __name__ == "__main__":
+    main()

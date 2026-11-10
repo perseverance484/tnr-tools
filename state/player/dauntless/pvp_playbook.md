@@ -441,3 +441,12 @@ looking for good plays and blunders")
    AFK check (enemy idle >= half his rounds -> data discarded), per-turn value table (dealt/taken/net/HP), blunder and
    good-play flags, training samples (weight 1.0, flagged rounds 1.5) replacing any earlier copy, retrain.
 3. Read fights/<battle>_review.md; any new blunder type becomes a rule/prior/legality fix before the next fight.
+
+## Shot planner (director 2026-11-10: "a script that lets you see the outcome of a set of moves, so you can predict
+enemy moves, respond with the highest value actions and plan future combinations")
+`tools/shotplan.py LOG ROUND --enemy NAME --battle B --dist N --ap 100 --my-hp N --en-hp N [--first]` simulates every
+legal bundle: my turn -> his predicted turn (enemy_model habit bundle and his top alternative; the worse case counts)
+-> my best follow-up -> score (HP swing, +/-5000 kill/death). Damage model: calibrated base x +given x +taken x DR,
+smoke 0.3, pierce flat (breaks shields), drains flat (not absorbed), absorb/lifesteal/recoil/reflect/parry, Clear/
+Cleanse, prevents, wound/drain ticks on the first action. Run it with policy.py each turn; when they disagree,
+prefer the plan that survives his predicted turn.
