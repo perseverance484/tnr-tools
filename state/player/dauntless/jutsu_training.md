@@ -15,20 +15,18 @@ allowed too.
   queued training on either first. Moves levels; doesn't add them.
 - Power at level L = power + (L-1) x powerPerLevel. In-battle numbers scale with this.
 
-## Jutsu of interest (equipped PvP loadout below level 25)
-| Jutsu | Id | Level | Why |
-|---|---|---|---|
-| Ethereal Rebirth | K0t6Z-Q4lau1jFt8Tkpot | 7 -> 12 queued | main cash-out hit (2,234 buffed at lv7) |
-| Eclipse Drain | ou7VyChQ-SFCm8T8yGS7I | 7 | ramp buff + lifesteal |
-| Thunder's Judgement | qNeccb2eF20oL0Ws-VhKS | 7 | ramp buff + reflect |
-| Shrapnel Clone Barrage | GiKpip6NxsC8QWlZi6l_R | 1 | opener hit + afterburn |
-| Parry | 73Sn-ihCNNRwxZ_G_2lTZ | 1 | buff + parry |
-Owned, top-player picks, not equipped: Dragon King's Impact, Chakra Invigoration, Eternity Flux, Chakra Resonance (all 25).
+## PvP loadout: nothing to train
+Director (2026-11-09): "ethereal rebirth doesnt scale, no need to train it. It can level through PvP use alone."
+Every equipped PvP jutsu is either level 25 or has powerPerLevel 0 (Ethereal Rebirth, Eclipse Drain, Thunder's
+Judgement, Shrapnel Clone Barrage, Parry: descriptions say "DON'T TRAIN. ALREADY CAPPED"). They level by use.
+**Before training anything, check `jutsu.get` effects powerPerLevel > 0.**
+
+## Cost (libs/train.ts calcJutsuTrainCost)
+base (D 50, C 100, B 150, A 200, S 250, + extraBaseCost) ^ (1 + level/20). Low levels are cheap; high levels are
+very expensive (Cyclone Palm Strike level 19 quoted 1,949,575 ryo for one level; cancelled pending director).
 
 ## Queue log
-| Started (UTC) | Jutsu | Levels | Ryo | Done |
+| Started (UTC) | Jutsu | Levels | Ryo | Result |
 |---|---|---|---|---|
-| 2026-11-10 04:11 | Ethereal Rebirth | 8-12 | 479,594 | ~09:11 |
-
-## Next
-When slots open: Shrapnel and Parry 1 -> 6 (cheap), then Eclipse and Thunder's 7 -> 12, then Ethereal 13+.
+| 2026-11-10 04:11 | Ethereal Rebirth | 8-12 | 479,594 | 9-12 cancelled and refunded (no scaling); level 8 left to finish ~05:11 |
+| 2026-11-10 04:20 | Cyclone Palm Strike | 19 | 1,949,575 | cancelled and refunded; waiting for the director's picks |
