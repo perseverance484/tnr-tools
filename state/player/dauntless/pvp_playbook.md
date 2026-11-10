@@ -190,7 +190,7 @@ kept, Raimei Gen dropped (Severed Pulse is the one heal cut). Cyclone Palm Strik
 | Stormblade Arc | 60 | 25 | pierce + reflect |
 | Forgotten Ember Blade | 60 | 25 | dmg, self +35% given, target +35% taken |
 | Subaku Palace | 40 | 25 | AoE spiral: self +30% given (2 r), ground -25% given on enemies (3 r), instant; cd 7 |
-| Chakra Shield | 40 | 25 | absorb 25 + shield |
+| Chakra Shield | 40 | 25 | absorb 35 + shield (instant) |
 | Severed Pulse | 40 | 25 | target -50% healing, +30% taken (2 r) |
 | Eternal Darkness | 40 | 25 | target -30% given, self -30% taken (2 r) |
 | Chakra Overflow | 40 | 25 | self +35% given x2 |
@@ -206,8 +206,9 @@ ITEM_1 Dr. Kim's Miracle Potion; ITEM_2 Elite Smoke Bomb; ITEM_3 Chakra Pill; IT
 Amulet** (40 AP: drain 100 x2 + cleanse-prevent 1 r, so they can't Cleanse my seal/recoil that round);
 THROWN **Bloodthorn Kunai** (20 AP: elemental dmg + wound); KEYSTONE **Sealed Earrings of Sloth** (-5% taken).
 Dropped vs PvP 1: Aetherion, Colored Jewel, Ikazuchi Kunai, Subaku Mask, Sealed Necklace of Lust.
-Keystone choice: absorb caps at 60% (director). Lust adds 10% absorb, so Rebirth 35 + Chakra Shield 25 + Lust 10 =
-70-80 wastes 10-20. With Sloth, Rebirth 35 + Chakra Shield 25 = exactly 60, and Sloth's DR stacks with everything.
+Keystone choice: absorb caps at 60% (director). Lust adds 10% absorb, which overflows with Rebirth or Chakra Shield
+(35 each at level 25, director 2026-11-10: "Chakra Shield is 35 absorb at level 25"). Sloth's -5% taken stacks with
+everything instead. Rebirth + Chakra Shield = 70: never overlap them; keep one absorb source up at a time.
 
 **Director (2026-11-10), turn 1 and immunity:** "Your turn 1 is best spent when the enemy has a large damage stack,
 as like an emergency button. Keep in mind subaku palace cant apply through debuff immunity, but Seal can so
@@ -216,7 +217,8 @@ best idea because absorb caps at 60 and that gives you 70, thus wasting some. Al
 10 absorb so we're actually at 80 and wasting 20."
 - Debuff immunity on them (Dr. Kim's Miracle, "cannot be debuffed"): skip Subaku Palace; Danse Macabre's seal still
   lands. Seal + Chakra Shield (shield is instant) is the emergency turn against a big damage stack.
-- Absorb cap 60: never stack absorb past 60 (Rebirth 35, Chakra Shield 25, Inferno Leech ~21, Lust keystone 10).
+- Absorb cap 60: never stack absorb past 60 (Rebirth 35, Chakra Shield 35, Inferno Leech ~21, Lust keystone 10).
+  Chain them instead: Shield on T1 (2 r), Rebirth when Shield expires.
 
 **Player-1 principles (director):**
 - Instant effects cast first cover the enemy's turn in the same round. Danse Macabre's seal: "as player 1 you get 3
@@ -231,15 +233,15 @@ best idea because absorb caps at 60 and that gives you 70, thus wasting some. Al
 **Going first:**
 - T1: Danse Macabre + Subaku Palace. Both land at once: their T1 hits at ~0.71 x 0.75 = ~54% (seal T1-T3, ground
   T1-T3), and my +30% given is live T2. They stand in it or spend AP walking out.
-- T2: Ethereal Rebirth (35% absorb T3-T5) + Chakra Shield (with Sloth keystone = 60% absorb, the cap) or Seal of
-  Nullification. T1 is the emergency button: use it when their damage stack is big, Seal + Shield if they are
+- T2: Ethereal Rebirth (35% absorb T3-T5) + Seal of Nullification or Severed Pulse (not Chakra Shield: 35 + 35 = 70
+  over the 60 cap). T1 is the emergency button: use it when their damage stack is big, Seal + Shield if they are
   debuff-immune.
 - T3: Forbidden Chakra Fury (40% recoil at once, T3-T4) + Seal of Nullification / Severed Pulse. Their last sealed
   turn: each hit costs them 40% and heals me 35%.
 - T4: Chakra Resonance stun + Overflow or Severed Pulse. T5: swing (Ember / Stormblade / Leech with Eclipse Drain).
 
-**Going second:** T1 Chakra Shield + Eternal Darkness + Defensive Stance (or Invigoration in if far), then run the
-player-1 sequence from T2 (Danse + Subaku), since the seal still gives 3 of their turns from my cast.
+**Going second:** T1 Chakra Shield + Eternal Darkness + Defensive Stance (or Invigoration in if far), then Danse +
+Subaku on T2 (the seal still gives 3 of their turns from my cast) and Rebirth on T3 once the Shield has lapsed.
 
 **Other cases:** DR-stacked target -> Inferno Leech then Stormblade (no shared lock). Their burst due -> Eternal
 Darkness + Chakra Shield + Defensive Stance / Elite Smoke Bomb. Kill turn on a healer -> Severed Pulse first.
