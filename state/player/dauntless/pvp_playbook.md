@@ -76,6 +76,18 @@ Severed Pulse (anti-heal + dmg taken), Momentum Shift.
   sure consumables, pools and armor are good before attacks." / "Spam fights against him if he stays awake and fights
   back" (standing rule; the 5 + 5-per-repeat minute cooldown still applies). Found at Risen 99, (13,13). First fight
   2026-11-10 15:14: he was AFK, won R4 untouched.
+  **His kit (fight 2026-11-10 15:18 + his spar vs 4qua 15:30):** Veil of Shadows (60, hit + self absorb 30%),
+  Echoing Rift (40, stun -20 + 35% recoil on target + self afterburn 15%), Vacuum Fan (40, pull 3 + -33% given / +33%
+  elemental taken on target), Tranquil Guard Flowing Form (60, shield 600 + -28% given on target + hit), Middle Guard
+  Stance (40, +35 given / -35 taken + debuff immunity 1 r), Enduring Resonance Ward (60, hit + 37.6% recoil on target),
+  Stone of the Withering (lifesteal 35 + hit), Eclipse Drain, Chakra Overflow, Inferno Leech, Eternal Darkness,
+  Adamantine Fortress, Chakra Resonance, Dragon King's Impact, Phantom Step, Replacement; items Iron Tempest Bo (40,
+  -15% given on target / -15% taken self + hit), Chakra Pill II, Panacea, Elite Smoke Bomb, Night's Testament,
+  Thornsilver. **We own Veil of Shadows, Echoing Rift, Vacuum Fan (lv 25), Tranquil Guard, Middle Guard Stance and
+  Enduring Resonance Ward** (most at low level): candidates for a Luka-style loadout (director's call).
+  His patterns: opens Phantom Step + Iron Tempest Bo + Chakra Pill II; layers Middle Guard (immunity) before bursts;
+  Echoing Rift + Replacement to stun-lock and kite off ground effects; Clear -> Echoing Rift right after I buff;
+  Vacuum Fan pull into his range; pierce (Night's) on my smoke round; Resonance Ward recoil when I'm about to burst.
 - **Ashutosh** (Tsukimori, Elder, Blue Blade Eyes). Director: "This guy likes to stack lots of buffs and bait clears".
   Kit seen: pull + -35% taken/+35% taken on me, -35% taken/+35% given, +15/+15% given, +30%/+50% given, stun, wound
   479/round, vamp + heal, Cleanse, Eternal Darkness. Beat him with recoil + absorb (log in sessions/2026-11-10.md).
