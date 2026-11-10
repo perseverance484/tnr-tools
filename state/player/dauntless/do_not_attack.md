@@ -12,6 +12,8 @@ Check this list before every `combat.attackUser`, `travel.robPlayer` or bounty.
 | loveispure | Akatsuki | Director: do not attack | 2026-11-09 |
 | Neon | Horizon | Director: do not attack | 2026-11-09 |
 | Aeris | — | Director: do not attack | 2026-11-09 |
+| Shisui | user_2SAAMvwqsbjyS2Qd8A2pB0Gzn4W | Director: "Do not attack Shisui" (no probes either) | 2026-11-10 |
+| Draco | user_2SAAYvBMet9eS2UHZIoYuIiQftE | Director: "Or Draco" (no probes either) | 2026-11-10 |
 
 ## Do not snipe (no third-party jumps after their fights)
 | Player | Village | Why | Added |
