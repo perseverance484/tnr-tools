@@ -38,6 +38,7 @@ research  ->  principles  ->  tools  ->  evals  ->  (real use)  ->  lessons  -> 
 | R3 | Rewards and economy | designing-tnr-content: payout model | Faucets and sinks, drop-rate design and weekly pacing decide whether events feel worth playing. |
 | R4 | Game writing | designing-tnr-content: writing guide | Battle text, barks and story told through logs are the voice players read every turn. |
 | R5 | Quest and event structure | designing-tnr-content: quest structure catalogue | Variety, pacing and retention in quest design. |
+| R6 | Real player behaviour | playing-tnr: player profiles, playbooks, PvP etiquette | How real players play browser and turn-based RPGs (session patterns, mistakes, PvP conduct, felt difficulty), so the AI player plays like a person (`state/prompt_playing_tnr.md`). |
 
 R1 starts first. R2 to R5 can follow in any order the director sets, and two can run at once if
 they feed different skills.
