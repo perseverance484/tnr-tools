@@ -1,0 +1,65 @@
+{
+ "_note": "MoE act 1: Sayo HP cut. Pools 0.95 in push 584 was refused (floor is 1.0), so 5,050 is the lowest. Director approved cutting Sayo to about 4,800, Nov 10 00:49 UTC.",
+ "items": [
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "targetId": "fJLcH1mpB1XHHGtNWwvzD",
+   "name": "Sayo, Mother of Echoes (act 1): HP 6,060 to 5,050 (pools 1.2 to 1.0, the floor)",
+   "phase": 10,
+   "data": {
+    "poolsMultiplier": 1,
+    "effects": [
+     {
+      "type": "increasedamagegiven",
+      "power": 100,
+      "rounds": 100,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "Increased damage given",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "stunprevent",
+      "power": 100,
+      "rounds": 100,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "Nothing stills the Mother of Echoes",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "onehitkillprevent",
+      "power": 100,
+      "rounds": 100,
+      "target": "SELF",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     }
+    ]
+   }
+  }
+ ]
+}
