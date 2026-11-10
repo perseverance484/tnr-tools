@@ -104,7 +104,30 @@ In this account's kit:
 
 - Ground effects (Phantom Step's DR, Subaku Palace) only apply to whoever stands on that hex, each round.
 
-## 8. How to play with these rules
+## 7b. Player 1 vs player 2 (director, 2026-11-09): turn order makes timing asymmetric
+Turn order is fixed per battle. Player 1 (P1) acts first every round; player 2 (P2) acts second.
+Every duration tag cast in round N goes live in round N+1. **Dr. Kim's also protects only from the round after it
+is used** (director, from play).
+
+| | P1 (I act first) | P2 (I act second) |
+|---|---|---|
+| A tag I cast in round N goes live | on my N+1 turn; the enemy's N turn (right after mine) can Clear or Cleanse it before it ever goes live | on the enemy's N+1 turn, which comes before my N+1 turn |
+| Gap between my setup and my payoff | one enemy turn (round N, after me), unprotectable by tags cast in N | one enemy turn (round N+1, before me), coverable by Dr. Kim's cast in N |
+| 2-round buffs cast in round N cover | my turns N+1 and N+2 (two payoff turns) | the enemy's N+1 and N+2 turns, and my N+1 and N+2 turns |
+| Defensive tags cast in round N protect against | the enemy's N+1 and N+2 turns (not his N turn) | the enemy's N+1 and N+2 turns, the very next thing that happens |
+| Stun cast in round N | hits the enemy's round-N turn at once (-20 AP right away) | hits the enemy's N+1 and later turns |
+| Dr. Kim's cast in round N | live in N+1: protects what I cast in N+1 during his N+1 turn | live in N+1: protects what I cast in N during his N+1 turn |
+
+**Consequences**
+- **P2 is the natural setup-and-cash-in seat:** buff + Dr. Kim's at the end of round N; the enemy's N+1 turn can't Clear
+  them; cash out on my N+1 turn. Defensive tags answer his very next turn.
+- **P1 gets a free ramp:** 2-round buffs from round N are live on my N+1 *and* N+2 turns. Ramp twice (Overflow +
+  Phantom in R1, then Ember + Eclipse in R2) and cash out on R3 with everything live. The risk is the enemy's round-N
+  turn: it can Clear my fresh buffs before they go live. Against a Clear-holder as P1, drink Dr. Kim's in R1 (live R2)
+  and put the big buffs in R2, so his R2 Clear bounces. Or bait his Clear with the quiet opener first.
+- **P1 stun lands immediately** on the enemy's same-round turn. P1 is the best seat for a round-1 stun opener.
+- **P1 defence is a round late:** Defensive Stance or Panacea cast in R1 doesn't help against his R1 turn.
+
 1. **Setup turn, then payoff turn.** Apply buffs and debuffs on turn N; hit on turn N+1 while they are live (most
    last N+1 and N+2). Never expect a buff to count in the turn you cast it.
 2. A good turn deals damage **and** sets up the next one: Ember Blade, whose +35% given/taken sets up next turn,
