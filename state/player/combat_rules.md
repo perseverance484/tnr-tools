@@ -135,7 +135,8 @@ is used** (director, from play).
 3. Defend a round ahead. Your Defensive Stance or Panacea covers the enemy's *next* turn, not this one.
 4. **Smoke means the next round is dead for both sides.** Throw it when their burst is coming, then spend that
    round on setup.
-5. Pierce is flat. Don't buff for it. Use it into heavy DR or shields, and finish with it when DR is stacked.
+5. Know your seat (section 7b) before planning anything: P1 predicts, P2 reacts.
+6. Pierce is flat. Don't buff for it. Use it into heavy DR or shields, and finish with it when DR is stacked.
 6. Stun is immediate and can't be cleansed. Stunning first when you act first takes 20 AP off their turn this round.
 7. Watch shared cooldowns: after Seal, no Dr. Kim's or Lotus for 4 rounds; after Stormblade, no Night's Testament
    for 3.
