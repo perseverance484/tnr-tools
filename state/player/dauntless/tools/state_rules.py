@@ -32,6 +32,19 @@ def parse(lines, me, en):
         v = float(p.group(1)) / 100 if p else 0
         who_en = t.startswith(en)
         who_me = t.startswith(me)
+        if "cleared of all positive" in t:  # Clear: drop that side's buffs applied so far (lines are chronological)
+            keys = ("en_idg", "en_dr", "en_absorb", "en_lifesteal", "en_reflect") if who_en else ("me_dr", "me_absorb")
+            for k in keys:
+                st[k] = [(v_, (a_, b_)) for v_, (a_, b_) in st[k] if a_ > r + 1 or b_ < r]  # keep only future-dated
+                st[k] = []
+            if who_en:
+                flags = {f for f in flags if f[0] not in ("en_immune", "en_shield")}
+            continue
+        if "cleared of all negative" in t:  # Cleanse
+            keys = ("me_idt", "me_dg_down", "me_recoil", "me_wound", "me_drain") if who_me else ("en_taken_up", "en_given_down")
+            for k in keys:
+                st[k] = []
+            continue
         if who_en and "damage given" in t and "increased" in t:
             st["en_idg"].append((v, live))
         elif who_en and "damage taken" in t and "decreased" in t:
@@ -148,6 +161,7 @@ def build_ctx(lines, R, me, en, my_hp, en_hp):
                           if any(x <= R <= y for _, (x, y) in st[k])),
         "me_wound_drain": total(st, "me_wound", R, False) + total(st, "me_drain", R, False),
         "my_absorb_low": not my_absorb_live,
+        "me_wound_live": any(x <= R <= y for _, (x, y) in st["me_wound"]),
     }
     return c
 

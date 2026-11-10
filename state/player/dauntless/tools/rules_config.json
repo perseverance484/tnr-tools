@@ -1,7 +1,7 @@
 {
  "_doc": "Tuned BETWEEN fights, never during. thresholds = trigger levels; rules = weight (higher fires first), condition name (state_rules.py CONDITIONS), bundles = kit short names (cd_plan.py ACTIONS) tried in order. First legal bundle of the top fired rule is FIRE, next legal one is BACKUP. 'profiles' override thresholds/weights/bundles per opponent.",
  "thresholds": {
-  "lethal_my_hp": 1200,
+  "lethal_my_hp": 2200,
   "lethal_en_idg": 0.3,
   "kill_en_hp": 800,
   "clear_en_idg": 0.6,
@@ -302,7 +302,7 @@
    }
   }
  },
- "cd_cost": 0.01,
+ "cd_cost": 0.004,
  "_doc_pairs": "pairs: hand-tuned synergy (+) / anti-synergy (-) for two actions in the same turn; trainable.",
  "pairs": {
   "rebirth|shield": -0.4,
@@ -326,11 +326,13 @@
   "fury": {
    "pred_burst": 0.4,
    "en_pierce_ready": -0.3,
-   "close": 0.1
+   "close": 0.1,
+   "me_wound": -0.5
   },
   "shield": {
    "pred_burst": 0.3,
-   "en_pierce_ready": -0.2
+   "en_pierce_ready": -0.2,
+   "en_idg": 0.1
   },
   "subaku": {
    "pred_burst": 0.3,
@@ -338,20 +340,24 @@
    "close": 0.1
   },
   "danse": {
-   "pred_burst": 0.3
+   "pred_burst": 0.3,
+   "me_wound": -0.5
   },
   "smoke": {
    "pred_burst": 0.25,
-   "pred_immune": -0.2
+   "pred_immune": -0.2,
+   "en_idg": 0.1
   },
   "panacea": {
    "pred_burst": 0.15
   },
   "sealnull": {
-   "pred_buff": 0.4
+   "pred_buff": 0.4,
+   "en_idg": 0.1
   },
   "lotus": {
-   "pred_buff": 0.3
+   "pred_buff": 0.3,
+   "me_wound": -0.5
   },
   "overflow": {
    "pred_stun": 0.1,
@@ -376,10 +382,41 @@
    "pred_immune": -0.2
   },
   "phantom": {
-   "far": 0.3
+   "far": 0.3,
+   "me_wound": -0.5
   },
   "replace": {
    "far": 0.1
+  },
+  "rebirth": {
+   "me_wound": -0.5
+  },
+  "shrapnel": {
+   "me_wound": -0.5
+  },
+  "ember": {
+   "me_wound": -0.5
+  },
+  "stormblade": {
+   "me_wound": -0.5
+  },
+  "resonance": {
+   "me_wound": -0.5
+  },
+  "kunai": {
+   "me_wound": -0.5
+  },
+  "aetherion": {
+   "me_wound": -0.5
+  },
+  "nights": {
+   "me_wound": -0.5
+  },
+  "cleanse": {
+   "me_wound": 0.5
+  },
+  "clear": {
+   "en_idg": 0.35
   }
  }
 }

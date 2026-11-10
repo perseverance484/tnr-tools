@@ -53,7 +53,7 @@ FEATURES = ["bias", "lethal_risk", "kill_window", "stack_clearable", "stack_clea
             "stack_building", "my_absorb_down", "en_immune", "me_stunned", "my_given_live", "en_taken_live",
             "my_hp_frac", "en_hp_frac", "en_idg",
             "pred_burst", "pred_buff", "pred_stun", "pred_immune", "en_pierce_ready", "en_clear_ready",
-            "far", "close"]
+            "far", "close", "me_wound"]
 RULE_FEATURE = {"always": "bias"}
 # firing order inside a bundle: move first, then instant protection / strip, then buffs, then damage, fillers last
 ORDER = ["phantom", "replace", "step", "clear", "cleanse", "kims", "sealnull", "danse", "shield", "subaku", "fury",
@@ -86,6 +86,7 @@ def features(c, th, my_max, en_max, threats, dist):
         "en_hp_frac": (c["en_hp"] / en_max) if c["en_hp"] else 1.0,
         "en_idg": min(idg, 2.0),
         "far": float(dist > 4), "close": float(dist <= 2),
+        "me_wound": float(any(True for _ in [0]) and c.get("me_wound_live", False)),
     }
     for k, v in zip(["pred_burst", "pred_buff", "pred_stun", "pred_immune", "en_pierce_ready", "en_clear_ready"],
                     threats):
@@ -206,6 +207,11 @@ def act(a):
     net = json.load(open(WFILE))
     lines = [l.strip() for l in open(a.log) if l.strip() and "|" in l]
     c = build_ctx(lines, a.round, "dauntless", a.enemy, a.my_hp, a.en_hp)
+    # look ahead: his next turn may be in round R+1 (he moves first) - threats use the worse of R and R+1
+    c2 = build_ctx(lines, a.round + 1, "dauntless", a.enemy, a.my_hp, a.en_hp)
+    for k in ("en_idg", "en_absorb", "en_lifesteal", "en_reflect"):
+        c[k] = max(c[k], c2[k])
+    c["en_clearprevent"] = c["en_clearprevent"] or c2["en_clearprevent"]
     thr = threat_features(a.enemy, a.battle, a.round) if a.battle else [0.0] * 6
     x = features(c, th, a.my_max, a.en_max, thr, a.dist)
     _, h = hidden(net, x)
