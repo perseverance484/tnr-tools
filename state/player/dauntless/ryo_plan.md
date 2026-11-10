@@ -51,6 +51,22 @@ Director (23:48): "Do all the hunting contracts. Just add hunting contracts as a
 | Uramaru (A, 336) | 10/10 | 100 Urami Drop |
 | Shigekai (A, 336) | 10/10 | 100 Ofuda Moss |
 | Tsukihana (B, 334) | 10/10 | 100 Moonpetal Weave |
+| Enrai No Oni (B, 334) | 10/10 | 100 Yamidangan |
+| Kugatsunagi (B, 334) | 10/10 | 100 Tsukinari Bell |
+| Thornelure / Spintret / Luzzel (C, 337) | 10/10 each | Lurethorne / Glimmerchitin / Glimmer Dust |
+| Rust Ferret / OwlCat / MossWolf (D, 337) | 10/10 each | Pelt / Owlcat's Fur / Mosswolf Tuft |
+| Moonprowler / Badgertle (D, 331) | 10/10 each | Moonlight Antlers / Badger Shell |
+| Cryverin / Brassel / Blazdrift (C, 342) | 10/10 each | Frostscale / Brasel Spine / Ashrend Wing |
+| Byakuho (S, 337) | lost 0/1 | 60% absorb, 10%/turn self-heal, stacking 3-round wound; S-ranks need a new kit |
+Scripts by target HP (all with PvE loadouts):
+- 2,940 HP (OwlCat, MossWolf, Moonprowler, Badgertle): Stunning Jab one-shots. Jab range is 4: if he is within 4,
+  Jab alone (1 call); else Chakra Invigoration toward him first. 2-3 calls per hunt.
+- 5,250 HP (Rust Ferret): Invigoration + Jab (~4,560) then one basic attack.
+- 5,740 HP (C-ranks): Invigoration + Jab (~3,250) then Ember Blade (kills). 3 actions.
+- 10,650 HP (A/B): full 4-round script below.
+- Hex pick: cube coords (x=col, z=row-(col-(col&1))/2, y=-x-z); choose a hex <=5 from me and adjacent (or <=4) to him.
+- Empty response from performAction = race with the AI's turn: re-read or retry with version+1 (not a stun).
+- Ramen restores SP/CP only; use a Full Potion when HP falls under ~3,000.
 Script that wins A/B every time (10,650 HP targets): R1 Chakra Invigoration to a hex next to him (<=5 from me) +
 Stunning Jab -> R2 Ember Blade + Chakra Overflow -> R3 Forbidden Chakra Fury + basic attack (+ a stance to end the
 turn) -> R4 Ethereal Rebirth. If he stuns me R1 (80 AP), R2 = Overflow + basic + stance, R3 = Ember + basic, R4 Fury.
@@ -72,3 +88,6 @@ price (start = buyout - 1).
   Cracked Auditory Core): sold ~1.5M-3.5M per stack of 10; asking 2.0-2.5M per 10.
 - Kunai to buy later: Ikazuchi listed 20M/50 (buyout 25M); Elemental 35M/100.
 - Many "2 ryo" sales are DIRECT gifts between friends: ignore them for pricing.
+- 2026-11-10 07:23: listed at full cost, 72 h: 100 Lurethorne 5M, 100 Badger Shell 3.5M, 100 Rust Ferret Pelt 3.5M,
+  100 Moonlight Antlers 3.5M, 100 Mosswolf Tuft 3.5M, 100 Brasel Spine 5M, 100 Owlcat's Fur 3.5M, 100 Frostscale 5M,
+  100 Glimmerchitin 5M, 44 Yamidangan 2.64M, 80 Tsukinari Bell 4M (~44.1M total). `quantity` lists part of a big stack.
