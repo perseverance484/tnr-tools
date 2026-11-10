@@ -431,3 +431,13 @@ Clear once (~R5) right after I buff. Smoke once (R4-R7). Re-buff cycle R7-R10. H
 | Lifesteal >= 35% | Severed Pulse before trading; recoil/reflect feed his LS |
 | Smoked | setup only (or pierce) |
 Process: poll for incoming attacks every <= 20 s; never sleep longer between checks while hunting.
+
+## After EVERY fight (director 2026-11-10: "After every fight there needs to be a check. If afk discard data. If not afk,
+assign training data weights. Analyze fight in full to update weights and Analyze how much value each turn provided,
+looking for good plays and blunders")
+1. Save the full log: `combat.getBattleEntries {battleId, limit: 200}` -> fights/<battle>_entries.json (select format:
+   *.battleRound, *.userId, *.actionId, *.appliedEffects.*.txt).
+2. `tools/postfight.py fights/<battle>_entries.json --battle <id> --enemy <name> --result win|loss`:
+   AFK check (enemy idle >= half his rounds -> data discarded), per-turn value table (dealt/taken/net/HP), blunder and
+   good-play flags, training samples (weight 1.0, flagged rounds 1.5) replacing any earlier copy, retrain.
+3. Read fights/<battle>_review.md; any new blunder type becomes a rule/prior/legality fix before the next fight.
