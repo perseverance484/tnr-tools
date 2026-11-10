@@ -1,0 +1,175 @@
+{
+ "_note": "push/584: Mother of Echoes act 1 fixes (2026-11-10, director: 'All approved, proceed' 00:49Z). (1) Grasp (zHNAEQ1xmDSOzFVEqeJlS) loses its 1-round moveprevent: it pinned players on the exact round a marked line breaks and outlived the dead Feeler (found in The Whole Wreck hand test: killed dauntless from 4,042 HP). Pierce and 1% drain kept; description line about holding still removed. Data from push 527 item 683, effects matched live read 2026-11-10 00:50Z (updatedAt 2026-11-08 00:30). Law 18: Grasp is equipped only on the Feeler (qFKcwTUkBtRiC-uM_8xG8, no items), so the Feeler is unequipped first and its two jutsus (Cradle, Grasp) re-equipped after. (2) Sayo act 1 (fJLcH1mpB1XHHGtNWwvzD) poolsMultiplier 1.2 -> 0.95 (6,060 -> ~4,798 HP) so act 1 lands in 9-10 rounds played clean; effects unchanged from push 582. All records stay hidden.",
+ "items": [
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "targetId": "qFKcwTUkBtRiC-uM_8xG8",
+   "name": "A Feeler of the Deep: moe jutsu off (law 18)",
+   "phase": 10,
+   "data": {
+    "jutsus": [],
+    "items": []
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "targetId": "zHNAEQ1xmDSOzFVEqeJlS",
+   "name": "Grasp: no root",
+   "phase": 20,
+   "data": {
+    "name": "Grasp",
+    "description": "The feeler closes around whatever is nearest, without a sound. What it holds slowly empties, and the floor beneath a held thing does not wait for it.",
+    "extraBaseCost": 0,
+    "effects": [
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "BZga-TzK2_m8ePsoa-HTE",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "rounds": 0,
+      "power": 6,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "friendlyFire": "ENEMIES",
+      "calculation": "formula",
+      "statTypes": [
+       "None"
+      ],
+      "generalTypes": [
+       "Highest"
+      ],
+      "type": "pierce",
+      "description": "placeholder",
+      "residualModifier": 0,
+      "dmgModifier": 2,
+      "allowBloodlineDamageIncrease": true,
+      "allowBloodlineDamageDecrease": true
+     },
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "rounds": 2,
+      "power": 1,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "calculation": "percentage",
+      "poolsAffected": [
+       "Health"
+      ],
+      "type": "drain",
+      "description": "placeholder"
+     }
+    ],
+    "target": "OTHER_USER",
+    "range": 2,
+    "cooldown": 2,
+    "bloodlineId": "",
+    "requiredLevel": 1,
+    "requiredRank": "STUDENT",
+    "jutsuType": "AI",
+    "image": "https://ui0arpl8sm.ufs.sh/f/tTUMGYff8L72ewNF8J7XA.webp",
+    "jutsuWeapon": "NONE",
+    "statClassification": "None",
+    "elementClassification": "None",
+    "battleDescription": "%user closes around %target without a sound. The floor beneath does not wait.",
+    "jutsuRank": "D",
+    "actionCostPerc": 60,
+    "staminaCost": 0.05,
+    "chakraCost": 0.05,
+    "staminaCostReducePerLvl": 0,
+    "chakraCostReducePerLvl": 0,
+    "healthCostReducePerLvl": 0,
+    "healthCost": 0,
+    "villageId": "",
+    "method": "SINGLE",
+    "hidden": true,
+    "injectableInBattle": false,
+    "battleUsageType": "BOTH"
+   }
+  },
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "targetId": "qFKcwTUkBtRiC-uM_8xG8",
+   "name": "A Feeler of the Deep: kit back (law 18)",
+   "phase": 30,
+   "data": {
+    "jutsus": [
+     "DFcbOLSvYssjLzTHo_dw0",
+     "zHNAEQ1xmDSOzFVEqeJlS"
+    ],
+    "items": []
+   }
+  },
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "targetId": "fJLcH1mpB1XHHGtNWwvzD",
+   "name": "Sayo, Mother of Echoes (act 1): HP 6,060 to about 4,800",
+   "phase": 30,
+   "data": {
+    "poolsMultiplier": 0.95,
+    "effects": [
+     {
+      "type": "increasedamagegiven",
+      "power": 100,
+      "rounds": 100,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "Increased damage given",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "stunprevent",
+      "power": 100,
+      "rounds": 100,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "Nothing stills the Mother of Echoes",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "onehitkillprevent",
+      "power": 100,
+      "rounds": 100,
+      "target": "SELF",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     }
+    ]
+   }
+  }
+ ]
+}
