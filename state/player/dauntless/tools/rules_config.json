@@ -358,6 +358,29 @@
      "thunders"
     ]
    ]
+  },
+  {
+   "id": "pierce_lethal",
+   "weight": 97,
+   "when": "pierce_lethal",
+   "_why": "HP under a flat pierce (707/631): DR and Smoke don't help; get out of range 4 or heal above it or kill first",
+   "bundles": [
+    [
+     "replace",
+     "phantom",
+     "pill"
+    ],
+    [
+     "replace",
+     "nights",
+     "pill"
+    ],
+    [
+     "phantom",
+     "eclipse",
+     "kunai"
+    ]
+   ]
   }
  ],
  "profiles": {
@@ -418,7 +441,8 @@
    "pred_burst": 0.3,
    "en_pierce_ready": -0.6,
    "en_idg": 0.1,
-   "i_first": 0.15
+   "i_first": 0.15,
+   "pierce_lethal": -0.3
   },
   "subaku": {
    "pred_burst": 0.3,
@@ -438,11 +462,13 @@
    "pred_burst": 0.4,
    "pred_immune": -0.2,
    "en_idg": 0.1,
-   "i_first": -0.35
+   "i_first": -0.35,
+   "pierce_lethal": -0.4
   },
   "panacea": {
    "pred_burst": 0.15,
-   "i_first": -0.2
+   "i_first": -0.2,
+   "pierce_lethal": -0.3
   },
   "sealnull": {
    "pred_buff": 0.4,
@@ -498,12 +524,14 @@
    "far": 0.3,
    "me_wound": -0.5,
    "nights_kills": 0.2,
-   "storm_kills": 0.2
+   "storm_kills": 0.2,
+   "pierce_lethal": 0.4
   },
   "replace": {
    "far": 0.1,
    "nights_kills": 0.2,
-   "storm_kills": 0.2
+   "storm_kills": 0.2,
+   "pierce_lethal": 0.4
   },
   "rebirth": {
    "me_wound": -0.5,
@@ -571,10 +599,12 @@
   "jewel": {
    "me_smoked": 0.1,
    "i_first": -0.05,
-   "en_clear_spent": 0.1
+   "en_clear_spent": 0.1,
+   "pierce_lethal": -0.2
   },
   "defstance": {
-   "i_first": -0.15
+   "i_first": -0.15,
+   "pierce_lethal": -0.3
   },
   "parry": {
    "en_clear_spent": 0.1,

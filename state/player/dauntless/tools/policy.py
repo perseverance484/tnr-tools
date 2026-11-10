@@ -54,7 +54,7 @@ FEATURES = ["bias", "lethal_risk", "kill_window", "stack_clearable", "stack_clea
             "my_hp_frac", "en_hp_frac", "en_idg",
             "pred_burst", "pred_buff", "pred_stun", "pred_immune", "en_pierce_ready", "en_clear_ready",
             "far", "close", "me_wound", "me_smoked", "i_first", "en_clear_spent", "nights_kills", "storm_kills",
-            "en_absorb", "wound_lethal"]
+            "en_absorb", "wound_lethal", "pierce_lethal"]
 RULE_FEATURE = {"always": "bias"}
 # firing order inside a bundle: move first, then instant protection / strip, then buffs, then damage, fillers last
 ORDER = ["phantom", "replace", "step", "clear", "cleanse", "kims", "sealnull", "danse", "shield", "subaku", "fury",
@@ -99,6 +99,8 @@ def features(c, th, my_max, en_max, threats, dist):
         # 2026-11-10 Luka #4-6: his absorb (40-60%) healed back most of every 60-AP hit; drains are not absorbed
         "en_absorb": float(c["en_absorb"] >= th["en_absorb"]),
         # wound/drain tick fires on my first action: at HP <= ~2 ticks only Cleanse (first) saves the turn
+        # Shisui spar R10: Smoke/Panacea/Def. Stance don't touch flat pierce (Stormblade 707 killed me at 527)
+        "pierce_lethal": float(bool(c["my_hp"]) and c["my_hp"] <= 760),
         "wound_lethal": float(bool(c["my_hp"]) and c["me_wound_drain"] > 0 and c["my_hp"] <= 2 * c["me_wound_drain"] + 300),
     }
     for k, v in zip(["pred_burst", "pred_buff", "pred_stun", "pred_immune", "en_pierce_ready", "en_clear_ready"],
