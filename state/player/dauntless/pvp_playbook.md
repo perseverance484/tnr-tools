@@ -393,9 +393,10 @@ Darkness + Chakra Shield + Defensive Stance / Elite Smoke Bomb. Kill turn on a h
 Remember: a non-instant tag cast in round N is live from N+1; seal, recoil-on-hit, stun AP loss, ground effects and
 damage are instant.
 
-## Turn procedure (2026-11-10, after Luka #2/#3 timeouts)
-Run during THEIR turn, so my turn is only firing:
-1. `tools/state_rules.py LOG ROUND --enemy NAME --my-hp N --en-hp N`: generic rules for every opponent (IDG >= 60% -> Clear, or recoil/seal + shield if clear-prevented; stunned -> 80-AP bundle; recoil on me -> pierce/drain/Cleanse; absorb/lifesteal -> Severed Pulse; DR/shield -> pierce; immune -> no debuffs; etc.).
-2. `tools/enemy_model.py OPP log/predict`: opponent-specific habits (profiled: Luka).
-3. `tools/battle_plan.py`: best bundle now and over the next rounds.
-4. `tools/cd_plan.py check`: primary + backup bundle, AP, cooldowns, shared locks. Fire the primary instantly; on any refusal fire the backup. Range is not yet checked (Yuki's 3, Night's 4, Clear/Cleanse 4): check distance by hand.
+## Turn procedure (2026-11-10): learned policy, no live thinking
+Director: "You dont do live thinking you edit the weights for the state rules and modify the jutsu kit" / "Treat it like a neural network" / "You hand tune it based on your knowledge initially and it fine tunes".
+- In the fight: `tools/policy.py act LOG ROUND --enemy NAME --battle B --my-hp N --en-hp N` then fire FIRE; on any refusal fire BACKUP. After the round: `policy.py reward B ROUND acts DEALT TAKEN`. Keep `cd_plan.py use` current (legality).
+- After the fight: `policy.py train B` (gradient step on each round's net HP swing; samples kept in tools/train_log.jsonl).
+- Between fights: hand-tune `tools/rules_config.json` (thresholds, rule weights, bundles, per-opponent profiles), then `policy.py init --keep` to add units for kit changes. The kit is the output layer (cd_plan.ACTIONS / LOADOUTS).
+- state_rules.py remains the readable view of the same state; enemy_model.py adds opponent habits.
+- Gap: range is not modelled (Yuki's 3, Night's 4, Clear/Cleanse 4).

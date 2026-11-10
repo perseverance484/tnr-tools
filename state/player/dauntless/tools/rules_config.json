@@ -1,0 +1,43 @@
+{
+  "_doc": "Tuned BETWEEN fights, never during. thresholds = trigger levels; rules = weight (higher fires first), condition name (state_rules.py CONDITIONS), bundles = kit short names (cd_plan.py ACTIONS) tried in order. First legal bundle of the top fired rule is FIRE, next legal one is BACKUP. 'profiles' override thresholds/weights/bundles per opponent.",
+  "thresholds": {
+    "lethal_my_hp": 1200, "lethal_en_idg": 0.30,
+    "kill_en_hp": 800,
+    "clear_en_idg": 0.60,
+    "build_en_idg": 0.30,
+    "recoil_on_me": 0.30,
+    "en_absorb": 0.30, "en_lifesteal": 0.35,
+    "en_dr": 0.40,
+    "my_debuffs": 2, "my_wound_drain": 300,
+    "en_reflect": 0.30
+  },
+  "immune_blocked": ["subaku", "smoke", "disaster", "severed", "yuki"],
+  "fillers": ["panacea", "jewel", "pill", "kunai", "defstance", "offstance"],
+  "rules": [
+    {"id": "lethal",        "weight": 100, "when": "lethal_risk",        "bundles": [["danse", "shield"], ["shield", "subaku", "panacea"], ["shield", "smoke", "panacea", "jewel"]]},
+    {"id": "kill",          "weight": 95,  "when": "kill_window",        "bundles": [["stormblade", "aetherion"], ["nights", "aetherion", "kunai"], ["stormblade", "kunai", "pill"]]},
+    {"id": "clear_stack",   "weight": 90,  "when": "stack_clearable",    "bundles": [["clear", "sealnull"], ["clear", "kims", "pill"], ["clear", "panacea", "jewel"]]},
+    {"id": "clear_immune",  "weight": 91,  "when": "stack_clearable_immune", "bundles": [["clear", "smoke", "panacea"], ["clear", "panacea", "jewel"]]},
+    {"id": "locked_stack",  "weight": 88,  "when": "stack_clearprevented", "bundles": [["fury", "shield"], ["danse", "shield"], ["fury", "subaku"]]},
+    {"id": "recoil_me",     "weight": 80,  "when": "recoil_on_me",       "bundles": [["cleanse", "panacea", "jewel"], ["stormblade", "overflow"], ["nights", "overflow", "panacea"]]},
+    {"id": "anti_heal",     "weight": 78,  "when": "en_sustain",         "bundles": [["severed", "stormblade"], ["severed", "nights", "pill"], ["severed", "eclipse", "pill"]]},
+    {"id": "pierce_dr",     "weight": 75,  "when": "en_dr_or_shield",    "bundles": [["stormblade", "aetherion"], ["nights", "phantom", "pill"]]},
+    {"id": "cleanse",       "weight": 72,  "when": "me_debuffed",        "bundles": [["cleanse", "panacea", "jewel"], ["cleanse", "pill", "kunai"]]},
+    {"id": "reflect",       "weight": 65,  "when": "en_reflect",         "bundles": [["clear", "overflow"], ["shield", "eclipse", "panacea"]]},
+    {"id": "building",      "weight": 60,  "when": "stack_building",     "bundles": [["fury", "sealnull"], ["fury", "shield"], ["sealnull", "shield", "defstance"]]},
+    {"id": "absorb_up",     "weight": 50,  "when": "my_absorb_down",     "bundles": [["rebirth", "thunders"], ["shield", "eclipse", "pill"]]},
+    {"id": "setup",         "weight": 40,  "when": "always",             "bundles": [["ember", "overflow"], ["rebirth", "overflow"], ["shrapnel", "thunders"], ["ember", "eclipse"]]}
+  ],
+  "profiles": {
+    "luka": {
+      "_note": "He holds Dr. Kim's for my Clear and pierces in smoke rounds; stack-clear only after kims is spent.",
+      "weights": {"locked_stack": 92, "anti_heal": 82},
+      "thresholds": {"clear_en_idg": 0.50}
+    },
+    "ashutosh": {
+      "_note": "Stacks buffs and baits clears: raise the Clear trigger, answer early layers with recoil/seal.",
+      "thresholds": {"clear_en_idg": 0.90},
+      "weights": {"building": 89}
+    }
+  }
+}

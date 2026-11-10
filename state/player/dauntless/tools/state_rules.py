@@ -122,23 +122,22 @@ RULES = [
 ]
 
 
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("logfile")
-    ap.add_argument("round", type=int)
-    ap.add_argument("--me", default="dauntless")
-    ap.add_argument("--enemy", required=True)
-    ap.add_argument("--my-hp", type=float, default=0)
-    ap.add_argument("--en-hp", type=float, default=0)
-    a = ap.parse_args()
-    lines = [l.strip() for l in open(a.logfile) if l.strip()]
-    st, flags = parse(lines, a.me, a.enemy)
-    R = a.round
-    my_absorb_live = any("absorb" in l and l.split("|", 1)[1].startswith(a.me) and
-                         int(l.split("|")[0]) + 1 <= R <= int(l.split("|")[0]) + int(
-                             (re.search(r"next (\d+)", l) or re.search(r"(1)", "1")).group(1)) for l in lines)
+def build_ctx(lines, R, me, en, my_hp, en_hp):
+    st, flags = parse(lines, me, en)
+
+    def live_for(who, word):
+        for l in lines:
+            r, t = l.split("|", 1)
+            m = re.search(r"next (\d+)", t)
+            if word in t and t.startswith(who) and int(r) + 1 <= R <= int(r) + (int(m.group(1)) if m else 1):
+                return True
+        return False
+
+    my_absorb_live = live_for(me, "absorb")
     c = {
-        "my_hp": a.my_hp, "en_hp": a.en_hp,
+        "my_hp": my_hp, "en_hp": en_hp,
+        "my_given_live": live_for(me, "damage given [all damage] is increased"),
+        "en_taken_live": live_for(en, "damage taken [all damage] is increased"),
         "en_idg": total(st, "en_idg", R), "en_dr": 1 - (1 / (1 + total(st, "en_dr", R))) if total(st, "en_dr", R) else 0,
         "en_absorb": total(st, "en_absorb", R, False), "en_lifesteal": total(st, "en_lifesteal", R, False),
         "en_reflect": total(st, "en_reflect", R, False),
@@ -150,6 +149,21 @@ def main():
         "me_wound_drain": total(st, "me_wound", R, False) + total(st, "me_drain", R, False),
         "my_absorb_low": not my_absorb_live,
     }
+    return c
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("logfile")
+    ap.add_argument("round", type=int)
+    ap.add_argument("--me", default="dauntless")
+    ap.add_argument("--enemy", required=True)
+    ap.add_argument("--my-hp", type=float, default=0)
+    ap.add_argument("--en-hp", type=float, default=0)
+    a = ap.parse_args()
+    lines = [l.strip() for l in open(a.logfile) if l.strip()]
+    R = a.round
+    c = build_ctx(lines, R, a.me, a.enemy, a.my_hp, a.en_hp)
     print(f"round {R} state: enemy +given {c['en_idg']:+.0%}, enemy DR ~{c['en_dr']:.0%}, enemy absorb "
           f"{c['en_absorb']:.0%}, lifesteal {c['en_lifesteal']:.0%}, reflect {c['en_reflect']:.0%}; me: stunned="
           f"{c['me_stunned']}, recoil {c['me_recoil']:.0%}, debuffs {c['me_debuffs']}, wound+drain "
