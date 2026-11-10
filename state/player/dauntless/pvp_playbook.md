@@ -85,3 +85,24 @@ Read: Winta vs Gario and vs Choris1717; DDXXD vs Korin and vs Enduyn; Ziharkk vs
   on self over 1-2 turns, then one 60-AP finisher (Ziharkk: 595 -> 1,084 -> 2,391 + 717 afterburn).
 - Damage + stun opener; Replacement Technique for repositioning; wound/afterburn finishers (Dragon King's Impact).
 - Unequipped staples worth a future loadout (director's call): Dragon King's Impact, Chakra Invigoration, Eternity Flux.
+
+## Session 5 lessons (win vs Arashii; analysis of ShisuiUchiha vs Arashii)
+**Director's rulings during the fight**
+- HP carries between battles; tags and cooldowns do not. Catch a player the moment their fight ends, before they move or heal.
+- Pierce has a global cooldown: one pierce action per turn, and Night's Testament was refused the turn after Stormblade.
+- Smoked or stunned turn: don't attack; spend 40 AP + items on setup (Chakra Overflow + Dr. Kim's + Panacea).
+
+**What won**
+- Phantom Step + Shrapnel (afterburn debuff) opened; pierce + Kunai + Smoke on the next turn; buffs locked with Dr. Kim's.
+- Stormblade's 35% reflect for 2 rounds finished him on his own attacks. Against a low-HP enemy, reflect is a kill threat.
+- Elite Smoke Bomb's area reached me at 3 tiles. Throw it last in the turn, after my damage.
+
+**Arashii's kit and pattern** (also what killed Shisui; Ziharkk uses the same jutsu chain)
+- Opener vs a buffer: Clear, then Dr. Kim's. Shisui buffed on R1 and lost it all. **Don't spend R1 on buffs against a Clear-holder.**
+- Setup -> finisher over 2-3 turns: time dilation (-10 AP on his elements) + "+40% damage taken" x2 on the target ->
+  +5 tag power + hit -> "+40% taken + 35% afterburn" + finisher (2,032 on Shisui).
+  **Counter:** Seal of Nullification gives me 2 rounds of debuff-prevent, which blocks the +taken stacks. Otherwise
+  Cleanse after the stacks land and before the finisher, or smoke his finisher turn.
+- Reflect stacking (40% + 35%): Shisui hit into it and took ~795 of his own damage. **Clear reflect before attacking**, or hit
+  with something that ignores it. My pierce and kunai showed no reflect back while his reflect was up.
+- Also: Danse Macabre (bloodline seal), stun + 40% damage jutsu, Aetherion (+20% taken), Basic Heal when low.
