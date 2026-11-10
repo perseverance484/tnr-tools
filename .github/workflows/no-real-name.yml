@@ -1,0 +1,22 @@
+name: no-real-name
+on: [push, pull_request]
+
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    steps:
+      # Full history (commits and trees; file contents only for the checked-out tip), so every
+      # commit a push introduces is present. The script refuses a shallow checkout.
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          filter: blob:none
+      - name: The real first name never appears (D-no-real-name; scripts/check_no_real_name.py)
+        env:
+          EVENT: ${{ github.event_name }}
+          BEFORE: ${{ github.event.before }}
+          BASE: ${{ github.event.pull_request.base.sha }}
+          DEFAULT_REF: origin/${{ github.event.repository.default_branch }}
+        run: |
+          python3 scripts/check_no_real_name.py --selftest
+          python3 scripts/check_no_real_name.py --ci "$EVENT" "$BEFORE" "$BASE" "$DEFAULT_REF"
