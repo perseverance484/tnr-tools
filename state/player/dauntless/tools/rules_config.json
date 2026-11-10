@@ -327,7 +327,9 @@
    "pred_burst": 0.4,
    "en_pierce_ready": -0.3,
    "close": 0.1,
-   "me_wound": -0.5
+   "me_wound": -0.5,
+   "me_smoked": -0.5,
+   "en_sustain": -0.35
   },
   "shield": {
    "pred_burst": 0.3,
@@ -341,7 +343,8 @@
   },
   "danse": {
    "pred_burst": 0.3,
-   "me_wound": -0.5
+   "me_wound": -0.5,
+   "me_smoked": -0.5
   },
   "smoke": {
    "pred_burst": 0.25,
@@ -353,24 +356,30 @@
   },
   "sealnull": {
    "pred_buff": 0.4,
-   "en_idg": 0.1
+   "en_idg": 0.1,
+   "me_smoked": 0.2
   },
   "lotus": {
    "pred_buff": 0.3,
-   "me_wound": -0.5
+   "me_wound": -0.5,
+   "me_smoked": -0.5
   },
   "overflow": {
    "pred_stun": 0.1,
-   "en_clear_ready": -0.2
+   "en_clear_ready": -0.2,
+   "me_smoked": 0.3
   },
   "thunders": {
-   "en_clear_ready": -0.15
+   "en_clear_ready": -0.15,
+   "me_smoked": 0.2
   },
   "eclipse": {
-   "en_clear_ready": -0.1
+   "en_clear_ready": -0.1,
+   "me_smoked": 0.2
   },
   "kims": {
-   "en_clear_ready": 0.2
+   "en_clear_ready": 0.2,
+   "me_smoked": 0.15
   },
   "severed": {
    "pred_immune": -0.3
@@ -389,34 +398,52 @@
    "far": 0.1
   },
   "rebirth": {
-   "me_wound": -0.5
+   "me_wound": -0.5,
+   "me_smoked": -0.5
   },
   "shrapnel": {
-   "me_wound": -0.5
+   "me_wound": -0.5,
+   "me_smoked": -0.5
   },
   "ember": {
-   "me_wound": -0.5
+   "me_wound": -0.5,
+   "me_smoked": -0.5
   },
   "stormblade": {
-   "me_wound": -0.5
+   "me_wound": -0.5,
+   "me_smoked": 0.3
   },
   "resonance": {
-   "me_wound": -0.5
+   "me_wound": -0.5,
+   "me_smoked": -0.5
   },
   "kunai": {
-   "me_wound": -0.5
+   "me_wound": -0.5,
+   "me_smoked": -0.5
   },
   "aetherion": {
-   "me_wound": -0.5
+   "me_wound": -0.5,
+   "me_smoked": -0.5
   },
   "nights": {
-   "me_wound": -0.5
+   "me_wound": -0.5,
+   "me_smoked": 0.3
   },
   "cleanse": {
    "me_wound": 0.5
   },
   "clear": {
-   "en_idg": 0.35
+   "en_idg": 0.35,
+   "en_sustain": 0.25
+  },
+  "leech": {
+   "me_smoked": -0.5
+  },
+  "pill": {
+   "me_smoked": 0.1
+  },
+  "jewel": {
+   "me_smoked": 0.1
   }
  }
 }

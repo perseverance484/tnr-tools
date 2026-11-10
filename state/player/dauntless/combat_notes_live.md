@@ -1,0 +1,7 @@
+# Live findings 2026-11-10 (session 13)
+- attackUser needs me ON the target's tile (adjacent = "did the target move?"). Buildings don't protect.
+- Wound on me fires on my first action of the turn, even a non-damage one (Clear took 677).
+- After my Cleanse I had the full 100 AP while "stunned" (Selaphiel R2): Cleanse appears to remove stun. Re-check.
+- Smoke/Panacea/buffs cast when I act FIRST in a round don't cover the enemy's turn that same round; only instants do.
+- Recoil (Fury) into a 40-60% lifesteal stack: he healed more (1,161) than recoil dealt (774).
+- Always read the live version right before each performAction; stale versions are silently ignored.

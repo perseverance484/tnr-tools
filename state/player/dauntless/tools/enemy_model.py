@@ -35,7 +35,17 @@ PROFILES = {
             "clear": (60, 10, ["clear"]), "cleanse": (60, 10, ["cleanse"]),
             "pill2": (20, 4, ["buff"]), "panacea": (20, 6, ["buff"]), "smoke": (20, 10, ["smoke"]),
             "kims": (20, 10, ["immune"]), "healitem": (20, 6, ["heal", "buff"]), "replace": (20, 2, ["kite"]),
+            "kunai": (20, 4, ["burst"]),
         },
+        # action ids seen in battle entries (2026-11-10), so live logs map straight to kit names
+        "ids": {"FytS2iqFInf1go6WhOvUU": "dki", "rsc2uO5QuffXzejfhwF_F": "panacea", "eUWCeXAqVdIFHfUpmxQWD": "eternaldark",
+                "osJq3k77YPGoFWgof12FQ": "nights", "eHXoPCV2QdZuKEs2ykGzS": "ironbo", "CTYkpwuoqS9mJkOB3Lm8U": "stone",
+                "TtYPd-LcXKeK3sMuhq1TP": "smoke", "e2eC-x4UXc5m6QexNbx8w": "overflow", "0nIgI7oNn-PSesn8T8kGl": "leech",
+                "QE05DhEhb09fhnC1573Vj": "vacuum", "KPq6qR4CQphpiMJQiK3sa": "tranquil", "clear": "clear", "cleanse": "cleanse",
+                "nThwqBAKNrl1_4UTL-D_m": "pill2", "r2QGirLcf1lpWvYCHS60g": "middleguard", "ou7VyChQ-SFCm8T8yGS7I": "eclipse",
+                "VHU4A-vVGvUFTasBelWP2": "echo", "replacementTechnique": "replace", "l6iUf3mc7LZQQEDDif1zW": "veil",
+                "8Un5MzB4EiECVOSLwc9bf": "resward", "6DnJn4x6LWWXtBu7UZybb": "kims", "i4lGrYY5HNN2Q2GPToKUS": "adamantine",
+                "XmFscRje4vUzUorOI5plt": "healitem", "u9mXSgVW_QjkRzCejGXZ1": "kunai"},
         "fights": [
             # vs dauntless 2026-11-10 15:18 (he won)
             [["stone", "pill2", "panacea"], ["resward", "ironbo"], ["veil", "stonepillar", "replace"],
@@ -142,6 +152,8 @@ if __name__ == "__main__":
     elif cmd == "log":
         b, rnd, acts = sys.argv[3], sys.argv[4], sys.argv[5].split(",")
         d = json.load(open(path(opp, b)))
+        ids = PROFILES[opp].get("ids", {})
+        acts = [ids.get(a, a) for a in acts if ids.get(a, a) not in ("move", "defensiveStance", "offensiveStance")]
         for a in acts:
             assert a in PROFILES[opp]["kit"], a
         d[rnd] = acts

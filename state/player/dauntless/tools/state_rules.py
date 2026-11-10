@@ -44,6 +44,8 @@ def parse(lines, me, en):
             keys = ("me_idt", "me_dg_down", "me_recoil", "me_wound", "me_drain") if who_me else ("en_taken_up", "en_given_down")
             for k in keys:
                 st[k] = []
+            if who_me:  # observed 2026-11-10 (Selaphiel R2): after Cleanse I had the full 100 AP while "stunned"
+                flags = {f for f in flags if f[0] != "me_stunned"}
             continue
         if who_en and "damage given" in t and "increased" in t:
             st["en_idg"].append((v, live))
@@ -162,6 +164,7 @@ def build_ctx(lines, R, me, en, my_hp, en_hp):
         "me_wound_drain": total(st, "me_wound", R, False) + total(st, "me_drain", R, False),
         "my_absorb_low": not my_absorb_live,
         "me_wound_live": any(x <= R <= y for _, (x, y) in st["me_wound"]),
+        "me_smoked": any(v >= 0.6 and x <= R <= y for v, (x, y) in st["me_dg_down"]),
     }
     return c
 

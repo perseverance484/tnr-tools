@@ -53,7 +53,7 @@ FEATURES = ["bias", "lethal_risk", "kill_window", "stack_clearable", "stack_clea
             "stack_building", "my_absorb_down", "en_immune", "me_stunned", "my_given_live", "en_taken_live",
             "my_hp_frac", "en_hp_frac", "en_idg",
             "pred_burst", "pred_buff", "pred_stun", "pred_immune", "en_pierce_ready", "en_clear_ready",
-            "far", "close", "me_wound"]
+            "far", "close", "me_wound", "me_smoked"]
 RULE_FEATURE = {"always": "bias"}
 # firing order inside a bundle: move first, then instant protection / strip, then buffs, then damage, fillers last
 ORDER = ["phantom", "replace", "step", "clear", "cleanse", "kims", "sealnull", "danse", "shield", "subaku", "fury",
@@ -86,7 +86,8 @@ def features(c, th, my_max, en_max, threats, dist):
         "en_hp_frac": (c["en_hp"] / en_max) if c["en_hp"] else 1.0,
         "en_idg": min(idg, 2.0),
         "far": float(dist > 4), "close": float(dist <= 2),
-        "me_wound": float(any(True for _ in [0]) and c.get("me_wound_live", False)),
+        "me_wound": float(c.get("me_wound_live", False)),
+        "me_smoked": float(c.get("me_smoked", False)),
     }
     for k, v in zip(["pred_burst", "pred_buff", "pred_stun", "pred_immune", "en_pierce_ready", "en_clear_ready"],
                     threats):

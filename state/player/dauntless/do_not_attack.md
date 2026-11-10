@@ -19,3 +19,6 @@ Check this list before every `combat.attackUser`, `travel.robPlayer` or bounty.
 | Player | Village | Why | Added |
 |---|---|---|---|
 | AngelSaber | Shirohana | Director: "Don't snipe(jump) angelsaber" | 2026-11-09 |
+
+## Temporary holds
+- 2026-11-10 16:22-16:52 UTC: Luka and 4qua. Director: "Dont interrupt their sparring sessions for now." / "No like, leave them be for 30 mins".
