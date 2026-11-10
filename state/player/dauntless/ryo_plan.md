@@ -8,6 +8,17 @@ circuit." (23:27) "Also can spend all our exp on willpower/intelligence."
 - `profile.useUnusedExperiencePoints {offence..Lightning}` assigns `earnedExperience` to stats. Put it into
   intelligence until it matches willpower, then split. 2026-11-10 05:27: 7,054 -> intelligence.
 
+## Errands (fixed 2026-11-10)
+Director: "Lets figure out why errands arent finishing that seems like a problem."
+**Cause:** the errand's quest content lists a sector (e.g. 271) but the per-user tracker re-targets every
+move_to_location goal to the sector the errand was started in (home, 177). Read the real targets from
+`profile.getUser` -> `userData.questData[<questId>].goals[*].{sector, longitude, latitude}`, not from `quests.getAll`.
+**Flow (all inside the home sector, no travel):** `quests.startRandom {type:"errand", rank:"D", userLevel:100,
+userSector:177, userVillageId}` (A/S ranks: "Setting not found") -> for each goal in order: `travel.moveInSector
+{cur..., longitude, latitude, destLongitude, destLatitude, sector:177, ...}` (moves straight there) ->
+`quests.checkLocationQuest` ("You arrived at destination") -> after the last goal `quests.checkRewards {questId}`.
+"Hyorin's Broken Gate": (5,5) then (10,7). **Pays 23,200 ryo + 2 tokens, ~7 calls, chainable back to back.**
+
 ## Hunting profession (occupation HUNTER, huntingExperience 3.75M)
 Flow (routers/hunting.ts): `hunting.getBoard` -> `hunting.accept {habitatId, contractId, version:null}` -> travel to
 the contract sector -> `hunting.getSession` -> `hunting.sessionAction {id, version, action:"prepare"}` -> wait 10 s ->
