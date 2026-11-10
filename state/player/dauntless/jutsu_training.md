@@ -32,6 +32,7 @@ Choha, etc." "Limit Breaker, Mental Fortress..."
 - Training cap is level 20 for Jonin (`JUTSU_LEVEL_CAP`; Elite Jonin 30). Levels 21-25 come from use or transfer.
 - "Jutsu not for you": element/bloodline lock. My elements: Lightning (primary), Earth (secondary); mastery Fire,
   Water. Chōha (Water) and Fire Style: Beast (other bloodline) are refused.
+  Enjin (Fire) refused 2026-11-10 10:22 UTC ("Jutsu not for you"): skip it.
 - Queue: 4 waiting levels behind the active one in practice. Starting training wakes the character; sleep after.
 - Time per level = (1 + (level-1) x k) minutes, k = D7 C8 B9 A10 S11, capped at 1 hour. Low levels take minutes,
   so the greedy rule is: always queue the target whose next level is quickest.
@@ -63,3 +64,4 @@ very expensive (Cyclone Palm Strike level 19 quoted 1,949,575 ryo for one level;
 | 2026-11-10 04:21 | Limit Breaker 1-4 (learned), Mental Fortress 1 (learned) | | 13,011 | queue ends ~05:13 |
 | 2026-11-10 08:23 | Mental Fortress | 3 | 3,178 | queued (4 waiting: Limit Breaker 7-9, Mental Fortress 3); Divine Pulse 2 refused, queue full; 1,228 energy to intelligence; asleep |
 | 2026-11-10 09:23 | Divine Pulse | 2 | 2,197 | queued (4 waiting: Limit Breaker 8-9, Mental Fortress 3, Divine Pulse 2; ends ~11:49); 4,550 energy to intelligence; asleep |
+| 2026-11-10 10:22 | Earth Armor | 1 (learned) | 1,092 | queued (active Limit Breaker 9; waiting Mental Fortress 3, Divine Pulse 2, Earth Armor 1; ends ~11:50); Enjin refused (not for you); First Chakra Gate 1 refused, queue full; 4,550 energy to intelligence; asleep |
