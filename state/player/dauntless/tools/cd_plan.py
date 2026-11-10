@@ -22,7 +22,7 @@ ACTIONS = {
     "danse": (60, 8, "seal", "dmg + bloodline seal (instant)"),
     "stormblade": (60, 7, "pierce", "pierce 707 + reflect 35 (reflect from next round)"),
     "resonance": (60, 7, "stun", "dmg + stun"),
-    "leech": (60, 7, None, "drain 300 x2 + absorb ~21"),
+    "leech": (60, 7, "drain", "drain 300 x2 + absorb ~21"),
     "subaku": (40, 7, None, "ground -25% their given (instant), me +30%"),
     "overflow": (40, 7, None, "self +35 x2 (next round)"),
     "thunders": (40, 7, None, "self +dmg, reflect 35 (next round)"),
@@ -33,22 +33,23 @@ ACTIONS = {
     "shield": (40, 7, None, "500 shield (instant) + absorb 35 (next round)"),
     "severed": (40, 7, None, "-50% healing, +30% taken"),
     "smoke": (20, 10, None, "-70% given both, NEXT round"),
-    "kims": (20, 10, None, "clear/debuff prevent"),
+    "kims": (20, 10, "clearprevent", "clear/debuff prevent"),
     "pill": (20, 4, None, "+15 given, lifesteal 20"),
     "panacea": (20, 6, None, "-25% taken 2 r"),
     "jewel": (20, 6, None, "+15 given, -10 taken 3 r"),
     "kunai": (20, 4, None, "thrown dmg"),
-    "disaster": (20, 5, None, "+20% taken + poison"),
+    "disaster": (20, 5, "poison", "+20% taken + poison"),
     "nights": (40, 6, "pierce", "pierce 631 + 200 heal, buff-prevent immunity"),
     "aetherion": (40, 6, None, "elemental dmg + target taken"),
-    "yuki": (40, 7, None, "drain 200 x2 + -25% given"),
-    "clear": (60, 10, None, "strip their positives"),
-    "cleanse": (60, 10, None, "strip my negatives (not stun)"),
+    "yuki": (40, 7, "drain", "drain 200 x2 + -25% given"),
+    "clear": (60, 10, "clearfam", "strip their positives"),
+    "cleanse": (60, 10, "clearfam", "strip my negatives (not stun)"),
     "replace": (20, 2, None, "move up to 5"),
     "defstance": (20, 1, None, "-15% taken next round (filler)"),
     "offstance": (20, 1, None, "filler"),
 }
-LOCKS = {"pierce": 3, "stun": 4, "seal": 3}
+LOCKS = {"clearfam": 3, "pierce": 3, "stun": 4, "seal": 3, "drain": 3, "poison": 3, "clearprevent": 3}
+EXTRA_TAGS = {"nights": ("drain",)}  # secondary tags that also take a shared lock
 LOADOUTS = {
     "pvp1": ["rebirth", "shrapnel", "lotus", "fury", "ember", "danse", "stormblade", "subaku", "overflow",
              "thunders", "parry", "eclipse", "sealnull", "phantom", "shield",
@@ -81,7 +82,7 @@ def ready_round(s, name):
     for used_round, used in s["used"]:
         if used == name:
             r = max(r, used_round + cd)
-        if tag and ACTIONS[used][2] == tag and used != name:
+        if tag and tag in EXTRA_TAGS.get(used, ()) + ((ACTIONS[used][2],) if ACTIONS[used][2] else ()) and used != name:
             r = max(r, used_round + LOCKS[tag])
     return r
 
