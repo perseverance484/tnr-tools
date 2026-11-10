@@ -304,8 +304,8 @@ def check_rules(rules, ctors, where, rep, include_default_rules=False):
     if not isinstance(rules, list):
         rep.err(where, "rules must be an array")
         return
-    if len(rules) > 20:
-        rep.err(where, f"{len(rules)} rules exceeds the profile cap of 20")
+    if len(rules) > 20:  # law 90: AI_PROFILE_MAX_RULES (45e_DATA_constants.json)
+        rep.err(where, f"{len(rules)} rules exceeds the profile cap of 20 (law 90)")
     for i, r in enumerate(rules):
         w = f"{where}.rules[{i}]"
         if not isinstance(r, dict) or "conditions" not in r or "action" not in r:

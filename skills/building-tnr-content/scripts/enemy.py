@@ -213,6 +213,17 @@ def build_ai(entry: dict, level, factory, pool: dict) -> dict:
     }
     if entry.get("avatar"):
         data["avatar"] = entry["avatar"]
+    if entry.get("generals") is not None:
+        # law 14: preferredGeneral1/2 are required on an AI create. They are a design choice
+        # (ai.md 1.2, "Stat Focus"), so they come from the roster entry and are never defaulted.
+        # The allowed values are validate.py's, read from it so there is one list.
+        from validate import GENERAL_TYPES
+        generals = entry["generals"]
+        if (not isinstance(generals, (list, tuple)) or len(generals) != 2
+                or any(g not in GENERAL_TYPES for g in generals)):
+            raise EnemyError(f"{name}: generals must be two of {', '.join(GENERAL_TYPES)}, "
+                             f"got {generals!r} (law 14)")
+        data["preferredGeneral1"], data["preferredGeneral2"] = generals
 
     # AP economy (32b _meta, laws 61-63): a round is 100 AP, attacks cost 60 and stances 40.
     # A kit of nothing but attacks cannot fund a full round and the AI stalls itself. Reported
@@ -303,6 +314,17 @@ def selftest() -> int:
     want(thug["data"]["hidden"] is True, "every AI ships hidden")
     want(any("100 AP" in w for w in thug["_derived"]["warnings"]),
          "an all-attack kit raises the AP-economy warning rather than shipping silently")
+
+    gen = build_ai({"name": "g", "kit": ["S01"], "generals": ["Strength", "Speed"]}, 20, f, pool)
+    want(gen["data"]["preferredGeneral1"] == "Strength" and gen["data"]["preferredGeneral2"] == "Speed",
+         "generals given on the roster entry become preferredGeneral1/2 (law 14)")
+    want("preferredGeneral1" not in thug["data"], "generals are never defaulted")
+    for bad in (["Strength"], ["Strength", "Luck"], "Strength"):
+        try:
+            build_ai({"name": "g", "kit": ["S01"], "generals": bad}, 20, f, pool)
+            want(False, f"generals {bad!r} refuse")
+        except EnemyError:
+            want(True, f"generals {bad!r} refuse")
 
     try:
         build_ai({"name": "y", "kit": ["NOPE"]}, 20, f, pool)

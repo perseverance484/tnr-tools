@@ -123,10 +123,10 @@ paid for in the field, not re-derived this pass. `corrected` = the law changed i
 
 | Class | Laws |
 |---|---|
-| validate | 33 |
-| knowledge | 38 |
-| generated | 6 |
-| builder | 5 |
+| validate | 45 |
+| knowledge | 39 |
+| generated | 7 |
+| builder | 4 |
 | superseded | 0 |
 
 The `knowledge` column is the honest measure of how much of this stack still has to be *read* rather
@@ -165,6 +165,8 @@ the workflow that needs it, not in a file that is retrieved whole.
 | 87 | validate | new | `check_acyclic` |
 | 88 | validate | new | `check_reset_targets` |
 | 89 | knowledge | new | an omission is not mechanically detectable |
+| 90 | validate | new 2026-11-09 | `check_rules` profile cap (law 90); `design.py compile` reads `AI_PROFILE_MAX_RULES` from `45e` |
+| 91 | knowledge | new 2026-11-09 | Shared cooldowns: the table is live data; read it by capture before relying on pacing |
 
 **Art-side laws 35, 50 and 81 audited and confirmed enforced.** `artpreflight.py` checks bytes
 against `upload.hard_cap_bytes` plus a per-target working ceiling, clipping against
