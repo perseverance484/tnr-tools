@@ -164,6 +164,8 @@ def build_ctx(lines, R, me, en, my_hp, en_hp):
         "me_wound_drain": total(st, "me_wound", R, False) + total(st, "me_drain", R, False),
         "my_absorb_low": not my_absorb_live,
         "me_wound_live": any(x <= R <= y for _, (x, y) in st["me_wound"]),
+        "en_clear_spent": any("cleared of all positive" in l.split("|", 1)[1] and l.split("|", 1)[1].startswith(me)
+                              for l in lines),
         "me_smoked": any(v >= 0.6 and x <= R <= y for v, (x, y) in st["me_dg_down"]),
     }
     return c

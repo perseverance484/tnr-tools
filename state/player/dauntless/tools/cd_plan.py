@@ -60,7 +60,7 @@ EXTRA_TAGS = {"nights": ("drain",)}  # secondary tags that also take a shared lo
 LOADOUTS = {
     "pvp1": ["rebirth", "shrapnel", "lotus", "fury", "ember", "danse", "stormblade", "subaku", "overflow",
              "thunders", "parry", "eclipse", "sealnull", "phantom", "shield",
-             "smoke", "kims", "pill", "panacea", "jewel", "kunai", "nights", "aetherion",
+             "smoke", "kims", "pill", "panacea", "jewel", "nights", "aetherion",
              "clear", "cleanse", "replace", "defstance", "offstance"],
     "pvp2": ["rebirth", "leech", "severed", "fury", "ember", "danse", "stormblade", "subaku", "overflow",
              "thunders", "resonance", "eclipse", "sealnull", "phantom", "shield",

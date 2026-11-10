@@ -53,7 +53,7 @@ FEATURES = ["bias", "lethal_risk", "kill_window", "stack_clearable", "stack_clea
             "stack_building", "my_absorb_down", "en_immune", "me_stunned", "my_given_live", "en_taken_live",
             "my_hp_frac", "en_hp_frac", "en_idg",
             "pred_burst", "pred_buff", "pred_stun", "pred_immune", "en_pierce_ready", "en_clear_ready",
-            "far", "close", "me_wound", "me_smoked", "i_first"]
+            "far", "close", "me_wound", "me_smoked", "i_first", "en_clear_spent", "nights_kills", "storm_kills"]
 RULE_FEATURE = {"always": "bias"}
 # firing order inside a bundle: move first, then instant protection / strip, then buffs, then damage, fillers last
 ORDER = ["phantom", "replace", "step", "clear", "cleanse", "kims", "sealnull", "danse", "shield", "subaku", "fury",
@@ -89,6 +89,10 @@ def features(c, th, my_max, en_max, threats, dist):
         "me_wound": float(c.get("me_wound_live", False)),
         "me_smoked": float(c.get("me_smoked", False)),
         "i_first": float(c.get("i_first", False)),
+        "en_clear_spent": float(c.get("en_clear_spent", False)),
+        # flat pierce finishes: Night's 631, Stormblade 707 (ignore DR/smoke; shields break)
+        "nights_kills": float(0 < c["en_hp"] <= 631),
+        "storm_kills": float(0 < c["en_hp"] <= 707),
     }
     for k, v in zip(["pred_burst", "pred_buff", "pred_stun", "pred_immune", "en_pierce_ready", "en_clear_ready"],
                     threats):

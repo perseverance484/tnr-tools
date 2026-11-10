@@ -341,7 +341,8 @@
    "pred_burst": 0.3,
    "pred_immune": -0.3,
    "close": 0.1,
-   "i_first": 0.15
+   "i_first": 0.15,
+   "en_clear_spent": 0.2
   },
   "danse": {
    "pred_burst": 0.3,
@@ -372,20 +373,24 @@
   "overflow": {
    "pred_stun": 0.1,
    "en_clear_ready": -0.2,
-   "me_smoked": 0.3
+   "me_smoked": 0.3,
+   "en_clear_spent": 0.35
   },
   "thunders": {
    "en_clear_ready": -0.15,
-   "me_smoked": 0.2
+   "me_smoked": 0.2,
+   "en_clear_spent": 0.15
   },
   "eclipse": {
    "en_clear_ready": -0.1,
-   "me_smoked": 0.2
+   "me_smoked": 0.2,
+   "en_clear_spent": 0.15
   },
   "kims": {
    "en_clear_ready": 0.2,
    "me_smoked": 0.15,
-   "i_first": 0.05
+   "i_first": 0.05,
+   "en_clear_spent": -0.6
   },
   "severed": {
    "pred_immune": -0.3
@@ -398,10 +403,14 @@
   },
   "phantom": {
    "far": 0.3,
-   "me_wound": -0.5
+   "me_wound": -0.5,
+   "nights_kills": 0.2,
+   "storm_kills": 0.2
   },
   "replace": {
-   "far": 0.1
+   "far": 0.1,
+   "nights_kills": 0.2,
+   "storm_kills": 0.2
   },
   "rebirth": {
    "me_wound": -0.5,
@@ -417,7 +426,10 @@
   },
   "stormblade": {
    "me_wound": -0.5,
-   "me_smoked": 0.3
+   "me_smoked": 0.45,
+   "bias": -0.25,
+   "en_dr_or_shield": 0.3,
+   "storm_kills": 1.5
   },
   "resonance": {
    "me_wound": -0.5,
@@ -433,7 +445,10 @@
   },
   "nights": {
    "me_wound": -0.5,
-   "me_smoked": 0.3
+   "me_smoked": 0.45,
+   "bias": -0.25,
+   "en_dr_or_shield": 0.3,
+   "nights_kills": 1.5
   },
   "cleanse": {
    "me_wound": 0.5
@@ -446,14 +461,19 @@
    "me_smoked": -0.5
   },
   "pill": {
-   "me_smoked": 0.1
+   "me_smoked": 0.1,
+   "en_clear_spent": 0.15
   },
   "jewel": {
    "me_smoked": 0.1,
-   "i_first": -0.05
+   "i_first": -0.05,
+   "en_clear_spent": 0.1
   },
   "defstance": {
    "i_first": -0.15
+  },
+  "parry": {
+   "en_clear_spent": 0.1
   }
  }
 }
