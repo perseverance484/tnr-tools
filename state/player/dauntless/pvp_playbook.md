@@ -1,0 +1,54 @@
+# PvP playbook (dauntless)
+
+Loadout: the director's **PvP** loadout (`soXekhNjk7qihu-Rsok-6`). Director, 2026-11-09: "stick with the build
+i gave you for now, and when you improve you can build new loadouts."
+
+## Director's coaching (2026-11-09)
+- High damage reduction: use **pierce** (Stormblade Arc, Night's Testament) or **several 40-AP actions and items**
+  rather than one big hit.
+- **Clear and cleanse need good timing**: use them right after the enemy stacks buffs/debuffs, not on reflex.
+- Strong combos: **Seal of Nullification + a well-timed Clear**; a chain like **Ethereal Rebirth + Elite Smoke Bomb**.
+
+## Action costs
+- Jutsu 60 or 40 AP; move 10; basic attack 20 (not yet confirmed); **combat items 20**; weapons 40.
+- When stunned (-20 AP): plan 60 + item, or 40 + 40, never 60 + 40.
+
+## Kit (PvP loadout)
+| Jutsu | AP | Effect |
+|---|---|---|
+| Ethereal Rebirth | 60 | dmg 45, self absorb 35 (3r), self -15 dmg given |
+| Shrapnel Clone Barrage | 60 | AoE dmg 45 + afterburn 30 |
+| Eight Fist: Lotus Dance | 60 | dmg 35 + buff prevent |
+| Forbidden Chakra Fury | 60 | ground spiral dmg 35 + recoil |
+| Forgotten Ember Blade | 60 | dmg 30, self +dmg, target +dmg taken |
+| Danse Macabre | 60 | dmg 23 + bloodline seal (2r) |
+| Stormblade Arc | 60 | **pierce 46** + reflect |
+| Subaku Palace | 40 | ground +dmg given / -dmg given zone |
+| Chakra Overflow (Heaven Bows) | 40 | self +dmg x2 |
+| Thunder's Judgement | 40 | self +dmg, reflect 35 |
+| Parry | 40 | self +dmg, parry 20 |
+| Eclipse Drain | 40 | self lifesteal 35, +dmg |
+| Seal of Nullification | 40 | target buff prevent + debuff prevent, -dmg given |
+| Phantom Step | 40 | move up to 5 + DR + dmg |
+| Chakra Shield | 40 | absorb 25 + shield |
+
+Items (20 AP): Ikazuchi Kunai (dmg, thrown), Elite Smoke Bomb, Panacea (DR), Dr. Kim's Miracle Potion
+(debuff prevent + clear prevent), Chakra Pill (dmg + lifesteal), Colored Jewel (dmg + DR). Weapons (40 AP):
+Night's Testament (pierce + immunity), Aetherion (elemental dmg + target dmg taken).
+
+## Saved for later (not equipped; director said wait)
+Owned level-25 jutsu worth a future PvP loadout: Eternity Flux (dmg 40 + stun 90, 2r), Chakra Resonance (dmg 28 + stun),
+Dragon King's Impact (dmg 40, +dmg, afterburn, wound), Particle Cannon (dmg 40 + wound), Cauterize (heal + cleanse),
+Severed Pulse (anti-heal + dmg taken), Momentum Shift.
+
+## Rules learned
+- Brackets: I can attack brackets 6-8 only (2.5M+ XP, or Elite Jonin).
+- Own village, allies, protected villages (Freedom State) and safe zones (Wake Island) cannot be attacked.
+- Players standing on village building tiles (e.g. (13,8) in a village sector) cannot be attacked: "did the target move?".
+- Only open-world COMBAT wins count as PvP kills (not ranked, not arena).
+- Check `do_not_attack.md` first.
+
+## Opponents seen
+- **Korin** (Risen, 100): passive stun every round, recoil/wound on me, heavy DR. Lost 2026-11-09.
+  Next time: pierce + items, time cleanse after his debuffs land, Seal of Nullification then Clear.
+- **Thronaris** (Akasumi, 97): went AFK; beat him 2026-11-09.
