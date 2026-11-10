@@ -230,18 +230,25 @@ best idea because absorb caps at 60 and that gives you 70, thus wasting some. Al
   recoil and 35 absorb ... since chakra fury is an instant effect ... Then you can do things like Seal of
   Nullification and stun to set up a swing round while they hurt themselves with their own damage."
 
-**Going first:**
-- T1: Danse Macabre + Subaku Palace. Both land at once: their T1 hits at ~0.71 x 0.75 = ~54% (seal T1-T3, ground
-  T1-T3), and my +30% given is live T2. They stand in it or spend AP walking out.
-- T2: Ethereal Rebirth (35% absorb T3-T5) + Seal of Nullification or Severed Pulse (not Chakra Shield: 35 + 35 = 70
-  over the 60 cap). T1 is the emergency button: use it when their damage stack is big, Seal + Shield if they are
-  debuff-immune.
-- T3: Forbidden Chakra Fury (40% recoil at once, T3-T4) + Seal of Nullification / Severed Pulse. Their last sealed
-  turn: each hit costs them 40% and heals me 35%.
-- T4: Chakra Resonance stun + Overflow or Severed Pulse. T5: swing (Ember / Stormblade / Leech with Eclipse Drain).
+**Emergency button (director, 2026-11-10: "your turn 1 combo is better reserved as an emergency button. If you blow
+it early then they can hit you with a ramped damage stack later.")** Danse Macabre (cd 8) and Subaku Palace (cd 7)
+are instant damage cuts; spent on turn 1 they are on cooldown exactly when the enemy's ramped stack lands. Hold them.
+- Trigger: their damage stack is live or due next turn (2+ of: +damage given / +tag power on them, +damage taken /
+  afterburn / recoil on me, Overflow-style buffs, a setup round just finished).
+- Press: Danse Macabre + Subaku Palace (~-29% x -25%: their hits land at ~54% for the seal's 3 turns). If they are
+  debuff-immune (Subaku won't apply): Danse Macabre (seal still lands) + Chakra Shield (35 absorb + instant shield).
+- Never press both cooldowns into an empty round; if the stack is only one buff, answer with Eternal Darkness /
+  Panacea / Smoke instead.
 
-**Going second:** T1 Chakra Shield + Eternal Darkness + Defensive Stance (or Invigoration in if far), then Danse +
-Subaku on T2 (the seal still gives 3 of their turns from my cast) and Rebirth on T3 once the Shield has lapsed.
+**Opening (no stack yet):** pressure and setup, button held.
+- T1: Ethereal Rebirth (35 absorb T2-T4) + Severed Pulse (+30% taken, -50% healing live T2). Out of range:
+  Chakra Invigoration in + Severed Pulse, Rebirth T2.
+- T2: Forbidden Chakra Fury (~40% recoil on them at once) + Seal of Nullification (they can't buff out; I can't be
+  debuffed 2 r). Their hits into recoil + absorb hurt them and heal me.
+- T3: Chakra Resonance stun + Overflow / Dr. Kim Disaster Potion: set the swing.
+- T4: swing (Ember / Stormblade / Inferno Leech / Yuki's Frostbite, Eclipse Drain for lifesteal).
+- Whenever their stack comes online, press the button that turn, then resume.
+Absorb: never overlap Rebirth (35) and Chakra Shield (35); the cap is 60.
 
 **Other cases:** DR-stacked target -> Inferno Leech then Stormblade (no shared lock). Their burst due -> Eternal
 Darkness + Chakra Shield + Defensive Stance / Elite Smoke Bomb. Kill turn on a healer -> Severed Pulse first.
