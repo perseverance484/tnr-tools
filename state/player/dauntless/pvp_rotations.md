@@ -101,7 +101,8 @@ After the smoke round, next turn is my payoff (his finisher fizzled; my setup is
 |---|---|---|
 | a | Stormblade Arc (60) + Chakra Overflow (40) | flat 707 now regardless of his DR; Overflow lands for next turn |
 | b | Clear (60) if his DR is still live, + Aetherion (40) at x1.82 | strips the DR instantly, then hits |
-| c | Ember (60) + Night's Testament (40, pierce lock over by c+?): check the lock (3 rounds) | — |
+| c | Ember (60) + Eclipse Drain (40) | Night's Testament stays locked until 3 rounds after Stormblade (turn a+3) |
+| d | Ethereal Rebirth (60) + Night's Testament (40) | Ember/Eclipse live; the pierce lock is over |
 
 Pierce turns never get buffs, so always pair pierce with *setup*, not with other buffs for the same turn.
 
