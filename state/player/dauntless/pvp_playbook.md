@@ -266,6 +266,33 @@ best idea because absorb caps at 60 and that gives you 70, thus wasting some. Al
 Rules: stack +damage on the swing turn freely (no cap); stop stacking DR before the 90% floor; keep absorb <= 60,
 lifesteal <= 60, reflect <= 60; never two recoil sources; don't feed recoil-bait pierce (it bypasses recoil).
 
+**Smoke Bomb rounds (director, 2026-11-10):** "Smoke is something that has a lot of precedent in how its played
+around and used. Some good effects to have going into a smoke bomb round are lifesteal, absorb and reflect. This is
+because smokebomb makes both users have max DR essentially, so using pierce typically happens during this round.
+Pierce interactions with all 3 tags are high value ... Pierce can't be reduced so you get a good lifesteal off.
+Pierce can be absorbed so you can mitigate it well with absorb, the only way to really reduce its damage due to the
+processing order. Reflect can send the Pierce damage right back, making an enemy hurt themselves. Paired with absorb
+it can turn an enemies Pierce into a turn where you take ~400 and they take ~300 damage, on their own turn ...
+Additionally sources of debuff prevent can prevent the self debuff from smoke bomb, allowing you to debuff the enemy
+at no cost to yourself. You must be on the lookout for debuff prevent on the enemy though as they may use it in
+anticipation of your smoke bomb."
+- The smoke round is the pierce round for both sides. Go in with lifesteal + absorb + reflect already live (cast the
+  round before, since those tags start next round): Eclipse Drain or Chakra Pill (lifesteal, <= 60 total),
+  Ethereal Rebirth or Chakra Shield (absorb, <= 60), Stormblade Arc (pierce + self reflect, <= 60).
+- In the smoke round my damage is pierce: Stormblade Arc or Night's Testament (shared pierce lock: one per 3 rounds),
+  plus drains (Yuki's Frostbite, Inferno Leech, Subaku Amulet) which also ignore DR.
+- Their pierce into my absorb + reflect: I absorb part, reflect sends part back on their own turn.
+- Beat the smoke self-debuff: have a debuff-prevent on me cast the round BEFORE the smoke (prevents only block effects
+  applied in a later round): Seal of Nullification (I can't be debuffed 2 r) or Dr. Kim's Miracle Potion. Then the
+  smoke's -70% hits only them.
+- Watch for debuff-prevent on them (Dr. Kim's, "cannot be debuffed"): they are pre-empting my smoke. Hold it.
+
+**Seal of Nullification vs their Dr. Kim's (director, 2026-11-10):** "Another good interaction is seal of
+Nullification when you see dr. Kims pink if going second. Typically player 1 using a kims pink means they plan to
+buff up next round for a big attack the round after that. With buff prevent from seal of Nullification on they
+cannot do that." When player 1 drinks Dr. Kim's Miracle Potion, answer with Seal of Nullification that turn: their
+buff round is blocked, which kills the burst planned for the round after.
+
 **Emergency button (director, 2026-11-10: "your turn 1 combo is better reserved as an emergency button. If you blow
 it early then they can hit you with a ramped damage stack later.")** Danse Macabre (cd 8) and Subaku Palace (cd 7)
 are instant damage cuts; spent on turn 1 they are on cooldown exactly when the enemy's ramped stack lands. Hold them.
