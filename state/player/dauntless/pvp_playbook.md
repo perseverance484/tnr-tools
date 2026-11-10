@@ -71,6 +71,14 @@ Severed Pulse (anti-heal + dmg taken), Momentum Shift.
   Forbidden Chakra Fury + Parry; Ember Blade + Subaku Palace.
 
 ## Opponents
+- **Luka** (Risen, Jonin, Tetsugan bloodline, user_2xjRMEkywaZSzGY9YPj08j5hx3h). Director (2026-11-10): "This guy is
+  quite good. Fight him repeatedly, he usually stays awake when I attack. You can learn a lot from fighting him. Make
+  sure consumables, pools and armor are good before attacks." / "Spam fights against him if he stays awake and fights
+  back" (standing rule; the 5 + 5-per-repeat minute cooldown still applies). Found at Risen 99, (13,13). First fight
+  2026-11-10 15:14: he was AFK, won R4 untouched.
+- **Ashutosh** (Tsukimori, Elder, Blue Blade Eyes). Director: "This guy likes to stack lots of buffs and bait clears".
+  Kit seen: pull + -35% taken/+35% taken on me, -35% taken/+35% given, +15/+15% given, +30%/+50% given, stun, wound
+  479/round, vamp + heal, Cleanse, Eternal Darkness. Beat him with recoil + absorb (log in sessions/2026-11-10.md).
 - **IndraUchiha** (Akatsuki, 100): Quintessential Flake (+35 dmg / -35 taken), Danse Macabre (bloodline seal),
   Chakra Resonance (stun), Elemental Kunai (wound), Replacement kiting, Chakra Overflow + Abyssal Surge + Panacea
   stack, 40% lifesteal, drain. Lost 2026-11-09: went defensive on the Seal turn instead of bursting.
