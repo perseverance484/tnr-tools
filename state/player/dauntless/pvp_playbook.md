@@ -197,6 +197,23 @@ bloodline: "missing requirements"), so Chakra Resonance is the stun.
 Dropped from PvP 1: Shrapnel Clone Barrage, Lotus Dance, Danse Macabre, Subaku Palace, Thunder's Judgement, Parry,
 Phantom Step.
 
+**Director's line (2026-11-10, primary plan when I go first): "Rebirth -> Chakra Fury"**
+"Take advantage of how powerful ethereal rebirth is ... at 35% absorb for 3 rounds, if going first you can set up
+with rebirth then use forbidden Chakra Fury the next round to have essentially 40 recoil and 35 absorb ... since
+chakra fury is an instant effect. This can force players to move off your ground effect. You turn some of their
+damage into your own at the expense of a small damage given debuff. Then you can do things like Seal of
+Nullification and stun to set up a swing round while they hurt themselves with their own damage."
+Verified numbers: Ethereal Rebirth = dmg 45 + self absorb 35% (3 r) + self -15% given (2 r), cd 8. Forbidden
+Chakra Fury = AoE spiral dmg 35 + recoil 30 +0.4/level (~40% at 25) on enemies hit (2 r), cd 7.
+- T1: Ethereal Rebirth + a 40 (Severed Pulse, or Chakra Shield). Absorb live from T2 for 3 rounds.
+- T2: Forbidden Chakra Fury (recoil lands at once: every hit they make next turn costs them ~40% back while my
+  absorb heals me 35% of it) + Seal of Nullification (they can't buff out of it; I can't be debuffed 2 r).
+  They either hit into recoil + absorb or step off the ground and waste AP.
+- T3: Chakra Resonance (stun -20 AP, lands before their turn) + Cyclone Palm / Severed Pulse / Overflow: set up the
+  swing while they're stunned and still eating recoil.
+- T4 swing: Ember Blade / Raimei Gen + Overflow or Eclipse Drain, with T3's debuffs live.
+The -15% damage given from Rebirth only matters on T2-T3, which are setup/control turns anyway.
+
 **Rotation (remember: a tag cast in round N is live from N+1):**
 - T1 opener: in range -> Chakra Resonance + Severed Pulse (they play T2-T3 at 80 AP; +20% taken live T2).
   Out of range -> Chakra Invigoration (leap, my buffs live T2) + Severed Pulse, Resonance on T2.
