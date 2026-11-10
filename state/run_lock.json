@@ -1,11 +1,10 @@
 {
- "holder": "player",
- "job": "player: read PvP loadout jutsu/items for combo design (read-only)",
- "token": "6cd01b565eed416294368e50491bb15e",
- "instance": null,
- "ttlMinutes": 45,
- "claimedAt": "2026-11-10T03:45:59.828Z",
- "heartbeatAt": "2026-11-10T03:45:59.828Z",
- "expiresAt": "2026-11-10T04:30:59.828Z",
- "note": "One game writer per account at a time (RUL-2026-11-07-133). Written only by forge/tools/run_lock.mjs or Forge; do not hand-edit."
+ "holder": null,
+ "token": null,
+ "job": null,
+ "releasedBy": "player",
+ "releasedInstance": null,
+ "releasedJob": "player: read PvP loadout jutsu/items for combo design (read-only)",
+ "releasedAt": "2026-11-10T03:48:56.174Z",
+ "note": "Free. Claim with node forge/tools/run_lock.mjs claim --holder NAME --job TEXT (RUL-2026-11-07-133)."
 }
