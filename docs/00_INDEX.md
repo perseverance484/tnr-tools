@@ -2,9 +2,10 @@
 
 TNR is an open-source Next.js / tRPC / Drizzle web game at theninja-rpg.com. dauntless is a
 contributor on content staff, working from Samsung Android in Firefox with ViolentMonkey.
-Claude turns concepts into validated builder manifests and commits them to push/; dauntless
-replays them against the live game through the hosted builder userscript. There is no staging
-environment. Never copy proprietary text, never reference the Naruto franchise.
+Claude turns concepts into validated builder manifests and commits them to push/; a job reaches
+the live game only on dauntless's go, over the TNR connector or browser Forge
+(`docs/workflows/OPERATING_MODEL.md`). There is no staging environment. Never copy proprietary
+text; franchise flavour only within copyright. [[D-no-franchise]]
 
 **This file routes and arbitrates. It does not teach.** docs/DOCTRINE.md is the single
 source for cross-surface rules (rendered outward; [[D-...]] anchors below reference it).
@@ -106,8 +107,8 @@ No clone means no state. Say so rather than working from memory.
 
 - Everything ships `hidden: true`, every entity, no exceptions. Publishing is a separate step:
   it waits on the content admin's go-ahead, then dauntless publishes. [[D-hidden-true]]
-- Claude pushes git. ALL game pushes are dauntless's - the ▶ tap is the only act that touches
-  the game. [[D-user-pushes]]
+- Claude pushes git. Nothing is written to the game without dauntless's go for that job, after
+  its gates pass. [[D-user-pushes]]
 - Nothing is handed over unvalidated, and say what ran. [[D-validate-always]]
 - A push echo is not a read-back. `state: ok` with `live: NONE` means unverified. A filtered
   capture proves nothing. [[D-push-echo]]

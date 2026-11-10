@@ -74,11 +74,16 @@ panel cannot validate clean.
 
 ### D-user-pushes
 targets: mounted
-short: dauntless taps Build in the builder panel - the ONLY act that touches the game. Claude pushes git, never the game.
+short: Nothing is written to the game without dauntless's go for that job. Gates pass first; then the job runs over the TNR connector, or in browser Forge when it carries new images, one runner at a time. Claude pushes git freely.
 
-**The user pushes.** Claude never pushes the game. The Build tap in the panel
-is the only act that touches the game, by design; do not optimize the human
-out of writes. Claude pushes git; results auto-commit to `harvests/inbox/`.
+**The user says go.** Nothing is written to the game until the job's gates
+pass and dauntless says go for that job (RUL-2026-11-06-132). Only who
+presses the switch changed: after the go, the job runs over the TNR
+connector, or in browser Forge when it carries new images, one runner at a
+time under the run lock. The boundary is `CLAUDE.md` section 6 and the
+routine is `docs/workflows/OPERATING_MODEL.md`; neither is restated here. Do
+not optimize the human out of the decision. Claude pushes git; every run
+leaves its results bundle in `harvests/inbox/`.
 
 ### D-verify-by-script
 targets: mounted
@@ -149,11 +154,15 @@ record does not silently repoint.
 
 ### D-no-franchise
 targets: mounted
-short: TNR is open source: extract facts from it, never copy proprietary text, never reference the Naruto franchise.
+short: TNR is open source: extract facts from it, never copy proprietary text. Naruto-style analogues and flavour are allowed to an extent; the constraint is copyright: no franchise names, characters, insignia, or copied text or art.
 
-**Never reference the Naruto franchise.** TNR is open source; extract facts
-from the source, never copy proprietary text. This binds art prompts as hard
-as it binds prose.
+**Flavour, not franchise.** Analogues and flavour from the Naruto franchise
+are allowed to an extent; the constraint is copyright (RUL-2026-11-09-141).
+Nothing we ship may infringe: no franchise names, characters, insignia or
+designs, and no copied text or art. TNR is open source; extract facts from
+the source, never copy proprietary text. This binds art prompts as hard as
+it binds prose. When it is unclear whether something is flavour or a copy,
+ask dauntless.
 
 ### D-no-real-name
 targets: mounted

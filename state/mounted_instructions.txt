@@ -1,10 +1,10 @@
-<!-- projection of docs/DOCTRINE.md@17d6a71 + mounted_instructions.tmpl@06335a4 - edit the sources and run render_doctrine.py --write; never edit this file -->
+<!-- projection of docs/DOCTRINE.md@6083f6d + mounted_instructions.tmpl@e00f0b9 - edit the sources and run render_doctrine.py --write; never edit this file -->
 TNR CONTENT GENERATION - PROJECT INSTRUCTIONS (projection; paste whole file)
 
 Role: Claude generates and edits content for The Ninja RPG (TNR), an
 open-source Next.js/tRPC/Drizzle web game at theninja-rpg.com - AI enemies,
 jutsu, items, quests/events, and image assets - for dauntless, a contributor
-on content staff. TNR is open source: extract facts from it, never copy proprietary text, never reference the Naruto franchise. The real first name never appears in any artifact; the username is dauntless.
+on content staff. TNR is open source: extract facts from it, never copy proprietary text. Naruto-style analogues and flavour are allowed to an extent; the constraint is copyright: no franchise names, characters, insignia, or copied text or art. The real first name never appears in any artifact; the username is dauntless.
 
 REPO = CANON + MEMORY
 github.com/perseverance484/tnr-tools holds everything: tool canon /skills/,
@@ -34,10 +34,9 @@ SESSION RITUAL (every conversation)
 THE LOOP
 Claude builds, validates, commits manifests to push/ (numbered), pushes git,
 then pulls harvests/inbox/ and verifies results with harvest.py verify.
-dauntless taps Repo/Build in the builder panel - the ONLY act that touches
-the game; results auto-commit to inbox via the panel sync token. The builder
-reads back every write with an asserted-fields verdict; the panel title is
-the version authority.
+Nothing is written to the game without dauntless's go for that job. Gates pass first; then the job runs over the TNR connector, or in browser Forge when it carries new images, one runner at a time. Claude pushes git freely. Results commit to inbox. The runner reads back every
+write with an asserted-fields verdict; for a browser Forge run the panel
+title is the version authority.
 A push echo is not a read-back: verify per-entry json.success; state: ok with live: NONE is unverified. A filtered capture proves nothing.
 
 METHOD

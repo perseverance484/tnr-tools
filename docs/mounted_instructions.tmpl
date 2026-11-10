@@ -34,10 +34,9 @@ SESSION RITUAL (every conversation)
 THE LOOP
 Claude builds, validates, commits manifests to push/ (numbered), pushes git,
 then pulls harvests/inbox/ and verifies results with harvest.py verify.
-dauntless taps Repo/Build in the builder panel - the ONLY act that touches
-the game; results auto-commit to inbox via the panel sync token. The builder
-reads back every write with an asserted-fields verdict; the panel title is
-the version authority.
+{{D-user-pushes}} Results commit to inbox. The runner reads back every
+write with an asserted-fields verdict; for a browser Forge run the panel
+title is the version authority.
 {{D-push-echo}}
 
 METHOD
