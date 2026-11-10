@@ -202,10 +202,12 @@ kept, Raimei Gen dropped (Severed Pulse is the one heal cut). Cyclone Palm Strik
 items and keystone as well"): Kaeruun armor set (same as PvP 1); HAND_1 Night's Testament (pierce, counters Seal);
 HAND_2 **Yuki's Frostbite** (40 AP, range 3: drain 200 x2 rounds through DR + target -25% given, cd 7);
 ITEM_1 Dr. Kim's Miracle Potion; ITEM_2 Elite Smoke Bomb; ITEM_3 Chakra Pill; ITEM_4 Panacea (20 AP, -25% taken
-2 r); ITEM_5 **Dr. Kim Disaster Potion** (20 AP: poison 30% + target +20% taken 2 r, consumed); ITEM_6 **Subaku
-Amulet** (40 AP: drain 100 x2 + cleanse-prevent 1 r, so they can't Cleanse my seal/recoil that round);
+2 r); ITEM_5 **Dr. Kim Disaster Potion** (20 AP: poison 30% + target +20% taken 2 r, consumed); ITEM_6 **Colored Jewel
+of the Dragon's Neck** (20 AP: +15% given, -10% taken, 3 r; swapped in for Subaku Amulet, director 2026-11-10: "I think
+you will find Subaku Amulet is not as good as dragons necklace or Subaku mask"; Subaku Mask (+9% given for 30 r) is
+the alternative);
 THROWN **Bloodthorn Kunai** (20 AP: elemental dmg + wound); KEYSTONE **Sealed Earrings of Sloth** (-5% taken).
-Dropped vs PvP 1: Aetherion, Colored Jewel, Ikazuchi Kunai, Subaku Mask, Sealed Necklace of Lust.
+Dropped vs PvP 1: Aetherion, Ikazuchi Kunai, Subaku Mask, Sealed Necklace of Lust.
 Keystone choice: absorb caps at 60% (director). Lust adds 10% absorb, which overflows with Rebirth or Chakra Shield
 (35 each at level 25, director 2026-11-10: "Chakra Shield is 35 absorb at level 25"). Sloth's -5% taken stacks with
 everything instead. Rebirth + Chakra Shield = 70: never overlap them; keep one absorb source up at a time.
@@ -245,10 +247,13 @@ best idea because absorb caps at 60 and that gives you 70, thus wasting some. Al
   70 (10 wasted); Rebirth 35 + Inferno Leech 21 = 56 (fine); Lust keystone 10 overflows either pair.
 - Lifesteal + vamp: one shared **60% cap** per hit. Eclipse Drain 35 + Chakra Pill 20 = 55 (fine).
 - Reflect: adds up, **capped at 60% of the hit**. PvP 1's Stormblade 35 + Thunder's 35 = 70 (10 wasted).
+- **Chakra Fury's recoil (director, 2026-11-10): "Chakra Fury's recoil is instant and cannot be cleansed because it
+  is a ground effect like Subaku Palace. It can however be moved off."** Fury and Subaku Palace leave ground effects:
+  live at once, immune to Cleanse, only escaped by moving (which costs them AP). The next-round rule below applies to
+  user-effect recoil, not Fury's ground.
 - Recoil on a target: **does not stack** (each recoil overwrites; one ~40% source is enough) and **pierce ignores
-  recoil**. Snapshot code starts absorb/lifesteal/reflect/recoil the round after the cast (`!isNew &&
-  !castThisRound`); the director says Chakra Fury's recoil is instant. Director's call stands; check the next fight
-  log ("takes N recoil damage" on their turn of the cast round).
+  recoil**. Snapshot code starts user-effect absorb/lifesteal/reflect/recoil the round after the cast (`!isNew &&
+  !castThisRound`).
 - Shields are granted after the casting action resolves, so they cover the enemy's turn in the same round (instant).
 - Stacking: BATTLE_TAG_STACKING = true, so two casts of the same buff both count.
 
@@ -280,7 +285,7 @@ anticipation of your smoke bomb."
   round before, since those tags start next round): Eclipse Drain or Chakra Pill (lifesteal, <= 60 total),
   Ethereal Rebirth or Chakra Shield (absorb, <= 60), Stormblade Arc (pierce + self reflect, <= 60).
 - In the smoke round my damage is pierce: Stormblade Arc or Night's Testament (shared pierce lock: one per 3 rounds),
-  plus drains (Yuki's Frostbite, Inferno Leech, Subaku Amulet) which also ignore DR.
+  plus drains (Yuki's Frostbite, Inferno Leech) which also ignore DR.
 - Their pierce into my absorb + reflect: I absorb part, reflect sends part back on their own turn.
 - Beat the smoke self-debuff: have a debuff-prevent on me cast the round BEFORE the smoke (prevents only block effects
   applied in a later round): Seal of Nullification (I can't be debuffed 2 r) or Dr. Kim's Miracle Potion. Then the
