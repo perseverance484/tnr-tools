@@ -1,7 +1,8 @@
 # Skill overhaul P0: inventory
 
 **Status:** P0 deliverable of `state/prompt_skill_overhaul.md` (§8), for independent review. Review-only
-document: it changes no skill, tool, law, doctrine or ruling.
+document: it changes no skill, tool, law, doctrine or ruling. This is the second handoff: the review of
+`1572d78a` required five corrections, listed with where each was made in §10.
 **Base:** `perseverance484/tnr-tools` main at `fca8625b6c55e3889b270bd2fde76d63b2f9a4d1`. The work began on
 `a4f05507f093fc635e00b095953512b95429b4c5`; main advanced during P0 (see B-01), the branch was rebased once
 before handoff, and every claim that touched a changed file was rechecked on the new base.
@@ -23,19 +24,17 @@ ratified reward or pacing table. `RG-nn` a reward-table gap. `D-nn` an open dire
 |---|---|
 | `CLAUDE.md`, `docs/00_INDEX.md`, `docs/DOCTRINE.md`, `docs/workflows/OPERATING_MODEL.md`, `docs/workflows/IMPLEMENTATION_HANDOFF.md`, `state/prompt_skill_overhaul.md` | in full |
 | `docs/ENGINE_LAWS.md` | in full |
-| Both `SKILL.md` files; `references/ai.md`, `balance.md`, `lines.md`, `event.md` | in full |
-| `references/quest.md` | sections 1 to 8, the addenda and the appendix in full; the relocated-law tail not re-read (it mirrors `ENGINE_LAWS.md`) |
-| `references/jutsu.md`, `item.md`, `pipeline.md`; `producing-tnr-art/references/*` | headings plus targeted sections (item §4, jutsu §2, pipeline §2.8 to §2.10); not read end to end |
-| `packs/*.md` | not read; they are rendered from the references (`build_packs.py --check` passes) |
+| Both `SKILL.md` files; every reference page of both skills (`ai.md`, `balance.md`, `event.md`, `item.md`, `jutsu.md`, `lines.md`, `pipeline.md`, `quest.md`; `processing.md`, `prompts.md`); `12b_LAWS_coverage.md` | in full, with one mechanical substitution: the "Relocated engine laws" tails (verbatim law copies) were compared law by law against `docs/ENGINE_LAWS.md` by script instead of re-read (result in C-16) |
+| `packs/*.md` | not read separately: `PACKS.json` names the reference sections each pack is rendered from, all of which were read, and `build_packs.py --check` proves the packs equal that rendering |
 | The rulings ledger: index `docs/RULINGS.md`, entries in `docs/rulings/2026-09.md`, `2026-10.md`, `2026-11.md` (308 entries) | full heading index; status and canonical destination of every entry from 2026-10-23 on; the ruling text of 36 entries read (listed in §6.1), the longest of them in part, and their evidence quotes mostly skipped |
 | `docs/design/EVENT_STRUCTURE.md`, `docs/handoffs/skill_overhaul/TNR_ANIMATION_HANDOFF.md` | in full |
 | Other `docs/design/*` named in the brief §3 | headings, status lines and targeted sections only |
 | `data/48`, `26x`, `32b`, `45e` | structure and the fields cited below |
 | `harness/skyglass_wreck_sim` on `fable/mother-of-echoes-sim` | README, `run.sh`, file listing and sizes; no report read in full |
-| Scripts | docstrings and the constants cited below; every `--selftest` run (§7) |
+| Scripts of both skills | run, not read as code, as `SKILL.md` directs ("do not read them unless you are changing them"): docstrings and the constants cited below; every `--selftest` (§7). `mission.py` `selftest` and `check_headcount` were read for T-11. |
 
-Anything this file says about a source in the last five rows is limited to what those reads can
-support. Phases that build on such a source must read it properly first (brief §0 item 3).
+Anything this file says about the design docs, the data files, the harness or script internals is
+limited to what those reads can support.
 
 ---
 
@@ -75,8 +74,10 @@ doc, ruling, generator or tool. "Copies" are other places that carry the same ru
 | Stealth blocks attacking; items in rules; unique usernames; item list sync | laws 62, 65, 66, 69, 70 | `references/ai.md` tail | partial |
 | Condition quirks: zero threshold, dead `BARRIER_BETWEEN`, action selection, STUDENT strip, stun does not stack, weakness semantics | `references/ai.md` addenda (R41, R50 to R54, H10) | none | lints L31, L35, L36 |
 | Basic attack as a rule target | `references/ai.md` ("confirmed rule vocabulary"), RUL-2026-10-31-071 | `validate.py`, Forge kit lint | `validate.py` |
-| Role defaults (pools, stats multiplier, kit size, armour, passive tags) | `references/ai.md` §1.8 | `enemy.py` `ROLE_DEFAULTS` | `enemy.py`; see C-05 |
+| Role defaults (pools, stats multiplier, kit size, armour, passive tags) | `references/ai.md` §1.8 (a "quick reference" table with no ratification record) | `enemy.py` `ROLE_DEFAULTS`, whose comment calls the table ratified | `enemy.py`; see C-05 |
 | Stat-ratio shapes per role | `calc.py` `ROLES` (a tool is the only owner) | none | see G-03 |
+| Stun: AP loss is `apReduction`, `power` is the chance; same pattern across the prevent and control family | `references/pipeline.md` ("push-path rules learned in the field") | none | none found |
+| Jutsu added to an AI by an edit arrive unequipped; fix is the unequip then re-equip cycle | `references/pipeline.md` (Jul 6 addendum) | laws 18, 60 cover the edit case only | knowledge only |
 | Shared jutsu pool: codes, ids, range, gate, AP, cooldown | `data/32b_DATA_pool.json` | repo-root copy for the builder (synced by skillpack) | `enemy.py`, `calc.py kit` |
 | Kits come from the pool; signature budget per boss | `references/ai.md` §1.2; `references/event.md` addendum item 4 | none | none mechanical |
 | AI restrictions (no lifesteal or vamp, no movement jutsu, HP conditionals limited) | `references/ai.md` §1.5, §4.1 | none | none mechanical |
@@ -97,6 +98,9 @@ doc, ruling, generator or tool. "Copies" are other places that carry the same ru
 | Damage constants are defaults, live values differ | law 83 | `references/balance.md` tail | knowledge only |
 | Level cap and `powerPerLevel` house rule | `references/balance.md` (H17) | none | none |
 | Battle line placeholders | `references/jutsu.md` §2 (`battleDescription`) | none | `validate.py` (non-empty) |
+| Every jutsu needs one effect with both `appearSfx` and `appearAnimation` | `references/jutsu.md` (2026-08-01 addendum, H05) | none | lint L30 |
+| Static heal is multiplied at runtime; static damage and drain are not | `data/46b_DATA_tag_runtime.json`; `references/jutsu.md` (same addendum) | none | none found |
+| Name uniqueness and the blank-shell failure | laws 30, 59; `references/jutsu.md` §2.2 | `references/pipeline.md` §5 | advisory lint; live dedup |
 
 ### 1.4 Quests and events
 
@@ -115,7 +119,7 @@ doc, ruling, generator or tool. "Copies" are other places that carry the same ru
 | Dialog writing rules; choices fork to distinct targets | `references/quest.md` §6.2, §6.2b | `references/event.md` step 5 | L11; the distinct-target lint is described as wanted, not confirmed built |
 | CYOA wings doctrine | law 27; `references/quest.md` §3.4b-2 | `references/event.md` addendum item 3 | none |
 | Battlepyramid shape | `references/quest.md` §3.7 | `references/event.md` | `validate.py` (partly) |
-| Mission profile per rank (gates, shape, reward) | `data/48_DATA_mission_profiles.json` | `references/balance.md` ("Observed template"); see R-01 | `mission.py` |
+| Mission profile per rank (gates, shape, reward) | `data/48_DATA_mission_profiles.json`. Its values do not all have the same standing: see R-02 before treating any of them as approved. | `references/balance.md` ("Observed template"); see R-01, C-07 | `mission.py` |
 | Mission design sheet: a sheet cannot reach a profile field | `mission.py` | `SKILL.md` | `mission.py` |
 | Staff event sheet and its build contract | `EVENT_SHEET.md`; `references/event.md`; `data/26x_EVENT_sheet_schema.json` | none | none found for `26x` instances |
 | Event structure framework (principles, sheet, ladder, checklist, anti-patterns) | `docs/design/EVENT_STRUCTURE.md` (RUL-2026-11-05-116) | reference map `docs/design/SKYGLASS_EVENT_MAP.md` | none; see C-06 |
@@ -131,6 +135,9 @@ doc, ruling, generator or tool. "Copies" are other places that carry the same ru
 | Reward class and farm layer (uncapped pays materials only, the ladder, no door items, reveal discipline, profession materials, choice rewards, aim do not multiply) | `references/balance.md` ("Reward class and farm-layer doctrine") | `references/quest.md` ("Unlock graph") |
 | Drop semantics: hunting drops ignore the chance field; guaranteed drops; AI item rows | laws 67, 68, 69 | `references/balance.md` tail |
 | Loot chest mechanic | `references/item.md` §4 | none |
+| Chest chassis (fields to clone) | `references/item.md` §5 | none |
+| Conversion model: one common base per slot drops, tiers are converted; line identity in the recipe | `references/item.md` ("The conversion model") | none |
+| Hiding a live item unequips it from every player; every item needs one non-zero cost | `references/item.md` (Jul 10 addendum) | none |
 | Crafting recipe shape and the no-common-factor doctrine | law 22 | `references/item.md` |
 | Reward timing and boosts by quest type | `references/quest.md` §3.4b item 7 | none |
 | Component-chase economy default | `references/event.md` addendum item 2 | none |
@@ -173,7 +180,9 @@ doc, ruling, generator or tool. "Copies" are other places that carry the same ru
 | Keying, glow, spill, fresh filenames | laws 32 to 35 | `producing-tnr-art/SKILL.md`; `chroma.py` |
 | Battle assets must end unhidden | law 16c (RUL-2026-10-24-006) | `references/pipeline.md`; `processing.md`; `12b_LAWS_coverage.md` |
 | Jutsu icon target, style library, isolated sessions | `25x` `JUTSU_ICON`; `docs/workflows/ISOLATED_ART_GENERATION.md`; RUL-2026-10-14-001, RUL-2026-10-17-021 | `producing-tnr-art/SKILL.md` |
-| Asset folder and name convention | RUL-2026-11-05-127 as amended by RUL-2026-11-06-130 | `docs/design/MOTHER_OF_ECHOES_ART.md`; folder builders in `push/mother_of_echoes.gen.py` and `art/subaku_palace/` |
+| Asset folder and name convention | the folder pattern is the asset validator's (`45d`, surfaced as `spec.gameAsset_write` and in `processing.md` §7); the naming and sectioning convention is RUL-2026-11-05-127 as amended by RUL-2026-11-06-130 | `docs/design/MOTHER_OF_ECHOES_ART.md`; folder builders in `push/mother_of_echoes.gen.py` and `art/subaku_palace/` |
+| House style clauses and prompt scaffolds | `25x` `house_style`, `prompt_scaffolds` (rendered by `shotlist.py`) | `prompts.md` cites, does not restate; see C-20 |
+| Candidate lock register; production order; one asset per generation | `producing-tnr-art/references/prompts.md` §1, §5, §6 | `producing-tnr-art/SKILL.md` |
 
 ### 1.9 Combat animation
 
@@ -204,12 +213,12 @@ the phase that needs it creates the owner. P0 creates none.
 |---|---|---|---|---|
 | G-01 | The AI rule cap has no law number. The constant is generated and `validate.py` enforces it, but with its own literal, and no engine law exists for a library entry to cite "by number" (brief §5.3). | brief §3 names `docs/ENGINE_LAWS.md` as the owner; no match there. | P2 (rule patterns state their count) | a new engine law citing `AI_PROFILE_MAX_RULES`, through reconciliation; `validate.py` and `design.py check` read the constant |
 | G-02 | Shared cooldowns: which effect types share a lock, the lock length, per-caster scope, AI not exempt. Introduced upstream after the contract pin (C-01). | recorded only in `TNR_ANIMATION_HANDOFF.md` §1.5, RUL-2026-11-06-128, `SKYGLASS_BOSS_FIGHTS.md` §6 | P2 (loadout pacing, lock map), P4 | regenerated `45e` under the adopt gate, plus an engine law |
-| G-03 | AI archetypes beyond three role names. `standard`, `elite`, `boss` are ratified; `calc.py` has stat shapes named skirmisher, support and others with no ratification record; the brief wants bruiser, skirmisher, caster, support, summoner, controller, boss by rank band. | `references/ai.md` §1.8; `enemy.py` ("a shape is a balance opinion"); `calc.py` `ROLES` | P2 (library 1) | library data file, each shape a director slot (D-05) |
+| G-03 | AI archetypes beyond three role names. `standard`, `elite` and `boss` have a defaults table (`references/ai.md` §1.8) that `enemy.py` treats as ratified, though the table records no ratification (C-05); `calc.py` has stat shapes named skirmisher, support and others with no ratification record; the brief wants bruiser, skirmisher, caster, support, summoner, controller, boss by rank band. | `references/ai.md` §1.8; `enemy.py` ("a shape is a balance opinion"); `calc.py` `ROLES` | P2 (library 1) | library data file, every value a director slot until ruled (D-05) |
 | G-04 | Rule patterns as named, reusable groups. The behaviours exist only inside shipped records, generators and the unmerged `library_spec.json`. | `SKYGLASS_BOSS_FIGHTS.md` §5a, §6; `push/*.gen.py` | P2 (library 2) | library data plus one reference page |
-| G-05 | AI attack weights by level and rank. `references/balance.md` §2 and `references/event.md` step 2 point to `references/ai.md` §1.6.1, which says "Superseded". | the three files named | P2 (library 3: damage tier per slot) | see RG-08 |
+| G-05 | AI attack weights by level and rank. `references/balance.md` §2 and `references/event.md` step 2 point to `references/ai.md` §1.6.1, which says "Superseded"; `references/jutsu.md` §4 and §8 also refer to "the AI curve". | the three files named | P2 (library 3: damage tier per slot) | see RG-08 |
 | G-06 | Dungeons, special and item-started quests, entry items, completion picks (`rewardMode`, pick count), weighted caches, treasure and chart hunts, hauls, steeping. No skill reference describes them; they live in Skyglass design docs, generators and Forge. | `references/quest.md` has no dungeon or pick section; `45e` has the `DUNGEON_*` constants only | P3 (library 5: most of the catalogued structures beyond battles, chains and branches) | a quest-structures reference page citing source at a pin |
 | G-07 | Setups (scenes and characters, ally AIs, starting effects, objective debuffs, ground hazards, timed windows) as a catalogue. Fragments are spread over `references/quest.md`, `34b`, and Skyglass docs. | as stated | P3 (library 6) | library data plus one reference page |
-| G-08 | Animation engine facts (§1.9 rows 1 to 4) have no law. The brief requires promotion through reconciliation. | `TNR_ANIMATION_HANDOFF.md` §1 | P5 | new engine laws; needs authorization (D-09) |
+| G-08 | Animation engine facts (§1.9 rows 1 to 4) have no law. The brief requires promotion through reconciliation. | `TNR_ANIMATION_HANDOFF.md` §1 | P5 | new engine laws; by the steps in §6.3 |
 | G-09 | Ground effects bind to whoever stands on the hex when any action resolves; `onehitkill` semantics (target, chance, no damage packet). | `TNR_ANIMATION_HANDOFF.md` §1.5; `MOTHER_OF_ECHOES_ACT3.md` §7 | P2 fast checks, P4 | new engine laws |
 | G-10 | Law 18 does not mention items, although RUL-2026-10-26-008 rules that it extends to them ("pending reconciliation"). | `docs/ENGINE_LAWS.md` law 18 | P2, P6 | law 18, through reconciliation |
 | G-11 | Clutter budget and "restraint" (entrances stay inside the caster's clip). Recorded as director's rules in the handoff, with no ruling id. | `TNR_ANIMATION_HANDOFF.md` §2 items 7, 8; `MOTHER_OF_ECHOES_ART.md` (stacking pass) | P4 (library 4), P5 | a ruling, then the boss-grammar page (D-07) |
@@ -224,19 +233,25 @@ the phase that needs it creates the owner. P0 creates none.
 | Id | Conflict | Detail | Proposed handling |
 |---|---|---|---|
 | C-01 | More than one engine pin is in use. | Generated contracts: 3314d122 (2026-10-29). Harness `run.sh` default: c86f43f4. Animation handoff and final Mother of Echoes tuning: cb755375. Shared cooldowns arrived in b54541f1; the clip-ratio change in 338126cb. | Each phase states its pin. P2 and P4 need a pin that includes shared cooldowns, which means a contract regeneration under the adopt gate (`D-adopt-gate`). Reviewer and director to confirm before P2 (D-10). |
-| C-02 | `includeDefaultRules` has three answers. | `references/ai.md` §7 gotchas: keep it true. Same file, "confirmed rule vocabulary": this project runs it false. `references/event.md` step 4: true. `SKYGLASS_BOSS_FIGHTS.md` §6: off, with backup rules restated. | One owner sentence in `references/ai.md`, the others cite it. Lane A edit in the phase that touches it (P2), not P0. |
+| C-02 | `includeDefaultRules` has three answers. | `references/ai.md` §7 gotchas: keep it true. Same file, "confirmed rule vocabulary": this project runs it false. `references/event.md` step 4: true. `references/pipeline.md` §1.5 (the worked skeleton): true. `SKYGLASS_BOSS_FIGHTS.md` §6: off, with backup rules restated. `12b_LAWS_coverage.md` law 41: the final-rule check applies only when it is false. | One owner sentence in `references/ai.md`, the others cite it. Lane A edit in the phase that touches it (P2), not P0. |
 | C-03 | "40 AP self-buff jutsu are unreliable as actions" (`references/ai.md` §7) against law 41b, which describes the Verge line opening every kit with a stance, and against the set-piece recipe's 40 AP mark. | as stated | Evidence check in P2 before the opener pattern is written. |
 | C-04 | `SKYGLASS_BOSS_FIGHTS.md` §6 still says a mark is a `visual` ground jutsu. RUL-2026-11-02-101 moved marks off `visual`, and says its own destination doc has an out-of-date renderer description. | as stated | The boss-grammar page cites the ruling; the design doc fix is Skyglass work (RUL-2026-11-05-119 item 6 schedules doc fixes). |
-| C-05 | Elite role defaults: `references/ai.md` §1.8 gives ranges; `enemy.py` uses the top of each range and calls the table ratified. | as stated | D-05. |
+| C-05 | Role defaults. `references/ai.md` §1.8 gives ranges for the elite role and records no ratification; `enemy.py` uses the top of each range and calls the table ratified. | as stated | Not approved defaults until the director rules (D-05); libraries must not inherit the word "ratified" from the code comment. |
 | C-06 | `EVENT_STRUCTURE.md` §8 lists Q1 to Q7 as open. RUL-2026-11-05-119 item 6 answered all but the progress surface. | as stated | Owner update when P3 touches it; only Q3 remains open (D-03). |
-| C-07 | The mission reward ladder has four homes. | `data/48` (the ratified owner), `references/quest.md` §6.3 (a table), `calc.py` `REWARDS` (labelled "derived from the shipped set"), `references/balance.md` ("Observed template", D row). They agree today. | P3 `payout.py` reads `48` only; the copies become citations. |
+| C-07 | The mission reward ladder has four homes. | `data/48` (the ratified owner), `references/quest.md` §6.3 (a table), `calc.py` `REWARDS` (labelled "derived from the shipped set"), `references/balance.md` ("Observed template", D row). They agree today. In the same way `references/jutsu.md` §4 and §8 restate the player damage tiers that `references/balance.md` §2 owns. | P3 `payout.py` reads `48` only; the copies become citations. |
 | C-08 | Boss jutsu descriptions. The brief §5.6 calls them staff-only; the handoff §1.3 says the same; RUL-2026-11-05-123 item 3 says players can read them in battle and the hint text stays. | as stated | The ruling is the newer, cited source. Writing guide to follow it unless the director says otherwise (D-08). |
 | C-09 | Franchise references. The brief allows "Naruto analogues" at the concept stage (§5.1) and sets the register as "Naruto-flavoured" (§5.6). `D-no-franchise` and `docs/00_INDEX.md` say never reference the franchise. | as stated | Doctrine outranks the brief (CLAUDE.md §2). P1 cannot write either line until the director rules on scope (D-06). |
 | C-10 | Colour grammar. `SKYGLASS_BOSS_ANIMATIONS.md` and the art audit use bile green for lingering ground; RUL-2026-10-28-028 item 4 gives the tainted tier a rot-green seal; RUL-2026-11-05-124 item 4 bans sickly green "anywhere in the fight"; the handoff reads that as "ever". | as stated | D-07. |
 | C-11 | Legacy file names in the references (`32_REGISTRY_shared_ai_pool.md`, `45_DATA_field_schemas.json`, `10_TECH_pipeline.md`, `30_DOCTRINE_balance.md`, `21_GUIDE`, `24_GUIDE`, `QUEST_ENGINE_ANALYSIS.md`, `44_DATA_id_registry.md`). | several no longer exist at those names | New skill pages cite current paths only. Cleaning the old references is outside this brief (§10). |
-| C-12 | `data/48` rank D notes say the level band is null and that D combat is "blocked only on enemy_level_band", while the band is filled. | `48` `_variant_note` fields | Note for P3; no rule depends on the notes. |
+| C-12 | `data/48` carries stale notes beside current values: rank D notes say the level band is null and that D combat is "blocked only on enemy_level_band", while the band is filled; and `mission.py`'s headcount error prints "Ratified 2026-08-27: C 2, B 3, A 4" when the D cap it has just enforced is labelled proposed (R-02). | `48` `_variant_note` fields; `mission.py` `check_headcount` | Note for P3; fix with the selftest repair (T-11). |
 | C-13 | Ruling ids repeat and the numbering has holes. | RUL-2026-10-25-002, RUL-2026-10-26-001 and RUL-2026-10-26-002 each head two different entries; the running suffixes -136 and -137 are each used on two dates (2026-11-07 and 2026-11-08; 2026-11-07 and 2026-11-09); there is, for example, no RUL-2026-10-22-005 or RUL-2026-11-03-113. The ledger's own rule is that entries are never renumbered. | Cite rulings by full id plus title where ambiguous. |
 | C-14 | Who pushes the game. `D-user-pushes` and the `docs/00_INDEX.md` non-negotiables say the director's tap is the only act that touches the game and Claude never pushes it. RUL-2026-11-06-132 lets Claude write through the connector after gates and a go; its canonical destination is `CLAUDE.md` §6 only. | the doctrine text and the index were not amended | The brief §7.1 tells P6 to cite the operating model. The rendered doctrine block in `SKILL.md` would still contradict it. A doctrine edit is outside this brief and needs the director's word (D-11). |
+| C-15 | `references/item.md` §9.2 still says an `injectjutsus` reference makes a jutsu uneditable for life. Law 20 was corrected on 2026-08-26: the guard blocks only turning `injectableInBattle` off. | as stated | Law 20 is the owner; new pages cite it. The stale section is outside this brief. |
+| C-16 | Two "verbatim" relocated-law copies have drifted from `docs/ENGINE_LAWS.md`: law 40 in `references/ai.md` (lacks the 2026-08-30 verification text) and law 89 in `references/quest.md`. The other 91 copied laws across seven files match exactly (script comparison, whitespace-normalised). | as stated | New skills cite law numbers and carry no copies. |
+| C-17 | Build order has three statements. `D-build-order`: jutsu, assets, items, ai, aiProfile, quest. `references/pipeline.md` §1.1: jutsu creates, jutsu converts, assets, items, quests. Same file §1.5: jutsu, AI, scene assets, quest. | as stated | Doctrine is the owner; `factory.py` enforces an order (not compared in P0). `design.py compile` goes through the factory. |
+| C-18 | Minimum damage floor: `references/pipeline.md` (field addendum) says 10%, pointing at `50_DATA_combat_facts.md`, which was retired (law 83); `TNR_ANIMATION_HANDOFF.md` §1.5 says 5% at a later pin. | as stated | Neither is a law. Read at the phase's pin before any tool depends on it (G-09 group). |
+| C-19 | `references/pipeline.md` describes delivery as the builder userscript throughout, and its 2026-07-10 addendum on the game's MCP server carries a "working hypothesis" that such writes land in a separate database. RUL-2026-11-06-132 and the operating model supersede both; the file has no connector section. | as stated | P6 (brief §7.1): cite `OPERATING_MODEL.md` and `FORGE_MCP_RUNNER.md`; mark the addendum superseded. |
+| C-20 | `producing-tnr-art/references/prompts.md` §2 lists "rim lighting" as a permanently struck clause; §4 of the same file, `producing-tnr-art/SKILL.md` and law 34 require "glow as rim light on edges only". | as stated | Probably two senses (a style clause against a keying rule), but the words collide. Outside this brief; noted for P6, which touches that skill. |
 
 ---
 
@@ -268,7 +283,7 @@ Worked-example sources named in the brief were all found on main, with two excep
 | Id | Table | Owner | Ratified by | Scope |
 |---|---|---|---|---|
 | R-01 | Individual mission reward ladder, ranks D to S (exp, ryo, prestige, tokens, clan points) | `data/48_DATA_mission_profiles.json` (`ranks.*.reward`, `_reward_ratified`) | director, 2026-08-26 | `questType: mission` only |
-| R-02 | Mission gates and shape per rank (level window, attempts, objective count, battle nodes, enemies per battle, level band) | `data/48` (`_ratified_2026-08-27`) | director, 2026-08-27 | ranks D to A; S is open (RG-07) |
+| R-02 | Mission gates and shape per rank. **Mixed standing; see the breakdown below.** | `data/48` (`_ratified_2026-08-27` and per-rank notes) | see below | ranks D to A; S is open (RG-07) |
 | R-03 | Hunting drop chance by hunting rank and item rarity | `45e` `HUNTING_ITEM_DROP_CHANCES` (law 67) | engine constant | hunting quests |
 | R-04 | Dungeon reward and drop limits | `45e` `DUNGEON_MAX_*` | engine constants | dungeons (limits, not payouts) |
 | R-05 | Verge line stat anchors | `references/lines.md` ("Rulings (2026-08-26)") | director, 2026-08-26 | three built rungs |
@@ -279,6 +294,28 @@ Worked-example sources named in the brief were all found on main, with two excep
 | R-10 | Mother of Echoes clear rewards and pick | RUL-2026-11-03-110, RUL-2026-11-04-114; `push/mother_of_echoes.gen.py` | director | one fight |
 | R-11 | Event journal Week 1 rewards | RUL-2026-11-05-121 item 3; `EVENT_JOURNAL.md` §4 | director | one page |
 | R-12 | Event pacing by player type, and finale pacing | RUL-2026-11-01-096 item 4; made the default for future events, with per-event overrides, by RUL-2026-11-05-119 item 6 | director | all events |
+
+**R-02 breakdown.** `data/48` wraps all of the following in one block whose `_class` is
+"ratified", but its own notes give each part a different standing. A library or tool that reads
+these values must carry the standing with them and must not present the last three rows as
+approved defaults.
+
+| Part of the profile | Standing, in the file's own words | Where it says so |
+|---|---|---|
+| `maxLevel`, `maxAttempts`, `maxCompletes`, `retryDelay`, `attemptDelay` | ratified; measured from live mission records | `_ratified_2026-08-27.quest_fields` |
+| `requiredLevel`, D to A | ratified; given by the director as a table | `_ratified_2026-08-27.requiredLevel` |
+| `enemy_level_band` lower bounds and the D, C, B bands | ratified; given by the director | `enemy_level_band.given` |
+| `max_enemies_per_battle` for C, B, A | ratified | `encounter_doctrine` |
+| Shape fields for D, C, B (`objective_count`, `battle_nodes`, `enemies_per_battle`) | derived from our own shipped content on the director's instruction, not given as numbers. B's two counts are means of two records and are called "the least evidenced filled values in this file". | `shape_fields` (`source`, `weakest`) |
+| Shape for A (`objective_count`, `battle_nodes`) | ruled as twice B; so it inherits B's weak evidence | `A_scale` |
+| `enemies_per_battle` at A | inherited, not ruled ("a separate call") | `A_scale` |
+| **Upper bound of the A level band** | **an inference, not a ruling**: "55+" was given open-ended and the ceiling was written from `LVL_CAP` | `enemy_level_band.A_ceiling` |
+| **`max_enemies_per_battle` for D** | **proposed, not given** | `encounter_doctrine.D_caps_proposed` |
+| **`objective_count` for `D_story`** | **proposed, not measured** | `ranks.D_story._variant_note` |
+| Everything for S | deferred; `AWAITING_RULING` | `_awaiting`, `ranks.S._deferred` |
+
+The file also records that some live content now sits outside the ratified bands
+(`live_content_now_outside_its_band`). The three bold rows are added to the open decisions as D-12.
 
 Doctrine that shapes payouts without numbers (reward class, farm layer, choice rewards,
 component chase) is in §1.5.
@@ -419,16 +456,6 @@ Needs you:  the brief says staff-only; RUL-2026-11-05-123 item 3 says players re
 Blocks:  nothing
 ```
 
-```
-GO? D-09 Authorization to add engine laws during the overhaul
-What changes:   docs/ENGINE_LAWS.md gains laws for G-01, G-02, G-08, G-09, and law 18 gains
-                items (G-10), each with file and line at a stated pin, through the
-                reconciliation sequence of RUL-2026-09-08-004
-Visible to players:  no
-Needs you:  yes or no. CLAUDE.md §7 requires the owner change to be authorized; the brief
-            requires the promotion (§6) but RUL-2026-11-09-137 does not mention law text.
-Blocks:  P2 (G-01, G-02), P5 (G-08)
-```
 
 ```
 GO? D-10 Engine pin for the overhaul, and a contract regeneration
@@ -451,6 +478,54 @@ Needs you:  RUL-2026-11-06-132 changed who presses the switch but only CLAUDE.md
 Blocks:  P6 wording
 ```
 
+```
+GO? D-12 Three mission-profile values that are not rulings
+What changes:   the standing of three values in data/48 (R-02 breakdown)
+Visible to players:  no
+Needs you:  ratify, change or leave open: (1) rank D fights capped at one enemy (proposed);
+            (2) D_story objective count (proposed); (3) the upper end of the A enemy level
+            band, which you gave as "55+" (the ceiling is an inference).
+Blocks:  nothing; until ruled, tools show these three as proposed, never as defaults
+```
+
+D-09 is withdrawn. It asked for permission to add engine laws, which the review found was already
+granted: the brief §6 requires the promotion and RUL-2026-11-09-137 (skill overhaul) approves the
+brief as the build contract. What law promotion needs is process, set out in §6.3.
+
+### 6.3 Law promotion: required steps (replaces D-09)
+
+For each fact promoted to `docs/ENGINE_LAWS.md` (G-01, G-02, G-08, G-09, and the item extension of
+law 18 in G-10):
+
+1. **Source evidence.** File and line in the game source at a stated commit, read not run, and
+   the evidence tier named in the words of `docs/00_INDEX.md` ("source-verified",
+   "behaviour-proven"). A handoff, a design doc or a ruling's summary is a lead, not evidence.
+   Facts recorded at an older pin are re-read at the phase's pin first (C-01, C-18).
+2. **Reconciliation.** The law is appended through the sequence of RUL-2026-09-08-004, as
+   CLAUDE.md §7 requires; no skill page states the fact before the law exists, and afterwards
+   pages cite the number.
+3. **Coverage.** A row in `12b_LAWS_coverage.md` with its enforcement class, and `lawmap.py`
+   clean of new errors.
+4. **Independent review** of the frozen SHA that adds the law, with the evidence in the handoff.
+
+### 6.4 Answers received after the first handoff
+
+The director answered six of the cards on 2026-11-09, after the first P0 handoff. They are being
+recorded as a ledger entry on a separate branch (`fable/skill-overhaul-rulings`), which will carry
+its id; until that entry is reviewed and on main, the director's words below are the source and
+this table is a pointer, not an owner.
+
+| Card | Answer, in the director's words | Effect on the cards above |
+|---|---|---|
+| D-01 | "One time capture, need support for just connecting to and using these packages honestly." | option (b), and the tools should attach the game's reward packages rather than write amounts. The capture is a live read, so it is a queued job for the director's go, not overhaul work (brief §2). |
+| D-06 | "We can use analogues and flavor to an extent. We dont want to break copyright laws, that is the constraint." | the doctrine line needs amending before P1 writes the two lines (C-09) |
+| D-09 | "Yes." | moot; see §6.3 |
+| D-10 | "Read from source." | no contract regeneration; each phase reads shared cooldowns from source at a stated pin |
+| D-07 | "No, its her specific language. We may borrow some of it. No sickly green was because I wanted Skyglass effects instead and it kept suggesting green due to the damage over time effect." | RUL-2026-11-05-124 is not a general boss grammar. Library 4 holds general rules only and cites the Mother of Echoes as one exemplar. The colour rule is "effects take their owner's palette", not a ban on green. The clutter budget (G-11) was not separately addressed. |
+| D-11 | "Bring the doctrine into step" | a doctrine edit as its own small reviewed change (C-14) |
+
+Still open: D-02, D-03, D-04, D-05, D-08, D-12.
+
 Other open items found, outside this brief's scope and listed so they are not lost:
 
 - `state/active-context.md` (refreshed 2026-11-08): the director's go on Watch Log pages 3 and 4
@@ -470,7 +545,8 @@ Other open items found, outside this brief's scope and listed so they are not lo
 ## 7. Tooling baseline (before any change)
 
 T-01 to T-04, T-15 and T-16 were run on the rebased branch head. T-05 to T-14 were run on a4f0550;
-`skills/` is byte-identical at fca8625, so they were not repeated. Exit codes unmasked.
+`skills/` is byte-identical at fca8625, so they were not repeated. T-11b was run for the second
+handoff. Exit codes unmasked.
 
 | Id | Command | Result |
 |---|---|---|
@@ -484,7 +560,8 @@ T-01 to T-04, T-15 and T-16 were run on the rebased branch head. T-05 to T-14 we
 | T-08 | `catalog_sync.py --selftest` | exit 0 |
 | T-09 | `selfcheck.py` | exit 0: 0 errors (it has no `--selftest` flag) |
 | T-10 | `mission.py --selftest` (cwd `data/`) | **exit 1**: cannot find `25x_DATA_art_spec.json`; its search path is cwd, the scripts directory and `/mnt/project`, and it ignores `TNR_ART_SPEC` |
-| T-11 | `mission.py --selftest` with every data file and the art spec copied into one scratch directory | **exit 1**: its own fixture puts 2 enemies in a rank D fight and the ratified profile caps D at 1 (`check_headcount`) |
+| T-11 | `mission.py --selftest` with every data file and the art spec copied into one scratch directory | **exit 1**: `check_headcount` refuses the selftest's own fixture, which sets two enemies per battle at rank D against the profile's D cap of one (a cap the profile labels proposed, R-02) |
+| T-11b | the same, with `check_headcount` replaced by a no-op in memory only (scratch runner, nothing written to the repository) | **exit 1: 20 passed, 1 failed.** The first assertion, "an unratified profile refuses to build", expects the D profile to refuse as unresolved; D is now filled, so it builds. |
 | T-12 | `artpreflight_selftest.py` | exit 0: 98 passed |
 | T-13 | `jutsu_studio_selftest.py` | exit 0: 191 passed |
 | T-14 | `shotlist.py --selftest`, `rawqc.py --selftest`, `style_refs.py --selftest` | exit 0 each |
@@ -493,11 +570,15 @@ T-01 to T-04, T-15 and T-16 were run on the rebased branch head. T-05 to T-14 we
 
 Findings:
 
-- **T-10 and T-11 mean `mission.py --selftest` is red on main.** T-10 is the defect already noted
-  in `state/active-context.md`. T-11 is not noted anywhere: the selftest fixture and the
-  ratified profile disagree, so the test fails even when it can find its data. The brief says
-  "the existing selftests ... must stay green"; this one is not green to begin with. It needs a
-  small fix on its own reviewed branch before P3 extends `mission.py`. Not fixed in P0.
+- **T-10, T-11 and T-11b mean `mission.py --selftest` is red on main, for three separate reasons.**
+  T-10 (cannot locate the art spec) is already noted in `state/active-context.md`. The other two
+  are not noted anywhere, and both are fixtures that the profile outgrew:
+  1. the first assertion assumes rank D still has open `AWAITING_RULING` slots; it no longer does;
+  2. the battle fixture asks for two enemies in a rank D fight, above the D cap.
+  Repairing the headcount fixture alone leaves the test at 20 passed, 1 failed. The brief says the
+  existing selftests must stay green; this one is not green to begin with. It needs its own small
+  reviewed fix covering all three before P3 extends `mission.py`. Not fixed in P0. The repair must
+  not settle the proposed D cap by the way it rewrites the fixture (D-12).
 - `validate.py`, `calc.py`, `harvest.py`, `schema_diff.py`, `lawmap.py`, `storyboard.py`,
   `sim_damage.py`, `sim_turns.py`, `pet_checks.py`, `variant_checks.py` and others have no
   `--selftest`; `selfcheck.py` covers part of `validate.py`.
@@ -527,8 +608,29 @@ Findings:
 | Phase | Ready to start on | Must be settled first |
 |---|---|---|
 | P1 | workflow, templates, schema family (`mission.py` sheet, `26x`, `design_data.json`), packaging hooks | D-06 for two lines; G-13; extend `render_doctrine.py` and `build_packs.py` |
-| P2 | `enemy.py`, `32b`, `45c`, laws 14 to 18, 39 to 41b, 61 to 66, line exemplars | D-09 and D-10 (rule cap and shared cooldown owners); C-02; C-03; D-05 for defaults |
-| P3 | `mission.py`, `48`, `references/quest.md`, `EVENT_STRUCTURE.md`, `EVENT_JOURNAL.md`, `skyglass_check.py` | T-11 fix; D-01; G-06 owner page |
-| P4 | rulings and design docs in §1.6; harness on its branch | D-02; D-07; B-05; B-07; D-10 |
-| P5 | handoff, builders, `artpreflight.py` | D-09 (G-08); D-07; the live clip ratio: `state/active-context.md` says the upstream revert of `EFFECT_ANIMATION_HEX_RATIO` is still pending, so the ratio stays a parameter read from the pin |
-| P6 | `OPERATING_MODEL.md`, `FORGE_MCP_RUNNER.md`, `forge/tools/mcp_run.mjs` | G-15 design; D-11 (C-14); the afterburn report the brief's recipe is worked from is still open in `state/active-context.md` and needs one live read to close |
+| P2 | `enemy.py`, `32b`, `45c`, laws 14 to 18, 39 to 41b, 61 to 66, line exemplars | law promotion for the rule cap and shared cooldowns (§6.3), read from source at a stated pin (D-10 answer); C-02; C-03; D-05 for defaults |
+| P3 | `mission.py`, `48`, `references/quest.md`, `EVENT_STRUCTURE.md`, `EVENT_JOURNAL.md`, `skyglass_check.py` | the `mission.py` selftest repair (T-10, T-11, T-11b); D-12; D-01 (answered: attach reward packages; the catalog capture is a separate queued job); G-06 owner page |
+| P4 | rulings and design docs in §1.6; harness on its branch | D-02; G-11; B-05; B-07; one stated engine pin (C-01) |
+| P5 | handoff, builders, `artpreflight.py` | law promotion for the animation facts (§6.3, G-08); G-11; the live clip ratio: `state/active-context.md` says the upstream revert of `EFFECT_ANIMATION_HEX_RATIO` is still pending, so the ratio stays a parameter read from the pin |
+| P6 | `OPERATING_MODEL.md`, `FORGE_MCP_RUNNER.md`, `forge/tools/mcp_run.mjs`; committed evidence for the investigation recipe (results bundles in `harvests/inbox`, captures, the report as written up in `state/`) | G-15 design; the doctrine change of D-11 (C-14, C-19). The recipe and `battle_read.mjs` are built and tested on committed evidence and fixtures only. Closing the real afterburn report needs a live read; that is a separate job under the run lock and the director's go, and P6 does not depend on it. |
+
+## 10. Corrections after the review of 1572d78a
+
+| Review finding | Correction | Where |
+|---|---|---|
+| 1. Proposed values labelled ratified | R-02 is broken down by the standing `data/48` itself records; the proposed D cap, the proposed `D_story` count and the inferred A ceiling are named and raised as D-12; the role-defaults table is no longer called ratified | §5.1 (R-02 breakdown), §1.2, §1.4, G-03, C-05, C-12, D-12 |
+| 2. D-09 asked for authorization already granted | D-09 withdrawn and replaced by the required steps | §6.3; §9 rows P2 and P5 |
+| 3. Selftest repair scope incomplete | the second fixture defect reproduced and recorded (20 passed, 1 failed with the headcount check bypassed in memory) | T-11, T-11b and the findings under §7; §9 row P3 |
+| 4. P6 depended on a live investigation | the dependency is removed; the recipe is built on committed evidence and fixtures, and the live read is a separate job | §9 row P6 |
+| 5. Required reading incomplete | every reference page of both skills and the coverage matrix read in full; ownership and absence claims rechecked | §0; new rows in §1.2, §1.3, §1.5, §1.8; C-02, C-07 extended; C-15 to C-20 added |
+
+Rechecked absence claims that still hold after the full read: G-01 (no law for the rule cap),
+G-05 (no attack-weight table), G-06 (no reference for dungeons, picks, weighted caches, hunts or
+hauls; `references/pipeline.md` §2.8 to §2.10 covers only pets, badges, titles, variants and the
+dungeon `onlyOnce` flag), G-13 (`references/jutsu_text.md` absent), RG-02 (no reward-package
+catalog or contract in any reference).
+
+Not rebased for this handoff: the branch still sits on `fca8625b`. Main has since moved (a run-lock
+heartbeat and one ledger entry, RUL-2026-11-09-138 on a skill research program that follows P7);
+neither touches a file this inventory cites a claim from, apart from the ledger count in §0 and
+T-15, which were true at `fca8625b`.
