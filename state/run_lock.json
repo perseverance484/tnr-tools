@@ -1,11 +1,10 @@
 {
- "holder": "player",
- "job": "player session 1: allowlist + first look + one loop (competitive)",
- "token": "5344506302b140218ad59604bedc2311",
- "instance": null,
- "ttlMinutes": 60,
- "claimedAt": "2026-11-10T02:15:12.494Z",
- "heartbeatAt": "2026-11-10T02:15:12.494Z",
- "expiresAt": "2026-11-10T03:15:12.494Z",
- "note": "One game writer per account at a time (RUL-2026-11-07-133). Written only by forge/tools/run_lock.mjs or Forge; do not hand-edit."
+ "holder": null,
+ "token": null,
+ "job": null,
+ "releasedBy": "player",
+ "releasedInstance": null,
+ "releasedJob": "player session 1: allowlist + first look + one loop (competitive)",
+ "releasedAt": "2026-11-10T02:26:44.173Z",
+ "note": "Free. Claim with node forge/tools/run_lock.mjs claim --holder NAME --job TEXT (RUL-2026-11-07-133)."
 }
