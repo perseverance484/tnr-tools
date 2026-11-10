@@ -334,25 +334,30 @@
   "shield": {
    "pred_burst": 0.3,
    "en_pierce_ready": -0.2,
-   "en_idg": 0.1
+   "en_idg": 0.1,
+   "i_first": 0.15
   },
   "subaku": {
    "pred_burst": 0.3,
    "pred_immune": -0.3,
-   "close": 0.1
+   "close": 0.1,
+   "i_first": 0.15
   },
   "danse": {
    "pred_burst": 0.3,
    "me_wound": -0.5,
-   "me_smoked": -0.5
+   "me_smoked": -0.5,
+   "i_first": 0.1
   },
   "smoke": {
    "pred_burst": 0.25,
    "pred_immune": -0.2,
-   "en_idg": 0.1
+   "en_idg": 0.1,
+   "i_first": -0.35
   },
   "panacea": {
-   "pred_burst": 0.15
+   "pred_burst": 0.15,
+   "i_first": -0.2
   },
   "sealnull": {
    "pred_buff": 0.4,
@@ -379,7 +384,8 @@
   },
   "kims": {
    "en_clear_ready": 0.2,
-   "me_smoked": 0.15
+   "me_smoked": 0.15,
+   "i_first": 0.05
   },
   "severed": {
    "pred_immune": -0.3
@@ -443,7 +449,11 @@
    "me_smoked": 0.1
   },
   "jewel": {
-   "me_smoked": 0.1
+   "me_smoked": 0.1,
+   "i_first": -0.05
+  },
+  "defstance": {
+   "i_first": -0.15
   }
  }
 }

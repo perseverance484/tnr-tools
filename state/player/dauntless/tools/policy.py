@@ -53,7 +53,7 @@ FEATURES = ["bias", "lethal_risk", "kill_window", "stack_clearable", "stack_clea
             "stack_building", "my_absorb_down", "en_immune", "me_stunned", "my_given_live", "en_taken_live",
             "my_hp_frac", "en_hp_frac", "en_idg",
             "pred_burst", "pred_buff", "pred_stun", "pred_immune", "en_pierce_ready", "en_clear_ready",
-            "far", "close", "me_wound", "me_smoked"]
+            "far", "close", "me_wound", "me_smoked", "i_first"]
 RULE_FEATURE = {"always": "bias"}
 # firing order inside a bundle: move first, then instant protection / strip, then buffs, then damage, fillers last
 ORDER = ["phantom", "replace", "step", "clear", "cleanse", "kims", "sealnull", "danse", "shield", "subaku", "fury",
@@ -88,6 +88,7 @@ def features(c, th, my_max, en_max, threats, dist):
         "far": float(dist > 4), "close": float(dist <= 2),
         "me_wound": float(c.get("me_wound_live", False)),
         "me_smoked": float(c.get("me_smoked", False)),
+        "i_first": float(c.get("i_first", False)),
     }
     for k, v in zip(["pred_burst", "pred_buff", "pred_stun", "pred_immune", "en_pierce_ready", "en_clear_ready"],
                     threats):
@@ -213,6 +214,7 @@ def act(a):
     for k in ("en_idg", "en_absorb", "en_lifesteal", "en_reflect"):
         c[k] = max(c[k], c2[k])
     c["en_clearprevent"] = c["en_clearprevent"] or c2["en_clearprevent"]
+    c["i_first"] = a.first
     thr = threat_features(a.enemy, a.battle, a.round) if a.battle else [0.0] * 6
     x = features(c, th, a.my_max, a.en_max, thr, a.dist)
     _, h = hidden(net, x)
@@ -277,7 +279,7 @@ def samples_from(d, battle):
             g *= GAMMA
         G += g * term
         out.append({"battle": battle, "enemy": d["enemy"], "round": rnd, "x": s["x"], "acts": s["acts"],
-                    "r": s["r"], "G": G})
+                    "r": s["r"], "G": G, "w": d.get("w", 1.0)})
     return out
 
 
@@ -362,6 +364,7 @@ if __name__ == "__main__":
     s = sp.add_parser("act"); s.add_argument("log"); s.add_argument("round", type=int)
     s.add_argument("--enemy", required=True); s.add_argument("--battle", default="")
     s.add_argument("--dist", type=int, default=3)
+    s.add_argument("--first", action="store_true", help="I act first this round (delayed defence won't cover his turn)")
     s.add_argument("--ap", type=int, default=100); s.add_argument("--my-hp", type=float, default=0)
     s.add_argument("--en-hp", type=float, default=0); s.add_argument("--my-max", type=float, default=5050)
     s.add_argument("--en-max", type=float, default=5000); s.add_argument("--top", type=int, default=3)
