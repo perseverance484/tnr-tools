@@ -112,3 +112,11 @@ Read: Winta vs Gario and vs Choris1717; DDXXD vs Korin and vs Enduyn; Ziharkk vs
 - Full Potion: user item `ZlMNc0o96Y_aIai3E8Q-U` (`item.consume {userItemId}`) restores HP to full out of combat.
   Ramen refills CP/SP only. After every fight, drink a Full Potion and buy ramen before hunting on.
 - Ikazuchi Kunai is not sold in the shop (inShop false); 3 left. Restocking it is a director question.
+
+## Loadouts by activity (director, 2026-11-09: "Use the loadouts labeled PvE")
+| Activity | Jutsu loadout | Item loadout |
+|---|---|---|
+| PvP (hunting, ranked) | PvP `soXekhNjk7qihu-Rsok-6` | PvP `B-bCCtg-_fvcJSrvR1ts0` |
+| PvE (missions, bosses, arena) | PvE `w6SGSCzCfnyzAhqKebKzI` | PvE `q94r_70pLKJjXfRTc6OBp` |
+Switch with `jutsu.selectJutsuLoadout {id}` / `item.selectItemLoadout {id}` before the fight; switch back to PvP
+before hunting. No consumables vs mission AI. Other loadouts on the account: jutsu "2", "P1", "P2"; items "2", "3", "5".
