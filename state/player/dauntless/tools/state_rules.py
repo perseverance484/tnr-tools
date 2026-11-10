@@ -18,7 +18,7 @@ PCT = r"by up to ([\d.]+)%"
 
 def parse(lines, me, en):
     st = {k: [] for k in ["en_idg", "en_dr", "en_absorb", "en_lifesteal", "en_reflect", "me_idt", "me_dg_down",
-                          "me_recoil", "me_wound", "me_drain", "en_taken_up", "en_given_down", "me_dr", "me_absorb"]}
+                          "me_recoil", "me_wound", "me_drain", "en_taken_up", "en_given_down", "me_dr", "me_absorb", "me_given_up"]}
     flags = set()
     for line in lines:
         if "|" not in line:
@@ -33,7 +33,7 @@ def parse(lines, me, en):
         who_en = t.startswith(en)
         who_me = t.startswith(me)
         if "cleared of all positive" in t:  # Clear: drop that side's buffs applied so far (lines are chronological)
-            keys = ("en_idg", "en_dr", "en_absorb", "en_lifesteal", "en_reflect") if who_en else ("me_dr", "me_absorb")
+            keys = ("en_idg", "en_dr", "en_absorb", "en_lifesteal", "en_reflect") if who_en else ("me_dr", "me_absorb", "me_given_up")
             for k in keys:
                 st[k] = [(v_, (a_, b_)) for v_, (a_, b_) in st[k] if a_ > r + 1 or b_ < r]  # keep only future-dated
                 st[k] = []
@@ -75,6 +75,8 @@ def parse(lines, me, en):
             st["me_wound"].append((float(re.search(r"take ([\d.]+) wound", t).group(1)), live))
         elif who_me and "will be drained" in t:
             st["me_drain"].append((float(re.search(r"drained ([\d.]+)", t).group(1)), live))
+        elif who_me and "damage given" in t and "increased" in t:
+            st["me_given_up"].append((v, live))
         elif who_me and "damage taken" in t and "increased" in t:
             st["me_idt"].append((v, live))
         elif who_me and "damage given" in t and "decreased" in t:
@@ -152,6 +154,8 @@ def build_ctx(lines, R, me, en, my_hp, en_hp):
     c = {
         "my_hp": my_hp, "en_hp": en_hp,
         "my_given_live": live_for(me, "damage given [all damage] is increased"),
+        "my_given_mult": total(st, "me_given_up", R) - total(st, "me_dg_down", R, False),
+        "en_taken_mult": total(st, "en_taken_up", R),
         "en_taken_live": live_for(en, "damage taken [all damage] is increased"),
         "en_idg": total(st, "en_idg", R), "en_dr": 1 - (1 / (1 + total(st, "en_dr", R))) if total(st, "en_dr", R) else 0,
         "en_absorb": total(st, "en_absorb", R, False), "en_lifesteal": total(st, "en_lifesteal", R, False),

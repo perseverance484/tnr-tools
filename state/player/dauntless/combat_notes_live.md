@@ -5,3 +5,8 @@
 - Smoke/Panacea/buffs cast when I act FIRST in a round don't cover the enemy's turn that same round; only instants do.
 - Recoil (Fury) into a 40-60% lifesteal stack: he healed more (1,161) than recoil dealt (774).
 - Always read the live version right before each performAction; stale versions are silently ignored.
+- Displayed actionPoints ignore stun: a stunned turn shows 100 but only 80 is usable (Hikuro R5: Shrapnel refused at "60").
+- Kim's / Seal of Nullification / Lotus share prevent locks (Seal refused 2 rounds after Kim's).
+- Ikazuchi Kunai stack ran out mid-hunt; Bloodthorn Kunai (yVNeLzxHSFkNpTPnlm7yQ, 65) now THROWN. Director: "Not having kunai equipped also cost you this fight".
+- Director: "Why didnt you do lotus dance and basic attack to win?" -> basic attack added; estimated-kill override.
+- Village protectors (Shrine Guardian) attack you walking through Akikaze; one Rebirth killed it.

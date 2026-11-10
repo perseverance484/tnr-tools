@@ -37,7 +37,7 @@ ACTIONS = {
     "pill": (20, 4, None, "+15 given, lifesteal 20"),
     "panacea": (20, 6, None, "-25% taken 2 r"),
     "jewel": (20, 6, None, "+15 given, -10 taken 3 r"),
-    "kunai": (20, 4, None, "thrown dmg"),
+    "kunai": (20, 4, None, "Bloodthorn Kunai (thrown, wound) - Ikazuchi ran out 2026-11-10"),
     "disaster": (20, 5, "poison", "+20% taken + poison"),
     "nights": (40, 6, "pierce", "pierce 631 + 200 heal, buff-prevent immunity"),
     "aetherion": (40, 6, None, "elemental dmg + target taken"),
@@ -45,23 +45,25 @@ ACTIONS = {
     "clear": (60, 10, "clearfam", "strip their positives"),
     "cleanse": (60, 10, "clearfam", "strip my negatives (not stun)"),
     "replace": (20, 2, None, "move up to 5"),
+    "basic": (20, 1, None, "basic attack, range 1 (finisher)"),
     "defstance": (20, 1, None, "-15% taken next round (filler)"),
     "offstance": (20, 1, None, "filler"),
 }
 # range to the enemy each action needs (hexes, from live jutsu/item data 2026-11-10). 0 = self/no target needed.
 # opponent jutsu 4; Yuki's 3; kunai/smoke/disaster/Night's/Aetherion/Clear 4; ground (Fury/Subaku) placed within 4.
-RANGE = {"rebirth": 4, "shrapnel": 4, "lotus": 4, "fury": 4, "ember": 4, "danse": 4, "stormblade": 4,
+RANGE = {"basic": 1, "rebirth": 4, "shrapnel": 4, "lotus": 4, "fury": 4, "ember": 4, "danse": 4, "stormblade": 4,
          "resonance": 4, "leech": 4, "subaku": 4, "severed": 4, "sealnull": 4, "smoke": 4, "kunai": 4,
          "disaster": 4, "nights": 4, "aetherion": 4, "yuki": 3, "clear": 4}
 MOVES = {"phantom": 5, "replace": 5, "step": 1}  # reposition before targeted actions
 ACTIONS["step"] = (10, 0, None, "basic move 1 hex (last resort)")
-LOCKS = {"clearfam": 3, "pierce": 3, "stun": 4, "seal": 3, "drain": 3, "poison": 3, "clearprevent": 3}
-EXTRA_TAGS = {"nights": ("drain",)}  # secondary tags that also take a shared lock
+LOCKS = {"buffprevent": 4, "debuffprevent": 4, "clearfam": 3, "pierce": 3, "stun": 4, "seal": 3, "drain": 3, "poison": 3, "clearprevent": 3}
+EXTRA_TAGS = {"nights": ("drain",), "kims": ("debuffprevent",), "sealnull": ("buffprevent", "debuffprevent"),
+              "lotus": ("buffprevent",)}  # 2026-11-10 Hikuro R5: Seal refused 2 rounds after Kim's  # secondary tags that also take a shared lock
 LOADOUTS = {
     "pvp1": ["rebirth", "shrapnel", "lotus", "fury", "ember", "danse", "stormblade", "subaku", "overflow",
              "thunders", "parry", "eclipse", "sealnull", "phantom", "shield",
-             "smoke", "kims", "pill", "panacea", "jewel", "nights", "aetherion",
-             "clear", "cleanse", "replace", "defstance", "offstance"],
+             "smoke", "kims", "pill", "panacea", "jewel", "kunai", "nights", "aetherion",
+             "clear", "cleanse", "replace", "defstance", "offstance", "basic"],
     "pvp2": ["rebirth", "leech", "severed", "fury", "ember", "danse", "stormblade", "subaku", "overflow",
              "thunders", "resonance", "eclipse", "sealnull", "phantom", "shield",
              "smoke", "kims", "pill", "panacea", "jewel", "disaster", "nights", "yuki",
@@ -83,14 +85,21 @@ def save(b, s):
         json.dump(s, f)
 
 
+def tags_of(name):
+    t = ACTIONS[name][2]
+    return set(EXTRA_TAGS.get(name, ())) | ({t} if t else set())
+
+
 def ready_round(s, name):
     ap, cd, tag, _ = ACTIONS[name]
     r = 0
+    mine = tags_of(name)
     for used_round, used in s["used"]:
         if used == name:
             r = max(r, used_round + cd)
-        if tag and tag in EXTRA_TAGS.get(used, ()) + ((ACTIONS[used][2],) if ACTIONS[used][2] else ()) and used != name:
-            r = max(r, used_round + LOCKS[tag])
+        elif used in ACTIONS:
+            for t in mine & tags_of(used):
+                r = max(r, used_round + LOCKS[t])
     return r
 
 

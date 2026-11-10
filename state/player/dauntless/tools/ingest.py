@@ -29,7 +29,7 @@ IDS = {"K0t6Z-Q4lau1jFt8Tkpot": "rebirth", "GiKpip6NxsC8QWlZi6l_R": "shrapnel", 
        "kxtK9kUTK4dRb-WPLo16I": "severed", "0nIgI7oNn-PSesn8T8kGl": "leech", "LRgY4b-lE1n2gi6_P8B_1": "resonance",
        "TtYPd-LcXKeK3sMuhq1TP": "smoke", "rsc2uO5QuffXzejfhwF_F": "panacea", "_8HEbybzN5QPX8vUG24Tk": "jewel",
        "tZTvqYWiAc_OrY64nDvIo": "pill", "6DnJn4x6LWWXtBu7UZybb": "kims", "osJq3k77YPGoFWgof12FQ": "nights",
-       "Z-JdppXvrSokRymXavpOw": "yuki", "RM9DjOswzqNTRWnd-FsdE": "disaster", "GMF1JZ0MChUHc7AtnKABw": "kunai", "PhP5ZEF5iVa97jcumJ15c": "aetherion",
+       "Z-JdppXvrSokRymXavpOw": "yuki", "RM9DjOswzqNTRWnd-FsdE": "disaster", "GMF1JZ0MChUHc7AtnKABw": "kunai", "PhP5ZEF5iVa97jcumJ15c": "aetherion", "yVNeLzxHSFkNpTPnlm7yQ": "kunai", "basicAttack": "basic",
        "clear": "clear", "cleanse": "cleanse", "replacementTechnique": "replace", "defensiveStance": "defstance",
        "offensiveStance": "offstance", "move": "step"}
 NUM = r"([\d.]+)"

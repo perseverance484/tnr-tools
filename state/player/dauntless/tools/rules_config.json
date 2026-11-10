@@ -319,7 +319,9 @@
   "clear|smoke": -0.15,
   "kims|overflow": 0.15,
   "eclipse|smoke": 0.1,
-  "rebirth|smoke": 0.1
+  "rebirth|smoke": 0.1,
+  "fury|parry": 0.35,
+  "parry|subaku": 0.15
  },
  "_doc_prior": "prior: extra hand weights action -> feature (enemy-prediction and range inputs).",
  "prior": {
@@ -329,7 +331,8 @@
    "close": 0.1,
    "me_wound": -0.5,
    "me_smoked": -0.5,
-   "en_sustain": -0.35
+   "en_sustain": -0.35,
+   "en_idg": 0.15
   },
   "shield": {
    "pred_burst": 0.3,
@@ -379,7 +382,10 @@
   "thunders": {
    "en_clear_ready": -0.15,
    "me_smoked": 0.2,
-   "en_clear_spent": 0.15
+   "en_clear_spent": 0.15,
+   "en_idg": -0.15,
+   "pred_burst": -0.1,
+   "stack_building": -0.15
   },
   "eclipse": {
    "en_clear_ready": -0.1,
@@ -473,7 +479,14 @@
    "i_first": -0.15
   },
   "parry": {
-   "en_clear_spent": 0.1
+   "en_clear_spent": 0.1,
+   "bias": 0.2,
+   "pred_burst": 0.3,
+   "en_idg": 0.2,
+   "stack_building": 0.3,
+   "stack_clearprevented": 0.25,
+   "lethal_risk": 0.15,
+   "my_absorb_down": 0.1
   }
  }
 }

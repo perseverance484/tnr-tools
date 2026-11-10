@@ -66,7 +66,9 @@ def features(c, th, my_max, en_max, threats, dist):
     idg = c["en_idg"]
     f = {
         "bias": 1.0,
-        "lethal_risk": float(bool(c["my_hp"]) and c["my_hp"] < th["lethal_my_hp"] and idg > th["lethal_en_idg"]),
+        # lethal: low HP into a stack, OR any HP into a huge stack (+150%: his burst is ~2-3k)
+        "lethal_risk": float(bool(c["my_hp"]) and ((c["my_hp"] < th["lethal_my_hp"] and idg > th["lethal_en_idg"])
+                                                     or (idg >= 1.5 and c["my_hp"] < 4200))),
         "kill_window": float(bool(c["en_hp"]) and c["en_hp"] < th["kill_en_hp"]),
         "stack_clearable": float(idg >= th["clear_en_idg"] and not c["en_clearprevent"] and not c["en_immune"]),
         "stack_clearable_immune": float(idg >= th["clear_en_idg"] and not c["en_clearprevent"] and c["en_immune"]),
@@ -208,6 +210,21 @@ def ordered(b):
 
 
 # ---------------------------------------------------------------- commands
+# rough unbuffed damage per action (observed 2026-11-10: Rebirth ~600, Shrapnel ~650, Lotus ~600, Ember ~600,
+# Fury ~450, Danse ~500, Captain's Decree ~350, basic ~150; pierce flat)
+EST = {"rebirth": 600, "shrapnel": 650, "lotus": 600, "ember": 600, "fury": 450, "danse": 500, "resonance": 450,
+       "aetherion": 350, "phantom": 0, "basic": 150, "kunai": 300, "stormblade": 707, "nights": 631}
+PIERCE = {"stormblade", "nights"}
+
+
+def est_damage(bundle, c):
+    """Damage this bundle deals now: my live +given x their +taken x their DR, smoke; pierce flat."""
+    mult = (1 + c.get("my_given_mult", 0)) * (1 + c.get("en_taken_mult", 0)) * (1 - c["en_dr"])
+    if c.get("me_smoked"):
+        mult *= 0.3
+    return sum(EST.get(a, 0) * (1 if a in PIERCE else mult) for a in bundle)
+
+
 def act(a):
     cfg, th, prof = cfg_for(a.enemy)
     net = json.load(open(WFILE))
@@ -243,6 +260,11 @@ def act(a):
         if killers:
             ranked = killers + [r for r in ranked if r not in killers]
             print("LETHAL: flat pierce kills")
+        else:  # estimated burst kill (director 2026-11-10: "Why didnt you do lotus dance and basic attack to win?")
+            est = sorted(((est_damage(r[1], c), r) for r in ranked), key=lambda t: -t[0])
+            if est and est[0][0] >= a.en_hp * 1.1:
+                ranked = [est[0][1]] + [r for r in ranked if r is not est[0][1]]
+                print(f"LETHAL: est {est[0][0]:.0f} >= {a.en_hp:.0f}")
     on = [k for k, v in zip(FEATURES, x) if v and k not in ("bias", "my_hp_frac", "en_hp_frac", "en_idg")]
     print(f"r{a.round} {ap} AP dist {a.dist}  on: {', '.join(on) or 'none'}  (en_idg {c['en_idg']:+.0%})")
     if not ranked:
