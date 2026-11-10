@@ -221,23 +221,63 @@ def normalise(raw: dict) -> tuple:
     if "kind" in raw:
         return raw, None
     if "rank" in raw and "objectives" in raw:          # a bare mission.py sheet
-        sid = re.sub(r"[^a-z0-9_]", "_", str(raw.get("srcId") or raw.get("name") or "mission").lower())
+        name = raw.get("name") if isinstance(raw.get("name"), str) else None
+        src = raw.get("srcId") if isinstance(raw.get("srcId"), str) else None
+        sid = re.sub(r"[^a-z0-9_]", "_", (src or name or "mission").lower())
         return ({"sheet_version": "1", "kind": "quest", "id": sid[:63] or "mission",
-                 "title": raw.get("name") or "AUTHOR",
+                 "title": name or "AUTHOR",
                  "brief": {"purpose": "AUTHOR", "audience": f"rank {raw['rank']} mission",
                            "home": "mission hall", "size": "single"},
                  "mission": raw},
                 "read as a mission sheet (mission.py form) and wrapped as kind quest")
     if "identity" in raw and "structure" in raw:       # a bare 26x event sheet instance
-        name = (raw.get("identity") or {}).get("name") or "event"
-        sid = re.sub(r"[^a-z0-9_]", "_", str(name).lower())
+        ident = raw["identity"] if isinstance(raw["identity"], dict) else {}
+        name = ident.get("name") if isinstance(ident.get("name"), str) and ident.get("name") else None
+        theme = ident.get("theme") if isinstance(ident.get("theme"), str) and ident.get("theme") else None
+        sid = re.sub(r"[^a-z0-9_]", "_", (name or "event").lower())
         return ({"sheet_version": "1", "kind": "event", "id": sid[:63] or "event",
-                 "title": name,
-                 "brief": {"purpose": (raw["identity"].get("theme") or "AUTHOR"),
+                 "title": name or "AUTHOR",
+                 "brief": {"purpose": theme or "AUTHOR",
                            "audience": "AUTHOR", "home": "AUTHOR", "size": "event"},
                  "event": raw},
                 "read as an event sheet (26x form) and wrapped as kind event")
     raise DesignError("not a design sheet: no `kind`, and not a mission or event sheet either")
+
+
+def check_legacy(sheet: dict, errs: list) -> None:
+    """The two older sheets ride as opaque objects in the schema, because their owners validate
+    them at build time. The few container types this tool itself reads are checked here, so a
+    malformed one is a diagnostic and never reaches the renderer."""
+    def expect(holder, key, kinds, where, required=False):
+        if key not in holder:
+            if required:
+                errs.append(f"{where}.{key}: required")
+            return
+        if not isinstance(holder[key], kinds) or isinstance(holder[key], bool):
+            names = " or ".join(k.__name__ for k in (kinds if isinstance(kinds, tuple) else (kinds,)))
+            errs.append(f"{where}.{key}: expected {names}, got {type(holder[key]).__name__}")
+
+    for where, mission in (("sheet.mission", sheet.get("mission")),
+                           ("sheet.quest.mission", (sheet.get("quest") or {}).get("mission")
+                            if isinstance(sheet.get("quest"), dict) else None)):
+        if not isinstance(mission, dict):
+            continue
+        expect(mission, "rank", str, where, required=True)
+        expect(mission, "name", str, where)
+        expect(mission, "objectives", list, where, required=True)
+        expect(mission, "roster", list, where)
+        for key in ("objectives", "roster"):
+            if isinstance(mission.get(key), list):
+                for i, item in enumerate(mission[key]):
+                    if not isinstance(item, dict):
+                        errs.append(f"{where}.{key}[{i}]: expected dict, got {type(item).__name__}")
+    event = sheet.get("event")
+    if isinstance(event, dict):
+        for key in ("identity", "structure", "enemies", "economy"):
+            expect(event, key, dict, "sheet.event")
+        if isinstance(event.get("identity"), dict):
+            for key in ("name", "theme"):
+                expect(event["identity"], key, str, "sheet.event.identity")
 
 
 def walk(value, path=""):
@@ -382,9 +422,10 @@ def check(raw) -> dict:
     validate(sheet, schema, schema, "sheet", errs)
     kind = sheet.get("kind")
     block = schema["_meta"]["kind_blocks"].get(kind) if isinstance(kind, str) else None
-    wrapped_mission = kind == "quest" and "mission" in sheet and "quest" not in sheet
+    wrapped_mission = isinstance(kind, str) and kind == "quest" and "mission" in sheet and "quest" not in sheet
     if block and block not in sheet and not wrapped_mission:
         errs.append(f"sheet.{block}: required for kind {kind}")
+    check_legacy(sheet, errs)
     result["structural"] = bool(errs)
     try:
         check_engine_keys(sheet, engine_keys(), errs)      # a plain walk: safe on any shape
@@ -582,6 +623,8 @@ def _enemy_md(e: dict) -> list:
 
 
 def explain(result: dict) -> str:
+    if result["structural"] or result["sheet"] is None:
+        raise DesignError("explain: the sheet's structure is not valid; run check")
     s = result["sheet"]
     md = [f"# {s['title']}", "",
           "<!-- GENERATED by design.py explain from the design sheet. Edit the sheet, never this file. -->",
@@ -702,8 +745,8 @@ def compile_refusal(result: dict) -> list:
     why += [f"library not shipped: {ref} at {path}" for path, ref in result["pending_library_refs"]]
     why += [f"open decision: {d['id']}" for d in result["open_decisions"]]
     kind = (result["sheet"] or {}).get("kind")
-    if kind not in COMPILE_PHASE:
-        return why
+    if not isinstance(kind, str) or kind not in COMPILE_PHASE:
+        return why                                    # the kind error is already in the list
     why.append(f"compile for kind '{kind}' is delivered in phase {COMPILE_PHASE[kind]} of the "
                f"skill overhaul; this build has new, check and explain only")
     return why
@@ -909,6 +952,85 @@ def selftest() -> int:
     tele = scaffold("boss", "t_b", "Test")
     tele["boss"]["acts"][0]["telegraphs"][0]["rounds_between"] = "soon"
     want(any("rounds_between" in e for e in check(tele)["errors"]), "telegraph spacing = 'soon' is refused")
+
+    # 14. Malformed older sheets and a non-string kind (review of c33a558b). CLI, end to end.
+    import contextlib, io, tempfile
+
+    def cli(argv, payload):
+        with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False) as fh:
+            json.dump(payload, fh)
+        out = io.StringIO()
+        try:
+            with contextlib.redirect_stdout(out), contextlib.redirect_stderr(out):
+                code = main(argv + [fh.name])
+        except BaseException as err:                    # noqa: BLE001 - a crash is the failure
+            return f"raised {type(err).__name__}", out.getvalue()
+        finally:
+            os.unlink(fh.name)
+        return code, out.getvalue()
+
+    code, out = cli(["check", "--json"], {"identity": [], "structure": {}})
+    try:
+        parsed = json.loads(out)
+    except ValueError:
+        parsed = None
+    want(code == 1 and parsed and any("event.identity" in e for e in parsed["errors"]),
+         f"CLI: an event sheet with identity [] gives a JSON report, exit 1 (got {code})")
+    bad_mission = {"rank": "D", "name": "Test mission", "objectives": None}
+    code, out = cli(["check"], bad_mission)
+    want(code == 1 and "mission.objectives: expected list" in out,
+         f"CLI: a mission sheet with objectives null fails check (got {code})")
+    code, out = cli(["explain"], bad_mission)
+    want(code == 1 and "explain refused" in out, f"CLI: explain refuses that sheet (got {code})")
+    bad_kind = dict(scaffold("quest", "t_q", "Test"), kind=[])
+    code, out = cli(["check"], bad_kind)
+    want(code == 1 and "sheet.kind" in out, f"CLI: kind [] fails check (got {code})")
+    code, out = cli(["compile"], bad_kind)
+    want(code == 3 and "sheet.kind" in out, f"CLI: compile refuses kind [] with the reason (got {code})")
+    code, out = cli(["explain"], bad_kind)
+    want(code == 1, f"CLI: explain refuses kind [] (got {code})")
+
+    # 15. Sweep: put a wrong value at every position of every sheet form. Nothing may raise.
+    forms = [scaffold(k, f"t_{k}", "Test") for k in KINDS]
+    forms += [{"rank": "D", "srcId": "m", "name": "Old", "description": "x", "successDescription": "y",
+               "objectives": [{"id": "n1", "task": "dialog"}], "roster": [{"name": "Thug", "kit": ["S01"]}]},
+              {"identity": {"name": "Fair", "theme": "t", "gates": {}}, "structure": {"pattern": "pyramid"},
+               "enemies": {"roster": []}, "economy": {}}]
+    full = scaffold("boss", "t_full", "Test")
+    full["boss"]["enemy"]["rules"] = [{"use": "rule_pattern/x/v1", "params": {"a": 1}}]
+    full["boss"]["enemy"]["phases"] = [{"id": "p2", "trigger": "below half", "rules": []}]
+    full["boss"]["anti_camping"] = {"use": "rule_pattern/absence/v1"}
+    full["text"]["entries"] = [{"for": "j", "entity": "jutsu", "field": "description", "text": "It burns."}]
+    full["art"]["slots"] = [{"id": "a", "for": "boss", "handoff": "producing-tnr-art"}]
+    full["decisions"] = [{"id": "D-x", "topic": "t", "status": "open", "options": ["a", "b"]}]
+    full["payout"]["entries"][0]["value"] = {"value": 1, "source": "RUL-x"}
+    forms.append(full)
+    crashes, tried = [], 0
+    for form in forms:
+        paths = [p for p, _ in walk(form)]
+        for path in paths:
+            for wrong in (None, [], {}, "x", 5, True, [None], {"k": None}):
+                mutated = copy.deepcopy(form)
+                if path:
+                    holder, parts = mutated, re.findall(r"[^.\[\]]+", path)
+                    for part in parts[:-1]:
+                        holder = holder[int(part)] if isinstance(holder, list) else holder[part]
+                    holder[int(parts[-1]) if isinstance(holder, list) else parts[-1]] = wrong
+                else:
+                    mutated = wrong
+                tried += 1
+                try:
+                    r = check(mutated)
+                    json.dumps({k: v for k, v in r.items() if k != "sheet"})
+                    report(r)
+                    compile_refusal(r)
+                    if not r["structural"] and r["sheet"] is not None:
+                        explain(r)
+                except Exception as err:                # noqa: BLE001
+                    crashes.append(f"{path or '<top>'} = {wrong!r}: {type(err).__name__}: {err}")
+    want(not crashes and tried > 2000,
+         f"sweep of {tried} malformed sheets: check, report, compile and explain never raise "
+         f"({len(crashes)} did; first: {crashes[:2]})")
 
     # 9. Without the build skill the engine-field rule cannot run, and check says so loudly.
     global build_skill_dirs
