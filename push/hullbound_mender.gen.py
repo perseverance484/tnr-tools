@@ -7,6 +7,7 @@
     python3 push/hullbound_mender.gen.py ais --jutsu <575 bundle> --fix <578 bundle>   # write push/576, AFTER 575 and 578
     python3 push/hullbound_mender.gen.py quest --ais <576 bundle> --jutsu <575 bundle> --fix <578 bundle>   # push/577
     python3 push/hullbound_mender.gen.py fix2 --ais <576 bundle> --jutsu <575 bundle> --fix <578 bundle>   # push/581
+    python3 push/hullbound_mender.gen.py fix3 --jutsu <575> --fix <578> --art <579> --reuse mender=<id>   # push/584
     python3 push/hullbound_mender.gen.py check                          # offline: rule cadence and tile sets
 
 Design of record: docs/design/SKYGLASS_MENDER_PITCH.md (approved for the Nov 13 release; renamed from Okabe). Hull tile
@@ -40,12 +41,12 @@ import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 NANO = re.compile(r"^[A-Za-z0-9_-]{21}$")
-NUM = {"jutsu": 575, "ais": 576, "quest": 577, "fix": 578, "art": 579, "fix2": 581}
+NUM = {"jutsu": 575, "ais": 576, "quest": 577, "fix": 578, "art": 579, "fix2": 581, "fix3": 584}
 PFX = {"jutsu": "sg575_", "ais": "sg576_"}
 
 COLS, ROWS = 12, 10            # quest arena at level 40+ (combat battleMaps; pitch section 8)
 CENTER = (5, 4)                # his post: inside the last 4x2 of safe floor
-COST = {"payoff": 35, "close": 34, "tier": 67, "mark": 66, "rivet": 33}
+COST = {"payoff": 35, "close": 34, "tier": 67, "mark": 66, "rivet": 33, "omen": 30}
 
 # Live ids (verified 2026-11-09: profile.getAi reads of the three source crew; item ids from push/skyglass_new_charts and
 # push/skyglass_charts.gen.py)
@@ -347,26 +348,34 @@ END = {"conditions": [], "action": {"type": "end_turn", "description": "End turn
 CLOSED = "summonprevent"     # 25 per closed tier
 
 
-def mender_rules(J):
-    rules = [use(J["seal"], [round_gt(SEAL_ROUND)]),
-             move_to(*CENTER, [round_lt(2)]),
+def mender_rules(J, v=2):
+    """v=2 is push/581. v=3 (push/584, Whole Wreck hand test 2026-11-10): the close's summonprevent self marker never
+    lands live ("could not be prevented from summoning"), so the tier II-IV marks gated on it never fired. The tiers
+    now run on the timer alone (the 100-round cooldowns keep each one to once) and each close also waits for its own
+    round, so no close can jump ahead. The Hold Seals gets a one-turn omen (round 17); Last Planks (never seen firing
+    live) gives up its rule slot for it, since the server allows 20 rules."""
+    rules = [use(J["seal"], [round_gt(SEAL_ROUND)])]
+    if v >= 3:
+        rules.append(use(J["seal_omen"], [round_gt(SEAL_ROUND - 1)]))
+    rules += [move_to(*CENTER, [round_lt(2)]),
              # payoffs (35): whatever was marked last turn
              use(J["port_break"], [has("increaserange")]),
              use(J["starboard_break"], [has("fleeprevent")]),
              use(J["hammerfall"], [has("robprevent")])]
     # closes (34): in order 1 to 4. has_effect ignores its threshold live (hand run 2026-11-09: IV closed first), so
     # the order comes from the rule list and each close's 100-round cooldown, not from summonprevent counts.
-    for k in (1, 2, 3, 4):
-        rules.append(use(J[f"tier{k}_close"], [has("increaseheal")]))
+    for k, hb, rg in TIERS:
+        rules.append(use(J[f"tier{k}_close"], [has("increaseheal")] + ([round_gt(rg + 1)] if v >= 3 else [])))
     # tier marks (67): health or round, whichever comes first, in order
     for k, hb, rg in TIERS:
-        gate = [has(CLOSED, 25 * (k - 1))] if k > 1 else []
+        gate = [has(CLOSED, 25 * (k - 1))] if k > 1 and v < 3 else []
         if hb is not None:
             rules.append(use(J[f"tier{k}_mark"], gate + [health_below(hb)]))
         rules.append(use(J[f"tier{k}_mark"], gate + [round_gt(rg)]))
     # marks (66): planks right after a split, then the Splitter (Starboard from round 5), then planks
-    rules += [use(J["planks_b"], [has("decreasepoolcost"), round_gt(TIERS[3][2] + 1)]),
-              use(J["planks_a"], [has("decreasepoolcost")]),
+    if v < 3:
+        rules.append(use(J["planks_b"], [has("decreasepoolcost"), round_gt(TIERS[3][2] + 1)]))
+    rules += [use(J["planks_a"], [has("decreasepoolcost")]),
               use(J["starboard_mark"], [round_gt(4)]),
               use(J["port_mark"]),
               use(J["planks_a"]),
@@ -723,6 +732,39 @@ def main():
               "skipped). The Mender's closes run in order I to IV (has_effect thresholds are ignored live, so IV closed "
               "first); Last Planks waits for round 16. Law 18: the Mender drops both Keel Splits, they are edited, he "
               "re-equips them with the new rules. Art kept at the 579 clips.", [off] + edits + [on])
+        return
+    if mode == "fix3":
+        # push/584: the Whole Wreck hand test (2026-11-10), dauntless's "All approved, proceed" (00:49 UTC). The Mender
+        # drops to 12,800 HP (poolsMultiplier 2.535 x 5,050), gets a round-17 omen before The Hold Seals, and runs his
+        # tiers on the timer (mender_rules v=3). No existing jutsu is edited, so no equip link is severed (law 18):
+        # one new hidden jutsu, then one AI edit that equips it with the new rules.
+        J = ids_from_bundle(sys.argv[sys.argv.index("--jutsu") + 1], PFX["jutsu"], JUTSU, fix_arg())
+        art = json.load(open(sys.argv[sys.argv.index("--art") + 1]))["idmap"]
+        A = reuse_ids()
+        assert set(A) >= {"mender"}, "--reuse mender=<id>"
+        jutsu("seal_omen", "The Hold Groans: Last Rivet",
+              "Round 17: every seam in the hold glows. Next turn the hold seals around whoever is still in it.",
+              "%user holds up the last rivet, and every seam in the hold glows. \"Last call.\"",
+              [tele("heavy", "Telegraph: the whole hold seals next turn")], COST["omen"], 100, ALL)
+        omen = JUTSU.pop("seal_omen")
+        omen["effects"][0].update(staticAssetPath="", staticAnimation=art["sg579_a1_hull_omen"],
+                                  appearAnimation="", disappearAnimation="")
+        J3 = dict(J, seal_omen="@jutsu:sg584_seal_omen")
+        mender = [x for x in build_ais(J) if x["srcId"] == PFX["ais"] + "mender"][0]
+        assert mender["targetId"] == A["mender"]
+        mender["data"]["poolsMultiplier"] = 2.535
+        mender["data"]["jutsus"] = mender["data"]["jutsus"] + [J3["seal_omen"]]
+        mender["data"]["rules"] = mender_rules(J3, v=3)
+        assert len(mender["data"]["rules"]) <= MAX_RULES
+        mender.update(srcId="sg584_mender", phase=2, name="The Hullbound Mender: 12,800 HP, seal omen, timed tiers")
+        create = {"entity": "jutsu", "slot": "create", "srcId": "sg584_seal_omen", "phase": 1, "name": omen["name"],
+                  "data": omen}
+        write(NUM["fix3"], "hullbound_mender_seal_fix",
+              "push/584, HIDDEN: the Mender's three Whole Wreck findings (2026-11-10, dauntless approved 00:49 UTC). "
+              "12,800 HP (was 16,160); The Hold Groans: Last Rivet, a round-17 omen over the whole hold before The "
+              "Hold Seals; tiers II-IV on the timer (the summonprevent gate never landed live). Last Planks' rule slot "
+              "goes to the omen. No jutsu edited, so no law-18 cycle; the Mender keeps his 579 clips.",
+              [create, mender])
         return
     print(__doc__)
     sys.exit(2)
