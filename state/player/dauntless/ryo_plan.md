@@ -8,6 +8,8 @@ circuit." (23:27) "Also can spend all our exp on willpower/intelligence."
 - `profile.useUnusedExperiencePoints {offence..Lightning}` assigns `earnedExperience` to stats. Put it into
   intelligence until it matches willpower, then split. 2026-11-10 05:27: 7,054 -> intelligence.
 
+## Daily caps (director 2026-11-10): 20 missions, 50 errands, 9 medical. Counters: profile.getUser dailyMissions/dailyErrands/dailyMedicalMissions (count on start).
+
 ## Errands (fixed 2026-11-10)
 Director: "Lets figure out why errands arent finishing that seems like a problem."
 **Cause:** the errand's quest content lists a sector (e.g. 271) but the per-user tracker re-targets every
