@@ -1,8 +1,10 @@
 # Hunt roster: level-100 players in my bracket by village (2026-11-10)
 
 Probe trick: `combat.attackUser {userId, longitude:13, latitude:13, sector}` while standing in their village sector.
-- "X is asleep" = they are in this sector, asleep (camp and retry).
-- "did the target move?" = not in this sector (or on a building tile).
+- **Status is checked before location**, so the probe works from anywhere as a status scan:
+  - "X is asleep" = asleep (anywhere). "X is in battle" = fighting (check `listOngoingBattles` COMBAT; often PvE).
+  - "did the target move?" = **awake and free, but not in my sector** (or on a building tile). These are the live
+    targets: go to their village and probe again from there.
 - "immune from combat" = just lost a fight.
 - success = fight starts (only probe players I'm willing to fight right now).
 Skip: own village (Hyorin), Freedom State, do-not-attack (DemiZaru, Sukuna, Noah, Reptar), and never snipe AngelSaber.
@@ -42,7 +44,7 @@ Director (2026-11-09): "People just don't wake up that often you need to be pers
 | Tsukimori | Kirkie | user_2pwvMpkeYAFXB2qPjlXV6X7PF0z |
 | Tsukimori | Luminous | user_2TqwYYRuHtpAGvVe7KwsaIlIZ1p |
 | Tsukimori | Cloudkane | user_2xZU7pgIgcZwXr9JFwbtTY4GdFZ |
-| Tsukimori | KURAN | user_2SDtozpGsswPYNro0mVnehMcE6Y |
+| Tsukimori | KURAN | user_36j4nRtam0FGFRo01LwwAGZqtXn |
 | Tsukimori | Phrosfire | user_2SAAyxU78mty43oQlztbI7Bg4Fa |
 | Tsukimori | Chidori66 | user_2mwptZkNGUu9CoZSqX8JJaTI2Jz |
 | Akikaze (724) | Lelouch | user_2abKmgnBNVrz6SQp8D8QztDAkTQ |
@@ -51,7 +53,7 @@ Director (2026-11-09): "People just don't wake up that often you need to be pers
 | Akikaze | Jazu | user_2hKeXU8KY1AgmCLJ9APZlWmUBYg |
 | Akatsuki (6) | Panduhz | user_2dvNK5aQXjcXYTCiYbxcYp4XR9q |
 | Akatsuki | loveispure | user_2lTo9A80IdwC1bF3iUa39Dnx1Bv |
-| Akatsuki | IndraUchiha | user_36j4nRtam0FGFRo01LwwAGZqtXn |
+| Akatsuki | IndraUchiha | user_2SDtozpGsswPYNro0mVnehMcE6Y |
 | Akatsuki | daisuke | user_2tuAAmBELPVBn1ZZmltBmLZ29DG |
 | Akatsuki | Susanoo | user_3BGmUSFkxbH3DmaZs4RFZerteKX |
 | Konoki (13) | Keoshi | user_2zDGPojX1fXxeFyCzTEzxmPq7mB |
