@@ -271,6 +271,15 @@ best idea because absorb caps at 60 and that gives you 70, thus wasting some. Al
 Rules: stack +damage on the swing turn freely (no cap); stop stacking DR before the 90% floor; keep absorb <= 60,
 lifesteal <= 60, reflect <= 60; never two recoil sources; don't feed recoil-bait pierce (it bypasses recoil).
 
+**Movement (director, 2026-11-10): "Dont forget that replacement technique is a 5 range 20ap movement skill basic
+action with a 2 round cooldown. Basic move is typically only used as a last resort or to step into 4 range then step
+back out for 20ap."**
+- Replacement Technique (`replacementTechnique`, 20 AP, up to 5 tiles, cd 2) is the normal reposition: getting off
+  their Fury/Subaku ground, onto my own ground effect, or out of range after acting.
+- Basic move (10 AP a tile) only as a last resort, or the step-in / step-out: one tile into range 4, act, one tile back
+  (20 AP total).
+- Chakra Invigoration (40, leap 5 + buffs) when I want the buff anyway; budget Replacement's cooldown around it.
+
 **Smoke Bomb rounds (director, 2026-11-10):** "Smoke is something that has a lot of precedent in how its played
 around and used. Some good effects to have going into a smoke bomb round are lifesteal, absorb and reflect. This is
 because smokebomb makes both users have max DR essentially, so using pierce typically happens during this round.
