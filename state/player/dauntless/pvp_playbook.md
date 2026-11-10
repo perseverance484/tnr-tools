@@ -276,12 +276,12 @@ shows in a log, here, next to the profile; a +damage bloodline makes Danse Macab
 |---|---|---|
 | Overflow (+35 x2) | x1.82 | self, live next round |
 | Swing: Overflow + Ember (self +35, target +35) + Severed Pulse (+30) + Disaster Potion (+20) | x5.18 | all live the same round |
-| ... + Chakra Invigoration (+30) | x6.74 | the ceiling with this kit |
+| ... + Colored Jewel (+15) | x5.96 | the ceiling with this kit |
 | Emergency: seal + Subaku Palace | x0.54 on their hits | both instant |
-| ... + Eternal Darkness (their -30 given, my -30 taken) | x0.26 | still under the 90% floor |
-| ... + Sloth keystone | x0.25 | |
-| Smoke (x0.3) + Subaku + Eternal Darkness | x0.11 -> floored at 0.10 | wasted: Smoke plus ONE DR at most |
-| Smoke + Panacea / Smoke + Eternal Darkness | x0.225 / x0.147 | the efficient smoke turns |
+| ... + Panacea (my -25 taken) | x0.40 | still under the 90% floor |
+| ... + Sloth keystone | x0.38 | |
+| Smoke (x0.3) + Subaku + Panacea + Phantom Step ground | ~x0.13 -> near the 0.10 floor | wasted: Smoke plus ONE DR at most |
+| Smoke + Panacea | x0.225 | the efficient smoke turn |
 Rules: stack +damage on the swing turn freely (no cap); stop stacking DR before the 90% floor; keep absorb <= 60,
 lifesteal <= 60, reflect <= 60; never two recoil sources; don't feed recoil-bait pierce (it bypasses recoil).
 
@@ -292,7 +292,7 @@ back out for 20ap."**
   their Fury/Subaku ground, onto my own ground effect, or out of range after acting.
 - Basic move (10 AP a tile) only as a last resort, or the step-in / step-out: one tile into range 4, act, one tile back
   (20 AP total).
-- Chakra Invigoration (40, leap 5 + buffs) when I want the buff anyway; budget Replacement's cooldown around it.
+- Phantom Step (40, move 5 + DR ground + dmg) when I want its ground anyway; budget Replacement's cooldown around it.
 
 **Smoke Bomb rounds (director, 2026-11-10):** "Smoke is something that has a lot of precedent in how its played
 around and used. Some good effects to have going into a smoke bomb round are lifesteal, absorb and reflect. This is
@@ -340,12 +340,12 @@ are instant damage cuts; spent on turn 1 they are on cooldown exactly when the e
   afterburn / recoil on me, Overflow-style buffs, a setup round just finished).
 - Press: Danse Macabre + Subaku Palace (~-29% x -25%: their hits land at ~54% for the seal's 3 turns). If they are
   debuff-immune (Subaku won't apply): Danse Macabre (seal still lands) + Chakra Shield (35 absorb + instant shield).
-- Never press both cooldowns into an empty round; if the stack is only one buff, answer with Eternal Darkness /
+- Never press both cooldowns into an empty round; if the stack is only one buff, answer with Chakra Shield /
   Panacea / Smoke instead.
 
 **Opening (no stack yet):** pressure and setup, button held.
 - T1: Ethereal Rebirth (35 absorb T2-T4) + Severed Pulse (+30% taken, -50% healing live T2). Out of range:
-  Chakra Invigoration in + Severed Pulse, Rebirth T2.
+  Phantom Step in + Severed Pulse, Rebirth T2.
 - T2: Forbidden Chakra Fury (~40% recoil on them at once) + Seal of Nullification (they can't buff out; I can't be
   debuffed 2 r). Their hits into recoil + absorb hurt them and heal me.
 - T3: Chakra Resonance stun + Overflow / Dr. Kim Disaster Potion: set the swing.
