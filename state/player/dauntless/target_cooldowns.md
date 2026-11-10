@@ -10,8 +10,9 @@ time you fight them consecutively in a day. Them attacking back resets this."
 
 | Player | Fights I started today (consecutive) | Last fight ended (UTC) | Off-limits until (UTC) |
 |---|---|---|---|
-| Thronaris | 2 (2026-11-10 02:44, 03:53) | 04:01 | 04:11 |
+| Thronaris | 2 (2026-11-10 02:44, 03:53) | 04:01 | 04:05 (fight ended ~03:55) |
 | Arashii | 1 | 03:34 | 03:39 (expired) |
 | IndraUchiha | 1 | 03:13 | 03:18 (expired) |
 
 (Korin attacked me at 02:49: no cooldown from that fight.)
+| Luminous | 1 | ~04:03 | 04:08 |
