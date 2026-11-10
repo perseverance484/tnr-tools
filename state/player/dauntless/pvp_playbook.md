@@ -230,6 +230,42 @@ best idea because absorb caps at 60 and that gives you 70, thus wasting some. Al
   recoil and 35 absorb ... since chakra fury is an instant effect ... Then you can do things like Seal of
   Nullification and stun to set up a swing round while they hurt themselves with their own damage."
 
+**Caps and damage math (engine snapshot cb755375, `libs/combat/process.ts`, `tags.ts`, `power.ts`; director:
+"examine the caps and damage multipliers in place when considering your combinations")**
+- Effect power = base + **level** x powerPerLevel (level 25 = +10 on 0.4/level tags: Chakra Shield absorb 25 -> 35,
+  Severed Pulse 40/20 -> 50/30, Subaku Palace 20/15 -> 30/25, Eternal Darkness 20/20 -> 30/30). Any percentage tag
+  caps at 100.
+- Damage order: raw x each in-battle +given/+taken (x(1+p) each, all stack) -> system DR pool (50 + armor/accessory DR,
+  additive: x(1-pool)) -> each in-combat -taken/-given (x(1-p) each) -> **floor: never below 10% of the boosted
+  damage after system DR (in-combat DR caps at 90%)** -> static +/- -> keystone +inc / -DR (x, after the floor) ->
+  **bloodline +/- last** (x(1+b), removed by a bloodline seal).
+- Seal: instant, strips their bloodline +40% given at the very end of the chain: x0.714 on every hit, even floored
+  ones, and it multiplies with all DR (director was right).
+- Absorb: all absorb adds up, healed back after the hit, **capped at 60% of the hit**. Rebirth 35 + Chakra Shield 35 =
+  70 (10 wasted); Rebirth 35 + Inferno Leech 21 = 56 (fine); Lust keystone 10 overflows either pair.
+- Lifesteal + vamp: one shared **60% cap** per hit. Eclipse Drain 35 + Chakra Pill 20 = 55 (fine).
+- Reflect: adds up, **capped at 60% of the hit**. PvP 1's Stormblade 35 + Thunder's 35 = 70 (10 wasted).
+- Recoil on a target: **does not stack** (each recoil overwrites; one ~40% source is enough) and **pierce ignores
+  recoil**. Snapshot code starts absorb/lifesteal/reflect/recoil the round after the cast (`!isNew &&
+  !castThisRound`); the director says Chakra Fury's recoil is instant. Director's call stands; check the next fight
+  log ("takes N recoil damage" on their turn of the cast round).
+- Shields are granted after the casting action resolves, so they cover the enemy's turn in the same round (instant).
+- Stacking: BATTLE_TAG_STACKING = true, so two casts of the same buff both count.
+
+**What that means for PvP 2 combos (multipliers on one hit):**
+| Combo | Multiplier | Note |
+|---|---|---|
+| Overflow (+35 x2) | x1.82 | self, live next round |
+| Swing: Overflow + Ember (self +35, target +35) + Severed Pulse (+30) + Disaster Potion (+20) | x5.18 | all live the same round |
+| ... + Chakra Invigoration (+30) | x6.74 | the ceiling with this kit |
+| Emergency: seal + Subaku Palace | x0.54 on their hits | both instant |
+| ... + Eternal Darkness (their -30 given, my -30 taken) | x0.26 | still under the 90% floor |
+| ... + Sloth keystone | x0.25 | |
+| Smoke (x0.3) + Subaku + Eternal Darkness | x0.11 -> floored at 0.10 | wasted: Smoke plus ONE DR at most |
+| Smoke + Panacea / Smoke + Eternal Darkness | x0.225 / x0.147 | the efficient smoke turns |
+Rules: stack +damage on the swing turn freely (no cap); stop stacking DR before the 90% floor; keep absorb <= 60,
+lifesteal <= 60, reflect <= 60; never two recoil sources; don't feed recoil-bait pierce (it bypasses recoil).
+
 **Emergency button (director, 2026-11-10: "your turn 1 combo is better reserved as an emergency button. If you blow
 it early then they can hit you with a ramped damage stack later.")** Danse Macabre (cd 8) and Subaku Palace (cd 7)
 are instant damage cuts; spent on turn 1 they are on cooldown exactly when the enemy's ramped stack lands. Hold them.
