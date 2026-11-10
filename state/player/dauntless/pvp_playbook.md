@@ -106,3 +106,9 @@ Read: Winta vs Gario and vs Choris1717; DDXXD vs Korin and vs Enduyn; Ziharkk vs
 - Reflect stacking (40% + 35%): Shisui hit into it and took ~795 of his own damage. **Clear reflect before attacking**, or hit
   with something that ignores it. My pierce and kunai showed no reflect back while his reflect was up.
 - Also: Danse Macabre (bloodline seal), stun + 40% damage jutsu, Aetherion (+20% taken), Basic Heal when low.
+
+## Healing and supplies (director, 2026-11-09)
+- "Always heal ASAP. Thats why I have full potions. Use ryo to stock up on items from item shop as needed."
+- Full Potion: user item `ZlMNc0o96Y_aIai3E8Q-U` (`item.consume {userItemId}`) restores HP to full out of combat.
+  Ramen refills CP/SP only. After every fight, drink a Full Potion and buy ramen before hunting on.
+- Ikazuchi Kunai is not sold in the shop (inShop false); 3 left. Restocking it is a director question.
