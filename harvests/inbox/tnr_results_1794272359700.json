@@ -1,0 +1,76 @@
+{
+ "builder": "forge-mcp",
+ "at": "2026-11-10T00:59:19.700Z",
+ "cfg": "forge",
+ "checks": null,
+ "state": "DONE",
+ "outcome": "success",
+ "postflight": {
+  "match": 1,
+  "diff": 0,
+  "unverified": 0,
+  "failed": 0,
+  "skipped": 0,
+  "unresolved": 0
+ },
+ "entries": [
+  {
+   "name": "Sayo, Mother of Echoes (act 1): HP 6,060 to 5,050 (pools 1.2 to 1.0, the floor)",
+   "srcId": null,
+   "entity": "ai",
+   "slot": "edit",
+   "op": "update",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 2,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "fJLcH1mpB1XHHGtNWwvzD"
+  }
+ ],
+ "captures": [],
+ "idmap": {},
+ "journal": {
+  "v": 1,
+  "jobId": "587-mw9zehbn",
+  "manifestPath": "push/587_moe_sayo_hp.json",
+  "manifestNumber": 587,
+  "manifestHash": "7a64fd06",
+  "startedAt": "2026-11-10T00:58:22.645Z",
+  "updatedAt": "2026-11-10T00:59:19.697Z",
+  "state": "DONE",
+  "pause": null,
+  "items": [
+   {
+    "idx": 0,
+    "entity": "ai",
+    "op": "update",
+    "name": "Sayo, Mother of Echoes (act 1): HP 6,060 to 5,050 (pools 1.2 to 1.0, the floor)",
+    "srcId": null,
+    "targetId": "fJLcH1mpB1XHHGtNWwvzD",
+    "payloadHash": "da599cec",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "fJLcH1mpB1XHHGtNWwvzD",
+    "snapshotKey": null,
+    "sentAt": "2026-11-10T00:58:32.595Z",
+    "createSentAt": null,
+    "confirmedAt": "2026-11-10T00:59:08.309Z",
+    "verifiedAt": "2026-11-10T00:59:19.696Z",
+    "error": null,
+    "attempt": 1,
+    "asserted": [
+     "poolsMultiplier",
+     "effects"
+    ],
+    "diffs": [],
+    "verify": "match"
+   }
+  ]
+ }
+}
