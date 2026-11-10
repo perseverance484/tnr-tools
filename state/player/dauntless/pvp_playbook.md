@@ -198,6 +198,26 @@ kept, Raimei Gen dropped (Severed Pulse is the one heal cut). Cyclone Palm Strik
 | Seal of Nullification | 40 | 25 | target can't buff 1 r; I can't be debuffed 2 r |
 | Chakra Invigoration | 40 | 25 | leap 5, self +30% given, -25% taken |
 
+**Item loadout "PvP 2"** (`CANnGKSJ7UeF9c88lHa42`, built 2026-11-10; director: "You can change your consumable
+items and keystone as well"): Kaeruun armor set (same as PvP 1); HAND_1 Night's Testament (pierce, counters Seal);
+HAND_2 **Yuki's Frostbite** (40 AP, range 3: drain 200 x2 rounds through DR + target -25% given, cd 7);
+ITEM_1 Dr. Kim's Miracle Potion; ITEM_2 Elite Smoke Bomb; ITEM_3 Chakra Pill; ITEM_4 Panacea (20 AP, -25% taken
+2 r); ITEM_5 **Dr. Kim Disaster Potion** (20 AP: poison 30% + target +20% taken 2 r, consumed); ITEM_6 **Subaku
+Amulet** (40 AP: drain 100 x2 + cleanse-prevent 1 r, so they can't Cleanse my seal/recoil that round);
+THROWN **Bloodthorn Kunai** (20 AP: elemental dmg + wound); KEYSTONE **Sealed Earrings of Sloth** (-5% taken).
+Dropped vs PvP 1: Aetherion, Colored Jewel, Ikazuchi Kunai, Subaku Mask, Sealed Necklace of Lust.
+Keystone choice: absorb caps at 60% (director). Lust adds 10% absorb, so Rebirth 35 + Chakra Shield 25 + Lust 10 =
+70-80 wastes 10-20. With Sloth, Rebirth 35 + Chakra Shield 25 = exactly 60, and Sloth's DR stacks with everything.
+
+**Director (2026-11-10), turn 1 and immunity:** "Your turn 1 is best spent when the enemy has a large damage stack,
+as like an emergency button. Keep in mind subaku palace cant apply through debuff immunity, but Seal can so
+sometimes seal and Chakra Shield is best since shield appears instantly. Ethereal rebirth + Chakra Shield isnt the
+best idea because absorb caps at 60 and that gives you 70, thus wasting some. Also the keystone of lust we have gives
+10 absorb so we're actually at 80 and wasting 20."
+- Debuff immunity on them (Dr. Kim's Miracle, "cannot be debuffed"): skip Subaku Palace; Danse Macabre's seal still
+  lands. Seal + Chakra Shield (shield is instant) is the emergency turn against a big damage stack.
+- Absorb cap 60: never stack absorb past 60 (Rebirth 35, Chakra Shield 25, Inferno Leech ~21, Lust keystone 10).
+
 **Player-1 principles (director):**
 - Instant effects cast first cover the enemy's turn in the same round. Danse Macabre's seal: "as player 1 you get 3
   rounds of seal, removing their 40% dmg inc passive from their bloodline. Its essentially a ~28.8% instant damage
@@ -211,7 +231,9 @@ kept, Raimei Gen dropped (Severed Pulse is the one heal cut). Cyclone Palm Strik
 **Going first:**
 - T1: Danse Macabre + Subaku Palace. Both land at once: their T1 hits at ~0.71 x 0.75 = ~54% (seal T1-T3, ground
   T1-T3), and my +30% given is live T2. They stand in it or spend AP walking out.
-- T2: Ethereal Rebirth (35% absorb T3-T5) + Chakra Shield (absorb + shield) or Seal of Nullification.
+- T2: Ethereal Rebirth (35% absorb T3-T5) + Chakra Shield (with Sloth keystone = 60% absorb, the cap) or Seal of
+  Nullification. T1 is the emergency button: use it when their damage stack is big, Seal + Shield if they are
+  debuff-immune.
 - T3: Forbidden Chakra Fury (40% recoil at once, T3-T4) + Seal of Nullification / Severed Pulse. Their last sealed
   turn: each hit costs them 40% and heals me 35%.
 - T4: Chakra Resonance stun + Overflow or Severed Pulse. T5: swing (Ember / Stormblade / Leech with Eclipse Drain).
