@@ -65,3 +65,5 @@ very expensive (Cyclone Palm Strike level 19 quoted 1,949,575 ryo for one level;
 | 2026-11-10 08:23 | Mental Fortress | 3 | 3,178 | queued (4 waiting: Limit Breaker 7-9, Mental Fortress 3); Divine Pulse 2 refused, queue full; 1,228 energy to intelligence; asleep |
 | 2026-11-10 09:23 | Divine Pulse | 2 | 2,197 | queued (4 waiting: Limit Breaker 8-9, Mental Fortress 3, Divine Pulse 2; ends ~11:49); 4,550 energy to intelligence; asleep |
 | 2026-11-10 10:22 | Earth Armor | 1 (learned) | 1,092 | queued (active Limit Breaker 9; waiting Mental Fortress 3, Divine Pulse 2, Earth Armor 1; ends ~11:50); Enjin refused (not for you); First Chakra Gate 1 refused, queue full; 4,550 energy to intelligence; asleep |
+| 2026-11-10 11:25 | First Chakra Gate | 1 (learned) | 1,092 | queued |
+| 2026-11-10 11:25 | Raijin's Judgement | 2 | 1,553 | queued (active Mental Fortress 3; waiting Divine Pulse 2, Earth Armor 1, First Chakra Gate 1, Raijin's Judgement 2; ends ~12:01); 4,550 energy to intelligence; asleep |
