@@ -13,7 +13,7 @@ both.
 
 ## Doctrine (rendered)
 
-<!-- doctrine:begin @6083f6d target=skill-art - RENDERED from docs/DOCTRINE.md; edit there, then render_doctrine.py --write -->
+<!-- doctrine:begin @20cc280 target=skill-art - RENDERED from docs/DOCTRINE.md; edit there, then render_doctrine.py --write -->
 
 TNR is a live browser game with no staging environment: a bad push lands on
 players. Every rule in the mounted project instructions and in this block

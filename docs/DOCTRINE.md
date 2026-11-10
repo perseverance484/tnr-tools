@@ -105,19 +105,24 @@ with no jutsu equipped and nothing in the bundle says so.
 
 ### D-hidden-true
 targets: mounted
-short: Everything ships hidden: true. Publishing waits on the content admin's go-ahead, then dauntless publishes.
+short: Everything ships hidden: true. Publishing is a separate job: the decision is dauntless's, after the content admin's go-ahead; the approved runner carries it out on his go for that job.
 
-**Everything ships `hidden: true`.** Publishing is a separate, deliberate act
-and it belongs to the user, never to you; it waits on the content admin's
-go-ahead, then dauntless publishes. This applies to every entity on every
-create.
+**Everything ships `hidden: true`.** This applies to every entity on every
+create. Publishing (an unhide, a go-live) is a separate, deliberate job, and
+the decision to publish belongs to the user, never to you: it waits on the
+content admin's go-ahead and then on dauntless's go for that job. Who
+carries out an approved job is a different question, answered by
+[[D-user-pushes]]: the approved runner does, and it publishes nothing that
+has not been given that go.
 
 ### D-reserved-dauntless
 targets: mounted
-short: Balance and rewards are proposals only - drop rates, reward values, enemy counts, stat tuning, difficulty gates, exact percentages: carry placeholders and list every one in the delivery summary. Publishing, art direction, final acceptance, and ALL game pushes are dauntless's.
+short: Balance and rewards are proposals only - drop rates, reward values, enemy counts, stat tuning, difficulty gates, exact percentages: carry placeholders and list every one in the delivery summary. The decision to publish, art direction, final acceptance, and the go for every game write are dauntless's; an approved job is carried out by the approved runner.
 
-**Balance, rewards, rarity, art direction, publishing and final acceptance are
-the user's to finalise.** Propose numbers, carry them as explicit
+**Balance, rewards, rarity, art direction, the decision to publish and final
+acceptance are the user's to finalise.** These are approvals, not keystrokes:
+once dauntless has approved a job, the approved runner carries it out
+([[D-user-pushes]]). Propose numbers, carry them as explicit
 placeholders, and list every placeholder in the delivery summary. Do not
 quietly settle a drop rate because a build needs one. Custom user-owned
 bloodlines are never edited without a go-ahead.
@@ -154,15 +159,13 @@ record does not silently repoint.
 
 ### D-no-franchise
 targets: mounted
-short: TNR is open source: extract facts from it, never copy proprietary text. Naruto-style analogues and flavour are allowed to an extent; the constraint is copyright: no franchise names, characters, insignia, or copied text or art.
+short: TNR is open source: extract facts from it, never copy proprietary text. Analogues and flavour from the Naruto franchise are allowed to an extent; the constraint is copyright law, which we do not break.
 
-**Flavour, not franchise.** Analogues and flavour from the Naruto franchise
-are allowed to an extent; the constraint is copyright (RUL-2026-11-09-141).
-Nothing we ship may infringe: no franchise names, characters, insignia or
-designs, and no copied text or art. TNR is open source; extract facts from
-the source, never copy proprietary text. This binds art prompts as hard as
-it binds prose. When it is unclear whether something is flavour or a copy,
-ask dauntless.
+**Flavour within copyright.** Analogues and flavour from the Naruto franchise
+are allowed to an extent. The constraint is copyright law, which we do not
+break (RUL-2026-11-09-141). TNR is open source; extract facts from the
+source, never copy proprietary text. This binds art prompts as hard as it
+binds prose.
 
 ### D-no-real-name
 targets: mounted

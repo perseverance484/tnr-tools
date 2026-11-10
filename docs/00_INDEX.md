@@ -105,8 +105,9 @@ No clone means no state. Say so rather than working from memory.
 
 ## Non-negotiables
 
-- Everything ships `hidden: true`, every entity, no exceptions. Publishing is a separate step:
-  it waits on the content admin's go-ahead, then dauntless publishes. [[D-hidden-true]]
+- Everything ships `hidden: true`, every entity, no exceptions. Publishing is a separate job:
+  the decision is dauntless's, after the content admin's go-ahead; the approved runner carries it
+  out on his go. [[D-hidden-true]]
 - Claude pushes git. Nothing is written to the game without dauntless's go for that job, after
   its gates pass. [[D-user-pushes]]
 - Nothing is handed over unvalidated, and say what ran. [[D-validate-always]]
