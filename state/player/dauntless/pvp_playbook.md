@@ -170,3 +170,41 @@ Shrapnel Clone Barrage. Winta: Abyssal Surge, Harmonious Slash, Equilibrium Guar
 Zaruza: Lightning Release (stun + 35% afterburn + extra actions), Planetary Devastation, Chakra Overflow.
 **Loadout ideas (director's call):** Severed Pulse for anti-heal; a drain source; Chakra Resonance or Eternity Flux
 as a stun opener.
+
+## PvP 2 loadout (built 2026-11-10; director: "Feel free to create your own loadout as PvP 2")
+Jutsu loadout `ZVfObjuW5xO462WiR5UMQ` ("PvP 2"); items: the PvP item loadout `B-bCCtg-_fvcJSrvR1ts0`.
+Built from Study 2: drain through DR, anti-heal before the kill, -given riders, stun opener that comes with a
+buff, lifesteal on burst turns. Eternity Flux, Dragon King's Impact and Particle Cannon are bloodline jutsu (another
+bloodline: "missing requirements"), so Chakra Resonance is the stun.
+
+| Jutsu | AP | Level | Effect (level 25 unless noted) |
+|---|---|---|---|
+| Chakra Resonance | 60 | 25 | dmg 28 + stun -20 AP (2 r); stun family lock 4 r |
+| Raimei Gen | 60 | 25 | dmg 30, self +15% given, target -30% healing (2 r), cd 7 |
+| Inferno Leech | 60 | 3 | drain 300 HP x2 rounds (fixed, ignores DR), self absorb ~21% |
+| Stormblade Arc | 60 | 25 | pierce + reflect |
+| Forgotten Ember Blade | 60 | 25 | dmg, self +35% given, target +35% taken |
+| Ethereal Rebirth | 60 | 25 | dmg + self absorb 35% |
+| Forbidden Chakra Fury | 60 | 25 | big ground hit (cheap chakra) |
+| Severed Pulse | 40 | 25 | target -40% healing, +20% taken (2 r) |
+| Cyclone Palm Strike | 40 | 18 | target +27% taken, -27% given (2 r) |
+| Eternal Darkness | 40 | 25 | target -30% given, self -30% taken (2 r) |
+| Chakra Overflow | 40 | 25 | self +35% given x2 |
+| Eclipse Drain | 40 | 25 | self lifesteal 35% |
+| Seal of Nullification | 40 | 25 | target can't buff 1 r, I can't be debuffed 2 r |
+| Chakra Invigoration | 40 | 25 | leap 5, self +30% given, -25% taken |
+| Chakra Shield | 40 | 25 | absorb 25 + shield |
+Dropped from PvP 1: Shrapnel Clone Barrage, Lotus Dance, Danse Macabre, Subaku Palace, Thunder's Judgement, Parry,
+Phantom Step.
+
+**Rotation (remember: a tag cast in round N is live from N+1):**
+- T1 opener: in range -> Chakra Resonance + Severed Pulse (they play T2-T3 at 80 AP; +20% taken live T2).
+  Out of range -> Chakra Invigoration (leap, my buffs live T2) + Severed Pulse, Resonance on T2.
+- T2 setup + chip: Raimei Gen (anti-heal, my +15% live T3) + Cyclone Palm (+27% taken / -27% given live T3).
+  Against a Clear-holder, Seal of Nullification instead of Cyclone.
+- T3 payoff: Forbidden Chakra Fury + Eclipse Drain (lifesteal live T4), or Ember Blade + Overflow to set a T4 burst.
+- DR-stacked target (absorb, -35% taken, barrier): Inferno Leech (drain ticks through) + Stormblade pierce the
+  round after (pierce and drain don't share a lock).
+- Their burst is due / I'm low: Eternal Darkness + Chakra Shield + Defensive Stance (or + Elite Smoke Bomb).
+- Finish: they're low and healing -> Severed Pulse/Raimei first, then the hit; never let a lifesteal round go
+  uncut.
