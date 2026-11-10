@@ -75,7 +75,19 @@ def path(opp, b):
     return f"/tmp/enemy_{opp}_{b}.json"
 
 
-def predict(opp, b, rnd):
+def threat_features(opp, b, rnd):
+    """For policy.py: (burst, buff, stun, immune, pierce_ready, clear_ready) in 0..1; zeros if not profiled."""
+    opp = (opp or "").lower()
+    if opp not in PROFILES:
+        return [0.0] * 6
+    bundle, threats, ready, kit, _ = _predict(opp, b, rnd)
+    has = lambda t: float(any(ready[a] and t in kit[a][2] for a in kit))
+    dmg = threats.get("burst") or threats.get("pierce") or threats.get("drain")  # any damage they are likely to land
+    return [float(bool(dmg)), float(bool(threats.get("buff"))), float(bool(threats.get("stun"))),
+            float(bool(threats.get("immune"))), has("pierce"), has("clear")]
+
+
+def _predict(opp, b, rnd):
     prof = PROFILES[opp]
     kit = prof["kit"]
     try:
@@ -106,6 +118,11 @@ def predict(opp, b, rnd):
             bundle.append(a)
             ap -= kit[a][0]
     threats = collections.Counter(t for a in bundle for t in kit[a][2])
+    return bundle, threats, ready, kit, cands
+
+
+def predict(opp, b, rnd):
+    bundle, threats, ready, kit, cands = _predict(opp, b, rnd)
     print(f"{opp} round {rnd}: likely {' + '.join(bundle) or '?'}  (habit scores: "
           + ", ".join(f"{a}:{s}" for s, a in cands[:6]) + ")")
     print("off cooldown: " + ", ".join(a for a in kit if ready[a]))

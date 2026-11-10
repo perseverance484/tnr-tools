@@ -48,6 +48,13 @@ ACTIONS = {
     "defstance": (20, 1, None, "-15% taken next round (filler)"),
     "offstance": (20, 1, None, "filler"),
 }
+# range to the enemy each action needs (hexes, from live jutsu/item data 2026-11-10). 0 = self/no target needed.
+# opponent jutsu 4; Yuki's 3; kunai/smoke/disaster/Night's/Aetherion/Clear 4; ground (Fury/Subaku) placed within 4.
+RANGE = {"rebirth": 4, "shrapnel": 4, "lotus": 4, "fury": 4, "ember": 4, "danse": 4, "stormblade": 4,
+         "resonance": 4, "leech": 4, "subaku": 4, "severed": 4, "sealnull": 4, "smoke": 4, "kunai": 4,
+         "disaster": 4, "nights": 4, "aetherion": 4, "yuki": 3, "clear": 4}
+MOVES = {"phantom": 5, "replace": 5, "step": 1}  # reposition before targeted actions
+ACTIONS["step"] = (10, 0, None, "basic move 1 hex (last resort)")
 LOCKS = {"clearfam": 3, "pierce": 3, "stun": 4, "seal": 3, "drain": 3, "poison": 3, "clearprevent": 3}
 EXTRA_TAGS = {"nights": ("drain",)}  # secondary tags that also take a shared lock
 LOADOUTS = {
@@ -113,16 +120,23 @@ if __name__ == "__main__":
     elif cmd == "show":
         show(b, int(sys.argv[3]))
     elif cmd == "check":
-        # cd_plan.py check BATTLE ROUND AP_AVAILABLE ACTION [...]  (AP_AVAILABLE = 100 - stun)
+        # cd_plan.py check BATTLE ROUND AP_AVAILABLE ACTION [...] [dist=N]  (AP_AVAILABLE = 100 - stun; dist = hexes to enemy)
         s = load(b)
         rnd, ap = int(sys.argv[3]), int(sys.argv[4])
         acts = sys.argv[5:]
+        dist = next((int(x[5:]) for x in acts if x.startswith("dist=")), None)
+        acts = [x for x in acts if not x.startswith("dist=")]
         total = sum(ACTIONS[a][0] for a in acts)
         bad = [f"{a} ready r{ready_round(s, a)}" for a in acts if ready_round(s, a) > rnd]
         tags = [ACTIONS[a][2] for a in acts if ACTIONS[a][2]]
         dup = sorted({t for t in tags if tags.count(t) > 1})
         ok = total <= ap and not bad and not dup
-        print(f"{'OK' if ok else 'NO'}: {'+'.join(acts)} = {total}/{ap} AP"
+        rng = []
+        if dist is not None:
+            d = max(1, dist - sum(MOVES.get(a, 0) for a in acts))
+            rng = [f"{a} range {RANGE[a]} < {d}" for a in acts if RANGE.get(a, 0) and RANGE[a] < d]
+        ok = ok and not rng and total <= ap and not bad
+        print(f"{'OK' if ok else 'NO'}: {'+'.join(acts)} = {total}/{ap} AP" + (f"; RANGE: {', '.join(rng)}" if rng else "")
               + (f"; cooldown: {', '.join(bad)}" if bad else "")
               + (f"; shared lock: {', '.join(dup)}" if dup else "")
               + ("" if total == ap or total > ap else f"; {ap - total} AP unused"))

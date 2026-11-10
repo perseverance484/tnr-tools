@@ -1,43 +1,385 @@
 {
-  "_doc": "Tuned BETWEEN fights, never during. thresholds = trigger levels; rules = weight (higher fires first), condition name (state_rules.py CONDITIONS), bundles = kit short names (cd_plan.py ACTIONS) tried in order. First legal bundle of the top fired rule is FIRE, next legal one is BACKUP. 'profiles' override thresholds/weights/bundles per opponent.",
-  "thresholds": {
-    "lethal_my_hp": 1200, "lethal_en_idg": 0.30,
-    "kill_en_hp": 800,
-    "clear_en_idg": 0.60,
-    "build_en_idg": 0.30,
-    "recoil_on_me": 0.30,
-    "en_absorb": 0.30, "en_lifesteal": 0.35,
-    "en_dr": 0.40,
-    "my_debuffs": 2, "my_wound_drain": 300,
-    "en_reflect": 0.30
+ "_doc": "Tuned BETWEEN fights, never during. thresholds = trigger levels; rules = weight (higher fires first), condition name (state_rules.py CONDITIONS), bundles = kit short names (cd_plan.py ACTIONS) tried in order. First legal bundle of the top fired rule is FIRE, next legal one is BACKUP. 'profiles' override thresholds/weights/bundles per opponent.",
+ "thresholds": {
+  "lethal_my_hp": 1200,
+  "lethal_en_idg": 0.3,
+  "kill_en_hp": 800,
+  "clear_en_idg": 0.6,
+  "build_en_idg": 0.3,
+  "recoil_on_me": 0.3,
+  "en_absorb": 0.3,
+  "en_lifesteal": 0.35,
+  "en_dr": 0.4,
+  "my_debuffs": 2,
+  "my_wound_drain": 300,
+  "en_reflect": 0.3
+ },
+ "immune_blocked": [
+  "subaku",
+  "smoke",
+  "disaster",
+  "severed",
+  "yuki"
+ ],
+ "fillers": [
+  "panacea",
+  "jewel",
+  "pill",
+  "kunai",
+  "defstance",
+  "offstance"
+ ],
+ "rules": [
+  {
+   "id": "lethal",
+   "weight": 100,
+   "when": "lethal_risk",
+   "bundles": [
+    [
+     "danse",
+     "shield"
+    ],
+    [
+     "shield",
+     "subaku",
+     "panacea"
+    ],
+    [
+     "shield",
+     "smoke",
+     "panacea",
+     "jewel"
+    ]
+   ]
   },
-  "immune_blocked": ["subaku", "smoke", "disaster", "severed", "yuki"],
-  "fillers": ["panacea", "jewel", "pill", "kunai", "defstance", "offstance"],
-  "rules": [
-    {"id": "lethal",        "weight": 100, "when": "lethal_risk",        "bundles": [["danse", "shield"], ["shield", "subaku", "panacea"], ["shield", "smoke", "panacea", "jewel"]]},
-    {"id": "kill",          "weight": 95,  "when": "kill_window",        "bundles": [["stormblade", "aetherion"], ["nights", "aetherion", "kunai"], ["stormblade", "kunai", "pill"]]},
-    {"id": "clear_stack",   "weight": 90,  "when": "stack_clearable",    "bundles": [["clear", "sealnull"], ["clear", "kims", "pill"], ["clear", "panacea", "jewel"]]},
-    {"id": "clear_immune",  "weight": 91,  "when": "stack_clearable_immune", "bundles": [["clear", "smoke", "panacea"], ["clear", "panacea", "jewel"]]},
-    {"id": "locked_stack",  "weight": 88,  "when": "stack_clearprevented", "bundles": [["fury", "shield"], ["danse", "shield"], ["fury", "subaku"]]},
-    {"id": "recoil_me",     "weight": 80,  "when": "recoil_on_me",       "bundles": [["cleanse", "panacea", "jewel"], ["stormblade", "overflow"], ["nights", "overflow", "panacea"]]},
-    {"id": "anti_heal",     "weight": 78,  "when": "en_sustain",         "bundles": [["severed", "stormblade"], ["severed", "nights", "pill"], ["severed", "eclipse", "pill"]]},
-    {"id": "pierce_dr",     "weight": 75,  "when": "en_dr_or_shield",    "bundles": [["stormblade", "aetherion"], ["nights", "phantom", "pill"]]},
-    {"id": "cleanse",       "weight": 72,  "when": "me_debuffed",        "bundles": [["cleanse", "panacea", "jewel"], ["cleanse", "pill", "kunai"]]},
-    {"id": "reflect",       "weight": 65,  "when": "en_reflect",         "bundles": [["clear", "overflow"], ["shield", "eclipse", "panacea"]]},
-    {"id": "building",      "weight": 60,  "when": "stack_building",     "bundles": [["fury", "sealnull"], ["fury", "shield"], ["sealnull", "shield", "defstance"]]},
-    {"id": "absorb_up",     "weight": 50,  "when": "my_absorb_down",     "bundles": [["rebirth", "thunders"], ["shield", "eclipse", "pill"]]},
-    {"id": "setup",         "weight": 40,  "when": "always",             "bundles": [["ember", "overflow"], ["rebirth", "overflow"], ["shrapnel", "thunders"], ["ember", "eclipse"]]}
-  ],
-  "profiles": {
-    "luka": {
-      "_note": "He holds Dr. Kim's for my Clear and pierces in smoke rounds; stack-clear only after kims is spent.",
-      "weights": {"locked_stack": 92, "anti_heal": 82},
-      "thresholds": {"clear_en_idg": 0.50}
-    },
-    "ashutosh": {
-      "_note": "Stacks buffs and baits clears: raise the Clear trigger, answer early layers with recoil/seal.",
-      "thresholds": {"clear_en_idg": 0.90},
-      "weights": {"building": 89}
-    }
+  {
+   "id": "kill",
+   "weight": 95,
+   "when": "kill_window",
+   "bundles": [
+    [
+     "stormblade",
+     "aetherion"
+    ],
+    [
+     "nights",
+     "aetherion",
+     "kunai"
+    ],
+    [
+     "stormblade",
+     "kunai",
+     "pill"
+    ]
+   ]
+  },
+  {
+   "id": "clear_stack",
+   "weight": 90,
+   "when": "stack_clearable",
+   "bundles": [
+    [
+     "clear",
+     "sealnull"
+    ],
+    [
+     "clear",
+     "kims",
+     "pill"
+    ],
+    [
+     "clear",
+     "panacea",
+     "jewel"
+    ]
+   ]
+  },
+  {
+   "id": "clear_immune",
+   "weight": 91,
+   "when": "stack_clearable_immune",
+   "bundles": [
+    [
+     "clear",
+     "smoke",
+     "panacea"
+    ],
+    [
+     "clear",
+     "panacea",
+     "jewel"
+    ]
+   ]
+  },
+  {
+   "id": "locked_stack",
+   "weight": 88,
+   "when": "stack_clearprevented",
+   "bundles": [
+    [
+     "fury",
+     "shield"
+    ],
+    [
+     "danse",
+     "shield"
+    ],
+    [
+     "fury",
+     "subaku"
+    ]
+   ]
+  },
+  {
+   "id": "recoil_me",
+   "weight": 80,
+   "when": "recoil_on_me",
+   "bundles": [
+    [
+     "cleanse",
+     "panacea",
+     "jewel"
+    ],
+    [
+     "stormblade",
+     "overflow"
+    ],
+    [
+     "nights",
+     "overflow",
+     "panacea"
+    ]
+   ]
+  },
+  {
+   "id": "anti_heal",
+   "weight": 78,
+   "when": "en_sustain",
+   "bundles": [
+    [
+     "severed",
+     "stormblade"
+    ],
+    [
+     "severed",
+     "nights",
+     "pill"
+    ],
+    [
+     "severed",
+     "eclipse",
+     "pill"
+    ]
+   ]
+  },
+  {
+   "id": "pierce_dr",
+   "weight": 75,
+   "when": "en_dr_or_shield",
+   "bundles": [
+    [
+     "stormblade",
+     "aetherion"
+    ],
+    [
+     "nights",
+     "phantom",
+     "pill"
+    ]
+   ]
+  },
+  {
+   "id": "cleanse",
+   "weight": 72,
+   "when": "me_debuffed",
+   "bundles": [
+    [
+     "cleanse",
+     "panacea",
+     "jewel"
+    ],
+    [
+     "cleanse",
+     "pill",
+     "kunai"
+    ]
+   ]
+  },
+  {
+   "id": "reflect",
+   "weight": 65,
+   "when": "en_reflect",
+   "bundles": [
+    [
+     "clear",
+     "overflow"
+    ],
+    [
+     "shield",
+     "eclipse",
+     "panacea"
+    ]
+   ]
+  },
+  {
+   "id": "building",
+   "weight": 60,
+   "when": "stack_building",
+   "bundles": [
+    [
+     "fury",
+     "sealnull"
+    ],
+    [
+     "fury",
+     "shield"
+    ],
+    [
+     "sealnull",
+     "shield",
+     "defstance"
+    ]
+   ]
+  },
+  {
+   "id": "absorb_up",
+   "weight": 50,
+   "when": "my_absorb_down",
+   "bundles": [
+    [
+     "rebirth",
+     "thunders"
+    ],
+    [
+     "shield",
+     "eclipse",
+     "pill"
+    ]
+   ]
+  },
+  {
+   "id": "setup",
+   "weight": 40,
+   "when": "always",
+   "bundles": [
+    [
+     "ember",
+     "overflow"
+    ],
+    [
+     "rebirth",
+     "overflow"
+    ],
+    [
+     "shrapnel",
+     "thunders"
+    ],
+    [
+     "ember",
+     "eclipse"
+    ]
+   ]
   }
+ ],
+ "profiles": {
+  "luka": {
+   "_note": "He holds Dr. Kim's for my Clear and pierces in smoke rounds; stack-clear only after kims is spent.",
+   "weights": {
+    "locked_stack": 92,
+    "anti_heal": 82
+   },
+   "thresholds": {
+    "clear_en_idg": 0.5
+   }
+  },
+  "ashutosh": {
+   "_note": "Stacks buffs and baits clears: raise the Clear trigger, answer early layers with recoil/seal.",
+   "thresholds": {
+    "clear_en_idg": 0.9
+   },
+   "weights": {
+    "building": 89
+   }
+  }
+ },
+ "cd_cost": 0.01,
+ "_doc_pairs": "pairs: hand-tuned synergy (+) / anti-synergy (-) for two actions in the same turn; trainable.",
+ "pairs": {
+  "rebirth|shield": -0.4,
+  "clear|sealnull": 0.3,
+  "clear|kims": 0.2,
+  "fury|shield": 0.15,
+  "ember|overflow": 0.1,
+  "smoke|stormblade": -0.3,
+  "nights|smoke": -0.3,
+  "fury|subaku": 0.1,
+  "severed|stormblade": 0.1,
+  "cleanse|panacea": 0.1,
+  "stormblade|thunders": -0.1,
+  "clear|smoke": -0.15,
+  "kims|overflow": 0.15,
+  "eclipse|smoke": 0.1,
+  "rebirth|smoke": 0.1
+ },
+ "_doc_prior": "prior: extra hand weights action -> feature (enemy-prediction and range inputs).",
+ "prior": {
+  "fury": {
+   "pred_burst": 0.4,
+   "en_pierce_ready": -0.3,
+   "close": 0.1
+  },
+  "shield": {
+   "pred_burst": 0.3,
+   "en_pierce_ready": -0.2
+  },
+  "subaku": {
+   "pred_burst": 0.3,
+   "pred_immune": -0.3,
+   "close": 0.1
+  },
+  "danse": {
+   "pred_burst": 0.3
+  },
+  "smoke": {
+   "pred_burst": 0.25,
+   "pred_immune": -0.2
+  },
+  "panacea": {
+   "pred_burst": 0.15
+  },
+  "sealnull": {
+   "pred_buff": 0.4
+  },
+  "lotus": {
+   "pred_buff": 0.3
+  },
+  "overflow": {
+   "pred_stun": 0.1,
+   "en_clear_ready": -0.2
+  },
+  "thunders": {
+   "en_clear_ready": -0.15
+  },
+  "eclipse": {
+   "en_clear_ready": -0.1
+  },
+  "kims": {
+   "en_clear_ready": 0.2
+  },
+  "severed": {
+   "pred_immune": -0.3
+  },
+  "disaster": {
+   "pred_immune": -0.3
+  },
+  "yuki": {
+   "pred_immune": -0.2
+  },
+  "phantom": {
+   "far": 0.3
+  },
+  "replace": {
+   "far": 0.1
+  }
+ }
 }

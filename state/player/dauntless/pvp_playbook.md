@@ -395,8 +395,10 @@ damage are instant.
 
 ## Turn procedure (2026-11-10): learned policy, no live thinking
 Director: "You dont do live thinking you edit the weights for the state rules and modify the jutsu kit" / "Treat it like a neural network" / "You hand tune it based on your knowledge initially and it fine tunes".
-- In the fight: `tools/policy.py act LOG ROUND --enemy NAME --battle B --my-hp N --en-hp N` then fire FIRE; on any refusal fire BACKUP. After the round: `policy.py reward B ROUND acts DEALT TAKEN`. Keep `cd_plan.py use` current (legality).
-- After the fight: `policy.py train B` (gradient step on each round's net HP swing; samples kept in tools/train_log.jsonl).
+- Network: 28 inputs (state flags, HP, enemy-prediction threats from enemy_model, range) -> 12 hidden ReLU -> one unit per kit action, plus trainable pair synergy weights. Hand-tuned linear prior (rules_config.json rules/prior/pairs) is the starting policy; the hidden layer starts at zero and learns.
+- Legality is a hard filter: AP (80 stunned), cooldowns + shared locks, immunity, RANGE (Yuki's 3, everything else targeted 4; Phantom/Replacement move 5, basic step 1 for 10 AP; no redundant moves), full AP spend.
+- In the fight: `tools/policy.py act LOG ROUND --enemy NAME --battle B --dist N --my-hp N --en-hp N` -> fire FIRE in the printed order; on any refusal fire BACKUP. After each round: `policy.py reward B ROUND acts DEALT TAKEN`; keep `cd_plan.py use` and `enemy_model.py OPP log` current.
+- After the fight: `policy.py result B win|loss`, then `policy.py train B` (discounted multi-round return, gamma 0.6, +/-2 terminal, so setup turns get credit). `policy.py retrain` replays every logged fight from the hand seed after I retune the config.
+- `cd_plan.py check ... dist=N` also checks range now.
 - Between fights: hand-tune `tools/rules_config.json` (thresholds, rule weights, bundles, per-opponent profiles), then `policy.py init --keep` to add units for kit changes. The kit is the output layer (cd_plan.ACTIONS / LOADOUTS).
 - state_rules.py remains the readable view of the same state; enemy_model.py adds opponent habits.
-- Gap: range is not modelled (Yuki's 3, Night's 4, Clear/Cleanse 4).
