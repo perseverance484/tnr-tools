@@ -417,6 +417,8 @@ Each phase is one or more `fable/*` branches, each handed over at an exact SHA f
 
 P2, P3, P5 and P6 can run in parallel once P1 lands.
 
+After P7: the skill research program (`state/prompt_skill_research_program.md`, RUL-2026-11-09-138) continues the skills with research-backed toolkits, starting with combat VFX.
+
 ---
 
 ## 9. Acceptance: the eval set
