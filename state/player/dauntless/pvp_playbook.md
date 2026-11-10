@@ -333,7 +333,22 @@ buff up next round for a big attack the round after that. With buff prevent from
 cannot do that." When player 1 drinks Dr. Kim's Miracle Potion, answer with Seal of Nullification that turn: their
 buff round is blocked, which kills the burst planned for the round after.
 
-**Emergency button (director, 2026-11-10: "your turn 1 combo is better reserved as an emergency button. If you blow
+**Game plan (director, 2026-11-10, overrides the button order below): "thats why we like to keep absorb up and use
+recoil as our emergency button. Subaku, danse, dr and whatnot come later when that option is exhausted. We basically
+accelerate the fight with their own damage and use proven combos to reach lethal damage before they can disengage or
+start a recovery loop."**
+1. **Absorb always up.** Chain Ethereal Rebirth (35, 3 r) and Chakra Shield (35 + instant shield), never overlapping
+   (60 cap). Eclipse Drain lifesteal on hitting turns.
+2. **First emergency button = recoil.** When their damage stack is live or due: Forbidden Chakra Fury (instant ~40%
+   ground recoil, uncleansable). Their big turn hurts them and heals me through absorb; they either eat it or spend AP
+   walking off. Not into an enemy with pierce up (pierce skips recoil); best right after they've spent pierce.
+3. **Second line, only when absorb/recoil are on cooldown:** Danse Macabre seal, Subaku Palace, Panacea / Colored
+   Jewel DR, Smoke.
+4. **Close it out.** Their own damage has done the early work; go to lethal with the proven combos (Ember + Overflow
+   swing, Stormblade / Night's Testament pierce, drains) before they can walk away or start a heal/Clear recovery
+   loop. Severed Pulse before the kill turn against healers; Seal of Nullification if they set up a buff round.
+
+**Second-line button (director, 2026-11-10: "your turn 1 combo is better reserved as an emergency button. If you blow
 it early then they can hit you with a ramped damage stack later.")** Danse Macabre (cd 8) and Subaku Palace (cd 7)
 are instant damage cuts; spent on turn 1 they are on cooldown exactly when the enemy's ramped stack lands. Hold them.
 - Trigger: their damage stack is live or due next turn (2+ of: +damage given / +tag power on them, +damage taken /
