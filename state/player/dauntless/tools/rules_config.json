@@ -279,6 +279,85 @@
      "eclipse"
     ]
    ]
+  },
+  {
+   "id": "wound_lethal",
+   "weight": 99,
+   "when": "wound_lethal",
+   "_why": "Luka #5/#6: died to wound ticks at 172-768 HP; Cleanse first removes wound+drain before they tick",
+   "bundles": [
+    [
+     "cleanse",
+     "shield"
+    ],
+    [
+     "cleanse",
+     "panacea",
+     "jewel"
+    ],
+    [
+     "cleanse",
+     "subaku"
+    ]
+   ]
+  },
+  {
+   "id": "stunned",
+   "weight": 85,
+   "when": "me_stunned",
+   "_why": "stunned = 80 AP: one 60 + one 20, or 40+40",
+   "bundles": [
+    [
+     "fury",
+     "defstance"
+    ],
+    [
+     "rebirth",
+     "pill"
+    ],
+    [
+     "danse",
+     "kunai"
+    ],
+    [
+     "subaku",
+     "parry"
+    ],
+    [
+     "cleanse",
+     "panacea"
+    ]
+   ]
+  },
+  {
+   "id": "absorb_live",
+   "weight": 83,
+   "when": "en_absorb",
+   "_why": "absorb 40-60% heals back bursts; Clear it, else drain/pierce + anti-heal",
+   "bundles": [
+    [
+     "clear",
+     "sealnull"
+    ],
+    [
+     "yuki",
+     "severed",
+     "pill"
+    ],
+    [
+     "leech",
+     "severed"
+    ],
+    [
+     "nights",
+     "severed",
+     "pill"
+    ],
+    [
+     "stormblade",
+     "thunders"
+    ]
+   ]
   }
  ],
  "profiles": {
@@ -332,11 +411,12 @@
    "me_wound": -0.5,
    "me_smoked": -0.5,
    "en_sustain": -0.35,
-   "en_idg": 0.15
+   "en_idg": 0.15,
+   "en_absorb": -0.3
   },
   "shield": {
    "pred_burst": 0.3,
-   "en_pierce_ready": -0.2,
+   "en_pierce_ready": -0.6,
    "en_idg": 0.1,
    "i_first": 0.15
   },
@@ -351,10 +431,11 @@
    "pred_burst": 0.3,
    "me_wound": -0.5,
    "me_smoked": -0.5,
-   "i_first": 0.1
+   "i_first": 0.1,
+   "en_absorb": -0.3
   },
   "smoke": {
-   "pred_burst": 0.25,
+   "pred_burst": 0.4,
    "pred_immune": -0.2,
    "en_idg": 0.1,
    "i_first": -0.35
@@ -366,21 +447,24 @@
   "sealnull": {
    "pred_buff": 0.4,
    "en_idg": 0.1,
-   "me_smoked": 0.2
+   "me_smoked": 0.2,
+   "i_first": -0.2,
+   "pred_immune": 0.3
   },
   "lotus": {
    "pred_buff": 0.3,
    "me_wound": -0.5,
-   "me_smoked": -0.5
+   "me_smoked": -0.5,
+   "en_absorb": -0.3
   },
   "overflow": {
    "pred_stun": 0.1,
-   "en_clear_ready": -0.2,
+   "en_clear_ready": -0.35,
    "me_smoked": 0.3,
    "en_clear_spent": 0.35
   },
   "thunders": {
-   "en_clear_ready": -0.15,
+   "en_clear_ready": -0.3,
    "me_smoked": 0.2,
    "en_clear_spent": 0.15,
    "en_idg": -0.15,
@@ -388,24 +472,27 @@
    "stack_building": -0.15
   },
   "eclipse": {
-   "en_clear_ready": -0.1,
+   "en_clear_ready": -0.2,
    "me_smoked": 0.2,
    "en_clear_spent": 0.15
   },
   "kims": {
    "en_clear_ready": 0.2,
    "me_smoked": 0.15,
-   "i_first": 0.05,
+   "i_first": -0.4,
    "en_clear_spent": -0.6
   },
   "severed": {
-   "pred_immune": -0.3
+   "pred_immune": -0.3,
+   "en_sustain": 0.3,
+   "en_absorb": 0.2
   },
   "disaster": {
    "pred_immune": -0.3
   },
   "yuki": {
-   "pred_immune": -0.2
+   "pred_immune": -0.2,
+   "en_absorb": 0.35
   },
   "phantom": {
    "far": 0.3,
@@ -420,15 +507,19 @@
   },
   "rebirth": {
    "me_wound": -0.5,
-   "me_smoked": -0.5
+   "me_smoked": -0.5,
+   "en_absorb": -0.3
   },
   "shrapnel": {
    "me_wound": -0.5,
-   "me_smoked": -0.5
+   "me_smoked": -0.5,
+   "en_absorb": -0.3
   },
   "ember": {
    "me_wound": -0.5,
-   "me_smoked": -0.5
+   "me_smoked": -0.5,
+   "en_absorb": -0.3,
+   "en_clear_ready": -0.1
   },
   "stormblade": {
    "me_wound": -0.5,
@@ -439,7 +530,8 @@
   },
   "resonance": {
    "me_wound": -0.5,
-   "me_smoked": -0.5
+   "me_smoked": -0.5,
+   "en_absorb": -0.3
   },
   "kunai": {
    "me_wound": -0.5,
@@ -447,24 +539,30 @@
   },
   "aetherion": {
    "me_wound": -0.5,
-   "me_smoked": -0.5
+   "me_smoked": -0.5,
+   "en_absorb": -0.3
   },
   "nights": {
    "me_wound": -0.5,
    "me_smoked": 0.45,
    "bias": -0.25,
    "en_dr_or_shield": 0.3,
-   "nights_kills": 1.5
+   "nights_kills": 1.5,
+   "en_absorb": 0.35
   },
   "cleanse": {
-   "me_wound": 0.5
+   "me_wound": 0.3,
+   "wound_lethal": 0.8
   },
   "clear": {
    "en_idg": 0.35,
-   "en_sustain": 0.25
+   "en_sustain": 0.25,
+   "en_absorb": 0.4,
+   "en_immune": 0.2
   },
   "leech": {
-   "me_smoked": -0.5
+   "me_smoked": -0.5,
+   "en_absorb": 0.35
   },
   "pill": {
    "me_smoked": 0.1,

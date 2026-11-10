@@ -260,7 +260,7 @@ best idea because absorb caps at 60 and that gives you 70, thus wasting some. Al
 `item.selectItemLoadout`, both outside battle):**
 | Profile | Signs (from `pvp_playbook.md` opponent notes, Study 2, their last logs) | Jutsu | Items |
 |---|---|---|---|
-| Sustain / DR stacker | lifesteal 40%+, absorb/barrier, -35% taken stacks, heal pots: Gario, Korin, Winta, DDXXD | PvP 2 `ZVfObjuW5xO462WiR5UMQ` | PvP 2 `CANnGKSJ7UeF9c88lHa42` (Yuki's drain, Disaster Potion, Sloth) |
+| Sustain / DR stacker | lifesteal 40%+, absorb/barrier, -35% taken stacks, heal pots: Gario, Korin, Winta, DDXXD, **Luka** (2026-11-10 #5: LS 35+20, absorb 40, DR 25-35, heals ~700 twice; my 60-AP hits did ~450-700) | PvP 2 `ZVfObjuW5xO462WiR5UMQ` | PvP 2 `CANnGKSJ7UeF9c88lHa42` (Yuki's drain, Disaster Potion, Sloth) |
 | Burst / Clear-first | opens with Clear, big single-round stacks, few heals: Arashii, IndraUchiha | PvP 1 `soXekhNjk7qihu-Rsok-6` | PvP 1 `B-bCCtg-_fvcJSrvR1ts0` |
 | Unknown | first meeting, no log | PvP 1 | PvP 1 |
 Bloodline notes: record each opponent's bloodline and its passive (e.g. +40% damage given, sealable) the first time it
@@ -402,3 +402,32 @@ Director: "You dont do live thinking you edit the weights for the state rules an
 - `cd_plan.py check ... dist=N` also checks range now.
 - Between fights: hand-tune `tools/rules_config.json` (thresholds, rule weights, bundles, per-opponent profiles), then `policy.py init --keep` to add units for kit changes. The kit is the output layer (cd_plan.ACTIONS / LOADOUTS).
 - state_rules.py remains the readable view of the same state; enemy_model.py adds opponent habits.
+
+## Luka analysis (2026-11-10, fights 1-6, all losses) - why I lose and the prepared responses
+**His script (enemy_model.py now holds all 6 fights + 37 kit entries):** R1 always buffs (potency + absorbstack:
++40-60% given, absorb 40 [+pill/panacea]). R2 Middle Guard (debuff-immune next round, DR 35, +35 given) + a debuff/LS
+piece. R3-R5 burst (resward 980 / shieldbreak 735 pierce / DKI 950) with +taken/recoil/afterburn/wound on me.
+Clear once (~R5) right after I buff. Smoke once (R4-R7). Re-buff cycle R7-R10. Heals ~700 (heal item) + LS 20-55%.
+
+**Why I lose**
+1. Damage gap: my 60-AP hits did 330-776 to him (vs 3,000+ to Kagemitsu); his absorb 40-60% healed back up to 60%
+   of each hit (R9 #6: 1,314 dealt, 788 absorbed). His ~900/turn beat my ~450 net.
+2. Wasted AP/turns: R1 lost to a timeout (#4, I was in a long wait); Kim's while acting first (doesn't cover the
+   same round); Kim's+Seal proposed together (shared lock bug); Chakra Shield into his shieldbreak 3 of 3 times;
+   Overflow/Seal immunity stripped by his Clear; bursts thrown into Middle Guard DR / absorb / my smoke rounds.
+3. Clear timing: Clear R1-R2 strips the opener but he re-buffs with Middle Guard the same/next turn. Clear is best
+   once Middle Guard + absorbstack are both live (immunity doesn't stop Clear).
+4. Late wound/drain kills: died to wound ticks at 768 and 172 HP; Cleanse was already spent.
+
+**Prepared responses (now in rules_config.json rules + priors; policy retrained)**
+| Scenario | Response |
+|---|---|
+| Wound/drain tick could kill me (HP <= 2 ticks + 300) | Cleanse FIRST (removes them before they tick) + Shield/Panacea |
+| I'm stunned (80 AP) | Fury + Def. Stance / Rebirth + Pill / Danse + Kunai / Subaku + Parry |
+| Absorb >= 30% on him | Clear (+Seal); if Clear is down: drains (Yuki, Leech, Night's - not absorbed) + Severed Pulse, or pierce; no 60-AP bursts |
+| His shieldbreak/pierce is ready | no Chakra Shield; Smoke/Subaku/Panacea instead |
+| Acting first, Middle Guard due next round | Seal of Nullification now (blocks his next-round buffs) |
+| He hasn't used Clear yet | don't stack Overflow/Ember/Thunder's into his turn |
+| Lifesteal >= 35% | Severed Pulse before trading; recoil/reflect feed his LS |
+| Smoked | setup only (or pierce) |
+Process: poll for incoming attacks every <= 20 s; never sleep longer between checks while hunting.

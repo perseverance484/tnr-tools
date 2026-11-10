@@ -36,6 +36,17 @@ PROFILES = {
             "pill2": (20, 4, ["buff"]), "panacea": (20, 6, ["buff"]), "smoke": (20, 10, ["smoke"]),
             "kims": (20, 10, ["immune"]), "healitem": (20, 6, ["heal", "buff"]), "replace": (20, 2, ["kite"]),
             "kunai": (20, 4, ["burst"]),
+            # 2026-11-10 fights 4-6 (ids below): AP fitted from his full turns
+            "potency": (40, 7, ["buff"]),            # 8NfE: +20.8% given, +10 tag power (Water)
+            "absorbstack": (40, 7, ["buff", "absorb"]),  # Xd1n: +40% given, absorb 40 (his R1 + R7-10 opener)
+            "shieldbreak": (60, 7, ["burst", "pierce", "wound"]),  # J6HT: ~735, pierces/destroys my shield, wound 182
+            "absorbhit": (60, 7, ["burst", "absorb"]),  # qe40: ~450-600 + absorb 30-40
+            "lsdebuff": (40, 7, ["debuff_me", "lifesteal"]),  # GGms: me +30% taken, LS 35
+            "afterburnme": (20, 6, ["debuff_me"]),  # mlCQ: me +15% taken, afterburn 20
+            "draingiven": (40, 7, ["drain", "buff"]),  # WoaNq: drain 150 x2, +30% elemental given
+            "afterburnground": (60, 7, ["burst"]),  # oh9C: ~500-630 + afterburn ground
+            "lsshield": (60, 7, ["lifesteal", "shield"]),  # dKeY: LS 35 + small shield
+            "decree": (40, 6, ["burst", "debuff_me"]),  # PhP5 Captain's Decree: ~400, me +20% taken, afterburn 10
         },
         # action ids seen in battle entries (2026-11-10), so live logs map straight to kit names
         "ids": {"FytS2iqFInf1go6WhOvUU": "dki", "rsc2uO5QuffXzejfhwF_F": "panacea", "eUWCeXAqVdIFHfUpmxQWD": "eternaldark",
@@ -45,7 +56,15 @@ PROFILES = {
                 "nThwqBAKNrl1_4UTL-D_m": "pill2", "r2QGirLcf1lpWvYCHS60g": "middleguard", "ou7VyChQ-SFCm8T8yGS7I": "eclipse",
                 "VHU4A-vVGvUFTasBelWP2": "echo", "replacementTechnique": "replace", "l6iUf3mc7LZQQEDDif1zW": "veil",
                 "8Un5MzB4EiECVOSLwc9bf": "resward", "6DnJn4x6LWWXtBu7UZybb": "kims", "i4lGrYY5HNN2Q2GPToKUS": "adamantine",
-                "XmFscRje4vUzUorOI5plt": "healitem", "u9mXSgVW_QjkRzCejGXZ1": "kunai"},
+                "XmFscRje4vUzUorOI5plt": "healitem", "u9mXSgVW_QjkRzCejGXZ1": "kunai",
+                "8NfEZTMQDK25fgerqjtXB": "potency", "Xd1nYH0TryplDPd6fORFm": "absorbstack",
+                "J6HTCnlUw84zOyaf9xxmD": "shieldbreak", "qe40i5VoewLPvjJfTI4Vi": "absorbhit",
+                "GGms9iTcZq_gICEuZYF2Q": "lsdebuff", "mlCQd6nbegRsYiO28cTPp": "afterburnme",
+                "WoaNqRnyBBXRwmKbq8h1D": "draingiven", "oh9CmLX8nltc2WfrkvswH": "afterburnground",
+                "dKeYkS3A9dB_eRPoBuFUJ": "lsshield", "PhP5ZEF5iVa97jcumJ15c": "decree",
+                "lXlcfj4ZrhX8mzkOgy0oI": "resward", "GAyHRgaa1lkYGhE9WxlRL": "phantom",
+                "VHU4A-vVGvUFTasBelWP2": "echo", "eUWCeXAqVdIFHfUpmxQWD": "eternaldark",
+                "r2QGirLcf1lpWvYCHS60g": "middleguard", "FytS2iqFInf1go6WhOvUU": "dki"},
         "fights": [
             # vs dauntless 2026-11-10 15:18 (he won)
             [["stone", "pill2", "panacea"], ["resward", "ironbo"], ["veil", "stonepillar", "replace"],
@@ -59,7 +78,24 @@ PROFILES = {
             [["stone", "pill2", "panacea"], ["resonance", "ironbo"], ["leech", "adamantine"],
              ["overflow", "eclipse", "kims"], ["nights", "dki"], ["healitem", "echo", "smoke"],
              ["vacuum", "pill2", "phantom"], ["tranquil"]],
+            # vs dauntless 2026-11-10 19:14 (he attacked; won R6)
+            [["replace", "potency", "vacuum"], ["resward", "absorbstack"], ["middleguard", "lsdebuff", "pill2"],
+             ["dki", "draingiven"], ["shieldbreak", "decree"], ["afterburnground", "kunai"]],
+            # vs dauntless 2026-11-10 19:24 (he attacked; won R11)
+            [["panacea", "absorbstack", "potency"], ["middleguard", "absorbhit"], ["lsdebuff", "resward"],
+             ["dki", "decree"], ["vacuum", "afterburnme", "phantom"], ["lsshield", "kunai", "kims"],
+             ["pill2", "smoke"], ["shieldbreak", "draingiven"], ["eternaldark", "echo", "afterburnme"],
+             ["potency", "absorbstack", "panacea"], ["afterburnground", "decree"]],
+            # vs dauntless 2026-11-10 19:35 (I attacked, PvP 2; won R11)
+            [["potency", "absorbstack", "pill2"], ["middleguard", "lsdebuff"], ["shieldbreak", "afterburnme"],
+             ["dki", "kunai", "smoke"], ["clear", "vacuum"], ["resward", "panacea", "pill2"],
+             ["potency", "absorbhit"], ["absorbstack", "afterburnme", "draingiven"], ["eternaldark", "decree"],
+             ["shieldbreak", "replace"]],
         ],
+        # Pattern (6 fights): R1 always buffs (potency + absorbstack [+pill/panacea/vacuum]); R2 Middle Guard
+        # (debuff-immune R3, DR 35, +35 given) + a debuff/LS piece; R3-R5 burst (resward / shieldbreak / dki) with
+        # debuffs on me; Clear once (~R5) right after I buff; Smoke once (R4-R7); re-buff cycle ~R7-R10;
+        # shieldbreak (pierces Chakra Shield) every 7 rounds from R3-R5.
     },
 }
 
@@ -78,6 +114,9 @@ COUNTERS = {
     "kite": "He repositions off my ground: keep Replacement/Phantom ready; don't drop ground effects he can walk out of.",
     "pull": "Pull + damage-taken debuff: expect his burst at close range next.",
     "smoke": "Smoke: the next round is dead for damage; he pierces in it. Set up, keep absorb.",
+    "absorb": "Absorb live on him: hits heal him back 40-60%. Clear it, or deal drains (Yuki/Leech/Night's drain are not absorbed) and pierce; don't spend 60-AP bursts into it.",
+    "lifesteal": "His lifesteal is up: Severed Pulse (-50% healing) before trading hits; recoil/reflect feed his LS.",
+    "wound": "Wound on me next: keep Cleanse for the round my HP is under ~2x the tick (it removes wound before it ticks).",
 }
 
 
@@ -137,7 +176,8 @@ def predict(opp, b, rnd):
           + ", ".join(f"{a}:{s}" for s, a in cands[:6]) + ")")
     print("off cooldown: " + ", ".join(a for a in kit if ready[a]))
     print("on cooldown: " + ", ".join(a for a in kit if not ready[a]))
-    for t in ["burst", "buff", "immune", "recoil_me", "stun", "pierce", "clear", "drain", "pull", "smoke", "kite"]:
+    for t in ["burst", "buff", "immune", "recoil_me", "stun", "pierce", "clear", "drain", "pull", "smoke", "kite",
+              "absorb", "lifesteal", "wound"]:
         if threats.get(t) or (t in ("pierce", "clear") and any(ready[a] and t in kit[a][2] for a in kit)):
             print(f"  [{t}] {COUNTERS[t]}")
 

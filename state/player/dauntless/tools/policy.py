@@ -36,7 +36,7 @@ import math
 import os
 import random
 
-from cd_plan import ACTIONS, LOADOUTS, MOVES, RANGE, load, ready_round
+from cd_plan import ACTIONS, LOADOUTS, MOVES, RANGE, load, ready_round, tags_of
 from enemy_model import threat_features
 from state_rules import build_ctx
 
@@ -53,7 +53,8 @@ FEATURES = ["bias", "lethal_risk", "kill_window", "stack_clearable", "stack_clea
             "stack_building", "my_absorb_down", "en_immune", "me_stunned", "my_given_live", "en_taken_live",
             "my_hp_frac", "en_hp_frac", "en_idg",
             "pred_burst", "pred_buff", "pred_stun", "pred_immune", "en_pierce_ready", "en_clear_ready",
-            "far", "close", "me_wound", "me_smoked", "i_first", "en_clear_spent", "nights_kills", "storm_kills"]
+            "far", "close", "me_wound", "me_smoked", "i_first", "en_clear_spent", "nights_kills", "storm_kills",
+            "en_absorb", "wound_lethal"]
 RULE_FEATURE = {"always": "bias"}
 # firing order inside a bundle: move first, then instant protection / strip, then buffs, then damage, fillers last
 ORDER = ["phantom", "replace", "step", "clear", "cleanse", "kims", "sealnull", "danse", "shield", "subaku", "fury",
@@ -95,6 +96,10 @@ def features(c, th, my_max, en_max, threats, dist):
         # flat pierce finishes: Night's 631, Stormblade 707 (ignore DR/smoke; shields break)
         "nights_kills": float(0 < c["en_hp"] <= 631),
         "storm_kills": float(0 < c["en_hp"] <= 707),
+        # 2026-11-10 Luka #4-6: his absorb (40-60%) healed back most of every 60-AP hit; drains are not absorbed
+        "en_absorb": float(c["en_absorb"] >= th["en_absorb"]),
+        # wound/drain tick fires on my first action: at HP <= ~2 ticks only Cleanse (first) saves the turn
+        "wound_lethal": float(bool(c["my_hp"]) and c["me_wound_drain"] > 0 and c["my_hp"] <= 2 * c["me_wound_drain"] + 300),
     }
     for k, v in zip(["pred_burst", "pred_buff", "pred_stun", "pred_immune", "en_pierce_ready", "en_clear_ready"],
                     threats):
@@ -187,7 +192,7 @@ def legal(state, rnd, ap, immune, blocked, loadout, dist):
             cost = sum(ACTIONS[c][0] for c in combo)
             if cost > ap:
                 continue
-            tags = [ACTIONS[c][2] for c in combo if ACTIONS[c][2]]
+            tags = [t for c in combo for t in tags_of(c)]
             if len(tags) != len(set(tags)):
                 continue
             need = min([RANGE[c] for c in combo if RANGE.get(c)], default=99)
@@ -222,6 +227,9 @@ def est_damage(bundle, c):
     mult = (1 + c.get("my_given_mult", 0)) * (1 + c.get("en_taken_mult", 0)) * (1 - c["en_dr"])
     if c.get("me_smoked"):
         mult *= 0.3
+    # --scale: observed/EST ratio from my own hits earlier in this fight (2026-11-10 Kagemitsu: Fury 3,637 and
+    # Rebirth 3,187 vs EST 450/600 -> low-defence targets take ~5-8x; the est-kill override missed a kill)
+    mult *= c.get("scale", 1.0)
     return sum(EST.get(a, 0) * (1 if a in PIERCE else mult) for a in bundle)
 
 
@@ -236,7 +244,10 @@ def act(a):
         c[k] = max(c[k], c2[k])
     c["en_clearprevent"] = c["en_clearprevent"] or c2["en_clearprevent"]
     c["i_first"] = a.first
+    c["scale"] = a.scale
     thr = threat_features(a.enemy, a.battle, a.round) if a.battle else [0.0] * 6
+    if a.battle and a.first:  # acting first: my prevents/Seal land on his NEXT round's casts too
+        thr = [max(u, v) for u, v in zip(thr, threat_features(a.enemy, a.battle, a.round + 1))]
     x = features(c, th, a.my_max, a.en_max, thr, a.dist)
     _, h = hidden(net, x)
     state = load(a.battle) if a.battle else None
@@ -370,6 +381,9 @@ def retrain(epochs, lr):
     net = seed(quiet=True)
     sw = json.loads(json.dumps(net["W"]))
     ss = [json.loads(l) for l in open(TRAIN_LOG)] if os.path.exists(TRAIN_LOG) else []
+    for s_ in ss:  # samples logged before a feature was added: new features read 0
+        if len(s_["x"]) < len(FEATURES):
+            s_["x"] = s_["x"] + [0.0] * (len(FEATURES) - len(s_["x"]))
     rnd = random.Random(1)
     for e in range(epochs):
         rnd.shuffle(ss)
@@ -396,6 +410,7 @@ if __name__ == "__main__":
     s = sp.add_parser("act"); s.add_argument("log"); s.add_argument("round", type=int)
     s.add_argument("--enemy", required=True); s.add_argument("--battle", default="")
     s.add_argument("--dist", type=int, default=3)
+    s.add_argument("--scale", type=float, default=1.0, help="observed/EST damage ratio from my hits this fight")
     s.add_argument("--first", action="store_true", help="I act first this round (delayed defence won't cover his turn)")
     s.add_argument("--ap", type=int, default=100); s.add_argument("--my-hp", type=float, default=0)
     s.add_argument("--en-hp", type=float, default=0); s.add_argument("--my-max", type=float, default=5050)

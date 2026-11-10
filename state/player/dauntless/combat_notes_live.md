@@ -10,3 +10,9 @@
 - Ikazuchi Kunai stack ran out mid-hunt; Bloodthorn Kunai (yVNeLzxHSFkNpTPnlm7yQ, 65) now THROWN. Director: "Not having kunai equipped also cost you this fight".
 - Director: "Why didnt you do lotus dance and basic attack to win?" -> basic attack added; estimated-kill override.
 - Village protectors (Shrine Guardian) attack you walking through Akikaze; one Rebirth killed it.
+- 2026-11-10 19:14 (Luka #4): never sleep > 25 s between checks while hunting; poll `profile.getUser battleId` - an attack while I wait costs my whole first turn.
+- Dr. Kim's / Seal "cannot be debuffed for the next 1 rounds" starts next round: when I act first in a round it does NOT stop his debuffs that same round. Prior kims.i_first -> -0.4, sealnull.i_first -0.2.
+- Cleanse as the first action removes wound/drain before they tick (no wound damage that turn).
+- Luka new ids: lXlcfj4ZrhX8mzkOgy0oI (+35% taken + 40% recoil on me, ~980), Xd1nYH0TryplDPd6fORFm (+40% given, 40% absorb), GGms9iTcZq_gICEuZYF2Q (LS 35), WoaNqRnyBBXRwmKbq8h1D (drain 150 + 30% elemental given), J6HTCnlUw84zOyaf9xxmD (wound + pierces shields), oh9CmLX8nltc2WfrkvswH (afterburn ground), PhP5 Captain's Decree.
+- Luka #6 (PvP 2): his absorb (40% x2 stacked = ~60%) heals back most of each hit; Severed Pulse cuts healing but not absorb. His J6HT pierces Chakra Shield every time (cd 7: R3, R10) - don't rely on Shield in rounds his J6HT is ready. His Clear (once, ~R5) strips Seal-of-Nullification debuff immunity, then he debuffs. Lost 0-6 to him today; best results came from Smoke + Seal blanking a round and Fury recoil.
+- A wound on me with HP below the tick = dead on my first action; Cleanse is the only out (keep Cleanse for the late wound, not R6).
