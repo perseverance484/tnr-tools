@@ -52,3 +52,25 @@ Severed Pulse (anti-heal + dmg taken), Momentum Shift.
 - **Korin** (Risen, 100): passive stun every round, recoil/wound on me, heavy DR. Lost 2026-11-09.
   Next time: pierce + items, time cleanse after his debuffs land, Seal of Nullification then Clear.
 - **Thronaris** (Akasumi, 97): went AFK; beat him 2026-11-09.
+
+## Rulings and findings, 2026-11-09 (session 4)
+- **Never use Flee** (director). It costs 100 AP for a 20% chance anyway.
+- Clear and Cleanse: 60 AP, range 4, **10-round cooldown**. One each per fight.
+- **Cleanse does not remove stun**, and debuff-prevent does not block it. The in-game guide's "Cleansable Tags"
+  page says cleanse helps against stuns. That is a doc/engine mismatch to report to the game owner.
+- Stuns don't stack: the largest reduction applies.
+- Prevents are a % chance and only block effects applied in a later round.
+- Seal of Nullification: target cannot be buffed 1 round, and I cannot be debuffed 2 rounds.
+- Elite Smoke Bomb has a cooldown (can't be thrown on consecutive turns).
+
+## Director's own lines (from his PvP history vs Gario and Silent)
+- Every turn spends all 100 AP (60+40, 60+20+20, 40+40+20).
+- Opener: Seal of Nullification + Chakra Shield + Defensive Stance. Then Subaku Palace + Parry + Defensive Stance.
+- Debuffed: Cleanse + Elite Smoke Bomb. After a Clear: Dr. Kim's + Chakra Pill.
+- Pairs: Ethereal Rebirth + Thunder's Judgement; Ember Blade + Eclipse Drain; Stormblade Arc + Phantom Step;
+  Forbidden Chakra Fury + Parry; Ember Blade + Subaku Palace.
+
+## Opponents
+- **IndraUchiha** (Akatsuki, 100): Quintessential Flake (+35 dmg / -35 taken), Danse Macabre (bloodline seal),
+  Chakra Resonance (stun), Elemental Kunai (wound), Replacement kiting, Chakra Overflow + Abyssal Surge + Panacea
+  stack, 40% lifesteal, drain. Lost 2026-11-09: went defensive on the Seal turn instead of bursting.
