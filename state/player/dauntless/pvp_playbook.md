@@ -74,3 +74,14 @@ Severed Pulse (anti-heal + dmg taken), Momentum Shift.
 - **IndraUchiha** (Akatsuki, 100): Quintessential Flake (+35 dmg / -35 taken), Danse Macabre (bloodline seal),
   Chakra Resonance (stun), Elemental Kunai (wound), Replacement kiting, Chakra Overflow + Abyssal Surge + Panacea
   stack, 40% lifesteal, drain. Lost 2026-11-09: went defensive on the Seal turn instead of bursting.
+
+## Study of top PvP players' fights (2026-11-09, RUL-2026-11-09-146)
+Read: Winta vs Gario and vs Choris1717; DDXXD vs Korin and vs Enduyn; Ziharkk vs Sukuna. Also the account's own
+78-battle history (oldest 2026-11-08 01:57 UTC; that is all the server holds for dauntless).
+- Elite Smoke Bomb is an area effect: both sides inside get -70% damage given for 1 round.
+- Night's Testament: ~631 flat pierce + 200 heal + 2 rounds of buff-prevent immunity. It counters Seal of Nullification.
+- Items exist that grant immunity to debuff-prevent (Gario, Choris1717 used them).
+- Winning pattern: stack +damage taken (often element-scoped) and % afterburn on the target and +damage given / +tag power
+  on self over 1-2 turns, then one 60-AP finisher (Ziharkk: 595 -> 1,084 -> 2,391 + 717 afterburn).
+- Damage + stun opener; Replacement Technique for repositioning; wound/afterburn finishers (Dragon King's Impact).
+- Unequipped staples worth a future loadout (director's call): Dragon King's Impact, Chakra Invigoration, Eternity Flux.
