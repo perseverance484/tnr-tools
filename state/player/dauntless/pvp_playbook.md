@@ -180,23 +180,27 @@ Director's edits (2026-11-10): add Danse Macabre and Subaku Palace (player-1 ope
 shield is a bad idea, it is a very powerful ability. I would drop one of your healcuts first" -> Chakra Shield
 kept, Raimei Gen dropped (Severed Pulse is the one heal cut). Cyclone Palm Strike dropped for Subaku Palace.
 
-| Jutsu | AP | Lv | Effect (numbers at the listed level) |
+**Rebuilt 2026-11-10 (director: "Yes, go ahead with that. I dont mind having different loadouts. You can build per
+bloodline/player profiles and swap loadouts as needed"): PvP 2 = PvP 1 with three targeted swaps.**
+Out of PvP 1: Shrapnel Clone Barrage, Eight Fist: Lotus Dance, Parry. In: Inferno Leech, Severed Pulse, Chakra Resonance.
+
+| Jutsu | AP | Effect (level 25 unless noted) | Role |
 |---|---|---|---|
-| Danse Macabre | 60 | 25 | dmg 23 + bloodline seal ~100% (2 r), instant; cd 8 |
-| Ethereal Rebirth | 60 | 25 | dmg 45 + self absorb 35% (3 r) + self -15% given (2 r); cd 8 |
-| Forbidden Chakra Fury | 60 | 25 | AoE spiral dmg 35 + recoil ~40% on enemies hit (2 r), instant; cd 7 |
-| Chakra Resonance | 60 | 25 | dmg 28 + stun -20 AP (2 r); stun family lock 4 r |
-| Inferno Leech | 60 | 3 | drain 300 HP x2 rounds (fixed, through DR) + self absorb ~21% |
-| Stormblade Arc | 60 | 25 | pierce + reflect |
-| Forgotten Ember Blade | 60 | 25 | dmg, self +35% given, target +35% taken |
-| Subaku Palace | 40 | 25 | AoE spiral: self +30% given (2 r), ground -25% given on enemies (3 r), instant; cd 7 |
-| Chakra Shield | 40 | 25 | absorb 35 + shield (instant) |
-| Severed Pulse | 40 | 25 | target -50% healing, +30% taken (2 r) |
-| Eternal Darkness | 40 | 25 | target -30% given, self -30% taken (2 r) |
-| Chakra Overflow | 40 | 25 | self +35% given x2 |
-| Eclipse Drain | 40 | 25 | self lifesteal 35% |
-| Seal of Nullification | 40 | 25 | target can't buff 1 r; I can't be debuffed 2 r |
-| Chakra Invigoration | 40 | 25 | leap 5, self +30% given, -25% taken |
+| Danse Macabre | 60 | dmg + bloodline seal (instant, x0.71 on their hits) | emergency button |
+| Subaku Palace | 40 | ground: me +30% given, them -25% given (instant) | emergency button |
+| Ethereal Rebirth | 60 | dmg + absorb 35 (3 r), self -15% given | absorb |
+| Chakra Shield | 40 | absorb 35 + instant shield | absorb / post-smoke |
+| Forbidden Chakra Fury | 60 | ground recoil ~40%, instant, uncleansable | recoil |
+| Thunder's Judgement | 40 | self +dmg, reflect 35 (non-pierce) | pre-smoke reflect |
+| Stormblade Arc | 60 | pierce + reflect | smoke-round pierce |
+| Forgotten Ember Blade | 60 | self +35 given, target +35 taken | swing |
+| Chakra Overflow | 40 | self +35 given x2 | swing |
+| Eclipse Drain | 40 | lifesteal 35 | sustain |
+| Seal of Nullification | 40 | buff-prevent on them, I can't be debuffed 2 r | vs Dr. Kim's / pre-smoke |
+| Phantom Step | 40 | move 5 + DR ground + dmg | movement |
+| Severed Pulse | 40 | -50% healing, +30% taken | anti-sustain (new) |
+| Inferno Leech | 60 (lv 3) | drain 300 x2 through DR + absorb ~21 | anti-DR (new) |
+| Chakra Resonance | 60 | dmg + stun -20 AP (2 r) | tempo (new) |
 
 **Item loadout "PvP 2"** (`CANnGKSJ7UeF9c88lHa42`, built 2026-11-10; director: "You can change your consumable
 items and keystone as well"): Kaeruun armor set (same as PvP 1); HAND_1 Night's Testament (pierce, counters Seal);
@@ -231,6 +235,16 @@ best idea because absorb caps at 60 and that gives you 70, thus wasting some. Al
 - Rebirth -> Chakra Fury: "set up with rebirth then use forbidden Chakra Fury the next round to have essentially 40
   recoil and 35 absorb ... since chakra fury is an instant effect ... Then you can do things like Seal of
   Nullification and stun to set up a swing round while they hurt themselves with their own damage."
+
+**Loadout profiles (pick before `combat.attackUser`; switch with `jutsu.selectJutsuLoadout` +
+`item.selectItemLoadout`, both outside battle):**
+| Profile | Signs (from `pvp_playbook.md` opponent notes, Study 2, their last logs) | Jutsu | Items |
+|---|---|---|---|
+| Sustain / DR stacker | lifesteal 40%+, absorb/barrier, -35% taken stacks, heal pots: Gario, Korin, Winta, DDXXD | PvP 2 `ZVfObjuW5xO462WiR5UMQ` | PvP 2 `CANnGKSJ7UeF9c88lHa42` (Yuki's drain, Disaster Potion, Sloth) |
+| Burst / Clear-first | opens with Clear, big single-round stacks, few heals: Arashii, IndraUchiha | PvP 1 `soXekhNjk7qihu-Rsok-6` | PvP 1 `B-bCCtg-_fvcJSrvR1ts0` |
+| Unknown | first meeting, no log | PvP 1 | PvP 1 |
+Bloodline notes: record each opponent's bloodline and its passive (e.g. +40% damage given, sealable) the first time it
+shows in a log, here, next to the profile; a +damage bloodline makes Danse Macabre's seal worth more.
 
 **Caps and damage math (engine snapshot cb755375, `libs/combat/process.ts`, `tags.ts`, `power.ts`; director:
 "examine the caps and damage multipliers in place when considering your combinations")**
