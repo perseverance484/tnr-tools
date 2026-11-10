@@ -9,6 +9,7 @@ Check this list before every `combat.attackUser`, `travel.robPlayer` or bounty.
 | Sukuna | Risen | Director: do not attack | 2026-11-09 |
 | Noah | Risen | Director: do not attack | 2026-11-09 |
 | Reptar | Akikaze | Director: friend | 2026-11-09 |
+| loveispure | Akatsuki | Director: do not attack | 2026-11-09 |
 
 ## Do not snipe (no third-party jumps after their fights)
 | Player | Village | Why | Added |

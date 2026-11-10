@@ -7,7 +7,7 @@ Probe trick: `combat.attackUser {userId, longitude:13, latitude:13, sector}` whi
     targets: go to their village and probe again from there.
 - "immune from combat" = just lost a fight.
 - success = fight starts (only probe players I'm willing to fight right now).
-Skip: own village (Hyorin), Freedom State, do-not-attack (DemiZaru, Sukuna, Noah, Reptar), and never snipe AngelSaber.
+Skip: own village (Hyorin), Freedom State, do-not-attack (DemiZaru, Sukuna, Noah, Reptar, loveispure), and never snipe AngelSaber.
 Director (2026-11-09): "People just don't wake up that often you need to be persistent, vigilant and patient."
 "Perform a mission or errand every circuit."
 
@@ -52,7 +52,6 @@ Director (2026-11-09): "People just don't wake up that often you need to be pers
 | Akikaze | opti | user_3KUEfL1Ef8ViMDnoTITYvVhN0rv |
 | Akikaze | Jazu | user_2hKeXU8KY1AgmCLJ9APZlWmUBYg |
 | Akatsuki (6) | Panduhz | user_2dvNK5aQXjcXYTCiYbxcYp4XR9q |
-| Akatsuki | loveispure | user_2lTo9A80IdwC1bF3iUa39Dnx1Bv |
 | Akatsuki | IndraUchiha | user_2SDtozpGsswPYNro0mVnehMcE6Y |
 | Akatsuki | daisuke | user_2tuAAmBELPVBn1ZZmltBmLZ29DG |
 | Akatsuki | Susanoo | user_3BGmUSFkxbH3DmaZs4RFZerteKX |
