@@ -7,7 +7,7 @@ Probe trick: `combat.attackUser {userId, longitude:13, latitude:13, sector}` whi
     targets: go to their village and probe again from there.
 - "immune from combat" = just lost a fight.
 - success = fight starts (only probe players I'm willing to fight right now).
-Skip: own village (Hyorin), Freedom State, do-not-attack (DemiZaru, Sukuna, Noah, Reptar, loveispure), and never snipe AngelSaber.
+Skip: own village (Hyorin), Freedom State, do-not-attack (DemiZaru, Sukuna, Noah, Reptar, loveispure, Neon, Aeris), and never snipe AngelSaber.
 Director (2026-11-09): "People just don't wake up that often you need to be persistent, vigilant and patient."
 "Perform a mission or errand every circuit."
 
