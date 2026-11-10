@@ -283,7 +283,19 @@ at no cost to yourself. You must be on the lookout for debuff prevent on the ene
 anticipation of your smoke bomb."
 - The smoke round is the pierce round for both sides. Go in with lifesteal + absorb + reflect already live (cast the
   round before, since those tags start next round): Eclipse Drain or Chakra Pill (lifesteal, <= 60 total),
-  Ethereal Rebirth or Chakra Shield (absorb, <= 60), Stormblade Arc (pierce + self reflect, <= 60).
+  Ethereal Rebirth or Chakra Shield (absorb, <= 60).
+- **Pierce timing (director, 2026-11-10): "You will want to be careful with your timing of storm blade arc as it is a
+  pierce and places pierce on gcd. Using it the round before smoke is active would prevent you from using pierce."**
+  Stormblade Arc and Night's Testament share the 3-round pierce lock, so neither goes out the round before the smoke.
+  Stormblade is the smoke-round pierce (its self reflect then covers the following rounds). Pre-smoke reflect needs a
+  non-pierce source; PvP 2 has none (Thunder's Judgement reflect 35 and Mirror of Retribution 8% are the options if
+  the director wants one in), so pre-smoke = lifesteal + absorb.
+- **The round after the smoke (director): "You can get high value out of your shield the round after a smoke round,
+  if your opponent used pierce. Now you can safely use shield without fear of it being pierced, and it may be paired
+  with forbidden Chakra Fury for recoil that you dont have to worry about being circumvented by pierce either if
+  suitable."** If they pierced during the smoke, their pierce is locked for 3 rounds: Chakra Shield (pierce would have
+  destroyed it) + Forbidden Chakra Fury (pierce would have skipped the recoil) is the strongest follow-up. Mind the
+  absorb cap: don't have Rebirth's 35 live under the Shield's 35.
 - In the smoke round my damage is pierce: Stormblade Arc or Night's Testament (shared pierce lock: one per 3 rounds),
   plus drains (Yuki's Frostbite, Inferno Leech) which also ignore DR.
 - Their pierce into my absorb + reflect: I absorb part, reflect sends part back on their own turn.
