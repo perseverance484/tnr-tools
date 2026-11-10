@@ -21,6 +21,33 @@ Every equipped PvP jutsu is either level 25 or has powerPerLevel 0 (Ethereal Reb
 Judgement, Shrapnel Clone Barrage, Parry: descriptions say "DON'T TRAIN. ALREADY CAPPED"). They level by use.
 **Before training anything, check `jutsu.get` effects powerPerLevel > 0.**
 
+## Director (2026-11-09, 22:17-22:19 local)
+"Anything that looks useful, I have 1billion ryo banked. You will perform ryo producing activities to offset your
+expenditures. Blank check granted." "The new potency skills and 40ap stance skills are interesting. Chakra Edge,
+Choha, etc." "Limit Breaker, Mental Fortress..."
+- Withdraw from the bank with `bank.toPocket` in batches; keep about 10M in pocket, the rest banked (`bank.toBank`).
+- Log what is spent; offset it later with ryo-producing play (missions, hunter contracts, PvP).
+
+## Limits (source: routers/jutsu.ts, libs/train.ts)
+- Training cap is level 20 for Jonin (`JUTSU_LEVEL_CAP`; Elite Jonin 30). Levels 21-25 come from use or transfer.
+- "Jutsu not for you": element/bloodline lock. My elements: Lightning (primary), Earth (secondary); mastery Fire,
+  Water. Chōha (Water) and Fire Style: Beast (other bloodline) are refused.
+- Queue: 4 waiting levels behind the active one in practice. Starting training wakes the character; sleep after.
+- Time per level = (1 + (level-1) x k) minutes, k = D7 C8 B9 A10 S11, capped at 1 hour. Low levels take minutes,
+  so the greedy rule is: always queue the target whose next level is quickest.
+- `jutsu.stopTraining` drops the active level and the whole waiting queue (refund the queue first if needed).
+
+## Training targets (priority order; skip any that says "not for you" and note it)
+1. 40-AP potency/stance self-buffs (+20 dmg given scaling 0.4/level, potency fixed):
+   Limit Breaker `P7dDcC102RhwBTTgA4HU_` (no element, C), Mental Fortress `UiBR2V2AKkmh64JiYlL3w` (no element, C),
+   Divine Pulse `7rYARNUr1kXiJb3VLXqUb` (no element, 2 potency tags, C), Raijin's Judgement `GsDJufr8bn-55VSGPe0hA`
+   (Lightning potency, B), Earth Armor `CWdsrv5uM2R3hEyG6fvaX` (Earth, B), Enjin `PwTpi68-ZNKk5CnsR9Q8_` (Fire, B),
+   First Chakra Gate `rCmgi5gtJb-wnPfuwruI2` (+20 given/-20 taken, B), Ryūsa Kōka `sEDO_J07YRbTqHnxuPUA5` (lv3).
+2. Scaling damage/setup jutsu near the cap: Soul Laceration Mirage `GlgS3FVoQ6F8k3RAo_Uht` (19),
+   Thunderbolt Fury `INuy-ITnPsH22eUoGQgwW` (18), Phantom Requiem `kbrQuf3nYNHoKEvusATTO` (18),
+   Cyclone Palm Strike `pqCqPemRNk3ht-SFrjq5G` (18), Ethereal Nexus `iktsCP-RjIhlYlsTg-JTN` (10).
+Owned already at 25: Chakra Edge, Gust Armor (Wind potency).
+
 ## Cost (libs/train.ts calcJutsuTrainCost)
 base (D 50, C 100, B 150, A 200, S 250, + extraBaseCost) ^ (1 + level/20). Low levels are cheap; high levels are
 very expensive (Cyclone Palm Strike level 19 quoted 1,949,575 ryo for one level; cancelled pending director).
@@ -29,4 +56,8 @@ very expensive (Cyclone Palm Strike level 19 quoted 1,949,575 ryo for one level;
 | Started (UTC) | Jutsu | Levels | Ryo | Result |
 |---|---|---|---|---|
 | 2026-11-10 04:11 | Ethereal Rebirth | 8-12 | 479,594 | 9-12 cancelled and refunded (no scaling); level 8 left to finish ~05:11 |
-| 2026-11-10 04:20 | Cyclone Palm Strike | 19 | 1,949,575 | cancelled and refunded; waiting for the director's picks |
+| 2026-11-10 04:20 | Cyclone Palm Strike | 19 | 1,949,575 | cancelled and refunded |
+| 2026-11-10 04:20 | bank.toPocket 30,000,000; bank.toBank 23,000,000 after | | | |
+| 2026-11-10 04:21 | Soul Laceration 20, Thunderbolt Fury 19-20 | | 3,396,964 | cancelled and refunded (moved potency jutsu first) |
+| 2026-11-10 04:21 | Ethereal Rebirth lv8 | | ~37,000 | stopped (no scaling) |
+| 2026-11-10 04:21 | Limit Breaker 1-4 (learned), Mental Fortress 1 (learned) | | 13,011 | queue ends ~05:13 |
