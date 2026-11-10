@@ -46,7 +46,7 @@ CFG = os.path.join(HERE, "rules_config.json")
 TRAIN_LOG = os.path.join(HERE, "train_log.jsonl")
 H = 12
 GAMMA = 0.6
-TERMINAL = 2.0
+TERMINAL = 1.0
 
 FEATURES = ["bias", "lethal_risk", "kill_window", "stack_clearable", "stack_clearable_immune",
             "stack_clearprevented", "recoil_on_me", "en_sustain", "en_dr_or_shield", "me_debuffed", "en_reflect",
@@ -274,8 +274,12 @@ def samples_from(d, battle):
     return out
 
 
-def step(net, s, lr):
+ANCHOR = 0.05  # L2 pull of the linear weights back toward the hand-tuned seed (small data must not erase doctrine)
+
+
+def step(net, s, lr, seed_w=None):
     x, acts = s["x"], [a for a in s["acts"] if a in net["W"]]
+    lr = lr * s.get("w", 1.0)  # sample weight (AFK fights 0.3)
     if not acts:
         return 0.0
     z, h = hidden(net, x)
@@ -287,7 +291,8 @@ def step(net, s, lr):
     for a in acts:
         for j in range(H):
             gh[j] += net["V"][a][j]
-        net["W"][a] = [w + lr * err / n * v for w, v in zip(net["W"][a], x)]
+        w0 = seed_w[a] if seed_w else net["W"][a]
+        net["W"][a] = [w + lr * (err / n * v - ANCHOR * (w - s0)) for w, v, s0 in zip(net["W"][a], x, w0)]
         net["V"][a] = [w + lr * err / n * hj for w, hj in zip(net["V"][a], h)]
     for j in range(H):
         if z[j] > 0:
@@ -299,11 +304,20 @@ def step(net, s, lr):
     return err * err
 
 
+def seed_weights():
+    cur = open(WFILE).read() if os.path.exists(WFILE) else None
+    w = seed(quiet=True)["W"]
+    if cur is not None:
+        open(WFILE, "w").write(cur)
+    return w
+
+
 def train(b, lr):
+    sw = seed_weights()
     net = json.load(open(WFILE))
     d = json.load(open(f"/tmp/policy_{b}.json"))
     ss = samples_from(d, b)
-    loss = sum(step(net, s, lr) for s in ss)
+    loss = sum(step(net, s, lr, sw) for s in ss)
     json.dump(net, open(WFILE, "w"))
     with open(TRAIN_LOG, "a") as f:
         for s in ss:
@@ -313,11 +327,12 @@ def train(b, lr):
 
 def retrain(epochs, lr):
     net = seed(quiet=True)
+    sw = json.loads(json.dumps(net["W"]))
     ss = [json.loads(l) for l in open(TRAIN_LOG)] if os.path.exists(TRAIN_LOG) else []
     rnd = random.Random(1)
     for e in range(epochs):
         rnd.shuffle(ss)
-        loss = sum(step(net, s, lr) for s in ss)
+        loss = sum(step(net, s, lr, sw) for s in ss)
     json.dump(net, open(WFILE, "w"))
     print(f"retrained from hand seed on {len(ss)} samples x {epochs} epochs, final loss "
           f"{(loss / max(1, len(ss))) if ss else 0:.3f}")
@@ -345,9 +360,9 @@ if __name__ == "__main__":
     s.add_argument("--en-max", type=float, default=5000); s.add_argument("--top", type=int, default=3)
     s = sp.add_parser("reward"); [s.add_argument(k) for k in ("battle", "round", "acts", "dealt", "taken")]
     s = sp.add_parser("result"); s.add_argument("battle"); s.add_argument("outcome", choices=["win", "loss"])
-    s = sp.add_parser("train"); s.add_argument("battle"); s.add_argument("--lr", type=float, default=0.03)
-    s = sp.add_parser("retrain"); s.add_argument("--epochs", type=int, default=20)
-    s.add_argument("--lr", type=float, default=0.03)
+    s = sp.add_parser("train"); s.add_argument("battle"); s.add_argument("--lr", type=float, default=0.003)
+    s = sp.add_parser("retrain"); s.add_argument("--epochs", type=int, default=10)
+    s.add_argument("--lr", type=float, default=0.003)
     s = sp.add_parser("show"); s.add_argument("action", nargs="?")
     a = p.parse_args()
     {"init": lambda: seed(a.keep), "act": lambda: act(a),
