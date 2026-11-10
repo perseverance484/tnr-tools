@@ -43,6 +43,23 @@ the contract sector -> `hunting.getSession` -> `hunting.sessionAction {id, versi
 - 2026-11-10: **lost to Dojigiri (S)** in round 10: 15,150 HP, heals ~1,500/round, damage reduction, HP/chakra drain,
   reflect. Got him to ~3,000. S-rank needs a stronger sustain plan or kit before retrying.
 
+## Hunting run log (2026-11-10)
+Director (23:48): "Do all the hunting contracts. Just add hunting contracts as a valid activity."
+| Contract (rank, sector) | Result | Material |
+|---|---|---|
+| Kajioka (A, 336) | 10/10 | 100 Seika Seal Petal |
+| Uramaru (A, 336) | 10/10 | 100 Urami Drop |
+| Shigekai (A, 336) | 10/10 | 100 Ofuda Moss |
+| Tsukihana (B, 334) | 10/10 | 100 Moonpetal Weave |
+Script that wins A/B every time (10,650 HP targets): R1 Chakra Invigoration to a hex next to him (<=5 from me) +
+Stunning Jab -> R2 Ember Blade + Chakra Overflow -> R3 Forbidden Chakra Fury + basic attack (+ a stance to end the
+turn) -> R4 Ethereal Rebirth. If he stuns me R1 (80 AP), R2 = Overflow + basic + stance, R3 = Ember + basic, R4 Fury.
+Speed: every `combat.performAction` response carries `battleUpdate {version, usersState}`: select
+`battleUpdate.version` and positions from it instead of calling `getBattle`; the AI's turn runs automatically once
+my AP is spent. After a win the session stays prepared: call `hunting.start` again directly. ~10 calls per hunt.
+Upkeep in the field: `village.buyFood` works at the hunting sector's ramen stand; Full Potion between hunts
+(restores HP and chakra). Buffed basic attacks with the repaired Meteor Hammer hit ~1,000-3,000.
+
 ## Listing rule (director 2026-11-09 23:44)
 "Most items have a sell price recommendation in their description. You can gauge a stack based on that price and list
 it for full price." If the description has no price, use the item's `cost` field. Buyout must be above the starting
