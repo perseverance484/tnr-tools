@@ -21,8 +21,23 @@ the contract sector -> `hunting.getSession` -> `hunting.sessionAction {id, versi
 | B (Medium) | Tsukihana (334), Enrai No Oni (334), Kugatsunagi (334) |
 | C / D | many, sectors 331-342 |
 
+- **Check gear durability before PvE/PvP** (`item.getUserItems` durability). On 2026-11-10 six equipped pieces
+  (Kitsune Mask/Armor/Pants/Belt/Tabi, Meteor Hammer) were at 0: both Dojigiri losses happened on broken gear.
+  Ryo repair needs the Crafting occupation; use `item.useRepairAll` (Repair Kits; 9 used for 13 items). Buy kits.
+- **Kajioka (A) is farmable:** 3 rounds every time with repaired gear: R1 Chakra Invigoration (move in) + Stunning Jab
+  (~2,680), R2 Ember Blade + Chakra Overflow, R3 Forbidden Chakra Fury (~9,500) = win. ~90 s per hunt, 10 Seika Seal
+  Petals each. 5 of 10 hunts done 2026-11-10 (contract still has 5).
+- PvE loadout gained Severed Pulse (heal-cut 50%, +30% taken on [None] damage only, 40 AP) on director advice
+  ("you need a healcut like black thorn rose, seimyaku or severed pulse").
 - 2026-11-10: **lost to Dojigiri (S)** in round 10: 15,150 HP, heals ~1,500/round, damage reduction, HP/chakra drain,
   reflect. Got him to ~3,000. S-rank needs a stronger sustain plan or kit before retrying.
+
+## Listing rule (director 2026-11-09 23:44)
+"Most items have a sell price recommendation in their description. You can gauge a stack based on that price and list
+it for full price." If the description has no price, use the item's `cost` field. Buyout must be above the starting
+price (start = buyout - 1).
+- 2026-11-10 05:45: listed 50 Seika Seal Petals (cost 60,000) for 3,000,000 buyout, 72 h. 66 petals kept.
+  Shard of Willful Steel cost is 110,000 (sells ~150-250k each), so cost is a floor, not a ceiling.
 
 ## Auction House prices (sold / asking, 2026-11-10)
 - S-rank hunt materials (Thread Core, Mask Core, Parchment Core, Seed of False Vitality, Shard of Willful Steel,
