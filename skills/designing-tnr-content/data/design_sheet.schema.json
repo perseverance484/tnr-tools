@@ -45,6 +45,14 @@
    "dialog": null,
    "choice": null,
    "log_line": "battleDescription"
+  },
+  "library_fields": {
+   "note": "where a sheet names a library block; the families and their parameters are in data/libraries/ and references/libraries.md",
+   "enemy.role": "archetype",
+   "enemy.rules[].use": "rule_pattern",
+   "enemy.phases[].rules[].use": "rule_pattern",
+   "enemy.loadout.recipe": "loadout",
+   "when": "extra conditions on a rule block or a phase; the keys are library.py WHEN"
   }
  },
  "type": "object",
@@ -722,6 +730,9 @@
     },
     "note": {
      "type": "string"
+    },
+    "when": {
+     "type": "object"
     }
    }
   },
@@ -799,7 +810,7 @@
     },
     "role": {
      "type": "string",
-     "minLength": 1,
+     "pattern": "^archetype/[a-z0-9_]+/v[0-9]+$",
      "x-slot": true
     },
     "level": {
@@ -858,6 +869,9 @@
        "cue": {
         "type": "string",
         "x-slot": true
+       },
+       "when": {
+        "type": "object"
        }
       }
      }
@@ -870,7 +884,8 @@
      "additionalProperties": false,
      "properties": {
       "recipe": {
-       "type": "string"
+       "type": "string",
+       "pattern": "^loadout/[a-z0-9_]+/v[0-9]+$"
       },
       "kit": {
        "type": "array",
@@ -912,6 +927,13 @@
     },
     "notes": {
      "type": "string"
+    },
+    "generals": {
+     "type": "array",
+     "x-slot": true,
+     "items": {
+      "type": "string"
+     }
     }
    }
   }

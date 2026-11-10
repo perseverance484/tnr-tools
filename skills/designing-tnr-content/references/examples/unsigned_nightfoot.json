@@ -1,0 +1,77 @@
+{
+ "sheet_version": "1",
+ "kind": "ai",
+ "id": "example_unsigned_nightfoot",
+ "title": "Unsigned Nightfoot",
+ "brief": {
+  "purpose": "Show a shipped control enemy written as a design sheet.",
+  "audience": "a designer learning the sheet",
+  "home": "worked example; the enemy itself already ships",
+  "size": "single",
+  "agreed": false
+ },
+ "concept": {
+  "hook": "Posted where something must not be interrupted.",
+  "fantasy": "see the source page",
+  "references": [
+   "building-tnr-content/references/lines.md"
+  ],
+  "options": [],
+  "chosen": "as shipped"
+ },
+ "voice": {
+  "register": "",
+  "banned_words": []
+ },
+ "enemy": {
+  "key": "nightfoot",
+  "name": "Nightfoot",
+  "role": "AWAITING_RULING",
+  "level": 55,
+  "generals": "AWAITING_RULING",
+  "combat_role": "A covert operative that controls first and deals damage second.",
+  "tactical_read": "Break its opening shield early and do not stand next to it while marked.",
+  "rules": [
+   {
+    "use": "rule_pattern/opener/v1",
+    "params": {
+     "jutsu": "B21"
+    }
+   },
+   {
+    "use": "rule_pattern/rotation/v1",
+    "params": {
+     "jutsus": [
+      "S33",
+      "S08",
+      "B26",
+      "S03"
+     ]
+    }
+   },
+   {
+    "use": "rule_pattern/fallback/v1"
+   }
+  ],
+  "loadout": {
+   "recipe": "loadout/stance_and_attacks/v1",
+   "kit": [
+    "B21",
+    "S08",
+    "S33",
+    "S03",
+    "B26"
+   ],
+   "signatures": []
+  },
+  "art": [],
+  "notes": "Kit, level and behaviour are as recorded in building-tnr-content/references/lines.md. Role and generals are not recorded there, so they stay open. The recorded stat anchor cannot be written on a sheet yet (see references/libraries.md, limits)."
+ },
+ "text": {
+  "entries": []
+ },
+ "art": {
+  "slots": []
+ },
+ "decisions": []
+}

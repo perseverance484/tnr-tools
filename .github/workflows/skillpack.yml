@@ -28,6 +28,7 @@ jobs:
           python3 skills/building-tnr-content/scripts/build_packs.py --check
           python3 skills/building-tnr-content/scripts/catalog_sync.py --selftest
           python3 skills/designing-tnr-content/scripts/design.py --selftest
+          python3 skills/designing-tnr-content/scripts/library.py --selftest
       - name: Build deterministic bounded skill ZIPs
         run: |
           python3 .github/scripts/pack_skills.py

@@ -21,7 +21,9 @@ What `check` does, and where each rule comes from (this tool cites owners, it st
               building-tnr-content: 48_DATA_mission_profiles.json `_field_routing`, and
               enemy.py STAT_FIELDS / ROLE_DEFAULTS. Nothing is listed here by hand except the
               three AI record fields noted at ENGINE_AI_EXTRA.
-  libraries   every `use` / `structure` / `recipe` id must resolve in data/libraries/*.json.
+  libraries   every `use` / `structure` / `recipe` / `role` id must resolve in
+              data/libraries/*.json, and a block's parameters, its `when` and the enemy's kit
+              are checked by library.py (references/libraries.md).
               A family with no library file yet is reported as pending, not as an error;
               `compile` refuses while any reference is pending.
   slots       every AWAITING_RULING / AUTHOR left in the sheet, by path. Open slots do not
@@ -31,8 +33,12 @@ What `check` does, and where each rule comes from (this tool cites owners, it st
               number is refused: docs/DOCTRINE.md D-reserved-dauntless.
   text        references/writing.md lists the owners of each lint.
 
-Exit codes: 0 clean (open slots allowed), 1 errors, 2 usage or unreadable input,
-3 compile refused.
+`compile` is shipped for kinds ai and ai_line. It refuses while anything is open, then writes
+the manifest and runs the build skill's validate.py --strict on it, passing its output and exit
+code through.
+
+Exit codes: 0 clean (open slots allowed), 1 errors or a failed validation, 2 usage or
+unreadable input, 3 compile refused.
 
 Stdlib only. Socket-free. Reads repository or skill files and nothing else.
 """
@@ -53,6 +59,7 @@ SLOTS = ("AWAITING_RULING", "AUTHOR")
 LEGACY_SLOT = "dauntless"          # event sheet (26x) spelling, accepted inside `event` only
 KINDS = ("ai", "ai_line", "boss", "quest", "quest_chain", "dungeon", "event")
 # Phase that ships `compile` for each kind (state/prompt_skill_overhaul.md section 8).
+COMPILERS = ("ai", "ai_line")       # kinds this build compiles; the rest name their phase
 COMPILE_PHASE = {"ai": "P2", "ai_line": "P2", "quest": "P3", "quest_chain": "P3",
                  "dungeon": "P3", "event": "P3", "boss": "P4"}
 # AI record fields the factory derives that enemy.py does not expose as a constant:
@@ -318,9 +325,115 @@ def library_refs(sheet: dict) -> list:
         if path.startswith("mission") or path.startswith("event"):
             continue
         leaf = path.rsplit(".", 1)[-1]
-        if leaf in ("use", "structure", "recipe") and isinstance(value, str) and value not in SLOTS:
+        if leaf in ("use", "structure", "recipe", "role") and isinstance(value, str) and value not in SLOTS:
             refs.append((path, value))
     return refs
+
+
+def sheet_enemies(sheet: dict) -> list:
+    """[(path, enemy)] for every enemy a sheet defines, wherever its kind keeps them."""
+    out = []
+    if isinstance(sheet.get("enemy"), dict):
+        out.append(("enemy", sheet["enemy"]))
+    for i, e in enumerate((sheet.get("line") or {}).get("rungs", [])):
+        out.append((f"line.rungs[{i}]", e))
+    boss = sheet.get("boss") or {}
+    if isinstance(boss.get("enemy"), dict):
+        out.append(("boss.enemy", boss["enemy"]))
+    for i, e in enumerate(boss.get("allies", [])):
+        out.append((f"boss.allies[{i}]", e))
+    for block in ("quest", "chain", "dungeon"):
+        for i, e in enumerate((sheet.get(block) or {}).get("enemies", [])):
+            out.append((f"{block}.enemies[{i}]", e))
+    return out
+
+
+def _library():
+    """The library module and its loaded data. A missing or malformed library is a DesignError."""
+    if HERE not in sys.path:
+        sys.path.insert(0, HERE)
+    import library
+    try:
+        return library, library.load_all(LIB_DIR)
+    except library.LibraryError as err:
+        raise DesignError(f"libraries: {err}")
+
+
+def _pool() -> dict:
+    path = build_file("data", "32b_DATA_pool.json")
+    if not path:
+        raise DesignError("cannot find building-tnr-content (32b_DATA_pool.json)")
+    return json.load(open(path))["records"]
+
+
+def _general_types() -> tuple:
+    """validate.py's own list (law 14), read from it so there is one list."""
+    path = build_file("scripts", "validate.py")
+    if not path:
+        raise DesignError("cannot find building-tnr-content (validate.py)")
+    match = re.search(r"^GENERAL_TYPES = \(([^)]*)\)", open(path).read(), re.M)
+    if not match:
+        raise DesignError("validate.py no longer defines GENERAL_TYPES")
+    return tuple(re.findall(r'"([^"]+)"', match.group(1)))
+
+
+def _rule_codes(ref: dict) -> list:
+    params = ref.get("params") or {}
+    codes = []
+    for value in params.values():
+        for item in (value if isinstance(value, list) else [value]):
+            if isinstance(item, str) and re.fullmatch(r"[A-Z]{1,3}[0-9]{1,3}", item):
+                codes.append(item)
+    return codes
+
+
+def check_blocks(sheet: dict, errs: list, warns: list) -> None:
+    """Every library block an enemy names: its parameters, its `when`, and its kit."""
+    library, libs = _library()
+    pool = _pool()
+    generals = _general_types()
+    for path, e in sheet_enemies(sheet):
+        kit = e["loadout"]["kit"]
+        for code in kit:
+            if code not in pool:
+                errs.append(f"{path}.loadout.kit: pool code {code} does not exist (32b_DATA_pool.json)")
+        groups = [(f"{path}.rules", e.get("rules", []))]
+        for i, phase in enumerate(e.get("phases", [])):
+            errs.extend(library.check_when(phase.get("when"), f"{path}.phases[{i}]"))
+            groups.append((f"{path}.phases[{i}].rules", phase["rules"]))
+        for gpath, refs in groups:
+            for i, ref in enumerate(refs):
+                where = f"{gpath}[{i}]"
+                if ref["use"].split("/", 1)[0] not in libs or ref["use"] not in libs[ref["use"].split("/", 1)[0]]["entries"]:
+                    continue                          # pending or unknown: reported by the id check
+                entry = library.entry_of(libs, ref["use"])
+                if ref["use"].split("/", 1)[0] != "rule_pattern":
+                    errs.append(f"{where}: '{ref['use']}' is not a rule pattern")
+                    continue
+                params = dict(ref.get("params") or {})
+                for name, spec in entry["params"].items():
+                    if name not in params and "default" in spec:
+                        params[name] = spec["default"]
+                errs.extend(f"{where}: {p}" for p in library.check_params(ref["use"], entry, params, pool))
+                errs.extend(library.check_when(ref.get("when"), where))
+                for code in _rule_codes(ref):
+                    if kit and code not in kit:
+                        errs.append(f"{where}: {code} is used by a rule but is not in the kit; the AI "
+                                    f"would not carry it")
+        recipe = e["loadout"].get("recipe")
+        if recipe and "loadout" in libs and recipe in libs["loadout"]["entries"] and kit \
+                and all(code in pool for code in kit):
+            problems, _ = library.check_kit(libs, recipe, kit, pool)
+            errs.extend(f"{path}.loadout: {p} ({recipe})" for p in problems)
+        g = e.get("generals")
+        if isinstance(g, list) and (len(g) != 2 or any(v not in generals for v in g)):
+            errs.append(f"{path}.generals: needs exactly two of {', '.join(generals)} (law 14)")
+        role = e.get("role")
+        if isinstance(role, str) and role not in SLOTS and "archetype" in libs \
+                and role in libs["archetype"]["entries"] \
+                and libs["archetype"]["entries"][role]["standing"] == "proposed":
+            warns.append(f"{path}.role: {role} rests on a value the director has not ratified "
+                         f"(see the entry's failure_modes)")
 
 
 def check_engine_keys(sheet: dict, forbidden: dict, errs: list) -> None:
@@ -448,6 +561,10 @@ def check(raw) -> dict:
             result["pending_library_refs"].append((path, ref))
         elif ref not in index[family]:
             errs.append(f"{path}: '{ref}' is not in the {family} library")
+    try:
+        check_blocks(sheet, errs, warns)
+    except DesignError as err:
+        errs.append(str(err))
     result["open_decisions"] = [d for d in sheet.get("decisions", []) if d["status"] == "open"]
     return result
 
@@ -456,6 +573,7 @@ def check(raw) -> dict:
 
 def _enemy(key: str) -> dict:
     return {"key": key, "name": "AUTHOR", "role": "AWAITING_RULING", "level": "AWAITING_RULING",
+            "generals": "AWAITING_RULING",
             "combat_role": "AUTHOR", "tactical_read": "AUTHOR", "rules": [],
             "loadout": {"kit": [], "signatures": []}, "art": []}
 
@@ -609,7 +727,8 @@ def _enemy_md(e: dict) -> list:
     for r in e.get("rules", []):
         out.append(f"- Behaviour: {_ref(r)}")
     for ph in e.get("phases", []):
-        out.append(f"- Phase {ph['id']} (when: {ph['trigger']})"
+        out.append(f"- Phase {ph['id']} (when: {ph['trigger']}"
+                   + (f"; conditions: {_params(ph['when'])}" if ph.get("when") else "") + ")"
                    + (f", cue: {ph['cue']}" if ph.get("cue") else "") + ":")
         out += [f"  - {_ref(r)}" for r in ph["rules"]]
     if kit.get("recipe"):
@@ -739,7 +858,7 @@ def cmd_explain(args) -> int:
 
 
 def compile_refusal(result: dict) -> list:
-    """Why this sheet cannot be compiled. Empty only when a compiler for its kind exists."""
+    """Why this sheet cannot be compiled. Empty means it can."""
     why = [f"error: {e}" for e in result["errors"]]
     why += [f"open slot: {kind} at {path}" for path, kind in result["slots"]]
     why += [f"library not shipped: {ref} at {path}" for path, ref in result["pending_library_refs"]]
@@ -747,17 +866,121 @@ def compile_refusal(result: dict) -> list:
     kind = (result["sheet"] or {}).get("kind")
     if not isinstance(kind, str) or kind not in COMPILE_PHASE:
         return why                                    # the kind error is already in the list
-    why.append(f"compile for kind '{kind}' is delivered in phase {COMPILE_PHASE[kind]} of the "
-               f"skill overhaul; this build has new, check and explain only")
+    if kind not in COMPILERS:
+        why.append(f"compile for kind '{kind}' is delivered in phase {COMPILE_PHASE[kind]} of the "
+                   f"skill overhaul; this build compiles: {', '.join(COMPILERS)}")
     return why
 
 
+def compile_enemy(e: dict, library, libs: dict, fac, pool: dict, cap: int, enemy_mod, notes: list) -> dict:
+    """One sheet enemy -> one manifest entry. enemy.py derives the record; the sheet's blocks
+    supply the rules. Nothing here writes a rule, a stat or a multiplier by hand."""
+    name = e["name"]
+    if "generals" not in e:
+        raise DesignError(f"{name}: `generals` is required to compile (law 14); it is a design "
+                          f"choice and is never defaulted")
+    role = library.entry_of(libs, e["role"])
+    entry = {"name": name, "role": role["maps_to"]["role"], "kit": e["loadout"]["kit"],
+             "generals": e["generals"]}
+    if e.get("element"):
+        entry["element"] = e["element"]
+    try:
+        item = enemy_mod.build_ai(entry, e["level"], fac, pool)
+    except enemy_mod.EnemyError as err:
+        raise DesignError(str(err))
+    try:
+        # Rules are tried top to bottom (law 39), so the most specific phase goes first: phases
+        # are emitted last to first, then the enemy's standing rules.
+        built = []
+        for phase in reversed(e.get("phases", [])):
+            if not phase.get("when"):
+                raise DesignError(f"{name}: phase {phase['id']} has no `when`; its `trigger` is "
+                                  f"prose for the reader and cannot be compiled")
+            built += library.expand_rules(libs, phase["rules"], fac, pool, extra_when=phase["when"])
+        built += library.expand_rules(libs, e.get("rules", []), fac, pool)
+        last = built[-1][0] if built else None
+        if last is None or last["conditions"]:
+            built += library.expand_rules(libs, [{"use": "rule_pattern/fallback/v1"}], fac, pool)
+            notes.append(f"{name}: no unconditional last rule on the sheet; "
+                         f"rule_pattern/fallback/v1 (move) was added (law 41)")
+        rules = [rule for rule, _ in built]
+        if len(rules) > cap:
+            raise DesignError(f"{name}: {len(rules)} rules; the server refuses more than {cap} (law 90)")
+        ranges = {pool[c]["id"]: pool[c]["range"] for _, c in built if c and pool[c]["range"] is not None}
+        fac.rules(*rules, ranges=ranges)
+    except library.LibraryError as err:
+        raise DesignError(f"{name}: {err}")
+    except Exception as err:                                  # factory.FactoryError: a rule-set law
+        if type(err).__name__ != "FactoryError":
+            raise
+        raise DesignError(f"{name}: {err}")
+    unused = [c for c in e["loadout"]["kit"] if c not in {code for _, code in built}]
+    if unused:
+        notes.append(f"{name}: in the kit but used by no rule: {', '.join(unused)}")
+    for warning in item["_derived"]["warnings"]:
+        notes.append(warning)
+    if role["standing"] == "proposed":
+        notes.append(f"{name}: {e['role']} rests on a value the director has not ratified")
+    item["data"]["rules"] = rules
+    del item["_derived"]
+    return item
+
+
+def run_validate(manifest_path: str) -> tuple:
+    """(exit code, output) of the build skill's validate.py --strict on the manifest."""
+    import subprocess
+    script = build_file("scripts", "validate.py")
+    done = subprocess.run([sys.executable, script, os.path.abspath(manifest_path), "--strict"],
+                          cwd=os.path.dirname(build_file("data", "45c_DATA_constructors.json")),
+                          capture_output=True, text=True)
+    return done.returncode, (done.stdout + done.stderr).strip()
+
+
+def compile_sheet(result: dict) -> tuple:
+    """(manifest, notes) for a sheet `compile_refusal` passed."""
+    library, libs = _library()
+    try:
+        fac, pool, cap = library.build_tools()
+    except library.LibraryError as err:
+        raise DesignError(str(err))
+    import enemy as enemy_mod
+    notes = []
+    sheet = result["sheet"]
+    items = [compile_enemy(e, library, libs, fac, pool, cap, enemy_mod, notes)
+             for _, e in sheet_enemies(sheet)]
+    return {"items": items}, notes
+
+
 def cmd_compile(args) -> int:
-    why = compile_refusal(check(json.load(open(args.sheet))))
-    print("compile refused:")
-    for line in why:
-        print("  " + line)
-    return 3
+    result = check(json.load(open(args.sheet)))
+    why = compile_refusal(result)
+    if why:
+        print("compile refused:")
+        for line in why:
+            print("  " + line)
+        return 3
+    if not args.out:
+        raise DesignError("compile needs -o <manifest.json>")
+    manifest, notes = compile_sheet(result)
+    with open(args.out, "w", encoding="utf-8") as fh:
+        fh.write(json.dumps(manifest, indent=1, ensure_ascii=False) + "\n")
+    print(f"wrote {args.out}: {len(manifest['items'])} entr{'y' if len(manifest['items']) == 1 else 'ies'}, "
+          f"every one hidden (D-hidden-true)")
+    for note in notes:
+        print(f"note   {note}")
+    code, output = run_validate(args.out)
+    print("\nvalidate.py --strict:")
+    print("  " + output.replace("\n", "\n  "))
+    if code and "'preferredStat'" in output:
+        print("\nnote   the `preferredStat` diagnostic is the stale rule recorded in "
+              "RUL-2026-10-25-009; its fix is a separate Lane A task "
+              "(state/prompt_validate_stale_rules.md). It is reported here, not waived.")
+    if code:
+        print("\nThe manifest is written but is NOT validated. It may not be pushed until "
+              "validate.py --strict passes or the director grants a recorded exception "
+              "(D-validate-always).")
+        return 1
+    return 0
 
 
 # ------------------------------------------------------------------ selftest
@@ -1042,6 +1265,88 @@ def selftest() -> int:
              "a missing build skill is an error, never a silently skipped check")
     finally:
         build_skill_dirs = real
+
+    # P2. Library blocks: checked at `check`, compiled for ai and ai_line.
+    import tempfile
+    ex_dir = os.path.join(SKILL, "references", "examples")
+    examples = sorted(f for f in os.listdir(ex_dir) if f.endswith(".json"))
+    want(len(examples) >= 3, "the worked examples are present")
+    for name in examples:
+        r = check(json.load(open(os.path.join(ex_dir, name))))
+        want(not r["errors"] and not r["pending_library_refs"], f"example {name} checks clean ({r['errors'][:1]})")
+        want(r["slots"] and compile_refusal(r), f"example {name} keeps its unrecorded values open, so compile refuses")
+
+    def filled():
+        s = json.load(open(os.path.join(ex_dir, "verge_line.json")))
+        for rung in s["line"]["rungs"]:                 # fixture values, not content
+            rung["role"], rung["generals"] = "archetype/standard/v1", ["Strength", "Speed"]
+        s["line"]["rungs"][2]["rules"][0]["when"]["health_below"] = 40
+        return s
+
+    r = check(filled())
+    want(compile_refusal(r) == [], "a line with every slot filled is compilable")
+    want(any("has not ratified" in w for w in r["warnings"]), "a proposed-standing archetype is flagged at check")
+    manifest, notes = compile_sheet(r)
+    items = manifest["items"]
+    want([i["name"] for i in items] == ["Prowler", "Breaker", "Warband Captain"], "compile emits one AI per rung, in order")
+    want(all(i["data"]["hidden"] is True and "_derived" not in i for i in items),
+         "every compiled AI is hidden and carries no tool-private key")
+    want(all(i["data"]["preferredGeneral1"] == "Strength" for i in items), "generals reach the record (law 14)")
+    cap_rules = items[2]["data"]["rules"]
+    want(cap_rules[0]["conditions"][0] == dict(cap_rules[0]["conditions"][0], type="health_below", value=40)
+         and cap_rules[0]["action"]["target"] == "SELF", "a `when` on a block becomes the rule's first condition")
+    want(all(i["data"]["rules"][-1]["conditions"] == [] for i in items), "every compiled list ends unconditionally (law 41)")
+    pool = _pool()
+    want(all(set(a["action"]["jutsuId"] for a in i["data"]["rules"] if "jutsuId" in a["action"]) <= set(i["data"]["jutsus"])
+             for i in items), "every jutsu a rule uses is in the AI's kit")
+    with tempfile.TemporaryDirectory() as tmp:
+        out = os.path.join(tmp, "m.json")
+        json.dump(manifest, open(out, "w"))
+        code, output = run_validate(out)
+        lines = [ln for ln in output.splitlines() if ln.startswith(("ERROR", "warn"))]
+        want(all("'preferredStat'" in ln for ln in lines),
+             f"validate.py --strict reports nothing but the known stale rule, RUL-2026-10-25-009 ({lines[:1]})")
+        want(code == (1 if lines else 0), "validate's exit code is passed through, never masked")
+
+    s = filled(); s["line"]["rungs"][0]["rules"] = [r_ for r_ in s["line"]["rungs"][0]["rules"][:-1]]
+    manifest, notes = compile_sheet(check(s))
+    want(manifest["items"][0]["data"]["rules"][-1]["action"]["type"] == "move_towards_opponent"
+         and any("was added (law 41)" in n for n in notes), "a missing last rule is added and reported")
+    s = filled(); s["line"]["rungs"][0]["rules"][1]["params"]["jutsus"].append("S01")
+    want(any("not in the kit" in e for e in check(s)["errors"]), "a rule that uses a jutsu outside the kit is an error")
+    s = filled(); s["line"]["rungs"][0]["loadout"]["kit"].append("ZZ99")
+    want(any("ZZ99 does not exist" in e for e in check(s)["errors"]), "an unknown pool code in a kit is an error")
+    s = filled(); s["line"]["rungs"][0]["loadout"]["kit"] = ["S06", "S07"]; s["line"]["rungs"][0]["rules"] = []
+    want(any("40 AP" in e for e in check(s)["errors"]), "a kit that breaks its loadout recipe is an error")
+    s = filled(); s["line"]["rungs"][0]["generals"] = ["Strength"]
+    want(any("exactly two" in e for e in check(s)["errors"]), "generals must be two allowed values")
+    s = filled(); s["line"]["rungs"][0]["rules"][0]["params"]["jutsu"] = "B09"; s["line"]["rungs"][0]["loadout"]["kit"].append("B09")
+    try:
+        compile_sheet(check(s)); want(False, "a stealth opener is refused at compile (law 62)")
+    except DesignError as err:
+        want("law 62" in str(err), "a stealth opener is refused at compile (law 62)")
+    s = filled(); s["line"]["rungs"][0]["rules"][0]["when"] = {"mood": 3}
+    want(any("no condition `mood`" in e for e in check(s)["errors"]), "an unknown `when` condition is an error")
+    s = filled(); s["line"]["rungs"][0]["role"] = "archetype/bruiser/v1"
+    want(any("not in the archetype library" in e for e in check(s)["errors"]), "an unknown archetype is an error")
+    s = filled(); s["line"]["rungs"][0]["phases"] = [{"id": "low", "trigger": "when hurt", "rules": [
+        {"use": "rule_pattern/use_jutsu/v1", "params": {"jutsu": "S02"}}]}]
+    try:
+        compile_sheet(check(s)); want(False, "a phase with no `when` cannot compile")
+    except DesignError:
+        want(True, "a phase with no `when` cannot compile")
+    s["line"]["rungs"][0]["phases"][0]["when"] = {"health_below": 50}
+    rules = compile_sheet(check(s))[0]["items"][0]["data"]["rules"]
+    want([c["type"] for c in rules[0]["conditions"]] == ["health_below", "distance_lower_than"],
+         "a phase's rules come first and carry the phase's condition (law 39)")
+    s = filled(); s["line"]["rungs"][0]["rules"] = [{"use": "rule_pattern/rotation/v1", "params": {
+        "jutsus": ["S06", "S07", "S02", "S27"] * 6}}]
+    try:
+        compile_sheet(check(s)); want(False, "a list over the rule cap is refused (law 90)")
+    except DesignError as err:
+        want("law 90" in str(err), "a list over the rule cap is refused (law 90)")
+    boss = scaffold("boss", "t_b", "Test")
+    want(any("phase P4" in w for w in compile_refusal(check(boss))), "kinds without a compiler still name their phase")
 
     for label in failures:
         print(f"  FAIL  {label}")

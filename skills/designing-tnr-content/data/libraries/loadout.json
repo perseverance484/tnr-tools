@@ -1,0 +1,31 @@
+{
+ "_meta": {
+  "contract": "references/libraries.md",
+  "standing_words": {
+   "engine": "the block only arranges what the engine laws it cites require; it carries no balance value",
+   "shipped": "the block repeats a shape that shipped content already uses; exemplars name it",
+   "proposed": "the block rests on a value the director has not ratified; compile says so every time it is used"
+  },
+  "family": "loadout",
+  "purpose": "Kit shapes. Each check in scripts/library.py inspects a kit's pool codes against 32b_DATA_pool.json. A recipe says what a kit must contain, never which codes."
+ },
+ "entries": {
+  "loadout/stance_and_attacks/v1": {
+   "summary": "At least one 40 AP action and at least one damaging action, no code twice.",
+   "params": {},
+   "builder": "stance_and_attacks",
+   "laws": [
+    61,
+    63
+   ],
+   "exemplars": [
+    "building-tnr-content/references/lines.md (Verge Prowler, Breaker, Captain)"
+   ],
+   "failure_modes": [
+    "A kit of 60 AP attacks alone strands 40 AP every turn.",
+    "A kit with no damage cannot end a fight."
+   ],
+   "standing": "engine"
+  }
+ }
+}

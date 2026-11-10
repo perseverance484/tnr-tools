@@ -14,7 +14,7 @@ ROOT = os.path.abspath(os.path.join(HERE, "..", "..", ".."))
 # Add a skill here; never build its TOCs or packs by another route.
 SKILL_TOCS = {
     "building-tnr-content": ["jutsu.md", "ai.md", "quest.md", "pipeline.md", "item.md"],
-    "designing-tnr-content": ["sheet.md", "writing.md"],
+    "designing-tnr-content": ["sheet.md", "writing.md", "libraries.md"],
 }
 HEADING = re.compile(r"^(#{2,3}) (.+)$", re.M)
 

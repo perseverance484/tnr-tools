@@ -1,0 +1,186 @@
+{
+ "sheet_version": "1",
+ "kind": "ai_line",
+ "id": "example_verge_line",
+ "title": "The Verge warband",
+ "brief": {
+  "purpose": "Show a shipped enemy line written as one design sheet.",
+  "audience": "a designer learning the sheet",
+  "home": "worked example; the enemy itself already ships",
+  "size": "small",
+  "agreed": false
+ },
+ "concept": {
+  "hook": "A warband whose rungs each do one blunt job.",
+  "fantasy": "see the source page",
+  "references": [
+   "building-tnr-content/references/lines.md"
+  ],
+  "options": [],
+  "chosen": "as shipped"
+ },
+ "voice": {
+  "register": "",
+  "banned_words": []
+ },
+ "line": {
+  "name": "The Verge",
+  "premise": "A warband rather than an organisation; nobody in it hides what they do.",
+  "rungs": [
+   {
+    "key": "prowler",
+    "name": "Prowler",
+    "role": "AWAITING_RULING",
+    "level": 30,
+    "generals": "AWAITING_RULING",
+    "combat_role": "A fast, thin skirmisher that works at range and is met two or three at a time.",
+    "tactical_read": "Close the distance: its only short-range strike is its weakest tool.",
+    "rules": [
+     {
+      "use": "rule_pattern/opener/v1",
+      "params": {
+       "jutsu": "B37"
+      }
+     },
+     {
+      "use": "rule_pattern/rotation/v1",
+      "params": {
+       "jutsus": [
+        "S06",
+        "S07",
+        "S27",
+        "S02"
+       ]
+      }
+     },
+     {
+      "use": "rule_pattern/fallback/v1"
+     }
+    ],
+    "loadout": {
+     "recipe": "loadout/stance_and_attacks/v1",
+     "kit": [
+      "S06",
+      "S07",
+      "S02",
+      "S27",
+      "B37"
+     ],
+     "signatures": []
+    },
+    "art": [],
+    "notes": "Kit, level and behaviour are as recorded in building-tnr-content/references/lines.md. Role and generals are not recorded there, so they stay open. The recorded stat anchor cannot be written on a sheet yet (see references/libraries.md, limits)."
+   },
+   {
+    "key": "breaker",
+    "name": "Breaker",
+    "role": "AWAITING_RULING",
+    "level": 45,
+    "generals": "AWAITING_RULING",
+    "combat_role": "A slow, heavy bruiser that pins a player in place and then hits hard.",
+    "tactical_read": "Keep moving and stay outside range 3, where its pin cannot reach.",
+    "rules": [
+     {
+      "use": "rule_pattern/opener/v1",
+      "params": {
+       "jutsu": "EE03"
+      }
+     },
+     {
+      "use": "rule_pattern/rotation/v1",
+      "params": {
+       "jutsus": [
+        "EE02",
+        "B28",
+        "EE01",
+        "S01"
+       ]
+      }
+     },
+     {
+      "use": "rule_pattern/fallback/v1"
+     }
+    ],
+    "loadout": {
+     "recipe": "loadout/stance_and_attacks/v1",
+     "kit": [
+      "EE02",
+      "EE01",
+      "S01",
+      "B28",
+      "EE03"
+     ],
+     "signatures": []
+    },
+    "art": [],
+    "notes": "Kit, level and behaviour are as recorded in building-tnr-content/references/lines.md. Role and generals are not recorded there, so they stay open. The recorded stat anchor cannot be written on a sheet yet (see references/libraries.md, limits)."
+   },
+   {
+    "key": "captain",
+    "name": "Warband Captain",
+    "role": "AWAITING_RULING",
+    "level": 60,
+    "generals": "AWAITING_RULING",
+    "combat_role": "A support leader that strengthens its allies and marks a target for them.",
+    "tactical_read": "Defeat the Captain first; the fight gets harder each round it stands.",
+    "rules": [
+     {
+      "use": "rule_pattern/use_jutsu/v1",
+      "params": {
+       "jutsu": "S35"
+      },
+      "when": {
+       "health_below": "AWAITING_RULING"
+      }
+     },
+     {
+      "use": "rule_pattern/opener/v1",
+      "params": {
+       "jutsu": "B19"
+      }
+     },
+     {
+      "use": "rule_pattern/rotation/v1",
+      "params": {
+       "jutsus": [
+        "B31",
+        "S33",
+        "B26",
+        "S44"
+       ]
+      }
+     },
+     {
+      "use": "rule_pattern/fallback/v1"
+     }
+    ],
+    "loadout": {
+     "recipe": "loadout/stance_and_attacks/v1",
+     "kit": [
+      "B31",
+      "S33",
+      "B26",
+      "S44",
+      "B19",
+      "S35"
+     ],
+     "signatures": []
+    },
+    "art": [],
+    "notes": "Kit, level and behaviour are as recorded in building-tnr-content/references/lines.md. Role and generals are not recorded there, and the page says only that Second Wind fires below a health threshold, so all three stay open. The recorded stat anchor cannot be written on a sheet yet."
+   }
+  ],
+  "build_order": [
+   "prowler",
+   "breaker",
+   "captain"
+  ]
+ },
+ "text": {
+  "entries": []
+ },
+ "art": {
+  "slots": []
+ },
+ "decisions": []
+}

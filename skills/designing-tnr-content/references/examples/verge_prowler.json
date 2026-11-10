@@ -1,0 +1,77 @@
+{
+ "sheet_version": "1",
+ "kind": "ai",
+ "id": "example_verge_prowler",
+ "title": "Verge Prowler",
+ "brief": {
+  "purpose": "Show one shipped enemy written as a design sheet.",
+  "audience": "a designer learning the sheet",
+  "home": "worked example; the enemy itself already ships",
+  "size": "single",
+  "agreed": false
+ },
+ "concept": {
+  "hook": "The probe: sent ahead to touch a position and see what answers.",
+  "fantasy": "see the source page",
+  "references": [
+   "building-tnr-content/references/lines.md"
+  ],
+  "options": [],
+  "chosen": "as shipped"
+ },
+ "voice": {
+  "register": "",
+  "banned_words": []
+ },
+ "enemy": {
+  "key": "prowler",
+  "name": "Prowler",
+  "role": "AWAITING_RULING",
+  "level": 30,
+  "generals": "AWAITING_RULING",
+  "combat_role": "A fast, thin skirmisher that works at range and is met two or three at a time.",
+  "tactical_read": "Close the distance: its only short-range strike is its weakest tool.",
+  "rules": [
+   {
+    "use": "rule_pattern/opener/v1",
+    "params": {
+     "jutsu": "B37"
+    }
+   },
+   {
+    "use": "rule_pattern/rotation/v1",
+    "params": {
+     "jutsus": [
+      "S06",
+      "S07",
+      "S27",
+      "S02"
+     ]
+    }
+   },
+   {
+    "use": "rule_pattern/fallback/v1"
+   }
+  ],
+  "loadout": {
+   "recipe": "loadout/stance_and_attacks/v1",
+   "kit": [
+    "S06",
+    "S07",
+    "S02",
+    "S27",
+    "B37"
+   ],
+   "signatures": []
+  },
+  "art": [],
+  "notes": "Kit, level and behaviour are as recorded in building-tnr-content/references/lines.md. Role and generals are not recorded there, so they stay open. The recorded stat anchor cannot be written on a sheet yet (see references/libraries.md, limits)."
+ },
+ "text": {
+  "entries": []
+ },
+ "art": {
+  "slots": []
+ },
+ "decisions": []
+}

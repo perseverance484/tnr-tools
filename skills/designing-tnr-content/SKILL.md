@@ -74,6 +74,8 @@ Kinds: `ai`, `ai_line`, `boss`, `quest`, `quest_chain`, `dungeon`, `event`.
 - `explain` writes the design doc from the sheet, ending with a table of every value on it. The
   doc is never edited by hand; change the sheet and regenerate.
 - `compile` refuses while a slot, a decision or a library reference is open, and says which.
+  For kinds `ai` and `ai_line` it then writes the manifest and runs the build skill's
+  `validate.py --strict` on it. Other kinds name the phase that delivers them.
 
 `references/sheet.md` explains every block of the sheet, the slot words, and how the older
 mission and event sheets fit inside it.
@@ -103,6 +105,8 @@ The card for a finished job (stage 7) is the repository's own, in
 |---|---|
 | Filling in or reading a sheet | `references/sheet.md` |
 | Writing any player-facing text | `references/writing.md` |
+| Choosing or adding a library block, or reading what `compile` does | `references/libraries.md` |
+| A sheet to copy from | `references/examples/` |
 | Working a stage | its template in `references/templates/` |
 | An engine rule, a bound, a pool code | the build skill: its packs first, then `references/`, then the generated `data/` files |
 | How an event should be structured | `docs/design/EVENT_STRUCTURE.md` in the repository |
@@ -111,10 +115,13 @@ The card for a finished job (stage 7) is the repository's own, in
 
 Said plainly so nobody plans around a tool that is not there:
 
-- **Libraries** (archetypes, rule patterns, loadouts, quest structures, setups, payouts, boss
-  grammar) are not shipped. A sheet may already name library entries; `check` reports them as
-  pending and `compile` refuses.
-- **`compile`** is not shipped for any kind.
-- **The encounter simulator** and the worked examples are not shipped.
+- **Libraries.** Rule patterns, loadouts and archetypes are shipped
+  (`references/libraries.md`). Quest structures, setups, payouts and the boss grammar are not;
+  a sheet may name them, `check` reports them as pending and `compile` refuses.
+- **`compile`** is shipped for `ai` and `ai_line` only.
+- **Shaped stats and ratified roles.** Every compiled enemy has the uniform stat block, and
+  the three archetypes are marked `proposed` (`references/libraries.md` section 5).
+- **The encounter simulator** is not shipped.
 
-Until they are, a decided design is built with the build skill directly, as before.
+Until they are, a decided design of any other kind is built with the build skill directly, as
+before.

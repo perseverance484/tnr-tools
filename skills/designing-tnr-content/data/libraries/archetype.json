@@ -1,0 +1,74 @@
+{
+ "_meta": {
+  "contract": "references/libraries.md",
+  "standing_words": {
+   "engine": "the block only arranges what the engine laws it cites require; it carries no balance value",
+   "shipped": "the block repeats a shape that shipped content already uses; exemplars name it",
+   "proposed": "the block rests on a value the director has not ratified; compile says so every time it is used"
+  },
+  "family": "archetype",
+  "purpose": "Roles. An archetype maps to a role the build skill's enemy.py already knows and adds no number of its own. Shaped archetypes (bruiser, caster and the rest) are added as entries once D-05 is ruled."
+ },
+ "entries": {
+  "archetype/standard/v1": {
+   "summary": "A rank-and-file enemy.",
+   "params": {},
+   "maps_to": {
+    "role": "standard"
+   },
+   "laws": [
+    14
+   ],
+   "exemplars": [
+    "building-tnr-content/scripts/enemy.py ROLE_DEFAULTS",
+    "building-tnr-content/references/ai.md 1.8"
+   ],
+   "failure_modes": [
+    "The multipliers and kit size behind this role are read from enemy.py at compile time; this entry holds none of them.",
+    "The role table has no ratification record (INVENTORY C-05, decision D-05), so every use is reported as resting on a proposed value."
+   ],
+   "standing": "proposed",
+   "notes": "Stat shape is uniform: a shaped stat block is a balance opinion and waits for D-05."
+  },
+  "archetype/elite/v1": {
+   "summary": "A tougher named enemy.",
+   "params": {},
+   "maps_to": {
+    "role": "elite"
+   },
+   "laws": [
+    14
+   ],
+   "exemplars": [
+    "building-tnr-content/scripts/enemy.py ROLE_DEFAULTS",
+    "building-tnr-content/references/ai.md 1.8"
+   ],
+   "failure_modes": [
+    "The multipliers and kit size behind this role are read from enemy.py at compile time; this entry holds none of them.",
+    "The role table has no ratification record (INVENTORY C-05, decision D-05), so every use is reported as resting on a proposed value."
+   ],
+   "standing": "proposed",
+   "notes": "Stat shape is uniform: a shaped stat block is a balance opinion and waits for D-05."
+  },
+  "archetype/boss/v1": {
+   "summary": "A single-fight boss. The fight's script belongs to the boss kind, not to this role.",
+   "params": {},
+   "maps_to": {
+    "role": "boss"
+   },
+   "laws": [
+    14
+   ],
+   "exemplars": [
+    "building-tnr-content/scripts/enemy.py ROLE_DEFAULTS",
+    "building-tnr-content/references/ai.md 1.8"
+   ],
+   "failure_modes": [
+    "The multipliers and kit size behind this role are read from enemy.py at compile time; this entry holds none of them.",
+    "The role table has no ratification record (INVENTORY C-05, decision D-05), so every use is reported as resting on a proposed value."
+   ],
+   "standing": "proposed",
+   "notes": "Stat shape is uniform: a shaped stat block is a balance opinion and waits for D-05."
+  }
+ }
+}

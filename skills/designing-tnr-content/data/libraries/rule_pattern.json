@@ -1,0 +1,142 @@
+{
+ "_meta": {
+  "contract": "references/libraries.md",
+  "standing_words": {
+   "engine": "the block only arranges what the engine laws it cites require; it carries no balance value",
+   "shipped": "the block repeats a shape that shipped content already uses; exemplars name it",
+   "proposed": "the block rests on a value the director has not ratified; compile says so every time it is used"
+  },
+  "family": "rule_pattern",
+  "purpose": "Named behaviours. Each builder in scripts/library.py returns AI rules made through the build skill's factory.py. An entry adds no number: every number is a parameter the sheet supplies, or a pool record's own gate."
+ },
+ "entries": {
+  "rule_pattern/use_jutsu/v1": {
+   "summary": "Use one pool jutsu when it is in reach.",
+   "params": {
+    "jutsu": {
+     "type": "pool_code"
+    },
+    "target": {
+     "type": "opponent",
+     "required": false
+    }
+   },
+   "builder": "use_jutsu",
+   "rule_count": "1",
+   "laws": [
+    39,
+    40
+   ],
+   "exemplars": [
+    "building-tnr-content/scripts/enemy.py build_rules"
+   ],
+   "failure_modes": [
+    "A gate other than range + 1 fires out of range or forfeits the outer band (law 40); the builder takes the gate from the pool record, so it cannot be set here.",
+    "A ground-target jutsu is refused: it belongs to the boss fight grammar."
+   ],
+   "standing": "engine"
+  },
+  "rule_pattern/rotation/v1": {
+   "summary": "Use each listed pool jutsu in priority order; the engine's cooldowns make the order a rotation.",
+   "params": {
+    "jutsus": {
+     "type": "pool_codes"
+    },
+    "target": {
+     "type": "opponent",
+     "required": false
+    }
+   },
+   "builder": "rotation",
+   "rule_count": "one per jutsu",
+   "laws": [
+    39,
+    40,
+    41
+   ],
+   "exemplars": [
+    "building-tnr-content/scripts/enemy.py build_rules"
+   ],
+   "failure_modes": [
+    "Rules are tried top to bottom and the first that can act wins, so the order is the priority (law 39).",
+    "Two jutsu that share a cooldown group lock each other out (law 91); the group table is live data and is not checked here."
+   ],
+   "standing": "engine"
+  },
+  "rule_pattern/opener/v1": {
+   "summary": "Use a self-target stance first, before any attack.",
+   "params": {
+    "jutsu": {
+     "type": "pool_code"
+    }
+   },
+   "builder": "opener",
+   "rule_count": "1",
+   "laws": [
+    40,
+    61,
+    62,
+    63
+   ],
+   "exemplars": [
+    "building-tnr-content/references/lines.md (the Verge line kits open on a stance)"
+   ],
+   "failure_modes": [
+    "A stealth stance as the opener stops the AI attacking that round (law 62); the builder refuses it.",
+    "With no 40 AP action the AI cannot fill a 100 AP turn (laws 61, 63)."
+   ],
+   "standing": "engine"
+  },
+  "rule_pattern/basic_attack/v1": {
+   "summary": "Use the engine's basic attack on an adjacent opponent.",
+   "params": {
+    "target": {
+     "type": "opponent",
+     "required": false,
+     "default": "CLOSEST_OPPONENT"
+    }
+   },
+   "builder": "basic_attack",
+   "rule_count": "1",
+   "laws": [
+    40
+   ],
+   "exemplars": [
+    "docs/rulings RUL-2026-10-31-071",
+    "building-tnr-content/references/ai.md (confirmed rule vocabulary)"
+   ],
+   "failure_modes": [
+    "It needs no kit entry; adding a pool code for it is a mistake."
+   ],
+   "standing": "engine"
+  },
+  "rule_pattern/fallback/v1": {
+   "summary": "The unconditional last rule: close distance, or strike then close, or end the turn.",
+   "params": {
+    "mode": {
+     "type": "enum",
+     "values": [
+      "move",
+      "basic_attack_then_move",
+      "end_turn"
+     ],
+     "default": "move"
+    }
+   },
+   "builder": "fallback",
+   "rule_count": "1 or 2",
+   "laws": [
+    41,
+    63
+   ],
+   "exemplars": [
+    "building-tnr-content/scripts/enemy.py build_rules"
+   ],
+   "failure_modes": [
+    "A list with no unconditional last rule lets the AI fall off the end (law 41); compile adds this block when a sheet leaves it out, and says so.",
+    "It takes no `when`: a conditional last rule is not a last rule."
+   ],
+   "standing": "engine"
+  }
+ }
+}

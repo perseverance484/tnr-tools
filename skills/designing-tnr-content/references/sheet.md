@@ -56,7 +56,8 @@ owner of each:
   `ROLE_DEFAULTS`);
 - an AI's rank and pools, which engine laws 14 to 16 explain and `enemy.py` derives.
 
-What you write instead: an enemy's **level** and **role**, its **kit** as pool codes
+What you write instead: an enemy's **level**, its **role** as an archetype id, its two
+**generals** (engine law 14; a design choice, never defaulted), its **kit** as pool codes
 (`D-pool-codes`), and its behaviour as **library references**. Parameters of a library entry
 are not sheet fields; each entry bounds its own.
 
@@ -74,7 +75,9 @@ Behaviour, structure and loadouts are named, not spelled out:
 
 An id is `family/name/vN`. `check` resolves it against `data/libraries/<family>.json`. If the
 family's library has not shipped, the reference is reported as pending; if the library exists
-and the id does not, it is an error. Never write a rule object in a sheet: the vocabulary is
+and the id does not, it is an error. A rule block or a phase may also carry `when`, a small
+set of extra conditions. `references/libraries.md` lists the shipped families, the `when`
+keys, and what `compile` does with them. Never write a rule object in a sheet: the vocabulary is
 fixed by engine law 39 and built only from `data/45c_DATA_constructors.json`.
 
 ## 5. Blocks by kind
