@@ -111,3 +111,17 @@ if __name__ == "__main__":
         show(b, rnd)
     elif cmd == "show":
         show(b, int(sys.argv[3]))
+    elif cmd == "check":
+        # cd_plan.py check BATTLE ROUND AP_AVAILABLE ACTION [...]  (AP_AVAILABLE = 100 - stun)
+        s = load(b)
+        rnd, ap = int(sys.argv[3]), int(sys.argv[4])
+        acts = sys.argv[5:]
+        total = sum(ACTIONS[a][0] for a in acts)
+        bad = [f"{a} ready r{ready_round(s, a)}" for a in acts if ready_round(s, a) > rnd]
+        tags = [ACTIONS[a][2] for a in acts if ACTIONS[a][2]]
+        dup = sorted({t for t in tags if tags.count(t) > 1})
+        ok = total <= ap and not bad and not dup
+        print(f"{'OK' if ok else 'NO'}: {'+'.join(acts)} = {total}/{ap} AP"
+              + (f"; cooldown: {', '.join(bad)}" if bad else "")
+              + (f"; shared lock: {', '.join(dup)}" if dup else "")
+              + ("" if total == ap or total > ap else f"; {ap - total} AP unused"))
