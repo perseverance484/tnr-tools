@@ -37,6 +37,10 @@ A slot is named by its path in the sheet (`boss.enrage`, `payout.entries[0].valu
 lists every one. They are the same word `mission.py` and `data/48_DATA_mission_profiles.json`
 already use, so a slot means the same thing in both skills.
 
+A numeric field (an enemy's level, a wave's enemy count, a wave delay, the rounds between an
+omen and its payoff) holds a whole number or a slot word and nothing else. "Soon" or "a few"
+is refused: write the number, or leave the slot for whoever decides it.
+
 Never replace a slot with a placeholder number to make a tool run. `compile` refuses while one
 is open, and that refusal is the point.
 
@@ -112,7 +116,10 @@ rather than ruled. When you cite it as a source, say which standing the value ha
 ## 7. Text and art
 
 `text.entries` holds every player-facing string with what it is for, the entity and field it
-lands in, and whether players see it. `references/writing.md` is the guide and lists what
+lands in, and whether players see it. `entity` is required: it is how `check` finds the
+field's length bound in the build skill's `data/45d_DATA_entity_schemas.json`. The schema's
+`_meta.text_entities` maps the sheet's entity names to that file's (an `asset` is its
+`gameAsset`); an entity with no generated contract, such as `ai`, is reported as unchecked. `references/writing.md` is the guide and lists what
 `check` lints. `art.slots` names each asset the design needs and which skill makes it:
 `producing-tnr-art` for anything still, `animating-tnr-combat` for anything that moves.
 
@@ -120,7 +127,9 @@ lands in, and whether players see it. `references/writing.md` is the guide and l
 
 `decisions` is the list of questions for the director: an id, the topic, the options, what each
 changes, what it blocks, and `status` (`open` or `ruled`, with the ruling id once it exists).
-`explain` prints each open one as a card. A ruled decision is recorded in the rulings ledger
+`explain` prints each open one as a card. The design doc it writes ends with a table of
+every value on the sheet, so a choice cannot be on the sheet and absent from what the director
+reads; `explain` refuses a sheet whose structure is invalid rather than render it wrongly. A ruled decision is recorded in the rulings ledger
 (`docs/RULINGS.md` says how), not only on the sheet.
 
 ## 9. The two older sheets

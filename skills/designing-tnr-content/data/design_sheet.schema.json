@@ -22,7 +22,30 @@
    "dungeon": "dungeon",
    "event": "event"
   },
-  "validator": "design.py implements the subset of JSON Schema this file uses (type, const, enum, pattern, minLength, minItems, required, properties, additionalProperties, items, anyOf, local $ref) plus x-slot: a leaf marked x-slot may hold a slot literal instead of a value."
+  "validator": "design.py implements the subset of JSON Schema this file uses (type, const, enum, pattern, minLength, minimum, minItems, required, properties, additionalProperties, items, anyOf, local $ref) plus x-slot: a leaf marked x-slot may hold a slot literal (AWAITING_RULING or AUTHOR) instead of a value, and nothing else outside its type.",
+  "text_entities": {
+   "note": "sheet entity name -> entity name in building-tnr-content/data/45d_DATA_entity_schemas.json; null = no generated contract, so no bound can be checked",
+   "jutsu": "jutsu",
+   "item": "item",
+   "quest": "quest",
+   "asset": "gameAsset",
+   "badge": "badge",
+   "title": "title",
+   "variant": "itemVariant",
+   "pet": "petSpecies",
+   "ai": null
+  },
+  "text_fields": {
+   "note": "sheet field -> record field for the bound lookup; null = an objective-level field with no entity bound",
+   "name": "name",
+   "description": "description",
+   "battleDescription": "battleDescription",
+   "successDescription": "successDescription",
+   "item_description": "description",
+   "dialog": null,
+   "choice": null,
+   "log_line": "battleDescription"
+  }
  },
  "type": "object",
  "required": [
@@ -75,7 +98,8 @@
     "banned_words": {
      "type": "array",
      "items": {
-      "type": "string"
+      "type": "string",
+      "minLength": 1
      }
     }
    }
@@ -192,11 +216,9 @@
            "x-slot": true
           },
           "rounds_between": {
-           "type": [
-            "integer",
-            "string"
-           ],
-           "x-slot": true
+           "type": "integer",
+           "x-slot": true,
+           "minimum": 0
           }
          }
         }
@@ -360,21 +382,17 @@
               "type": "string"
              },
              "count": {
-              "type": [
-               "integer",
-               "string"
-              ],
-              "x-slot": true
+              "type": "integer",
+              "x-slot": true,
+              "minimum": 1
              }
             }
            }
           },
           "delay_rounds": {
-           "type": [
-            "integer",
-            "string"
-           ],
-           "x-slot": true
+           "type": "integer",
+           "x-slot": true,
+           "minimum": 0
           }
          }
         }
@@ -470,6 +488,7 @@
       "type": "object",
       "required": [
        "for",
+       "entity",
        "field",
        "text"
       ],
@@ -485,7 +504,11 @@
          "item",
          "quest",
          "ai",
-         "asset"
+         "asset",
+         "badge",
+         "title",
+         "variant",
+         "pet"
         ]
        },
        "field": {
@@ -780,11 +803,9 @@
      "x-slot": true
     },
     "level": {
-     "type": [
-      "integer",
-      "string"
-     ],
-     "x-slot": true
+     "type": "integer",
+     "x-slot": true,
+     "minimum": 1
     },
     "rank_flavour": {
      "type": "string"

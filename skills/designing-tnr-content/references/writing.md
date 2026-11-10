@@ -104,11 +104,15 @@ as the chest, never typed twice.
 |---|---|
 | Em dash in a `dialog` or `choice` entry | error |
 | Em dash in other player-facing text | note (shipped events keep them out of all player text) |
-| A battle line with a placeholder the engine does not know | error |
-| Text longer or shorter than the field's schema bound | error |
+| A battle line or log line with a placeholder the engine does not know | error |
+| Text longer or shorter than the field's schema bound, looked up by the entry's `entity` | error |
+| Text for an entity with no generated length contract (an AI's name, for one) | note: not checked |
 | A word from the sheet's `voice.banned_words` in player-facing text | error |
 | Empty text | error |
 | `AUTHOR` left in place | listed as an open slot |
+
+The lints run only once the sheet's structure is valid; until then `check` reports the
+structure errors and says the text was not checked.
 
 It cannot judge voice, accuracy against the effects, or whether a line is good. Those are read
 by a person, and the director reads last.

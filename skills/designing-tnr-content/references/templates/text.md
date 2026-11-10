@@ -5,7 +5,7 @@ Every player-facing string, in `text.entries`. Guide: `references/writing.md`.
 ## Template (one entry)
 
 ```json
-{ "for": "<record or node the text belongs to>", "entity": "jutsu|item|quest|ai|asset",
+{ "for": "<record or node the text belongs to>", "entity": "jutsu|item|quest|ai|asset|badge|title|variant|pet",
   "field": "name|description|battleDescription|successDescription|dialog|choice|log_line|item_description",
   "text": "<the text, or AUTHOR>", "player_facing": true }
 ```

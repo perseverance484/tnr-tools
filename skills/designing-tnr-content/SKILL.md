@@ -71,8 +71,8 @@ Kinds: `ai`, `ai_line`, `boss`, `quest`, `quest_chain`, `dungeon`, `event`.
 - `new` scaffolds a sheet with every undecided value already marked as a slot.
 - `check` validates the sheet and prints every open slot, every library reference and every
   error. Open slots do not fail it: they are the list you take to the director.
-- `explain` writes the design doc from the sheet. The doc is never edited by hand; change the
-  sheet and regenerate.
+- `explain` writes the design doc from the sheet, ending with a table of every value on it. The
+  doc is never edited by hand; change the sheet and regenerate.
 - `compile` refuses while a slot, a decision or a library reference is open, and says which.
 
 `references/sheet.md` explains every block of the sheet, the slot words, and how the older
