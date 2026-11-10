@@ -173,71 +173,53 @@ as a stun opener.
 
 ## PvP 2 loadout (built 2026-11-10; director: "Feel free to create your own loadout as PvP 2")
 Jutsu loadout `ZVfObjuW5xO462WiR5UMQ` ("PvP 2"); items: the PvP item loadout `B-bCCtg-_fvcJSrvR1ts0`.
-Built from Study 2: drain through DR, anti-heal before the kill, -given riders, stun opener that comes with a
-buff, lifesteal on burst turns. Eternity Flux, Dragon King's Impact and Particle Cannon are bloodline jutsu (another
-bloodline: "missing requirements"), so Chakra Resonance is the stun.
+Built from Study 2 plus the director's player-1 coaching. Eternity Flux, Dragon King's Impact and Particle Cannon
+are another bloodline's jutsu ("missing requirements"), so Chakra Resonance is the stun.
 
-| Jutsu | AP | Level | Effect (level 25 unless noted) |
+Director's edits (2026-11-10): add Danse Macabre and Subaku Palace (player-1 openers); "I think sacrificing chakra
+shield is a bad idea, it is a very powerful ability. I would drop one of your healcuts first" -> Chakra Shield
+kept, Raimei Gen dropped (Severed Pulse is the one heal cut). Cyclone Palm Strike dropped for Subaku Palace.
+
+| Jutsu | AP | Lv | Effect (numbers at the listed level) |
 |---|---|---|---|
+| Danse Macabre | 60 | 25 | dmg 23 + bloodline seal ~100% (2 r), instant; cd 8 |
+| Ethereal Rebirth | 60 | 25 | dmg 45 + self absorb 35% (3 r) + self -15% given (2 r); cd 8 |
+| Forbidden Chakra Fury | 60 | 25 | AoE spiral dmg 35 + recoil ~40% on enemies hit (2 r), instant; cd 7 |
 | Chakra Resonance | 60 | 25 | dmg 28 + stun -20 AP (2 r); stun family lock 4 r |
-| Raimei Gen | 60 | 25 | dmg 30, self +15% given, target -30% healing (2 r), cd 7 |
-| Inferno Leech | 60 | 3 | drain 300 HP x2 rounds (fixed, ignores DR), self absorb ~21% |
+| Inferno Leech | 60 | 3 | drain 300 HP x2 rounds (fixed, through DR) + self absorb ~21% |
 | Stormblade Arc | 60 | 25 | pierce + reflect |
 | Forgotten Ember Blade | 60 | 25 | dmg, self +35% given, target +35% taken |
-| Ethereal Rebirth | 60 | 25 | dmg + self absorb 35% |
-| Forbidden Chakra Fury | 60 | 25 | big ground hit (cheap chakra) |
-| Severed Pulse | 40 | 25 | target -40% healing, +20% taken (2 r) |
-| Cyclone Palm Strike | 40 | 18 | target +27% taken, -27% given (2 r) |
+| Subaku Palace | 40 | 25 | AoE spiral: self +30% given (2 r), ground -25% given on enemies (3 r), instant; cd 7 |
+| Chakra Shield | 40 | 25 | absorb 25 + shield |
+| Severed Pulse | 40 | 25 | target -50% healing, +30% taken (2 r) |
 | Eternal Darkness | 40 | 25 | target -30% given, self -30% taken (2 r) |
 | Chakra Overflow | 40 | 25 | self +35% given x2 |
 | Eclipse Drain | 40 | 25 | self lifesteal 35% |
-| Seal of Nullification | 40 | 25 | target can't buff 1 r, I can't be debuffed 2 r |
+| Seal of Nullification | 40 | 25 | target can't buff 1 r; I can't be debuffed 2 r |
 | Chakra Invigoration | 40 | 25 | leap 5, self +30% given, -25% taken |
-| Danse Macabre | 60 | 25 | dmg 23 + bloodline seal ~100% chance (2 r), cd 8 |
-Chakra Shield swapped out for Danse Macabre (director, 2026-11-10). Dropped from PvP 1: Shrapnel Clone Barrage,
-Lotus Dance, Subaku Palace, Thunder's Judgement, Parry,
-Phantom Step.
 
-**Director (2026-11-10): Danse Macabre first when I go first.** "Seal is instant so as player 1 you get 3 rounds
-of seal, removing their 40% dmg inc passive from their bloodline. Its essentially a ~28.8% instant damage reduction
-buff, and I believe it does stack with DR." (1/1.4 = 0.714, so -28.6% on their damage; DR multiplies on top.)
-Seal lands the moment it is cast, so as player 1 it covers their turns in rounds 1, 2 and 3.
+**Player-1 principles (director):**
+- Instant effects cast first cover the enemy's turn in the same round. Danse Macabre's seal: "as player 1 you get 3
+  rounds of seal, removing their 40% dmg inc passive from their bloodline. Its essentially a ~28.8% instant damage
+  reduction buff, and I believe it does stack with DR" (1/1.4 = 0.714).
+- Subaku Palace: "a ground effect that lasts for a significant duration. You can damage cut your enemy instantly
+  and force them to fight at disadvantage or to move out of the effect and use AP on movement."
+- Rebirth -> Chakra Fury: "set up with rebirth then use forbidden Chakra Fury the next round to have essentially 40
+  recoil and 35 absorb ... since chakra fury is an instant effect ... Then you can do things like Seal of
+  Nullification and stun to set up a swing round while they hurt themselves with their own damage."
 
-**Going-first plan (combines both director lines):**
-- T1: Danse Macabre (bloodline seal: their T1-T3 at ~-29%) + Eternal Darkness (they -30% given, me -30% taken from
-  T2) or Severed Pulse.
-- T2: Ethereal Rebirth (35% absorb T3-T5) + Seal of Nullification (they can't buff; I can't be debuffed 2 r).
-- T3: Forbidden Chakra Fury (40% recoil on them at once, T3-T4) + Cyclone Palm. Their last sealed turn: every hit
-  costs them 40% and heals me 35%.
-- T4: Chakra Resonance stun + Overflow / Severed Pulse. T5: swing round.
-If they Cleanse the seal, Fury's recoil and my absorb still stand; if they Clear, Rebirth is the casualty, so hold
-Seal of Nullification for the turn after Rebirth.
+**Going first:**
+- T1: Danse Macabre + Subaku Palace. Both land at once: their T1 hits at ~0.71 x 0.75 = ~54% (seal T1-T3, ground
+  T1-T3), and my +30% given is live T2. They stand in it or spend AP walking out.
+- T2: Ethereal Rebirth (35% absorb T3-T5) + Chakra Shield (absorb + shield) or Seal of Nullification.
+- T3: Forbidden Chakra Fury (40% recoil at once, T3-T4) + Seal of Nullification / Severed Pulse. Their last sealed
+  turn: each hit costs them 40% and heals me 35%.
+- T4: Chakra Resonance stun + Overflow or Severed Pulse. T5: swing (Ember / Stormblade / Leech with Eclipse Drain).
 
-**Director's line (2026-11-10): "Rebirth -> Chakra Fury"**
-"Take advantage of how powerful ethereal rebirth is ... at 35% absorb for 3 rounds, if going first you can set up
-with rebirth then use forbidden Chakra Fury the next round to have essentially 40 recoil and 35 absorb ... since
-chakra fury is an instant effect. This can force players to move off your ground effect. You turn some of their
-damage into your own at the expense of a small damage given debuff. Then you can do things like Seal of
-Nullification and stun to set up a swing round while they hurt themselves with their own damage."
-Verified numbers: Ethereal Rebirth = dmg 45 + self absorb 35% (3 r) + self -15% given (2 r), cd 8. Forbidden
-Chakra Fury = AoE spiral dmg 35 + recoil 30 +0.4/level (~40% at 25) on enemies hit (2 r), cd 7.
-- T1: Ethereal Rebirth + a 40 (Severed Pulse, or Chakra Shield). Absorb live from T2 for 3 rounds.
-- T2: Forbidden Chakra Fury (recoil lands at once: every hit they make next turn costs them ~40% back while my
-  absorb heals me 35% of it) + Seal of Nullification (they can't buff out of it; I can't be debuffed 2 r).
-  They either hit into recoil + absorb or step off the ground and waste AP.
-- T3: Chakra Resonance (stun -20 AP, lands before their turn) + Cyclone Palm / Severed Pulse / Overflow: set up the
-  swing while they're stunned and still eating recoil.
-- T4 swing: Ember Blade / Raimei Gen + Overflow or Eclipse Drain, with T3's debuffs live.
-The -15% damage given from Rebirth only matters on T2-T3, which are setup/control turns anyway.
+**Going second:** T1 Chakra Shield + Eternal Darkness + Defensive Stance (or Invigoration in if far), then run the
+player-1 sequence from T2 (Danse + Subaku), since the seal still gives 3 of their turns from my cast.
 
-**Rotation (remember: a tag cast in round N is live from N+1):**
-- T1 opener: in range -> Chakra Resonance + Severed Pulse (they play T2-T3 at 80 AP; +20% taken live T2).
-  Out of range -> Chakra Invigoration (leap, my buffs live T2) + Severed Pulse, Resonance on T2.
-- T2 setup + chip: Raimei Gen (anti-heal, my +15% live T3) + Cyclone Palm (+27% taken / -27% given live T3).
-  Against a Clear-holder, Seal of Nullification instead of Cyclone.
-- T3 payoff: Forbidden Chakra Fury + Eclipse Drain (lifesteal live T4), or Ember Blade + Overflow to set a T4 burst.
-- DR-stacked target (absorb, -35% taken, barrier): Inferno Leech (drain ticks through) + Stormblade pierce the
-  round after (pierce and drain don't share a lock).
-- Their burst is due / I'm low: Eternal Darkness + Chakra Shield + Defensive Stance (or + Elite Smoke Bomb).
-- Finish: they're low and healing -> Severed Pulse/Raimei first, then the hit; never let a lifesteal round go
-  uncut.
+**Other cases:** DR-stacked target -> Inferno Leech then Stormblade (no shared lock). Their burst due -> Eternal
+Darkness + Chakra Shield + Defensive Stance / Elite Smoke Bomb. Kill turn on a healer -> Severed Pulse first.
+Remember: a non-instant tag cast in round N is live from N+1; seal, recoil-on-hit, stun AP loss, ground effects and
+damage are instant.
