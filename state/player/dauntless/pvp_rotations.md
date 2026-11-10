@@ -188,8 +188,10 @@ bomb is also often countered by pierce. Seal of Nullification debuff prevent can
 and smoke bombs self debuffs. Subaku Palace applies to enemies."
 - **Cut damage: Seal + Subaku (80 AP), best as P1.** Subaku's ground zone on his hex is instant (-25% his damage,
   3 rounds); Seal blocks his buffs next round and wards me 2 rounds. Fill with Def. Stance / Panacea.
-- **Reflect and mitigate: Fury on his hex + Chakra Shield.** Pierce beats it (pierce destroys shields and ignores
-  recoil), so don't use it into a player holding Stormblade/Night's Testament-style pierce.
+- **Reflect and mitigate: Fury on his hex + Chakra Shield = the answer to his burst turn** (director, 23:00: "Fury+Shield
+  is easily countered by Pierce not used against it. Fury+Shield is best used against an enemies burst"). Cast it when
+  his non-pierce burst is coming. His pierce counters it (pierce destroys the shield and never triggers recoil), so if
+  his pierce is off cooldown, expect him to answer with it.
 - **Smoke is countered by pierce** (pierce ignores the -70%). Don't rely on Smoke against a pierce holder.
 - **Seal's debuff-block also blocks my own self-debuffs:** Ethereal's -15% and Smoke's -70% on me. Seal, then next
   turn Smoke + Ethereal: he is smoked, I'm not.
