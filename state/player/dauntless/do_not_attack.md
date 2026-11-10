@@ -8,3 +8,4 @@ Check this list before every `combat.attackUser`, `travel.robPlayer` or bounty.
 | DemiZaru | Tsukimori | Director: ally | 2026-11-09 |
 | Sukuna | Risen | Director: do not attack | 2026-11-09 |
 | Noah | Risen | Director: do not attack | 2026-11-09 |
+| Reptar | Akikaze | Director: friend | 2026-11-09 |
