@@ -193,11 +193,27 @@ bloodline: "missing requirements"), so Chakra Resonance is the stun.
 | Eclipse Drain | 40 | 25 | self lifesteal 35% |
 | Seal of Nullification | 40 | 25 | target can't buff 1 r, I can't be debuffed 2 r |
 | Chakra Invigoration | 40 | 25 | leap 5, self +30% given, -25% taken |
-| Chakra Shield | 40 | 25 | absorb 25 + shield |
-Dropped from PvP 1: Shrapnel Clone Barrage, Lotus Dance, Danse Macabre, Subaku Palace, Thunder's Judgement, Parry,
+| Danse Macabre | 60 | 25 | dmg 23 + bloodline seal ~100% chance (2 r), cd 8 |
+Chakra Shield swapped out for Danse Macabre (director, 2026-11-10). Dropped from PvP 1: Shrapnel Clone Barrage,
+Lotus Dance, Subaku Palace, Thunder's Judgement, Parry,
 Phantom Step.
 
-**Director's line (2026-11-10, primary plan when I go first): "Rebirth -> Chakra Fury"**
+**Director (2026-11-10): Danse Macabre first when I go first.** "Seal is instant so as player 1 you get 3 rounds
+of seal, removing their 40% dmg inc passive from their bloodline. Its essentially a ~28.8% instant damage reduction
+buff, and I believe it does stack with DR." (1/1.4 = 0.714, so -28.6% on their damage; DR multiplies on top.)
+Seal lands the moment it is cast, so as player 1 it covers their turns in rounds 1, 2 and 3.
+
+**Going-first plan (combines both director lines):**
+- T1: Danse Macabre (bloodline seal: their T1-T3 at ~-29%) + Eternal Darkness (they -30% given, me -30% taken from
+  T2) or Severed Pulse.
+- T2: Ethereal Rebirth (35% absorb T3-T5) + Seal of Nullification (they can't buff; I can't be debuffed 2 r).
+- T3: Forbidden Chakra Fury (40% recoil on them at once, T3-T4) + Cyclone Palm. Their last sealed turn: every hit
+  costs them 40% and heals me 35%.
+- T4: Chakra Resonance stun + Overflow / Severed Pulse. T5: swing round.
+If they Cleanse the seal, Fury's recoil and my absorb still stand; if they Clear, Rebirth is the casualty, so hold
+Seal of Nullification for the turn after Rebirth.
+
+**Director's line (2026-11-10): "Rebirth -> Chakra Fury"**
 "Take advantage of how powerful ethereal rebirth is ... at 35% absorb for 3 rounds, if going first you can set up
 with rebirth then use forbidden Chakra Fury the next round to have essentially 40 recoil and 35 absorb ... since
 chakra fury is an instant effect. This can force players to move off your ground effect. You turn some of their
