@@ -1,10 +1,11 @@
 {
- "holder": null,
- "token": null,
- "job": null,
- "releasedBy": "claude",
- "releasedInstance": null,
- "releasedJob": "Mender 586 + omen text 585, then Closing Hold hand replay",
- "releasedAt": "2026-11-10T01:35:49.281Z",
- "note": "Free. Claim with node forge/tools/run_lock.mjs claim --holder NAME --job TEXT (RUL-2026-11-07-133)."
+ "holder": "claude",
+ "job": "history rewrite, RUL-2026-11-09-143: do not push to any branch",
+ "token": "28139c8f1cb840caa226e4cb968f7beb",
+ "instance": null,
+ "ttlMinutes": 90,
+ "claimedAt": "2026-11-10T01:41:55.747Z",
+ "heartbeatAt": "2026-11-10T01:41:55.747Z",
+ "expiresAt": "2026-11-10T03:11:55.747Z",
+ "note": "One game writer per account at a time (RUL-2026-11-07-133). Written only by forge/tools/run_lock.mjs or Forge; do not hand-edit."
 }
