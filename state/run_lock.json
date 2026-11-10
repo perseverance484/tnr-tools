@@ -1,10 +1,11 @@
 {
- "holder": null,
- "token": null,
- "job": null,
- "releasedBy": "player",
- "releasedInstance": null,
- "releasedJob": "patient PvP hunt",
- "releasedAt": "2026-11-10T05:46:02.556Z",
- "note": "Free. Claim with node forge/tools/run_lock.mjs claim --holder NAME --job TEXT (RUL-2026-11-07-133)."
+ "holder": "player",
+ "job": "errand debug + hunting contracts",
+ "token": "6e492ff2cecb45f3b46d74a10e3be7be",
+ "instance": null,
+ "ttlMinutes": 120,
+ "claimedAt": "2026-11-10T05:49:05.592Z",
+ "heartbeatAt": "2026-11-10T05:49:05.592Z",
+ "expiresAt": "2026-11-10T07:49:05.592Z",
+ "note": "One game writer per account at a time (RUL-2026-11-07-133). Written only by forge/tools/run_lock.mjs or Forge; do not hand-edit."
 }
