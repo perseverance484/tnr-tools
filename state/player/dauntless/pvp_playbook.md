@@ -392,3 +392,10 @@ Absorb: never overlap Rebirth (35) and Chakra Shield (35); the cap is 60.
 Darkness + Chakra Shield + Defensive Stance / Elite Smoke Bomb. Kill turn on a healer -> Severed Pulse first.
 Remember: a non-instant tag cast in round N is live from N+1; seal, recoil-on-hit, stun AP loss, ground effects and
 damage are instant.
+
+## Turn procedure (2026-11-10, after Luka #2/#3 timeouts)
+Run during THEIR turn, so my turn is only firing:
+1. `tools/state_rules.py LOG ROUND --enemy NAME --my-hp N --en-hp N`: generic rules for every opponent (IDG >= 60% -> Clear, or recoil/seal + shield if clear-prevented; stunned -> 80-AP bundle; recoil on me -> pierce/drain/Cleanse; absorb/lifesteal -> Severed Pulse; DR/shield -> pierce; immune -> no debuffs; etc.).
+2. `tools/enemy_model.py OPP log/predict`: opponent-specific habits (profiled: Luka).
+3. `tools/battle_plan.py`: best bundle now and over the next rounds.
+4. `tools/cd_plan.py check`: primary + backup bundle, AP, cooldowns, shared locks. Fire the primary instantly; on any refusal fire the backup. Range is not yet checked (Yuki's 3, Night's 4, Clear/Cleanse 4): check distance by hand.
