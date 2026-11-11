@@ -192,9 +192,27 @@ def fresh_results(since, tail=400_000):
                 try:
                     ep, inp = asked[c["tool_use_id"]]
                     out[ep] = (inp, json.loads(text), t)
+                    if ep == "combat.performAction":
+                        out.setdefault("_acts", []).append((inp, out[ep][1]))
                 except ValueError:
                     pass
     return out
+
+
+ITEM_IDS = {"6DnJn4x6LWWXtBu7UZybb", "TtYPd-LcXKeK3sMuhq1TP", "rsc2uO5QuffXzejfhwF_F", "yVNeLzxHSFkNpTPnlm7yQ"}
+
+
+def note_refusals(st, res):
+    """An action the game refuses ("Action not valid anymore": out of stock, locked, out of range) is banned for the
+    rest of the battle, so the next plan routes around it instead of resending it until the turn times out
+    (zDj54ChWY3kZogLwCkoc1 R1, 2026-11-11: Kim's refused five times, the whole turn lost)."""
+    for inp, data in res.get("_acts", []):
+        note = str((data or {}).get("notification", ""))
+        if "not valid anymore" in note.lower():
+            bid, aid = inp.get("battleId"), inp.get("actionId")
+            ban = st.setdefault("banned", {}).setdefault(bid, [])
+            if aid not in ban:
+                ban.append(aid)
 
 
 # ---------------------------------------------------------------- battle
@@ -239,7 +257,17 @@ def battle_tick(st, bid, battle, entries):
         # mid-fight, 2026-11-11), so his-turn polls pace themselves: ~25 calls/min, ~1 s more detection lag
         return head + " | his turn", [wait(POLL_GAP)] + poll
     # near a kill the python damage model runs ~300 low (ANBU Member R5, 2026-11-11): score with the exact engine
-    plan, how = plan_turn(bid, battle, cache["entries"], names[foes[0]], exact=hp[foes[0]] <= 2000)
+    # a plan already sent for this exact battle version that did not move the version is not resent as is: its first
+    # action is banned (covers refusals whose text we did not catch)
+    sent = st.get("sent_plan") or {}
+    if sent.get("bid") == bid and sent.get("v") == v and sent.get("first"):
+        ban = st.setdefault("banned", {}).setdefault(bid, [])
+        if sent["first"] not in ban:
+            ban.append(sent["first"])
+    plan, how = plan_turn(bid, battle, cache["entries"], names[foes[0]], exact=hp[foes[0]] <= 2000,
+                          ban=st.get("banned", {}).get(bid, []))
+    if plan:
+        st["sent_plan"] = {"bid": bid, "v": v, "first": plan[0]["actionId"]}
     if not plan:
         return head + f" | MY TURN, no plan ({how}): defensiveStance", \
             [c_act(bid, "defensiveStance", battle["battle.usersState.*.longitude"][me_i],
@@ -248,7 +276,7 @@ def battle_tick(st, bid, battle, entries):
     return head + f" | MY TURN: {' + '.join(a['name'] for a in plan)} ({how})", acts + poll
 
 
-def plan_turn(bid, battle, entries, enemy, exact=False):
+def plan_turn(bid, battle, entries, enemy, exact=False, ban=()):
     """planner2 on a turn file built from the cache (turn.py as the fallback)."""
     path = os.path.join(LIVE, f"{bid}.turn.txt")
     rows = entries[::-1]                                    # turn.py reads newest-first, like the connector
@@ -258,7 +286,8 @@ def plan_turn(bid, battle, entries, enemy, exact=False):
     t0 = time.time()
     # planner2 (director 2026-11-11: "start it again with the new planner"): numeric engine, his clock and profile,
     # ~0.1-0.5 s; the old python planner stays as the fallback if it fails or overruns
-    tries = [("planner2.py", (), PLAN_BUDGET), ("turn.py", ("--no-engine", "--keep", "6", "--cash", "3"), 3.0)]
+    bans = ("--ban", ",".join(ban)) if ban else ()
+    tries = [("planner2.py", bans, PLAN_BUDGET), ("turn.py", ("--no-engine", "--keep", "6", "--cash", "3"), 3.0)]
     for script, extra, budget in tries:
         try:
             out = subprocess.run([sys.executable, os.path.join(HERE, script), path, "--battle", bid, "--top", "1",
@@ -454,6 +483,7 @@ def tick():
         st["mode"] = sys.argv[2]
     started = time.time()
     res = fresh_results(st.get("last_tick", 0))
+    note_refusals(st, res)
     if "jutsu.getPublicUserJutsus" in res:
         inp, data, _ = res["jutsu.getPublicUserJutsus"]
         try:

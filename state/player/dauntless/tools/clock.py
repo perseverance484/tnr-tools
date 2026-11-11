@@ -99,8 +99,14 @@ def his_actions(en_id, rows):
     if not kit:
         return None
     recs = EB._records()
-    lv = kit.get("jutsuLevels", {})
     ids = list(kit.get("jutsu", [])) + [a for r, u, a, _ in rows if u == en_id and a in recs]
+    return acts_from_ids(ids, kit.get("jutsuLevels", {}))
+
+
+def acts_from_ids(ids, lv=None):
+    """{action id: (name, ap, cooldown, locks, spec)} for these catalog ids plus the basics everyone has."""
+    recs = EB._records()
+    lv = lv or {}
     out = {}
     for a in dict.fromkeys(ids):
         rec = recs.get(a, {}).get("record")

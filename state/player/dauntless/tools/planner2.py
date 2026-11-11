@@ -105,6 +105,14 @@ class Side:
             for o in range(lo, hi + 1):
                 a[base + o] += v
 
+    def shift(self):
+        """Next round: offset 1 becomes offset 0."""
+        a = self.a
+        for k in range(NK):
+            base = k * H
+            a[base:base + H - 1] = a[base + 1:base + H]
+            a[base + H - 1] = a[base + H - 2] if k in (PABS, PLS, PREF) else (1.0 if k in MULT else 0.0)
+
     def wipe(self, kinds):
         a = self.a
         for k in kinds:
@@ -593,46 +601,58 @@ def build(a):
     his_kit = {k: compile_spec(v, False) for k, v in his_kit_raw.items()}
     # his clock (clock.py): his real kit, what is ready on his reply turn and the turn after, his best lines
     acts = clock.his_actions(en["userId"], rows)
-    hr_abs, hn_abs = (R + 1, R + 2) if en_acted else (R, R + 1)
     clock_info, clockd = None, {}
     if acts and not ctx["afk"]:
-        for aid, (nm, cost, cd, locks, spec) in acts.items():
-            his_kit[aid] = compile_spec(spec, False)
-        ready = clock.ready_at(acts, en["userId"], rows, hr_abs)
-        ready_next = clock.ready_at(acts, en["userId"], rows, hn_abs)
-        all_lines = [(hb, sum(acts[x][1] for x in hb)) for hb in clock.bundles(acts, ready, 100)]
-        # his raw kit sits on my calibration (which carries my own bloodline boost); rescale to his
         scale = gmul / max(1.0, opp_profile.given_mult(mine_prof))
-        clockd = {"ids": set(acts), "scale": scale, "smoke_in_kit": any("Smoke" in acts[x][0] for x in acts),
-                  "next_lines": [(frozenset(hb), sum(acts[x][4][0] for x in hb)) for hb in clock.bundles(acts, ready_next, 100)]}
-        tmp = Planner(me0, en0, R, ctx, cal, {}, his_kit, {"loadout": [], "used": []}, en_acted,
-                      (5050, 5050), his_kit_raw["turn"][0], clockd)
-        # candidates for his reply: his 12 best lines on the current board (re-scored per bundle of mine later),
-        # always including his best Clear line and his best pure-damage line
-        sc = sorted(((tmp.his_score(hb, me0, en0), hb, c) for hb, c in all_lines), key=lambda x: -x[0])
-        keep = sc[:12]
-        for pick in (next((x for x in sc if "clear" in x[1]), None),
-                     max(sc, key=lambda x: sum(acts[a][4][0] for a in x[1]), default=None)):
-            if pick and pick not in keep:
-                keep.append(pick)
-        clockd["cands"] = [(hb, c) for _, hb, c in keep]
-        lines0 = clock.soft([(s_, list(hb)) for s_, hb, _ in keep])
-        nxt = max((d for _, d in clockd["next_lines"]), default=0.0) * scale
-        clock_info = dict(ready=[acts[x][0] for x in ready], ready_next=[acts[x][0] for x in ready_next],
-                          lines=[(w, [acts[x][0] for x in b]) for w, b in lines0], next_dmg=nxt)
-    idx = opp_profile._index()
-    my_kit = {}
-    for k, v in shotplan.MINE.items():
-        els = (idx.get(turn.ACTION_ID.get(k, ""), ["", []])[1]) or ["None"]
-        f = opp_profile.dr_vs(prof, els)            # his bloodline DR against this jutsu's element
-        my_kit[k] = compile_spec(((v[0] * f,) + tuple(v[1:])) if f != 1.0 and not (len(v) > 2 and v[2] == "pierce") else v, True)
-    my_kit["step"] = my_kit["stepback"] = (0, False, [])
-    cd_plan.ACTIONS.setdefault("step", (10, 0, None, ""))
+        clockd, clock_info = make_clock(acts, rows, en["userId"], R, en_acted, me0, en0, ctx, cal, his_kit,
+                                        his_kit_raw["turn"][0], scale)
+    my_kit = make_my_kit(prof)
     caps = (me.get("maxHealth", 5050), en.get("maxHealth", 5050))
     P = Planner(me0, en0, R, ctx, cal, my_kit, his_kit, st, en_acted, caps, his_kit_raw["turn"][0], clockd)
     info = dict(battle=battle, me=me, en=en, R=R, my_turn=my_turn, en_acted=en_acted, me_pos=me_pos, en_pos=en_pos,
                 d0=d0, ap=ap, stun=stun, others=others, st=st, sme=sme, sen=sen, prof=prof, gmul=gmul, clock=clock_info)
     return P, info
+
+
+def make_my_kit(prof):
+    """My kit compiled, with his bloodline DR applied to my jutsu of the matching element."""
+    idx = opp_profile._index()
+    my_kit = {}
+    for k, v in shotplan.MINE.items():
+        els = (idx.get(turn.ACTION_ID.get(k, ""), ["", []])[1]) or ["None"]
+        f = opp_profile.dr_vs(prof, els)
+        my_kit[k] = compile_spec(((v[0] * f,) + tuple(v[1:])) if f != 1.0 and not (len(v) > 2 and v[2] == "pierce") else v, True)
+    my_kit["step"] = my_kit["stepback"] = (0, False, [])
+    cd_plan.ACTIONS.setdefault("step", (10, 0, None, ""))
+    return my_kit
+
+
+def make_clock(acts, rows, en_id, R, en_acted, me0, en0, ctx, cal, his_kit, base_turn, scale):
+    """His clock for planner2: his kit compiled into his_kit (in place), his candidate reply lines (his 12 best on
+    this board, plus his best Clear line and best pure-damage line; re-scored per bundle of mine later) and his
+    next-turn damage lines (what is ready then). Returns (clockd, printable info)."""
+    hr_abs, hn_abs = (R + 1, R + 2) if en_acted else (R, R + 1)
+    for aid, (nm, cost, cd, locks, spec) in acts.items():
+        if aid not in his_kit:
+            his_kit[aid] = compile_spec(spec, False)
+    ready = clock.ready_at(acts, en_id, rows, hr_abs)
+    ready_next = clock.ready_at(acts, en_id, rows, hn_abs)
+    all_lines = [(hb, sum(acts[x][1] for x in hb)) for hb in clock.bundles(acts, ready, 100)]
+    clockd = {"ids": set(acts), "scale": scale, "smoke_in_kit": any("Smoke" in acts[x][0] for x in acts),
+              "next_lines": [(frozenset(hb), sum(acts[x][4][0] for x in hb)) for hb in clock.bundles(acts, ready_next, 100)]}
+    tmp = Planner(me0, en0, R, ctx, cal, {}, his_kit, {"loadout": [], "used": []}, en_acted, (5050, 5050), base_turn, clockd)
+    sc = sorted(((tmp.his_score(hb, me0, en0), hb, c) for hb, c in all_lines), key=lambda x: -x[0])
+    keep = sc[:12]
+    for pick in (next((x for x in sc if "clear" in x[1]), None),
+                 max(sc, key=lambda x: sum(acts[a][4][0] for a in x[1]), default=None)):
+        if pick and pick not in keep:
+            keep.append(pick)
+    clockd["cands"] = [(hb, c) for _, hb, c in keep]
+    lines0 = clock.soft([(s_, list(hb)) for s_, hb, _ in keep])
+    nxt = max((d for _, d in clockd["next_lines"]), default=0.0) * scale
+    info = dict(ready=[acts[x][0] for x in ready], ready_next=[acts[x][0] for x in ready_next],
+                lines=[(w, [acts[x][0] for x in b]) for w, b in lines0], next_dmg=nxt)
+    return clockd, info
 
 
 def rank(P, bundles, ap, W):
@@ -653,6 +673,7 @@ def main():
     ap_.add_argument("file"); ap_.add_argument("--battle", required=True)
     ap_.add_argument("--enemy"); ap_.add_argument("--loadout", default="pvp1"); ap_.add_argument("--top", type=int, default=3)
     ap_.add_argument("--dump")
+    ap_.add_argument("--ban", default="", help="action ids or short names the game refused this battle")
     for f in ("--no-engine", "--fast"):
         ap_.add_argument(f, action="store_true")      # accepted for pilot compatibility; planner2 is engine-free
     ap_.add_argument("--keep", type=int, default=0); ap_.add_argument("--cash", type=int, default=0)
@@ -681,6 +702,11 @@ def main():
         print("his clock: no saved kit (generic stand-in)")
     if not info["my_turn"]:
         print("not my turn: poll again in <=15 s"); return
+    banned = {x for x in a.ban.split(",") if x}
+    banned |= {turn.IDS.get(x, x) for x in banned}
+    if banned:
+        info["st"]["loadout"] = [n for n in info["st"]["loadout"] if n not in banned and turn.ACTION_ID.get(n) not in banned]
+        print("banned this battle (refused by the game):", ", ".join(sorted(banned)))
     bundles = legal_bundles(info["st"], R, info["ap"], info["d0"], info["st"]["loadout"], P.me0, P.en0)
     if not bundles:
         print("no legal bundle (check AP/cooldowns)"); return
