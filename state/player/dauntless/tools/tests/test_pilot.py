@@ -48,7 +48,9 @@ def main():
     assert "MY TURN" in out[0], out
     assert acts == want_ids, (acts, want_ids)
     assert vers == list(range(battle["battle.version"], battle["battle.version"] + len(acts))), vers
-    tail = [b.get("call") or "bash" for b in batch[len(acts):]]
+    last_act = max(i for i, b in enumerate(batch) if b.get("call") == "combat.performAction")
+    assert all("sleep(" in b.get("bash", "") for b in batch[:last_act] if b.get("call") != "combat.performAction")
+    tail = [b.get("call") or "bash" for b in batch[last_act + 1:]]
     # an opponent with no saved kit gets one kit read riding on the poll (opp_profile)
     assert tail in (["combat.getBattle", "combat.getBattleEntries", "bash"],
                     ["combat.getBattle", "combat.getBattleEntries", "jutsu.getPublicUserJutsus", "bash"]), tail

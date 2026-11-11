@@ -392,7 +392,11 @@ def battle_tick(st, bid, battle, entries):
         return head + f" | MY TURN, no plan ({how}): defensiveStance", \
             [c_act(bid, "defensiveStance", battle["battle.usersState.*.longitude"][me_i],
                    battle["battle.usersState.*.latitude"][me_i], v)] + poll
-    acts = [c_act(bid, a["actionId"], a["longitude"], a["latitude"], v + k) for k, a in enumerate(plan)]
+    acts = []
+    for k, a in enumerate(plan):            # a short gap between actions (director 2026-11-11: not all at once)
+        if k:
+            acts.append(wait(ACTION_GAP))
+        acts.append(c_act(bid, a["actionId"], a["longitude"], a["latitude"], v + k))
     return head + f" | MY TURN: {' + '.join(a['name'] for a in plan)} ({how})", acts + poll
 
 
@@ -410,6 +414,7 @@ def log_says_lost(cache):
         return False
 
 
+ACTION_GAP = 1.2        # s between the actions of one turn
 HANDOFF_WAIT = 40.0     # s of each of my turns left to the director before the pilot covers it
 
 
