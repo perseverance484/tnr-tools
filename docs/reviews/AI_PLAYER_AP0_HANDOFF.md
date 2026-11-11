@@ -7,9 +7,9 @@ Workflow: `docs/workflows/IMPLEMENTATION_HANDOFF.md`. Written 2026-11-11.
 Repository: perseverance484/tnr-tools
 Branch: fable/ai-player-base
 Base: 41ee6bff7b4ee9c4e849b749cd906e511a49e816 (fable/ai-player-overhaul-brief = main 04245259 + the design and brief)
-Merged in: fable/pilot-planner-fixes @ 6cbaa03f1888c52c8f984accd7f3b5638b73ea9d
+Merged in: fable/pilot-planner-fixes @ dacdf7e22e5f5d696bbb7ab3594efea24a035339 (first at 6cbaa03f, then its two later commits)
            fable/pvp-engine-harness  @ f6e8c860037229ee5f72556ec7f351df990a1702
-Head: the commit that adds this note (FROZEN; the exact SHA is in the handoff message)
+Head: the commit that brings this note up to date (FROZEN; the exact SHA is in the handoff message)
 Integration target: main @ 0f7d3535e10a42dbe8776cef842eb2c5f9493c90 (5 run-lock commits ahead of the base;
                     it changed state/run_lock.json only; git merge-tree reports no conflict)
 ```
@@ -28,7 +28,9 @@ never-list check, and every current tool file mapped to keep, port or retire.
 | `3759148e` | `tests/test_pilot.py`: the stale second copies of three tests are removed, and a test for the kit-read retry is added. |
 | `0034f6b2` | `docs/design/AI_PLAYER_OVERHAUL.md` section 2: the file map (53 files). |
 | `f5b97ef3` | `data/mcp_surface.json`, `data/player_allowlist.json`, `scripts/player_allowlist.py`, `scripts/test_player_allowlist.py`, `docs/design/AI_PLAYER_ALLOWLIST_REVIEW.md`. |
-| this commit | This note. |
+| `9eb8cd13` | This note, first version. |
+| `8111e2f4` | Merge of the two commits Duet pushed to `fable/pilot-planner-fixes` at 19:30 and 19:35 UTC, after the first merge (backup thrown weapon in `restock.py`; kunai priced by fight closeness in `turn.py` and `value_model.py`). One conflict, in `tests/test_pilot.py`: its new assertions had been added to the stale copy of `test_restock`; they now sit in the one copy that is left. |
+| the head | This note brought up to date, and the file map's line counts. |
 
 Not begun: everything in AP1 and later. There is no `player/` package, brain, relay, budget or gates module yet.
 `data/player_allowlist.json` is data and a checker; nothing enforces it at run time until `player/gates.py` (AP1).
@@ -50,8 +52,8 @@ Run on the head, from the repository root unless a folder is given.
 | `python3 scripts/check_no_real_name.py`, and `--commits 41ee6bff..HEAD` | exit 0, both |
 | `python3 scripts/check_large_files.py` | **exit 1**: `harvests/inbox/tnr_results_1794368544997.json` (7.9 MB). See debt 1. |
 
-Before the merge, the same four player tests passed on each source branch as fetched (`test_nearkill.py` exists on
-Duet's branch only).
+Before the first merge, the same four player tests passed on each source branch as fetched (6cbaa03f and f6e8c860;
+`test_nearkill.py` exists on Duet's branch only). All of the commands above were run again after the second merge.
 
 Two checks were made by hand and are not committed as tests:
 - The new kit-retry test fails when `pilot.py` is put back to the old one-shot rule (`kit_asked`).
@@ -106,8 +108,8 @@ Two checks were made by hand and are not committed as tests:
    and on a staff account they can return hidden quests. The missions playbook (AP3) needs another read.
 7. **`profile.getPublicUsers` has an `ip` filter**, and two proposed reads take a `userId`. The entries say never
    the filter, and own id only.
-8. **`turn.py` is not a dead fallback.** The repository default leads with it, and Duet's five planner fixes of
-   2026-11-11 changed 384 lines there against 32 in planner2. AP4 is a port of rules, not a deletion.
+8. **`turn.py` is not a dead fallback.** The repository default leads with it, and Duet's six planner commits of
+   2026-11-11 changed 402 lines there against 32 in planner2. AP4 is a port of rules, not a deletion.
 9. **Three data feeds are run by hand or not at all:** `meal_factor.py` (nothing runs it; planner2 reads its file),
    `validate.py --write-scales`, `engine_fit.py --write`.
 10. **Field selects over lists do not stay aligned** when an element lacks the field: the connector drops it from
@@ -131,6 +133,8 @@ Two checks were made by hand and are not committed as tests:
    The player brief writes the same path relative to a skill. AP1 fixes where `player/` lives; the file moves with
    it if needed.
 6. No workflow in `.github/workflows` runs `scripts/test_player_allowlist.py` or the player tests.
+7. Duet keeps committing to `fable/pilot-planner-fixes` while it runs the live pilot, so the base trails it again
+   as soon as it moves. The first job of AP1 is to merge whatever is new there.
 
 ## Open decisions
 
@@ -155,7 +159,7 @@ Not due yet: equipment-swap scope and spend caps (AP2), PvE auto-combat scope an
 ## For the reviewer to attack
 
 - The conflict resolution in `pilot.py` `world()` and the claim that nothing else of Duet's loop changed
-  (`git diff 6cbaa03f <head> -- state/player/dauntless/tools/pilot.py`).
+  (`git diff dacdf7e2 <head> -- state/player/dauntless/tools/pilot.py`).
 - The never and ask-first rules in `data/player_allowlist.json`: patterns that are too narrow. An unlisted
   endpoint is refused whatever the rules say, so a gap matters only when someone later adds an entry.
 - The 33 `proposed` entries: each should be a call a normal player makes on their own account.
