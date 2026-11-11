@@ -365,6 +365,28 @@ def penalties(bundle, ctx, cal):
     return p, why
 
 
+
+PIERCE_IDS = {"osJq3k77YPGoFWgof12FQ", "G6MRbppaDZ2a5Wr0GIjH8"}
+
+
+def observed_turns(rows, en_id, en_name, me_side, en_side):
+    """His base damage per turn: each logged direct hit on me divided by the multipliers live at that round (his given
+    x my taken x my reductions), summed per turn. Pierce is flat and skipped. Clears drop tags from the rebuild, so a
+    turn right after a Clear reads slightly high (an overestimate is the safe side)."""
+    per_turn = {}
+    for r, u, a, ts in rows:
+        if u != en_id or a in PIERCE_IDS:
+            continue
+        for t in ts or []:
+            m = re.match(rf"^{re.escape(ME_NAME)} takes ([\d.]+) damage$", t.strip())
+            if not m:
+                continue
+            mult = en_side.mult("given", r) * me_side.mult("taken", r)
+            for tag in me_side.live("dr", r):
+                mult *= 1 - tag[1]
+            per_turn[r] = per_turn.get(r, 0.0) + float(m.group(1)) / max(0.15, mult)
+    return [v for v in per_turn.values() if v >= 100]
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("file"); ap.add_argument("--battle", required=True)
@@ -556,9 +578,19 @@ def main():
     hr2 = hr + 1                            # his reply after my follow-up
     maxhp_me, maxhp_en = me.get("maxHealth", 5050), en.get("maxHealth", 5050)
 
+    # Opponent model (director 2026-11-11: "gauge their active state vs our own"). His threat = his BASE turn x the
+    # multipliers live when he acts (his damage-given stack, my damage-taken debuffs, my reductions), which the
+    # simulation applies. The base comes from HIS logged hits with the multipliers live at each hit divided out,
+    # blended with the prior while samples are few, so a stacked opponent reads as a burst at its real size.
+    obs = observed_turns(rows, en["userId"], en["username"], me0, en0)
     def kit_for(dend):
         reach = max(0.4, 1 - 0.1 * max(0, dend - 4))  # each hex beyond 4 costs him 10 AP of his turn
         k = value_model.generic_kit(cal, reach)
+        if obs:
+            n, prior_t, prior_b = len(obs), k["turn"][0], k["burst"][0]
+            med = sorted(obs)[n // 2] * reach
+            k["turn"] = ((n * med + prior_t) / (n + 1), [])
+            k["burst"] = ((n * max(max(obs) * reach, med * 1.6) + prior_b) / (n + 1), [])
         if known:
             k.update(ekit)
         return k
