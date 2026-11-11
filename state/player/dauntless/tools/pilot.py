@@ -307,22 +307,29 @@ def plan_turn(bid, battle, entries, enemy, exact=False, ban=()):
     bans = ("--ban", ",".join(ban)) if ban else ()
     # which planner leads is a state switch (fights/live/pilot.json "planner": "turn" | "planner2"). Default turn.py:
     # planner2 went 0-6 live on 2026-11-11 while it plays too defensively against real players
+    # 2026-11-11 Zak fight: every planner call failed live ("over budget") and the defensiveStance stand-in was
+    # refused all fight. Budgets now leave room inside the 60 s turn (worst case ~22 s), and failures are reported.
     if load_state().get("planner") == "planner2":
-        tries = [("planner2.py", bans, PLAN_BUDGET), ("turn.py", ("--no-engine", "--keep", "6", "--cash", "3") + bans, 3.0)]
+        tries = [("planner2.py", bans, 6.0), ("turn.py", ("--no-engine", "--keep", "6", "--cash", "3") + bans, 6.0)]
     else:
         tries = ([("turn.py", ("--fast",) + bans, 9.0)] if exact else []) + \
-            [("turn.py", ("--no-engine",) + bans, PLAN_BUDGET), ("planner2.py", bans, 3.0)]
+            [("turn.py", ("--no-engine",) + bans, 6.0), ("planner2.py", bans, 6.0)]
+    tries.append(("planner2.py", (), 10.0))                 # last resort: no bans, long budget
+    errs = []
     for script, extra, budget in tries:
         try:
-            out = subprocess.run([sys.executable, os.path.join(HERE, script), path, "--battle", bid, "--top", "1",
-                                  "--enemy", enemy, *extra],
-                                 capture_output=True, text=True, timeout=budget).stdout
+            proc = subprocess.run([sys.executable, os.path.join(HERE, script), path, "--battle", bid, "--top", "1",
+                                   "--enemy", enemy, *extra], capture_output=True, text=True, timeout=budget)
+            out = proc.stdout
         except subprocess.TimeoutExpired:
+            errs.append(f"{script} >{budget:.0f}s")
             continue
+        if "FIRE: " not in out:
+            errs.append(f"{script}: " + ((proc.stderr.strip().splitlines() or out.strip().splitlines() or ["no output"])[-1])[:120])
         m = re.search(r"^FIRE: (.*)$", out, re.M)
         if m:
             return json.loads(m.group(1)), f"{time.time() - t0:.1f}s {script.split('.')[0]}" + (" engine" if "--fast" in extra else "")
-    return None, "planner over budget"
+    return None, "planner failed: " + " | ".join(errs)
 
 
 LOST_TO_HOURS = 6      # a player who just beat me is not attacked again for this long (2026-11-11: Luka, three in a row)
