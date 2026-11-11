@@ -89,7 +89,8 @@ def test_handoff():
 def test_restock():
     """A due restock reads items first; with Kim's empty and Smoke at home it buys Kim's and takes Smoke out."""
     head, b = run_world([user()], "hunt", {"restock": {"next": 0, "pass": 0, "active": False}})
-    assert "restock: reading items" in head and b[0]["call"] == "item.getUserItems", (head, b[:1])
+    assert "upkeep: reading items" in head and b[0]["call"] == "item.getUserItems", (head, b[:1])
+    assert {"jutsu.getTrainingQueue", "jutsu.getUserJutsus"} <= {x.get("call") for x in b}, b
     items = {"*.id": ["u1", "u2"], "*.itemId": ["6DnJn4x6LWWXtBu7UZybb", "TtYPd-LcXKeK3sMuhq1TP"],
              "*.quantity": [0, 5], "*.equipped": ["NONE", "NONE"], "*.storedAtHome": [False, True]}
     u = user()
@@ -98,7 +99,18 @@ def test_restock():
                         {"restock": {"next": 0, "pass": 1, "active": True}})
     calls = [x.get("call") for x in b]
     assert "item.buy" in calls and "home.toggleStoreItem" in calls, (head, calls)
-    print("ok: restock (read, buy from the shop, take out of home storage)")
+    # training: a free queue slot gets the lowest-level target, and spare energy goes to intelligence
+    queue = {"capacity": 4, "waiting.*.jutsuId": ["P7dDcC102RhwBTTgA4HU_"], "waiting.*.level": [10]}
+    owned = {"*.jutsuId": ["P7dDcC102RhwBTTgA4HU_", "UiBR2V2AKkmh64JiYlL3w"], "*.level": [9, 3], "*.finishTraining": [None, None]}
+    u2 = user()
+    u2[2].update({"userData.curEnergy": 500, "userData.intelligence": 10, "userData.willpower": 20})
+    head, b = run_world([u2, ("item.getUserItems", {}, items), ("jutsu.getTrainingQueue", {}, queue),
+                         ("jutsu.getUserJutsus", {}, owned)], "hunt", {"restock": {"next": 0, "pass": 1, "active": True}})
+    tr = [x for x in b if x.get("call") == "jutsu.startTraining"]
+    en = [x for x in b if x.get("call") == "train.startTraining"]
+    assert len(tr) == 4 and "P7dDcC102RhwBTTgA4HU_" not in [x["input"]["jutsuId"] for x in tr[:3]], tr   # lowest first
+    assert en and en[0]["input"]["stat"] == "intelligence", en
+    print("ok: restock (read, buy from the shop, take out of home storage) + training upkeep")
 
 
 if __name__ == "__main__":
@@ -211,7 +223,8 @@ def test_handoff():
 def test_restock():
     """A due restock reads items first; with Kim's empty and Smoke at home it buys Kim's and takes Smoke out."""
     head, b = run_world([user()], "hunt", {"restock": {"next": 0, "pass": 0, "active": False}})
-    assert "restock: reading items" in head and b[0]["call"] == "item.getUserItems", (head, b[:1])
+    assert "upkeep: reading items" in head and b[0]["call"] == "item.getUserItems", (head, b[:1])
+    assert {"jutsu.getTrainingQueue", "jutsu.getUserJutsus"} <= {x.get("call") for x in b}, b
     items = {"*.id": ["u1", "u2"], "*.itemId": ["6DnJn4x6LWWXtBu7UZybb", "TtYPd-LcXKeK3sMuhq1TP"],
              "*.quantity": [0, 5], "*.equipped": ["NONE", "NONE"], "*.storedAtHome": [False, True]}
     u = user()
@@ -220,7 +233,18 @@ def test_restock():
                         {"restock": {"next": 0, "pass": 1, "active": True}})
     calls = [x.get("call") for x in b]
     assert "item.buy" in calls and "home.toggleStoreItem" in calls, (head, calls)
-    print("ok: restock (read, buy from the shop, take out of home storage)")
+    # training: a free queue slot gets the lowest-level target, and spare energy goes to intelligence
+    queue = {"capacity": 4, "waiting.*.jutsuId": ["P7dDcC102RhwBTTgA4HU_"], "waiting.*.level": [10]}
+    owned = {"*.jutsuId": ["P7dDcC102RhwBTTgA4HU_", "UiBR2V2AKkmh64JiYlL3w"], "*.level": [9, 3], "*.finishTraining": [None, None]}
+    u2 = user()
+    u2[2].update({"userData.curEnergy": 500, "userData.intelligence": 10, "userData.willpower": 20})
+    head, b = run_world([u2, ("item.getUserItems", {}, items), ("jutsu.getTrainingQueue", {}, queue),
+                         ("jutsu.getUserJutsus", {}, owned)], "hunt", {"restock": {"next": 0, "pass": 1, "active": True}})
+    tr = [x for x in b if x.get("call") == "jutsu.startTraining"]
+    en = [x for x in b if x.get("call") == "train.startTraining"]
+    assert len(tr) == 4 and "P7dDcC102RhwBTTgA4HU_" not in [x["input"]["jutsuId"] for x in tr[:3]], tr   # lowest first
+    assert en and en[0]["input"]["stat"] == "intelligence", en
+    print("ok: restock (read, buy from the shop, take out of home storage) + training upkeep")
 
 
 if __name__ == "__main__":

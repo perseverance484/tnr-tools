@@ -170,3 +170,50 @@ def plan(st, items, user, records, listings=None, home_village=None, full_potion
             query = (iid, rec.get("name") or name)
             notes.append(f"{name}: short ({have}/{keep}), searching the auction house")
     return calls, notes, query
+
+
+# ------------------------------------------------------------------ training upkeep (director 2026-11-11: "jutsu
+# training isnt occurring"; standing orders in state/player/dauntless/jutsu_training.md: keep a jutsu training queue
+# running at all times, quickest next level first; spend energy on intelligence while it trails willpower)
+TRAIN_TARGETS = [            # priority list from jutsu_training.md (ids), trained to the Jonin cap
+    "P7dDcC102RhwBTTgA4HU_", "UiBR2V2AKkmh64JiYlL3w", "7rYARNUr1kXiJb3VLXqUb", "GsDJufr8bn-55VSGPe0hA",
+    "CWdsrv5uM2R3hEyG6fvaX", "rCmgi5gtJb-wnPfuwruI2", "sEDO_J07YRbTqHnxuPUA5",
+    "GlgS3FVoQ6F8k3RAo_Uht", "INuy-ITnPsH22eUoGQgwW", "kbrQuf3nYNHoKEvusATTO", "pqCqPemRNk3ht-SFrjq5G",
+    "iktsCP-RjIhlYlsTg-JTN"]
+TRAIN_CAP = 20               # Jonin training cap (JUTSU_LEVEL_CAP); 21-25 come from use or transfer
+QUEUE_SEL = ["capacity", "waiting.*.jutsuId", "waiting.*.level"]
+OWNED_SEL = ["*.jutsuId", "*.level", "*.finishTraining"]
+ENERGY_MIN = 200
+
+
+def training_plan(st, queue, owned, user):
+    """-> (calls, notes). Fills free waiting slots with the target whose next level is lowest (quickest), skipping
+    refused ones; spends energy on intelligence (or willpower once intelligence has caught up)."""
+    calls, notes = [], []
+    if queue is not None and owned is not None:
+        lv = dict(zip(owned.get("*.jutsuId") or [], owned.get("*.level") or []))
+        active = [j for j, f in zip(owned.get("*.jutsuId") or [], owned.get("*.finishTraining") or []) if f]
+        waiting = list(zip(queue.get("waiting.*.jutsuId") or [], queue.get("waiting.*.level") or []))
+        nxt = dict(lv)
+        for j in active:
+            nxt[j] = nxt.get(j, 0) + 1
+        for j, l in waiting:
+            nxt[j] = max(nxt.get(j, 0), l)
+        free = int(queue.get("capacity") or 4) - len(waiting) + (0 if active else 1)
+        refused = st.setdefault("train_refused", {})
+        for _ in range(max(0, free)):
+            cands = [(nxt.get(j, 0), k, j) for k, j in enumerate(TRAIN_TARGETS)
+                     if nxt.get(j, 0) < TRAIN_CAP and time.time() - refused.get(j, 0) > 86400]
+            if not cands:
+                break
+            l, _, j = min(cands)
+            calls.append(("jutsu.startTraining", {"jutsuId": j, "levels": 1}, ["success", "message"]))
+            nxt[j] = l + 1
+            notes.append(f"train {j[:6]} -> {l + 1}")
+    energy = float(user.get("userData.curEnergy") or 0)
+    if energy >= ENERGY_MIN and time.time() - st.get("energy_blocked", 0) > 3600:
+        stat = "intelligence" if float(user.get("userData.intelligence") or 0) < float(user.get("userData.willpower") or 0) \
+            else "willpower"
+        calls.append(("train.startTraining", {"stat": stat, "energy": int(energy)}, ["success", "message"]))
+        notes.append(f"{int(energy)} energy -> {stat}")
+    return calls, notes

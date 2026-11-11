@@ -58,7 +58,13 @@ def c_user():
                                         "userData.maxHealth", "userData.sector", "userData.longitude",
                                         "userData.latitude", "userData.curChakra", "userData.maxChakra",
                                         "userData.curStamina", "userData.maxStamina", "userData.money",
-                                        "userData.bank"])
+                                        "userData.bank", "userData.curEnergy", "userData.intelligence",
+                                        "userData.willpower"])
+
+
+def c_train_reads():
+    import restock
+    return [call("jutsu.getTrainingQueue", {}, restock.QUEUE_SEL), call("jutsu.getUserJutsus", {}, restock.OWNED_SEL)]
 
 
 def c_items():
@@ -373,6 +379,12 @@ LOST_TO_HOURS = 6      # a player who just beat me is not attacked again for thi
 def finish(st, bid, cache, why):
     """Battle over: keep its log for the post-fight tools (the game deletes it), back to the world loop."""
     st["restock_due"] = True                                # after every fight: durability and stock
+    # the new log feeds the opponent models at once (opponents.py over every log), in the background
+    try:
+        subprocess.Popen([sys.executable, os.path.join(HERE, "opponents.py"), "build"], stdout=subprocess.DEVNULL,
+                         stderr=subprocess.DEVNULL, start_new_session=True)
+    except OSError:
+        pass
     if why == "lost":
         foes = [u for u in (cache.get("battle") or {}).get("battle.usersState.*.userId") or [] if u != ME]
         for u in foes:
@@ -547,11 +559,27 @@ def restock_tick(st, user, res):
                 rs.update(active=False, next=time.time() + restock.EVERY)
                 return None
             rs["pass"] += 1
-            return ": restock: reading items", [c_items(), c_user(), TICK]
+            return ": restock: reading items", [c_items(), c_user()] + c_train_reads() + [TICK]
         lst = res.get("auction.getAuctionListings")
         listings = dict(lst[1], _item=rs.get("q")) if lst and lst[1] else None
         calls, notes, q = restock.plan(st, items[1], user, _restock_records(), listings, HOME_VILLAGE,
                                        st.get("full_potion_uid", FULL_POTION))
+        # training upkeep rides the same pass, once per pass cycle (jutsu queue + energy)
+        for ep in ("jutsu.startTraining", "train.startTraining"):
+            r = res.get(ep)
+            msg = str((r[1] or {}).get("message", "")) if r else ""
+            if r and ep == "jutsu.startTraining" and r[1] and not r[1].get("success"):
+                st.setdefault("train_refused", {})[r[0].get("jutsuId")] = time.time()
+            if r and ep == "train.startTraining" and r[1] and not r[1].get("success"):
+                st["energy_blocked"] = time.time()
+            if msg:
+                st.setdefault("train_log", []).append([int(time.time()), ep.split(".")[0], msg[:80]])
+                st["train_log"] = st["train_log"][-20:]
+        tq, tu = res.get("jutsu.getTrainingQueue"), res.get("jutsu.getUserJutsus")
+        if tq and tu and not rs.get("trained"):
+            rs["trained"] = True
+            tcalls, tnotes = restock.training_plan(st, tq[1] or {}, tu[1] or {}, user)
+            calls, notes = calls + tcalls, notes + tnotes
         rs["pass"] += 1
         batch = [call(*c) for c in calls]
         if q:
@@ -569,9 +597,9 @@ def restock_tick(st, user, res):
     if poked:
         os.unlink(poke)
     if poked or time.time() >= rs.get("next", 0) or st.pop("restock_due", False):
-        rs.update(active=True, q=None)
+        rs.update(active=True, q=None, trained=False)
         rs["pass"] = 0
-        return ": restock: reading items", [c_items(), c_user(), TICK]
+        return ": upkeep: reading items, training", [c_items(), c_user()] + c_train_reads() + [TICK]
     return None
 
 

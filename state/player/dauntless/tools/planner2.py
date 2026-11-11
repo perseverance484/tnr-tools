@@ -510,6 +510,13 @@ class Planner:
         my_drop = value_model.BURST_BASE * (m0.given(1) * e0.g(TAKEN, 1) * e0.g(DR, 1) - m.given(1) * e.g(TAKEN, 1) * e.g(DR, 1))
         return d - t + 0.7 * his_gain + 0.6 * my_drop
 
+    def his_habit(self, hb):
+        """His logged habits for this line (opponents.py), 0 without a model."""
+        h = self.clockd.get("habit")
+        if not h:
+            return 0.0
+        return h(hb, self.clockd.get("hr_abs", self.R), self.clockd.get("his_prev"), self.clockd.get("his_n", 0) == 0)
+
     def replies(self, m0, e0):
         """His reply options on this board. With his kit: his candidate lines re-scored against the position my
         bundle leaves (so my Seal / Clear / stun / Smoke change what he does), top 4 by softmax, plus Smoke (an item
@@ -518,7 +525,7 @@ class Planner:
         if not cands or self.ctx["afk"]:
             return his_options(self.cal, self.ctx, m0, e0, self.hr)
         ap = 100 - (20 if e0.g(STUN, self.hr) else 0)
-        scored = [(self.his_score(hb, m0, e0), list(hb)) for hb, cost in cands if cost <= ap]
+        scored = [(self.his_score(hb, m0, e0) + self.his_habit(hb), list(hb)) for hb, cost in cands if cost <= ap]
         out = clock.soft(scored)
         if not self.ctx["smoke_spent"] and not self.clockd.get("smoke_in_kit"):
             ps = value_model.smoothed(self.cal, "smoke")
@@ -630,13 +637,26 @@ def build(a):
         his_kit_raw["burst"] = ((n * max(max(obs) * reach, med * 1.6) + his_kit_raw["burst"][0]) / (n + 1), [])
     his_kit = {k: compile_spec(v, False) for k, v in his_kit_raw.items()}
     # his clock (clock.py): his real kit, what is ready on his reply turn and the turn after, his best lines
+    # his kit: the saved equipped kit + what he used in this fight + everything his model saw in other fights
+    # (opponents.py over every log), and his habits from those logs (director 2026-11-11: "you weren't using
+    # accurate opponent models")
+    import opponents as OM
+    model = OM.load().get(en["userId"])
     acts = clock.his_actions(en["userId"], rows)
+    if model:
+        macts = OM.acts_for(model)
+        acts = dict(macts, **(acts or {}))
+    habit = OM.habit_fn(model) if model else None
+    his_turns = OM.turns_of(rows, en["userId"])
     clock_info, clockd = None, {}
     ctx["copier"] = bool(acts) and any(t[1] == "copy" for v in acts.values() for t in v[4][1])
     if acts and not ctx["afk"]:
         scale = gmul / max(1.0, opp_profile.given_mult(mine_prof))
         clockd, clock_info = make_clock(acts, rows, en["userId"], R, en_acted, me0, en0, ctx, cal, his_kit,
-                                        his_kit_raw["turn"][0], scale)
+                                        his_kit_raw["turn"][0], scale, habit=habit,
+                                        his_prev=his_turns[-1][1] if his_turns else None, his_n=len(his_turns))
+        clock_info["model"] = (f"{len(model.get('fights', []))} logged fights, {len(model.get('bundles', []))} turns"
+                               if model else "no logged fights")
     my_kit = make_my_kit(prof)
     caps = (me.get("maxHealth", 5050), en.get("maxHealth", 5050))
     P = Planner(me0, en0, R, ctx, cal, my_kit, his_kit, st, en_acted, caps, his_kit_raw["turn"][0], clockd)
@@ -686,7 +706,8 @@ def make_my_kit(prof):
     return my_kit
 
 
-def make_clock(acts, rows, en_id, R, en_acted, me0, en0, ctx, cal, his_kit, base_turn, scale):
+def make_clock(acts, rows, en_id, R, en_acted, me0, en0, ctx, cal, his_kit, base_turn, scale, habit=None,
+               his_prev=None, his_n=0):
     """His clock for planner2: his kit compiled into his_kit (in place), his candidate reply lines (his 12 best on
     this board, plus his best Clear line and best pure-damage line; re-scored per bundle of mine later) and his
     next-turn damage lines (what is ready then). Returns (clockd, printable info)."""
@@ -698,9 +719,10 @@ def make_clock(acts, rows, en_id, R, en_acted, me0, en0, ctx, cal, his_kit, base
     ready_next = clock.ready_at(acts, en_id, rows, hn_abs)
     all_lines = [(hb, sum(acts[x][1] for x in hb)) for hb in clock.bundles(acts, ready, 100)]
     clockd = {"ids": set(acts), "scale": scale, "smoke_in_kit": any("Smoke" in acts[x][0] for x in acts),
+              "habit": habit, "his_prev": his_prev, "his_n": his_n, "hr_abs": hr_abs,
               "next_lines": [(frozenset(hb), sum(acts[x][4][0] for x in hb)) for hb in clock.bundles(acts, ready_next, 100)]}
     tmp = Planner(me0, en0, R, ctx, cal, {}, his_kit, {"loadout": [], "used": []}, en_acted, (5050, 5050), base_turn, clockd)
-    sc = sorted(((tmp.his_score(hb, me0, en0), hb, c) for hb, c in all_lines), key=lambda x: -x[0])
+    sc = sorted(((tmp.his_score(hb, me0, en0) + tmp.his_habit(hb), hb, c) for hb, c in all_lines), key=lambda x: -x[0])
     keep = sc[:12]
     for pick in (next((x for x in sc if "clear" in x[1]), None),
                  max(sc, key=lambda x: sum(acts[a][4][0] for a in x[1]), default=None)):
@@ -822,6 +844,7 @@ def main():
         print(f"his clock: ready on his turn: {', '.join(ck['ready'])}")
         print(f"           ready the turn after: {', '.join(ck['ready_next'])} (his best line then {ck['next_dmg']:.0f} before multipliers)")
         print("           his likely lines: " + " | ".join(f"{w:.0%} {'+'.join(b)}" for w, b in ck["lines"]))
+        print(f"           his model: {ck.get('model', '-')}")
     else:
         print("his clock: no saved kit (generic stand-in)")
     if not info["my_turn"]:
