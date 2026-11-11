@@ -76,12 +76,16 @@ def turns(bid, enemy):
         yield r, b, e, mine, hp
 
 
-def ask(b, e, bid, r, loadout, enemy):
+PLANNER = "turn.py"
+
+
+def ask(b, e, bid, r, loadout, enemy, dump=None):
     path = os.path.join(HERE, "..", "fights", "live", f"exam_{bid}_{r}.txt")
     os.makedirs(os.path.dirname(path), exist_ok=True)
     open(path, "w").write(json.dumps(b) + "\n" + json.dumps(e) + "\n")
-    out = subprocess.run([sys.executable, os.path.join(HERE, "turn.py"), path, "--battle", f"EXAM_{bid}_{r}",
-                          "--top", "1", "--no-engine", "--loadout", loadout, "--enemy", enemy],
+    out = subprocess.run([sys.executable, os.path.join(HERE, PLANNER), path, "--battle", f"EXAM_{bid}_{r}",
+                          "--top", "1", "--no-engine", "--loadout", loadout, "--enemy", enemy]
+                         + (["--dump", dump] if dump else []),
                          capture_output=True, text=True, timeout=60).stdout
     m = re.search(r"^FIRE: (.*)$", out, re.M)
     os.unlink(path)
@@ -94,7 +98,13 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--fights")
     ap.add_argument("--verbose", action="store_true")
+    ap.add_argument("--planner", default="turn.py")
+    ap.add_argument("--tune", action="store_true", help="planner2: fit its score weights to the director's turns")
     a = ap.parse_args()
+    global PLANNER
+    PLANNER = a.planner
+    if a.tune:
+        return tune(a)
     pick = a.fights.split(",") if a.fights else list(EXAM)
     exact = n = 0
     overlap = 0.0
@@ -111,6 +121,80 @@ def main():
                 print(f"{enemy[:12]:12} R{r} hp {hp['dauntless']:.0f}/{hp[enemy]:.0f}  director {'+'.join(his):32} "
                       f"planner {'+'.join(got) or '-':32} {'OK' if ok else f'{ov:.0%}'}")
     print(f"\nEXAM: {exact}/{n} exact ({exact / max(1, n):.0%}), mean overlap {overlap / max(1, n):.0%}")
+
+
+def collect(pick):
+    """planner2 feature dumps for every exam turn: [(director's set, [(bundle, row)])]."""
+    data = []
+    for bid in pick:
+        enemy, loadout = EXAM[bid]
+        for r, b, e, his, hp in turns(bid, enemy):
+            dump = os.path.join(FIGHTS, "live", f"exam_dump_{bid}_{r}.json")
+            ask(b, e, bid, r, loadout, enemy, dump)
+            if not os.path.exists(dump):
+                continue
+            rows = json.load(open(dump))["bundles"]
+            os.unlink(dump)
+            data.append((bid, r, his, [(sorted(x for x in row["b"] if x not in SKIP), row) for row in rows]))
+    return data
+
+
+def evaluate(W, data):
+    """(-mean percentile rank of the director's bundle, exact top-1 count, mean overlap of the top pick). The rank is
+    the tuning objective: smooth, and it uses every turn, not only the near-misses."""
+    import planner2
+    exact = 0
+    ov = pct = 0.0
+    for bid, r, his, cands in data:
+        sc = [planner2.total(W, c[1]["f"], c[1]["term"], c[1]["rc"], c[1]["waste"], c[1]["guard"]) for c in cands]
+        best = max(range(len(cands)), key=lambda i: sc[i])
+        exact += cands[best][0] == his
+        ov += len(set(cands[best][0]) & set(his)) / max(1, len(set(his)))
+        mine = [sc[i] for i, c in enumerate(cands) if c[0] == his]
+        pct += (sum(1 for x in sc if x > max(mine)) / len(sc)) if mine else 1.0
+    n = max(1, len(data))
+    return -round(pct / n, 4), exact, round(ov / n, 3)
+
+
+def tune(a):
+    """Coordinate search on planner2's weights: maximise exact matches, then overlap (features are linear in W, so
+    each trial is a re-rank of the dumped candidates, not a re-plan). Leave-one-fight-out score printed as a check
+    against overfitting."""
+    import planner2
+    pick = a.fights.split(",") if a.fights else list(EXAM)
+    data = collect(pick)
+    W0 = planner2.load_weights()
+
+    def fit(train):
+        W = dict(W0)
+        best = evaluate(W, train)
+        steps = {k: (0.5 if k != "race" else 100.0) if k != "waste" else 60.0 for k in W if k != "swing"}
+        for _ in range(6):
+            improved = False
+            for k in list(steps):
+                for sign in (1, -1):
+                    T = dict(W)
+                    T[k] = max(0.0, W[k] + sign * steps[k])
+                    sc = evaluate(T, train)
+                    if sc > best:
+                        W, best, improved = T, sc, True
+            if not improved:
+                steps = {k: v / 2 for k, v in steps.items()}
+        return W, best
+
+    W, best = fit(data)
+    print(f"tuned on {len(data)} turns: director pick at top {-best[0]:.1%} on average, {best[1]} exact, overlap {best[2]:.0%} (start: {evaluate(W0, data)})")
+    print("weights:", json.dumps({k: round(v, 3) for k, v in W.items()}))
+    held = [0, 0.0, 0]
+    for bid in pick:
+        tr = [d for d in data if d[0] != bid]
+        te = [d for d in data if d[0] == bid]
+        Wf, _ = fit(tr)
+        p, ex, ov = evaluate(Wf, te)
+        held[0] += -p * len(te); held[1] += ex; held[2] += len(te)
+    print(f"leave-one-fight-out: director pick at top {held[0] / max(1, held[2]):.1%} on average, {held[1]}/{held[2]} exact")
+    json.dump({k: round(v, 4) for k, v in W.items()}, open(planner2.WFILE, "w"), indent=1)
+    print("saved", planner2.WFILE)
 
 
 if __name__ == "__main__":
