@@ -54,6 +54,83 @@ Code lives under `state/player/dauntless/tools/` on two branches:
 | Wins and losses mislabelled | Result inferred from status alone | Result from the fight log's own HP accounting (§5.4) |
 | Sim said "better" when it wasn't | Bots are weaker than real players | Real-fight replay scoring is the gate; the sim is only a smoke test (§6) |
 
+### File map (AP0, 2026-11-11)
+
+Every tracked file under `state/player/dauntless/tools/` on the merged base `fable/ai-player-base` (53 files), and
+where it goes. The import graph behind it was read from the code, not from the docstrings.
+
+- **keep:** the file stays a module of its own. It moves under the player package and is listed in the registry
+  (§4.3) as a model, a data feed or an evaluation.
+- **port:** its logic moves into the new module named. The old file is deleted once the port's tests pass.
+- **retire:** deleted. Where other modules still import names from it, those names move first.
+
+**The loop**
+
+| File | Lines | Verdict | Goes to (§4) | Phase | Notes |
+|---|---|---|---|---|---|
+| `pilot.py` | 1,017 | port | `brain.py`: `tick`, the state file, the transcript reader (it becomes the results inbox, §4.7). `world.py`: everything in `fights/live/pilot.json`. `budget.py`: `budget`. `gates.py`: `do_not_attack`, the refusal bans. `activities/battle.py`: `battle_tick`, `plan_turn`, `finish`, `log_says_lost`, director mode. `activities/pvp_hunt.py`: `world` in hunt and guard mode, `pick_target`, `note_attack`. `activities/recovery.py`: Full Potion, ramen, hospital. `activities/restock.py`, `repair.py`, `training.py`: `restock_tick` and the village training trip. `activities/session.py`: rest, sleep, wake. `activities/errands.py`: `errand_tick`. The `harvest_*` pair becomes the harvest feed. | AP1 (battle, hunt, recovery), AP2 (upkeep, session), AP3 (errands) | The design said ~1,500 lines; it is 1,017. Between them the pilot, `restock.py` and `harvest.py` can send 32 endpoints (`data/player_allowlist.json`, status `in_use`). |
+| `pilot_safe.py` | 21 | retire | - | AP1 | A resident brain that reloads its world model replaces the "last good copy" fallback. `pilot_good.py` is its untracked output, written by `tests/test_pilot.py`. |
+| `pilot_watch.py` | 20 | retire | the brain's status log and the outbox watchdog (§4.1) | AP1 | |
+| `restock.py` | 221 | port | `activities/restock.py` (`plan`, the item table, auction caps), `activities/repair.py` (the 25% rule), `activities/training.py` (`training_plan`), `gates.py` (reserve, daily cap) | AP2 | It also writes `fights/live/equipped.json` (the thrown weapon the planners read): that becomes world-model state for `activities/equipment.py`. |
+| `harvest.py` | 110 | keep | data feed `harvest`, scheduled in the scouting class (§4.4) | AP1 | Reads other players' battle histories and logs. Its scope is a question for the director (handoff, open decisions). Writes `fights/observed/`, which is untracked. |
+| `hunt_plan.py` | 88 | port | `activities/hunting.py` (the opening turn of a hunt) | AP3 | Run by hand today; nothing imports it. |
+| `add_record.py` | 14 | port | the brain's static catalogue cache (§4.7) | AP1 | Adds a `jutsu.get` or `item.get` record to `harness/pvp_turn/kit/records.json`. |
+
+**Combat: decision**
+
+| File | Lines | Verdict | Goes to | Phase | Notes |
+|---|---|---|---|---|---|
+| `planner2.py` | 1,395 | keep | combat engine: the one planner (§5.2) | AP4 | It still imports 6 names from `cd_plan`, 5 from `clock`, 2 from `fightsim`, 4 from `shotplan`, 13 from `turn` and 11 from `value_model`. Those move in before the three old files go. |
+| `turn.py` | 1,241 | retire, after a port | its still-used names go to planner2 or a combat helper; `load_input` stays as the text rebuild for old logs, labelled reconstructed (brief AP4.2) | AP4 | **Not a dead fallback.** In the repository `pilot.py` leads with `turn.py`; a runtime file that is not tracked (`fights/live/planner_choice`) can put planner2 first, with `turn.py` second. Duet's five planner fixes of 2026-11-11 (near-kill margin, barriers, scoring, afterburn and mitigation-aware setup, seat-aware timing, hold Clear) changed 384 lines here and 32 in planner2. `tests/test_nearkill.py` tests `turn.py`. Before it goes, each of those rules is rebuilt in planner2 or shown by `tune_real` not to matter. |
+| `shotplan.py` | 434 | retire, after a port | `MINE` (my kit card), `ground`, `off_ground`, `rebuild` go to a combat helper | AP4 | `tests/test_planner2.py` uses it as the parity reference; the engine takes that role. |
+| `value_model.py` | 206 | retire, after a port | `calibrate_kit`, `generic_kit`, `load_cal`, `reserves`, `clear_risk_4` and the constants go to planner2 | AP4 | |
+| `cd_plan.py` | 163 | port | the kit tables (`ACTIONS`, `LOADOUTS`, `MOVES`, `RANGE`, `LOCKS`) go to a combat helper; per-battle cooldown state goes to the world model's battle state | AP4 | 10 modules import it. Its command-line planner goes. |
+| `clock.py` | 192 | keep | combat engine: his cooldown clock, the reply set and his windows (§5.2) | AP4 | |
+| `solutions.py`, and its data `solutions.json` | 413 | keep | combat engine: the solution library (§5.2), merged after every fight on the brain (§5.4) | AP4 | |
+| `battle_plan.py` | 203 | retire | - | AP1 | Nothing imports it; planner2's lookahead replaced it. |
+| `policy.py`, `state_rules.py`, `enemy_model.py`, and their data: `rules_config.json`, `policy_weights.json`, `train_log.jsonl` | 488, 203, 203 | retire | - | AP4 | The first learned policy (2026-11-10). It is reached only through `turn.py` and `shotplan.py` (`policy.legal`, `enemy_model._predict`), so it goes with them. |
+| `ingest.py`, `ids.py` | 100, 3 | retire, after a port | `IDS` and `ME` (my action ids and user id) go to the combat helper | AP4 | 13 modules import `ingest`, 12 of them only for those two names. The rest of it pre-trains `policy.py`. |
+| `postfight.py`, `calibrate.py`, and their data `calibration.json` | 179, 204 | retire | `postmortem.py` is the per-fight review (§5.4) | AP4 | `calibration.json` is still read through `value_model.load_cal` and `engine_bridge.py`; it goes when the per-fight engine bases cover what it holds. |
+| `replay.py` | 32 | retire | - | AP4 | Replays a fight through `turn.py`; `postmortem.py` and `tune_real.py` do this against the engine. |
+
+**Combat: engine, opponents, evaluation**
+
+| File | Lines | Verdict | Goes to | Phase | Notes |
+|---|---|---|---|---|---|
+| `engine_bridge.py` | 425 | keep | combat engine: the offline engine (ground truth) | - | With `harness/pvp_turn/` (the engine harness, its record catalogue and its tools), which stays where it is. |
+| `fight_bases.py` | 66 | keep | combat engine: per-fight bases (§5.1) | AP1 | Started by the pilot beside each fight. |
+| `engine_fit.py` | 128 | keep | evaluation; writes `fights/engine_bases.json` | AP4 | Run by hand today. Registered as a data feed, or folded into `fight_bases.py`. |
+| `meal_factor.py` | 64 | retire | `fight_bases.py` already carries meal and raid buffs (§5.1) | AP4 | **Not wired today:** planner2 reads `fights/live/<battle>_meal.json`, and nothing runs the script that writes it. The integration test only checks that the reader's name appears in planner2's source text. |
+| `opponents.py` | 337 | keep | model `opponents` (§5.3), rebuilt after every fight | AP1 | |
+| `opp_profile.py` | 140 | keep | opponent dossier: bloodline and rank (§5.3) | AP1 | |
+| `opponent_kit.py` | 98 | keep | opponent dossier: kit, weapons and imbues (§5.3) | AP1 | The read before the attack and its retry are on the base (this merge). |
+| `fit_gear.py` | 104 | port | opponent dossier: "capped, full Kaeruun plus Subaku's mask, until his damage says otherwise" (§5.3) | AP4 | Run by hand today; nothing imports it. |
+| `postmortem.py` | 218 | keep | learning: per-fight review (§5.4), scheduled by the brain between fights | AP4 | |
+| `tune_real.py` | 51 | keep | evaluation: the real-fight gate (§6) | AP4 | |
+| `engine_check.py` | 194 | keep | evaluation: the accuracy gate (§6) | AP4 | |
+| `validate.py` | 244 | keep | evaluation: simulator against the logs; writes `fights/opp_scale.json` | AP4 | The scales are written by hand today (`--write-scales`); as a data feed they run after each fight, or go if the dossier replaces them. |
+| `exam.py` | 201 | keep | evaluation; `hp_track` moves to `activities/battle.py` for the result from the log's HP accounting (§5.4) | AP1 for `hp_track` | |
+| `fightsim.py` | 289 | keep | smoke test only (§6); planner2's lookahead uses its `Fight` class | AP4 | |
+
+**Tests and fixtures**
+
+| File | Lines | Verdict | Goes to | Phase | Notes |
+|---|---|---|---|---|---|
+| `tests/test_pilot.py` | 305 | port | the chaos tests and the per-activity tests (brief AP1.7) | AP1 | It writes `pilot_good.py` and `fights/observed/harvest.json` into the tree when run; the ported tests write to a temporary folder only. |
+| `tests/test_integration.py` | 86 | port | the wiring test, driven by the registry (brief AP1.6) | AP1 | Seven of its checks read source text for a name instead of exercising the system. The wiring test exercises each one. |
+| `tests/test_planner2.py` | 57 | keep, then port | parity against the engine instead of `shotplan.py` | AP4 | |
+| `tests/test_nearkill.py` | 72 | port | the same rules, tested on planner2 | AP4 | See `turn.py`. |
+| `tests/*.txt` (7 fixtures) | 2 each | keep | fixtures from logged fights (brief §4) | - | One of them (`ziharkk_r2_live.txt`) carries the live effect list. |
+
+Three things the map turned up that the later phases must carry:
+1. `turn.py` is the planner Duet has been fixing, so AP4 is a port of rules, not a deletion.
+2. Three feeds run by hand or not at all (`meal_factor.py`, `validate.py --write-scales`, `engine_fit.py --write`):
+   the registry in AP1 lists each as a data feed with an owner, or the file goes.
+3. The connector pads nothing: a field that is missing from one element of a list is dropped from that field's
+   column (`pilot.py`, the ground-list comment, and `opponent_kit.save_kit`, which refuses misaligned columns). So
+   field selects over lists do **not** stay aligned (§4.7), and AP1 reads lists by columns only where every element
+   carries the field, with a length check.
+
 ## 3. Principles
 
 1. **One brain, many hands.** All decisions are made in one resident process with one world model. Agents only
