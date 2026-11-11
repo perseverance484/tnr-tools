@@ -189,8 +189,6 @@ class Refusals(unittest.TestCase):
     def test_a_read_refused_on_my_turn_is_not_waited_for(self):
         rig = Rig()
         battle, ents, out = start_fight(rig)
-        rig.world["battle"]["turn"]["fired_at"] = None                     # the actions never went (all refused)
-        rig.world["battle"]["sent_plan"] = None
         out = rig.tick(limited("combat.getBattle", {"battleId": "B1"}))
         self.assertIn("last good read", out["note"])
         self.assertEqual(out["steps"][0]["call"], "combat.performAction")  # actions first, then the read
@@ -368,11 +366,12 @@ class EndOfFight(unittest.TestCase):
     def test_a_turn_that_passes_without_an_action_of_mine_is_a_missed_turn(self):
         rig = Rig()
         battle, ents, out = start_fight(rig)
-        rig.world["battle"]["turn"]["fired_at"] = None
         his = dict(battle, **{"battle.activeUserId": FOE, "battle.round": battle["battle.round"] + 1})
         rig.world["battle"]["entries"] = [e for e in rig.world["battle"]["entries"]
                                           if not (e[1] == battle["battle.round"] and e[2] == C.ME)]
-        rig.tick(battle_read("B1", his))
+        refused = [res("combat.performAction", {"notification": "Action not valid anymore"},
+                       {"battleId": "B1", "actionId": a["actionId"]}) for a in LINE]
+        rig.tick(*refused, battle_read("B1", his))                         # both refused, and the turn has passed
         self.assertEqual(rig.world["records"]["turns_missed"], 1)
         self.assertEqual(len(rig.events("stall")), 1)
 

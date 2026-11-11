@@ -11,11 +11,14 @@ from .. import config as C
 from ..registry import REGISTRY, Activity, plan
 
 
+USES = {"item.consume": "Full Potion", "village.buyFood": "ramen"}
+
+
 @REGISTRY.activity
 class Recovery(Activity):
     name = "recovery"
     priority = "safety"
-    reads = ("profile.getUser",)
+    reads = ("profile.getUser", "item.consume", "village.buyFood")
 
     def _need(self, world):
         """"hospital", "hp", "cpsp" or None."""
@@ -38,13 +41,29 @@ class Recovery(Activity):
         return 100.0
 
     def on_result(self, world, results):
-        """After a heal, the next profile read shows whether it worked."""
+        """What the game said to a potion or a meal (the console's event is written here, from its answer, never
+        when the call is only planned), and whether the next profile read shows it worked."""
+        own = world.own(self.name)
+        for r in results:
+            if r.endpoint in USES:
+                self._used(world, own, r)
         if not any(r.endpoint == "profile.getUser" and not r.error for r in results):
             return
-        own = world.own(self.name)
         last = own.pop("healing", None)
         if last and world.pools()[last[0]] <= last[1] + 1e-9:
             own.setdefault("broken", {})[last[0]] = world.now + C.HEAL_RETRY
+        before, after = own.pop("pocket", None), world.me.get("money")
+        if own.pop("bought", False) and None not in (before, after) and after < before:
+            own["ramen_cost"] = max(own.get("ramen_cost", 0), before - after)    # what a ramen costs, measured
+
+    @staticmethod
+    def _used(world, own, r):
+        item, why = USES[r.endpoint], (own.get("why") or {}).pop(r.endpoint, None)
+        if not r.error and isinstance(r.data, dict) and r.data.get("success"):
+            world.event("item", f"{item} {'bought' if item == 'ramen' else 'used'}", item=item, why=why)
+            own["bought"] = item == "ramen"
+        elif not r.error:
+            world.event("finding", f"{item}: the game said no ({(r.data or {}).get('message')})", about="recovery")
 
     def plan(self, world):
         need, own = self._need(world), world.own(self.name)
@@ -52,10 +71,11 @@ class Recovery(Activity):
             return plan([K.hospital(), K.user()], "recovery", "HOSPITALIZED: healing")
         own["healing"] = [need, world.pools()[need]]
         if need == "hp":
-            world.event("item", "Full Potion used", item="Full Potion", why=f"HP at {world.pools()['hp']:.0%}")
+            own.setdefault("why", {})["item.consume"] = f"HP at {world.pools()['hp']:.0%}"
             return plan([self._potion(world), K.user()], "recovery", "Full Potion")
-        world.event("item", "ramen bought", item="ramen", why=f"chakra or stamina at {world.pools()['cpsp']:.0%}")
-        return plan([K.ramen(), K.user()], "recovery", "ramen")
+        own.setdefault("why", {})["village.buyFood"] = f"chakra or stamina at {world.pools()['cpsp']:.0%}"
+        own["pocket"] = world.me.get("money")                     # the next profile read shows what it cost
+        return plan([K.ramen(own.get("ramen_cost")), K.user()], "recovery", "ramen")
 
     @staticmethod
     def _potion(world):
@@ -65,6 +85,6 @@ class Recovery(Activity):
         """The steps to put in front of a fight's closing batch: a Full Potion when I am alive and hurt."""
         end = world["records"].pop("fight_end", None) or {}
         if end.get("result") != "lost" and 0 < end.get("hp", 0) < C.HEAL_BELOW * end.get("max", C.MAX_HP):
-            world.event("item", "Full Potion used", item="Full Potion", why=f"end of fight at {end['hp']:.0f} HP")
+            world.own(self.name).setdefault("why", {})["item.consume"] = f"end of fight at {end['hp']:.0f} HP"
             return [self._potion(world)]
         return []

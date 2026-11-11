@@ -19,15 +19,26 @@ from . import calls as K
 from . import config as C
 from .registry import REGISTRY
 
-REGISTRY.model("planner", "the turn planner (planner2.py; turn.py while AP4 has not consolidated them)", "planner2.py")
-REGISTRY.model("dossier", "the opponent's kit, weapons and imbues, read before the first action", "opponent_kit.py")
-REGISTRY.model("opponents", "opponent models from every logged fight, rebuilt after each one", "opponents.py")
-REGISTRY.model("postmortem", "the per-fight review that feeds the solution library", "postmortem.py")
-REGISTRY.feed("fight_bases", "both kits' base damage for this matchup, from the offline engine", "fight_bases.py")
-REGISTRY.feed("live_state", "every round's full live state, kept per battle: the whole effect list as the game "
-              "sent it, the fighters and the ground, at the start of my turn and of his", "fights/live_states")
-REGISTRY.feed("fight_log", "the battle log, saved when the fight ends (the game deletes it)", "fights/*_entries.json")
-REGISTRY.feed("harvest", "other players' battle logs, read between fights", "harvest.py")
+REGISTRY.model("planner", "the turn planner (planner2.py; turn.py while AP4 has not consolidated them)",
+               ("planner2.py", "turn.py"))
+REGISTRY.model("dossier", "the opponent's kit, weapons and imbues, read before the first action; his bloodline and "
+               "rank, which the planner reads from it", ("opponent_kit.py", "engine_bridge.py"), ("opp_profile.py",))
+REGISTRY.model("opponents", "opponent models from every logged fight, rebuilt after each one", ("opponents.py",))
+REGISTRY.model("postmortem", "the per-fight review that feeds the solution library", ("postmortem.py",))
+REGISTRY.model("fight_result", "who won, and the round that decided it, from the battle log's own HP count",
+               ("exam.py",))
+REGISTRY.feed("fight_bases", "both kits' base damage for this matchup, from the offline engine", ("fight_bases.py",))
+REGISTRY.feed("live_state", "every round's full live state, kept per battle (fights/live_states): the whole effect "
+              "list, the fighters and the ground as the game sent them, at the start of my turn and of his")
+REGISTRY.feed("fight_log", "the battle log (fights/*_entries.json), saved when the fight ends: the game deletes it")
+REGISTRY.feed("harvest", "other players' battle logs, read between fights", ("harvest.py",))
+# Feeds the planner reads that nothing runs (design section 2, the file map's second finding): listed, not wired.
+REGISTRY.defer("meal_factors", "this fight's meal and raid buffs (fights/live/<battle>_meal.json), read by planner2",
+               ("meal_factor.py",), "AP4", "nobody: no code runs it today")
+REGISTRY.defer("opp_scales", "per-opponent damage scales (fights/opp_scale.json), read by planner2",
+               ("validate.py",), "AP4", "Duet, by hand: validate.py --write-scales")
+REGISTRY.defer("engine_bases", "base damage per jutsu from the engine (fights/engine_bases.json), read by planner2",
+               ("engine_fit.py",), "AP4", "Duet, by hand: engine_fit.py --write")
 
 PERM_KEYS = ("type", "targetId", "creatorId", "power", "powerPerLevel", "level", "calculation", "direction", "elements",
              "statTypes", "generalTypes", "fromType", "timedBuffExpiresAt", "rounds", "createdRound")
@@ -70,12 +81,14 @@ def _tools():
 
 
 class Combat:
-    """spawn=False keeps the background jobs (fight bases, model rebuild, post-mortem) from starting: the tests."""
+    """spawn=False keeps the background jobs (fight bases, model rebuild, post-mortem) from starting; scripts
+    names another folder to run the tool scripts from. Both are for the tests."""
 
-    def __init__(self, fights=None, spawn=True):
+    def __init__(self, fights=None, spawn=True, scripts=None):
         self.fights = fights or C.fights_dir()
         self.live = os.path.join(self.fights, "live")
         self.spawn = spawn
+        self.scripts = scripts or C.TOOLS
         self.spawned = []                         # what would have been started, for the tests
 
     # ------------------------------------------------------------ the one switch still read from the pilot's folder
@@ -103,7 +116,10 @@ class Combat:
 
     # ------------------------------------------------------------ the dossier
     def kit_path(self, user_id):
-        return os.path.join(C.ROOT, "harness", "pvp_turn", "kit", "opponents", f"{user_id}.json")
+        """Where opponent_kit.py saves a kit: the folder is the tools' own (engine_bridge.HARNESS)."""
+        _tools()
+        import engine_bridge
+        return os.path.join(engine_bridge.HARNESS, "kit", "opponents", f"{user_id}.json")
 
     def kit_known(self, user_id):
         return os.path.exists(self.kit_path(user_id))
@@ -165,7 +181,7 @@ class Combat:
             pass
 
     def start_fight_bases(self, bid):
-        self._popen([sys.executable, os.path.join(C.TOOLS, "fight_bases.py"), bid])
+        self._popen([sys.executable, os.path.join(self.scripts, "fight_bases.py"), bid])
 
     # ------------------------------------------------------------ the planner
     def plan_turn(self, bid, battle, entries, enemy, exact=False, ban=(), seconds=None):
@@ -192,7 +208,7 @@ class Combat:
                 errs.append("out of time")
                 break
             try:
-                proc = subprocess.run([sys.executable, os.path.join(C.TOOLS, script), path, "--battle", bid, "--top",
+                proc = subprocess.run([sys.executable, os.path.join(self.scripts, script), path, "--battle", bid, "--top",
                                        "1", "--enemy", enemy, *extra], capture_output=True, text=True,
                                       timeout=budget if left is None else min(budget, left))
                 out = proc.stdout
@@ -254,12 +270,13 @@ class Combat:
                        {"director_mode": director_mode, "pilot_rounds": covered})
         if state.get("live_hist"):
             self._save(os.path.join(self.fights, "live_states", f"{bid}.json"), state["live_hist"])
-        self._popen([sys.executable, os.path.join(C.TOOLS, "opponents.py"), "build"])
+        self._popen([sys.executable, os.path.join(self.scripts, "opponents.py"), "build"])
         out = None
         if self.spawn:
             os.makedirs(os.path.join(self.fights, "postmortems"), exist_ok=True)
             out = open(os.path.join(self.fights, "postmortems", f"{bid}.txt"), "w")  # noqa: SIM115 (the child owns it)
-        self._popen(["nice", "-n", "15", sys.executable, os.path.join(C.TOOLS, "postmortem.py"), bid[:8]], stdout=out)
+        self._popen(["nice", "-n", "15", sys.executable, os.path.join(self.scripts, "postmortem.py"), bid[:8]],
+                    stdout=out)
 
     # ------------------------------------------------------------ the harvest feed
     def harvest(self):

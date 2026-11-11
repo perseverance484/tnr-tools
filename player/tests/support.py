@@ -141,6 +141,28 @@ class Rig:
             return json.load(f)
 
 
+class Ledger:
+    """Every call the budget schedules, kept for the whole test (the budget itself forgets after a minute):
+    rows of (time it runs, lane, endpoint)."""
+
+    def __init__(self, rig):
+        self.rows = [(t, lane, "") for t, lane in rig.world["budget"]["calls"]]
+        budget, real = rig.brain.budget, rig.brain.budget.pace
+
+        def pace(steps, lane, start=None):
+            out, waited = real(steps, lane, start)
+            calls = [s["call"] for s in out if "call" in s]
+            new = rig.world["budget"]["calls"][-len(calls):] if calls else []
+            self.rows += [(t, ln, c) for (t, ln), c in zip(new, calls)]
+            return out, waited
+        budget.pace = pace
+
+    def worst(self, lane=None, window=60.0):
+        """The most calls in any rolling minute (of one lane, or of all)."""
+        times = sorted(r[0] for r in self.rows if lane is None or r[1] == lane)
+        return max((sum(1 for u in times if t - window < u <= t) for t in times), default=0)
+
+
 def res(endpoint, data=None, inp=None, error=None):
     return Result(endpoint, inp or {}, data, error, None)
 

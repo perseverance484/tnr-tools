@@ -24,12 +24,23 @@ class Lanes(unittest.TestCase):
         self.assertGreater(waited, 40)
         self.assertEqual(self.b.used(self.rig.t + 200), 0)             # and the window empties with time
 
-    def test_battle_and_recovery_are_never_delayed(self):
+    def test_actions_and_recovery_wait_for_nothing_but_the_accounts_limit(self):
         self.b.pace([K.user()] * C.WORLD_CAP, "world")
-        for lane in ("battle", "recovery"):
-            steps, waited = self.b.pace([K.act("B", "a", 1, 1, 3)] * 6, lane)
-            self.assertEqual((len(steps), waited), (6, 0), lane)
-        self.assertEqual(self.b.used(), C.WORLD_CAP + 12)
+        steps, waited = self.b.pace([K.act("B", "a", 1, 1, 3)] * 6, "battle")
+        self.assertEqual((len(steps), waited), (6, 0))
+        steps, waited = self.b.pace([K.potion("p"), K.user(), K.hospital(), K.user()], "recovery")
+        self.assertEqual((len(steps), waited), (4, 0))
+        self.assertEqual(self.b.used(), C.CALL_LIMIT)                  # the minute is full, and nothing has waited
+        steps, waited = self.b.pace([K.act("B", "a", 1, 1, 3)], "battle")
+        self.assertIn("wait", steps[0])                                # the 31st call waits: it would be refused
+        self.assertEqual(self.rig.events("finding")[-1]["about"], "budget")   # and the wait is on record
+
+    def test_no_read_takes_the_room_of_a_turns_actions(self):
+        steps, waited = self.b.pace([K.battle("B")] * (C.CALL_LIMIT - B.TURN_ACTIONS + 1), "battle")
+        self.assertIn("wait", steps[-2])                               # the read past that mark waits
+        self.rig.world["budget"]["calls"].pop()
+        steps, waited = self.b.pace([K.act("B", "a", 1, 1, 3)] * B.TURN_ACTIONS, "battle")
+        self.assertEqual(waited, 0)                                    # and a turn's actions still go at once
 
     def test_the_world_lane_leaves_the_shared_limit_alone(self):
         self.b.pace([K.act("B", "a", 1, 1, 3)] * C.CALL_LIMIT, "battle")
@@ -44,7 +55,11 @@ class Lanes(unittest.TestCase):
     def test_his_turn_is_polled_with_room_left_for_my_turn(self):
         self.assertEqual(self.b.poll_hold(2, 3.0), 3.0)
         self.b.pace([K.battle("B")] * (C.CALL_LIMIT - B.TURN_RESERVE), "battle")
-        self.assertGreater(self.b.poll_hold(2, 3.0), 50)               # the minute is full but for my turn's share
+        self.assertEqual(self.b.poll_hold(2, 3.0), B.BLIND_MAX)        # the reserve holds a poll back, but not for long
+        self.assertEqual(self.rig.events("finding"), [])
+        self.b.pace([K.act("B", "a", 1, 1, 3)] * 3, "battle")          # only a turn's actions are left in the minute
+        self.assertGreater(self.b.poll_hold(2, 3.0), 50)               # no poll takes those
+        self.assertEqual(self.rig.events("finding")[-1]["about"], "budget")   # the long blind wait is on record
 
     def test_waits_inside_a_batch_count(self):
         steps, _ = self.b.pace([K.user(), K.wait(30), K.user()], "world")
@@ -69,9 +84,9 @@ class TurnClock(unittest.TestCase):
 
     def test_the_clock_starts_once_per_turn(self):
         state = {}
-        turn = B.turn_open(state, 3, 100.0)
+        turn = B.turn_open(state, 3, 100.0, unseen=4.5)
         self.assertIs(B.turn_open(state, 3, 105.0), turn)
-        self.assertEqual(turn["T"], 100.0)
+        self.assertEqual((turn["T"], turn["unseen"]), (100.0, 4.5))
         self.assertEqual(B.turn_open(state, 4, 130.0)["T"], 130.0)
 
     def test_the_planner_is_cut_off_at_t_plus_15_and_a_read_is_not_awaited_past_t_plus_12(self):
@@ -84,25 +99,61 @@ class TurnClock(unittest.TestCase):
         turn = B.turn_open({}, 3, self.rig.t)
         self.rig.t += 25                                               # past the 20 s rule
         B.turn_fired(self.w, "B1", turn, "1.0s stub", 2)
-        B.turn_closed(self.w, "B1", turn, acted=True)
-        B.turn_closed(self.w, "B1", turn, acted=True)                  # logged once
+        B.turn_closed(self.w, "B1", turn, "acted")
+        B.turn_closed(self.w, "B1", turn, "acted")                     # logged once
         with open(os.path.join(self.rig.dir, "turns.jsonl")) as f:
             rows = [json.loads(line) for line in f]
-        self.assertEqual([(r["round"], r["fired_after"], r["acted"]) for r in rows], [(3, 25.0, True)])
+        self.assertEqual([(r["round"], r["fired_after"], r["outcome"]) for r in rows], [(3, 25.0, "acted")])
         self.assertEqual([e["about"] for e in self.rig.events("finding")], ["turn"])
 
     def test_a_turn_fired_close_to_the_limit_is_a_finding(self):
         turn = B.turn_open({}, 5, self.rig.t)
         self.rig.t += C.LATE_TURN + 1
         B.turn_fired(self.w, "B1", turn, "slow", 1)
-        B.turn_closed(self.w, "B1", turn, acted=True)
+        B.turn_closed(self.w, "B1", turn, "acted")
         self.assertEqual(len(self.rig.events("finding")), 2)           # over the 20 s rule, and near the limit
 
     def test_a_missed_turn_is_counted_and_raised(self):
         turn = B.turn_open({}, 2, self.rig.t)
-        B.turn_closed(self.w, "B1", turn, acted=False)
+        B.turn_closed(self.w, "B1", turn, "missed")
         self.assertEqual(self.w["records"]["turns_missed"], 1)
         self.assertEqual([e["about"] for e in self.rig.events("stall")], ["missed_turn"])
+
+    def test_a_turn_ends_as_the_evidence_says(self):
+        turn = B.turn_open({}, 2, 100.0)
+        self.assertEqual(B.turn_outcome(turn, logged=False), "missed")           # nothing sent, nothing in the log
+        self.assertEqual(B.turn_outcome(turn, logged=True), "acted")             # the log shows my action
+        self.assertEqual(B.turn_outcome(turn, logged=False, ended=True), "unresolved")
+        turn.update(sent=2, answered=0)
+        self.assertEqual(B.turn_outcome(turn, logged=False), "unresolved")       # sent, and no answer came back
+        turn.update(answered=2)
+        self.assertEqual(B.turn_outcome(turn, logged=False), "missed")           # every answer was a refusal
+        turn.update(unknown=1)
+        self.assertEqual(B.turn_outcome(turn, logged=False), "unresolved")       # an answer was an error
+        turn.update(accepted=1)
+        self.assertEqual(B.turn_outcome(turn, logged=False), "acted")            # the game took one
+
+    def test_an_unresolved_turn_is_counted_apart_and_is_a_finding(self):
+        turn = B.turn_open({}, 2, self.rig.t, unseen=C.FIRE_BY + 5)
+        B.turn_closed(self.w, "B1", turn, "unresolved")
+        self.assertEqual((self.w["records"]["turns_missed"], self.w["records"]["turns_unresolved"]), (0, 1))
+        self.assertEqual(len(self.rig.events("finding")), 2)           # no proof of an action; and seen late
+        with open(os.path.join(self.rig.dir, "turns.jsonl")) as f:
+            self.assertEqual(json.loads(f.readline())["unseen"], C.FIRE_BY + 5)
+
+    def test_when_a_plan_is_owed_with_no_read_in_hand(self):
+        turn = B.turn_open({}, 2, 100.0)
+        self.assertFalse(B.turn_owed(turn, False, 105.0))              # nothing sent yet: the read is waited for
+        self.assertTrue(B.turn_owed(turn, True, 105.0))                # unless the connector refused it
+        self.assertTrue(B.turn_owed(turn, False, 100.0 + C.LAST_GOOD_READ_AT))
+        turn.update(sent=2, answered=2)
+        self.assertTrue(B.turn_owed(turn, False, 105.0))               # every action came back refused: at once
+        turn.update(answered=0)
+        self.assertFalse(B.turn_owed(turn, False, 113.0))              # answers still out: one read first
+        turn.update(looked=True)
+        self.assertTrue(B.turn_owed(turn, False, 113.0))
+        turn.update(accepted=1)
+        self.assertFalse(B.turn_owed(turn, True, 113.0))               # the game took an action: nothing is owed
 
 
 if __name__ == "__main__":

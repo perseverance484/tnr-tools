@@ -1,8 +1,8 @@
 """The brain: one resident process that makes every decision (design 4.1).
 
     python3 -m player.brain run            the resident process: answers requests, watches for a silent relay
-    python3 -m player.brain next           what a relay runs: hand in the last batch's results, print the next batch
-    python3 -m player.brain put N JSON     a relay that cannot be read from its transcript hands in call N's result
+    python3 -m player.brain next [TOKEN]   what a relay runs: hand in batch TOKEN's results, print the next batch
+    python3 -m player.brain put TOKEN N    a relay whose transcript cannot be read hands in call N's result (stdin)
     python3 -m player.brain set KEY=JSON   change a setting (writes live/control.json; Duet does the same)
     python3 -m player.brain status         print live/status.json
 
@@ -13,6 +13,9 @@ model. The relay copies the batch to the game and comes back with `brain next`.
 
 `brain next` starts the resident process when none is running, and answers the request itself if it has to: a relay
 is never left without a batch. Every wait is spent here, in the brain, where it costs the relay nothing.
+
+A tick that fails after the results are folded in is undone as a whole: what it learned stays, what it decided
+does not, so a plan that never reached the relay is never remembered as sent.
 """
 import fcntl
 import json
@@ -51,8 +54,9 @@ class Brain:
             self.world["records"]["handover"] = True
 
     # ------------------------------------------------------------ one tick
-    def handle(self, results, usage=None):
-        """Fold the results in and return the next batch: {"steps", "hold", "stop", "note", "activity"}."""
+    def handle(self, results, usage=None, strays=0):
+        """Fold the results in and return the next batch: {"steps", "hold", "stop", "note", "activity"}.
+        strays: calls the relay made that the last batch did not ask for (their results are not used)."""
         w = self.world
         console.apply_control(w, self.reg.activities)
         relay.log_tokens(w, w["relay"]["seq"], usage, w["relay"].get("note", ""))
@@ -63,8 +67,15 @@ class Brain:
         for r in results:
             if r.error and r.error != RATE_LIMITED:
                 w.event("error", f"{r.endpoint}: {r.error}", about="call")
-        out = self._decide(any(r.error == RATE_LIMITED for r in results))
-        self._record(out)
+        if strays:
+            w.event("finding", f"the relay made {strays} call(s) the batch did not ask for", about="relay")
+        known = json.dumps(w.d)                 # what is known before anything is decided
+        try:
+            out = self._decide(any(r.error == RATE_LIMITED for r in results))
+            self._record(out)
+        except Exception:
+            w.d = json.loads(known)             # the batch will not reach the relay: nothing it planned was sent
+            raise
         return out
 
     def rank(self):
@@ -109,6 +120,7 @@ class Brain:
                 continue
             hold = max(p.hold, C.RATE_BACKOFF) if limited and p.lane == "world" else p.hold
             steps, waited = self.budget.pace(steps, "recovery" if p.tag == "fight_end" else p.lane, w.now + hold)
+            steps, hold = _lead(steps, hold)
             return {"steps": steps, "hold": hold, "stop": None, "activity": act.name,
                     "note": p.note + (f" (paced {waited}s)" if waited else ""),
                     "queue": [(a.name, a.priority, 0) for a in ranked[i + 1:]]}
@@ -163,6 +175,14 @@ class Brain:
         return True
 
 
+def _lead(steps, hold):
+    """A wait in front of a batch's first call is spent by the brain, not the relay: (the steps without it, the
+    hold with it added)."""
+    if steps and "wait" in steps[0]:
+        return steps[1:], round(hold + steps[0]["wait"], 1)
+    return steps, hold
+
+
 # ---------------------------------------------------------------- the resident process and its client
 def _lock(live, wait=False):
     """The one-brain lock: whoever holds it owns the world model. Returns the open file, or None."""
@@ -178,17 +198,19 @@ def _lock(live, wait=False):
 
 def answer(brain, live, path):
     """Answer one request file with a batch file. A tick that crashes still answers: the relay is told to come
-    back in a few seconds, and the crash is written down for Duet (live/crash.log and an error event)."""
+    back in a moment (sooner in a fight), and the crash is written down for Duet (live/crash.log and an error
+    event). The brain has undone what that tick decided, so the next one starts from what is known."""
     req = relay.read(path)
     if req is not None:
         try:
-            out = brain.handle(relay.unpack(req.get("results")), req.get("usage"))
+            out = brain.handle(relay.unpack(req.get("results")), req.get("usage"), req.get("strays", 0))
         except Exception:  # noqa: BLE001  (a relay left without a batch loses turns; a logged crash does not)
-            out = {"steps": [], "hold": 3.0, "stop": None}
+            out = {"steps": [], "hold": 1.0 if brain.world.in_battle() else 3.0, "stop": None}
             _crashed(brain, live)
         relay.write(relay.batch_path(live, req["seq"]),
-                    {"seq": req["seq"], "lines": relay.lines(out["steps"], out["stop"]), "hold": out["hold"],
-                     "calls": [[s["call"], s["input"]] for s in out["steps"] if "call" in s]})
+                    {"seq": req["seq"], "stop": out["stop"], "hold": out["hold"],
+                     "steps": [{k: s[k] for k in ("call", "input", "select")} if "call" in s else s
+                               for s in out["steps"]]})
     os.unlink(path)
 
 
@@ -219,42 +241,75 @@ def run(live=None, forever=True):
         time.sleep(C.BRAIN_WAIT)
 
 
-def _collect(live, state):
-    """The results of the batch the relay just made: from its transcript, plus any handed in with `brain put`."""
-    results, usage = [], {}
-    path = relay.find_transcript()
+def _transcript(state, sleep):
+    """The transcript that carries this batch's token, or None. A new relay's, and one that was readable for the
+    relay's last batch, is given a moment for its newest line to be written."""
+    token, hint = state["token"], state.get("transcript")
+    path, tries = relay.find_transcript(token, hint), 4 if hint or state.get("new") else 0
+    while not path and tries:
+        sleep(0.25)
+        path, tries = relay.find_transcript(token, hint), tries - 1
+    return path
+
+
+def _collect(live, state, sleep=time.sleep):
+    """The results of the batch this relay was last given: from its own transcript when one carries the batch's
+    token, else the ones it handed in with `brain put` for that token. Returns (results, usage, strays, the
+    transcript's path or None)."""
+    token, expected = state["token"], [tuple(c) for c in state.get("calls") or []]
+    path = _transcript(state, sleep)
+    results, usage, strays = [], {}, 0
     if path:
         try:
-            results, usage = relay.read_results(path, state.get("issued_at", 0))
+            results, usage, strays = relay.read_batch(path, token, expected)
         except OSError:
             path = None
-    for p in sorted(os.path.join(live, "inbox", f) for f in os.listdir(os.path.join(live, "inbox"))
-                    if f.startswith("put-")):
-        row = relay.read(p)
-        if row:
+    inbox = os.path.join(live, "inbox")
+    for name in sorted(f for f in os.listdir(inbox) if f.startswith("put-")):
+        row = relay.read(os.path.join(inbox, name))
+        if row and not path and name.startswith(f"put-{token}-"):
             results.append(relay.unpack([row])[0])
-        os.unlink(p)
-    return results, usage, path is not None
+        os.unlink(os.path.join(inbox, name))                       # a result for any other batch is dropped
+    return results, usage, strays, path
 
 
-def next_batch(live=None, out=sys.stdout, sleep=time.sleep):
-    """`brain next`: hand in the results, wait for the batch (answering it here if no brain is running), spend the
-    brain-side wait, print the batch."""
+def next_batch(live=None, token=None, out=sys.stdout, sleep=time.sleep):
+    """`brain next [token]`: hand in the results, wait for the batch (answering it here if no brain is running),
+    spend the brain-side wait, print the batch.
+
+    Without a token the relay is new: it is given a name and one line to run, and nothing is taken from it yet.
+    With the token of the batch it was last given, it hands that batch in. Any other token is a relay that has
+    been replaced (it is told to stop) or a `brain next` run twice (it is given the current line again)."""
     live = live or C.live_dir()
     os.makedirs(os.path.join(live, "inbox"), exist_ok=True)
-    state = relay.read(os.path.join(live, "client.json")) or {"seq": 0, "issued_at": 0}
-    results, usage, readable = _collect(live, state)
+    client = os.path.join(live, "client.json")
+    state = relay.read(client) or {}
+    if token is None:
+        state = {"relay": os.urandom(3).hex(), "seq": state.get("seq", 0), "calls": [], "transcript": None,
+                 "new": True}
+        state["token"] = f"{state['relay']}-{state['seq']}"
+        relay.write(client, state)
+        out.write(relay.next_line(state["token"]) + "\n")
+        return 0
+    if token != state.get("token"):
+        mine = token.split("-")[0] == state.get("relay")
+        out.write((relay.next_line(state["token"]) if mine else "STOP superseded: another relay has taken over")
+                  + "\n")
+        return 0
+    results, usage, strays, path = _collect(live, state, sleep)
     seq = state["seq"] + 1
     req = relay.request_path(live, seq)
-    relay.write(req, {"seq": seq, "results": relay.pack(results), "usage": usage, "at": time.time()})
+    relay.write(req, {"seq": seq, "results": relay.pack(results), "usage": usage, "strays": strays,
+                      "at": time.time()})
     batch = _await(live, seq, req, sleep)
     if batch is None:                                              # never leave the relay without a next step
-        batch = {"lines": relay.lines([]), "hold": 5.0, "calls": []}
+        batch = {"steps": [], "stop": None, "hold": 5.0}
     if batch["hold"] > 0:
         sleep(batch["hold"])
-    relay.write(os.path.join(live, "client.json"), {"seq": seq, "issued_at": time.time(), "calls": batch["calls"]})
-    echo = [] if readable or batch["lines"][0].startswith("STOP") else ["ECHO"]   # no transcript: results by `put`
-    out.write("\n".join(echo + batch["lines"]) + "\n")
+    state.update(seq=seq, token=f"{state['relay']}-{seq}", issued_at=time.time(), transcript=path, new=False,
+                 calls=[[s["call"], s["input"]] for s in batch["steps"] if "call" in s])
+    relay.write(client, state)
+    out.write("\n".join(relay.lines(batch["steps"], batch["stop"], state["token"], echo=not path)) + "\n")
     return 0
 
 
@@ -281,15 +336,16 @@ def _await(live, seq, req, sleep, limit=90.0):
     return None
 
 
-def put(live, index, text):
-    """`brain put N JSON`: the result of call N (from 1) of the last batch, for a relay with no readable transcript."""
+def put(live, token, index, text):
+    """`brain put TOKEN N`, with the result on standard input: call N (from 1) of batch TOKEN, from a relay whose
+    transcript cannot be read. A result for any batch but the one in progress is dropped."""
     state = relay.read(os.path.join(live, "client.json")) or {}
-    ep, inp = (state.get("calls") or [])[int(index) - 1]
-    try:
-        row = [ep, inp, json.loads(text), None, time.time()]
-    except ValueError:
-        row = [ep, inp, None, RATE_LIMITED if "Too Many Requests" in text else text[:300], time.time()]
-    relay.write(os.path.join(live, "inbox", f"put-{time.time():.3f}-{index}.json"), row)
+    calls = state.get("calls") or []
+    if token != state.get("token") or not str(index).isdigit() or not 1 <= int(index) <= len(calls):
+        return 1
+    ep, inp = calls[int(index) - 1]
+    relay.write(os.path.join(live, "inbox", f"put-{token}-{int(index):03d}.json"),
+                list(relay.from_text(ep, inp, text.strip(), time.time())))
     return 0
 
 
@@ -309,9 +365,9 @@ def main(argv=None):
     if cmd == "run":
         return run(live)
     if cmd == "next":
-        return next_batch(live)
-    if cmd == "put":
-        return put(live, argv[1], argv[2])
+        return next_batch(live, argv[1] if len(argv) > 1 else None)
+    if cmd == "put" and len(argv) == 3:
+        return put(live, argv[1], argv[2], sys.stdin.read())
     if cmd == "set":
         print(json.dumps(console.set_control(live, **dict(_setting(a) for a in argv[1:]))))
         return 0

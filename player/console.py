@@ -152,6 +152,7 @@ def write_status(world, budget, activity, why, queue):
         "tokens": relay.tokens_summary(world.live, now),
         "decisions_pending": [{"id": d["id"], "text": d["text"]} for d in world["decisions"] if not d.get("answer")],
         "fights_today": _today(world), "turns_missed": world["records"].get("turns_missed", 0),
+        "turns_unresolved": world["records"].get("turns_unresolved", 0),
         "spent_today": world.spent_today(), "last_error": world["records"].get("last_error")})
 
 

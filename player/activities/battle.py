@@ -11,16 +11,30 @@ What is kept from the live pilot (Duet's fixes of 2026-11-11):
   closing batch).
 
 New here: the turn clock (player/budget.py). The planner is cut off at T+15 s, and his turn is polled less often
-the longer it lasts, with the wait spent in the brain.
+the longer it lasts, with the wait spent in the brain. Each turn keeps what happened to its actions (sent,
+answered, accepted), so a plan the game refused or never got is replaced while the turn is still open, and a
+turn is closed as acted, missed or unresolved from evidence only.
 
 The fight's state is world["battle"]: the same dict the combat tools read as fights/live/<battle>.json.
 """
+import time
+
 from .. import budget as B
 from .. import calls as K
 from .. import config as C
 from ..combat import ground_effects, live_effects, perm_effects
 from ..registry import REGISTRY, Activity, plan
 from ..world import RATE_LIMITED
+
+EMERGENCY = (("defensiveStance", "Defensive Stance"), ("wait", "End Turn"))
+"""With no line from the planner: the basic actions tried in its place, in order."""
+
+
+def watching(steps):
+    """Mark the reads that only watch the fight: the budget keeps room for my turn in front of them."""
+    for s in steps:
+        s.setdefault("meta", {})["poll"] = True
+    return steps
 
 
 @REGISTRY.activity
@@ -96,16 +110,23 @@ class Battle(Activity):
         state["entries"] += new[::-1]                             # oldest first
 
     def _acted(self, world, state, r):
+        turn = state.get("turn") or {}
+        open_turn = bool(turn) and not turn.get("landed")       # an AI-turn nudge is no action of a turn of mine
+        if open_turn:
+            turn["answered"] = turn.get("answered", 0) + 1
         if r.error == RATE_LIMITED:
             # the connector refused it, the game never saw it: nothing to ban, and the turn is still to play
             state["refused_read"] = True
             state["sent_plan"] = None
-            if state.get("turn"):
-                state["turn"]["fired_at"] = None
-        elif not r.error and str((r.data or {}).get("notification") or "").strip():
+        elif r.error:
+            if open_turn:
+                turn["unknown"] = turn.get("unknown", 0) + 1     # it may have landed: a read or the log will say
+        elif str((r.data or {}).get("notification") or "").strip():
             self._refusal(world, state, r)
-        elif not r.error:
+        else:
             state["acts_ok"] = True                              # this action landed: the last read is now stale
+            if open_turn:
+                turn["accepted"] = turn.get("accepted", 0) + 1
 
     @staticmethod
     def _refusal(world, state, r):
@@ -135,17 +156,26 @@ class Battle(Activity):
             state["asked_start"] = True
             return plan([K.battle(bid, effects=True), K.entries(bid, C.ENTRIES_START)], "battle",
                         f"BATTLE START {bid}", hold=C.RATE_BACKOFF if refused else 0.0, tag="urgent")
-        b = state.get("battle") or {}
+        return self._no_read(world, state, refused, acts_ok)
+
+    def _no_read(self, world, state, refused, acts_ok):
+        """A tick with no read of the fight in hand: act from the last good read when the turn is owed an action,
+        else read again."""
+        bid, b = state["bid"], state.get("battle") or {}
         mine = b.get("battle.activeUserId") == C.ME and C.ME in (b.get("battle.usersState.*.userId") or [])
-        turn = state.get("turn") or {}
-        if mine and not acts_ok and not turn.get("fired_at") and (
-                refused or (turn and B.read_is_overdue(turn, world.now))):
-            # my turn and no read: a refusal is not waited for at all, and a read that simply has not come back is
-            # not waited for past T+12 s. Plan from the last good read and act now.
+        if mine and not acts_ok and B.turn_owed(state.get("turn"), refused, world.now):
+            # my turn, the game has taken nothing of it, and no read: a refusal is not waited for at all, a plan
+            # that came back refused is replaced at once, and a read that simply has not come back is not waited
+            # for past T+12 s. Plan from the last good read and act now.
             return self._tick(world, state, dict(b), from_last_read=True)
-        # an action of mine landed, or it is not my turn: read again (at once when the turn may still be mine)
-        return plan([K.battle(bid), K.entries(bid, C.ENTRIES_POLL)], "battle", f"resume battle {bid}",
-                    hold=C.RATE_BACKOFF if refused and not mine else 0.0, tag="urgent")
+        # an action of mine landed, or it is not my turn: read again (at once while my turn still waits on it)
+        turn = state.get("turn") or {}
+        if mine and turn:
+            turn["looked"] = True
+        state["asked_full"] = state["asked_ground"] = False       # this read asks for neither effects nor ground
+        again = [K.battle(bid), K.entries(bid, C.ENTRIES_POLL)]
+        return plan(again if mine and not turn.get("accepted") else watching(again), "battle",
+                    f"resume battle {bid}", hold=C.RATE_BACKOFF if refused and not mine else 0.0, tag="urgent")
 
     def _tick(self, world, state, battle, from_last_read=False):
         """One read of the fight, in order: is the read usable, is the fight over, whose turn is it."""
@@ -163,6 +193,10 @@ class Battle(Activity):
             world.event("finding", "the fighters' columns do not line up; reading again", about="selects", battle=bid)
             return plan([K.battle(bid, effects=True), K.entries(bid, C.ENTRIES_POLL)], "battle",
                         f"BATTLE {bid}: misaligned read, reading again", tag="urgent")
+        if not from_last_read:                                    # how long the fight went unread before this
+            state["unseen"] = round(world.now - state.get("read_at", state.get("opened", world.now)), 1)
+            state["read_at"] = world.now
+        self._seat(state, battle)
         self._absorb(state, battle, users, asked_ground, from_last_read)
         hp = battle["battle.usersState.*.curHealth"]
         me_i = users.index(C.ME)
@@ -186,7 +220,7 @@ class Battle(Activity):
 
     def _not_my_turn(self, world, state, battle, poll, head, me_xy, ai_turn):
         bid, v = state["bid"], battle["battle.version"]
-        self._turn_over(world, state, v)
+        self._turn_over(world, state)
         if ai_turn:
             # an AI's turn only advances when some client calls performAction during it
             return plan([K.act(bid, "wait", me_xy[0], me_xy[1], v)] + poll, "battle", head + " | AI turn: nudge")
@@ -194,20 +228,43 @@ class Battle(Activity):
         k = state["his_polls"] = state.get("his_polls", 0) + 1 if state.get("his_v") == v else 0
         state["his_v"] = v
         return plan(poll, "battle", head + " | his turn",
-                    hold=self.budget.poll_hold(len(poll), min(C.POLL_GAP + k, C.POLL_GAP_MAX)))
+                    hold=self.budget.poll_hold(1, min(C.POLL_GAP + k, C.POLL_GAP_MAX)))
 
     def _mine(self, world, state, battle, poll, head, me_xy, his_hp, from_last_read):
         R, v = battle["battle.round"], battle["battle.version"]
         state.pop("his_v", None)
-        turn = B.turn_open(state, R, world.now)
-        if "v" not in turn:
-            turn["v"] = v
-            state.setdefault("seat", 2 if any(e[1] == R and e[2] != C.ME for e in state["entries"]) else 1)
+        if (state.get("turn") or {}).get("round") != R:
+            self._turn_over(world, state)                         # a turn of an earlier round no read closed
+        turn = B.turn_open(state, R, world.now, state.get("unseen"))
+        turn.setdefault("v", v)
         if world["control"]["director_mode"]:
             wait_for_him = self._director(world, state, turn, poll, head, v, from_last_read)
             if wait_for_him:
                 return wait_for_him
         return self._my_turn(world, state, battle, turn, poll, head, me_xy, his_hp, from_last_read)
+
+    @staticmethod
+    def _seat(state, battle):
+        """Who moves first in a round, told once, from the first read of the fight: on my turn I am second when he
+        has already acted this round; on his turn I am first when I have."""
+        if "seat" in state or battle.get("battle.round") is None:
+            return
+        mine = battle.get("battle.activeUserId") == C.ME
+        moved = any(e[1] == battle["battle.round"] and (e[2] != C.ME) == mine for e in state["entries"])
+        state["seat"] = (2 if moved else 1) if mine else (1 if moved else 2)
+
+    @staticmethod
+    def _ground(battle, asked):
+        """The ground of a read: (as the game sent it, what that is, the rows the planner gets or None). It comes
+        whole or as columns; asked for and bare means there is none on the field; not asked for means not known."""
+        whole = battle.pop("battle.groundEffects", None)
+        if whole is not None:
+            return whole, "whole", whole
+        cols = {k: v for k, v in battle.items() if k.startswith("battle.groundEffects.")}
+        rows = K.ground_cols(battle)
+        if rows is None:
+            return ([], "none on the field", []) if asked else (None, "not asked", None)
+        return (cols, "misaligned", None) if rows is False else (cols, "columns", rows)
 
     @staticmethod
     def _read_came_back_empty(state, users):
@@ -239,18 +296,12 @@ class Battle(Activity):
     def _absorb(self, state, battle, users, asked_ground, from_last_read):
         """Fold a read into the fight's state: ground, the live effect list, permanent effects, the fight bases."""
         bid = state["bid"]
-        raw_g = battle.pop("battle.groundEffects", None)
-        if raw_g is None:
-            raw_g = K.ground_cols(battle)
-            if raw_g is None and asked_ground:
-                raw_g = []                                        # asked and the field is bare: no ground now
-            elif raw_g is False:
-                raw_g = None                                      # misaligned columns: keep no ground from this read
+        sent_g, how_g, raw_g = self._ground(battle, asked_ground)
         if raw_g is not None:
             state["ground"] = ground_effects(raw_g)
         raw = battle.pop("battle.usersEffects", None)
         if raw is not None:
-            self._archive(state, battle, raw)
+            self._archive(state, battle, raw, sent_g, how_g)
             state["live"], state["live_v"] = live_effects(raw), battle.get("battle.version")
             state.setdefault("live_hist", {})[str(battle.get("battle.round"))] = state["live"]   # exact state, kept
             for foe in [u for u in users if u != C.ME]:
@@ -272,9 +323,10 @@ class Battle(Activity):
             state["n_at_battle"] = len(state["entries"])          # log lines already counted in this HP read
         self.combat.write_cache(bid, state)
 
-    def _archive(self, state, battle, raw):
+    def _archive(self, state, battle, raw, ground, ground_read):
         """Keep the full live state of the round, once for the start of my turn and once for the start of his: the
-        whole effect list as the game sent it, the fighters' columns and the ground. These are the states each
+        whole effect list, the fighters' columns and the ground, each as the game sent it (ground_read says what
+        the ground field is: whole, columns, none on the field, not asked, misaligned). These are the states each
         side decided on, so the opponent models and the move atlas never need a second capture."""
         side = "me" if battle.get("battle.activeUserId") == C.ME else "him"
         key = f"{battle.get('battle.round')}:{side}"
@@ -285,7 +337,7 @@ class Battle(Activity):
             "round": battle.get("battle.round"), "version": battle.get("battle.version"), "turn": side,
             "active": battle.get("battle.activeUserId"), "seat": state.get("seat"),
             "fighters": {k: v for k, v in battle.items() if k.startswith("battle.usersState.")},
-            "effects": raw, "ground": state.get("ground"), "log_lines": len(state["entries"])})
+            "effects": raw, "ground": ground, "ground_read": ground_read, "log_lines": len(state["entries"])})
 
     def _poll(self, state, foe_id, foe_is_ai):
         """The next read of the fight. Every poll is a full read (same call count), so my turn never waits on a
@@ -298,10 +350,11 @@ class Battle(Activity):
         state["asked_full"] = full
         state["asked_ground"] = bool(full and state.get("full_ok") and not state.get("ground_refused"))
         poll = [K.battle(bid, effects=full, ground=state["asked_ground"]), K.entries(bid, C.ENTRIES_POLL)]
-        if not foe_is_ai and not self.combat.kit_known(foe_id) and state.get("kit_tries", 0) < C.KIT_TRIES:
+        if (not foe_is_ai and not self.combat.kit_known(foe_id) and state.get("kit_tries", 0) < C.KIT_TRIES
+                and self.budget.free() > len(poll)):              # his kit can wait for a minute with room in it
             state["kit_tries"] = state.get("kit_tries", 0) + 1
             poll.append(K.kit(foe_id))
-        return poll
+        return watching(poll)
 
     @staticmethod
     def _director(world, state, turn, poll, head, v, from_last_read):
@@ -324,25 +377,31 @@ class Battle(Activity):
         bid, v, R = state["bid"], battle["battle.version"], battle["battle.round"]
         if state.get("live_v") == v:
             battle["battle.liveEffects"] = state["live"]          # plan on the exact live state
-        # a plan already sent for this exact battle version that did not move it is not resent as is
+        # a plan already sent for this exact battle version that did not move it is not resent as is. (Only a
+        # fresh read can show that: from the last good read the same plan goes again, and the game's own version
+        # check keeps it from landing twice.)
         sent = state.get("sent_plan") or {}
-        if sent.get("v") == v and sent.get("first") and sent["first"] not in state.setdefault("banned", []):
+        if (not from_last_read and sent.get("v") == v and sent.get("first")
+                and sent["first"] not in state.setdefault("banned", [])):
             state["banned"].append(sent["first"])
         if world["control"]["director_mode"]:                     # what is left of the turn after his window
             seconds = max(3.0, min(C.BEST_LINE_AT, C.TURN_LIMIT - (world.now - turn["T"]) - 8.0))
         else:
             seconds = B.planner_seconds(turn, world.now)
         ban = state.get("banned", []) + list(world["inventory"].get("empty_items", []))
-        line, how = self.combat.plan_turn(bid, battle, state["entries"], state["enemy"], exact=his_hp <= 2000,
-                                          ban=ban, seconds=seconds)
+        line, how = self._line(world, state, battle, his_hp, ban, seconds)
         tail = " (last good read)" if from_last_read else ""
-        if not line:
-            world.event("finding", f"round {R}: no line ({how}); Defensive Stance", about="planner", battle=bid)
-            state["pick"] = {"round": R, "actions": ["Defensive Stance"], "why": how}
-            B.turn_fired(world, bid, turn, how, 1, from_last_read)
-            return plan([K.act(bid, "defensiveStance", me_xy[0], me_xy[1], v)] + poll, "battle",
-                        head + f" | MY TURN, no plan ({how}): defensiveStance{tail}", tag="urgent")
-        state["sent_plan"] = {"v": v, "first": line[0]["actionId"]}
+        if line:
+            turn["line"] = {"v": v, "actions": line}              # the best line this turn has so far
+            state["sent_plan"] = {"v": v, "first": line[0]["actionId"]}
+            note = f"MY TURN: {' + '.join(a['name'] for a in line)} ({how}){tail}"
+        else:
+            line, how = self._fallback(turn, v, me_xy, state.get("banned", []), how)
+            world.event("finding", f"round {R}: {how}", about="planner", battle=bid)
+            if not line:
+                state["pick"] = {"round": R, "actions": [], "why": how}
+                return plan(poll, "battle", head + f" | MY TURN, nothing to send: {how}", tag="urgent")
+            note = f"MY TURN, {how}{tail}"
         state["pick"] = {"round": R, "actions": [a["name"] for a in line], "why": how + tail}
         steps = []
         for k, a in enumerate(line):                              # a short gap between actions: not all at once
@@ -350,16 +409,52 @@ class Battle(Activity):
                 steps.append(K.wait(C.ACTION_GAP))
             steps.append(K.act(bid, a["actionId"], a["longitude"], a["latitude"], v + k))
         B.turn_fired(world, bid, turn, how, len(line), from_last_read)
-        return plan(steps + poll, "battle", head + f" | MY TURN: {' + '.join(a['name'] for a in line)} ({how}){tail}",
-                    tag="urgent")
+        return plan(steps + poll, "battle", head + " | " + note, tag="urgent")
+
+    def _line(self, world, state, battle, his_hp, ban, seconds):
+        """The planner's line for this turn, or (None, why). A planner that crashes has no line. A line with an
+        action the gates would refuse is planned again without that action: the gates stop the call either way,
+        and a turn is not lost to it."""
+        bid, t0 = state["bid"], time.time()
+        for _ in range(3):
+            left = None if seconds is None else seconds - (time.time() - t0)
+            try:
+                line, how = self.combat.plan_turn(bid, battle, state["entries"], state["enemy"], exact=his_hp <= 2000,
+                                                  ban=ban, seconds=left)
+            except Exception as err:  # noqa: BLE001
+                return None, f"planner crashed: {err}"
+            bad = next((a["actionId"] for a in line or []
+                        if not self.gates.check(K.act(bid, a["actionId"], 0, 0, 0), world, self.name).ok), None)
+            if bad is None:
+                return line, how
+            world.event("finding", f"the planner chose {bad}, which the gates refuse: planning without it",
+                        about="gate", battle=bid)
+            state.setdefault("banned", []).append(bad)
+            ban = ban + [bad]
+        return None, "planner failed: every line held an action the gates refuse"
 
     @staticmethod
-    def _turn_over(world, state, v):
-        """A read shows it is no longer my turn: close the turn's clock and say whether I acted in it."""
+    def _fallback(turn, v, me_xy, banned, why):
+        """With no line from the planner: the best line this turn already had, when the battle has not moved and
+        the game has refused none of it; else the first basic action the game has not refused. (None, why) when
+        it has refused them all: nothing is left that it would take."""
+        best = turn.get("line") or {}
+        if best.get("v") == v and not {a["actionId"] for a in best["actions"]} & set(banned):
+            return best["actions"], f"best line so far ({why})"
+        for aid, name in EMERGENCY:
+            if aid not in banned:
+                return [{"actionId": aid, "longitude": me_xy[0], "latitude": me_xy[1], "name": name}], \
+                    f"no plan ({why}): {aid}"
+        return None, f"no plan ({why}) and the game has refused every fallback"
+
+    @staticmethod
+    def _turn_over(world, state, ended=False):
+        """My turn is over (a read shows the next state, or the fight ended): close its clock with what the
+        evidence says. An action counts when the game answered it, or when the battle log shows it."""
         turn = state.get("turn")
         if turn and not turn.get("landed"):
-            mine = any(e[1] == turn["round"] and e[2] == C.ME for e in state["entries"])
-            B.turn_closed(world, state["bid"], turn, mine or (bool(turn.get("fired_at")) and v > turn.get("v", v)))
+            logged = any(e[1] == turn["round"] and e[2] == C.ME for e in state["entries"])
+            B.turn_closed(world, state["bid"], turn, B.turn_outcome(turn, logged, ended))
 
     def _close(self, world, state, result):
         """The fight is over: keep it for the tools that learn from it, and hand the brain the closing batch (the
@@ -368,7 +463,7 @@ class Battle(Activity):
         bid = state["bid"]
         last = state.get("battle") or {}
         users = last.get("battle.usersState.*.userId") or []
-        self._turn_over(world, state, (last.get("battle.version") or 0) + 1)
+        self._turn_over(world, state, ended=True)
         fight = {"bid": bid, "foes": [u for u in users if u != C.ME], "enemy": state.get("enemy"),
                  "round": state.get("round"), "turning_point": self.combat.turning_point(state)}
         if result is None:

@@ -12,6 +12,7 @@ A refused call is logged as a finding and is not sent; the brain carries on with
 for another way to do the same thing. An ask-first call becomes a pending decision for the director.
 """
 import collections
+import datetime as dt
 import json
 import re
 
@@ -48,20 +49,30 @@ def rule_hits(rule, name, kind=None):
 
 
 # ---------------------------------------------------------------- do_not_attack.md
-HOLD = re.compile(r"^-\s*(\d{4}-\d{2}-\d{2})\s+(\d{2}:\d{2})-(\d{2}:\d{2})\s*UTC:\s*([^.]*)\.")
+HOLD = re.compile(r"^-\s*(\d{4}-\d{2}-\d{2})\s+(\d{2}:\d{2})\s*(?:-|UTC\s+to\s+(\d{4}-\d{2}-\d{2})\s+)"
+                  r"(\d{2}:\d{2})\s*UTC:\s*([^.]*)\.")
+"""A temporary hold, as the file writes them: "- 2026-11-10 16:22-16:52 UTC: Luka and 4qua. Why." or, with its
+own end date, "- 2026-11-11 17:10 UTC to 2026-11-12 17:10 UTC: Slyrak (user_...). Why."."""
 
 
 def _held(line, now):
-    """The names a temporary-hold line keeps off the target list right now. A hold counts while its window is open;
-    a line that cannot be read is taken to be open, for every name-like word on it."""
-    import datetime as dt
+    """The names and user ids a temporary-hold line keeps off the target list right now. A hold counts until its
+    window closes. With no end date, an end at or before the start is on the next day. A line that cannot be
+    read, or whose end is before its start, is taken to be open, for every name-like word on it."""
     m = HOLD.match(line.strip())
-    if not m:
-        return {w.lower() for w in re.findall(r"\b[A-Z0-9][A-Za-z0-9_]{2,}\b", line)}
-    day, _, end, names = m.groups()
-    if now is not None and now > dt.datetime.fromisoformat(f"{day}T{end}:00+00:00").timestamp():
+    try:
+        day, start, end_day, end, names = m.groups()
+        opens = dt.datetime.fromisoformat(f"{day}T{start}:00+00:00")
+        closes = dt.datetime.fromisoformat(f"{end_day or day}T{end}:00+00:00")
+        if closes <= opens:
+            if end_day:
+                raise ValueError("the hold ends before it starts")
+            closes += dt.timedelta(days=1)
+    except (AttributeError, ValueError):
+        return {w.lower() for w in re.findall(r"user_\w+|\b[A-Z0-9][A-Za-z0-9_]{2,}\b", line)}
+    if now is not None and now > closes.timestamp():
         return set()                                # the window has closed
-    return {n.strip().lower() for n in re.split(r",|\band\b", names) if n.strip()}
+    return {n.lower() for n in re.findall(r"[^\s,()]+", names)} - {"and"}
 
 
 def do_not_attack(path=None, now=None):
@@ -150,13 +161,18 @@ def g_ryo_only(step, world, gates):
 
 
 def g_spend_cap(step, world, gates):
+    """The call's price against the day's allowance and the reserve. A call that carries no price is taken to
+    cost all the money in pocket: the game pays a purchase from the pocket, so that is the most it can take.
+    With no profile read yet the pocket is not known either, and the director is asked."""
     caps = {"daily": C.DAILY_CAP, "reserve": C.RESERVE, **world["control"]["spend_caps"]}
-    ryo = float((step.get("meta") or {}).get("ryo") or 0)
+    pocket, ryo = world.me.get("money"), (step.get("meta") or {}).get("ryo")
+    if pocket is None:
+        return ask("spend_cap", f"{step['call']}: the money in hand is not known yet")
+    ryo = float(pocket if ryo is None else ryo)
     if world.spent_today() + ryo > caps["daily"]:
-        return ask("spend_cap", f"{step['call']} would pass the daily cap of {caps['daily']:,.0f} ryo")
-    have = float(world.me.get("money") or 0) + float(world.me.get("bank") or 0)
-    if world.me.get("money") is not None and have - ryo < caps["reserve"]:
-        return ask("spend_cap", f"{step['call']} would cut into the reserve of {caps['reserve']:,.0f} ryo")
+        return ask("spend_cap", f"{step['call']} could pass the daily cap of {caps['daily']:,.0f} ryo")
+    if float(pocket) + float(world.me.get("bank") or 0) - ryo < caps["reserve"]:
+        return ask("spend_cap", f"{step['call']} could cut into the reserve of {caps['reserve']:,.0f} ryo")
     return None
 
 

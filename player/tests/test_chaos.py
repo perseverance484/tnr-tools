@@ -8,9 +8,11 @@ import tempfile
 import time
 import unittest
 
+from player import budget as B
 from player import config as C
 from player.combat import Combat
-from player.tests.support import (FOE, Rig, battle_read, fixture, limited, log_read, res, scan, start_fight, user)
+from player.tests.support import (FOE, Ledger, Rig, battle_read, fixture, limited, log_read, res, scan, start_fight,
+                                  user)
 
 PREY = ("u_p", "Prey", 13, 14, "AWAKE", 100, "y", None, None)
 
@@ -70,11 +72,13 @@ class TooManyRequests(unittest.TestCase):
 
     def test_the_whole_fight_stays_under_the_limit(self):
         rig = Rig()
+        ledger = Ledger(rig)
         battle, ents, out = start_fight(rig)
         his = dict(battle, **{"battle.activeUserId": FOE})
         for _ in range(40):                                                # a long turn of his, a relay with no lag
             out = rig.tick(battle_read("B1", his), dt=out["hold"] + 0.5)
-            self.assertLessEqual(rig.brain.budget.used(), C.CALL_LIMIT - 6)   # room is kept for my turn
+            self.assertLessEqual(out["hold"], B.BLIND_MAX)                 # his turn is never left unread for long
+        self.assertLessEqual(ledger.worst(), C.CALL_LIMIT - B.TURN_ACTIONS)   # and room is kept for my turn
 
 
 class RelayRestart(unittest.TestCase):
@@ -118,7 +122,7 @@ class BattleInTheMiddleOfSomethingElse(unittest.TestCase):
 
     def test_world_calls_issued_just_before_do_not_slow_the_fight(self):
         rig = Rig()
-        rig.world["budget"]["calls"] = [[rig.t, "world"]] * 30             # the minute is already full
+        rig.world["budget"]["calls"] = [[rig.t, "world"]] * C.WORLD_CAP    # the world lane has used all it may
         out = rig.tick(user("BATTLE", bid="B9"))
         self.assertEqual([k for s in out["steps"] for k in s if k == "wait"], [])
         battle, ents = fixture()
@@ -170,13 +174,13 @@ class BrainCrash(unittest.TestCase):
     def test_a_tick_that_crashes_still_answers_the_relay_and_is_written_down(self):
         from player import brain, relay
         rig = Rig()
-        rig.brain.handle = lambda results, usage=None: 1 / 0
+        rig.brain.handle = lambda results, usage=None, strays=0: 1 / 0
         req = relay.request_path(rig.dir, 5)
         relay.write(req, {"seq": 5, "results": [], "usage": {}})
         brain.answer(rig.brain, rig.dir, req)
         batch = relay.read(relay.batch_path(rig.dir, 5))
-        self.assertEqual(len(batch["lines"]), 1)
-        self.assertTrue(batch["lines"][0].endswith('player.brain next"}'))   # come back; never a dead end
+        self.assertEqual((batch["steps"], batch["stop"]), ([], None))       # come back; never a dead end
+        self.assertTrue(relay.lines(batch["steps"], batch["stop"], "ab12cd-5")[0].endswith('brain next ab12cd-5"}'))
         self.assertFalse(os.path.exists(req))
         with open(os.path.join(rig.dir, "crash.log")) as f:
             self.assertIn("ZeroDivisionError", f.read())
@@ -187,7 +191,6 @@ class PlannerOutOfTime(unittest.TestCase):
     def test_a_tick_that_arrives_late_in_the_turn_fires_the_stance(self):
         rig = Rig()
         battle, ents, out = start_fight(rig)
-        rig.world["battle"]["turn"]["fired_at"] = None
         out = rig.tick(battle_read("B1", dict(battle, **{"battle.usersEffects": []})), dt=C.BEST_LINE_AT)
         self.assertEqual(acts(out), ["defensiveStance"])                   # T+15 s: no time to plan, never nothing
         self.assertLess(rig.combat.plan_args[-1]["seconds"], 0.5)
@@ -207,10 +210,10 @@ class PlannerOutOfTime(unittest.TestCase):
 
 
 class FullPotionAtTheEnd(unittest.TestCase):
-    def test_the_potion_and_the_last_read_are_one_batch_even_in_a_full_minute(self):
+    def test_the_potion_and_the_last_read_are_one_batch_even_in_a_minute_the_fight_has_filled(self):
         rig = Rig()
         start_fight(rig)
-        rig.world["budget"]["calls"] = [[rig.t, "world"]] * 30
+        rig.world["budget"]["calls"] = [[rig.t, "battle"]] * (C.CALL_LIMIT - B.TURN_ACTIONS - 4)   # a busy fight
         for _ in range(4):
             out = rig.tick(battle_read("B1", {}))
             if "BATTLE OVER" in out["note"]:
@@ -223,8 +226,6 @@ class DeadlineFallback(unittest.TestCase):
     def test_a_read_that_never_comes_back_is_not_waited_for_past_t_plus_12(self):
         rig = Rig()
         battle, ents, out = start_fight(rig)
-        state = rig.world["battle"]
-        state["turn"]["fired_at"], state["sent_plan"] = None, None         # the turn is still to play
         boom = res("combat.getBattle", None, {"battleId": "B1"}, error="Error calling combat.getBattle: boom")
         out = rig.tick(boom, dt=5)
         self.assertEqual(acts(out), [])                                    # T+5 s: read again

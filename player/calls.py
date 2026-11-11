@@ -113,8 +113,10 @@ def potion(user_item_id):
     return call("item.consume", {"userItemId": user_item_id}, ["success", "message"])
 
 
-def ramen():
-    return call("village.buyFood", {"ramen": "large"}, ["success", "message"], ryo=None)
+def ramen(ryo=None):
+    """ryo: what a large ramen has cost before (measured), or None when it has never been bought: the spend gate
+    then counts the whole pocket."""
+    return call("village.buyFood", {"ramen": "large"}, ["success", "message"], ryo=ryo)
 
 
 def hospital():

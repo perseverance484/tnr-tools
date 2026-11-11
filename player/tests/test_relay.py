@@ -12,6 +12,16 @@ from player import brain, config as C, relay
 from player.tests.support import Rig, user
 
 
+def nxt(token=""):
+    """The Bash command a relay runs to hand a batch in."""
+    return f"cd /repo && python3 -m player.brain next {token}".strip()
+
+
+def token_of(line):
+    """The token on a batch's last line."""
+    return json.loads(line)["bash"].split()[-1]
+
+
 def transcript(path, rows):
     """rows: ("use", id, endpoint, input, t) | ("res", id, text, t[, is_error]) | ("bash", id, command, t) |
     ("usage", request id, in, cache_read, out, t)."""
@@ -42,17 +52,18 @@ class Contract(unittest.TestCase):
         with open(os.path.join(C.ROOT, "player", "RELAY.md"), encoding="utf8") as f:
             text = f.read()
         self.assertLess(len(text.split()), 300)
-        for must in ("brain next", "callEndpoint", "in order", "ONE message", "STOP", "no decisions"):
+        for must in ("brain next", "callEndpoint", "in order", "ONE message", "STOP", "no decisions", "put",
+                     "one line at a time", "exactly as printed"):
             self.assertIn(must, text)
 
     def test_a_batch_is_calls_waits_and_the_next_tick_and_nothing_else(self):
         rig = Rig()
         out = rig.tick(user())
-        lines = [json.loads(x) for x in relay.lines(out["steps"] + [{"wait": 1.2}])]
+        lines = [json.loads(x) for x in relay.lines(out["steps"] + [{"wait": 1.2}], token="ab12cd-7")]
         for row in lines[:-1]:
             self.assertTrue(set(row) == {"call", "input", "select"} or
                             re.fullmatch(r"python3 -c 'import time; time\.sleep\([\d.]+\)'", row.get("bash", "")), row)
-        self.assertTrue(lines[-1]["bash"].endswith("python3 -m player.brain next"))
+        self.assertTrue(lines[-1]["bash"].endswith("python3 -m player.brain next ab12cd-7"))   # the batch's token
         self.assertNotIn("meta", json.dumps(lines))                        # what the gates read stays in the brain
         self.assertEqual(relay.lines([], "asleep"), ["STOP asleep"])
 
@@ -69,22 +80,35 @@ class Transcript(unittest.TestCase):
         rig = Rig()
         p = os.path.join(rig.dir, "t.jsonl")
         transcript(p, [
-            ("use", "a", "profile.getUser", {}, 90), ("res", "a", '{"userData.status":"AWAKE"}', 90),      # an older batch
-            ("use", "b", "profile.getUser", {}, 101), ("res", "b", '{"userData.status":"BATTLE"}', 101),
-            ("use", "c", "combat.getBattle", {"battleId": "B"}, 102),
+            ("use", "a", "profile.getUser", {}, 90), ("bash", "n1", nxt("ab12cd-1"), 90),                  # an older batch
+            ("res", "a", '{"userData.status":"AWAKE"}', 90),
+            ("use", "b", "profile.getUser", {}, 101), ("use", "c", "combat.getBattle", {"battleId": "B"}, 102),
+            ("use", "d", "combat.performAction", {"battleId": "B"}, 103), ("use", "e", "item.consume", {}, 104),
+            ("bash", "n2", nxt("ab12cd-2"), 104),
+            ("res", "b", '{"userData.status":"BATTLE"}', 101),
             ("res", "c", "Error POSTing to endpoint: Too Many Requests", 102),
-            ("use", "d", "combat.performAction", {"battleId": "B"}, 103),
             ("res", "d", "Error calling combat.performAction: Not your turn", 103),
-            ("use", "e", "item.consume", {}, 104), ("res", "e", "not json", 104),
+            ("res", "e", "not json", 104),
             ("usage", "r1", 10, 60_000, 50, 101), ("usage", "r1", 10, 60_000, 50, 102), ("usage", "r2", 5, 61_000, 40, 104)])
-        results, usage = relay.read_results(p, 100)
-        self.assertEqual([r.endpoint for r in results],
-                         ["profile.getUser", "combat.getBattle", "combat.performAction", "item.consume"])
+        asked = [("profile.getUser", {}), ("combat.getBattle", {"battleId": "B"}),
+                 ("combat.performAction", {"battleId": "B"}), ("item.consume", {})]
+        results, usage, strays = relay.read_batch(p, "ab12cd-2", asked)
+        self.assertEqual([r.endpoint for r in results], [a[0] for a in asked])
         self.assertEqual(results[0].data, {"userData.status": "BATTLE"})
         self.assertEqual(results[1].error, "rate_limited")
         self.assertIn("Not your turn", results[2].error)
         self.assertIn("unreadable", results[3].error)
-        self.assertEqual(usage, {"in": 60_010 + 61_005, "out": 90, "context": 61_005})   # a request counted once
+        self.assertEqual(strays, 0)
+
+    def test_a_request_is_counted_once_and_only_for_its_own_batch(self):
+        rig = Rig()
+        p = os.path.join(rig.dir, "t.jsonl")
+        transcript(p, [
+            ("usage", "r0", 9, 50_000, 30, 90), ("bash", "n1", nxt("ab12cd-1"), 90),
+            ("usage", "r1", 10, 60_000, 50, 101), ("usage", "r1", 10, 60_000, 50, 102),
+            ("usage", "r2", 5, 61_000, 40, 104), ("bash", "n2", nxt("ab12cd-2"), 104)])
+        self.assertEqual(relay.read_batch(p, "ab12cd-2", [])[1], {"in": 60_010 + 61_005, "out": 90, "context": 61_005})
+        self.assertEqual(relay.read_batch(p, "ab12cd-1", [])[1], {"in": 50_009, "out": 30, "context": 50_009})
 
     def test_a_result_too_large_for_the_conversation_is_read_from_its_file(self):
         rig = Rig()
@@ -93,24 +117,25 @@ class Transcript(unittest.TestCase):
         with open(saved, "w") as f:
             json.dump([{"type": "text", "text": '{"battle.version": 7}'}], f)
         notice = f"<persisted-output>\nOutput too large (55.7KB). Full output saved to: {saved}\n\nPreview..."
-        transcript(p, [("use", "a", "combat.getBattle", {"battleId": "B"}, 101), ("res", "a", notice, 101)])
-        results, _ = relay.read_results(p, 100)
-        self.assertEqual(results[0].data, {"battle.version": 7})
-        outside = notice.replace(saved, "/etc/hostname.json")
-        transcript(p, [("use", "a", "combat.getBattle", {"battleId": "B"}, 101), ("res", "a", outside, 101)])
-        self.assertIn("unreadable", relay.read_results(p, 100)[0][0].error)
+        asked = [("combat.getBattle", {"battleId": "B"})]
+        rows = [("use", "a", "combat.getBattle", {"battleId": "B"}, 101), ("bash", "n", nxt("ab12cd-3"), 101)]
+        transcript(p, rows + [("res", "a", notice, 101)])
+        self.assertEqual(relay.read_batch(p, "ab12cd-3", asked)[0][0].data, {"battle.version": 7})
+        transcript(p, rows + [("res", "a", notice.replace(saved, "/etc/hostname.json"), 101)])
+        self.assertIn("unreadable", relay.read_batch(p, "ab12cd-3", asked)[0][0].error)
 
-    def test_the_relay_is_the_transcript_whose_last_call_is_brain_next(self):
+    def test_the_relays_transcript_is_the_one_that_carries_the_batchs_token(self):
         rig = Rig()
         home = os.path.join(rig.dir, "claude")
         os.makedirs(os.path.join(home, "projects", "x", "subagents"))
         sup = os.path.join(home, "projects", "x", "main.jsonl")
         rel = os.path.join(home, "projects", "x", "subagents", "agent-1.jsonl")
-        transcript(rel, [("bash", "n", "cd /repo && python3 -m player.brain next", time.time())])
-        transcript(sup, [("bash", "s", "git status", time.time())])           # written later: newest file
+        transcript(rel, [("bash", "n", nxt("ab12cd-4"), time.time())])
+        transcript(sup, [("bash", "s", "git status", time.time())])           # written later: the newest file
         os.environ["CLAUDE_CONFIG_DIR"] = home
         try:
-            self.assertEqual(relay.find_transcript(), rel)
+            self.assertEqual(relay.find_transcript("ab12cd-4"), rel)
+            self.assertIsNone(relay.find_transcript("ab12cd-5"))              # nobody's token: nobody's transcript
         finally:
             del os.environ["CLAUDE_CONFIG_DIR"]
 
@@ -127,6 +152,8 @@ class Tokens(unittest.TestCase):
         self.assertEqual((s["last_hour"], s["batches"], s["per_fight_turn"]), (3670, 3, 2620))
         self.assertEqual(relay.tokens_summary(rig.dir, rig.t + 7200)["last_hour"], 0)
         self.assertEqual(rig.world["relay"]["baseline_tokens"], 62_000)
+        with open(os.path.join(rig.dir, "tokens.jsonl")) as f:
+            self.assertEqual([json.loads(line)["calls"] for line in f], [4, 3, 3])   # the calls each batch carried
 
     def test_the_relay_is_rotated_by_size_and_never_in_a_fight(self):
         rig = Rig()
@@ -155,19 +182,27 @@ class Client(unittest.TestCase):
         for k in ("TNR_TRANSCRIPT", "TNR_PLAYER_NO_DAEMON", "TNR_PLAYER_LIVE", "TNR_PLAYER_FIGHTS"):
             os.environ.pop(k, None)
 
-    def next(self):
+    def next(self, token=None):
         out, slept = io.StringIO(), []
-        brain.next_batch(self.rig.dir, out, slept.append)
+        brain.next_batch(self.rig.dir, token, out, slept.append)
         return out.getvalue().splitlines(), slept
 
+    def hello(self):
+        """A new relay's first `brain next`: it gets a name and one line. Returns its first token."""
+        lines, _ = self.next()
+        self.assertEqual(len(lines), 1)
+        return token_of(lines[0])
+
     def test_next_answers_without_a_resident_brain_and_spends_the_wait_itself(self):
-        transcript(self.t, [])
-        lines, slept = self.next()
+        now = time.time()
+        t0 = self.hello()
+        transcript(self.t, [("bash", "n0", nxt(t0), now)])
+        lines, slept = self.next(t0)
         self.assertEqual([json.loads(x).get("call") for x in lines[:-1]], ["profile.getUser"])
-        now = time.time() + 1                                                 # the fake transcript keeps whole seconds
-        transcript(self.t, [("use", "a", "profile.getUser", {}, now),
-                            ("res", "a", json.dumps(user().data), now)])
-        lines, slept = self.next()                                            # the hunt scan, held 8 s in the brain
+        t1 = token_of(lines[-1])
+        transcript(self.t, [("bash", "n0", nxt(t0), now), ("use", "a", "profile.getUser", {}, now),
+                            ("bash", "n1", nxt(t1), now), ("res", "a", json.dumps(user().data), now)])
+        lines, slept = self.next(t1)                                          # the hunt scan, held 8 s in the brain
         self.assertEqual([json.loads(x).get("call") for x in lines[:2]], ["profile.getUser", "travel.getSectorData"])
         self.assertIn(C.HUNT_WAIT, slept)
         self.assertEqual(os.listdir(os.path.join(self.rig.dir, "inbox")), [])  # the request was answered and removed
@@ -175,10 +210,12 @@ class Client(unittest.TestCase):
 
     def test_a_relay_with_no_readable_transcript_hands_results_in_with_put(self):
         os.environ["TNR_TRANSCRIPT"] = os.path.join(self.rig.dir, "missing.jsonl")
-        lines, _ = self.next()
-        self.assertEqual(lines[0], "ECHO")
-        brain.put(self.rig.dir, 1, json.dumps(user(sector=99).data))
-        self.next()
+        lines, _ = self.next(self.hello())
+        self.assertEqual([sorted(json.loads(x))[0] for x in lines], ["call", "put", "bash"])
+        t1 = token_of(lines[-1])
+        self.assertTrue(json.loads(lines[1])["put"].endswith(f"python3 -m player.brain put {t1} 1"))
+        self.assertEqual(brain.put(self.rig.dir, t1, "1", json.dumps(user(sector=99).data)), 0)
+        self.next(t1)
         self.assertEqual(brain.Brain(self.rig.dir).world.me["sector"], 99)
 
     def test_the_resident_process_answers_and_only_one_brain_runs(self):
@@ -191,13 +228,13 @@ class Client(unittest.TestCase):
                 time.sleep(0.05)                                             # until the resident brain holds the lock
             self.assertEqual(subprocess.run([sys.executable, "-m", "player.brain", "run"], cwd=C.ROOT, env=env,
                                             timeout=20).returncode, 1)       # a second brain refuses to start
-            lines, _ = self.next()
+            lines, _ = self.next(self.hello())
             self.assertEqual(json.loads(lines[0])["call"], "profile.getUser")
         finally:
             proc.kill()
             proc.wait()
-        lines, _ = self.next()                                               # the brain died: next still answers
-        self.assertTrue(lines[-1].endswith('player.brain next"}'))
+        lines, _ = self.next(token_of(lines[-1]))                            # the brain died: next still answers
+        self.assertRegex(lines[-1], r'player\.brain next [0-9a-f]{6}-\d+"}$')
 
 
 if __name__ == "__main__":

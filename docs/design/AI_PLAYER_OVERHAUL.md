@@ -252,11 +252,26 @@ else. A refused call is logged as a finding, never retried around.
 
 ### 4.6 Call budget and battle lane
 
-- **Budget:** 30 calls a minute is shared by the account. The budget object keeps three lanes: **battle**
-  (reserved, never paced), **recovery** (never paced), and **world** (everything else, paced to the remainder).
+- **Budget:** 30 calls a minute is shared by the account, and no call is scheduled past it: a 31st would only be
+  refused. The three lanes (**battle**, **recovery**, **world**) decide who gives way first.
+  - A turn's actions and recovery calls may use the whole minute.
+  - No read takes the room of a turn's actions (5 calls).
+  - The reads that only watch a fight (his turn's polls, the poll behind my actions) and the world lane (at most
+    20 a minute) leave room for a turn and the read behind it (8 calls). For that reserve alone, a fight is never
+    left unread for more than 12 s.
+  - When the minute is full all the same, the call waits. A wait in front of an action or a recovery call, or a
+    blind wait over 12 s, is logged as a finding. (AP1 review, finding 1: read as "never paced", the battle
+    lane could pass the limit.)
 - **A battle turn has a deadline.** From turn start the brain must fire by T+20 s. If the exact read is not back by
   T+12 s, it plans from the last good read. If the planner is not done by T+15 s, it fires the best line so far.
-  Every turn records its timing, and any turn within 20 s of the limit is a finding.
+  Every turn records its timing and how long the fight went unread before the turn was seen. Any turn within
+  20 s of the limit is a finding.
+- **A turn knows what happened to its actions** (sent, answered, accepted by the game).
+  - A plan that came back refused, or never reached the game, is replaced while the turn is still open.
+  - With no line from the planner, the turn's best line so far goes; failing that Defensive Stance, then End
+    Turn. An action the game has refused is never sent again.
+  - A turn closes as **acted**, **missed** or **unresolved**, from the game's answers and the battle log only.
+    Unresolved turns are counted apart from missed ones and are never counted as played.
 - **Actions:** sent with a 1.2 s gap (director: not all at once).
 - **Fight end:** the end-of-fight batch carries recovery first (Full Potion), then the reads.
 
@@ -287,8 +302,11 @@ entirely.
   after a batch count. The brain is resident, so a restart loses nothing.
 - **Results flow:**
   - Today the brain reads results out of the relay's transcript.
-  - The relay protocol keeps that (no tokens spent echoing results), with one fallback: when a transcript can't be
-    read, the relay passes the minimal result line `brain put <id> <json>`.
+  - The relay protocol keeps that (no tokens spent echoing results). Every relay gets a name on its first
+    `brain next`, and every batch ends with `brain next <token>`. The brain reads only the transcript that
+    carries that token, only the calls made for that batch, and matches each to a call the batch asked for.
+  - One fallback: when no transcript carries the token, the batch asks for each result in turn with
+    `brain put <token> <n>`, the result on standard input.
 - **Measured.** Tokens per hour and per fight are a KPI in the weekly report. The targets, set in AP1 from the first
   measurements, are a fixed cap per fight turn and per hour of world activity.
 - **Larger models:**

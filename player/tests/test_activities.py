@@ -106,7 +106,7 @@ class Recovery(unittest.TestCase):
 
     def test_recovery_comes_before_the_hunt_and_is_never_paced(self):
         rig = Rig()
-        rig.world["budget"]["calls"] = [[rig.t, "world"]] * 30
+        rig.world["budget"]["calls"] = [[rig.t, "world"]] * C.WORLD_CAP    # the world lane has used all it may
         out = rig.tick(user(hp=3000), scan([ME_ROW, PREY]))
         self.assertEqual(out["activity"], "recovery")
         self.assertEqual([k for s in out["steps"] for k in s if k == "wait"], [])
