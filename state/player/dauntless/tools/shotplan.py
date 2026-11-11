@@ -160,6 +160,12 @@ def rebuild(lines, me_name, en_name, my_hp, en_hp):
         else:
             if "cannot be debuffed" in t:
                 who.tags.append(["debuffimmune", 1, r + 1, r + n])
+                if "cannot be cleared" in t:
+                    who.tags.append(["clearimmune", 1, r + 1, r + n])
+            elif "cannot be cleared" in t:
+                # clear-prevent (Dr. Kim's, ANBU Member R3 2026-11-11: "cannot be cleared for the next 1 rounds" made my
+                # R4 Clear fail with "resists being cleared"); the planner did not read it and wasted Clear
+                who.tags.append(["clearimmune", 1, r + 1, r + n])
             elif "wound damage for" in t:
                 who.tags.append(["wound", float(re.search(r"take ([\d.]+) wound", t).group(1)), r + 1, r + n])
             elif "will be drained" in t:
