@@ -122,6 +122,37 @@ a playbook page (`state/prompt_playing_tnr.md` §4.4) before it goes live.
 
 ### AP4: combat consolidation
 
+**0. The move atlas comes first** (director, 2026-11-11: "model every known pvp jutsu that can be used against us
+and also our own jutsu … we know exactly which clocks and weights move on the ttk when every jutsu is cast").
+
+- **What:** `player/atlas.json`, one card for every action a player can use against us or that we can use:
+  - normal, bloodline and special jutsu;
+  - weapons, with learned imbues;
+  - combat consumables;
+  - the basics.
+
+  That's about 1,600 of the catalog's 2,985 records; AI-only and pet records are excluded.
+- **Each card holds:**
+  - AP cost, cooldown, shared-cooldown locks, range, target, elements;
+  - each effect as an exact state change: which planner arrays and rounds it touches, by how much, whether it acts
+    this round or next, and what Clear, Cleanse, seals and prevents do to it;
+  - its damage on a fresh board, measured in the engine at the standard assumption (capped stats, full Kaeruun +
+    Subaku's mask, level 25 jutsu unless known), with how each stat and the level scale it.
+- **Generated, not written by hand.** A generator compiles the cards from the catalog and the engine. Cards are
+  never edited by hand.
+- **Refreshed:** when the catalog changes, the atlas is regenerated and diffed, and a changed card is a finding.
+- **The state machine applies cards.** When the live state shows a cast (his or mine), the brain applies that card's
+  exact changes to the round arrays. The damage curves, tool windows and race update from it, so every clock and
+  weight that moves on the time-to-kill is the card's, not an estimate.
+- **Per fight:** `fight_bases.py` rescales the damage on the cards in both kits to the actual matchup.
+- **Replaces** the hand-written kit specs (`shotplan.MINE`, `clock.compile_record`, the generic kit), which AP6 then
+  deletes.
+- **Gate:**
+  - every action in every logged fight resolves to a card;
+  - one card applied alone matches the engine within 1% on damage and on every effect's value and timing, over a
+    sample of at least 200 cards that includes every effect type;
+  - no hand-written spec is still used in a live fight.
+
 1. **One planner.** planner2 only. turn.py, shotplan.py and value_model.py become helpers or are deleted.
 2. **Live state everywhere.** `from_live` is the only state path in a live fight; the text rebuild remains for old
    logs only and is labelled as reconstructed.
