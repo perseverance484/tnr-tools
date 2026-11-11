@@ -19,6 +19,9 @@ def walk(x):
 
 def main():
     want = set(sys.argv[1:]) or {k for k in IDS if len(k) > 15} | {"yVNeLzxHSFkNpTPnlm7yQ"}
+    # keep every record already in the store (enemy records accumulate); --add mode when ids are given
+    out_path = os.path.join(REPO, "harness/pvp_turn/kit/records.json")
+    prev = json.load(open(out_path)) if os.path.exists(out_path) else {}
     best = {}
     for path in sorted(glob.glob(os.path.join(REPO, "harvests/inbox/*.json"))):
         try:
@@ -30,11 +33,12 @@ def main():
                 key = rec.get("updatedAt") or ""
                 if rec["id"] not in best or key >= best[rec["id"]][0]:
                     best[rec["id"]] = (key, rec, os.path.relpath(path, REPO))
-    out = {k: {"record": v[1], "source": v[2], "updatedAt": v[0]} for k, v in sorted(best.items())}
+    out = dict(prev)
+    out.update({k: {"record": v[1], "source": v[2], "updatedAt": v[0]} for k, v in sorted(best.items())})
     ov_path = os.path.join(REPO, "harness/pvp_turn/kit/live_overrides.json")
     if os.path.exists(ov_path):
         for k, ov in json.load(open(ov_path)).items():
-            if k in out:
+            if k in out and k.startswith("_") is False and ov.get("updatedAt", "") >= out[k]["updatedAt"]:
                 out[k]["record"].update(ov)
                 out[k]["updatedAt"] = ov["updatedAt"]
                 out[k]["source"] += " + live_overrides.json"

@@ -243,8 +243,10 @@ def main():
 
     lines = [f"{r}|{t.strip()}" for r, u, _, ts in rows for t in (ts or [])]
     me0, en0 = shotplan.rebuild(lines, ME_NAME, en["username"], me["curHealth"], en["curHealth"])
-    stunned = any("dauntless is stunned" in l and int(l.split("|")[0]) + 2 >= R and int(l.split("|")[0]) < R
-                  for l in lines) or bool(me0.live("stun", R))
+    # a stun costs AP from the turn it lands: his stun earlier THIS round (he acted first) counts now,
+    # as does one from the previous 2 rounds (Warlord40 R2, 2026-11-11: planner missed a same-round stun)
+    stunned = any("dauntless is stunned" in l and int(l.split("|")[0]) + 2 >= R and
+                  (int(l.split("|")[0]) < R or en_acted) for l in lines) or bool(me0.live("stun", R))
     ap_now = min(int(me["actionPoints"]) if my_turn else 100, 80 if stunned else 100)
     spent, pierce_last, avg = enemy_resources(rows, en["userId"], R)
     known = en["username"].lower() in shotplan.ENEMY
@@ -293,6 +295,30 @@ def main():
 
     bundles = legal(st, R, ap_now, bool(en0.live("debuffimmune", R)),
                     {"ember", "severed", "disaster", "lotus", "danse", "sealnull", "yuki"}, st["loadout"], d0)
+    # engine replay (harness/pvp_turn/engine/replay_sim.ts): legality, AP and costs from the engine's own state
+    eng = None if a.no_engine else engine_bridge.replay_list(rows, ME, en["userId"], me, en, me_pos, en_pos, R,
+                                                               "next" if en_acted else "same", value_model.load_cal())
+    if eng:
+        cost_by_id = {x["id"]: x["cost"] for x in eng["available"]}
+        ap_eng = eng["ap"]
+        def eng_ok(bb):
+            tot = 0
+            for x in bb:
+                aid = ACTION_ID.get(x, x)
+                if aid == "move":
+                    tot += 10
+                    continue
+                if aid not in cost_by_id:
+                    return False
+                tot += cost_by_id[aid]
+            return tot <= ap_eng
+        bundles = [bb for bb in bundles if eng_ok(bb)]
+        ap_now = ap_eng
+        print(f"engine replay: AP {ap_eng}, {len(eng['available'])} actions available"
+              + (f", replay issues {len(eng['replayIssues'])}" if eng.get("replayIssues") else ""))
+    miss = engine_bridge.missing_records(rows, ME)
+    if miss:
+        print("MISSING RECORDS (fetch with jutsu.get/item.get -> add_record.py):", ",".join(miss))
     if not bundles:
         print("no legal bundle (check AP/cooldowns)"); return
     # kite-back variants: one spare step moves me back out after ranged actions
@@ -307,6 +333,7 @@ def main():
     cal = value_model.load_cal()
     value_model.calibrate_kit(cal)
     ctx["smoke_spent"] = "smoke" in spent
+    ctx["en_given"] = en0.mult("given", R + 1 if en_acted else R)
     # live enemy summon (e.g. Korin's Jade): acts on its own cooldowns, so his pierce lock doesn't cover it
     sm = [(r, m.group(1), int(m.group(2))) for r, u, _, ts in rows if u == en["userId"] for t in (ts or [])
           if (m := re.search(r"^\s*(\S+) was summoned for (\d+) rounds", t))]
@@ -431,59 +458,53 @@ def main():
         log = list(worst[4]) + ([("me", R + 1, follow, 0, 0, 0, 0)] if follow else [])
         results.append((total, b, log, why, vals, outs))
     results.sort(key=lambda x: -x[0])
-    # exact re-score of the best 12 on the pinned engine (harness/pvp_turn): my turn + each reply option
+    # exact re-score of the best 6 by engine replay: my bundle, then his typical and best reply from his real kit
     engine_note = "engine: off"
-    if not a.no_engine:
-        top = results[:12]
-        seqs = [resolve_targets(b, me_pos, en_pos, occupied)[0] for _, b, *_ in top]
-        my_used = {}
-        for r, u, aid, _ in rows:
-            if u == ME and aid not in ("move", "wait"):
-                my_used[aid] = r
-        his_used = {}
-        if pierce_last is not None:
-            his_used[engine_bridge.NIGHTS] = pierce_last
-        if "smoke" in spent:
-            his_used[engine_bridge.SMOKE] = spent["smoke"]
-        if "clear" in spent:
-            his_used["clear"] = spent["clear"]
-        rep_names = sorted({engine_bridge.reply_name(o) for _, o in his_options(me0, hr)})
-        res = engine_bridge.evaluate([[(n, aid, t) for n, aid, t in sq] for sq in seqs], me, en, me_pos, en_pos, R,
-                                     me0, en0, my_used, his_used, [(1, n) for n in rep_names], cal, my_ap=ap_now,
-                                     his_turn="next" if en_acted else "same")
-        if res:
-            engine_note = "engine: exact (pinned TNR engine, offline)"
+    if not a.no_engine and eng:
+        top = results[:6]
+        # one-shot answers (Cleanse / Smoke / Clear) are judged by the engine even if the python shortlist pruned them
+        for key in ("cleanse", "smoke", "clear"):
+            if any(key in r[1] for r in top):
+                continue
+            extra = next((r for r in results[6:] if key in r[1]), None)
+            if extra is None:  # not in the lookahead set: take the best stage-1 bundle with it (no lookahead term)
+                st1 = next((x for x in stage if key in x[1]), None)
+                if st1:
+                    extra = (st1[0], st1[1], [], st1[6], [], [])
+            if extra:
+                top.append(extra)
+        seqs = [resolve_targets(bb, me_pos, en_pos, occupied)[0] for _, bb, *_ in top]
+        res = engine_bridge.replay_eval(rows, ME, en["userId"], me, en, me_pos, en_pos, R,
+                                        "next" if en_acted else "same", cal,
+                                        [[(n, aid, t) for n, aid, t in sq] for sq in seqs])
+        if res and res.get("results"):
+            engine_note = "engine: replay (every logged action replayed on the TNR engine)"
             rescored = []
-            for (total, b, log, why, vals, outs), er in zip(top, res):
+            for (total, bb, log, why, vals, outs), er in zip(top, res["results"]):
                 if not er.get("legal"):
-                    rescored.append((-1e9, b, log, [f"engine: illegal at {er.get('failedAt')} ({er.get('reason')})"], vals, outs))
+                    rescored.append((-1e9, bb, log, [f"engine: illegal ({er.get('reason')})"], vals, outs))
                     continue
-                pen, pwhy = penalties(b, ctx, cal)
-                rc, rwhy = value_model.reserve_cost(b, cal, R)
-                by_name = {x["name"]: x for x in er.get("replies", [])}
-                adj = []
-                for (w, v, b2), (w2, v1, m, e, lg, kill) in zip(vals, outs):
-                    f = v - v1  # python lookahead part kept
-                    opt = next((o for ww, o in his_options(me0, hr, b) if abs(ww - w) < 1e-9), None)
-                    rep = by_name.get(engine_bridge.reply_name(opt or []), None) if er.get("replies") else None
-                    if rep is not None and not rep.get("legal"):
-                        adj.append((w, v))  # engine says he cannot do this reply now: keep the python estimate
-                        continue
-                    me_hp = rep["me"] if rep else er["afterMe"]["me"]
-                    him_hp = rep["him"] if rep else er["afterMe"]["him"]
-                    em, ee = shotplan.Side(me_hp), shotplan.Side(him_hp)
-                    sc = value_model.score(em, ee, me["curHealth"], en["curHealth"])
-                    killed = him_hp <= 0
-                    adj.append((w, sc + (0 if killed else pen - rc) + f))
-                ev = sum(w * v for w, v in adj)
-                wv = min(v for _, v in adj)
-                t2 = (1 - value_model.RISK) * ev + value_model.RISK * wv
-                eng_log = [("me", R, b, 0, 0, er["afterMe"]["me"], er["afterMe"]["him"])] + [
-                    ("him", hr, [x["name"]], 0, 0, x["me"], x["him"]) for x in er.get("replies", [])[:2]]
-                rescored.append((t2, b, eng_log + [l for l in log if l[0] == "me" and l[1] == R + 1], why, vals, outs))
-            results = sorted(rescored + results[12:], key=lambda x: -x[0])
+                pen, pwhy = penalties(bb, ctx, cal)
+                rc, rwhy = value_model.reserve_cost(bb, cal, R)
+                f = sum(w * (v - v1) for (w, v, _), (_, v1, *_r) in zip(vals, outs))  # python lookahead part
+                def sc_of(x):
+                    em, ee = shotplan.Side(x["me"]), shotplan.Side(x["him"])
+                    return value_model.score(em, ee, me["curHealth"], en["curHealth"])
+                if er["afterMe"]["him"] <= 0:
+                    t2 = value_model.score(shotplan.Side(er["afterMe"]["me"]), shotplan.Side(0), me["curHealth"], en["curHealth"])
+                else:
+                    typ = er.get("typical") or {"me": er["afterMe"]["me"], "him": er["afterMe"]["him"]}
+                    best = er.get("best") or typ
+                    t2 = (1 - value_model.RISK) * sc_of(typ) + value_model.RISK * sc_of(best) + pen - rc + value_model.GAMMA * f
+                eng_log = [("me", R, bb, 0, 0, er["afterMe"]["me"], er["afterMe"]["him"])]
+                for nm in ("typical", "best"):
+                    if er.get(nm):
+                        eng_log.append(("him", hr, [nm] + [x[:6] for x in er[nm]["actions"]], 0, 0, er[nm]["me"], er[nm]["him"]))
+                rescored.append((t2, bb, eng_log + [l for l in log if l[0] == "me" and l[1] == R + 1], why, vals, outs))
+            # engine-scored candidates rank ahead of python-only ones (different, less exact scale)
+            results = sorted(rescored, key=lambda x: -x[0]) + [r for r in results if r not in top]
         else:
-            engine_note = "engine: unavailable, python sim used"
+            engine_note = "engine: eval unavailable, python sim used"
     print(engine_note)
     print(f"{len(bundles)} legal bundles. TOP {a.top}:")
     for i, (sc, b, log, why, *_r) in enumerate(results[:a.top], 1):

@@ -29,4 +29,4 @@ bat = {"battle.version": 1, "battle.round": a.round, "battle.activeUserId": ME,
        "battle.usersState.*.actionPoints": [100, int(map_)]}
 f = tempfile.NamedTemporaryFile("w", suffix=".txt", delete=False)
 f.write(json.dumps(bat) + "\n" + json.dumps(ent) + "\n"); f.close()
-sys.exit(subprocess.call([sys.executable, os.path.join(os.path.dirname(__file__), "turn.py"), f.name, "--battle", a.battle, "--enemy", a.enemy]))
+sys.exit(subprocess.call([sys.executable, os.path.join(os.path.dirname(__file__), "turn.py"), f.name, "--battle", a.battle, "--enemy", a.enemy, "--top", os.environ.get("TOPN", "3")]))

@@ -5,7 +5,23 @@ game's own combat code instead of a hand-built approximation. Director-authorise
 offline harness for the planner"). No live requests: the engine runs in-process under Bun with socket
 syscalls denied (`harness/ghost_ship_final/tools/offline_exec.py`, seccomp mode by default).
 
-## What it runs
+## Replay mode (default in turn.py since 2026-11-11)
+`engine/replay_sim.ts` rebuilds the fight by replaying **every logged action of both sides** through the engine with
+the real records (`kit/records.json`; his records are added the first time he uses an action — `turn.py` prints
+`MISSING RECORDS`, fetch with `jutsu.get`/`item.get` and pipe into `state/player/dauntless/tools/add_record.py`).
+The engine therefore holds every effect itself: seals (bloodline *effects*, not jutsu), time compression/dilation
+(applies from the round after it is cast), barriers, ground effects, prevents, stuns, potency changes, heal-over-time,
+cooldowns and shared locks. HP and positions are restored from the live battle after the replay.
+- `list` mode → my AP and every available action with its engine cost; `turn.py` drops bundles the engine rejects.
+- `eval` mode → each candidate bundle, then his reply bundles (his available real actions plus the calibrated stand-in
+  hits for his unseen jutsu, most damaging first, up to 40): `typical` (median) and `best` (worst case for me).
+- `turn.py` scores the python top 6 plus the best Cleanse / Smoke / Clear bundles this way (~7 s per turn).
+Director rationale (2026-11-11): "Dont just model the damage formula, model *everything*" — after a fight where the
+text parser dropped seal, compression, a barrier, a potency debuff and heal-over-time.
+Known gaps: some enemy self-heal records fail targeting (Cellular Regeneration), replay RNG (stun/seal rolls) can
+differ from the live log, summons are stripped.
+
+## What it runs (turn_sim.ts, tag-injection mode, kept for calibration/validation)
 `engine/turn_sim.ts` assembles a COMBAT battle through the engine's `processUsersForBattle`
 (via `engine/lib/`, a copy of `harness/ghost_ship_final/engine/lib` ported to the upstream module layout:
 `alignBattle`/`calcApReduction` from `combat/turn.ts`, `refreshMasteries` from `combat/mastery.ts`), injects the

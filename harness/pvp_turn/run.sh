@@ -9,7 +9,8 @@ APP="${TNR_ENGINE_APP:?Set TNR_ENGINE_APP to the exported engine app dir}"
 [[ -d "$APP/node_modules" ]] || { echo "engine app has no node_modules" >&2; exit 2; }
 SUITE="$APP/tests/tnr_pvp_turn"
 mkdir -p "$SUITE/lib"
-cp "$HERE/engine/turn_sim.ts" "$SUITE/"
+cp "$HERE"/engine/*.ts "$SUITE/"
+SCRIPT="${2:-turn_sim.ts}"
 # lib = ghost_ship_final/engine/lib ported to the upstream engine layout (see engine/lib/*.ts headers)
 for f in fixtures sim itembattle; do cp "$HERE/engine/lib/$f.ts" "$SUITE/lib/"; done
 # test-helper location differs by engine version (tests/setup/combat.ts upstream; older pins: libs/combat/helpers)
@@ -27,4 +28,4 @@ exec env -i PATH="$PATH" TNR_LIST_ACTIONS="${TNR_LIST_ACTIONS:-}" NODE_ENV=test 
   PUSHER_APP_ID=test-app PUSHER_APP_SECRET=test-secret \
   DATABASE_URL=http://127.0.0.1:1 OPENAI_API_KEY=test-placeholder-not-a-real-key \
   TNR_REPO="$REPO" TNR_NETWORK_ISOLATION="${TNR_NETWORK_ISOLATION:-seccomp}" \
-  python3 "$REPO/harness/ghost_ship_final/tools/offline_exec.py" bun "$SUITE/turn_sim.ts" "$REQ"
+  python3 "$REPO/harness/ghost_ship_final/tools/offline_exec.py" bun "$SUITE/$SCRIPT" "$REQ"

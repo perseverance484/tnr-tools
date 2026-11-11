@@ -116,7 +116,9 @@ def enemy_options(cal, ctx, me_side, r, afk):
     if not ctx.get("smoke_spent"):
         opts.append((smoothed(cal, "smoke"), ["smoke", "light"]))
     opts.append((smoothed(cal, "setup"), ["buff", "debuff", "light"]))
-    opts.append((BURST_P, ["burst"]))  # his 85th-percentile turn: 15% of active turns by definition
+    # a stacked +given on him is the burst tell (Hikuro R7, Warlord40 R3): scale the burst weight with his live
+    # damage-given multiplier, capped at 0.6
+    opts.append((min(0.6, BURST_P * ctx.get("en_given", 1.0) ** 3), ["burst"]))  # his 85th-percentile turn: 15% of active turns by definition
     rest = max(0.05, 1.0 - sum(w for w, _ in opts))
     opts.append((rest, ["turn"]))
     if ctx.get("summon"):  # a live summon acts on its own cooldowns (and can pierce: Jade broke my shield R5)

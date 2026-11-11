@@ -196,3 +196,79 @@ def evaluate(bundles_with_targets, me, en, me_pos, en_pos, R, me0, en0, my_used,
         return None
     finally:
         os.unlink(f.name)
+
+
+# ---------------------------------------------------------------- replay mode (harness/pvp_turn/engine/replay_sim.ts)
+MY_KIT_IDS = ["K0t6Z-Q4lau1jFt8Tkpot", "GiKpip6NxsC8QWlZi6l_R", "zCmYLVL4JYzfhjPXHi9rH", "Lg_thN-MB8FRAr_Agf9tn",
+              "Wy7EBGd7gpP96hyumb0Lz", "cvLrFEzeNcRogHqyLv0Ig", "G6MRbppaDZ2a5Wr0GIjH8", "jELEiw5W3N4m2R3oJm3Pk",
+              "e2eC-x4UXc5m6QexNbx8w", "qNeccb2eF20oL0Ws-VhKS", "73Sn-ihCNNRwxZ_G_2lTZ", "ou7VyChQ-SFCm8T8yGS7I",
+              "g-b0Fs5o8EzQIphq0YIAX", "GAyHRgaa1lkYGhE9WxlRL", "FimDQpYL0LWRv8U81ZP9H"] + sorted(ITEM_IDS)
+SKIP = {"wait", "move", "flee"}
+
+
+def missing_records(rows, me_id):
+    """His action ids that have no record in the store (fetch with jutsu.get / item.get, then add_record.py)."""
+    recs = _records()
+    return sorted({a for r, u, a, _ in rows if u != me_id and a not in SKIP and a not in BASIC and a not in recs})
+
+
+def _replay_request(rows, me_id, en_id, me, en, me_pos, en_pos, R, his_turn, cal):
+    recs, prof = _records(), _profile()
+    his_ids = sorted({a for r, u, a, _ in rows if u == en_id and a in recs})
+    his_kit = [{"record": recs[a]["record"], "kind": "item" if recs[a]["record"].get("itemType") else "jutsu",
+                "level": 25} for a in his_ids]
+    # his unseen jutsu (players carry ~15; we only know what he has used, much of it on cooldown): always add the
+    # calibrated stand-in hits/setup so his reply set is never limited to the few actions seen so far
+    his_kit += [k for k in enemy_kit(cal) if k["record"]["id"] not in his_ids]
+    log = [{"round": r, "actor": "me" if u == me_id else "him", "actionId": a}
+           for r, u, a, _ in rows if u in (me_id, en_id)]
+    return {
+        "round": R, "hisTurn": his_turn,
+        "me": {"id": "me", "hp": me["curHealth"], "x": me_pos[0], "y": me_pos[1], "profile": prof,
+               "kit": [{"record": recs[a]["record"], "kind": "item" if a in ITEM_IDS else "jutsu",
+                        "level": prof["jutsuLevels"].get(a, 25)} for a in MY_KIT_IDS if a in recs],
+               "passives": [{"type": "increasedamagegiven", "power": PASSIVE}]},
+        "him": {"id": "him", "hp": en["curHealth"], "x": en_pos[0], "y": en_pos[1], "kit": his_kit,
+                "passives": [{"type": "increasedamagegiven", "power": PASSIVE}]},
+        "log": log,
+    }
+
+
+def _run(req, timeout):
+    app = engine_app()
+    if not app:
+        return None
+    with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False) as f:
+        json.dump(req, f)
+    try:
+        out = subprocess.run([os.path.join(HARNESS, "run.sh"), f.name, "replay_sim.ts"], capture_output=True,
+                             text=True, timeout=timeout, env=dict(os.environ, TNR_ENGINE_APP=app))
+        if out.returncode != 0:
+            if os.environ.get("TNR_ENGINE_DEBUG"):
+                print("engine error:", out.stderr[-1200:])
+            return None
+        d = json.loads(out.stdout)
+        if os.environ.get("TNR_ENGINE_DEBUG") and d.get("results"):
+            print("reply failures:", [r.get("replyFail") for r in d["results"]][:2], "counts:", [r.get("replyCount") for r in d["results"]])
+        return d
+    except (subprocess.TimeoutExpired, ValueError) as err:
+        if os.environ.get("TNR_ENGINE_DEBUG"):
+            print("engine error:", repr(err)[:300])
+        return None
+    finally:
+        os.unlink(f.name)
+
+
+def replay_list(rows, me_id, en_id, me, en, me_pos, en_pos, R, his_turn, cal, timeout=8):
+    """Engine state after replaying the log: {ap, available:[{id,name,cost}], replayIssues}."""
+    req = _replay_request(rows, me_id, en_id, me, en, me_pos, en_pos, R, his_turn, cal)
+    req["mode"] = "list"
+    return _run(req, timeout)
+
+
+def replay_eval(rows, me_id, en_id, me, en, me_pos, en_pos, R, his_turn, cal, bundles_with_targets, timeout=10):
+    req = _replay_request(rows, me_id, en_id, me, en, me_pos, en_pos, R, his_turn, cal)
+    req["mode"] = "eval"
+    req["candidates"] = [[{"actionId": a, "x": t[0], "y": t[1]} for _, a, t in b] for b in bundles_with_targets]
+    req["replyCap"] = 40
+    return _run(req, timeout)
