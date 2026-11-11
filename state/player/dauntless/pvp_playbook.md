@@ -159,6 +159,12 @@ Read: Winta vs Gario and vs Choris1717; DDXXD vs Korin and vs Enduyn; Ziharkk vs
   at 19:28Z) and is not rebought while Ikazuchi is carried; when Elemental hits 0 the restock pass equips Ikazuchi
   into THROWN (restock.BACKUP_THROWN) and the planners' kunai action follows equipped.json. The swap happens between
   fights; if Elemental runs out mid-fight, kunai is refused once and dropped for the rest of that battle.
+- 2026-11-11 kunai cost (director: ~500k ryo a throw; "don't lose a fight to spare a kunai but dont throw a kunai
+  at an afk or in a fight we're not likely to win or a fight we're sure to win"). The planner prices each throw by
+  the race (rounds he needs to kill me vs rounds I need, his turn = max(model, his logged average)):
+  close (0.8-1.25) free; leaning 350 (only a kill or staying alive pays); AFK / sure win (>=1.8) / likely loss
+  (<=0.55) 5500 (only staying alive pays). The cost is charged on kill lines too, so a kill without the kunai wins.
+  Replay of the 5 logged fights: 13 throws -> 6, all in close races or kill/survival turns.
 
 ## Loadouts by activity (director, 2026-11-09: "Use the loadouts labeled PvE")
 | Activity | Jutsu loadout | Item loadout |

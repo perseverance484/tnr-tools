@@ -187,10 +187,41 @@ def reserves(cal):
     }
 
 
+# A thrown kunai costs real ryo (director 2026-11-11: "thats about how much kunai cost btw so factor that in when
+# you're throwing them about willy nilly"; 25M bought 50 Ikazuchi, ~500k a throw), and "don't lose a fight to spare
+# a kunai but dont throw a kunai at an afk or in a fight we're not likely to win or a fight we're sure to win".
+# It deals ~290 (22 power x 13.3). turn.kunai_cost() sets KUNAI_COST each turn from how close the fight is:
+#   close fight            -> 0     (its damage may decide it: throw it like any other hit)
+#   leaning one way        -> 350   (above its own damage: only a kill or keeping me alive pays for it)
+#   AFK / sure win / lost  -> 5500  (above KILL: only keeping me alive, the DEATH term, pays for it)
+KUNAI_CLOSE, KUNAI_LEAN, KUNAI_NEVER = 0, 350, 5500
+KUNAI_COST = KUNAI_LEAN
+
+
+def kunai_cost(my_hp, en_hp, my_turn, en_turn, afk):
+    """-> (cost, why). Race: rounds he needs to kill me vs rounds I need to kill him."""
+    if afk:
+        return KUNAI_NEVER, "AFK"
+    his = my_hp / max(1.0, en_turn)
+    mine = en_hp / max(1.0, my_turn)
+    ratio = his / max(0.25, mine)
+    if 0.8 <= ratio <= 1.25:
+        return KUNAI_CLOSE, f"close race ({ratio:.2f})"
+    if ratio >= 1.8:
+        return KUNAI_NEVER, f"sure win ({ratio:.2f})"
+    if ratio <= 0.55:
+        return KUNAI_NEVER, f"likely loss ({ratio:.2f})"
+    return KUNAI_LEAN, f"leaning ({ratio:.2f})"
+
+
 def reserve_cost(bundle, cal, rnd):
     res = reserves(cal)
     left = max(0, cal.get("fight_len", 7) + 2 - rnd)
     cost, why = 0.0, []
+    if "kunai" in bundle:
+        cost += KUNAI_COST
+        if KUNAI_COST:
+            why.append(f"kunai ryo -{KUNAI_COST}")
     for a in bundle:
         if a in res and a not in ("stormblade", "nights"):  # pierce is priced by turn.penalties (window rule)
             cd = cd_plan.ACTIONS.get(a, (0, 6))[1] or 6
