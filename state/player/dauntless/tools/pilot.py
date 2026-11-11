@@ -249,26 +249,26 @@ def battle_tick(st, bid, battle, entries):
 
 
 def plan_turn(bid, battle, entries, enemy, exact=False):
-    """turn.py (the verified planner, python only on the clock) on a turn file built from the cache."""
+    """planner2 on a turn file built from the cache (turn.py as the fallback)."""
     path = os.path.join(LIVE, f"{bid}.turn.txt")
     rows = entries[::-1]                                    # turn.py reads newest-first, like the connector
     with open(path, "w") as f:
         f.write(json.dumps(battle) + "\n" +
                 json.dumps({k: [r[i] for r in rows] for i, k in enumerate(ENT) if k != "*.id"}) + "\n")
     t0 = time.time()
-    tries = [(("--fast",), 9.0)] if exact else []
-    tries += [(("--no-engine",), PLAN_BUDGET), (("--no-engine", "--keep", "6", "--cash", "3"), 2.0)]
-    for extra, budget in tries:
+    # planner2 (director 2026-11-11: "start it again with the new planner"): numeric engine, his clock and profile,
+    # ~0.1-0.5 s; the old python planner stays as the fallback if it fails or overruns
+    tries = [("planner2.py", (), PLAN_BUDGET), ("turn.py", ("--no-engine", "--keep", "6", "--cash", "3"), 3.0)]
+    for script, extra, budget in tries:
         try:
-            out = subprocess.run([sys.executable, os.path.join(HERE, "turn.py"), path, "--battle", bid, "--top", "1",
+            out = subprocess.run([sys.executable, os.path.join(HERE, script), path, "--battle", bid, "--top", "1",
                                   "--enemy", enemy, *extra],
                                  capture_output=True, text=True, timeout=budget).stdout
         except subprocess.TimeoutExpired:
             continue
         m = re.search(r"^FIRE: (.*)$", out, re.M)
         if m:
-            return json.loads(m.group(1)), f"{time.time() - t0:.1f}s" + (" short list" if "--keep" in extra else
-                                                                         " engine" if "--fast" in extra else "")
+            return json.loads(m.group(1)), f"{time.time() - t0:.1f}s" + ("" if script == "planner2.py" else " fallback")
     return None, "planner over budget"
 
 

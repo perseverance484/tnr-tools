@@ -37,8 +37,7 @@ def main():
         fake_transcript(tp, battle, ents)
         out = subprocess.run([sys.executable, os.path.join(HERE, "pilot.py")], capture_output=True, text=True,
                              env=dict(os.environ, TNR_TRANSCRIPT=tp, TNR_PILOT_LIVE=os.path.join(d, "live"))).stdout.splitlines()
-    want = subprocess.run([sys.executable, os.path.join(HERE, "turn.py"), FIX, "--battle", BID + "_ref", "--top", "1",
-                           "--no-engine"], capture_output=True, text=True).stdout
+    want = subprocess.run([sys.executable, os.path.join(HERE, "planner2.py"), FIX, "--battle", BID + "_ref", "--top", "1"], capture_output=True, text=True).stdout
     want_ids = [a["actionId"] for a in json.loads(want.split("FIRE: ", 1)[1].splitlines()[0])]
     batch = [json.loads(l) for l in out[1:]]
     acts = [b["input"]["actionId"] for b in batch if b.get("call") == "combat.performAction"]
