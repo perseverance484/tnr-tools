@@ -35,6 +35,7 @@ import value_model  # noqa: E402
 from ingest import IDS, ME  # noqa: E402
 
 OUT = os.path.join(HERE, "..", "fights", "postmortems")
+LEARN = os.environ.get("TNR_LEARN", "1") == "1"
 
 
 def his_next_turn(rows, r_me, en_id):
@@ -97,6 +98,7 @@ def review(bid_prefix, n_alts=6):
     model = OM.load().get(en_id)
     acts = OM.acts_for(model) if model else {}
     out = {"fight": bid, "opp": OM.names_in(rows, en_id), "turns": []}
+    learned = []
     try:
         live_hist = json.load(open(os.path.join(HERE, "..", "fights", "live_states", f"{bid}.json")))
     except (OSError, ValueError):
@@ -139,6 +141,12 @@ def review(bid_prefix, n_alts=6):
             en_acted = info["en_acted"]
             ex = exchange(rows_pre, en, me, info["R"], en_acted, cal, [played] + alts, his_actual)
             score = [(None if v is None else round(v[0] - v[1])) for v in ex]
+            # what worked against what he actually did goes into the solution library, keyed by the situation and
+            # his last turn's signature (director 2026-11-11: "update the solutions library as we see it and
+            # successfully respond to it")
+            vals = sorted(((v, tuple(bb)) for v, bb in zip(score, [played] + alts) if v is not None), reverse=True)
+            if LEARN and vals and getattr(P, "book_key", None):
+                learned.append((P.book_key, vals, tuple(pick)))
             eng_dealt = round(en["curHealth"] - ex[0][2]) if ex and ex[0] else None
             best_i = max((i for i, v in enumerate(score) if v is not None), key=lambda i: score[i], default=0)
             out["turns"].append({
@@ -156,6 +164,16 @@ def review(bid_prefix, n_alts=6):
             os.unlink(tp)
     os.makedirs(OUT, exist_ok=True)
     json.dump(out, open(os.path.join(OUT, f"{bid}.json"), "w"), indent=1)
+    if learned:
+        import solutions
+        lib = solutions.load(solutions.LIVE)
+        done = set(lib.get("_fights", []))
+        if bid not in done:                         # each fight teaches once
+            for key, vals, pick in learned:
+                solutions.merge(lib, key, [(float(v), list(b)) for v, b in vals], list(pick))
+            lib["_fights"] = sorted(done | {bid})
+            solutions.save(lib, solutions.LIVE)
+        out["learned"] = len(learned)
     return out
 
 

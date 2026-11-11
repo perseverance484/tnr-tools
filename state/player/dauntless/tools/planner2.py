@@ -523,6 +523,10 @@ def his_options(cal, ctx, m, e, r):
 
 
 # ------------------------------------------------------------------ evaluation
+CURVES = os.environ.get("TNR_CURVES", "0") == "1"      # on once tune_real shows it helps
+CURVE_K = 3
+
+
 def ttk(hp, rate):
     return min(8.0, hp / max(50.0, rate))
 
@@ -557,6 +561,75 @@ class Planner:
         self.pot_cache = {}
         self.clockd = clockd or {}                     # his real kit: candidates, next-turn damage lines, scale
         self.his_cache = {}
+
+    # ---- windows (director 2026-11-11: "you want to be prepared for windows"): both sides' damage curves over the
+    # next CURVE_K turns. Each side fires the hardest line it has ready on each turn (cooldown clocks), through the
+    # multipliers live on both sides in that round, DR, absorb and shields. A move is worth how it bends these
+    # curves (Smoke on his burst round, Cleanse of the debuffs his next hits ride on, Clear of his payoff round,
+    # Kim's over his Clear window); the race is who reaches the other's HP first, in turn order.
+    def my_seq(self, b):
+        """My hardest ready damage line on each of my next CURVE_K turns after bundle b: [(non-pierce, pierce)]."""
+        key = frozenset(b)
+        seq = self.__dict__.setdefault("_myseq", {}).get(key)
+        if seq is not None:
+            return seq
+        used = list(self.st["used"]) + [[self.R, n] for n in b if n in cd_plan.ACTIONS]
+        seq = []
+        for k in range(1, CURVE_K + 1):
+            st = {"used": used}
+            ready = {n for n in self.st["loadout"] if n in cd_plan.ACTIONS and cd_plan.ready_round(st, n) <= self.R + k}
+            best = max((c for c in self.combos if c[0] <= ready), key=lambda c: c[1] * 1.6 + c[2], default=None)
+            if best is None:
+                seq.append((0.0, 0.0)); continue
+            seq.append((best[1], best[2]))
+            used = used + [[self.R + k, n] for n in best[0]]
+        self._myseq[key] = seq
+        return seq
+
+    def curves(self, b, m, e, his_first=0):
+        """(my hits, his hits) per turn for the next CURVE_K turns each, on the board m/e. his_first: index into his
+        greedy sequence (1 when his reply this round is already played)."""
+        mine = []
+        for k, (nonp, pier) in enumerate(self.my_seq(b)):
+            o = min(1 + k, H - 1)
+            mult = m.given(o) * e.g(TAKEN, o) * e.g(DR, o) * (1 - min(1.0, e.g(PAR, o)))
+            hit = max(0.0, nonp * mult - e.g(SHD, o)) * (1 - min(0.6, e.g(ABS, o) + e.g(PABS, o)) * (1 - e.g(HCUT, o)))
+            mine.append(hit + pier + e.g(WND, o) + e.g(DRN, o))
+        his = []
+        seq = self.clockd.get("his_seq") or [(self.base_turn, 0.0)] * (CURVE_K + 1)
+        for k, (nonp, pier) in enumerate(seq[his_first:his_first + CURVE_K]):
+            o = min(self.hr + his_first + k, H - 1)
+            stun = (100 - min(40, e.g(STUN, o))) / 100
+            mult = e.given(o) * m.g(TAKEN, o) * m.g(DR, o) * (1 - min(1.0, m.g(PAR, o)))
+            hit = max(0.0, nonp * mult * stun - m.g(SHD, o)) * (1 - min(0.6, m.g(ABS, o) + m.g(PABS, o)) * (1 - m.g(HCUT, o)))
+            his.append(hit + pier * stun + m.g(WND, o) + m.g(DRN, o))
+        return mine, his
+
+    def race(self, b, m, e, his_first=0):
+        """Turns until each side is dead on the curves, in turn order (he moves first in a round when en_acted).
+        Positive = I win the race by that many turns; 0 when neither dies inside the horizon (then the HP lead)."""
+        mine, his = self.curves(b, m, e, his_first)
+        hp_m, hp_e = m.hp, e.hp
+        t_me = t_him = None
+        events = []                          # (time, side, damage): my k-th hit at round k+1, his at his offsets
+        for k, d in enumerate(mine):
+            events.append((1 + k + (0.5 if self.en_acted else 0.0), "me", d))
+        for k, d in enumerate(his):
+            events.append((self.hr + his_first + k + (0.0 if self.en_acted else 0.5), "him", d))
+        for t, side, d in sorted(events):
+            if side == "me" and t_him is None and t_me is None:
+                hp_e -= d
+                if hp_e <= 0:
+                    t_him = t
+            elif side == "him" and t_me is None and t_him is None:
+                hp_m -= d
+                if hp_m <= 0:
+                    t_me = t
+        if t_him is not None:
+            return min(4.0, CURVE_K + 1 - t_him + 1.0)
+        if t_me is not None:
+            return -min(4.0, CURVE_K + 1 - t_me + 1.0)
+        return max(-1.0, min(1.0, ((m.hp - sum(his)) - (e.hp - sum(mine))) / 2500.0))
 
     def my_potential(self, b, m, e):
         """Best damage I can deal next turn (offset 1) with what is ready then, through the live multipliers."""
@@ -610,7 +683,7 @@ class Planner:
         mine, refl_on_me = self.my_potential(b, m, e)
         his, refl_on_him = self.his_potential(m, e, used)
         mine_net, his_net = mine + refl_on_him, his + refl_on_me
-        race = ttk(m.hp, his_net) - ttk(e.hp, mine_net)
+        race = self.race(b, m, e, his_first=1) if CURVES else ttk(m.hp, his_net) - ttk(e.hp, mine_net)
         # lethal reads, in turn order: who acts first next round decides whose kill lands (his burst runs ~20% over
         # his line, my estimate is a best line so it is not padded)
         p_kill = sig((mine_net - e.hp) / 250.0)
@@ -770,6 +843,8 @@ class Planner:
     def _terminal(self, m, e):
         """After two exchanges: HP traded, plus who is on the clock. Time-to-kill from the damage each side dealt
         per turn in this line (his kill first if he acts first in a round)."""
+        if CURVES:
+            return self._trade(m, e) + LA_RACE * self.race((), m, e, his_first=2)
         mine = max(1.0, (self.en0.hp - e.hp) / 2.0)
         his = max(1.0, (self.me0.hp - m.hp) / 2.0)
         race = ttk(m.hp, his) - ttk(e.hp, mine)
@@ -1034,6 +1109,27 @@ def make_my_kit(prof):
     return my_kit
 
 
+def his_sequence(acts, rows, en_id, first_round, n):
+    """His hardest ready line on each of his next n turns, firing greedily (cooldown clock as he spends them):
+    [(non-pierce base, pierce base)]. The shape of his burst windows, without guessing his combo."""
+    rows = list(rows)
+    out = []
+    for k in range(n):
+        rnd = first_round + k
+        ready = clock.ready_at(acts, en_id, rows, rnd)
+        best, bv = None, -1.0
+        for hb in clock.bundles(acts, ready, 100):
+            nonp = sum(acts[x][4][0] for x in hb if not acts[x][4][2:3] == ("pierce",))
+            pier = sum(acts[x][4][0] for x in hb if acts[x][4][2:3] == ("pierce",))
+            if nonp * 1.4 + pier > bv:
+                best, bv = (hb, nonp, pier), nonp * 1.4 + pier
+        if best is None:
+            out.append((0.0, 0.0)); continue
+        out.append((best[1], best[2]))
+        rows += [(rnd, en_id, a, None) for a in best[0]]
+    return out
+
+
 def make_clock(acts, rows, en_id, R, en_acted, me0, en0, ctx, cal, his_kit, base_turn, scale, habit=None,
                his_prev=None, his_n=0, his_bases=None, his_prev2=None, his_fight=None):
     """His clock for planner2: his kit compiled into his_kit (in place), his candidate reply lines (his 12 best on
@@ -1061,6 +1157,7 @@ def make_clock(acts, rows, en_id, R, en_acted, me0, en0, ctx, cal, his_kit, base
         if pick and pick not in keep:
             keep.append(pick)
     clockd["cands"] = [(hb, c) for _, hb, c in keep]
+    clockd["his_seq"] = his_sequence(acts, rows, en_id, hr_abs, CURVE_K + 2)
     nxt_lines = [(hb, sum(acts[x][1] for x in hb)) for hb in clock.bundles(acts, ready_next, 100)]
     sn = sorted(((tmp.his_score(hb, me0, en0, tmp.hr + 1) + tmp.his_habit(hb), hb, c) for hb, c in nxt_lines),
                 key=lambda x: -x[0])

@@ -65,6 +65,9 @@ def test_pilot():
     checks["both kits' bases from the engine per fight (fight_bases.py)"] = "fight_bases.py" in open(pilot.__file__).read() and hasattr(P2, "fight_bases") if (P2 := __import__("planner2")) else False
     import engine_bridge
     import opponent_kit
+    checks["every fight is post-mortemed and teaches the solution library the planner reads"] = \
+        "postmortem.py" in open(pilot.__file__).read() and "solutions.merge" in open(os.path.join(os.path.dirname(pilot.__file__), "postmortem.py")).read() \
+        and "solutions.LIVE" in open(os.path.join(os.path.dirname(pilot.__file__), "planner2.py")).read()
     checks["his weapon imbues learned live and fed into his kit"] = hasattr(opponent_kit, "learn_weapons") and \
         "learn_weapons" in open(pilot.__file__).read() and "with_imbues" in open(engine_bridge.__file__).read()
     checks["replay realizes meal / raid buffs"] = engine_bridge._timed({"perm": [{"type": "increasestat",

@@ -495,12 +495,15 @@ def finish(st, bid, cache, why):
         save(os.path.join(FIGHTS, f"{bid}_meta.json"), {"director_mode": director_mode(), "pilot_rounds": covered})
     if cache.get("live_hist"):
         save(os.path.join(FIGHTS, "live_states", f"{bid}.json"), cache["live_hist"])
-    if why == "lost" or (why.startswith("battle closed") and log_says_lost(cache)):
-        try:                            # why it was lost, from the fight and the engine (postmortem.py, minutes)
-            subprocess.Popen([sys.executable, os.path.join(HERE, "postmortem.py"), bid[:8]], start_new_session=True,
-                             stdout=open(os.path.join(FIGHTS, "postmortems", f"{bid}.txt"), "w"), stderr=subprocess.STDOUT)
-        except OSError:
-            pass
+    # every fight, won or lost: why it went that way, and what worked against what he actually did goes into the
+    # solution library (postmortem.py, minutes, low priority beside the pilot)
+    try:
+        os.makedirs(os.path.join(FIGHTS, "postmortems"), exist_ok=True)
+        subprocess.Popen(["nice", "-n", "15", sys.executable, os.path.join(HERE, "postmortem.py"), bid[:8]],
+                         start_new_session=True, stdout=open(os.path.join(FIGHTS, "postmortems", f"{bid}.txt"), "w"),
+                         stderr=subprocess.STDOUT)
+    except OSError:
+        pass
     st.pop("battleId", None)
     return f"BATTLE OVER ({why}): log saved fights/{bid}_entries.json", [c_user(), TICK]
 

@@ -104,6 +104,14 @@ def situation_key(P, ctx, st, R, his_last=None, acts=None):
 _LIB = {}
 
 
+def save(lib, path=None):
+    path = path or LIB
+    tmp = path + ".tmp"
+    json.dump(lib, open(tmp, "w"))
+    os.replace(tmp, path)
+    _LIB[path] = lib
+
+
 def load(path=None):
     path = path or LIB
     if path not in _LIB:
@@ -143,7 +151,9 @@ def _lookup_one(ent):
     best, n = max(votes.items(), key=lambda kv: kv[1])
     if os.environ.get("TNR_BOOK_FULL"):          # experiment: trust any solved answer fully
         return tuple(best.split("+")), 1.0
-    conf = (n / tot) * min(1.0, tot / 3) * min(1.0, ent.get("margin", 0) / 0.15)
+    # margins are win-probability in the simulator library and HP in the real one (postmortem.py)
+    unit = 300.0 if max((abs(v) for v in ent.get("value", {}).values()), default=0) > 5 else 0.15
+    conf = (n / tot) * min(1.0, tot / 3) * min(1.0, ent.get("margin", 0) / unit)
     return tuple(best.split("+")), conf
 
 
