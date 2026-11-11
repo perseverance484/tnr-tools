@@ -29,8 +29,154 @@ import argparse
 import copy
 import json
 import os
+import pickle
 import re
 import sys
+import threading
+
+
+def par_map(fn, items, n=None):
+    """[fn(x) for x in items] split across n forked workers (closures work: fork copies the process). Falls back to
+    serial on one core, few items, or any worker failure."""
+    # opt-in: this container gives one effective core, so forking only adds overhead (measured 2026-11-11)
+    n = n or int(os.environ.get("TNR_PLANNER_WORKERS", "1"))
+    if n < 2 or len(items) < 4 or not hasattr(os, "fork"):
+        return [fn(x) for x in items]
+    kids = []
+    for k in range(n):
+        r, w = os.pipe()
+        pid = os.fork()
+        if pid == 0:
+            os.close(r)
+            try:
+                data = pickle.dumps([(i, fn(items[i])) for i in range(k, len(items), n)])
+            except BaseException:  # noqa: BLE001
+                data = pickle.dumps(None)
+            with os.fdopen(w, "wb") as f:
+                f.write(data)
+            os._exit(0)
+        os.close(w)
+        kids.append((pid, r))
+    out, ok = [None] * len(items), True
+    for pid, r in kids:
+        with os.fdopen(r, "rb") as f:
+            part = pickle.loads(f.read() or pickle.dumps(None))
+        os.waitpid(pid, 0)
+        if part is None:
+            ok = False
+            continue
+        for i, v in part:
+            out[i] = v
+    return out if ok else [fn(x) for x in items]
+
+
+# tag kinds that apply()'s damage step or its tag guards read in the SAME round: an action that adds one of these
+# with an instant start changes what later actions in its bundle see (ply2 fast path falls back to the full sim)
+_READ_SRC = {"given", "lifesteal", "healcut", "recoil_self", "recoil", "buffblock"}
+_READ_DST = {"taken", "dr", "shield", "healcut", "absorb", "reflect", "parry", "debuffimmune", "clearimmune"}
+_AGG_KINDS = ("given", "taken", "dr", "shield", "healcut", "absorb", "lifesteal", "recoil_self", "recoil", "reflect",
+              "parry", "wound", "drain")
+
+
+def _contrib(tags, r):
+    """Per-kind [sum, prod(1+v), prod(1-v)] of the tags live at round r (a follow-up action's own share)."""
+    out = {}
+    for t in tags:
+        if t[2] <= r <= t[3] and t[0] in _AGG_KINDS:
+            a = out.get(t[0])
+            if a is None:
+                out[t[0]] = [t[1], 1 + t[1], 1 - t[1]]
+            else:
+                a[0] += t[1]; a[1] *= 1 + t[1]; a[2] *= 1 - t[1]
+    return out
+
+
+def _combine(base, parts):
+    out = {k: list(v) for k, v in base.items()}
+    for p in parts:
+        for k, v in p.items():
+            a = out.get(k)
+            if a is None:
+                out[k] = list(v)
+            else:
+                a[0] += v[0]; a[1] *= v[1]; a[2] *= v[2]
+    return out
+
+
+def _pure_reply(sa, da, bases):
+    """His pure-damage turn as arithmetic (same steps as shotplan.apply for a (base, []) spec, then run_turn):
+    returns (damage to me, damage to him). sa = his aggregates, da = mine, at his reply round."""
+    z = (0.0, 1.0, 1.0)
+    g = lambda d, k: d.get(k, z)
+    taken_self = g(sa, "wound")[0] + g(sa, "drain")[0] if bases else 0.0
+    dealt = 0.0
+    shield = g(da, "shield")[0]
+    for base in bases:
+        if not base:
+            continue
+        dmg = base * g(sa, "given")[1] * g(da, "taken")[1] * g(da, "dr")[2]
+        if shield:
+            dmg -= min(shield, dmg)
+            shield = 0.0
+        dmg = max(dmg, 0.0)
+        heal_cut = 1 - g(da, "healcut")[0]
+        dealt += dmg - dmg * min(0.9, g(da, "absorb")[0]) * heal_cut
+        taken_self -= dmg * g(sa, "lifesteal")[0] * (1 - g(sa, "healcut")[0])
+        taken_self += dmg * g(sa, "recoil_self")[0] + dmg * g(sa, "recoil")[0]
+        taken_self += dmg * g(da, "reflect")[0] + dmg * g(da, "parry")[0]
+    return dealt, taken_self
+
+
+def _vec(sa, da):
+    """The 13 numbers his pure-damage reply reads. sa/da = kind -> [sum, prod(1+v), prod(1-v)] for him / me."""
+    z = (0.0, 1.0, 1.0)
+    g = lambda d, k: d.get(k, z)
+    return [g(sa, "given")[1], g(sa, "wound")[0] + g(sa, "drain")[0], g(sa, "lifesteal")[0], g(sa, "healcut")[0],
+            g(sa, "recoil_self")[0] + g(sa, "recoil")[0],
+            g(da, "taken")[1], g(da, "dr")[2], g(da, "shield")[0], g(da, "healcut")[0], g(da, "absorb")[0],
+            g(da, "reflect")[0] + g(da, "parry")[0]]
+
+
+_MULT_IDX = (0, 5, 6)   # entries combined by product; the rest by sum
+
+
+def _reply_vec(v, bases):
+    """_pure_reply on a flat vector (same arithmetic)."""
+    gm, tick, ls, hc_s, rec, tm, drp, shield, hc_d, ab, refl = v
+    taken_self = tick if bases else 0.0
+    dealt = 0.0
+    for base in bases:
+        if not base:
+            continue
+        dmg = base * gm * tm * drp
+        if shield:
+            dmg -= min(shield, dmg)
+            shield = 0.0
+        dmg = max(dmg, 0.0)
+        dealt += dmg - dmg * min(0.9, ab) * (1 - hc_d)
+        taken_self -= dmg * ls * (1 - hc_s)
+        taken_self += dmg * rec
+        taken_self += dmg * refl
+    return dealt, taken_self
+
+
+_RESERVE_CACHE = {}   # (round, cal id) -> {bundle: reserve cost}; cal is loaded once per run
+_REPLY_READ = {"given", "taken", "dr", "shield", "healcut", "absorb", "lifesteal", "recoil_self", "recoil",
+               "reflect", "parry", "wound", "drain", "debuffimmune", "buffblock", "clearimmune"}
+_READ = {"given", "taken", "dr", "shield", "healcut", "absorb", "lifesteal", "recoil_self", "recoil", "reflect",
+         "parry", "debuffimmune", "clearimmune", "buffblock"}
+
+
+def _burst_g(m2, e2, R):
+    """Multipliers cast this turn (live from R+1) still live in R+2: my given x his taken (ply2's burst term)."""
+    g = 1.0
+    for t in m2.tags:
+        if t[0] == "given" and t[2] <= R + 1 and t[2] <= R + 2 <= t[3]:
+            g *= 1 + t[1]
+    for t in e2.tags:
+        if t[0] == "taken" and t[2] <= R + 1 and t[2] <= R + 2 <= t[3]:
+            g *= 1 + t[1]
+    return g
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
@@ -41,6 +187,7 @@ import value_model  # noqa: E402
 import engine_bridge  # noqa: E402
 from ingest import IDS, ME  # noqa: E402
 from policy import legal  # noqa: E402
+import policy  # noqa: E402
 
 ME_NAME = "dauntless"
 GRID_W, GRID_H = 13, 9
@@ -221,6 +368,8 @@ def main():
     ap.add_argument("file"); ap.add_argument("--battle", required=True)
     ap.add_argument("--enemy"); ap.add_argument("--loadout", default="pvp1"); ap.add_argument("--top", type=int, default=3)
     ap.add_argument("--no-engine", action="store_true", help="skip the exact engine re-score (harness/pvp_turn)")
+    ap.add_argument("--fast", action="store_true", help="my-turn mode: engine legality in parallel, no engine re-score, shortlist 10+4")
+    ap.add_argument("--keep", type=int, default=0); ap.add_argument("--cash", type=int, default=4)
     a = ap.parse_args()
     battle, me, others, rows = load_input(a.file)
     if not others:
@@ -249,7 +398,10 @@ def main():
     # as does one from the previous 2 rounds (Warlord40 R2, 2026-11-11: planner missed a same-round stun)
     stunned = any("dauntless is stunned" in l and int(l.split("|")[0]) + 2 >= R and
                   (int(l.split("|")[0]) < R or en_acted) for l in lines) or bool(me0.live("stun", R))
-    ap_now = min(int(me["actionPoints"]) if my_turn else 100, 80 if stunned else 100)
+    # the stun's size is in the log ("stunned [-10 AP]"; arena 2026-11-11: a -10 stun was planned as -20, 10 AP lost)
+    stun_amt = max([int(m.group(1)) for l in lines if (m := re.search(r"dauntless is stunned \[-(\d+) AP\]", l))
+                    and int(l.split("|")[0]) + 2 >= R and (int(l.split("|")[0]) < R or en_acted)] or [20])
+    ap_now = min(int(me["actionPoints"]) if my_turn else 100, 100 - stun_amt if stunned else 100)
     spent, pierce_last, avg = enemy_resources(rows, en["userId"], R)
     known = en["username"].lower() in shotplan.ENEMY
     ekit = shotplan.ENEMY.get(en["username"].lower()) or generic_enemy(avg)
@@ -284,7 +436,7 @@ def main():
 
     print(f"R{R} v{battle['battle.version']} | {'MY TURN' if my_turn else 'his turn'} | "
           f"{'he acted first this round' if en_acted else 'I act first this round'}")
-    print(f"me {ME_NAME} {me['curHealth']:.0f} HP @ {me_pos}  AP {ap_now}{' (STUNNED -20)' if stunned else ''}")
+    print(f"me {ME_NAME} {me['curHealth']:.0f} HP @ {me_pos}  AP {ap_now}{f' (STUNNED -{stun_amt})' if stunned else ''}")
     print(f"him {en['username']} {en['curHealth']:.0f} HP @ {en_pos}  dist {d0}  avg dmg/turn {avg:.0f}")
     print(f"my tags now: {', '.join(tags(me0, R)) or '-'} | next: {', '.join(tags(me0, R + 1)) or '-'}")
     print(f"his tags now: {', '.join(tags(en0, R)) or '-'} | next: {', '.join(tags(en0, R + 1)) or '-'}")
@@ -301,8 +453,38 @@ def main():
     bundles = legal(st, R, ap_now, bool(en0.live("debuffimmune", R)),
                     set(), st["loadout"], d0)
     # engine replay (harness/pvp_turn/engine/replay_sim.ts): legality, AP and costs from the engine's own state
-    eng = None if a.no_engine else engine_bridge.replay_list(rows, ME, en["userId"], me, en, me_pos, en_pos, R,
-                                                               "next" if en_acted else "same", value_model.load_cal())
+    # --fast (fight.py on my turn): the engine's legality list runs in a thread while python scores stage 1, and is
+    # applied to the stage-1 list afterwards; the slower engine re-score of the shortlist is skipped
+    eng_box = {}
+    def _eng_list():
+        eng_box["eng"] = engine_bridge.replay_list(rows, ME, en["userId"], me, en, me_pos, en_pos, R,
+                                                   "next" if en_acted else "same", value_model.load_cal())
+    eng_thread = None
+    if a.no_engine:
+        eng = None
+    elif a.fast:
+        eng_thread = threading.Thread(target=_eng_list, daemon=True)
+        eng_thread.start()
+        eng = None
+    else:
+        _eng_list()
+        eng = eng_box["eng"]
+
+    def make_eng_ok(eng):
+        cost_by_id = {x["id"]: x["cost"] for x in eng["available"]}
+        ap_eng = eng["ap"]
+        def eng_ok(bb):
+            tot = 0
+            for x in bb:
+                aid = ACTION_ID.get(x, x)
+                if aid == "move":
+                    tot += 10
+                    continue
+                if aid not in cost_by_id:
+                    return False
+                tot += cost_by_id[aid]
+            return tot <= ap_eng
+        return eng_ok, ap_eng
     if eng:
         cost_by_id = {x["id"]: x["cost"] for x in eng["available"]}
         ap_eng = eng["ap"]
@@ -412,27 +594,137 @@ def main():
             return 0.0, None
         st2 = {"loadout": st["loadout"], "used": st["used"] + [[R, x] for x in b if x not in ("step", "stepback")]}
         best = (-1e9, None)
-        for b2 in legal(st2, R + 1, 100, bool(e.live("debuffimmune", R + 1)), blocked, st["loadout"], dend):
-            m2, e2 = value_model.copy_side(m), value_model.copy_side(e)
-            if "cleanse" in b2:
-                m2.tags = [x for x in m2.tags if shotplan.positive(x)]
-            shotplan.run_turn(m2, e2, list(b2), shotplan.MINE, R + 1, True)
+        r1 = R + 1
+        # Speed pass (director 2026-11-11: 10 s per turn): same arithmetic as simulating every follow-up from
+        # scratch, two shortcuts. (1) Within round R+1 my actions do not see each other unless one changes R+1
+        # state (Clear/Cleanse, a shield broken, an instant tag the damage step reads), because new tags only turn
+        # on from R+2: each action is applied ONCE to the start state and bundles are summed. Bundles holding an
+        # interacting action take the full sequential path. (2) His reply depends only on the tags live in his
+        # round (+ the summon flag) and on the multipliers the burst term reads, so it is cached on exactly those.
+        acts = {}
+        for x in st["loadout"] + ["step", "stepback"]:
+            spec = shotplan.MINE.get(x)
+            if spec is None:
+                acts[x] = (0.0, 0.0, [], [], False)
+                continue
+            m1, e1 = value_model.copy_side(m), value_model.copy_side(e)
+            d, s = shotplan.apply(m1, e1, spec, r1, True)
+            nm, ne = len(m.tags), len(e.tags)
+            # an instant tag interacts only if a later action of mine reads it: on me (the actor) the damage step
+            # reads given/lifesteal/healcut/recoil and the buff-block guard; on him, taken/dr/shield/absorb/healcut/
+            # reflect/parry and the debuff/clear guards
+            inter = (x in ("clear", "cleanse") or m1.tags[:nm] != m.tags or e1.tags[:ne] != e.tags
+                     or any(t[2] <= r1 and t[0] in _READ_SRC for t in m1.tags[nm:])
+                     or any(t[2] <= r1 and t[0] in _READ_DST for t in e1.tags[ne:]))
+            acts[x] = (d, s, m1.tags[nm:], e1.tags[ne:], inter)
+        tick = m.total("wound", r1) + m.total("drain", r1)
+        reply_cache = {}
+        tagless = all(not (kit.get(x) or (0, []))[1] and len(kit.get(x) or (0, [])) == 2 for x in ("turn", "summon"))
+        if tagless:
+            # Arithmetic fast path, exact: for a follow-up with no interacting action, my turn is the sum of each
+            # action's effect on the start state; his pure-damage reply depends only on WHICH tagging actions the
+            # follow-up holds (each adds fixed tags), so it is cached on that set; the burst term only reads
+            # tags that started by R+1, which no non-interacting follow-up adds, so it is one number per call.
+            base_g = value_model.GAMMA * value_model.BURST_BASE * max(0.0, _burst_g(m, e, R) - 1)
+            tagging = {x: bool(v[2] or v[3]) for x, v in acts.items()}
+            aoe_b = any(x in AOE for x in b)
+            summon_on = bool(ctx.get("summon"))
+            rk = _RESERVE_CACHE.setdefault((r1, id(cal)), {})
+            base_m = {k: list(v) for k, v in shotplan._agg(m, hr2).items()}
+            base_e = {k: list(v) for k, v in shotplan._agg(e, hr2).items()}
+            base_v = _vec(base_e, base_m)
+            cvec = {}
+            for x, v in acts.items():
+                cm, ce = _contrib(v[2], hr2), _contrib(v[3], hr2)
+                cvec[x] = _vec(ce, cm) if (cm or ce) else None
+            reply_bases = {False: [kit["turn"][0]], True: [kit["turn"][0], (kit.get("summon") or (0, []))[0]]}
+        for b2 in legal(st2, r1, 100, bool(e.live("debuffimmune", r1)), blocked, st["loadout"], dend):
+            if tagless and not any(x not in acts or acts[x][4] for x in b2):
+                dealt, taken = 0.0, tick if b2 else 0.0
+                for x in b2:
+                    av = acts[x]
+                    dealt += av[0]
+                    taken += av[1]
+                mh = min(m.hp - taken, maxhp_me)
+                eh = e.hp - dealt
+                if eh > 0:
+                    alive = summon_on and not aoe_b and not any(x in AOE for x in b2)
+                    tk = (alive,) + tuple(x for x in b2 if tagging[x])
+                    hit = reply_cache.get(tk)
+                    if hit is None:
+                        vv = list(base_v)
+                        for x in b2:
+                            cv = cvec[x]
+                            if cv is not None:
+                                for i in range(11):
+                                    if i in _MULT_IDX:
+                                        vv[i] *= cv[i]
+                                    else:
+                                        vv[i] += cv[i]
+                        hit = reply_cache[tk] = _reply_vec(vv, reply_bases[alive])
+                    mh -= hit[0]
+                    eh -= hit[1]
+                rc = rk.get(b2)
+                if rc is None:
+                    rc = rk[b2] = value_model.reserve_cost(b2, cal, r1)[0]
+                v = (e.hp - eh) - (m.hp - mh) - rc
+                if eh <= 0:
+                    v += value_model.KILL
+                if mh <= 0:
+                    v -= value_model.DEATH
+                if eh > 0 and mh > 0:
+                    v += base_g
+                if v > best[0]:
+                    best = (v, b2)
+                continue
+            if any(x not in acts or acts[x][4] for x in b2):
+                m2, e2 = value_model.copy_side(m), value_model.copy_side(e)
+                if "cleanse" in b2:
+                    m2.tags = [x for x in m2.tags if shotplan.positive(x)]
+                shotplan.run_turn(m2, e2, list(b2), shotplan.MINE, r1, True)
+            else:
+                m2, e2 = shotplan.Side(m.hp), shotplan.Side(e.hp)
+                m2.tags, e2.tags = list(m.tags), list(e.tags)
+                dealt, taken = 0.0, tick if b2 else 0.0
+                for x in b2:
+                    d, s, tm, te, _ = acts[x]
+                    dealt += d
+                    taken += s
+                    m2.tags += tm
+                    e2.tags += te
+                e2.hp -= dealt
+                m2.hp -= taken
             m2.hp = min(m2.hp, maxhp_me)
+            gtags = None
             if e2.hp > 0:
-                alive = ctx.get("summon") and not any(x in AOE for x in tuple(b) + tuple(b2))
-                shotplan.run_turn(e2, m2, ["turn"] + (["summon"] if alive else []), kit, hr2, False)
-            v = value_model.score(m2, e2, m.hp, e.hp) - value_model.reserve_cost(b2, cal, R + 1)[0]
+                alive = bool(ctx.get("summon") and not any(x in AOE for x in tuple(b) + tuple(b2)))
+                if tagless:
+                    # his modelled turn is pure damage: it only reads the tags its damage step reads, and only
+                    # removes my shield, so the burst term is taken before it and the cache key is minimal
+                    gtags = _burst_g(m2, e2, R)
+                    key = (alive, tuple(sorted(tuple(t) for t in m2.tags if t[0] in _REPLY_READ and t[2] <= hr2 <= t[3])),
+                           tuple(sorted(tuple(t) for t in e2.tags if t[0] in _REPLY_READ and t[2] <= hr2 <= t[3])))
+                else:
+                    key = (alive, tuple(sorted(tuple(t) for t in m2.tags if t[2] <= hr2 <= t[3] or (t[0] == "given" and t[2] <= r1 <= R + 2 <= t[3]))),
+                           tuple(sorted(tuple(t) for t in e2.tags if t[2] <= hr2 <= t[3] or (t[0] == "taken" and t[2] <= r1 <= R + 2 <= t[3]))))
+                hit = reply_cache.get(key)
+                if hit is None:
+                    pm, pe = m2.hp, e2.hp
+                    shotplan.run_turn(e2, m2, ["turn"] + (["summon"] if alive else []), kit, hr2, False)
+                    if not tagless:
+                        gtags = _burst_g(m2, e2, R)
+                    reply_cache[key] = (pm - m2.hp, pe - e2.hp, gtags)
+                else:
+                    m2.hp -= hit[0]
+                    e2.hp -= hit[1]
+                    if not tagless:
+                        gtags = hit[2]
+            v = value_model.score(m2, e2, m.hp, e.hp) - value_model.reserve_cost(b2, cal, r1)[0]
             # buffs/debuffs still live in R+2 pay off again on my next burst (director's smoke -> setup -> burst
             # line, Zaruza/Hikuro 2026-11-11); the 1-round lookahead alone undervalued 2-round setups
             if e2.hp > 0 and m2.hp > 0:
                 # only multipliers cast THIS turn (live from R+1) count; ply2's own setup must not chain
-                g = 1.0
-                for t in m2.tags:
-                    if t[0] == "given" and t[2] <= R + 1 and t[2] <= R + 2 <= t[3]:
-                        g *= 1 + t[1]
-                for t in e2.tags:
-                    if t[0] == "taken" and t[2] <= R + 1 and t[2] <= R + 2 <= t[3]:
-                        g *= 1 + t[1]
+                g = gtags if gtags is not None else _burst_g(m2, e2, R)
                 v += value_model.GAMMA * value_model.BURST_BASE * max(0.0, g - 1)
             if v > best[0]:
                 best = (v, b2)
@@ -465,6 +757,17 @@ def main():
         stage.append(((1 - value_model.RISK) * ev + value_model.RISK * worst[1], b, outs, worst, dend, kit,
                       [] if worst[5] else why + rwhy))
     stage.sort(key=lambda x: -x[0])
+    if eng_thread is not None:
+        eng_thread.join(10)
+        eng = eng_box.get("eng")
+        if eng:
+            ok, ap_eng = make_eng_ok(eng)
+            stage = [x for x in stage if ok(x[1])]
+            print(f"engine replay (parallel): AP {ap_eng}, {len(eng['available'])} actions available")
+            if not stage:
+                print("no legal bundle (engine)"); return
+        else:
+            print("engine replay unavailable: python legality only")
     if os.environ.get("TNR_STAGE_DEBUG"):
         keys = os.environ["TNR_STAGE_DEBUG"].split(",")
         for i, (s1, b, outs, worst, *_r) in enumerate(stage):
@@ -476,17 +779,23 @@ def main():
     # bundles with the most immediate expected damage to him always reach stage 2.
     def _dealt(o):
         return sum(w * (en["curHealth"] - e.hp) for w, v, m, e, log, kill in o)
-    keep = stage[:25]
-    for extra in sorted(stage[25:], key=lambda x: -_dealt(x[2]))[:6]:
+    nk, nc = (a.keep, a.cash) if a.keep else ((10, 4) if a.fast else (25, 6))
+    keep = stage[:nk]
+    for extra in sorted(stage[nk:], key=lambda x: -_dealt(x[2]))[:nc]:
         keep.append(extra)
-    results = []
-    for s1, b, outs, worst, dend, kit, why in keep:
+    def stage2_vals(item):
+        s1, b, outs, worst, dend, kit, why = item
         vals = []
         for w, v, m, e, log, kill in outs:
             if not kill:
                 v -= value_model.GAMMA * value_model.BURST_BASE * max(0.0, m.mult("given", R + 1) * e.mult("taken", R + 1) - me0.mult("given", R + 1) * en0.mult("taken", R + 1))
             f, b2 = ply2(m, e, b, dend, kit)
             vals.append((w, v + value_model.GAMMA * f, b2))
+        return vals
+    # the lookahead is ~90% of the planner's time: split across CPU cores by fork (same result, order kept)
+    all_vals = par_map(stage2_vals, keep)
+    results = []
+    for (s1, b, outs, worst, dend, kit, why), vals in zip(keep, all_vals):
         ev = sum(w * v for w, v, _ in vals)
         wv = min(vals, key=lambda x: x[1])
         total = (1 - value_model.RISK) * ev + value_model.RISK * wv[1]
@@ -498,8 +807,8 @@ def main():
                 f"{w:.2f}:{v:+.0f}({'+'.join(b2 or ())})" for w, v, b2 in vals))
     results.sort(key=lambda x: -x[0])
     # exact re-score of the best 6 by engine replay: my bundle, then his typical and best reply from his real kit
-    engine_note = "engine: off"
-    if not a.no_engine and eng:
+    engine_note = "engine: legality only (--fast)" if a.fast and eng else "engine: off"
+    if not a.no_engine and not a.fast and eng:
         top = results[:6]
         # one-shot answers (Cleanse / Smoke / Clear) are judged by the engine even if the python shortlist pruned them
         for key in ("cleanse", "smoke", "clear"):
@@ -555,6 +864,7 @@ def main():
         print(f"     forecast: {fc}" + (f"  [penalty: {'; '.join(why)}]" if why else ""))
     best = results[0][1]
     seq, _ = resolve_targets(best, me_pos, en_pos, occupied)
+    policy.legal_save()
     print("FIRE:", json.dumps([{"actionId": aid, "longitude": t[0], "latitude": t[1], "name": n} for n, aid, t in seq]))
 
 

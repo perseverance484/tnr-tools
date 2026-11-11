@@ -1,25 +1,21 @@
 #!/usr/bin/env python3
-"""Fast turn loop for live PvP (director 2026-11-11: missed/near-missed turns in 3 straight fights).
+"""Scripted live-PvP turn (director 2026-11-11: missed turns in three straight fights; 10 s per turn; "AI driven
+approach with scripted tool calls"; auto-combat is for fights against the game's AI only).
 
-The slow part of a turn was never the planner alone: it was re-typing the whole battle log into a file each
-turn (hundreds of lines), then planning only once my turn had started. This wrapper fixes both:
-
-  * Incremental input. Each call takes ONE short stdin line: the getBattle select joined with the newest few
-    getBattleEntries rows (limit 6, with "*.id"). Entries are merged into a per-battle cache by entry id, so the
-    full log is never re-sent. The cache also keeps the log after the battle ends (entries are deleted then).
-  * Pre-plan on his turn. When it is NOT my turn, the planner still runs (as if my turn had come with the
-    current state) and the result is stored as the DEFAULT plan.
-  * Hard budget on my turn. On my turn the planner re-runs with a time budget (default 14 s). If it does not
-    finish, the stored default is printed instead. Either way the output is the exact performAction inputs,
-    versions already filled in, ready to fire back to back.
-
-Usage (stdin = one JSON object, the two select results merged; keys as the connector returns them):
-  echo '<json>' | fight.py BATTLE_ID [--enemy NAME] [--budget 14]
-Calls to make each poll (both in one parallel tool call):
-  combat.getBattle   select: battle.version, battle.round, battle.activeUserId, battle.usersState.*.userId,
-                     .username, .curHealth, .maxHealth, .longitude, .latitude, .actionPoints
-  combat.getBattleEntries {limit: 6} select: *.id, *.battleRound, *.userId, *.actionId, *.appliedEffects.*.txt
-Output: one status line, then `FIRE v<version>:` and one JSON performAction input per line.
+A turn is three steps and no deliberation:
+  1. ONE parallel read (both calls in one message):
+       combat.getBattle {battleId}  select: battle.version, battle.round, battle.activeUserId,
+         battle.usersState.*.userId|username|curHealth|maxHealth|longitude|latitude|actionPoints
+       combat.getBattleEntries {battleId, limit: 8 (first poll of a battle: 200)}
+         select: *.id, *.battleRound, *.userId, *.actionId, *.appliedEffects.*.txt
+  2. `python3 fight.py` with NO arguments. It reads both results straight from the session transcript (Claude Code
+     writes each tool result there before the next call runs: ~40 ms), merges new log entries into a per-battle
+     cache by entry id (the cache keeps the log after the battle is deleted), and plans:
+       his turn: full planner + engine re-score, stored as the DEFAULT for my next turn (off the clock);
+       my turn: fast planner (python only) inside --budget (3.5 s); over budget, or past ~36 s into my turn, it
+       prints the stored default instead.
+  3. Fire the printed performAction inputs back to back, versions already filled in. Re-poll only to verify.
+`--stdin` takes the merged JSON on stdin instead (offline tests).
 """
 import argparse
 import json
@@ -32,11 +28,25 @@ import time
 HERE = os.path.dirname(os.path.abspath(__file__))
 ME = "user_37qazcrgUPldBPI65bb25DQiCjz"
 CACHE_DIR = os.path.join(HERE, "..", "fights", "live")
+# my turn: python planner only, shortlist sized by the regression study; the engine checks ran on his turn
+MY_TURN_FLAGS = ("--no-engine",)
 ENT_KEYS = ("*.id", "*.battleRound", "*.userId", "*.actionId", "*.appliedEffects.*.txt")
 
 
 def cache_path(bid):
     return os.path.join(CACHE_DIR, f"{bid}.json")
+
+
+def default_path(bid):
+    return os.path.join(CACHE_DIR, f"{bid}.default.json")
+
+
+def load_default(bid):
+    try:
+        d = json.load(open(default_path(bid)))
+        return d.get("plan"), d.get("for")
+    except (OSError, ValueError):
+        return None, None
 
 
 def load_cache(bid):
@@ -74,8 +84,8 @@ def turn_file(battle, entries, path):
         f.write(json.dumps(battle) + "\n" + json.dumps(ents) + "\n")
 
 
-def run_turn(path, bid, enemy, budget):
-    cmd = [sys.executable, os.path.join(HERE, "turn.py"), path, "--battle", bid, "--top", "1"]
+def run_turn(path, bid, enemy, budget, extra=()):
+    cmd = [sys.executable, os.path.join(HERE, "turn.py"), path, "--battle", bid, "--top", "1", *extra]
     if enemy:
         cmd += ["--enemy", enemy]
     try:
@@ -89,14 +99,87 @@ def run_turn(path, bid, enemy, budget):
     return json.loads(m.group(1)), ""
 
 
+def transcript_path():
+    """The live session transcript (Claude Code writes every tool result here before the next call runs)."""
+    p = os.environ.get("TNR_TRANSCRIPT")
+    if p:
+        return p
+    import glob
+    files = glob.glob("/root/.claude/projects/*/*.jsonl")
+    return max(files, key=os.path.getmtime) if files else None
+
+
+def from_transcript(tail=400_000):
+    """Newest combat.getBattle and combat.getBattleEntries results (and the battleId asked for), read straight from
+    the transcript: the turn never retypes a read (director 2026-11-11: 10 s per turn, scripted tool calls)."""
+    path = transcript_path()
+    if not path:
+        return None, None
+    size = os.path.getsize(path)
+    with open(path, "rb") as f:
+        f.seek(max(0, size - tail))
+        lines = f.read().decode("utf8", "ignore").splitlines()
+    asked, got = {}, {}
+    for line in lines:
+        try:
+            d = json.loads(line)
+        except ValueError:
+            continue
+        content = (d.get("message") or {}).get("content")
+        if not isinstance(content, list):
+            continue
+        for c in content:
+            if c.get("type") == "tool_use" and c.get("name", "").endswith("callEndpoint"):
+                ep = (c.get("input") or {}).get("endpointName")
+                if ep in ("combat.getBattle", "combat.getBattleEntries"):
+                    asked[c["id"]] = (ep, ((c.get("input") or {}).get("input") or {}).get("battleId"))
+            elif c.get("type") == "tool_result" and c.get("tool_use_id") in asked:
+                body = c.get("content")
+                text = body if isinstance(body, str) else "".join(x.get("text", "") for x in body or [] if isinstance(x, dict))
+                try:
+                    got[asked[c["tool_use_id"]][0]] = (asked[c["tool_use_id"]][1], json.loads(text))
+                except ValueError:
+                    pass
+    if "combat.getBattle" not in got:
+        return None, None
+    bid, battle = got["combat.getBattle"]
+    inp = dict(battle)
+    e = got.get("combat.getBattleEntries")
+    if e and e[0] == bid:
+        inp.update(e[1])
+    return bid, inp
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("battle")
+    ap.add_argument("battle", nargs="?", help="default: the battle of the newest getBattle read in the transcript")
     ap.add_argument("--enemy")
-    ap.add_argument("--budget", type=float, default=14)
+    ap.add_argument("--budget", type=float, default=3.5)
+    ap.add_argument("--stdin", action="store_true", help="read the merged JSON from stdin instead of the transcript")
+    ap.add_argument("--preplan", help=argparse.SUPPRESS)
+    ap.add_argument("--key", help=argparse.SUPPRESS)
     a = ap.parse_args()
+    if a.preplan:   # detached worker started by a his-turn poll
+        plan, _ = run_turn(a.preplan, a.battle, a.enemy or None, 60)
+        if plan:
+            tmp = default_path(a.battle) + ".tmp"
+            json.dump({"plan": plan, "for": json.loads(a.key)}, open(tmp, "w"))
+            os.replace(tmp, default_path(a.battle))
+        try:
+            os.unlink(os.path.join(CACHE_DIR, f"{a.battle}.pre.lock"))
+        except OSError:
+            pass
+        return
     t0 = time.time()
-    inp = json.loads(sys.stdin.read())
+    if a.stdin:
+        inp = json.loads(sys.stdin.read())
+    else:
+        bid, inp = from_transcript()
+        if inp is None:
+            sys.exit("no combat.getBattle result in the transcript yet")
+        a.battle = a.battle or bid
+    if not a.battle:
+        sys.exit("battle id needed")
     c = load_cache(a.battle)
     n_new = merge(c, inp)
     battle = battle_part(inp) or c.get("battle")
@@ -123,25 +206,33 @@ def main():
         print(status); return
     path = os.path.join(CACHE_DIR, f"{a.battle}.turn.txt")
     if not mine:
-        # pre-plan: score my next turn from the current state, stored as the default
+        # his turn: return at once (the poll loop's speed IS my turn-detection lag) and pre-plan the default for my
+        # next turn in a detached process, full planner + engine re-score, off the clock
         b = dict(battle)
         b["battle.activeUserId"] = ME
         aps = list(b["battle.usersState.*.actionPoints"]); aps[me_i] = 100
         b["battle.usersState.*.actionPoints"] = aps
-        turn_file(b, c["entries"], path)
-        plan, err = run_turn(path, a.battle, enemy, 40)
-        if plan:
-            c["default"], c["default_for"] = plan, [R, len(c["entries"])]
-            save_cache(c)
-        print(status + " | default: " + (" + ".join(x["name"] for x in plan) if plan else f"none ({err})"))
+        pre = os.path.join(CACHE_DIR, f"{a.battle}.pre.txt")
+        turn_file(b, c["entries"], pre)
+        key = [R, len(c["entries"])]
+        lock = os.path.join(CACHE_DIR, f"{a.battle}.pre.lock")
+        busy = os.path.exists(lock) and time.time() - os.path.getmtime(lock) < 45
+        if load_default(a.battle)[1] != key and not busy:
+            open(lock, "w").close()
+            subprocess.Popen([sys.executable, os.path.abspath(__file__), a.battle, "--preplan", pre,
+                              "--enemy", enemy or "", "--key", json.dumps(key)],
+                             stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True)
+        d = load_default(a.battle)[0]
+        print(status + " | default: " + (" + ".join(x["name"] for x in d) if d else "none yet"))
         return
     turn_file(battle, c["entries"], path)
     # hard deadline: past 30 s into my turn there is no time to plan; fire the default (60 s turn timer)
     left = min(a.budget, 38 - elapsed) - (time.time() - t0)
-    plan, err = run_turn(path, a.battle, enemy, left) if left >= 4 else (None, f"{elapsed:.0f}s into my turn")
+    plan, err = (run_turn(path, a.battle, enemy, left, MY_TURN_FLAGS) if left >= 1.5
+                 else (None, f"{elapsed:.0f}s into my turn"))
     src = "fresh"
     if not plan:
-        plan, src = c.get("default"), f"DEFAULT ({err})"
+        plan, src = load_default(a.battle)[0], f"DEFAULT ({err})"
     print(status + f" | plan {src} ({time.time() - t0:.1f}s)")
     if not plan:
         print("NO PLAN: fire defensiveStance + best 60 manually"); return

@@ -167,6 +167,23 @@ def rebuild(lines, me_name, en_name, my_hp, en_hp):
     return me, en
 
 
+def _agg(side, r):
+    """One pass over a side's live tags at round r: kind -> [sum of values, product of (1 + value), product of
+    (1 - value)] (fight.py speed pass: apply() used to rescan the tag list ~10 times per call)."""
+    out = {}
+    for t in side.tags:
+        if t[2] <= r <= t[3]:
+            a = out.get(t[0])
+            if a is None:
+                out[t[0]] = [t[1], 1 + t[1], 1 - t[1]]
+            else:
+                a[0] += t[1]; a[1] *= 1 + t[1]; a[2] *= 1 - t[1]
+    return out
+
+
+_Z = (0.0, 1.0, 1.0)
+
+
 def apply(src_side, dst_side, spec, r, actor_is_me):
     """Apply one action: damage then tags. Returns (damage to target, damage to actor)."""
     base, tags = spec[0], spec[1]
@@ -174,26 +191,26 @@ def apply(src_side, dst_side, spec, r, actor_is_me):
     to_tgt = to_self = 0.0
     # tick my own wound/drain on my first action is handled by the caller
     if base:
+        sa, da = _agg(src_side, r), _agg(dst_side, r)
         if pierce:
             dmg = base
             dst_side.tags = [t for t in dst_side.tags if t[0] != "shield"]
         else:
-            dmg = base * src_side.mult("given", r) * dst_side.mult("taken", r)
-            for t in dst_side.live("dr", r):
-                dmg *= 1 - t[1]
-            dmg *= 0.5 / 0.5  # system DR already inside the calibrated base
-            sh = sum(t[1] for t in dst_side.live("shield", r))
+            dmg = base * sa.get("given", _Z)[1] * da.get("taken", _Z)[1]
+            dmg *= da.get("dr", _Z)[2]
+            # system DR already inside the calibrated base
+            sh = da.get("shield", _Z)[0]
             if sh:
                 used = min(sh, dmg)
                 dmg -= used
                 dst_side.tags = [t for t in dst_side.tags if t[0] != "shield"]
         dmg = max(dmg, 0.0)
-        heal_cut = 1 - dst_side.total("healcut", r)
-        to_tgt += dmg - dmg * min(0.9, dst_side.total("absorb", r)) * heal_cut
-        to_self -= dmg * src_side.total("lifesteal", r) * (1 - src_side.total("healcut", r))
-        to_self += dmg * src_side.total("recoil_self", r)
-        to_self += dmg * sum(t[1] for t in src_side.live("recoil", r))  # standing on recoil ground
-        to_self += dmg * dst_side.total("reflect", r) + dmg * dst_side.total("parry", r)
+        heal_cut = 1 - da.get("healcut", _Z)[0]
+        to_tgt += dmg - dmg * min(0.9, da.get("absorb", _Z)[0]) * heal_cut
+        to_self -= dmg * sa.get("lifesteal", _Z)[0] * (1 - sa.get("healcut", _Z)[0])
+        to_self += dmg * sa.get("recoil_self", _Z)[0]
+        to_self += dmg * sa.get("recoil", _Z)[0]  # standing on recoil ground
+        to_self += dmg * da.get("reflect", _Z)[0] + dmg * da.get("parry", _Z)[0]
     for t in tags:
         who, kind, val, dur = t[0], t[1], t[2], t[3]
         instant = len(t) > 4 and t[4]
