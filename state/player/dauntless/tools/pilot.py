@@ -510,7 +510,17 @@ def finish(st, bid, cache, why):
     except OSError:
         pass
     st.pop("battleId", None)
-    return f"BATTLE OVER ({why}): log saved fights/{bid}_entries.json", [c_user(), TICK]
+    # alive and hurt: the Full Potion goes in the same batch as the fight's end, before anything else (director
+    # 2026-11-11: 8 s after a win invites a third party; g31Xew: DDX jumped us at 3,211 HP while it was queued)
+    last = cache.get("battle") or {}
+    users = last.get("battle.usersState.*.userId") or []
+    hp = (last.get("battle.usersState.*.curHealth") or [0] * len(users))[users.index(ME)] if ME in users else 0
+    mx = (last.get("battle.usersState.*.maxHealth") or [5050] * len(users))[users.index(ME)] if ME in users else 5050
+    heal = []
+    if why != "lost" and 0 < hp < HEAL_BELOW * mx:
+        heal = [call("item.consume", {"userItemId": st.get("full_potion_uid", FULL_POTION)}, ["success", "message"])]
+    return f"BATTLE OVER ({why}): log saved fights/{bid}_entries.json" + (" | Full Potion" if heal else ""), \
+        heal + [c_user(), TICK]
 
 
 # ---------------------------------------------------------------- world
