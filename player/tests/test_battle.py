@@ -341,6 +341,30 @@ class EndOfFight(unittest.TestCase):
         self.assertIn("postmortem.py", " ".join(" ".join(a) for a in rig.combat.spawned))
         self.assertIn("fight_bases.py", " ".join(" ".join(a) for a in rig.combat.spawned))
 
+    def test_every_rounds_full_live_state_is_archived_as_the_game_sent_it(self):
+        """Brief AP4 step 0, for AP1: nothing has to be captured again when the move atlas is built."""
+        import gzip
+        rig = Rig()
+        effect = {"id": "fx1", "type": "increasedamagegiven", "rounds": 2, "targetId": C.ME, "power": 30,
+                  "staticAssetPath": "x.png", "a_key_no_planner_reads": {"deep": [1, 2]}}
+        battle, ents, _ = start_fight(rig, effects=[effect])                 # round 3, my turn
+        R, v = battle["battle.round"], battle["battle.version"]
+        his = dict(battle, **{"battle.activeUserId": FOE, "battle.version": v + 2, "battle.usersEffects": [effect]})
+        rig.tick(battle_read("B1", his))                                    # round 3, his turn
+        rig.tick(battle_read("B1", dict(his, **{"battle.version": v + 3})))  # the same turn again: not kept twice
+        rig.new_brain()                                                     # nor after a restart
+        rig.tick(battle_read("B1", dict(his, **{"battle.version": v + 4})))
+        nxt = dict(battle, **{"battle.round": R + 1, "battle.version": v + 6, "battle.usersEffects": []})
+        rig.tick(battle_read("B1", nxt))                                    # round 4, my turn
+        with gzip.open(os.path.join(rig.combat.fights, "live_states", "B1.full.jsonl.gz"), "rt") as f:
+            rows = [json.loads(line) for line in f]
+        self.assertEqual([(r["round"], r["turn"], r["version"]) for r in rows],
+                         [(R, "me", v), (R, "him", v + 2), (R + 1, "me", v + 6)])
+        self.assertEqual(rows[0]["effects"], [effect])                      # whole, not the planner's compact form
+        self.assertEqual(rows[0]["fighters"]["battle.usersState.*.curHealth"], battle["battle.usersState.*.curHealth"])
+        self.assertEqual(rows[2]["seat"], rig.world["battle"]["seat"])
+        self.assertNotIn("a_key_no_planner_reads", json.dumps(rig.world["battle"]["live_hist"]))
+
     def test_a_turn_that_passes_without_an_action_of_mine_is_a_missed_turn(self):
         rig = Rig()
         battle, ents, out = start_fight(rig)

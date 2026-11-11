@@ -412,6 +412,7 @@ The fight simulator stays as a smoke test, not a gate.
 2. **Equipment swapping:** the PvP brief says not to change loadouts or gear unless told to. This overhaul asks for
    swaps "as needed". Confirm the scope: loadouts per activity, weapon swaps, and equipping upgrades already owned.
    Buying gear stays under the spend caps.
+   Partly decided: RUL-2026-11-11-150 (a PvP 2 loadout for the matchups the standard build loses).
 3. **Spend caps:** the daily ryo cap and reserve (today 3M/day, 500k reserve); auction price caps.
 4. **PvE auto-combat:** confirm auto-combat for every AI fight, or only for missions and errands.
 5. **Session windows:** when the brain may run, and its share of the 30 calls a minute while you play.

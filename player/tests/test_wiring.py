@@ -81,7 +81,8 @@ class Wiring(unittest.TestCase):
             "opponents": "opponents.py build" in spawned,
             "postmortem": "postmortem.py" in spawned,
             "fight_bases": c.used.get("fight_bases", 0) > 0 and "fight_bases.py W1" in spawned,
-            "live_state": os.path.exists(os.path.join(fights, "live_states", "W1.json")),
+            "live_state": os.path.exists(os.path.join(fights, "live_states", "W1.json"))
+            and os.path.exists(os.path.join(fights, "live_states", "W1.full.jsonl.gz")),
             "fight_log": os.path.exists(os.path.join(fights, "W1_entries.json")),
             "harvest": "players" in self.rig.world.own("harvest").get("stats", ""),
         }

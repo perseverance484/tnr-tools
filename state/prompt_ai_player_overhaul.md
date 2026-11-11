@@ -330,7 +330,8 @@ the control reader.
 From design §9. Ask before the phase that needs each one:
 
 1. Goal weights (AP1). Decided: RUL-2026-11-11-149 item 5.
-2. Equipment-swap scope (AP2).
+2. Equipment-swap scope (AP2). Partly decided: RUL-2026-11-11-150 (a PvP 2 loadout for the matchups the standard
+   build loses, used against those kits).
 3. Spend caps (AP2).
 4. PvE auto-combat scope (AP3).
 5. Session windows and call share (AP1). Decided: RUL-2026-11-11-149 item 6.

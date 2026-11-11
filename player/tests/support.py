@@ -89,6 +89,10 @@ class StubCombat(Combat):
         self._count("fight_bases")
         super().start_fight_bases(bid)
 
+    def archive_state(self, bid, record):
+        self._count("live_state")
+        super().archive_state(bid, record)
+
     def close_fight(self, bid, state, covered, director_mode):
         self._count("fight_log")
         super().close_fight(bid, state, covered, director_mode)

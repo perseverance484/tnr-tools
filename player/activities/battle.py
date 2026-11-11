@@ -250,6 +250,7 @@ class Battle(Activity):
             state["ground"] = ground_effects(raw_g)
         raw = battle.pop("battle.usersEffects", None)
         if raw is not None:
+            self._archive(state, battle, raw)
             state["live"], state["live_v"] = live_effects(raw), battle.get("battle.version")
             state.setdefault("live_hist", {})[str(battle.get("battle.round"))] = state["live"]   # exact state, kept
             for foe in [u for u in users if u != C.ME]:
@@ -270,6 +271,21 @@ class Battle(Activity):
             state["battle"] = battle
             state["n_at_battle"] = len(state["entries"])          # log lines already counted in this HP read
         self.combat.write_cache(bid, state)
+
+    def _archive(self, state, battle, raw):
+        """Keep the full live state of the round, once for the start of my turn and once for the start of his: the
+        whole effect list as the game sent it, the fighters' columns and the ground. These are the states each
+        side decided on, so the opponent models and the move atlas never need a second capture."""
+        side = "me" if battle.get("battle.activeUserId") == C.ME else "him"
+        key = f"{battle.get('battle.round')}:{side}"
+        if key in state.setdefault("archived", []):
+            return
+        state["archived"].append(key)
+        self.combat.archive_state(state["bid"], {
+            "round": battle.get("battle.round"), "version": battle.get("battle.version"), "turn": side,
+            "active": battle.get("battle.activeUserId"), "seat": state.get("seat"),
+            "fighters": {k: v for k, v in battle.items() if k.startswith("battle.usersState.")},
+            "effects": raw, "ground": state.get("ground"), "log_lines": len(state["entries"])})
 
     def _poll(self, state, foe_id, foe_is_ai):
         """The next read of the fight. Every poll is a full read (same call count), so my turn never waits on a

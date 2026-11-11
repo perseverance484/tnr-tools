@@ -7,6 +7,7 @@ it registers each one as a model or a data feed so the wiring test can see it.
 
 Nothing here talks to the game.
 """
+import gzip
 import json
 import os
 import re
@@ -23,7 +24,8 @@ REGISTRY.model("dossier", "the opponent's kit, weapons and imbues, read before t
 REGISTRY.model("opponents", "opponent models from every logged fight, rebuilt after each one", "opponents.py")
 REGISTRY.model("postmortem", "the per-fight review that feeds the solution library", "postmortem.py")
 REGISTRY.feed("fight_bases", "both kits' base damage for this matchup, from the offline engine", "fight_bases.py")
-REGISTRY.feed("live_state", "the exact live effect list of every round, kept per battle", "fights/live_states")
+REGISTRY.feed("live_state", "every round's full live state, kept per battle: the whole effect list as the game "
+              "sent it, the fighters and the ground, at the start of my turn and of his", "fights/live_states")
 REGISTRY.feed("fight_log", "the battle log, saved when the fight ends (the game deletes it)", "fights/*_entries.json")
 REGISTRY.feed("harvest", "other players' battle logs, read between fights", "harvest.py")
 
@@ -142,6 +144,15 @@ class Combat:
     def write_cache(self, bid, state, battle=None):
         """fights/live/<battle>.json: the battle state in the shape fight_bases.py and the planners read."""
         self._save(os.path.join(self.live, f"{bid}.json"), dict(state, battle=battle) if battle is not None else state)
+
+    def archive_state(self, bid, record):
+        """One line in fights/live_states/<battle>.full.jsonl.gz: a round's full live state, exactly as it was read.
+        Kept so that nothing has to be captured again when the move atlas is built (brief AP4 step 0): the compact
+        <battle>.json beside it holds only the fields today's planner uses."""
+        path = os.path.join(self.fights, "live_states", f"{bid}.full.jsonl.gz")
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        with gzip.open(path, "at", encoding="utf8") as f:
+            f.write(json.dumps(record, separators=(",", ":")) + "\n")
 
     def _popen(self, argv, stdout=None):
         self.spawned.append(argv)
