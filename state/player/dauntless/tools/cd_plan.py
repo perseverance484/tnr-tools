@@ -70,6 +70,8 @@ LOADOUTS = {
              "thunders", "resist", "eclipse", "sealnull", "phantom", "shield",
              "smoke", "kims", "pill", "panacea", "jewel", "kunai", "nights", "aetherion",
              "clear", "cleanse", "replace", "defstance", "offstance", "basic"],
+    # the PvP 1 loadout before 2026-11-11 (Parry, later replaced by Chakra Resistance): used to replay older fights
+    "pvp1_parry": None,
     "pvp2": ["rebirth", "leech", "severed", "fury", "ember", "danse", "stormblade", "subaku", "overflow",
              "thunders", "resonance", "eclipse", "sealnull", "phantom", "shield",
              "smoke", "kims", "pill", "panacea", "jewel", "disaster", "nights", "yuki",
@@ -155,3 +157,7 @@ if __name__ == "__main__":
               + (f"; cooldown: {', '.join(bad)}" if bad else "")
               + (f"; shared lock: {', '.join(dup)}" if dup else "")
               + ("" if total == ap or total > ap else f"; {ap - total} AP unused"))
+
+
+LOADOUTS["pvp1_parry"] = [("parry" if a == "resist" else a) for a in LOADOUTS["pvp1"]]
+

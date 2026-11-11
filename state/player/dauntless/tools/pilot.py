@@ -252,7 +252,8 @@ def plan_turn(bid, battle, entries, enemy, exact=False):
             continue
         m = re.search(r"^FIRE: (.*)$", out, re.M)
         if m:
-            return json.loads(m.group(1)), f"{time.time() - t0:.1f}s" + (" short list" if extra else "")
+            return json.loads(m.group(1)), f"{time.time() - t0:.1f}s" + (" short list" if "--keep" in extra else
+                                                                         " engine" if "--fast" in extra else "")
     return None, "planner over budget"
 
 
