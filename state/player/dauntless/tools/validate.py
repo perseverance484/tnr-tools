@@ -200,7 +200,8 @@ def check_policy():
                 continue
             Pl = P2.Planner(f.me, f.en, r, f.ctx(), f.cal, {}, f.his_kit, {"loadout": [], "used": []}, False,
                             (5050, 5050), f.base_turn, {})
-            best = max(lines_, key=lambda hb: Pl.his_score(hb, f.me, f.en) + habit(hb, r, prev, nturn == 0, prev2))
+            alpha = float(os.environ.get("TNR_HS_ALPHA", "1"))
+            best = max(lines_, key=lambda hb: alpha * Pl.his_score(hb, f.me, f.en) + habit(hb, r, prev, nturn == 0, prev2))
             real = set(a for a in act if a in acts)
             got = set(best)
             role_ok += OM.role_of(tuple(best), acts) == OM.role_of(tuple(real), acts)

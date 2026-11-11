@@ -132,6 +132,9 @@ def review(bid_prefix, n_alts=6):
             # choice: played vs the planner's alternatives, each answered by his actual next turn
             bundles = P2.legal_bundles(info["st"], info["R"], info["ap"], info["d0"], info["st"]["loadout"], P.me0, P.en0)
             ranked = P2.rank(P, bundles, info["ap"], P2.load_weights())
+            if P2.LOOKAHEAD:
+                ranked = P2.lookahead_rerank(P, info, ranked, P2.LA_BUDGET)
+            pick = list(ranked[0][1])
             alts = [list(x[1]) for x in ranked[:n_alts] if sorted(x[1]) != sorted(played)]
             en_acted = info["en_acted"]
             ex = exchange(rows_pre, en, me, info["R"], en_acted, cal, [played] + alts, his_actual)
@@ -146,6 +149,8 @@ def review(bid_prefix, n_alts=6):
                 "dmg_planner": round(en["curHealth"] - e0.hp), "dmg_engine": eng_dealt, "dmg_logged": round(logged),
                 "swing_played": score[0], "best_alt": ([played] + alts)[best_i], "swing_best": score[best_i],
                 "regret": (score[best_i] - score[0]) if score[0] is not None and score[best_i] is not None else None,
+                "pick": pick, "swing_pick": next((score[i] for i, bb in enumerate([played] + alts)
+                                                  if sorted(bb) == sorted(pick)), None),
             })
         finally:
             os.unlink(tp)

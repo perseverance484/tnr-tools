@@ -165,6 +165,7 @@ def habit_fn(model, scale=None):
         seen[r].add(tuple(sorted(b)))
     opening = collections.Counter(tuple(sorted(b)) for b in model.get("openings", []))
     p_role, p_next, racts = rotation_fn(model)
+    hist = collections.Counter(tuple(sorted(b)) for r, b in model.get("bundles", []))
 
     def habit(hb, rnd, prev=None, first_turn=False, prev2=None):
         v = 0.0
@@ -184,12 +185,14 @@ def habit_fn(model, scale=None):
         # his rotation: setup -> payoff -> ... (role of this turn given his last two), and his exact follow-ups
         v += ROLE_W * p_role(role_of(hb, racts), prev, prev2)
         v += BIGRAM_W * p_next(hb, prev)
+        v += HIST_W * hist.get(key, 0) / n_turns
         return v * scale
     return habit
 
 
 ROLE_W = float(os.environ.get("TNR_ROLE_W", "600"))      # HP-equivalent for P(this turn's role | his last roles)
 BIGRAM_W = float(os.environ.get("TNR_BIGRAM_W", "500"))  # for P(this exact bundle | his last bundle)
+HIST_W = float(os.environ.get("TNR_HIST_W", "0"))        # for the share of his turns that were exactly this bundle
 PAYOFF_DMG = 800.0
 
 

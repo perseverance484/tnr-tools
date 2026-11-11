@@ -687,7 +687,7 @@ class Planner:
             return his_options(self.cal, self.ctx, m0, e0, self.hr)
         ap = 100 - (20 if e0.g(STUN, self.hr) else 0)
         scored = [(self.his_score(hb, m0, e0) + self.his_habit(hb), list(hb)) for hb, cost in cands if cost <= ap]
-        out = clock.soft(scored)
+        out = hedge(clock.soft(scored), [list(hb) for hb, cost in cands if cost <= ap], self, m0, e0, self.hr)
         if not self.ctx["smoke_spent"] and not self.clockd.get("smoke_in_kit"):
             ps = value_model.smoothed(self.cal, "smoke")
             out = [(w * (1 - ps), b) for w, b in out] + [(ps, ["smoke", "light"])]
@@ -711,7 +711,7 @@ class Planner:
                 v += h(hb, self.clockd.get("hr_abs", self.R) + 1, tuple(used) or None, False, self.clockd.get("his_prev"))
             scored.append((v, list(hb)))
         scored.sort(key=lambda x: -x[0])
-        return clock.soft(scored[:k])
+        return hedge(clock.soft(scored[:k]), [b for _, b in scored], self, m0, e0, ho)
 
     def lookahead(self, b, follows):
         """b, his reply, my best follow-up, his next reply: the expected value of the whole exchange, by playing it
@@ -1096,6 +1096,25 @@ LA_BUDGET = float(os.environ.get("TNR_LA_BUDGET", "3.0"))
 LA_K = int(os.environ.get("TNR_LA_K", "20"))          # candidates played two exchanges deep
 LA_W = float(os.environ.get("TNR_LA_W", "1.0"))        # weight of the lookahead value against the one-turn score
 LA_RACE = float(os.environ.get("TNR_LA_RACE", "250"))  # HP-equivalent per turn of time-to-kill lead
+
+
+HEDGE = float(os.environ.get("TNR_HEDGE", "0.35"))   # weight on his hardest-hitting ready line in every reply set
+
+
+def hedge(opts, lines, P, m0, e0, ho):
+    """His real choices are hard to call (held-out: right bundle ~6%, right kind of turn ~48%, the base rate), so
+    every reply set keeps HEDGE weight on the line that hurts most: the payoff he has ready. 4qua R8 (2026-11-11): the
+    planner healed into his Night's Testament because it expected a setup."""
+    if not lines or HEDGE <= 0:
+        return opts
+    def dmg(hb):
+        m, e = m0.copy(), e0.copy()
+        run_turn(e, m, [P.his_kit[x] for x in hb if x in P.his_kit], ho, 1e9, 1e9)
+        return m0.hp - m.hp
+    worst = max(lines, key=dmg)
+    out = [(w * (1 - HEDGE), b) for w, b in opts if set(b) != set(worst)]
+    w_worst = sum(w for w, b in opts if set(b) == set(worst))
+    return out + [(w_worst * (1 - HEDGE) + HEDGE, list(worst))]
 
 
 def follow_set(P, info, res, n=14):
