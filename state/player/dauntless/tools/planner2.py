@@ -658,10 +658,10 @@ class Planner:
                 feats[i] += w * f[i]
         return feats, term, dmg, outs, 0.0
 
-    def his_score(self, hb, m0, e0):
+    def his_score(self, hb, m0, e0, ho=None):
         """His line from his side on the board he faces: damage now, minus what bounces back, plus what it does to
         his next hit and to mine (his setup up, my setup stripped / smoked / blocked)."""
-        ho = self.hr
+        ho = self.hr if ho is None else ho
         m, e = m0.copy(), e0.copy()
         d, t = run_turn(e, m, [self.his_kit[x] for x in hb], ho, 1e9, 1e9)
         o = ho + 1
@@ -674,7 +674,8 @@ class Planner:
         h = self.clockd.get("habit")
         if not h:
             return 0.0
-        return h(hb, self.clockd.get("hr_abs", self.R), self.clockd.get("his_prev"), self.clockd.get("his_n", 0) == 0)
+        return h(hb, self.clockd.get("hr_abs", self.R), self.clockd.get("his_prev"), self.clockd.get("his_n", 0) == 0,
+                 self.clockd.get("his_prev2"))
 
     def replies(self, m0, e0):
         """His reply options on this board. With his kit: his candidate lines re-scored against the position my
@@ -690,6 +691,87 @@ class Planner:
             ps = value_model.smoothed(self.cal, "smoke")
             out = [(w * (1 - ps), b) for w, b in out] + [(ps, ["smoke", "light"])]
         return out
+
+    def replies_next(self, m0, e0, used, k=3):
+        """His turn after my next one (offset hr + 1): his lines ready then (clock, cooldowns from what he just
+        used), re-scored on that board by his own score + habits with his rotation (this reply as his last turn)."""
+        cands = self.clockd.get("cands_next")
+        if not cands:
+            return []
+        used = set(used or ())
+        ho = self.hr + 1
+        h = self.clockd.get("habit")
+        scored = []
+        for hb, cost in cands:
+            if used & set(hb):
+                continue
+            v = self.his_score(hb, m0, e0, ho)
+            if h:
+                v += h(hb, self.clockd.get("hr_abs", self.R) + 1, tuple(used) or None, False, self.clockd.get("his_prev"))
+            scored.append((v, list(hb)))
+        scored.sort(key=lambda x: -x[0])
+        return clock.soft(scored[:k])
+
+    def lookahead(self, b, follows):
+        """b, his reply, my best follow-up, his next reply: the expected value of the whole exchange, by playing it
+        through the round vectors (director 2026-11-11: "predict future behavior, value setups, and time ttk").
+        A setup is worth what it adds when the payoff lands; time-to-kill comes from the damage the line actually
+        trades. Returns (value, best follow-up after his most likely reply)."""
+        cm, ce = self.caps
+        m0, e0 = self.me0.copy(), self.en0.copy()
+        if "cleanse" in b:
+            m0.wipe(NEGK)
+        if any(x in ("phantom", "replace", "step") for x in b):
+            m0.wipe((GGRD,))
+        run_turn(m0, e0, [self.my_kit[x] for x in b if x in self.my_kit], 0, cm, ce)
+        if e0.hp <= 0:
+            return value_model.KILL + self.en0.hp, None
+        total, top_follow, top_w = 0.0, None, -1.0
+        for w, names in self.replies(m0, e0):
+            m, e = m0.copy(), e0.copy()
+            real = names and names[0] in self.clockd.get("ids", ())
+            stun = 1.0 if real else (100 - min(40, e.g(STUN, self.hr))) / 100
+            run_turn(e, m, [self.his_kit[n] for n in names if n in self.his_kit], self.hr, ce, cm, stun)
+            if m.hp <= 0 or e.hp <= 0:
+                total += w * ((value_model.KILL if e.hp <= 0 < m.hp else -value_model.DEATH) + self._trade(m, e))
+                continue
+            best, best_fb = None, None
+            for fb in follows:
+                m1, e1 = m.copy(), e.copy()
+                if "cleanse" in fb:
+                    m1.wipe(NEGK)
+                run_turn(m1, e1, [self.my_kit[x] for x in fb if x in self.my_kit], 1, cm, ce)
+                if e1.hp <= 0:
+                    v = value_model.KILL + self._trade(m1, e1)
+                else:
+                    opts = self.replies_next(m1, e1, names) or [(1.0, [])]
+                    v = 0.0
+                    for w2, n2 in opts:
+                        m2, e2 = m1.copy(), e1.copy()
+                        run_turn(e2, m2, [self.his_kit[x] for x in n2 if x in self.his_kit], self.hr + 1, ce, cm)
+                        if m2.hp <= 0:
+                            v += w2 * (-value_model.DEATH + self._trade(m2, e2))
+                        else:
+                            v += w2 * self._terminal(m2, e2)
+                if best is None or v > best:
+                    best, best_fb = v, fb
+            if best is None:
+                best = self._terminal(m, e)
+            total += w * best
+            if w > top_w:
+                top_w, top_follow = w, best_fb
+        return total, top_follow
+
+    def _trade(self, m, e):
+        return (self.en0.hp - e.hp) - (self.me0.hp - m.hp)
+
+    def _terminal(self, m, e):
+        """After two exchanges: HP traded, plus who is on the clock. Time-to-kill from the damage each side dealt
+        per turn in this line (his kill first if he acts first in a round)."""
+        mine = max(1.0, (self.en0.hp - e.hp) / 2.0)
+        his = max(1.0, (self.me0.hp - m.hp) / 2.0)
+        race = ttk(m.hp, his) - ttk(e.hp, mine)
+        return self._trade(m, e) + LA_RACE * max(-3.0, min(3.0, race))
 
     def extras(self, b, ap):
         """Reserve cost, AP unspent (in 20s) and hard guards for the coached blunders."""
@@ -846,7 +928,8 @@ def build(a):
         scale = 1.0 if fb else (1.0 if eng is not None else gmul) / max(1.0, opp_profile.given_mult(mine_prof)) * s_him
         clockd, clock_info = make_clock(acts, rows, en["userId"], R, en_acted, me0, en0, ctx, cal, his_kit,
                                         his_kit_raw["turn"][0], scale, habit=habit, his_bases=(fb or {}).get("him"),
-                                        his_prev=his_turns[-1][1] if his_turns else None, his_n=len(his_turns))
+                                        his_prev=his_turns[-1][1] if his_turns else None, his_n=len(his_turns),
+                                        his_prev2=his_turns[-2][1] if len(his_turns) > 1 else None)
         clock_info["model"] = (f"{len(model.get('fights', []))} logged fights, {len(model.get('bundles', []))} turns"
                                if model else "no logged fights")
     my_kit = make_my_kit(None if eng is not None else prof)
@@ -947,7 +1030,7 @@ def make_my_kit(prof):
 
 
 def make_clock(acts, rows, en_id, R, en_acted, me0, en0, ctx, cal, his_kit, base_turn, scale, habit=None,
-               his_prev=None, his_n=0, his_bases=None):
+               his_prev=None, his_n=0, his_bases=None, his_prev2=None):
     """His clock for planner2: his kit compiled into his_kit (in place), his candidate reply lines (his 12 best on
     this board, plus his best Clear line and best pure-damage line; re-scored per bundle of mine later) and his
     next-turn damage lines (what is ready then). Returns (clockd, printable info)."""
@@ -962,7 +1045,7 @@ def make_clock(acts, rows, en_id, R, en_acted, me0, en0, ctx, cal, his_kit, base
     ready_next = clock.ready_at(acts, en_id, rows, hn_abs)
     all_lines = [(hb, sum(acts[x][1] for x in hb)) for hb in clock.bundles(acts, ready, 100)]
     clockd = {"ids": set(acts), "scale": scale, "smoke_in_kit": any("Smoke" in acts[x][0] for x in acts),
-              "habit": habit, "his_prev": his_prev, "his_n": his_n, "hr_abs": hr_abs,
+              "habit": habit, "his_prev": his_prev, "his_prev2": his_prev2, "his_n": his_n, "hr_abs": hr_abs,
               "next_lines": [(frozenset(hb), sum(acts[x][4][0] for x in hb)) for hb in clock.bundles(acts, ready_next, 100)]}
     tmp = Planner(me0, en0, R, ctx, cal, {}, his_kit, {"loadout": [], "used": []}, en_acted, (5050, 5050), base_turn, clockd)
     sc = sorted(((tmp.his_score(hb, me0, en0) + tmp.his_habit(hb), hb, c) for hb, c in all_lines), key=lambda x: -x[0])
@@ -972,6 +1055,10 @@ def make_clock(acts, rows, en_id, R, en_acted, me0, en0, ctx, cal, his_kit, base
         if pick and pick not in keep:
             keep.append(pick)
     clockd["cands"] = [(hb, c) for _, hb, c in keep]
+    nxt_lines = [(hb, sum(acts[x][1] for x in hb)) for hb in clock.bundles(acts, ready_next, 100)]
+    sn = sorted(((tmp.his_score(hb, me0, en0, tmp.hr + 1) + tmp.his_habit(hb), hb, c) for hb, c in nxt_lines),
+                key=lambda x: -x[0])
+    clockd["cands_next"] = [(hb, c) for _, hb, c in sn[:10]]
     lines0 = clock.soft([(s_, list(hb)) for s_, hb, _ in keep])
     nxt = max((d for _, d in clockd["next_lines"]), default=0.0) * scale
     info = dict(ready=[acts[x][0] for x in ready], ready_next=[acts[x][0] for x in ready_next],
@@ -1001,6 +1088,49 @@ def rank(P, bundles, ap, W):
         res.sort(key=lambda x: -x[8])
         print("DESPERATION: every line loses; ranked by damage to him")
     return res
+
+
+LOOKAHEAD = os.environ.get("TNR_LOOKAHEAD", "0") == "1"     # on once fightsim shows it wins
+LA_BUDGET = float(os.environ.get("TNR_LA_BUDGET", "3.0"))
+LA_K = int(os.environ.get("TNR_LA_K", "20"))          # candidates played two exchanges deep
+LA_W = float(os.environ.get("TNR_LA_W", "1.0"))        # weight of the lookahead value against the one-turn score
+LA_RACE = float(os.environ.get("TNR_LA_RACE", "250"))  # HP-equivalent per turn of time-to-kill lead
+
+
+def follow_set(P, info, res, n=14):
+    """My candidate next turns: the best-ranked shapes this turn and my best damage combos (deduplicated)."""
+    out = []
+    for r in res[:60]:
+        if r[1] not in out:
+            out.append(r[1])
+    for names, nonp, pier in sorted(P.combos, key=lambda c: -(c[1] + c[2]))[:10]:
+        t = tuple(sorted(names))
+        if t not in out:
+            out.append(t)
+    return out[:max(n * 3, 40)]
+
+
+def lookahead_rerank(P, info, res, budget):
+    """The top LA_K one-turn candidates re-scored by the two-exchange lookahead (P.lookahead); within budget."""
+    t0 = time.time()
+    st, R = info["st"], info["R"]
+    pool = follow_set(P, info, res)
+    scored = []
+    for r in res[:LA_K]:
+        if time.time() - t0 > budget:
+            break
+        used = {"used": list(st["used"]) + [[R, n] for n in r[1] if n not in ("step", "stepback")]}
+        follows = [fb for fb in pool if all(n in ("step", "stepback") or (n in cd_plan.ACTIONS and
+                                            cd_plan.ready_round(used, n) <= R + 1) for n in fb)][:14]
+        v, nxt = P.lookahead(r[1], follows)
+        scored.append((r[0] + LA_W * v, v, nxt, r))
+    if len(scored) < 2:
+        return res
+    scored.sort(key=lambda x: -x[0])
+    print("lookahead: " + " | ".join(f"{'+'.join(x[3][1])} {x[1]:+.0f} then {'+'.join(x[2] or ['-'])}"
+                                     for x in scored[:3]) + f" ({time.time() - t0:.1f}s)")
+    head = [x[3] for x in scored]
+    return head + [r for r in res if r not in head]
 
 
 def rollout_rerank(P, info, res, n, budget, k=4):
@@ -1102,6 +1232,8 @@ def main():
         print("no legal bundle (check AP/cooldowns)"); return
     W = load_weights()
     res = rank(P, bundles, info["ap"], W)
+    if LOOKAHEAD:
+        res = lookahead_rerank(P, info, res, LA_BUDGET - (time.time() - t0))
     if a.rollouts:
         res = rollout_rerank(P, info, res, a.rollouts, a.rollout_budget - (time.time() - t0))
     if a.dump:

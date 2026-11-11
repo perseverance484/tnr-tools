@@ -165,7 +165,7 @@ def check_policy():
     (his ready actions from his log so far, scored by his own score + habits). In-sample for habits."""
     import fightsim
     models = OM.load()
-    exact = n = 0
+    exact = n = role_ok = 0
     ov = 0.0
     per = {}
     for bid, path, rows, meta in OM.load_logs():
@@ -185,7 +185,7 @@ def check_policy():
         hps = exam.hp_track(rows, ["dauntless", en_name])
         f = fightsim.Fight(acts, prof, True, habit=habit)
         tl = turns(rows)
-        prev, nturn = None, 0
+        prev, prev2, nturn = None, None, 0
         for k, (i, r, u, act) in enumerate(tl):
             if u != en_id or not act:
                 continue
@@ -200,17 +200,19 @@ def check_policy():
                 continue
             Pl = P2.Planner(f.me, f.en, r, f.ctx(), f.cal, {}, f.his_kit, {"loadout": [], "used": []}, False,
                             (5050, 5050), f.base_turn, {})
-            best = max(lines_, key=lambda hb: Pl.his_score(hb, f.me, f.en) + habit(hb, r, prev, nturn == 0))
+            best = max(lines_, key=lambda hb: Pl.his_score(hb, f.me, f.en) + habit(hb, r, prev, nturn == 0, prev2))
             real = set(a for a in act if a in acts)
             got = set(best)
+            role_ok += OM.role_of(tuple(best), acts) == OM.role_of(tuple(real), acts)
             n += 1
             exact += got == real
             ov += len(got & real) / max(1, len(real))
             nm = m["names"][0]
             per.setdefault(nm, [0, 0])
             per[nm][0] += got == real; per[nm][1] += 1
-            prev, nturn = tuple(act), nturn + 1
-    print(f"opponent bot vs real choices: {exact}/{n} exact ({exact / max(1, n):.0%}), mean overlap {ov / max(1, n):.0%}")
+            prev, prev2, nturn = tuple(act), prev, nturn + 1
+    print(f"opponent bot vs real choices: {exact}/{n} exact ({exact / max(1, n):.0%}), mean overlap {ov / max(1, n):.0%}, "
+          f"role (setup / payoff / defend / poke) {role_ok / max(1, n):.0%}")
     print("  " + ", ".join(f"{k} {a}/{b}" for k, (a, b) in sorted(per.items(), key=lambda kv: -kv[1][1])[:12]))
 
 

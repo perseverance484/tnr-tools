@@ -157,8 +157,9 @@ def habit_fn(model, scale=None):
     for r, b in model.get("bundles", []):
         seen[r].add(tuple(sorted(b)))
     opening = collections.Counter(tuple(sorted(b)) for b in model.get("openings", []))
+    p_role, p_next, racts = rotation_fn(model)
 
-    def habit(hb, rnd, prev=None, first_turn=False):
+    def habit(hb, rnd, prev=None, first_turn=False, prev2=None):
         v = 0.0
         for a in hb:
             v += 350 * freq.get(a, 0.0)
@@ -173,8 +174,116 @@ def habit_fn(model, scale=None):
             v += 250
         if first_turn and opening.get(key):
             v += 500
+        # his rotation: setup -> payoff -> ... (role of this turn given his last two), and his exact follow-ups
+        v += ROLE_W * p_role(role_of(hb, racts), prev, prev2)
+        v += BIGRAM_W * p_next(hb, prev)
         return v * scale
     return habit
+
+
+ROLE_W = float(os.environ.get("TNR_ROLE_W", "600"))      # HP-equivalent for P(this turn's role | his last roles)
+BIGRAM_W = float(os.environ.get("TNR_BIGRAM_W", "500"))  # for P(this exact bundle | his last bundle)
+PAYOFF_DMG = 800.0
+
+
+def role_of(bundle, acts):
+    """His turn's job in a rotation, from the compiled kit (spec perspective "en" = him, "me" = his target):
+    payoff  >= 800 base damage (the burst)
+    setup   less damage, and more of it goes to buffing himself or debuffing me than to defending
+    defend  mostly his own DR / shield / heal / cleanse / absorb
+    poke    the rest"""
+    dmg = up = guard = 0.0
+    for a in bundle:
+        v = acts.get(a)
+        if not v:
+            continue
+        spec = v[4]
+        dmg += float(spec[0] or 0)
+        for t in spec[1]:
+            who, kind = t[0], t[1]
+            if (who == "en" and kind in ("given", "lifesteal")) or (who == "me" and kind in ("taken", "wound", "recoil",
+                                                                                                 "afterburn", "drain")):
+                up += 1
+            elif who == "en" and kind in ("dr", "shield", "heal", "cleanse", "absorb", "reflect", "parry"):
+                guard += 1
+            elif who == "me" and kind == "given" and t[2] < 0:
+                guard += 1
+    if dmg >= PAYOFF_DMG:
+        return "payoff"
+    if up and up >= guard:
+        return "setup"
+    if guard:
+        return "defend"
+    return "poke"
+
+
+def _sequences(model):
+    """His turns split into fights (a round number that does not rise starts a new fight)."""
+    seqs, cur, last = [], [], None
+    for r, b in model.get("bundles", []):
+        if last is not None and r <= last and cur:
+            seqs.append(cur); cur = []
+        cur.append((r, tuple(b)))
+        last = r
+    if cur:
+        seqs.append(cur)
+    return seqs
+
+
+_PRIOR = None
+
+
+def role_prior():
+    """Role transitions pooled over every modelled opponent: the shape of a PvP rotation in general."""
+    global _PRIOR
+    if _PRIOR is None:
+        c1, c2 = collections.defaultdict(collections.Counter), collections.defaultdict(collections.Counter)
+        for m in load().values():
+            acts = acts_for(m)
+            for seq in _sequences(m):
+                rs = ["start", "start"] + [role_of(b, acts) for _, b in seq]
+                for i in range(2, len(rs)):
+                    c1[rs[i - 1]][rs[i]] += 1
+                    c2[(rs[i - 2], rs[i - 1])][rs[i]] += 1
+        _PRIOR = (c1, c2)
+    return _PRIOR
+
+
+def rotation_fn(model, acts=None):
+    """P(role | his last two roles) for this opponent, shrunk toward the pooled prior; P(bundle | last bundle)."""
+    acts = acts or acts_for(model)
+    m1, m2 = collections.defaultdict(collections.Counter), collections.defaultdict(collections.Counter)
+    big = collections.defaultdict(collections.Counter)
+    for seq in _sequences(model):
+        rs = ["start", "start"] + [role_of(b, acts) for _, b in seq]
+        keys = [None] + [tuple(sorted(b)) for _, b in seq]
+        for i in range(2, len(rs)):
+            m1[rs[i - 1]][rs[i]] += 1
+            m2[(rs[i - 2], rs[i - 1])][rs[i]] += 1
+        for i in range(1, len(keys) - 1):
+            big[keys[i]][keys[i + 1]] += 1
+    p1, p2 = role_prior()
+
+    def p_role(role, prev, prev2):
+        r1 = acts and role_of(prev, acts) if prev else "start"
+        r2 = role_of(prev2, acts) if prev2 else ("start" if not prev else "start")
+        out, wsum = 0.0, 0.0
+        for cnt, w in ((m2.get((r2, r1)), 3.0), (m1.get(r1), 2.0), (p2.get((r2, r1)), 1.0), (p1.get(r1), 0.5)):
+            if cnt:
+                tot = sum(cnt.values())
+                n = tot / (tot + 2.0)                       # trust grows with samples
+                out += w * n * cnt.get(role, 0) / tot
+                wsum += w * n
+        return out / wsum if wsum else 0.25
+
+    def p_next(hb, prev):
+        c = big.get(tuple(sorted(prev))) if prev else None
+        if not c:
+            return 0.0
+        tot = sum(c.values())
+        return c.get(tuple(sorted(hb)), 0) / tot * tot / (tot + 1.0)
+
+    return p_role, p_next, acts
 
 
 def acts_for(model):

@@ -152,7 +152,10 @@ class Fight:
         bundles = P2.legal_bundles(st, self.R, ap, 1, self.loadout, P.me0, P.en0)
         if not bundles:
             return ()
-        return P2.rank(P, bundles, ap, P2.load_weights())[0][1]
+        res = P2.rank(P, bundles, ap, P2.load_weights())
+        if P2.LOOKAHEAD:
+            res = P2.lookahead_rerank(P, {"st": st, "R": self.R}, res, P2.LA_BUDGET)
+        return res[0][1]
 
     def snapshot(self):
         f = copy.copy(self)
