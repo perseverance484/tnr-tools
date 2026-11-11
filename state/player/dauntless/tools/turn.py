@@ -453,7 +453,7 @@ def main():
     bundles = legal(st, R, ap_now, bool(en0.live("debuffimmune", R)),
                     set(), st["loadout"], d0)
     # engine replay (harness/pvp_turn/engine/replay_sim.ts): legality, AP and costs from the engine's own state
-    # --fast (fight.py on my turn): the engine's legality list runs in a thread while python scores stage 1, and is
+    # --fast (live-turn mode): the engine's legality list runs in a thread while python scores stage 1, and is
     # applied to the stage-1 list afterwards; the slower engine re-score of the shortlist is skipped
     eng_box = {}
     def _eng_list():

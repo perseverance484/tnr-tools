@@ -232,7 +232,7 @@ def legal(state, rnd, ap, immune, blocked, loadout, dist):
     if immune:
         names = [n for n in names if n not in blocked]
     # the combos depend only on (ready names, AP, distance): memoised, since the lookahead re-asks the same
-    # question ~180 times per turn (fight.py speed pass, 2026-11-11). Callers get a fresh list.
+    # question ~180 times per turn (speed pass, 2026-11-11). Callers get a fresh list.
     global _LEGAL_DIRTY
     _legal_load()
     key = (tuple(names), ap, dist)

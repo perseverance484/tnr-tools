@@ -169,7 +169,7 @@ def rebuild(lines, me_name, en_name, my_hp, en_hp):
 
 def _agg(side, r):
     """One pass over a side's live tags at round r: kind -> [sum of values, product of (1 + value), product of
-    (1 - value)] (fight.py speed pass: apply() used to rescan the tag list ~10 times per call)."""
+    (1 - value)] (speed pass: apply() used to rescan the tag list ~10 times per call)."""
     out = {}
     for t in side.tags:
         if t[2] <= r <= t[3]:
