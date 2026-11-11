@@ -241,7 +241,12 @@ def battle_tick(st, bid, battle, entries):
         cache["entries"] += new[::-1]                      # cache is oldest-first
     users = battle.get("battle.usersState.*.userId") or []
     if ME not in users:                                     # battle gone (finished battles are deleted)
-        return finish(st, bid, cache, "battle closed")
+        # a loss shows as my HP at 0 before the battle closes, so a close with me alive in the last state is a win
+        # (Tousen x2 and Thabiento, 2026-11-11: all three "battle closed" logs end on my killing hit)
+        last = cache.get("battle") or {}
+        lu = last.get("battle.usersState.*.userId") or []
+        alive = ME in lu and (last.get("battle.usersState.*.curHealth") or [0] * len(lu))[lu.index(ME)] > 0
+        return finish(st, bid, cache, "won" if alive else "battle closed")
     cache["battle"] = battle
     save(cache_path, cache)
     hp = battle["battle.usersState.*.curHealth"]
