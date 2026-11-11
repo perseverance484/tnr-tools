@@ -47,6 +47,7 @@ K_BLEND = 3
 RISK = 0.3
 GAMMA = 0.8
 BURST_P = 0.15
+BURST_BASE = 1100.0  # my typical two-hit burst base (Fury/Rebirth/Lotus/Shrapnel ~575 each, calibrated)
 KILL, DEATH = 5000, 6500
 PRIORS = {  # (prior p, strength) from the 2026-11-09 top-player study (Winta, DDXXD, Ziharkk, Gario)
     "pierce_vs_shield": (0.6, 4), "clear_vs_2buffs": (0.3, 4), "pierce": (0.15, 4), "clear": (0.15, 4),

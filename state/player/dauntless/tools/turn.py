@@ -163,7 +163,8 @@ def resolve_targets(bundle, me_pos, en_pos, occupied):
     """Turn a bundle into ordered (action, actionId, (x, y)) steps with real hexes; moves first, kite step last."""
     seq = sorted(bundle, key=lambda a: ORDER.index(a) if a in ORDER else 50)
     ranged = [cd_plan.RANGE.get(a, 0) for a in seq if cd_plan.RANGE.get(a, 0)]
-    need = min(ranged) if ranged else 4
+    # range 4 does not stop his jutsu (most are range 4), so with nothing to reach just stay where I am
+    need = min(ranged) if ranged else max(1, dist(me_pos, en_pos))
     pos = me_pos
     out = []
     for a in seq:
@@ -182,6 +183,13 @@ def resolve_targets(bundle, me_pos, en_pos, occupied):
             tgt = en_pos
         out.append((a, ACTION_ID.get(a, a), tgt))
     return out, pos
+
+
+def _prod(xs):
+    p = 1.0
+    for x in xs:
+        p *= x
+    return p
 
 
 def penalties(bundle, ctx, cal):
@@ -256,8 +264,11 @@ def main():
         "afk": (lambda t: len(t) >= 1 and sum(1 for a in t if a == "wait") * 2 >= len(t))(
             [a for r, u, a, _ in rows if u == en["userId"] and (a == "wait" or a not in ("move",))]
             and [a for r, u, a, _ in rows if u == en["userId"]]),
-        "pierce_window": bool(me0.mult("given", R) < 0.6 or en0.live("shield", R) or en0.total("dr", R) >= 0.3
-                              or en["curHealth"] <= 800),
+        # director 2026-11-11: pierce is best when his DR is at or near max (engine DMG_REDUCTION_CAP = 90%), not
+        # into 30-45%. Window = his effective in-combat DR >= 55%, a live shield, me smoked, or a pierce kill.
+        "pierce_window": bool(me0.mult("given", R) < 0.6 or en0.live("shield", R)
+                              or 1 - _prod(1 - t[1] for t in en0.live("dr", R)) >= 0.55
+                              or en["curHealth"] <= 720),
         "en_absorb": en0.total("absorb", R),
         "tick": me0.total("wound", R) + me0.total("drain", R),
     }
@@ -364,6 +375,18 @@ def main():
                 alive = ctx.get("summon") and not any(x in AOE for x in tuple(b) + tuple(b2))
                 shotplan.run_turn(e2, m2, ["turn"] + (["summon"] if alive else []), kit, hr2, False)
             v = value_model.score(m2, e2, m.hp, e.hp) - value_model.reserve_cost(b2, cal, R + 1)[0]
+            # buffs/debuffs still live in R+2 pay off again on my next burst (director's smoke -> setup -> burst
+            # line, Zaruza/Hikuro 2026-11-11); the 1-round lookahead alone undervalued 2-round setups
+            if e2.hp > 0 and m2.hp > 0:
+                # only multipliers cast THIS turn (live from R+1) count; ply2's own setup must not chain
+                g = 1.0
+                for t in m2.tags:
+                    if t[0] == "given" and t[2] <= R + 1 and t[2] <= R + 2 <= t[3]:
+                        g *= 1 + t[1]
+                for t in e2.tags:
+                    if t[0] == "taken" and t[2] <= R + 1 and t[2] <= R + 2 <= t[3]:
+                        g *= 1 + t[1]
+                v += value_model.GAMMA * value_model.BURST_BASE * max(0.0, g - 1)
             if v > best[0]:
                 best = (v, b2)
         return best
@@ -381,6 +404,11 @@ def main():
             m, e, sc, log = ply1(b, h, kit)
             kill = e.hp <= 0
             outs.append((w, sc + (0 if kill else pen - rc), m, e, log, kill))
+        # stage-1 setup estimate so 2-round setups survive pruning (they score ~0 on one ply): what my multipliers
+        # live next round add to a typical burst, discounted like the lookahead
+        def setup_est(m, e):
+            return value_model.GAMMA * value_model.BURST_BASE * max(0.0, m.mult("given", R + 1) * e.mult("taken", R + 1) - me0.mult("given", R + 1) * en0.mult("taken", R + 1))
+        outs = [(w, v + (0 if kill else setup_est(m, e)), m, e, log, kill) for w, v, m, e, log, kill in outs]
         ev = sum(w * v for w, v, *_ in outs)
         worst = min(outs, key=lambda o: o[1])
         stage.append(((1 - value_model.RISK) * ev + value_model.RISK * worst[1], b, outs, worst, dend, kit,
@@ -390,6 +418,8 @@ def main():
     for s1, b, outs, worst, dend, kit, why in stage[:25]:
         vals = []
         for w, v, m, e, log, kill in outs:
+            if not kill:
+                v -= value_model.GAMMA * value_model.BURST_BASE * max(0.0, m.mult("given", R + 1) * e.mult("taken", R + 1) - me0.mult("given", R + 1) * en0.mult("taken", R + 1))
             f, b2 = ply2(m, e, b, dend, kit)
             vals.append((w, v + value_model.GAMMA * f, b2))
         ev = sum(w * v for w, v, _ in vals)
