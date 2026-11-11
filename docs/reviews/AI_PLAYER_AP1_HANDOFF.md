@@ -7,9 +7,12 @@ Workflow: `docs/workflows/IMPLEMENTATION_HANDOFF.md`. Written 2026-11-11.
 ```text
 Repository: perseverance484/tnr-tools
 Branch: fable/ai-player-ap1
-Base: 3a8a4c3fa8a66ad60bcf5708b327ab0e37c4bdea (fable/ai-player-base: AP0 with the director's rulings applied)
-Merged in: fable/ai-player-overhaul-brief @ 6353a4b4e5719aaa5f8e983452f2f85768a8d61c (docs only)
-Head: the commit that adds this note (FROZEN; the exact SHA is in the handoff message)
+Base: 40788e78d4159777a47e0b317fe13d83fa1819b3 (fable/ai-player-base: AP0 with the director's rulings and the
+      review's correction applied)
+Merged in: fable/ai-player-overhaul-brief @ 6353a4b4e5719aaa5f8e983452f2f85768a8d61c (docs only; it contains
+           2ef8320d)
+Supersedes: bcd455dedb75e32f24b608efbfda983ecfaa8547 (the first AP1 handoff; what changed since is at the end)
+Head: the commit that brings this note up to date (FROZEN; the exact SHA is in the handoff message)
 Integration target: main (it differs from the base in state/run_lock.json only)
 Duet's branches: fable/pilot-planner-fixes @ dacdf7e2 and fable/pvp-engine-harness @ f6e8c860, both already in the
                  base; neither was touched
@@ -49,8 +52,8 @@ Run on the head, from the repository root unless a folder is given.
 
 | Command | Result |
 |---|---|
-| `python3 -W ignore::ResourceWarning -m unittest discover -s player/tests -t .` | `Ran 137 tests`, `OK` (world 6, gates 26, budget 13, battle 24, activities 18, relay 11, brain 15, wiring 5, chaos 19) |
-| `python3 -m unittest scripts/test_player_allowlist.py scripts/test_player_catalog.py` | `Ran 39 tests`, `OK` |
+| `python3 -W ignore::ResourceWarning -m unittest discover -s player/tests -t .` | `Ran 138 tests`, `OK` (world 6, gates 26, budget 13, battle 25, activities 18, relay 11, brain 15, wiring 5, chaos 19) |
+| `python3 -m unittest scripts/test_player_allowlist.py scripts/test_player_catalog.py` | `Ran 46 tests`, `OK` |
 | `python3 scripts/player_allowlist.py check` | exit 0; never-list check clean; the code scan now covers `player/` |
 | `python3 scripts/player_allowlist.py report --check` | exit 0 |
 | The four pilot tests (`state/player/dauntless/tools/tests/`) | exit 0 each |
@@ -73,9 +76,9 @@ ground list one poll earlier than the pilot), which was removed.
 
 | Measure | AP1 | AP6 budget |
 |---|---|---|
-| Player code, without tests | 2,630 lines in 19 files | to be set from the AP5 total |
-| Tests | 1,885 lines | - |
-| Largest file | `player/activities/battle.py`, 373 lines | 400 |
+| Player code, without tests | 2,657 lines in 19 files | to be set from the AP5 total |
+| Tests | 1,914 lines | - |
+| Largest file | `player/activities/battle.py`, 389 lines | 400 |
 | Largest function | `player/combat.py:plan_turn`, 38 lines | 60 |
 | Most branching function | `battle.py:_absorb`, 17 | 12 |
 | Functions over 12 branches | 10: `battle.py` `_absorb` 17, `_tick` 16, `plan` 16, `_my_turn` 13; `combat.py:plan_turn` 16; `calls.py:ground_cols` 15; `gates.py:do_not_attack` 15; `brain.py:_compose` 14; `relay.py` `read_results` 14, `find_transcript` 13 | 0 |
@@ -161,9 +164,24 @@ What the session must record:
 - Due with their phases, unchanged: equipment-swap scope and spend caps (AP2), PvE auto-combat scope and what
   counts as a rare item (AP3), further modes (AP5), the AP6 size cap, push notifications on by default (AP7).
 
+## What changed after the first AP1 handoff (`bcd455de`)
+
+The director sent three things after `bcd455de` was handed off, so that SHA is superseded by this head. Nothing was
+rewritten: `bcd455de` is an ancestor of it.
+
+| Commit | What |
+|---|---|
+| `b9a10504` | Merge of `fable/ai-player-base` at `40788e78`: the AP0 correction (the allowlist check fails an incomplete capture). No file under `player/` is touched. |
+| the next commit | **Every round's full live state is archived** (brief update at 2ef8320d, "For AP1: keep archiving every round's full live state, so nothing has to be re-captured later"). `fights/live_states/<battle>.full.jsonl.gz` gets one line for the start of my turn and one for the start of his, each round: the whole effect list as the game sent it, the fighters' columns, the ground, the seat. The compact `<battle>.json` the pilot wrote, which `postmortem.py` reads, is unchanged. One test. |
+| the same commit | **RUL-2026-11-11-150**: the director allows a second loadout, PvP 2, for the matchups the standard build loses. Recorded in the ledger and cited at open decision 2. Nothing is built for it in AP1: the loadout is chosen by the equipment activity in AP2. |
+| the head | This note. |
+
+The brief update at 2ef8320d needed no merge: it came in with 6353a4b4.
+
 ## Known debt
 
-1. Ten functions branch more than AP6's budget of 12 (the list is under "Size").
+1. Ten functions branch more than AP6's budget of 12 (the list is under "Size"), and `battle.py` is 11 lines
+   under the 400-line budget.
 2. `player/relay.py` and `scripts/player_allowlist.py` each carry the same 25 lines that read a tool result too
    large for the conversation from its saved file.
 3. No daily summary event; the console can build it from `status.json` and `events.jsonl`.
