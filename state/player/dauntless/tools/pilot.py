@@ -358,7 +358,7 @@ def battle_tick(st, bid, battle, entries):
     # near a kill the python damage model runs ~300 low (ANBU Member R5, 2026-11-11): score with the exact engine
     if director_mode():
         seen = st.setdefault("turn_seen", {})
-        key = f"{bid}:{R}:{v}"
+        key = f"{bid}:{R}"          # the turn clock starts once per turn: the director acting mid-turn does not restart it
         first = seen.setdefault(key, time.time())
         if len(seen) > 50:
             for k in list(seen)[:-50]:
