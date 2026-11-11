@@ -41,7 +41,7 @@ ME_NAME = "dauntless"
 GRID_W, GRID_H = 13, 9
 
 # firing order inside a turn: reposition, strip/lock, defensive locks, buffs, damage, fillers, kite step last
-ORDER = ["phantom", "replace", "step", "clear", "cleanse", "sealnull", "kims", "smoke", "ember", "overflow", "thunders",
+ORDER = ["cleanse", "phantom", "replace", "step", "clear", "sealnull", "kims", "smoke", "ember", "overflow", "thunders",
          "parry", "eclipse", "pill", "jewel", "subaku", "severed", "disaster", "shield", "panacea", "lotus", "danse",
          "shrapnel", "fury", "rebirth", "resonance", "leech", "yuki", "stormblade", "nights", "aetherion", "kunai",
          "basic", "basicheal", "defstance", "offstance", "stepback"]
@@ -192,6 +192,16 @@ def penalties(bundle, ctx):
         p -= 60 * (steps - 1); why.append(f"{steps} basic steps (use Phantom/Replacement)")
     if "smoke" in bundle and not ctx["me_immune_now"] and ctx["my_next_burst"]:
         p -= 150; why.append("smoke also cuts my next-round damage")
+    # pierce is the answer to Smoke / shields / DR stacks; spending it early puts it on cooldown + the 3-round pierce lock
+    # (director 2026-11-11: "Putting your pierce on GCD while the enemy hasn't used a smoke or shield yet is kind of risky")
+    if any(x in bundle for x in ("nights", "stormblade")) and not ctx["pierce_window"]:
+        p -= 450; why.append("pierce spent with no smoke/shield/DR to beat (save it)")
+    if ctx["afk"]:
+        wasted = [x for x in bundle if x in ("smoke", "panacea", "shield", "defstance", "kims", "sealnull", "parry")]
+        if wasted:
+            p -= 300 * len(wasted); why.append(f"enemy AFK: no defence needed ({'+'.join(wasted)})")
+    if ctx["tick"] >= ctx["my_hp"] - 50 and "cleanse" not in bundle:
+        p -= 6000; why.append(f"wound/drain tick {ctx['tick']:.0f} kills me: Cleanse FIRST")
     if "cleanse" in bundle and not ctx["me_debuffed"]:
         p -= 600; why.append("cleanse with nothing to remove")
     if "clear" in bundle and not ctx["en_buffed"]:
@@ -242,6 +252,13 @@ def main():
                            or (t[0] == "given" and t[1] < 0)) for t in me0.tags),
         "en_buffed": any(t[3] >= R and shotplan.positive(t) for t in en0.tags),
         "my_next_burst": True,
+        "my_hp": me["curHealth"],
+        "afk": (lambda t: len(t) >= 1 and sum(1 for a in t if a == "wait") * 2 >= len(t))(
+            [a for r, u, a, _ in rows if u == en["userId"] and (a == "wait" or a not in ("move",))]
+            and [a for r, u, a, _ in rows if u == en["userId"]]),
+        "pierce_window": bool(me0.mult("given", R) < 0.6 or en0.live("shield", R) or en0.total("dr", R) >= 0.3
+                              or en0.total("absorb", R) >= 0.3 or en["curHealth"] <= 800),
+        "tick": me0.total("wound", R) + me0.total("drain", R),
     }
 
     print(f"R{R} v{battle['battle.version']} | {'MY TURN' if my_turn else 'his turn'} | "
@@ -250,7 +267,7 @@ def main():
     print(f"him {en['username']} {en['curHealth']:.0f} HP @ {en_pos}  dist {d0}  avg dmg/turn {avg:.0f}")
     print(f"my tags now: {', '.join(tags(me0, R)) or '-'} | next: {', '.join(tags(me0, R + 1)) or '-'}")
     print(f"his tags now: {', '.join(tags(en0, R)) or '-'} | next: {', '.join(tags(en0, R + 1)) or '-'}")
-    print(f"his spent: {spent or '-'}; pierce {'READY' if ctx['pierce_ready'] else f'used R{pierce_last}'}; "
+    print(f"enemy {'AFK (timing out)' if ctx['afk'] else 'active'}; his spent: {spent or '-'}; pierce {'READY' if ctx['pierce_ready'] else f'used R{pierce_last}'}; "
           f"Clear {'HELD' if ctx['clear_held'] else 'spent'}")
     waiting = sorted((cd_plan.ready_round(st, n), n) for n in st["loadout"] if n in cd_plan.ACTIONS
                      and cd_plan.ready_round(st, n) > R)
@@ -278,6 +295,8 @@ def main():
         for h in (his_next if en_acted else his_now):
             m, e = copy.deepcopy(me0), copy.deepcopy(en0)
             log = []
+            if "cleanse" in b:  # Cleanse fired first removes wound/drain before they tick (Korin 2026-11-11 R5)
+                m.tags = [x for x in m.tags if shotplan.positive(x)]
             d, t = shotplan.run_turn(m, e, list(b), shotplan.MINE, R, True)
             m.hp = min(m.hp, me.get("maxHealth", 5050))
             log.append(("me", R, b, d, t, m.hp, e.hp))
@@ -290,6 +309,8 @@ def main():
             # setup credit: my +given live next round, his +taken live next round
             sc += 300 * (m.mult("given", R + 1) - 1) + 300 * (e.mult("taken", R + 1) - 1)
             pen, why = penalties(b, ctx)
+            if e.hp <= 0:  # a kill outweighs every saving rule
+                pen = max(pen, 0); why = []
             sc += pen
             if worst is None or sc < worst[0]:
                 worst = (sc, log, why)
