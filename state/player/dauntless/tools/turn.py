@@ -212,7 +212,7 @@ def main():
     if not others:
         print("no living enemy"); return
     summoned = {m.group(1) for _, _, _, ts in rows for t in (ts or []) if (m := re.search(r"^\s*(\S+) was summoned", t))}
-    players = [p for p in others if p["username"] not in summoned] or others
+    players = [p for p in others if p["username"].strip() not in summoned] or others
     en = players[0] if not a.enemy else next((p for p in others if p["username"].lower() == a.enemy.lower()), others[0])
     R = battle["battle.round"]
     my_turn = battle["battle.activeUserId"] == ME
@@ -296,7 +296,7 @@ def main():
     ctx["summon"] = False
     if sm:
         r0, sname, n = sm[-1]
-        names = {p["username"]: p["curHealth"] for p in others}
+        names = {p["username"].strip(): p["curHealth"] for p in others}
         if sname in names:  # live summons appear in usersState; dead ones drop out (others keeps HP > 0 only)
             alive = names[sname] > 0
         else:  # snapshot without it: no death message exists, so use damage taken (Jade died at ~2650)
