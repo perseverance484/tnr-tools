@@ -205,3 +205,9 @@ round N+2:  P1 turn  ->  P2 turn      | round change: 2-round tags from N switch
   the thrower.
 - "Ethereal Rebirth + Chakra Overflow same turn" and "Clear + immediately burst with the buff": buffs didn't apply to
   that turn's damage.
+
+## Summons (Korin's Jade, 2026-11-11)
+- A summon acts in its owner's turn on its own cooldowns: Jade pierced my shield in R5 two rounds after Korin's own
+  Night's Testament, so the owner's 3-round pierce lock does not cover summons.
+- No death message exists in the log; a live summon is listed in battle usersState. Our Fury (AoE) one-shot Jade
+  for 2646, so an AoE turn removes the summon threat.

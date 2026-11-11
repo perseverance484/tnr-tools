@@ -18,8 +18,11 @@ What it does (no live calls, no guessing):
     shared tag locks, written to the cd_plan state so policy.legal only offers usable bundles;
   - live/upcoming tags on both sides (cast in round N = live N+1 .. N+k), enemy resources spent (Clear, Cleanse, Smoke,
     Kim's, pierce) and his average damage per turn so far;
-  - every legal bundle simulated with shotplan's engine model: my turn + his reply (Luka profile when known, otherwise a
-    generic hitter calibrated from this fight), then my best follow-up; hard-rule penalties on top;
+  - every legal bundle simulated with shotplan's engine model and scored by value_model.py (2026-11-11 rework):
+    calibrated base damage (calibration.json), his reply as a weighted option set (turn / burst / setup / pierce /
+    Clear / Smoke / summon, weights = smoothed logged frequencies), 0.7 expected + 0.3 worst case, then my best
+    follow-up next round (x0.8) against his median turn; Cleanse / Clear / Smoke carry reserve costs; explicit guards
+    only for lethal ticks, extra basic steps and pierce (no window / into absorb);
   - prints the top bundles in firing order with exact target hexes, plus the 2-round HP forecast for both sides.
 """
 import argparse
@@ -34,6 +37,7 @@ sys.path.insert(0, HERE)
 
 import cd_plan  # noqa: E402
 import shotplan  # noqa: E402
+import value_model  # noqa: E402
 from ingest import IDS, ME  # noqa: E402
 from policy import legal  # noqa: E402
 
@@ -47,6 +51,7 @@ ORDER = ["cleanse", "phantom", "replace", "step", "clear", "sealnull", "kims", "
          "basic", "basicheal", "defstance", "offstance", "stepback"]
 SELF_T = {"overflow", "thunders", "parry", "eclipse", "shield", "pill", "jewel", "panacea", "kims", "defstance",
           "offstance", "basicheal", "cleanse"}
+AOE = {"fury", "shrapnel"}
 BUFFS = {"overflow", "thunders", "parry", "eclipse", "pill", "jewel", "ember", "phantom"}
 ACTION_ID = {v: k for k, v in IDS.items()}
 ACTION_ID.update({"kunai": "yVNeLzxHSFkNpTPnlm7yQ", "basicheal": "basicHeal", "step": "move", "stepback": "move"})
@@ -179,36 +184,22 @@ def resolve_targets(bundle, me_pos, en_pos, occupied):
     return out, pos
 
 
-def penalties(bundle, ctx):
+def penalties(bundle, ctx, cal):
+    """Explicit guards only; everything else is priced by value_model (enemy options, lookahead, reserves)."""
     p, why = 0.0, []
-    if "shield" in bundle and ctx["pierce_ready"]:
-        p -= 800; why.append("shield into his ready pierce")
-    if ctx["clear_held"]:
-        nb = len([a for a in bundle if a in BUFFS and a != "phantom"])
-        if nb >= 2 and "kims" not in bundle:
-            p -= 250 * nb; why.append("stacking buffs while he still holds Clear")
     steps = bundle.count("step")
     if steps > 1:
         p -= 60 * (steps - 1); why.append(f"{steps} basic steps (use Phantom/Replacement)")
-    if "smoke" in bundle and not ctx["me_immune_now"] and ctx["my_next_burst"]:
-        p -= 150; why.append("smoke also cuts my next-round damage")
-    # pierce is the answer to Smoke / shields / DR stacks; spending it early puts it on cooldown + the 3-round pierce lock
-    # (director 2026-11-11: "Putting your pierce on GCD while the enemy hasn't used a smoke or shield yet is kind of risky")
-    if any(x in bundle for x in ("nights", "stormblade")) and not ctx["pierce_window"]:
-        p -= 450; why.append("pierce spent with no smoke/shield/DR to beat (save it)")
-    # absorb applies after damage processing, so it also heals back pierce (director 2026-11-11)
-    if any(x in bundle for x in ("nights", "stormblade")) and ctx["en_absorb"] >= 0.2:
-        p -= 400; why.append(f"pierce into his {ctx['en_absorb']:.0%} absorb (Clear it first)")
-    if ctx["afk"]:
-        wasted = [x for x in bundle if x in ("smoke", "panacea", "shield", "defstance", "kims", "sealnull", "parry")]
-        if wasted:
-            p -= 300 * len(wasted); why.append(f"enemy AFK: no defence needed ({'+'.join(wasted)})")
+    pierce = [x for x in bundle if x in ("nights", "stormblade")]
+    if pierce and not ctx["pierce_window"]:
+        c = value_model.reserves(cal)[pierce[0]]
+        p -= c; why.append(f"pierce spent with no smoke/shield/DR window (-{c:.0f})")
+    # director: absorb applies after damage processing and heals back pierce too (tags.ts absorb()); avoid if possible
+    if pierce and ctx["en_absorb"] >= 0.2:
+        c = ctx["en_absorb"] * 631
+        p -= c; why.append(f"pierce into his {ctx['en_absorb']:.0%} absorb (-{c:.0f}, Clear it first)")
     if ctx["tick"] >= ctx["my_hp"] - 50 and "cleanse" not in bundle:
         p -= 6000; why.append(f"wound/drain tick {ctx['tick']:.0f} kills me: Cleanse FIRST")
-    if "cleanse" in bundle and not ctx["me_debuffed"]:
-        p -= 600; why.append("cleanse with nothing to remove")
-    if "clear" in bundle and not ctx["en_buffed"]:
-        p -= 600; why.append("clear with nothing to strip")
     return p, why
 
 
@@ -220,7 +211,9 @@ def main():
     battle, me, others, rows = load_input(a.file)
     if not others:
         print("no living enemy"); return
-    en = others[0] if not a.enemy else next((p for p in others if p["username"].lower() == a.enemy.lower()), others[0])
+    summoned = {m.group(1) for _, _, _, ts in rows for t in (ts or []) if (m := re.search(r"^\s*(\S+) was summoned", t))}
+    players = [p for p in others if p["username"] not in summoned] or others
+    en = players[0] if not a.enemy else next((p for p in others if p["username"].lower() == a.enemy.lower()), others[0])
     R = battle["battle.round"]
     my_turn = battle["battle.activeUserId"] == ME
     en_acted = any(r == R and u == en["userId"] for r, u, _, _ in rows)
@@ -273,6 +266,7 @@ def main():
     print(f"his tags now: {', '.join(tags(en0, R)) or '-'} | next: {', '.join(tags(en0, R + 1)) or '-'}")
     print(f"enemy {'AFK (timing out)' if ctx['afk'] else 'active'}; his spent: {spent or '-'}; pierce {'READY' if ctx['pierce_ready'] else f'used R{pierce_last}'}; "
           f"Clear {'HELD' if ctx['clear_held'] else 'spent'}")
+    print("value model: calibrated kit + weighted enemy options + 1-round lookahead (value_model.py)")
     waiting = sorted((cd_plan.ready_round(st, n), n) for n in st["loadout"] if n in cd_plan.ACTIONS
                      and cd_plan.ready_round(st, n) > R)
     print("on cooldown: " + ", ".join(f"{n}->R{r}" for r, n in waiting))
@@ -282,6 +276,8 @@ def main():
 
     bundles = legal(st, R, ap_now, bool(en0.live("debuffimmune", R)),
                     {"ember", "severed", "disaster", "lotus", "danse", "sealnull", "yuki"}, st["loadout"], d0)
+    if not bundles:
+        print("no legal bundle (check AP/cooldowns)"); return
     # kite-back variants: one spare step moves me back out after ranged actions
     extra = []
     for b in bundles:
@@ -291,40 +287,120 @@ def main():
     cd_plan.ACTIONS.setdefault("stepback", (10, 0, None, "kite step"))
     shotplan.MINE.setdefault("stepback", (0, []))
     bundles = list(bundles) + extra
-    his_now = shotplan.enemy_options(en["username"].lower(), a.battle, R) if known and en["username"].lower() in shotplan.PROFILES else [["hit", "hit2"]]
-    his_next = shotplan.enemy_options(en["username"].lower(), a.battle, R + 1) if known and en["username"].lower() in shotplan.PROFILES else [["hit", "hit2"]]
-    results = []
+    cal = value_model.load_cal()
+    value_model.calibrate_kit(cal)
+    ctx["smoke_spent"] = "smoke" in spent
+    # live enemy summon (e.g. Korin's Jade): acts on its own cooldowns, so his pierce lock doesn't cover it
+    sm = [(r, m.group(1), int(m.group(2))) for r, u, _, ts in rows if u == en["userId"] for t in (ts or [])
+          if (m := re.search(r"^\s*(\S+) was summoned for (\d+) rounds", t))]
+    ctx["summon"] = False
+    if sm:
+        r0, sname, n = sm[-1]
+        names = {p["username"]: p["curHealth"] for p in others}
+        if sname in names:  # live summons appear in usersState; dead ones drop out (others keeps HP > 0 only)
+            alive = names[sname] > 0
+        else:  # snapshot without it: no death message exists, so use damage taken (Jade died at ~2650)
+            took = sum(float(m.group(1)) for r, u, _, ts in rows if r >= r0 for t in (ts or [])
+                       if (m := re.match(rf"\s*{re.escape(sname)} takes ([\d.]+) damage", t)))
+            alive = took < 2000
+        ctx["summon"] = alive and r0 + n - 1 >= R
+    ctx["pierce_shown"] = pierce_last is not None  # he carries a pierce: shield-vs-pierce odds go up
+    ctx["pierce_ready_own"] = ctx["pierce_ready"]
+    if ctx["summon"]:
+        ctx["pierce_ready"] = True
+    blocked = {"ember", "severed", "disaster", "lotus", "danse", "sealnull", "yuki"}
+    profile = known and en["username"].lower() in shotplan.PROFILES
+    hr = R + 1 if en_acted else R          # his reply round
+    hr2 = hr + 1                            # his reply after my follow-up
+    maxhp_me, maxhp_en = me.get("maxHealth", 5050), en.get("maxHealth", 5050)
+
+    def kit_for(dend):
+        reach = max(0.4, 1 - 0.1 * max(0, dend - 4))  # each hex beyond 4 costs him 10 AP of his turn
+        k = value_model.generic_kit(cal, reach)
+        if known:
+            k.update(ekit)
+        return k
+
+    def his_options(m, r, b=()):
+        c = ctx
+        if ctx["summon"] and any(x in AOE for x in b):  # AoE clears summons (Fury one-shot Jade for 2646, 2026-11-11)
+            c = dict(ctx, summon=False, pierce_ready=ctx["pierce_ready_own"])
+        opts = value_model.enemy_options(cal, c, m, r, ctx["afk"])
+        if profile:
+            pred = shotplan.enemy_options(en["username"].lower(), a.battle, r)
+            opts = [(w * 0.5, o) for w, o in opts] + [(0.5 / len(pred), o) for o in pred]
+        return opts
+
+    def ply1(b, h, kit):
+        m, e = value_model.copy_side(me0), value_model.copy_side(en0)
+        if "cleanse" in b:  # Cleanse fired first removes wound/drain before they tick
+            m.tags = [x for x in m.tags if shotplan.positive(x)]
+        d, t = shotplan.run_turn(m, e, list(b), shotplan.MINE, R, True)
+        m.hp = min(m.hp, maxhp_me)
+        log = [("me", R, b, d, t, m.hp, e.hp)]
+        if e.hp > 0:
+            d2, t2 = shotplan.run_turn(e, m, h, kit, hr, False)
+            m.hp = min(m.hp, maxhp_me); e.hp = min(e.hp, maxhp_en)
+            log.append(("him", hr, h, d2, t2, m.hp, e.hp))
+        return m, e, value_model.score(m, e, me["curHealth"], en["curHealth"]), log
+
+    def ply2(m, e, b, dend, kit):
+        """My best follow-up next round (after cooldowns from b) and his expected reply to it."""
+        if m.hp <= 0 or e.hp <= 0:
+            return 0.0, None
+        st2 = {"loadout": st["loadout"], "used": st["used"] + [[R, x] for x in b if x not in ("step", "stepback")]}
+        best = (-1e9, None)
+        for b2 in legal(st2, R + 1, 100, bool(e.live("debuffimmune", R + 1)), blocked, st["loadout"], dend):
+            m2, e2 = value_model.copy_side(m), value_model.copy_side(e)
+            if "cleanse" in b2:
+                m2.tags = [x for x in m2.tags if shotplan.positive(x)]
+            shotplan.run_turn(m2, e2, list(b2), shotplan.MINE, R + 1, True)
+            m2.hp = min(m2.hp, maxhp_me)
+            if e2.hp > 0:
+                alive = ctx.get("summon") and not any(x in AOE for x in tuple(b) + tuple(b2))
+                shotplan.run_turn(e2, m2, ["turn"] + (["summon"] if alive else []), kit, hr2, False)
+            v = value_model.score(m2, e2, m.hp, e.hp) - value_model.reserve_cost(b2, cal, R + 1)[0]
+            if v > best[0]:
+                best = (v, b2)
+        return best
+
+    # stage 1: one ply for every bundle (expected + worst over his option set); stage 2: lookahead on the best 25
+    stage = []
     for b in bundles:
-        worst = None
-        for h in (his_next if en_acted else his_now):
-            m, e = copy.deepcopy(me0), copy.deepcopy(en0)
-            log = []
-            if "cleanse" in b:  # Cleanse fired first removes wound/drain before they tick (Korin 2026-11-11 R5)
-                m.tags = [x for x in m.tags if shotplan.positive(x)]
-            d, t = shotplan.run_turn(m, e, list(b), shotplan.MINE, R, True)
-            m.hp = min(m.hp, me.get("maxHealth", 5050))
-            log.append(("me", R, b, d, t, m.hp, e.hp))
-            hr = R + 1 if en_acted else R
-            if e.hp > 0:
-                d2, t2 = shotplan.run_turn(e, m, h, ekit, hr, False)
-                log.append(("him", hr, h, d2, t2, m.hp, e.hp))
-            m.hp = min(m.hp, me.get("maxHealth", 5050)); e.hp = min(e.hp, en.get("maxHealth", 5050))
-            sc = shotplan.score(m, e, me["curHealth"], en["curHealth"])
-            # setup credit: my +given live next round, his +taken live next round
-            sc += 300 * (m.mult("given", R + 1) - 1) + 300 * (e.mult("taken", R + 1) - 1)
-            pen, why = penalties(b, ctx)
-            if e.hp <= 0:  # a kill outweighs every saving rule
-                pen = max(pen, 0); why = []
-            sc += pen
-            if worst is None or sc < worst[0]:
-                worst = (sc, log, why)
-        results.append((worst[0], b, worst[1], worst[2]))
+        seq, end = resolve_targets(b, me_pos, en_pos, occupied)
+        dend = dist(end, en_pos)
+        kit = kit_for(dend)
+        pen, why = penalties(b, ctx, cal)
+        rc, rwhy = value_model.reserve_cost(b, cal, R)
+        outs = []
+        for w, h in his_options(me0, hr, b):
+            m, e, sc, log = ply1(b, h, kit)
+            kill = e.hp <= 0
+            outs.append((w, sc + (0 if kill else pen - rc), m, e, log, kill))
+        ev = sum(w * v for w, v, *_ in outs)
+        worst = min(outs, key=lambda o: o[1])
+        stage.append(((1 - value_model.RISK) * ev + value_model.RISK * worst[1], b, outs, worst, dend, kit,
+                      [] if worst[5] else why + rwhy))
+    stage.sort(key=lambda x: -x[0])
+    results = []
+    for s1, b, outs, worst, dend, kit, why in stage[:25]:
+        vals = []
+        for w, v, m, e, log, kill in outs:
+            f, b2 = ply2(m, e, b, dend, kit)
+            vals.append((w, v + value_model.GAMMA * f, b2))
+        ev = sum(w * v for w, v, _ in vals)
+        wv = min(vals, key=lambda x: x[1])
+        total = (1 - value_model.RISK) * ev + value_model.RISK * wv[1]
+        follow = max(vals, key=lambda x: x[0])[2]
+        log = list(worst[4]) + ([("me", R + 1, follow, 0, 0, 0, 0)] if follow else [])
+        results.append((total, b, log, why))
     results.sort(key=lambda x: -x[0])
     print(f"{len(bundles)} legal bundles. TOP {a.top}:")
     for i, (sc, b, log, why) in enumerate(results[:a.top], 1):
         seq, end = resolve_targets(b, me_pos, en_pos, occupied)
         fire = " -> ".join(f"{x}@{t[0]},{t[1]}" for x, _, t in seq)
-        fc = " | ".join(f"{w} R{r} {'+'.join(x)}: me {mh:.0f} / him {eh:.0f}" for w, r, x, _, _, mh, eh in log)
+        fc = " | ".join(f"{w} R{r} {'+'.join(x)}: me {mh:.0f} / him {eh:.0f}" if w == "him" or r == R else
+                        f"then me R{r} {'+'.join(x)}" for w, r, x, _, _, mh, eh in log)
         print(f"{i}. {sc:+6.0f}  {fire}  (ends @{end}, dist {dist(end, en_pos)})")
         print(f"     forecast: {fc}" + (f"  [penalty: {'; '.join(why)}]" if why else ""))
     best = results[0][1]

@@ -165,6 +165,14 @@ def main():
             f.write(json.dumps(s) + "\n")
     print(f"{len(ss)} training samples written (weights 1.0 / 1.5 flagged)")
     policy.retrain(10, 0.003)
+    recalibrate()
+
+
+def recalibrate():
+    """Refresh calibration.json (turn.py's value model) from every logged fight, including this one."""
+    import subprocess, sys
+    r = subprocess.run([sys.executable, os.path.join(HERE, "calibrate.py")], capture_output=True, text=True)
+    print("value model recalibrated" if r.returncode == 0 else f"calibrate.py failed: {r.stderr[-300:]}")
 
 
 if __name__ == "__main__":
