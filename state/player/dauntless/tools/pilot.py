@@ -440,14 +440,16 @@ def world(st, user, res):
         if sector in CIRCUIT or sector == HOME_SECTOR:
             nxt = CIRCUIT[(CIRCUIT.index(sector) + 1) % len(CIRCUIT)] if sector in CIRCUIT else CIRCUIT[0]
             seen = ", ".join(f"{n} {k}" for k, n in sorted(st.get("last_scan", {}).items())) or "empty"
-            return head + f": nobody to fight here ({seen}){'; ' + refused if refused else ''}, next sector {nxt}", go(nxt)
+            return head + f": nobody to fight here ({seen}){'; ' + refused if refused else ''}, next sector {nxt}", \
+                go(nxt)[:-1] + harvest_calls(st) + [TICK]
     if sector not in CIRCUIT:
         return head + f": heading to the circuit ({CIRCUIT[0]})", go(CIRCUIT[0])
     batch = [wait(HUNT_WAIT), c_user(), c_sector(sector)]
     if time.time() - st.get("sensory", 0) > 31:
         st["sensory"] = time.time()
         batch.append(call("stealth.useSensory", {"sector": sector}, ["success", "message"]))
-    return head + ": scanning", batch + [TICK]
+    return head + ": scanning" + (f" [logs: {st['harvest']}]" if st.get("harvest") else ""), \
+        batch + harvest_calls(st) + [TICK]
 
 
 def restock_tick(st, user, res):
@@ -492,6 +494,33 @@ def _restock_records():
     recs = engine_bridge._records()
     ids = list(restock.TRACK) + [x for x in [load_state().get("full_potion_item")] if x]
     return {i: recs[i]["record"] for i in ids if i in recs}
+
+
+def harvest_calls(st, n=1):
+    """Spare-budget battle-log crawl between fights (harvest.py): at most n reads, only with headroom in the window."""
+    import harvest
+    recent = [t for t in st.get("calls", []) if t > time.time() - 60]
+    if len(recent) > CALL_BUDGET - 6:
+        return []
+    h = harvest.load()
+    if not h.get("seeded"):
+        import opponents
+        harvest.seed(h, [u for _, _, rows in opponents.load_logs() for _, u, _, _ in rows])
+        harvest.save(h)
+    return [call(*c) for c in harvest.next_calls(h, n)]
+
+
+def harvest_ingest(st, res):
+    """Fold harvested results in (my own battle's entries are not in the crawl list, so they are ignored)."""
+    got = [(ep, res[ep]) for ep in ("combat.getBattleHistory", "combat.getBattleEntries") if ep in res]
+    if not got:
+        return
+    import harvest
+    h = harvest.load()
+    notes = [harvest.ingest(h, ep, r[0], r[1]) for ep, r in got]
+    if any(notes):
+        harvest.save(h)
+        st["harvest"] = harvest.stats(h)
 
 
 def go(sector):
@@ -539,6 +568,7 @@ def tick():
     started = time.time()
     res = fresh_results(st.get("last_tick", 0))
     note_refusals(st, res)
+    harvest_ingest(st, res)
     if "jutsu.getPublicUserJutsus" in res:
         inp, data, _ = res["jutsu.getPublicUserJutsus"]
         try:
