@@ -47,10 +47,15 @@ K_BLEND = 3
 RISK = 0.3
 GAMMA = 0.8
 BURST_P = 0.15
+BURST_SEEN = 1.5       # his given multiplier (live or cast this round) that counts as a shown burst
+BURST_SEEN_CAP = 0.8
 BURST_BASE = 1100.0  # my typical two-hit burst base (Fury/Rebirth/Lotus/Shrapnel ~575 each, calibrated)
 KILL, DEATH = 5000, 6500
 PRIORS = {  # (prior p, strength) from the 2026-11-09 top-player study (Winta, DDXXD, Ziharkk, Gario)
-    "pierce_vs_shield": (0.6, 4), "clear_vs_2buffs": (0.3, 4), "pierce": (0.15, 4), "clear": (0.15, 4),
+    "pierce_vs_shield": (0.6, 4), "clear_vs_2buffs": (0.3, 4),
+    # director 2026-11-11 (Targaryen R3->R4): a stack of 3+ buffs is what draws the Clear; prior 0.6 at strength 8
+    "clear_vs_3buffs": (0.6, 8), "clear_vs_4buffs": (0.6, 8),  # logs: all 8 Clears met 3+ buffs, 7 of 8 met 4+
+    "pierce": (0.15, 4), "clear": (0.15, 4),
     "smoke": (0.10, 4), "setup": (0.35, 4),
 }
 
@@ -61,6 +66,17 @@ def load_cal():
     except (OSError, ValueError):
         return {"my_base": {}, "en_hit": 500, "en_turn": 600, "en_burst": 1300, "opportunities": {},
                 "debuff_value": 300, "buff_value": 450, "fight_len": 7}
+
+
+def clear_risk_4(cal):
+    """P(he Clears this turn | my 4+ buff stack, his Clear held). Per-turn hazard among opponents who do Clear:
+    every logged Clear of a 4+ stack came on his 1st-3rd chance (7 Clears in 12 chances, calibrate.py
+    clear_wait_4buffs); the raw 7/26 is diluted by AFK / short fights where he never got to it. Director
+    2026-11-11: a big stack "basically forces the enemy's Clear". Beta-smoothed with prior 0.6 at strength 8."""
+    w = cal.get("clear_wait_4buffs")
+    if not w:
+        return smoothed(cal, "clear_vs_4buffs")
+    return (len(w) + 0.6 * 8) / (sum(w) + 8)
 
 
 def smoothed(cal, key):
@@ -104,23 +120,48 @@ def enemy_options(cal, ctx, me_side, r, afk):
     if afk:
         return [(1.0, [])]
     opts = []
-    my_pos = sum(1 for t in me_side.tags if shotplan.positive(t) and t[2] <= r <= t[3])
+    # his Clear strips every positive of mine that exists when he acts, live or cast this round (engine tags.ts
+    # removeEffects has no castThisRound filter). Acting first (player 1), my new buffs start next round but his
+    # Clear later this round still takes them, so they count: t[2] <= r + 1, not t[2] <= r.
+    clearable = lambda t: shotplan.positive(t) and t[2] <= r + 1 and t[3] >= r  # noqa: E731
+    my_pos = sum(1 for t in me_side.tags if clearable(t))
     if ctx["pierce_ready"]:
         p = smoothed(cal, "pierce_vs_shield") if me_side.live("shield", r) else smoothed(cal, "pierce")
         if ctx.get("pierce_shown") and me_side.live("shield", r):
             p = max(p, 0.85)  # every logged shield cast into a SHOWN, ready pierce was broken (Ziharkk, Korin)
         opts.append((p, ["pierce", "light"]))
-    if ctx["clear_held"] and my_pos >= 1:
-        p = smoothed(cal, "clear_vs_2buffs") if my_pos >= 2 else smoothed(cal, "clear")
+    stack = sum(1 for t in me_side.tags if clearable(t) and t[0] not in ("clearimmune", "debuffimmune"))
+    if ctx["clear_held"] and my_pos >= 1 and not me_side.live("clearimmune", r):
+        p = (clear_risk_4(cal) if stack >= 4 else smoothed(cal, "clear_vs_3buffs") if stack >= 3 else
+             smoothed(cal, "clear_vs_2buffs") if my_pos >= 2 else smoothed(cal, "clear"))
         opts.append((p, ["clear", "light"]))
     if not ctx.get("smoke_spent"):
         opts.append((smoothed(cal, "smoke"), ["smoke", "light"]))
-    opts.append((smoothed(cal, "setup"), ["buff", "debuff", "light"]))
-    opts.append((BURST_P, ["burst"]))  # his 85th-percentile turn: 15% of active turns by definition
+    blocked = ctx.get("en_buffblocked")   # my Seal / Lotus: he cannot buff this turn
+    opts.append((smoothed(cal, "setup") * (0.4 if blocked else 1.0), ["debuff", "light"] if blocked else ["buff", "debuff", "light"]))
+    # a stacked +given on him is the burst tell (Hikuro R7, Warlord40 R3): scale the burst weight with his live
+    # damage-given multiplier, capped at 0.6
+    g = ctx.get("en_given", 1.0)
+    # a stack he has ALREADY cast is a known fact, not a guess (DDX R4, 2026-11-11: he acted first and queued
+    # +15/+30/+35/+35 given; acting second I could see it all, yet the 0.6 burst cap shared with his absolute Clear
+    # hazard left the burst at 0.22 and the planner raced ember+thunders into an 1854 hit). From BURST_SEEN up, the
+    # burst is an absolute hazard like his Clear, capped at BURST_SEEN_CAP.
+    seen = g >= BURST_SEEN and not blocked
+    opts.append((min(BURST_SEEN_CAP if seen else 0.6, BURST_P * g ** 3) * (0.35 if blocked else 1.0),
+                 ["burst"] + (["seen"] if seen else [])))  # his 85th-percentile turn: 15% of active turns by definition
     rest = max(0.05, 1.0 - sum(w for w, _ in opts))
     opts.append((rest, ["turn"]))
     if ctx.get("summon"):  # a live summon acts on its own cooldowns (and can pierce: Jade broke my shield R5)
         opts = [(w, o + ["summon"]) for w, o in opts]
+    # his Clear is an absolute probability (measured hazard): the other options share what is left, instead of
+    # normalising everything together and diluting the Clear (0.59 used to come out ~0.42)
+    absolute = lambda a: "clear" in a or "seen" in a  # noqa: E731
+    abs_w = sum(w for w, a in opts if absolute(a))
+    rest_tot = sum(w for w, a in opts if not absolute(a))
+    if abs_w and rest_tot:
+        k = min(1.0, 0.95 / abs_w)
+        opts = [(w * k if absolute(a) else w * (1 - min(abs_w, 0.95)) / rest_tot, a) for w, a in opts]
+        return [(w, [x for x in a if x != "seen"]) for w, a in opts]
     tot = sum(w for w, _ in opts)
     return [(w / tot, a) for w, a in opts]
 

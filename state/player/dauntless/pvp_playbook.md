@@ -41,6 +41,29 @@ Owned level-25 jutsu worth a future PvP loadout: Eternity Flux (dmg 40 + stun 90
 Dragon King's Impact (dmg 40, +dmg, afterburn, wound), Particle Cannon (dmg 40 + wound), Cauterize (heal + cleanse),
 Severed Pulse (anti-heal + dmg taken), Momentum Shift.
 
+## Turn order: player 1 vs player 2 (director 2026-11-11, checked against the pinned engine)
+
+Work out the seat at the start of every fight: whoever acts first in round 1 is player 1 for the whole fight
+(engine `actions.ts calcActiveUser`: a fixed ring, the round advances once everyone has acted). The planner prints it
+on every turn ("seat: player 1" / "seat: player 2").
+
+- **Player 1 acts first.** Its damage lands first. Its tags go live only next round, unless instant (damage, heal,
+  pierce, shields) (engine: every tag is stamped `castThisRound` and `getActiveTargetEffects` skips it until the round
+  advances, `turn.ts` clears the flag).
+- **Player 2 sees player 1's tags before they go live** and can answer them in the same round: Clear strips them even
+  though they are not live yet (`tags.ts removeEffects` has no `castThisRound` filter), and defence cast now (Resist,
+  Shield, Panacea) is live for player 1's next hit. Player 2's own tags go live when the round advances, which is
+  before player 1's next action, so for player 2 they are in effect instant.
+- **A stun costs AP only in the rounds after it lands.** A stun player 1 casts this round leaves player 2 the full 100
+  AP now (`calcApReduction` skips `castThisRound`; DDX R5 and Warlord40 R2: 100 AP spent after a same-round stun).
+- **Player 1's buffs are exposed to a same-round Clear.** Anything player 1 casts can be stripped by player 2's Clear
+  before it ever goes live, so player 1 sets up only behind protection.
+- **Kim's Pink (clear/debuff prevent, live the round after it is cast):**
+  - player 1: R1 Kim's; R2 buff setup (protected from player 2's R2 Clear); R3 nuke cashout.
+  - player 2: R1 buff setup + Kim's; R2 nuke cashout (both go live before player 1's R2 Clear).
+- **Reading a stack as player 2:** a +given stack player 1 has just cast is a known fact, not a guess: answer it now
+  (Clear if held, Smoke/Resist/Shield/Seal, or kill first) instead of setting up a round behind.
+
 ## Rules learned
 - Brackets: I can attack brackets 6-8 only (2.5M+ XP, or Elite Jonin).
 - Own village, allies, protected villages (Freedom State) and safe zones (Wake Island) cannot be attacked.

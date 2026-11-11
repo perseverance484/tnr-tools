@@ -42,7 +42,7 @@ MINE = {
     "ember": (560, [("me", "given", 0.35, 2), ("en", "taken", 0.35, 2)]),
     "danse": (420, [("en", "seal", 1, 2, True)]),
     "stormblade": (707, [("me", "reflect", 0.35, 2)], "pierce"),
-    "nights": (631, [("me", "heal", 200, 0, True)], "pierce"),
+    "nights": (631, [], "pierce"),                      # no heal: the record is pierce + 2-round immunity (engine 2026-11-11)
     "resonance": (450, [("en", "stun", 20, 2, True)]),
     "leech": (0, [("en", "drain", 300, 2), ("me", "absorb", 0.21, 2)]),
     "yuki": (0, [("en", "drain", 200, 2), ("en", "given", -0.25, 2)]),
@@ -53,6 +53,13 @@ MINE = {
     "overflow": (0, [("me", "given", 0.35, 2), ("me", "given", 0.35, 2)]),
     "thunders": (0, [("me", "given", 0.30, 2), ("me", "reflect", 0.35, 2)]),
     "parry": (0, [("me", "given", 0.30, 2), ("me", "parry", 0.20, 2)]),
+    # Chakra Resistance (lvl 25): -30% damage taken on me for 2 rounds; his next casts lose 10 potency (consumed as he
+    # casts; modelled as -10% damage given for his next turn). Replaced Parry in PvP 1 (director 2026-11-11).
+    # The potency cut is instant (engine potency(): applies when isNew, consumed by his next casts), so it hits his
+    # turn later THIS round when I act first, and his next turn when I act second. The -30% taken starts next round
+    # like every tag, which covers his next turn whether I act first or second. Director 2026-11-11: Seal + Chakra
+    # Resistance is the emergency damage nerf (his buffs blocked, his casts weakened, my damage taken -30%).
+    "resist": (0, [("me", "dr", 0.30, 2), ("en", "given", -0.10, 2, True)]),
     "eclipse": (0, [("me", "given", 0.30, 2), ("me", "lifesteal", 0.35, 2)]),
     "sealnull": (0, [("en", "buffblock", 1, 1), ("me", "debuffimmune", 1, 2)]),
     "phantom": (0, [("me", "given", 0.30, 2), ("me", "dr", 0.25, 2)]),
@@ -120,6 +127,34 @@ class Side:
         return sum(t[1] for t in self.live(kind, r))
 
 
+GROUND_DR = float(os.environ.get("TNR_GROUND_DR", "0.20"))
+
+
+def ground(t):
+    """A ground effect (Subaku Palace's -damage given): it holds while I stand on the marked tiles, so Cleanse does
+    not remove it; moving off does, and debuff-prevent keeps it from re-applying (director 2026-11-11, 4qua R2)."""
+    return len(t) > 4 and t[4] == "ground"
+
+
+def off_ground(side, rows, me_id, move_ids):
+    """Drop ground tags on a side (me_id = that side's user id) once it has moved after the ground was laid (rows
+    oldest-first). Subaku's -given is laid by the other side on my tile; Phantom Step's -taken by the side itself
+    as it lands, so only a later move takes it off."""
+    if not any(ground(t) for t in side.tags):
+        return
+    keep = []
+    for t in side.tags:
+        if ground(t):
+            kind = "decreasedamagegiven" if t[0] == "given" else "decreasedamagetaken"
+            r0 = t[5] if len(t) > 5 else None
+            laid = [i for i, (r, u, a, ts) in enumerate(rows) if (r0 is None or r == r0)
+                    and any(f"marked the ground with {kind}" in (x or "") for x in (ts or []))]
+            if laid and any(i > laid[-1] and u == me_id and a in move_ids for i, (r, u, a, _) in enumerate(rows)):
+                continue
+        keep.append(t)
+    side.tags = keep
+
+
 def positive(t):
     k, v = t[0], t[1]
     return (k == "given" and v > 0) or k in POSITIVE - {"given+"}
@@ -129,14 +164,47 @@ def rebuild(lines, me_name, en_name, my_hp, en_hp):
     me, en = Side(my_hp), Side(en_hp)
     pat = [("damage given", "given"), ("damage taken", "taken"), ("will absorb", "absorb"), ("will steal", "lifesteal"),
            ("will reflect", "reflect"), ("will parry", "parry"), ("healing ability is decreased", "healcut")]
-    for line in lines:
+    ground_n = {}
+    ground_dr_line = None
+    for li, line in enumerate(lines):
         r, t = line.split("|", 1)
         r = int(r)
+        g = re.match(rf"^({re.escape(en_name)}|{re.escape(me_name)}) marked the ground with decreasedamagegiven for the next (\d+) rounds", t)
+        if g:
+            ground_n[(r, g.group(1))] = (int(g.group(2)), li)
+            continue
+        g = re.match(rf"^({re.escape(en_name)}|{re.escape(me_name)}) marked the ground with decreasedamagetaken for the next (\d+) rounds", t)
+        if g:
+            # Phantom Step's ground (-damage taken for whoever stands on the landing tile, the caster): the log line
+            # names no size and no follow-up line lands it, so it was never modelled. Korin R10-R11 2026-11-11: his
+            # Phantom Step cut my R11 burst from ~1500 to 1146 and the planner fired for a kill he survived on 42 HP.
+            # Size: GROUND_DR, the record's 10 + 0.4/level at level 25 = 20% (his other jutsu read at level 25 live).
+            (me if g.group(1) == me_name else en).tags.append(["dr", GROUND_DR, r, r + int(g.group(2)), "ground", r, li])
+            ground_dr_line = (r, g.group(1))
+            continue
+        if ground_dr_line and ground_dr_line == (r, t.split(" ", 1)[0]) and "damage taken" in t and "decreased" in t \
+                and "next 1 rounds" in t:
+            # the tile's own -taken landing on the caster this round (Ashutosh fight R7: "dauntless damage taken ...
+            # decreased by up to 20% for the next 1 rounds"): it is the ground tag above, so it sets its size only
+            who_g = me if ground_dr_line[1] == me_name else en
+            if (m := re.search(r"([\d.]+)%", t)):
+                for x in who_g.tags:
+                    if ground(x) and x[0] == "dr" and x[5] == r:
+                        x[1] = float(m.group(1)) / 100
+            ground_dr_line = None
+            continue
         who = me if t.startswith(me_name) else en if t.startswith(en_name) else None
         if who is None:
             continue
+        other = en_name if who is me else me_name
+        if (r, other) in ground_n and "damage given" in t and "decreased" in t:
+            # the ground's -given lands on whoever stands on it each round it lasts: a ground tag, not a debuff
+            n_g, li0 = ground_n.pop((r, other))
+            v = float(m.group(1)) / 100 if (m := re.search(r"([\d.]+)%", t)) else 0.25
+            who.tags.append(["given", -v, r + 1, r + n_g, "ground", r, li0])
+            continue
         if "cleared of all positive" in t:
-            who.tags = [x for x in who.tags if not positive(x)]
+            who.tags = [x for x in who.tags if not positive(x) or ground(x)]
             continue
         if "cleared of all negative" in t:
             who.tags = [x for x in who.tags if positive(x)]
@@ -153,15 +221,47 @@ def rebuild(lines, me_name, en_name, my_hp, en_hp):
         else:
             if "cannot be debuffed" in t:
                 who.tags.append(["debuffimmune", 1, r + 1, r + n])
+                if "cannot be cleared" in t:
+                    who.tags.append(["clearimmune", 1, r + 1, r + n])
+            elif "cannot be cleared" in t:
+                # clear-prevent (Dr. Kim's, ANBU Member R3 2026-11-11: "cannot be cleared for the next 1 rounds" made my
+                # R4 Clear fail with "resists being cleared"); the planner did not read it and wasted Clear
+                who.tags.append(["clearimmune", 1, r + 1, r + n])
             elif "wound damage for" in t:
                 who.tags.append(["wound", float(re.search(r"take ([\d.]+) wound", t).group(1)), r + 1, r + n])
             elif "will be drained" in t:
                 who.tags.append(["drain", float(re.search(r"drained ([\d.]+)", t).group(1)), r + 1, r + n])
+            elif "of damage received as afterburn" in t:
+                # "X will take N% of damage received as afterburn": every non-pierce hit on X adds N% of it again,
+                # outside his absorb (engine process.ts: afterburn and absorb are both shares of the same hit, so
+                # afterburn >= absorb cancels the absorb; director 2026-11-11, Luka)
+                who.tags.append(["afterburn", v, r + 1, r + n])
             elif "will recoil" in t:
                 who.tags.append(["recoil_self", v, r + 1, r + n])
             elif "shield with" in t:
                 who.tags.append(["shield", float(re.search(r"with ([\d.]+)", t).group(1)), r, r + n - 1])
     return me, en
+
+
+def _agg(side, r):
+    """One pass over a side's live tags at round r: kind -> [sum of values, product of (1 + value), product of
+    (1 - value)] (speed pass: apply() used to rescan the tag list ~10 times per call)."""
+    out = {}
+    for t in side.tags:
+        if t[2] <= r <= t[3]:
+            a = out.get(t[0])
+            if a is None:
+                out[t[0]] = [t[1], 1 + t[1], 1 - t[1]]
+            else:
+                a[0] += t[1]; a[1] *= 1 + t[1]; a[2] *= 1 - t[1]
+    return out
+
+
+_Z = (0.0, 1.0, 1.0)
+# A barrier between me and him while my turn is simulated: [hp left, absorb share] (engine getBarriersBetween /
+# damageBarrier: each hit through it loses the absorb share, which the barrier takes, until its HP is spent). Set by
+# turn.py around my own turn only; None = clear line. Director 2026-11-11, Ashutosh R6: planner 2241, log 1201.
+MY_BARRIER = None
 
 
 def apply(src_side, dst_side, spec, r, actor_is_me):
@@ -171,26 +271,40 @@ def apply(src_side, dst_side, spec, r, actor_is_me):
     to_tgt = to_self = 0.0
     # tick my own wound/drain on my first action is handled by the caller
     if base:
+        sa, da = _agg(src_side, r), _agg(dst_side, r)
+        parried = 0.0
         if pierce:
             dmg = base
             dst_side.tags = [t for t in dst_side.tags if t[0] != "shield"]
         else:
-            dmg = base * src_side.mult("given", r) * dst_side.mult("taken", r)
-            for t in dst_side.live("dr", r):
-                dmg *= 1 - t[1]
-            dmg *= 0.5 / 0.5  # system DR already inside the calibrated base
-            sh = sum(t[1] for t in dst_side.live("shield", r))
+            dmg = base * sa.get("given", _Z)[1] * da.get("taken", _Z)[1]
+            dmg *= da.get("dr", _Z)[2]
+            # system DR already inside the calibrated base
+            # engine order: parry splits the direct hit before shields (process.ts splitParriedDamage), cap 100%
+            parried = dmg * min(1.0, da.get("parry", _Z)[0])
+            dmg -= parried
+            sh = da.get("shield", _Z)[0]
             if sh:
                 used = min(sh, dmg)
                 dmg -= used
                 dst_side.tags = [t for t in dst_side.tags if t[0] != "shield"]
         dmg = max(dmg, 0.0)
-        heal_cut = 1 - dst_side.total("healcut", r)
-        to_tgt += dmg - dmg * min(0.9, dst_side.total("absorb", r)) * heal_cut
-        to_self -= dmg * src_side.total("lifesteal", r) * (1 - src_side.total("healcut", r))
-        to_self += dmg * src_side.total("recoil_self", r)
-        to_self += dmg * sum(t[1] for t in src_side.live("recoil", r))  # standing on recoil ground
-        to_self += dmg * dst_side.total("reflect", r) + dmg * dst_side.total("parry", r)
+        if actor_is_me and MY_BARRIER and MY_BARRIER[0] > 0 and dmg > 0:
+            soak = min(dmg * MY_BARRIER[1], MY_BARRIER[0])
+            MY_BARRIER[0] -= soak
+            dmg -= soak
+        # engine (process.ts / damagePipeline.ts, constants.ts): parry's share went back above; reflect works on
+        # what is left and returns at most 60% of it (REFLECT_CAP_RATIO), so two 35% reflects waste 10% and parry +
+        # reflect do not add (20% + 35% returns 48%). Absorb and lifesteal are capped at 60% of the hit
+        # (ABSORB_CAP_RATIO, DAMAGE_LEECH_CAP_RATIO). Director, 2026-11-11.
+        heal_cut = 1 - da.get("healcut", _Z)[0]
+        # afterburn: a share of the hit again (cap 60%, AFTERBURN_CAP_RATIO), not on pierce, not absorbed
+        burn = 0.0 if pierce else dmg * min(0.6, da.get("afterburn", _Z)[0])
+        to_tgt += dmg + burn - dmg * min(0.6, da.get("absorb", _Z)[0]) * heal_cut
+        to_self -= dmg * min(0.6, sa.get("lifesteal", _Z)[0]) * (1 - sa.get("healcut", _Z)[0])
+        to_self += dmg * sa.get("recoil_self", _Z)[0]
+        to_self += dmg * sa.get("recoil", _Z)[0]  # standing on recoil ground
+        to_self += parried + dmg * min(0.6, da.get("reflect", _Z)[0])
     for t in tags:
         who, kind, val, dur = t[0], t[1], t[2], t[3]
         instant = len(t) > 4 and t[4]
@@ -198,16 +312,18 @@ def apply(src_side, dst_side, spec, r, actor_is_me):
         side = src_side if (who == "me") == actor_is_me else dst_side
         if kind == "clear":
             if not side.live("clearimmune", r):
+                # a ground -taken (Phantom Step) is cleared too here, for parity with planner2 (its tile puts it back
+                # the next round; the log rebuild below keeps it)
                 side.tags = [x for x in side.tags if not positive(x)]
             continue
         if kind == "cleanse":
-            side.tags = [x for x in side.tags if positive(x)]
+            side.tags = [x for x in side.tags if positive(x) or ground(x)]
             continue
         if kind == "heal":
             if side is src_side:
                 to_self -= val
             continue
-        hostile = side is dst_side and (val < 0 or kind in ("taken", "wound", "drain", "recoil_self", "stun", "healcut", "seal"))
+        hostile = side is dst_side and (val < 0 or kind in ("taken", "afterburn", "wound", "drain", "recoil_self", "stun", "healcut", "seal"))
         if hostile and side.live("debuffimmune", r):
             continue
         if side is src_side and src_side.live("buffblock", r) and kind in ("given", "absorb", "lifesteal", "dr", "reflect") and val > 0:
