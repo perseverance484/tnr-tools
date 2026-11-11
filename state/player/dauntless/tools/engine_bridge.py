@@ -232,6 +232,8 @@ def evaluate(bundles_with_targets, me, en, me_pos, en_pos, R, me0, en0, my_used,
         if aid in recs:
             mykit.append({"record": recs[aid]["record"], "kind": "item" if aid in ITEM_IDS else "jutsu",
                           "level": prof["jutsuLevels"].get(aid, 25)})
+    for k in mykit:                                       # older catalog copies lack fields the engine now reads
+        k["record"] = dict({"jutsuWeapon": "NONE", "jutsuType": "NORMAL"}, **k["record"])
     req = {
         "round": R, "hisTurn": his_turn,
         "me": {"id": "me", "hp": me["curHealth"], "x": me_pos[0], "y": me_pos[1], "ap": my_ap, "profile": prof,

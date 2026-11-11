@@ -185,6 +185,11 @@ def compile_spec(spec, actor_is_me):
     return (base, pierce, out)
 
 
+# Source details (engine process.ts / tags.ts, read 2026-11-11 for the ~1% check). The shotplan-parity test turns
+# this off to compare the shared core.
+SOURCE_EXACT = True
+
+
 def apply(src, dst, act, o, scale=1.0):
     """One action at offset o: damage then tags (shotplan.apply order and caps). Returns (to target, to actor)."""
     base, pierce, tags = act
@@ -200,14 +205,25 @@ def apply(src, dst, act, o, scale=1.0):
             dmg = base * src.given(o) * da[TAKEN * H + o] * da[DR * H + o]
             parried = dmg * min(1.0, da[PAR * H + o])
             dmg -= parried
+        pre = max(dmg, 0.0)                               # pre-shield damage: the absorb / leech / reflect caps
+        if not pierce:
             sh = da[SHD * H + o]
             if sh:
                 dmg -= min(sh, dmg)
                 dst.wipe((SHD,))
         dmg = max(dmg, 0.0)
-        to_t += dmg - dmg * min(0.6, da[ABS * H + o] + da[PABS * H + o]) * (1 - da[HCUT * H + o])
-        to_s -= dmg * min(0.6, sa[LS * H + o] + sa[PLS * H + o]) * (1 - sa[HCUT * H + o])
-        to_s += dmg * sa[RCL * H + o] + parried + dmg * min(0.6, da[REF * H + o] + da[PREF * H + o])
+        basis = pre if SOURCE_EXACT else dmg
+        to_t += dmg - basis * min(0.6, da[ABS * H + o] + da[PABS * H + o]) * (1 - da[HCUT * H + o])
+        to_s -= basis * min(0.6, sa[LS * H + o] + sa[PLS * H + o]) * (1 - sa[HCUT * H + o])
+        back = parried + basis * min(0.6, da[REF * H + o] + da[PREF * H + o])
+        rec = 0.0 if (pierce and SOURCE_EXACT) else dmg * sa[RCL * H + o]      # recoil skips pierce (tags.ts)
+        if SOURCE_EXACT:
+            # reflect / parry / recoil come back as damage on the attacker through HIS damage-taken modifiers
+            # (process.ts calcAdjustedDamage(user, ...))
+            adj = sa[TAKEN * H + o] * sa[DR * H + o]
+            back *= adj
+            rec *= adj
+        to_s += rec + back
     for on_src, k, v, o1, o2 in tags:
         side = src if on_src else dst
         if k == CLEAR:
@@ -638,11 +654,30 @@ def build(a):
     return P, info
 
 
+_ENGINE_BASES = None
+
+
+def engine_bases():
+    """Base damage of each of my actions as the game's own combat code computes it (engine_fit.py --write: each
+    action fired alone on the pinned engine, no tags; 2026-11-11). Used in place of the log-calibrated bases."""
+    global _ENGINE_BASES
+    if _ENGINE_BASES is None:
+        try:
+            _ENGINE_BASES = json.load(open(os.path.join(HERE, "..", "fights", "engine_bases.json")))
+        except (OSError, ValueError):
+            _ENGINE_BASES = {}
+    return _ENGINE_BASES
+
+
 def make_my_kit(prof):
-    """My kit compiled, with his bloodline DR applied to my jutsu of the matching element."""
+    """My kit compiled (bases from the engine where measured), with his bloodline DR applied to my jutsu of the
+    matching element."""
     idx = opp_profile._index()
     my_kit = {}
+    eb = engine_bases()
     for k, v in shotplan.MINE.items():
+        if k in eb and v[0]:
+            v = (eb[k],) + tuple(v[1:])
         els = (idx.get(turn.ACTION_ID.get(k, ""), ["", []])[1]) or ["None"]
         f = opp_profile.dr_vs(prof, els)
         my_kit[k] = compile_spec(((v[0] * f,) + tuple(v[1:])) if f != 1.0 and not (len(v) > 2 and v[2] == "pierce") else v, True)

@@ -3,6 +3,8 @@ legal bundles, and after his reply for every option (python, no live calls). Run
 import json, os, random, sys
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, os.path.dirname(HERE))
 import exam, planner2 as p2, shotplan, value_model  # noqa: E402
+p2.SOURCE_EXACT = False      # compare the core shared with shotplan; the source-only details are checked by engine_fit
+p2._ENGINE_BASES = {}     # and the shared calibrated bases
 
 
 def states():
