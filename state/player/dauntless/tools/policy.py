@@ -184,10 +184,24 @@ def bundle_value(net, x, h, b, cd_cost):
 
 
 # ---------------------------------------------------------------- legality
+_LEGAL_CACHE = {}
+
+
 def legal(state, rnd, ap, immune, blocked, loadout, dist):
     names = [n for n in loadout if n in ACTIONS and (state is None or ready_round(state, n) <= rnd)]
     if immune:
         names = [n for n in names if n not in blocked]
+    # the combos depend only on (ready names, AP, distance): memoised, since the lookahead re-asks the same
+    # question ~180 times per turn (fight.py speed pass, 2026-11-11). Callers get a fresh list.
+    key = (tuple(names), ap, dist)
+    if key in _LEGAL_CACHE:
+        return list(_LEGAL_CACHE[key])
+    out = _legal(names, ap, dist)
+    _LEGAL_CACHE[key] = out
+    return list(out)
+
+
+def _legal(names, ap, dist):
     out = []
     for k in (1, 2, 3, 4):
         for combo in itertools.combinations(names, k):
