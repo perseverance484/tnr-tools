@@ -1,6 +1,6 @@
-# DRIFT.md - upstream contract drift (2026-11-10)
+# DRIFT.md - upstream contract drift (2026-11-11)
 
-Upstream: studie-tech/TheNinjaRPG@88886934c7330504018716216e4d4bae62a9db59
+Upstream: studie-tech/TheNinjaRPG@04f997ab7e8bbf3ef48bf40663b3c5cb4ede6d41
 
 Signal only. Nothing below is adopted until the structural diff gate passes.
 
