@@ -222,6 +222,9 @@ FILLER_COST = float(os.environ.get("TNR_FILLER_COST", "60"))
 MOVE_COST = float(os.environ.get("TNR_MOVE_COST", "200"))
 FILLERS = ("basic", "defstance", "offstance")
 BARRIERS = []        # live barriers: (x, y, hp, absorb share, creatorId), set by main() from the ground list
+HOSTILE = set()      # tiles under his harmful ground (Subaku Palace's -given, recoil, +taken...), set by main()
+HOSTILE_KINDS = {"decreasedamagegiven", "increasedamagetaken", "recoil", "stun", "damage", "poison", "seal",
+                 "decreaseheal", "drain", "wound", "afterburn"}
 
 
 def barrier_between(a, b):
@@ -437,11 +440,37 @@ def place_phantom(me_pos, en_pos, need, occupied):
         if h in occupied or dist(h, me_pos) > 5 or h == en_pos or h == me_pos:
             continue
         d = dist(h, en_pos)
-        # in range first, then a clear line past his barriers (Ashutosh R6), then the range wanted, then the shortest hop
-        key = ((d - need + 10) if d > need else 0, barrier_between(h, en_pos) is not None, abs(d - need), dist(h, me_pos))
+        # in range first, off his harmful floor (director 2026-11-11, ANBU Member's Subaku Palace), then a clear line
+        # past his barriers (Ashutosh R6), then the range wanted, then the shortest hop
+        key = ((d - need + 10) if d > need else 0, h in HOSTILE, barrier_between(h, en_pos) is not None, abs(d - need),
+               dist(h, me_pos))
         if best is None or key < best[0]:
             best = (key, h)
     return best[1] if best else me_pos
+
+
+def place_away(me_pos, en_pos, occupied):
+    """Disengage landing hex (move fired last): off his harmful floor, then as far from him as a 5-hex hop goes."""
+    best = None
+    for h in hexes():
+        if h in occupied or dist(h, me_pos) > 5 or h == en_pos or h == me_pos:
+            continue
+        key = (h in HOSTILE, -min(dist(h, en_pos), 6), dist(h, me_pos))
+        if best is None or key < best[0]:
+            best = (key, h)
+    return best[1] if best else me_pos
+
+
+def moves_last(bundle, d0):
+    """Phantom Step / Replacement while already engaged (director 2026-11-11: "It is a gap closer initiation tool or a
+    disengagement tool... attack then move out of range"): when every targeted action already reaches from where I
+    stand, the move fires last and disengages. Only when something needs the range does it fire first."""
+    if not any(x in ("phantom", "replace") for x in bundle):
+        return False
+    reach = [cd_plan.RANGE[x] for x in bundle if cd_plan.RANGE.get(x, 0)]
+    # attack, then move out: a bundle with nothing to fire at him keeps the old placement (replays 2026-11-11: a bare
+    # buff + Phantom disengage, Ashutosh R3, scored 588 below Panacea + Rebirth)
+    return bool(reach) and min(reach) >= d0
 
 
 def step_toward(p, goal, occupied, away=False):
@@ -453,14 +482,18 @@ def step_toward(p, goal, occupied, away=False):
 
 def resolve_targets(bundle, me_pos, en_pos, occupied):
     """Turn a bundle into ordered (action, actionId, (x, y)) steps with real hexes; moves first, kite step last."""
-    seq = sorted(bundle, key=lambda a: ORDER.index(a) if a in ORDER else 50)
+    last = moves_last(bundle, dist(me_pos, en_pos))
+    seq = sorted(bundle, key=lambda a: (last and a in ("phantom", "replace"), ORDER.index(a) if a in ORDER else 50))
     ranged = [cd_plan.RANGE.get(a, 0) for a in seq if cd_plan.RANGE.get(a, 0)]
     # range 4 does not stop his jutsu (most are range 4), so with nothing to reach just stay where I am
     need = min(ranged) if ranged else max(1, dist(me_pos, en_pos))
     pos = me_pos
     out = []
     for a in seq:
-        if a in ("phantom", "replace"):
+        if a in ("phantom", "replace") and last:
+            pos = place_away(pos, en_pos, occupied)
+            tgt = pos
+        elif a in ("phantom", "replace"):
             pos = place_phantom(pos, en_pos, need, occupied)
             tgt = pos
         elif a == "step":
@@ -564,6 +597,9 @@ def main():
                     g.get("creatorId")) for g in battle.get("battle.groundEffects") or []
                    if g.get("type") == "barrier" and float(g.get("curHealth") or 0) > 0]
     occupied = {(p["longitude"], p["latitude"]) for p in others} | {(x[0], x[1]) for x in BARRIERS}
+    HOSTILE.clear()
+    HOSTILE.update((g["longitude"], g["latitude"]) for g in battle.get("battle.groundEffects") or []
+                   if g.get("type") in HOSTILE_KINDS and g.get("creatorId") == en["userId"])
 
     # cooldown state from my own log
     st = {"loadout": list(cd_plan.LOADOUTS[a.loadout]) + ["basicheal"], "used": my_history(rows)}
@@ -580,13 +616,15 @@ def main():
     shotplan.off_ground(en0, rows, en["userId"], MOVE_IDS)
     _gm = (engine_bridge.opponent_kit(en["userId"]) or {}).get("gearMods") or {}
     _his_gear_dr = float(_gm.get("drTakenFromGear", 15))   # measured, else the endgame assumption (Kaeruun + Fortify III)
-    # a stun costs AP from the turn it lands: his stun earlier THIS round (he acted first) counts now,
-    # as does one from the previous 2 rounds (Warlord40 R2, 2026-11-11: planner missed a same-round stun)
-    stunned = any("dauntless is stunned" in l and int(l.split("|")[0]) + 2 >= R and
-                  (int(l.split("|")[0]) < R or en_acted) for l in lines) or bool(me0.live("stun", R))
+    # a stun costs AP in the 2 rounds AFTER the one it was cast in. The engine (turn.ts calcApReduction ->
+    # getActiveTargetEffects) skips effects with castThisRound, so his stun earlier THIS round costs nothing now:
+    # DDX R5 and Warlord40 R2 (2026-11-11) both had the full 100 AP after a same-round stun, and the planner's
+    # 80 AP left 20 unspent (DDX R5: Phantom+kunai+Defensive Stance planned, Chakra Pill tacked on after).
+    stunned = any("dauntless is stunned" in l and R - 2 <= int(l.split("|")[0]) < R for l in lines) \
+        or bool(me0.live("stun", R))
     # the stun's size is in the log ("stunned [-10 AP]"; arena 2026-11-11: a -10 stun was planned as -20, 10 AP lost)
     stun_amt = max([int(m.group(1)) for l in lines if (m := re.search(r"dauntless is stunned \[-(\d+) AP\]", l))
-                    and int(l.split("|")[0]) + 2 >= R and (int(l.split("|")[0]) < R or en_acted)] or [20])
+                    and R - 2 <= int(l.split("|")[0]) < R] or [20])
     ap_now = min(int(me["actionPoints"]) if my_turn else 100, 100 - stun_amt if stunned else 100)
     spent, pierce_last, avg = enemy_resources(rows, en["userId"], R)
     known = en["username"].lower() in shotplan.ENEMY
@@ -624,7 +662,8 @@ def main():
     }
 
     print(f"R{R} v{battle['battle.version']} | {'MY TURN' if my_turn else 'his turn'} | "
-          f"{'he acted first this round' if en_acted else 'I act first this round'}")
+          f"{'he acted first this round' if en_acted else 'I act first this round'}"
+          f" | seat: player {2 if en_acted else 1}")
     print(f"me {ME_NAME} {me['curHealth']:.0f} HP @ {me_pos}  AP {ap_now}{f' (STUNNED -{stun_amt})' if stunned else ''}")
     print(f"him {en['username']} {en['curHealth']:.0f} HP @ {en_pos}  dist {d0}  avg dmg/turn {avg:.0f}")
     print(f"my tags now: {', '.join(tags(me0, R)) or '-'} | next: {', '.join(tags(me0, R + 1)) or '-'}")
@@ -778,7 +817,12 @@ def main():
         m, e = value_model.copy_side(me0), value_model.copy_side(en0)
         if "cleanse" in b:  # Cleanse fired first removes wound/drain before they tick (ground effects stay)
             m.tags = [x for x in m.tags if shotplan.positive(x) or shotplan.ground(x)]
-        if any(x in GROUND_EXIT for x in b):  # moving off his ground (moves fire first) ends its -damage given
+        # moving off his ground ends its -damage given: before my hits when the move fires first (gap close), after
+        # them when it fires last (disengage), and only if the landing tile is off his floor
+        mv = any(x in GROUND_EXIT for x in b)
+        last = mv and moves_last(b, d0)
+        off = mv and (not HOSTILE or resolve_targets(b, me_pos, en_pos, occupied)[1] not in HOSTILE)
+        if off and not last:
             m.tags = [x for x in m.tags if not shotplan.ground(x)]
         bar = kit.get("_barrier")
         shotplan.MY_BARRIER = list(bar) if bar else None
@@ -786,6 +830,8 @@ def main():
             d, t = shotplan.run_turn(m, e, list(b), shotplan.MINE, R, True)
         finally:
             shotplan.MY_BARRIER = None
+        if off and last:
+            m.tags = [x for x in m.tags if not shotplan.ground(x)]
         m.hp = min(m.hp, maxhp_me)
         log = [("me", R, b, d, t, m.hp, e.hp)]
         p_kill = 1.0

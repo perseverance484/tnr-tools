@@ -98,7 +98,36 @@ def c_battle(bid, effects=False, ground=False):
                 ["battle.version", "battle.round", "battle.activeUserId"] +
                 [f"battle.usersState.*.{k}" for k in ("userId", "username", "curHealth", "maxHealth", "longitude",
                                                       "latitude", "actionPoints", "isAi")] +
-                (["battle.usersEffects"] if effects else []) + (["battle.groundEffects"] if ground else []))
+                (["battle.usersEffects"] if effects else []) +
+                ([f"battle.groundEffects.*.{k}" for k in GROUND_COLS + BARRIER_COLS] if ground else []))
+
+
+# the ground list is read as columns, not whole objects: a Fury field is ~110 tiles x ~650 characters (~70 KB a poll),
+# which filled a relay's context in a few minutes (2026-11-11). The connector drops a missing key from its column
+# instead of padding it, so these columns are ones every ground effect carries, and the barrier columns are ones only
+# barriers carry; ground_cols() checks the lengths and returns None (no ground this read) if they do not line up.
+GROUND_COLS = ("type", "creatorId", "longitude", "latitude", "power", "rounds", "createdRound")
+BARRIER_COLS = ("curHealth", "maxHealth", "absorbPercentage")
+
+
+def ground_cols(battle):
+    """Columns from a getBattle read -> the ground list as dicts (same shape ground_effects() keeps); None when the read
+    had no ground columns (no ground on the field, or not asked), False when the columns do not line up."""
+    cols = {k: battle.pop(f"battle.groundEffects.*.{k}", None) for k in GROUND_COLS + BARRIER_COLS}
+    if all(v is None for v in cols.values()):
+        return None
+    base = [cols[k] or [] for k in GROUND_COLS]
+    n = len(base[0])
+    if any(len(c) != n for c in base):
+        return False
+    rows = [dict(zip(GROUND_COLS, x)) for x in zip(*base)]
+    bars = [r for r in rows if r["type"] == "barrier"]
+    bcols = [cols[k] or [] for k in BARRIER_COLS]
+    if any(len(c) != len(bars) for c in bcols):
+        return False
+    for r, x in zip(bars, zip(*bcols)):
+        r.update(dict(zip(BARRIER_COLS, x)))
+    return rows
 
 
 GROUND_KEYS = ("type", "creatorId", "longitude", "latitude", "curHealth", "maxHealth", "absorbPercentage", "power",
@@ -321,6 +350,12 @@ def battle_tick(st, bid, battle, entries, no_read=False):
                                 "log_lost": log_says_lost(cache)}
         return finish(st, bid, cache, "battle closed, result on the next read")
     raw_g = battle.pop("battle.groundEffects", None)
+    if raw_g is None:
+        raw_g = ground_cols(battle)
+        if raw_g is None and asked_ground and users:
+            raw_g = []                                   # asked and the field is bare: no ground now
+        elif raw_g is False:
+            raw_g = None                                 # misaligned columns: keep no ground from this read
     if raw_g is not None:
         cache["ground"] = ground_effects(raw_g)
     raw = battle.pop("battle.usersEffects", None)

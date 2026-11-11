@@ -47,6 +47,8 @@ K_BLEND = 3
 RISK = 0.3
 GAMMA = 0.8
 BURST_P = 0.15
+BURST_SEEN = 1.5       # his given multiplier (live or cast this round) that counts as a shown burst
+BURST_SEEN_CAP = 0.8
 BURST_BASE = 1100.0  # my typical two-hit burst base (Fury/Rebirth/Lotus/Shrapnel ~575 each, calibrated)
 KILL, DEATH = 5000, 6500
 PRIORS = {  # (prior p, strength) from the 2026-11-09 top-player study (Winta, DDXXD, Ziharkk, Gario)
@@ -118,14 +120,17 @@ def enemy_options(cal, ctx, me_side, r, afk):
     if afk:
         return [(1.0, [])]
     opts = []
-    my_pos = sum(1 for t in me_side.tags if shotplan.positive(t) and t[2] <= r <= t[3])
+    # his Clear strips every positive of mine that exists when he acts, live or cast this round (engine tags.ts
+    # removeEffects has no castThisRound filter). Acting first (player 1), my new buffs start next round but his
+    # Clear later this round still takes them, so they count: t[2] <= r + 1, not t[2] <= r.
+    clearable = lambda t: shotplan.positive(t) and t[2] <= r + 1 and t[3] >= r  # noqa: E731
+    my_pos = sum(1 for t in me_side.tags if clearable(t))
     if ctx["pierce_ready"]:
         p = smoothed(cal, "pierce_vs_shield") if me_side.live("shield", r) else smoothed(cal, "pierce")
         if ctx.get("pierce_shown") and me_side.live("shield", r):
             p = max(p, 0.85)  # every logged shield cast into a SHOWN, ready pierce was broken (Ziharkk, Korin)
         opts.append((p, ["pierce", "light"]))
-    stack = sum(1 for t in me_side.tags if shotplan.positive(t) and t[2] <= r <= t[3]
-                and t[1] not in ("clearimmune", "debuffimmune"))
+    stack = sum(1 for t in me_side.tags if clearable(t) and t[0] not in ("clearimmune", "debuffimmune"))
     if ctx["clear_held"] and my_pos >= 1 and not me_side.live("clearimmune", r):
         p = (clear_risk_4(cal) if stack >= 4 else smoothed(cal, "clear_vs_3buffs") if stack >= 3 else
              smoothed(cal, "clear_vs_2buffs") if my_pos >= 2 else smoothed(cal, "clear"))
@@ -136,18 +141,27 @@ def enemy_options(cal, ctx, me_side, r, afk):
     opts.append((smoothed(cal, "setup") * (0.4 if blocked else 1.0), ["debuff", "light"] if blocked else ["buff", "debuff", "light"]))
     # a stacked +given on him is the burst tell (Hikuro R7, Warlord40 R3): scale the burst weight with his live
     # damage-given multiplier, capped at 0.6
-    opts.append((min(0.6, BURST_P * ctx.get("en_given", 1.0) ** 3) * (0.35 if blocked else 1.0), ["burst"]))  # his 85th-percentile turn: 15% of active turns by definition
+    g = ctx.get("en_given", 1.0)
+    # a stack he has ALREADY cast is a known fact, not a guess (DDX R4, 2026-11-11: he acted first and queued
+    # +15/+30/+35/+35 given; acting second I could see it all, yet the 0.6 burst cap shared with his absolute Clear
+    # hazard left the burst at 0.22 and the planner raced ember+thunders into an 1854 hit). From BURST_SEEN up, the
+    # burst is an absolute hazard like his Clear, capped at BURST_SEEN_CAP.
+    seen = g >= BURST_SEEN and not blocked
+    opts.append((min(BURST_SEEN_CAP if seen else 0.6, BURST_P * g ** 3) * (0.35 if blocked else 1.0),
+                 ["burst"] + (["seen"] if seen else [])))  # his 85th-percentile turn: 15% of active turns by definition
     rest = max(0.05, 1.0 - sum(w for w, _ in opts))
     opts.append((rest, ["turn"]))
     if ctx.get("summon"):  # a live summon acts on its own cooldowns (and can pierce: Jade broke my shield R5)
         opts = [(w, o + ["summon"]) for w, o in opts]
     # his Clear is an absolute probability (measured hazard): the other options share what is left, instead of
     # normalising everything together and diluting the Clear (0.59 used to come out ~0.42)
-    clear_w = sum(w for w, a in opts if "clear" in a)
-    rest_tot = sum(w for w, a in opts if "clear" not in a)
-    if clear_w and rest_tot:
-        clear_w = min(clear_w, 0.95)
-        return [(w if "clear" in a else w * (1 - clear_w) / rest_tot, a) for w, a in opts]
+    absolute = lambda a: "clear" in a or "seen" in a  # noqa: E731
+    abs_w = sum(w for w, a in opts if absolute(a))
+    rest_tot = sum(w for w, a in opts if not absolute(a))
+    if abs_w and rest_tot:
+        k = min(1.0, 0.95 / abs_w)
+        opts = [(w * k if absolute(a) else w * (1 - min(abs_w, 0.95)) / rest_tot, a) for w, a in opts]
+        return [(w, [x for x in a if x != "seen"]) for w, a in opts]
     tot = sum(w for w, _ in opts)
     return [(w / tot, a) for w, a in opts]
 
