@@ -309,6 +309,7 @@ The fight simulator stays as a smoke test, not a gate.
 | AP3 | Progression activities: missions, errands, dailies, hunting, farming, PvE combat | Daily routine completes unattended for 3 days |
 | AP4 | Combat consolidation: one planner, curves on if `tune_real` passes, library and post-mortems on the brain, retire turn.py | Engine-check and real-fight gates (§6) |
 | AP5 | Further modes: ranked, tournament, war, bounty, shrine; weekly report and findings pipeline | Each mode's playbook and test before it goes live |
+| AP6 | The simplest version that meets every standard: freeze a contract of every gate and a 300-situation decision corpus, delete every component the contract doesn't need (component by component), rewrite the rest plainly, under an enforced complexity budget | Contract green, budget met, 48 h live parity, director sign-off |
 
 ## 9. Decisions for the director
 
@@ -320,3 +321,10 @@ The fight simulator stays as a smoke test, not a gate.
 4. **PvE auto-combat:** confirm auto-combat for every AI fight, or only for missions and errands.
 5. **Session windows:** when the brain may run, and its share of the 30 calls a minute while you play.
 6. **Which further modes to enable first:** ranked, tournament, war, bounty, shrine.
+
+## 10. AP6 component verdicts
+
+Filled in during AP6: one row per component, the contract check that keeps it, or "deleted".
+
+| Component | Kept by | Verdict |
+|---|---|---|

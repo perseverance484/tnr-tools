@@ -137,6 +137,80 @@ a playbook page (`state/prompt_playing_tnr.md` §4.4) before it goes live.
 Ranked, tournament, war, bounty and shrine, each with its playbook, gates and tests; then the weekly report and the
 findings pipeline.
 
+### AP6: the simplest version that meets every standard
+
+Director, 2026-11-11: "construct the most simplistic version of the ai player code that still fulfills all
+standards … reduce overengineering and needless complexity". AP0–AP5 find out what the player needs. AP6 keeps
+only that, and proves nothing was lost.
+
+**1. Freeze the standard first (the contract).** Before deleting anything, build `player/contract/`, which records
+what "fulfils all standards" means as runnable checks:
+- **Safety:** every gate test from §2. These must give identical outcomes, with no tolerance.
+- **Robustness:** every chaos test from AP1. Identical outcomes.
+- **Decisions:** a corpus of at least 300 recorded situations:
+  - battle turns from `fights/live_states/`;
+  - world states from the brain's log: upkeep, missions, errands, travel, recovery.
+
+  For each one, store the current decision and its score (engine exchange against his actual next turn for battle
+  turns; the arbiter's choice and its outcome for world states).
+- **Combat quality:** `engine_check` (live-shaped, ≥ 95% within 1%) and `tune_real` on the last 20 real fights,
+  with a bootstrap confidence interval so "no worse" means outside noise.
+- **Live KPIs** from AP5's weekly report, as the baseline:
+  - missed turns (0);
+  - training idle minutes;
+  - dailies completed;
+  - PvP win rate;
+  - relay tokens per hour and per fight.
+
+**2. Ablate, then delete.** For every component (module, model, feature, flag, fallback, cache, config knob):
+1. Remove it.
+2. Run the contract.
+3. Keep it only if a safety or robustness check fails, a decision check gets worse outside noise, or a KPI would
+   suffer (say which).
+
+Record the verdict for each component in `docs/design/AI_PLAYER_OVERHAUL.md` §10 (component, the check that keeps
+it, or "deleted"). Expect large cuts: features added on a hunch, models that never moved a decision, duplicate state
+paths, simulator-only code, flags left off.
+
+**3. Rewrite what survives, as plainly as possible.**
+- **Plain code:** plain functions and data tables before classes and frameworks. One battle state machine with
+  explicit states. Activities as rows in a table (preconditions, value, call template) wherever their logic allows,
+  and code only where it doesn't.
+- **One way to do each thing:** one state path (live), one planner, one call budget, one config file. Delete every
+  alternative.
+- **No dead flags:** a setting stays only if a test shows it changes a decision the live player makes. Everything
+  else becomes a constant or is deleted. Nothing is left switched off.
+- **No speculative generality:** no plug-in hooks, abstract bases or options that nothing uses today.
+
+**4. Complexity budget, enforced by a CI check (`player/contract/budget.py`):**
+
+| Measure | Budget |
+|---|---|
+| Total player code, excluding tests and the engine harness | ≤ 50% of the AP5 total, and an absolute cap set from the AP5 measurement |
+| Largest file | ≤ 400 lines |
+| Largest function | ≤ 60 lines |
+| Branching (cyclomatic complexity) per function | ≤ 12 |
+| Config knobs | ≤ 15, each with a test proving it matters |
+| Third-party dependencies | none beyond the standard library, Pillow and the engine harness |
+| Imports of retired modules (turn.py, shotplan.py, value_model.py, fightsim.py, ...) | 0 |
+
+A budget is changed only by the director, in a ruling.
+
+**5. Readability check.**
+- `player/README.md` explains the whole player in at most 2 pages: the loop, the battle state machine, the activity
+  table, the planner, the gates.
+- An independent reviewer (ChatGPT, under `docs/workflows/FABLE_REVIEW.md`) must be able to trace one battle turn
+  and one errand from read to call using only that README and the code, and reports anything they could not follow
+  as a finding.
+
+**6. Swap-over.**
+- **Parallel run:** the simplified player runs live beside the AP5 baseline's numbers for 48 h, on the same Haiku
+  relay design.
+- **Swap-over gate:** every contract check passes, every budget is met, and no live KPI is worse than the baseline
+  outside noise. Then the old code is deleted from the branch, not just left unused.
+
+**Gate:** all of step 6, the component verdict table complete, and the director's sign-off.
+
 ## 4. Engineering rules
 
 - **Narrow modules.** One activity per file, and no activity reaching into another's state. Shared state goes
@@ -148,6 +222,9 @@ findings pipeline.
 - **Keep the director informed through Duet:** fight start, fight end with turning point, pending decisions, stalls,
   daily summary.
 - **Handoffs** list exact SHAs, gates run, live checks not performed, and open decisions (CLAUDE.md §11).
+- **Keep complexity visible from AP1 on.** Each handoff reports the player's line count, its largest file and
+  function, its config knobs and anything added that is switched off. A feature that ships switched off has a named
+  date to be switched on or deleted. AP6 cuts what is left; it should not have to undo habits.
 
 ## 5. Open decisions
 
@@ -159,3 +236,4 @@ From design §9. Ask before the phase that needs each one:
 4. PvE auto-combat scope (AP3).
 5. Session windows and call share (AP1).
 6. Which further modes first (AP5).
+7. The AP6 absolute size cap, set from the AP5 measurement (AP6).
