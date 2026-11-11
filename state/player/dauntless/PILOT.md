@@ -38,7 +38,8 @@ Against the game's AI, an AI turn only advances when some client calls `performA
   kept in the state file):
   - always: battle start (log poll, limit 200), hospitalized (heal), mid-travel (finish the travel).
   - guard: check every ~9 s, inside the 15 s attack lobby. Asleep means the worker may step away.
-  - hunt: wake if asleep; under 95% HP, go home and eat ramen; scan the sector (plus sensory every 31 s); pick the
+  - hunt: wake if asleep; under 95% HP a Full Potion, chakra or stamina under 50% ramen (a heal that changes nothing
+    is not retried for 10 min); scan the sector (plus sensory every 31 s); pick the
     nearest valid target and send move + attack in one batch. A valid target is awake, level 90+, not in battle, not
     immune, not my village, and not on `do_not_attack.md`. Refused attacks are remembered per player (bracket 6 h,
     village 24 h, other 10 min). With no target, move on round the circuit: Shirohana, Tsukimori, Akasumi, Risen.

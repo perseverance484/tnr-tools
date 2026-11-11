@@ -106,9 +106,9 @@ def test_world():
     head, b = run_world([user(status="ASLEEP", sector=177)], "guard")
     assert b == [], (head, b)
     head, b = run_world([user(hp=2000)], "hunt")
-    assert "going home" in head and b[0]["input"] == {"sector": 177}, head
-    head, b = run_world([user(hp=2000, sector=177)], "hunt")
-    assert b[0]["call"] == "village.buyFood", head
+    assert b[0]["call"] == "item.consume", head
+    head, b = run_world([user(hp=2000)], "hunt", {"healing": ["hp", 2000 / 5050]})    # potion did nothing
+    assert b[0].get("call") != "item.consume", (head, b)
     head, b = run_world([user(status="BATTLE", bid="B1")], "hunt")
     assert b[0]["call"] == "combat.getBattle" and b[1]["input"]["limit"] == 200, head
     head, b = run_world([user(sector=1538)], "rest")

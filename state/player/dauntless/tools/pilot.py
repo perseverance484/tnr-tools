@@ -40,6 +40,8 @@ ME_CARD = {"level": 100, "username": "dauntless",
            "avatar": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ2ZSxgqnMXlcRpYmJ5do0zKw4Qx6PVEtBa9b8",
            "avatarLight": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJEJNnVieLfKL5D7TAFe29bymSaPCIQ846MdzG"}
 HEAL_BELOW = 0.95       # fights start at full health (playbook)
+POOLS_BELOW = 0.5       # chakra / stamina floor before ramen
+FULL_POTION = "IRfg2NFKKYe0ynroXI7qZ"   # user item: HP to full out of combat (ramen refills CP/SP only)
 HUNT_WAIT = 4           # hunt tick ~every 7 s: about 3 calls a tick, under the connector's 30 a minute
 GUARD_WAIT = 7          # world tick ~every 9 s with overhead: inside the 15 s lobby before an attack lands
 PLAN_BUDGET = 4.0       # planner: median 1.2 s, worst 3.3 s on the regression set
@@ -53,7 +55,8 @@ def call(endpoint, inp, select):
 def c_user():
     return call("profile.getUser", {}, ["userData.status", "userData.battleId", "userData.curHealth",
                                         "userData.maxHealth", "userData.sector", "userData.longitude",
-                                        "userData.latitude"])
+                                        "userData.latitude", "userData.curChakra", "userData.maxChakra",
+                                        "userData.curStamina", "userData.maxStamina"])
 
 
 def c_sector(sector):
@@ -309,12 +312,21 @@ def world(st, user, res):
         return head + ": sleeping", [call("home.toggleSleep", {}, ["success", "message"]), c_user(), TICK]
     if mode == "guard":
         return head + ": guarding", [wait(GUARD_WAIT), c_user(), TICK]
-    # hunt
-    if hp < HEAL_BELOW * mx:
-        if sector != HOME_SECTOR:
-            return head + ": healing, going home", go(HOME_SECTOR)
-        return head + ": healing (ramen)", [call("village.buyFood", {"ramen": "large"}, ["success", "message"]),
-                                           c_user(), TICK]
+    # hunt: top up first. A heal that changed nothing is not retried for 10 min (a loop guard, not a fix)
+    pools = {"hp": hp / mx,
+             "cpsp": min(user.get("userData.curChakra", 1) / max(1, user.get("userData.maxChakra", 1)),
+                         user.get("userData.curStamina", 1) / max(1, user.get("userData.maxStamina", 1)))}
+    last = st.pop("healing", None)
+    if last and pools[last[0]] <= last[1] + 1e-9:
+        st.setdefault("heal_broken", {})[last[0]] = time.time() + 600
+    broken = {k for k, t in st.get("heal_broken", {}).items() if t > time.time()}
+    if pools["hp"] < HEAL_BELOW and "hp" not in broken:
+        st["healing"] = ["hp", pools["hp"]]
+        return head + ": Full Potion", [call("item.consume", {"userItemId": FULL_POTION}, ["success", "message"]),
+                                       c_user(), TICK]
+    if pools["cpsp"] < POOLS_BELOW and "cpsp" not in broken:
+        st["healing"] = ["cpsp", pools["cpsp"]]
+        return head + ": ramen", [call("village.buyFood", {"ramen": "large"}, ["success", "message"]), c_user(), TICK]
     refused = note_attack(st, res)
     scan = res.get("travel.getSectorData")
     if scan and scan[0].get("sector") == sector:
