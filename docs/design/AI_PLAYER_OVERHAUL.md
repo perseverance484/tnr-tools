@@ -311,6 +311,22 @@ through one mapper, `from_live`, built on the source rules:
 Ground zones come from the ground list. Per-fight engine bases (`fight_bases.py`) carry every permanent modifier, so
 the arrays hold only temporary effects. Every live state is archived per round.
 
+### 5.1b Move atlas
+
+There is one generated card for every action usable in PvP: about 1,600 jutsu, weapons, consumables and basics.
+Each card is compiled from the catalog and measured in the engine:
+- costs, cooldowns, locks, range, elements;
+- each effect as an exact change to the round arrays, with its timing and how Clear, Cleanse and seals treat it;
+- damage at the standard assumption, rescaled per fight.
+
+The state machine applies a card when the live state shows that cast. Every clock and weight that moves on the
+time-to-kill then comes from the card, and nothing is estimated. It replaces the hand-written kit specs.
+
+What stays uncertain is only *which* card he picks next. That is why the planner works in windows and hedges
+(§5.2). The archive stores every fight as card ids plus the exact live state of each round, so his behaviour models
+learn from clean inputs as the data grows. Prediction counts in the planner only while it beats the base rate on
+held-out fights.
+
 ### 5.2 Decision
 
 - **One planner (planner2).** turn.py, shotplan.py and value_model.py are retired into helpers or deleted once
@@ -384,8 +400,10 @@ The fight simulator stays as a smoke test, not a gate.
 | AP1 | Brain and hands: world model, outbox/inbox, Haiku relay (§4.7), trimmed selects, budget lanes, battle deadline, gates, registry + wiring test; PvP and recovery ported from pilot.py | Chaos tests green; one live PvP session on a Haiku relay with zero missed turns and the token figures recorded |
 | AP2 | Upkeep activities: training, restock, repair, equipment, bank, session start and end | 24 h live with training never idle and no ask-first breach |
 | AP3 | Progression activities: missions, errands, dailies, hunting, farming, PvE combat | Daily routine completes unattended for 3 days |
-| AP4 | Combat consolidation: one planner, curves on if `tune_real` passes, library and post-mortems on the brain, retire turn.py | Engine-check and real-fight gates (§6) |
+| AP4 | Combat consolidation: the move atlas (§5.1b) first, then one planner, curves on if `tune_real` passes, library and post-mortems on the brain, retire turn.py | Atlas coverage and accuracy gates; engine-check and real-fight gates (§6) |
 | AP5 | Further modes: ranked, tournament, war, bounty, shrine; weekly report and findings pipeline | Each mode's playbook and test before it goes live |
+| AP6 | The simplest version that meets every standard: freeze a contract of every gate and a 300-situation decision corpus, delete every component the contract doesn't need (component by component), rewrite the rest plainly, under an enforced complexity budget | Contract green, budget met, 48 h live parity, director sign-off |
+| AP7 | The director's console: status, events and settings files (written from AP1 on), a phone-first Dashboard with Now, Today, Decisions, Settings, Health and Trends tabs, settings flowing back to the brain through the gates, short push notifications | Director can follow, approve, pause and re-weight from his phone; changes live within 2 min; a week with no missing events |
 
 ## 9. Decisions for the director
 
@@ -399,3 +417,10 @@ The fight simulator stays as a smoke test, not a gate.
 5. **Session windows:** when the brain may run, and its share of the 30 calls a minute while you play.
    Decided: RUL-2026-11-11-149 item 6.
 6. **Which further modes to enable first:** ranked, tournament, war, bounty, shrine.
+
+## 10. AP6 component verdicts
+
+Filled in during AP6: one row per component, the contract check that keeps it, or "deleted".
+
+| Component | Kept by | Verdict |
+|---|---|---|
