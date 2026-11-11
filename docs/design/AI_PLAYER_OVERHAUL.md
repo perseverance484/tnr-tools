@@ -326,6 +326,7 @@ The fight simulator stays as a smoke test, not a gate.
 | AP4 | Combat consolidation: the move atlas (§5.1b) first, then one planner, curves on if `tune_real` passes, library and post-mortems on the brain, retire turn.py | Atlas coverage and accuracy gates; engine-check and real-fight gates (§6) |
 | AP5 | Further modes: ranked, tournament, war, bounty, shrine; weekly report and findings pipeline | Each mode's playbook and test before it goes live |
 | AP6 | The simplest version that meets every standard: freeze a contract of every gate and a 300-situation decision corpus, delete every component the contract doesn't need (component by component), rewrite the rest plainly, under an enforced complexity budget | Contract green, budget met, 48 h live parity, director sign-off |
+| AP7 | The director's console: status, events and settings files (written from AP1 on), a phone-first Dashboard with Now, Today, Decisions, Settings, Health and Trends tabs, settings flowing back to the brain through the gates, short push notifications | Director can follow, approve, pause and re-weight from his phone; changes live within 2 min; a week with no missing events |
 
 ## 9. Decisions for the director
 

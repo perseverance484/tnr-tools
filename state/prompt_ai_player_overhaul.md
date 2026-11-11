@@ -250,6 +250,62 @@ A budget is changed only by the director, in a ruling.
 
 **Gate:** all of step 6, the component verdict table complete, and the director's sign-off.
 
+### AP7: the director's console
+
+Director, 2026-11-11: "design the output in such a way that I can easily keep track of and manage the tasks of the
+player". He works from his phone, so everything here works at phone width.
+
+**1. One data contract, written by the brain from AP1 on** (so AP7 only adds a view):
+- **`live/status.json`** (rewritten on every change): mode, current activity and why, the next 5 queued activities
+  with ETAs, HP/chakra/stamina, location, battle (opponent, round, seat, both HPs, his live windows, the planner's
+  pick and reason), relay health, call budget use, and tokens in the last hour.
+- **`live/events.jsonl`** (append-only), one line per:
+  - fight start or end, with result and turning point;
+  - activity done;
+  - training finished;
+  - item bought or used, repair;
+  - error or stall;
+  - pending decision raised or answered;
+  - setting changed.
+- **`live/control.json`** (the director's settings, versioned): pause or resume, mode (hunt / guard / farm / rest),
+  director mode, activity switches, goal weights, spend caps, do-not-attack entries, answers to pending decisions,
+  "end the session now". The brain validates every change through the gates (§2; nothing on the never-list can be
+  switched on) and records it in the events log.
+
+**2. The console.** A Dashboard artifact on the director's claude.ai, updated by Duet from `status.json` and
+`events.jsonl` every minute while the player runs:
+
+| Tab | Shows |
+|---|---|
+| Now | What the player is doing and why, the live fight (rounds, HPs, his windows, the pick), the next activities |
+| Today | Fights won and lost with turning points, training queue, dailies and errands done of their caps, money, stats and items in and out |
+| Decisions | Pending decisions with approve / deny; recent findings |
+| Settings | Pause, mode, director mode, activity switches, goal weights, spend caps, do-not-attack list |
+| Health | Relay up, missed turns (target 0), calls per minute, tokens per hour and per fight, last error |
+| Trends | Win rate, stats, money and tokens over days and weeks |
+
+- **Settings:** the director's changes on the Settings and Decisions tabs are stored in the artifact's own database.
+  Duet copies them into `control.json` within a minute and confirms back on the console.
+- **Push notifications** (through Duet), kept short:
+  - fight start;
+  - fight end with result;
+  - a pending decision;
+  - a stall over 2 minutes;
+  - a missed turn;
+  - the daily summary.
+
+  The director can switch each kind off on the Settings tab.
+
+**3. Simplicity.** The console is a view over the three files plus the settings it writes. It holds no game logic
+and no state of its own beyond the director's unsent edits. AP6's budget and contract cover the brain's writers and
+the control reader.
+
+**Gate:**
+- From his phone, the director can tell what the player is doing and why, approve a pending decision, pause it and
+  change a goal weight.
+- Each change takes effect in the brain within 2 minutes, and its event shows on the console.
+- A week of live use with no missing events: every fight, purchase and training change appears.
+
 ## 4. Engineering rules
 
 - **Narrow modules.** One activity per file, and no activity reaching into another's state. Shared state goes
@@ -261,6 +317,8 @@ A budget is changed only by the director, in a ruling.
 - **Keep the director informed through Duet:** fight start, fight end with turning point, pending decisions, stalls,
   daily summary.
 - **Handoffs** list exact SHAs, gates run, live checks not performed, and open decisions (CLAUDE.md §11).
+- **Write the console's data from AP1 on.** `status.json`, `events.jsonl` and `control.json` use the AP7 schema from
+  the start, so nothing is re-plumbed later.
 - **Keep complexity visible from AP1 on.** Each handoff reports the player's line count, its largest file and
   function, its config knobs and anything added that is switched off. A feature that ships switched off has a named
   date to be switched on or deleted. AP6 cuts what is left; it should not have to undo habits.
@@ -276,3 +334,4 @@ From design §9. Ask before the phase that needs each one:
 5. Session windows and call share (AP1).
 6. Which further modes first (AP5).
 7. The AP6 absolute size cap, set from the AP5 measurement (AP6).
+8. Which push notifications are on by default (AP7).
