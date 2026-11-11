@@ -7,3 +7,6 @@ forge/test/adv/
 # Forge MCP runner local state (journal, send logs, exchange files)
 .forge-mcp/
 state/player/dauntless/fights/live/
+
+# AI player runtime state (world model, outbox, inbox, logs)
+state/player/*/live/

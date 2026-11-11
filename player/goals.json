@@ -1,0 +1,13 @@
+{
+ "_meta": {
+  "what": "What the account progresses first: the weight the arbiter multiplies an activity's value by (docs/design/AI_PLAYER_OVERHAUL.md section 4.4). The director changes a weight from the console (live/control.json goal_weights); this file is the default.",
+  "source": "RUL-2026-11-11-149 item 5: PvP wins first, then the daily caps (50 errands, 20 missions, 9 medical), then ryo and hunting materials, with training always kept running as upkeep.",
+  "note": "The order is the director's. The numbers only encode that order; Fable chose them. Training, restock and repair are upkeep: they run on their own priority class and are not weighted here."
+ },
+ "weights": {
+  "pvp": 1.0,
+  "daily_caps": 0.7,
+  "ryo": 0.45,
+  "hunting_materials": 0.45
+ }
+}

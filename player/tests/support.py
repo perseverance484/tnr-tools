@@ -1,0 +1,184 @@
+"""Shared pieces for the player tests. Socket-free: a temporary live folder, a clock the test moves, a combat
+adapter that starts no background job, and battle states from logged fights (state/player/dauntless/tools/tests)."""
+import json
+import os
+import tempfile
+
+from player import config as C
+from player.brain import Brain
+from player.combat import Combat
+from player.gates import Gates
+from player.world import RATE_LIMITED, Result
+
+FIXTURES = os.path.join(C.TOOLS, "tests")
+FOE = "user_2q6t0HJD3ACwbIV3o0bX7pfdn5m"          # AngelSaber in angelsaber_r3.txt
+LINE = [{"actionId": "stormblade_id", "longitude": 6, "latitude": 4, "name": "stormblade"},
+        {"actionId": "kunai_id", "longitude": 6, "latitude": 4, "name": "kunai"}]
+DNA = """# Do not attack
+| Player | Village | Why | Added |
+|---|---|---|---|
+| Friend | Risen | Director: ally | 2026-11-09 |
+| Shisui | user_shisui | Director | 2026-11-10 |
+
+## Do not snipe (no third-party jumps after their fights)
+| Player | Village | Why | Added |
+|---|---|---|---|
+| AngelSaber | Shirohana | Director | 2026-11-09 |
+
+## Temporary holds
+- 2026-11-10 16:22-16:52 UTC: Luka and 4qua. Director: leave them be.
+"""
+
+
+def fixture(name="angelsaber_r3.txt"):
+    """(battle read, log entries) of a logged state: my turn, round 3."""
+    with open(os.path.join(FIXTURES, name), encoding="utf8") as f:
+        battle, ents = [json.loads(line) for line in f.read().splitlines() if line.strip()]
+    n = len(ents["*.battleRound"])
+    ents["*.id"] = [f"e{n - i}" for i in range(n)]
+    return battle, ents
+
+
+class StubCombat(Combat):
+    """No planner subprocess and no background job: plan_turn answers from `line`, and every use is counted."""
+
+    def __init__(self, fights):
+        super().__init__(fights, spawn=False)
+        self.line, self.how, self.kits, self.saved, self.used = list(LINE), "0.1s stub", set(), [], {}
+        self.lost_by_log = False
+        self.plan_args = []
+
+    def _count(self, name):
+        self.used[name] = self.used.get(name, 0) + 1
+
+    def kit_known(self, user_id):
+        return user_id in self.kits
+
+    def save_kit(self, user_id, data):
+        self._count("dossier")
+        self.saved.append(user_id)
+        self.kits.add(user_id)
+        return True
+
+    def learn_weapons(self, foe, live):
+        self._count("dossier")
+        return False
+
+    def plan_turn(self, bid, battle, entries, enemy, exact=False, ban=(), seconds=None):
+        self._count("planner")
+        self.plan_args.append({"ban": list(ban), "seconds": seconds, "live": "battle.liveEffects" in battle})
+        if seconds is not None and seconds < 0.5:
+            return None, "planner failed: out of time"
+        line = [a for a in (self.line or []) if a["actionId"] not in ban]
+        return (line or None), self.how if line else "planner failed: stub"
+
+    def log_says_lost(self, state):
+        return self.lost_by_log
+
+    def turning_point(self, state):
+        return "round 2: I lost 900 HP, he lost 100"
+
+    def harvest_seed_ids(self):
+        return ["user_seed1"]
+
+    def write_cache(self, bid, state, battle=None):
+        self._count("cache")
+        super().write_cache(bid, state, battle)
+
+    def start_fight_bases(self, bid):
+        self._count("fight_bases")
+        super().start_fight_bases(bid)
+
+    def close_fight(self, bid, state, covered, director_mode):
+        self._count("fight_log")
+        super().close_fight(bid, state, covered, director_mode)
+
+
+class Rig:
+    """A brain in a temporary folder with a clock the test moves."""
+
+    def __init__(self, mode="hunt", combat=None):
+        self.dir = tempfile.mkdtemp(prefix="player-test-")
+        self.t = 1_800_000_000.0
+        self.dna = os.path.join(self.dir, "do_not_attack.md")
+        with open(self.dna, "w", encoding="utf8") as f:
+            f.write(DNA)
+        self.combat = combat or StubCombat(os.path.join(self.dir, "fights"))
+        self.brain = self.new_brain()
+        self.world["control"]["mode"] = mode
+
+    def new_brain(self):
+        """A brain started fresh on the same folder: what a restart does."""
+        self.brain = Brain(self.dir, clock=lambda: self.t, combat=self.combat, gates=Gates(dna_path=self.dna))
+        return self.brain
+
+    @property
+    def world(self):
+        return self.brain.world
+
+    def tick(self, *results, dt=1.0):
+        """Move the clock, hand the results in, return the batch."""
+        self.t += dt
+        return self.brain.handle([r._replace(at=self.t) if r.at is None else r for r in results])
+
+    def calls(self, out):
+        return [s["call"] for s in out["steps"] if "call" in s]
+
+    def events(self, kind=None):
+        try:
+            with open(os.path.join(self.dir, "events.jsonl"), encoding="utf8") as f:
+                rows = [json.loads(line) for line in f]
+        except OSError:
+            return []
+        return [r for r in rows if kind is None or r["kind"] == kind]
+
+    def status(self):
+        with open(os.path.join(self.dir, "status.json"), encoding="utf8") as f:
+            return json.load(f)
+
+
+def res(endpoint, data=None, inp=None, error=None):
+    return Result(endpoint, inp or {}, data, error, None)
+
+
+def limited(endpoint, inp=None):
+    return Result(endpoint, inp or {}, None, RATE_LIMITED, None)
+
+
+def user(status="AWAKE", hp=5050, sector=1538, pos=(10, 10), bid=None, **more):
+    d = {"userData.status": status, "userData.battleId": bid, "userData.curHealth": hp, "userData.maxHealth": 5050,
+         "userData.sector": sector, "userData.longitude": pos[0], "userData.latitude": pos[1],
+         "userData.curChakra": 100, "userData.maxChakra": 100, "userData.curStamina": 100,
+         "userData.maxStamina": 100, "userData.money": 2_000_000, "userData.bank": 50_000_000,
+         "userData.curEnergy": 0}
+    d.update({f"userData.{k}": v for k, v in more.items()})
+    return res("profile.getUser", d)
+
+
+ROW = ("userId", "username", "longitude", "latitude", "status", "level", "villageId", "immunityUntil", "battleId")
+
+
+def scan(rows, sector=1538):
+    """rows: tuples in ROW order."""
+    return res("travel.getSectorData", {f"users.*.{k}": [r[i] for r in rows] for i, k in enumerate(ROW)},
+               {"sector": sector})
+
+
+def battle_read(bid, battle):
+    return res("combat.getBattle", dict(battle), {"battleId": bid})
+
+
+def log_read(bid, ents):
+    return res("combat.getBattleEntries", dict(ents), {"battleId": bid, "limit": 8})
+
+
+def start_fight(rig, bid="B1", battle=None, ents=None, effects=()):
+    """Bring the rig to the first tick of a fight on the logged state; returns (battle, entries, the batch)."""
+    fb, fe = fixture()
+    battle, ents = battle or fb, ents or fe
+    out = rig.tick(user("BATTLE", bid=bid))
+    assert rig.calls(out)[:2] == ["combat.getBattle", "combat.getBattleEntries"], out
+    read = dict(battle)
+    read["battle.usersEffects"] = list(effects)
+    out = rig.tick(battle_read(bid, read), log_read(bid, ents))
+    return battle, ents, out
