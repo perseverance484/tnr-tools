@@ -81,18 +81,29 @@ NF = 8
 
 # ------------------------------------------------------------------ state
 class Side:
-    __slots__ = ("hp", "a")
+    """HP + per-round values of every effect kind; `sc` holds element-scoped multipliers (kind, value, first, last,
+    elements), which only touch hits of a listed element (engine: "damage given [Fire, Lightning, None]")."""
+    __slots__ = ("hp", "a", "sc", "pm")
 
-    def __init__(self, hp, a=None):
+    def __init__(self, hp, a=None, sc=None, pm=None):
         self.hp = hp
         if a is None:
             a = [0.0] * (NK * H)
             for k in MULT:
                 a[k * H:(k + 1) * H] = [1.0] * H
         self.a = a
+        self.sc = sc if sc is not None else []
+        self.pm = pm if pm is not None else ()        # permanent all-element multipliers (in a; Clear keeps them)
 
     def copy(self):
-        return Side(self.hp, self.a[:])
+        return Side(self.hp, self.a[:], list(self.sc), self.pm)
+
+    def scoped(self, kinds, o, els):
+        f = 1.0
+        for k, v, o1, o2, es in self.sc:
+            if k in kinds and o1 <= o <= o2 and (els & es):
+                f *= (1 - v) if k == DR else (1 + v)
+        return f
 
     def g(self, k, o):
         return self.a[k * H + o] if 0 <= o < H else (1.0 if k in MULT else 0.0)
@@ -117,12 +128,26 @@ class Side:
             a[base + H - 1] = a[base + H - 2] if k in (PABS, PLS, PREF) else (1.0 if k in MULT else 0.0)
 
     def wipe(self, kinds):
+        if self.sc:
+            self.sc = [x for x in self.sc if x[0] not in kinds or x[3] >= PERM]
         a = self.a
         for k in kinds:
             a[k * H:(k + 1) * H] = [1.0] * H if k in MULT else [0.0] * H
+        for k, v in self.pm:
+            if k in kinds:
+                self.add(k, v, 0, H - 1)
+
+    def given0(self, o):
+        return self.g(GUP, o) * self.g(GDN, o) * (self.g(GGRD, o) if not self.g(DIMM, o) else 1.0)
 
     def given(self, o):
-        return self.g(GUP, o) * self.g(GDN, o) * (self.g(GGRD, o) if not self.g(DIMM, o) else 1.0)
+        """Damage-given factor for estimates (potentials, his base turn): element-scoped boosts counted as if the
+        hit matches. apply() uses given0 x the exact scoped factor of the action's elements."""
+        f = self.given0(o)
+        for k, v, o1, o2, es in self.sc:
+            if k in (GUP, GDN) and o1 <= o <= o2:
+                f *= 1 + v
+        return f
 
     def passives(self, absorb=0.0, lifesteal=0.0, reflect=0.0):
         for k, v in ((PABS, absorb), (PLS, lifesteal), (PREF, reflect)):
@@ -144,6 +169,76 @@ def add_tag(side, k, v, o1, o2):
             side.add(NSTK, 1, o1, o2)
 
 
+PERM = 999          # last offset of a permanent effect (bloodline / gear / keystone): Clear and Cleanse leave it
+
+
+def from_engine(effects, R, in_base=("me",)):
+    """(me, him) Sides from the engine's own state after replaying the log (engine_bridge.replay_state: every live
+    effect with its real power, level, elements, rounds and the round it was cast). Replaces the text rebuild."""
+    sides = {"me": Side(5050.0), "him": Side(5050.0)}
+    for e in effects:
+        side = sides.get(e.get("target"))
+        t = e.get("type")
+        if side is None or t is None:
+            continue
+        p = float(e.get("power") or 0) + float(e.get("powerPerLevel") or 0) * float(e.get("level") or 0)
+        pct = p / 100.0
+        perm = e.get("rounds") is None
+        c = int(e.get("createdRound") or 0)
+        # the engine counts "rounds" down once per round from the second round after the cast (state at R2 of a
+        # 2-round tag cast in R1 says 2, at R3 says 1): the last round is cast + rounds + rounds already counted off
+        left = int(e.get("rounds") or 0)
+        o1, o2 = (0, PERM) if perm else (c + 1 - R, c + left + max(0, R - c - 1) - R)
+        if o2 < 0:
+            continue
+        els = frozenset(x for x in (e.get("elements") or []) if x)
+        k, v = None, None
+        if t == "increasedamagegiven":
+            k, v = (GUP if pct > 0 else GDN), pct
+        elif t == "decreasedamagegiven":
+            k, v = GDN, -abs(pct)
+        elif t in ("increasedamagetaken", "afterburn"):
+            k, v = TAKEN, pct
+        elif t == "decreasedamagetaken":
+            k, v = DR, abs(pct)
+        elif t in ("absorb", "lifesteal", "reflect", "parry"):
+            base = {"absorb": ABS, "lifesteal": LS, "reflect": REF, "parry": PAR}[t]
+            if perm and t != "parry":
+                side.add({"absorb": PABS, "lifesteal": PLS, "reflect": PREF}[t], abs(pct), 0, H - 1)
+                continue
+            k, v = base, abs(pct)
+        elif t == "shield":
+            k, v = SHD, abs(p)
+        elif t in ("wound", "drain"):
+            k, v = (WND if t == "wound" else DRN), abs(p)
+        elif t == "recoil":
+            k, v = RCL, abs(pct)
+        elif t == "debuffprevent":
+            k, v = DIMM, 1
+        elif t == "clearprevent":
+            k, v = CIMM, 1
+        elif t == "buffprevent":
+            k, v = BBLK, 1
+        elif t == "stun":
+            k, v = STUN, 20
+        elif t == "decreaseheal":
+            k, v = HCUT, abs(pct)
+        if k is None:
+            continue
+        if k in (GUP, GDN, TAKEN, DR):
+            if els and not (els >= ALL_ELS):
+                side.sc.append((k, v, max(o1, 0), o2, els))      # element-scoped: only hits of those elements
+                continue
+            if perm:
+                if k in (GUP, GDN) and e.get("target") in in_base:
+                    continue        # my bases come from the engine with my bloodline / keystone already in them
+                side.add(k, v, 0, H - 1)                          # bloodline / gear: always on, Clear keeps it
+                side.pm += ((k, v),)
+                continue
+        add_tag(side, k, v, o1, min(o2, H - 1))
+    return sides["me"], sides["him"]
+
+
 def from_shotplan(s, R):
     """shotplan.Side (absolute rounds) -> Side (offsets from R)."""
     out = Side(s.hp)
@@ -160,8 +255,13 @@ def from_shotplan(s, R):
 
 
 # ------------------------------------------------------------------ actions
-def compile_spec(spec, actor_is_me):
-    """shotplan spec -> (base, pierce, [(on_src, kind, value, first_off, last_off)]) relative to the cast offset."""
+ALL_ELS = frozenset(["None", "Fire", "Water", "Wind", "Earth", "Lightning", "Light", "Shadow", "Yin-Yang", "Ice", "Wood",
+                     "Storm", "Dust", "Explosion", "Lava", "Metal", "Steam", "Boil", "Magnet", "Scorch", "Crystal"])
+
+
+def compile_spec(spec, actor_is_me, elements=None):
+    """shotplan spec -> (base, pierce, [(on_src, kind, value, first_off, last_off)], elements of its damage)
+    relative to the cast offset."""
     base, tags = spec[0], spec[1]
     pierce = len(spec) > 2 and spec[2] == "pierce"
     out = []
@@ -182,7 +282,7 @@ def compile_spec(spec, actor_is_me):
             continue
         o1, o2 = (0, max(dur, 1) - 1) if instant else (1, dur)
         out.append((on_src, k, val, o1, o2))
-    return (base, pierce, out)
+    return (base, pierce, out, frozenset(elements) if elements else frozenset(["None"]))
 
 
 # Source details (engine process.ts / tags.ts, read 2026-11-11 for the ~1% check). The shotplan-parity test turns
@@ -192,7 +292,8 @@ SOURCE_EXACT = True
 
 def apply(src, dst, act, o, scale=1.0):
     """One action at offset o: damage then tags (shotplan.apply order and caps). Returns (to target, to actor)."""
-    base, pierce, tags = act
+    base, pierce, tags = act[0], act[1], act[2]
+    els = act[3] if len(act) > 3 else ALL_ELS
     base *= scale
     to_t = to_s = 0.0
     if base:
@@ -202,7 +303,9 @@ def apply(src, dst, act, o, scale=1.0):
             dmg = base
             dst.wipe((SHD,))
         else:
-            dmg = base * src.given(o) * da[TAKEN * H + o] * da[DR * H + o]
+            dmg = base * src.given0(o) * da[TAKEN * H + o] * da[DR * H + o]
+            if src.sc or dst.sc:
+                dmg *= src.scoped((GUP, GDN), o, els) * dst.scoped((TAKEN, DR), o, els)
             parried = dmg * min(1.0, da[PAR * H + o])
             dmg -= parried
         pre = max(dmg, 0.0)                               # pre-shield damage: the absorb / leech / reflect caps
@@ -618,6 +721,14 @@ def build(a):
     }
     shotplan.off_ground(sme, rows, ME, turn.MOVE_IDS)
     me0, en0 = from_shotplan(sme, R), from_shotplan(sen, R)
+    # the engine's own state after replaying the log (exact powers, elements, rounds, bloodline and gear effects;
+    # director 2026-11-11: "get it within ~1% on numbers"); the text rebuild stays as the fallback
+    eng = engine_state(rows, en, me, me_pos, en_pos, R, en_acted, cal) if ENGINE_STATE else None
+    if eng is not None:
+        gg = me0.a[GGRD * H:(GGRD + 1) * H]                  # ground zones: the engine state has no ground list
+        me0, en0 = from_engine(eng, R)
+        me0.a[GGRD * H:(GGRD + 1) * H] = gg
+        me0.hp, en0.hp = float(me["curHealth"]), float(en["curHealth"])
     reach = max(0.4, 1 - 0.1 * max(0, d0 - 4))
     his_kit_raw = value_model.generic_kit(cal, reach)
     # his profile (opp_profile: kit read at battle start -> bloodline -> rank, boost and elements): the prior turn
@@ -625,11 +736,21 @@ def build(a):
     prof = opp_profile.profile(en["userId"], rows)
     gmul = opp_profile.given_mult(prof)
     mine_prof = opp_profile.own_profile()
-    en0.passives(**prof.get("passives", {}))
-    me0.passives(**mine_prof.get("passives", {}))
+    # his gear, stats and masteries are not public: validate.py --write-scales measures them per opponent from the
+    # logs (logged / predicted damage, shrunk toward 1 with few samples) -> "him" on his hits, "me" on mine
+    osc = opp_scales().get(en["userId"], {})
+    s_him, s_me = float(osc.get("him", 1.0)), float(osc.get("me", 1.0))
+    meal = meal_factors(getattr(a, "battle", None))       # this fight's meal / raid buffs (meal_factor.py)
+    s_him, s_me = s_him * meal.get("him", 1.0), s_me * meal.get("me", 1.0)
     for k in ("turn", "burst", "hit", "light", "hit2"):
         v = his_kit_raw[k]
-        his_kit_raw[k] = (v[0] * gmul,) + tuple(v[1:])
+        his_kit_raw[k] = (v[0] * s_him,) + tuple(v[1:])
+    if eng is None:                                       # engine state carries passives and the bloodline
+        en0.passives(**prof.get("passives", {}))
+        me0.passives(**mine_prof.get("passives", {}))
+        for k in ("turn", "burst", "hit", "light", "hit2"):
+            v = his_kit_raw[k]
+            his_kit_raw[k] = (v[0] * gmul,) + tuple(v[1:])
     obs = turn.observed_turns(rows, en["userId"], en["username"], sme, sen)
     if obs:
         n, med = len(obs), sorted(obs)[len(obs) // 2] * reach
@@ -651,13 +772,15 @@ def build(a):
     clock_info, clockd = None, {}
     ctx["copier"] = bool(acts) and any(t[1] == "copy" for v in acts.values() for t in v[4][1])
     if acts and not ctx["afk"]:
-        scale = gmul / max(1.0, opp_profile.given_mult(mine_prof))
+        scale = (1.0 if eng is not None else gmul) / max(1.0, opp_profile.given_mult(mine_prof)) * s_him
         clockd, clock_info = make_clock(acts, rows, en["userId"], R, en_acted, me0, en0, ctx, cal, his_kit,
                                         his_kit_raw["turn"][0], scale, habit=habit,
                                         his_prev=his_turns[-1][1] if his_turns else None, his_n=len(his_turns))
         clock_info["model"] = (f"{len(model.get('fights', []))} logged fights, {len(model.get('bundles', []))} turns"
                                if model else "no logged fights")
-    my_kit = make_my_kit(prof)
+    my_kit = make_my_kit(None if eng is not None else prof)
+    if s_me != 1.0:
+        my_kit = {k: ((v[0] * s_me,) + tuple(v[1:]) if v[0] and not v[1] else v) for k, v in my_kit.items()}
     caps = (me.get("maxHealth", 5050), en.get("maxHealth", 5050))
     P = Planner(me0, en0, R, ctx, cal, my_kit, his_kit, st, en_acted, caps, his_kit_raw["turn"][0], clockd)
     # solution-library key: this position plus what his last turn did (solutions.py)
@@ -670,11 +793,44 @@ def build(a):
     except Exception:  # noqa: BLE001  (the library is an aid; planning never depends on it)
         P.book_key = None
     info = dict(battle=battle, me=me, en=en, R=R, my_turn=my_turn, en_acted=en_acted, me_pos=me_pos, en_pos=en_pos,
-                d0=d0, ap=ap, stun=stun, others=others, st=st, sme=sme, sen=sen, prof=prof, gmul=gmul, clock=clock_info, rows=rows)
+                d0=d0, ap=ap, stun=stun, others=others, st=st, sme=sme, sen=sen, prof=prof, gmul=gmul, clock=clock_info, rows=rows,
+                engine_state=eng is not None, opp_scale=(s_me, s_him))
     return P, info
 
 
+ENGINE_STATE = os.environ.get("TNR_ENGINE_STATE", "0") != "0"     # on once engine_check confirms it
+
+
+def engine_state(rows, en, me, me_pos, en_pos, R, en_acted, cal, timeout=5):
+    """Live effects from engine_bridge.replay_state, or None (then the text rebuild is used)."""
+    try:
+        import engine_bridge as EB
+        st = EB.replay_state(rows, ME, en["userId"], me, en, me_pos, en_pos, R, "next" if en_acted else "same", cal,
+                             timeout=timeout)
+        return (st or {}).get("state", {}).get("effects")
+    except Exception:  # noqa: BLE001
+        return None
+
+
 _ENGINE_BASES = None
+_OPP_SCALES = None
+
+
+def meal_factors(bid):
+    try:
+        return json.load(open(os.path.join(HERE, "..", "fights", "live", f"{bid}_meal.json"))) if bid else {}
+    except (OSError, ValueError):
+        return {}
+
+
+def opp_scales():
+    global _OPP_SCALES
+    if _OPP_SCALES is None:
+        try:
+            _OPP_SCALES = json.load(open(os.path.join(HERE, "..", "fights", "opp_scale.json")))
+        except (OSError, ValueError):
+            _OPP_SCALES = {}
+    return _OPP_SCALES
 
 
 def engine_bases():
@@ -699,8 +855,9 @@ def make_my_kit(prof):
         if k in eb and v[0]:
             v = (eb[k],) + tuple(v[1:])
         els = (idx.get(turn.ACTION_ID.get(k, ""), ["", []])[1]) or ["None"]
-        f = opp_profile.dr_vs(prof, els)
-        my_kit[k] = compile_spec(((v[0] * f,) + tuple(v[1:])) if f != 1.0 and not (len(v) > 2 and v[2] == "pierce") else v, True)
+        f = opp_profile.dr_vs(prof, els) if prof is not None else 1.0
+        my_kit[k] = compile_spec(((v[0] * f,) + tuple(v[1:])) if f != 1.0 and not (len(v) > 2 and v[2] == "pierce") else v,
+                                 True, els)
     my_kit["step"] = my_kit["stepback"] = (0, False, [])
     cd_plan.ACTIONS.setdefault("step", (10, 0, None, ""))
     return my_kit
@@ -714,7 +871,7 @@ def make_clock(acts, rows, en_id, R, en_acted, me0, en0, ctx, cal, his_kit, base
     hr_abs, hn_abs = (R + 1, R + 2) if en_acted else (R, R + 1)
     for aid, (nm, cost, cd, locks, spec) in acts.items():
         if aid not in his_kit:
-            his_kit[aid] = compile_spec(spec, False)
+            his_kit[aid] = compile_spec(spec, False, (opp_profile._index().get(aid, ["", []])[1]) or None)
     ready = clock.ready_at(acts, en_id, rows, hr_abs)
     ready_next = clock.ready_at(acts, en_id, rows, hn_abs)
     all_lines = [(hb, sum(acts[x][1] for x in hb)) for hb in clock.bundles(acts, ready, 100)]

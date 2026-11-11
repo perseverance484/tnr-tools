@@ -342,7 +342,16 @@ def _replay_request(rows, me_id, en_id, me, en, me_pos, en_pos, R, his_turn, cal
                 **_side_mods(his_bloodline_id(rows, en_id), _his_gear(en_id)),
                 **({"gearMods": _his_gear_mods(en_id)} if GEAR_MODEL and _his_gear_mods(en_id) else {})},
         "log": log,
+        # meal / raid buffs as the battle carries them (timed, permanent for the fight); assembleBattle realizes them
+        "meRaidBuffs": _timed(me), "himRaidBuffs": _timed(en),
     }
+
+
+def _timed(user):
+    effs = [{k: v for k, v in e.items() if k not in ("targetId", "creatorId", "fromType", "timedBuffExpiresAt",
+                                                       "rounds", "createdRound", "level")}
+            for e in (user or {}).get("perm") or [] if e.get("timedBuffExpiresAt")]
+    return [{"id": "meal", "effects": effs}] if effs else []
 
 
 def _run(req, timeout):
@@ -374,6 +383,14 @@ def replay_list(rows, me_id, en_id, me, en, me_pos, en_pos, R, his_turn, cal, ti
     """Engine state after replaying the log: {ap, available:[{id,name,cost}], replayIssues}."""
     req = _replay_request(rows, me_id, en_id, me, en, me_pos, en_pos, R, his_turn, cal)
     req["mode"] = "list"
+    return _run(req, timeout)
+
+
+def replay_state(rows, me_id, en_id, me, en, me_pos, en_pos, R, his_turn, cal, timeout=12):
+    """The engine's own battle state after replaying the log: both sides' stats and every live effect (type, power,
+    level, elements, rounds, createdRound, creator), plus gear modifiers. planner2 --engine-state builds from it."""
+    req = _replay_request(rows, me_id, en_id, me, en, me_pos, en_pos, R, his_turn, cal)
+    req["mode"] = "state"
     return _run(req, timeout)
 
 

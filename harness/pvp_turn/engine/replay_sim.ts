@@ -167,6 +167,11 @@ const applyGearMods = (b: CompleteBattle) => {
 const prepare = async (): Promise<CompleteBattle> => {
   const me = buildUser(req.me, "village-me");
   const him = buildUser(req.him, "village-him");
+  // meal / raid buffs as the live battle carries them: assembleBattle realizes them like the game does
+  const buffs = (list: any[]) => (list ?? []).map((x: any) => ({ ...x, createdAt: new Date(0),
+    expiresAt: new Date(Date.now() + 36e5) }));
+  (me as any).raidBuffs = buffs(req.meRaidBuffs);
+  (him as any).raidBuffs = buffs(req.himRaidBuffs);
   let b = await S.assembleBattle({
     users: [me, him], battleType: "COMBAT",
     placements: [{ userId: req.me.id, x: req.me.x, y: req.me.y }, { userId: req.him.id, x: req.him.x, y: req.him.y }],
@@ -308,7 +313,9 @@ const main = async () => {
       users: base.usersState.map(pick),
       effects: (base.usersEffects as any[]).map((e) => ({ target: base.usersState.find((u) => u.userId === e.targetId)?.controllerId,
         type: e.type, power: e.power, powerPerLevel: e.powerPerLevel, level: e.level, fromType: e.fromType,
-        elements: e.elements, rounds: e.rounds })),
+        elements: e.elements, rounds: e.rounds, createdRound: e.createdRound, isNew: e.isNew,
+        castThisRound: e.castThisRound, calculation: e.calculation, direction: e.direction,
+        creator: base.usersState.find((u) => u.userId === e.creatorId)?.controllerId })),
       gear: (base as any).preBattleGearModifiers ?? (base as any).extraState?.preBattleGearModifiers ?? null,
     };
   }

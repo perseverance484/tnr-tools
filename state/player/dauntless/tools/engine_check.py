@@ -28,6 +28,8 @@ import turn  # noqa: E402
 import value_model  # noqa: E402
 from ingest import IDS, ME  # noqa: E402
 
+P2._OPP_SCALES = {}     # the engine replay has no per-opponent log scales: compare like with like
+
 
 def positions(rows):
     """Turn files for each of my turns in a log: (round, path)."""
@@ -118,15 +120,24 @@ def main():
     ap.add_argument("--bundles", type=int, default=4)
     ap.add_argument("--out", default=os.path.join(HERE, "..", "fights", "engine_check.json"))
     ap.add_argument("--report", action="store_true", help="report the saved comparison only")
+    ap.add_argument("--part", default="0/1", help="i/n: this run takes every n-th fight from the i-th (parallel shards)")
+    ap.add_argument("--merge", nargs="*", help="report several saved shard files together")
     a = ap.parse_args()
     if a.report:
         report(json.load(open(a.out)))
         return
+    if a.merge:
+        report([x for f in a.merge for x in json.load(open(f))])
+        return
+    pi, pn = map(int, a.part.split("/"))
     cal = value_model.load_cal()
     allrows = []
-    n = 0
+    n = k = 0
     for bid, path, rows, meta in OM.load_logs():
         if n >= a.fights or "observed" in path:
+            continue
+        k += 1
+        if (k - 1) % pn != pi:
             continue
         got = 0
         for r, tp, name in positions(rows):

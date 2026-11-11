@@ -29,6 +29,8 @@ def test_planner():
         "pressure weights": P2.load_weights()["mypot"] > P2.load_weights()["hispot"],
         "library key computed (library itself off until it wins)": getattr(P, "book_key", None) is not None,
         "his next-turn threat from his ready lines": bool(P.clockd.get("next_lines")),
+        "per-opponent gear/stat scales (validate.py --write-scales)": "opp_scale" in info,
+        "meal / raid buff factors read (meal_factor.py)": "meal_factors(" in open(P2.__file__).read(),
     }
     bad = [k for k, ok in checks.items() if not ok]
     for k, ok in checks.items():
@@ -52,6 +54,13 @@ def test_pilot():
     import pilot
     checks["planner2 leads the pilot"] = "planner2.py" in open(pilot.__file__).read()
     checks["director mode switch present"] = hasattr(pilot, "director_mode")
+    checks["battle start reads both fighters' permanent effects (meals, titles)"] = \
+        "battle.usersEffects" in pilot.c_battle("b", effects=True)["select"] and \
+        "battle.usersEffects" not in pilot.c_battle("b")["select"]
+    checks["meal factors computed when meals are on"] = "meal_factor.py" in open(pilot.__file__).read()
+    import engine_bridge
+    checks["replay realizes meal / raid buffs"] = engine_bridge._timed({"perm": [{"type": "increasestat",
+                                                                                 "timedBuffExpiresAt": 1}]}) != []
     checks["opponent models rebuilt after every fight"] = "opponents.py\"), \"build\"" in open(pilot.__file__).read()
     bad = [k for k, ok in checks.items() if not ok]
     for k, ok in checks.items():

@@ -97,7 +97,7 @@ def check_fight(bid, rows, cal, mine_only=False):
         if logged < 50 and d < 50:
             continue                                          # a no-damage turn: nothing to compare
         names = [IDS.get(a) or (his.get(a) or (a,))[0] for a in acts]
-        out.append({"fight": bid, "round": r, "side": "me" if mine else "him", "opp": en_name,
+        out.append({"fight": bid, "round": r, "side": "me" if mine else "him", "opp": en_name, "opp_id": en_id,
                     "acts": names, "pred": round(d), "logged": round(logged),
                     "err": (d - logged) / max(200.0, logged), "unknown": unknown})
     return out
@@ -108,6 +108,7 @@ def main():
     ap.add_argument("--fight")
     ap.add_argument("--worst", type=int, default=15)
     ap.add_argument("--mine-only", action="store_true")
+    ap.add_argument("--write-scales", action="store_true", help="save per-opponent damage scales (fights/opp_scale.json)")
     a = ap.parse_args()
     cal = value_model.load_cal()
     value_model.calibrate_kit(cal)
@@ -133,6 +134,30 @@ def main():
         print(f"  {x['fight'][:6]} R{x['round']} {x['side']:3} vs {x['opp'][:12]:12} {'+'.join(x['acts'])[:60]:60} "
               f"pred {x['pred']:5} logged {x['logged']:5} ({x['err']:+.0%}){' unknown ' + ','.join(x['unknown']) if x['unknown'] else ''}")
     json.dump(res, open(os.path.join(HERE, "..", "fights", "validation.json"), "w"), indent=0)
+    if a.write_scales:
+        write_scales(res)
+
+
+SCALES = os.path.join(HERE, "..", "fights", "opp_scale.json")
+
+
+def write_scales(res, min_n=2):
+    """Per opponent: median logged/predicted damage for my hits on him ("me") and his hits on me ("him"), from his
+    logged turns (his gear, stats and masteries are not public; his hits measure them). Shrunk toward 1 with few
+    samples: s = 1 + (median - 1) * n / (n + 2). planner2 multiplies by these."""
+    out = {}
+    for side in ("me", "him"):
+        by = {}
+        for x in res:
+            if x["side"] == side and x["logged"] >= 150 and x["pred"] >= 150 and not x["unknown"]:
+                by.setdefault(x["opp_id"], []).append(x["logged"] / x["pred"])
+        for oid, rs in by.items():
+            if len(rs) >= min_n:
+                med = statistics.median(rs)
+                out.setdefault(oid, {})[side] = round(1 + (med - 1) * len(rs) / (len(rs) + 2), 3)
+                out[oid][side + "_n"] = len(rs)
+    json.dump(out, open(SCALES, "w"), indent=1)
+    print(f"wrote {SCALES}: {len(out)} opponents")
 
 
 def check_policy():

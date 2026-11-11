@@ -261,6 +261,8 @@ def load_input(path):
     people = []
     for i, uid in enumerate(us["userId"]):
         people.append({k: us[k][i] for k in us})
+    for p in people:                  # permanent effects read at battle start (bloodline, gear, titles, meals)
+        p["perm"] = [e for e in battle.get("battle.permEffects") or [] if e.get("targetId") == p["userId"]]
     me = next(p for p in people if p["userId"] == ME)
     others = [p for p in people if p["userId"] != ME and p["curHealth"] > 0]
     rows = []

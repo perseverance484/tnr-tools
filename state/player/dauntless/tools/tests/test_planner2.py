@@ -5,6 +5,8 @@ HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, os.path.di
 import exam, planner2 as p2, shotplan, value_model  # noqa: E402
 p2.SOURCE_EXACT = False      # compare the core shared with shotplan; the source-only details are checked by engine_fit
 p2._ENGINE_BASES = {}     # and the shared calibrated bases
+p2.ENGINE_STATE = False   # and the same state (the text rebuild shotplan shares; engine_check covers the engine state)
+p2._OPP_SCALES = {}      # and no per-opponent log scales (shotplan has none)
 
 
 def states():

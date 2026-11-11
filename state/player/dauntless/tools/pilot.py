@@ -89,11 +89,25 @@ def c_attack(t, sector):
                                       "sector": sector, "asset": "ground"}, ["success", "message", "battleId"])
 
 
-def c_battle(bid):
+def c_battle(bid, effects=False):
+    """effects: also the full live effect list, read once per battle. Both fighters' permanent effects are on it
+    (bloodline, gear, skills, titles and meal / raid buffs, which no log line shows; getBattle masks only their
+    action ids). Director 2026-11-11: "The last little bit of variance is probably meal buffs from food"."""
     return call("combat.getBattle", {"battleId": bid},
                 ["battle.version", "battle.round", "battle.activeUserId"] +
                 [f"battle.usersState.*.{k}" for k in ("userId", "username", "curHealth", "maxHealth", "longitude",
-                                                      "latitude", "actionPoints", "isAi")])
+                                                      "latitude", "actionPoints", "isAi")] +
+                (["battle.usersEffects"] if effects else []))
+
+
+PERM_KEYS = ("type", "targetId", "creatorId", "power", "powerPerLevel", "level", "calculation", "direction", "elements",
+             "statTypes", "generalTypes", "fromType", "timedBuffExpiresAt", "rounds", "createdRound")
+
+
+def perm_effects(effects):
+    """The permanent effects (no round count) from a full getBattle effect list, compact."""
+    return [{k: e.get(k) for k in PERM_KEYS if e.get(k) is not None}
+            for e in effects or [] if isinstance(e, dict) and e.get("rounds") is None]
 
 
 def c_entries(bid, n):
@@ -246,12 +260,27 @@ def battle_tick(st, bid, battle, entries):
         new = [list(x) for x in zip(*(entries.get(k, []) for k in ENT)) if x[0] not in seen]
         cache["entries"] += new[::-1]                      # cache is oldest-first
     users = battle.get("battle.usersState.*.userId") or []
+    if not users and cache.get("perm_tries") and "perm_effects" not in cache and cache.get("perm_retry", 0) < 2:
+        # the read that also asked for the effect list came back without the battle: plain read again, never
+        # mistake it for the battle ending
+        cache["perm_retry"] = cache.get("perm_retry", 0) + 1
+        cache["perm_tries"] = 9
+        save(cache_path, cache)
+        return f"BATTLE {bid}: effect read refused, plain read", [c_battle(bid), c_entries(bid, 8), TICK]
     if ME not in users:                                     # battle gone (finished battles are deleted)
         # the last state seen does not settle it (Ziharkk 7ZL8mG: I was alive at 481 when his last turn killed me): the
         # next profile read does. Hospitalized = lost, awake = won (world() settles it)
         last = cache.get("battle") or {}
         st["pending_result"] = {"bid": bid, "foes": [u for u in last.get("battle.usersState.*.userId") or [] if u != ME]}
         return finish(st, bid, cache, "battle closed, result on the next read")
+    if "battle.usersEffects" in battle:
+        cache["perm_effects"] = perm_effects(battle.pop("battle.usersEffects"))
+        if any(e.get("timedBuffExpiresAt") for e in cache["perm_effects"]):
+            save(cache_path, dict(cache, battle=battle))
+            subprocess.Popen([sys.executable, os.path.join(HERE, "meal_factor.py"), bid], stdout=subprocess.DEVNULL,
+                             stderr=subprocess.DEVNULL, start_new_session=True)   # ~3 s, beside the fight
+    if "perm_effects" in cache:
+        battle["battle.permEffects"] = cache["perm_effects"]
     cache["battle"] = battle
     save(cache_path, cache)
     hp = battle["battle.usersState.*.curHealth"]
@@ -262,7 +291,11 @@ def battle_tick(st, bid, battle, entries):
     R, v = battle["battle.round"], battle["battle.version"]
     names = battle["battle.usersState.*.username"]
     head = f"BATTLE R{R} v{v} | me {hp[me_i]:.0f} | {names[foes[0]]} {hp[foes[0]]:.0f}"
-    poll = [c_battle(bid), c_entries(bid, 8), TICK]
+    want = "perm_effects" not in cache and cache.get("perm_tries", 0) < 2   # a refused read never blocks the fight
+    if want:
+        cache["perm_tries"] = cache.get("perm_tries", 0) + 1
+        save(cache_path, cache)
+    poll = [c_battle(bid, effects=want), c_entries(bid, 8), TICK]
     foe_id = users[foes[0]]
     ai = battle.get("battle.usersState.*.isAi") or []
     if not (ai and ai[foes[0]]) and not kit_known(foe_id) and cache.get("kit_asked") != foe_id:
