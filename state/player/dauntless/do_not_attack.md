@@ -22,3 +22,4 @@ Check this list before every `combat.attackUser`, `travel.robPlayer` or bounty.
 
 ## Temporary holds
 - 2026-11-10 16:22-16:52 UTC: Luka and 4qua. Director: "Dont interrupt their sparring sessions for now." / "No like, leave them be for 30 mins".
+- 2026-11-11 17:10 UTC to 2026-11-12 17:10 UTC: Slyrak (user_2enQYpbKXmEUwYrRbBGqIQsp0gk). Director: "Take him off the attack list for 24h, he doesnt seem to want to fight."
