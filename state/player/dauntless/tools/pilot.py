@@ -42,6 +42,10 @@ ME_CARD = {"level": 100, "username": "dauntless",
            "avatarLight": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJEJNnVieLfKL5D7TAFe29bymSaPCIQ846MdzG"}
 HEAL_BELOW = 0.95       # fights start at full health (playbook)
 POOLS_BELOW = 0.5       # chakra / stamina floor before ramen
+ERRAND_CAP = 50          # daily errand cap (director 2026-11-10: "20 missions and 50 errands is the cap")
+ERRAND_NAME = "Hyorin's Broken Gate"   # the D-rank errand in Hyorin: goals (5,5) then (10,7) in 177, 23,200 ryo
+ERRAND_QID = "A3he5vVNzt5mbQI8JPQj9"
+ERRAND_STEPS = [(5, 5), (10, 7)]
 TRAIN_TRIP = 2500        # energy that is worth a trip to the village: stat training only works in its sector
                          # (engine libs/train.ts: "Wrong sector" unless sector == village sector); director 2026-11-11:
                          # "keep training stats with energy and jutsu with ryo"
@@ -63,7 +67,7 @@ def c_user():
                                         "userData.latitude", "userData.curChakra", "userData.maxChakra",
                                         "userData.curStamina", "userData.maxStamina", "userData.money",
                                         "userData.bank", "userData.curEnergy", "userData.intelligence",
-                                        "userData.willpower"])
+                                        "userData.willpower", "userData.dailyErrands"])
 
 
 def c_train_reads():
@@ -744,6 +748,10 @@ def world(st, user, res):
             moves = [] if (t["longitude"], t["latitude"]) == me_pos else [c_move(me_pos, (t["longitude"], t["latitude"]), sector)]
             return head + f": attacking {t['username']} @ {t['longitude']},{t['latitude']}", \
                 moves + [c_attack(t, sector), c_user(), TICK]
+    er = errand_tick(st, user, res, sector, me_pos)
+    if er:
+        return head + er[0], er[1]
+    if scan and scan[0].get("sector") == sector:
         if sector in CIRCUIT or sector == HOME_SECTOR:
             nxt = CIRCUIT[(CIRCUIT.index(sector) + 1) % len(CIRCUIT)] if sector in CIRCUIT else CIRCUIT[0]
             seen = ", ".join(f"{n} {k}" for k, n in sorted(st.get("last_scan", {}).items())) or "empty"
@@ -757,6 +765,46 @@ def world(st, user, res):
         batch.append(call("stealth.useSensory", {"sector": sector}, ["success", "message"]))
     return head + ": scanning" + (f" [logs: {st['harvest']}]" if st.get("harvest") else ""), \
         batch + harvest_calls(st) + [TICK]
+
+
+def errand_tick(st, user, res, sector, me_pos):
+    """Daily errands between fights (director 2026-11-11: "missions, errands and dailies reset"): one whole errand per
+    batch in Hyorin (start, walk both goals, check each, claim), with a scan of 177 so a target there is still fought
+    first. Stops for the day at the cap, and for an hour on an unknown errand or a refused start."""
+    day = time.strftime("%Y-%m-%d", time.gmtime())
+    ed = st.setdefault("errands", {})
+    if ed.get("day") != day:
+        ed.clear(); ed["day"] = day
+    sr = res.get("travel.startRandom") or res.get("quests.startRandom")
+    if sr and sr[1] is not None and ed.get("sent"):
+        ed["sent"] = False
+        msg = str((sr[1] or {}).get("message", ""))
+        if not (sr[1] or {}).get("success"):
+            ed["blocked"] = time.time() + (86400 if "limit" in msg.lower() else 3600)
+            ed["why"] = msg[:80]
+        elif ERRAND_NAME not in msg:
+            ed["blocked"] = time.time() + 3600
+            ed["why"] = "unknown errand: " + msg[:60]
+        else:
+            ed["done"] = ed.get("done", 0) + 1
+    if user.get("userData.dailyErrands") is None:   # an older read without the counter: no errands
+        return None
+    count = int(user.get("userData.dailyErrands") or 0)
+    if count >= ERRAND_CAP or ed.get("blocked", 0) > time.time():
+        return None
+    if sector != HOME_SECTOR:
+        return f": errands {count}/{ERRAND_CAP}, going to the village ({HOME_SECTOR})", go(HOME_SECTOR)
+    ed["sent"] = True
+    calls = [call("quests.startRandom", {"type": "errand", "rank": "D", "userLevel": 100, "userSector": HOME_SECTOR,
+                                         "userVillageId": HOME_VILLAGE}, ["success", "message"])]
+    cur = me_pos
+    for p in ERRAND_STEPS:
+        if p != cur:
+            calls.append(c_move(cur, p, HOME_SECTOR))
+        calls.append(call("quests.checkLocationQuest", {}, ["success", "message"]))
+        cur = p
+    calls.append(call("quests.checkRewards", {"questId": ERRAND_QID}, ["success", "message"]))
+    return f": errand {count + 1}/{ERRAND_CAP} ({ERRAND_NAME})", calls + [c_user(), c_sector(HOME_SECTOR), TICK]
 
 
 def restock_tick(st, user, res):

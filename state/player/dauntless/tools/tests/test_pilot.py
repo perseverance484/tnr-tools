@@ -124,6 +124,16 @@ def test_restock():
     u3[2]["userData.sector"] = 177
     head, b = run_world([u3], "hunt", {"restock": {"next": 1e12}})
     assert "training willpower" in head and b[0]["input"] == {"stat": "willpower", "energy": 5050}, (head, b[:1])
+    # daily errands: in the village with errands left, one whole errand per batch (start, two goals, claim) + a 177 scan
+    u4 = user()
+    u4[2].update({"userData.curEnergy": 0, "userData.sector": 177, "userData.dailyErrands": 3})
+    head, b = run_world([u4], "hunt", {"restock": {"next": 1e12}})
+    cs = [x.get("call") for x in b]
+    assert "errand 4/50" in head and cs[0] == "quests.startRandom" and cs.count("quests.checkLocationQuest") == 2 \
+        and "quests.checkRewards" in cs and "travel.getSectorData" in cs, (head, cs)
+    u4[2]["userData.dailyErrands"] = 50
+    head, b = run_world([u4], "hunt", {"restock": {"next": 1e12}})
+    assert "errand" not in head, head
     print("ok: restock (read, buy from the shop, take out of home storage) + training upkeep")
 
 
