@@ -192,6 +192,7 @@ def apply(src_side, dst_side, spec, r, actor_is_me):
     # tick my own wound/drain on my first action is handled by the caller
     if base:
         sa, da = _agg(src_side, r), _agg(dst_side, r)
+        parried = 0.0
         if pierce:
             dmg = base
             dst_side.tags = [t for t in dst_side.tags if t[0] != "shield"]
@@ -199,18 +200,25 @@ def apply(src_side, dst_side, spec, r, actor_is_me):
             dmg = base * sa.get("given", _Z)[1] * da.get("taken", _Z)[1]
             dmg *= da.get("dr", _Z)[2]
             # system DR already inside the calibrated base
+            # engine order: parry splits the direct hit before shields (process.ts splitParriedDamage), cap 100%
+            parried = dmg * min(1.0, da.get("parry", _Z)[0])
+            dmg -= parried
             sh = da.get("shield", _Z)[0]
             if sh:
                 used = min(sh, dmg)
                 dmg -= used
                 dst_side.tags = [t for t in dst_side.tags if t[0] != "shield"]
         dmg = max(dmg, 0.0)
+        # engine (process.ts / damagePipeline.ts, constants.ts): parry's share went back above; reflect works on
+        # what is left and returns at most 60% of it (REFLECT_CAP_RATIO), so two 35% reflects waste 10% and parry +
+        # reflect do not add (20% + 35% returns 48%). Absorb and lifesteal are capped at 60% of the hit
+        # (ABSORB_CAP_RATIO, DAMAGE_LEECH_CAP_RATIO). Director, 2026-11-11.
         heal_cut = 1 - da.get("healcut", _Z)[0]
-        to_tgt += dmg - dmg * min(0.9, da.get("absorb", _Z)[0]) * heal_cut
-        to_self -= dmg * sa.get("lifesteal", _Z)[0] * (1 - sa.get("healcut", _Z)[0])
+        to_tgt += dmg - dmg * min(0.6, da.get("absorb", _Z)[0]) * heal_cut
+        to_self -= dmg * min(0.6, sa.get("lifesteal", _Z)[0]) * (1 - sa.get("healcut", _Z)[0])
         to_self += dmg * sa.get("recoil_self", _Z)[0]
         to_self += dmg * sa.get("recoil", _Z)[0]  # standing on recoil ground
-        to_self += dmg * da.get("reflect", _Z)[0] + dmg * da.get("parry", _Z)[0]
+        to_self += parried + dmg * min(0.6, da.get("reflect", _Z)[0])
     for t in tags:
         who, kind, val, dur = t[0], t[1], t[2], t[3]
         instant = len(t) > 4 and t[4]

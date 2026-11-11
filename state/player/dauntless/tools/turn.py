@@ -134,7 +134,7 @@ def _vec(sa, da):
     return [g(sa, "given")[1], g(sa, "wound")[0] + g(sa, "drain")[0], g(sa, "lifesteal")[0], g(sa, "healcut")[0],
             g(sa, "recoil_self")[0] + g(sa, "recoil")[0],
             g(da, "taken")[1], g(da, "dr")[2], g(da, "shield")[0], g(da, "healcut")[0], g(da, "absorb")[0],
-            g(da, "reflect")[0] + g(da, "parry")[0]]
+            g(da, "reflect")[0], g(da, "parry")[0]]
 
 
 _MULT_IDX = (0, 5, 6)   # entries combined by product; the rest by sum
@@ -142,21 +142,23 @@ _MULT_IDX = (0, 5, 6)   # entries combined by product; the rest by sum
 
 def _reply_vec(v, bases):
     """_pure_reply on a flat vector (same arithmetic)."""
-    gm, tick, ls, hc_s, rec, tm, drp, shield, hc_d, ab, refl = v
+    gm, tick, ls, hc_s, rec, tm, drp, shield, hc_d, ab, refl, par = v
     taken_self = tick if bases else 0.0
     dealt = 0.0
     for base in bases:
         if not base:
             continue
         dmg = base * gm * tm * drp
+        parried = dmg * min(1.0, par)              # same order and caps as shotplan.apply
+        dmg -= parried
         if shield:
             dmg -= min(shield, dmg)
             shield = 0.0
         dmg = max(dmg, 0.0)
-        dealt += dmg - dmg * min(0.9, ab) * (1 - hc_d)
-        taken_self -= dmg * ls * (1 - hc_s)
+        dealt += dmg - dmg * min(0.6, ab) * (1 - hc_d)
+        taken_self -= dmg * min(0.6, ls) * (1 - hc_s)
         taken_self += dmg * rec
-        taken_self += dmg * refl
+        taken_self += parried + dmg * min(0.6, refl)
     return dealt, taken_self
 
 
@@ -656,7 +658,7 @@ def main():
                         for x in b2:
                             cv = cvec[x]
                             if cv is not None:
-                                for i in range(11):
+                                for i in range(12):
                                     if i in _MULT_IDX:
                                         vv[i] *= cv[i]
                                     else:
