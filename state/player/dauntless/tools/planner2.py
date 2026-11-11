@@ -71,8 +71,11 @@ WFILE = os.path.join(HERE, "planner2_weights.json")
 #   race     tempo: turns he needs to kill me minus turns I need to kill him (HP per turn of tempo)
 #   kill / die  chance my next turn kills him / his next turn kills me, in turn order (who acts first next round)
 #   reserve  Clear / Cleanse / Smoke / pierce spent outside their window; waste: per 20 AP left unspent
-DEFAULT_W = {"swing": 1.0, "mypot": 0.6, "hispot": 0.75, "mypot2": 0.3, "hispot2": 0.35, "race": 120.0,
-             "kill": 1800.0, "die": 3600.0, "reserve": 1.0, "waste": 150.0}
+# 2026-11-11 rebalance towards pressure: the first set (mypot 0.6, hispot 0.75, race 120, kill 1800, die 3600) went 0-6
+# live, too passive against players who heal and stack; this set won 88% vs 65% on the six hardest log-modelled
+# opponents and 94% vs 88% on all of them (fightsim, both turn orders; HikuroHatake as P2 still the weak spot)
+DEFAULT_W = {"swing": 1.0, "mypot": 0.9, "hispot": 0.5, "mypot2": 0.3, "hispot2": 0.35, "race": 200.0,
+             "kill": 2500.0, "die": 2500.0, "reserve": 1.0, "waste": 150.0}
 NF = 8
 
 
