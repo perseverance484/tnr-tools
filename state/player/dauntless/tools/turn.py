@@ -799,6 +799,44 @@ def main():
             k.update(ekit)
         return k
 
+    # Clear vs his NEXT stack (DDX R3, 2026-11-11): my Clear has a 10-round cooldown, so it is one shot per fight.
+    # Spent on his small R3 stack (+65% given), it was gone when he cast +115% in R4 and hit 1854 in R5. Holding it
+    # is worth what Clearing his biggest reachable stack would save: his base turn x the +given he can cast in one
+    # turn (his kit's buffs ready in the next 3 rounds) x how often he has stacked so far. That replaces the flat
+    # Clear reserve when larger, and only for a Clear spent now.
+    clear_wait, clear_wait_note = 0.0, ""
+    if cd_plan.ready_round(st, "clear") <= R and not ctx["afk"]:
+        try:
+            import clock
+            hacts = clock.his_actions(en["userId"], rows)
+        except Exception:  # noqa: BLE001
+            hacts = None
+        if hacts:
+            def _buffs(bb):
+                return sum(t[2] for x in bb for t in hacts[x][4][1] if t[0] == "en" and t[1] == "given" and t[2] > 0)
+            peak = max((_buffs(bb) for rr in (hr, hr + 1, hr + 2)
+                        for bb in clock.bundles(hacts, clock.ready_at(hacts, en["userId"], rows, rr))), default=0.0)
+            cur = sum(t[1] for t in en0.tags if t[0] == "given" and t[1] > 0 and t[2] <= hr <= t[3])
+            his_rounds = sorted({r for r, u, _, _ in rows if u == en["userId"]})
+            stacked = sum(1 for rr in his_rounds if _buffs([a for r, u, a, _ in rows
+                                                            if u == en["userId"] and r == rr and a in hacts]) >= 0.3)
+            p_build = 0.8 * (stacked + 1) / (len(his_rounds) + 2)
+            if peak > cur:
+                flat = value_model.reserve_cost(("clear",), cal, R)[0]
+                wait = p_build * kit_for(d0)["turn"][0] * peak
+                clear_wait = max(0.0, wait - flat)
+                clear_wait_note = (f"Clear wait: his stack now +{cur:.0%}, he can cast +{peak:.0%} in one turn "
+                                   f"(p {p_build:.2f}) -> hold value {wait:.0f} vs flat {flat:.0f}")
+    if clear_wait_note:
+        print(clear_wait_note)
+
+    def my_reserve(b, rnd):
+        rc, why = value_model.reserve_cost(b, cal, rnd)
+        if rnd == R and clear_wait and "clear" in b:
+            rc += clear_wait
+            why = why + [f"Clear wait -{clear_wait:.0f}"]
+        return rc, why
+
     def his_options(m, r, b=()):
         c = ctx
         if ctx["summon"] and any(x in AOE for x in b):  # AoE clears summons (Fury one-shot Jade for 2646, 2026-11-11)
@@ -1030,7 +1068,7 @@ def main():
         kit = kit_for(dend)
         kit["_barrier"] = barrier_between(end, en_pos) if BARRIERS else None
         pen, why = penalties(b, ctx, cal)
-        rc, rwhy = value_model.reserve_cost(b, cal, R)
+        rc, rwhy = my_reserve(b, R)
         outs = []
         # his options are judged on MY STACK AFTER this bundle (Clear risk grows with what I just stacked; it used
         # to read the pre-bundle stack, so Overflow+Thunders into a held Clear looked safe)
@@ -1151,7 +1189,7 @@ def main():
                     rescored.append((-1e9, bb, log, [f"engine: illegal ({er.get('reason')})"], vals, outs))
                     continue
                 pen, pwhy = penalties(bb, ctx, cal)
-                rc, rwhy = value_model.reserve_cost(bb, cal, R)
+                rc, rwhy = my_reserve(bb, R)
                 f = sum(w * (v - v1) for (w, v, _), (_, v1, *_r) in zip(vals, outs))  # python lookahead part
                 def sc_of(x):
                     em, ee = shotplan.Side(x["me"]), shotplan.Side(x["him"])
