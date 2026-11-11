@@ -763,7 +763,7 @@ def go(sector):
 CALL_BUDGET = 22        # reads per rolling 60 s; actions skip the pacing (connector cap 30 for the whole account)
 
 
-def budget(st, batch):
+def budget(st, batch, urgent=False):
     """Pace the batch so this pilot never exceeds CALL_BUDGET game calls in any rolling minute: the batch's existing
     in-batch pauses count, and one pause is added in front when the window is full. Every call the pilot issues is
     recorded with the time it will run (2026-11-11: back-offs alone could not clear a rolling window)."""
@@ -779,7 +779,8 @@ def budget(st, batch):
             recent = [x for x in hist if x > t - 60]
             # my turn's actions never wait: they use the headroom between the budget and the connector's 30 (a 21 s
             # pause landed on my turn in the Eladriel fight, 2026-11-11); only reads are paced
-            if b["call"] != "combat.performAction" and len(recent) >= CALL_BUDGET:
+            # the live-state read that opens my turn is urgent too: the plan waits on it
+            if b["call"] != "combat.performAction" and not urgent and len(recent) >= CALL_BUDGET:
                 gap = recent[len(recent) - CALL_BUDGET] + 60.5 - t
                 out.append(wait(round(gap, 1)))
                 t += gap
@@ -829,7 +830,7 @@ def tick():
         head, batch = "RATE LIMITED: resending under the budget", [b for b in st["last_batch"] if "call" in b] + [TICK]
     else:
         st["last_batch"] = batch
-    batch = budget(st, batch)
+    batch = budget(st, batch, urgent="MY TURN: reading the live state" in head)
     st["last_tick"] = started
     save(STATE, st)
     print(head + (f" (paced {st['budget_wait']}s)" if st.get("budget_wait") else ""))
