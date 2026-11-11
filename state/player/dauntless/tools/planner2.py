@@ -301,7 +301,7 @@ def from_shotplan(s, R):
     out = Side(s.hp)
     for t in s.tags:
         kind, v, first, last = t[:4]
-        if shotplan.ground(t):
+        if shotplan.ground(t) and kind == "given":
             out.add(GGRD, v, first - R, last - R)
             continue
         k = kind_of(kind, v)
@@ -935,6 +935,7 @@ def build(a):
                               or en["curHealth"] <= 720),
     }
     shotplan.off_ground(sme, rows, ME, turn.MOVE_IDS)
+    shotplan.off_ground(sen, rows, en["userId"], turn.MOVE_IDS)
     me0, en0 = from_shotplan(sme, R), from_shotplan(sen, R)
     # the engine's own state after replaying the log (exact powers, elements, rounds, bloodline and gear effects;
     # director 2026-11-11: "get it within ~1% on numbers"); the text rebuild stays as the fallback
@@ -949,6 +950,12 @@ def build(a):
         gg = me0.a[GGRD * H:(GGRD + 1) * H]                  # ground zones: the effect list has no ground part
         me0, en0 = from_live(live, ME, R, caps_hp, perm_in_base=bool(fb))
         me0.a[GGRD * H:(GGRD + 1) * H] = gg
+        # the live list has no ground part either way: Phantom Step's -taken on the tile (rebuilt from the log text)
+        # goes back on whoever stands there (Korin R11 2026-11-11: missing it fired a kill he survived)
+        for ss, ps in ((sme, me0), (sen, en0)):
+            for t in ss.tags:
+                if shotplan.ground(t) and t[0] == "dr" and t[3] >= R:
+                    add_tag(ps, DR, t[1], t[2] - R, t[3] - R)
         me0.hp, en0.hp = float(me["curHealth"]), float(en["curHealth"])
     elif ENGINE_STATE:
         eng = engine_state(rows, en, me, me_pos, en_pos, R, en_acted, cal)

@@ -127,6 +127,9 @@ class Side:
         return sum(t[1] for t in self.live(kind, r))
 
 
+GROUND_DR = float(os.environ.get("TNR_GROUND_DR", "0.20"))
+
+
 def ground(t):
     """A ground effect (Subaku Palace's -damage given): it holds while I stand on the marked tiles, so Cleanse does
     not remove it; moving off does, and debuff-prevent keeps it from re-applying (director 2026-11-11, 4qua R2)."""
@@ -134,13 +137,22 @@ def ground(t):
 
 
 def off_ground(side, rows, me_id, move_ids):
-    """Drop ground tags on me once I have moved after the latest ground was laid on me (rows oldest-first)."""
+    """Drop ground tags on a side (me_id = that side's user id) once it has moved after the ground was laid (rows
+    oldest-first). Subaku's -given is laid by the other side on my tile; Phantom Step's -taken by the side itself
+    as it lands, so only a later move takes it off."""
     if not any(ground(t) for t in side.tags):
         return
-    laid = [i for i, (r, u, a, ts) in enumerate(rows) if u != me_id
-            and any("marked the ground with decreasedamagegiven" in (x or "") for x in (ts or []))]
-    if laid and any(i > laid[-1] and u == me_id and a in move_ids for i, (r, u, a, _) in enumerate(rows)):
-        side.tags = [t for t in side.tags if not ground(t)]
+    keep = []
+    for t in side.tags:
+        if ground(t):
+            kind = "decreasedamagegiven" if t[0] == "given" else "decreasedamagetaken"
+            r0 = t[5] if len(t) > 5 else None
+            laid = [i for i, (r, u, a, ts) in enumerate(rows) if (r0 is None or r == r0)
+                    and any(f"marked the ground with {kind}" in (x or "") for x in (ts or []))]
+            if laid and any(i > laid[-1] and u == me_id and a in move_ids for i, (r, u, a, _) in enumerate(rows)):
+                continue
+        keep.append(t)
+    side.tags = keep
 
 
 def positive(t):
@@ -153,12 +165,33 @@ def rebuild(lines, me_name, en_name, my_hp, en_hp):
     pat = [("damage given", "given"), ("damage taken", "taken"), ("will absorb", "absorb"), ("will steal", "lifesteal"),
            ("will reflect", "reflect"), ("will parry", "parry"), ("healing ability is decreased", "healcut")]
     ground_n = {}
+    ground_dr_line = None
     for li, line in enumerate(lines):
         r, t = line.split("|", 1)
         r = int(r)
         g = re.match(rf"^({re.escape(en_name)}|{re.escape(me_name)}) marked the ground with decreasedamagegiven for the next (\d+) rounds", t)
         if g:
             ground_n[(r, g.group(1))] = (int(g.group(2)), li)
+            continue
+        g = re.match(rf"^({re.escape(en_name)}|{re.escape(me_name)}) marked the ground with decreasedamagetaken for the next (\d+) rounds", t)
+        if g:
+            # Phantom Step's ground (-damage taken for whoever stands on the landing tile, the caster): the log line
+            # names no size and no follow-up line lands it, so it was never modelled. Korin R10-R11 2026-11-11: his
+            # Phantom Step cut my R11 burst from ~1500 to 1146 and the planner fired for a kill he survived on 42 HP.
+            # Size: GROUND_DR, the record's 10 + 0.4/level at level 25 = 20% (his other jutsu read at level 25 live).
+            (me if g.group(1) == me_name else en).tags.append(["dr", GROUND_DR, r, r + int(g.group(2)), "ground", r, li])
+            ground_dr_line = (r, g.group(1))
+            continue
+        if ground_dr_line and ground_dr_line == (r, t.split(" ", 1)[0]) and "damage taken" in t and "decreased" in t \
+                and "next 1 rounds" in t:
+            # the tile's own -taken landing on the caster this round (Ashutosh fight R7: "dauntless damage taken ...
+            # decreased by up to 20% for the next 1 rounds"): it is the ground tag above, so it sets its size only
+            who_g = me if ground_dr_line[1] == me_name else en
+            if (m := re.search(r"([\d.]+)%", t)):
+                for x in who_g.tags:
+                    if ground(x) and x[0] == "dr" and x[5] == r:
+                        x[1] = float(m.group(1)) / 100
+            ground_dr_line = None
             continue
         who = me if t.startswith(me_name) else en if t.startswith(en_name) else None
         if who is None:
@@ -171,7 +204,7 @@ def rebuild(lines, me_name, en_name, my_hp, en_hp):
             who.tags.append(["given", -v, r + 1, r + n_g, "ground", r, li0])
             continue
         if "cleared of all positive" in t:
-            who.tags = [x for x in who.tags if not positive(x)]
+            who.tags = [x for x in who.tags if not positive(x) or ground(x)]
             continue
         if "cleared of all negative" in t:
             who.tags = [x for x in who.tags if positive(x)]
@@ -267,6 +300,8 @@ def apply(src_side, dst_side, spec, r, actor_is_me):
         side = src_side if (who == "me") == actor_is_me else dst_side
         if kind == "clear":
             if not side.live("clearimmune", r):
+                # a ground -taken (Phantom Step) is cleared too here, for parity with planner2 (its tile puts it back
+                # the next round; the log rebuild below keeps it)
                 side.tags = [x for x in side.tags if not positive(x)]
             continue
         if kind == "cleanse":

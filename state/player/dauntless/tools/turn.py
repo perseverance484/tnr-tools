@@ -205,6 +205,23 @@ AOE = {"fury", "shrapnel"}
 BUFFS = {"overflow", "thunders", "parry", "eclipse", "pill", "jewel", "ember", "phantom"}
 ACTION_ID = {v: k for k, v in IDS.items()}
 GROUND_EXIT = {"phantom", "replace", "step"}
+# Near-kill rules (director 2026-11-11 after Korin R11, "Make all three"): the quick forecast ran ~25% hot there (his
+# Phantom Step ground was not modelled) and the planner fired for a kill he survived on 42 HP.
+# KILL_MARGIN: a python-forecast kill counts as sure only with this much overkill (forecast x (1 - margin) >= his HP);
+# below that it is a chance, blended with the line where he lives, so bundles that add damage win a close kill.
+# ENGINE_MARGIN: the same for the engine re-score, which was ~3.6% off on that turn. NEAR_KILL_HP: at or below this
+# HP the engine re-score runs even in --fast (live) mode and its numbers replace the quick estimate.
+KILL_MARGIN = float(os.environ.get("TNR_KILL_MARGIN", "0.12"))
+ENGINE_MARGIN = float(os.environ.get("TNR_ENGINE_MARGIN", "0.05"))
+NEAR_KILL_HP = float(os.environ.get("TNR_NEAR_KILL_HP", "2000"))
+
+
+def kill_chance(dealt, hp, margin):
+    """Chance a forecast kill is real: 1 when dealt x (1 - margin) >= hp, 0.5 at dealt == hp, 0 below."""
+    if dealt < hp or hp <= 0:
+        return 0.0 if hp > 0 else 1.0
+    sure = hp / (1 - margin)
+    return 1.0 if dealt >= sure else 0.5 + 0.5 * (dealt - hp) / (sure - hp)
 
 
 def _equipped_thrown():
@@ -452,6 +469,7 @@ def main():
     lines = [f"{r}|{t.strip()}" for r, u, _, ts in rows for t in (ts or [])]
     me0, en0 = shotplan.rebuild(lines, ME_NAME, en["username"], me["curHealth"], en["curHealth"])
     shotplan.off_ground(me0, rows, ME, MOVE_IDS)
+    shotplan.off_ground(en0, rows, en["userId"], MOVE_IDS)
     _gm = (engine_bridge.opponent_kit(en["userId"]) or {}).get("gearMods") or {}
     _his_gear_dr = float(_gm.get("drTakenFromGear", 15))   # measured, else the endgame assumption (Kaeruun + Fortify III)
     # a stun costs AP from the turn it lands: his stun earlier THIS round (he acted first) counts now,
@@ -655,11 +673,23 @@ def main():
         d, t = shotplan.run_turn(m, e, list(b), shotplan.MINE, R, True)
         m.hp = min(m.hp, maxhp_me)
         log = [("me", R, b, d, t, m.hp, e.hp)]
+        p_kill = 1.0
+        if e.hp <= 0 < m.hp:
+            dealt = en0.hp - e.hp
+            p_kill = kill_chance(dealt, en0.hp, KILL_MARGIN)
+            if p_kill < 1.0:          # a close kill: he may live on what the forecast overshoots by
+                sc_kill = value_model.score(m, e, me["curHealth"], en["curHealth"])
+                e.hp = max(1.0, en0.hp - dealt * (1 - KILL_MARGIN))
+                log[0] = ("me", R, b, d, t, m.hp, e.hp)
         if e.hp > 0:
             d2, t2 = shotplan.run_turn(e, m, h, kit, hr, False)
             m.hp = min(m.hp, maxhp_me); e.hp = min(e.hp, maxhp_en)
             log.append(("him", hr, h, d2, t2, m.hp, e.hp))
-        return m, e, value_model.score(m, e, me["curHealth"], en["curHealth"]), log
+        sc = value_model.score(m, e, me["curHealth"], en["curHealth"])
+        if p_kill < 1.0:
+            sc = p_kill * sc_kill + (1 - p_kill) * sc
+            e.p_kill = p_kill        # the lookahead and setup credit only count for the share where he lives
+        return m, e, sc, log
 
     def ply2(m, e, b, dend, kit):
         """My best follow-up next round (after cooldowns from b) and his expected reply to it."""
@@ -827,7 +857,8 @@ def main():
         # live next round add to a typical burst, discounted like the lookahead
         def setup_est(m, e):
             return value_model.GAMMA * value_model.BURST_BASE * max(0.0, m.mult("given", R + 1) * e.mult("taken", R + 1) - me0.mult("given", R + 1) * en0.mult("taken", R + 1))
-        outs = [(w, v + (0 if kill else setup_est(m, e)), m, e, log, kill) for w, v, m, e, log, kill in outs]
+        outs = [(w, v + (0 if kill else (1 - getattr(e, "p_kill", 0.0)) * setup_est(m, e)), m, e, log, kill)
+                for w, v, m, e, log, kill in outs]
         ev = sum(w * v for w, v, *_ in outs)
         worst = min(outs, key=lambda o: o[1])
         stage.append(((1 - value_model.RISK) * ev + value_model.RISK * worst[1], b, outs, worst, dend, kit,
@@ -863,10 +894,11 @@ def main():
         s1, b, outs, worst, dend, kit, why = item
         vals = []
         for w, v, m, e, log, kill in outs:
+            live = 1 - getattr(e, "p_kill", 0.0)
             if not kill:
-                v -= value_model.GAMMA * value_model.BURST_BASE * max(0.0, m.mult("given", R + 1) * e.mult("taken", R + 1) - me0.mult("given", R + 1) * en0.mult("taken", R + 1))
+                v -= live * value_model.GAMMA * value_model.BURST_BASE * max(0.0, m.mult("given", R + 1) * e.mult("taken", R + 1) - me0.mult("given", R + 1) * en0.mult("taken", R + 1))
             f, b2 = ply2(m, e, b, dend, kit)
-            vals.append((w, v + value_model.GAMMA * f, b2))
+            vals.append((w, v + live * value_model.GAMMA * f, b2))
         return vals
     # the lookahead is ~90% of the planner's time: split across CPU cores by fork (same result, order kept)
     all_vals = par_map(stage2_vals, keep)
@@ -891,8 +923,13 @@ def main():
         print("DESPERATION: every line loses; ranked by damage to him")
     # exact re-score of the best 6 by engine replay: my bundle, then his typical and best reply from his real kit
     engine_note = "engine: legality only (--fast)" if a.fast and eng else "engine: off"
-    if not a.no_engine and not a.fast and eng:
+    near = en["curHealth"] <= NEAR_KILL_HP
+    if not a.no_engine and (not a.fast or near) and eng:
         top = results[:6]
+        if near:
+            # near a kill the engine judges the bundles that hit hardest too, even if python ranked them low
+            for r_ in sorted(results[6:], key=lambda r_: -sum(w * (en["curHealth"] - e.hp) for w, v, m, e, l, k in r_[5]))[:4]:
+                top.append(r_)
         # one-shot answers (Cleanse / Smoke / Clear) are judged by the engine even if the python shortlist pruned them
         for key in ("cleanse", "smoke", "clear"):
             if any(key in r[1] for r in top):
@@ -905,11 +942,24 @@ def main():
             if extra:
                 top.append(extra)
         seqs = [resolve_targets(bb, me_pos, en_pos, occupied)[0] for _, bb, *_ in top]
-        res = engine_bridge.replay_eval(rows, ME, en["userId"], me, en, me_pos, en_pos, R,
+        # the engine stops at 0 HP, so near a kill he gets extra HP for the check and the overkill is read back:
+        # a kill counts as sure only with ENGINE_MARGIN to spare (Korin R11: engine 1188 = exactly his HP, real 1146)
+        bump = max(0.0, min(3000.0, float(en.get("maxHealth", 5050)) - en["curHealth"])) if near else 0.0
+        en_q = dict(en, curHealth=en["curHealth"] + bump)
+        res = engine_bridge.replay_eval(rows, ME, en["userId"], me, en_q, me_pos, en_pos, R,
                                         "next" if en_acted else "same", cal,
                                         [[(n, aid, t) for n, aid, t in sq] for sq in seqs])
+        if res and res.get("results") and bump:
+            for er in res["results"]:
+                for nm in ("afterMe", "typical", "best"):
+                    if er.get(nm) and "him" in er[nm]:
+                        er[nm]["him"] -= bump
+                am = er.get("afterMe")
+                if am:
+                    er["p_kill"] = kill_chance(en["curHealth"] - am["him"], en["curHealth"], ENGINE_MARGIN)
         if res and res.get("results"):
-            engine_note = "engine: replay (every logged action replayed on the TNR engine)"
+            engine_note = "engine: replay (every logged action replayed on the TNR engine)" + (
+                f"; near-kill check, margin {ENGINE_MARGIN:.0%}" if near else "")
             rescored = []
             for (total, bb, log, why, vals, outs), er in zip(top, res["results"]):
                 if not er.get("legal"):
@@ -921,12 +971,22 @@ def main():
                 def sc_of(x):
                     em, ee = shotplan.Side(x["me"]), shotplan.Side(x["him"])
                     return value_model.score(em, ee, me["curHealth"], en["curHealth"])
-                if er["afterMe"]["him"] <= 0:
-                    t2 = value_model.score(shotplan.Side(er["afterMe"]["me"]), shotplan.Side(0), me["curHealth"], en["curHealth"])
+                pk = er.get("p_kill", 1.0 if er["afterMe"]["him"] <= 0 else 0.0)
+                t_kill = value_model.score(shotplan.Side(er["afterMe"]["me"]), shotplan.Side(0), me["curHealth"], en["curHealth"])
+                if pk >= 1.0:
+                    t2 = t_kill
                 else:
+                    # he lives (or may): his reply as the engine played it, from what the margin leaves him
+                    left = max(1.0, en["curHealth"] - (en["curHealth"] - er["afterMe"]["him"]) * (1 - ENGINE_MARGIN)) \
+                        if pk > 0 else None
                     typ = er.get("typical") or {"me": er["afterMe"]["me"], "him": er["afterMe"]["him"]}
                     best = er.get("best") or typ
+                    if left is not None:      # a kill line in the check: his reply from the HP the margin leaves
+                        typ = dict(typ, him=max(1.0, left - (er["afterMe"]["him"] - typ["him"])))
+                        best = dict(best, him=max(1.0, left - (er["afterMe"]["him"] - best["him"])))
                     t2 = (1 - value_model.RISK) * sc_of(typ) + value_model.RISK * sc_of(best) + pen - rc + value_model.GAMMA * f
+                    if pk > 0:
+                        t2 = pk * t_kill + (1 - pk) * t2
                 eng_log = [("me", R, bb, 0, 0, er["afterMe"]["me"], er["afterMe"]["him"])]
                 for nm in ("typical", "best"):
                     if er.get(nm):
