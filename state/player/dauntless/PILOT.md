@@ -33,8 +33,10 @@ Against the game's AI, an AI turn only advances when some client calls `performA
 
 ## Shared rate budget
 The connector allows 30 calls a minute **for the account**, shared by the pilot and anyone else, the supervisor
-included. While the pilot is in a fight, the supervisor makes no game calls; loadout and other upkeep happen while
-it rests or guards. A refused call ("Too Many Requests") makes the next tick pause 6 s and resend the same calls
+included. **While a pilot agent is running, the supervisor makes no game calls at all**. Reads taken mid-hunt
+landed on a battle start and got the pilot's first turn rate-limited (2026-11-11). Upkeep (loadouts, transfers, log
+pulls) happens while no pilot is running. Relay stop rules must never stop on repeated BATTLE / resume / RATE LIMITED
+lines: waiting for the opponent repeats the same line. A refused call ("Too Many Requests") makes the next tick pause 6 s and resend the same calls
 (status `RATE LIMITED`).
 
 ## Where behaviour lives

@@ -44,7 +44,7 @@ POOLS_BELOW = 0.5       # chakra / stamina floor before ramen
 FULL_POTION = "IRfg2NFKKYe0ynroXI7qZ"   # user item: HP to full out of combat (ramen refills CP/SP only)
 HUNT_WAIT = 8           # hunt tick ~every 10 s: 3 game calls a tick, ~18 a minute (connector cap 30)
 GUARD_WAIT = 7          # world tick ~every 9 s with overhead: inside the 15 s lobby before an attack lands
-POLL_GAP = 2           # seconds between his-turn polls (connector cap 30 calls/min)
+POLL_GAP = 3           # seconds between his-turn polls: ~20 calls/min in a fight (connector cap 30)
 PLAN_BUDGET = 4.0       # planner: median 1.2 s, worst 3.3 s on the regression set
 ENT = ("*.id", "*.battleRound", "*.userId", "*.actionId", "*.appliedEffects.*.txt")
 
