@@ -53,6 +53,17 @@ def main():
     print("ok: pilot batch = planner pick + poll + tick")
 
 
+def test_lobby():
+    """'Battle has not started yet' (the 15 s lobby) bans nothing and clears the resend memory."""
+    import importlib, sys as _s
+    _s.path.insert(0, HERE)
+    import pilot
+    st = {"sent_plan": {"bid": "B", "v": 2, "first": "X"}, "banned": {"B": ["X"]}}
+    pilot.note_refusals(st, {"_acts": [({"battleId": "B", "actionId": "X"}, {"notification": "Battle has not started yet"})]})
+    assert st["sent_plan"] is None and "B" not in st["banned"], st
+    print("ok: lobby refusal bans nothing")
+
+
 def test_restock():
     """A due restock reads items first; with Kim's empty and Smoke at home it buys Kim's and takes Smoke out."""
     head, b = run_world([user()], "hunt", {"restock": {"next": 0, "pass": 0, "active": False}})
@@ -143,6 +154,17 @@ def test_world():
     print("ok: world rules (target filters, circuit, wake, rest, heal, battle start, refusal memory, rate-limit backoff)")
 
 
+def test_lobby():
+    """'Battle has not started yet' (the 15 s lobby) bans nothing and clears the resend memory."""
+    import importlib, sys as _s
+    _s.path.insert(0, HERE)
+    import pilot
+    st = {"sent_plan": {"bid": "B", "v": 2, "first": "X"}, "banned": {"B": ["X"]}}
+    pilot.note_refusals(st, {"_acts": [({"battleId": "B", "actionId": "X"}, {"notification": "Battle has not started yet"})]})
+    assert st["sent_plan"] is None and "B" not in st["banned"], st
+    print("ok: lobby refusal bans nothing")
+
+
 def test_restock():
     """A due restock reads items first; with Kim's empty and Smoke at home it buys Kim's and takes Smoke out."""
     head, b = run_world([user()], "hunt", {"restock": {"next": 0, "pass": 0, "active": False}})
@@ -161,6 +183,7 @@ def test_restock():
 if __name__ == "__main__":
     test_world()
     test_restock()
+    test_lobby()
     # every test passed: this pilot.py becomes the fallback pilot_safe.py runs if a later edit breaks
     import shutil
     good = os.path.join(HERE, "pilot_good.py")

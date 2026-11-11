@@ -214,6 +214,12 @@ def note_refusals(st, res):
     (zDj54ChWY3kZogLwCkoc1 R1, 2026-11-11: Kim's refused five times, the whole turn lost)."""
     for inp, data in res.get("_acts", []):
         note = str((data or {}).get("notification", ""))
+        if "has not started" in note.lower():
+            # the 15 s lobby: nothing was refused for cause; the plan is simply resent once the battle starts (two
+            # Luka fights, 2026-11-11: the resend rule banned Thunder's / Chakra Shield for the whole battle)
+            st["sent_plan"] = None
+            st.setdefault("banned", {}).pop(inp.get("battleId"), None)
+            return
         if "not valid anymore" in note.lower():
             bid, aid = inp.get("battleId"), inp.get("actionId")
             ban = st.setdefault("banned", {}).setdefault(bid, [])
