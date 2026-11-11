@@ -14,7 +14,6 @@ in the same batch as the poll that follows them.
 Output format: a status line, then one JSON object per line, relayed in order:
   {"call": endpointName, "input": {...}, "select": [...]}   -> mcp__Tnr__callEndpoint
   {"bash": "..."}                                          -> Bash (always the final pilot tick)
-  {"wait": seconds}                                        -> background sleep, then relay the rest on wake
   (no lines)                                               -> nothing to do: asleep, the worker may step away
 
 Modes come from the game, not from memory: profile.getUser status (AWAKE / BATTLE / HOSPITALIZED / ASLEEP) and
@@ -91,6 +90,11 @@ def c_act(bid, aid, x, y, v):
 
 
 TICK = {"bash": f"cd {HERE} && python3 pilot.py"}
+
+
+def wait(seconds):
+    """A pause inside the batch (relayed like any call: the relay needs no timers)."""
+    return {"bash": f"python3 -c 'import time; time.sleep({seconds})'"}
 
 
 # ---------------------------------------------------------------- state + transcript
@@ -304,7 +308,7 @@ def world(st, user, res):
             return head + ": going home", go(HOME_SECTOR)
         return head + ": sleeping", [call("home.toggleSleep", {}, ["success", "message"]), c_user(), TICK]
     if mode == "guard":
-        return head + ": guarding", [{"wait": GUARD_WAIT}, c_user(), TICK]
+        return head + ": guarding", [wait(GUARD_WAIT), c_user(), TICK]
     # hunt
     if hp < HEAL_BELOW * mx:
         if sector != HOME_SECTOR:
@@ -324,7 +328,7 @@ def world(st, user, res):
             return head + f": nobody to fight here{' (' + refused + ')' if refused else ''}, next sector {nxt}", go(nxt)
     if sector not in CIRCUIT:
         return head + f": heading to the circuit ({CIRCUIT[0]})", go(CIRCUIT[0])
-    batch = [{"wait": HUNT_WAIT}, c_user(), c_sector(sector)]
+    batch = [wait(HUNT_WAIT), c_user(), c_sector(sector)]
     if time.time() - st.get("sensory", 0) > 31:
         st["sensory"] = time.time()
         batch.append(call("stealth.useSensory", {"sector": sector}, ["success", "message"]))

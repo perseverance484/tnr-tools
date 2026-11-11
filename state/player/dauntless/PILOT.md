@@ -9,7 +9,7 @@ Director rulings, 2026-11-11:
 ## The loop
 Run `tools/pilot.py`. It prints a status line and then the next batch, one JSON object per line. Relay that batch
 exactly, in order, in ONE message: each `call` goes to `mcp__Tnr__callEndpoint`, each `bash` to Bash. The last line
-is always the next `pilot.py` tick. `{"wait": N}` means a background `sleep N`, then relay the rest on wake. No
+is always the next `pilot.py` tick. No
 lines means the character is asleep and the worker may step away. Write nothing else during the loop.
 
 `pilot.py` reads that batch's game results straight from the session transcript (`fresh_results`) and keeps one state
