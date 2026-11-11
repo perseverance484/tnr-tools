@@ -290,8 +290,8 @@ def acts_for(model):
     import clock
     import engine_bridge as EB
     kit = EB.opponent_kit(model["userId"]) or {}
-    ids = list(kit.get("jutsu", [])) + [a for a in model.get("ids", {}) if a not in ("wait", "move")]
-    acts = clock.acts_from_ids(ids, kit.get("jutsuLevels", {}))
+    ids = list(kit.get("jutsu", [])) + list(kit.get("weapons", [])) + [a for a in model.get("ids", {}) if a not in ("wait", "move")]
+    acts = clock.acts_from_ids(ids, kit.get("jutsuLevels", {}), kit)
     # the basics already in acts use the engine's own ids: map his logged basic ids onto them
     return acts
 

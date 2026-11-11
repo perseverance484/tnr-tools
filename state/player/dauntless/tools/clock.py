@@ -104,17 +104,22 @@ def his_actions(en_id, rows):
     if not kit:
         return None
     recs = EB._records()
-    ids = list(kit.get("jutsu", [])) + [a for r, u, a, _ in rows if u == en_id and a in recs]
-    return acts_from_ids(ids, kit.get("jutsuLevels", {}))
+    ids = list(kit.get("jutsu", [])) + list(kit.get("weapons", [])) + [a for r, u, a, _ in rows if u == en_id and a in recs]
+    return acts_from_ids(ids, kit.get("jutsuLevels", {}), kit)
 
 
-def acts_from_ids(ids, lv=None):
-    """{action id: (name, ap, cooldown, locks, spec)} for these catalog ids plus the basics everyone has."""
+
+
+def acts_from_ids(ids, lv=None, opp=None):
+    """{action id: (name, ap, cooldown, locks, spec)} for these catalog ids plus the basics everyone has; opp (his
+    saved kit) adds the imbues learned on his weapons."""
     recs = EB._records()
     lv = lv or {}
     out = {}
     for a in dict.fromkeys(ids):
         rec = recs.get(a, {}).get("record")
+        if rec and opp:
+            rec = EB.with_imbues(a, rec, opp)
         if rec:
             out[a] = (rec.get("name", a),) + compile_record(rec, lv.get(a, 25))
     for a, (ap, cd, tags) in BASICS.items():

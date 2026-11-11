@@ -286,13 +286,19 @@ def his_kit_source(en_id):
     return "real" if opponent_kit(en_id) else "estimated"
 
 
+def with_imbues(aid, rec, opp):
+    """A weapon record plus the imbued effects learned for it (opponent_kit.learn_weapons)."""
+    extra = ((opp or {}).get("imbues") or {}).get(aid)
+    return dict(rec, effects=list(rec.get("effects", [])) + list(extra)) if extra else rec
+
+
 def _his_kit(rows, en_id, cal):
     recs = _records()
     opp = opponent_kit(en_id)
     levels = dict((opp or {}).get("jutsuLevels", {}))
-    ids = set((opp or {}).get("jutsu", [])) | set((opp or {}).get("items", []))
+    ids = set((opp or {}).get("jutsu", [])) | set((opp or {}).get("items", [])) | set((opp or {}).get("weapons", []))
     ids |= {a for r, u, a, _ in rows if u == en_id and a in recs}   # anything he used counts, equipped list or not
-    kit = [{"record": recs[a]["record"], "kind": recs[a].get("kind") or ("item" if recs[a]["record"].get("itemType") else "jutsu"),
+    kit = [{"record": with_imbues(a, recs[a]["record"], opp), "kind": recs[a].get("kind") or ("item" if recs[a]["record"].get("itemType") else "jutsu"),
             "level": levels.get(a, 25)} for a in sorted(ids) if a in recs]
     if not opp:
         # no pre-fight kit: his unseen jutsu are unknown, so the calibrated stand-in fills the reply set (flagged

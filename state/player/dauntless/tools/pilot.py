@@ -105,8 +105,9 @@ PERM_KEYS = ("type", "targetId", "creatorId", "power", "powerPerLevel", "level",
              "statTypes", "generalTypes", "fromType", "timedBuffExpiresAt", "rounds", "createdRound")
 
 
-LIVE_KEYS = ("type", "targetId", "power", "powerPerLevel", "level", "calculation", "direction", "elements", "fromType",
-             "rounds", "createdRound", "castThisRound", "isNew", "poolsAffected", "timedBuffExpiresAt")
+LIVE_KEYS = ("type", "targetId", "creatorId", "actionId", "power", "powerPerLevel", "level", "calculation", "direction", "elements", "fromType",
+             "rounds", "createdRound", "castThisRound", "isNew", "poolsAffected", "timedBuffExpiresAt", "statTypes",
+             "generalTypes")
 
 
 def live_effects(effects):
@@ -296,6 +297,13 @@ def battle_tick(st, bid, battle, entries):
     raw = battle.pop("battle.usersEffects", None)
     if raw is not None:
         cache["live"], cache["live_v"] = live_effects(raw), battle.get("battle.version")
+        try:                            # his weapons and their imbues, learned from what they just applied
+            import opponent_kit
+            for foe in [u for u in battle.get("battle.usersState.*.userId") or [] if u != ME]:
+                if opponent_kit.learn_weapons(foe, cache["live"]):
+                    cache["bases_ids"] = None              # his kit changed: the fight bases run again
+        except Exception:  # noqa: BLE001
+            pass
     if raw is not None and "perm_effects" not in cache:
         cache["perm_effects"] = perm_effects(raw)
     # both kits' bases for this matchup from the engine (fight_bases.py, ~8 s beside the fight): at the start, and
