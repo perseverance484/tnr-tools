@@ -12,6 +12,7 @@ Usage:
   fightsim.py fight OPP [--second] [--seed 1] [-v]   one fight, turn by turn
 """
 import argparse
+import copy
 import json
 import os
 import random
@@ -62,9 +63,20 @@ def style_kits():
     }
 
 
-def opponents():
-    """name -> (acts, profile). Saved real kits first, then styles."""
+def opponents(styles=True, logs=True, saved=True):
+    """name -> (acts, profile[, habit]). Log-modelled players (opponents.py: kit + habits from every logged fight),
+    saved real kits, then styles."""
     out = {}
+    if logs:
+        import opponents as OM
+        for uid, m in OM.load().items():
+            if len(m.get("bundles", [])) < 3:
+                continue
+            name = "log:" + (m["names"][0] if m.get("names") else uid)
+            prof = opp_profile.profile(uid, [(0, uid, a, None) for a in m["ids"]])
+            out[name] = (OM.acts_for(m), prof, OM.habit_fn(m))
+    if not saved:
+        return out
     d = os.path.join(EB.HARNESS, "kit", "opponents")
     for f in sorted(os.listdir(d)):
         k = json.load(open(os.path.join(d, f)))
@@ -72,7 +84,7 @@ def opponents():
             continue
         uid = f[:-5]
         out[k.get("name") or uid] = (clock.acts_from_ids(k["jutsu"], k.get("jutsuLevels")), opp_profile.profile(uid))
-    for name, ids in style_kits().items():
+    for name, ids in (style_kits().items() if styles else ()):
         out[name] = (clock.acts_from_ids(ids), {"source": "style", "elements": ["None"], "given": (0.40, ["None"]),
                                                 "dr": (0.0, [])})
     return out
@@ -80,7 +92,7 @@ def opponents():
 
 # ------------------------------------------------------------------ one fight
 class Fight:
-    def __init__(self, acts, prof, me_first, seed=0, temp=200.0, policy=None):
+    def __init__(self, acts, prof, me_first, seed=0, temp=200.0, policy=None, habit=None):
         self.rng = random.Random(seed)
         self.acts, self.prof, self.me_first, self.temp = acts, prof, me_first, temp
         self.cal = value_model.load_cal()
@@ -104,6 +116,9 @@ class Fight:
         self.R = 1
         self.log = []
         self.policy = policy or self.planner_move
+        self.habit, self.his_prev, self.his_turns = habit, None, 0
+        self.on_my_turn = None
+        self.use_book = False
         self.loadout = list(cd_plan.LOADOUTS[LOADOUT]) + ["basicheal"]
 
     # ---- my side: planner2's own decision
@@ -111,7 +126,9 @@ class Fight:
         his_used = {a for r, u, a, _ in self.rows if u == EN_ID}
         pierce_ids = {a for a, v in self.acts.items() if v[4][2:3] == ("pierce",)}
         last_p = max([r for r, u, a, _ in self.rows if u == EN_ID and a in pierce_ids] or [-9])
+        copier = any(t[1] == "copy" for v in self.acts.values() for t in v[4][1])
         return {"pierce_ready": bool(pierce_ids) and self.R - last_p >= 3, "pierce_shown": bool(pierce_ids),
+                "copier": copier,
                 "clear_held": "clear" not in his_used, "smoke_spent": True, "afk": False, "summon": False,
                 "pierce_window": self.me.given(0) < 0.6 or bool(self.en.g(P2.SHD, 0))
                 or 1 - 35 / 50 * self.en.g(P2.DR, 0) >= 0.55 or self.en.hp <= 720}
@@ -122,8 +139,13 @@ class Fight:
         clockd, _ = P2.make_clock(self.acts, self.rows, EN_ID, self.R, en_acted, self.me, self.en, ctx, self.cal,
                                   self.his_kit, self.base_turn, self.scale)
         st = {"loadout": self.loadout, "used": self.used}
-        return P2.Planner(self.me.copy(), self.en.copy(), self.R, ctx, self.cal, self.my_kit, self.his_kit, st,
-                          en_acted, (5050, 5050), self.base_turn, clockd), st
+        P = P2.Planner(self.me.copy(), self.en.copy(), self.R, ctx, self.cal, self.my_kit, self.his_kit, st,
+                       en_acted, (5050, 5050), self.base_turn, clockd)
+        if self.use_book:
+            import solutions
+            P.book_key = solutions.situation_key(P, ctx, st, self.R, self.his_prev, self.acts)
+            P.book_path = solutions.LIB
+        return P, st
 
     def planner_move(self, ap):
         P, st = self.planner(ap)
@@ -132,7 +154,30 @@ class Fight:
             return ()
         return P2.rank(P, bundles, ap, P2.load_weights())[0][1]
 
+    def snapshot(self):
+        f = copy.copy(self)
+        f.me, f.en = self.me.copy(), self.en.copy()
+        f.rows, f.used, f.log = list(self.rows), [list(x) for x in self.used], list(self.log)
+        f.rng = random.Random(self.rng.random())
+        f.on_my_turn = None
+        return f
+
+    def resume_from_my_turn(self):
+        """Continue a snapshot taken at the start of my turn: my turn, the rest of this round, then the fight."""
+        self.my_turn()
+        if self.me.hp <= 0 or self.en.hp <= 0:
+            return self.result()
+        if self.me_first:
+            self.his_turn()
+            if self.me.hp <= 0 or self.en.hp <= 0:
+                return self.result()
+        self.me.shift(); self.en.shift()
+        self.R += 1
+        return self.run()
+
     def my_turn(self):
+        if self.on_my_turn:
+            self.on_my_turn(self)
         ap = 100 - (20 if self.me.g(P2.STUN, 0) else 0)
         b = tuple(self.policy(ap))
         if "cleanse" in b:
@@ -157,7 +202,8 @@ class Fight:
         P = P2.Planner(self.me, self.en, self.R, ctx, self.cal, {}, self.his_kit, {"loadout": [], "used": []},
                        False, (5050, 5050), self.base_turn, {})
         P.hr = 0
-        sc = [(P.his_score(hb, self.me, self.en), hb) for hb in lines]
+        sc = [(P.his_score(hb, self.me, self.en)
+               + (self.habit(hb, self.R, self.his_prev, self.his_turns == 0) if self.habit else 0.0), hb) for hb in lines]
         opts = clock.soft(sc, k=5, temp=self.temp)
         x, acc = self.rng.random(), 0.0
         hb = opts[-1][1]
@@ -166,6 +212,7 @@ class Fight:
             if x <= acc:
                 hb = b
                 break
+        self.his_prev, self.his_turns = hb, self.his_turns + 1
         if "cleanse" in hb:
             self.en.wipe(P2.NEGK)
         d, t = P2.run_turn(self.en, self.me, [self.his_kit[a] for a in hb], 0, 5050, 5050)
@@ -189,11 +236,16 @@ class Fight:
                 "me": max(0, self.me.hp), "him": max(0, self.en.hp)}
 
 
-def matrix(opps, n):
+def matrix(opps, n, book=False):
     out = {}
-    for name, (acts, prof) in opps.items():
+    for name, spec in opps.items():
+        acts, prof, habit = (tuple(spec) + (None,))[:3]
         for first in (True, False):
-            res = [Fight(acts, prof, first, seed=s).run() for s in range(n)]
+            res = []
+            for sd in range(n):
+                f = Fight(acts, prof, first, seed=sd, habit=habit)
+                f.use_book = book
+                res.append(f.run())
             w = sum(r["win"] for r in res) / n
             out[(name, first)] = res
             print(f"{name[:18]:18} {'P1' if first else 'P2'}  win {w:4.0%}  rounds {sum(r['rounds'] for r in res) / n:4.1f}"
@@ -212,15 +264,18 @@ def main():
     ap.add_argument("--second", action="store_true")
     ap.add_argument("--seed", type=int, default=1)
     ap.add_argument("-v", action="store_true")
+    ap.add_argument("--book", action="store_true", help="planner2 with the solution library (solutions.json)")
+    ap.add_argument("--set", default="all", choices=["all", "logs", "styles"])
     a = ap.parse_args()
-    opps = opponents()
+    opps = opponents(styles=a.set != "logs", logs=a.set != "styles", saved=a.set == "all")
     if a.cmd == "matrix":
         if a.opps != "all":
             opps = {k: v for k, v in opps.items() if any(x.lower() in k.lower() for x in a.opps.split(","))}
-        matrix(opps, a.n)
+        matrix(opps, a.n, a.book)
         return
     name = next(k for k in opps if a.opp.lower() in k.lower())
-    f = Fight(*opps[name], me_first=not a.second, seed=a.seed)
+    spec = tuple(opps[name]) + (None,)
+    f = Fight(spec[0], spec[1], me_first=not a.second, seed=a.seed, habit=spec[2])
     res = f.run()
     for r, who, b, d, t, mh, eh in f.log:
         print(f"R{r} {who:3} {'+'.join(b):60.60} dealt {d:5.0f} self {t:+5.0f} -> me {mh:5.0f} / him {eh:5.0f}")

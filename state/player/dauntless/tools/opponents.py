@@ -46,8 +46,8 @@ def load_logs():
             continue
         rows = list(zip(d["*.battleRound"], d["*.userId"], d["*.actionId"],
                         d.get("*.appliedEffects.*.txt") or [None] * len(d["*.battleRound"])))[::-1]
-        bid = os.path.basename(p).split("_")[0]
-        out.append((bid, p, rows))
+        bid = os.path.basename(p).split("_")[0].replace(".json", "")
+        out.append((bid, p, rows, d.get("_meta") or {}))
     return out
 
 
@@ -83,16 +83,16 @@ def turns_of(rows, uid):
 
 def build():
     models = {}
-    for bid, path, rows in load_logs():
-        users = {u for _, u, _, _ in rows}
-        if ME not in users:
-            continue                                           # observed fights between others: both sides count
-        for uid in users - {ME}:
-            if uid.startswith("ai_") or len(users) > 3:
+    for bid, path, rows, meta in load_logs():
+        users = {u for _, u, _, _ in rows if (u or "").startswith("user_")}
+        # my fights: model the other side; observed fights between others (harvest.py): model both sides
+        sides = users - {ME} if ME in users else (users if len(users) == 2 else set())
+        for uid in sides:
+            if len(users) > 3:
                 continue
             m = models.setdefault(uid, {"userId": uid, "names": [], "fights": [], "ids": {}, "rounds": {},
                                         "openings": [], "bundles": [], "trans": {}, "won": 0, "lost": 0})
-            nm = names_in(rows, uid)
+            nm = (meta.get("names") or {}).get(uid) or names_in(rows, uid)
             if nm not in m["names"]:
                 m["names"].append(nm)
             m["fights"].append(bid)
@@ -109,10 +109,8 @@ def build():
                             t = m["trans"].setdefault(p, {})
                             t[a] = t.get(a, 0) + 1
                 prev = b
-            last = rows[-1] if rows else None
-            txt = " ".join(" ".join(x or [] for x in (ts or [])) for _, _, _, ts in rows[-6:])
-            if "dauntless" in txt and re.search(rf"{re.escape(nm)} (?:was defeated|lost|died)", txt):
-                m["won"] += 1
+            if meta.get("winner"):
+                m["won" if meta["winner"] == uid else "lost"] += 1
     json.dump(models, open(MODELS, "w"), indent=0)
     return models
 

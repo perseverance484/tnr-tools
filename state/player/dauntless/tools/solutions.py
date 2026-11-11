@@ -31,7 +31,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import planner2 as P2  # noqa: E402
 
-LIB = os.path.join(HERE, "solutions.json")
+LIB = os.path.join(HERE, "solutions.json")             # the library being built / tested in the simulator
+LIVE = os.path.join(HERE, "solutions_live.json")       # promoted copy the live planner reads (after it wins in sims)
 PIERCE = ("stormblade", "nights")
 
 
@@ -43,7 +44,38 @@ def band(x, edges):
     return len(edges)
 
 
-def situation_key(P, ctx, st, R):
+def his_signature(ids, acts):
+    """What his last turn did, as letters: H hit, P pierce, B buffed himself, R reduced his damage taken, I immune /
+    clear-proof, D debuffed me, M smoked, S stunned me, C cleared me, Y copied my buffs, L lifesteal/absorb."""
+    out = set()
+    for a in ids or ():
+        spec = (acts.get(a) or (None, 0, 0, set(), (0, [])))[4]
+        if spec[0]:
+            out.add("P" if spec[2:3] == ("pierce",) else "H")
+        for t in spec[1]:
+            who, kind, val = t[0], t[1], t[2]
+            if kind == "clear":
+                out.add("C")
+            elif kind == "copy":
+                out.add("Y")
+            elif kind == "stun":
+                out.add("S")
+            elif who == "en" and kind == "given" and val > 0:
+                out.add("B")
+            elif who == "en" and kind == "dr":
+                out.add("R")
+            elif who == "en" and kind in ("debuffimmune", "clearimmune"):
+                out.add("I")
+            elif who == "en" and kind in ("absorb", "lifesteal", "reflect", "parry"):
+                out.add("L")
+            elif who == "me" and kind == "given" and val <= -0.5:
+                out.add("M")
+            elif who == "me" and (kind in ("taken", "wound", "drain", "recoil_self", "healcut") or (kind == "given" and val < 0)):
+                out.add("D")
+    return "".join(sorted(out)) or "0"
+
+
+def situation_key(P, ctx, st, R, his_last=None, acts=None):
     import cd_plan
     m, e = P.me0, P.en0
     hr = P.hr
@@ -60,30 +92,31 @@ def situation_key(P, ctx, st, R):
                               ("n", m.g(P2.TAKEN, 0) > 1.001 or m.g(P2.GDN, 0) < 0.999 or m.g(P2.WND, 0)))
                 if f) or "-",
         ("C" if ctx.get("clear_held") else "") + ("P" if ctx.get("pierce_ready") else "")
-        + ("Y" if any("copy" in str(x) for x in P.clockd.get("copy", ())) else ""),
+        + ("Y" if ctx.get("copier") else ""),
         "".join(c for c, n in (("K", "clear"), ("L", "cleanse"), ("M", "smoke"), ("S", "sealnull"), ("I", "kims"))
                 if n in ready) + ("X" if ready & set(PIERCE) else ""),
+        "o" + his_signature(his_last, acts or {}),
     ]
     return "|".join(parts)
 
 
 # ------------------------------------------------------------------ library
-_LIB = None
+_LIB = {}
 
 
-def load():
-    global _LIB
-    if _LIB is None:
+def load(path=None):
+    path = path or LIB
+    if path not in _LIB:
         try:
-            _LIB = json.load(open(LIB))
+            _LIB[path] = json.load(open(path))
         except (OSError, ValueError):
-            _LIB = {}
-    return _LIB
+            _LIB[path] = {}
+    return _LIB[path]
 
 
-def lookup(key):
+def lookup(key, path=None):
     """(bundle tuple, confidence) or None. Confidence = vote share x a margin factor, 0..1."""
-    ent = load().get(key)
+    ent = load(path).get(key)
     if not ent:
         return None
     votes = ent["votes"]
@@ -144,7 +177,7 @@ def solve(snap, cands=6, rollouts=4):
         v = sum(rollout(snap, b, 1000 + k) for k in range(rollouts)) / rollouts
         vals.append((v, b))
     vals.sort(key=lambda x: -x[0])
-    key = situation_key(P, P.ctx, st, snap.R)
+    key = situation_key(P, P.ctx, st, snap.R, snap.his_prev, snap.acts)
     return key, vals, top[0]
 
 
@@ -161,18 +194,86 @@ def merge(lib, key, vals, planner_pick):
     ent["alts"] = [["+".join(b), round(v, 3)] for v, b in vals[1:4]]
 
 
-def build(n_fights, rollouts, cands):
+def replay_snapshots():
+    """Every one of my turns in every logged fight, rebuilt as a simulator position against that opponent's model
+    ("playing back replays and trying to find the right moves"). Yields (label, snapshot, the move actually played)."""
+    import exam
     import fightsim
-    opps = fightsim.opponents()
+    import opponents as OM
+    from ingest import IDS, ME
+    models = OM.load()
+    for bid, path, rows, meta in OM.load_logs():
+        users = {u for _, u, _, _ in rows if (u or "").startswith("user_")}
+        if ME not in users:
+            continue
+        en_id = next((u for u in users if u != ME), None)
+        m = models.get(en_id)
+        if not m or len(m.get("bundles", [])) < 2:
+            continue
+        name = m["names"][0]
+        acts, habit = OM.acts_for(m), OM.habit_fn(m)
+        d = json.load(open(path))
+        hps = exam.hp_track(rows, ["dauntless", name])
+        seen = set()
+        for i, (r, u, a, ts) in enumerate(rows):
+            if u != ME or r in seen:
+                continue
+            seen.add(r)
+            played = sorted(IDS.get(x, x) for rr, uu, x, _ in rows[i:] if rr == r and uu == ME
+                            and IDS.get(x, x) not in ("move", "wait", "step"))
+            pre = rows[:i][::-1]
+            hp = hps[i]
+            b = {"battle.version": 1, "battle.round": r, "battle.activeUserId": ME,
+                 "battle.usersState.*.userId": [en_id, ME], "battle.usersState.*.username": [name, "dauntless"],
+                 "battle.usersState.*.curHealth": [hp[name], hp["dauntless"]],
+                 "battle.usersState.*.maxHealth": [5050, 5050], "battle.usersState.*.longitude": [6, 7],
+                 "battle.usersState.*.latitude": [4, 4], "battle.usersState.*.actionPoints": [0, 100]}
+            e = {"*.battleRound": [x[0] for x in pre], "*.userId": [x[1] for x in pre],
+                 "*.actionId": [x[2] for x in pre], "*.appliedEffects.*.txt": [x[3] for x in pre]}
+            tmp = os.path.join(HERE, "..", "fights", "live", f"replay_{bid}_{r}.txt")
+            open(tmp, "w").write(json.dumps(b) + "\n" + json.dumps(e) + "\n")
+            try:
+                P, info = P2.build(type("A", (), dict(file=tmp, enemy=name, loadout="pvp1")))
+            finally:
+                os.unlink(tmp)
+            if P is None:
+                continue
+            f = fightsim.Fight(acts, info["prof"], not info["en_acted"], seed=hash((bid, r)) & 0xffff, habit=habit)
+            f.me, f.en = P.me0.copy(), P.en0.copy()
+            f.rows = [(rr, uu if uu == ME else fightsim.EN_ID, x, None) for rr, uu, x, _ in rows[:i]]
+            f.used = [list(x) for x in info["st"]["used"]]
+            f.R = r
+            his = OM.turns_of(rows[:i], en_id)
+            f.his_prev, f.his_turns = (his[-1][1] if his else None), len(his)
+            yield f"{name} {bid[:6]} R{r}", f, played
+
+
+def build(n_fights, rollouts, cands, replays=True):
+    import fightsim
+    opps = fightsim.opponents(styles=False)
     lib = load()
     t0 = time.time()
     solved = changed = 0
+    blunders = []
+    if replays:
+        for label, s, played in replay_snapshots():
+            key, vals, pick = solve(s, cands, rollouts)
+            merge(lib, key, vals, pick)
+            solved += 1
+            best = "+".join(vals[0][1])
+            pv = next((v for v, b in vals if sorted(b) == played), None)
+            if pv is not None and vals[0][0] - pv > 0.25:
+                blunders.append((label, "+".join(played), best, round(vals[0][0] - pv, 2)))
+            print(f"[{time.time() - t0:5.0f}s] replay {label:28} played {'+'.join(played):28} -> solved {best:28} "
+                  f"({vals[0][0]:+.2f}{'' if pv is None else f', played {pv:+.2f}'})", flush=True)
+            json.dump(lib, open(LIB, "w"), indent=0, sort_keys=True)
+        json.dump(blunders, open(os.path.join(HERE, "..", "fights", "blunders.json"), "w"), indent=1)
     names = list(opps)
     for i in range(n_fights):
         name = names[i % len(names)]
-        acts, prof = opps[name]
+        acts, prof, habit = (tuple(opps[name]) + (None,))[:3]
         first = (i // len(names)) % 2 == 0
-        f = fightsim.Fight(acts, prof, first, seed=500 + i)
+        f = fightsim.Fight(acts, prof, first, seed=500 + i, habit=habit)
         snaps = []
         f.on_my_turn = lambda fight: snaps.append(fight.snapshot())
         f.run()

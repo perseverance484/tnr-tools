@@ -602,6 +602,7 @@ def build(a):
     # his clock (clock.py): his real kit, what is ready on his reply turn and the turn after, his best lines
     acts = clock.his_actions(en["userId"], rows)
     clock_info, clockd = None, {}
+    ctx["copier"] = bool(acts) and any(t[1] == "copy" for v in acts.values() for t in v[4][1])
     if acts and not ctx["afk"]:
         scale = gmul / max(1.0, opp_profile.given_mult(mine_prof))
         clockd, clock_info = make_clock(acts, rows, en["userId"], R, en_acted, me0, en0, ctx, cal, his_kit,
@@ -609,6 +610,15 @@ def build(a):
     my_kit = make_my_kit(prof)
     caps = (me.get("maxHealth", 5050), en.get("maxHealth", 5050))
     P = Planner(me0, en0, R, ctx, cal, my_kit, his_kit, st, en_acted, caps, his_kit_raw["turn"][0], clockd)
+    # solution-library key: this position plus what his last turn did (solutions.py)
+    try:
+        import opponents as OM
+        import solutions
+        his = OM.turns_of(rows, en["userId"])
+        last = list(his[-1][1]) if his else []
+        P.book_key = solutions.situation_key(P, ctx, st, R, last, clock.acts_from_ids(last))
+    except Exception:  # noqa: BLE001  (the library is an aid; planning never depends on it)
+        P.book_key = None
     info = dict(battle=battle, me=me, en=en, R=R, my_turn=my_turn, en_acted=en_acted, me_pos=me_pos, en_pos=en_pos,
                 d0=d0, ap=ap, stun=stun, others=others, st=st, sme=sme, sen=sen, prof=prof, gmul=gmul, clock=clock_info)
     return P, info
@@ -655,11 +665,22 @@ def make_clock(acts, rows, en_id, R, en_acted, me0, en0, ctx, cal, his_kit, base
     return clockd, info
 
 
+BOOK_W = 450.0     # HP-equivalent bonus x confidence for the solved answer to this position (solutions.json)
+
+
 def rank(P, bundles, ap, W):
     res = []
+    book = None
+    key = getattr(P, "book_key", None)
+    if key and not os.environ.get("TNR_NO_BOOK"):
+        import solutions
+        book = solutions.lookup(key, getattr(P, "book_path", None) or solutions.LIVE)
     for b in bundles:
         feats, term, dmg, outs, _ = P.line(b)
         rc, waste, guard, why = P.extras(b, ap)
+        if book and book[1] > 0.2 and tuple(sorted(b)) == tuple(sorted(book[0])):
+            guard += BOOK_W * book[1]
+            why = why + [f"library answer (confidence {book[1]:.0%})"]
         res.append((total(W, feats, term, rc, waste, guard), b, feats, term, rc, waste, guard, why, dmg, outs))
     res.sort(key=lambda x: -x[0])
     if res and res[0][0] < -0.6 * value_model.DEATH:

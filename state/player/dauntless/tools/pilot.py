@@ -505,7 +505,7 @@ def harvest_calls(st, n=1):
     h = harvest.load()
     if not h.get("seeded"):
         import opponents
-        harvest.seed(h, [u for _, _, rows in opponents.load_logs() for _, u, _, _ in rows])
+        harvest.seed(h, [u for _, _, rows, _ in opponents.load_logs() for _, u, _, _ in rows])
         harvest.save(h)
     return [call(*c) for c in harvest.next_calls(h, n)]
 
