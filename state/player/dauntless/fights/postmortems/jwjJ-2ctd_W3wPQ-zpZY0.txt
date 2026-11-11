@@ -1,0 +1,20 @@
+lookahead: rebirth+thunders +592 then stormblade+shield | rebirth+kims+panacea +997 then stormblade+shield | thunders+shield+kims -49 then rebirth+panacea+kunai (0.1s)
+lookahead: rebirth+thunders +1436 then stormblade+shield | clear+thunders +2360 then rebirth+panacea+kunai | rebirth+shield +1742 then clear+kunai+basic (0.1s)
+lookahead: stormblade+shield +1137 then rebirth+thunders | thunders+shield+pill -62 then sealnull+smoke+panacea+kunai | thunders+shield+panacea -314 then resist+sealnull+smoke (0.0s)
+lookahead: stormblade+shield +604 then rebirth+kims+kunai | stormblade+aetherion +1011 then cleanse+shield | rebirth+shield +863 then stormblade+kunai+basic (0.0s)
+lookahead: clear+shield +1163 then nights+aetherion+smoke | rebirth+shield +639 then nights+aetherion+smoke | stormblade+smoke+basic +333 then cleanse+shield (0.0s)
+lookahead: clear+offstance -1389 then shield+defstance+basic | clear+basic -1304 then shield+defstance+basic | clear+kims -1582 then shield+defstance+basic (0.1s)
+DESPERATION: every line loses; ranked by damage to him
+lookahead: rebirth+basic -6925 then - | rebirth+replace -7072 then - | rebirth+offstance -7072 then - (0.0s)
+DESPERATION: every line loses; ranked by damage to him
+lookahead: phantom+nights -7659 then - | nights+jewel+defstance -7695 then - | nights+kunai+defstance -7791 then - (0.0s)
+jwjJ-2ct vs Luka
+  R1 4480/5020 played ember+overflow | he did Phantom Slash+Kaiken (p 0%) | REGRET +1175: rebirth+thunders; misread him (payoff expected, payoff came)
+  R2 2940/4394 played phantom+eclipse+jewel | he did clear+Aetherion (p 0%) | REGRET +1046: thunders+shield+kims; misread him (setup expected, setup came)
+  R3 2469/4370 played thunders+panacea+resist | he did Dragon King's Impact+Chakra Pill+Elite Smoke Bomb (p 0%) | misread him (payoff expected, payoff came)
+  R4 1762/4159 played pill+kunai+basicheal | he did Shadow Pierce+First Chakra Gate (p 0%) | misread him (setup expected, payoff came); damage off (planner 311, engine None, log 391)
+  R5 1324/3630 played smoke+stormblade+defstance | he did Eclipse Drain+Echoing Rift+Panacea (p 0%) | misread him (payoff expected, setup came)
+  R6 1333/2923 played clear+kims+defstance | he did Terra Shift+Phantom Step (p 0%) | misread him (setup expected, setup came)
+  R7  644/2778 played replace+rebirth | he did Vacuum Fan+Middle Guard Stance+Chakra Pill (p 0%) | misread him (payoff expected, setup came)
+  R8  260/2214 played nights+kunai+basic | he did Crimson Thrust (p 0%) | misread him (payoff expected, setup came)
+turning point: R1: rebirth+thunders instead of ember+overflow was worth +1175 HP against what he actually did; cause: the opponent model (it did not see his turn coming)

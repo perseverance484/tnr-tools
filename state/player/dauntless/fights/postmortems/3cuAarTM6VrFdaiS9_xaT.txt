@@ -1,0 +1,14 @@
+lookahead: ember+overflow +1525 then stormblade+shield | ember+aetherion +1867 then stormblade+shield | ember+thunders +1445 then stormblade+shield (0.2s)
+lookahead: fury+overflow +1063 then stormblade+thunders | overflow+eclipse+pill +1202 then stormblade+thunders | overflow+eclipse+jewel +919 then stormblade+thunders (0.0s)
+lookahead: stormblade+thunders +345 then - | stormblade+overflow +345 then - | overflow+thunders+pill +111 then stormblade+shield (0.1s)
+lookahead: fury+thunders -8 then stormblade+kunai+basic | subaku+shield+basic +427 then stormblade+kunai+basic | subaku+shield+pill +399 then stormblade+kunai+basic (0.0s)
+lookahead: clear+kunai+basic +3818 then fury+nights | clear+offstance+basic +3595 then fury+kunai+basic | clear+kunai+offstance +3444 then fury+nights (0.0s)
+lookahead: rebirth+kims+basic +6376 then - | rebirth+panacea+basic +6376 then - | rebirth+defstance+basic +6376 then - (0.0s)
+3cuAarTM vs Shisui
+  R1 5050/5050 played phantom+ember | he did Terra Shift+Blow of Devastation (p 0%) | REGRET +410: ember+aetherion; misread him (setup expected, setup came)
+  R2 4621/4482 played shrapnel+aetherion | he did Phantom Requiem+Elite Smoke Bomb+Colored Jewel of  (p 24%) | ok
+  R3 3284/2629 played overflow+eclipse+jewel | he did clear+Blazing Reprisal (p 0%) | REGRET +707: stormblade+thunders; misread him (payoff expected, setup came)
+  R4 3034/2629 played thunders+pill+subaku | he did Infernal Stream+Lava Wave (p 0%) | REGRET +946: stormblade+shield; misread him (payoff expected, setup came)
+  R5 2144/2783 played replace+fury+kunai | he did Dragon King's Impact+Bloodthorn Kunai+replacementT (p 0%) | misread him (payoff expected, payoff came); damage off (planner 1195, engine None, log 1121)
+  R6  430/1376 played  | he did basicAttack (p 0%) | REGRET +1117: rebirth+kims+basic; misread him (setup expected, poke came)
+turning point: R6: rebirth+kims+basic instead of  was worth +1117 HP against what he actually did; cause: the opponent model (it did not see his turn coming)
