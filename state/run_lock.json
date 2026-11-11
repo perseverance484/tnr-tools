@@ -1,10 +1,11 @@
 {
- "holder": null,
- "token": null,
- "job": null,
- "releasedBy": "player",
- "releasedInstance": null,
- "releasedJob": "jutsu training refill",
- "releasedAt": "2026-11-11T10:25:09.019Z",
- "note": "Free. Claim with node forge/tools/run_lock.mjs claim --holder NAME --job TEXT (RUL-2026-11-07-133)."
+ "holder": "player",
+ "job": "jutsu training refill",
+ "token": "157a9a4ff469447e834595d2ad1e1847",
+ "instance": null,
+ "ttlMinutes": 15,
+ "claimedAt": "2026-11-11T11:27:14.601Z",
+ "heartbeatAt": "2026-11-11T11:27:14.601Z",
+ "expiresAt": "2026-11-11T11:42:14.601Z",
+ "note": "One game writer per account at a time (RUL-2026-11-07-133). Written only by forge/tools/run_lock.mjs or Forge; do not hand-edit."
 }
