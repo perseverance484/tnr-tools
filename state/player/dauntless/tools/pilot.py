@@ -33,6 +33,7 @@ LIVE = os.environ.get("TNR_PILOT_LIVE") or os.path.join(HERE, "..", "fights", "l
 FIGHTS = os.path.join(HERE, "..", "fights")
 STATE = os.path.join(LIVE, "pilot.json")
 ME = "user_37qazcrgUPldBPI65bb25DQiCjz"
+ME_NAME = "dauntless"
 HOME_VILLAGE = "9FZf8b9E7tZJZTaChmhHB"
 HOME_SECTOR = 177
 CIRCUIT = [1538, 1490, 1335, 99]   # Shirohana, Tsukimori, Akasumi, Risen: where active enemies gather
@@ -271,7 +272,8 @@ def battle_tick(st, bid, battle, entries):
         # the last state seen does not settle it (Ziharkk 7ZL8mG: I was alive at 481 when his last turn killed me): the
         # next profile read does. Hospitalized = lost, awake = won (world() settles it)
         last = cache.get("battle") or {}
-        st["pending_result"] = {"bid": bid, "foes": [u for u in last.get("battle.usersState.*.userId") or [] if u != ME]}
+        st["pending_result"] = {"bid": bid, "foes": [u for u in last.get("battle.usersState.*.userId") or [] if u != ME],
+                                "log_lost": log_says_lost(cache)}
         return finish(st, bid, cache, "battle closed, result on the next read")
     if "battle.usersEffects" in battle:
         cache["perm_effects"] = perm_effects(battle.pop("battle.usersEffects"))
@@ -282,6 +284,7 @@ def battle_tick(st, bid, battle, entries):
     if "perm_effects" in cache:
         battle["battle.permEffects"] = cache["perm_effects"]
     cache["battle"] = battle
+    cache["n_at_battle"] = len(cache["entries"])          # log lines already counted in this HP read
     save(cache_path, cache)
     hp = battle["battle.usersState.*.curHealth"]
     me_i = users.index(ME)
@@ -343,6 +346,20 @@ def battle_tick(st, bid, battle, entries):
                    battle["battle.usersState.*.latitude"][me_i], v)] + poll
     acts = [c_act(bid, a["actionId"], a["longitude"], a["latitude"], v + k) for k, a in enumerate(plan)]
     return head + f" | MY TURN: {' + '.join(a['name'] for a in plan)} ({how})", acts + poll
+
+
+def log_says_lost(cache):
+    """My last seen HP minus the damage the log shows on me in the rounds after it (heals added back) is gone."""
+    try:
+        import exam
+        b = cache.get("battle") or {}
+        users = b.get("battle.usersState.*.userId") or []
+        hp = b["battle.usersState.*.curHealth"][users.index(ME)]
+        rows = [(e[1], e[2], e[3], e[4]) for e in (cache.get("entries") or [])[cache.get("n_at_battle", 10 ** 9):]]
+        track = exam.hp_track(rows + [(0, None, None, [])], [ME_NAME])
+        return hp - (5050.0 - track[-1][ME_NAME]) <= 0
+    except Exception:  # noqa: BLE001
+        return False
 
 
 HANDOFF_WAIT = 40.0     # s of each of my turns left to the director before the pilot covers it
@@ -512,7 +529,9 @@ def world(st, user, res):
         return "ASLEEP: the worker may step away", []
     pend = st.pop("pending_result", None)
     if pend:
-        lost = status == "HOSPITALIZED"
+        # a loss does not always hospitalize (Selaphiel UVNOOX, 2026-11-11: lost, awake at full HP 3 s later), so the
+        # log's own HP count settles it too
+        lost = status == "HOSPITALIZED" or bool(pend.get("log_lost"))
         if lost:
             for u in pend.get("foes", []):
                 st.setdefault("lost_to", {})[u] = time.time() + LOST_TO_HOURS * 3600
