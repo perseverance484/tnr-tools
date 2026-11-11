@@ -34,8 +34,15 @@ Against the game's AI, an AI turn only advances when some client calls `performA
 ## Where behaviour lives
 - Battle turns: `turn.py`, the planner, called by `plan_turn`. It has a 4 s budget, then a short-list fallback,
   then Defensive Stance. Same picks as before on the regression set.
-- Awake outside battle: `world()`, as rules in priority order. Today: battle start, asleep, hospitalized, guard.
-  Hunting rules go here.
+- Awake outside battle: `world()`, as rules in priority order, by mode (`pilot.py --mode hunt|guard|rest`; it is
+  kept in the state file):
+  - always: battle start (log poll, limit 200), hospitalized (heal), mid-travel (finish the travel).
+  - guard: check every ~9 s, inside the 15 s attack lobby. Asleep means the worker may step away.
+  - hunt: wake if asleep; under 95% HP, go home and eat ramen; scan the sector (plus sensory every 31 s); pick the
+    nearest valid target and send move + attack in one batch. A valid target is awake, level 90+, not in battle, not
+    immune, not my village, and not on `do_not_attack.md`. Refused attacks are remembered per player (bracket 6 h,
+    village 24 h, other 10 min). With no target, move on round the circuit: Shirohana, Tsukimori, Akasumi, Risen.
+  - rest: go home, then sleep.
 - Every call the pilot can make is defined once, in the `c_*` helpers.
 
 ## Tests

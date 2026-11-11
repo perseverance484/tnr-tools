@@ -35,6 +35,13 @@ FIGHTS = os.path.join(HERE, "..", "fights")
 STATE = os.path.join(LIVE, "pilot.json")
 ME = "user_37qazcrgUPldBPI65bb25DQiCjz"
 HOME_VILLAGE = "9FZf8b9E7tZJZTaChmhHB"
+HOME_SECTOR = 177
+CIRCUIT = [1538, 1490, 1335, 99]   # Shirohana, Tsukimori, Akasumi, Risen: where active enemies gather
+ME_CARD = {"level": 100, "username": "dauntless",
+           "avatar": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ2ZSxgqnMXlcRpYmJ5do0zKw4Qx6PVEtBa9b8",
+           "avatarLight": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJEJNnVieLfKL5D7TAFe29bymSaPCIQ846MdzG"}
+HEAL_BELOW = 0.95       # fights start at full health (playbook)
+HUNT_WAIT = 4           # hunt tick ~every 7 s: about 3 calls a tick, under the connector's 30 a minute
 GUARD_WAIT = 7          # world tick ~every 9 s with overhead: inside the 15 s lobby before an attack lands
 PLAN_BUDGET = 4.0       # planner: median 1.2 s, worst 3.3 s on the regression set
 ENT = ("*.id", "*.battleRound", "*.userId", "*.actionId", "*.appliedEffects.*.txt")
@@ -46,7 +53,25 @@ def call(endpoint, inp, select):
 
 def c_user():
     return call("profile.getUser", {}, ["userData.status", "userData.battleId", "userData.curHealth",
-                                        "userData.maxHealth", "userData.sector"])
+                                        "userData.maxHealth", "userData.sector", "userData.longitude",
+                                        "userData.latitude"])
+
+
+def c_sector(sector):
+    return call("travel.getSectorData", {"sector": sector},
+                [f"users.*.{k}" for k in ("userId", "username", "longitude", "latitude", "status", "level", "villageId",
+                                          "immunityUntil", "battleId")])
+
+
+def c_move(cur, dest, sector):
+    return call("travel.moveInSector", {"curLongitude": cur[0], "curLatitude": cur[1], "longitude": dest[0],
+                                        "latitude": dest[1], "destLongitude": dest[0], "destLatitude": dest[1],
+                                        "sector": sector, "villageId": HOME_VILLAGE, **ME_CARD}, ["success", "message"])
+
+
+def c_attack(t, sector):
+    return call("combat.attackUser", {"userId": t["userId"], "longitude": t["longitude"], "latitude": t["latitude"],
+                                      "sector": sector, "asset": "ground"}, ["success", "message", "battleId"])
 
 
 def c_battle(bid):
@@ -199,25 +224,123 @@ def finish(st, bid, cache, why):
 
 
 # ---------------------------------------------------------------- world
-def world(st, user):
-    """Rules for the awake character outside battle, in priority order. Hunting rules plug in here."""
+def do_not_attack():
+    """Names and ids from do_not_attack.md (the director's list; the 'do not snipe' table is included too)."""
+    out = set()
+    try:
+        for line in open(os.path.join(HERE, "..", "do_not_attack.md")):
+            if line.startswith("## Temporary"):
+                break
+            cells = [c.strip() for c in line.strip().strip("|").split("|")]
+            if line.startswith("|") and cells and cells[0] not in ("Player", "") and not cells[0].startswith("-"):
+                out.add(cells[0].lower())
+                out.update(c for c in cells if c.startswith("user_"))
+    except OSError:
+        pass
+    return out
+
+
+SKIP_FOR = {"bracket": 6 * 3600, "village": 24 * 3600, "immune": 0, "move": 60, "other": 600}
+
+
+def note_attack(st, res):
+    """Remember why an attack was refused so the same target is not retried (bracket, ally, immunity...)."""
+    a = res.get("combat.attackUser")
+    if not a:
+        return None
+    inp, out, _ = a
+    if out.get("success") or out.get("battleId"):
+        st["battleId"] = out.get("battleId")
+        return None
+    msg = (out.get("message") or "").lower()
+    kind = ("bracket" if "bracket" in msg else "village" if "village" in msg or "ally" in msg else
+            "immune" if "immun" in msg else "move" if "move" in msg else "other")
+    st.setdefault("skip", {})[inp.get("userId", "?")] = time.time() + (SKIP_FOR[kind] or 120)
+    return f"attack refused ({kind}): {out.get('message')}"
+
+
+def pick_target(st, users, me_pos):
+    now = time.time()
+    dna = do_not_attack()
+    skip = {u: t for u, t in st.get("skip", {}).items() if t > now}
+    st["skip"] = skip
+    cands = []
+    for k in range(len(users.get("users.*.userId") or [])):
+        t = {f: users[f"users.*.{f}"][k] for f in ("userId", "username", "longitude", "latitude", "status", "level",
+                                                     "villageId", "immunityUntil", "battleId")}
+        imm = t["immunityUntil"]
+        immune = bool(imm) and dt.datetime.fromisoformat(str(imm).replace("Z", "+00:00")).timestamp() > now
+        if (t["userId"] == ME or t["status"] != "AWAKE" or t["battleId"] or immune or t["villageId"] == HOME_VILLAGE
+                or (t["level"] or 0) < 90 or t["userId"] in skip or t["userId"] in dna
+                or (t["username"] or "").lower() in dna):
+            continue
+        d = max(abs(t["longitude"] - me_pos[0]), abs(t["latitude"] - me_pos[1]))
+        cands.append((d, t))
+    return min(cands, key=lambda x: x[0])[1] if cands else None
+
+
+def world(st, user, res):
+    """Rules for the awake character outside battle, in priority order. st["mode"]: guard (default), hunt, rest."""
     status, bid = user.get("userData.status"), user.get("userData.battleId")
+    sector = user.get("userData.sector")
+    me_pos = (user.get("userData.longitude"), user.get("userData.latitude"))
+    hp, mx = user.get("userData.curHealth", 0), user.get("userData.maxHealth", 1)
+    mode = st.get("mode", "guard")
     if status == "BATTLE" and bid:
         st["battleId"] = bid
         return f"BATTLE START {bid}", [c_battle(bid), c_entries(bid, 200), TICK]
     if status == "ASLEEP":
+        if mode == "hunt":
+            return "ASLEEP, hunt mode: waking", [call("home.toggleSleep", {}, ["success", "message"]), c_user(), TICK]
         return "ASLEEP: the worker may step away", []
     if status == "HOSPITALIZED":
         return "HOSPITALIZED: healing", [call("hospital.npcHeal", {"villageId": HOME_VILLAGE}, ["success", "message"]),
                                         c_user(), TICK]
-    hp, mx = user.get("userData.curHealth", 0), user.get("userData.maxHealth", 1)
-    return f"AWAKE {hp:.0f}/{mx:.0f} HP, sector {user.get('userData.sector')}: guarding", \
-        [{"wait": GUARD_WAIT}, c_user(), TICK]
+    if status not in ("AWAKE", "BATTLE", "ASLEEP", "HOSPITALIZED"):     # mid-travel
+        return f"{status}: finishing travel", [call("travel.finishGlobalMove", {}, ["success", "message"]), c_user(), TICK]
+    head = f"AWAKE {mode} {hp:.0f}/{mx:.0f} HP @ {sector} {me_pos}"
+    if mode == "rest":
+        if sector != HOME_SECTOR:
+            return head + ": going home", go(HOME_SECTOR)
+        return head + ": sleeping", [call("home.toggleSleep", {}, ["success", "message"]), c_user(), TICK]
+    if mode == "guard":
+        return head + ": guarding", [{"wait": GUARD_WAIT}, c_user(), TICK]
+    # hunt
+    if hp < HEAL_BELOW * mx:
+        if sector != HOME_SECTOR:
+            return head + ": healing, going home", go(HOME_SECTOR)
+        return head + ": healing (ramen)", [call("village.buyFood", {"ramen": "large"}, ["success", "message"]),
+                                           c_user(), TICK]
+    refused = note_attack(st, res)
+    scan = res.get("travel.getSectorData")
+    if scan and scan[0].get("sector") == sector:
+        t = pick_target(st, scan[1], me_pos)
+        if t:
+            moves = [] if (t["longitude"], t["latitude"]) == me_pos else [c_move(me_pos, (t["longitude"], t["latitude"]), sector)]
+            return head + f": attacking {t['username']} @ {t['longitude']},{t['latitude']}", \
+                moves + [c_attack(t, sector), c_user(), TICK]
+        if sector in CIRCUIT or sector == HOME_SECTOR:
+            nxt = CIRCUIT[(CIRCUIT.index(sector) + 1) % len(CIRCUIT)] if sector in CIRCUIT else CIRCUIT[0]
+            return head + f": nobody to fight here{' (' + refused + ')' if refused else ''}, next sector {nxt}", go(nxt)
+    if sector not in CIRCUIT:
+        return head + f": heading to the circuit ({CIRCUIT[0]})", go(CIRCUIT[0])
+    batch = [{"wait": HUNT_WAIT}, c_user(), c_sector(sector)]
+    if time.time() - st.get("sensory", 0) > 31:
+        st["sensory"] = time.time()
+        batch.append(call("stealth.useSensory", {"sector": sector}, ["success", "message"]))
+    return head + ": scanning", batch + [TICK]
+
+
+def go(sector):
+    return [call("travel.startGlobalMove", {"sector": sector}, ["success", "message"]),
+            call("travel.finishGlobalMove", {}, ["success", "message"]), c_user(), c_sector(sector), TICK]
 
 
 # ---------------------------------------------------------------- tick
 def tick():
     st = load_state()
+    if len(sys.argv) > 2 and sys.argv[1] == "--mode":
+        st["mode"] = sys.argv[2]
     started = time.time()
     res = fresh_results(st.get("last_tick", 0))
     bid = st.get("battleId")
@@ -231,7 +354,7 @@ def tick():
         if "BATTLE OVER" not in head:
             st["battleId"] = bid
     elif tu:
-        head, batch = world(st, res["profile.getUser"][1])
+        head, batch = world(st, res["profile.getUser"][1], res)
     elif bid:
         head, batch = f"resume battle {bid}", [c_battle(bid), c_entries(bid, 8), TICK]
     else:
