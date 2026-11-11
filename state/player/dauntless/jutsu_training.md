@@ -72,3 +72,7 @@ very expensive (Cyclone Palm Strike level 19 quoted 1,949,575 ryo for one level;
 | 2026-11-10 12:25 | Divine Pulse | 3 | 3,178 | queued |
 | 2026-11-10 12:25 | Earth Armor | 3 | 2,209 | queued (active Earth Armor 2; waiting FCG 2, Divine Pulse 3, Earth Armor 3, FCG 3; ends ~13:40); 4,550 energy to intelligence; asleep |
 | 2026-11-10 14:16 | Earth Armor 4-5, First Chakra Gate 4, Divine Pulse 4, Raijin's Judgement 3 | | | queued (queue was empty); 5,050 energy to intelligence (+547.7); asleep |
+| 2026-11-11 03:24 | Ryūsa Kōka | 4-5 | 11,243 | started (queue was empty; 0.4/level checked) |
+| 2026-11-11 03:24 | Raijin's Judgement | 4 | 3,143 | queued |
+| 2026-11-11 03:24 | Divine Pulse | 5 | 6,647 | queued |
+| 2026-11-11 03:24 | First Chakra Gate | 5 | 4,472 | queued (active Ryūsa Kōka 4; waiting Ryūsa Kōka 5, Raijin 4, Divine Pulse 5, FCG 5; ends ~05:58); 4,289 energy to willpower (+483.2, intelligence had passed willpower); asleep |
