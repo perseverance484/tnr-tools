@@ -309,7 +309,13 @@ def plan_turn(bid, battle, entries, enemy, exact=False, ban=()):
     # planner2 went 0-6 live on 2026-11-11 while it plays too defensively against real players
     # 2026-11-11 Zak fight: every planner call failed live ("over budget") and the defensiveStance stand-in was
     # refused all fight. Budgets now leave room inside the 60 s turn (worst case ~22 s), and failures are reported.
-    if load_state().get("planner") == "planner2":
+    # planner choice: fights/live/planner_choice ("planner2" | "turn"), a file of its own so a supervisor can flip it
+    # without racing the pilot's state saves
+    try:
+        choice = open(os.path.join(LIVE, "planner_choice")).read().strip()
+    except OSError:
+        choice = load_state().get("planner", "turn")
+    if choice == "planner2":
         tries = [("planner2.py", bans, 6.0), ("turn.py", ("--no-engine", "--keep", "6", "--cash", "3") + bans, 6.0)]
     else:
         tries = ([("turn.py", ("--fast",) + bans, 9.0)] if exact else []) + \
@@ -532,7 +538,7 @@ def harvest_calls(st, n=2):
     """Spare-budget battle-log crawl between fights (harvest.py): at most n reads, only with headroom in the window."""
     import harvest
     recent = [t for t in st.get("calls", []) if t > time.time() - 60]
-    if len(recent) > CALL_BUDGET - 8:           # leave room: a fight can start on any tick
+    if len(recent) > CALL_BUDGET - 4:           # leave a little room: a fight can start on any tick
         return []
     h = harvest.load()
     if not h.get("seeded"):
@@ -544,7 +550,8 @@ def harvest_calls(st, n=2):
 
 def harvest_ingest(st, res):
     """Fold harvested results in (my own battle's entries are not in the crawl list, so they are ignored)."""
-    got = [(ep, res[ep]) for ep in ("combat.getBattleHistory", "combat.getBattleEntries") if ep in res]
+    got = [(ep, res[ep]) for ep in ("combat.getBattleHistory", "combat.getBattleEntries", "profile.getStrongestUsers")
+           if ep in res]
     if not got:
         return
     import harvest

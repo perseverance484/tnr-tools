@@ -43,8 +43,12 @@ def seed(h, user_ids):
 
 
 def next_calls(h, n=1):
-    """Up to n calls: a pending battle log first (they age out of nobody's history), else the stalest player."""
+    """Up to n calls: a pending battle log first (they age out of nobody's history), else the stalest player.
+    Once an hour the ranked top list (profile.getStrongestUsers) is read to seed the strongest players."""
     out = []
+    if time.time() - h.get("top_read", 0) > 3600:
+        h["top_read"] = time.time()
+        return [("profile.getStrongestUsers", {}, ["*.userId", "*.username"])]
     pending = [b for b, v in h["battles"].items() if not v.get("fetched")]
     pending.sort(key=lambda b: h["battles"][b].get("createdAt") or "", reverse=True)
     # at most one call per endpoint per batch: the pilot reads the newest result of each endpoint per tick
@@ -63,6 +67,12 @@ def ingest(h, endpoint, inp, data):
     """Fold one result in. Returns a short note or None."""
     if not isinstance(data, dict):
         return None
+    if endpoint == "profile.getStrongestUsers":
+        ids = data.get("*.userId") or []
+        for u in ids:
+            if (u or "").startswith("user_"):
+                h["users"].setdefault(u, {"crawled": 0})
+        return f"top list: {len(ids)} players"
     if endpoint == "combat.getBattleHistory":
         u = inp.get("userId")
         if u in h["users"]:
