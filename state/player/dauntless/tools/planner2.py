@@ -41,6 +41,7 @@ import shotplan  # noqa: E402
 import value_model  # noqa: E402
 import turn  # noqa: E402  (input parsing, targets, history helpers)
 import opp_profile  # noqa: E402
+import clock  # noqa: E402
 
 ME, ME_NAME = turn.ME, turn.ME_NAME
 H = 5
@@ -275,6 +276,18 @@ def his_options(cal, ctx, m, e, r):
     # its real size (weighting it up again double counted: ANBU R3 / Hikuro R5 read as deaths the director survived)
     opts.append((value_model.BURST_P * (0.35 if blocked else 1.0), ["burst"]))
     opts.append((max(0.05, 1.0 - sum(w for w, _ in opts)), ["turn"]))
+    real = ctx.get("his_real")
+    if real:
+        # his clock: his best real lines on his next turn (from his ready actions, scored from his side) take the
+        # weight of the generic pierce / setup / burst / turn options; Clear (state-dependent) and Smoke (an item,
+        # not in the public kit) keep their measured odds
+        keep = [(w, o) for w, o in opts if o[0] in ("clear", "smoke")]
+        if keep and keep[0][1][0] == "clear" and ctx.get("his_real_clear"):
+            keep = [(keep[0][0], ctx["his_real_clear"])] + keep[1:]
+        rest = max(0.05, 1.0 - sum(w for w, _ in keep))
+        opts = keep + [(rest * w, list(b)) for w, b in real]
+        tot = sum(w for w, _ in opts)
+        return [(w / tot, o) for w, o in opts]
     if ctx["summon"]:
         opts = [(w, o + ["summon"]) for w, o in opts]
     clear_w = sum(w for w, a in opts if "clear" in a)
@@ -467,6 +480,7 @@ def build(a):
                               or en["curHealth"] <= 720),
     }
     me0, en0 = from_shotplan(sme, R), from_shotplan(sen, R)
+    me0_s, en0_s = me0, en0
     reach = max(0.4, 1 - 0.1 * max(0, d0 - 4))
     his_kit_raw = value_model.generic_kit(cal, reach)
     # his profile (opp_profile: kit read at battle start -> bloodline -> rank, boost and elements): the prior turn
@@ -482,6 +496,35 @@ def build(a):
         his_kit_raw["turn"] = ((n * med + his_kit_raw["turn"][0]) / (n + 1), [])
         his_kit_raw["burst"] = ((n * max(max(obs) * reach, med * 1.6) + his_kit_raw["burst"][0]) / (n + 1), [])
     his_kit = {k: compile_spec(v, False) for k, v in his_kit_raw.items()}
+    # his clock (clock.py): his real kit, what is ready on his reply turn and the turn after, his best lines
+    acts = clock.his_actions(en["userId"], rows)
+    hr_abs, hn_abs = (R + 1, R + 2) if en_acted else (R, R + 1)
+    clock_info = None
+    if acts and not ctx["afk"]:
+        for aid, (nm, cost, cd, locks, spec) in acts.items():
+            his_kit[aid] = compile_spec(spec, False)
+        ready = clock.ready_at(acts, en["userId"], rows, hr_abs)
+        ready_next = clock.ready_at(acts, en["userId"], rows, hn_abs)
+        ho = hr_abs - R
+        scored, clear_best = [], None
+        for hb in clock.bundles(acts, ready, 100):
+            m, e = me0_s.copy(), en0_s.copy()
+            d, t = run_turn(e, m, [his_kit[x] for x in hb], ho, 1e9, 1e9)
+            # from his side: damage now + what his setup adds to his next hit (his given x my taken x my DR)
+            gain = his_kit_raw["turn"][0] * (e.given(ho + 1) * m.g(TAKEN, ho + 1) * m.g(DR, ho + 1)
+                                             - en0_s.given(ho + 1) * me0_s.g(TAKEN, ho + 1) * me0_s.g(DR, ho + 1))
+            sc = d - t + 0.7 * gain
+            if "clear" in hb:
+                if clear_best is None or sc > clear_best[0]:
+                    clear_best = (sc, hb)
+                continue
+            scored.append((sc, hb))
+        ctx["his_real"] = clock.soft(scored)
+        ctx["his_real_clear"] = list(clear_best[1]) if clear_best else None
+        # his threat next turn = his best ready damage line then (cooldowns decide when his burst can come)
+        nxt = max((sum(acts[x][4][0] for x in hb) for hb in clock.bundles(acts, ready_next, 100)), default=0.0)
+        clock_info = dict(ready=[acts[x][0] for x in ready], ready_next=[acts[x][0] for x in ready_next],
+                          lines=[(w, [acts[x][0] for x in b]) for w, b in ctx["his_real"]], next_dmg=nxt)
     idx = opp_profile._index()
     my_kit = {}
     for k, v in shotplan.MINE.items():
@@ -493,7 +536,7 @@ def build(a):
     caps = (me.get("maxHealth", 5050), en.get("maxHealth", 5050))
     P = Planner(me0, en0, R, ctx, cal, my_kit, his_kit, st, en_acted, caps, his_kit_raw["turn"][0])
     info = dict(battle=battle, me=me, en=en, R=R, my_turn=my_turn, en_acted=en_acted, me_pos=me_pos, en_pos=en_pos,
-                d0=d0, ap=ap, stun=stun, others=others, st=st, sme=sme, sen=sen, prof=prof, gmul=gmul)
+                d0=d0, ap=ap, stun=stun, others=others, st=st, sme=sme, sen=sen, prof=prof, gmul=gmul, clock=clock_info)
     return P, info
 
 
@@ -534,6 +577,13 @@ def main():
     print(f"his profile ({pr.get('source')}): {pr.get('bloodline', '?')} rank {pr.get('rank', '?')} | boost +{pr.get('given', (0,))[0]:.0%} "
           f"on {'/'.join(pr.get('given', (0, []))[1]) or '-'} (x{info['gmul']:.2f} on his hits) | DR {pr.get('dr', (0,))[0]:.0%} "
           f"vs {'/'.join(pr.get('dr', (0, []))[1]) or '-'} | his elements {'/'.join(pr.get('elements', [])) or '?'}")
+    ck = info["clock"]
+    if ck:
+        print(f"his clock: ready on his turn: {', '.join(ck['ready'])}")
+        print(f"           ready the turn after: {', '.join(ck['ready_next'])} (best raw line {ck['next_dmg']:.0f})")
+        print("           his likely lines: " + " | ".join(f"{w:.0%} {'+'.join(b)}" for w, b in ck["lines"]))
+    else:
+        print("his clock: no saved kit (generic stand-in)")
     if not info["my_turn"]:
         print("not my turn: poll again in <=15 s"); return
     bundles = legal_bundles(info["st"], R, info["ap"], info["d0"], info["st"]["loadout"], P.me0, P.en0)

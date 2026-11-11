@@ -59,7 +59,7 @@ def elements_of(rec):
     return sorted(set(out))
 
 
-def profile(user_id, rows=()):
+def profile(user_id, rows=(), level=100):
     """{bloodline, rank, given: (pct, elements), dr: (pct, elements), elements: his damage elements, source} or {}."""
     kit = EB.opponent_kit(user_id) or {}
     idx = _index()
@@ -75,16 +75,18 @@ def profile(user_id, rows=()):
     bl = _bloodlines().get(bl_id) if bl_id else None
     if not bl:
         # no bloodline jutsu seen: the common endgame passive (+25% given on his elements and None) as the stand-in
-        out.update(bloodline="unknown", rank="?", given=(0.25, out["elements"] + ["None"]), dr=(0.0, []))
+        out.update(bloodline="unknown", rank="?", given=(0.40, out["elements"] + ["None"]), dr=(0.0, []))
         return out
     out.update(bloodline=bl["name"], rank=bl.get("rank"), given=(0.0, []), dr=(0.0, []))
     for e in bl.get("effects", []):
         if e.get("calculation") != "percentage":
             continue
+        # power scales with his character level (director 2026-11-11: S rank 25 base + 0.15 per level = +40% at 100)
+        pct = (e["power"] + (e.get("powerPerLevel") or 0) * level) / 100
         if e["type"] == "increasedamagegiven":
-            out["given"] = (e["power"] / 100, e.get("elements") or [])
+            out["given"] = (pct, e.get("elements") or [])
         elif e["type"] == "decreasedamagetaken":
-            out["dr"] = (e["power"] / 100, e.get("elements") or [])
+            out["dr"] = (pct, e.get("elements") or [])
     return out
 
 
