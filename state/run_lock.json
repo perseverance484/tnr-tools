@@ -1,11 +1,10 @@
 {
- "holder": "player",
- "token": "9d7015e3aca14c39b50a8d1af0bde901",
- "job": "dauntless PvP session (engine planner)",
- "instance": null,
- "ttlMinutes": 45,
- "claimedAt": "2026-11-11T02:07:19.642Z",
- "heartbeatAt": "2026-11-11T02:53:11.085Z",
- "expiresAt": "2026-11-11T03:38:11.085Z",
- "note": "One game writer per account at a time (RUL-2026-11-07-133). Written only by forge/tools/run_lock.mjs or Forge; do not hand-edit."
+ "holder": null,
+ "token": null,
+ "job": null,
+ "releasedBy": "player",
+ "releasedInstance": null,
+ "releasedJob": "dauntless PvP session (engine planner)",
+ "releasedAt": "2026-11-11T03:07:05.176Z",
+ "note": "Free. Claim with node forge/tools/run_lock.mjs claim --holder NAME --job TEXT (RUL-2026-11-07-133)."
 }
