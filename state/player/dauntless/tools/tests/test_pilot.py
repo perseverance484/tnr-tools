@@ -77,11 +77,14 @@ def test_handoff():
     open(os.path.join(d, "director_mode"), "w").write("on")
     battle, ents = [json.loads(l) for l in open(FIX).read().splitlines() if l.strip()]
     st = {}
-    head, b = pilot.battle_tick(st, "HB1", battle, None)
+    head, b = pilot.battle_tick(st, "HB1", dict(battle), None)
+    assert "reading the live state" in head and b[0]["select"][-1] == "battle.usersEffects", head   # exact state first
+    battle["battle.usersEffects"] = []
+    head, b = pilot.battle_tick(st, "HB1", dict(battle), None)
     assert "director's move" in head and not any(x.get("call") == "combat.performAction" for x in b), head
     for k in st["turn_seen"]:
         st["turn_seen"][k] = _t.time() - 41
-    head, b = pilot.battle_tick(st, "HB1", battle, None)
+    head, b = pilot.battle_tick(st, "HB1", dict(battle), None)
     assert "MY TURN" in head and "director" not in head and st["pilot_turns"]["HB1"], head
     os.environ.pop("TNR_PILOT_LIVE")
     print("ok: director handoff (wait, then cover)")
@@ -211,11 +214,14 @@ def test_handoff():
     open(os.path.join(d, "director_mode"), "w").write("on")
     battle, ents = [json.loads(l) for l in open(FIX).read().splitlines() if l.strip()]
     st = {}
-    head, b = pilot.battle_tick(st, "HB1", battle, None)
+    head, b = pilot.battle_tick(st, "HB1", dict(battle), None)
+    assert "reading the live state" in head and b[0]["select"][-1] == "battle.usersEffects", head   # exact state first
+    battle["battle.usersEffects"] = []
+    head, b = pilot.battle_tick(st, "HB1", dict(battle), None)
     assert "director's move" in head and not any(x.get("call") == "combat.performAction" for x in b), head
     for k in st["turn_seen"]:
         st["turn_seen"][k] = _t.time() - 41
-    head, b = pilot.battle_tick(st, "HB1", battle, None)
+    head, b = pilot.battle_tick(st, "HB1", dict(battle), None)
     assert "MY TURN" in head and "director" not in head and st["pilot_turns"]["HB1"], head
     os.environ.pop("TNR_PILOT_LIVE")
     print("ok: director handoff (wait, then cover)")

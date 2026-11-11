@@ -357,6 +357,17 @@ const main = async () => {
         const b1 = structuredClone(b);
         if (req.hisTurn === "next") I.nextRound(b1);
         setActive(b1, req.him.id);
+        if (req.scriptedReply) {
+          // his logged next turn, as he actually played it (postmortem.py)
+          let bs = structuredClone(b1);
+          for (const id of req.scriptedReply) {
+            const r = tryAct(bs, req.him.id, id);
+            if (r.ok) bs = r.battle; else (out.scriptFail ??= []).push([id, r.reason]);
+            if (hp(bs, req.me.id) <= 0) break;
+          }
+          out.afterScripted = { me: hp(bs, req.me.id), him: hp(bs, req.him.id) };
+          return;
+        }
         const { bundles } = replyBundles(b1);
         const tried: any[] = [];
         for (const rb of bundles) {

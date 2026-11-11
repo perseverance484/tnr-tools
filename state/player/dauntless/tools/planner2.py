@@ -1091,7 +1091,7 @@ def rank(P, bundles, ap, W):
     return res
 
 
-LOOKAHEAD = os.environ.get("TNR_LOOKAHEAD", "0") == "1"     # on once fightsim shows it wins
+LOOKAHEAD = os.environ.get("TNR_LOOKAHEAD", "1") == "1"     # on: judged on real fights + loss post-mortems (director 2026-11-11)
 LA_BUDGET = float(os.environ.get("TNR_LA_BUDGET", "3.0"))
 LA_K = int(os.environ.get("TNR_LA_K", "20"))          # candidates played two exchanges deep
 LA_W = float(os.environ.get("TNR_LA_W", "1.0"))        # weight of the lookahead value against the one-turn score

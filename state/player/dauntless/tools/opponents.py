@@ -91,6 +91,7 @@ def turns_of(rows, uid):
 
 
 _LOGS = None
+_EXCL = None
 
 
 def build(exclude=None, save=True):
@@ -135,6 +136,12 @@ def build(exclude=None, save=True):
 
 
 def load():
+    ex = os.environ.get("TNR_OM_EXCLUDE")
+    if ex:                                              # leave-one-fight-out view (postmortem.py)
+        global _EXCL
+        if _EXCL is None or _EXCL[0] != ex:
+            _EXCL = (ex, build(exclude=ex, save=False))
+        return _EXCL[1]
     try:
         return json.load(open(MODELS))
     except (OSError, ValueError):

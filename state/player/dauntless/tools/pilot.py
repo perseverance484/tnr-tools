@@ -297,6 +297,7 @@ def battle_tick(st, bid, battle, entries):
     raw = battle.pop("battle.usersEffects", None)
     if raw is not None:
         cache["live"], cache["live_v"] = live_effects(raw), battle.get("battle.version")
+        cache.setdefault("live_hist", {})[str(battle.get("battle.round"))] = cache["live"]   # exact state, kept
         try:                            # his weapons and their imbues, learned from what they just applied
             import opponent_kit
             for foe in [u for u in battle.get("battle.usersState.*.userId") or [] if u != ME]:
@@ -348,6 +349,12 @@ def battle_tick(st, bid, battle, entries):
         # a fast relay polls every ~2.7 s (~45 calls/min); the connector allows 30/min ("Too Many Requests"
         # mid-fight, 2026-11-11), so his-turn polls pace themselves: ~25 calls/min, ~1 s more detection lag
         return head + " | his turn", [wait(POLL_GAP)] + poll
+    # the exact live state at the start of every turn of mine, the director's included (planning, and the record a
+    # post-mortem replays from)
+    if cache.get("live_v") != v and cache.get("live_try_v") != v:
+        cache["live_try_v"] = v
+        save(cache_path, cache)
+        return head + " | MY TURN: reading the live state", [c_battle(bid, effects=True), c_entries(bid, 8), TICK]
     # near a kill the python damage model runs ~300 low (ANBU Member R5, 2026-11-11): score with the exact engine
     if director_mode():
         seen = st.setdefault("turn_seen", {})
@@ -486,6 +493,14 @@ def finish(st, bid, cache, why):
         # who played which round: rounds the pilot covered; every other round of mine was the director's
         covered = sorted(set(st.get("pilot_turns", {}).pop(bid, [])))
         save(os.path.join(FIGHTS, f"{bid}_meta.json"), {"director_mode": director_mode(), "pilot_rounds": covered})
+    if cache.get("live_hist"):
+        save(os.path.join(FIGHTS, "live_states", f"{bid}.json"), cache["live_hist"])
+    if why == "lost" or (why.startswith("battle closed") and log_says_lost(cache)):
+        try:                            # why it was lost, from the fight and the engine (postmortem.py, minutes)
+            subprocess.Popen([sys.executable, os.path.join(HERE, "postmortem.py"), bid[:8]], start_new_session=True,
+                             stdout=open(os.path.join(FIGHTS, "postmortems", f"{bid}.txt"), "w"), stderr=subprocess.STDOUT)
+        except OSError:
+            pass
     st.pop("battleId", None)
     return f"BATTLE OVER ({why}): log saved fights/{bid}_entries.json", [c_user(), TICK]
 
