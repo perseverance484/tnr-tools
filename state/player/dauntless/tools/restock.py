@@ -26,6 +26,10 @@ TRACK = {
     "1ovHq7jsGdut2fSNKs5q_": ("repairkit", 7, 20, 50_000),
 }
 FULL_POTION_KEEP = (5, 15, 20_000)
+# backup thrown weapons, in order (director 2026-11-11: "I bought 50 ikazuchi kunai that can be swapped in when the
+# elemental kunai run out"): when nothing with stock sits in THROWN, the first one carried is equipped there, and
+# while one is carried the equipped kunai is not bought again
+BACKUP_THROWN = ["GMF1JZ0MChUHc7AtnKABw"]          # Ikazuchi Kunai
 RESERVE = 500_000          # ryo never spent by restock
 DAILY_CAP = 3_000_000      # ryo restock may spend per UTC day
 EVERY = 900
@@ -80,6 +84,22 @@ def plan(st, items, user, records, listings=None, home_village=None, full_potion
         p = _o.path.join(_o.path.dirname(_o.path.abspath(__file__)), "..", "fights", "live", "equipped.json")
         _j.dump(eq, open(p, "w"))
         st["thrown"] = eq.get("THROWN")
+    backup_calls, backup_notes = [], []
+    if not eq.get("THROWN"):
+        for b in BACKUP_THROWN:
+            spare = [r for r in rs if r["itemId"] == b and (r["quantity"] or 0) > 0 and not r["storedAtHome"]]
+            if spare:
+                backup_calls.append(("item.toggleEquip", {"userItemId": spare[0]["id"], "slot": "THROWN"},
+                                     ["success", "message"]))
+                backup_notes.append(f"thrown empty: equip backup kunai {b} x{spare[0]['quantity']}")
+                st["thrown"] = b
+                eq["THROWN"] = b
+                import json as _j, os as _o
+                p = _o.path.join(_o.path.dirname(_o.path.abspath(__file__)), "..", "fights", "live", "equipped.json")
+                _j.dump(eq, open(p, "w"))
+                break
+    backup_carried = any(r["itemId"] in BACKUP_THROWN and r["itemId"] != st.get("thrown") and (r["quantity"] or 0) > 0
+                         and not r["storedAtHome"] for r in rs)
     # durability (director 2026-11-11: "Items are broken again ... Are durability checks not happening"): any equipped
     # item worn under 60% of its max is repaired, with repair kits first (item.useRepairAll), then ryo
     # (item.repairAll, which needs the Crafting occupation); whichever the game refuses, the other is tried next pass
@@ -103,7 +123,7 @@ def plan(st, items, user, records, listings=None, home_village=None, full_potion
     money = float(user.get("userData.money") or 0)
     bank = float(user.get("userData.bank") or 0)
     spend = spent_today(st)
-    calls, notes, query = list(repair_calls), ([f"repair ({repair_calls[0][0].split('.')[-1]}): " + ", ".join(worn)]
+    calls, notes, query = list(backup_calls) + list(repair_calls), list(backup_notes) + ([f"repair ({repair_calls[0][0].split('.')[-1]}): " + ", ".join(worn)]
                                                 if repair_calls else [f"worn: {', '.join(worn)} (repair tried)"] if worn else []), None
     st["empty_items"] = []                              # battle items I carry none of: the planners leave them out
     for iid, (name, keep, fill, cap) in tracked(st).items():
@@ -125,6 +145,8 @@ def plan(st, items, user, records, listings=None, home_village=None, full_potion
         have = sum(r["quantity"] for r in carried)
         if have >= keep:
             continue
+        if name == "kunai" and backup_carried:
+            continue                                       # the backup kunai goes in when these run out
         if home:
             for r in home:
                 calls.append(("home.toggleStoreItem", {"userItemId": r["id"]}, ["success", "message"]))

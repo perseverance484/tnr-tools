@@ -830,6 +830,16 @@ def main():
     if clear_wait_note:
         print(clear_wait_note)
 
+    # kunai cost real ryo: price the throw by how close the fight is (value_model.kunai_cost). My turn = what I have
+    # taken off him per round so far, blended with a 1100 prior; his turn = his modelled base turn at this distance.
+    done = max(0.0, maxhp_en - en0.hp)
+    my_turn = (done + 1100 * 2) / (max(0, R - 1) + 2)
+    # his turn: the larger of his modelled base turn and what he has actually averaged (Arashii R6 averaged 1807 with
+    # me on 704: a race, not the "sure win" the 544 base turn read)
+    value_model.KUNAI_COST, kwhy = value_model.kunai_cost(me0.hp, en0.hp, my_turn,
+                                                          max(kit_for(d0)["turn"][0], avg or 0), ctx["afk"])
+    print(f"kunai: {kwhy} -> cost {value_model.KUNAI_COST}")
+
     def my_reserve(b, rnd):
         rc, why = value_model.reserve_cost(b, cal, rnd)
         if rnd == R and clear_wait and "clear" in b:
@@ -1069,6 +1079,7 @@ def main():
         kit["_barrier"] = barrier_between(end, en_pos) if BARRIERS else None
         pen, why = penalties(b, ctx, cal)
         rc, rwhy = my_reserve(b, R)
+        kc = value_model.KUNAI_COST if "kunai" in b else 0
         outs = []
         # his options are judged on MY STACK AFTER this bundle (Clear risk grows with what I just stacked; it used
         # to read the pre-bundle stack, so Overflow+Thunders into a held Clear looked safe)
@@ -1077,7 +1088,8 @@ def main():
         for w, h in his_options(m_after, hr, b):
             m, e, sc, log = ply1(b, h, kit)
             kill = e.hp <= 0
-            outs.append((w, sc + (0 if kill else pen - rc), m, e, log, kill))
+            # the kunai's ryo is paid even on a kill (unlike cooldown reserves): a kill line without it wins
+            outs.append((w, sc + (-kc if kill else pen - rc), m, e, log, kill))
         # stage-1 setup estimate so 2-round setups survive pruning (they score ~0 on one ply): what my multipliers
         # live next round add to a typical burst, discounted like the lookahead
         outs = [(w, v + (0 if kill else (1 - getattr(e, "p_kill", 0.0)) * setup_est(m, e, kit)), m, e, log, kill)
@@ -1198,7 +1210,7 @@ def main():
                 pk = er.get("p_kill", 1.0 if er["afterMe"]["him"] <= 0 else 0.0)
                 t_kill = value_model.score(shotplan.Side(er["afterMe"]["me"]), shotplan.Side(0), me["curHealth"], en["curHealth"])
                 if pk >= 1.0:
-                    t2 = t_kill
+                    t2 = t_kill - (value_model.KUNAI_COST if "kunai" in bb else 0)
                 else:
                     # he lives (or may): his reply as the engine played it, from what the margin leaves him
                     left = max(1.0, en["curHealth"] - (en["curHealth"] - er["afterMe"]["him"]) * (1 - ENGINE_MARGIN)) \
@@ -1210,7 +1222,7 @@ def main():
                         best = dict(best, him=max(1.0, left - (er["afterMe"]["him"] - best["him"])))
                     t2 = (1 - value_model.RISK) * sc_of(typ) + value_model.RISK * sc_of(best) + pen - rc + value_model.GAMMA * f
                     if pk > 0:
-                        t2 = pk * t_kill + (1 - pk) * t2
+                        t2 = pk * (t_kill - (value_model.KUNAI_COST if "kunai" in bb else 0)) + (1 - pk) * t2
                 eng_log = [("me", R, bb, 0, 0, er["afterMe"]["me"], er["afterMe"]["him"])]
                 for nm in ("typical", "best"):
                     if er.get(nm):

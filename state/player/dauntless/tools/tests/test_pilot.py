@@ -134,7 +134,22 @@ def test_restock():
     u4[2]["userData.dailyErrands"] = 50
     head, b = run_world([u4], "hunt", {"restock": {"next": 1e12}})
     assert "errand" not in head, head
-    print("ok: restock (read, buy from the shop, take out of home storage) + training upkeep")
+    # backup kunai: Elemental out of stock in THROWN -> the carried Ikazuchi goes into THROWN; while Ikazuchi is
+    # carried a low Elemental stack is not bought again
+    sys.path.insert(0, HERE); import restock
+    ik, el = "GMF1JZ0MChUHc7AtnKABw", "dY00WA51Mr7-uS6zbcS3r"
+    st = {"item_slots": {el: "THROWN"}}
+    inv = {"*.id": ["e1", "k1"], "*.itemId": [el, ik], "*.quantity": [0, 50], "*.equipped": ["THROWN", "NONE"],
+           "*.storedAtHome": [False, False]}
+    calls, notes, _ = restock.plan(st, inv, {"userData.money": 3_000_000}, {})
+    eqc = [c for c in calls if c[0] == "item.toggleEquip"]
+    assert eqc == [("item.toggleEquip", {"userItemId": "k1", "slot": "THROWN"}, ["success", "message"])], calls
+    assert st["thrown"] == ik and not [c for c in calls if c[0] in ("item.buy", "auction.placeBid")], (calls, notes)
+    st = {"item_slots": {el: "THROWN"}}
+    inv["*.quantity"] = [4, 50]
+    calls, notes, q = restock.plan(st, inv, {"userData.money": 3_000_000}, {el: {"inShop": True, "cost": 100}})
+    assert st["thrown"] == el and not [c for c in calls if c[0] in ("item.buy", "item.toggleEquip")] and (q is None or q[0] != el), (calls, q)
+    print("ok: restock (read, buy from the shop, take out of home storage) + training upkeep + backup kunai")
 
 
 def test_missed_turn_fixes():
