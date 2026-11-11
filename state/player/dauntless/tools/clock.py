@@ -23,6 +23,7 @@ import engine_bridge as EB  # noqa: E402
 
 K_DMG, K_PIERCE = 13.3, 12.6      # HP per power point (my calibrated kit / record powers at level 25: 11.8-13.7)
 BASICS = {"clear": (60, 10, ["clear"]), "cleanse": (60, 10, ["cleanse"]), "basicAttack": (20, 1, []),
+          "basicHeal": (60, 5, []),
           "defensiveStance": (20, 1, []), "offensiveStance": (20, 1, [])}
 SKIP = {"visual", "move", "consume", "injectjutsus", "increasepoolcost", "summon", "seal"}
 
@@ -114,6 +115,7 @@ def acts_from_ids(ids, lv=None):
             out[a] = (rec.get("name", a),) + compile_record(rec, lv.get(a, 25))
     for a, (ap, cd, tags) in BASICS.items():
         spec = (150.0, []) if a == "basicAttack" else (0.0, [("me", "clear", 1, 0, True)]) if a == "clear" else \
+            (0.0, [("en", "heal", 600, 0, True)]) if a == "basicHeal" else \
             (0.0, [("en", "cleanse", 1, 0, True)]) if a == "cleanse" else \
             (0.0, [("en", "dr", 0.15, 1)]) if a == "defensiveStance" else (0.0, [("en", "given", 0.15, 1)])
         out[a] = (a, ap, cd, set(tags) & set(cd_plan.LOCKS), spec)

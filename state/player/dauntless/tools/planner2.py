@@ -523,11 +523,22 @@ class Planner:
         return rc, (ap - cost) / 20.0, guard, why
 
 
+_W = None
+
+
 def load_weights():
-    try:
-        return {**DEFAULT_W, **json.load(open(WFILE))}
-    except (OSError, ValueError):
-        return dict(DEFAULT_W)
+    """DEFAULT_W, then planner2_weights.json, then TNR_W (a JSON object, for weight experiments in the simulator)."""
+    global _W
+    if _W is None:
+        w = dict(DEFAULT_W)
+        try:
+            w.update(json.load(open(WFILE)))
+        except (OSError, ValueError):
+            pass
+        if os.environ.get("TNR_W"):
+            w.update(json.loads(os.environ["TNR_W"]))
+        _W = w
+    return _W
 
 
 def total(W, feats, term, rc, waste, guard):
