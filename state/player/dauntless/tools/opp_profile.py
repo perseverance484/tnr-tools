@@ -83,11 +83,41 @@ def profile(user_id, rows=(), level=100):
             continue
         # power scales with his character level (director 2026-11-11: S rank 25 base + 0.15 per level = +40% at 100)
         pct = (e["power"] + (e.get("powerPerLevel") or 0) * level) / 100
+        if e["type"] in ("absorb", "lifesteal", "reflect"):
+            out.setdefault("passives", {})[e["type"]] = pct
         if e["type"] == "increasedamagegiven":
             out["given"] = (pct, e.get("elements") or [])
         elif e["type"] == "decreasedamagetaken":
             out["dr"] = (pct, e.get("elements") or [])
     return out
+
+
+def bloodline_profile(bl_id, level=100, elements=None):
+    out = {"source": "own", "elements": elements or ["None"]}
+    bl = _bloodlines().get(bl_id)
+    if not bl:
+        return out
+    out.update(bloodline=bl["name"], rank=bl.get("rank"), given=(0.0, []), dr=(0.0, []))
+    for e in bl.get("effects", []):
+        if e.get("calculation") != "percentage":
+            continue
+        pct = (e["power"] + (e.get("powerPerLevel") or 0) * level) / 100
+        if e["type"] in ("absorb", "lifesteal", "reflect"):
+            out.setdefault("passives", {})[e["type"]] = pct
+        elif e["type"] == "increasedamagegiven":
+            out["given"] = (pct, e.get("elements") or out["elements"] + ["None"])
+        elif e["type"] == "decreasedamagetaken":
+            out["dr"] = (pct, e.get("elements") or [])
+    return out
+
+
+def own_profile():
+    """My bloodline (kit/dauntless_profile.json) as a profile: its boost scales my calibration, its passives count."""
+    try:
+        prof = EB._profile()
+    except (OSError, ValueError):
+        return {}
+    return bloodline_profile(prof.get("bloodlineId"), prof.get("level") or 100)
 
 
 def given_mult(p):

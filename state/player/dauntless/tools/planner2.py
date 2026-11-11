@@ -46,9 +46,13 @@ import clock  # noqa: E402
 ME, ME_NAME = turn.ME, turn.ME_NAME
 H = 5
 (GUP, GDN, TAKEN, DR, ABS, LS, REF, PAR, SHD, DIMM, CIMM, NPOS, NSTK,
- WND, DRN, RCL, HCUT, BBLK, STUN) = range(19)
-NK = 19
-MULT = (GUP, GDN, TAKEN, DR)
+ WND, DRN, RCL, HCUT, BBLK, STUN, PABS, PLS, PREF, GGRD) = range(23)
+NK = 23
+# PABS/PLS/PREF: bloodline passives, in neither POSK nor NEGK, so Clear/Cleanse keep them.
+# GGRD: a ground -damage given (Subaku Palace) on whoever stands on it: Cleanse does not remove it, moving off does,
+# and it does not land while that side is debuff-immune (director 2026-11-11, 4qua R2).
+MULT = (GUP, GDN, TAKEN, DR, GGRD)
+COPY = -4
 POSK = (GUP, DR, ABS, LS, REF, PAR, SHD, DIMM, CIMM, NPOS, NSTK)
 NEGK = (GDN, TAKEN, WND, DRN, RCL, HCUT, BBLK, STUN)
 HOSTILE = {TAKEN, WND, DRN, RCL, STUN, HCUT}
@@ -57,9 +61,19 @@ KIND = {"taken": TAKEN, "dr": DR, "absorb": ABS, "lifesteal": LS, "reflect": REF
         "healcut": HCUT, "buffblock": BBLK, "stun": STUN}
 CLEAR, CLEANSE, HEAL = -1, -2, -3
 WFILE = os.path.join(HERE, "planner2_weights.json")
-DEFAULT_W = {"swing": 1.0, "mypot": 0.8, "hispot": 0.8, "mypot2": 0.4, "hispot2": 0.4, "race": 100.0,
-             "reserve": 1.0, "waste": 150.0}
-NF = 6
+# Hand-set (director 2026-11-11: "orient it in the most ideal way possible by editing weights by hand"). Units: HP.
+#   swing    HP dealt minus HP taken this exchange, the base currency
+#   mypot    my best next-turn damage (cooldown-aware, through the multipliers live then): worth less than HP in hand
+#            because he gets a turn first to Clear / Smoke / out-heal it
+#   hispot   his best next-turn damage from HIS clock (his ready jutsu then, his live stack vs my live defence):
+#            weighted above mypot, because damage taken is certain once his turn comes and a lost fight is final
+#   mypot2 / hispot2  multipliers still live the round after: 2-round setup and 2-round defence pay a second time
+#   race     tempo: turns he needs to kill me minus turns I need to kill him (HP per turn of tempo)
+#   kill / die  chance my next turn kills him / his next turn kills me, in turn order (who acts first next round)
+#   reserve  Clear / Cleanse / Smoke / pierce spent outside their window; waste: per 20 AP left unspent
+DEFAULT_W = {"swing": 1.0, "mypot": 0.6, "hispot": 0.75, "mypot2": 0.3, "hispot2": 0.35, "race": 120.0,
+             "kill": 1800.0, "die": 3600.0, "reserve": 1.0, "waste": 150.0}
+NF = 8
 
 
 # ------------------------------------------------------------------ state
@@ -97,7 +111,12 @@ class Side:
             a[k * H:(k + 1) * H] = [1.0] * H if k in MULT else [0.0] * H
 
     def given(self, o):
-        return self.g(GUP, o) * self.g(GDN, o)
+        return self.g(GUP, o) * self.g(GDN, o) * (self.g(GGRD, o) if not self.g(DIMM, o) else 1.0)
+
+    def passives(self, absorb=0.0, lifesteal=0.0, reflect=0.0):
+        for k, v in ((PABS, absorb), (PLS, lifesteal), (PREF, reflect)):
+            self.a[k * H:(k + 1) * H] = [v] * H
+        return self
 
 
 def kind_of(kind, v):
@@ -117,7 +136,11 @@ def add_tag(side, k, v, o1, o2):
 def from_shotplan(s, R):
     """shotplan.Side (absolute rounds) -> Side (offsets from R)."""
     out = Side(s.hp)
-    for kind, v, first, last in s.tags:
+    for t in s.tags:
+        kind, v, first, last = t[:4]
+        if shotplan.ground(t):
+            out.add(GGRD, v, first - R, last - R)
+            continue
         k = kind_of(kind, v)
         if k is None or last < R:
             continue
@@ -141,6 +164,8 @@ def compile_spec(spec, actor_is_me):
             out.append((on_src, CLEANSE, 0, 0, 0)); continue
         if kind == "heal":
             out.append((on_src, HEAL, val, 0, 0)); continue
+        if kind == "copy":
+            out.append((on_src, COPY, val, 1, dur)); continue
         k = kind_of(kind, val)
         if k is None:
             continue
@@ -161,7 +186,7 @@ def apply(src, dst, act, o, scale=1.0):
             dmg = base
             dst.wipe((SHD,))
         else:
-            dmg = base * sa[GUP * H + o] * sa[GDN * H + o] * da[TAKEN * H + o] * da[DR * H + o]
+            dmg = base * src.given(o) * da[TAKEN * H + o] * da[DR * H + o]
             parried = dmg * min(1.0, da[PAR * H + o])
             dmg -= parried
             sh = da[SHD * H + o]
@@ -169,9 +194,9 @@ def apply(src, dst, act, o, scale=1.0):
                 dmg -= min(sh, dmg)
                 dst.wipe((SHD,))
         dmg = max(dmg, 0.0)
-        to_t += dmg - dmg * min(0.6, da[ABS * H + o]) * (1 - da[HCUT * H + o])
-        to_s -= dmg * min(0.6, sa[LS * H + o]) * (1 - sa[HCUT * H + o])
-        to_s += dmg * sa[RCL * H + o] + parried + dmg * min(0.6, da[REF * H + o])
+        to_t += dmg - dmg * min(0.6, da[ABS * H + o] + da[PABS * H + o]) * (1 - da[HCUT * H + o])
+        to_s -= dmg * min(0.6, sa[LS * H + o] + sa[PLS * H + o]) * (1 - sa[HCUT * H + o])
+        to_s += dmg * sa[RCL * H + o] + parried + dmg * min(0.6, da[REF * H + o] + da[PREF * H + o])
     for on_src, k, v, o1, o2 in tags:
         side = src if on_src else dst
         if k == CLEAR:
@@ -184,6 +209,17 @@ def apply(src, dst, act, o, scale=1.0):
         if k == HEAL:
             if on_src:
                 to_s -= v
+            continue
+        if k == COPY:
+            # Shadow Dance: he copies my positive effects onto himself (from next round): my damage-given stack and
+            # reductions become his
+            if not src.g(BBLK, o):
+                for kk in (GUP, DR, ABS, LS, REF):
+                    for oo in range(o + o1, min(H, o + o2 + 1)):
+                        if kk in MULT:
+                            src.a[kk * H + oo] *= dst.a[kk * H + oo]
+                        else:
+                            src.a[kk * H + oo] += dst.a[kk * H + oo]
             continue
         if not on_src and (v < 0 or k in HOSTILE) and dst.g(DIMM, o):
             continue
@@ -304,8 +340,12 @@ def ttk(hp, rate):
     return min(8.0, hp / max(50.0, rate))
 
 
+def sig(x):
+    return 1.0 / (1.0 + math.exp(-max(-30.0, min(30.0, x))))
+
+
 class Planner:
-    def __init__(self, me0, en0, R, ctx, cal, my_kit, his_kit, st, en_acted, caps, base_turn):
+    def __init__(self, me0, en0, R, ctx, cal, my_kit, his_kit, st, en_acted, caps, base_turn, clockd=None):
         self.me0, self.en0, self.R, self.ctx, self.cal = me0, en0, R, ctx, cal
         self.my_kit, self.his_kit, self.st, self.en_acted, self.caps = my_kit, his_kit, st, en_acted, caps
         self.base_turn = base_turn
@@ -328,12 +368,14 @@ class Planner:
         self.ready_next = {n for n in st["loadout"] if n in cd_plan.ACTIONS and cd_plan.ready_round(st, n) <= R + 1}
         self.res = value_model.reserves(cal)
         self.pot_cache = {}
+        self.clockd = clockd or {}                     # his real kit: candidates, next-turn damage lines, scale
+        self.his_cache = {}
 
     def my_potential(self, b, m, e):
         """Best damage I can deal next turn (offset 1) with what is ready then, through the live multipliers."""
         o = 1
         mult = m.given(o) * e.g(TAKEN, o) * e.g(DR, o) * (1 - min(1.0, e.g(PAR, o)))
-        ab = 1 - min(0.6, e.g(ABS, o)) * (1 - e.g(HCUT, o))
+        ab = 1 - min(0.6, e.g(ABS, o) + e.g(PABS, o)) * (1 - e.g(HCUT, o))
         locked = set(b)
         key = (frozenset(locked), round(mult, 3))
         best = self.pot_cache.get(key)
@@ -348,33 +390,54 @@ class Planner:
             self.pot_cache[key] = best
         hit, pier = best
         hit = max(0.0, hit - e.g(SHD, o))
-        reflected = hit * min(0.6, e.g(REF, o)) + (hit / max(1e-6, 1 - min(1.0, e.g(PAR, o))) - hit if e.g(PAR, o) else 0)
+        reflected = hit * min(0.6, e.g(REF, o) + e.g(PREF, o)) + (hit / max(1e-6, 1 - min(1.0, e.g(PAR, o))) - hit if e.g(PAR, o) else 0)
         return (hit + pier) * ab + e.g(WND, o) + e.g(DRN, o), reflected
 
-    def his_potential(self, m, e):
+    def his_base(self, used):
+        """His raw next-turn damage: with his kit, the best line from what is ready on his next turn minus what his
+        reply just used (his cooldowns decide when his burst can come); else his observed / prior base turn."""
+        lines = self.clockd.get("next_lines")
+        if not lines:
+            return self.base_turn
+        key = frozenset(used)
+        v = self.his_cache.get(key)
+        if v is None:
+            v = max((d for names, d in lines if not (names & key)), default=0.0) * self.clockd["scale"]
+            v = self.his_cache[key] = max(v, 150.0)
+        return v
+
+    def his_potential(self, m, e, used=()):
         o = self.hn
         stun = (100 - min(40, e.g(STUN, o))) / 100
-        hit = self.base_turn * e.given(o) * m.g(TAKEN, o) * m.g(DR, o) * stun
+        hit = self.his_base(used) * e.given(o) * m.g(TAKEN, o) * m.g(DR, o) * stun
         par = min(1.0, m.g(PAR, o))
         parried = hit * par
         hit = max(0.0, hit - parried - m.g(SHD, o))
-        reflected = parried + hit * min(0.6, m.g(REF, o))
-        hit = hit * (1 - min(0.6, m.g(ABS, o)) * (1 - m.g(HCUT, o)))
+        reflected = parried + hit * min(0.6, m.g(REF, o) + m.g(PREF, o))
+        hit = hit * (1 - min(0.6, m.g(ABS, o) + m.g(PABS, o)) * (1 - m.g(HCUT, o)))
         return hit + m.g(WND, 1) + m.g(DRN, 1), reflected
 
-    def features(self, b, m, e):
+    def features(self, b, m, e, used=()):
         my_hp0, en_hp0 = self.me0.hp, self.en0.hp
         swing = (en_hp0 - e.hp) - (my_hp0 - m.hp)
         mine, refl_on_me = self.my_potential(b, m, e)
-        his, refl_on_him = self.his_potential(m, e)
+        his, refl_on_him = self.his_potential(m, e, used)
         mine_net, his_net = mine + refl_on_him, his + refl_on_me
         race = ttk(m.hp, his_net) - ttk(e.hp, mine_net)
+        # lethal reads, in turn order: who acts first next round decides whose kill lands (his burst runs ~20% over
+        # his line, my estimate is a best line so it is not padded)
+        p_kill = sig((mine_net - e.hp) / 250.0)
+        p_die = sig((1.2 * his_net - m.hp) / 250.0)
+        if self.en_acted:          # he acts first in a round: his next turn comes before mine
+            p_kill *= 1 - p_die
+        else:
+            p_die *= 1 - p_kill
         # the round after: multipliers still live then (2-round buffs / debuffs / reductions pay twice), on a
         # generic burst for me and his base turn for him
         o2, h2 = 2, self.hn + 1
         mine2 = value_model.BURST_BASE * (m.given(o2) * e.g(TAKEN, o2) * e.g(DR, o2) - 1)
         his2 = self.base_turn * (e.given(h2) * m.g(TAKEN, h2) * m.g(DR, h2) * (1 - min(0.6, m.g(ABS, h2))) - 1)
-        return [swing, mine_net, -his_net, race, mine2, -his2]
+        return [swing, mine_net, -his_net, race, mine2, -his2, p_kill, -p_die]
 
     def line(self, b):
         """Expected features and terminal value of bundle b over his weighted replies."""
@@ -383,16 +446,19 @@ class Planner:
         m0, e0 = self.me0.copy(), self.en0.copy()
         if "cleanse" in b:
             m0.wipe(NEGK)
+        if any(x in ("phantom", "replace", "step") for x in b):
+            m0.wipe((GGRD,))                            # moves fire first: off his ground
         run_turn(m0, e0, acts, 0, cm, ce)
         if e0.hp <= 0:
             return [(self.en0.hp - e0.hp) - (self.me0.hp - m0.hp)] + [0] * (NF - 1), value_model.KILL, self.en0.hp, [(1.0, ["-"])], 1.0
         feats = [0.0] * NF
         term = dmg = 0.0
-        opts = his_options(self.cal, self.ctx, m0, e0, self.hr)
+        opts = self.replies(m0, e0)
         outs = []
         for w, names in opts:
             m, e = m0.copy(), e0.copy()
-            stun = (100 - min(40, e.g(STUN, self.hr))) / 100
+            real = names and names[0] in self.clockd.get("ids", ())
+            stun = 1.0 if real else (100 - min(40, e.g(STUN, self.hr))) / 100
             run_turn(e, m, [self.his_kit[n] for n in names if n in self.his_kit], self.hr, ce, cm, stun)
             dmg += w * (self.en0.hp - e.hp)
             if m.hp <= 0 or e.hp <= 0:
@@ -400,11 +466,37 @@ class Planner:
                 term += w * t
                 f = [(self.en0.hp - e.hp) - (self.me0.hp - m.hp)] + [0] * (NF - 1)
             else:
-                f = self.features(b, m, e)
+                f = self.features(b, m, e, names)
             outs.append((w, names, f))
             for i in range(NF):
                 feats[i] += w * f[i]
         return feats, term, dmg, outs, 0.0
+
+    def his_score(self, hb, m0, e0):
+        """His line from his side on the board he faces: damage now, minus what bounces back, plus what it does to
+        his next hit and to mine (his setup up, my setup stripped / smoked / blocked)."""
+        ho = self.hr
+        m, e = m0.copy(), e0.copy()
+        d, t = run_turn(e, m, [self.his_kit[x] for x in hb], ho, 1e9, 1e9)
+        o = ho + 1
+        his_gain = self.base_turn * (e.given(o) * m.g(TAKEN, o) * m.g(DR, o) - e0.given(o) * m0.g(TAKEN, o) * m0.g(DR, o))
+        my_drop = value_model.BURST_BASE * (m0.given(1) * e0.g(TAKEN, 1) * e0.g(DR, 1) - m.given(1) * e.g(TAKEN, 1) * e.g(DR, 1))
+        return d - t + 0.7 * his_gain + 0.6 * my_drop
+
+    def replies(self, m0, e0):
+        """His reply options on this board. With his kit: his candidate lines re-scored against the position my
+        bundle leaves (so my Seal / Clear / stun / Smoke change what he does), top 4 by softmax, plus Smoke (an item
+        outside the public kit) at its measured odds. Without a kit: the generic option set."""
+        cands = self.clockd.get("cands")
+        if not cands or self.ctx["afk"]:
+            return his_options(self.cal, self.ctx, m0, e0, self.hr)
+        ap = 100 - (20 if e0.g(STUN, self.hr) else 0)
+        scored = [(self.his_score(hb, m0, e0), list(hb)) for hb, cost in cands if cost <= ap]
+        out = clock.soft(scored)
+        if not self.ctx["smoke_spent"] and not self.clockd.get("smoke_in_kit"):
+            ps = value_model.smoothed(self.cal, "smoke")
+            out = [(w * (1 - ps), b) for w, b in out] + [(ps, ["smoke", "light"])]
+        return out
 
     def extras(self, b, ap):
         """Reserve cost, AP unspent (in 20s) and hard guards for the coached blunders."""
@@ -432,7 +524,7 @@ def load_weights():
 
 def total(W, feats, term, rc, waste, guard):
     return (W["swing"] * feats[0] + W["mypot"] * feats[1] + W["hispot"] * feats[2] + W["race"] * feats[3]
-            + W["mypot2"] * feats[4] + W["hispot2"] * feats[5] + term - W["reserve"] * rc - W["waste"] * waste + guard)
+            + W["mypot2"] * feats[4] + W["hispot2"] * feats[5] + W["kill"] * feats[6] + W["die"] * feats[7] + term - W["reserve"] * rc - W["waste"] * waste + guard)
 
 
 # ------------------------------------------------------------------ main
@@ -479,14 +571,17 @@ def build(a):
                               or 1 - (50 - gear_dr) / 50 * turn._prod(1 - t[1] for t in sen.live("dr", R)) >= 0.55
                               or en["curHealth"] <= 720),
     }
+    shotplan.off_ground(sme, rows, ME, turn.MOVE_IDS)
     me0, en0 = from_shotplan(sme, R), from_shotplan(sen, R)
-    me0_s, en0_s = me0, en0
     reach = max(0.4, 1 - 0.1 * max(0, d0 - 4))
     his_kit_raw = value_model.generic_kit(cal, reach)
     # his profile (opp_profile: kit read at battle start -> bloodline -> rank, boost and elements): the prior turn
     # gets his bloodline damage boost; his observed hits already include it
     prof = opp_profile.profile(en["userId"], rows)
     gmul = opp_profile.given_mult(prof)
+    mine_prof = opp_profile.own_profile()
+    en0.passives(**prof.get("passives", {}))
+    me0.passives(**mine_prof.get("passives", {}))
     for k in ("turn", "burst", "hit", "light", "hit2"):
         v = his_kit_raw[k]
         his_kit_raw[k] = (v[0] * gmul,) + tuple(v[1:])
@@ -499,32 +594,32 @@ def build(a):
     # his clock (clock.py): his real kit, what is ready on his reply turn and the turn after, his best lines
     acts = clock.his_actions(en["userId"], rows)
     hr_abs, hn_abs = (R + 1, R + 2) if en_acted else (R, R + 1)
-    clock_info = None
+    clock_info, clockd = None, {}
     if acts and not ctx["afk"]:
         for aid, (nm, cost, cd, locks, spec) in acts.items():
             his_kit[aid] = compile_spec(spec, False)
         ready = clock.ready_at(acts, en["userId"], rows, hr_abs)
         ready_next = clock.ready_at(acts, en["userId"], rows, hn_abs)
-        ho = hr_abs - R
-        scored, clear_best = [], None
-        for hb in clock.bundles(acts, ready, 100):
-            m, e = me0_s.copy(), en0_s.copy()
-            d, t = run_turn(e, m, [his_kit[x] for x in hb], ho, 1e9, 1e9)
-            # from his side: damage now + what his setup adds to his next hit (his given x my taken x my DR)
-            gain = his_kit_raw["turn"][0] * (e.given(ho + 1) * m.g(TAKEN, ho + 1) * m.g(DR, ho + 1)
-                                             - en0_s.given(ho + 1) * me0_s.g(TAKEN, ho + 1) * me0_s.g(DR, ho + 1))
-            sc = d - t + 0.7 * gain
-            if "clear" in hb:
-                if clear_best is None or sc > clear_best[0]:
-                    clear_best = (sc, hb)
-                continue
-            scored.append((sc, hb))
-        ctx["his_real"] = clock.soft(scored)
-        ctx["his_real_clear"] = list(clear_best[1]) if clear_best else None
-        # his threat next turn = his best ready damage line then (cooldowns decide when his burst can come)
-        nxt = max((sum(acts[x][4][0] for x in hb) for hb in clock.bundles(acts, ready_next, 100)), default=0.0)
+        all_lines = [(hb, sum(acts[x][1] for x in hb)) for hb in clock.bundles(acts, ready, 100)]
+        # his raw kit sits on my calibration (which carries my own bloodline boost); rescale to his
+        scale = gmul / max(1.0, opp_profile.given_mult(mine_prof))
+        clockd = {"ids": set(acts), "scale": scale, "smoke_in_kit": any("Smoke" in acts[x][0] for x in acts),
+                  "next_lines": [(frozenset(hb), sum(acts[x][4][0] for x in hb)) for hb in clock.bundles(acts, ready_next, 100)]}
+        tmp = Planner(me0, en0, R, ctx, cal, {}, his_kit, {"loadout": [], "used": []}, en_acted,
+                      (5050, 5050), his_kit_raw["turn"][0], clockd)
+        # candidates for his reply: his 12 best lines on the current board (re-scored per bundle of mine later),
+        # always including his best Clear line and his best pure-damage line
+        sc = sorted(((tmp.his_score(hb, me0, en0), hb, c) for hb, c in all_lines), key=lambda x: -x[0])
+        keep = sc[:12]
+        for pick in (next((x for x in sc if "clear" in x[1]), None),
+                     max(sc, key=lambda x: sum(acts[a][4][0] for a in x[1]), default=None)):
+            if pick and pick not in keep:
+                keep.append(pick)
+        clockd["cands"] = [(hb, c) for _, hb, c in keep]
+        lines0 = clock.soft([(s_, list(hb)) for s_, hb, _ in keep])
+        nxt = max((d for _, d in clockd["next_lines"]), default=0.0) * scale
         clock_info = dict(ready=[acts[x][0] for x in ready], ready_next=[acts[x][0] for x in ready_next],
-                          lines=[(w, [acts[x][0] for x in b]) for w, b in ctx["his_real"]], next_dmg=nxt)
+                          lines=[(w, [acts[x][0] for x in b]) for w, b in lines0], next_dmg=nxt)
     idx = opp_profile._index()
     my_kit = {}
     for k, v in shotplan.MINE.items():
@@ -534,7 +629,7 @@ def build(a):
     my_kit["step"] = my_kit["stepback"] = (0, False, [])
     cd_plan.ACTIONS.setdefault("step", (10, 0, None, ""))
     caps = (me.get("maxHealth", 5050), en.get("maxHealth", 5050))
-    P = Planner(me0, en0, R, ctx, cal, my_kit, his_kit, st, en_acted, caps, his_kit_raw["turn"][0])
+    P = Planner(me0, en0, R, ctx, cal, my_kit, his_kit, st, en_acted, caps, his_kit_raw["turn"][0], clockd)
     info = dict(battle=battle, me=me, en=en, R=R, my_turn=my_turn, en_acted=en_acted, me_pos=me_pos, en_pos=en_pos,
                 d0=d0, ap=ap, stun=stun, others=others, st=st, sme=sme, sen=sen, prof=prof, gmul=gmul, clock=clock_info)
     return P, info
@@ -580,7 +675,7 @@ def main():
     ck = info["clock"]
     if ck:
         print(f"his clock: ready on his turn: {', '.join(ck['ready'])}")
-        print(f"           ready the turn after: {', '.join(ck['ready_next'])} (best raw line {ck['next_dmg']:.0f})")
+        print(f"           ready the turn after: {', '.join(ck['ready_next'])} (his best line then {ck['next_dmg']:.0f} before multipliers)")
         print("           his likely lines: " + " | ".join(f"{w:.0%} {'+'.join(b)}" for w, b in ck["lines"]))
     else:
         print("his clock: no saved kit (generic stand-in)")
@@ -600,7 +695,7 @@ def main():
         seq, end = turn.resolve_targets(r[1], info["me_pos"], info["en_pos"], occupied)
         fire = " -> ".join(f"{x}@{t[0]},{t[1]}" for x, _, t in seq)
         f = r[2]
-        print(f"{i}. {r[0]:+6.0f}  {fire}  [swing {f[0]:+.0f} mine {f[1]:.0f} his {-f[2]:.0f} race {f[3]:+.2f} "
+        print(f"{i}. {r[0]:+6.0f}  {fire}  [swing {f[0]:+.0f} mine {f[1]:.0f} his {-f[2]:.0f} race {f[3]:+.2f} kill {f[6]:.0%} die {-f[7]:.0%} "
               f"term {r[3]:+.0f} reserve {r[4]:.0f} unspent {r[5] * 20:.0f}{' GUARD ' + '; '.join(r[7]) if r[7] else ''}]")
     seq, _ = turn.resolve_targets(res[0][1], info["me_pos"], info["en_pos"], occupied)
     print("FIRE:", json.dumps([{"actionId": aid, "longitude": t[0], "latitude": t[1], "name": n} for n, aid, t in seq]))

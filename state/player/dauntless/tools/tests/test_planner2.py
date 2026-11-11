@@ -28,10 +28,10 @@ def test_parity():
         for bnd in rng.sample(bundles, min(40, len(bundles))):
             m, e = value_model.copy_side(sme), value_model.copy_side(sen)
             if "cleanse" in bnd:
-                m.tags = [x for x in m.tags if shotplan.positive(x)]
+                m.tags = [x for x in m.tags if shotplan.positive(x) or shotplan.ground(x)]
             shotplan.run_turn(m, e, list(bnd), shotplan.MINE, R, True)
             m.hp, e.hp = min(m.hp, 5050), min(e.hp, 5050)
-            pm, pe = P.me0.copy(), P.en0.copy()
+            pm, pe = P.me0.copy().passives(), P.en0.copy().passives()   # shotplan has no bloodline passives
             if "cleanse" in bnd:
                 pm.wipe(p2.NEGK)
             p2.run_turn(pm, pe, [P.my_kit[x] for x in bnd], 0, 5050, 5050)

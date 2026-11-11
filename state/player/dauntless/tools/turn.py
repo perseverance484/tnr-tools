@@ -204,6 +204,8 @@ SELF_T = {"overflow", "thunders", "parry", "eclipse", "shield", "pill", "jewel",
 AOE = {"fury", "shrapnel"}
 BUFFS = {"overflow", "thunders", "parry", "eclipse", "pill", "jewel", "ember", "phantom"}
 ACTION_ID = {v: k for k, v in IDS.items()}
+GROUND_EXIT = {"phantom", "replace", "step"}
+MOVE_IDS = {k for k, v in IDS.items() if v in GROUND_EXIT}
 ACTION_ID.update({"kunai": "yVNeLzxHSFkNpTPnlm7yQ", "basicheal": "basicHeal", "step": "move", "stepback": "move"})
 
 
@@ -420,6 +422,7 @@ def main():
 
     lines = [f"{r}|{t.strip()}" for r, u, _, ts in rows for t in (ts or [])]
     me0, en0 = shotplan.rebuild(lines, ME_NAME, en["username"], me["curHealth"], en["curHealth"])
+    shotplan.off_ground(me0, rows, ME, MOVE_IDS)
     _gm = (engine_bridge.opponent_kit(en["userId"]) or {}).get("gearMods") or {}
     _his_gear_dr = float(_gm.get("drTakenFromGear", 15))   # measured, else the endgame assumption (Kaeruun + Fortify III)
     # a stun costs AP from the turn it lands: his stun earlier THIS round (he acted first) counts now,
@@ -616,8 +619,10 @@ def main():
 
     def ply1(b, h, kit):
         m, e = value_model.copy_side(me0), value_model.copy_side(en0)
-        if "cleanse" in b:  # Cleanse fired first removes wound/drain before they tick
-            m.tags = [x for x in m.tags if shotplan.positive(x)]
+        if "cleanse" in b:  # Cleanse fired first removes wound/drain before they tick (ground effects stay)
+            m.tags = [x for x in m.tags if shotplan.positive(x) or shotplan.ground(x)]
+        if any(x in GROUND_EXIT for x in b):  # moving off his ground (moves fire first) ends its -damage given
+            m.tags = [x for x in m.tags if not shotplan.ground(x)]
         d, t = shotplan.run_turn(m, e, list(b), shotplan.MINE, R, True)
         m.hp = min(m.hp, maxhp_me)
         log = [("me", R, b, d, t, m.hp, e.hp)]
@@ -657,6 +662,7 @@ def main():
                      or any(t[2] <= r1 and t[0] in _READ_DST for t in e1.tags[ne:]))
             acts[x] = (d, s, m1.tags[nm:], e1.tags[ne:], inter)
         tick = m.total("wound", r1) + m.total("drain", r1)
+        on_ground = any(shotplan.ground(t) for t in m.tags)
         reply_cache = {}
         tagless = all(not (kit.get(x) or (0, []))[1] and len(kit.get(x) or (0, [])) == 2 for x in ("turn", "summon"))
         if tagless:
@@ -716,10 +722,12 @@ def main():
                 if v > best[0]:
                     best = (v, b2)
                 continue
-            if any(x not in acts or acts[x][4] for x in b2):
+            if any(x not in acts or acts[x][4] for x in b2) or (on_ground and any(x in GROUND_EXIT for x in b2)):
                 m2, e2 = value_model.copy_side(m), value_model.copy_side(e)
                 if "cleanse" in b2:
-                    m2.tags = [x for x in m2.tags if shotplan.positive(x)]
+                    m2.tags = [x for x in m2.tags if shotplan.positive(x) or shotplan.ground(x)]
+                if any(x in GROUND_EXIT for x in b2):
+                    m2.tags = [x for x in m2.tags if not shotplan.ground(x)]
                 shotplan.run_turn(m2, e2, list(b2), shotplan.MINE, r1, True)
             else:
                 m2, e2 = shotplan.Side(m.hp), shotplan.Side(e.hp)

@@ -84,6 +84,8 @@ def compile_record(rec, level=25):
             tags.append(("me", "clear", 1, 0, True))
         elif t == "cleanse":
             tags.append(("en", "cleanse", 1, 0, True))
+        elif t == "copy":
+            tags.append(("en", "copy", pct, max(n, 1)))
         elif t == "heal":
             tags.append(("en", "heal", p if e.get("calculation") == "static" else pct * 5050, 0, True))
     locks = {e.get("type") for e in rec.get("effects", [])} & set(cd_plan.LOCKS)

@@ -127,6 +127,22 @@ class Side:
         return sum(t[1] for t in self.live(kind, r))
 
 
+def ground(t):
+    """A ground effect (Subaku Palace's -damage given): it holds while I stand on the marked tiles, so Cleanse does
+    not remove it; moving off does, and debuff-prevent keeps it from re-applying (director 2026-11-11, 4qua R2)."""
+    return len(t) > 4 and t[4] == "ground"
+
+
+def off_ground(side, rows, me_id, move_ids):
+    """Drop ground tags on me once I have moved after the latest ground was laid on me (rows oldest-first)."""
+    if not any(ground(t) for t in side.tags):
+        return
+    laid = [i for i, (r, u, a, ts) in enumerate(rows) if u != me_id
+            and any("marked the ground with decreasedamagegiven" in (x or "") for x in (ts or []))]
+    if laid and any(i > laid[-1] and u == me_id and a in move_ids for i, (r, u, a, _) in enumerate(rows)):
+        side.tags = [t for t in side.tags if not ground(t)]
+
+
 def positive(t):
     k, v = t[0], t[1]
     return (k == "given" and v > 0) or k in POSITIVE - {"given+"}
@@ -136,11 +152,23 @@ def rebuild(lines, me_name, en_name, my_hp, en_hp):
     me, en = Side(my_hp), Side(en_hp)
     pat = [("damage given", "given"), ("damage taken", "taken"), ("will absorb", "absorb"), ("will steal", "lifesteal"),
            ("will reflect", "reflect"), ("will parry", "parry"), ("healing ability is decreased", "healcut")]
-    for line in lines:
+    ground_n = {}
+    for li, line in enumerate(lines):
         r, t = line.split("|", 1)
         r = int(r)
+        g = re.match(rf"^({re.escape(en_name)}|{re.escape(me_name)}) marked the ground with decreasedamagegiven for the next (\d+) rounds", t)
+        if g:
+            ground_n[(r, g.group(1))] = (int(g.group(2)), li)
+            continue
         who = me if t.startswith(me_name) else en if t.startswith(en_name) else None
         if who is None:
+            continue
+        other = en_name if who is me else me_name
+        if (r, other) in ground_n and "damage given" in t and "decreased" in t:
+            # the ground's -given lands on whoever stands on it each round it lasts: a ground tag, not a debuff
+            n_g, li0 = ground_n.pop((r, other))
+            v = float(m.group(1)) / 100 if (m := re.search(r"([\d.]+)%", t)) else 0.25
+            who.tags.append(["given", -v, r + 1, r + n_g, "ground", r, li0])
             continue
         if "cleared of all positive" in t:
             who.tags = [x for x in who.tags if not positive(x)]
@@ -242,7 +270,7 @@ def apply(src_side, dst_side, spec, r, actor_is_me):
                 side.tags = [x for x in side.tags if not positive(x)]
             continue
         if kind == "cleanse":
-            side.tags = [x for x in side.tags if positive(x)]
+            side.tags = [x for x in side.tags if positive(x) or ground(x)]
             continue
         if kind == "heal":
             if side is src_side:
