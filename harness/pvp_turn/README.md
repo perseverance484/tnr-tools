@@ -49,6 +49,12 @@ echo $WORK/engine/app > harness/pvp_turn/.engine_app                       # loc
   captured under `harvests/`, newest copy per id, with `kit/records.json` and `kit/live_overrides.json` laid on top.
   2026-11-11: 2,492 records (1,719 jutsu, 773 items); all 15 of Targaryen's equipped jutsu were present.
   `engine_bridge._records()` reads it (built on first use if missing).
+- `kit/live_jutsu_2026-11-11.jsonl`: live connector reads (2026-11-11) of the 35 PvP-relevant jutsu (my kit, every
+  opponent action in my fight logs, saved opponent kits) whose live `updatedAt` was newer than the catalog copy; 300
+  non-AI jutsu changed live since the 2026-10-23 bulk capture, 42 of them PvP-relevant, 7 already current. Engine
+  fields only; `build_catalog.py` lays them on top. The remaining ~260 changed jutsu are still the Oct 23 copies: a
+  full refresh needs the shell to reach the public catalog (www.theninjarpg.com is not on this session's network
+  allowlist) or an operator-run Forge capture.
 - `kit/opponents/<userId>.json`: an opponent's equipped jutsu kit and levels saved before the fight.
 - `kit/records.json`: newest captured full record of every PvP kit action (`tools/extract_kit.py` from
   `harvests/inbox`), with `kit/live_overrides.json` merged over the 9 records whose live `updatedAt` was newer
@@ -72,8 +78,11 @@ Targaryen (RUFKZ2jmaO, real kit): R1-R3 hits within 0-12% (Night's 631/631, Raim
 then R4 Ember 557/768 (-27%) and R5 Lotus 800/1811, Kunai 356/805 (-56%). The per-hit validator above stays at 1.9%
 because it injects effect powers read from the log text; the replay recomputes them from records, so a stale record
 compounds round over round. Lead: the harvested Chōha record grants -30% damage taken that the live R4 log does not
-show (live: +30% given, +10 Water tag power). Next: anchor replayed effect powers to the logged text and flag record
-drift. Demons Strike R1 replays for 0 (603 logged; he moved from (4,4) during that turn, positions are pinned).
+show (live: +30% given, +10 Water tag power). Confirmed live (Chōha updated 2026-11-08, no DR); after the live
+refresh Lotus replays 1143/1811 (was 800), Kunai 508/805, Ember 557/768 unchanged. My kit's records are current, and
+the engine's Clear strips every positive effect (as live did), so the remaining R4-R5 gap (x1.38-1.58) is outside the
+records: likely live passives the harness lacks (bloodline effects, gear, keystone, trained-element +15%). Next:
+anchor replayed effect powers to the logged text. Demons Strike R1 replays for 0 (603 logged; he moved from (4,4) during that turn, positions are pinned).
 Element access fixed in the same pass: three-element kits (bloodline + two innate) get two innate slots plus an
 unlocked trained basic element (engine `elementalMastery.ts`), which made Raimei Gen and Thunder's Judgement castable.
 

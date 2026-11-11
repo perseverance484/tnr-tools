@@ -4,7 +4,10 @@ plugged into the offline harness so it just reads what was used. No mid battle l
 
 Every full jutsu/item record (a dict with id, name and an effects list) captured anywhere under harvests/ is collected;
 the newest copy of each id wins (updatedAt, then capture time). Curated entries in kit/records.json and the live field
-refreshes in kit/live_overrides.json are laid on top when they are at least as new. No live calls.
+refreshes in kit/live_overrides.json are laid on top when they are at least as new. Then every kit/live_jutsu_*.jsonl
+patch (connector reads of the engine fields: effects, target, range, cooldown, method, AP cost, weapon, usage type,
+jutsu type, bloodline) replaces those fields when its updatedAt is newer; cosmetic effect keys (sfx, animations,
+description) are carried over from the old copy of the same effect type, else "". No live calls.
 
 Output: harness/pvp_turn/kit/catalog.json  {id: {"record": {...}, "kind": "jutsu"|"item", "source": path, "updatedAt"}}
 (gitignored: derived from committed harvests, rebuild with this script).
@@ -70,6 +73,27 @@ def build():
                 out[i]["record"] = dict(out[i]["record"], **ov)
                 out[i]["updatedAt"] = ov["updatedAt"]
                 out[i]["source"] += " + live_overrides.json"
+    COSMETIC = ("appearSfx", "disappearSfx", "appearAnimation", "staticAnimation", "staticAssetPath",
+                "disappearAnimation", "description")
+    for pp in sorted(glob.glob(os.path.join(KIT, "live_jutsu_*.jsonl"))):
+        for line in open(pp):
+            if not line.strip():
+                continue
+            patch = json.loads(line)
+            cur = out.get(patch["id"])
+            if cur and patch["updatedAt"] <= cur["updatedAt"]:
+                continue
+            old = dict(cur["record"]) if cur else {"id": patch["id"]}
+            old_fx = list(old.get("effects", []))
+            fx = []
+            for e in patch["effects"]:
+                prev = next((o for o in old_fx if o.get("type") == e["type"]), None)
+                if prev is not None:
+                    old_fx.remove(prev)
+                fx.append({**{k: (prev or {}).get(k, "") for k in COSMETIC}, **e})
+            rec = {**old, **{k: v for k, v in patch.items() if k != "effects"}, "effects": fx}
+            out[patch["id"]] = {"record": rec, "kind": "jutsu", "updatedAt": patch["updatedAt"],
+                                "source": os.path.relpath(pp, REPO) + " (connector read)"}
     json.dump(out, open(OUT, "w"), separators=(",", ":"))
     n_j = sum(v["kind"] == "jutsu" for v in out.values())
     print(f"catalog: {len(out)} records ({n_j} jutsu, {len(out) - n_j} items) -> {os.path.relpath(OUT, REPO)}")
