@@ -1,5 +1,6 @@
 {
  "_meta": {
+  "answer_note": "Only a reply that parsed counts as an answer. A call is unanswered when it failed, or came back cut short or unreadable, and no other reply to the same call parsed.",
   "answered_calls": {
    "getEndpointSchema": 93,
    "listGameRouters": 1,
@@ -18,11 +19,15 @@
    "untyped": 10
   },
   "endpoint_count_mismatch": [],
-  "failed_calls_not_answered_later": [],
+  "failed_calls_never_answered": [],
   "live": true,
   "origin": "live: the TNR connector's own listGameRouters / listRouterEndpoints / getEndpointSchema results, read out of the session transcripts by scripts/player_allowlist.py surface",
+  "replies_that_did_not_parse": [],
   "routers_without_endpoint_list": [],
-  "schemas_that_did_not_parse": [],
+  "schemas_for_endpoints_not_listed": [],
+  "schemas_that_say_nothing": [
+   "travel.startGlobalMove"
+  ],
   "type_note": "The server does not say whether an endpoint is a query or a mutation. 'type' comes from 'type_source': the server's own stand-in description, or the pinned source extract, which is older than the live server. An endpoint with neither has type null."
  },
  "routers": {

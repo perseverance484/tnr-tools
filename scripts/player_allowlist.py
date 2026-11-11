@@ -14,7 +14,8 @@
                        content editing, communication, deletes);
           3. ask first every entry an ask-first rule covers says so, or states why it cannot spend premium currency;
           4. gates     the call-level gates each rule demands are named on the entry (no Flee, do not attack, ...);
-          5. surface   every entry exists on the captured surface with the same kind (read = query, action = mutation);
+          5. surface   every entry exists on the captured surface with the same kind (read = query, action = mutation)
+                       and a valid input schema; a capture with a failed or unreadable call is itself a violation;
           6. code      every endpoint the player code can send is on the list.
     python3 scripts/player_allowlist.py report [--out FILE] [--check]
         The review tables for the director: the list by activity, and the surface by router.
@@ -130,10 +131,11 @@ def _json_or_none(text):
 
 
 def parse_routers(text):
-    """listGameRouters -> {router: endpointCount}. The server answers a JSON list of {name, endpointCount}."""
+    """listGameRouters -> {router: endpointCount}, or None when the reply is not a whole, valid answer. The server
+    answers a JSON list of {name, endpointCount}."""
     rows = _json_or_none(text)
-    if not isinstance(rows, list) or not all(isinstance(r, dict) and r.get("name") for r in rows):
-        return {}
+    if not isinstance(rows, list) or not rows or not all(isinstance(r, dict) and r.get("name") for r in rows):
+        return None
     return {r["name"]: r.get("endpointCount") for r in rows}
 
 
@@ -145,7 +147,7 @@ def parse_endpoints(text, router):
     The server answers a JSON list of {name: "router.endpoint", description}. It does not say query or mutation,
     except in the stand-in description it writes for a procedure that has none ("query combat.listOngoingBattles")."""
     rows = _json_or_none(text)
-    if not isinstance(rows, list):
+    if not isinstance(rows, list) or not router:
         return None
     out = {}
     for r in rows:
@@ -172,30 +174,60 @@ def source_kinds(path):
     return by_router, by_name, f"{os.path.relpath(path, ROOT)} ({d['_provenance'].get('source_drop')})"
 
 
-def build_surface(calls, kinds_from=None):
-    """The surface capture from the transcript calls. The newest answer to each call wins."""
-    raw = {"listGameRouters": None, "listRouterEndpoints": {}, "getEndpointSchema": {}}
-    failed, stamps = [], []
+def parse_schema(text, name):
+    """getEndpointSchema -> the input schema (a JSON Schema object), or None when the reply is not a whole, valid
+    answer for that endpoint (cut short, not JSON, another endpoint's, or without a schema object)."""
+    d = _json_or_none(text)
+    schema = d.get("inputSchema") if isinstance(d, dict) and d.get("endpointName") == name else None
+    return schema if valid_schema(schema) else None
+
+
+def valid_schema(schema):
+    """A captured input schema is a JSON Schema object, as the server sent it."""
+    return isinstance(schema, dict)
+
+
+def shapeless(schema):
+    """True for a schema that says nothing about the input (the server sends {"$schema": ...} and no more for a
+    procedure whose input it cannot describe). It is the server's real answer, so it is kept and pointed out."""
+    return valid_schema(schema) and "type" not in schema and "properties" not in schema
+
+
+def sort_replies(calls):
+    """Sort the transcript's replies by call. Only a reply that parsed is an answer: the newest good reply to each
+    call is kept, and a call that failed or came back unreadable is unanswered unless some reply to it parsed.
+    Returns (routers, lists, schemas, failed, unparsed, stamps)."""
+    routers, lists, schemas, failed, unparsed, stamps = None, {}, {}, set(), set(), []
     for tool, inp, text, ts in calls:
         key = inp.get("routerName") if tool == "listRouterEndpoints" else inp.get("endpointName")
+        label = f"{tool} {key or ''}".strip()
         if text is None:
-            failed.append(f"{tool} {key or ''}".strip())
+            failed.add(label)
+            continue
+        good = (parse_routers(text) if tool == "listGameRouters" else
+                parse_endpoints(text, key) if tool == "listRouterEndpoints" else parse_schema(text, key))
+        if good is None:
+            unparsed.add(label)
             continue
         stamps.append(ts)
         if tool == "listGameRouters":
-            raw[tool] = text
+            routers = good
         else:
-            raw[tool][key] = text
-    if raw["listGameRouters"] is None:
-        raise SystemExit("no listGameRouters result in the transcripts")
-    names = parse_routers(raw["listGameRouters"])
-    if not names:
-        raise SystemExit("listGameRouters result did not parse; raw text:\n" + raw["listGameRouters"][:400])
+            (lists if tool == "listRouterEndpoints" else schemas)[key] = good
+    answered = {"listGameRouters"} if routers is not None else set()
+    answered |= {f"listRouterEndpoints {k}" for k in lists} | {f"getEndpointSchema {k}" for k in schemas}
+    return routers, lists, schemas, failed - answered, unparsed - answered, stamps
+
+
+def build_surface(calls, kinds_from=None):
+    """The surface capture from the transcript calls."""
+    names, lists, schemas, failed, unparsed, stamps = sort_replies(calls)
+    if names is None:
+        raise SystemExit("no listGameRouters reply that parses in the transcripts")
     by_router, by_name, label = source_kinds(kinds_from) if kinds_from else ({}, {}, None)
-    routers, missing, miscount, bad_schema = {}, [], [], []
+    routers, missing, miscount = {}, [], []
     for name, count in names.items():
-        text = raw["listRouterEndpoints"].get(name)
-        eps = parse_endpoints(text, name) if text is not None else None
+        eps = lists.get(name)
         if eps is None:
             missing.append(name)
             routers[name] = {"endpointCount": count, "endpoints": None}
@@ -210,25 +242,16 @@ def build_surface(calls, kinds_from=None):
                 elif len(by_name.get(ep, ())) == 1:
                     row["type"] = next(iter(by_name[ep]))
                     row["type_source"] = f"source extract, by endpoint name under another router: {label}"
-            row["schema"] = None
-            text = raw["getEndpointSchema"].get(f"{name}.{ep}")
-            if text is not None:
-                d = _json_or_none(text)
-                if isinstance(d, dict) and d.get("endpointName") == f"{name}.{ep}" and "inputSchema" in d:
-                    row["schema"] = d["inputSchema"]
-                else:
-                    bad_schema.append(f"{name}.{ep}")
+            row["schema"] = schemas.get(f"{name}.{ep}")
         routers[name] = {"endpointCount": count, "endpoints": eps}
-    known = {f"listRouterEndpoints {n}" for n in names if n not in missing} | \
-        {f"getEndpointSchema {k}" for k in raw["getEndpointSchema"]}
     all_eps = [e for r in routers.values() for e in (r["endpoints"] or {}).values()]
+    listed = {f"{n}.{ep}" for n, r in routers.items() for ep in (r["endpoints"] or {})}
     return {"_meta": {
         "origin": "live: the TNR connector's own listGameRouters / listRouterEndpoints / getEndpointSchema results, "
                   "read out of the session transcripts by scripts/player_allowlist.py surface",
         "live": True,
         "captured": {"first": min(stamps) if stamps else None, "last": max(stamps) if stamps else None},
-        "answered_calls": {"listGameRouters": 1, "listRouterEndpoints": len(raw["listRouterEndpoints"]),
-                           "getEndpointSchema": len(raw["getEndpointSchema"])},
+        "answered_calls": {"listGameRouters": 1, "listRouterEndpoints": len(lists), "getEndpointSchema": len(schemas)},
         "counts": {"routers": len(routers), "endpoints": len(all_eps),
                    "schemas": sum(1 for e in all_eps if e["schema"] is not None),
                    "typed": sum(1 for e in all_eps if e["type"]),
@@ -236,12 +259,31 @@ def build_surface(calls, kinds_from=None):
         "type_note": "The server does not say whether an endpoint is a query or a mutation. 'type' comes from "
                      "'type_source': the server's own stand-in description, or the pinned source extract, which is "
                      "older than the live server. An endpoint with neither has type null.",
+        "answer_note": "Only a reply that parsed counts as an answer. A call is unanswered when it failed, or came "
+                       "back cut short or unreadable, and no other reply to the same call parsed.",
         "routers_without_endpoint_list": missing,
         "endpoint_count_mismatch": miscount,
-        "schemas_that_did_not_parse": bad_schema,
-        "failed_calls_not_answered_later": sorted(set(failed) - known),
+        "replies_that_did_not_parse": sorted(unparsed),
+        "failed_calls_never_answered": sorted(failed),
+        "schemas_for_endpoints_not_listed": sorted(set(schemas) - listed),
+        "schemas_that_say_nothing": sorted(k for k, v in schemas.items() if shapeless(v)),
         "contract": "GENERATED capture. Do not hand-edit; re-run the surface command."},
         "routers": routers}
+
+
+CAPTURE_FAULTS = (("routers_without_endpoint_list", "no endpoint list for router"),
+                  ("endpoint_count_mismatch", "the router's count and its list differ:"),
+                  ("replies_that_did_not_parse", "a reply did not parse and was never answered:"),
+                  ("failed_calls_never_answered", "a call failed and was never answered:"),
+                  ("schemas_for_endpoints_not_listed", "a schema came back for an endpoint no router lists:"))
+
+
+def capture_errors(surface):
+    """What is wrong with a live capture as a whole: every fault its builder recorded is a violation."""
+    meta = surface["_meta"]
+    if not meta.get("live"):
+        return []
+    return [f"capture: {what} {item}" for key, what in CAPTURE_FAULTS for item in meta.get(key) or []]
 
 
 def surface_from_source(path):
@@ -279,8 +321,7 @@ def cmd_surface(a):
           f"endpoints, {m['counts']['schemas']} schemas ({'live' if m['live'] else 'NOT live'})")
     if m["live"]:
         print(f"  query or mutation known for {m['counts']['typed']}, unknown for {m['counts']['untyped']}")
-    for k in ("routers_without_endpoint_list", "endpoint_count_mismatch", "schemas_that_did_not_parse",
-              "failed_calls_not_answered_later"):
+    for k, _ in CAPTURE_FAULTS:
         if m.get(k):
             print(f"  {k}: {', '.join(m[k])}")
     return 0
@@ -299,11 +340,15 @@ def rule_hits(rule, name, kind=None):
     return any(re.search(p, name) for p in rule.get("patterns", ()))
 
 
+def surface_row(surface, name):
+    """The surface's row for an endpoint; KeyError when it is not there."""
+    router, ep = name.split(".", 1)
+    return ((surface["routers"].get(router) or {}).get("endpoints") or {})[ep]
+
+
 def surface_kind(surface, name):
     """'read' / 'action' / None (unknown type) for an endpoint on the surface; KeyError when it is not there."""
-    router, ep = name.split(".", 1)
-    row = ((surface["routers"].get(router) or {}).get("endpoints") or {})[ep]
-    return {"query": "read", "mutation": "action"}.get((row.get("type") or "").lower())
+    return {"query": "read", "mutation": "action"}.get((surface_row(surface, name).get("type") or "").lower())
 
 
 def code_endpoints(dirs, routers):
@@ -377,6 +422,11 @@ def check(allow, surface=None, code_dirs=()):
                 notes.append(f"{name}: the surface does not state query or mutation; kind unchecked")
             elif live != e.get("kind"):
                 errs.append(f"{name}: listed as {e.get('kind')} but the surface says {live}")
+            schema = surface_row(surface, name).get("schema")
+            if surface["_meta"].get("live") and not valid_schema(schema):
+                errs.append(f"{name}: the capture holds no valid input schema for it")
+            elif shapeless(schema):
+                notes.append(f"{name}: the game publishes no input shape for it (its schema says nothing)")
     # 6. code
     if code_dirs:
         routers = set(surface["routers"]) if surface is not None else {n.split(".", 1)[0] for n in eps}
@@ -384,8 +434,10 @@ def check(allow, surface=None, code_dirs=()):
         for name, files in sorted(code_endpoints(code_dirs, routers).items()):
             if name not in eps and name not in not_calls:
                 errs.append(f"{name}: sent by the player code ({', '.join(sorted(set(files)))}) but not on the list")
-    if surface is not None and not surface["_meta"].get("live"):
-        notes.append("the surface is the source stand-in, not a live capture: this run does not approve anything")
+    if surface is not None:
+        errs += capture_errors(surface)
+        if not surface["_meta"].get("live"):
+            notes.append("the surface is the source stand-in, not a live capture: this run does not approve anything")
     return errs, notes
 
 
