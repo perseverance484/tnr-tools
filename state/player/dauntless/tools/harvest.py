@@ -47,12 +47,13 @@ def next_calls(h, n=1):
     out = []
     pending = [b for b, v in h["battles"].items() if not v.get("fetched")]
     pending.sort(key=lambda b: h["battles"][b].get("createdAt") or "", reverse=True)
-    for b in pending[:n]:
+    # at most one call per endpoint per batch: the pilot reads the newest result of each endpoint per tick
+    for b in pending[:1]:
         out.append(("combat.getBattleEntries", {"battleId": b, "limit": 400}, ENT_SEL))
     if len(out) < n:
         now = time.time()
         stale = sorted((v.get("crawled", 0), u) for u, v in h["users"].items() if now - v.get("crawled", 0) > USER_EVERY)
-        for _, u in stale[:n - len(out)]:
+        for _, u in stale[:1]:
             out.append(("combat.getBattleHistory", {"userId": u, "limit": MAX_BATTLES_PER_USER, "combatTypes": PVP},
                         HIST_SEL))
     return out
