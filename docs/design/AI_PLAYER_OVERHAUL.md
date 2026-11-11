@@ -246,7 +246,9 @@ The state machine applies a card when the live state shows that cast. Every cloc
 time-to-kill then comes from the card, and nothing is estimated. It replaces the hand-written kit specs.
 
 What stays uncertain is only *which* card he picks next. That is why the planner works in windows and hedges
-(§5.2).
+(§5.2). The archive stores every fight as card ids plus the exact live state of each round, so his behaviour models
+learn from clean inputs as the data grows. Prediction counts in the planner only while it beats the base rate on
+held-out fights.
 
 ### 5.2 Decision
 

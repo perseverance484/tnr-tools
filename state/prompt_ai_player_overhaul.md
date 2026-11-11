@@ -147,6 +147,14 @@ and also our own jutsu … we know exactly which clocks and weights move on the 
 - **Per fight:** `fight_bases.py` rescales the damage on the cards in both kits to the actual matchup.
 - **Replaces** the hand-written kit specs (`shotplan.MINE`, `clock.compile_record`, the generic kit), which AP6 then
   deletes.
+- **Clean inputs for opponent models.** Every fight's archive stores his turns as atlas card ids, with the exact
+  live state of each round (HP, the live arrays, his ready cards per his clock, seat).
+  - **Purpose:** his behaviour models train on exactly what he could do and what he faced, not on log text.
+  - **Prediction:** stays weak until the data grows (director, 2026-11-11: "you won't be able to guess correctly
+    without more data … but this way the inputs are clean").
+  - **Re-checks:** held-out accuracy (exact turn, type of turn, his damage in the round) is re-measured monthly. A
+    prediction term weighs in the planner only while it beats the base rate on held-out fights. Until then the
+    planner plans on windows and the hedge.
 - **Gate:**
   - every action in every logged fight resolves to a card;
   - one card applied alone matches the engine within 1% on damage and on every effect's value and timing, over a
