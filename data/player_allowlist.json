@@ -1,15 +1,15 @@
 {
  "_meta": {
-  "status": "DRAFT for the director's approval (AP0 gate, state/prompt_ai_player_overhaul.md section 3). Checked against the live capture data/mcp_surface.json.",
+  "status": "APPROVED by the director 2026-11-11 (RUL-2026-11-11-149), with the changes he ruled the same day: captchas are answered, one level transfer a day, hidden records stay hidden.",
   "what": "Every game endpoint the AI player may call through the official TNR connector. The runner refuses any endpoint that is not under 'endpoints' (state/prompt_playing_tnr.md section 4.2).",
   "rules_of_record": [
    "state/prompt_ai_player_overhaul.md section 2 (never, ask first)",
    "state/prompt_playing_tnr.md sections 3 (never in player mode) and 5 (conduct, safety stops)",
    "CLAUDE.md section 6 (the connector never-list)",
-   "docs/rulings: RUL-2026-11-09-139, -145, -146, RUL-2026-11-11-147, -148"
+   "docs/rulings: RUL-2026-11-09-139, -145, -146, RUL-2026-11-11-147, -148, -149"
   ],
   "check": "python3 scripts/player_allowlist.py check   (shape, never rules, ask-first rules, call gates, the captured surface, the endpoints the code sends)",
-  "surface": "data/mcp_surface.json: the live capture of 2026-11-11 (79 routers, 941 endpoints; input schemas for the 89 endpoints on this list), written by scripts/player_allowlist.py surface from the connector's own results",
+  "surface": "data/mcp_surface.json: the live capture of 2026-11-11 (79 routers, 941 endpoints; input schemas for the 93 endpoints on this list), written by scripts/player_allowlist.py surface from the connector's own results",
   "change_rule": "Any change to this file is a reviewed edit (state/prompt_playing_tnr.md section 4.2). An entry never overrides a never rule: the check fails on the overlap.",
   "fields": {
    "kind": "read (a query) or action (a mutation)",
@@ -216,24 +216,6 @@
    ],
    "why": "marriage and other relationship actions",
    "source": "overhaul brief section 2; player brief section 5.4"
-  },
-  {
-   "id": "captcha",
-   "endpoints": [
-    "misc.getCaptcha",
-    "misc.refreshCaptcha",
-    "misc.verifyCaptcha"
-   ],
-   "why": "a training captcha is the game checking for a person; the rules do not say an AI player may answer it, so it stops and asks",
-   "source": "game rules 7.4 (rule gaps: ask and wait; bypass nothing)"
-  },
-  {
-   "id": "staff_free_path",
-   "endpoints": [
-    "jutsu.transferLevel"
-   ],
-   "why": "level transfers are free for this account because it is a staff account; in play that is a staff power unless the director rules otherwise",
-   "source": "state/player/dauntless/jutsu_training.md; game rules 6.3; overhaul brief section 2"
   }
  ],
  "call_gates": {
@@ -278,20 +260,12 @@
    "source": "overhaul brief section 2 (any ryo spend above the caps); design section 9 item 3"
   },
   "player_visible_only": {
-   "rule": "Only what any player can see through normal play: no hidden or unreleased record, no staff-only field.",
-   "source": "game rules 7.4 (information access); player brief section 5.2"
+   "rule": "Only what any player can see through normal play: no hidden or unreleased record, no staff-only field. Hidden records are treated as hidden.",
+   "source": "game rules 7.4 (information access); player brief section 5.2; RUL-2026-11-11-149 item 4"
   },
   "study_only": {
    "rule": "Other players' fights are read to study combat, between fights only (RUL-2026-11-09-146). Whether a read of this kind is open to any player, and whether live play may use what it learned about a named opponent, is a question for the director.",
    "source": "RUL-2026-11-09-146; overhaul brief section 2 (other players' data beyond normal play)"
-  },
-  "no_captcha_answer": {
-   "rule": "The call never carries a captcha answer (the optional guess field). A training captcha stops stat training and becomes a pending decision.",
-   "required_on": [
-    "train.startTraining",
-    "train.updateEnergyTrainingQueue"
-   ],
-   "source": "ask-first rule captcha; live schemas 2026-11-11 (train.startTraining and train.updateEnergyTrainingQueue take an optional guess)"
   },
   "own_account_only": {
    "rule": "A userId the call carries is my own.",
@@ -303,6 +277,13 @@
     "auction.createAuctionListing"
    ],
    "source": "RUL-2026-11-09-145 item 3 (no trade requests); overhaul brief section 2 (premium currency)"
+  },
+  "one_transfer_a_day": {
+   "rule": "At most one jutsu.transferLevel call a day. That one call may move any number of levels from one jutsu to another.",
+   "required_on": [
+    "jutsu.transferLevel"
+   ],
+   "source": "RUL-2026-11-11-149 item 3"
   }
  },
  "not_calls": {
@@ -735,11 +716,8 @@
    ],
    "phase": "AP2",
    "status": "in_use",
-   "prerequisites": "in the village sector; energy to spend; intelligence or willpower, whichever trails",
+   "prerequisites": "in the village sector; energy to spend; intelligence or willpower, whichever trails; a pending training captcha is answered first (guess)",
    "cooldown": "when energy passes 2,500 (a trip) or 200 (already home); a refusal waits 30 min",
-   "gates": [
-    "no_captcha_answer"
-   ],
    "evidence": "pilot.py world; restock.py training_plan"
   },
   "train.updateEnergyTrainingQueue": {
@@ -749,11 +727,8 @@
    ],
    "phase": "AP2",
    "status": "documented",
-   "prerequisites": "in the home village",
+   "prerequisites": "in the home village; a pending training captcha is answered first (guess)",
    "cooldown": "at session end",
-   "gates": [
-    "no_captcha_answer"
-   ],
    "evidence": "tnr-pvp-combat section 0"
   },
   "profile.useUnusedExperiencePoints": {
@@ -1395,6 +1370,53 @@
    "cooldown": "to be set by the farming playbook",
    "ask_first": "sell_rare_items",
    "evidence": "live surface 2026-11-11: 'Sell a farm crop for farm currency'"
+  },
+  "misc.getCaptcha": {
+   "kind": "read",
+   "activity": [
+    "training"
+   ],
+   "phase": "AP2",
+   "status": "proposed",
+   "prerequisites": "a training captcha is pending",
+   "cooldown": "when stat training asks for one",
+   "evidence": "RUL-2026-11-11-149 item 2; live surface 2026-11-11: 'Get captcha for verification'"
+  },
+  "misc.refreshCaptcha": {
+   "kind": "action",
+   "activity": [
+    "training"
+   ],
+   "phase": "AP2",
+   "status": "proposed",
+   "prerequisites": "a pending captcha that cannot be read",
+   "cooldown": "at most once per captcha, then the player tells the director",
+   "evidence": "RUL-2026-11-11-149 item 2; live surface 2026-11-11: 'Replace the pending captcha with a new one'"
+  },
+  "misc.verifyCaptcha": {
+   "kind": "action",
+   "activity": [
+    "training"
+   ],
+   "phase": "AP2",
+   "status": "proposed",
+   "prerequisites": "a pending captcha and an answer for it (1 to 20 characters)",
+   "cooldown": "one answer per captcha; a wrong answer is not guessed again blind",
+   "evidence": "RUL-2026-11-11-149 item 2; live surface 2026-11-11: 'Answer the pending training captcha'"
+  },
+  "jutsu.transferLevel": {
+   "kind": "action",
+   "activity": [
+    "training"
+   ],
+   "phase": "AP2",
+   "status": "documented",
+   "prerequisites": "source jutsu at level 10 or more, target at most 25 after it; queued training on either is cancelled first",
+   "cooldown": "one transfer a day",
+   "gates": [
+    "one_transfer_a_day"
+   ],
+   "evidence": "RUL-2026-11-11-149 item 3; state/player/dauntless/jutsu_training.md"
   }
  }
 }

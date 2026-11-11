@@ -1,19 +1,19 @@
 {
  "_meta": {
   "answered_calls": {
-   "getEndpointSchema": 89,
+   "getEndpointSchema": 93,
    "listGameRouters": 1,
    "listRouterEndpoints": 79
   },
   "captured": {
    "first": "2026-11-11T19:48:38.039Z",
-   "last": "2026-11-11T20:01:41.666Z"
+   "last": "2026-11-11T20:22:31.507Z"
   },
   "contract": "GENERATED capture. Do not hand-edit; re-run the surface command.",
   "counts": {
    "endpoints": 941,
    "routers": 79,
-   "schemas": 89,
+   "schemas": 93,
    "typed": 931,
    "untyped": 10
   },
@@ -3985,7 +3985,29 @@
     },
     "transferLevel": {
      "description": "Transfer levels between jutsus",
-     "schema": null,
+     "schema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "additionalProperties": false,
+      "properties": {
+       "fromJutsuId": {
+        "type": "string"
+       },
+       "toJutsuId": {
+        "type": "string"
+       },
+       "transferLevels": {
+        "maximum": 9007199254740991,
+        "minimum": 1,
+        "type": "integer"
+       }
+      },
+      "required": [
+       "fromJutsuId",
+       "toJutsuId",
+       "transferLevels"
+      ],
+      "type": "object"
+     },
      "type": "mutation",
      "type_source": "source extract: skills/building-tnr-content/data/45f_DATA_procedures.json (git:studie-tech/TheNinjaRPG@3314d122 (2026-10-29))"
     },
@@ -4373,7 +4395,12 @@
     },
     "getCaptcha": {
      "description": "Get captcha for verification",
-     "schema": null,
+     "schema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "additionalProperties": false,
+      "properties": {},
+      "type": "object"
+     },
      "type": "query",
      "type_source": "source extract: skills/building-tnr-content/data/45f_DATA_procedures.json (git:studie-tech/TheNinjaRPG@3314d122 (2026-10-29))"
     },
@@ -4432,7 +4459,12 @@
     },
     "refreshCaptcha": {
      "description": "Replace the pending captcha with a new one",
-     "schema": null,
+     "schema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "additionalProperties": false,
+      "properties": {},
+      "type": "object"
+     },
      "type": "mutation",
      "type_source": "source extract: skills/building-tnr-content/data/45f_DATA_procedures.json (git:studie-tech/TheNinjaRPG@3314d122 (2026-10-29))"
     },
@@ -4504,7 +4536,21 @@
     },
     "verifyCaptcha": {
      "description": "Answer the pending training captcha",
-     "schema": null,
+     "schema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "additionalProperties": false,
+      "properties": {
+       "guess": {
+        "maxLength": 20,
+        "minLength": 1,
+        "type": "string"
+       }
+      },
+      "required": [
+       "guess"
+      ],
+      "type": "object"
+     },
      "type": "mutation",
      "type_source": "source extract: skills/building-tnr-content/data/45f_DATA_procedures.json (git:studie-tech/TheNinjaRPG@3314d122 (2026-10-29))"
     }

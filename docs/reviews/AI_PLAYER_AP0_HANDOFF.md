@@ -165,3 +165,36 @@ Not due yet: equipment-swap scope and spend caps (AP2), PvE auto-combat scope an
 - The 33 `proposed` entries: each should be a call a normal player makes on their own account.
 - `scripts/player_allowlist.py` `read_transcripts` and `build_surface`: that a failed or truncated result cannot
   enter the capture as an answer.
+
+## The director's answer, and what changed after it (2026-11-11)
+
+The director answered the handoff the same day: RUL-2026-11-11-149. The corrections sit on this branch after
+`a95dfd1e`; the new head is in the correction message.
+
+| Ruling | Change |
+|---|---|
+| The allowlist is approved | `data/player_allowlist.json` status is APPROVED. |
+| Captchas are answered | The three captcha endpoints are on the list (status `proposed`, AP2); the stop-and-ask rule and the `no_captcha_answer` gate are gone. |
+| One level transfer a day | `jutsu.transferLevel` is on the list behind the gate `one_transfer_a_day`; the `staff_free_path` rule is gone. |
+| Hidden records stay hidden | `harness/pvp_turn/tools/build_catalog.py` leaves out every hidden jutsu, item and bloodline (902 and 1 on this tree, from staff captures under `harvests/`); `fetch_catalog.py` no longer asks for them; `add_record.py` refuses one. New tests: `scripts/test_player_catalog.py`. |
+| The capture may be trimmed | The three hidden pulls are out of `harvests/inbox/tnr_results_1794368544997.json`: 7.87 MB to 4.56 MB. `scripts/check_large_files.py` now exits 0, which closes debt 1. |
+| Goal weights; session windows and call share | Recorded in the ruling; they seed `player/goals.json` and the call budget in AP1. |
+
+The list is now 93 endpoints (35 read, 58 action, 4 ask first), 7 never rules, 4 ask-first rules, 11 call gates, and
+the capture holds 93 schemas (4 more `getEndpointSchema` reads at 20:22 UTC, with the run lock free; still no
+`callEndpoint`).
+
+What the hidden-records ruling costs: five records that logged opponents used or had equipped are hidden and are
+now out of the catalogue (Stone Coffin, Mirror Edge, Numbing Senbon, Springguard, Twin Kunai). A replay that meets
+one has a catalogue gap and falls back to the planner's estimate. None of the player's own kit is hidden. The engine
+replay tools were not run here (no offline engine on this machine), so the effect on `engine_check` and `tune_real`
+is not measured. Duet's live pilot builds its own catalogue from its own branch and still has the hidden records
+until it takes these changes.
+
+Still open: finding 4 (may live play use harvested fights of named opponents). The ruling did not cover it.
+
+Verification after the corrections: the four player tests (exit 0 each); `python3 -m unittest
+scripts/test_player_allowlist.py scripts/test_player_catalog.py` (39 tests, OK); `player_allowlist.py check` (clean)
+and `report --check` (current); `rulings_index.py --check` (current); `check_large_files.py` (exit 0);
+`check_no_real_name.py` (exit 0).
+

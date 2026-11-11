@@ -54,6 +54,8 @@ loses a turn, learns from every real fight, and stays inside the game rules and 
 - **No credentials.** The brain never sees connector credentials. Agents carry calls; the brain only describes them.
 - **Never the director's real name**, in anything.
 - **Bugs and exploits** found in play are reported and avoided, never used.
+- **Director's rulings on the AP0 handoff** (RUL-2026-11-11-149): hidden records are treated as hidden; captchas
+  are answered; `jutsu.transferLevel` is allowed once a day, the one staff-free path in play.
 
 ## 3. Phases
 
@@ -153,9 +155,9 @@ findings pipeline.
 
 From design §9. Ask before the phase that needs each one:
 
-1. Goal weights (AP1).
+1. Goal weights (AP1). Decided: RUL-2026-11-11-149 item 5.
 2. Equipment-swap scope (AP2).
 3. Spend caps (AP2).
 4. PvE auto-combat scope (AP3).
-5. Session windows and call share (AP1).
+5. Session windows and call share (AP1). Decided: RUL-2026-11-11-149 item 6.
 6. Which further modes first (AP5).

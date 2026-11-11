@@ -136,14 +136,6 @@ class AskFirstRules(unittest.TestCase):
         self.assertTrue(any("ASK FIRST (marriage" in x for x in errors("marriage.createRequest", entry())))
         self.assertEqual(errors("marriage.getRequests", entry("read")), [])
 
-    def test_a_training_captcha_stops_the_player(self):
-        for name in ("misc.getCaptcha", "misc.verifyCaptcha"):
-            kind = "read" if "get" in name else "action"
-            self.assertTrue(any("ASK FIRST (captcha" in x for x in errors(name, entry(kind))), name)
-
-    def test_the_staff_free_level_transfer(self):
-        self.assertTrue(any("ASK FIRST (staff_free_path" in x for x in errors("jutsu.transferLevel", entry())))
-
     def test_an_unknown_ask_first_rule_is_an_error(self):
         self.assertTrue(errors("bank.toBank", entry(ask_first="whenever")))
 
@@ -160,6 +152,18 @@ class CallGates(unittest.TestCase):
 
     def test_do_not_attack_is_required_on_robbing(self):
         self.assertTrue(any("'do_not_attack' is required" in x for x in errors("travel.robPlayer", entry())))
+
+    def test_one_level_transfer_a_day(self):
+        self.assertTrue(any("'one_transfer_a_day' is required" in x for x in errors("jutsu.transferLevel", entry())))
+        self.assertEqual(errors("jutsu.transferLevel", entry(gates=["one_transfer_a_day"])), [])
+        self.assertIn("one_transfer_a_day", ALLOW["endpoints"]["jutsu.transferLevel"]["gates"])
+
+    def test_captchas_are_answered(self):
+        # RUL-2026-11-11-149 item 2: the three captcha endpoints are on the list and no rule stops them
+        for name in ("misc.getCaptcha", "misc.refreshCaptcha", "misc.verifyCaptcha"):
+            self.assertIn(name, ALLOW["endpoints"])
+            self.assertNotIn("ask_first", ALLOW["endpoints"][name])
+        self.assertNotIn("no_captcha_answer", ALLOW["call_gates"])
 
     def test_spend_cap_is_required_on_ryo_spends(self):
         self.assertTrue(any("'spend_cap' is required" in x for x in errors("jutsu.startTraining", entry())))

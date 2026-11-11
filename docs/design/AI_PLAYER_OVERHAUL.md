@@ -390,10 +390,12 @@ The fight simulator stays as a smoke test, not a gate.
 ## 9. Decisions for the director
 
 1. **Goals and weights:** what the account should progress first. This seeds `player/goals.json`.
+   Decided: RUL-2026-11-11-149 item 5.
 2. **Equipment swapping:** the PvP brief says not to change loadouts or gear unless told to. This overhaul asks for
    swaps "as needed". Confirm the scope: loadouts per activity, weapon swaps, and equipping upgrades already owned.
    Buying gear stays under the spend caps.
 3. **Spend caps:** the daily ryo cap and reserve (today 3M/day, 500k reserve); auction price caps.
 4. **PvE auto-combat:** confirm auto-combat for every AI fight, or only for missions and errands.
 5. **Session windows:** when the brain may run, and its share of the 30 calls a minute while you play.
+   Decided: RUL-2026-11-11-149 item 6.
 6. **Which further modes to enable first:** ranked, tournament, war, bounty, shrine.
