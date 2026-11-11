@@ -73,7 +73,8 @@ aimed at the wrong tile, cooldowns from older fight states). `results/validation
 
 ## Catalog refresh, gear and bloodlines (2026-11-11)
 - `tools/fetch_catalog.py`: unauthenticated read-only public GETs on https://www.theninja-rpg.com (jutsu, items,
-  bloodlines; visible + hidden, every page) into one `harvests/inbox` capture, then `build_catalog.py`. 2026-11-11:
+  bloodlines; visible records only, every page) into one `harvests/inbox` capture, then `build_catalog.py`. Hidden
+  records are never asked for and `build_catalog.py` leaves out any it finds in a capture (RUL-2026-11-11-149). 2026-11-11:
   2,043 jutsu, 932 items, 101 bloodlines. Run between fights.
 - Gear: the replay equips real worn gear (mine from `item.getUserItems`; opponents: the Kaeruun endgame set with
   Fortify III and a Subaku Mask) and bloodline rows; the engine folds gear into its pre-battle stage. Gear given

@@ -3,7 +3,9 @@
 from the live source"; the public read surface already serves these to any visitor).
 
 Unauthenticated, read-only tRPC GETs on https://www.theninja-rpg.com (no cookies, no credentials, no mutations):
-  jutsu.getAll, item.getAll and bloodline.getAll, each visible + hidden (AI and pet jutsu included), every page.
+  jutsu.getAll, item.getAll and bloodline.getAll, visible records only, every page. Hidden records are not asked
+  for (director 2026-11-11, RUL-2026-11-11-149: "Do not use hidden records, treat them like they are actually
+  hidden"), and build_catalog.py leaves out any that arrive another way.
 Writes one capture to harvests/inbox/tnr_results_<ms>.json (same shape as the 2026-10-23 public-read capture), then
 rebuilds kit/catalog.json and kit/bloodlines.json with build_catalog.py. Run between fights, never during one.
 Usage: fetch_catalog.py [--dry-run]
@@ -51,16 +53,17 @@ def pages(proc, base, limit):
         time.sleep(0.5)
 
 
+# visible records only: never a "hidden": True pull (RUL-2026-11-11-149)
+PULLS = [
+    ("jutsu (visible)", "jutsu.getAll", {"hidden": False}, 1000),
+    ("items (visible)", "item.getAll", {"minCost": 0, "minRepsCost": 0, "minSeichiSilverCost": 0}, 500),
+    ("bloodlines (visible)", "bloodline.getAll", {}, 500),
+]
+
+
 def main():
     caps, counts = [], {}
-    for name, proc, base, limit in [
-        ("jutsu (visible)", "jutsu.getAll", {"hidden": False}, 1000),
-        ("jutsu (hidden)", "jutsu.getAll", {"hidden": True}, 1000),
-        ("items (visible)", "item.getAll", {"minCost": 0, "minRepsCost": 0, "minSeichiSilverCost": 0}, 500),
-        ("items (hidden)", "item.getAll", {"minCost": 0, "minRepsCost": 0, "minSeichiSilverCost": 0, "hidden": True}, 500),
-        ("bloodlines (visible)", "bloodline.getAll", {}, 500),
-        ("bloodlines (hidden)", "bloodline.getAll", {"hidden": True}, 500),
-    ]:
+    for name, proc, base, limit in PULLS:
         try:
             rows, out = pages(proc, base, limit)
         except Exception as err:  # noqa: BLE001
@@ -72,7 +75,7 @@ def main():
     doc = {"builder": "public-read (Claude Code; director-approved catalog refresh 2026-11-11)",
            "at": now.isoformat(timespec="milliseconds").replace("+00:00", "Z"), "cfg": "public-read", "state": "DONE",
            "outcome": "success" if counts else "failed",
-           "_note": "Unauthenticated public reads of jutsu.getAll (visible and hidden), item.getAll and bloodline.getAll "
+           "_note": "Unauthenticated public reads of jutsu.getAll, item.getAll and bloodline.getAll (visible records only) "
                     "for the offline PvP harness catalog. No credentials, zero mutations. Counts: " + json.dumps(counts),
            "captures": caps}
     print("counts:", counts)

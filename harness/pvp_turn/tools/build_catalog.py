@@ -9,6 +9,10 @@ patch (connector reads of the engine fields: effects, target, range, cooldown, m
 jutsu type, bloodline) replaces those fields when its updatedAt is newer; cosmetic effect keys (sfx, animations,
 description) are carried over from the old copy of the same effect type, else "". No live calls.
 
+Hidden records are left out (director 2026-11-11, RUL-2026-11-11-149: "Do not use hidden records, treat them like
+they are actually hidden"): a jutsu, item or bloodline whose newest copy says hidden never reaches the catalog,
+whichever capture or patch it came from. The player meets such a record only as a log line in a fight.
+
 Output: harness/pvp_turn/kit/catalog.json  {id: {"record": {...}, "kind": "jutsu"|"item", "source": path, "updatedAt"}}
 (gitignored: derived from committed harvests, rebuild with this script).
 Usage: build_catalog.py [--check ID ...]   (--check prints which of the given ids are in the catalog)
@@ -48,7 +52,11 @@ def is_bloodline(rec):
             and rec.get("rank") in ("D", "C", "B", "A", "S", "H"))
 
 
-def build():
+def build(repo=None, kit=None):
+    """Build kit/catalog.json and kit/bloodlines.json; returns the catalog. repo / kit default to this repository
+    (the tests point them at a temporary tree)."""
+    REPO, KIT = repo or globals()["REPO"], kit or globals()["KIT"]
+    OUT = os.path.join(KIT, "catalog.json")
     best = {}
     bls = {}
     for path in sorted(glob.glob(os.path.join(REPO, "harvests/**/*.json"), recursive=True)):
@@ -109,6 +117,11 @@ def build():
                 b = json.loads(line)
                 if (b.get("updatedAt") or "") >= (bls.get(b["id"], {}).get("updatedAt") or ""):
                     bls[b["id"]] = b
+    # hidden records never reach the player: checked last, on the newest copy, so no capture or patch can add one
+    n_all, n_bl = len(out), len(bls)
+    out = {i: v for i, v in out.items() if not v["record"].get("hidden")}
+    bls = {i: b for i, b in bls.items() if not b.get("hidden")}
+    print(f"hidden, left out: {n_all - len(out)} jutsu and items, {n_bl - len(bls)} bloodlines")
     json.dump(bls, open(os.path.join(KIT, "bloodlines.json"), "w"), separators=(",", ":"))
     print(f"bloodlines: {len(bls)} -> harness/pvp_turn/kit/bloodlines.json")
     json.dump(out, open(OUT, "w"), separators=(",", ":"))
