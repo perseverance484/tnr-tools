@@ -38,6 +38,7 @@ sys.path.insert(0, HERE)
 import cd_plan  # noqa: E402
 import shotplan  # noqa: E402
 import value_model  # noqa: E402
+import engine_bridge  # noqa: E402
 from ingest import IDS, ME  # noqa: E402
 from policy import legal  # noqa: E402
 
@@ -219,6 +220,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("file"); ap.add_argument("--battle", required=True)
     ap.add_argument("--enemy"); ap.add_argument("--loadout", default="pvp1"); ap.add_argument("--top", type=int, default=3)
+    ap.add_argument("--no-engine", action="store_true", help="skip the exact engine re-score (harness/pvp_turn)")
     a = ap.parse_args()
     battle, me, others, rows = load_input(a.file)
     if not others:
@@ -427,10 +429,64 @@ def main():
         total = (1 - value_model.RISK) * ev + value_model.RISK * wv[1]
         follow = max(vals, key=lambda x: x[0])[2]
         log = list(worst[4]) + ([("me", R + 1, follow, 0, 0, 0, 0)] if follow else [])
-        results.append((total, b, log, why))
+        results.append((total, b, log, why, vals, outs))
     results.sort(key=lambda x: -x[0])
+    # exact re-score of the best 12 on the pinned engine (harness/pvp_turn): my turn + each reply option
+    engine_note = "engine: off"
+    if not a.no_engine:
+        top = results[:12]
+        seqs = [resolve_targets(b, me_pos, en_pos, occupied)[0] for _, b, *_ in top]
+        my_used = {}
+        for r, u, aid, _ in rows:
+            if u == ME and aid not in ("move", "wait"):
+                my_used[aid] = r
+        his_used = {}
+        if pierce_last is not None:
+            his_used[engine_bridge.NIGHTS] = pierce_last
+        if "smoke" in spent:
+            his_used[engine_bridge.SMOKE] = spent["smoke"]
+        if "clear" in spent:
+            his_used["clear"] = spent["clear"]
+        rep_names = sorted({engine_bridge.reply_name(o) for _, o in his_options(me0, hr)})
+        res = engine_bridge.evaluate([[(n, aid, t) for n, aid, t in sq] for sq in seqs], me, en, me_pos, en_pos, R,
+                                     me0, en0, my_used, his_used, [(1, n) for n in rep_names], cal, my_ap=ap_now,
+                                     his_turn="next" if en_acted else "same")
+        if res:
+            engine_note = "engine: exact (pinned TNR engine, offline)"
+            rescored = []
+            for (total, b, log, why, vals, outs), er in zip(top, res):
+                if not er.get("legal"):
+                    rescored.append((-1e9, b, log, [f"engine: illegal at {er.get('failedAt')} ({er.get('reason')})"], vals, outs))
+                    continue
+                pen, pwhy = penalties(b, ctx, cal)
+                rc, rwhy = value_model.reserve_cost(b, cal, R)
+                by_name = {x["name"]: x for x in er.get("replies", [])}
+                adj = []
+                for (w, v, b2), (w2, v1, m, e, lg, kill) in zip(vals, outs):
+                    f = v - v1  # python lookahead part kept
+                    opt = next((o for ww, o in his_options(me0, hr, b) if abs(ww - w) < 1e-9), None)
+                    rep = by_name.get(engine_bridge.reply_name(opt or []), None) if er.get("replies") else None
+                    if rep is not None and not rep.get("legal"):
+                        adj.append((w, v))  # engine says he cannot do this reply now: keep the python estimate
+                        continue
+                    me_hp = rep["me"] if rep else er["afterMe"]["me"]
+                    him_hp = rep["him"] if rep else er["afterMe"]["him"]
+                    em, ee = shotplan.Side(me_hp), shotplan.Side(him_hp)
+                    sc = value_model.score(em, ee, me["curHealth"], en["curHealth"])
+                    killed = him_hp <= 0
+                    adj.append((w, sc + (0 if killed else pen - rc) + f))
+                ev = sum(w * v for w, v in adj)
+                wv = min(v for _, v in adj)
+                t2 = (1 - value_model.RISK) * ev + value_model.RISK * wv
+                eng_log = [("me", R, b, 0, 0, er["afterMe"]["me"], er["afterMe"]["him"])] + [
+                    ("him", hr, [x["name"]], 0, 0, x["me"], x["him"]) for x in er.get("replies", [])[:2]]
+                rescored.append((t2, b, eng_log + [l for l in log if l[0] == "me" and l[1] == R + 1], why, vals, outs))
+            results = sorted(rescored + results[12:], key=lambda x: -x[0])
+        else:
+            engine_note = "engine: unavailable, python sim used"
+    print(engine_note)
     print(f"{len(bundles)} legal bundles. TOP {a.top}:")
-    for i, (sc, b, log, why) in enumerate(results[:a.top], 1):
+    for i, (sc, b, log, why, *_r) in enumerate(results[:a.top], 1):
         seq, end = resolve_targets(b, me_pos, en_pos, occupied)
         fire = " -> ".join(f"{x}@{t[0]},{t[1]}" for x, _, t in seq)
         fc = " | ".join(f"{w} R{r} {'+'.join(x)}: me {mh:.0f} / him {eh:.0f}" if w == "him" or r == R else
