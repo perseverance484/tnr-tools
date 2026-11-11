@@ -177,6 +177,43 @@ def test_missed_turn_fixes():
     print("ok: missed-turn fixes (no read on my turn, full polls, full start read, act through a refusal)")
 
 
+def test_kit_read():
+    """The opponent's kit read rides the poll until it saves, three tries at most (DDX g31Xew, 2026-11-11: one failed
+    read left the planner on a generic opponent); a saved kit is not read again and an AI has none. The poll under it
+    is still the full read."""
+    import importlib, sys as _s
+    d = tempfile.mkdtemp()
+    os.environ["TNR_PILOT_LIVE"] = d
+    _s.path.insert(0, HERE)
+    import pilot
+    importlib.reload(pilot)
+    battle, ents = [json.loads(l) for l in open(FIX).read().splitlines() if l.strip()]
+    foe = next(u for u in battle["battle.usersState.*.userId"] if u != pilot.ME)
+    battle["battle.activeUserId"] = foe                    # his turn: polls only, no planner run
+    known = {"saved": False}
+    pilot.kit_known = lambda user_id: known["saved"]
+    try:
+        st, asked = {}, []
+        for _ in range(4):
+            head, b = pilot.battle_tick(st, "KR1", dict(battle), None)
+            calls = [x.get("call") for x in b if x.get("call")]
+            assert "his turn" in head and calls[:2] == ["combat.getBattle", "combat.getBattleEntries"], (head, calls)
+            assert "battle.usersEffects" in b[1]["select"] and b[-1] == pilot.TICK, b       # Duet's full poll, then the tick
+            asked.append([x["input"] for x in b if x.get("call") == "jutsu.getPublicUserJutsus"])
+        assert asked == [[{"userId": foe}]] * 3 + [[]], asked                               # retried, then given up
+        known["saved"] = True                                                                # the read saved: no more
+        head, b = pilot.battle_tick(st, "KR2", dict(battle), None)
+        assert not any(x.get("call") == "jutsu.getPublicUserJutsus" for x in b), b
+        known["saved"] = False                                                               # an AI opponent has no kit read
+        ai = dict(battle, **{"battle.usersState.*.isAi": [u == foe for u in battle["battle.usersState.*.userId"]]})
+        head, b = pilot.battle_tick(st, "KR3", ai, None)
+        assert "AI turn" in head and not any(x.get("call") == "jutsu.getPublicUserJutsus" for x in b), (head, b)
+    finally:
+        importlib.reload(pilot)
+        os.environ.pop("TNR_PILOT_LIVE")
+    print("ok: kit read (retried on the poll until it saves; none for a saved kit or an AI)")
+
+
 if __name__ == "__main__":
     main()
 
@@ -253,82 +290,13 @@ def test_world():
     print("ok: world rules (target filters, circuit, wake, rest, heal, battle start, refusal memory, rate-limit backoff)")
 
 
-def test_lobby():
-    """'Battle has not started yet' (the 15 s lobby) bans nothing and clears the resend memory."""
-    import importlib, sys as _s
-    _s.path.insert(0, HERE)
-    import pilot
-    st = {"sent_plan": {"bid": "B", "v": 2, "first": "X"}, "banned": {"B": ["X"]}}
-    pilot.note_refusals(st, {"_acts": [({"battleId": "B", "actionId": "X"}, {"notification": "Battle has not started yet"})]})
-    assert st["sent_plan"] is None and "B" not in st["banned"], st
-    print("ok: lobby refusal bans nothing")
-
-
-def test_handoff():
-    """Director mode: my turn is left to the director for HANDOFF_WAIT s (poll only), then the pilot covers it."""
-    import importlib, sys as _s, time as _t
-    d = tempfile.mkdtemp()
-    os.environ["TNR_PILOT_LIVE"] = d
-    _s.path.insert(0, HERE)
-    import pilot
-    importlib.reload(pilot)
-    open(os.path.join(d, "director_mode"), "w").write("on")
-    battle, ents = [json.loads(l) for l in open(FIX).read().splitlines() if l.strip()]
-    st = {}
-    head, b = pilot.battle_tick(st, "HB1", dict(battle), None)
-    assert "reading the live state" in head and b[0]["select"][-1] == "battle.usersEffects", head   # exact state first
-    battle["battle.usersEffects"] = []
-    head, b = pilot.battle_tick(st, "HB1", dict(battle), None)
-    assert "director's move" in head and not any(x.get("call") == "combat.performAction" for x in b), head
-    for k in st["turn_seen"]:
-        st["turn_seen"][k] = _t.time() - 41
-    head, b = pilot.battle_tick(st, "HB1", dict(battle), None)
-    assert "MY TURN" in head and "director" not in head and st["pilot_turns"]["HB1"], head
-    os.environ.pop("TNR_PILOT_LIVE")
-    print("ok: director handoff (wait, then cover)")
-
-
-def test_restock():
-    """A due restock reads items first; with Kim's empty and Smoke at home it buys Kim's and takes Smoke out."""
-    head, b = run_world([user()], "hunt", {"restock": {"next": 0, "pass": 0, "active": False}})
-    assert "upkeep: reading items" in head and b[0]["call"] == "item.getUserItems", (head, b[:1])
-    assert {"jutsu.getTrainingQueue", "jutsu.getUserJutsus"} <= {x.get("call") for x in b}, b
-    items = {"*.id": ["u1", "u2"], "*.itemId": ["6DnJn4x6LWWXtBu7UZybb", "TtYPd-LcXKeK3sMuhq1TP"],
-             "*.quantity": [0, 5], "*.equipped": ["NONE", "NONE"], "*.storedAtHome": [False, True]}
-    u = user()
-    u[2]["userData.money"], u[2]["userData.bank"] = 3_000_000, 0
-    head, b = run_world([u, ("item.getUserItems", {}, items)], "hunt",
-                        {"restock": {"next": 0, "pass": 1, "active": True}})
-    calls = [x.get("call") for x in b]
-    assert "item.buy" in calls and "home.toggleStoreItem" in calls, (head, calls)
-    # training: a free queue slot gets the lowest-level target, and spare energy goes to intelligence
-    queue = {"capacity": 4, "waiting.*.jutsuId": ["P7dDcC102RhwBTTgA4HU_"], "waiting.*.level": [10]}
-    owned = {"*.jutsuId": ["P7dDcC102RhwBTTgA4HU_", "UiBR2V2AKkmh64JiYlL3w"], "*.level": [9, 3], "*.finishTraining": [None, None]}
-    u2 = user()
-    u2[2].update({"userData.curEnergy": 500, "userData.intelligence": 10, "userData.willpower": 20, "userData.sector": 177})
-    head, b = run_world([u2, ("item.getUserItems", {}, items), ("jutsu.getTrainingQueue", {}, queue),
-                         ("jutsu.getUserJutsus", {}, owned)], "hunt", {"restock": {"next": 0, "pass": 1, "active": True}})
-    tr = [x for x in b if x.get("call") == "jutsu.startTraining"]
-    en = [x for x in b if x.get("call") == "train.startTraining"]
-    assert len(tr) == 4 and "P7dDcC102RhwBTTgA4HU_" not in [x["input"]["jutsuId"] for x in tr[:3]], tr   # lowest first
-    assert en and en[0]["input"]["stat"] == "intelligence", en
-    # stat training only works in the village sector: a full energy bar sends the hunter there, then it trains
-    u3 = user()
-    u3[2].update({"userData.curEnergy": 5050, "userData.intelligence": 30, "userData.willpower": 20, "userData.sector": 1538})
-    head, b = run_world([u3], "hunt", {"restock": {"next": 1e12}})
-    assert "going to the village" in head and b[0]["call"] == "travel.startGlobalMove" and b[0]["input"]["sector"] == 177, (head, b[:1])
-    u3[2]["userData.sector"] = 177
-    head, b = run_world([u3], "hunt", {"restock": {"next": 1e12}})
-    assert "training willpower" in head and b[0]["input"] == {"stat": "willpower", "energy": 5050}, (head, b[:1])
-    print("ok: restock (read, buy from the shop, take out of home storage) + training upkeep")
-
-
 if __name__ == "__main__":
     test_world()
     test_restock()
     test_lobby()
     test_handoff()
     test_missed_turn_fixes()
+    test_kit_read()
     # every test passed: this pilot.py becomes the fallback pilot_safe.py runs if a later edit breaks
     import shutil
     good = os.path.join(HERE, "pilot_good.py")
