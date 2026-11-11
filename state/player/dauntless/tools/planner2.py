@@ -676,7 +676,7 @@ class Planner:
         if not h:
             return 0.0
         return h(hb, self.clockd.get("hr_abs", self.R), self.clockd.get("his_prev"), self.clockd.get("his_n", 0) == 0,
-                 self.clockd.get("his_prev2"))
+                 self.clockd.get("his_prev2"), self.clockd.get("his_fight"))
 
     def replies(self, m0, e0):
         """His reply options on this board. With his kit: his candidate lines re-scored against the position my
@@ -708,7 +708,8 @@ class Planner:
                 continue
             v = self.his_score(hb, m0, e0, ho)
             if h:
-                v += h(hb, self.clockd.get("hr_abs", self.R) + 1, tuple(used) or None, False, self.clockd.get("his_prev"))
+                v += h(hb, self.clockd.get("hr_abs", self.R) + 1, tuple(used) or None, False, self.clockd.get("his_prev"),
+                       list(self.clockd.get("his_fight") or []) + ([tuple(used)] if used else []))
             scored.append((v, list(hb)))
         scored.sort(key=lambda x: -x[0])
         return hedge(clock.soft(scored[:k]), [b for _, b in scored], self, m0, e0, ho)
@@ -921,7 +922,9 @@ def build(a):
     if model:
         macts = OM.acts_for(model)
         acts = dict(macts, **(acts or {}))
-    habit = OM.habit_fn(model) if model else None
+    # no logged fight with him yet: an empty model still learns from this fight's turns as they come
+    habit = OM.habit_fn(model or {"userId": en["userId"], "bundles": [], "rounds": {}, "trans": {}, "openings": [],
+                                  "ids": {a: 1 for _, u, a, _ in rows if u == en["userId"] and a not in ("wait", "move")}})
     his_turns = OM.turns_of(rows, en["userId"])
     clock_info, clockd = None, {}
     ctx["copier"] = bool(acts) and any(t[1] == "copy" for v in acts.values() for t in v[4][1])
@@ -930,7 +933,8 @@ def build(a):
         clockd, clock_info = make_clock(acts, rows, en["userId"], R, en_acted, me0, en0, ctx, cal, his_kit,
                                         his_kit_raw["turn"][0], scale, habit=habit, his_bases=(fb or {}).get("him"),
                                         his_prev=his_turns[-1][1] if his_turns else None, his_n=len(his_turns),
-                                        his_prev2=his_turns[-2][1] if len(his_turns) > 1 else None)
+                                        his_prev2=his_turns[-2][1] if len(his_turns) > 1 else None,
+                                        his_fight=[b for _, b in his_turns])
         clock_info["model"] = (f"{len(model.get('fights', []))} logged fights, {len(model.get('bundles', []))} turns"
                                if model else "no logged fights")
     my_kit = make_my_kit(None if eng is not None else prof)
@@ -1031,7 +1035,7 @@ def make_my_kit(prof):
 
 
 def make_clock(acts, rows, en_id, R, en_acted, me0, en0, ctx, cal, his_kit, base_turn, scale, habit=None,
-               his_prev=None, his_n=0, his_bases=None, his_prev2=None):
+               his_prev=None, his_n=0, his_bases=None, his_prev2=None, his_fight=None):
     """His clock for planner2: his kit compiled into his_kit (in place), his candidate reply lines (his 12 best on
     this board, plus his best Clear line and best pure-damage line; re-scored per bundle of mine later) and his
     next-turn damage lines (what is ready then). Returns (clockd, printable info)."""
@@ -1046,7 +1050,8 @@ def make_clock(acts, rows, en_id, R, en_acted, me0, en0, ctx, cal, his_kit, base
     ready_next = clock.ready_at(acts, en_id, rows, hn_abs)
     all_lines = [(hb, sum(acts[x][1] for x in hb)) for hb in clock.bundles(acts, ready, 100)]
     clockd = {"ids": set(acts), "scale": scale, "smoke_in_kit": any("Smoke" in acts[x][0] for x in acts),
-              "habit": habit, "his_prev": his_prev, "his_prev2": his_prev2, "his_n": his_n, "hr_abs": hr_abs,
+              "habit": habit, "his_prev": his_prev, "his_prev2": his_prev2, "his_fight": his_fight, "his_n": his_n,
+              "hr_abs": hr_abs,
               "next_lines": [(frozenset(hb), sum(acts[x][4][0] for x in hb)) for hb in clock.bundles(acts, ready_next, 100)]}
     tmp = Planner(me0, en0, R, ctx, cal, {}, his_kit, {"loadout": [], "used": []}, en_acted, (5050, 5050), base_turn, clockd)
     sc = sorted(((tmp.his_score(hb, me0, en0) + tmp.his_habit(hb), hb, c) for hb, c in all_lines), key=lambda x: -x[0])
@@ -1107,11 +1112,15 @@ def hedge(opts, lines, P, m0, e0, ho):
     planner healed into his Night's Testament because it expected a setup."""
     if not lines or HEDGE <= 0:
         return opts
-    def dmg(hb):
-        m, e = m0.copy(), e0.copy()
-        run_turn(e, m, [P.his_kit[x] for x in hb if x in P.his_kit], ho, 1e9, 1e9)
-        return m0.hp - m.hp
-    worst = max(lines, key=dmg)
+    cache = P.__dict__.setdefault("_worst", {})
+    key = (ho, tuple(tuple(b) for b in lines))
+    worst = cache.get(key)
+    if worst is None:                   # his hardest hit on the board before my move: once per offset and line set
+        def dmg(hb):
+            m, e = P.me0.copy(), P.en0.copy()
+            run_turn(e, m, [P.his_kit[x] for x in hb if x in P.his_kit], ho, 1e9, 1e9)
+            return P.me0.hp - m.hp
+        worst = cache[key] = max(lines, key=dmg)
     out = [(w * (1 - HEDGE), b) for w, b in opts if set(b) != set(worst)]
     w_worst = sum(w for w, b in opts if set(b) == set(worst))
     return out + [(w_worst * (1 - HEDGE) + HEDGE, list(worst))]

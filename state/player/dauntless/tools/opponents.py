@@ -167,7 +167,7 @@ def habit_fn(model, scale=None):
     p_role, p_next, racts = rotation_fn(model)
     hist = collections.Counter(tuple(sorted(b)) for r, b in model.get("bundles", []))
 
-    def habit(hb, rnd, prev=None, first_turn=False, prev2=None):
+    def habit(hb, rnd, prev=None, first_turn=False, prev2=None, fight=None):
         v = 0.0
         for a in hb:
             v += 350 * freq.get(a, 0.0)
@@ -186,6 +186,16 @@ def habit_fn(model, scale=None):
         v += ROLE_W * p_role(role_of(hb, racts), prev, prev2)
         v += BIGRAM_W * p_next(hb, prev)
         v += HIST_W * hist.get(key, 0) / n_turns
+        if fight:                                       # his turns in this fight so far, oldest first
+            keys = [tuple(sorted(b)) for b in fight]
+            nf = len(keys)
+            for a in hb:
+                v += FIGHT_W * sum(1 for b in fight if a in b) / nf
+            for k in (2, 3, 4):
+                if nf >= k and keys[-k] == key:
+                    v += CYCLE_W * (1.0 if k == 2 else 0.8 if k == 3 else 0.6)
+            if key in keys:
+                v += REPEAT_W
         return v * scale
     return habit
 
@@ -193,6 +203,10 @@ def habit_fn(model, scale=None):
 ROLE_W = float(os.environ.get("TNR_ROLE_W", "600"))      # HP-equivalent for P(this turn's role | his last roles)
 BIGRAM_W = float(os.environ.get("TNR_BIGRAM_W", "500"))  # for P(this exact bundle | his last bundle)
 HIST_W = float(os.environ.get("TNR_HIST_W", "0"))        # for the share of his turns that were exactly this bundle
+# this fight so far (director 2026-11-11: "have it try to predict rounds as they go ... see their openers"):
+FIGHT_W = float(os.environ.get("TNR_FIGHT_W", "600"))    # share of his turns in THIS fight that used the action
+CYCLE_W = float(os.environ.get("TNR_CYCLE_W", "1200"))   # he repeats the bundle he played 2-4 turns ago (his cycle)
+REPEAT_W = float(os.environ.get("TNR_REPEAT_W", "600"))  # he already played this exact bundle in this fight
 PAYOFF_DMG = 800.0
 
 

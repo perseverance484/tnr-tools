@@ -160,6 +160,10 @@ def write_scales(res, min_n=2):
     print(f"wrote {SCALES}: {len(out)} opponents")
 
 
+IN_FIGHT = os.environ.get("TNR_IN_FIGHT", "1") == "1"
+FROM_TURN = int(os.environ.get("TNR_FROM_TURN", "2"))
+
+
 def check_policy():
     """How often the simulator's opponent bot picks what the real player picked, on every logged turn of his
     (his ready actions from his log so far, scored by his own score + habits). In-sample for habits."""
@@ -177,8 +181,9 @@ def check_policy():
             m = OM.build(exclude=bid, save=False).get(en_id)    # his habits without this fight (honest check)
         else:
             m = models.get(en_id)
-        if not m:
-            continue
+        if not m:                           # first fight with him: his kit (read live at the start) and no history
+            m = {"userId": en_id, "names": [OM.names_in(rows, en_id)], "bundles": [], "rounds": {}, "trans": {},
+                 "openings": [], "ids": {a: 1 for _, u, a, _ in rows if u == en_id and a not in ("wait", "move")}}
         acts, habit = OM.acts_for(m), OM.habit_fn(m)
         en_name = OM.names_in(rows, en_id)
         prof = opp_profile.profile(en_id, rows)
@@ -186,6 +191,7 @@ def check_policy():
         f = fightsim.Fight(acts, prof, True, habit=habit)
         tl = turns(rows)
         prev, prev2, nturn = None, None, 0
+        fight = []
         for k, (i, r, u, act) in enumerate(tl):
             if u != en_id or not act:
                 continue
@@ -201,9 +207,14 @@ def check_policy():
             Pl = P2.Planner(f.me, f.en, r, f.ctx(), f.cal, {}, f.his_kit, {"loadout": [], "used": []}, False,
                             (5050, 5050), f.base_turn, {})
             alpha = float(os.environ.get("TNR_HS_ALPHA", "1"))
-            best = max(lines_, key=lambda hb: alpha * Pl.his_score(hb, f.me, f.en) + habit(hb, r, prev, nturn == 0, prev2))
+            best = max(lines_, key=lambda hb: alpha * Pl.his_score(hb, f.me, f.en) +
+                       habit(hb, r, prev, nturn == 0, prev2, fight if IN_FIGHT else None))
             real = set(a for a in act if a in acts)
             got = set(best)
+            if nturn < FROM_TURN:                            # score from his 3rd turn on (openers seen)
+                prev, prev2, nturn = tuple(act), prev, nturn + 1
+                fight.append(tuple(act))
+                continue
             role_ok += OM.role_of(tuple(best), acts) == OM.role_of(tuple(real), acts)
             n += 1
             exact += got == real
@@ -212,6 +223,7 @@ def check_policy():
             per.setdefault(nm, [0, 0])
             per[nm][0] += got == real; per[nm][1] += 1
             prev, prev2, nturn = tuple(act), prev, nturn + 1
+            fight.append(tuple(act))
     print(f"opponent bot vs real choices: {exact}/{n} exact ({exact / max(1, n):.0%}), mean overlap {ov / max(1, n):.0%}, "
           f"role (setup / payoff / defend / poke) {role_ok / max(1, n):.0%}")
     print("  " + ", ".join(f"{k} {a}/{b}" for k, (a, b) in sorted(per.items(), key=lambda kv: -kv[1][1])[:12]))
