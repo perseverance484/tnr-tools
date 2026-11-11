@@ -130,11 +130,11 @@ class Battle(Activity):
         acts_ok = state.pop("acts_ok", False)
         if read is not None:
             return self._tick(world, state, read)
-        if "battle" not in state and not refused:
-            # the fight just started: one full read and the whole log
+        if "battle" not in state:
+            # the fight just started (or its opening read never came back): one full read and the whole log
             state["asked_start"] = True
             return plan([K.battle(bid, effects=True), K.entries(bid, C.ENTRIES_START)], "battle",
-                        f"BATTLE START {bid}", tag="urgent")
+                        f"BATTLE START {bid}", hold=C.RATE_BACKOFF if refused else 0.0, tag="urgent")
         b = state.get("battle") or {}
         mine = b.get("battle.activeUserId") == C.ME and C.ME in (b.get("battle.usersState.*.userId") or [])
         turn = state.get("turn") or {}

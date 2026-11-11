@@ -60,6 +60,14 @@ class TooManyRequests(unittest.TestCase):
         self.assertEqual(rig.calls(out), ["combat.getBattle", "combat.getBattleEntries"])
         self.assertEqual(out["hold"], C.RATE_BACKOFF)
 
+    def test_the_opening_read_refused_is_asked_again_in_full(self):
+        rig = Rig()
+        rig.tick(user("BATTLE", bid="B1"))
+        out = rig.tick(limited("combat.getBattle", {"battleId": "B1"}))
+        self.assertEqual([s["input"] for s in out["steps"]], [{"battleId": "B1"}, {"battleId": "B1", "limit": 200}])
+        self.assertIn("battle.usersEffects", out["steps"][0]["select"])
+        self.assertEqual(out["hold"], C.RATE_BACKOFF)
+
     def test_the_whole_fight_stays_under_the_limit(self):
         rig = Rig()
         battle, ents, out = start_fight(rig)

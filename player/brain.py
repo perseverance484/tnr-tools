@@ -107,8 +107,8 @@ class Brain:
             if steps is None:                                     # the gates refused it: do something else
                 w.own("brain")["blocked"][act.name] = w.now + BLOCK_FOR
                 continue
-            steps, waited = self.budget.pace(steps, "recovery" if p.tag == "fight_end" else p.lane)
             hold = max(p.hold, C.RATE_BACKOFF) if limited and p.lane == "world" else p.hold
+            steps, waited = self.budget.pace(steps, "recovery" if p.tag == "fight_end" else p.lane, w.now + hold)
             return {"steps": steps, "hold": hold, "stop": None, "activity": act.name,
                     "note": p.note + (f" (paced {waited}s)" if waited else ""),
                     "queue": [(a.name, a.priority, 0) for a in ranked[i + 1:]]}

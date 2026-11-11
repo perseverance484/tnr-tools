@@ -41,12 +41,13 @@ class Budget:
             return 0
         return max(0, min(C.WORLD_CAP - self.used(now, "world"), C.CALL_LIMIT - self.used(now)))
 
-    def pace(self, steps, lane):
-        """Schedule a batch. Returns (steps, waited): world calls get a pause in front of them when the window is
-        full; battle and recovery calls are never delayed. Every call is recorded with the time it will run."""
+    def pace(self, steps, lane, start=None):
+        """Schedule a batch that the relay gets at `start` (now, or later when the brain holds it first). Returns
+        (steps, waited): world calls get a pause in front of them when the window is full; battle and recovery
+        calls are never delayed. Every call is recorded with the time it will run."""
         now = self.world.now
         hist = self._hist(now)
-        out, t, waited = [], now, 0.0
+        out, t, waited = [], now if start is None else start, 0.0
         for s in steps:
             if "wait" in s:
                 t += s["wait"]
