@@ -242,7 +242,9 @@ def replay_snapshots():
         m = models.get(en_id)
         if not m or len(m.get("bundles", [])) < 2:
             continue
-        name = m["names"][0]
+        # the name as it appears in THIS log (a masked ANBU player logs as "ANBU Member", not his model name): HP
+        # tracking and the planner read the log text by name (Ziharkk 7ZL8mG was replayed at full HP before this)
+        name = OM.names_in(rows, en_id)
         acts, habit = OM.acts_for(m), OM.habit_fn(m)
         d = json.load(open(path))
         hps = exam.hp_track(rows, ["dauntless", name])

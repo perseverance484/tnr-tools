@@ -634,7 +634,7 @@ def build(a):
     except Exception:  # noqa: BLE001  (the library is an aid; planning never depends on it)
         P.book_key = None
     info = dict(battle=battle, me=me, en=en, R=R, my_turn=my_turn, en_acted=en_acted, me_pos=me_pos, en_pos=en_pos,
-                d0=d0, ap=ap, stun=stun, others=others, st=st, sme=sme, sen=sen, prof=prof, gmul=gmul, clock=clock_info)
+                d0=d0, ap=ap, stun=stun, others=others, st=st, sme=sme, sen=sen, prof=prof, gmul=gmul, clock=clock_info, rows=rows)
     return P, info
 
 
@@ -703,6 +703,58 @@ def rank(P, bundles, ap, W):
     return res
 
 
+def rollout_rerank(P, info, res, n, budget, k=4):
+    """Decision-time playouts (director 2026-11-11: "it's like having extra processing power"): the top k bundles,
+    plus the best Cleanse / Clear line when it is not among them, are each played to the end of the fight n times
+    against his model (opponents.py habits + kit; else his saved kit), common seeds; the best mean outcome is fired.
+    Replaying the Ziharkk loss, playouts found Cleanse + Thunder's on R2 where the one-turn score ranked it 18th."""
+    t0 = time.time()
+    try:
+        import fightsim
+        import opponents as OM
+        import solutions
+        en_id = info["en"]["userId"]
+        m = OM.load().get(en_id)
+        acts = OM.acts_for(m) if m else clock.his_actions(en_id, info["rows"])
+        if not acts:
+            return res
+        habit = OM.habit_fn(m) if m else None
+        f = fightsim.Fight(acts, info["prof"], not info["en_acted"], seed=7, habit=habit)
+        f.me, f.en = P.me0.copy(), P.en0.copy()
+        f.rows = [(r, u if u == ME else fightsim.EN_ID, x, None) for r, u, x, _ in info["rows"]]
+        f.used = [list(x) for x in info["st"]["used"]]
+        f.loadout = list(info["st"]["loadout"])
+        f.R = info["R"]
+        his = OM.turns_of(info["rows"], en_id)
+        f.his_prev, f.his_turns = (his[-1][1] if his else None), len(his)
+        cands = [r for r in res[:k]]
+        for key in ("cleanse", "clear"):
+            if not any(key in r[1] for r in cands):
+                extra = next((r for r in res[k:40] if key in r[1]), None)
+                if extra:
+                    cands.append(extra)
+        scored = []
+        for r in cands:
+            vals = []
+            for s in range(n):
+                if time.time() - t0 > budget:
+                    break
+                vals.append(solutions.rollout(f, r[1], 4242 + s))
+            if not vals:
+                break
+            scored.append((sum(vals) / len(vals), r))
+        if len(scored) < 2:
+            return res
+        scored.sort(key=lambda x: (-x[0], -x[1][0]))
+        print("playouts: " + " | ".join(f"{'+'.join(r[1])} {v:+.2f}" for v, r in scored)
+              + f" ({time.time() - t0:.1f}s)")
+        best = scored[0][1]
+        return [best] + [r for r in res if r is not best]
+    except Exception as e:  # noqa: BLE001  (playouts are an aid; the one-turn ranking stands without them)
+        print("playouts skipped:", e)
+        return res
+
+
 def main():
     ap_ = argparse.ArgumentParser()
     ap_.add_argument("file"); ap_.add_argument("--battle", required=True)
@@ -712,6 +764,8 @@ def main():
     for f in ("--no-engine", "--fast"):
         ap_.add_argument(f, action="store_true")      # accepted for pilot compatibility; planner2 is engine-free
     ap_.add_argument("--keep", type=int, default=0); ap_.add_argument("--cash", type=int, default=0)
+    ap_.add_argument("--rollouts", type=int, default=0, help="play the top candidates out to the end N times each")
+    ap_.add_argument("--rollout-budget", type=float, default=4.5)
     a = ap_.parse_args()
     t0 = time.time()
     P, info = build(a)
@@ -747,6 +801,8 @@ def main():
         print("no legal bundle (check AP/cooldowns)"); return
     W = load_weights()
     res = rank(P, bundles, info["ap"], W)
+    if a.rollouts:
+        res = rollout_rerank(P, info, res, a.rollouts, a.rollout_budget - (time.time() - t0))
     if a.dump:
         json.dump({"bundles": [{"b": list(r[1]), "f": r[2], "term": r[3], "rc": r[4], "waste": r[5], "guard": r[6],
                                 "dmg": r[8]} for r in res]}, open(a.dump, "w"))
