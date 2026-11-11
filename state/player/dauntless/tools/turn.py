@@ -205,6 +205,29 @@ AOE = {"fury", "shrapnel"}
 BUFFS = {"overflow", "thunders", "parry", "eclipse", "pill", "jewel", "ember", "phantom"}
 ACTION_ID = {v: k for k, v in IDS.items()}
 GROUND_EXIT = {"phantom", "replace", "step"}
+
+
+def _equipped_thrown():
+    """The thrown weapon equipped now (fights/live/equipped.json, written by the pilot's restock pass): the planners'
+    "kunai" action fires it. Bloodthorn adds a wound; an elemental/plain kunai is damage only."""
+    try:
+        eq = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "fights", "live",
+                                          "equipped.json")))
+    except (OSError, ValueError):
+        return
+    tid = eq.get("THROWN")
+    if not tid or tid == ACTION_ID.get("kunai"):
+        return
+    ACTION_ID["kunai"] = tid
+    IDS[tid] = "kunai"
+    try:
+        rec = engine_bridge._records().get(tid, {}).get("record", {})
+        p = sum((e.get("power") or 0) + (e.get("powerPerLevel") or 0) * 25 for e in rec.get("effects", [])
+                if e.get("type") in ("damage", "elementaldamage"))
+        if p:
+            shotplan.MINE["kunai"] = (p * 13.3, [])
+    except Exception:  # noqa: BLE001
+        pass
 MOVE_IDS = {k for k, v in IDS.items() if v in GROUND_EXIT}
 ACTION_ID.update({"kunai": "yVNeLzxHSFkNpTPnlm7yQ", "basicheal": "basicHeal", "step": "move", "stepback": "move"})
 
@@ -925,6 +948,8 @@ def main():
     policy.legal_save()
     print("FIRE:", json.dumps([{"actionId": aid, "longitude": t[0], "latitude": t[1], "name": n} for n, aid, t in seq]))
 
+
+_equipped_thrown()
 
 if __name__ == "__main__":
     main()

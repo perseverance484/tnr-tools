@@ -41,6 +41,10 @@ def rows(items):
 
 def tracked(st):
     t = dict(TRACK)
+    thrown = st.get("thrown")
+    if thrown and thrown not in t:                     # restock the thrown weapon actually equipped
+        t.pop("yVNeLzxHSFkNpTPnlm7yQ", None)
+        t[thrown] = ("kunai", 10, 30, 3_000)
     fp = st.get("full_potion_item")
     if fp:
         t[fp] = ("fullpotion",) + FULL_POTION_KEEP
@@ -65,6 +69,14 @@ def plan(st, items, user, records, listings=None, home_village=None, full_potion
     for r in rs:                                           # remember each item's slot while it is equipped
         if r["equipped"] and r["equipped"] != "NONE":
             st.setdefault("item_slots", {})[r["itemId"]] = r["equipped"]
+    # what sits in each slot right now, for the planners (the "kunai" action is whatever thrown weapon is equipped:
+    # director 2026-11-11 equipped an Elemental Kunai after the Bloodthorn ran out)
+    eq = {r["equipped"]: r["itemId"] for r in rs if r["equipped"] not in (None, "NONE") and (r["quantity"] or 0) > 0}
+    if eq:
+        import json as _j, os as _o
+        p = _o.path.join(_o.path.dirname(_o.path.abspath(__file__)), "..", "fights", "live", "equipped.json")
+        _j.dump(eq, open(p, "w"))
+        st["thrown"] = eq.get("THROWN")
     # durability (director 2026-11-11: "Items are broken again ... Are durability checks not happening"): any equipped
     # item worn under 60% of its max is repaired, with repair kits first (item.useRepairAll), then ryo
     # (item.repairAll, which needs the Crafting occupation); whichever the game refuses, the other is tried next pass
