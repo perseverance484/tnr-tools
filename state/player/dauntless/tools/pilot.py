@@ -303,8 +303,13 @@ def world(st, user, res):
     if status == "HOSPITALIZED":
         return "HOSPITALIZED: healing", [call("hospital.npcHeal", {"villageId": HOME_VILLAGE}, ["success", "message"]),
                                         c_user(), TICK]
-    if status not in ("AWAKE", "BATTLE", "ASLEEP", "HOSPITALIZED"):     # mid-travel
-        return f"{status}: finishing travel", [call("travel.finishGlobalMove", {}, ["success", "message"]), c_user(), TICK]
+    start = res.get("travel.startGlobalMove")
+    if start and start[1].get("data.travelFinishAt"):
+        st["arrive"] = dt.datetime.fromisoformat(start[1]["data.travelFinishAt"].replace("Z", "+00:00")).timestamp()
+    if status not in ("AWAKE", "BATTLE", "ASLEEP", "HOSPITALIZED"):     # mid-travel: wait for the arrival time
+        left = max(0.0, st["arrive"] - time.time()) if st.get("arrive") else 5.0   # unknown arrival: retry every 5 s
+        return f"{status}: arriving in {left:.0f}s", ([wait(round(min(left + 0.5, 20), 1))] if left > 0 else []) + \
+            [call("travel.finishGlobalMove", {}, ["success", "message"]), c_user(), TICK]
     head = f"AWAKE {mode} {hp:.0f}/{mx:.0f} HP @ {sector} {me_pos}"
     if mode == "rest":
         if sector != HOME_SECTOR:
@@ -348,7 +353,7 @@ def world(st, user, res):
 
 
 def go(sector):
-    return [call("travel.startGlobalMove", {"sector": sector}, ["success", "message"]),
+    return [call("travel.startGlobalMove", {"sector": sector}, ["success", "message", "data.travelFinishAt"]),
             call("travel.finishGlobalMove", {}, ["success", "message"]), c_user(), c_sector(sector), TICK]
 
 
