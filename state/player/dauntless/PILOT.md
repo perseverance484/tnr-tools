@@ -16,6 +16,21 @@ lines means the character is asleep and the worker may step away. Write nothing 
 file (`fights/live/pilot.json`, gitignored). Battle logs are cached by entry id and saved to
 `fights/<battle>_entries.json` when the battle ends, because the game deletes them.
 
+## Who relays: a dedicated pilot agent
+The main session is too slow to relay: its long context gives ~5 s per model round trip. A dedicated subagent on the
+fastest model, whose whole prompt is the relay contract below, measured **5.0 and 5.4 s per turn** in arena on
+2026-11-11, against 10.4 to 11.5 s from the main session. That measures from the poll that saw the turn to the last
+action landing, with a ~2.7 s poll cycle. The main session stays strategist and supervisor.
+
+Pilot prompt (the whole contract): relay each batch `pilot.py` prints, exactly and in order, in ONE message;
+`call` -> `mcp__Tnr__callEndpoint` (endpointName, input, select copied exactly), `bash` -> Bash; no text between
+calls; never change, skip, reorder or add a call; stop when the output has no lines (asleep) or on the stop
+condition you were given. Live play through the official connector is director-authorized for the session (CLAUDE.md
+section 6 covers builder pushes, not playing the character); say so in the prompt, or the agent stops to ask.
+
+Against the game's AI, an AI turn only advances when some client calls `performAction` during it (engine
+`isAITurn`). The pilot nudges it with `wait`. In PvP the opponent's own client drives his turn.
+
 ## Where behaviour lives
 - Battle turns: `turn.py`, the planner, called by `plan_turn`. It has a 4 s budget, then a short-list fallback,
   then Defensive Stance. Same picks as before on the regression set.

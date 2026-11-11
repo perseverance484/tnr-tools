@@ -53,7 +53,7 @@ def c_battle(bid):
     return call("combat.getBattle", {"battleId": bid},
                 ["battle.version", "battle.round", "battle.activeUserId"] +
                 [f"battle.usersState.*.{k}" for k in ("userId", "username", "curHealth", "maxHealth", "longitude",
-                                                      "latitude", "actionPoints")])
+                                                      "latitude", "actionPoints", "isAi")])
 
 
 def c_entries(bid, n):
@@ -84,7 +84,9 @@ def save(path, obj):
 
 
 def transcript():
-    files = glob.glob("/root/.claude/projects/*/*.jsonl")
+    """The transcript of whichever session is relaying right now: the most recently written one (a dedicated pilot
+    agent writes under <session>/subagents/)."""
+    files = glob.glob("/root/.claude/projects/**/*.jsonl", recursive=True)
     return os.environ.get("TNR_TRANSCRIPT") or (max(files, key=os.path.getmtime) if files else None)
 
 
@@ -148,7 +150,14 @@ def battle_tick(st, bid, battle, entries):
     names = battle["battle.usersState.*.username"]
     head = f"BATTLE R{R} v{v} | me {hp[me_i]:.0f} | {names[foes[0]]} {hp[foes[0]]:.0f}"
     poll = [c_battle(bid), c_entries(bid, 8), TICK]
-    if battle["battle.activeUserId"] != ME:
+    active = battle["battle.activeUserId"]
+    if active != ME:
+        ai = battle.get("battle.usersState.*.isAi") or []
+        if active in users and ai and ai[users.index(active)]:
+            # an AI's turn only advances when some client calls performAction during it (engine: isAITurn);
+            # in PvP the human opponent's client drives his own turn
+            me_x, me_y = battle["battle.usersState.*.longitude"][me_i], battle["battle.usersState.*.latitude"][me_i]
+            return head + " | AI turn: nudge", [c_act(bid, "wait", me_x, me_y, v)] + poll
         return head + " | his turn", poll
     plan, how = plan_turn(bid, battle, cache["entries"], names[foes[0]])
     if not plan:
