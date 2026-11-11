@@ -187,6 +187,10 @@ def resolve_targets(bundle, me_pos, en_pos, occupied):
 def penalties(bundle, ctx, cal):
     """Explicit guards only; everything else is priced by value_model (enemy options, lookahead, reserves)."""
     p, why = 0.0, []
+    # hard rule (2026-11-11): every Chakra Shield cast while the enemy's pierce could be ready got pierced
+    # (Ziharkk R2, Korin R4, Slyrak R2, Hikuro R1 rematch): never shield into a possible pierce
+    if "shield" in bundle and ctx["pierce_ready"]:
+        p -= 3000; why.append("Shield into a possibly-ready pierce (hard rule: 4/4 pierced)")
     steps = bundle.count("step")
     if steps > 1:
         p -= 60 * (steps - 1); why.append(f"{steps} basic steps (use Phantom/Replacement)")
