@@ -1,0 +1,1400 @@
+{
+ "_meta": {
+  "status": "DRAFT for the director's approval (AP0 gate, state/prompt_ai_player_overhaul.md section 3). Checked against the live capture data/mcp_surface.json.",
+  "what": "Every game endpoint the AI player may call through the official TNR connector. The runner refuses any endpoint that is not under 'endpoints' (state/prompt_playing_tnr.md section 4.2).",
+  "rules_of_record": [
+   "state/prompt_ai_player_overhaul.md section 2 (never, ask first)",
+   "state/prompt_playing_tnr.md sections 3 (never in player mode) and 5 (conduct, safety stops)",
+   "CLAUDE.md section 6 (the connector never-list)",
+   "docs/rulings: RUL-2026-11-09-139, -145, -146, RUL-2026-11-11-147, -148"
+  ],
+  "check": "python3 scripts/player_allowlist.py check   (shape, never rules, ask-first rules, call gates, the captured surface, the endpoints the code sends)",
+  "surface": "data/mcp_surface.json: the live capture of 2026-11-11 (79 routers, 941 endpoints; input schemas for the 89 endpoints on this list), written by scripts/player_allowlist.py surface from the connector's own results",
+  "change_rule": "Any change to this file is a reviewed edit (state/prompt_playing_tnr.md section 4.2). An entry never overrides a never rule: the check fails on the overlap.",
+  "fields": {
+   "kind": "read (a query) or action (a mutation)",
+   "activity": "the activities that send it, first one the owner (docs/design/AI_PLAYER_OVERHAUL.md section 4.3); world, dossier and harvest are shared feeds",
+   "phase": "the phase that brings the activity onto the brain",
+   "status": "in_use: the current pilot code sends it. documented: the flow is written down in the account notes or the PvP skill and has been run by hand. proposed: taken from the live surface; first use waits for the activity's playbook.",
+   "prerequisites": "what must be true before the call",
+   "cooldown": "cooldown or rate notes",
+   "gates": "call-level gates under call_gates that player/gates.py applies to each call",
+   "ask_first": "the ask-first rule that turns the call into a pending decision for the director",
+   "currency": "why the call can only spend ryo, where an ask-first rule about premium currency would otherwise apply",
+   "evidence": "where the call is sent or its flow is written down"
+  }
+ },
+ "never": [
+  {
+   "id": "payments",
+   "routers": [
+    "paypal",
+    "stripe",
+    "purchases",
+    "merch"
+   ],
+   "why": "payments or purchases",
+   "source": "overhaul brief section 2; CLAUDE.md section 6; player brief section 3"
+  },
+  {
+   "id": "account_control",
+   "routers": [
+    "accountDeletion",
+    "nativeAuth",
+    "register",
+    "parentalControls"
+   ],
+   "endpoints": [
+    "profile.delete",
+    "profile.toggleDeletionTimer",
+    "profile.confirmDeletion",
+    "profile.create"
+   ],
+   "why": "account deletion and account control",
+   "source": "overhaul brief section 2; CLAUDE.md section 6; player brief section 3"
+  },
+  {
+   "id": "moderation",
+   "routers": [
+    "reports"
+   ],
+   "patterns": [
+    "\\.(ban|silence|timeout|warn|tradeBan|escalate)$",
+    "\\.moderate[A-Z]\\w*$",
+    "^forum\\.(pinThread|lockThread|purgeTopic|restrict|removeStructure)$"
+   ],
+   "why": "moderation or reports",
+   "source": "overhaul brief section 2; CLAUDE.md section 6"
+  },
+  {
+   "id": "staff",
+   "routers": [
+    "staff",
+    "contentReview",
+    "data",
+    "logs"
+   ],
+   "endpoints": [
+    "misc.awardReputation",
+    "misc.setDmgConfig",
+    "misc.setEventGameSetting",
+    "misc.toggleGlobalTavern",
+    "misc.submitNotification",
+    "profile.updateUser",
+    "profile.updateAi",
+    "profile.cloneAi",
+    "profile.awardExperience",
+    "profile.awardExperienceToAll",
+    "profile.adjustSeichiSilver",
+    "profile.insertAttribute",
+    "profile.deleteAttribute",
+    "profile.resetPetImageGeneration",
+    "item.adjustUserItem",
+    "jutsu.adjustUserJutsu",
+    "war.adminEndWar",
+    "skillTree.resetAllUsersSkillPoints",
+    "misc.setJutsuEquipLimit",
+    "misc.setSharedCooldown",
+    "misc.reviewSupportWithAI",
+    "applications.approve",
+    "applications.reject",
+    "linkPromotion.reviewLinkPromotion",
+    "discord.forceUnlink",
+    "pvpRank.endSeason",
+    "hunting.save",
+    "coop.dungeon.save",
+    "towerDefense.processCharacterZip",
+    "support.escalateToGithub"
+   ],
+   "patterns": [
+    "ForStaff$"
+   ],
+   "why": "staff powers, staff tools and staff-only data",
+   "source": "overhaul brief section 2 (no staff powers or staff knowledge in play); player brief sections 3 and 5.2; game rules 6.3, 7.4"
+  },
+  {
+   "id": "content_editing",
+   "kind": "action",
+   "routers": [
+    "gameAsset",
+    "mapAsset",
+    "mapTerrain",
+    "guide",
+    "conceptart",
+    "worldMap",
+    "rewardPackages",
+    "generativeAi",
+    "audio",
+    "spriteAnimation",
+    "spriteStudio"
+   ],
+   "patterns": [
+    "\\.(create|update|clone)$",
+    "\\.(create|update|upsert|save)(Reskin|LinkedReskin|ItemVariant|Config|Season|DamageThreshold|Character|Folder|Placement|Package|Node|StoreBundle|CannedResponse|Backup|Event|Upgrade|AssetConfig|TiledSectorMap|DamageSimulation)$"
+   ],
+   "why": "creating, changing or cloning game content is content-staff work",
+   "source": "player brief section 3 (staff and content routers); CLAUDE.md section 6"
+  },
+  {
+   "id": "communication",
+   "kind": "action",
+   "routers": [
+    "comments",
+    "forum"
+   ],
+   "patterns": [
+    "\\.(createConversation|createConversationComment|createForumComment|createReportComment|sendTypingIndicator|upsertNotice)$",
+    "^auction\\.(create|accept|cancel)AuctionOffer$"
+   ],
+   "why": "chat, messages, posts, comments or trade requests to players",
+   "source": "overhaul brief section 2; RUL-2026-11-09-145 item 3; player brief section 2.3"
+  },
+  {
+   "id": "deletes",
+   "kind": "action",
+   "patterns": [
+    "\\.(delete|remove|purge|wipe)([A-Z]\\w*)?$"
+   ],
+   "why": "deletes need a per-record yes from the director (forgetting a jutsu and releasing a pet are deletes too)",
+   "source": "overhaul brief section 2; CLAUDE.md section 6",
+   "endpoints": [
+    "jutsu.forget",
+    "pets.releasePet"
+   ]
+  }
+ ],
+ "ask_first": [
+  {
+   "id": "premium_currency",
+   "kind": "action",
+   "routers": [
+    "blackmarket",
+    "bloodright"
+   ],
+   "patterns": [
+    "\\.(purchase|buy|reroll|roll|pityRoll|unlock|upgrade|swap|evolve)([A-Z]\\w*)?$",
+    "\\.finish\\w+Immediately$"
+   ],
+   "waiver": "currency",
+   "waiver_gates": [
+    "ryo_only",
+    "spend_cap"
+   ],
+   "why": "may spend premium currency (reputation)",
+   "source": "overhaul brief section 2; player brief section 5.4"
+  },
+  {
+   "id": "leave_clan",
+   "endpoints": [
+    "clan.leaveClan",
+    "village.leaveVillage",
+    "village.swapVillage",
+    "village.joinVillage",
+    "anbu.leaveSquad",
+    "sensei.leaveSensei"
+   ],
+   "why": "leaving the clan, village, squad or sensei",
+   "source": "overhaul brief section 2; player brief section 5.4"
+  },
+  {
+   "id": "sell_rare_items",
+   "endpoints": [
+    "item.sellUserItem",
+    "item.sellUserItems",
+    "auction.createAuctionListing",
+    "farming.sellCrop",
+    "blackmarket.createOffer"
+   ],
+   "why": "selling items: a rare item must not leave the account without a yes",
+   "source": "overhaul brief section 2; player brief section 5.4"
+  },
+  {
+   "id": "marriage",
+   "kind": "action",
+   "routers": [
+    "marriage"
+   ],
+   "why": "marriage and other relationship actions",
+   "source": "overhaul brief section 2; player brief section 5.4"
+  },
+  {
+   "id": "captcha",
+   "endpoints": [
+    "misc.getCaptcha",
+    "misc.refreshCaptcha",
+    "misc.verifyCaptcha"
+   ],
+   "why": "a training captcha is the game checking for a person; the rules do not say an AI player may answer it, so it stops and asks",
+   "source": "game rules 7.4 (rule gaps: ask and wait; bypass nothing)"
+  },
+  {
+   "id": "staff_free_path",
+   "endpoints": [
+    "jutsu.transferLevel"
+   ],
+   "why": "level transfers are free for this account because it is a staff account; in play that is a staff power unless the director rules otherwise",
+   "source": "state/player/dauntless/jutsu_training.md; game rules 6.3; overhaul brief section 2"
+  }
+ ],
+ "call_gates": {
+  "no_flee": {
+   "rule": "Never Flee: a performAction whose action is Flee is refused.",
+   "required_on": [
+    "combat.performAction"
+   ],
+   "source": "overhaul brief section 2; tnr-pvp-combat section 0"
+  },
+  "do_not_attack": {
+   "rule": "The target's name and user id are not on state/player/<account>/do_not_attack.md, temporary holds included. A status probe is an attack call.",
+   "required_on": [
+    "combat.attackUser",
+    "travel.robPlayer"
+   ],
+   "source": "overhaul brief section 2; state/player/dauntless/do_not_attack.md"
+  },
+  "no_snipe": {
+   "rule": "No third-party jump on a player under 'Do not snipe' (AngelSaber).",
+   "required_on": [
+    "combat.attackUser"
+   ],
+   "source": "overhaul brief section 2; state/player/dauntless/do_not_attack.md"
+  },
+  "fair_target": {
+   "rule": "Awake, not in battle, not immune, level 90 or more, in bracket, not my village or an ally, and not a player who beat me in the last 6 hours or refused within its memory.",
+   "source": "player brief section 5.1; state/player/dauntless/PILOT.md"
+  },
+  "ryo_only": {
+   "rule": "The call spends ryo and nothing else: the shop record has no reputation or Seichi Silver cost, or the auction listing's currency is MONEY.",
+   "source": "overhaul brief section 2 (premium currency is ask first); design section 4.3 (restock)"
+  },
+  "spend_cap": {
+   "rule": "Counted against the daily ryo cap and the reserve, with per-unit caps for auctions (design section 9 item 3; today 3M a day and a 500k reserve). Above a cap the call becomes a pending decision.",
+   "required_on": [
+    "item.buy",
+    "auction.placeBid",
+    "jutsu.startTraining",
+    "village.buyFood"
+   ],
+   "source": "overhaul brief section 2 (any ryo spend above the caps); design section 9 item 3"
+  },
+  "player_visible_only": {
+   "rule": "Only what any player can see through normal play: no hidden or unreleased record, no staff-only field.",
+   "source": "game rules 7.4 (information access); player brief section 5.2"
+  },
+  "study_only": {
+   "rule": "Other players' fights are read to study combat, between fights only (RUL-2026-11-09-146). Whether a read of this kind is open to any player, and whether live play may use what it learned about a named opponent, is a question for the director.",
+   "source": "RUL-2026-11-09-146; overhaul brief section 2 (other players' data beyond normal play)"
+  },
+  "no_captcha_answer": {
+   "rule": "The call never carries a captcha answer (the optional guess field). A training captcha stops stat training and becomes a pending decision.",
+   "required_on": [
+    "train.startTraining",
+    "train.updateEnergyTrainingQueue"
+   ],
+   "source": "ask-first rule captcha; live schemas 2026-11-11 (train.startTraining and train.updateEnergyTrainingQueue take an optional guess)"
+  },
+  "own_account_only": {
+   "rule": "A userId the call carries is my own.",
+   "source": "overhaul brief section 2 (other players' accounts or data beyond normal play)"
+  },
+  "auction_only": {
+   "rule": "A listing is a public AUCTION priced in MONEY; never DIRECT, which names another player, and never REPUTATION.",
+   "required_on": [
+    "auction.createAuctionListing"
+   ],
+   "source": "RUL-2026-11-09-145 item 3 (no trade requests); overhaul brief section 2 (premium currency)"
+  }
+ },
+ "not_calls": {
+  "data.travelFinishAt": "a select path on travel.startGlobalMove, not an endpoint",
+  "travel.startRandom": "a result key pilot.py looks up; no such call is sent (errands start with quests.startRandom)"
+ },
+ "endpoints": {
+  "profile.getUser": {
+   "kind": "read",
+   "activity": [
+    "world"
+   ],
+   "phase": "AP1",
+   "status": "in_use",
+   "prerequisites": "none; my own account",
+   "cooldown": "none known; it is the status read on every world tick",
+   "evidence": "pilot.py c_user"
+  },
+  "travel.getSectorData": {
+   "kind": "read",
+   "activity": [
+    "pvp_hunt",
+    "errands"
+   ],
+   "phase": "AP1",
+   "status": "in_use",
+   "prerequisites": "returns the sector I stand in only; sleeping players are not on it",
+   "cooldown": "none known; the hunt scans about every 10 s",
+   "gates": [
+    "player_visible_only"
+   ],
+   "evidence": "pilot.py c_sector; tnr-pvp-combat section 5"
+  },
+  "travel.startGlobalMove": {
+   "kind": "action",
+   "activity": [
+    "world"
+   ],
+   "phase": "AP1",
+   "status": "in_use",
+   "prerequisites": "awake, not in battle or hospital",
+   "cooldown": "the trip takes until data.travelFinishAt",
+   "evidence": "pilot.py go"
+  },
+  "travel.finishGlobalMove": {
+   "kind": "action",
+   "activity": [
+    "world"
+   ],
+   "phase": "AP1",
+   "status": "in_use",
+   "prerequisites": "a trip started, and its arrival time has passed",
+   "cooldown": "retried every 3 to 5 s until it lands",
+   "evidence": "pilot.py go, world"
+  },
+  "travel.moveInSector": {
+   "kind": "action",
+   "activity": [
+    "pvp_hunt",
+    "errands"
+   ],
+   "phase": "AP1",
+   "status": "in_use",
+   "prerequisites": "awake in that sector; villageId is required",
+   "cooldown": "none known",
+   "evidence": "pilot.py c_move"
+  },
+  "stealth.useSensory": {
+   "kind": "action",
+   "activity": [
+    "pvp_hunt"
+   ],
+   "phase": "AP1",
+   "status": "in_use",
+   "prerequisites": "awake in the sector",
+   "cooldown": "30 s (the pilot sends it every 31 s)",
+   "evidence": "pilot.py world; tnr-pvp-combat section 5"
+  },
+  "stealth.activateStealth": {
+   "kind": "action",
+   "activity": [
+    "pvp_hunt"
+   ],
+   "phase": "AP1",
+   "status": "documented",
+   "prerequisites": "awake, out of battle",
+   "cooldown": "lasts 20 minutes",
+   "evidence": "tnr-pvp-combat section 5"
+  },
+  "profile.getPublicUsers": {
+   "kind": "read",
+   "activity": [
+    "pvp_hunt"
+   ],
+   "phase": "AP1",
+   "status": "documented",
+   "prerequisites": "none; the public online list (village names, no locations); never the ip filter",
+   "cooldown": "none known",
+   "gates": [
+    "player_visible_only"
+   ],
+   "evidence": "tnr-pvp-combat section 5"
+  },
+  "combat.listOngoingBattles": {
+   "kind": "read",
+   "activity": [
+    "pvp_hunt"
+   ],
+   "phase": "AP1",
+   "status": "documented",
+   "prerequisites": "none; the list of open-world fights in progress",
+   "cooldown": "none known",
+   "gates": [
+    "player_visible_only"
+   ],
+   "evidence": "tnr-pvp-combat section 5 (third-party finishes)"
+  },
+  "combat.attackUser": {
+   "kind": "action",
+   "activity": [
+    "pvp_hunt"
+   ],
+   "phase": "AP1",
+   "status": "in_use",
+   "prerequisites": "target awake, free, in my sector and in bracket; I am at full health with the PvP loadouts",
+   "cooldown": "a 15 s lobby opens the fight; a refused target is not retried for 10 min (bracket 6 h, village 24 h)",
+   "gates": [
+    "do_not_attack",
+    "no_snipe",
+    "fair_target"
+   ],
+   "evidence": "pilot.py c_attack, pick_target, note_attack"
+  },
+  "jutsu.getPublicUserJutsus": {
+   "kind": "read",
+   "activity": [
+    "dossier"
+   ],
+   "phase": "AP1",
+   "status": "in_use",
+   "prerequisites": "none; a player's public equipped jutsu",
+   "cooldown": "once per opponent: before the attack, or on the first battle polls until it saves (3 tries)",
+   "gates": [
+    "player_visible_only"
+   ],
+   "evidence": "pilot.py c_kit; opponent_kit.py"
+  },
+  "combat.getBattle": {
+   "kind": "read",
+   "activity": [
+    "battle"
+   ],
+   "phase": "AP1",
+   "status": "in_use",
+   "prerequisites": "a battle id of a fight I am in",
+   "cooldown": "every poll, about every 3 s on his turn; never paced on mine",
+   "evidence": "pilot.py c_battle"
+  },
+  "combat.getBattleEntries": {
+   "kind": "read",
+   "activity": [
+    "battle",
+    "harvest"
+   ],
+   "phase": "AP1",
+   "status": "in_use",
+   "prerequisites": "a battle id; my own fight in the battle activity",
+   "cooldown": "with every battle poll; the harvest reads at most 2 logs per idle tick",
+   "gates": [
+    "study_only"
+   ],
+   "evidence": "pilot.py c_entries; harvest.py"
+  },
+  "combat.performAction": {
+   "kind": "action",
+   "activity": [
+    "battle"
+   ],
+   "phase": "AP1",
+   "status": "in_use",
+   "prerequisites": "my turn, the current battle version, the action off cooldown and in range",
+   "cooldown": "1.2 s between the actions of a turn; a turn must fire by T+20 s",
+   "gates": [
+    "no_flee"
+   ],
+   "evidence": "pilot.py c_act"
+  },
+  "combat.iAmHere": {
+   "kind": "action",
+   "activity": [
+    "battle"
+   ],
+   "phase": "AP1",
+   "status": "documented",
+   "prerequisites": "a new PvP battle still in its lobby",
+   "cooldown": "once per battle",
+   "evidence": "tnr-pvp-combat section 6 (lobby)"
+  },
+  "misc.getSharedCooldowns": {
+   "kind": "read",
+   "activity": [
+    "battle"
+   ],
+   "phase": "AP1",
+   "status": "documented",
+   "prerequisites": "none; static data, cached in the brain",
+   "cooldown": "read once, then from the cache",
+   "evidence": "state/player/combat_rules.md section 6"
+  },
+  "combat.getBattleHistory": {
+   "kind": "read",
+   "activity": [
+    "harvest"
+   ],
+   "phase": "AP1",
+   "status": "in_use",
+   "prerequisites": "between fights only; a user id, or none for my own history",
+   "cooldown": "one history read per player every 6 h, only with headroom in the call budget",
+   "gates": [
+    "study_only"
+   ],
+   "evidence": "harvest.py"
+  },
+  "profile.getStrongestUsers": {
+   "kind": "read",
+   "activity": [
+    "harvest"
+   ],
+   "phase": "AP1",
+   "status": "in_use",
+   "prerequisites": "none; the public ranking",
+   "cooldown": "seeds the harvest list; rare",
+   "gates": [
+    "player_visible_only"
+   ],
+   "evidence": "harvest.py"
+  },
+  "item.consume": {
+   "kind": "action",
+   "activity": [
+    "recovery"
+   ],
+   "phase": "AP1",
+   "status": "in_use",
+   "prerequisites": "out of battle; the user-item id of a carried Full Potion",
+   "cooldown": "at the end of every fight, in the same batch; a heal that changed nothing is not retried for 10 min",
+   "evidence": "pilot.py finish, world"
+  },
+  "village.buyFood": {
+   "kind": "action",
+   "activity": [
+    "recovery"
+   ],
+   "phase": "AP1",
+   "status": "in_use",
+   "prerequisites": "awake at a ramen stand; refills chakra and stamina only",
+   "cooldown": "when chakra or stamina is under 50%",
+   "gates": [
+    "ryo_only",
+    "spend_cap"
+   ],
+   "currency": "ramen is priced in ryo",
+   "evidence": "pilot.py world"
+  },
+  "hospital.npcHeal": {
+   "kind": "action",
+   "activity": [
+    "recovery"
+   ],
+   "phase": "AP1",
+   "status": "in_use",
+   "prerequisites": "hospitalized; my village id",
+   "cooldown": "once per hospital stay",
+   "evidence": "pilot.py world"
+  },
+  "home.toggleSleep": {
+   "kind": "action",
+   "activity": [
+    "session"
+   ],
+   "phase": "AP2",
+   "status": "in_use",
+   "prerequisites": "in the home village sector (177)",
+   "cooldown": "session start (wake) and end (sleep); starting jutsu training wakes the character",
+   "evidence": "pilot.py world"
+  },
+  "item.getUserItems": {
+   "kind": "read",
+   "activity": [
+    "restock",
+    "repair",
+    "equipment"
+   ],
+   "phase": "AP2",
+   "status": "in_use",
+   "prerequisites": "none; my own items",
+   "cooldown": "one read per upkeep pass (every 15 min, and after every fight)",
+   "evidence": "pilot.py c_items; restock.py"
+  },
+  "item.buy": {
+   "kind": "action",
+   "activity": [
+    "restock"
+   ],
+   "phase": "AP2",
+   "status": "in_use",
+   "prerequisites": "the item is sold in the item shop for ryo; pocket money above the reserve",
+   "cooldown": "at most 50 per call; inside the daily cap",
+   "gates": [
+    "ryo_only",
+    "spend_cap"
+   ],
+   "currency": "restock.py buys only shop records with a ryo cost and no reputation or Seichi Silver cost",
+   "evidence": "restock.py plan"
+  },
+  "item.toggleEquip": {
+   "kind": "action",
+   "activity": [
+    "restock",
+    "equipment"
+   ],
+   "phase": "AP2",
+   "status": "in_use",
+   "prerequisites": "a carried item and the slot it used to hold; not in battle",
+   "cooldown": "none known",
+   "evidence": "restock.py plan"
+  },
+  "home.toggleStoreItem": {
+   "kind": "action",
+   "activity": [
+    "restock"
+   ],
+   "phase": "AP2",
+   "status": "in_use",
+   "prerequisites": "an item of mine in home storage",
+   "cooldown": "none known",
+   "evidence": "restock.py plan"
+  },
+  "auction.getAuctionListings": {
+   "kind": "read",
+   "activity": [
+    "restock"
+   ],
+   "phase": "AP2",
+   "status": "in_use",
+   "prerequisites": "none; the public auction house",
+   "cooldown": "one search per missing item, then not again for an hour",
+   "evidence": "pilot.py restock_tick"
+  },
+  "auction.placeBid": {
+   "kind": "action",
+   "activity": [
+    "restock"
+   ],
+   "phase": "AP2",
+   "status": "in_use",
+   "prerequisites": "a MONEY listing of a tracked item with a buyout at or under its per-unit cap; bank above the reserve",
+   "cooldown": "inside the daily cap",
+   "gates": [
+    "ryo_only",
+    "spend_cap"
+   ],
+   "evidence": "restock.py plan"
+  },
+  "item.useRepairAll": {
+   "kind": "action",
+   "activity": [
+    "repair"
+   ],
+   "phase": "AP2",
+   "status": "in_use",
+   "prerequisites": "an equipped item under 25% durability; Repair Kits carried",
+   "cooldown": "not retried for 10 min",
+   "evidence": "restock.py plan"
+  },
+  "item.repairAll": {
+   "kind": "action",
+   "activity": [
+    "repair"
+   ],
+   "phase": "AP2",
+   "status": "in_use",
+   "prerequisites": "an equipped item under 25% durability; ryo repair needs the Crafting occupation",
+   "cooldown": "tried when the kits were refused; not retried for 10 min",
+   "gates": [
+    "spend_cap"
+   ],
+   "evidence": "restock.py plan"
+  },
+  "jutsu.getTrainingQueue": {
+   "kind": "read",
+   "activity": [
+    "training"
+   ],
+   "phase": "AP2",
+   "status": "in_use",
+   "prerequisites": "none; my own queue",
+   "cooldown": "one read per upkeep pass",
+   "evidence": "pilot.py c_train_reads; restock.py"
+  },
+  "jutsu.getUserJutsus": {
+   "kind": "read",
+   "activity": [
+    "training"
+   ],
+   "phase": "AP2",
+   "status": "in_use",
+   "prerequisites": "none; my own jutsu",
+   "cooldown": "one read per upkeep pass",
+   "evidence": "pilot.py c_train_reads; restock.py"
+  },
+  "jutsu.startTraining": {
+   "kind": "action",
+   "activity": [
+    "training"
+   ],
+   "phase": "AP2",
+   "status": "in_use",
+   "prerequisites": "a target from jutsu_training.md under level 20, of my elements; not in hospital, travel or battle; a free queue slot",
+   "cooldown": "each level takes up to an hour; a refused jutsu is remembered",
+   "gates": [
+    "spend_cap"
+   ],
+   "evidence": "restock.py training_plan; state/player/dauntless/jutsu_training.md"
+  },
+  "train.startTraining": {
+   "kind": "action",
+   "activity": [
+    "training"
+   ],
+   "phase": "AP2",
+   "status": "in_use",
+   "prerequisites": "in the village sector; energy to spend; intelligence or willpower, whichever trails",
+   "cooldown": "when energy passes 2,500 (a trip) or 200 (already home); a refusal waits 30 min",
+   "gates": [
+    "no_captcha_answer"
+   ],
+   "evidence": "pilot.py world; restock.py training_plan"
+  },
+  "train.updateEnergyTrainingQueue": {
+   "kind": "action",
+   "activity": [
+    "training"
+   ],
+   "phase": "AP2",
+   "status": "documented",
+   "prerequisites": "in the home village",
+   "cooldown": "at session end",
+   "gates": [
+    "no_captcha_answer"
+   ],
+   "evidence": "tnr-pvp-combat section 0"
+  },
+  "profile.useUnusedExperiencePoints": {
+   "kind": "action",
+   "activity": [
+    "training"
+   ],
+   "phase": "AP2",
+   "status": "documented",
+   "prerequisites": "unspent experience; every stat field is required",
+   "cooldown": "when unspent experience is there",
+   "evidence": "state/player/dauntless/ryo_plan.md"
+  },
+  "jutsu.selectJutsuLoadout": {
+   "kind": "action",
+   "activity": [
+    "equipment"
+   ],
+   "phase": "AP2",
+   "status": "documented",
+   "prerequisites": "out of battle and out of a pyramid; a loadout that already exists (scope: design section 9 item 2)",
+   "cooldown": "before a fight of another kind; cannot change in battle",
+   "evidence": "tnr-pvp-combat section 0"
+  },
+  "item.selectItemLoadout": {
+   "kind": "action",
+   "activity": [
+    "equipment"
+   ],
+   "phase": "AP2",
+   "status": "documented",
+   "prerequisites": "out of battle and out of a pyramid; a loadout that already exists (scope: design section 9 item 2)",
+   "cooldown": "before a fight of another kind; cannot change in battle",
+   "evidence": "tnr-pvp-combat section 0"
+  },
+  "bank.toBank": {
+   "kind": "action",
+   "activity": [
+    "bank"
+   ],
+   "phase": "AP2",
+   "status": "documented",
+   "prerequisites": "pocket money above the working amount",
+   "cooldown": "none known",
+   "evidence": "state/player/dauntless/jutsu_training.md"
+  },
+  "bank.toPocket": {
+   "kind": "action",
+   "activity": [
+    "bank"
+   ],
+   "phase": "AP2",
+   "status": "documented",
+   "prerequisites": "bank above the reserve",
+   "cooldown": "none known",
+   "evidence": "state/player/dauntless/jutsu_training.md"
+  },
+  "quests.startRandom": {
+   "kind": "action",
+   "activity": [
+    "errands",
+    "missions"
+   ],
+   "phase": "AP3",
+   "status": "in_use",
+   "prerequisites": "in the home sector; under the daily cap (50 errands, 20 missions, 9 medical)",
+   "cooldown": "daily caps; a refused start waits an hour, a cap a day",
+   "evidence": "pilot.py errand_tick; state/player/dauntless/ryo_plan.md"
+  },
+  "quests.checkLocationQuest": {
+   "kind": "action",
+   "activity": [
+    "errands",
+    "missions"
+   ],
+   "phase": "AP3",
+   "status": "in_use",
+   "prerequisites": "standing on the goal's tile",
+   "cooldown": "once per goal",
+   "evidence": "pilot.py errand_tick"
+  },
+  "quests.checkRewards": {
+   "kind": "action",
+   "activity": [
+    "errands",
+    "missions"
+   ],
+   "phase": "AP3",
+   "status": "in_use",
+   "prerequisites": "a quest of mine with its goals met",
+   "cooldown": "once per quest step",
+   "evidence": "pilot.py errand_tick"
+  },
+  "hunting.getBoard": {
+   "kind": "read",
+   "activity": [
+    "hunting"
+   ],
+   "phase": "AP3",
+   "status": "documented",
+   "prerequisites": "the Hunter occupation",
+   "cooldown": "none known",
+   "evidence": "state/player/dauntless/ryo_plan.md"
+  },
+  "hunting.getSession": {
+   "kind": "read",
+   "activity": [
+    "hunting"
+   ],
+   "phase": "AP3",
+   "status": "documented",
+   "prerequisites": "an accepted contract",
+   "cooldown": "none known",
+   "evidence": "state/player/dauntless/ryo_plan.md"
+  },
+  "hunting.accept": {
+   "kind": "action",
+   "activity": [
+    "hunting"
+   ],
+   "phase": "AP3",
+   "status": "documented",
+   "prerequisites": "a contract on the board; A to D ranks only until the director picks a kit for S",
+   "cooldown": "an hour per contract",
+   "evidence": "state/player/dauntless/ryo_plan.md"
+  },
+  "hunting.sessionAction": {
+   "kind": "action",
+   "activity": [
+    "hunting"
+   ],
+   "phase": "AP3",
+   "status": "documented",
+   "prerequisites": "in the contract's sector with a session open",
+   "cooldown": "10 s between prepare and start",
+   "evidence": "state/player/dauntless/ryo_plan.md"
+  },
+  "hunting.start": {
+   "kind": "action",
+   "activity": [
+    "hunting"
+   ],
+   "phase": "AP3",
+   "status": "documented",
+   "prerequisites": "a prepared session; PvE loadouts; gear not broken",
+   "cooldown": "10 hunts per contract",
+   "evidence": "state/player/dauntless/ryo_plan.md"
+  },
+  "auction.createAuctionListing": {
+   "kind": "action",
+   "activity": [
+    "hunting"
+   ],
+   "phase": "AP3",
+   "status": "documented",
+   "prerequisites": "a stack of materials I own; a MONEY auction at the item's own price",
+   "cooldown": "listings run 72 h",
+   "gates": [
+    "ryo_only",
+    "auction_only"
+   ],
+   "ask_first": "sell_rare_items",
+   "evidence": "state/player/dauntless/ryo_plan.md (listing rule)"
+  },
+  "travel.getVillageInSector": {
+   "kind": "read",
+   "activity": [
+    "pvp_hunt"
+   ],
+   "phase": "AP1",
+   "status": "proposed",
+   "prerequisites": "none; the sector's village and its alliances",
+   "cooldown": "once per sector, cached",
+   "gates": [
+    "player_visible_only"
+   ],
+   "evidence": "live surface 2026-11-11: 'Get village and alliance info for sector'"
+  },
+  "profile.getPublicUser": {
+   "kind": "read",
+   "activity": [
+    "dossier"
+   ],
+   "phase": "AP1",
+   "status": "proposed",
+   "prerequisites": "a user id; the public profile (rank, level, village)",
+   "cooldown": "once per opponent",
+   "gates": [
+    "player_visible_only"
+   ],
+   "evidence": "live surface 2026-11-11: 'Get public profile info for a user'"
+  },
+  "jutsu.get": {
+   "kind": "read",
+   "activity": [
+    "dossier"
+   ],
+   "phase": "AP1",
+   "status": "documented",
+   "prerequisites": "a jutsu id seen in play; between fights only",
+   "cooldown": "once per record, then from the catalogue",
+   "gates": [
+    "player_visible_only"
+   ],
+   "evidence": "add_record.py"
+  },
+  "item.get": {
+   "kind": "read",
+   "activity": [
+    "dossier"
+   ],
+   "phase": "AP1",
+   "status": "documented",
+   "prerequisites": "an item id seen in play; between fights only",
+   "cooldown": "once per record, then from the catalogue",
+   "gates": [
+    "player_visible_only"
+   ],
+   "evidence": "add_record.py"
+  },
+  "train.getTrainingLog": {
+   "kind": "read",
+   "activity": [
+    "training"
+   ],
+   "phase": "AP2",
+   "status": "proposed",
+   "prerequisites": "my own user id",
+   "cooldown": "one read per upkeep pass",
+   "gates": [
+    "own_account_only"
+   ],
+   "evidence": "live surface 2026-11-11: 'Get user training history from last 24 hours'"
+  },
+  "skillTree.getUserSkills": {
+   "kind": "read",
+   "activity": [
+    "training"
+   ],
+   "phase": "AP2",
+   "status": "proposed",
+   "prerequisites": "none; my own skills",
+   "cooldown": "one read per upkeep pass",
+   "evidence": "live surface 2026-11-11: 'Get user's purchased skills'"
+  },
+  "skillTree.purchaseSkill": {
+   "kind": "action",
+   "activity": [
+    "training"
+   ],
+   "phase": "AP2",
+   "status": "proposed",
+   "prerequisites": "skill points to spend; what else it can cost is not known yet",
+   "cooldown": "when points are available",
+   "ask_first": "premium_currency",
+   "evidence": "live surface 2026-11-11: 'Purchase or activate a skill'"
+  },
+  "item.getItemLoadouts": {
+   "kind": "read",
+   "activity": [
+    "equipment"
+   ],
+   "phase": "AP2",
+   "status": "proposed",
+   "prerequisites": "none; my own loadouts",
+   "cooldown": "once per session, then from the world model",
+   "evidence": "live surface 2026-11-11: 'Get user's item loadouts'"
+  },
+  "jutsu.getLoadouts": {
+   "kind": "read",
+   "activity": [
+    "equipment"
+   ],
+   "phase": "AP2",
+   "status": "proposed",
+   "prerequisites": "none; my own loadouts",
+   "cooldown": "once per session, then from the world model",
+   "evidence": "live surface 2026-11-11: 'Get user's jutsu loadouts'"
+  },
+  "item.repair": {
+   "kind": "action",
+   "activity": [
+    "repair"
+   ],
+   "phase": "AP2",
+   "status": "proposed",
+   "prerequisites": "one equipped item under 25% durability; ryo repair may need the Crafting occupation",
+   "cooldown": "not retried for 10 min",
+   "gates": [
+    "spend_cap"
+   ],
+   "evidence": "live surface 2026-11-11: 'Repair an item with ryo'"
+  },
+  "item.useRepairItem": {
+   "kind": "action",
+   "activity": [
+    "repair"
+   ],
+   "phase": "AP2",
+   "status": "proposed",
+   "prerequisites": "one equipped item under 25% durability; a Repair Kit carried",
+   "cooldown": "not retried for 10 min",
+   "evidence": "live surface 2026-11-11: 'Use repair kit on an item'"
+  },
+  "item.mergeStacks": {
+   "kind": "action",
+   "activity": [
+    "restock",
+    "hunting"
+   ],
+   "phase": "AP2",
+   "status": "documented",
+   "prerequisites": "scattered stacks of one item in the carried inventory",
+   "cooldown": "none known",
+   "evidence": "tnr-pvp-combat section 8"
+  },
+  "bank.getPendingInterest": {
+   "kind": "read",
+   "activity": [
+    "bank"
+   ],
+   "phase": "AP2",
+   "status": "proposed",
+   "prerequisites": "none; my own bank",
+   "cooldown": "daily",
+   "evidence": "live surface 2026-11-11: 'Get pending daily bank interest'"
+  },
+  "bank.claimInterest": {
+   "kind": "action",
+   "activity": [
+    "bank"
+   ],
+   "phase": "AP2",
+   "status": "proposed",
+   "prerequisites": "interest waiting",
+   "cooldown": "daily",
+   "evidence": "live surface 2026-11-11: 'Claim accumulated daily bank interest'"
+  },
+  "home.getUserHome": {
+   "kind": "read",
+   "activity": [
+    "session"
+   ],
+   "phase": "AP2",
+   "status": "proposed",
+   "prerequisites": "none; my own home",
+   "cooldown": "once per session",
+   "evidence": "live surface 2026-11-11: 'Get current user home info'"
+  },
+  "villageMission.get": {
+   "kind": "read",
+   "activity": [
+    "missions"
+   ],
+   "phase": "AP3",
+   "status": "proposed",
+   "prerequisites": "none known; the description on the live surface is empty",
+   "cooldown": "to be set by the missions playbook",
+   "evidence": "live surface 2026-11-11: no description"
+  },
+  "villageMission.select": {
+   "kind": "action",
+   "activity": [
+    "missions"
+   ],
+   "phase": "AP3",
+   "status": "proposed",
+   "prerequisites": "a village mission on offer; to be set by the missions playbook",
+   "cooldown": "daily cap of 20 missions",
+   "evidence": "live surface 2026-11-11: no description"
+  },
+  "villageMission.claim": {
+   "kind": "action",
+   "activity": [
+    "missions"
+   ],
+   "phase": "AP3",
+   "status": "proposed",
+   "prerequisites": "a finished village mission",
+   "cooldown": "once per mission",
+   "evidence": "live surface 2026-11-11: no description"
+  },
+  "quests.missionHall": {
+   "kind": "read",
+   "activity": [
+    "missions"
+   ],
+   "phase": "AP3",
+   "status": "proposed",
+   "prerequisites": "in a village; the missions on offer to any player there",
+   "cooldown": "once per mission run",
+   "gates": [
+    "player_visible_only"
+   ],
+   "evidence": "live surface 2026-11-11: 'Get available missions from mission hall'"
+  },
+  "quests.getUserQuests": {
+   "kind": "read",
+   "activity": [
+    "missions",
+    "errands"
+   ],
+   "phase": "AP3",
+   "status": "proposed",
+   "prerequisites": "my own user id",
+   "cooldown": "when the quest state is in doubt",
+   "gates": [
+    "own_account_only"
+   ],
+   "evidence": "live surface 2026-11-11: no description"
+  },
+  "quests.startQuest": {
+   "kind": "action",
+   "activity": [
+    "missions",
+    "farming"
+   ],
+   "phase": "AP3",
+   "status": "documented",
+   "prerequisites": "a quest the account can start as a player; its entry item, if any, is spent",
+   "cooldown": "per quest",
+   "gates": [
+    "player_visible_only"
+   ],
+   "evidence": "tnr-pvp-combat section 8 (event chart runs)"
+  },
+  "quests.getPendingRewardChoices": {
+   "kind": "read",
+   "activity": [
+    "missions",
+    "farming"
+   ],
+   "phase": "AP3",
+   "status": "documented",
+   "prerequisites": "none; my own reward choices",
+   "cooldown": "after a quest ends",
+   "evidence": "tnr-pvp-combat section 8"
+  },
+  "quests.claimRewardChoice": {
+   "kind": "action",
+   "activity": [
+    "missions",
+    "farming"
+   ],
+   "phase": "AP3",
+   "status": "documented",
+   "prerequisites": "a reward choice waiting for me",
+   "cooldown": "once per choice",
+   "evidence": "tnr-pvp-combat section 8"
+  },
+  "quests.retryBattle": {
+   "kind": "action",
+   "activity": [
+    "missions"
+   ],
+   "phase": "AP3",
+   "status": "proposed",
+   "prerequisites": "a quest battle of mine that was lost",
+   "cooldown": "to be set by the missions playbook",
+   "evidence": "live surface 2026-11-11: 'Retry a quest battle after failure'"
+  },
+  "combat.toggleAutoCombat": {
+   "kind": "action",
+   "activity": [
+    "missions",
+    "hunting"
+   ],
+   "phase": "AP3",
+   "status": "documented",
+   "prerequisites": "in a fight against the game's AI only, never against a player (scope: design section 9 item 4)",
+   "cooldown": "per battle",
+   "evidence": "tnr-pvp-combat section 8; design section 5.5"
+  },
+  "activityStreak.getUserStreaks": {
+   "kind": "read",
+   "activity": [
+    "dailies"
+   ],
+   "phase": "AP3",
+   "status": "proposed",
+   "prerequisites": "none; my own streaks",
+   "cooldown": "daily",
+   "evidence": "live surface 2026-11-11: 'Get user's active activity streaks'"
+  },
+  "activityStreak.claimStreakDay": {
+   "kind": "action",
+   "activity": [
+    "dailies"
+   ],
+   "phase": "AP3",
+   "status": "proposed",
+   "prerequisites": "a streak day ready to claim; payCatchUp false (what catching up costs is not known)",
+   "cooldown": "daily",
+   "evidence": "live surface 2026-11-11: 'Claim daily streak reward'"
+  },
+  "profile.getDashboard": {
+   "kind": "read",
+   "activity": [
+    "dailies",
+    "world"
+   ],
+   "phase": "AP3",
+   "status": "proposed",
+   "prerequisites": "none; my own dashboard",
+   "cooldown": "a few times a day",
+   "evidence": "live surface 2026-11-11: 'Get compact profile dashboard discovery and reward summaries'"
+  },
+  "profile.getSidebarTimers": {
+   "kind": "read",
+   "activity": [
+    "dailies",
+    "world"
+   ],
+   "phase": "AP3",
+   "status": "proposed",
+   "prerequisites": "none; my own timers",
+   "cooldown": "a few times a day",
+   "evidence": "live surface 2026-11-11: no description"
+  },
+  "farming.getFarmState": {
+   "kind": "read",
+   "activity": [
+    "farming"
+   ],
+   "phase": "AP3",
+   "status": "proposed",
+   "prerequisites": "none; my own farm",
+   "cooldown": "one read per farm pass",
+   "evidence": "live surface 2026-11-11: 'Get farm state'"
+  },
+  "farming.plantSeed": {
+   "kind": "action",
+   "activity": [
+    "farming"
+   ],
+   "phase": "AP3",
+   "status": "proposed",
+   "prerequisites": "my own farm; to be set by the farming playbook",
+   "cooldown": "to be set by the farming playbook",
+   "evidence": "live surface 2026-11-11: 'Plant a seed on a farm plot'"
+  },
+  "farming.plantAllEmpty": {
+   "kind": "action",
+   "activity": [
+    "farming"
+   ],
+   "phase": "AP3",
+   "status": "proposed",
+   "prerequisites": "my own farm; to be set by the farming playbook",
+   "cooldown": "to be set by the farming playbook",
+   "evidence": "live surface 2026-11-11: 'Plant a seed in every empty farm plot'"
+  },
+  "farming.waterPlot": {
+   "kind": "action",
+   "activity": [
+    "farming"
+   ],
+   "phase": "AP3",
+   "status": "proposed",
+   "prerequisites": "my own farm; to be set by the farming playbook",
+   "cooldown": "to be set by the farming playbook",
+   "evidence": "live surface 2026-11-11: 'Water a growing farm plot'"
+  },
+  "farming.waterAll": {
+   "kind": "action",
+   "activity": [
+    "farming"
+   ],
+   "phase": "AP3",
+   "status": "proposed",
+   "prerequisites": "my own farm; to be set by the farming playbook",
+   "cooldown": "to be set by the farming playbook",
+   "evidence": "live surface 2026-11-11: 'Water every eligible farm plot'"
+  },
+  "farming.applyFertilizer": {
+   "kind": "action",
+   "activity": [
+    "farming"
+   ],
+   "phase": "AP3",
+   "status": "proposed",
+   "prerequisites": "my own farm; to be set by the farming playbook",
+   "cooldown": "to be set by the farming playbook",
+   "evidence": "live surface 2026-11-11: 'Apply fertilizer to a farm plot'"
+  },
+  "farming.fertilizeAll": {
+   "kind": "action",
+   "activity": [
+    "farming"
+   ],
+   "phase": "AP3",
+   "status": "proposed",
+   "prerequisites": "my own farm; to be set by the farming playbook",
+   "cooldown": "to be set by the farming playbook",
+   "evidence": "live surface 2026-11-11: 'Fertilize every eligible farm plot'"
+  },
+  "farming.harvestPlot": {
+   "kind": "action",
+   "activity": [
+    "farming"
+   ],
+   "phase": "AP3",
+   "status": "proposed",
+   "prerequisites": "my own farm; to be set by the farming playbook",
+   "cooldown": "to be set by the farming playbook",
+   "evidence": "live surface 2026-11-11: 'Harvest a ready farm plot'"
+  },
+  "farming.harvestAll": {
+   "kind": "action",
+   "activity": [
+    "farming"
+   ],
+   "phase": "AP3",
+   "status": "proposed",
+   "prerequisites": "my own farm; to be set by the farming playbook",
+   "cooldown": "to be set by the farming playbook",
+   "evidence": "live surface 2026-11-11: 'Harvest every ready farm plot'"
+  },
+  "farming.buyShopItem": {
+   "kind": "action",
+   "activity": [
+    "farming"
+   ],
+   "phase": "AP3",
+   "status": "proposed",
+   "prerequisites": "the farm shop; what it charges is not known yet",
+   "cooldown": "to be set by the farming playbook",
+   "ask_first": "premium_currency",
+   "evidence": "live surface 2026-11-11: 'Buy an item from the farm shop'"
+  },
+  "farming.sellCrop": {
+   "kind": "action",
+   "activity": [
+    "farming"
+   ],
+   "phase": "AP3",
+   "status": "proposed",
+   "prerequisites": "a crop of mine",
+   "cooldown": "to be set by the farming playbook",
+   "ask_first": "sell_rare_items",
+   "evidence": "live surface 2026-11-11: 'Sell a farm crop for farm currency'"
+  }
+ }
+}
