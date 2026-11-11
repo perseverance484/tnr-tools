@@ -55,7 +55,11 @@ MINE = {
     "parry": (0, [("me", "given", 0.30, 2), ("me", "parry", 0.20, 2)]),
     # Chakra Resistance (lvl 25): -30% damage taken on me for 2 rounds; his next casts lose 10 potency (consumed as he
     # casts; modelled as -10% damage given for his next turn). Replaced Parry in PvP 1 (director 2026-11-11).
-    "resist": (0, [("me", "dr", 0.30, 2), ("en", "given", -0.10, 1)]),
+    # The potency cut is instant (engine potency(): applies when isNew, consumed by his next casts), so it hits his
+    # turn later THIS round when I act first, and his next turn when I act second. The -30% taken starts next round
+    # like every tag, which covers his next turn whether I act first or second. Director 2026-11-11: Seal + Chakra
+    # Resistance is the emergency damage nerf (his buffs blocked, his casts weakened, my damage taken -30%).
+    "resist": (0, [("me", "dr", 0.30, 2), ("en", "given", -0.10, 2, True)]),
     "eclipse": (0, [("me", "given", 0.30, 2), ("me", "lifesteal", 0.35, 2)]),
     "sealnull": (0, [("en", "buffblock", 1, 1), ("me", "debuffimmune", 1, 2)]),
     "phantom": (0, [("me", "given", 0.30, 2), ("me", "dr", 0.25, 2)]),
