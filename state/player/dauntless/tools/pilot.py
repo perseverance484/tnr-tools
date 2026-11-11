@@ -269,7 +269,7 @@ def note_refusals(st, res):
 
 
 # ---------------------------------------------------------------- battle
-def battle_tick(st, bid, battle, entries):
+def battle_tick(st, bid, battle, entries, no_read=False):
     cache_path = os.path.join(LIVE, f"{bid}.json")
     try:
         cache = json.load(open(cache_path))
@@ -280,6 +280,15 @@ def battle_tick(st, bid, battle, entries):
         new = [list(x) for x in zip(*(entries.get(k, []) for k in ENT)) if x[0] not in seen]
         cache["entries"] += new[::-1]                      # cache is oldest-first
     users = battle.get("battle.usersState.*.userId") or []
+    asked_full = cache.pop("asked_full", False)
+    if users and asked_full:
+        cache["full_ok"] = True
+    if not users and asked_full and not cache.get("full_ok") and cache.get("full_refused", 0) < 2:
+        # a full read (with the effect list) came back without the battle before any full read worked here: read
+        # plain once more rather than call the battle over, and after two such refusals poll plain (2026-11-11 fix)
+        cache["full_refused"] = cache.get("full_refused", 0) + 1
+        save(cache_path, cache)
+        return f"BATTLE {bid}: full read refused, plain read", [c_battle(bid), c_entries(bid, 8), TICK]
     if not users and cache.get("perm_tries") and "perm_effects" not in cache and cache.get("perm_retry", 0) < 2:
         # the read that also asked for the effect list came back without the battle: plain read again, never
         # mistake it for the battle ending
@@ -331,8 +340,12 @@ def battle_tick(st, bid, battle, entries):
     want = "perm_effects" not in cache and cache.get("perm_tries", 0) < 2   # a refused read never blocks the fight
     if want:
         cache["perm_tries"] = cache.get("perm_tries", 0) + 1
-        save(cache_path, cache)
-    poll = [c_battle(bid, effects=want), c_entries(bid, 8), TICK]
+    # every poll is a full read (director 2026-11-11, missed Korin R2: the separate live-state read on my own turn was
+    # rate-limited for 26 s and the turn passed). Same call count; plain only after full reads were refused twice.
+    full = want or cache.get("full_refused", 0) < 2
+    cache["asked_full"] = full
+    save(cache_path, cache)
+    poll = [c_battle(bid, effects=full), c_entries(bid, 8), TICK]
     foe_id = users[foes[0]]
     ai = battle.get("battle.usersState.*.isAi") or []
     if not (ai and ai[foes[0]]) and not kit_known(foe_id) and cache.get("kit_asked") != foe_id:
@@ -349,9 +362,9 @@ def battle_tick(st, bid, battle, entries):
         # a fast relay polls every ~2.7 s (~45 calls/min); the connector allows 30/min ("Too Many Requests"
         # mid-fight, 2026-11-11), so his-turn polls pace themselves: ~25 calls/min, ~1 s more detection lag
         return head + " | his turn", [wait(POLL_GAP)] + poll
-    # the exact live state at the start of every turn of mine, the director's included (planning, and the record a
-    # post-mortem replays from)
-    if cache.get("live_v") != v and cache.get("live_try_v") != v:
+    # the exact live state at the start of every turn of mine: polls carry it (fix 2026-11-11). A separate read is taken
+    # only when the director plays the turn (he has the time); the pilot plans on what it has and never waits on a read
+    if director_mode() and not no_read and cache.get("live_v") != v and cache.get("live_try_v") != v:
         cache["live_try_v"] = v
         save(cache_path, cache)
         return head + " | MY TURN: reading the live state", [c_battle(bid, effects=True), c_entries(bid, 8), TICK]
@@ -371,10 +384,6 @@ def battle_tick(st, bid, battle, entries):
         st.setdefault("pilot_turns", {}).setdefault(bid, []).append(R)
     # plan on the exact live state (director 2026-11-11: "read the exact live state and feed it into the vector
     # state engine"): one read with the full effect list at this version, then plan
-    if cache.get("live_v") != v and cache.get("live_try_v") != v:
-        cache["live_try_v"] = v
-        save(cache_path, cache)
-        return head + " | MY TURN: reading the live state", [c_battle(bid, effects=True), c_entries(bid, 8), TICK]
     if cache.get("live_v") == v:
         battle["battle.liveEffects"] = cache["live"]
     # a plan already sent for this exact battle version that did not move the version is not resent as is: its first
@@ -596,7 +605,7 @@ def world(st, user, res):
         st["battleId"] = bid
         alert = [push(f"TNR fight started ({bid[:6]}): your move - the pilot covers any turn you leave for "
                       f"{HANDOFF_WAIT:.0f}s")] if director_mode() else []
-        return f"BATTLE START {bid}", alert + [c_battle(bid), c_entries(bid, 200), TICK]
+        return f"BATTLE START {bid}", alert + [c_battle(bid, effects=True), c_entries(bid, 200), TICK]
     if status == "ASLEEP":
         if mode == "hunt":
             return "ASLEEP, hunt mode: waking", [call("home.toggleSleep", {}, ["success", "message"]), c_user(), TICK]
@@ -778,6 +787,17 @@ def go(sector):
 CALL_BUDGET = 22        # reads per rolling 60 s; actions skip the pacing (connector cap 30 for the whole account)
 
 
+def my_turn_cached(bid):
+    """The last battle read for bid if it shows my turn (for acting through a refused read), else None."""
+    if not bid:
+        return None
+    try:
+        b = json.load(open(os.path.join(LIVE, f"{bid}.json"))).get("battle") or {}
+    except (OSError, ValueError):
+        return None
+    return b if b.get("battle.activeUserId") == ME and ME in (b.get("battle.usersState.*.userId") or []) else None
+
+
 def budget(st, batch, urgent=False):
     """Pace the batch so this pilot never exceeds CALL_BUDGET game calls in any rolling minute: the batch's existing
     in-batch pauses count, and one pause is added in front when the window is full. Every call the pilot issues is
@@ -839,13 +859,28 @@ def tick():
         head, batch = f"resume battle {bid}", [c_battle(bid), c_entries(bid, 8), TICK]
     else:
         head, batch = "start", [c_user(), TICK]
-    if "_rate_limited" in res and st.get("last_batch"):
-        # the connector refused part of the batch: resend the same calls (actions already applied fail harmlessly on
-        # the battle version) once the call budget below has room
-        head, batch = "RATE LIMITED: resending under the budget", [b for b in st["last_batch"] if "call" in b] + [TICK]
+    if "_rate_limited" in res and st.get("last_batch") and any(x.get("call") == "combat.performAction" for x in batch):
+        # part of the batch was refused but the reads that came back already planned my turn: act on that plan now
+        head = "RATE LIMITED (partial), acting: " + head
+        st["last_batch"] = batch
+    elif "_rate_limited" in res and st.get("last_batch"):
+        last = [b for b in st["last_batch"] if "call" in b]
+        acted = any(b["call"] == "combat.performAction" for b in last)
+        mine = my_turn_cached(st.get("battleId"))
+        if mine and not acted:
+            # my turn and the refusal ate the reads: plan from the last good read and act now; the reads follow the
+            # actions (director 2026-11-11: "Make the fixes" after Korin R2 was lost to a refused read)
+            h, batch = battle_tick(st, st["battleId"], dict(mine), None, no_read=True)
+            head = "RATE LIMITED, acting on the last read: " + h
+            st["last_batch"] = batch
+        else:
+            # resend the same calls, actions first (actions already applied fail harmlessly on the battle version)
+            acts = [b for b in last if b["call"] == "combat.performAction"]
+            head, batch = "RATE LIMITED: resending under the budget", acts + [b for b in last if b not in acts] + [TICK]
     else:
         st["last_batch"] = batch
-    batch = budget(st, batch, urgent="MY TURN: reading the live state" in head)
+    urgent = any(k in head for k in ("MY TURN", "BATTLE START", "BATTLE OVER", "acting on the last read"))
+    batch = budget(st, batch, urgent=urgent)
     st["last_tick"] = started
     save(STATE, st)
     print(head + (f" (paced {st['budget_wait']}s)" if st.get("budget_wait") else ""))

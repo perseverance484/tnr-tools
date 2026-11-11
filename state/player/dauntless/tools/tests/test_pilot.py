@@ -119,6 +119,46 @@ def test_restock():
     print("ok: restock (read, buy from the shop, take out of home storage) + training upkeep")
 
 
+def test_missed_turn_fixes():
+    """2026-11-11 Korin R1/R2 (director: "Make the fixes"): my turn never waits on a read, every poll is a full read,
+    battle start reads the full state, and a refusal on my turn acts on the last read instead of re-reading."""
+    import importlib, sys as _s
+    d = tempfile.mkdtemp()
+    os.environ["TNR_PILOT_LIVE"] = d
+    _s.path.insert(0, HERE)
+    import pilot
+    importlib.reload(pilot)
+    battle, ents = [json.loads(l) for l in open(FIX).read().splitlines() if l.strip()]
+    st = {}
+    head, b = pilot.battle_tick(st, "MT1", dict(battle), None)        # no effect list on this read, director off
+    assert "MY TURN" in head and "reading" not in head and b[0].get("call") == "combat.performAction", head
+    poll = [x for x in b if x.get("call") == "combat.getBattle"]
+    assert poll and poll[0]["select"][-1] == "battle.usersEffects", poll   # the poll carries the exact state
+    # battle start: the first read is the full one
+    h, bb = pilot.world({"mode": "hunt"}, {"userData.status": "BATTLE", "userData.battleId": "MT2"}, {})
+    assert "BATTLE START" in h and bb[0]["select"][-1] == "battle.usersEffects", bb[0]
+    # refused reads on my turn: the next tick plans from the cached read and acts first, unpaced
+    live = os.path.join(d, "rl")
+    os.makedirs(live)
+    json.dump({"entries": [], "battle": battle}, open(os.path.join(live, "RL1.json"), "w"))
+    json.dump({"battleId": "RL1", "mode": "hunt", "last_tick": 0, "calls": [__import__("time").time()] * 30,
+               "last_batch": [pilot.c_battle("RL1"), pilot.c_entries("RL1", 8), pilot.TICK]},
+              open(os.path.join(live, "pilot.json"), "w"))
+    now = dt.datetime.now(dt.timezone.utc).isoformat().replace("+00:00", "Z")
+    tp = os.path.join(d, "t.jsonl")
+    with open(tp, "w") as f:
+        f.write(json.dumps({"timestamp": now, "message": {"content": [{"type": "tool_use", "id": "r0",
+                "name": "mcp__Tnr__callEndpoint", "input": {"endpointName": "combat.getBattle", "input": {"battleId": "RL1"}}}]}}) + "\n")
+        f.write(json.dumps({"timestamp": now, "message": {"content": [{"type": "tool_result", "tool_use_id": "r0",
+                "content": [{"type": "text", "text": "Error POSTing to endpoint: Too Many Requests"}]}]}}) + "\n")
+    out = subprocess.run([sys.executable, os.path.join(HERE, "pilot.py")], capture_output=True, text=True,
+                         env=dict(os.environ, TNR_TRANSCRIPT=tp, TNR_PILOT_LIVE=live)).stdout.splitlines()
+    batch = [json.loads(l) for l in out[1:]]
+    assert "acting on the last read" in out[0] and batch[0].get("call") == "combat.performAction", out[:3]
+    os.environ.pop("TNR_PILOT_LIVE")
+    print("ok: missed-turn fixes (no read on my turn, full polls, full start read, act through a refusal)")
+
+
 if __name__ == "__main__":
     main()
 
@@ -261,6 +301,7 @@ if __name__ == "__main__":
     test_restock()
     test_lobby()
     test_handoff()
+    test_missed_turn_fixes()
     # every test passed: this pilot.py becomes the fallback pilot_safe.py runs if a later edit breaks
     import shutil
     good = os.path.join(HERE, "pilot_good.py")
