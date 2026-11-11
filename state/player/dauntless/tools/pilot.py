@@ -116,11 +116,37 @@ def save(path, obj):
     os.replace(tmp, path)
 
 
+def _last_call(path, tail=60_000):
+    """The newest tool_use in a transcript (Claude Code writes it before the call runs)."""
+    with open(path, "rb") as f:
+        f.seek(max(0, os.path.getsize(path) - tail))
+        lines = f.read().decode("utf8", "ignore").splitlines()
+    for line in reversed(lines):
+        try:
+            d = json.loads(line)
+        except ValueError:
+            continue
+        for c in reversed((d.get("message") or {}).get("content") or [] if isinstance((d.get("message") or {}).get("content"), list) else []):
+            if c.get("type") == "tool_use":
+                return c
+    return None
+
+
 def transcript():
-    """The transcript of whichever session is relaying right now: the most recently written one (a dedicated pilot
-    agent writes under <session>/subagents/)."""
-    files = glob.glob("/root/.claude/projects/**/*.jsonl", recursive=True)
-    return os.environ.get("TNR_TRANSCRIPT") or (max(files, key=os.path.getmtime) if files else None)
+    """The transcript of the session running THIS tick: among recently written transcripts, the one whose newest
+    call is a Bash pilot.py run. (Newest-mtime alone picked the supervisor's transcript when it wrote at the same
+    moment, 2026-11-11.)"""
+    if os.environ.get("TNR_TRANSCRIPT"):
+        return os.environ["TNR_TRANSCRIPT"]
+    files = sorted(glob.glob("/root/.claude/projects/**/*.jsonl", recursive=True), key=os.path.getmtime, reverse=True)
+    now = time.time()
+    for path in files[:8]:
+        if now - os.path.getmtime(path) > 120:
+            break
+        c = _last_call(path)
+        if c and c.get("name") == "Bash" and "pilot.py" in (c.get("input") or {}).get("command", ""):
+            return path
+    return files[0] if files else None
 
 
 def fresh_results(since, tail=400_000):
@@ -316,6 +342,7 @@ def world(st, user, res):
         st["arrive"] = dt.datetime.fromisoformat(start[1]["data.travelFinishAt"].replace("Z", "+00:00")).timestamp()
     if status not in ("AWAKE", "BATTLE", "ASLEEP", "HOSPITALIZED"):     # mid-travel: wait for the arrival time
         left = max(0.0, st["arrive"] - time.time()) if st.get("arrive") else 5.0   # unknown arrival: retry every 5 s
+        left = max(left, 1.5)          # past the arrival time but not arrived yet: pause between retries
         return f"{status}: arriving in {left:.0f}s", ([wait(round(min(left + 0.5, 20), 1))] if left > 0 else []) + \
             [call("travel.finishGlobalMove", {}, ["success", "message"]), c_user(), TICK]
     head = f"AWAKE {mode} {hp:.0f}/{mx:.0f} HP @ {sector} {me_pos}"
