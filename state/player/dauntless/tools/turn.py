@@ -243,6 +243,8 @@ def main():
 
     lines = [f"{r}|{t.strip()}" for r, u, _, ts in rows for t in (ts or [])]
     me0, en0 = shotplan.rebuild(lines, ME_NAME, en["username"], me["curHealth"], en["curHealth"])
+    _gm = (engine_bridge.opponent_kit(en["userId"]) or {}).get("gearMods") or {}
+    _his_gear_dr = float(_gm.get("drTakenFromGear", 15))   # measured, else the endgame assumption (Kaeruun + Fortify III)
     # a stun costs AP from the turn it lands: his stun earlier THIS round (he acted first) counts now,
     # as does one from the previous 2 rounds (Warlord40 R2, 2026-11-11: planner missed a same-round stun)
     stunned = any("dauntless is stunned" in l and int(l.split("|")[0]) + 2 >= R and
@@ -271,8 +273,10 @@ def main():
             and [a for r, u, a, _ in rows if u == en["userId"]]),
         # director 2026-11-11: pierce is best when his DR is at or near max (engine DMG_REDUCTION_CAP = 90%), not
         # into 30-45%. Window = his effective in-combat DR >= 55%, a live shield, me smoked, or a pierce kill.
+        # his gear DR adds to the 50% system DR (engine pre-battle stage): effective DR vs a bare target =
+        # 1 - (50 - gearDR)/50 * prod(1 - tag DR). Director's R4 Stormblade vs TearsOfAngel: gear 17 + tag 35 -> 57%.
         "pierce_window": bool(me0.mult("given", R) < 0.6 or en0.live("shield", R)
-                              or 1 - _prod(1 - t[1] for t in en0.live("dr", R)) >= 0.55
+                              or 1 - (50 - _his_gear_dr) / 50 * _prod(1 - t[1] for t in en0.live("dr", R)) >= 0.55
                               or en["curHealth"] <= 720),
         "en_absorb": en0.total("absorb", R),
         "tick": me0.total("wound", R) + me0.total("drain", R),
@@ -295,7 +299,7 @@ def main():
         return
 
     bundles = legal(st, R, ap_now, bool(en0.live("debuffimmune", R)),
-                    {"ember", "severed", "disaster", "lotus", "danse", "sealnull", "yuki"}, st["loadout"], d0)
+                    set(), st["loadout"], d0)
     # engine replay (harness/pvp_turn/engine/replay_sim.ts): legality, AP and costs from the engine's own state
     eng = None if a.no_engine else engine_bridge.replay_list(rows, ME, en["userId"], me, en, me_pos, en_pos, R,
                                                                "next" if en_acted else "same", value_model.load_cal())
@@ -360,7 +364,9 @@ def main():
     ctx["pierce_ready_own"] = ctx["pierce_ready"]
     if ctx["summon"]:
         ctx["pierce_ready"] = True
-    blocked = {"ember", "severed", "disaster", "lotus", "danse", "sealnull", "yuki"}
+    # no blanket ban while he is debuff-immune: shotplan drops each hostile tag on an immune target and keeps the
+    # damage, and buff-block (Seal / Lotus) still lands (live: director's R2 Seal vs immune TearsOfAngel, 2026-11-11)
+    blocked = set()
     profile = known and en["username"].lower() in shotplan.PROFILES
     hr = R + 1 if en_acted else R          # his reply round
     hr2 = hr + 1                            # his reply after my follow-up
@@ -377,6 +383,10 @@ def main():
         c = ctx
         if ctx["summon"] and any(x in AOE for x in b):  # AoE clears summons (Fury one-shot Jade for 2646, 2026-11-11)
             c = dict(ctx, summon=False, pierce_ready=ctx["pierce_ready_own"])
+        # Seal of Nullification / Lotus cast now block his buffs in his next-round turn (director's R2 Seal vs
+        # TearsOfAngel: his R3 self-buff "cannot be buffed"); his burst and setup lean on those buffs
+        if r > R and any(x in ("sealnull", "lotus") for x in b):
+            c = dict(c, en_buffblocked=True)
         opts = value_model.enemy_options(cal, c, m, r, ctx["afk"])
         if profile:
             pred = shotplan.enemy_options(en["username"].lower(), a.battle, r)
@@ -437,7 +447,11 @@ def main():
         pen, why = penalties(b, ctx, cal)
         rc, rwhy = value_model.reserve_cost(b, cal, R)
         outs = []
-        for w, h in his_options(me0, hr, b):
+        # his options are judged on MY STACK AFTER this bundle (Clear risk grows with what I just stacked; it used
+        # to read the pre-bundle stack, so Overflow+Thunders into a held Clear looked safe)
+        m_after, e_after = value_model.copy_side(me0), value_model.copy_side(en0)
+        shotplan.run_turn(m_after, e_after, list(b), shotplan.MINE, R, True)
+        for w, h in his_options(m_after, hr, b):
             m, e, sc, log = ply1(b, h, kit)
             kill = e.hp <= 0
             outs.append((w, sc + (0 if kill else pen - rc), m, e, log, kill))

@@ -157,6 +157,9 @@ def rebuild(lines, me_name, en_name, my_hp, en_hp):
                 who.tags.append(["wound", float(re.search(r"take ([\d.]+) wound", t).group(1)), r + 1, r + n])
             elif "will be drained" in t:
                 who.tags.append(["drain", float(re.search(r"drained ([\d.]+)", t).group(1)), r + 1, r + n])
+            elif "of damage received as afterburn" in t:
+                # "X will take N% of damage received as afterburn": every hit on X adds N% more -> +N% taken
+                who.tags.append(["taken", v, r + 1, r + n])
             elif "will recoil" in t:
                 who.tags.append(["recoil_self", v, r + 1, r + n])
             elif "shield with" in t:
