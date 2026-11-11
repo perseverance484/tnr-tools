@@ -53,6 +53,21 @@ def main():
     print("ok: pilot batch = planner pick + poll + tick")
 
 
+def test_restock():
+    """A due restock reads items first; with Kim's empty and Smoke at home it buys Kim's and takes Smoke out."""
+    head, b = run_world([user()], "hunt", {"restock": {"next": 0, "pass": 0, "active": False}})
+    assert "restock: reading items" in head and b[0]["call"] == "item.getUserItems", (head, b[:1])
+    items = {"*.id": ["u1", "u2"], "*.itemId": ["6DnJn4x6LWWXtBu7UZybb", "TtYPd-LcXKeK3sMuhq1TP"],
+             "*.quantity": [0, 5], "*.equipped": ["NONE", "NONE"], "*.storedAtHome": [False, True]}
+    u = user()
+    u[2]["userData.money"], u[2]["userData.bank"] = 3_000_000, 0
+    head, b = run_world([u, ("item.getUserItems", {}, items)], "hunt",
+                        {"restock": {"next": 0, "pass": 1, "active": True}})
+    calls = [x.get("call") for x in b]
+    assert "item.buy" in calls and "home.toggleStoreItem" in calls, (head, calls)
+    print("ok: restock (read, buy from the shop, take out of home storage)")
+
+
 if __name__ == "__main__":
     main()
 
@@ -63,7 +78,9 @@ def run_world(results, mode, state=None):
     with tempfile.TemporaryDirectory() as d:
         live = os.path.join(d, "live")
         os.makedirs(live)
-        json.dump(dict(state or {}, mode=mode), open(os.path.join(live, "pilot.json"), "w"))
+        # restock is tested on its own below; keep it off the world-rule cases unless the state asks for it
+        json.dump(dict({"restock": {"next": 4e9, "pass": 0, "active": False}}, **(state or {}), mode=mode),
+                  open(os.path.join(live, "pilot.json"), "w"))
         now = dt.datetime.now(dt.timezone.utc)
         rows = []
         for k, (ep, inp, data) in enumerate(results):
@@ -122,9 +139,31 @@ def test_world():
     last = [{"call": "combat.getBattle", "input": {"battleId": "B1"}, "select": []}, {"bash": "x"}]
     head, b = run_world([("combat.getBattle", {"battleId": "B1"}, "Error POSTing to endpoint: Too Many Requests")], "hunt",
                         {"last_batch": last, "battleId": "B1"})
-    assert head.startswith("RATE LIMITED") and b[0] == last[0] and "pilot.py" in b[-1]["bash"], (head, b)
+    assert head.startswith("RATE LIMITED") and b[0] == last[0] and "pilot_safe.py" in b[-1]["bash"], (head, b)
     print("ok: world rules (target filters, circuit, wake, rest, heal, battle start, refusal memory, rate-limit backoff)")
+
+
+def test_restock():
+    """A due restock reads items first; with Kim's empty and Smoke at home it buys Kim's and takes Smoke out."""
+    head, b = run_world([user()], "hunt", {"restock": {"next": 0, "pass": 0, "active": False}})
+    assert "restock: reading items" in head and b[0]["call"] == "item.getUserItems", (head, b[:1])
+    items = {"*.id": ["u1", "u2"], "*.itemId": ["6DnJn4x6LWWXtBu7UZybb", "TtYPd-LcXKeK3sMuhq1TP"],
+             "*.quantity": [0, 5], "*.equipped": ["NONE", "NONE"], "*.storedAtHome": [False, True]}
+    u = user()
+    u[2]["userData.money"], u[2]["userData.bank"] = 3_000_000, 0
+    head, b = run_world([u, ("item.getUserItems", {}, items)], "hunt",
+                        {"restock": {"next": 0, "pass": 1, "active": True}})
+    calls = [x.get("call") for x in b]
+    assert "item.buy" in calls and "home.toggleStoreItem" in calls, (head, calls)
+    print("ok: restock (read, buy from the shop, take out of home storage)")
 
 
 if __name__ == "__main__":
     test_world()
+    test_restock()
+    # every test passed: this pilot.py becomes the fallback pilot_safe.py runs if a later edit breaks
+    import shutil
+    good = os.path.join(HERE, "pilot_good.py")
+    os.makedirs(os.path.dirname(good), exist_ok=True)
+    shutil.copy(os.path.join(HERE, "pilot.py"), good)
+    print("ok: saved as the last good pilot")

@@ -57,7 +57,13 @@ def c_user():
     return call("profile.getUser", {}, ["userData.status", "userData.battleId", "userData.curHealth",
                                         "userData.maxHealth", "userData.sector", "userData.longitude",
                                         "userData.latitude", "userData.curChakra", "userData.maxChakra",
-                                        "userData.curStamina", "userData.maxStamina"])
+                                        "userData.curStamina", "userData.maxStamina", "userData.money",
+                                        "userData.bank"])
+
+
+def c_items():
+    import restock
+    return call("item.getUserItems", {}, restock.ITEM_SEL)
 
 
 def c_sector(sector):
@@ -103,7 +109,7 @@ def c_act(bid, aid, x, y, v):
                                          "version": v}, ["notification"])
 
 
-TICK = {"bash": f"cd {HERE} && python3 pilot.py"}
+TICK = {"bash": f"cd {HERE} && python3 pilot_safe.py"}   # pilot_safe: falls back to the last good pilot
 
 
 def wait(seconds):
@@ -154,7 +160,7 @@ def transcript():
         if now - os.path.getmtime(path) > 120:
             break
         c = _last_call(path)
-        if c and c.get("name") == "Bash" and "pilot.py" in (c.get("input") or {}).get("command", ""):
+        if c and c.get("name") == "Bash" and re.search(r"pilot(_safe)?\.py", (c.get("input") or {}).get("command", "")):
             return path
     return files[0] if files else None
 
@@ -213,6 +219,7 @@ def note_refusals(st, res):
             ban = st.setdefault("banned", {}).setdefault(bid, [])
             if aid not in ban:
                 ban.append(aid)
+            st["restock_due"] = True                        # an empty item is the usual cause: restock after the fight
 
 
 # ---------------------------------------------------------------- battle
@@ -413,11 +420,15 @@ def world(st, user, res):
     broken = {k for k, t in st.get("heal_broken", {}).items() if t > time.time()}
     if pools["hp"] < HEAL_BELOW and "hp" not in broken:
         st["healing"] = ["hp", pools["hp"]]
-        return head + ": Full Potion", [call("item.consume", {"userItemId": FULL_POTION}, ["success", "message"]),
+        return head + ": Full Potion", [call("item.consume", {"userItemId": st.get("full_potion_uid", FULL_POTION)},
+                                             ["success", "message"]),
                                        c_user(), TICK]
     if pools["cpsp"] < POOLS_BELOW and "cpsp" not in broken:
         st["healing"] = ["cpsp", pools["cpsp"]]
         return head + ": ramen", [call("village.buyFood", {"ramen": "large"}, ["success", "message"]), c_user(), TICK]
+    rs = restock_tick(st, user, res)
+    if rs:
+        return head + rs[0], rs[1]
     refused = note_attack(st, res)
     scan = res.get("travel.getSectorData")
     if scan and scan[0].get("sector") == sector:
@@ -437,6 +448,50 @@ def world(st, user, res):
         st["sensory"] = time.time()
         batch.append(call("stealth.useSensory", {"sector": sector}, ["success", "message"]))
     return head + ": scanning", batch + [TICK]
+
+
+def restock_tick(st, user, res):
+    """Restock passes between fights (restock.py plans; this sends): read items -> act -> read again, until nothing
+    is missing or 4 passes; then every 15 min, or right after a fight where the game refused an item."""
+    import restock
+    rs = st.setdefault("restock", {"next": 0, "pass": 0, "active": False})
+    if rs.get("active"):
+        items = res.get("item.getUserItems")
+        if not items:
+            if rs["pass"] >= 4:
+                rs.update(active=False, next=time.time() + restock.EVERY)
+                return None
+            rs["pass"] += 1
+            return ": restock: reading items", [c_items(), c_user(), TICK]
+        lst = res.get("auction.getAuctionListings")
+        listings = dict(lst[1], _item=rs.get("q")) if lst and lst[1] else None
+        calls, notes, q = restock.plan(st, items[1], user, _restock_records(), listings, HOME_VILLAGE,
+                                       st.get("full_potion_uid", FULL_POTION))
+        rs["pass"] += 1
+        batch = [call(*c) for c in calls]
+        if q:
+            rs["q"] = q[0]
+            batch.append(call("auction.getAuctionListings", {"itemName": q[1], "limit": 20, "listingType": "AUCTION"},
+                              restock.AUCTION_SEL))
+        rs["last"] = notes
+        if batch and rs["pass"] < 4:
+            return ": restock: " + "; ".join(notes), batch + [c_items(), c_user(), TICK]
+        rs.update(active=False, next=time.time() + restock.EVERY)
+        rs["pass"] = 0
+        return None
+    if time.time() >= rs.get("next", 0) or st.pop("restock_due", False):
+        rs.update(active=True, q=None)
+        rs["pass"] = 0
+        return ": restock: reading items", [c_items(), c_user(), TICK]
+    return None
+
+
+def _restock_records():
+    import engine_bridge
+    import restock
+    recs = engine_bridge._records()
+    ids = list(restock.TRACK) + [x for x in [load_state().get("full_potion_item")] if x]
+    return {i: recs[i]["record"] for i in ids if i in recs}
 
 
 def go(sector):
