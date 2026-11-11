@@ -343,6 +343,7 @@ LOST_TO_HOURS = 6      # a player who just beat me is not attacked again for thi
 
 def finish(st, bid, cache, why):
     """Battle over: keep its log for the post-fight tools (the game deletes it), back to the world loop."""
+    st["restock_due"] = True                                # after every fight: durability and stock
     if why == "lost":
         foes = [u for u in (cache.get("battle") or {}).get("battle.usersState.*.userId") or [] if u != ME]
         for u in foes:
@@ -519,19 +520,27 @@ def restock_tick(st, user, res):
         rs.update(active=False, next=time.time() + restock.EVERY)
         rs["pass"] = 0
         return None
-    if time.time() >= rs.get("next", 0) or st.pop("restock_due", False):
+    poke = os.path.join(LIVE, "restock_now")                 # a supervisor can ask for a pass now (touch the file)
+    poked = os.path.exists(poke)
+    if poked:
+        os.unlink(poke)
+    if poked or time.time() >= rs.get("next", 0) or st.pop("restock_due", False):
         rs.update(active=True, q=None)
         rs["pass"] = 0
         return ": restock: reading items", [c_items(), c_user(), TICK]
     return None
 
 
+class _Recs(dict):
+    """Catalog records by id, read lazily (restock needs shop data for consumables and max durability for gear)."""
+    def get(self, k, d=None):
+        import engine_bridge
+        r = engine_bridge._records().get(k)
+        return r["record"] if r else d
+
+
 def _restock_records():
-    import engine_bridge
-    import restock
-    recs = engine_bridge._records()
-    ids = list(restock.TRACK) + [x for x in [load_state().get("full_potion_item")] if x]
-    return {i: recs[i]["record"] for i in ids if i in recs}
+    return _Recs()
 
 
 def harvest_calls(st, n=2):

@@ -26,14 +26,16 @@ FULL_POTION_KEEP = (5, 15, 20_000)
 RESERVE = 500_000          # ryo never spent by restock
 DAILY_CAP = 3_000_000      # ryo restock may spend per UTC day
 EVERY = 900
-ITEM_SEL = ["*.id", "*.itemId", "*.quantity", "*.equipped", "*.storedAtHome"]
+ITEM_SEL = ["*.id", "*.itemId", "*.quantity", "*.equipped", "*.storedAtHome", "*.durability"]
+REPAIR_BELOW = 0.6         # repair when any equipped item is under this share of its max durability
 AUCTION_SEL = ["data.*.id", "data.*.currencyType", "data.*.buyoutPrice", "data.*.quantity",
                "data.*.userItem.itemId", "data.*.userItem.quantity", "data.*.listingType", "data.*.sellerId"]
 
 
 def rows(items):
-    keys = ["id", "itemId", "quantity", "equipped", "storedAtHome"]
-    cols = [items.get(f"*.{k}") or [] for k in keys]
+    keys = ["id", "itemId", "quantity", "equipped", "storedAtHome", "durability"]
+    n = len(items.get("*.id") or [])
+    cols = [items.get(f"*.{k}") or [None] * n for k in keys]
     return [dict(zip(keys, r)) for r in zip(*cols)]
 
 
@@ -63,10 +65,31 @@ def plan(st, items, user, records, listings=None, home_village=None, full_potion
     for r in rs:                                           # remember each item's slot while it is equipped
         if r["equipped"] and r["equipped"] != "NONE":
             st.setdefault("item_slots", {})[r["itemId"]] = r["equipped"]
+    # durability (director 2026-11-11: "Items are broken again ... Are durability checks not happening"): any equipped
+    # item worn under 60% of its max is repaired, with repair kits first (item.useRepairAll), then ryo
+    # (item.repairAll, which needs the Crafting occupation); whichever the game refuses, the other is tried next pass
+    worn = []
+    for r in rs:
+        if r["equipped"] in (None, "NONE") or r["storedAtHome"]:
+            continue
+        mx = (records.get(r["itemId"]) or {}).get("maxDurability") or 0
+        if mx and r.get("durability") is not None and r["durability"] < REPAIR_BELOW * mx:
+            worn.append(f"{(records.get(r['itemId']) or {}).get('name', r['itemId'])} {r['durability']}/{mx}")
+    repair_calls = []
+    if worn:
+        tried = st.setdefault("repair_tried", {})
+        how = "item.useRepairAll" if time.time() - tried.get("item.useRepairAll", 0) > 600 else "item.repairAll"
+        if time.time() - tried.get(how, 0) > 600:
+            tried[how] = time.time()
+            repair_calls.append((how, {}, ["success", "message"]))
+        st["worn"] = worn
+    else:
+        st["worn"] = []
     money = float(user.get("userData.money") or 0)
     bank = float(user.get("userData.bank") or 0)
     spend = spent_today(st)
-    calls, notes, query = [], [], None
+    calls, notes, query = list(repair_calls), ([f"repair ({repair_calls[0][0].split('.')[-1]}): " + ", ".join(worn)]
+                                                if repair_calls else [f"worn: {', '.join(worn)} (repair tried)"] if worn else []), None
     st["empty_items"] = []                              # battle items I carry none of: the planners leave them out
     for iid, (name, keep, fill, cap) in tracked(st).items():
         mine = [r for r in rs if r["itemId"] == iid and (r["quantity"] or 0) > 0]
