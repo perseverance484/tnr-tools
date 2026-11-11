@@ -55,6 +55,8 @@
  "p": {
   "pierce_vs_shield": 0.4,
   "clear_vs_2buffs": 0.14,
+  "clear_vs_3buffs": 0.2,
+  "clear_vs_4buffs": 0.269,
   "pierce": 0.067,
   "clear": 0.123,
   "smoke": 0.049,
@@ -69,6 +71,14 @@
   "clear_vs_2buffs": [
    8,
    57
+  ],
+  "clear_vs_3buffs": [
+   8,
+   40
+  ],
+  "clear_vs_4buffs": [
+   7,
+   26
   ],
   "pierce": [
    7,
@@ -93,5 +103,14 @@
  },
  "debuff_value": 279,
  "buff_value": 434,
- "fight_len": 7.0
+ "fight_len": 7.0,
+ "clear_wait_4buffs": [
+  2,
+  1,
+  2,
+  1,
+  2,
+  1,
+  3
+ ]
 }

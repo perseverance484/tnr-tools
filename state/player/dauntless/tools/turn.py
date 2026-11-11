@@ -253,8 +253,9 @@ def main():
     ekit = shotplan.ENEMY.get(en["username"].lower()) or generic_enemy(avg)
 
     def tags(side, r):
-        return sorted({f"{t[0]}{'' if t[0] in ('stun',) else f' {t[1]:g}'} (to R{t[3]})" for t in side.tags
-                       if t[2] <= r <= t[3]})
+        # a list, not a set: two identical tags (Chakra Overflow's double +35%) both count and both show
+        return sorted(f"{t[0]}{'' if t[0] in ('stun',) else f' {t[1]:g}'} (to R{t[3]})" for t in side.tags
+                      if t[2] <= r <= t[3])
 
     ctx = {
         "pierce_ready": pierce_last is None or R - pierce_last >= 3,
@@ -447,8 +448,22 @@ def main():
         stage.append(((1 - value_model.RISK) * ev + value_model.RISK * worst[1], b, outs, worst, dend, kit,
                       [] if worst[5] else why + rwhy))
     stage.sort(key=lambda x: -x[0])
+    if os.environ.get("TNR_STAGE_DEBUG"):
+        keys = os.environ["TNR_STAGE_DEBUG"].split(",")
+        for i, (s1, b, outs, worst, *_r) in enumerate(stage):
+            if i < 3 or any(k in b for k in keys):
+                print(f"stage1 #{i + 1} {s1:+.0f} {'+'.join(b)} | " + " ".join(
+                    f"{w:.2f}:{v:+.0f}" for w, v, *_x in outs))
+    # cash-in guarantee (director 2026-11-11, Targaryen R3): with a big stack live, setup_est makes "one more buff"
+    # outscore paying the stack out, and the payoff attacks were pruned before the lookahead ever saw them. The 6
+    # bundles with the most immediate expected damage to him always reach stage 2.
+    def _dealt(o):
+        return sum(w * (en["curHealth"] - e.hp) for w, v, m, e, log, kill in o)
+    keep = stage[:25]
+    for extra in sorted(stage[25:], key=lambda x: -_dealt(x[2]))[:6]:
+        keep.append(extra)
     results = []
-    for s1, b, outs, worst, dend, kit, why in stage[:25]:
+    for s1, b, outs, worst, dend, kit, why in keep:
         vals = []
         for w, v, m, e, log, kill in outs:
             if not kill:
@@ -461,6 +476,9 @@ def main():
         follow = max(vals, key=lambda x: x[0])[2]
         log = list(worst[4]) + ([("me", R + 1, follow, 0, 0, 0, 0)] if follow else [])
         results.append((total, b, log, why, vals, outs))
+        if os.environ.get("TNR_STAGE_DEBUG") and any(k in b for k in os.environ["TNR_STAGE_DEBUG"].split(",")):
+            print(f"stage2 {total:+.0f} {'+'.join(b)} | " + " ".join(
+                f"{w:.2f}:{v:+.0f}({'+'.join(b2 or ())})" for w, v, b2 in vals))
     results.sort(key=lambda x: -x[0])
     # exact re-score of the best 6 by engine replay: my bundle, then his typical and best reply from his real kit
     engine_note = "engine: off"

@@ -50,7 +50,10 @@ BURST_P = 0.15
 BURST_BASE = 1100.0  # my typical two-hit burst base (Fury/Rebirth/Lotus/Shrapnel ~575 each, calibrated)
 KILL, DEATH = 5000, 6500
 PRIORS = {  # (prior p, strength) from the 2026-11-09 top-player study (Winta, DDXXD, Ziharkk, Gario)
-    "pierce_vs_shield": (0.6, 4), "clear_vs_2buffs": (0.3, 4), "pierce": (0.15, 4), "clear": (0.15, 4),
+    "pierce_vs_shield": (0.6, 4), "clear_vs_2buffs": (0.3, 4),
+    # director 2026-11-11 (Targaryen R3->R4): a stack of 3+ buffs is what draws the Clear; prior 0.6 at strength 8
+    "clear_vs_3buffs": (0.6, 8), "clear_vs_4buffs": (0.6, 8),  # logs: all 8 Clears met 3+ buffs, 7 of 8 met 4+
+    "pierce": (0.15, 4), "clear": (0.15, 4),
     "smoke": (0.10, 4), "setup": (0.35, 4),
 }
 
@@ -61,6 +64,17 @@ def load_cal():
     except (OSError, ValueError):
         return {"my_base": {}, "en_hit": 500, "en_turn": 600, "en_burst": 1300, "opportunities": {},
                 "debuff_value": 300, "buff_value": 450, "fight_len": 7}
+
+
+def clear_risk_4(cal):
+    """P(he Clears this turn | my 4+ buff stack, his Clear held). Per-turn hazard among opponents who do Clear:
+    every logged Clear of a 4+ stack came on his 1st-3rd chance (7 Clears in 12 chances, calibrate.py
+    clear_wait_4buffs); the raw 7/26 is diluted by AFK / short fights where he never got to it. Director
+    2026-11-11: a big stack "basically forces the enemy's Clear". Beta-smoothed with prior 0.6 at strength 8."""
+    w = cal.get("clear_wait_4buffs")
+    if not w:
+        return smoothed(cal, "clear_vs_4buffs")
+    return (len(w) + 0.6 * 8) / (sum(w) + 8)
 
 
 def smoothed(cal, key):
@@ -110,8 +124,11 @@ def enemy_options(cal, ctx, me_side, r, afk):
         if ctx.get("pierce_shown") and me_side.live("shield", r):
             p = max(p, 0.85)  # every logged shield cast into a SHOWN, ready pierce was broken (Ziharkk, Korin)
         opts.append((p, ["pierce", "light"]))
-    if ctx["clear_held"] and my_pos >= 1:
-        p = smoothed(cal, "clear_vs_2buffs") if my_pos >= 2 else smoothed(cal, "clear")
+    stack = sum(1 for t in me_side.tags if shotplan.positive(t) and t[2] <= r <= t[3]
+                and t[1] not in ("clearimmune", "debuffimmune"))
+    if ctx["clear_held"] and my_pos >= 1 and not me_side.live("clearimmune", r):
+        p = (clear_risk_4(cal) if stack >= 4 else smoothed(cal, "clear_vs_3buffs") if stack >= 3 else
+             smoothed(cal, "clear_vs_2buffs") if my_pos >= 2 else smoothed(cal, "clear"))
         opts.append((p, ["clear", "light"]))
     if not ctx.get("smoke_spent"):
         opts.append((smoothed(cal, "smoke"), ["smoke", "light"]))
@@ -123,6 +140,13 @@ def enemy_options(cal, ctx, me_side, r, afk):
     opts.append((rest, ["turn"]))
     if ctx.get("summon"):  # a live summon acts on its own cooldowns (and can pierce: Jade broke my shield R5)
         opts = [(w, o + ["summon"]) for w, o in opts]
+    # his Clear is an absolute probability (measured hazard): the other options share what is left, instead of
+    # normalising everything together and diluting the Clear (0.59 used to come out ~0.42)
+    clear_w = sum(w for w, a in opts if "clear" in a)
+    rest_tot = sum(w for w, a in opts if "clear" not in a)
+    if clear_w and rest_tot:
+        clear_w = min(clear_w, 0.95)
+        return [(w if "clear" in a else w * (1 - clear_w) / rest_tot, a) for w, a in opts]
     tot = sum(w for w, _ in opts)
     return [(w / tot, a) for w, a in opts]
 

@@ -131,7 +131,9 @@ const setActive = (b: CompleteBattle, cid: string, ap?: number) => {
   const u = userOf(b, cid);
   for (const x of b.usersState) x.actionPoints = 0;
   b.activeUserId = u.userId;
-  u.actionPoints = ap ?? Math.max(0, 100 - calcApReduction(b as never, u.userId));
+  // the engine keeps actionPoints at 100 and subtracts the stun when it checks an action
+  // (actions.ts actionPointsAfterAction); pre-subtracting it here counted a stun twice
+  u.actionPoints = ap ?? 100;
 };
 
 const trace: any[] = [];
@@ -202,6 +204,13 @@ const prepare = async (): Promise<CompleteBattle> => {
   while (b.round < req.round) I.nextRound(b);
   const meU = userOf(b, req.me.id), himU = userOf(b, req.him.id);
   meU.curHealth = req.me.hp; himU.curHealth = req.him.hp;
+  // pools: the replay drains chakra/stamina (poison, drain, pool-cost debuffs) without the live regen and potions, so
+  // restore them from the live battle when given, else full (live pools are rarely the binding constraint)
+  for (const [side, u] of [[req.me, meU], [req.him, himU]] as const) {
+    const uu: any = u;
+    uu.curChakra = side.cp ?? uu.maxChakra ?? uu.curChakra;
+    uu.curStamina = side.sp ?? uu.maxStamina ?? uu.curStamina;
+  }
   meU.longitude = req.me.x; meU.latitude = req.me.y; himU.longitude = req.him.x; himU.latitude = req.him.y;
   // whose turn: if he already acted this round (hisTurn === "next"), I act now and he replies next round
   setActive(b, req.me.id);
@@ -253,7 +262,8 @@ const replyBundles = (b: CompleteBattle) => {
 
 const main = async () => {
   const base = await S.withSeed(7, prepare);
-  const res: any = { round: base.round, ap: userOf(base, req.me.id).actionPoints, available: available(base, req.me.id),
+  const res: any = { round: base.round,
+    ap: Math.max(0, userOf(base, req.me.id).actionPoints - calcApReduction(base as never, userOf(base, req.me.id).userId)), available: available(base, req.me.id),
     replayIssues: issues, ...(req.trace ? { trace } : {}) };
   if (req.mode === "eval") {
     res.results = [];
@@ -264,7 +274,12 @@ const main = async () => {
         for (let i = 0; i < cand.length; i++) {
           const a = cand[i];
           const r = tryAct(b, req.me.id, a.actionId, a.x === undefined ? undefined : { x: a.x, y: a.y });
-          if (!r.ok) { out.legal = false; out.failedAt = i; out.reason = r.reason; return; }
+          if (!r.ok) {
+            const u: any = userOf(b, req.me.id);
+            out.legal = false; out.failedAt = i; out.reason = r.reason;
+            out.state = { ap: u.actionPoints, stun: calcApReduction(b as never, u.userId), cp: Math.round(u.curChakra), sp: Math.round(u.curStamina), hp: Math.round(u.curHealth) };
+            return;
+          }
           b = r.battle;
           if (hp(b, req.me.id) <= 0 || hp(b, req.him.id) <= 0) break;
         }
