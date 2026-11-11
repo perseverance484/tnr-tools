@@ -232,8 +232,10 @@ def rebuild(lines, me_name, en_name, my_hp, en_hp):
             elif "will be drained" in t:
                 who.tags.append(["drain", float(re.search(r"drained ([\d.]+)", t).group(1)), r + 1, r + n])
             elif "of damage received as afterburn" in t:
-                # "X will take N% of damage received as afterburn": every hit on X adds N% more -> +N% taken
-                who.tags.append(["taken", v, r + 1, r + n])
+                # "X will take N% of damage received as afterburn": every non-pierce hit on X adds N% of it again,
+                # outside his absorb (engine process.ts: afterburn and absorb are both shares of the same hit, so
+                # afterburn >= absorb cancels the absorb; director 2026-11-11, Luka)
+                who.tags.append(["afterburn", v, r + 1, r + n])
             elif "will recoil" in t:
                 who.tags.append(["recoil_self", v, r + 1, r + n])
             elif "shield with" in t:
@@ -296,7 +298,9 @@ def apply(src_side, dst_side, spec, r, actor_is_me):
         # reflect do not add (20% + 35% returns 48%). Absorb and lifesteal are capped at 60% of the hit
         # (ABSORB_CAP_RATIO, DAMAGE_LEECH_CAP_RATIO). Director, 2026-11-11.
         heal_cut = 1 - da.get("healcut", _Z)[0]
-        to_tgt += dmg - dmg * min(0.6, da.get("absorb", _Z)[0]) * heal_cut
+        # afterburn: a share of the hit again (cap 60%, AFTERBURN_CAP_RATIO), not on pierce, not absorbed
+        burn = 0.0 if pierce else dmg * min(0.6, da.get("afterburn", _Z)[0])
+        to_tgt += dmg + burn - dmg * min(0.6, da.get("absorb", _Z)[0]) * heal_cut
         to_self -= dmg * min(0.6, sa.get("lifesteal", _Z)[0]) * (1 - sa.get("healcut", _Z)[0])
         to_self += dmg * sa.get("recoil_self", _Z)[0]
         to_self += dmg * sa.get("recoil", _Z)[0]  # standing on recoil ground
@@ -319,7 +323,7 @@ def apply(src_side, dst_side, spec, r, actor_is_me):
             if side is src_side:
                 to_self -= val
             continue
-        hostile = side is dst_side and (val < 0 or kind in ("taken", "wound", "drain", "recoil_self", "stun", "healcut", "seal"))
+        hostile = side is dst_side and (val < 0 or kind in ("taken", "afterburn", "wound", "drain", "recoil_self", "stun", "healcut", "seal"))
         if hostile and side.live("debuffimmune", r):
             continue
         if side is src_side and src_side.live("buffblock", r) and kind in ("given", "absorb", "lifesteal", "dr", "reflect") and val > 0:

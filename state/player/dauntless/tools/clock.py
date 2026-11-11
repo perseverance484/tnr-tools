@@ -28,7 +28,9 @@ K_DMG, K_PIERCE = 13.3, 12.6      # HP per power point (my calibrated kit / reco
 HIS_CAL = 1.24
 BASICS = {"clear": (60, 10, ["clear"]), "cleanse": (60, 10, ["cleanse"]), "basicAttack": (20, 1, []),
           "basicHeal": (60, 5, []),
-          "defensiveStance": (20, 1, []), "offensiveStance": (20, 1, [])}
+          "defensiveStance": (20, 1, []), "offensiveStance": (20, 1, []),
+          # everyone has Replacement; 13 of 165 logged turns of theirs used it and no candidate line could (2026-11-11)
+          "replacementTechnique": (20, 2, [])}
 SKIP = {"visual", "move", "consume", "injectjutsus", "increasepoolcost", "summon", "seal"}
 
 
@@ -63,8 +65,9 @@ def compile_record(rec, level=25):
         elif t == "decreasedamagetaken":
             tags.append((who, "dr", pct, n))
         elif t == "afterburn":
-            # on a target: it takes that share again on every hit (= +taken); on himself: his hits carry it (= +given)
-            tags.append((who, "taken" if who == "me" else "given", pct, n))
+            # whoever it lands on takes that share of every non-pierce hit again (engine tags.ts afterburn: the
+            # effect's target is the one burned; a self-cast one is his drawback, not a boost)
+            tags.append((who, "afterburn", pct, n))
         elif t in ("absorb", "lifesteal", "reflect", "parry"):
             tags.append((who, t, pct, n))
         elif t == "leech":
@@ -126,7 +129,8 @@ def acts_from_ids(ids, lv=None, opp=None):
         spec = (150.0, []) if a == "basicAttack" else (0.0, [("me", "clear", 1, 0, True)]) if a == "clear" else \
             (0.0, [("en", "heal", 600, 0, True)]) if a == "basicHeal" else \
             (0.0, [("en", "cleanse", 1, 0, True)]) if a == "cleanse" else \
-            (0.0, [("en", "dr", 0.15, 1)]) if a == "defensiveStance" else (0.0, [("en", "given", 0.15, 1)])
+            (0.0, [("en", "dr", 0.15, 1)]) if a == "defensiveStance" else \
+            (0.0, []) if a == "replacementTechnique" else (0.0, [("en", "given", 0.15, 1)])
         out[a] = (a, ap, cd, set(tags) & set(cd_plan.LOCKS), spec)
     return out
 
@@ -147,12 +151,15 @@ def ready_at(acts, en_id, rows, rnd):
     return out
 
 
+SLACK = int(os.environ.get("TNR_HIS_SLACK", "20"))   # AP a line of his may leave unspent (moves are not in it)
+
+
 def bundles(acts, ready, ap=100):
     ready = sorted(ready, key=lambda a: -acts[a][1])
     out = []
 
     def rec(i, cost, chosen, locks):
-        if chosen and cost >= ap - 20:
+        if chosen and cost >= ap - SLACK:
             out.append(tuple(chosen))
         for j in range(i, len(ready)):
             a = ready[j]

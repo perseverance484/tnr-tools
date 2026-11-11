@@ -46,19 +46,19 @@ import clock  # noqa: E402
 ME, ME_NAME = turn.ME, turn.ME_NAME
 H = 5
 (GUP, GDN, TAKEN, DR, ABS, LS, REF, PAR, SHD, DIMM, CIMM, NPOS, NSTK,
- WND, DRN, RCL, HCUT, BBLK, STUN, PABS, PLS, PREF, GGRD) = range(23)
-NK = 23
+ WND, DRN, RCL, HCUT, BBLK, STUN, PABS, PLS, PREF, GGRD, AFB) = range(24)
+NK = 24
 # PABS/PLS/PREF: bloodline passives, in neither POSK nor NEGK, so Clear/Cleanse keep them.
 # GGRD: a ground -damage given (Subaku Palace) on whoever stands on it: Cleanse does not remove it, moving off does,
 # and it does not land while that side is debuff-immune (director 2026-11-11, 4qua R2).
 MULT = (GUP, GDN, TAKEN, DR, GGRD)
 COPY = -4
 POSK = (GUP, DR, ABS, LS, REF, PAR, SHD, DIMM, CIMM, NPOS, NSTK)
-NEGK = (GDN, TAKEN, WND, DRN, RCL, HCUT, BBLK, STUN)
-HOSTILE = {TAKEN, WND, DRN, RCL, STUN, HCUT}
+NEGK = (GDN, TAKEN, WND, DRN, RCL, HCUT, BBLK, STUN, AFB)
+HOSTILE = {TAKEN, WND, DRN, RCL, STUN, HCUT, AFB}
 KIND = {"taken": TAKEN, "dr": DR, "absorb": ABS, "lifesteal": LS, "reflect": REF, "parry": PAR, "shield": SHD,
         "debuffimmune": DIMM, "clearimmune": CIMM, "wound": WND, "drain": DRN, "recoil_self": RCL, "recoil": RCL,
-        "healcut": HCUT, "buffblock": BBLK, "stun": STUN}
+        "healcut": HCUT, "buffblock": BBLK, "stun": STUN, "afterburn": AFB}
 CLEAR, CLEANSE, HEAL = -1, -2, -3
 WFILE = os.path.join(HERE, "planner2_weights.json")
 # Hand-set (director 2026-11-11: "orient it in the most ideal way possible by editing weights by hand"). Units: HP.
@@ -215,8 +215,10 @@ def from_engine(effects, R, in_base=("me",), max_hp=(5050.0, 5050.0), perm_in_ba
             k, v = (GUP if pct > 0 else GDN), pct
         elif t == "decreasedamagegiven":
             k, v = GDN, -abs(pct)
-        elif t in ("increasedamagetaken", "afterburn"):
+        elif t == "increasedamagetaken":
             k, v = TAKEN, pct
+        elif t == "afterburn":
+            k, v = AFB, pct
         elif t == "decreasedamagetaken":
             k, v = DR, abs(pct)
         elif t in ("absorb", "lifesteal", "reflect", "parry"):
@@ -373,7 +375,8 @@ def apply(src, dst, act, o, scale=1.0):
                 dst.wipe((SHD,))
         dmg = max(dmg, 0.0)
         basis = pre if SOURCE_EXACT else dmg
-        to_t += dmg - basis * min(0.6, da[ABS * H + o] + da[PABS * H + o]) * (1 - da[HCUT * H + o])
+        burn = 0.0 if pierce else dmg * min(0.6, da[AFB * H + o])     # afterburn: not on pierce, not absorbed
+        to_t += dmg + burn - basis * min(0.6, da[ABS * H + o] + da[PABS * H + o]) * (1 - da[HCUT * H + o])
         to_s -= basis * min(0.6, sa[LS * H + o] + sa[PLS * H + o]) * (1 - sa[HCUT * H + o])
         back = parried + basis * min(0.6, da[REF * H + o] + da[PREF * H + o])
         rec = 0.0 if (pierce and SOURCE_EXACT) else dmg * sa[RCL * H + o]      # recoil skips pierce (tags.ts)
@@ -695,7 +698,11 @@ class Planner:
         # the round after: multipliers still live then (2-round buffs / debuffs / reductions pay twice), on a
         # generic burst for me and his base turn for him
         o2, h2 = 2, self.hn + 1
-        mine2 = value_model.BURST_BASE * (m.given(o2) * e.g(TAKEN, o2) * e.g(DR, o2) - 1)
+        # after his absorb heal, and my afterburn on him (added outside his absorb: an equal afterburn cancels it;
+        # director 2026-11-11, Luka) -- the plain hit into his defences is the baseline
+        stick = 1 + min(0.6, e.g(AFB, o2)) - min(0.6, e.g(ABS, o2) + e.g(PABS, o2)) * (1 - e.g(HCUT, o2))
+        plain = e.g(DR, o2) * (1 - min(0.6, e.g(ABS, o2) + e.g(PABS, o2)) * (1 - e.g(HCUT, o2)))
+        mine2 = value_model.BURST_BASE * (m.given(o2) * e.g(TAKEN, o2) * e.g(DR, o2) * stick - plain)
         his2 = self.base_turn * (e.given(h2) * m.g(TAKEN, h2) * m.g(DR, h2) * (1 - min(0.6, m.g(ABS, h2))) - 1)
         return [swing, mine_net, -his_net, race, mine2, -his2, p_kill, -p_die]
 

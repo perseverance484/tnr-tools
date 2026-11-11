@@ -200,6 +200,14 @@ def check_policy():
             f.me, f.en = P2.from_shotplan(sme, r), P2.from_shotplan(sen, r)
             f.rows = [(rr, uu if uu == ME else fightsim.EN_ID, x, None) for rr, uu, x, _ in rows[:i]]
             f.R, f.his_prev, f.his_turns = r, prev, nturn
+            if os.environ.get("TNR_POLICY_LIVE", "1") == "1":   # as live: what he used earlier in this fight is in his kit
+                seen_ids = [aa for _, uu, aa, _ in rows[:i] if uu == en_id and aa not in acts]
+                if seen_ids:
+                    acts.update({k: v for k, v in clock.acts_from_ids(seen_ids).items() if k not in acts})
+                    f = fightsim.Fight(acts, prof, True, habit=habit)
+                    f.me, f.en = P2.from_shotplan(sme, r), P2.from_shotplan(sen, r)
+                    f.rows = [(rr, uu if uu == ME else fightsim.EN_ID, x, None) for rr, uu, x, _ in rows[:i]]
+                    f.R, f.his_prev, f.his_turns = r, prev, nturn
             ready = clock.ready_at(acts, fightsim.EN_ID, f.rows, r)
             lines_ = clock.bundles(acts, ready, 100)
             if not lines_:

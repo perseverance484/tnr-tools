@@ -237,14 +237,80 @@ def barrier_between(a, b):
     return [sum(x[2] for x in hit), 1 - keep]
 
 
-def _guard(m, R):
-    """My damage cuts cast by this turn (live from R+1) still live in R+2: the share of his next burst they stop
-    (director 2026-11-11: Panacea's second round went uncounted, so Defensive Stance looked as good)."""
+def _guard(m, R, at=None):
+    """My damage cuts cast by this turn (live from R+1) still live at round `at` (default R+2): the share of his
+    turn there they stop (director 2026-11-11: Panacea's second round went uncounted, so Defensive Stance looked as
+    good). The caller picks `at` = his first reply the simulation has NOT already played (Luka fight 2026-11-11: the
+    credit was read at the reply ply2 had already simulated with the cut in place, so it was counted twice)."""
+    at = R + 2 if at is None else at
     k = 1.0
     for t in m.tags:
-        if t[0] == "dr" and t[2] <= R + 1 and t[2] <= R + 2 <= t[3]:
+        if t[0] == "dr" and t[2] <= R + 1 and t[2] <= at <= t[3]:
             k *= 1 - t[1]
     return 1 - k
+
+
+def _guard_val(m, e, R, at, m0, turn, p_clear=0.0):
+    """What my new cuts are worth on his next unsimulated turn: his TYPICAL turn (not his best burst) x the
+    multipliers he will hit with there (his damage-given stack, my damage-taken), so a cut is worth more against a
+    stacked opponent (director 2026-11-11, Luka R1: "you didn't put up any damage reduction vs his dmg inc")."""
+    g = _guard(m, R, at) - _guard(m0, R, at)
+    if g <= 0:
+        return 0.0
+    return value_model.GAMMA * turn * e.mult("given", at) * m.mult("taken", at) * g * (1 - p_clear)
+
+
+def _mit(e, at, afb=None, cap=None):
+    """His side of my next hit at round `at`: the share of it that sticks after his damage cuts and his absorb heal,
+    plus my afterburn on him (engine process.ts: afterburn is a share of the same hit added outside the absorb, so
+    an afterburn as big as his absorb cancels it; director 2026-11-11 Luka: "1 afterburn stack would've canceled it
+    out totally"). afb overrides the afterburn share; cap counts only afterburn cast by that round."""
+    k, ab, hc, aft = 1.0, 0.0, 0.0, 0.0
+    for t in e.tags:
+        if t[2] <= at <= t[3]:
+            if t[0] == "dr":
+                k *= 1 - t[1]
+            elif t[0] == "absorb":
+                ab += t[1]
+            elif t[0] == "healcut":
+                hc += t[1]
+            elif t[0] == "afterburn" and (cap is None or t[2] <= cap):
+                aft += t[1]
+    if afb is not None:
+        aft = afb
+    return k * (1 + min(0.6, aft) - min(0.6, ab) * max(0.0, 1 - hc))
+
+
+def _mult_by(side, kind, at, cap):
+    m = 1.0
+    for t in side.tags:
+        if t[0] == kind and t[2] <= cap and t[2] <= at <= t[3]:
+            m *= 1 + t[1]
+    return m
+
+
+def _off_val(m, e, R, at, base, m0=None, e0=None, p_clear=0.0):
+    """What my damage multipliers (my given, his taken, my afterburn on him) cast by R+1 and live at my next
+    unsimulated attack `at` add to a typical hit, AFTER his cuts and absorb there (director 2026-11-11, Luka R1:
+    four damage stacks into his absorb were worth far less than they were scored). Baseline: m0/e0's stack (stage 1)
+    or a plain hit into his defences (ply2)."""
+    cap = R + 1
+    g_me = _mult_by(m, "given", at, cap)
+    if p_clear:
+        # his held Clear before my payoff wipes my buffs (Luka R3, 2026-11-11) but not my debuffs on him: the
+        # afterburn / damage-taken I put on him survive it, my damage-given stacks do not
+        g_neg = 1.0
+        for t in m.tags:
+            if t[0] == "given" and t[1] < 0 and t[2] <= cap and t[2] <= at <= t[3]:
+                g_neg *= 1 + t[1]
+        g_me = (1 - p_clear) * g_me + p_clear * g_neg
+    v1 = g_me * _mult_by(e, "taken", at, cap) * _mit(e, at, cap=cap)
+    if m0 is not None:
+        k0 = _mit(e, at, afb=sum(t[1] for t in e0.tags if t[0] == "afterburn" and t[2] <= at <= t[3]))
+        v0 = m0.mult("given", at) * e0.mult("taken", at) * k0
+    else:
+        v0 = _mit(e, at, afb=0.0)
+    return value_model.GAMMA * base * max(0.0, v1 - v0)
 
 
 def kill_chance(dealt, hp, margin):
@@ -730,13 +796,18 @@ def main():
                 sc_kill = value_model.score(m, e, me["curHealth"], en["curHealth"])
                 e.hp = max(1.0, en0.hp - dealt * (1 - KILL_MARGIN))
                 log[0] = ("me", R, b, d, t, m.hp, e.hp)
+        m._his = tuple(h)
         if e.hp > 0:
             d2, t2 = shotplan.run_turn(e, m, h, kit, hr, False)
             m.hp = min(m.hp, maxhp_me); e.hp = min(e.hp, maxhp_en)
             log.append(("him", hr, h, d2, t2, m.hp, e.hp))
+        if e.hp <= 0 < m.hp and len(log) > 1:
+            # he died on his own turn (my reflect / recoil): too unsure for the kill bonus, so he is kept alive on
+            # 1 HP and the lookahead plays on. Scoring it as a dead end left such a line BELOW the lines where he
+            # lives and gets finished next turn (Korin R10 replay, 2026-11-11: Nights + Basic Heal dropped to #25)
+            e.hp = 1.0
+            log[-1] = log[-1][:6] + (e.hp,)
         sc = value_model.score(m, e, me["curHealth"], en["curHealth"])
-        if e.hp <= 0 and len(log) > 1:
-            sc -= value_model.KILL   # he died on his own turn (my reflect / recoil): no kill bonus, it is too unsure
         if p_kill < 1.0:
             sc = p_kill * sc_kill + (1 - p_kill) * sc
             e.p_kill = p_kill        # the lookahead and setup credit only count for the share where he lives
@@ -748,6 +819,11 @@ def main():
             return 0.0, None
         st2 = {"loadout": st["loadout"], "used": st["used"] + [[R, x] for x in b if x not in ("step", "stepback")]}
         best = (-1e9, None)
+        # his Clear, still held after his ply-1 reply, can land in his hr2 reply before my payoff round: the setup
+        # and guard credits only count for the share where it does not (the ply-2 reply itself is his plain turn)
+        p_clr = 0.0
+        if ctx["clear_held"] and not ctx["afk"] and "clear" not in getattr(m, "_his", ()):
+            p_clr = sum(w for w, o in value_model.enemy_options(cal, ctx, m, hr2, False) if "clear" in o)
         r1 = R + 1
         # Speed pass (director 2026-11-11: 10 s per turn): same arithmetic as simulating every follow-up from
         # scratch, two shortcuts. (1) Within round R+1 my actions do not see each other unless one changes R+1
@@ -780,8 +856,8 @@ def main():
             # action's effect on the start state; his pure-damage reply depends only on WHICH tagging actions the
             # follow-up holds (each adds fixed tags), so it is cached on that set; the burst term only reads
             # tags that started by R+1, which no non-interacting follow-up adds, so it is one number per call.
-            base_g = value_model.GAMMA * value_model.BURST_BASE * max(0.0, _burst_g(m, e, R) - 1)
-            base_d = value_model.GAMMA * kit["burst"][0] * max(0.0, _guard(m, R) - guard0)
+            base_g = _off_val(m, e, R, R + 2, value_model.BURST_BASE, p_clear=p_clr)
+            base_d = _guard_val(m, e, R, hr2 + 1, me0, kit["turn"][0], p_clr)
             tagging = {x: bool(v[2] or v[3]) for x, v in acts.items()}
             aoe_b = any(x in AOE for x in b)
             summon_on = bool(ctx.get("summon"))
@@ -861,7 +937,7 @@ def main():
                 if tagless:
                     # his modelled turn is pure damage: it only reads the tags its damage step reads, and only
                     # removes my shield, so the burst term is taken before it and the cache key is minimal
-                    gtags = _burst_g(m2, e2, R)
+                    gtags = _off_val(m2, e2, R, R + 2, value_model.BURST_BASE, p_clear=p_clr)
                     key = (alive, tuple(sorted(tuple(t) for t in m2.tags if t[0] in _REPLY_READ and t[2] <= hr2 <= t[3])),
                            tuple(sorted(tuple(t) for t in e2.tags if t[0] in _REPLY_READ and t[2] <= hr2 <= t[3])))
                 else:
@@ -872,7 +948,7 @@ def main():
                     pm, pe = m2.hp, e2.hp
                     shotplan.run_turn(e2, m2, ["turn"] + (["summon"] if alive else []), kit, hr2, False)
                     if not tagless:
-                        gtags = _burst_g(m2, e2, R)
+                        gtags = _off_val(m2, e2, R, R + 2, value_model.BURST_BASE, p_clear=p_clr)
                     reply_cache[key] = (pm - m2.hp, pe - e2.hp, gtags)
                 else:
                     m2.hp -= hit[0]
@@ -886,16 +962,22 @@ def main():
             # line, Zaruza/Hikuro 2026-11-11); the 1-round lookahead alone undervalued 2-round setups
             if e2.hp > 0 and m2.hp > 0:
                 # only multipliers cast THIS turn (live from R+1) count; ply2's own setup must not chain
-                g = gtags if gtags is not None else _burst_g(m2, e2, R)
-                v += value_model.GAMMA * value_model.BURST_BASE * max(0.0, g - 1)
-                v += value_model.GAMMA * kit["burst"][0] * max(0.0, _guard(m2, R) - guard0)
+                # setup credit after his cuts/absorb at my next attack, and my new cuts against his NEXT unplayed
+                # turn (hr2 + 1; hr2 itself was just simulated with them in place) at his typical size
+                v += gtags if gtags is not None else _off_val(m2, e2, R, R + 2, value_model.BURST_BASE, p_clear=p_clr)
+                v += _guard_val(m2, e2, R, hr2 + 1, me0, kit["turn"][0], p_clr)
             if v > best[0]:
                 best = (v, b2)
         return best
 
     # stage 1: one ply for every bundle (expected + worst over his option set); stage 2: lookahead on the best 25
     stage = []
-    guard0 = _guard(me0, R)
+
+    def setup_est(m, e, kit):
+        """Stage-1 setup estimate so 2-round setups survive pruning (they score ~0 on one ply): my multipliers live
+        at my next attack after his cuts/absorb there, and my new cuts against his next unplayed turn (hr + 1)."""
+        return (_off_val(m, e, R, R + 1, value_model.BURST_BASE, me0, en0)
+                + _guard_val(m, e, R, hr + 1, me0, kit["turn"][0]))
     for b in bundles:
         seq, end = resolve_targets(b, me_pos, en_pos, occupied)
         dend = dist(end, en_pos)
@@ -914,10 +996,7 @@ def main():
             outs.append((w, sc + (0 if kill else pen - rc), m, e, log, kill))
         # stage-1 setup estimate so 2-round setups survive pruning (they score ~0 on one ply): what my multipliers
         # live next round add to a typical burst, discounted like the lookahead
-        def setup_est(m, e):
-            off = value_model.GAMMA * value_model.BURST_BASE * max(0.0, m.mult("given", R + 1) * e.mult("taken", R + 1) - me0.mult("given", R + 1) * en0.mult("taken", R + 1))
-            return off + value_model.GAMMA * kit["burst"][0] * max(0.0, _guard(m, R) - guard0)
-        outs = [(w, v + (0 if kill else (1 - getattr(e, "p_kill", 0.0)) * setup_est(m, e)), m, e, log, kill)
+        outs = [(w, v + (0 if kill else (1 - getattr(e, "p_kill", 0.0)) * setup_est(m, e, kit)), m, e, log, kill)
                 for w, v, m, e, log, kill in outs]
         ev = sum(w * v for w, v, *_ in outs)
         worst = min(outs, key=lambda o: o[1])
@@ -956,8 +1035,7 @@ def main():
         for w, v, m, e, log, kill in outs:
             live = 1 - getattr(e, "p_kill", 0.0)
             if not kill:
-                v -= live * value_model.GAMMA * value_model.BURST_BASE * max(0.0, m.mult("given", R + 1) * e.mult("taken", R + 1) - me0.mult("given", R + 1) * en0.mult("taken", R + 1))
-                v -= live * value_model.GAMMA * kit["burst"][0] * max(0.0, _guard(m, R) - guard0)
+                v -= live * setup_est(m, e, kit)
             f, b2 = ply2(m, e, b, dend, kit)
             vals.append((w, v + live * value_model.GAMMA * f, b2))
         return vals
