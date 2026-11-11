@@ -67,9 +67,12 @@ def plan(st, items, user, records, listings=None, home_village=None, full_potion
     bank = float(user.get("userData.bank") or 0)
     spend = spent_today(st)
     calls, notes, query = [], [], None
+    st["empty_items"] = []                              # battle items I carry none of: the planners leave them out
     for iid, (name, keep, fill, cap) in tracked(st).items():
         mine = [r for r in rs if r["itemId"] == iid and (r["quantity"] or 0) > 0]
         carried = [r for r in mine if not r["storedAtHome"]]
+        if not carried and iid in TRACK:
+            st["empty_items"].append(iid)
         home = [r for r in mine if r["storedAtHome"]]
         equipped = [r for r in carried if r["equipped"] and r["equipped"] != "NONE"]
         slot = st.get("item_slots", {}).get(iid)

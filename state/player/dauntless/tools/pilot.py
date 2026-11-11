@@ -283,7 +283,7 @@ def battle_tick(st, bid, battle, entries):
         if sent["first"] not in ban:
             ban.append(sent["first"])
     plan, how = plan_turn(bid, battle, cache["entries"], names[foes[0]], exact=hp[foes[0]] <= 2000,
-                          ban=st.get("banned", {}).get(bid, []))
+                          ban=st.get("banned", {}).get(bid, []) + st.get("empty_items", []))
     if plan:
         st["sent_plan"] = {"bid": bid, "v": v, "first": plan[0]["actionId"]}
     if not plan:
