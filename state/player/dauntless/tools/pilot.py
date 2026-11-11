@@ -271,18 +271,23 @@ def pick_target(st, users, me_pos):
     dna = do_not_attack()
     skip = {u: t for u, t in st.get("skip", {}).items() if t > now}
     st["skip"] = skip
-    cands = []
+    cands, why = [], {}
     for k in range(len(users.get("users.*.userId") or [])):
         t = {f: users[f"users.*.{f}"][k] for f in ("userId", "username", "longitude", "latitude", "status", "level",
                                                      "villageId", "immunityUntil", "battleId")}
         imm = t["immunityUntil"]
         immune = bool(imm) and dt.datetime.fromisoformat(str(imm).replace("Z", "+00:00")).timestamp() > now
-        if (t["userId"] == ME or t["status"] != "AWAKE" or t["battleId"] or immune or t["villageId"] == HOME_VILLAGE
-                or (t["level"] or 0) < 90 or t["userId"] in skip or t["userId"] in dna
-                or (t["username"] or "").lower() in dna):
+        reason = ("me" if t["userId"] == ME else "dna" if t["userId"] in dna or (t["username"] or "").lower() in dna
+                  else "battle" if t["battleId"] or t["status"] == "BATTLE" else t["status"].lower() if t["status"] != "AWAKE"
+                  else "immune" if immune else "ally" if t["villageId"] == HOME_VILLAGE else "lowlvl" if (t["level"] or 0) < 90
+                  else "refused" if t["userId"] in skip else None)
+        if reason:
+            why[reason] = why.get(reason, 0) + 1
             continue
         d = max(abs(t["longitude"] - me_pos[0]), abs(t["latitude"] - me_pos[1]))
         cands.append((d, t))
+    why.pop("me", None)
+    st["last_scan"] = why
     return min(cands, key=lambda x: x[0])[1] if cands else None
 
 
@@ -342,7 +347,8 @@ def world(st, user, res):
                 moves + [c_attack(t, sector), c_user(), TICK]
         if sector in CIRCUIT or sector == HOME_SECTOR:
             nxt = CIRCUIT[(CIRCUIT.index(sector) + 1) % len(CIRCUIT)] if sector in CIRCUIT else CIRCUIT[0]
-            return head + f": nobody to fight here{' (' + refused + ')' if refused else ''}, next sector {nxt}", go(nxt)
+            seen = ", ".join(f"{n} {k}" for k, n in sorted(st.get("last_scan", {}).items())) or "empty"
+            return head + f": nobody to fight here ({seen}){'; ' + refused if refused else ''}, next sector {nxt}", go(nxt)
     if sector not in CIRCUIT:
         return head + f": heading to the circuit ({CIRCUIT[0]})", go(CIRCUIT[0])
     batch = [wait(HUNT_WAIT), c_user(), c_sector(sector)]
