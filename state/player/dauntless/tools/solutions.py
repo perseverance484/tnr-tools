@@ -114,9 +114,28 @@ def load(path=None):
     return _LIB[path]
 
 
+def coarser(key):
+    """The same position at lower resolution, for when the exact key was never solved: mid keeps turn order, HP,
+    multipliers, his buff count, flags and his last turn; coarse keeps turn order, multipliers and his last turn."""
+    p = key.split("|")
+    if len(p) < 8:
+        return []
+    return ["M|" + "|".join([p[0], p[1], p[2], p[3], p[4], p[7]]), "C|" + "|".join([p[0], p[2], p[7]])]
+
+
 def lookup(key, path=None):
-    """(bundle tuple, confidence) or None. Confidence = vote share x a margin factor, 0..1."""
-    ent = load(path).get(key)
+    """(bundle tuple, confidence) or None: the exact key, else its mid / coarse versions at reduced confidence.
+    Confidence = vote share x a votes factor x a margin factor, 0..1."""
+    lib = load(path)
+    for k, f in [(key, 1.0)] + list(zip(coarser(key), (0.8, 0.6))):
+        if k in lib:
+            r = _lookup_one(lib[k])
+            if r:
+                return r[0], r[1] * f
+    return None
+
+
+def _lookup_one(ent):
     if not ent:
         return None
     votes = ent["votes"]
@@ -166,12 +185,18 @@ def rollout(snap, first, seed):
     return outcome(f)
 
 
-def solve(snap, cands=6, rollouts=4):
+def solve(snap, cands=6, rollouts=4, also=None):
     ap = 100 - (20 if snap.me.g(P2.STUN, 0) else 0)
     P, st = snap.planner(ap)
     bundles = P2.legal_bundles(st, snap.R, ap, 1, snap.loadout, P.me0, P.en0)
     ranked = P2.rank(P, bundles, ap, P2.load_weights())
     top = [r[1] for r in ranked[:cands]]
+    # the move actually played in a replay is always rated too, so every replay turn gets a verdict
+    if also:
+        legal = {tuple(sorted(b)): b for b in bundles}
+        b = legal.get(tuple(sorted(also)))
+        if b and b not in top:
+            top.append(b)
     vals = []
     for b in top:
         v = sum(rollout(snap, b, 1000 + k) for k in range(rollouts)) / rollouts
@@ -182,6 +207,11 @@ def solve(snap, cands=6, rollouts=4):
 
 
 def merge(lib, key, vals, planner_pick):
+    for k in [key] + coarser(key):
+        _merge_one(lib, k, vals, planner_pick)
+
+
+def _merge_one(lib, key, vals, planner_pick):
     best_v, best = vals[0]
     margin = best_v - (vals[1][0] if len(vals) > 1 else best_v - 1)
     ent = lib.setdefault(key, {"votes": {}, "value": {}, "margin": 0.0, "n": 0})
@@ -257,7 +287,7 @@ def build(n_fights, rollouts, cands, replays=True):
     blunders = []
     if replays:
         for label, s, played in replay_snapshots():
-            key, vals, pick = solve(s, cands, rollouts)
+            key, vals, pick = solve(s, cands, rollouts, also=played)
             merge(lib, key, vals, pick)
             solved += 1
             best = "+".join(vals[0][1])
