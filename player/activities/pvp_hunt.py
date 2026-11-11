@@ -63,7 +63,8 @@ class PvpHunt(Activity):
     reads = ("travel.getSectorData", "combat.attackUser")
 
     def available(self, world):
-        return world.status() == "AWAKE" and world["control"]["mode"] == "hunt"
+        return (world.status() == "AWAKE" and world["control"]["mode"] == "hunt"
+                and not world["control"]["end_session"])          # an ending session picks no new fight
 
     def value(self, world):
         return 10.0

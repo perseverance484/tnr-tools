@@ -90,8 +90,8 @@ class Budget:
     def pace(self, steps, lane, start=None):
         """Schedule a batch that the relay gets at `start` (now, or later when the brain holds it first). Returns
         (steps, waited): a call that does not fit in the minute gets a pause in front of it (see the module's
-        notes for who gives way first), and the batch ends before a watching read that would have to wait long
-        behind other calls. Every call that stays is recorded with the time it will run."""
+        notes for who gives way first), and a watching read that would have to wait long behind other calls is
+        left out. Every call that stays is recorded with the time it will run."""
         now = self.world.now
         hist = self._hist(now)
         out, t, waited, called = [], now if start is None else start, 0.0, False
@@ -102,7 +102,7 @@ class Budget:
                 continue
             gap, forced = self._gap(hist, t, lane, s)
             if called and is_poll(s) and gap > C.POLL_GAP:
-                break                                             # left for the next batch: see the module's notes
+                continue                                          # left for the next batch: see the module's notes
             called = True
             if forced > 0:
                 self._full(s["call"], forced)
@@ -159,12 +159,14 @@ def read_is_overdue(turn, now):
 def turn_fired(world, bid, turn, how, n_actions, from_last_read=False):
     """A plan for this turn goes out with this batch. (A tick that fails before the batch reaches the relay is
     undone as a whole by the brain, so a plan that was never sent is never left marked as fired.)"""
-    now = world.now
+    now, first = world.now, not turn.get("fired_at")
     if turn.get("unknown") or turn.get("sent", 0) > turn.get("answered", 0):
         turn["doubt"] = True                          # the plan this one replaces may have landed, or not
-    turn.update(fired_at=now, how=how, actions=n_actions, from_last_read=from_last_read, sent=n_actions, answered=0,
-                unknown=0, looked=False)
-    if now - turn["T"] > C.FIRE_BY:
+    turn.update(fired_at=now, actions=n_actions, from_last_read=from_last_read, sent=n_actions, answered=0,
+                unknown=0, looked=False, plans=turn.get("plans", 0) + 1)
+    if first:                                         # the turn's timing is its first plan's; later ones add to it
+        turn.update(first_fired_at=now, how=how)
+    if first and now - turn["T"] > C.FIRE_BY:
         world.event("finding", f"round {turn['round']}: actions went out {now - turn['T']:.1f} s into the turn "
                                f"(the rule is {C.FIRE_BY:.0f} s)", about="turn", battle=bid)
 
@@ -202,11 +204,13 @@ def turn_closed(world, bid, turn, outcome, now=None):
         return
     now = world.now if now is None else now
     turn["landed"] = True
-    took = (turn["fired_at"] - turn["T"]) if turn.get("fired_at") else None
+    fired = turn.get("first_fired_at") or turn.get("fired_at")
+    took = (fired - turn["T"]) if fired else None
     row = {"at": round(now, 1), "battle": bid, "round": turn["round"], "T": round(turn["T"], 1),
            "unseen": turn.get("unseen"), "fired_after": round(took, 1) if took is not None else None,
-           "how": turn.get("how"), "actions": turn.get("actions"), "accepted": turn.get("accepted", 0),
-           "from_last_read": turn.get("from_last_read"), "outcome": outcome}
+           "last_fired_after": round(turn["fired_at"] - turn["T"], 1) if turn.get("fired_at") else None,
+           "plans": turn.get("plans", 0), "how": turn.get("how"), "actions": turn.get("actions"),
+           "accepted": turn.get("accepted", 0), "from_last_read": turn.get("from_last_read"), "outcome": outcome}
     world._append("turns.jsonl", row)
     records = world["records"]
     if outcome == "missed":

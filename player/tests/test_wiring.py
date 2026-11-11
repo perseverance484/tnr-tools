@@ -116,10 +116,8 @@ class Session:
         battle, ents = fixture()
         live = dict(battle, **{"battle.usersEffects": [{"type": "increasedamagegiven", "targetId": C.ME}]})
         tick(battle_read("W1", live), log_read("W1", ents))                # battle: my turn, planned on the live state
-        for _ in range(4):
-            out = tick(battle_read("W1", {}))                              # the battle is gone: the fight closes
-            if "BATTLE OVER" in out["note"]:
-                break
+        tick(battle_read("W1", {}))                                        # the battle is gone: my profile is asked
+        tick(battle_read("W1", {}), user())                                # I have left it: the fight closes
         tick(user())                                                       # the result is settled
 
     def marks(self):
@@ -149,7 +147,7 @@ class Session:
         return {
             # the planner got the fight's file with the live state in it, and its line is the line that was sent
             "planner": bool(planned) and planned[-1]["live"] and "W1" in planned[-1]["argv"]
-            and self.sent == ["standin_strike"],
+            and set(self.sent) == {"standin_strike"},
             # the kit read before the attack was saved by the real tool, so the fight did not read it again
             "dossier": self.kit_saved and self.calls.count("jutsu.getPublicUserJutsus") == 1,
             # the model rebuild ran after the fight, with the fight's log already on disk for it

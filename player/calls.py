@@ -62,10 +62,15 @@ def sensory(sec):
     return call("stealth.useSensory", {"sector": sec}, ["success", "message"])
 
 
-def go(sec):
+def trip(sec):
     """A trip: start it, try to finish it, and read where I am. A trip that has not landed is finished later."""
     return [call("travel.startGlobalMove", {"sector": sec}, ["success", "message", "data.travelFinishAt"]),
-            call("travel.finishGlobalMove", {}, ["success", "message"]), user(), sector(sec)]
+            call("travel.finishGlobalMove", {}, ["success", "message"]), user()]
+
+
+def go(sec):
+    """A trip, and a look at who is there."""
+    return trip(sec) + [sector(sec)]
 
 
 def finish_trip():
@@ -73,6 +78,7 @@ def finish_trip():
 
 
 def wake():
+    """The one switch between asleep and awake: it wakes a sleeper and puts a waker to bed."""
     return call("home.toggleSleep", {}, ["success", "message"])
 
 
@@ -94,8 +100,25 @@ def battle(bid, effects=False, ground=False):
                 ([f"battle.groundEffects.*.{k}" for k in GROUND_COLS + BARRIER_COLS] if ground else []))
 
 
-def entries(bid, n):
-    return call("combat.getBattleEntries", {"battleId": bid, "limit": n}, list(ENT))
+def entries(bid, n, whole=False):
+    """The battle log's last n lines. The effect texts come as one list per line, but a line with no effect is
+    left out of that column; whole asks for each line's effects as they are, which always lines up."""
+    return call("combat.getBattleEntries", {"battleId": bid, "limit": n},
+                list(ENT[:4]) + ["*.appliedEffects"] if whole else list(ENT))
+
+
+def log_rows(data):
+    """A log read -> rows [id, round, user, action, texts], newest first. texts is None on every row when the read
+    cannot say which line each text belongs to. None when even the four plain columns do not line up."""
+    base = columns(data, "", ENT[:4])
+    if base is None:
+        return None
+    whole, texts = data.get("*.appliedEffects"), data.get(ENT[4])
+    if isinstance(whole, list) and len(whole) == len(base):
+        texts = [[e["txt"] for e in line or [] if isinstance(e, dict) and e.get("txt")] for line in whole]
+    elif not isinstance(texts, list) or len(texts) != len(base):
+        texts = [None] * len(base)
+    return [[row[k] for k in ENT[:4]] + [t] for row, t in zip(base, texts)]
 
 
 def kit(user_id):

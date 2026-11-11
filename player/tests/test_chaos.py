@@ -11,8 +11,8 @@ import unittest
 from player import budget as B
 from player import config as C
 from player.combat import Combat
-from player.tests.support import (FOE, Ledger, Rig, battle_read, fixture, limited, log_read, res, scan, start_fight,
-                                  user)
+from player.tests.support import (FOE, Ledger, Rig, battle_read, fixture, gone, limited, log_read, res, scan,
+                                  start_fight, user)
 
 PREY = ("u_p", "Prey", 13, 14, "AWAKE", 100, "y", None, None)
 
@@ -214,10 +214,7 @@ class FullPotionAtTheEnd(unittest.TestCase):
         rig = Rig()
         start_fight(rig)
         rig.world["budget"]["calls"] = [[rig.t, "battle"]] * (C.CALL_LIMIT - B.TURN_ACTIONS - 4)   # a busy fight
-        for _ in range(4):
-            out = rig.tick(battle_read("B1", {}))
-            if "BATTLE OVER" in out["note"]:
-                break
+        out = gone(rig)
         self.assertEqual(rig.calls(out), ["item.consume", "profile.getUser"])
         self.assertEqual(([k for s in out["steps"] for k in s if k == "wait"], out["hold"]), ([], 0))
 

@@ -56,6 +56,17 @@ class Contract(unittest.TestCase):
                      "one line at a time", "exactly as printed"):
             self.assertIn(must, text)
 
+    def test_the_relay_agent_is_that_prompt_with_two_tools_and_nothing_else(self):
+        """Live, 2026-11-11: a general-purpose relay was born with 118,190 tokens of context, and every request
+        re-sent them. The relay's own agent definition carries the prompt, Bash and the connector's one call."""
+        with open(os.path.join(C.ROOT, ".claude", "agents", "tnr-relay.md"), encoding="utf8") as f:
+            _, head, body = f.read().split("---\n", 2)
+        with open(os.path.join(C.ROOT, "player", "RELAY.md"), encoding="utf8") as f:
+            self.assertEqual(body, f.read())                               # one prompt, not two
+        fields = dict(line.split(": ", 1) for line in head.strip().splitlines())
+        self.assertEqual((fields["model"], fields["omitClaudeMd"]), ("haiku", "true"))
+        self.assertEqual([t.strip() for t in fields["tools"].split(",")], ["Bash", "mcp__Tnr__callEndpoint"])
+
     def test_a_batch_is_calls_waits_and_the_next_tick_and_nothing_else(self):
         rig = Rig()
         out = rig.tick(user())

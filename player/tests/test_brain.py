@@ -29,7 +29,7 @@ class Arbiter(unittest.TestCase):
         rig = Rig()
         self.assertEqual(rig.tick(user("HOSPITALIZED"))["activity"], "recovery")       # safety over goals
         self.assertEqual(rig.tick(user("BATTLE", bid="B1"))["activity"], "battle")     # a fight over everything
-        self.assertEqual(rig.tick(user("TRAVEL"))["activity"], "battle")               # even over a trip's status
+        self.assertEqual(rig.tick()["activity"], "battle")                             # with or without a result
         order = [a.name for a in rig.brain.rank()]
         self.assertEqual(order[0], "battle")
 
@@ -130,7 +130,8 @@ class Settings(unittest.TestCase):
         rig.world["battle"] = {"bid": "B1", "entries": []}
         self.assertIsNone(rig.tick()["stop"])
         rig.world["battle"] = None
-        self.assertEqual(rig.tick(user())["stop"], "session ended by the director")
+        self.assertIsNone(rig.tick(user())["stop"])                        # nor while the character is awake
+        self.assertEqual(rig.tick(user("ASLEEP"))["stop"], "session ended by the director: asleep at home")
 
 
 class Handover(unittest.TestCase):

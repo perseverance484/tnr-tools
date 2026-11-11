@@ -44,7 +44,7 @@ TEMPLATE = {
     "opponents": {"lost_to": {}, "skip": {}},
     "map": {"scan": None, "last_scan": {}, "sensory_at": 0},
     "records": {"results": [], "pending_result": None, "spend": {"day": "", "ryo": 0.0}, "transfers": {},
-                "turns_missed": 0, "turns_unresolved": 0, "last_error": None},
+                "turns_missed": 0, "turns_unresolved": 0, "turns_unseen": 0, "last_error": None},
     "decisions": [],            # pending decisions for the director (ask-first calls)
     "budget": {"calls": []},    # [time, lane] of every call issued in the last minute
     "relay": {"seq": 0, "last_batch": [], "issued_at": 0, "expect": None, "stalled": False, "activity": None,

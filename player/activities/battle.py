@@ -17,6 +17,7 @@ turn is closed as acted, missed or unresolved from evidence only.
 
 The fight's state is world["battle"]: the same dict the combat tools read as fights/live/<battle>.json.
 """
+import json
 import time
 
 from .. import budget as B
@@ -67,6 +68,11 @@ class Battle(Activity):
             # a loss does not always hospitalize, so the log's own HP count settles it too
             self._result(world, pend, "lost" if status == "HOSPITALIZED" or pend.get("log_lost") else "won")
             world["records"]["pending_result"] = None
+        state = world["battle"]
+        if state:
+            state.pop("prove", None)                              # the profile that was asked for has come
+            if status != "BATTLE" or (bid and bid != state["bid"]):
+                state["left"] = True                              # it is out of this battle: the fight is over
         if status == "BATTLE" and bid and not world["battle"]:
             world["battle"] = {"bid": bid, "entries": [], "opened": world.now}
             world.event("fight_start", f"fight started ({bid[:6]})", battle=bid,
@@ -80,7 +86,8 @@ class Battle(Activity):
         world["records"]["results"] = (world["records"]["results"] + [[fight["bid"], result, round(world.now)]])[-200:]
         world.event("fight_end", f"{result.upper()} vs {fight.get('enemy') or '?'} in round {fight.get('round')}",
                     battle=fight["bid"], result=result, opponent=fight.get("enemy"), round=fight.get("round"),
-                    turning_point=fight.get("turning_point"))
+                    turning_point=fight.get("turning_point"), joined=fight.get("joined"),
+                    unseen_rounds=fight.get("unseen_rounds") or [])
 
     def _take(self, world, state, r):
         """One answer about this fight."""
@@ -98,16 +105,27 @@ class Battle(Activity):
 
     @staticmethod
     def _log(world, state, r):
+        """Fold a log read in. Who did what in which round always lines up. The effect texts do not when a line
+        has no effect (2026-11-11, live: every such read was dropped). Then the lines are kept without their
+        texts, and from there on this fight's log is read with each line's effects whole, which fills them in."""
         if r.error or not isinstance(r.data, dict) or "*.id" not in r.data:
             return
-        rows = K.columns(r.data, "", K.ENT)
+        rows = K.log_rows(r.data)
         if rows is None:
             world.event("finding", "the battle log's columns do not line up; that read is dropped",
                         about="selects", battle=state["bid"])
             return
-        seen = {e[0] for e in state["entries"]}
-        new = [[row[k] for k in K.ENT] for row in rows if row["*.id"] not in seen]
-        state["entries"] += new[::-1]                             # oldest first
+        if rows and rows[0][4] is None and not state.get("log_whole"):
+            state["log_whole"] = True
+            world.event("finding", "the battle log's effect texts do not line up with its lines: the lines are "
+                                   "kept, and the log is read with whole effects from now on",
+                        about="selects", battle=state["bid"])
+        known = {e[0]: e for e in state["entries"]}
+        for row in rows[::-1]:                                    # oldest first
+            if row[0] not in known:
+                state["entries"].append(row)
+            elif known[row[0]][4] is None:
+                known[row[0]][4] = row[4]                         # a line first seen without its texts
 
     def _acted(self, world, state, r):
         turn = state.get("turn") or {}
@@ -130,17 +148,24 @@ class Battle(Activity):
 
     @staticmethod
     def _refusal(world, state, r):
-        """An action the game refuses is banned for the rest of the fight, so the next plan routes around it. The
-        lobby's "battle has not started" refuses nothing for cause: the plan is simply sent again."""
-        note = str(r.data.get("notification", "")).lower()
-        if "has not started" in note:
+        """The game said no to an action. "Not valid anymore" bans it for the rest of the fight, so the next plan
+        routes around it; any other reason bans it for this turn only. The lobby's "battle has not started"
+        refuses nothing for cause: the plan is simply sent again. Each new reason is written down once."""
+        note, aid = str(r.data.get("notification", "")), r.input.get("actionId")
+        if "has not started" in note.lower():
             state["sent_plan"] = None
             state["banned"] = []
-        elif "not valid anymore" in note:
-            aid = r.input.get("actionId")
-            if aid and aid not in state.setdefault("banned", []):
-                state["banned"].append(aid)
+            return
+        if "not valid anymore" in note.lower():
+            where = state.setdefault("banned", [])
             world["inventory"]["restock_due"] = True              # an empty item is the usual cause
+        else:
+            where = (state.get("turn") or {}).setdefault("refused", [])
+        if aid and aid not in where:
+            where.append(aid)
+        if note not in state.setdefault("refusals", []):
+            state["refusals"] = (state["refusals"] + [note])[-12:]
+            world.event("finding", f"the game refused {aid}: {note[:200]}", about="refusal", battle=state["bid"])
 
     # ------------------------------------------------------------ the tick
     def plan(self, world):
@@ -149,16 +174,41 @@ class Battle(Activity):
         read = state.pop("inbox", None)
         refused = state.pop("refused_read", False)
         acts_ok = state.pop("acts_ok", False)
+        if state.pop("left", False):
+            return self._close(world, state, None)                # my profile has left the battle
         if read is not None:
             return self._tick(world, state, read)
-        if "battle" not in state:
+        if "battle" not in state and not state.get("empty_reads"):
             # the fight just started (or its opening read never came back): one full read and the whole log
             state["asked_start"] = True
-            return plan([K.battle(bid, effects=True), K.entries(bid, C.ENTRIES_START)], "battle",
+            return plan([K.battle(bid, effects=True), self._log_read(state, C.ENTRIES_START)], "battle",
                         f"BATTLE START {bid}", hold=C.RATE_BACKOFF if refused else 0.0, tag="urgent")
         return self._no_read(world, state, refused, acts_ok)
 
-    def _no_read(self, world, state, refused, acts_ok):
+    @staticmethod
+    def _log_read(state, n):
+        return K.entries(state["bid"], n, bool(state.get("log_whole")))
+
+    @staticmethod
+    def _proof(state):
+        """My profile, asked beside every read after one came back without the battle, until it comes: it says
+        whether the fight is still on. It is not a watching read: the budget does not leave it out."""
+        return [K.user()] if state.get("prove") else []
+
+    def _without_the_battle(self, world, state, battle):
+        """A read came back without the battle. That alone never ends a fight (2026-11-11, live: four such reads
+        each closed a fight that was still on, and a Full Potion was sent into it). A fight ends when a read
+        shows a fighter down, or when my profile has left the battle. So my profile is asked beside the next
+        read, which is a plain one; on my turn the plan goes from the last good read meanwhile, as after a
+        refused read."""
+        n = state["empty_reads"] = state.get("empty_reads", 0) + 1
+        if n == 1 or n % 10 == 0:
+            world.event("finding", f"a battle read came back without the battle ({n} in a row). It held: "
+                                   f"{json.dumps(battle, default=str)[:160]}", about="read", battle=state["bid"])
+        state["prove"] = True
+        return self._no_read(world, state, True, False, hold=0.0 if n == 1 else C.RATE_BACKOFF)
+
+    def _no_read(self, world, state, refused, acts_ok, hold=None):
         """A tick with no read of the fight in hand: act from the last good read when the turn is owed an action,
         else read again."""
         bid, b = state["bid"], state.get("battle") or {}
@@ -173,29 +223,30 @@ class Battle(Activity):
         if mine and turn:
             turn["looked"] = True
         state["asked_full"] = state["asked_ground"] = False       # this read asks for neither effects nor ground
-        again = [K.battle(bid), K.entries(bid, C.ENTRIES_POLL)]
-        return plan(again if mine and not turn.get("accepted") else watching(again), "battle",
-                    f"resume battle {bid}", hold=C.RATE_BACKOFF if refused and not mine else 0.0, tag="urgent")
+        again = [K.battle(bid), self._log_read(state, C.ENTRIES_POLL)]
+        if hold is None:
+            hold = C.RATE_BACKOFF if refused and not mine else 0.0
+        return plan((again if mine and not turn.get("accepted") else watching(again)) + self._proof(state), "battle",
+                    f"resume battle {bid}", hold=hold, tag="urgent")
 
     def _tick(self, world, state, battle, from_last_read=False):
         """One read of the fight, in order: is the read usable, is the fight over, whose turn is it."""
         bid = state["bid"]
         users = battle.get("battle.usersState.*.userId") or []
         asked_ground = state.get("asked_ground", False)
-        early = self._read_came_back_empty(state, users)
-        if early:
-            return early
-        if C.ME not in users:                                     # the battle is gone (finished battles are deleted)
-            # the last state seen does not settle it: the next profile read and the log's HP count do
-            return self._close(world, state, None)
+        self._plainer(state, users)
+        if C.ME not in users:
+            return self._without_the_battle(world, state, battle)
         if K.columns(battle, "battle.usersState.*.", K.STATE_COLS[:6]) is None:
             # a fighter's column came back short: nothing can be told apart, so read again rather than guess
             world.event("finding", "the fighters' columns do not line up; reading again", about="selects", battle=bid)
-            return plan([K.battle(bid, effects=True), K.entries(bid, C.ENTRIES_POLL)], "battle",
+            return plan([K.battle(bid, effects=True), self._log_read(state, C.ENTRIES_POLL)], "battle",
                         f"BATTLE {bid}: misaligned read, reading again", tag="urgent")
         if not from_last_read:                                    # how long the fight went unread before this
             state["unseen"] = round(world.now - state.get("read_at", state.get("opened", world.now)), 1)
             state["read_at"] = world.now
+            state.pop("empty_reads", None)
+            self._joined(world, state, battle)
         self._seat(state, battle)
         self._absorb(state, battle, users, asked_ground, from_last_read)
         hp = battle["battle.usersState.*.curHealth"]
@@ -267,31 +318,34 @@ class Battle(Activity):
         return (cols, "misaligned", None) if rows is False else (cols, "columns", rows)
 
     @staticmethod
-    def _read_came_back_empty(state, users):
-        """A read that came back without the battle is not yet the end of the fight: the richer reads are dropped
-        one at a time first (ground columns, then the effect list)."""
-        bid = state["bid"]
+    def _plainer(state, users):
+        """What a read says about the reads to ask for next. One that came back with the fighters proves its kind
+        works. One that came back without them drops the richest part it asked for (the ground columns, then the
+        effect list), so the next polls are plainer."""
         asked_full = state.pop("asked_full", False)
         asked_ground = state.pop("asked_ground", False)
-        asked_start = state.pop("asked_start", False)             # the opening read: retried like a full read
+        asked_start = state.pop("asked_start", False)             # the opening read: counted like a full read
         if users:
-            if asked_full:
-                state["full_ok"] = True
-            return None
-        if asked_ground and not state.get("ground_refused"):
+            state["full_ok"] = state.get("full_ok") or asked_full
+        elif asked_ground and not state.get("ground_refused"):
             state["ground_refused"] = True
-            return plan([K.battle(bid, effects=True), K.entries(bid, C.ENTRIES_POLL)], "battle",
-                        f"BATTLE {bid}: ground read refused, full read")
-        if (asked_full or asked_start) and not state.get("full_ok") and state.get("full_refused", 0) < 2:
+        elif (asked_full or asked_start) and not state.get("full_ok") and state.get("full_refused", 0) < 2:
             state["full_refused"] = state.get("full_refused", 0) + 1
-            return plan([K.battle(bid), K.entries(bid, C.ENTRIES_POLL)], "battle",
-                        f"BATTLE {bid}: full read refused, plain read")
-        if state.get("perm_tries") and "perm_effects" not in state and state.get("perm_retry", 0) < 2:
+        elif state.get("perm_tries") and "perm_effects" not in state and state.get("perm_retry", 0) < 2:
             state["perm_retry"] = state.get("perm_retry", 0) + 1
             state["perm_tries"] = 9
-            return plan([K.battle(bid), K.entries(bid, C.ENTRIES_POLL)], "battle",
-                        f"BATTLE {bid}: effect read refused, plain read")
-        return None
+
+    @staticmethod
+    def _joined(world, state, battle):
+        """Once, at the first read of a fight: the rounds already over that show no action of mine. Nothing was
+        playing them, or I could not act (2026-11-11, live: a rematch began while no relay ran). They are counted
+        apart from missed turns and named in the fight's end event."""
+        if "joined" in state or battle.get("battle.round") is None:
+            return
+        rnd = state["joined"] = battle["battle.round"]
+        mine = {e[1] for e in state["entries"] if e[2] == C.ME and e[3] != "wait"}   # the game logs a timeout as wait
+        state["unseen_rounds"] = sorted({e[1] for e in state["entries"] if e[1] < rnd} - mine)
+        world["records"]["turns_unseen"] = world["records"].get("turns_unseen", 0) + len(state["unseen_rounds"])
 
     def _absorb(self, state, battle, users, asked_ground, from_last_read):
         """Fold a read into the fight's state: ground, the live effect list, permanent effects, the fight bases."""
@@ -349,12 +403,12 @@ class Battle(Activity):
         full = want or state.get("full_refused", 0) < 2
         state["asked_full"] = full
         state["asked_ground"] = bool(full and state.get("full_ok") and not state.get("ground_refused"))
-        poll = [K.battle(bid, effects=full, ground=state["asked_ground"]), K.entries(bid, C.ENTRIES_POLL)]
+        poll = [K.battle(bid, effects=full, ground=state["asked_ground"]), self._log_read(state, C.ENTRIES_POLL)]
         if (not foe_is_ai and not self.combat.kit_known(foe_id) and state.get("kit_tries", 0) < C.KIT_TRIES
                 and self.budget.free() > len(poll)):              # his kit can wait for a minute with room in it
             state["kit_tries"] = state.get("kit_tries", 0) + 1
             poll.append(K.kit(foe_id))
-        return watching(poll)
+        return watching(poll) + self._proof(state)
 
     @staticmethod
     def _director(world, state, turn, poll, head, v, from_last_read):
@@ -363,8 +417,8 @@ class Battle(Activity):
         bid = state["bid"]
         if not from_last_read and state.get("live_v") != v and state.get("live_try_v") != v:
             state["live_try_v"] = v                               # he has the time: one exact read first
-            return plan([K.battle(bid, effects=True), K.entries(bid, C.ENTRIES_POLL)], "battle",
-                        head + " | MY TURN: reading the live state", tag="urgent")
+            return plan([K.battle(bid, effects=True), K.entries(bid, C.ENTRIES_POLL, bool(state.get("log_whole")))],
+                        "battle", head + " | MY TURN: reading the live state", tag="urgent")
         left = C.HANDOFF_WAIT - (world.now - turn["T"])
         if left > 0:
             return plan(poll, "battle", head + f" | MY TURN: director's move (covered in {left:.0f}s)",
@@ -380,27 +434,32 @@ class Battle(Activity):
         # a plan already sent for this exact battle version that did not move it is not resent as is. (Only a
         # fresh read can show that: from the last good read the same plan goes again, and the game's own version
         # check keeps it from landing twice.)
-        sent = state.get("sent_plan") or {}
-        if (not from_last_read and sent.get("v") == v and sent.get("first")
+        sent, said_no = state.get("sent_plan") or {}, turn.setdefault("refused", [])
+        if (not from_last_read and sent.get("v") == v and sent.get("first") and sent["first"] not in said_no
                 and sent["first"] not in state.setdefault("banned", [])):
-            state["banned"].append(sent["first"])
-        if world["control"]["director_mode"]:                     # what is left of the turn after his window
+            # the game gave no reason. A planner's line: for the fight, as in the pilot; a stand-in: for this turn
+            (said_no if sent.get("stand_in") else state["banned"]).append(sent["first"])
+        if world["control"]["director_mode"] or turn.get("accepted"):
+            # what is left of the turn: after the director's window, or after the actions it has already taken
+            # (2026-11-11, live: a turn's later plans got no planner time once T+15 s had passed)
             seconds = max(3.0, min(C.BEST_LINE_AT, C.TURN_LIMIT - (world.now - turn["T"]) - 8.0))
         else:
             seconds = B.planner_seconds(turn, world.now)
-        ban = state.get("banned", []) + list(world["inventory"].get("empty_items", []))
-        line, how = self._line(world, state, battle, his_hp, ban, seconds)
+        no = state.get("banned", []) + turn.get("refused", [])
+        line, how = self._line(world, state, battle, his_hp, no + list(world["inventory"].get("empty_items", [])),
+                               seconds)
         tail = " (last good read)" if from_last_read else ""
         if line:
             turn["line"] = {"v": v, "actions": line}              # the best line this turn has so far
             state["sent_plan"] = {"v": v, "first": line[0]["actionId"]}
             note = f"MY TURN: {' + '.join(a['name'] for a in line)} ({how}){tail}"
         else:
-            line, how = self._fallback(turn, v, me_xy, state.get("banned", []), how)
+            line, how = self._fallback(turn, v, me_xy, state.get("banned", []) + turn.get("refused", []), how)
             world.event("finding", f"round {R}: {how}", about="planner", battle=bid)
             if not line:
                 state["pick"] = {"round": R, "actions": [], "why": how}
                 return plan(poll, "battle", head + f" | MY TURN, nothing to send: {how}", tag="urgent")
+            state["sent_plan"] = {"v": v, "first": line[0]["actionId"], "stand_in": True}
             note = f"MY TURN, {how}{tail}"
         state["pick"] = {"round": R, "actions": [a["name"] for a in line], "why": how + tail}
         steps = []
@@ -453,7 +512,8 @@ class Battle(Activity):
         evidence says. An action counts when the game answered it, or when the battle log shows it."""
         turn = state.get("turn")
         if turn and not turn.get("landed"):
-            logged = any(e[1] == turn["round"] and e[2] == C.ME for e in state["entries"])
+            # (a wait of mine in the log proves nothing: the game writes one for a turn that timed out)
+            logged = any(e[1] == turn["round"] and e[2] == C.ME and e[3] != "wait" for e in state["entries"])
             B.turn_closed(world, state["bid"], turn, B.turn_outcome(turn, logged, ended))
 
     def _close(self, world, state, result):
@@ -465,7 +525,8 @@ class Battle(Activity):
         users = last.get("battle.usersState.*.userId") or []
         self._turn_over(world, state, ended=True)
         fight = {"bid": bid, "foes": [u for u in users if u != C.ME], "enemy": state.get("enemy"),
-                 "round": state.get("round"), "turning_point": self.combat.turning_point(state)}
+                 "round": state.get("round"), "turning_point": self.combat.turning_point(state),
+                 "joined": state.get("joined"), "unseen_rounds": state.get("unseen_rounds") or []}
         if result is None:
             world["records"]["pending_result"] = dict(fight, log_lost=self.combat.log_says_lost(state))
         else:

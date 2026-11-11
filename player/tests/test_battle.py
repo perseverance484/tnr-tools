@@ -6,9 +6,11 @@ import sys
 import tempfile
 import unittest
 
+from player import budget as B
 from player import config as C
 from player.combat import Combat
-from player.tests.support import (FOE, LINE, Rig, battle_read, fixture, limited, log_read, res, start_fight, user)
+from player.tests.support import (FOE, LINE, Rig, battle_read, fixture, gone, limited, log_read, res, start_fight,
+                                  user)
 
 
 def seq(steps, hold=0.0):
@@ -211,19 +213,37 @@ class Refusals(unittest.TestCase):
         self.assertEqual(rig.calls(out), ["combat.getBattle", "combat.getBattleEntries"])
         self.assertEqual(out["hold"], 0)
 
-    def test_a_read_that_comes_back_empty_is_retried_plainer_before_the_fight_is_called_over(self):
+    def test_a_read_that_comes_back_empty_never_ends_the_fight_by_itself(self):
         rig = Rig()
         battle, ents, out = start_fight(rig)
-        notes = []
-        for _ in range(4):
-            out = rig.tick(battle_read("B1", {}))
-            notes.append(out["note"])
-        self.assertIn("full read refused, plain read", notes[0])
-        self.assertTrue(any("BATTLE OVER" in n for n in notes))
+        his = dict(battle, **{"battle.activeUserId": FOE, "battle.usersEffects": []})
+        rig.tick(battle_read("B1", his))
+        for n in range(6):                                                 # the live session saw four in a fight
+            out = rig.tick(battle_read("B1", {}), user("BATTLE", bid="B1"), dt=out["hold"] + 4)
+            self.assertTrue(rig.world.in_battle())
+            self.assertEqual(rig.calls(out), ["combat.getBattle", "combat.getBattleEntries", "profile.getUser"])
+            self.assertNotIn("battle.usersEffects", out["steps"][0]["select"])   # a plain read, with my profile
+            self.assertTrue(out["hold"] == 0 if n == 0 else C.RATE_BACKOFF <= out["hold"] <= B.BLIND_MAX, out["hold"])
+        self.assertEqual(len(rig.events("fight_start")), 1)                 # the same fight, never opened again
+        self.assertNotIn("item.consume", rig.calls(out))                    # and no potion is sent into it
+        self.assertEqual(len([e for e in rig.events("finding") if e["about"] == "read"]), 1)   # said once
+        out = rig.tick(battle_read("B1", his))                             # a read with the battle: carry on
+        self.assertIn("his turn", out["note"])
+        self.assertTrue(rig.world["battle"]["ground_refused"])              # the richest part it asked for is dropped
+
+    def test_the_fight_is_over_when_my_profile_has_left_it(self):
+        rig = Rig()
+        start_fight(rig)
+        out = rig.tick(battle_read("B1", {}))                              # my turn: the plan goes again meanwhile
+        self.assertEqual(out["steps"][0]["call"], "combat.performAction")
+        self.assertIn("profile.getUser", rig.calls(out))
+        out = rig.tick(battle_read("B1", {}), user("AWAKE"))
+        self.assertIn("BATTLE OVER", out["note"])
+        self.assertFalse(rig.world.in_battle())
         rig2 = Rig()
         rig2.tick(user("BATTLE", bid="B2"))
         out = rig2.tick(battle_read("B2", {}))                             # the very first read came back empty
-        self.assertIn("full read refused", out["note"])
+        self.assertEqual(rig2.calls(out), ["combat.getBattle", "combat.getBattleEntries", "profile.getUser"])
         self.assertTrue(rig2.world.in_battle())
 
 
@@ -271,12 +291,7 @@ class EndOfFight(unittest.TestCase):
         return rig.tick(battle_read("B1", {"battle.version": None}), dt=1)
 
     def gone(self, rig):
-        """Empty reads until the fight is called over."""
-        for _ in range(5):
-            out = rig.tick(battle_read("B1", {}))
-            if "BATTLE OVER" in out["note"]:
-                return out
-        raise AssertionError("the fight never closed")
+        return gone(rig)
 
     def test_the_full_potion_goes_in_the_same_batch_as_the_fights_end(self):
         rig = Rig()

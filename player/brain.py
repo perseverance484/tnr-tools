@@ -95,8 +95,8 @@ class Brain:
         w = self.world
         if w.in_battle():
             return None
-        if w["control"]["end_session"]:
-            return "session ended by the director"
+        if w["control"]["end_session"] and w.status() == "ASLEEP":
+            return "session ended by the director: asleep at home"   # never while awake (activities/session.py)
         if relay.should_rotate(w):
             w["relay"].update(baseline_tokens=None, context_tokens=0, rotations=w["relay"].get("rotations", 0) + 1)
             return "rotate: start a fresh relay"

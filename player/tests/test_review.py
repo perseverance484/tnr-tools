@@ -12,8 +12,8 @@ import time
 import unittest
 
 from player import brain, budget as B, calls as K, config as C, gates, relay
-from player.tests.support import (FOE, LINE, Ledger, Rig, battle_read, fixture, limited, log_read, res, start_fight,
-                                  user)
+from player.tests.support import (FOE, LINE, Ledger, Rig, battle_read, fixture, gone, limited, log_read, res,
+                                  start_fight, user)
 from player.tests.test_relay import nxt, token_of, transcript
 from player.world import utc_day
 
@@ -204,10 +204,7 @@ class F1TheSharedLimit(unittest.TestCase):
         battle, ents, out = start_fight(rig)
         rig.world["budget"]["calls"] += [[rig.t, "battle"]] * (C.CALL_LIMIT - 4 - rig.brain.budget.used())
         ledger.rows = [(t, lane, "") for t, lane in rig.world["budget"]["calls"]]
-        for _ in range(4):
-            out = rig.tick(battle_read("B1", {}), dt=waited(out) + 1)
-            if "BATTLE OVER" in out["note"]:
-                break
+        out = gone(rig, dt=waited(out) + 1)
         self.assertEqual(rig.calls(out), ["item.consume", "profile.getUser"])
         self.assertLessEqual(ledger.worst(), C.CALL_LIMIT)
 
@@ -567,9 +564,7 @@ class F7ATurnEndsAsTheEvidenceSays(unittest.TestCase):
 
     def test_a_fight_that_ends_on_my_turn_with_no_proof_is_unresolved_not_acted(self):
         rig, battle, R, out = self.fight()
-        for _ in range(4):
-            if "BATTLE OVER" in rig.tick(battle_read("B1", {}))["note"]:
-                break
+        gone(rig)
         self.assertEqual(turns(rig)[-1]["outcome"], "unresolved")
 
     def test_a_relay_lost_with_the_plan_in_hand_is_unresolved_until_a_read_settles_it(self):
@@ -615,10 +610,7 @@ class F9AnEventIsWhatHappened(unittest.TestCase):
     def test_the_potion_at_the_fights_end_is_reported_from_its_answer(self):
         rig = Rig()
         start_fight(rig)
-        for _ in range(4):
-            out = rig.tick(battle_read("B1", {}))
-            if "BATTLE OVER" in out["note"]:
-                break
+        out = gone(rig)
         self.assertEqual((rig.calls(out)[0], rig.events("item")), ("item.consume", []))
         rig.tick(res("item.consume", {"success": True}, out["steps"][0]["input"]), user())
         self.assertEqual([e["text"] for e in rig.events("item")], ["Full Potion used"])

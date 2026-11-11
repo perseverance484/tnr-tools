@@ -198,6 +198,16 @@ def log_read(bid, ents):
     return res("combat.getBattleEntries", dict(ents), {"battleId": bid, "limit": 8})
 
 
+def gone(rig, bid="B1", status="AWAKE", **tick):
+    """The fight ends the way a deleted battle looks: its reads come back without it, and then my profile shows
+    that I have left it. Returns the closing batch."""
+    out = rig.tick(battle_read(bid, {}), **tick)
+    assert "profile.getUser" in rig.calls(out), out          # an empty read alone ends nothing: my profile is asked
+    out = rig.tick(battle_read(bid, {}), user(status), **tick)
+    assert "BATTLE OVER" in out["note"], out
+    return out
+
+
 def start_fight(rig, bid="B1", battle=None, ents=None, effects=()):
     """Bring the rig to the first tick of a fight on the logged state; returns (battle, entries, the batch)."""
     fb, fe = fixture()

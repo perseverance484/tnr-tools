@@ -75,6 +75,11 @@ def ground_effects(raw):
             if isinstance(g, dict) and g.get("type") not in ("visual", "move")]
 
 
+def _texts(entries):
+    """The fight's log lines, for the tools: a line whose effect texts are not known has none."""
+    return [e[:4] + [e[4] or []] for e in entries or []]
+
+
 def _tools():
     if C.TOOLS not in sys.path:
         sys.path.insert(0, C.TOOLS)
@@ -189,7 +194,7 @@ class Combat:
         best line so far must be fired; each planner run is cut to it, and none is started with no time left."""
         path = os.path.join(self.live, f"{bid}.turn.txt")
         os.makedirs(self.live, exist_ok=True)
-        rows = entries[::-1]                                   # the planners read newest-first, like the connector
+        rows = _texts(entries)[::-1]                           # the planners read newest-first, like the connector
         with open(path, "w", encoding="utf8") as f:
             f.write(json.dumps(battle) + "\n" +
                     json.dumps({k: [r[i] for r in rows] for i, k in enumerate(K.ENT) if k != "*.id"}) + "\n")
@@ -232,7 +237,7 @@ class Combat:
             b = state.get("battle") or {}
             users = b.get("battle.usersState.*.userId") or []
             hp = b["battle.usersState.*.curHealth"][users.index(C.ME)]
-            rows = [(e[1], e[2], e[3], e[4]) for e in (state.get("entries") or [])[state.get("n_at_battle", 10 ** 9):]]
+            rows = [(e[1], e[2], e[3], e[4]) for e in _texts(state.get("entries"))[state.get("n_at_battle", 10 ** 9):]]
             track = exam.hp_track(rows + [(0, None, None, [])], [C.ME_NAME])
             return hp - (C.MAX_HP - track[-1][C.ME_NAME]) <= 0
         except Exception:  # noqa: BLE001
@@ -245,7 +250,7 @@ class Combat:
             _tools()
             import exam
             enemy = state.get("enemy")
-            rows = [(e[1], e[2], e[3], e[4]) for e in state.get("entries") or []]
+            rows = [(e[1], e[2], e[3], e[4]) for e in _texts(state.get("entries"))]
             track = exam.hp_track(rows + [(0, None, None, [])], [C.ME_NAME, enemy])
             per = {}
             for row, before, after in zip(rows, track, track[1:]):
@@ -262,7 +267,7 @@ class Combat:
     def close_fight(self, bid, state, covered, director_mode):
         """Keep the fight for the tools that learn from it (the game deletes the log): the log, who played which
         round, the exact live state of every round; then rebuild the opponent models and review the fight."""
-        rows = (state.get("entries") or [])[::-1]
+        rows = _texts(state.get("entries"))[::-1]
         if rows:
             self._save(os.path.join(self.fights, f"{bid}_entries.json"),
                        {k: [r[i] for r in rows] for i, k in enumerate(K.ENT)})
