@@ -241,12 +241,11 @@ def battle_tick(st, bid, battle, entries):
         cache["entries"] += new[::-1]                      # cache is oldest-first
     users = battle.get("battle.usersState.*.userId") or []
     if ME not in users:                                     # battle gone (finished battles are deleted)
-        # a loss shows as my HP at 0 before the battle closes, so a close with me alive in the last state is a win
-        # (Tousen x2 and Thabiento, 2026-11-11: all three "battle closed" logs end on my killing hit)
+        # the last state seen does not settle it (Ziharkk 7ZL8mG: I was alive at 481 when his last turn killed me): the
+        # next profile read does. Hospitalized = lost, awake = won (world() settles it)
         last = cache.get("battle") or {}
-        lu = last.get("battle.usersState.*.userId") or []
-        alive = ME in lu and (last.get("battle.usersState.*.curHealth") or [0] * len(lu))[lu.index(ME)] > 0
-        return finish(st, bid, cache, "won" if alive else "battle closed")
+        st["pending_result"] = {"bid": bid, "foes": [u for u in last.get("battle.usersState.*.userId") or [] if u != ME]}
+        return finish(st, bid, cache, "battle closed, result on the next read")
     cache["battle"] = battle
     save(cache_path, cache)
     hp = battle["battle.usersState.*.curHealth"]
@@ -431,8 +430,18 @@ def world(st, user, res):
         if mode == "hunt":
             return "ASLEEP, hunt mode: waking", [call("home.toggleSleep", {}, ["success", "message"]), c_user(), TICK]
         return "ASLEEP: the worker may step away", []
+    pend = st.pop("pending_result", None)
+    if pend:
+        lost = status == "HOSPITALIZED"
+        if lost:
+            for u in pend.get("foes", []):
+                st.setdefault("lost_to", {})[u] = time.time() + LOST_TO_HOURS * 3600
+        st.setdefault("record", []).append([pend["bid"], "lost" if lost else "won"])
+        note = f"RESULT {pend['bid']}: {'lost' if lost else 'won'} | "
+    else:
+        note = ""
     if status == "HOSPITALIZED":
-        return "HOSPITALIZED: healing", [call("hospital.npcHeal", {"villageId": HOME_VILLAGE}, ["success", "message"]),
+        return note + "HOSPITALIZED: healing", [call("hospital.npcHeal", {"villageId": HOME_VILLAGE}, ["success", "message"]),
                                         c_user(), TICK]
     start = res.get("travel.startGlobalMove")
     if start and start[1].get("data.travelFinishAt"):
@@ -442,7 +451,7 @@ def world(st, user, res):
         left = max(left, 3.0)          # past the arrival time but not arrived yet: pause between retries
         return f"{status}: arriving in {left:.0f}s", ([wait(round(min(left + 0.5, 20), 1))] if left > 0 else []) + \
             [call("travel.finishGlobalMove", {}, ["success", "message"]), c_user(), TICK]
-    head = f"AWAKE {mode} {hp:.0f}/{mx:.0f} HP @ {sector} {me_pos}"
+    head = f"{note}AWAKE {mode} {hp:.0f}/{mx:.0f} HP @ {sector} {me_pos}"
     if mode == "rest":
         if sector != HOME_SECTOR:
             return head + ": going home", go(HOME_SECTOR)
