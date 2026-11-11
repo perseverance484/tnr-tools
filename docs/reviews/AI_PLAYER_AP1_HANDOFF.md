@@ -1,5 +1,9 @@
 # AI player overhaul, phase AP1: handoff and findings
 
+> **Reviewed 2026-11-11: request changes** (`chatgpt/review-ai-player-ap1` @ e94bf21c, eleven findings). The
+> corrections, the new head and the current steps for the live session are in
+> `docs/reviews/AI_PLAYER_AP1_CORRECTION_HANDOFF.md`. This note describes `583fe353` as it was handed off.
+
 Contract: `state/prompt_ai_player_overhaul.md` section 3 (AP1), as updated at 6353a4b4 (AP6, AP7, and the two
 engineering rules that apply from AP1 on). Design: `docs/design/AI_PLAYER_OVERHAUL.md`.
 Workflow: `docs/workflows/IMPLEMENTATION_HANDOFF.md`. Written 2026-11-11.
