@@ -233,7 +233,8 @@ def from_engine(effects, R, in_base=("me",), max_hp=(5050.0, 5050.0), perm_in_ba
                 continue
             k, v = base, abs(pct)
         elif t == "shield":
-            k, v = SHD, abs(p)
+            k, v = SHD, abs(p)                 # a shield holds from the moment it is cast (tags.ts shield)
+            o1 = 0
         elif t == "wound":
             orig = float(((e.get("timeTracker") or {}).get("originalDamage")) or 0)
             k, v = WND, math.floor(orig * abs(pct)) if orig else 0

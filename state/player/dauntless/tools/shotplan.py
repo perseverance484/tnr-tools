@@ -42,7 +42,7 @@ MINE = {
     "ember": (560, [("me", "given", 0.35, 2), ("en", "taken", 0.35, 2)]),
     "danse": (420, [("en", "seal", 1, 2, True)]),
     "stormblade": (707, [("me", "reflect", 0.35, 2)], "pierce"),
-    "nights": (631, [("me", "heal", 200, 0, True)], "pierce"),
+    "nights": (631, [], "pierce"),                      # no heal: the record is pierce + 2-round immunity (engine 2026-11-11)
     "resonance": (450, [("en", "stun", 20, 2, True)]),
     "leech": (0, [("en", "drain", 300, 2), ("me", "absorb", 0.21, 2)]),
     "yuki": (0, [("en", "drain", 200, 2), ("en", "given", -0.25, 2)]),
