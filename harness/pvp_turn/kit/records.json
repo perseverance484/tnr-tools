@@ -6381,5 +6381,130 @@
   },
   "source": "harvests/inbox/tnr_results_1792732003454.json",
   "updatedAt": "2026-10-18T15:16:22.930Z"
+ },
+ "aGHvcy3izzTTcN-yjch33": {
+  "record": {
+   "requiredLevel": 1,
+   "requiredRank": "CHUNIN",
+   "jutsuRank": "C",
+   "elementClassification": "None",
+   "statClassification": "Bukijutsu",
+   "healthCost": 0,
+   "chakraCost": 0,
+   "staminaCost": 0,
+   "id": "aGHvcy3izzTTcN-yjch33",
+   "name": "Harmonious Slash",
+   "effects": [
+    {
+     "type": "damage",
+     "power": 35,
+     "rounds": 0,
+     "target": "INHERIT",
+     "elements": [
+      "Metal"
+     ],
+     "direction": "offence",
+     "statTypes": [
+      "None"
+     ],
+     "calculation": "formula",
+     "dmgModifier": 1,
+     "friendlyFire": "ALL",
+     "generalTypes": [
+      "Highest"
+     ],
+     "powerPerLevel": 0.4,
+     "residualModifier": 0,
+     "allowBloodlineDamageDecrease": true,
+     "allowBloodlineDamageIncrease": true
+    },
+    {
+     "type": "reflect",
+     "power": 30,
+     "rounds": 2,
+     "target": "SELF",
+     "direction": "offence",
+     "calculation": "percentage",
+     "friendlyFire": "ALL",
+     "powerPerLevel": 0.4
+    }
+   ],
+   "target": "OPPONENT",
+   "method": "SINGLE",
+   "range": 4,
+   "cooldown": 7,
+   "actionCostPerc": 60,
+   "jutsuType": "BLOODLINE",
+   "bloodlineId": "T-MyR4yQ1_aVbaJDLoI07",
+   "battleUsageType": "BOTH",
+   "jutsuWeapon": "NONE",
+   "updatedAt": "2026-10-22T03:35:28.673Z",
+   "_note": "jutsuWeapon SWORD in live record; cleared here (opponent gear not modelled)"
+  },
+  "source": "connector read",
+  "updatedAt": "2026-10-22T03:35:28.673Z"
+ },
+ "sav_H5tjyeHUIlGNPKC3h": {
+  "record": {
+   "requiredLevel": 1,
+   "requiredRank": "CHUNIN",
+   "jutsuRank": "C",
+   "elementClassification": "None",
+   "statClassification": "Bukijutsu",
+   "healthCost": 0,
+   "chakraCost": 0,
+   "staminaCost": 0,
+   "id": "sav_H5tjyeHUIlGNPKC3h",
+   "name": "Inner Peace",
+   "effects": [
+    {
+     "type": "increasedamagegiven",
+     "power": 25,
+     "rounds": 2,
+     "target": "INHERIT",
+     "direction": "offence",
+     "calculation": "percentage",
+     "powerPerLevel": 0.4
+    },
+    {
+     "type": "decreasedamagetaken",
+     "power": 25,
+     "rounds": 2,
+     "target": "INHERIT",
+     "direction": "offence",
+     "calculation": "percentage",
+     "powerPerLevel": 0.4
+    },
+    {
+     "type": "increasedamagegiven",
+     "power": 25,
+     "rounds": 2,
+     "target": "INHERIT",
+     "elements": [
+      "Earth",
+      "Fire",
+      "Metal",
+      "None",
+      "Water"
+     ],
+     "direction": "offence",
+     "calculation": "percentage",
+     "powerPerLevel": 0.4
+    }
+   ],
+   "target": "SELF",
+   "method": "SINGLE",
+   "range": 0,
+   "cooldown": 7,
+   "actionCostPerc": 40,
+   "jutsuType": "BLOODLINE",
+   "bloodlineId": "T-MyR4yQ1_aVbaJDLoI07",
+   "battleUsageType": "BOTH",
+   "jutsuWeapon": "NONE",
+   "updatedAt": "2026-10-21T03:26:51.266Z",
+   "_note": "jutsuWeapon SWORD in live record; cleared here (opponent gear not modelled)"
+  },
+  "source": "connector read",
+  "updatedAt": "2026-10-21T03:26:51.266Z"
  }
 }
