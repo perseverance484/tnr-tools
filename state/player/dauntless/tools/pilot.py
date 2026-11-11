@@ -335,9 +335,9 @@ def battle_tick(st, bid, battle, entries):
     poll = [c_battle(bid, effects=want), c_entries(bid, 8), TICK]
     foe_id = users[foes[0]]
     ai = battle.get("battle.usersState.*.isAi") or []
-    if not (ai and ai[foes[0]]) and not kit_known(foe_id) and cache.get("kit_asked") != foe_id:
-        cache["kit_asked"] = foe_id                         # one kit read per opponent, ridden on this tick's poll
-        save(cache_path, cache)
+    if not (ai and ai[foes[0]]) and not kit_known(foe_id) and cache.get("kit_tries", 0) < 3:
+        cache["kit_tries"] = cache.get("kit_tries", 0) + 1  # his kit read, ridden on this tick's poll, retried
+        save(cache_path, cache)                             # until it saves (DDX g31Xew: one failed read, no kit)
         poll = [poll[0], poll[1], c_kit(foe_id), TICK]
     active = battle["battle.activeUserId"]
     if active != ME:
@@ -657,7 +657,7 @@ def world(st, user, res):
         if t:
             moves = [] if (t["longitude"], t["latitude"]) == me_pos else [c_move(me_pos, (t["longitude"], t["latitude"]), sector)]
             return head + f": attacking {t['username']} @ {t['longitude']},{t['latitude']}", \
-                moves + [c_attack(t, sector), c_user(), TICK]
+                moves + ([c_kit(t["userId"])] if not kit_known(t["userId"]) else []) + [c_attack(t, sector), c_user(), TICK]
         if sector in CIRCUIT or sector == HOME_SECTOR:
             nxt = CIRCUIT[(CIRCUIT.index(sector) + 1) % len(CIRCUIT)] if sector in CIRCUIT else CIRCUIT[0]
             seen = ", ".join(f"{n} {k}" for k, n in sorted(st.get("last_scan", {}).items())) or "empty"

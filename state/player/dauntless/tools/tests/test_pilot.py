@@ -167,7 +167,8 @@ def test_world():
     prey = ("u_p", "Prey", 13, 14, "AWAKE", 100, "y", None, None)
     head, b = run_world([user(), sector([me, shisui, friend, immune, low, prey])], "hunt")
     assert "attacking Prey" in head, head
-    assert [x.get("call") for x in b][:2] == ["travel.moveInSector", "combat.attackUser"], b
+    assert [x.get("call") for x in b if x.get("call") != "jutsu.getPublicUserJutsus"][:2] == ["travel.moveInSector", "combat.attackUser"], b
+    assert [x.get("call") for x in b].index("jutsu.getPublicUserJutsus") < [x.get("call") for x in b].index("combat.attackUser")   # his kit before the attack
     assert b[0]["input"]["longitude"] == 13 and b[1]["input"]["userId"] == "u_p", b
     head, b = run_world([user(), sector([me, shisui, friend])], "hunt")
     assert "next sector 1490" in head and b[0]["input"] == {"sector": 1490}, (head, b)
