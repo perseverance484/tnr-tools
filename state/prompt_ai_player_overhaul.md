@@ -78,8 +78,17 @@ before the previous one is accepted, unless the director says so.
 
 1. **Brain.** `player/brain.py`: a resident process with the world model (`player/world.py`, persisted after every
    result), the scheduler, the arbiter (design §4.4) and the registry (`player/registry.py`).
-2. **Outbox and inbox.** Write the protocol and a minimal relay prompt, `player/RELAY.md`. The relay executes
-   batches exactly and keeps no state. Add a watchdog for a stale outbox.
+2. **Outbox and inbox, for a Haiku relay** (design §4.7; director: "design it for Haiku and save on tokens"):
+   - **The prompt.** `player/RELAY.md`, under 300 words. The loop is `brain next`, then the calls exactly as given
+     (parallel, in one message), then `brain next` again. No text between calls and no decisions.
+   - **Trimmed responses.** Every call has a minimal `select`. Lists are read as columns. Static data is cached in
+     the brain. Before anything relies on field selects over arrays, verify they stay aligned when a field is
+     missing.
+   - **Fewer batches.** Back off polling during his turn with brain-side sleeps.
+   - **Rotation.** Relays restart by context size (default 60k tokens), not batch count, and the brain keeps all
+     state.
+   - **Watchdog.** Alert on a stale outbox.
+   - **Token log.** Log relay tokens per batch, per fight turn and per hour.
 3. **Budget and battle lane.** `player/budget.py`: three lanes (battle, recovery, world) under 30 calls a minute
    shared, with the battle and recovery lanes never paced. The battle turn deadline: fire by T+20 s; fall back to
    the last good read at T+12 s and to the best line so far at T+15 s. Space actions 1.2 s apart. Log every turn's
@@ -92,7 +101,8 @@ before the previous one is accepted, unless the director says so.
 7. **Chaos tests.** Cover refusals, "Too Many Requests", relay restarts mid-battle, a battle starting mid-errand,
    brain restarts, and planner timeouts.
 
-**Gate:** chaos and wiring tests are green, then one director-started live PvP session with zero missed turns.
+**Gate:** chaos and wiring tests are green, then one director-started live PvP session on a Haiku relay with zero
+missed turns, with its token figures recorded as the baseline for the targets.
 
 ### AP2: upkeep
 

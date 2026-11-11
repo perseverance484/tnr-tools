@@ -183,6 +183,41 @@ else. A refused call is logged as a finding, never retried around.
 - **Actions:** sent with a 1.2 s gap (director: not all at once).
 - **Fight end:** the end-of-fight batch carries recovery first (Full Potion), then the reads.
 
+### 4.7 Built for the smallest model (director 2026-11-11: "run by an incredibly efficient model … design it for
+Haiku and save on tokens")
+
+Every decision is code in the brain, so the only model in the loop is the relay, and the relay needs no judgment: it
+copies calls. The design targets **Claude Haiku as the relay**, and keeps the larger models out of the loop
+entirely.
+
+- **The relay contract is mechanical.**
+  - One short system prompt (under 300 words, `player/RELAY.md`) and one loop: run `brain next`, make the calls it
+    prints exactly, run `brain next` again.
+  - No reasoning, no summaries, no text between calls. Parallel tool calls in one message per batch.
+  - Anything that needs judgment never reaches the relay. It becomes a pending decision for the director (or a Duet
+    message), raised by the brain.
+- **Tokens in are what the relay pays for, so every response is trimmed at the source.**
+  - Every call carries a `select` of only the fields the brain uses.
+  - Lists are read as columns, e.g. the ground list (~8× smaller).
+  - The effect list is read with a field select once AP0 confirms that selects on arrays stay aligned when a field is
+    missing. Until then, it's read whole only on my turn.
+  - Static data (catalog, kits, maps) is cached in the brain and never re-read through the relay.
+- **Fewer, fuller batches.**
+  - Polling backs off on the opponent's turn (long sleeps inside the brain's own wait, not repeated reads).
+  - Upkeep is grouped into one batch per pass.
+  - The brain's waits are Bash sleeps, which cost almost nothing.
+- **Rotation by size, not count.** Relays restart when their context passes a token threshold (default 60k), not
+  after a batch count. The brain is resident, so a restart loses nothing.
+- **Results flow:**
+  - Today the brain reads results out of the relay's transcript.
+  - The relay protocol keeps that (no tokens spent echoing results), with one fallback: when a transcript can't be
+    read, the relay passes the minimal result line `brain put <id> <json>`.
+- **Measured.** Tokens per hour and per fight are a KPI in the weekly report. The targets, set in AP1 from the first
+  measurements, are a fixed cap per fight turn and per hour of world activity.
+- **Larger models:**
+  - Fable (or Duet's main model) is used only for building, reviewing post-mortems on request, and the weekly report.
+  - None of them sits in the live loop.
+
 ## 5. Combat
 
 ### 5.1 State
@@ -246,7 +281,7 @@ the same state and windows, the opponent being the AI's scripted kit, and no hed
 | `tune_real` (real fights, picks answered by his actual next turn) | A combat change ships only if it does not lower the mean exchange or the best-of-set rate on the last 20 real fights |
 | Wiring test | Every activity, model and data feed is registered and exercised |
 | Chaos tests | Refusals, rate limits, timeouts, relay restarts, battle starting mid-errand, Full Potion at fight end, deadline fallback |
-| Live KPIs (weekly report) | PvP win rate, turns missed (target 0), training queue idle minutes (target 0), dailies completed, money and stats over time, findings |
+| Live KPIs (weekly report) | PvP win rate, turns missed (target 0), training queue idle minutes (target 0), dailies completed, money and stats over time, relay tokens per hour and per fight, findings |
 
 The fight simulator stays as a smoke test, not a gate.
 
@@ -269,7 +304,7 @@ The fight simulator stays as a smoke test, not a gate.
 | Phase | Delivers | Exit gate |
 |---|---|---|
 | AP0 | Inventory: MCP router surface (live list 2026-11-11: 83 routers), allowlist draft, current tools mapped to modules, merge of `fable/pvp-engine-harness` and `fable/pilot-planner-fixes` into one base | Allowlist approved; one green base branch |
-| AP1 | Brain and hands: world model, outbox/inbox, minimal relay, budget lanes, battle deadline, gates, registry + wiring test; PvP and recovery ported from pilot.py | Chaos tests green; one live session of PvP with zero missed turns |
+| AP1 | Brain and hands: world model, outbox/inbox, Haiku relay (§4.7), trimmed selects, budget lanes, battle deadline, gates, registry + wiring test; PvP and recovery ported from pilot.py | Chaos tests green; one live PvP session on a Haiku relay with zero missed turns and the token figures recorded |
 | AP2 | Upkeep activities: training, restock, repair, equipment, bank, session start and end | 24 h live with training never idle and no ask-first breach |
 | AP3 | Progression activities: missions, errands, dailies, hunting, farming, PvE combat | Daily routine completes unattended for 3 days |
 | AP4 | Combat consolidation: one planner, curves on if `tune_real` passes, library and post-mortems on the brain, retire turn.py | Engine-check and real-fight gates (§6) |
