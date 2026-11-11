@@ -400,7 +400,7 @@ def go(sector):
 
 
 
-CALL_BUDGET = 24        # game calls per rolling 60 s (connector cap 30 for the whole account; 6 left for others)
+CALL_BUDGET = 22        # reads per rolling 60 s; actions skip the pacing (connector cap 30 for the whole account)
 
 
 def budget(st, batch):
@@ -417,7 +417,9 @@ def budget(st, batch):
             continue
         if "call" in b:
             recent = [x for x in hist if x > t - 60]
-            if len(recent) >= CALL_BUDGET:
+            # my turn's actions never wait: they use the headroom between the budget and the connector's 30 (a 21 s
+            # pause landed on my turn in the Eladriel fight, 2026-11-11); only reads are paced
+            if b["call"] != "combat.performAction" and len(recent) >= CALL_BUDGET:
                 gap = recent[len(recent) - CALL_BUDGET] + 60.5 - t
                 out.append(wait(round(gap, 1)))
                 t += gap
