@@ -65,6 +65,27 @@ def test_lobby():
     print("ok: lobby refusal bans nothing")
 
 
+def test_handoff():
+    """Director mode: my turn is left to the director for HANDOFF_WAIT s (poll only), then the pilot covers it."""
+    import importlib, sys as _s, time as _t
+    d = tempfile.mkdtemp()
+    os.environ["TNR_PILOT_LIVE"] = d
+    _s.path.insert(0, HERE)
+    import pilot
+    importlib.reload(pilot)
+    open(os.path.join(d, "director_mode"), "w").write("on")
+    battle, ents = [json.loads(l) for l in open(FIX).read().splitlines() if l.strip()]
+    st = {}
+    head, b = pilot.battle_tick(st, "HB1", battle, None)
+    assert "director's move" in head and not any(x.get("call") == "combat.performAction" for x in b), head
+    for k in st["turn_seen"]:
+        st["turn_seen"][k] = _t.time() - 41
+    head, b = pilot.battle_tick(st, "HB1", battle, None)
+    assert "MY TURN" in head and "director" not in head and st["pilot_turns"]["HB1"], head
+    os.environ.pop("TNR_PILOT_LIVE")
+    print("ok: director handoff (wait, then cover)")
+
+
 def test_restock():
     """A due restock reads items first; with Kim's empty and Smoke at home it buys Kim's and takes Smoke out."""
     head, b = run_world([user()], "hunt", {"restock": {"next": 0, "pass": 0, "active": False}})
@@ -166,6 +187,27 @@ def test_lobby():
     print("ok: lobby refusal bans nothing")
 
 
+def test_handoff():
+    """Director mode: my turn is left to the director for HANDOFF_WAIT s (poll only), then the pilot covers it."""
+    import importlib, sys as _s, time as _t
+    d = tempfile.mkdtemp()
+    os.environ["TNR_PILOT_LIVE"] = d
+    _s.path.insert(0, HERE)
+    import pilot
+    importlib.reload(pilot)
+    open(os.path.join(d, "director_mode"), "w").write("on")
+    battle, ents = [json.loads(l) for l in open(FIX).read().splitlines() if l.strip()]
+    st = {}
+    head, b = pilot.battle_tick(st, "HB1", battle, None)
+    assert "director's move" in head and not any(x.get("call") == "combat.performAction" for x in b), head
+    for k in st["turn_seen"]:
+        st["turn_seen"][k] = _t.time() - 41
+    head, b = pilot.battle_tick(st, "HB1", battle, None)
+    assert "MY TURN" in head and "director" not in head and st["pilot_turns"]["HB1"], head
+    os.environ.pop("TNR_PILOT_LIVE")
+    print("ok: director handoff (wait, then cover)")
+
+
 def test_restock():
     """A due restock reads items first; with Kim's empty and Smoke at home it buys Kim's and takes Smoke out."""
     head, b = run_world([user()], "hunt", {"restock": {"next": 0, "pass": 0, "active": False}})
@@ -185,6 +227,7 @@ if __name__ == "__main__":
     test_world()
     test_restock()
     test_lobby()
+    test_handoff()
     # every test passed: this pilot.py becomes the fallback pilot_safe.py runs if a later edit breaks
     import shutil
     good = os.path.join(HERE, "pilot_good.py")

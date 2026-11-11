@@ -274,6 +274,19 @@ def battle_tick(st, bid, battle, entries):
         # mid-fight, 2026-11-11), so his-turn polls pace themselves: ~25 calls/min, ~1 s more detection lag
         return head + " | his turn", [wait(POLL_GAP)] + poll
     # near a kill the python damage model runs ~300 low (ANBU Member R5, 2026-11-11): score with the exact engine
+    if director_mode():
+        seen = st.setdefault("turn_seen", {})
+        key = f"{bid}:{R}:{v}"
+        first = seen.setdefault(key, time.time())
+        if len(seen) > 50:
+            for k in list(seen)[:-50]:
+                seen.pop(k)
+        left = HANDOFF_WAIT - (time.time() - first)
+        if left > 0:
+            st.setdefault("director_turns", {}).setdefault(bid, [])
+            return head + f" | MY TURN: director's move (pilot covers in {left:.0f}s)", \
+                [wait(min(5.0, max(1.0, left)))] + poll
+        st.setdefault("pilot_turns", {}).setdefault(bid, []).append(R)
     # a plan already sent for this exact battle version that did not move the version is not resent as is: its first
     # action is banned (covers refusals whose text we did not catch)
     sent = st.get("sent_plan") or {}
@@ -291,6 +304,23 @@ def battle_tick(st, bid, battle, entries):
                    battle["battle.usersState.*.latitude"][me_i], v)] + poll
     acts = [c_act(bid, a["actionId"], a["longitude"], a["latitude"], v + k) for k, a in enumerate(plan)]
     return head + f" | MY TURN: {' + '.join(a['name'] for a in plan)} ({how})", acts + poll
+
+
+HANDOFF_WAIT = 40.0     # s of each of my turns left to the director before the pilot covers it
+
+
+def director_mode():
+    """fights/live/director_mode: "on" = every fight is the director's (alert him, wait HANDOFF_WAIT on each of my
+    turns, the pilot only covers a turn he leaves untouched); "off" = the pilot fights. Director 2026-11-11: "Every
+    time it finds a fight it needs to alert me and let me fight" (his turns are the fastest training data)."""
+    try:
+        return open(os.path.join(LIVE, "director_mode")).read().strip() == "on"
+    except OSError:
+        return False
+
+
+def push(text):
+    return {"push": text[:190]}
 
 
 def plan_turn(bid, battle, entries, enemy, exact=False, ban=()):
@@ -350,6 +380,9 @@ def finish(st, bid, cache, why):
     rows = cache.get("entries", [])[::-1]
     if rows:
         save(os.path.join(FIGHTS, f"{bid}_entries.json"), {k: [r[i] for r in rows] for i, k in enumerate(ENT)})
+        # who played which round: rounds the pilot covered; every other round of mine was the director's
+        covered = sorted(set(st.get("pilot_turns", {}).pop(bid, [])))
+        save(os.path.join(FIGHTS, f"{bid}_meta.json"), {"director_mode": director_mode(), "pilot_rounds": covered})
     st.pop("battleId", None)
     return f"BATTLE OVER ({why}): log saved fights/{bid}_entries.json", [c_user(), TICK]
 
@@ -425,7 +458,9 @@ def world(st, user, res):
     mode = st.get("mode", "guard")
     if status == "BATTLE" and bid:
         st["battleId"] = bid
-        return f"BATTLE START {bid}", [c_battle(bid), c_entries(bid, 200), TICK]
+        alert = [push(f"TNR fight started ({bid[:6]}): your move - the pilot covers any turn you leave for "
+                      f"{HANDOFF_WAIT:.0f}s")] if director_mode() else []
+        return f"BATTLE START {bid}", alert + [c_battle(bid), c_entries(bid, 200), TICK]
     if status == "ASLEEP":
         if mode == "hunt":
             return "ASLEEP, hunt mode: waking", [call("home.toggleSleep", {}, ["success", "message"]), c_user(), TICK]
