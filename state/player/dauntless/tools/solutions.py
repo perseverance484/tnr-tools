@@ -322,9 +322,63 @@ def build(n_fights, rollouts, cands, replays=True, only=None):
     print(f"solved {solved} positions, {changed} changed from the planner's pick; library {len(lib)} keys")
 
 
+REVIEW = os.path.join(HERE, "..", "fights", "loss_review.json")
+
+
+def review_losses(rollouts=4, cands=6):
+    """Every logged fight I lost, replayed turn by turn against that opponent's model (director 2026-11-11: "add every
+    loss too. It should replay them and find win conditions"). Each of my turns is solved by playouts, the move I
+    actually played included; a turn whose best line wins in the playouts while my move did not is a win condition.
+    The earliest one is where the fight was lost. Results: fights/loss_review.json (new losses only on reruns);
+    every solved turn also goes into the library."""
+    import exam
+    import opponents as OM
+    from ingest import ME
+    done = {}
+    try:
+        done = json.load(open(REVIEW))
+    except (OSError, ValueError):
+        pass
+    lib = load()
+    by_fight = {}
+    for label, snap, played in replay_snapshots():
+        bid = label.split()[-2]
+        by_fight.setdefault(bid, []).append((label, snap, played))
+    for bid, turns in by_fight.items():
+        full = next((k for k in done if k.startswith(bid)), None)
+        if full:
+            continue
+        logs = {b[:6]: (b, rows) for b, _, rows, _ in OM.load_logs()}
+        b_full, rows = logs.get(bid, (bid, None))
+        if rows is None:
+            continue
+        name = turns[0][0].rsplit(" ", 2)[0]
+        hp = exam.hp_track(rows + [(0, "", "", [])], ["dauntless", name])[-1]
+        if hp["dauntless"] > 1.0 and hp["dauntless"] >= hp[name]:
+            done[b_full] = {"lost": False}
+            continue                                         # a win: nothing to find
+        out = []
+        for label, snap, played in turns:
+            key, vals, pick = solve(snap, cands, rollouts, also=played)
+            merge(lib, key, vals, pick)
+            pv = next((v for v, bb in vals if sorted(bb) == played), None)
+            out.append({"turn": label, "played": "+".join(played), "played_value": None if pv is None else round(pv, 2),
+                        "best": "+".join(vals[0][1]), "best_value": round(vals[0][0], 2),
+                        "alts": [["+".join(bb), round(v, 2)] for v, bb in vals[1:3]]})
+            print(f"{label:30} played {'+'.join(played):30} ({'?' if pv is None else f'{pv:+.2f}'}) "
+                  f"best {'+'.join(vals[0][1]):30} ({vals[0][0]:+.2f})", flush=True)
+        wc = next((t for t in out if t["best_value"] > 0 and (t["played_value"] is None or t["played_value"] <= 0)), None)
+        done[b_full] = {"lost": True, "opponent": name, "turns": out, "win_condition": wc}
+        print(f"== {name} {bid}: " + (f"win condition at {wc['turn']}: {wc['best']} instead of {wc['played']}"
+                                       if wc else "no winning line found in the playouts"), flush=True)
+        json.dump(done, open(REVIEW, "w"), indent=1)
+        json.dump(lib, open(LIB, "w"), indent=0, sort_keys=True)
+    return done
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["build", "show"])
+    ap.add_argument("cmd", choices=["build", "show", "losses"])
     ap.add_argument("n", nargs="?", type=int, default=20)
     ap.add_argument("--fights", type=int, default=6)
     ap.add_argument("--rollouts", type=int, default=4)
@@ -332,6 +386,9 @@ def main():
     ap.add_argument("--only", help="opponents to train against (substrings), e.g. luka,hikuro")
     ap.add_argument("--no-replays", action="store_true")
     a = ap.parse_args()
+    if a.cmd == "losses":
+        review_losses(a.rollouts, a.cands)
+        return
     if a.cmd == "build":
         build(a.fights, a.rollouts, a.cands, replays=not a.no_replays, only=a.only)
     else:
