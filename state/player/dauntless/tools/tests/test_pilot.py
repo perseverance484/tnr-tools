@@ -116,7 +116,12 @@ def test_world():
     refused = ("combat.attackUser", {"userId": "u_p"}, {"success": False, "message": "Cannot attack Prey — different combat bracket (7 vs 5)"})
     head, b = run_world([refused, user(), sector([me, prey])], "hunt")
     assert "attacking" not in head and "bracket" in head, head
-    print("ok: world rules (target filters, circuit, wake, rest, heal, battle start, refusal memory)")
+    # rate limit: a refused call in the batch -> pause and resend the same game calls
+    last = [{"call": "combat.getBattle", "input": {"battleId": "B1"}, "select": []}, {"bash": "x"}]
+    head, b = run_world([("combat.getBattle", {"battleId": "B1"}, "Error POSTing to endpoint: Too Many Requests")], "hunt",
+                        {"last_batch": last, "battleId": "B1"})
+    assert head.startswith("RATE LIMITED") and b[1] == last[0] and "pilot.py" in b[-1]["bash"], (head, b)
+    print("ok: world rules (target filters, circuit, wake, rest, heal, battle start, refusal memory, rate-limit backoff)")
 
 
 if __name__ == "__main__":

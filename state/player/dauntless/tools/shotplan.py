@@ -53,6 +53,9 @@ MINE = {
     "overflow": (0, [("me", "given", 0.35, 2), ("me", "given", 0.35, 2)]),
     "thunders": (0, [("me", "given", 0.30, 2), ("me", "reflect", 0.35, 2)]),
     "parry": (0, [("me", "given", 0.30, 2), ("me", "parry", 0.20, 2)]),
+    # Chakra Resistance (lvl 25): -30% damage taken on me for 2 rounds; his next casts lose 10 potency (consumed as he
+    # casts; modelled as -10% damage given for his next turn). Replaced Parry in PvP 1 (director 2026-11-11).
+    "resist": (0, [("me", "dr", 0.30, 2), ("en", "given", -0.10, 1)]),
     "eclipse": (0, [("me", "given", 0.30, 2), ("me", "lifesteal", 0.35, 2)]),
     "sealnull": (0, [("en", "buffblock", 1, 1), ("me", "debuffimmune", 1, 2)]),
     "phantom": (0, [("me", "given", 0.30, 2), ("me", "dr", 0.25, 2)]),

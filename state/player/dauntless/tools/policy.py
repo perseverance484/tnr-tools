@@ -60,7 +60,7 @@ FEATURES = ["bias", "lethal_risk", "kill_window", "stack_clearable", "stack_clea
 RULE_FEATURE = {"always": "bias"}
 # firing order inside a bundle: move first, then instant protection / strip, then buffs, then damage, fillers last
 ORDER = ["phantom", "replace", "step", "clear", "cleanse", "kims", "sealnull", "danse", "shield", "subaku", "fury",
-         "smoke", "severed", "disaster", "ember", "aetherion", "overflow", "thunders", "eclipse", "parry", "rebirth",
+         "smoke", "severed", "disaster", "ember", "aetherion", "overflow", "thunders", "eclipse", "parry", "resist", "rebirth",
          "shrapnel", "lotus", "resonance", "leech", "yuki", "stormblade", "nights", "kunai", "pill", "jewel",
          "panacea", "defstance", "offstance"]
 

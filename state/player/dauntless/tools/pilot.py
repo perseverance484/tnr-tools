@@ -176,6 +176,9 @@ def fresh_results(since, tail=400_000):
                     continue
                 body = c.get("content")
                 text = body if isinstance(body, str) else "".join(x.get("text", "") for x in body or [] if isinstance(x, dict))
+                if "Too Many Requests" in text:
+                    out["_rate_limited"] = (None, None, t)
+                    continue
                 try:
                     ep, inp = asked[c["tool_use_id"]]
                     out[ep] = (inp, json.loads(text), t)
@@ -416,6 +419,12 @@ def tick():
         head, batch = f"resume battle {bid}", [c_battle(bid), c_entries(bid, 8), TICK]
     else:
         head, batch = "start", [c_user(), TICK]
+    if "_rate_limited" in res and st.get("last_batch"):
+        # the connector refused part of the batch (30 calls/min, shared with anyone else using it): pause, resend
+        # the same calls (actions already applied fail harmlessly on the battle version), then read again
+        head, batch = "RATE LIMITED: backing off 6s", [wait(6)] + [b for b in st["last_batch"] if "call" in b] + [TICK]
+    else:
+        st["last_batch"] = batch
     st["last_tick"] = started
     save(STATE, st)
     print(head)

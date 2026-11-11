@@ -31,6 +31,12 @@ section 6 covers builder pushes, not playing the character); say so in the promp
 Against the game's AI, an AI turn only advances when some client calls `performAction` during it (engine
 `isAITurn`). The pilot nudges it with `wait`. In PvP the opponent's own client drives his turn.
 
+## Shared rate budget
+The connector allows 30 calls a minute **for the account**, shared by the pilot and anyone else, the supervisor
+included. While the pilot is in a fight, the supervisor makes no game calls; loadout and other upkeep happen while
+it rests or guards. A refused call ("Too Many Requests") makes the next tick pause 6 s and resend the same calls
+(status `RATE LIMITED`).
+
 ## Where behaviour lives
 - Battle turns: `turn.py`, the planner, called by `plan_turn`. It has a 4 s budget, then a short-list fallback,
   then Defensive Stance. Same picks as before on the regression set.

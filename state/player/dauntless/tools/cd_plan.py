@@ -27,6 +27,7 @@ ACTIONS = {
     "overflow": (40, 7, None, "self +35 x2 (next round)"),
     "thunders": (40, 7, None, "self +dmg, reflect 35 (next round)"),
     "parry": (40, 7, None, "self +dmg, parry 20"),
+    "resist": (40, 7, None, "self -30% dmg taken 2r (lvl 25), his next casts -10 potency"),
     "eclipse": (40, 7, None, "lifesteal 35 + 30 given (next round)"),
     "sealnull": (40, 7, None, "their buffs blocked next round; I can't be debuffed 2 r"),
     "phantom": (40, 6, None, "move 5 + DR ground + 30 given"),
@@ -66,7 +67,7 @@ LOCKS = {"barrier": 3, "buffprevent": 4, "cleanse": 3, "cleanseprevent": 3, "cle
 EXTRA_TAGS = {"kims": ("debuffprevent",), "sealnull": ("buffprevent", "debuffprevent"), "lotus": ("buffprevent",)}  # 2026-11-10 Hikuro R5: Seal refused 2 rounds after Kim's  # secondary tags that also take a shared lock
 LOADOUTS = {
     "pvp1": ["rebirth", "shrapnel", "lotus", "fury", "ember", "danse", "stormblade", "subaku", "overflow",
-             "thunders", "parry", "eclipse", "sealnull", "phantom", "shield",
+             "thunders", "resist", "eclipse", "sealnull", "phantom", "shield",
              "smoke", "kims", "pill", "panacea", "jewel", "kunai", "nights", "aetherion",
              "clear", "cleanse", "replace", "defstance", "offstance", "basic"],
     "pvp2": ["rebirth", "leech", "severed", "fury", "ember", "danse", "stormblade", "subaku", "overflow",
