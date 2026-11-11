@@ -17,7 +17,6 @@ import json
 import re
 
 from . import config as C
-from .world import utc_day
 
 Verdict = collections.namedtuple("Verdict", "ok kind rule reason")
 """kind: "allow", "refuse" or "ask". rule: the rule or gate that decided. reason: one line for the finding."""
@@ -205,8 +204,10 @@ def g_auction_only(step, world, gates):
 
 
 def g_one_transfer_a_day(step, world, gates):
-    if world["records"]["transfers"].get(utc_day(world.now), 0) >= 1:
-        return refuse("one_transfer_a_day", "today's one level transfer is used")
+    """One level transfer in any 24 hours, counted from the last one (RUL-2026-11-11-152 item 5)."""
+    left = world["records"]["transfers"].get("last", -C.TRANSFER_EVERY) + C.TRANSFER_EVERY - world.now
+    if left > 0:
+        return refuse("one_transfer_a_day", f"the last level transfer was under 24 h ago ({left / 3600:.1f} h to go)")
     return None
 
 
@@ -303,7 +304,6 @@ class Gates:
         return True, ALLOW, None
 
     def sent(self, step, world):
-        """Book-keeping once a call is really issued (the once-a-day transfer)."""
+        """Book-keeping once a call is really issued (when the last level transfer went)."""
         if step.get("call") == "jutsu.transferLevel":
-            t = world["records"]["transfers"]
-            t[utc_day(world.now)] = t.get(utc_day(world.now), 0) + 1
+            world["records"]["transfers"] = {"last": world.now}

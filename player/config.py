@@ -74,9 +74,11 @@ ROTATE_HARD_CAP = 150_000       # or once its context is this large, whatever it
 STALE_OUTBOX = 10.0             # s a batch may wait for a relay before the watchdog alerts
 BRAIN_WAIT = 0.05               # s between looks at the outbox and inbox files
 
-# ---------------------------------------------------------------- spend (design section 9 item 3; decided in AP2)
-RESERVE = 500_000        # ryo never spent (today's value, from restock.py)
-DAILY_CAP = 3_000_000    # ryo a UTC day (today's value, from restock.py)
+# ---------------------------------------------------------------- spend (design section 9 item 3)
+RESERVE = 500_000        # ryo never spent (the pilot's value, from restock.py; not ruled on)
+DAILY_CAP = 50_000_000   # ryo: a purchase over this, or one that takes the UTC day past it, is asked first
+                         # (RUL-2026-11-11-152 item 3: "Over 50m ryo, ask")
+TRANSFER_EVERY = 86_400  # s between two level transfers (RUL-2026-11-11-152 item 5: 24 h from the last one)
 
 
 def goals():

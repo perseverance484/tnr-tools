@@ -250,7 +250,7 @@
    "source": "overhaul brief section 2 (premium currency is ask first); design section 4.3 (restock)"
   },
   "spend_cap": {
-   "rule": "Counted against the daily ryo cap and the reserve, with per-unit caps for auctions (design section 9 item 3; today 3M a day and a 500k reserve). Above a cap the call becomes a pending decision.",
+   "rule": "Counted against the daily ryo cap and the reserve, with per-unit caps for auctions (design section 9 item 3; a spend over 50M ryo is asked first, RUL-2026-11-11-152 item 3; a 500k reserve). Above a cap the call becomes a pending decision.",
    "required_on": [
     "item.buy",
     "auction.placeBid",
@@ -279,11 +279,11 @@
    "source": "RUL-2026-11-09-145 item 3 (no trade requests); overhaul brief section 2 (premium currency)"
   },
   "one_transfer_a_day": {
-   "rule": "At most one jutsu.transferLevel call a day. That one call may move any number of levels from one jutsu to another.",
+   "rule": "At most one jutsu.transferLevel call in any 24 hours, counted from the last one. That one call may move any number of levels from one jutsu to another.",
    "required_on": [
     "jutsu.transferLevel"
    ],
-   "source": "RUL-2026-11-11-149 item 3"
+   "source": "RUL-2026-11-11-149 item 3; RUL-2026-11-11-152 item 5"
   }
  },
  "not_calls": {
@@ -1412,7 +1412,7 @@
    "phase": "AP2",
    "status": "documented",
    "prerequisites": "source jutsu at level 10 or more, target at most 25 after it; queued training on either is cancelled first",
-   "cooldown": "one transfer a day",
+   "cooldown": "one transfer in any 24 hours",
    "gates": [
     "one_transfer_a_day"
    ],

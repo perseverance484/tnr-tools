@@ -96,7 +96,7 @@ Status: APPROVED by the director 2026-11-11 (RUL-2026-11-11-149), with the chang
 | `jutsu.getTrainingQueue` | read | AP2 | in use | none; my own queue | one read per upkeep pass | - |
 | `jutsu.getUserJutsus` | read | AP2 | in use | none; my own jutsu | one read per upkeep pass | - |
 | `jutsu.startTraining` | action | AP2 | in use | a target from jutsu_training.md under level 20, of my elements; not in hospital, travel or battle; a free queue slot | each level takes up to an hour; a refused jutsu is remembered | spend_cap |
-| `jutsu.transferLevel` | action | AP2 | documented | source jutsu at level 10 or more, target at most 25 after it; queued training on either is cancelled first | one transfer a day | one_transfer_a_day |
+| `jutsu.transferLevel` | action | AP2 | documented | source jutsu at level 10 or more, target at most 25 after it; queued training on either is cancelled first | one transfer in any 24 hours | one_transfer_a_day |
 | `misc.getCaptcha` | read | AP2 | proposed | a training captcha is pending | when stat training asks for one | - |
 | `misc.refreshCaptcha` | action | AP2 | proposed | a pending captcha that cannot be read | at most once per captcha, then the player tells the director | - |
 | `misc.verifyCaptcha` | action | AP2 | proposed | a pending captcha and an answer for it (1 to 20 characters) | one answer per captcha; a wrong answer is not guessed again blind | - |
@@ -217,12 +217,12 @@ An endpoint on the list can still be refused for what a call carries. `player/ga
 | no_snipe | No third-party jump on a player under 'Do not snipe' (AngelSaber). | `combat.attackUser` |
 | fair_target | Awake, not in battle, not immune, level 90 or more, in bracket, not my village or an ally, and not a player who beat me in the last 6 hours or refused within its memory. | - |
 | ryo_only | The call spends ryo and nothing else: the shop record has no reputation or Seichi Silver cost, or the auction listing's currency is MONEY. | - |
-| spend_cap | Counted against the daily ryo cap and the reserve, with per-unit caps for auctions (design section 9 item 3; today 3M a day and a 500k reserve). Above a cap the call becomes a pending decision. | `item.buy`, `auction.placeBid`, `jutsu.startTraining`, `village.buyFood` |
+| spend_cap | Counted against the daily ryo cap and the reserve, with per-unit caps for auctions (design section 9 item 3; a spend over 50M ryo is asked first, RUL-2026-11-11-152 item 3; a 500k reserve). Above a cap the call becomes a pending decision. | `item.buy`, `auction.placeBid`, `jutsu.startTraining`, `village.buyFood` |
 | player_visible_only | Only what any player can see through normal play: no hidden or unreleased record, no staff-only field. Hidden records are treated as hidden. | - |
 | study_only | Other players' fights are read between fights only, never in a fight. What they teach may be used in live play, a named opponent included. | - |
 | own_account_only | A userId the call carries is my own. | - |
 | auction_only | A listing is a public AUCTION priced in MONEY; never DIRECT, which names another player, and never REPUTATION. | `auction.createAuctionListing` |
-| one_transfer_a_day | At most one jutsu.transferLevel call a day. That one call may move any number of levels from one jutsu to another. | `jutsu.transferLevel` |
+| one_transfer_a_day | At most one jutsu.transferLevel call in any 24 hours, counted from the last one. That one call may move any number of levels from one jutsu to another. | `jutsu.transferLevel` |
 
 ## The surface, by router
 

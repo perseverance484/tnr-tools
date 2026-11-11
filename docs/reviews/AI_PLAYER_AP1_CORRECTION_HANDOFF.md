@@ -1,6 +1,6 @@
 # AI player overhaul, phase AP1: correction handoff
 
-Workflow: `docs/workflows/IMPLEMENTATION_HANDOFF.md` section 5. Written 2026-11-12, in answer to the independent
+Workflow: `docs/workflows/IMPLEMENTATION_HANDOFF.md` section 5. Written 2026-11-11, in answer to the independent
 review of `583fe353` ("request changes": four high findings, seven medium).
 
 ```text

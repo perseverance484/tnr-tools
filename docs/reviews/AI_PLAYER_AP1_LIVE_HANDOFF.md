@@ -1,6 +1,6 @@
 # AI player overhaul, phase AP1: what the live session showed, and the fixes
 
-Workflow: `docs/workflows/IMPLEMENTATION_HANDOFF.md`. Written 2026-11-12, in answer to the director's "AP1 live
+Workflow: `docs/workflows/IMPLEMENTATION_HANDOFF.md`. Written 2026-11-11, in answer to the director's "AP1 live
 session review" (the session of 2026-11-11).
 
 ```text
@@ -106,6 +106,7 @@ first `context` in `tokens.jsonl` shows what it achieves.
 3. **His turn's opening state in the archive.** It is read right after my actions, only for the archive. It costs
    about one full read of context per round. Keep it, or archive my turn's opening state only.
 4. Still open from the correction handoff: the wording of "never paced"; End Turn as the last resort.
+   **Answered** after this handoff: see the last section.
 
 ## Verification on the head's parent (the code commit)
 
@@ -140,3 +141,18 @@ container to measure starting context ("Reply with the single word ok"); they ha
 
 Not begun: AP2. No live run is proposed until the director has ruled on the token decisions and the fixes here
 and in 39f30ead are verified.
+
+## After the handoff: RUL-2026-11-11-152 (on `fable/ai-player-rulings`, one commit on top of this note's)
+
+The director answered the three open decisions of the correction handoff. Decisions 1 to 3 above (light polls,
+short-lived relays, the archive) are not answered yet.
+
+| Ruling | What changed |
+|---|---|
+| The budget's wording: "change to match" | `state/prompt_ai_player_overhaul.md` AP1 step 3 now states the rule. No code |
+| End Turn as the last resort: allowed, and it "should never happen" | No code: it is already the last stand-in, and every use is a finding |
+| "Over 50m ryo, ask" | `player/config.py` `DAILY_CAP` 3,000,000 to 50,000,000. Read as: a purchase over 50M, or one that takes the day past 50M, is asked first. The 500k reserve stays |
+| "Pvp2 is your experimental build, pvp1 stays unchanged" | Brief and design only: it binds AP2's `equipment` activity |
+| The level transfer: "24h from the last time you used one" | `player/gates.py` `g_one_transfer_a_day` counts 24 hours from the last transfer, not a calendar day. `data/player_allowlist.json` says so |
+
+Gates on that commit: the same set as above, all exit 0; 224 player tests.

@@ -55,7 +55,8 @@ loses a turn, learns from every real fight, and stays inside the game rules and 
 - **Never the director's real name**, in anything.
 - **Bugs and exploits** found in play are reported and avoided, never used.
 - **Director's rulings on the AP0 handoff** (RUL-2026-11-11-149): hidden records are treated as hidden; captchas
-  are answered; `jutsu.transferLevel` is allowed once a day, the one staff-free path in play.
+  are answered; `jutsu.transferLevel` is allowed once in any 24 hours, counted from the last one
+  (RUL-2026-11-11-152), the one staff-free path in play.
 
 ## 3. Phases
 
@@ -92,7 +93,9 @@ before the previous one is accepted, unless the director says so.
    - **Watchdog.** Alert on a stale outbox.
    - **Token log.** Log relay tokens per batch, per fight turn and per hour.
 3. **Budget and battle lane.** `player/budget.py`: three lanes (battle, recovery, world) under 30 calls a minute
-   shared, with the battle and recovery lanes never paced. The battle turn deadline: fire by T+20 s; fall back to
+   shared. No call is scheduled past the 30. A turn's actions and recovery calls wait for nothing else; reads give
+   way first, and the world lane (20 a minute) before them (RUL-2026-11-11-152; this replaces "the battle and
+   recovery lanes never paced", under which the limit could be passed). The battle turn deadline: fire by T+20 s; fall back to
    the last good read at T+12 s and to the best line so far at T+15 s. Space actions 1.2 s apart. Log every turn's
    timing.
 4. **Gates.** `player/gates.py` covers §2, with a test per rule.
@@ -109,7 +112,8 @@ missed turns, with its token figures recorded as the baseline for the targets.
 ### AP2: upkeep
 
 Add the activities `training` (jutsu queue, energy in the village, skill tree and sensei when available), `restock`,
-`repair` (near-broken only, 25%), `equipment` (loadouts per activity, weapon and thrown swaps, owned upgrades),
+`repair` (near-broken only, 25%), `equipment` (loadouts per activity, weapon and thrown swaps, owned upgrades;
+PvP 2 is the build it may change, PvP 1 is selected and never edited: RUL-2026-11-11-152),
 `bank` and `session` (start: lock; end: train intelligence, sleep at 177, PvP1 loadouts, release the lock).
 
 **Gate:** 24 h live with the training queue never idle and no ask-first breach.
@@ -330,9 +334,11 @@ the control reader.
 From design §9. Ask before the phase that needs each one:
 
 1. Goal weights (AP1). Decided: RUL-2026-11-11-149 item 5.
-2. Equipment-swap scope (AP2). Partly decided: RUL-2026-11-11-150 (a PvP 2 loadout for the matchups the standard
-   build loses, used against those kits).
-3. Spend caps (AP2).
+2. Equipment-swap scope (AP2). Decided: RUL-2026-11-11-150 (a PvP 2 loadout for the matchups the standard
+   build loses, used against those kits) and RUL-2026-11-11-152 item 4 (PvP 2 is the experimental build; PvP 1
+   stays unchanged).
+3. Spend caps (AP2). Decided: RUL-2026-11-11-152 item 3 (a spend over 50,000,000 ryo is asked first). Per-unit
+   auction caps come with the restock port.
 4. PvE auto-combat scope (AP3).
 5. Session windows and call share (AP1). Decided: RUL-2026-11-11-149 item 6.
 6. Which further modes first (AP5).

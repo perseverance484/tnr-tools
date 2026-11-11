@@ -168,7 +168,9 @@ class AskFirst(unittest.TestCase):
         self.assertTrue(self.g.check(s, self.w, "training").ok)
         self.g.sent(s, self.w)
         self.assertEqual(self.g.check(s, self.w, "training").rule, "one_transfer_a_day")
-        self.rig.t += 86_400
+        self.rig.t += 86_400 - 60                                      # 24 h from the last one, not a new day
+        self.assertEqual(self.g.check(s, self.w, "training").rule, "one_transfer_a_day")
+        self.rig.t += 60
         self.assertTrue(self.g.check(s, self.w, "training").ok)
 
     def test_captchas_are_answered(self):
