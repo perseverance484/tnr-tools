@@ -21,6 +21,9 @@ TRACK = {
     "rsc2uO5QuffXzejfhwF_F": ("panacea", 3, 6, 55_000),
     "tZTvqYWiAc_OrY64nDvIo": ("pill", 5, 15, 1_000),
     "yVNeLzxHSFkNpTPnlm7yQ": ("kunai", 10, 30, 3_000),
+    # Repair Kit (100 durability each; 7 used to fix the whole Kaeruun set + both swords, 2026-11-11): not sold in the
+    # shop, so the auction house under 50k each
+    "1ovHq7jsGdut2fSNKs5q_": ("repairkit", 7, 20, 50_000),
 }
 FULL_POTION_KEEP = (5, 15, 20_000)
 RESERVE = 500_000          # ryo never spent by restock
