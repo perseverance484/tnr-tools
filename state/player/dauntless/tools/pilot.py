@@ -348,7 +348,7 @@ def world(st, user, res):
         st["arrive"] = dt.datetime.fromisoformat(start[1]["data.travelFinishAt"].replace("Z", "+00:00")).timestamp()
     if status not in ("AWAKE", "BATTLE", "ASLEEP", "HOSPITALIZED"):     # mid-travel: wait for the arrival time
         left = max(0.0, st["arrive"] - time.time()) if st.get("arrive") else 5.0   # unknown arrival: retry every 5 s
-        left = max(left, 1.5)          # past the arrival time but not arrived yet: pause between retries
+        left = max(left, 3.0)          # past the arrival time but not arrived yet: pause between retries
         return f"{status}: arriving in {left:.0f}s", ([wait(round(min(left + 0.5, 20), 1))] if left > 0 else []) + \
             [call("travel.finishGlobalMove", {}, ["success", "message"]), c_user(), TICK]
     head = f"AWAKE {mode} {hp:.0f}/{mx:.0f} HP @ {sector} {me_pos}"
@@ -399,6 +399,36 @@ def go(sector):
             call("travel.finishGlobalMove", {}, ["success", "message"]), c_user(), c_sector(sector), TICK]
 
 
+
+CALL_BUDGET = 24        # game calls per rolling 60 s (connector cap 30 for the whole account; 6 left for others)
+
+
+def budget(st, batch):
+    """Pace the batch so this pilot never exceeds CALL_BUDGET game calls in any rolling minute: the batch's existing
+    in-batch pauses count, and one pause is added in front when the window is full. Every call the pilot issues is
+    recorded with the time it will run (2026-11-11: back-offs alone could not clear a rolling window)."""
+    now = time.time()
+    hist = [t for t in st.get("calls", []) if t > now - 60]
+    out, t, added = [], now, 0.0
+    for b in batch:
+        if "bash" in b and "time.sleep(" in b["bash"]:
+            t += float(re.search(r"sleep\(([\d.]+)\)", b["bash"]).group(1))
+            out.append(b)
+            continue
+        if "call" in b:
+            recent = [x for x in hist if x > t - 60]
+            if len(recent) >= CALL_BUDGET:
+                gap = recent[len(recent) - CALL_BUDGET] + 60.5 - t
+                out.append(wait(round(gap, 1)))
+                t += gap
+                added += gap
+            hist.append(t + 0.4)
+            t += 0.4
+        out.append(b)
+    st["calls"] = hist[-60:]
+    st["budget_wait"] = round(added, 1)
+    return out
+
 # ---------------------------------------------------------------- tick
 def tick():
     st = load_state()
@@ -423,14 +453,15 @@ def tick():
     else:
         head, batch = "start", [c_user(), TICK]
     if "_rate_limited" in res and st.get("last_batch"):
-        # the connector refused part of the batch (30 calls/min, shared with anyone else using it): pause, resend
-        # the same calls (actions already applied fail harmlessly on the battle version), then read again
-        head, batch = "RATE LIMITED: backing off 6s", [wait(6)] + [b for b in st["last_batch"] if "call" in b] + [TICK]
+        # the connector refused part of the batch: resend the same calls (actions already applied fail harmlessly on
+        # the battle version) once the call budget below has room
+        head, batch = "RATE LIMITED: resending under the budget", [b for b in st["last_batch"] if "call" in b] + [TICK]
     else:
         st["last_batch"] = batch
+    batch = budget(st, batch)
     st["last_tick"] = started
     save(STATE, st)
-    print(head)
+    print(head + (f" (paced {st['budget_wait']}s)" if st.get("budget_wait") else ""))
     for b in batch:
         print(json.dumps(b, separators=(",", ":")))
 

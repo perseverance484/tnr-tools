@@ -120,7 +120,7 @@ def test_world():
     last = [{"call": "combat.getBattle", "input": {"battleId": "B1"}, "select": []}, {"bash": "x"}]
     head, b = run_world([("combat.getBattle", {"battleId": "B1"}, "Error POSTing to endpoint: Too Many Requests")], "hunt",
                         {"last_batch": last, "battleId": "B1"})
-    assert head.startswith("RATE LIMITED") and b[1] == last[0] and "pilot.py" in b[-1]["bash"], (head, b)
+    assert head.startswith("RATE LIMITED") and b[0] == last[0] and "pilot.py" in b[-1]["bash"], (head, b)
     print("ok: world rules (target filters, circuit, wake, rest, heal, battle start, refusal memory, rate-limit backoff)")
 
 

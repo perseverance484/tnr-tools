@@ -39,6 +39,10 @@ pulls) happens while no pilot is running. Relay stop rules must never stop on re
 lines: waiting for the opponent repeats the same line. A refused call ("Too Many Requests") makes the next tick pause 6 s and resend the same calls
 (status `RATE LIMITED`).
 
+The pilot keeps its own budget: every game call it issues is recorded, and a batch is paced (a pause in front) so it
+never exceeds 24 calls in any rolling minute. The status line shows `(paced Ns)`. A refused call is resent under that
+budget.
+
 ## Where behaviour lives
 - Battle turns: `turn.py`, the planner, called by `plan_turn`. It has a 4 s budget, then a short-list fallback,
   then Defensive Stance. Same picks as before on the regression set.
