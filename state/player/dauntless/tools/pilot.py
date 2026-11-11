@@ -44,6 +44,7 @@ POOLS_BELOW = 0.5       # chakra / stamina floor before ramen
 FULL_POTION = "IRfg2NFKKYe0ynroXI7qZ"   # user item: HP to full out of combat (ramen refills CP/SP only)
 HUNT_WAIT = 4           # hunt tick ~every 7 s: about 3 calls a tick, under the connector's 30 a minute
 GUARD_WAIT = 7          # world tick ~every 9 s with overhead: inside the 15 s lobby before an attack lands
+POLL_GAP = 2           # seconds between his-turn polls (connector cap 30 calls/min)
 PLAN_BUDGET = 4.0       # planner: median 1.2 s, worst 3.3 s on the regression set
 ENT = ("*.id", "*.battleRound", "*.userId", "*.actionId", "*.appliedEffects.*.txt")
 
@@ -190,7 +191,9 @@ def battle_tick(st, bid, battle, entries):
             # in PvP the human opponent's client drives his own turn
             me_x, me_y = battle["battle.usersState.*.longitude"][me_i], battle["battle.usersState.*.latitude"][me_i]
             return head + " | AI turn: nudge", [c_act(bid, "wait", me_x, me_y, v)] + poll
-        return head + " | his turn", poll
+        # a fast relay polls every ~2.7 s (~45 calls/min); the connector allows 30/min ("Too Many Requests"
+        # mid-fight, 2026-11-11), so his-turn polls pace themselves: ~25 calls/min, ~1 s more detection lag
+        return head + " | his turn", [wait(POLL_GAP)] + poll
     plan, how = plan_turn(bid, battle, cache["entries"], names[foes[0]])
     if not plan:
         return head + f" | MY TURN, no plan ({how}): defensiveStance", \
