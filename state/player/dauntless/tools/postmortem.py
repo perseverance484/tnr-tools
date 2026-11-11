@@ -97,10 +97,20 @@ def review(bid_prefix, n_alts=6):
     model = OM.load().get(en_id)
     acts = OM.acts_for(model) if model else {}
     out = {"fight": bid, "opp": OM.names_in(rows, en_id), "turns": []}
+    try:
+        live_hist = json.load(open(os.path.join(HERE, "..", "fights", "live_states", f"{bid}.json")))
+    except (OSError, ValueError):
+        live_hist = {}
+    out["live_state_rounds"] = sorted(int(k) for k in live_hist)
     EC.EXACT = True
     for r, tp, name in EC.positions(rows):
         try:
             EC.exact_inputs(tp, name, cal)
+            if str(r) in live_hist:            # the state the pilot read live at that turn beats the replay
+                lines = open(tp).read().splitlines()
+                bt = json.loads(lines[0])
+                bt["battle.liveEffects"] = live_hist[str(r)]
+                open(tp, "w").write(json.dumps(bt) + "\n" + lines[1] + "\n")
             P, info = P2.build(type("A", (), dict(file=tp, enemy=name, loadout="pvp1", battle="ECHK")))
             if P is None:
                 continue
