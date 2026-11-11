@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Replay fidelity: does the engine replay of a logged fight reproduce the logged damage, action by action?
 
+Compares the engine's own "<target> takes N damage" lines (absorb / lifesteal heals do not hide a hit).
 Replays every logged action of both sides (replay_sim.ts, real records from kit/catalog.json, his saved kit and
 levels when kit/opponents/<id>.json exists) and compares the engine's HP loss on the target with the log's
 "<target> takes N damage" lines (direct hits only; afterburn / recoil / reflect / wound / drain ticks excluded on
@@ -55,7 +56,8 @@ def main():
         logged = sum(float(m.group(2)) for t in ts or [] if (m := HIT.match(t.strip())) and m.group(1) == target)
         i = next((k for k, x in enumerate(trace) if (x["round"], x["actor"], x["actionId"]) == (r, actor, act)), None)
         t = trace.pop(i) if i is not None else None
-        eng = (t["him"] if actor == "me" else t["me"]) if t else None
+        side = "him" if actor == "me" else "me"
+        eng = (t.get("hits", {}).get(side, t[side])) if t else None
         flag = ""
         if eng is not None and logged >= 100:
             e = abs(eng - logged) / logged

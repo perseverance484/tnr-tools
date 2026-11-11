@@ -62,6 +62,22 @@ const buildUser = (side: any, village: string) => {
     experience: 0, equipped: k.record.itemType === "WEAPON" ? `HAND_${++hand}` : `ITEM_${++slot}`,
     durability: 100, dropChancePerc: 0, imbuements: [], lastUsedRound: -99, item: stripSummons(k.record),
   }));
+  // worn gear (armor / accessory / keystone): processUsersForBattle folds its percentages into the pre-battle gear
+  // stage (damagePipeline.ts consolidatePreBattleDamageModifiers: gear sums additively) and applies finished
+  // imbuements on imbuable pieces (mastery.ts wornGearTags)
+  let gearN = 0;
+  for (const g of side.gear ?? []) {
+    const n = ++gearN;
+    u.items.push({
+      id: `ug-${side.id}-${n}`, userId: side.id, itemId: g.record.id, quantity: 1, level: 25, experience: 0,
+      equipped: g.slot, durability: g.record.maxDurability ?? 100, dropChancePerc: 0, lastUsedRound: -99,
+      item: g.record,
+      imbuements: g.imbue ? [{ id: `im-${side.id}-${n}`, userItemId: `ug-${side.id}-${n}`, itemId: g.imbue.id,
+        craftingFinishedAt: new Date(0), item: g.imbue }] : [],
+    });
+  }
+  // bloodline row: its effects become passive "bloodline" effects (sealable; damage mods use bloodline stacking)
+  if (side.bloodline) { u.bloodline = side.bloodline; u.bloodlineId = side.bloodline.id; }
   const bl = jutsus.find((k: any) => k.record.bloodlineId)?.record.bloodlineId;
   if (bl && !u.bloodlineId) u.bloodlineId = bl;
   // element access (engine elementalMastery.ts providedElements/getUserElements): two innate slots plus one unlocked
@@ -121,7 +137,8 @@ const targetFor = (b: CompleteBattle, cid: string, actionId: string) => {
 const tryAct = (b: CompleteBattle, cid: string, actionId: string, at?: { x: number; y: number }) => {
   try {
     const r = I.act(b, cid, actionId, at ?? targetFor(b, cid, actionId));
-    return r.ok ? { ok: true, battle: r.battle } : { ok: false, reason: r.reason, battle: b };
+    return r.ok ? { ok: true, battle: r.battle, effects: (r as any).effects ?? [] }
+      : { ok: false, reason: r.reason, battle: b };
   } catch (err) {
     return { ok: false, reason: String((err as Error).message).slice(0, 140), battle: b };
   }
@@ -171,6 +188,10 @@ const prepare = async (): Promise<CompleteBattle> => {
       const m1 = userOf(r.battle, req.me.id), h1 = userOf(r.battle, req.him.id);
       trace.push({ round: step.round, actor: step.actor, actionId: step.actionId,
         me: Math.round(hp0.me - m1.curHealth), him: Math.round(hp0.him - h1.curHealth),
+        // the engine's own log lines: direct hits ("<user> takes N damage") compare like for like with the live log
+        hits: (() => { const out: any = { me: 0, him: 0 }; const names: any = { [m1.username]: "me", [h1.username]: "him" };
+          for (const e of ((r as any).effects ?? []) as any[]) { const m = /^(\S+) takes ([\d.]+) damage$/.exec(String(e.txt ?? "").trim());
+            if (m && names[m[1]]) out[names[m[1]]] += Number(m[2]); } return { me: Math.round(out.me), him: Math.round(out.him) }; })(),
         ...(req.trace === "effects" ? { fx: (b.usersEffects as any[]).map((e) => `${e.targetId === m1.userId ? "me" : "him"}:${e.type}:${Math.round(e.power ?? 0)}+L${e.level}x${e.powerPerLevel}:r${e.createdRound}+${e.rounds}`) } : {}) });
     }
     if (!r.ok) {

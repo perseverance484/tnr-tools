@@ -42,8 +42,14 @@ def kind_of(rec):
     return None
 
 
+def is_bloodline(rec):
+    return ("jutsuType" not in rec and "itemType" not in rec and "aiProfile" not in rec and "village" not in rec
+            and rec.get("rank") in ("D", "C", "B", "A", "S", "H"))
+
+
 def build():
     best = {}
+    bls = {}
     for path in sorted(glob.glob(os.path.join(REPO, "harvests/**/*.json"), recursive=True)):
         try:
             doc = json.load(open(path))
@@ -52,6 +58,8 @@ def build():
         for rec in walk(doc):
             k = kind_of(rec)
             if not k:
+                if is_bloodline(rec) and (rec.get("updatedAt") or "") >= (bls.get(rec["id"], {}).get("updatedAt") or ""):
+                    bls[rec["id"]] = rec
                 continue
             key = (rec.get("updatedAt") or "", path)
             if rec["id"] not in best or key >= best[rec["id"]][0]:
@@ -94,6 +102,14 @@ def build():
             rec = {**old, **{k: v for k, v in patch.items() if k != "effects"}, "effects": fx}
             out[patch["id"]] = {"record": rec, "kind": "jutsu", "updatedAt": patch["updatedAt"],
                                 "source": os.path.relpath(pp, REPO) + " (connector read)"}
+    for pp in sorted(glob.glob(os.path.join(KIT, "live_bloodlines_*.jsonl"))):
+        for line in open(pp):
+            if line.strip():
+                b = json.loads(line)
+                if (b.get("updatedAt") or "") >= (bls.get(b["id"], {}).get("updatedAt") or ""):
+                    bls[b["id"]] = b
+    json.dump(bls, open(os.path.join(KIT, "bloodlines.json"), "w"), separators=(",", ":"))
+    print(f"bloodlines: {len(bls)} -> harness/pvp_turn/kit/bloodlines.json")
     json.dump(out, open(OUT, "w"), separators=(",", ":"))
     n_j = sum(v["kind"] == "jutsu" for v in out.values())
     print(f"catalog: {len(out)} records ({n_j} jutsu, {len(out) - n_j} items) -> {os.path.relpath(OUT, REPO)}")

@@ -39,6 +39,46 @@ def engine_app():
 
 
 _CATALOG = None
+# worn gear (2026-11-11). Mine: live item.getUserItems equipped slots. Opponents: the director's endgame assumption
+# ("anyone at full endgame has a kaeruun set on with fortify 3 in available armor slots, and a subaku mask equipped").
+FORTIFY3 = "McKQIkyiuX1qIN54qI7UR"
+GEAR_ME = [("r_TVeNlBCnggXhNTtMliQ", "HEAD"), ("SPyb1Df6im2zc8IONIc9_", "CHEST"), ("jXcBqX8xcJWNtW3qAW-Lg", "LEGS"),
+           ("baQjOExMctrvsZkuTrpay", "FEET"), ("sRRwTnVlW2tC8o2whrvIi", "WAIST"), ("Ngsj1x0wl8_mKj1tGRscp", "ITEM_6"),
+           ("H1yz5-aKshav3uQyE4biC", "KEYSTONE")]
+GEAR_ENDGAME = [g for g in GEAR_ME if g[1] != "KEYSTONE"]
+GEAR_MODEL = os.environ.get("TNR_GEAR_MODEL", "1") != "0"   # 0 = old fitted +33% passive instead of gear/bloodline
+
+
+def _gear(pairs):
+    recs = _records()
+    out = []
+    for i, slot in pairs:
+        if i not in recs:
+            continue
+        rec = recs[i]["record"]
+        imbue = recs[FORTIFY3]["record"] if rec.get("canBeImbued") and FORTIFY3 in recs else None
+        out.append({"record": rec, "slot": slot, **({"imbue": imbue} if imbue else {})})
+    return out
+
+
+def _bloodline(bl_id):
+    try:
+        return json.load(open(os.path.join(HARNESS, "kit", "bloodlines.json"))).get(bl_id)
+    except (OSError, ValueError):
+        return None
+
+
+def his_bloodline_id(rows, en_id):
+    """His bloodline: saved with his kit, else read off a bloodline jutsu he used or has equipped (a fact, not a guess)."""
+    opp = opponent_kit(en_id) or {}
+    if opp.get("bloodlineId"):
+        return opp["bloodlineId"]
+    recs = _records()
+    for a in list(opp.get("jutsu", [])) + [a for r, u, a, _ in rows if u == en_id]:
+        bl = recs.get(a, {}).get("record", {}).get("bloodlineId")
+        if bl:
+            return bl
+    return None
 
 
 def _records():
@@ -259,6 +299,13 @@ def _his_kit(rows, en_id, cal):
     return kit
 
 
+def _side_mods(bl_id, gear):
+    if not GEAR_MODEL:
+        return {"passives": [{"type": "increasedamagegiven", "power": PASSIVE}]}
+    bl = _bloodline(bl_id) if bl_id else None
+    return {"gear": _gear(gear), **({"bloodline": bl} if bl else {})}
+
+
 def _replay_request(rows, me_id, en_id, me, en, me_pos, en_pos, R, his_turn, cal):
     recs, prof = _records(), _profile()
     his_kit = _his_kit(rows, en_id, cal)
@@ -269,9 +316,9 @@ def _replay_request(rows, me_id, en_id, me, en, me_pos, en_pos, R, his_turn, cal
         "me": {"id": "me", "hp": me["curHealth"], "x": me_pos[0], "y": me_pos[1], "profile": prof,
                "kit": [{"record": recs[a]["record"], "kind": "item" if a in ITEM_IDS else "jutsu",
                         "level": prof["jutsuLevels"].get(a, 25)} for a in MY_KIT_IDS if a in recs],
-               "passives": [{"type": "increasedamagegiven", "power": PASSIVE}]},
+               **_side_mods(prof.get("bloodlineId"), GEAR_ME)},
         "him": {"id": "him", "hp": en["curHealth"], "x": en_pos[0], "y": en_pos[1], "kit": his_kit,
-                "passives": [{"type": "increasedamagegiven", "power": PASSIVE}]},
+                **_side_mods(his_bloodline_id(rows, en_id), GEAR_ENDGAME)},
         "log": log,
     }
 
