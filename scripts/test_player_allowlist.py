@@ -39,13 +39,16 @@ def errors(name, e, surface=None):
     return pa.check(with_entry(name, e), surface)[0]
 
 
-def surface(rows):
-    """{"router.endpoint": type} -> a surface capture."""
+SCHEMA = {"type": "object", "properties": {}, "additionalProperties": False}
+
+
+def surface(rows, schema=SCHEMA):
+    """{"router.endpoint": type} -> a live surface capture, every endpoint with the given input schema."""
     routers = {}
     for name, kind in rows.items():
         r, ep = name.split(".", 1)
         routers.setdefault(r, {"endpointCount": None, "endpoints": {}})["endpoints"][ep] = {
-            "type": kind, "type_source": "test", "description": "", "schema": None}
+            "type": kind, "type_source": "test", "description": "", "schema": schema}
     return {"_meta": {"live": True, "origin": "test", "captured": {"last": "now"},
                       "counts": {"routers": len(routers), "endpoints": len(rows), "schemas": 0}}, "routers": routers}
 
@@ -226,7 +229,8 @@ class Surface(unittest.TestCase):
                                {"name": "coop.quest.join", "description": "mutation coop.quest.join"}])),
             use(5, "getEndpointSchema", {"endpointName": "bank.toBank"}),
             res(5, json.dumps({"endpointName": "bank.toBank", "description": "Deposit ryo",
-                               "inputSchema": {"type": "object", "required": ["amount"]}})),
+                               "inputSchema": {"type": "object", "properties": {"amount": {"type": "number"}},
+                                               "required": ["amount"]}})),
             use(6, "callEndpoint", {"endpointName": "profile.getUser"}),        # a game call: never part of the surface
             res(6, json.dumps({"userData": {"username": "x"}})),
         ]
@@ -244,17 +248,99 @@ class Surface(unittest.TestCase):
         self.assertEqual(m["counts"], {"routers": 3, "endpoints": 4, "schemas": 1, "typed": 4, "untyped": 0})
         self.assertEqual(m["endpoint_count_mismatch"], [])
         self.assertEqual(m["routers_without_endpoint_list"], ["train"])
-        self.assertEqual(m["failed_calls_not_answered_later"], [])           # the refused bank read was answered later
+        self.assertEqual(m["failed_calls_never_answered"], [])               # the refused bank read was answered later
+        self.assertEqual(m["replies_that_did_not_parse"], [])
+        self.assertEqual(m["answered_calls"], {"listGameRouters": 1, "listRouterEndpoints": 2, "getEndpointSchema": 1})
         bank = s["routers"]["bank"]["endpoints"]
         self.assertEqual(bank["toBank"]["type"], "mutation")
         self.assertIn("source extract", bank["toBank"]["type_source"])
-        self.assertEqual(bank["toBank"]["schema"], {"type": "object", "required": ["amount"]})
+        self.assertEqual(bank["toBank"]["schema"]["required"], ["amount"])
         self.assertEqual((bank["getGraph"]["type"], bank["getGraph"]["type_source"]),
                          ("query", "the server's stand-in description"))
         self.assertIn("another router", s["routers"]["coop"]["endpoints"]["create"]["type_source"])
         self.assertEqual(s["routers"]["coop"]["endpoints"]["quest.join"]["type"], "mutation")
         self.assertIsNone(s["routers"]["train"]["endpoints"])
         self.assertNotIn("profile", s["routers"])
+
+
+class CaptureCompleteness(unittest.TestCase):
+    """Review of a95dfd1e, finding 1: a capture with missing schemas or failed calls passed the check, and a
+    failed call followed by a reply cut short was counted as answered."""
+
+    GOOD = json.dumps({"endpointName": "bank.toBank", "inputSchema": SCHEMA})
+    CUT = '{"endpointName": "bank.toBank", "inputSchema": {"type": "obj'
+
+    def build(self, *schema_replies):
+        calls = [("listGameRouters", {}, json.dumps([{"name": "bank", "endpointCount": 1}]), "t1"),
+                 ("listRouterEndpoints", {"routerName": "bank"},
+                  json.dumps([{"name": "bank.toBank", "description": "Deposit ryo"}]), "t2")]
+        calls += [("getEndpointSchema", {"endpointName": "bank.toBank"}, text, f"t{3 + i}")
+                  for i, text in enumerate(schema_replies)]
+        return pa.build_surface(calls)
+
+    def test_a_listed_endpoint_needs_a_valid_schema_in_the_capture(self):
+        allow = with_entry("bank.toBank", entry())
+        self.assertEqual(pa.check(allow, surface({"bank.toBank": "mutation"}))[0], [])
+        for bad in (None, "cut short", ["type", "object"], 5):
+            errs = pa.check(allow, surface({"bank.toBank": "mutation"}, schema=bad))[0]
+            self.assertTrue(any("no valid input schema" in x for x in errs), bad)
+
+    def test_a_schema_that_says_nothing_is_kept_and_pointed_out(self):
+        """The server answers {"$schema": ...} and no more for travel.startGlobalMove: a real answer, not a fault."""
+        nothing = {"$schema": "https://json-schema.org/draft/2020-12/schema"}
+        errs, notes = pa.check(with_entry("bank.toBank", entry()), surface({"bank.toBank": "mutation"}, schema=nothing))
+        self.assertEqual(errs, [])
+        self.assertTrue(any("publishes no input shape" in n for n in notes))
+        reply = json.dumps({"endpointName": "bank.toBank", "inputSchema": nothing})
+        m = self.build(reply)["_meta"]
+        self.assertEqual((m["schemas_that_say_nothing"], m["answered_calls"]["getEndpointSchema"]), (["bank.toBank"], 1))
+
+    def test_removing_every_schema_from_the_committed_capture_fails_every_entry(self):
+        if not os.path.exists(pa.SURFACE):
+            self.skipTest("no surface capture yet")
+        s = pa._load(pa.SURFACE)
+        for row in s["routers"].values():
+            for e in (row["endpoints"] or {}).values():
+                e["schema"] = None
+        errs = [x for x in pa.check(ALLOW, s)[0] if "no valid input schema" in x]
+        self.assertEqual(len(errs), len(ALLOW["endpoints"]))
+
+    def test_a_failed_call_followed_by_a_reply_cut_short_stays_unanswered(self):
+        m = self.build(None, self.CUT)["_meta"]
+        self.assertEqual(m["failed_calls_never_answered"], ["getEndpointSchema bank.toBank"])
+        self.assertEqual(m["replies_that_did_not_parse"], ["getEndpointSchema bank.toBank"])
+        self.assertEqual(m["answered_calls"]["getEndpointSchema"], 0)
+        self.assertEqual(m["counts"]["schemas"], 0)
+
+    def test_only_a_reply_that_parsed_is_an_answer_whatever_the_order(self):
+        for replies in ((None, self.GOOD), (self.CUT, self.GOOD), (self.GOOD, self.CUT), (self.GOOD, None)):
+            s = self.build(*replies)
+            m = s["_meta"]
+            self.assertEqual((m["failed_calls_never_answered"], m["replies_that_did_not_parse"]), ([], []), replies)
+            self.assertEqual(m["answered_calls"]["getEndpointSchema"], 1)
+            self.assertEqual(s["routers"]["bank"]["endpoints"]["toBank"]["schema"], SCHEMA)   # the good one is kept
+        wrong = json.dumps({"endpointName": "bank.toPocket", "inputSchema": SCHEMA})        # another endpoint's reply
+        self.assertEqual(self.build(wrong)["_meta"]["replies_that_did_not_parse"], ["getEndpointSchema bank.toBank"])
+
+    def test_a_capture_with_a_fault_fails_the_check(self):
+        allow = with_entry("bank.toBank", entry())
+        for key in ("routers_without_endpoint_list", "endpoint_count_mismatch", "replies_that_did_not_parse",
+                    "failed_calls_never_answered", "schemas_for_endpoints_not_listed"):
+            s = surface({"bank.toBank": "mutation"})
+            s["_meta"][key] = ["x"]
+            errs = pa.check(allow, s)[0]
+            self.assertEqual(len([x for x in errs if x.startswith("capture: ")]), 1, key)
+        m = self.build(None, self.CUT)
+        self.assertGreaterEqual(len(pa.capture_errors(m)), 2)
+
+    def test_a_router_list_that_did_not_parse_leaves_the_router_without_endpoints(self):
+        calls = [("listGameRouters", {}, json.dumps([{"name": "bank", "endpointCount": 1}]), "t1"),
+                 ("listRouterEndpoints", {"routerName": "bank"}, '[{"name": "bank.toBa', "t2")]
+        m = pa.build_surface(calls)["_meta"]
+        self.assertEqual(m["routers_without_endpoint_list"], ["bank"])
+        self.assertEqual(m["replies_that_did_not_parse"], ["listRouterEndpoints bank"])
+        with self.assertRaises(SystemExit):
+            pa.build_surface([("listGameRouters", {}, '[{"name": "ba', "t1")])
 
 
 class CodeScan(unittest.TestCase):
@@ -290,12 +376,17 @@ class CommittedList(unittest.TestCase):
         for r in ALLOW["never"] + ALLOW["ask_first"]:
             self.assertTrue(r.get("why") and r.get("source"), r["id"])
 
-    def test_the_surface_in_the_repository_is_a_live_capture(self):
+    def test_the_surface_in_the_repository_is_a_complete_live_capture(self):
         if not os.path.exists(pa.SURFACE):
             self.skipTest("no surface capture yet")
         s = pa._load(pa.SURFACE)
         self.assertTrue(s["_meta"]["live"])
-        self.assertEqual(s["_meta"]["routers_without_endpoint_list"], [])
+        self.assertEqual(pa.capture_errors(s), [])
+        for key, _ in pa.CAPTURE_FAULTS:
+            self.assertEqual(s["_meta"][key], [], key)                     # the builder's own fault lists are there
+        have = sum(1 for r in s["routers"].values() for e in r["endpoints"].values() if pa.valid_schema(e["schema"]))
+        self.assertEqual(have, s["_meta"]["answered_calls"]["getEndpointSchema"])
+        self.assertEqual(have, len(ALLOW["endpoints"]))
 
     def test_the_committed_review_is_a_fresh_render(self):
         if not os.path.exists(pa.SURFACE):
