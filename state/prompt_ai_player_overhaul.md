@@ -1,6 +1,6 @@
 # AI player overhaul: implementation brief
 
-Status: DRAFT, awaiting the director's approval. Once approved, this file is the build contract (CLAUDE.md §11).
+Status: APPROVED by the director 2026-11-11 (RUL-2026-11-11-148). This file is the build contract (CLAUDE.md §11).
 Design: `docs/design/AI_PLAYER_OVERHAUL.md`. Scope ruling: RUL-2026-11-11-148.
 
 Lane: A (code, tools, tests). Work on `fable/ai-player-*` branches and hand over each phase at an exact SHA for

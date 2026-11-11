@@ -1,6 +1,6 @@
 # AI player overhaul: design
 
-Status: DRAFT for the director's approval (2026-11-11). Once approved, the build contract is
+Status: APPROVED by the director 2026-11-11. The build contract is
 `state/prompt_ai_player_overhaul.md` (CLAUDE.md §11); this document is the design it implements.
 Scope ruling: RUL-2026-11-11-148.
 
