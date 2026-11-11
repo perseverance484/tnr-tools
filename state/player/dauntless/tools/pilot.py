@@ -516,11 +516,11 @@ def _restock_records():
     return {i: recs[i]["record"] for i in ids if i in recs}
 
 
-def harvest_calls(st, n=1):
+def harvest_calls(st, n=2):
     """Spare-budget battle-log crawl between fights (harvest.py): at most n reads, only with headroom in the window."""
     import harvest
     recent = [t for t in st.get("calls", []) if t > time.time() - 60]
-    if len(recent) > CALL_BUDGET - 10:          # leave room: a fight can start on any tick
+    if len(recent) > CALL_BUDGET - 8:           # leave room: a fight can start on any tick
         return []
     h = harvest.load()
     if not h.get("seeded"):
