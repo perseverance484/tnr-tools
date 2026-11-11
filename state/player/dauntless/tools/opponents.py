@@ -52,7 +52,16 @@ def load_logs():
 
 
 def names_in(rows, uid, me_name="dauntless"):
+    """His name as the log writes it: the most common subject of his own effect lines; failing that, whoever
+    takes damage from my actions (a masked or terse opponent may have no self-lines)."""
     c = collections.Counter()
+    for r, u, a, ts in rows:
+        if u == uid:
+            continue
+        for t in ts or []:
+            m = re.match(r"^(.+?) takes [\d.]+ (?:damage|afterburn damage)$", (t or "").strip())
+            if m and m.group(1) != me_name:
+                c[m.group(1)] += 3
     for r, u, a, ts in rows:
         if u != uid:
             continue
@@ -81,9 +90,18 @@ def turns_of(rows, uid):
     return out
 
 
-def build():
+_LOGS = None
+
+
+def build(exclude=None, save=True):
+    """exclude: a battle id left out (leave-one-fight-out checks); save=False returns the models without writing."""
+    global _LOGS
     models = {}
-    for bid, path, rows, meta in load_logs():
+    if _LOGS is None or save:
+        _LOGS = load_logs()
+    for bid, path, rows, meta in _LOGS:
+        if exclude and bid == exclude:
+            continue
         users = {u for _, u, _, _ in rows if (u or "").startswith("user_")}
         # my fights: model the other side; observed fights between others (harvest.py): model both sides
         sides = users - {ME} if ME in users else (users if len(users) == 2 else set())
@@ -111,7 +129,8 @@ def build():
                 prev = b
             if meta.get("winner"):
                 m["won" if meta["winner"] == uid else "lost"] += 1
-    json.dump(models, open(MODELS, "w"), indent=0)
+    if save:
+        json.dump(models, open(MODELS, "w"), indent=0)
     return models
 
 
@@ -122,7 +141,11 @@ def load():
         return build()
 
 
-def habit_fn(model, scale=1.0):
+HABIT_SCALE = float(os.environ.get("TNR_HABIT", "4.0"))   # validate.py --policy: x4 best (LOO 7% exact, 25% overlap)
+
+
+def habit_fn(model, scale=None):
+    scale = HABIT_SCALE if scale is None else scale
     """habit(bundle, round, previous bundle) -> HP-equivalent bonus for doing what he does in the logs:
     share of his turns that use the action, a bonus when he used it on this round number, a bonus for what usually
     follows his last bundle, and a bonus for a whole bundle he has played on this round."""

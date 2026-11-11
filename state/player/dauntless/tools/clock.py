@@ -22,6 +22,10 @@ import cd_plan  # noqa: E402
 import engine_bridge as EB  # noqa: E402
 
 K_DMG, K_PIERCE = 13.3, 12.6      # HP per power point (my calibrated kit / record powers at level 25: 11.8-13.7)
+# validate.py 2026-11-11: against 175 logged opponent turns, damage compiled from their records came out 24% low
+# (median logged/predicted 1.24, IQR 1.07-1.72) while my own kit was on the mark (median 1.00). Opponents' records
+# are scaled by this so the simulator stops under-rating them (the reason it was more optimistic than live play).
+HIS_CAL = 1.24
 BASICS = {"clear": (60, 10, ["clear"]), "cleanse": (60, 10, ["cleanse"]), "basicAttack": (20, 1, []),
           "basicHeal": (60, 5, []),
           "defensiveStance": (20, 1, []), "offensiveStance": (20, 1, [])}
@@ -46,10 +50,10 @@ def compile_record(rec, level=25):
         who = "en" if on_self else "me"
         n = int(e.get("rounds") or 0)
         pct = p / 100.0
-        if t == "damage":
-            base += p * K_DMG
+        if t in ("damage", "elementaldamage"):
+            base += p * K_DMG * HIS_CAL
         elif t == "pierce":
-            base += p * K_PIERCE; pierce = True
+            base += p * K_PIERCE * HIS_CAL; pierce = True
         elif t == "increasedamagegiven":
             tags.append((who, "given", pct, n))
         elif t == "decreasedamagegiven":
