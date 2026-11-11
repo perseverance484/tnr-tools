@@ -360,6 +360,10 @@ def penalties(bundle, ctx, cal):
     if pierce and ctx["en_absorb"] >= 0.2:
         c = ctx["en_absorb"] * 631
         p -= c; why.append(f"pierce into his {ctx['en_absorb']:.0%} absorb (-{c:.0f}, Clear it first)")
+    # director 2026-11-11 (ANBU Member R3: Panacea + Basic Heal at 3404/5050 HP instead of a smoke-proof pierce): a
+    # heal far from danger buys nothing; above 60% HP a Basic Heal is worth a fraction of its 600
+    if "basicheal" in bundle and ctx["my_hp"] > 0.6 * ctx.get("my_max", 5050):
+        p -= 450; why.append("Basic Heal above 60% HP (-450)")
     if ctx["tick"] >= ctx["my_hp"] - 50 and "cleanse" not in bundle:
         p -= 6000; why.append(f"wound/drain tick {ctx['tick']:.0f} kills me: Cleanse FIRST")
     return p, why
@@ -444,6 +448,7 @@ def main():
         "en_buffed": any(t[3] >= R and shotplan.positive(t) for t in en0.tags),
         "my_next_burst": True,
         "my_hp": me["curHealth"],
+        "my_max": me.get("maxHealth", 5050),
         "afk": (lambda t: len(t) >= 1 and sum(1 for a in t if a == "wait") * 2 >= len(t))(
             [a for r, u, a, _ in rows if u == en["userId"] and (a == "wait" or a not in ("move",))]
             and [a for r, u, a, _ in rows if u == en["userId"]]),
@@ -840,6 +845,13 @@ def main():
             print(f"stage2 {total:+.0f} {'+'.join(b)} | " + " ".join(
                 f"{w:.2f}:{v:+.0f}({'+'.join(b2 or ())})" for w, v, b2 in vals))
     results.sort(key=lambda x: -x[0])
+    # desperation (director 2026-11-11, ANBU Member R5: Cleanse at 419 HP when every line died anyway): if even the
+    # best line scores as my death, rank by expected damage to him; the best chance is the kill or near-kill
+    if results and results[0][0] < -value_model.DEATH * 0.6:
+        def _dmg(r):
+            return sum(w * (en["curHealth"] - e.hp) for w, v, m, e, log, kill in r[5])
+        results.sort(key=lambda r: -_dmg(r))
+        print("DESPERATION: every line loses; ranked by damage to him")
     # exact re-score of the best 6 by engine replay: my bundle, then his typical and best reply from his real kit
     engine_note = "engine: legality only (--fast)" if a.fast and eng else "engine: off"
     if not a.no_engine and not a.fast and eng:

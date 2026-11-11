@@ -223,7 +223,8 @@ def battle_tick(st, bid, battle, entries):
         # a fast relay polls every ~2.7 s (~45 calls/min); the connector allows 30/min ("Too Many Requests"
         # mid-fight, 2026-11-11), so his-turn polls pace themselves: ~25 calls/min, ~1 s more detection lag
         return head + " | his turn", [wait(POLL_GAP)] + poll
-    plan, how = plan_turn(bid, battle, cache["entries"], names[foes[0]])
+    # near a kill the python damage model runs ~300 low (ANBU Member R5, 2026-11-11): score with the exact engine
+    plan, how = plan_turn(bid, battle, cache["entries"], names[foes[0]], exact=hp[foes[0]] <= 2000)
     if not plan:
         return head + f" | MY TURN, no plan ({how}): defensiveStance", \
             [c_act(bid, "defensiveStance", battle["battle.usersState.*.longitude"][me_i],
@@ -232,7 +233,7 @@ def battle_tick(st, bid, battle, entries):
     return head + f" | MY TURN: {' + '.join(a['name'] for a in plan)} ({how})", acts + poll
 
 
-def plan_turn(bid, battle, entries, enemy):
+def plan_turn(bid, battle, entries, enemy, exact=False):
     """turn.py (the verified planner, python only on the clock) on a turn file built from the cache."""
     path = os.path.join(LIVE, f"{bid}.turn.txt")
     rows = entries[::-1]                                    # turn.py reads newest-first, like the connector
@@ -240,10 +241,12 @@ def plan_turn(bid, battle, entries, enemy):
         f.write(json.dumps(battle) + "\n" +
                 json.dumps({k: [r[i] for r in rows] for i, k in enumerate(ENT) if k != "*.id"}) + "\n")
     t0 = time.time()
-    for extra, budget in (((), PLAN_BUDGET), (("--keep", "6", "--cash", "3"), 2.0)):
+    tries = [(("--fast",), 9.0)] if exact else []
+    tries += [(("--no-engine",), PLAN_BUDGET), (("--no-engine", "--keep", "6", "--cash", "3"), 2.0)]
+    for extra, budget in tries:
         try:
             out = subprocess.run([sys.executable, os.path.join(HERE, "turn.py"), path, "--battle", bid, "--top", "1",
-                                  "--enemy", enemy, "--no-engine", *extra],
+                                  "--enemy", enemy, *extra],
                                  capture_output=True, text=True, timeout=budget).stdout
         except subprocess.TimeoutExpired:
             continue
