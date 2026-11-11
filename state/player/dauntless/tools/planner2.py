@@ -181,13 +181,17 @@ def from_engine(effects, R, in_base=("me",), max_hp=(5050.0, 5050.0), perm_in_ba
       power      power + level * powerPerLevel, percentages clamped to +-100
       active     rounds undefined (permanent) or rounds > 0; at each new round rounds drops by 1 unless it was
                  cast this round, so a tag cast this round runs rounds R+1..R+rounds, an older one R..R+rounds-1
-      seal       a resolved seal on a fighter switches off his bloodline effects
+      seal       a resolved seal on a fighter switches off his bloodline's passive effects (fromType "bloodline":
+                 the damage bonuses and passives, damagePipeline.ts sealCheck); his bloodline jutsu still work
       wound      each round: originalDamage * power% (the hit that applied it)
       drain      each round: power% of max HP (percentage) or power (static), on the Health pool
     Effects use "target" ("me" / "him"); live ones are mapped from targetId by the caller."""
     sides = {"me": Side(5050.0), "him": Side(5050.0)}
-    sealed = {e.get("target") for e in effects if e.get("type") == "seal" and not e.get("isNew")
-              and (e.get("rounds") is None or int(e.get("rounds") or 0) > 0)}
+    sealed = {}                       # target -> (first, last) offsets of a resolved seal
+    for e in effects:
+        if e.get("type") == "seal" and not e.get("isNew") and (e.get("rounds") is None or int(e.get("rounds") or 0) > 0):
+            n = int(e.get("rounds") or 0)
+            sealed[e.get("target")] = (1, n) if e.get("castThisRound") else (0, max(n - 1, 0))
     for e in effects:
         tgt = e.get("target")
         side = sides.get(tgt)
@@ -199,8 +203,7 @@ def from_engine(effects, R, in_base=("me",), max_hp=(5050.0, 5050.0), perm_in_ba
             p = max(-100.0, min(100.0, p))
         pct = p / 100.0
         perm = e.get("rounds") is None
-        if perm and e.get("fromType") == "bloodline" and tgt in sealed:
-            continue
+        seal_off = sealed.get(tgt) if perm and e.get("fromType") == "bloodline" else None
         left = 0 if perm else int(e.get("rounds") or 0)
         if not perm and left <= 0:
             continue
@@ -219,7 +222,14 @@ def from_engine(effects, R, in_base=("me",), max_hp=(5050.0, 5050.0), perm_in_ba
         elif t in ("absorb", "lifesteal", "reflect", "parry"):
             base = {"absorb": ABS, "lifesteal": LS, "reflect": REF, "parry": PAR}[t]
             if perm and t != "parry":
-                side.add({"absorb": PABS, "lifesteal": PLS, "reflect": PREF}[t], abs(pct), 0, H - 1)
+                pk = {"absorb": PABS, "lifesteal": PLS, "reflect": PREF}[t]
+                if seal_off:                   # a sealed bloodline passive is off for the sealed rounds
+                    if seal_off[0] > 0:
+                        side.add(pk, abs(pct), 0, seal_off[0] - 1)
+                    if seal_off[1] < H - 1:
+                        side.add(pk, abs(pct), seal_off[1] + 1, H - 1)
+                else:
+                    side.add(pk, abs(pct), 0, H - 1)
                 continue
             k, v = base, abs(pct)
         elif t == "shield":
@@ -250,7 +260,22 @@ def from_engine(effects, R, in_base=("me",), max_hp=(5050.0, 5050.0), perm_in_ba
             continue
         if k in (GUP, GDN, TAKEN, DR):
             if perm and perm_in_base:
-                continue        # fight_bases.py fired every action with these on: they are inside the bases
+                # fight_bases.py fired every action with these on: they are inside the bases. While a seal holds
+                # his bloodline's passive, take it back out for those rounds
+                if seal_off:
+                    inv = (1.0 / (1 - v) - 1) if k == DR else (1.0 / (1 + v) - 1)
+                    if els and not (els >= ALL_ELS):
+                        side.sc.append((TAKEN if k == DR else k, inv, seal_off[0], seal_off[1], els))
+                    else:
+                        side.add(TAKEN if k == DR else k, inv, seal_off[0], min(seal_off[1], H - 1))
+                continue
+            if seal_off and perm:
+                v_on = v                       # active outside the sealed rounds only
+                if seal_off[0] > 0:
+                    side.add(k, v_on, 0, seal_off[0] - 1)
+                if seal_off[1] < H - 1:
+                    side.add(k, v_on, seal_off[1] + 1, H - 1)
+                continue
             if els and not (els >= ALL_ELS):
                 side.sc.append((k, v, max(o1, 0), o2, els))      # element-scoped: only hits of those elements
                 continue
