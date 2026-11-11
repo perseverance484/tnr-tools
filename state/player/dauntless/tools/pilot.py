@@ -90,7 +90,7 @@ def c_attack(t, sector):
                                       "sector": sector, "asset": "ground"}, ["success", "message", "battleId"])
 
 
-def c_battle(bid, effects=False):
+def c_battle(bid, effects=False, ground=False):
     """effects: also the full live effect list, read once per battle. Both fighters' permanent effects are on it
     (bloodline, gear, skills, titles and meal / raid buffs, which no log line shows; getBattle masks only their
     action ids). Director 2026-11-11: "The last little bit of variance is probably meal buffs from food"."""
@@ -98,7 +98,18 @@ def c_battle(bid, effects=False):
                 ["battle.version", "battle.round", "battle.activeUserId"] +
                 [f"battle.usersState.*.{k}" for k in ("userId", "username", "curHealth", "maxHealth", "longitude",
                                                       "latitude", "actionPoints", "isAi")] +
-                (["battle.usersEffects"] if effects else []))
+                (["battle.usersEffects"] if effects else []) + (["battle.groundEffects"] if ground else []))
+
+
+GROUND_KEYS = ("type", "creatorId", "longitude", "latitude", "curHealth", "maxHealth", "absorbPercentage", "power",
+               "rounds", "createdRound")
+
+
+def ground_effects(raw):
+    """The ground list, compact: barriers (tile, HP, absorb %) and tile effects for the planner (director 2026-11-11,
+    Ashutosh R6: his barrier soaked ~1000 of a forecast 2241 and the planner never knew it was there)."""
+    return [{k: g.get(k) for k in GROUND_KEYS if g.get(k) is not None} for g in raw or []
+            if isinstance(g, dict) and g.get("type") not in ("visual", "move")]
 
 
 PERM_KEYS = ("type", "targetId", "creatorId", "power", "powerPerLevel", "level", "calculation", "direction", "elements",
@@ -281,6 +292,12 @@ def battle_tick(st, bid, battle, entries, no_read=False):
         cache["entries"] += new[::-1]                      # cache is oldest-first
     users = battle.get("battle.usersState.*.userId") or []
     asked_full = cache.pop("asked_full", False)
+    asked_ground = cache.pop("asked_ground", False)
+    if not users and asked_ground and not cache.get("ground_refused"):
+        # the ground list rides only on reads after a full read worked; a refusal drops it for this battle
+        cache["ground_refused"] = True
+        save(cache_path, cache)
+        return f"BATTLE {bid}: ground read refused, full read", [c_battle(bid, effects=True), c_entries(bid, 8), TICK]
     if users and asked_full:
         cache["full_ok"] = True
     if not users and asked_full and not cache.get("full_ok") and cache.get("full_refused", 0) < 2:
@@ -303,6 +320,9 @@ def battle_tick(st, bid, battle, entries, no_read=False):
         st["pending_result"] = {"bid": bid, "foes": [u for u in last.get("battle.usersState.*.userId") or [] if u != ME],
                                 "log_lost": log_says_lost(cache)}
         return finish(st, bid, cache, "battle closed, result on the next read")
+    raw_g = battle.pop("battle.groundEffects", None)
+    if raw_g is not None:
+        cache["ground"] = ground_effects(raw_g)
     raw = battle.pop("battle.usersEffects", None)
     if raw is not None:
         cache["live"], cache["live_v"] = live_effects(raw), battle.get("battle.version")
@@ -326,6 +346,8 @@ def battle_tick(st, bid, battle, entries, no_read=False):
                          stderr=subprocess.DEVNULL, start_new_session=True)
     if "perm_effects" in cache:
         battle["battle.permEffects"] = cache["perm_effects"]
+    if raw_g is not None:
+        battle["battle.groundEffects"] = cache["ground"]     # this read's ground only: a stale one would mislead
     cache["battle"] = battle
     cache["n_at_battle"] = len(cache["entries"])          # log lines already counted in this HP read
     save(cache_path, cache)
@@ -344,8 +366,10 @@ def battle_tick(st, bid, battle, entries, no_read=False):
     # rate-limited for 26 s and the turn passed). Same call count; plain only after full reads were refused twice.
     full = want or cache.get("full_refused", 0) < 2
     cache["asked_full"] = full
+    gr = bool(full and cache.get("full_ok") and not cache.get("ground_refused"))
+    cache["asked_ground"] = gr
     save(cache_path, cache)
-    poll = [c_battle(bid, effects=full), c_entries(bid, 8), TICK]
+    poll = [c_battle(bid, effects=full, ground=gr), c_entries(bid, 8), TICK]
     foe_id = users[foes[0]]
     ai = battle.get("battle.usersState.*.isAi") or []
     if not (ai and ai[foes[0]]) and not kit_known(foe_id) and cache.get("kit_asked") != foe_id:

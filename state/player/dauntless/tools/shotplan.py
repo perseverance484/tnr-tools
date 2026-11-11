@@ -256,6 +256,10 @@ def _agg(side, r):
 
 
 _Z = (0.0, 1.0, 1.0)
+# A barrier between me and him while my turn is simulated: [hp left, absorb share] (engine getBarriersBetween /
+# damageBarrier: each hit through it loses the absorb share, which the barrier takes, until its HP is spent). Set by
+# turn.py around my own turn only; None = clear line. Director 2026-11-11, Ashutosh R6: planner 2241, log 1201.
+MY_BARRIER = None
 
 
 def apply(src_side, dst_side, spec, r, actor_is_me):
@@ -283,6 +287,10 @@ def apply(src_side, dst_side, spec, r, actor_is_me):
                 dmg -= used
                 dst_side.tags = [t for t in dst_side.tags if t[0] != "shield"]
         dmg = max(dmg, 0.0)
+        if actor_is_me and MY_BARRIER and MY_BARRIER[0] > 0 and dmg > 0:
+            soak = min(dmg * MY_BARRIER[1], MY_BARRIER[0])
+            MY_BARRIER[0] -= soak
+            dmg -= soak
         # engine (process.ts / damagePipeline.ts, constants.ts): parry's share went back above; reflect works on
         # what is left and returns at most 60% of it (REFLECT_CAP_RATIO), so two 35% reflects waste 10% and parry +
         # reflect do not add (20% + 35% returns 48%). Absorb and lifesteal are capped at 60% of the hit

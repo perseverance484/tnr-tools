@@ -35,6 +35,38 @@ def test_kill_chance():
     print("ok: a forecast kill counts as sure only with the margin to spare")
 
 
+
+
+def test_barrier_and_moves():
+    """Ashutosh R6 2026-11-11: his barrier soaked ~1000 of a forecast 2241; Replacement used with nothing to buy."""
+    turn.BARRIERS[:] = [(5, 4, 550.0, 0.33, "HIM")]
+    assert turn.barrier_between((3, 4), (7, 4)) is not None          # straight through the barrier tile
+    assert turn.barrier_between((5, 1), (7, 4)) is None or turn.barrier_between((5, 1), (7, 4))[0] == 550
+    turn.BARRIERS[:] = [(5, 4, 550.0, 0.33, turn.ME)]
+    assert turn.barrier_between((3, 4), (7, 4)) is None              # my own barrier does not block me
+    turn.BARRIERS[:] = [(5, 4, 550.0, 0.33, "HIM")]
+    land = turn.place_phantom((3, 4), (7, 4), 4, {(7, 4), (5, 4)})
+    assert turn.dist(land, (7, 4)) <= 4 and turn.barrier_between(land, (7, 4)) is None, land
+    # the sim: a hit through it loses the absorb share until its HP is spent
+    shotplan.MY_BARRIER = [550.0, 0.33]
+    m, e = shotplan.Side(5000), shotplan.Side(5000)
+    d, _ = shotplan.apply(m, e, (1000, []), 5, True)
+    shotplan.MY_BARRIER = None
+    assert abs(d - 670) < 1, d
+    turn.BARRIERS[:] = []
+    # fillers and a Replacement that buys nothing pay for it
+    ctx = {"pierce_ready": False, "pierce_window": True, "en_absorb": 0, "my_hp": 4000, "tick": 0, "d0": 2,
+           "line_blocked": False}
+    cal = {}
+    p0, _ = turn.penalties(("ember",), ctx, cal)
+    p1, why = turn.penalties(("ember", "replace", "basic"), ctx, cal)
+    assert p0 - p1 == turn.FILLER_COST + turn.MOVE_COST, (p0, p1, why)
+    p2, _ = turn.penalties(("ember", "replace"), dict(ctx, d0=6), cal)
+    assert p2 == p0                                                     # out of range: the move buys range
+    print("ok: barriers soak hits and steer moves; fillers and idle moves pay")
+
+
 if __name__ == "__main__":
     test_ground_taken_rebuilt()
     test_kill_chance()
+    test_barrier_and_moves()

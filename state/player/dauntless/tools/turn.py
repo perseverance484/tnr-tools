@@ -214,6 +214,37 @@ GROUND_EXIT = {"phantom", "replace", "step"}
 KILL_MARGIN = float(os.environ.get("TNR_KILL_MARGIN", "0.12"))
 ENGINE_MARGIN = float(os.environ.get("TNR_ENGINE_MARGIN", "0.05"))
 NEAR_KILL_HP = float(os.environ.get("TNR_NEAR_KILL_HP", "2000"))
+# Fillers and moves (director 2026-11-11, Ashutosh fight: "Its using basic attack and the stances an awful lot when I
+# see those as situational"; "it used replacement technique when it was already in range along with a basic attack").
+# FILLER_COST: each basic attack / stance pays this, so it is picked only when it clearly wins or nothing else fits
+# the AP. MOVE_COST: a Replacement that buys no range (for anything but a basic) and no clear line past a barrier.
+FILLER_COST = float(os.environ.get("TNR_FILLER_COST", "60"))
+MOVE_COST = float(os.environ.get("TNR_MOVE_COST", "200"))
+FILLERS = ("basic", "defstance", "offstance")
+BARRIERS = []        # live barriers: (x, y, hp, absorb share, creatorId), set by main() from the ground list
+
+
+def barrier_between(a, b):
+    """[hp, absorb] of the barriers on a shortest path from a to b (the engine's getBarriersBetween walks one shortest
+    path; any shortest path counts here, the cautious read), or None for a clear line. My own barriers do not block."""
+    hit = [x for x in BARRIERS if x[4] != ME and (x[0], x[1]) not in (a,) and dist(a, (x[0], x[1])) +
+           dist((x[0], x[1]), b) == dist(a, b)]
+    if not hit:
+        return None
+    keep = 1.0
+    for x in hit:
+        keep *= 1 - x[3]
+    return [sum(x[2] for x in hit), 1 - keep]
+
+
+def _guard(m, R):
+    """My damage cuts cast by this turn (live from R+1) still live in R+2: the share of his next burst they stop
+    (director 2026-11-11: Panacea's second round went uncounted, so Defensive Stance looked as good)."""
+    k = 1.0
+    for t in m.tags:
+        if t[0] == "dr" and t[2] <= R + 1 and t[2] <= R + 2 <= t[3]:
+            k *= 1 - t[1]
+    return 1 - k
 
 
 def kill_chance(dealt, hp, margin):
@@ -340,7 +371,8 @@ def place_phantom(me_pos, en_pos, need, occupied):
         if h in occupied or dist(h, me_pos) > 5 or h == en_pos or h == me_pos:
             continue
         d = dist(h, en_pos)
-        key = (abs(d - need) + (0 if d <= need else 10), dist(h, me_pos))
+        # in range first, then a clear line past his barriers (Ashutosh R6), then the range wanted, then the shortest hop
+        key = ((d - need + 10) if d > need else 0, barrier_between(h, en_pos) is not None, abs(d - need), dist(h, me_pos))
         if best is None or key < best[0]:
             best = (key, h)
     return best[1] if best else me_pos
@@ -408,6 +440,13 @@ def penalties(bundle, ctx, cal):
     # heal far from danger buys nothing; above 60% HP a Basic Heal is worth a fraction of its 600
     if "basicheal" in bundle and ctx["my_hp"] > 0.6 * ctx.get("my_max", 5050):
         p -= 450; why.append("Basic Heal above 60% HP (-450)")
+    fill = [x for x in bundle if x in FILLERS]
+    if fill and FILLER_COST:
+        p -= FILLER_COST * len(fill); why.append(f"filler {'+'.join(fill)} (-{FILLER_COST * len(fill):.0f})")
+    if "replace" in bundle and "d0" in ctx:
+        reach = [cd_plan.RANGE[x] for x in bundle if cd_plan.RANGE.get(x) and x != "basic"]
+        if not ((reach and ctx["d0"] > min(reach)) or ctx.get("line_blocked")):
+            p -= MOVE_COST; why.append(f"Replacement buys no range or clear line (-{MOVE_COST:.0f})")
     if ctx["tick"] >= ctx["my_hp"] - 50 and "cleanse" not in bundle:
         p -= 6000; why.append(f"wound/drain tick {ctx['tick']:.0f} kills me: Cleanse FIRST")
     return p, why
@@ -455,7 +494,10 @@ def main():
     en_acted = any(r == R and u == en["userId"] for r, u, _, _ in rows)
     me_pos, en_pos = (me["longitude"], me["latitude"]), (en["longitude"], en["latitude"])
     d0 = dist(me_pos, en_pos)
-    occupied = {(p["longitude"], p["latitude"]) for p in others}
+    BARRIERS[:] = [(g["longitude"], g["latitude"], float(g.get("curHealth") or 0), float(g.get("absorbPercentage") or 0) / 100,
+                    g.get("creatorId")) for g in battle.get("battle.groundEffects") or []
+                   if g.get("type") == "barrier" and float(g.get("curHealth") or 0) > 0]
+    occupied = {(p["longitude"], p["latitude"]) for p in others} | {(x[0], x[1]) for x in BARRIERS}
 
     # cooldown state from my own log
     st = {"loadout": list(cd_plan.LOADOUTS[a.loadout]) + ["basicheal"], "used": my_history(rows)}
@@ -498,6 +540,8 @@ def main():
         "en_buffed": any(t[3] >= R and shotplan.positive(t) for t in en0.tags),
         "my_next_burst": True,
         "my_hp": me["curHealth"],
+        "d0": d0,
+        "line_blocked": barrier_between(me_pos, en_pos) is not None,
         "my_max": me.get("maxHealth", 5050),
         "afk": (lambda t: len(t) >= 1 and sum(1 for a in t if a == "wait") * 2 >= len(t))(
             [a for r, u, a, _ in rows if u == en["userId"] and (a == "wait" or a not in ("move",))]
@@ -670,7 +714,12 @@ def main():
             m.tags = [x for x in m.tags if shotplan.positive(x) or shotplan.ground(x)]
         if any(x in GROUND_EXIT for x in b):  # moving off his ground (moves fire first) ends its -damage given
             m.tags = [x for x in m.tags if not shotplan.ground(x)]
-        d, t = shotplan.run_turn(m, e, list(b), shotplan.MINE, R, True)
+        bar = kit.get("_barrier")
+        shotplan.MY_BARRIER = list(bar) if bar else None
+        try:
+            d, t = shotplan.run_turn(m, e, list(b), shotplan.MINE, R, True)
+        finally:
+            shotplan.MY_BARRIER = None
         m.hp = min(m.hp, maxhp_me)
         log = [("me", R, b, d, t, m.hp, e.hp)]
         p_kill = 1.0
@@ -686,6 +735,8 @@ def main():
             m.hp = min(m.hp, maxhp_me); e.hp = min(e.hp, maxhp_en)
             log.append(("him", hr, h, d2, t2, m.hp, e.hp))
         sc = value_model.score(m, e, me["curHealth"], en["curHealth"])
+        if e.hp <= 0 and len(log) > 1:
+            sc -= value_model.KILL   # he died on his own turn (my reflect / recoil): no kill bonus, it is too unsure
         if p_kill < 1.0:
             sc = p_kill * sc_kill + (1 - p_kill) * sc
             e.p_kill = p_kill        # the lookahead and setup credit only count for the share where he lives
@@ -730,6 +781,7 @@ def main():
             # follow-up holds (each adds fixed tags), so it is cached on that set; the burst term only reads
             # tags that started by R+1, which no non-interacting follow-up adds, so it is one number per call.
             base_g = value_model.GAMMA * value_model.BURST_BASE * max(0.0, _burst_g(m, e, R) - 1)
+            base_d = value_model.GAMMA * kit["burst"][0] * max(0.0, _guard(m, R) - guard0)
             tagging = {x: bool(v[2] or v[3]) for x, v in acts.items()}
             aoe_b = any(x in AOE for x in b)
             summon_on = bool(ctx.get("summon"))
@@ -751,6 +803,7 @@ def main():
                     taken += av[1]
                 mh = min(m.hp - taken, maxhp_me)
                 eh = e.hp - dealt
+                pk = kill_chance(dealt, e.hp, KILL_MARGIN) if eh <= 0 else 0.0
                 if eh > 0:
                     alive = summon_on and not aoe_b and not any(x in AOE for x in b2)
                     tk = (alive,) + tuple(x for x in b2 if tagging[x])
@@ -772,12 +825,12 @@ def main():
                 if rc is None:
                     rc = rk[b2] = value_model.reserve_cost(b2, cal, r1)[0]
                 v = (e.hp - eh) - (m.hp - mh) - rc
-                if eh <= 0:
-                    v += value_model.KILL
+                if pk:                  # only my own hits count as a kill, with the margin (no reflect / recoil deaths)
+                    v += pk * value_model.KILL
                 if mh <= 0:
                     v -= value_model.DEATH
                 if eh > 0 and mh > 0:
-                    v += base_g
+                    v += base_g + base_d
                 if v > best[0]:
                     best = (v, b2)
                 continue
@@ -801,6 +854,7 @@ def main():
                 e2.hp -= dealt
                 m2.hp -= taken
             m2.hp = min(m2.hp, maxhp_me)
+            eh_mine = e2.hp
             gtags = None
             if e2.hp > 0:
                 alive = bool(ctx.get("summon") and not any(x in AOE for x in tuple(b) + tuple(b2)))
@@ -826,22 +880,27 @@ def main():
                     if not tagless:
                         gtags = hit[2]
             v = value_model.score(m2, e2, m.hp, e.hp) - value_model.reserve_cost(b2, cal, r1)[0]
+            if e2.hp <= 0:              # only my own hits count as a kill, with the margin (no reflect / recoil deaths)
+                v -= value_model.KILL * (1.0 if eh_mine > 0 else 1 - kill_chance(e.hp - eh_mine, e.hp, KILL_MARGIN))
             # buffs/debuffs still live in R+2 pay off again on my next burst (director's smoke -> setup -> burst
             # line, Zaruza/Hikuro 2026-11-11); the 1-round lookahead alone undervalued 2-round setups
             if e2.hp > 0 and m2.hp > 0:
                 # only multipliers cast THIS turn (live from R+1) count; ply2's own setup must not chain
                 g = gtags if gtags is not None else _burst_g(m2, e2, R)
                 v += value_model.GAMMA * value_model.BURST_BASE * max(0.0, g - 1)
+                v += value_model.GAMMA * kit["burst"][0] * max(0.0, _guard(m2, R) - guard0)
             if v > best[0]:
                 best = (v, b2)
         return best
 
     # stage 1: one ply for every bundle (expected + worst over his option set); stage 2: lookahead on the best 25
     stage = []
+    guard0 = _guard(me0, R)
     for b in bundles:
         seq, end = resolve_targets(b, me_pos, en_pos, occupied)
         dend = dist(end, en_pos)
         kit = kit_for(dend)
+        kit["_barrier"] = barrier_between(end, en_pos) if BARRIERS else None
         pen, why = penalties(b, ctx, cal)
         rc, rwhy = value_model.reserve_cost(b, cal, R)
         outs = []
@@ -856,7 +915,8 @@ def main():
         # stage-1 setup estimate so 2-round setups survive pruning (they score ~0 on one ply): what my multipliers
         # live next round add to a typical burst, discounted like the lookahead
         def setup_est(m, e):
-            return value_model.GAMMA * value_model.BURST_BASE * max(0.0, m.mult("given", R + 1) * e.mult("taken", R + 1) - me0.mult("given", R + 1) * en0.mult("taken", R + 1))
+            off = value_model.GAMMA * value_model.BURST_BASE * max(0.0, m.mult("given", R + 1) * e.mult("taken", R + 1) - me0.mult("given", R + 1) * en0.mult("taken", R + 1))
+            return off + value_model.GAMMA * kit["burst"][0] * max(0.0, _guard(m, R) - guard0)
         outs = [(w, v + (0 if kill else (1 - getattr(e, "p_kill", 0.0)) * setup_est(m, e)), m, e, log, kill)
                 for w, v, m, e, log, kill in outs]
         ev = sum(w * v for w, v, *_ in outs)
@@ -897,6 +957,7 @@ def main():
             live = 1 - getattr(e, "p_kill", 0.0)
             if not kill:
                 v -= live * value_model.GAMMA * value_model.BURST_BASE * max(0.0, m.mult("given", R + 1) * e.mult("taken", R + 1) - me0.mult("given", R + 1) * en0.mult("taken", R + 1))
+                v -= live * value_model.GAMMA * kit["burst"][0] * max(0.0, _guard(m, R) - guard0)
             f, b2 = ply2(m, e, b, dend, kit)
             vals.append((w, v + live * value_model.GAMMA * f, b2))
         return vals
@@ -970,7 +1031,8 @@ def main():
                 f = sum(w * (v - v1) for (w, v, _), (_, v1, *_r) in zip(vals, outs))  # python lookahead part
                 def sc_of(x):
                     em, ee = shotplan.Side(x["me"]), shotplan.Side(x["him"])
-                    return value_model.score(em, ee, me["curHealth"], en["curHealth"])
+                    # he died on his own reply (reflect / recoil): the HP counts, the kill bonus does not
+                    return value_model.score(em, ee, me["curHealth"], en["curHealth"]) - (value_model.KILL if x["him"] <= 0 else 0)
                 pk = er.get("p_kill", 1.0 if er["afterMe"]["him"] <= 0 else 0.0)
                 t_kill = value_model.score(shotplan.Side(er["afterMe"]["me"]), shotplan.Side(0), me["curHealth"], en["curHealth"])
                 if pk >= 1.0:
