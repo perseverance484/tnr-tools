@@ -16,6 +16,7 @@ import copy
 import json
 import os
 import subprocess
+import sys
 import tempfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -37,8 +38,33 @@ def engine_app():
     return app if app and os.path.isdir(os.path.join(app, "node_modules")) else None
 
 
+_CATALOG = None
+
+
 def _records():
-    return json.load(open(os.path.join(HARNESS, "kit", "records.json")))
+    """Every known jutsu/item record, read offline: kit/catalog.json (all harvested records, built by
+    harness/pvp_turn/tools/build_catalog.py; it already folds in kit/records.json and live_overrides.json).
+    Built on first use if missing. Never a live lookup."""
+    global _CATALOG
+    if _CATALOG is None:
+        path = os.path.join(HARNESS, "kit", "catalog.json")
+        if not os.path.exists(path):
+            subprocess.run([sys.executable, os.path.join(HARNESS, "tools", "build_catalog.py")],
+                           capture_output=True, text=True, timeout=120)
+        try:
+            _CATALOG = json.load(open(path))
+        except (OSError, ValueError):
+            _CATALOG = json.load(open(os.path.join(HARNESS, "kit", "records.json")))
+    return _CATALOG
+
+
+def opponent_kit(user_id):
+    """His real equipped kit saved before the fight by opponent_kit.py (kit/opponents/<userId>.json), or None."""
+    path = os.path.join(HARNESS, "kit", "opponents", f"{user_id}.json")
+    try:
+        return json.load(open(path))
+    except (OSError, ValueError):
+        return None
 
 
 def _profile():
@@ -207,19 +233,35 @@ SKIP = {"wait", "move", "flee"}
 
 
 def missing_records(rows, me_id):
-    """His action ids that have no record in the store (fetch with jutsu.get / item.get, then add_record.py)."""
+    """Logged action ids with no record in the offline catalog (a catalog gap: refresh harvests between fights and
+    rerun build_catalog.py; never fetched mid-fight)."""
     recs = _records()
     return sorted({a for r, u, a, _ in rows if u != me_id and a not in SKIP and a not in BASIC and a not in recs})
 
 
+def his_kit_source(en_id):
+    """'real' when his equipped kit was saved before the fight, else 'estimated' (calibrated stand-in)."""
+    return "real" if opponent_kit(en_id) else "estimated"
+
+
+def _his_kit(rows, en_id, cal):
+    recs = _records()
+    opp = opponent_kit(en_id)
+    levels = dict((opp or {}).get("jutsuLevels", {}))
+    ids = set((opp or {}).get("jutsu", [])) | set((opp or {}).get("items", []))
+    ids |= {a for r, u, a, _ in rows if u == en_id and a in recs}   # anything he used counts, equipped list or not
+    kit = [{"record": recs[a]["record"], "kind": recs[a].get("kind") or ("item" if recs[a]["record"].get("itemType") else "jutsu"),
+            "level": levels.get(a, 25)} for a in sorted(ids) if a in recs]
+    if not opp:
+        # no pre-fight kit: his unseen jutsu are unknown, so the calibrated stand-in fills the reply set (flagged
+        # ESTIMATED by turn.py). With a saved kit there is no stand-in at all.
+        kit += [k for k in enemy_kit(cal) if k["record"]["id"] not in ids]
+    return kit
+
+
 def _replay_request(rows, me_id, en_id, me, en, me_pos, en_pos, R, his_turn, cal):
     recs, prof = _records(), _profile()
-    his_ids = sorted({a for r, u, a, _ in rows if u == en_id and a in recs})
-    his_kit = [{"record": recs[a]["record"], "kind": "item" if recs[a]["record"].get("itemType") else "jutsu",
-                "level": 25} for a in his_ids]
-    # his unseen jutsu (players carry ~15; we only know what he has used, much of it on cooldown): always add the
-    # calibrated stand-in hits/setup so his reply set is never limited to the few actions seen so far
-    his_kit += [k for k in enemy_kit(cal) if k["record"]["id"] not in his_ids]
+    his_kit = _his_kit(rows, en_id, cal)
     log = [{"round": r, "actor": "me" if u == me_id else "him", "actionId": a}
            for r, u, a, _ in rows if u in (me_id, en_id)]
     return {

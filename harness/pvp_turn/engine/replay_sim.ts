@@ -64,10 +64,23 @@ const buildUser = (side: any, village: string) => {
   }));
   const bl = jutsus.find((k: any) => k.record.bloodlineId)?.record.bloodlineId;
   if (bl && !u.bloodlineId) u.bloodlineId = bl;
-  const els = [...new Set(jutsus.flatMap((k: any) => k.record.effects.flatMap((e: any) => e.elements ?? [])))]
-    .filter((x: any) => x && x !== "None");
-  u.primaryElement = els[0] ?? null;
-  u.secondaryElement = els[1] ?? null;
+  // element access (engine elementalMastery.ts providedElements/getUserElements): two innate slots plus one unlocked
+  // trained BASIC element. A real kit can span three elements (Targaryen: Storm bloodline + Water + Lightning), so fill
+  // the innate slots non-basic first and give the trained slot to a leftover basic element. side.elements (used-first
+  // order from the bridge) wins when given. Access only: the trained element's +15% passive is not added here (the
+  // fitted damage passive covers live passives; see README).
+  const BASIC_EL = new Set(["Fire", "Water", "Wind", "Earth", "Lightning"]);
+  const els: string[] = [...new Set([...(side.elements ?? []),
+    ...jutsus.flatMap((k: any) => k.record.effects.flatMap((e: any) => e.elements ?? []))])]
+    .filter((x: any) => x && x !== "None") as string[];
+  const slots = [...els.filter((e) => !BASIC_EL.has(e)), ...els.filter((e) => BASIC_EL.has(e))].slice(0, 2);
+  const trained = els.find((e) => BASIC_EL.has(e) && !slots.includes(e));
+  u.primaryElement = slots[0] ?? null;
+  u.secondaryElement = slots[1] ?? null;
+  if (trained) {
+    u.activeTrainedElement = trained;
+    u.elementalMastery = { ...(u.elementalMastery ?? {}), [trained]: 300_000 };
+  }
   u.curHealth = 5050;
   return u;
 };
@@ -121,6 +134,7 @@ const setActive = (b: CompleteBattle, cid: string, ap?: number) => {
   u.actionPoints = ap ?? Math.max(0, 100 - calcApReduction(b as never, u.userId));
 };
 
+const trace: any[] = [];
 const prepare = async (): Promise<CompleteBattle> => {
   const me = buildUser(req.me, "village-me");
   const him = buildUser(req.him, "village-him");
@@ -149,7 +163,14 @@ const prepare = async (): Promise<CompleteBattle> => {
     setActive(b, cid, 100);
     lastActor = step.actor;
     const meU = userOf(b, req.me.id), himU = userOf(b, req.him.id);
+    const hp0 = { me: meU.curHealth, him: himU.curHealth };
     const r = tryAct(b, cid, step.actionId);
+    if (r.ok) {
+      const m1 = userOf(r.battle, req.me.id), h1 = userOf(r.battle, req.him.id);
+      trace.push({ round: step.round, actor: step.actor, actionId: step.actionId,
+        me: Math.round(hp0.me - m1.curHealth), him: Math.round(hp0.him - h1.curHealth),
+        ...(req.trace === "effects" ? { fx: (b.usersEffects as any[]).map((e) => `${e.targetId === m1.userId ? "me" : "him"}:${e.type}:${Math.round(e.power ?? 0)}+L${e.level}x${e.powerPerLevel}:r${e.createdRound}+${e.rounds}`) } : {}) });
+    }
     if (!r.ok) {
       const u = userOf(b, cid);
       const a: any = availableUserActions(b as never, u.userId, true, true).find((x: any) => x.id === step.actionId);
@@ -233,7 +254,7 @@ const replyBundles = (b: CompleteBattle) => {
 const main = async () => {
   const base = await S.withSeed(7, prepare);
   const res: any = { round: base.round, ap: userOf(base, req.me.id).actionPoints, available: available(base, req.me.id),
-    replayIssues: issues };
+    replayIssues: issues, ...(req.trace ? { trace } : {}) };
   if (req.mode === "eval") {
     res.results = [];
     for (const cand of req.candidates ?? []) {

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Add a jutsu/item record (JSON from jutsu.get / item.get, read from stdin or a file) to harness/pvp_turn/kit/records.json.
-Usage: add_record.py [FILE]"""
+Usage: add_record.py [FILE]   (between fights only; rerun harness/pvp_turn/tools/build_catalog.py afterwards)"""
 import json
 import os
 import sys

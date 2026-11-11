@@ -1,11 +1,11 @@
 {
  "summary": {
-  "turns": 72,
-  "compared": 33,
-  "median_abs_err": 0.018,
-  "mean_abs_err": 0.17,
-  "within_10pct": 22,
-  "within_20pct": 23,
+  "turns": 86,
+  "compared": 42,
+  "median_abs_err": 0.019,
+  "mean_abs_err": 0.18,
+  "within_10pct": 25,
+  "within_20pct": 29,
   "illegal": [
    {
     "fight": "3YQVAl4aUDWr",
@@ -51,6 +51,19 @@
     "reason": "Action Move no longer possible for me"
    },
    {
+    "fight": "Il0kD_5W-nub",
+    "enemy": "Warlord40",
+    "round": 2,
+    "bundle": [
+     "overflow",
+     "thunders"
+    ],
+    "logged": 0,
+    "engine": null,
+    "legal": false,
+    "reason": "action not available"
+   },
+   {
     "fight": "QvxDsabbmn7R",
     "enemy": "Selaphiel",
     "round": 2,
@@ -63,6 +76,20 @@
     "engine": null,
     "legal": false,
     "reason": "Action Move no longer possible for me"
+   },
+   {
+    "fight": "RUFKZ2jmaO_r",
+    "enemy": "Targaryen",
+    "round": 2,
+    "bundle": [
+     "overflow",
+     "thunders",
+     "kims"
+    ],
+    "logged": 0,
+    "engine": null,
+    "legal": false,
+    "reason": "action not available"
    },
    {
     "fight": "SObAKhPL8VoW",
@@ -478,6 +505,87 @@
    "reason": "Action Move no longer possible for me"
   },
   {
+   "fight": "Il0kD_5W-nub",
+   "enemy": "Warlord40",
+   "round": 2,
+   "bundle": [
+    "overflow",
+    "thunders"
+   ],
+   "logged": 0,
+   "engine": null,
+   "legal": false,
+   "reason": "action not available"
+  },
+  {
+   "fight": "Il0kD_5W-nub",
+   "enemy": "Warlord40",
+   "round": 3,
+   "bundle": [
+    "smoke",
+    "basicheal"
+   ],
+   "logged": 0,
+   "engine": 0,
+   "legal": true,
+   "reason": null
+  },
+  {
+   "fight": "Il0kD_5W-nub",
+   "enemy": "Warlord40",
+   "round": 4,
+   "bundle": [
+    "panacea",
+    "stormblade"
+   ],
+   "logged": 707,
+   "engine": 707,
+   "legal": true,
+   "reason": null
+  },
+  {
+   "fight": "Il0kD_5W-nub",
+   "enemy": "Warlord40",
+   "round": 5,
+   "bundle": [
+    "cleanse",
+    "kims",
+    "defstance"
+   ],
+   "logged": 0,
+   "engine": 0,
+   "legal": true,
+   "reason": null
+  },
+  {
+   "fight": "Il0kD_5W-nub",
+   "enemy": "Warlord40",
+   "round": 6,
+   "bundle": [
+    "pill",
+    "jewel",
+    "aetherion",
+    "kunai"
+   ],
+   "logged": 252,
+   "engine": 437,
+   "legal": true,
+   "reason": null
+  },
+  {
+   "fight": "QvxDsabbmn7R",
+   "enemy": "Selaphiel",
+   "round": 1,
+   "bundle": [
+    "AJNmwnlzhqiHzdE84_m9k",
+    "severed"
+   ],
+   "logged": 0,
+   "engine": 0,
+   "legal": true,
+   "reason": null
+  },
+  {
    "fight": "QvxDsabbmn7R",
    "enemy": "Selaphiel",
    "round": 2,
@@ -514,6 +622,72 @@
    ],
    "logged": 386,
    "engine": 514,
+   "legal": true,
+   "reason": null
+  },
+  {
+   "fight": "RUFKZ2jmaO_r",
+   "enemy": "Targaryen",
+   "round": 1,
+   "bundle": [
+    "smoke",
+    "nights"
+   ],
+   "logged": 631,
+   "engine": 631,
+   "legal": true,
+   "reason": null
+  },
+  {
+   "fight": "RUFKZ2jmaO_r",
+   "enemy": "Targaryen",
+   "round": 2,
+   "bundle": [
+    "overflow",
+    "thunders",
+    "kims"
+   ],
+   "logged": 0,
+   "engine": null,
+   "legal": false,
+   "reason": "action not available"
+  },
+  {
+   "fight": "RUFKZ2jmaO_r",
+   "enemy": "Targaryen",
+   "round": 3,
+   "bundle": [
+    "eclipse",
+    "aetherion"
+   ],
+   "logged": 821,
+   "engine": 689,
+   "legal": true,
+   "reason": null
+  },
+  {
+   "fight": "RUFKZ2jmaO_r",
+   "enemy": "Targaryen",
+   "round": 4,
+   "bundle": [
+    "ember",
+    "pill"
+   ],
+   "logged": 768,
+   "engine": 645,
+   "legal": true,
+   "reason": null
+  },
+  {
+   "fight": "RUFKZ2jmaO_r",
+   "enemy": "Targaryen",
+   "round": 5,
+   "bundle": [
+    "lotus",
+    "kunai"
+   ],
+   "logged": 2616,
+   "engine": 2196,
    "legal": true,
    "reason": null
   },
@@ -1196,6 +1370,45 @@
    ],
    "logged": 333,
    "engine": 385,
+   "legal": true,
+   "reason": null
+  },
+  {
+   "fight": "wGZYlMA12-NW",
+   "enemy": "Lzl3j0y",
+   "round": 1,
+   "bundle": [
+    "overflow",
+    "ember"
+   ],
+   "logged": 836,
+   "engine": 537,
+   "legal": true,
+   "reason": null
+  },
+  {
+   "fight": "wGZYlMA12-NW",
+   "enemy": "Lzl3j0y",
+   "round": 2,
+   "bundle": [
+    "fury",
+    "aetherion"
+   ],
+   "logged": 3487,
+   "engine": 2242,
+   "legal": true,
+   "reason": null
+  },
+  {
+   "fight": "wGZYlMA12-NW",
+   "enemy": "Lzl3j0y",
+   "round": 3,
+   "bundle": [
+    "phantom",
+    "nights"
+   ],
+   "logged": 631,
+   "engine": 631,
    "legal": true,
    "reason": null
   }

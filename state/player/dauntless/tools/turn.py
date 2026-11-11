@@ -316,9 +316,13 @@ def main():
         ap_now = ap_eng
         print(f"engine replay: AP {ap_eng}, {len(eng['available'])} actions available"
               + (f", replay issues {len(eng['replayIssues'])}" if eng.get("replayIssues") else ""))
+    src = engine_bridge.his_kit_source(en["userId"])
+    print("his kit: " + ("REAL (saved before the fight, opponent_kit.py)" if src == "real"
+                         else "ESTIMATED: no pre-fight kit saved, unseen moves use the calibrated stand-in"))
     miss = engine_bridge.missing_records(rows, ME)
     if miss:
-        print("MISSING RECORDS (fetch with jutsu.get/item.get -> add_record.py):", ",".join(miss))
+        print("CATALOG GAP (not in kit/catalog.json; refresh harvests after the fight, no mid-fight lookups):",
+              ",".join(miss))
     if not bundles:
         print("no legal bundle (check AP/cooldowns)"); return
     # kite-back variants: one spare step moves me back out after ranged actions
