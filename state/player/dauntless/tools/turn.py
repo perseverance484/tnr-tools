@@ -400,6 +400,7 @@ def main():
     ap.add_argument("--no-engine", action="store_true", help="skip the exact engine re-score (harness/pvp_turn)")
     ap.add_argument("--fast", action="store_true", help="my-turn mode: engine legality in parallel, no engine re-score, shortlist 10+4")
     ap.add_argument("--keep", type=int, default=0); ap.add_argument("--cash", type=int, default=4)
+    ap.add_argument("--ban", default="", help="action ids or short names the game refused this battle")
     a = ap.parse_args()
     battle, me, others, rows = load_input(a.file)
     if not others:
@@ -416,6 +417,9 @@ def main():
 
     # cooldown state from my own log
     st = {"loadout": list(cd_plan.LOADOUTS[a.loadout]) + ["basicheal"], "used": my_history(rows)}
+    _ban = {x for x in a.ban.split(",") if x}
+    _ban |= {IDS.get(x, x) for x in _ban}
+    st["loadout"] = [n for n in st["loadout"] if n not in _ban and ACTION_ID.get(n) not in _ban]
     cd_plan.ACTIONS.setdefault("basicheal", (60, 5, None, "heal 600 instant"))
     shotplan.MINE.setdefault("basicheal", (0, [("me", "heal", 600, 0, True)]))
     cd_plan.save(a.battle, st)

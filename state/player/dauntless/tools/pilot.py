@@ -300,7 +300,13 @@ def plan_turn(bid, battle, entries, enemy, exact=False, ban=()):
     # planner2 (director 2026-11-11: "start it again with the new planner"): numeric engine, his clock and profile,
     # ~0.1-0.5 s; the old python planner stays as the fallback if it fails or overruns
     bans = ("--ban", ",".join(ban)) if ban else ()
-    tries = [("planner2.py", bans, PLAN_BUDGET), ("turn.py", ("--no-engine", "--keep", "6", "--cash", "3"), 3.0)]
+    # which planner leads is a state switch (fights/live/pilot.json "planner": "turn" | "planner2"). Default turn.py:
+    # planner2 went 0-6 live on 2026-11-11 while it plays too defensively against real players
+    if load_state().get("planner") == "planner2":
+        tries = [("planner2.py", bans, PLAN_BUDGET), ("turn.py", ("--no-engine", "--keep", "6", "--cash", "3") + bans, 3.0)]
+    else:
+        tries = ([("turn.py", ("--fast",) + bans, 9.0)] if exact else []) + \
+            [("turn.py", ("--no-engine",) + bans, PLAN_BUDGET), ("planner2.py", bans, 3.0)]
     for script, extra, budget in tries:
         try:
             out = subprocess.run([sys.executable, os.path.join(HERE, script), path, "--battle", bid, "--top", "1",
@@ -310,7 +316,7 @@ def plan_turn(bid, battle, entries, enemy, exact=False, ban=()):
             continue
         m = re.search(r"^FIRE: (.*)$", out, re.M)
         if m:
-            return json.loads(m.group(1)), f"{time.time() - t0:.1f}s" + ("" if script == "planner2.py" else " fallback")
+            return json.loads(m.group(1)), f"{time.time() - t0:.1f}s {script.split('.')[0]}" + (" engine" if "--fast" in extra else "")
     return None, "planner over budget"
 
 
