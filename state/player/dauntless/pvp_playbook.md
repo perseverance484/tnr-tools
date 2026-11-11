@@ -155,6 +155,10 @@ Read: Winta vs Gario and vs Choris1717; DDXXD vs Korin and vs Enduyn; Ziharkk vs
 - Full Potion: user item `ZlMNc0o96Y_aIai3E8Q-U` (`item.consume {userItemId}`) restores HP to full out of combat.
   Ramen refills CP/SP only. After every fight, drink a Full Potion and buy ramen before hunting on.
 - Ikazuchi Kunai is not sold in the shop (inShop false); 3 left. Restocking it is a director question.
+- 2026-11-11: director bought 50 Ikazuchi Kunai as the backup thrown weapon. Elemental Kunai stays in THROWN (16 left
+  at 19:28Z) and is not rebought while Ikazuchi is carried; when Elemental hits 0 the restock pass equips Ikazuchi
+  into THROWN (restock.BACKUP_THROWN) and the planners' kunai action follows equipped.json. The swap happens between
+  fights; if Elemental runs out mid-fight, kunai is refused once and dropped for the rest of that battle.
 
 ## Loadouts by activity (director, 2026-11-09: "Use the loadouts labeled PvE")
 | Activity | Jutsu loadout | Item loadout |
