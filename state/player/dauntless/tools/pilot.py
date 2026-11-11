@@ -308,8 +308,15 @@ def plan_turn(bid, battle, entries, enemy, exact=False, ban=()):
     return None, "planner over budget"
 
 
+LOST_TO_HOURS = 6      # a player who just beat me is not attacked again for this long (2026-11-11: Luka, three in a row)
+
+
 def finish(st, bid, cache, why):
     """Battle over: keep its log for the post-fight tools (the game deletes it), back to the world loop."""
+    if why == "lost":
+        foes = [u for u in (cache.get("battle") or {}).get("battle.usersState.*.userId") or [] if u != ME]
+        for u in foes:
+            st.setdefault("lost_to", {})[u] = time.time() + LOST_TO_HOURS * 3600
     rows = cache.get("entries", [])[::-1]
     if rows:
         save(os.path.join(FIGHTS, f"{bid}_entries.json"), {k: [r[i] for r in rows] for i, k in enumerate(ENT)})
@@ -367,7 +374,8 @@ def pick_target(st, users, me_pos):
         reason = ("me" if t["userId"] == ME else "dna" if t["userId"] in dna or (t["username"] or "").lower() in dna
                   else "battle" if t["battleId"] or t["status"] == "BATTLE" else t["status"].lower() if t["status"] != "AWAKE"
                   else "immune" if immune else "ally" if t["villageId"] == HOME_VILLAGE else "lowlvl" if (t["level"] or 0) < 90
-                  else "refused" if t["userId"] in skip else None)
+                  else "refused" if t["userId"] in skip
+                  else "beat me" if st.get("lost_to", {}).get(t["userId"], 0) > now else None)
         if reason:
             why[reason] = why.get(reason, 0) + 1
             continue
@@ -500,7 +508,7 @@ def harvest_calls(st, n=1):
     """Spare-budget battle-log crawl between fights (harvest.py): at most n reads, only with headroom in the window."""
     import harvest
     recent = [t for t in st.get("calls", []) if t > time.time() - 60]
-    if len(recent) > CALL_BUDGET - 6:
+    if len(recent) > CALL_BUDGET - 10:          # leave room: a fight can start on any tick
         return []
     h = harvest.load()
     if not h.get("seeded"):
