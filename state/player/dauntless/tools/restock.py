@@ -211,7 +211,9 @@ def training_plan(st, queue, owned, user):
             nxt[j] = l + 1
             notes.append(f"train {j[:6]} -> {l + 1}")
     energy = float(user.get("userData.curEnergy") or 0)
-    if energy >= ENERGY_MIN and time.time() - st.get("energy_blocked", 0) > 3600:
+    # stat training only works in the village sector (177); elsewhere the pilot's village trip spends it
+    if energy >= ENERGY_MIN and int(user.get("userData.sector") or 0) == 177 \
+            and time.time() - st.get("energy_blocked", 0) > 3600:
         stat = "intelligence" if float(user.get("userData.intelligence") or 0) < float(user.get("userData.willpower") or 0) \
             else "willpower"
         calls.append(("train.startTraining", {"stat": stat, "energy": int(energy)}, ["success", "message"]))

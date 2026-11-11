@@ -42,6 +42,9 @@ ME_CARD = {"level": 100, "username": "dauntless",
            "avatarLight": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJEJNnVieLfKL5D7TAFe29bymSaPCIQ846MdzG"}
 HEAL_BELOW = 0.95       # fights start at full health (playbook)
 POOLS_BELOW = 0.5       # chakra / stamina floor before ramen
+TRAIN_TRIP = 2500        # energy that is worth a trip to the village: stat training only works in its sector
+                         # (engine libs/train.ts: "Wrong sector" unless sector == village sector); director 2026-11-11:
+                         # "keep training stats with energy and jutsu with ryo"
 FULL_POTION = "IRfg2NFKKYe0ynroXI7qZ"   # user item: HP to full out of combat (ramen refills CP/SP only)
 HUNT_WAIT = 8           # hunt tick ~every 10 s: 3 game calls a tick, ~18 a minute (connector cap 30)
 GUARD_WAIT = 7          # world tick ~every 9 s with overhead: inside the 15 s lobby before an attack lands
@@ -718,6 +721,21 @@ def world(st, user, res):
     rs = restock_tick(st, user, res)
     if rs:
         return head + rs[0], rs[1]
+    tr = res.get("train.startTraining")
+    if tr and tr[1] is not None:
+        msg = str((tr[1] or {}).get("message", ""))[:80]
+        st.setdefault("train_log", []).append([int(time.time()), "train", msg])
+        st["train_log"] = st["train_log"][-20:]
+        if not (tr[1] or {}).get("success"):
+            st["train_trip_fail"] = time.time()
+    energy = float(user.get("userData.curEnergy") or 0)
+    if energy >= TRAIN_TRIP and time.time() - st.get("train_trip_fail", 0) > 1800:
+        if sector != HOME_SECTOR:
+            return head + f": energy {energy:.0f}, going to the village ({HOME_SECTOR}) to train", go(HOME_SECTOR)
+        stat = "intelligence" if float(user.get("userData.intelligence") or 0) < \
+            float(user.get("userData.willpower") or 0) else "willpower"
+        return head + f": training {stat} with {energy:.0f} energy", \
+            [call("train.startTraining", {"stat": stat, "energy": int(energy)}, ["success", "message"]), c_user(), TICK]
     refused = note_attack(st, res)
     scan = res.get("travel.getSectorData")
     if scan and scan[0].get("sector") == sector:

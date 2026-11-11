@@ -109,13 +109,21 @@ def test_restock():
     queue = {"capacity": 4, "waiting.*.jutsuId": ["P7dDcC102RhwBTTgA4HU_"], "waiting.*.level": [10]}
     owned = {"*.jutsuId": ["P7dDcC102RhwBTTgA4HU_", "UiBR2V2AKkmh64JiYlL3w"], "*.level": [9, 3], "*.finishTraining": [None, None]}
     u2 = user()
-    u2[2].update({"userData.curEnergy": 500, "userData.intelligence": 10, "userData.willpower": 20})
+    u2[2].update({"userData.curEnergy": 500, "userData.intelligence": 10, "userData.willpower": 20, "userData.sector": 177})
     head, b = run_world([u2, ("item.getUserItems", {}, items), ("jutsu.getTrainingQueue", {}, queue),
                          ("jutsu.getUserJutsus", {}, owned)], "hunt", {"restock": {"next": 0, "pass": 1, "active": True}})
     tr = [x for x in b if x.get("call") == "jutsu.startTraining"]
     en = [x for x in b if x.get("call") == "train.startTraining"]
     assert len(tr) == 4 and "P7dDcC102RhwBTTgA4HU_" not in [x["input"]["jutsuId"] for x in tr[:3]], tr   # lowest first
     assert en and en[0]["input"]["stat"] == "intelligence", en
+    # stat training only works in the village sector: a full energy bar sends the hunter there, then it trains
+    u3 = user()
+    u3[2].update({"userData.curEnergy": 5050, "userData.intelligence": 30, "userData.willpower": 20, "userData.sector": 1538})
+    head, b = run_world([u3], "hunt", {"restock": {"next": 1e12}})
+    assert "going to the village" in head and b[0]["call"] == "travel.startGlobalMove" and b[0]["input"]["sector"] == 177, (head, b[:1])
+    u3[2]["userData.sector"] = 177
+    head, b = run_world([u3], "hunt", {"restock": {"next": 1e12}})
+    assert "training willpower" in head and b[0]["input"] == {"stat": "willpower", "energy": 5050}, (head, b[:1])
     print("ok: restock (read, buy from the shop, take out of home storage) + training upkeep")
 
 
@@ -286,13 +294,21 @@ def test_restock():
     queue = {"capacity": 4, "waiting.*.jutsuId": ["P7dDcC102RhwBTTgA4HU_"], "waiting.*.level": [10]}
     owned = {"*.jutsuId": ["P7dDcC102RhwBTTgA4HU_", "UiBR2V2AKkmh64JiYlL3w"], "*.level": [9, 3], "*.finishTraining": [None, None]}
     u2 = user()
-    u2[2].update({"userData.curEnergy": 500, "userData.intelligence": 10, "userData.willpower": 20})
+    u2[2].update({"userData.curEnergy": 500, "userData.intelligence": 10, "userData.willpower": 20, "userData.sector": 177})
     head, b = run_world([u2, ("item.getUserItems", {}, items), ("jutsu.getTrainingQueue", {}, queue),
                          ("jutsu.getUserJutsus", {}, owned)], "hunt", {"restock": {"next": 0, "pass": 1, "active": True}})
     tr = [x for x in b if x.get("call") == "jutsu.startTraining"]
     en = [x for x in b if x.get("call") == "train.startTraining"]
     assert len(tr) == 4 and "P7dDcC102RhwBTTgA4HU_" not in [x["input"]["jutsuId"] for x in tr[:3]], tr   # lowest first
     assert en and en[0]["input"]["stat"] == "intelligence", en
+    # stat training only works in the village sector: a full energy bar sends the hunter there, then it trains
+    u3 = user()
+    u3[2].update({"userData.curEnergy": 5050, "userData.intelligence": 30, "userData.willpower": 20, "userData.sector": 1538})
+    head, b = run_world([u3], "hunt", {"restock": {"next": 1e12}})
+    assert "going to the village" in head and b[0]["call"] == "travel.startGlobalMove" and b[0]["input"]["sector"] == 177, (head, b[:1])
+    u3[2]["userData.sector"] = 177
+    head, b = run_world([u3], "hunt", {"restock": {"next": 1e12}})
+    assert "training willpower" in head and b[0]["input"] == {"stat": "willpower", "energy": 5050}, (head, b[:1])
     print("ok: restock (read, buy from the shop, take out of home storage) + training upkeep")
 
 
