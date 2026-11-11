@@ -219,7 +219,7 @@ An endpoint on the list can still be refused for what a call carries. `player/ga
 | ryo_only | The call spends ryo and nothing else: the shop record has no reputation or Seichi Silver cost, or the auction listing's currency is MONEY. | - |
 | spend_cap | Counted against the daily ryo cap and the reserve, with per-unit caps for auctions (design section 9 item 3; today 3M a day and a 500k reserve). Above a cap the call becomes a pending decision. | `item.buy`, `auction.placeBid`, `jutsu.startTraining`, `village.buyFood` |
 | player_visible_only | Only what any player can see through normal play: no hidden or unreleased record, no staff-only field. Hidden records are treated as hidden. | - |
-| study_only | Other players' fights are read to study combat, between fights only (RUL-2026-11-09-146). Whether a read of this kind is open to any player, and whether live play may use what it learned about a named opponent, is a question for the director. | - |
+| study_only | Other players' fights are read between fights only, never in a fight. What they teach may be used in live play, a named opponent included. | - |
 | own_account_only | A userId the call carries is my own. | - |
 | auction_only | A listing is a public AUCTION priced in MONEY; never DIRECT, which names another player, and never REPUTATION. | `auction.createAuctionListing` |
 | one_transfer_a_day | At most one jutsu.transferLevel call a day. That one call may move any number of levels from one jutsu to another. | `jutsu.transferLevel` |

@@ -1,9 +1,8 @@
 """Harvest: other players' battle logs, read a couple at a time between fights, for the opponent models
 (the pilot's harvest_calls). It never runs on its own: it rides a quiet hunt batch when the call budget has room.
 
-The reads are for study (RUL-2026-11-09-146); the gate study_only keeps them out of a fight. Whether live play may
-use what they teach about a named opponent is an open question for the director; he can switch this activity off
-from the console.
+The gate study_only keeps these reads out of a fight. What they teach may be used in live play, a named opponent
+included (RUL-2026-11-09-146, RUL-2026-11-11-151). The director can switch this activity off from the console.
 """
 from .. import calls as K
 from ..registry import REGISTRY, Activity, plan

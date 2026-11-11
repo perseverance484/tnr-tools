@@ -6,7 +6,7 @@
    "state/prompt_ai_player_overhaul.md section 2 (never, ask first)",
    "state/prompt_playing_tnr.md sections 3 (never in player mode) and 5 (conduct, safety stops)",
    "CLAUDE.md section 6 (the connector never-list)",
-   "docs/rulings: RUL-2026-11-09-139, -145, -146, RUL-2026-11-11-147, -148, -149"
+   "docs/rulings: RUL-2026-11-09-139, -145, -146, RUL-2026-11-11-147, -148, -149, -151"
   ],
   "check": "python3 scripts/player_allowlist.py check   (shape, never rules, ask-first rules, call gates, the captured surface, the endpoints the code sends)",
   "surface": "data/mcp_surface.json: the live capture of 2026-11-11 (79 routers, 941 endpoints; input schemas for the 93 endpoints on this list), written by scripts/player_allowlist.py surface from the connector's own results",
@@ -264,8 +264,8 @@
    "source": "game rules 7.4 (information access); player brief section 5.2; RUL-2026-11-11-149 item 4"
   },
   "study_only": {
-   "rule": "Other players' fights are read to study combat, between fights only (RUL-2026-11-09-146). Whether a read of this kind is open to any player, and whether live play may use what it learned about a named opponent, is a question for the director.",
-   "source": "RUL-2026-11-09-146; overhaul brief section 2 (other players' data beyond normal play)"
+   "rule": "Other players' fights are read between fights only, never in a fight. What they teach may be used in live play, a named opponent included.",
+   "source": "RUL-2026-11-09-146 (read-only, no personal data); RUL-2026-11-11-151 item 1"
   },
   "own_account_only": {
    "rule": "A userId the call carries is my own.",
