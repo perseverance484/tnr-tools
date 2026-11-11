@@ -30,7 +30,7 @@ RESERVE = 500_000          # ryo never spent by restock
 DAILY_CAP = 3_000_000      # ryo restock may spend per UTC day
 EVERY = 900
 ITEM_SEL = ["*.id", "*.itemId", "*.quantity", "*.equipped", "*.storedAtHome", "*.durability"]
-REPAIR_BELOW = 0.6         # repair when any equipped item is under this share of its max durability
+REPAIR_BELOW = 0.8         # repair when any equipped item is under this share of its max durability (was 0.6; gear sat at ~50%)
 AUCTION_SEL = ["data.*.id", "data.*.currencyType", "data.*.buyoutPrice", "data.*.quantity",
                "data.*.userItem.itemId", "data.*.userItem.quantity", "data.*.listingType", "data.*.sellerId"]
 
