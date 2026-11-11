@@ -141,6 +141,8 @@ def _lookup_one(ent):
     votes = ent["votes"]
     tot = sum(votes.values())
     best, n = max(votes.items(), key=lambda kv: kv[1])
+    if os.environ.get("TNR_BOOK_FULL"):          # experiment: trust any solved answer fully
+        return tuple(best.split("+")), 1.0
     conf = (n / tot) * min(1.0, tot / 3) * min(1.0, ent.get("margin", 0) / 0.15)
     return tuple(best.split("+")), conf
 
@@ -278,9 +280,11 @@ def replay_snapshots():
             yield f"{name} {bid[:6]} R{r}", f, played
 
 
-def build(n_fights, rollouts, cands, replays=True):
+def build(n_fights, rollouts, cands, replays=True, only=None):
     import fightsim
     opps = fightsim.opponents(styles=False)
+    if only:
+        opps = {k: v for k, v in opps.items() if any(x.lower() in k.lower() for x in only.split(","))}
     lib = load()
     t0 = time.time()
     solved = changed = 0
@@ -325,9 +329,11 @@ def main():
     ap.add_argument("--fights", type=int, default=6)
     ap.add_argument("--rollouts", type=int, default=4)
     ap.add_argument("--cands", type=int, default=6)
+    ap.add_argument("--only", help="opponents to train against (substrings), e.g. luka,hikuro")
+    ap.add_argument("--no-replays", action="store_true")
     a = ap.parse_args()
     if a.cmd == "build":
-        build(a.fights, a.rollouts, a.cands)
+        build(a.fights, a.rollouts, a.cands, replays=not a.no_replays, only=a.only)
     else:
         lib = load()
         for k, ent in sorted(lib.items(), key=lambda kv: -kv[1]["n"])[:a.n]:

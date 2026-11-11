@@ -1,34 +1,210 @@
 {
 "C|P1|x00|oBDHR": {
-"margin": 0.085,
-"n": 2,
+"alts": [
+[
+"stormblade+thunders",
+1.455
+],
+[
+"stormblade+overflow",
+1.375
+],
+[
+"thunders+shield+basic",
+0.809
+]
+],
+"margin": 0.106,
+"n": 6,
+"planner": "stormblade+shield",
 "value": {
 "shield+nights+pill": 1.525,
+"stormblade+shield": 1.573,
 "thunders+shield+jewel": 1.369
 },
 "votes": {
 "shield+nights+pill": 1,
+"stormblade+shield": 4,
 "thunders+shield+jewel": 1
 }
 },
 "C|P1|x00|oBDIR": {
+"alts": [
+[
+"stormblade+phantom",
+0.645
+],
+[
+"stormblade+panacea+jewel",
+-0.53
+],
+[
+"stormblade+thunders",
+-1.0
+]
+],
 "margin": 0.45,
-"n": 1,
+"n": 3,
+"planner": "stormblade+thunders",
 "value": {
 "stormblade+overflow": 1.095
+},
+"votes": {
+"stormblade+overflow": 3
+}
+},
+"C|P1|x00|oBHPR": {
+"alts": [
+[
+"stormblade+shield",
+1.521
+],
+[
+"stormblade+thunders",
+1.33
+],
+[
+"thunders+shield+offstance",
+1.296
+]
+],
+"margin": 0.155,
+"n": 1,
+"planner": "stormblade+shield",
+"value": {
+"shield+nights+jewel": 1.676
+},
+"votes": {
+"shield+nights+jewel": 1
+}
+},
+"C|P1|x00|oBILR": {
+"alts": [
+[
+"stormblade+phantom",
+1.195
+],
+[
+"stormblade+thunders",
+0.043
+],
+[
+"rebirth+thunders",
+-1.509
+]
+],
+"margin": 0.267,
+"n": 1,
+"planner": "stormblade+thunders",
+"value": {
+"stormblade+overflow": 1.462
 },
 "votes": {
 "stormblade+overflow": 1
 }
 },
-"C|P1|x01|oBDR": {
-"margin": 0.615,
+"C|P1|x00|oDHMR": {
+"alts": [
+[
+"basicheal+thunders",
+0.012
+],
+[
+"thunders+shield+pill",
+-0.035
+],
+[
+"thunders+shield+offstance",
+-0.058
+]
+],
+"margin": 1.028,
 "n": 1,
+"planner": "stormblade+subaku",
 "value": {
-"eclipse+phantom+jewel": 0.099
+"subaku+thunders+pill": 1.04
 },
 "votes": {
-"eclipse+phantom+jewel": 1
+"subaku+thunders+pill": 1
+}
+},
+"C|P1|x00|oDHPR": {
+"alts": [
+[
+"stormblade+thunders",
+1.516
+],
+[
+"shield+nights+jewel",
+1.386
+],
+[
+"stormblade+shield",
+1.311
+]
+],
+"margin": 0.08,
+"n": 3,
+"planner": "stormblade+shield",
+"value": {
+"ember+jewel+basic": 1.236,
+"thunders+shield+offstance": 1.637
+},
+"votes": {
+"ember+jewel+basic": 1,
+"thunders+shield+offstance": 2
+}
+},
+"C|P1|x01|oBDR": {
+"alts": [
+[
+"ember+pill+offstance",
+1.409
+],
+[
+"ember+kims+basic",
+1.341
+],
+[
+"ember+pill+basic",
+1.248
+]
+],
+"margin": 0.344,
+"n": 2,
+"planner": "ember+aetherion",
+"value": {
+"eclipse+phantom+jewel": 0.099,
+"ember+eclipse": 1.481
+},
+"votes": {
+"eclipse+phantom+jewel": 1,
+"ember+eclipse": 1
+}
+},
+"C|P1|x01|oDHPR": {
+"alts": [
+[
+"overflow+phantom+defstance",
+1.088
+],
+[
+"basicheal+phantom",
+0.078
+],
+[
+"overflow+phantom+offstance",
+0.073
+]
+],
+"margin": 0.191,
+"n": 1,
+"planner": "ember+phantom",
+"value": {
+"ember+phantom": 1.279
+},
+"votes": {
+"ember+phantom": 1
 }
 },
 "C|P1|x01|oDPR": {
@@ -39,6 +215,31 @@
 },
 "votes": {
 "basicheal+thunders": 1
+}
+},
+"C|P1|x02|oBDR": {
+"alts": [
+[
+"ember+pill+basic",
+0.091
+],
+[
+"ember+subaku",
+0.03
+],
+[
+"ember+offstance+basic",
+-0.453
+]
+],
+"margin": 0.021,
+"n": 1,
+"planner": "ember+eclipse",
+"value": {
+"ember+eclipse": 0.113
+},
+"votes": {
+"ember+eclipse": 1
 }
 },
 "C|P1|x02|oDH": {
@@ -93,6 +294,33 @@
 "shrapnel+nights": 1
 }
 },
+"C|P1|x03|oDHR": {
+"alts": [
+[
+"lotus+nights",
+1.342
+],
+[
+"fury+nights",
+1.341
+],
+[
+"nights+aetherion+basic",
+1.332
+]
+],
+"margin": 0.022,
+"n": 2,
+"planner": "shrapnel+nights",
+"value": {
+"fury+kunai+defstance": 1.401,
+"shrapnel+nights": 1.344
+},
+"votes": {
+"fury+kunai+defstance": 1,
+"shrapnel+nights": 1
+}
+},
 "C|P1|x03|oDLR": {
 "margin": 0.058,
 "n": 1,
@@ -114,12 +342,31 @@
 }
 },
 "C|P1|x04|oBDH": {
-"margin": 0.0,
-"n": 1,
+"alts": [
+[
+"fury+kims+kunai",
+1.351
+],
+[
+"fury+kunai+replace",
+1.351
+],
+[
+"fury+pill+kunai",
+1.339
+]
+],
+"margin": 0.045,
+"n": 3,
+"planner": "fury+nights",
 "value": {
+"clear+smoke+kims": 0.622,
+"fury+kunai+basic": 1.351,
 "stormblade+kims+basic": 1.79
 },
 "votes": {
+"clear+smoke+kims": 1,
+"fury+kunai+basic": 1,
 "stormblade+kims+basic": 1
 }
 },
@@ -144,13 +391,32 @@
 }
 },
 "C|P1|x04|oBDIR": {
-"margin": 0.106,
-"n": 1,
+"alts": [
+[
+"lotus+nights",
+1.653
+],
+[
+"nights+aetherion+kunai",
+1.653
+],
+[
+"nights+aetherion+basic",
+1.653
+]
+],
+"margin": 0.048,
+"n": 6,
+"planner": "shrapnel+nights",
 "value": {
-"cleanse+aetherion": 1.364
+"cleanse+aetherion": 1.364,
+"cleanse+kunai+basic": 1.478,
+"shrapnel+nights": 1.653
 },
 "votes": {
-"cleanse+aetherion": 1
+"cleanse+aetherion": 2,
+"cleanse+kunai+basic": 1,
+"shrapnel+nights": 3
 }
 },
 "C|P1|x04|oBDR": {
@@ -175,6 +441,31 @@
 "stormblade+kunai+basic": 1
 }
 },
+"C|P1|x04|oBIR": {
+"alts": [
+[
+"rebirth+overflow",
+-1.157
+],
+[
+"rebirth+jewel+basic",
+-1.18
+],
+[
+"rebirth+jewel+offstance",
+-1.188
+]
+],
+"margin": 0.714,
+"n": 1,
+"planner": "rebirth+overflow",
+"value": {
+"rebirth+pill+jewel": -0.443
+},
+"votes": {
+"rebirth+pill+jewel": 1
+}
+},
 "C|P1|x04|oBPR": {
 "margin": 0.035,
 "n": 1,
@@ -196,13 +487,28 @@
 }
 },
 "C|P1|x10|oBDILS": {
+"alts": [
+[
+"shield+nights",
+1.386
+],
+[
+"overflow+shield",
+1.362
+],
+[
+"shield+jewel+kunai",
+1.309
+]
+],
 "margin": 0.074,
-"n": 1,
+"n": 3,
+"planner": "thunders+shield",
 "value": {
 "thunders+shield": 1.46
 },
 "votes": {
-"thunders+shield": 1
+"thunders+shield": 3
 }
 },
 "C|P1|x10|oBDMRS": {
@@ -216,13 +522,28 @@
 }
 },
 "C|P1|x10|oBHS": {
-"margin": 0.142,
-"n": 1,
+"alts": [
+[
+"phantom+shield",
+1.278
+],
+[
+"shield+nights",
+1.206
+],
+[
+"stormblade+jewel",
+0.965
+]
+],
+"margin": 0.106,
+"n": 2,
+"planner": "thunders+shield",
 "value": {
 "thunders+shield": 1.348
 },
 "votes": {
-"thunders+shield": 1
+"thunders+shield": 2
 }
 },
 "C|P1|x10|oBMR": {
@@ -233,6 +554,31 @@
 },
 "votes": {
 "stormblade+resist": 1
+}
+},
+"C|P1|x10|oCHR": {
+"alts": [
+[
+"resist+nights+defstance",
+0.581
+],
+[
+"resist+nights+jewel",
+0.024
+],
+[
+"phantom+nights+defstance",
+-0.548
+]
+],
+"margin": 0.503,
+"n": 1,
+"planner": "resist+nights+defstance",
+"value": {
+"basicheal+resist": 1.084
+},
+"votes": {
+"basicheal+resist": 1
 }
 },
 "C|P1|x10|oDHLR": {
@@ -370,12 +716,29 @@
 }
 },
 "C|P1|x13|oBHR": {
-"margin": 0.115,
-"n": 1,
+"alts": [
+[
+"lotus+nights",
+1.316
+],
+[
+"fury+nights",
+1.316
+],
+[
+"shrapnel+kims+basic",
+1.277
+]
+],
+"margin": 0.058,
+"n": 2,
+"planner": "shrapnel+nights",
 "value": {
+"shrapnel+nights": 1.316,
 "subaku+shield+smoke": 1.719
 },
 "votes": {
+"shrapnel+nights": 1,
 "subaku+shield+smoke": 1
 }
 },
@@ -390,12 +753,29 @@
 }
 },
 "C|P1|x13|oD": {
-"margin": 0.041,
-"n": 1,
+"alts": [
+[
+"cleanse+pill+basic",
+1.213
+],
+[
+"cleanse+resist",
+1.186
+],
+[
+"cleanse+jewel+defstance",
+0.627
+]
+],
+"margin": 0.025,
+"n": 2,
+"planner": "cleanse+resist",
 "value": {
+"cleanse+jewel+basic": 1.221,
 "stormblade+pill+jewel": 1.617
 },
 "votes": {
+"cleanse+jewel+basic": 1,
 "stormblade+pill+jewel": 1
 }
 },
@@ -409,6 +789,31 @@
 "stormblade+thunders": 1
 }
 },
+"C|P1|x13|oDPR": {
+"alts": [
+[
+"fury+aetherion",
+1.059
+],
+[
+"fury+kims+basic",
+0.537
+],
+[
+"fury+replace+basic",
+0.537
+]
+],
+"margin": 0.208,
+"n": 1,
+"planner": "shrapnel+aetherion",
+"value": {
+"shrapnel+aetherion": 1.267
+},
+"votes": {
+"shrapnel+aetherion": 1
+}
+},
 "C|P1|x13|oHRY": {
 "margin": 0.003,
 "n": 1,
@@ -420,31 +825,96 @@
 }
 },
 "C|P1|x14|oBD": {
-"margin": 0.0,
-"n": 1,
+"alts": [
+[
+"cleanse+jewel+basic",
+1.285
+],
+[
+"subaku+phantom+jewel",
+1.24
+],
+[
+"cleanse+resist",
+1.229
+]
+],
+"margin": 0.001,
+"n": 2,
+"planner": "cleanse+phantom",
 "value": {
+"cleanse+aetherion": 1.288,
 "subaku+thunders+pill": -1.265
 },
 "votes": {
+"cleanse+aetherion": 1,
 "subaku+thunders+pill": 1
 }
 },
 "C|P1|x14|oBDH": {
-"margin": 0.228,
-"n": 5,
+"alts": [
+[
+"clear+smoke+jewel",
+0.518
+],
+[
+"clear+aetherion",
+0.032
+],
+[
+"clear+smoke+basic",
+-0.6
+]
+],
+"margin": 0.136,
+"n": 10,
+"planner": "clear+smoke+basic",
 "value": {
+"basicheal+nights": 1.357,
 "cleanse+jewel+basic": 1.355,
 "cleanse+overflow": 1.041,
+"clear+nights": 0.551,
 "clear+resist": 1.201,
+"clear+smoke+basic": 0.655,
 "ember+subaku": 1.321,
+"rebirth+panacea+basic": 1.244,
 "stormblade+jewel+kunai": 1.775
 },
 "votes": {
+"basicheal+nights": 1,
 "cleanse+jewel+basic": 1,
 "cleanse+overflow": 1,
-"clear+resist": 1,
+"clear+nights": 1,
+"clear+resist": 2,
+"clear+smoke+basic": 1,
 "ember+subaku": 1,
+"rebirth+panacea+basic": 1,
 "stormblade+jewel+kunai": 1
+}
+},
+"C|P1|x14|oBDHL": {
+"alts": [
+[
+"clear+kunai+basic",
+0.639
+],
+[
+"clear+smoke+basic",
+0.11
+],
+[
+"clear+kunai+offstance",
+0.077
+]
+],
+"margin": 0.583,
+"n": 2,
+"planner": "clear+smoke+kunai",
+"value": {
+"clear+smoke+kunai": 1.222
+},
+"votes": {
+"clear+smoke+kunai": 2
 }
 },
 "C|P1|x14|oBDHR": {
@@ -506,13 +976,32 @@
 }
 },
 "C|P1|x14|oBDR": {
-"margin": 0.592,
-"n": 1,
+"alts": [
+[
+"clear+aetherion",
+0.607
+],
+[
+"rebirth+subaku",
+0.083
+],
+[
+"clear+kims+basic",
+0.048
+]
+],
+"margin": 0.43,
+"n": 5,
+"planner": "rebirth+subaku",
 "value": {
-"clear+sealnull": 1.199
+"clear+pill+offstance": 1.449,
+"clear+sealnull": 1.199,
+"rebirth+kims+basic": 1.365
 },
 "votes": {
-"clear+sealnull": 1
+"clear+pill+offstance": 1,
+"clear+sealnull": 3,
+"rebirth+kims+basic": 1
 }
 },
 "C|P1|x14|oBHR": {
@@ -535,6 +1024,31 @@
 "votes": {
 "clear+thunders": 1,
 "rebirth+thunders": 1
+}
+},
+"C|P1|x14|oBIR": {
+"alts": [
+[
+"rebirth+pill+basic",
+-1.188
+],
+[
+"rebirth+aetherion",
+-1.19
+],
+[
+"rebirth+kunai+basic",
+-1.19
+]
+],
+"margin": 0.015,
+"n": 3,
+"planner": "rebirth+nights",
+"value": {
+"rebirth+nights": -1.173
+},
+"votes": {
+"rebirth+nights": 3
 }
 },
 "C|P1|x14|oBLR": {
@@ -579,6 +1093,31 @@
 "resist+nights+jewel": 1
 }
 },
+"C|P1|x20|oBCDH": {
+"alts": [
+[
+"resist+nights+jewel",
+0.59
+],
+[
+"resist+nights+pill",
+-0.032
+],
+[
+"resist+nights+defstance",
+-0.054
+]
+],
+"margin": 0.036,
+"n": 1,
+"planner": "resist+nights+jewel",
+"value": {
+"resist+nights+offstance": 0.627
+},
+"votes": {
+"resist+nights+offstance": 1
+}
+},
 "C|P1|x20|oBDHP": {
 "margin": 0.514,
 "n": 1,
@@ -619,6 +1158,83 @@
 "stormblade+kims+panacea": 1
 }
 },
+"C|P1|x20|oCH": {
+"alts": [
+[
+"resist+phantom+jewel",
+1.156
+],
+[
+"overflow+phantom+pill",
+0.586
+],
+[
+"overflow+resist+jewel",
+0.155
+]
+],
+"margin": 0.371,
+"n": 2,
+"planner": "overflow+phantom+jewel",
+"value": {
+"ember+overflow": 1.325,
+"resist+phantom+jewel": 1.156
+},
+"votes": {
+"ember+overflow": 1,
+"resist+phantom+jewel": 1
+}
+},
+"C|P1|x20|oDHP": {
+"alts": [
+[
+"thunders+nights+panacea",
+0.085
+],
+[
+"stormblade+phantom",
+0.073
+],
+[
+"stormblade+thunders",
+-0.518
+]
+],
+"margin": 0.019,
+"n": 2,
+"planner": "stormblade+thunders",
+"value": {
+"stormblade+resist": 0.104
+},
+"votes": {
+"stormblade+resist": 2
+}
+},
+"C|P1|x20|oDMPR": {
+"alts": [
+[
+"stormblade+pill+defstance",
+0.017
+],
+[
+"stormblade+defstance+offstance",
+-0.419
+],
+[
+"stormblade+resist",
+-0.478
+]
+],
+"margin": 1.096,
+"n": 1,
+"planner": "stormblade+resist",
+"value": {
+"ember+resist": 1.113
+},
+"votes": {
+"ember+resist": 1
+}
+},
 "C|P1|x20|oLR": {
 "margin": 0.039,
 "n": 1,
@@ -639,6 +1255,31 @@
 "thunders+resist+smoke": 1
 }
 },
+"C|P1|x21|oBILP": {
+"alts": [
+[
+"overflow+phantom+jewel",
+0.55
+],
+[
+"phantom+jewel+defstance+basic",
+0.014
+],
+[
+"overflow+phantom+defstance",
+-0.531
+]
+],
+"margin": 0.104,
+"n": 1,
+"planner": "overflow+phantom+jewel",
+"value": {
+"phantom+pill+jewel+defstance": 0.654
+},
+"votes": {
+"phantom+pill+jewel+defstance": 1
+}
+},
 "C|P1|x21|oDH": {
 "margin": 0.0,
 "n": 1,
@@ -650,18 +1291,50 @@
 }
 },
 "C|P1|x21|oDHR": {
-"margin": 0.0,
-"n": 1,
+"alts": [
+[
+"fury+kunai+basic",
+0.019
+],
+[
+"cleanse+kunai+defstance",
+0.015
+],
+[
+"cleanse+defstance+basic",
+-0.523
+]
+],
+"margin": 0.567,
+"n": 2,
+"planner": "ember+kunai+basic",
 "value": {
+"ember+kunai+basic": 1.154,
 "lotus+nights": 1.517
 },
 "votes": {
+"ember+kunai+basic": 1,
 "lotus+nights": 1
 }
 },
 "C|P1|x22|o0": {
-"margin": 0.112,
-"n": 34,
+"alts": [
+[
+"rebirth+smoke+panacea",
+1.316
+],
+[
+"rebirth+smoke+kunai",
+1.253
+],
+[
+"rebirth+smoke+basic",
+1.221
+]
+],
+"margin": 0.127,
+"n": 54,
+"planner": "rebirth+smoke+panacea",
 "value": {
 "ember+jewel+kunai": 1.942,
 "ember+shield": 1.386,
@@ -678,7 +1351,7 @@
 "shield+smoke+kunai+basic": 1.935,
 "shield+smoke+panacea+kunai": -0.206,
 "thunders+shield+jewel": 1.686,
-"thunders+shield+panacea": 1.447
+"thunders+shield+panacea": 1.629
 },
 "votes": {
 "ember+jewel+kunai": 1,
@@ -686,17 +1359,17 @@
 "ember+smoke+kunai": 5,
 "fury+smoke+jewel": 1,
 "rebirth+shield": 5,
-"rebirth+smoke+jewel": 2,
+"rebirth+smoke+jewel": 7,
 "rebirth+smoke+kunai": 3,
 "resist+nights+basic": 1,
 "shield+aetherion+panacea": 1,
-"shield+aetherion+smoke": 3,
+"shield+aetherion+smoke": 8,
 "shield+panacea+jewel+kunai": 1,
 "shield+panacea+kunai+basic": 1,
 "shield+smoke+kunai+basic": 3,
-"shield+smoke+panacea+kunai": 1,
+"shield+smoke+panacea+kunai": 6,
 "thunders+shield+jewel": 1,
-"thunders+shield+panacea": 4
+"thunders+shield+panacea": 9
 }
 },
 "C|P1|x22|oBCH": {
@@ -825,6 +1498,31 @@
 "lotus+kunai+basic": 1
 }
 },
+"C|P1|x23|oBCR": {
+"alts": [
+[
+"stormblade+pill+offstance",
+0.623
+],
+[
+"stormblade+subaku",
+0.616
+],
+[
+"stormblade+eclipse",
+0.519
+]
+],
+"margin": 0.591,
+"n": 1,
+"planner": "stormblade+overflow",
+"value": {
+"stormblade+overflow": 1.214
+},
+"votes": {
+"stormblade+overflow": 1
+}
+},
 "C|P1|x23|oBDHL": {
 "margin": 0.063,
 "n": 1,
@@ -875,6 +1573,31 @@
 "ember+pill+jewel": 1
 }
 },
+"C|P1|x23|oCH": {
+"alts": [
+[
+"fury+resist",
+1.219
+],
+[
+"fury+nights",
+1.186
+],
+[
+"fury+kunai+basic",
+1.186
+]
+],
+"margin": 0.074,
+"n": 4,
+"planner": "fury+nights",
+"value": {
+"ember+overflow": 1.293
+},
+"votes": {
+"ember+overflow": 4
+}
+},
 "C|P1|x23|oDHMR": {
 "margin": 0.256,
 "n": 1,
@@ -907,16 +1630,66 @@
 "ember+phantom": 1
 }
 },
-"C|P1|x24|oBDH": {
-"margin": 0.184,
-"n": 2,
+"C|P1|x24|oBD": {
+"alts": [
+[
+"overflow+thunders+basic",
+1.447
+],
+[
+"ember+thunders",
+1.408
+],
+[
+"overflow+thunders+pill",
+1.271
+]
+],
+"margin": 1.566,
+"n": 7,
+"planner": "ember+thunders",
 "value": {
-"ember+thunders": 1.57,
-"fury+smoke+kunai": 1.677
+"ember+thunders": 1.451,
+"overflow+thunders+kunai": 1.504,
+"subaku+thunders+kims": 1.682
 },
 "votes": {
+"ember+thunders": 2,
+"overflow+thunders+kunai": 1,
+"subaku+thunders+kims": 4
+}
+},
+"C|P1|x24|oBDH": {
+"alts": [
+[
+"lotus+aetherion",
+1.294
+],
+[
+"fury+aetherion",
+1.294
+],
+[
+"ember+aetherion",
+1.294
+]
+],
+"margin": 0.11,
+"n": 5,
+"planner": "shrapnel+aetherion",
+"value": {
+"basicheal+nights": 1.44,
+"clear+aetherion": 1.425,
+"ember+thunders": 1.57,
+"fury+smoke+kunai": 1.677,
+"shrapnel+aetherion": 1.294
+},
+"votes": {
+"basicheal+nights": 1,
+"clear+aetherion": 1,
 "ember+thunders": 1,
-"fury+smoke+kunai": 1
+"fury+smoke+kunai": 1,
+"shrapnel+aetherion": 1
 }
 },
 "C|P1|x24|oBDHL": {
@@ -952,13 +1725,30 @@
 }
 },
 "C|P1|x24|oBDL": {
-"margin": 1.1,
-"n": 1,
+"alts": [
+[
+"shrapnel+pill+basic",
+1.278
+],
+[
+"shrapnel+jewel+basic",
+1.278
+],
+[
+"shrapnel+replace+basic",
+1.278
+]
+],
+"margin": 0.55,
+"n": 2,
+"planner": "shrapnel+aetherion",
 "value": {
-"ember+thunders": 1.229
+"ember+thunders": 1.229,
+"shrapnel+kims+basic": 1.278
 },
 "votes": {
-"ember+thunders": 1
+"ember+thunders": 1,
+"shrapnel+kims+basic": 1
 }
 },
 "C|P1|x24|oBDP": {
@@ -1001,6 +1791,31 @@
 "rebirth+basic": 1
 }
 },
+"C|P1|x24|oBHRS": {
+"alts": [
+[
+"nights+kims+basic",
+1.227
+],
+[
+"nights+pill+basic",
+1.227
+],
+[
+"nights+jewel+basic",
+1.227
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "nights+aetherion",
+"value": {
+"nights+aetherion": 1.227
+},
+"votes": {
+"nights+aetherion": 1
+}
+},
 "C|P1|x24|oBIL": {
 "margin": 0.005,
 "n": 1,
@@ -1009,6 +1824,31 @@
 },
 "votes": {
 "thunders+shield+kunai": 1
+}
+},
+"C|P1|x24|oBIR": {
+"alts": [
+[
+"fury+kunai+basic",
+1.155
+],
+[
+"fury+aetherion",
+0.676
+],
+[
+"fury+pill+basic",
+0.09
+]
+],
+"margin": 0.105,
+"n": 1,
+"planner": "fury+kunai+basic",
+"value": {
+"fury+kims+kunai": 1.259
+},
+"votes": {
+"fury+kims+kunai": 1
 }
 },
 "C|P1|x24|oCP": {
@@ -1041,6 +1881,31 @@
 "stormblade+thunders": 1
 }
 },
+"C|P1|x30|oBDHLMR": {
+"alts": [
+[
+"stormblade+aetherion",
+0.029
+],
+[
+"stormblade+offstance+basic",
+0.026
+],
+[
+"stormblade+kunai+offstance",
+0.002
+]
+],
+"margin": 1.253,
+"n": 1,
+"planner": "cleanse+kunai+basic",
+"value": {
+"cleanse+kunai+basic": 1.282
+},
+"votes": {
+"cleanse+kunai+basic": 1
+}
+},
 "C|P1|x30|oDH": {
 "margin": 0.003,
 "n": 1,
@@ -1049,6 +1914,31 @@
 },
 "votes": {
 "basicheal+resist": 1
+}
+},
+"C|P1|x30|oDMPR": {
+"alts": [
+[
+"stormblade+resist",
+1.113
+],
+[
+"stormblade+defstance+basic",
+0.06
+],
+[
+"stormblade+defstance+offstance",
+-0.529
+]
+],
+"margin": 0.069,
+"n": 1,
+"planner": "stormblade+resist",
+"value": {
+"stormblade+pill+defstance": 1.181
+},
+"votes": {
+"stormblade+pill+defstance": 1
 }
 },
 "C|P1|x31|oHL": {
@@ -1099,6 +1989,31 @@
 },
 "votes": {
 "shrapnel+nights": 1
+}
+},
+"C|P1|x32|oBDHP": {
+"alts": [
+[
+"lotus+aetherion",
+-1.0
+],
+[
+"fury+aetherion",
+-1.0
+],
+[
+"shrapnel+kims+basic",
+-1.0
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "shrapnel+aetherion",
+"value": {
+"shrapnel+aetherion": -1.0
+},
+"votes": {
+"shrapnel+aetherion": 1
 }
 },
 "C|P1|x32|oBDHR": {
@@ -1182,24 +2097,58 @@
 }
 },
 "C|P1|x34|oBD": {
-"margin": 0.357,
-"n": 2,
+"alts": [
+[
+"stormblade+eclipse",
+1.128
+],
+[
+"stormblade+pill+jewel",
+0.637
+],
+[
+"stormblade+overflow",
+0.578
+]
+],
+"margin": 0.306,
+"n": 5,
+"planner": "stormblade+overflow",
 "value": {
-"ember+overflow": 1.392,
-"stormblade+eclipse": 1.358
+"ember+overflow": 1.382,
+"stormblade+eclipse": 1.358,
+"stormblade+pill+kunai": 1.238
 },
 "votes": {
-"ember+overflow": 1,
-"stormblade+eclipse": 1
+"ember+overflow": 2,
+"stormblade+eclipse": 2,
+"stormblade+pill+kunai": 1
 }
 },
 "C|P1|x34|oBDH": {
-"margin": 0.076,
-"n": 2,
+"alts": [
+[
+"clear+pill+basic",
+1.247
+],
+[
+"clear+aetherion",
+1.205
+],
+[
+"clear+offstance+basic",
+1.205
+]
+],
+"margin": 0.051,
+"n": 3,
+"planner": "clear+aetherion",
 "value": {
+"fury+subaku": 1.249,
 "rebirth+shield": 1.452
 },
 "votes": {
+"fury+subaku": 1,
 "rebirth+shield": 2
 }
 },
@@ -1224,13 +2173,32 @@
 }
 },
 "C|P1|x34|oBDL": {
-"margin": 0.01,
-"n": 1,
+"alts": [
+[
+"cleanse+pill+basic",
+0.677
+],
+[
+"cleanse+offstance+basic",
+0.608
+],
+[
+"cleanse+kims+basic",
+0.02
+]
+],
+"margin": 1.299,
+"n": 4,
+"planner": "cleanse+panacea+basic",
 "value": {
-"ember+subaku": 1.339
+"cleanse+aetherion": 1.139,
+"ember+subaku": 1.339,
+"rebirth+kims+kunai": 1.177
 },
 "votes": {
-"ember+subaku": 1
+"cleanse+aetherion": 1,
+"ember+subaku": 1,
+"rebirth+kims+kunai": 2
 }
 },
 "C|P1|x34|oBDRS": {
@@ -1288,12 +2256,29 @@
 }
 },
 "C|P1|x34|oDHR": {
-"margin": 0.061,
-"n": 1,
+"alts": [
+[
+"fury+pill+panacea",
+1.245
+],
+[
+"fury+panacea+jewel",
+1.224
+],
+[
+"fury+panacea+offstance",
+1.194
+]
+],
+"margin": 0.047,
+"n": 2,
+"planner": "fury+panacea+kunai",
 "value": {
+"fury+panacea+basic": 1.278,
 "rebirth+thunders": 1.335
 },
 "votes": {
+"fury+panacea+basic": 1,
 "rebirth+thunders": 1
 }
 },
@@ -1417,6 +2402,31 @@
 "shrapnel+panacea+kunai": 1
 }
 },
+"C|P1|x42|oBILR": {
+"alts": [
+[
+"overflow+eclipse+offstance",
+1.112
+],
+[
+"overflow+pill+kunai+offstance",
+0.56
+],
+[
+"subaku+overflow+pill",
+0.132
+]
+],
+"margin": 0.181,
+"n": 1,
+"planner": "subaku+overflow+pill",
+"value": {
+"overflow+eclipse+pill": 1.293
+},
+"votes": {
+"overflow+eclipse+pill": 1
+}
+},
 "C|P1|x42|oLR": {
 "margin": 0.053,
 "n": 1,
@@ -1488,13 +2498,82 @@
 }
 },
 "C|P1|x44|oBD": {
+"alts": [
+[
+"fury+kunai+replace",
+1.187
+],
+[
+"fury+pill+kunai",
+1.177
+],
+[
+"fury+kunai+offstance",
+1.126
+]
+],
 "margin": 0.0,
-"n": 1,
+"n": 2,
+"planner": "fury+kunai+basic",
 "value": {
 "fury+kunai+basic": 1.187
 },
 "votes": {
-"fury+kunai+basic": 1
+"fury+kunai+basic": 2
+}
+},
+"C|P1|x44|oBDHL": {
+"alts": [
+[
+"cleanse+pill+kunai",
+1.376
+],
+[
+"cleanse+aetherion",
+1.33
+],
+[
+"cleanse+kunai+offstance",
+1.318
+]
+],
+"margin": 0.042,
+"n": 2,
+"planner": "cleanse+kunai+basic",
+"value": {
+"cleanse+pill+kunai": 1.321,
+"fury+subaku": 1.404
+},
+"votes": {
+"cleanse+pill+kunai": 1,
+"fury+subaku": 1
+}
+},
+"C|P1|x44|oBDHS": {
+"alts": [
+[
+"cleanse+basic",
+1.347
+],
+[
+"clear+kims",
+1.213
+],
+[
+"clear+replace",
+1.213
+]
+],
+"margin": 0.013,
+"n": 5,
+"planner": "clear+basic",
+"value": {
+"clear+basic": 1.362,
+"fury+pill": 1.645
+},
+"votes": {
+"clear+basic": 4,
+"fury+pill": 1
 }
 },
 "C|P1|x44|oBDR": {
@@ -1527,15 +2606,55 @@
 "fury+smoke+pill": 1
 }
 },
-"C|P1|x44|oDH": {
-"margin": 0.029,
+"C|P1|x44|oBHS": {
+"alts": [
+[
+"fury+kunai",
+1.616
+],
+[
+"fury+basic",
+1.616
+],
+[
+"fury+jewel",
+1.612
+]
+],
+"margin": 0.019,
 "n": 2,
+"planner": "fury+defstance",
+"value": {
+"fury+pill": 1.635
+},
+"votes": {
+"fury+pill": 2
+}
+},
+"C|P1|x44|oDH": {
+"alts": [
+[
+"fury+panacea+basic",
+1.01
+],
+[
+"fury+panacea+defstance",
+1.01
+],
+[
+"fury+panacea+jewel",
+1.01
+]
+],
+"margin": 0.039,
+"n": 3,
+"planner": "fury+panacea+basic",
 "value": {
 "fury+resist": 1.069,
 "shrapnel+aetherion": 1.477
 },
 "votes": {
-"fury+resist": 1,
+"fury+resist": 2,
 "shrapnel+aetherion": 1
 }
 },
@@ -1557,6 +2676,81 @@
 },
 "votes": {
 "rebirth+kunai+basic": 1
+}
+},
+"C|P2|x00|oBHLMPR": {
+"alts": [
+[
+"lotus+kims+basic",
+0.73
+],
+[
+"lotus+kims+jewel",
+0.699
+],
+[
+"lotus+kims+defstance",
+0.693
+]
+],
+"margin": 0.004,
+"n": 1,
+"planner": "lotus+kims+jewel",
+"value": {
+"lotus+kims+pill": 0.734
+},
+"votes": {
+"lotus+kims+pill": 1
+}
+},
+"C|P2|x00|oDMPR": {
+"alts": [
+[
+"shrapnel+smoke+kims",
+0.643
+],
+[
+"fury+smoke+kims",
+0.634
+],
+[
+"aetherion+smoke+kims+basic",
+0.16
+]
+],
+"margin": 0.071,
+"n": 1,
+"planner": "basicheal+smoke+kims",
+"value": {
+"ember+smoke+kims": 0.713
+},
+"votes": {
+"ember+smoke+kims": 1
+}
+},
+"C|P2|x01|oDHR": {
+"alts": [
+[
+"rebirth+basic",
+0.692
+],
+[
+"rebirth+kunai",
+0.655
+],
+[
+"rebirth+offstance",
+0.63
+]
+],
+"margin": 0.061,
+"n": 1,
+"planner": "rebirth+kunai",
+"value": {
+"rebirth+defstance": 0.753
+},
+"votes": {
+"rebirth+defstance": 1
 }
 },
 "C|P2|x01|oDR": {
@@ -1589,6 +2783,56 @@
 "ember+pill+defstance": 1
 }
 },
+"C|P2|x02|oBDP": {
+"alts": [
+[
+"cleanse+thunders",
+0.68
+],
+[
+"cleanse+phantom",
+0.163
+],
+[
+"cleanse+kims+basic",
+0.096
+]
+],
+"margin": 0.499,
+"n": 1,
+"planner": "cleanse+thunders",
+"value": {
+"cleanse+nights": 1.179
+},
+"votes": {
+"cleanse+nights": 1
+}
+},
+"C|P2|x02|oBDR": {
+"alts": [
+[
+"phantom+smoke+kunai+basic",
+1.144
+],
+[
+"resist+smoke+pill+kunai",
+1.104
+],
+[
+"ember+resist",
+0.638
+]
+],
+"margin": 0.092,
+"n": 1,
+"planner": "resist+smoke+kunai+basic",
+"value": {
+"resist+smoke+kunai+basic": 1.236
+},
+"votes": {
+"resist+smoke+kunai+basic": 1
+}
+},
 "C|P2|x02|oDHR": {
 "margin": 0.607,
 "n": 1,
@@ -1599,6 +2843,56 @@
 "resist+sealnull+kunai": 1
 }
 },
+"C|P2|x02|oDPR": {
+"alts": [
+[
+"shrapnel+defstance+basic",
+-1.257
+],
+[
+"shrapnel+pill+basic",
+-1.259
+],
+[
+"shrapnel+aetherion",
+-1.26
+]
+],
+"margin": 0.042,
+"n": 1,
+"planner": "shrapnel+aetherion",
+"value": {
+"ember+aetherion": -1.215
+},
+"votes": {
+"ember+aetherion": 1
+}
+},
+"C|P2|x02|oPR": {
+"alts": [
+[
+"basicheal+pill+jewel",
+-1.0
+],
+[
+"basicheal+jewel+kunai",
+-1.001
+],
+[
+"basicheal+jewel+basic",
+-1.01
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "basicheal+phantom",
+"value": {
+"basicheal+phantom": -1.0
+},
+"votes": {
+"basicheal+phantom": 1
+}
+},
 "C|P2|x03|oCDR": {
 "margin": 0.0,
 "n": 1,
@@ -1607,6 +2901,31 @@
 },
 "votes": {
 "resist+shield+pill": 1
+}
+},
+"C|P2|x03|oDH": {
+"alts": [
+[
+"stormblade+aetherion",
+-1.0
+],
+[
+"stormblade+pill+kunai",
+-1.0
+],
+[
+"stormblade+kunai+offstance",
+-1.0
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "stormblade+kunai+basic",
+"value": {
+"stormblade+kunai+basic": -1.0
+},
+"votes": {
+"stormblade+kunai+basic": 1
 }
 },
 "C|P2|x03|oDHR": {
@@ -1637,6 +2956,31 @@
 },
 "votes": {
 "clear+pill+basic": 1
+}
+},
+"C|P2|x04|oBD": {
+"alts": [
+[
+"cleanse+smoke+pill",
+-1.162
+],
+[
+"cleanse+smoke+kunai",
+-1.181
+],
+[
+"cleanse+smoke+basic",
+-1.195
+]
+],
+"margin": 0.038,
+"n": 1,
+"planner": "cleanse+resist",
+"value": {
+"cleanse+smoke+jewel": -1.125
+},
+"votes": {
+"cleanse+smoke+jewel": 1
 }
 },
 "C|P2|x04|oBDH": {
@@ -1670,23 +3014,194 @@
 }
 },
 "C|P2|x04|oBDHP": {
-"margin": 0.956,
-"n": 1,
+"alts": [
+[
+"thunders+nights+jewel",
+0.101
+],
+[
+"thunders+shield+jewel",
+-0.617
+],
+[
+"thunders+nights+panacea",
+-0.674
+]
+],
+"margin": 1.068,
+"n": 2,
+"planner": "stormblade+shield",
 "value": {
-"clear+sealnull": 1.554
+"clear+sealnull": 1.554,
+"stormblade+thunders": 1.281
 },
 "votes": {
-"clear+sealnull": 1
+"clear+sealnull": 1,
+"stormblade+thunders": 1
+}
+},
+"C|P2|x04|oBDHR": {
+"alts": [
+[
+"stormblade+shield",
+-0.484
+],
+[
+"thunders+shield+kunai",
+-0.55
+],
+[
+"thunders+shield+pill",
+-1.108
+]
+],
+"margin": 0.903,
+"n": 2,
+"planner": "stormblade+shield",
+"value": {
+"lotus+aetherion": -1.147,
+"thunders+nights+panacea": 1.311
+},
+"votes": {
+"lotus+aetherion": 1,
+"thunders+nights+panacea": 1
 }
 },
 "C|P2|x04|oBDIR": {
-"margin": 0.084,
-"n": 1,
+"alts": [
+[
+"sealnull+shield+kunai",
+-0.47
+],
+[
+"sealnull+shield+basic",
+-0.508
+],
+[
+"lotus+smoke+panacea",
+-1.133
+]
+],
+"margin": 0.599,
+"n": 4,
+"planner": "rebirth+sealnull",
 "value": {
-"sealnull+shield+basic": 0.061
+"rebirth+sealnull": 0.677,
+"sealnull+shield+basic": 0.061,
+"stormblade+aetherion": -1.093
 },
 "votes": {
-"sealnull+shield+basic": 1
+"rebirth+sealnull": 2,
+"sealnull+shield+basic": 1,
+"stormblade+aetherion": 1
+}
+},
+"C|P2|x04|oBDL": {
+"alts": [
+[
+"shrapnel+thunders",
+-1.49
+],
+[
+"fury+thunders",
+-1.494
+],
+[
+"danse+thunders",
+-1.516
+]
+],
+"margin": 0.032,
+"n": 4,
+"planner": "shrapnel+thunders",
+"value": {
+"cleanse+thunders": 1.358,
+"ember+thunders": -1.431,
+"shrapnel+thunders": -1.562,
+"stormblade+aetherion": -1.574
+},
+"votes": {
+"cleanse+thunders": 1,
+"ember+thunders": 1,
+"shrapnel+thunders": 1,
+"stormblade+aetherion": 1
+}
+},
+"C|P2|x04|oBDLR": {
+"alts": [
+[
+"fury+thunders",
+-1.117
+],
+[
+"thunders+aetherion+basic",
+-1.128
+],
+[
+"shrapnel+aetherion",
+-1.251
+]
+],
+"margin": 0.003,
+"n": 1,
+"planner": "shrapnel+thunders",
+"value": {
+"shrapnel+thunders": -1.114
+},
+"votes": {
+"shrapnel+thunders": 1
+}
+},
+"C|P2|x04|oBDR": {
+"alts": [
+[
+"ember+aetherion",
+-1.148
+],
+[
+"fury+pill+basic",
+-1.165
+],
+[
+"fury+replace+basic",
+-1.165
+]
+],
+"margin": 0.005,
+"n": 2,
+"planner": "fury+aetherion",
+"value": {
+"fury+aetherion": -1.142,
+"shrapnel+aetherion": -1.079
+},
+"votes": {
+"fury+aetherion": 1,
+"shrapnel+aetherion": 1
+}
+},
+"C|P2|x04|oBHR": {
+"alts": [
+[
+"clear+panacea+kunai",
+0.132
+],
+[
+"clear+phantom",
+-1.022
+],
+[
+"clear+panacea+offstance",
+-1.031
+]
+],
+"margin": 0.628,
+"n": 2,
+"planner": "clear+panacea+jewel",
+"value": {
+"clear+pill+panacea": 0.189
+},
+"votes": {
+"clear+pill+panacea": 2
 }
 },
 "C|P2|x04|oBILR": {
@@ -1699,14 +3214,135 @@
 "sealnull+shield+offstance": 1
 }
 },
-"C|P2|x04|oBLR": {
-"margin": 0.549,
-"n": 1,
+"C|P2|x04|oBIR": {
+"alts": [
+[
+"stormblade+kunai+offstance",
+-1.413
+],
+[
+"stormblade+kunai+replace",
+-1.413
+],
+[
+"stormblade+kunai",
+-1.413
+]
+],
+"margin": 0.054,
+"n": 2,
+"planner": "stormblade+kunai+basic",
 "value": {
-"fury+aetherion": -0.639
+"stormblade+aetherion": -1.171,
+"stormblade+kunai+basic": -1.384
 },
 "votes": {
-"fury+aetherion": 1
+"stormblade+aetherion": 1,
+"stormblade+kunai+basic": 1
+}
+},
+"C|P2|x04|oBLR": {
+"alts": [
+[
+"resist+phantom+offstance",
+-1.234
+],
+[
+"resist+phantom+pill",
+-1.235
+],
+[
+"resist+phantom+replace",
+-1.253
+]
+],
+"margin": 0.186,
+"n": 3,
+"planner": "resist+phantom+kunai",
+"value": {
+"basicheal+smoke+kunai": -1.446,
+"fury+aetherion": -0.639,
+"resist+phantom+basic": -1.233
+},
+"votes": {
+"basicheal+smoke+kunai": 1,
+"fury+aetherion": 1,
+"resist+phantom+basic": 1
+}
+},
+"C|P2|x04|oCH": {
+"alts": [
+[
+"shield+nights+kunai",
+-1.075
+],
+[
+"shield+nights+pill",
+-1.125
+],
+[
+"shield+nights+defstance",
+-1.147
+]
+],
+"margin": 0.001,
+"n": 1,
+"planner": "stormblade+shield",
+"value": {
+"shield+nights+basic": -1.074
+},
+"votes": {
+"shield+nights+basic": 1
+}
+},
+"C|P2|x04|oDH": {
+"alts": [
+[
+"cleanse+jewel+basic",
+0.03
+],
+[
+"cleanse+pill+jewel",
+0.008
+],
+[
+"cleanse+jewel+kunai",
+-0.01
+]
+],
+"margin": 0.534,
+"n": 1,
+"planner": "cleanse+phantom",
+"value": {
+"cleanse+phantom": 0.564
+},
+"votes": {
+"cleanse+phantom": 1
+}
+},
+"C|P2|x11|oDHLR": {
+"alts": [
+[
+"ember+phantom",
+1.372
+],
+[
+"overflow+phantom+kunai",
+0.094
+],
+[
+"overflow+phantom+offstance",
+0.076
+]
+],
+"margin": 0.015,
+"n": 1,
+"planner": "overflow+phantom+pill",
+"value": {
+"overflow+phantom+pill": 1.386
+},
+"votes": {
+"overflow+phantom+pill": 1
 }
 },
 "C|P2|x12|oBCD": {
@@ -1717,6 +3353,31 @@
 },
 "votes": {
 "fury+pill+basic": 1
+}
+},
+"C|P2|x12|oBDH": {
+"alts": [
+[
+"fury+nights",
+1.336
+],
+[
+"ember+nights",
+1.336
+],
+[
+"shrapnel+aetherion",
+1.297
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "shrapnel+nights",
+"value": {
+"shrapnel+nights": 1.336
+},
+"votes": {
+"shrapnel+nights": 1
 }
 },
 "C|P2|x12|oBDHRS": {
@@ -1749,6 +3410,31 @@
 "ember+aetherion": 1
 }
 },
+"C|P2|x12|oBHR": {
+"alts": [
+[
+"lotus+smoke+basic",
+1.379
+],
+[
+"lotus+smoke+kims",
+1.291
+],
+[
+"overflow+phantom+kims",
+1.265
+]
+],
+"margin": 0.077,
+"n": 1,
+"planner": "lotus+phantom",
+"value": {
+"basicheal+phantom": 1.456
+},
+"votes": {
+"basicheal+phantom": 1
+}
+},
 "C|P2|x12|oHP": {
 "margin": 0.017,
 "n": 1,
@@ -1759,14 +3445,81 @@
 "stormblade+shield": 1
 }
 },
-"C|P2|x13|oBDH": {
-"margin": 0.009,
+"C|P2|x12|oHR": {
+"alts": [
+[
+"resist+nights+basic",
+1.254
+],
+[
+"resist+nights+pill",
+1.237
+],
+[
+"basicheal+resist",
+0.203
+]
+],
+"margin": 0.012,
 "n": 1,
+"planner": "basicheal+resist",
 "value": {
-"overflow+shield+kims": 1.381
+"resist+nights+offstance": 1.266
 },
 "votes": {
-"overflow+shield+kims": 1
+"resist+nights+offstance": 1
+}
+},
+"C|P2|x13|oBCHR": {
+"alts": [
+[
+"resist+shield+panacea",
+-1.213
+],
+[
+"shield+smoke+panacea+kunai",
+-1.297
+],
+[
+"resist+shield+smoke",
+-1.339
+]
+],
+"margin": 0.062,
+"n": 1,
+"planner": "resist+shield+panacea",
+"value": {
+"phantom+shield+panacea": -1.151
+},
+"votes": {
+"phantom+shield+panacea": 1
+}
+},
+"C|P2|x13|oBDH": {
+"alts": [
+[
+"stormblade+aetherion",
+-1.0
+],
+[
+"stormblade+pill+kunai",
+-1.0
+],
+[
+"stormblade+kunai+offstance",
+-1.0
+]
+],
+"margin": 0.004,
+"n": 2,
+"planner": "stormblade+kunai+basic",
+"value": {
+"overflow+shield+kims": 1.381,
+"stormblade+kunai+basic": -1.0
+},
+"votes": {
+"overflow+shield+kims": 1,
+"stormblade+kunai+basic": 1
 }
 },
 "C|P2|x13|oBDHR": {
@@ -1789,6 +3542,31 @@
 "lotus+kims+basic": 1
 }
 },
+"C|P2|x13|oBDR": {
+"alts": [
+[
+"stormblade+kunai+offstance",
+-0.436
+],
+[
+"stormblade+kunai+basic",
+-1.0
+],
+[
+"stormblade+kunai+replace",
+-1.0
+]
+],
+"margin": 0.015,
+"n": 1,
+"planner": "stormblade+kunai+basic",
+"value": {
+"stormblade+pill+kunai": -0.421
+},
+"votes": {
+"stormblade+pill+kunai": 1
+}
+},
 "C|P2|x13|oBDRS": {
 "margin": 0.013,
 "n": 1,
@@ -1807,6 +3585,31 @@
 },
 "votes": {
 "lotus+panacea+jewel": 1
+}
+},
+"C|P2|x13|oBHIPR": {
+"alts": [
+[
+"basicheal+shield",
+-0.73
+],
+[
+"ember+nights",
+-1.069
+],
+[
+"ember+aetherion",
+-1.106
+]
+],
+"margin": 0.037,
+"n": 1,
+"planner": "stormblade+aetherion",
+"value": {
+"shield+nights+basic": -0.694
+},
+"votes": {
+"shield+nights+basic": 1
 }
 },
 "C|P2|x13|oBHLR": {
@@ -1849,6 +3652,31 @@
 "rebirth+sealnull": 1
 }
 },
+"C|P2|x13|oCH": {
+"alts": [
+[
+"ember+kunai+basic",
+-1.17
+],
+[
+"danse+kunai+basic",
+-1.187
+],
+[
+"fury+pill+kunai",
+-1.191
+]
+],
+"margin": 0.003,
+"n": 1,
+"planner": "fury+kunai+basic",
+"value": {
+"fury+kunai+basic": -1.167
+},
+"votes": {
+"fury+kunai+basic": 1
+}
+},
 "C|P2|x13|oDP": {
 "margin": 0.064,
 "n": 1,
@@ -1870,63 +3698,196 @@
 }
 },
 "C|P2|x14|oBCD": {
-"margin": 1.198,
-"n": 1,
+"alts": [
+[
+"thunders+nights+basic",
+-1.0
+],
+[
+"thunders+nights+offstance",
+-1.0
+],
+[
+"thunders+nights+replace",
+-1.0
+]
+],
+"margin": 0.599,
+"n": 2,
+"planner": "thunders+nights+kunai",
 "value": {
+"thunders+nights+kunai": -1.0,
 "thunders+shield+defstance": 0.198
 },
 "votes": {
+"thunders+nights+kunai": 1,
 "thunders+shield+defstance": 1
 }
 },
 "C|P2|x14|oBD": {
-"margin": 0.0,
-"n": 1,
+"alts": [
+[
+"cleanse+smoke+jewel",
+0.039
+],
+[
+"cleanse+smoke+defstance",
+-0.533
+],
+[
+"cleanse+smoke+panacea",
+-0.573
+]
+],
+"margin": 0.184,
+"n": 3,
+"planner": "cleanse+smoke+panacea",
 "value": {
+"cleanse+smoke+basic": 1.411,
+"cleanse+smoke+kims": 0.592,
 "ember+kunai+basic": -1.0
 },
 "votes": {
+"cleanse+smoke+basic": 1,
+"cleanse+smoke+kims": 1,
 "ember+kunai+basic": 1
 }
 },
 "C|P2|x14|oBDH": {
-"margin": 0.11,
-"n": 2,
+"alts": [
+[
+"resist+panacea+jewel",
+1.329
+],
+[
+"lotus+smoke",
+1.288
+],
+[
+"resist+panacea+defstance",
+1.224
+]
+],
+"margin": 0.066,
+"n": 4,
+"planner": "resist+panacea+jewel",
 "value": {
-"lotus+shield": 1.82
+"lotus+aetherion": -1.34,
+"lotus+shield": 1.82,
+"smoke+panacea+jewel+basic": 1.367
 },
 "votes": {
-"lotus+shield": 2
+"lotus+aetherion": 1,
+"lotus+shield": 2,
+"smoke+panacea+jewel+basic": 1
+}
+},
+"C|P2|x14|oBDHIR": {
+"alts": [
+[
+"shield+aetherion+panacea",
+-1.44
+],
+[
+"shield+pill+panacea+kunai",
+-1.455
+],
+[
+"shield+nights+panacea",
+-1.479
+]
+],
+"margin": 0.033,
+"n": 1,
+"planner": "stormblade+shield",
+"value": {
+"stormblade+shield": -1.408
+},
+"votes": {
+"stormblade+shield": 1
 }
 },
 "C|P2|x14|oBDHL": {
-"margin": 0.073,
-"n": 1,
+"alts": [
+[
+"ember+kunai+basic",
+-1.492
+],
+[
+"shrapnel+kunai+basic",
+-1.507
+],
+[
+"fury+kunai+basic",
+-1.511
+]
+],
+"margin": 0.153,
+"n": 2,
+"planner": "shrapnel+kunai+basic",
 "value": {
+"shrapnel+aetherion": -1.259,
 "thunders+nights": -1.348
 },
 "votes": {
+"shrapnel+aetherion": 1,
 "thunders+nights": 1
 }
 },
 "C|P2|x14|oBDHR": {
-"margin": 0.066,
-"n": 1,
+"alts": [
+[
+"clear+sealnull",
+-1.076
+],
+[
+"lotus+kims+jewel",
+-1.125
+],
+[
+"lotus+kims+panacea",
+-1.196
+]
+],
+"margin": 0.129,
+"n": 9,
+"planner": "lotus+smoke+kims",
 "value": {
-"shield+smoke+kims+panacea": -1.009
+"clear+kims+jewel": -0.106,
+"resist+smoke+kims+panacea": -1.138,
+"shield+smoke+kims+panacea": -1.009,
+"shrapnel+aetherion": -1.0
 },
 "votes": {
-"shield+smoke+kims+panacea": 1
+"clear+kims+jewel": 2,
+"resist+smoke+kims+panacea": 1,
+"shield+smoke+kims+panacea": 5,
+"shrapnel+aetherion": 1
 }
 },
 "C|P2|x14|oBDHS": {
-"margin": 0.003,
-"n": 1,
+"alts": [
+[
+"fury+kunai",
+0.791
+],
+[
+"stormblade+kunai",
+-1.134
+],
+[
+"stormblade+basic",
+-1.139
+]
+],
+"margin": 0.002,
+"n": 2,
+"planner": "nights+kunai+basic",
 "value": {
-"shrapnel+kunai": -1.169
+"shrapnel+kunai": 0.791
 },
 "votes": {
-"shrapnel+kunai": 1
+"shrapnel+kunai": 2
 }
 },
 "C|P2|x14|oBDI": {
@@ -1950,23 +3911,215 @@
 }
 },
 "C|P2|x14|oBDIR": {
-"margin": 0.033,
-"n": 1,
+"alts": [
+[
+"ember+nights",
+-1.248
+],
+[
+"nights+aetherion+basic",
+-1.353
+],
+[
+"shrapnel+nights",
+-1.356
+]
+],
+"margin": 0.093,
+"n": 2,
+"planner": "shrapnel+nights",
 "value": {
-"lotus+kims+pill": -1.073
+"lotus+kims+pill": -1.073,
+"shrapnel+kunai+basic": -1.096
 },
 "votes": {
-"lotus+kims+pill": 1
+"lotus+kims+pill": 1,
+"shrapnel+kunai+basic": 1
+}
+},
+"C|P2|x14|oBDL": {
+"alts": [
+[
+"lotus+smoke+jewel",
+0.153
+],
+[
+"resist+smoke+kims+jewel",
+-0.409
+],
+[
+"resist+smoke+kims+panacea",
+-1.0
+]
+],
+"margin": 0.442,
+"n": 1,
+"planner": "resist+smoke+kims+panacea",
+"value": {
+"lotus+smoke+kims": 0.595
+},
+"votes": {
+"lotus+smoke+kims": 1
+}
+},
+"C|P2|x14|oBDP": {
+"alts": [
+[
+"basicheal+kunai+defstance",
+-1.164
+],
+[
+"basicheal+defstance+basic",
+-1.165
+],
+[
+"basicheal+overflow",
+-1.185
+]
+],
+"margin": 0.001,
+"n": 1,
+"planner": "basicheal+nights",
+"value": {
+"basicheal+pill+defstance": -1.163
+},
+"votes": {
+"basicheal+pill+defstance": 1
+}
+},
+"C|P2|x14|oBDR": {
+"alts": [
+[
+"clear+smoke+panacea",
+-0.483
+],
+[
+"clear+smoke+jewel",
+-0.611
+],
+[
+"clear+shield",
+-1.048
+]
+],
+"margin": 0.416,
+"n": 3,
+"planner": "clear+sealnull",
+"value": {
+"clear+sealnull": -0.434,
+"clear+smoke+panacea": 0.085,
+"lotus+shield": -0.48
+},
+"votes": {
+"clear+sealnull": 1,
+"clear+smoke+panacea": 1,
+"lotus+shield": 1
+}
+},
+"C|P2|x14|oBHIR": {
+"alts": [
+[
+"lotus+resist",
+0.002
+],
+[
+"lotus+phantom",
+-0.566
+],
+[
+"rebirth+kunai+defstance",
+-1.109
+]
+],
+"margin": 0.026,
+"n": 1,
+"planner": "lotus+resist",
+"value": {
+"rebirth+kunai+basic": 0.028
+},
+"votes": {
+"rebirth+kunai+basic": 1
+}
+},
+"C|P2|x14|oBHR": {
+"alts": [
+[
+"shield+aetherion+panacea",
+-1.211
+],
+[
+"shield+panacea+kunai+offstance",
+-1.234
+],
+[
+"shield+panacea+kunai+replace",
+-1.242
+]
+],
+"margin": 0.008,
+"n": 1,
+"planner": "shield+nights+panacea",
+"value": {
+"shield+panacea+kunai+basic": -1.204
+},
+"votes": {
+"shield+panacea+kunai+basic": 1
 }
 },
 "C|P2|x14|oBHS": {
-"margin": 0.027,
-"n": 1,
+"alts": [
+[
+"clear+jewel+kunai",
+-0.606
+],
+[
+"clear+panacea+kunai",
+-0.616
+],
+[
+"clear+panacea+basic",
+-0.728
+]
+],
+"margin": 0.215,
+"n": 3,
+"planner": "clear+thunders",
 "value": {
+"clear+panacea+jewel": 0.012,
+"nights+pill+basic": -1.258,
 "thunders+kims+pill": 1.718
 },
 "votes": {
+"clear+panacea+jewel": 1,
+"nights+pill+basic": 1,
 "thunders+kims+pill": 1
+}
+},
+"C|P2|x14|oBIR": {
+"alts": [
+[
+"ember+thunders",
+-1.0
+],
+[
+"danse+thunders",
+-1.0
+],
+[
+"rebirth+thunders",
+-1.0
+]
+],
+"margin": 0.042,
+"n": 2,
+"planner": "fury+thunders",
+"value": {
+"clear+overflow": 1.347,
+"fury+thunders": -1.0
+},
+"votes": {
+"clear+overflow": 1,
+"fury+thunders": 1
 }
 },
 "C|P2|x14|oBLR": {
@@ -1979,14 +4132,83 @@
 "shrapnel+replace+basic": 1
 }
 },
-"C|P2|x14|oDH": {
-"margin": 0.159,
-"n": 2,
+"C|P2|x14|oBR": {
+"alts": [
+[
+"nights+pill+kunai+basic",
+-1.184
+],
+[
+"fury+nights",
+-1.25
+],
+[
+"nights+kunai+offstance+basic",
+-1.254
+]
+],
+"margin": 0.024,
+"n": 1,
+"planner": "lotus+nights",
 "value": {
+"lotus+nights": -1.16
+},
+"votes": {
+"lotus+nights": 1
+}
+},
+"C|P2|x14|oD": {
+"alts": [
+[
+"shrapnel+aetherion",
+-1.0
+],
+[
+"fury+aetherion",
+-1.0
+],
+[
+"shrapnel+pill+basic",
+-1.0
+]
+],
+"margin": 2.237,
+"n": 1,
+"planner": "shrapnel+aetherion",
+"value": {
+"ember+aetherion": 1.237
+},
+"votes": {
+"ember+aetherion": 1
+}
+},
+"C|P2|x14|oDH": {
+"alts": [
+[
+"cleanse+jewel+basic",
+0.641
+],
+[
+"cleanse+phantom",
+0.111
+],
+[
+"cleanse+overflow",
+0.105
+]
+],
+"margin": 0.219,
+"n": 4,
+"planner": "cleanse+thunders",
+"value": {
+"cleanse+jewel+kunai": 1.104,
+"ember+kunai+basic": -1.023,
 "rebirth+shield": 1.448,
 "shrapnel+nights": 1.291
 },
 "votes": {
+"cleanse+jewel+kunai": 1,
+"ember+kunai+basic": 1,
 "rebirth+shield": 1,
 "shrapnel+nights": 1
 }
@@ -2004,13 +4226,28 @@
 }
 },
 "C|P2|x14|oDHP": {
+"alts": [
+[
+"shield+nights+panacea",
+-1.0
+],
+[
+"phantom+shield+panacea",
+-1.0
+],
+[
+"thunders+shield+panacea",
+-1.084
+]
+],
 "margin": 1.17,
-"n": 1,
+"n": 4,
+"planner": "stormblade+shield",
 "value": {
 "stormblade+shield": 0.17
 },
 "votes": {
-"stormblade+shield": 1
+"stormblade+shield": 4
 }
 },
 "C|P2|x14|oDL": {
@@ -2021,6 +4258,31 @@
 },
 "votes": {
 "overflow+phantom+kims": 1
+}
+},
+"C|P2|x14|oDP": {
+"alts": [
+[
+"resist+shield+panacea",
+-1.0
+],
+[
+"shield+nights+panacea",
+-1.188
+],
+[
+"thunders+shield+jewel",
+-1.189
+]
+],
+"margin": 1.216,
+"n": 1,
+"planner": "stormblade+shield",
+"value": {
+"stormblade+shield": 0.216
+},
+"votes": {
+"stormblade+shield": 1
 }
 },
 "C|P2|x22|o0": {
@@ -2044,12 +4306,29 @@
 }
 },
 "C|P2|x22|oBDHP": {
-"margin": 0.024,
-"n": 1,
+"alts": [
+[
+"ember+shield",
+-1.0
+],
+[
+"rebirth+overflow",
+-1.0
+],
+[
+"rebirth+panacea+kunai",
+-1.111
+]
+],
+"margin": 0.554,
+"n": 2,
+"planner": "rebirth+thunders",
 "value": {
+"rebirth+jewel+kunai": 0.084,
 "stormblade+offstance+basic": -1.059
 },
 "votes": {
+"rebirth+jewel+kunai": 1,
 "stormblade+offstance+basic": 1
 }
 },
@@ -2063,6 +4342,31 @@
 "lotus+kims+kunai": 1
 }
 },
+"C|P2|x22|oBHIR": {
+"alts": [
+[
+"lotus+smoke+kunai",
+-1.0
+],
+[
+"lotus+smoke+basic",
+-1.0
+],
+[
+"lotus+smoke+defstance",
+-1.0
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "lotus+smoke+jewel",
+"value": {
+"lotus+smoke+jewel": -1.0
+},
+"votes": {
+"lotus+smoke+jewel": 1
+}
+},
 "C|P2|x22|oCHR": {
 "margin": 0.0,
 "n": 1,
@@ -2071,6 +4375,56 @@
 },
 "votes": {
 "fury+kunai+basic": 1
+}
+},
+"C|P2|x22|oCP": {
+"alts": [
+[
+"overflow+phantom+kims",
+1.214
+],
+[
+"lotus+smoke+kims",
+0.743
+],
+[
+"ember+phantom",
+0.603
+]
+],
+"margin": 0.019,
+"n": 1,
+"planner": "overflow+phantom+kims",
+"value": {
+"overflow+phantom+jewel": 1.233
+},
+"votes": {
+"overflow+phantom+jewel": 1
+}
+},
+"C|P2|x22|oDHP": {
+"alts": [
+[
+"rebirth+jewel+kunai",
+-0.53
+],
+[
+"ember+shield",
+-1.036
+],
+[
+"ember+panacea+kunai",
+-1.071
+]
+],
+"margin": 0.057,
+"n": 1,
+"planner": "rebirth+thunders",
+"value": {
+"rebirth+panacea+kunai": -0.473
+},
+"votes": {
+"rebirth+panacea+kunai": 1
 }
 },
 "C|P2|x22|oH": {
@@ -2093,6 +4447,31 @@
 "rebirth+sealnull": 1
 }
 },
+"C|P2|x23|oBCDH": {
+"alts": [
+[
+"rebirth+jewel+offstance",
+0.594
+],
+[
+"rebirth+nights",
+0.571
+],
+[
+"rebirth+pill+jewel",
+0.571
+]
+],
+"margin": 0.027,
+"n": 1,
+"planner": "rebirth+jewel+defstance",
+"value": {
+"rebirth+jewel+kunai": 0.622
+},
+"votes": {
+"rebirth+jewel+kunai": 1
+}
+},
 "C|P2|x23|oBDH": {
 "margin": 0.034,
 "n": 2,
@@ -2103,6 +4482,83 @@
 "votes": {
 "lotus+resist": 1,
 "thunders+shield+kims": 1
+}
+},
+"C|P2|x23|oBDHP": {
+"alts": [
+[
+"thunders+phantom+kims",
+1.299
+],
+[
+"overflow+nights+kims",
+1.299
+],
+[
+"overflow+phantom+kims",
+1.292
+]
+],
+"margin": 0.285,
+"n": 2,
+"planner": "overflow+thunders+kims",
+"value": {
+"phantom+nights+kims": 1.3,
+"phantom+shield+kims": 0.702
+},
+"votes": {
+"phantom+nights+kims": 1,
+"phantom+shield+kims": 1
+}
+},
+"C|P2|x23|oBDHR": {
+"alts": [
+[
+"rebirth+kunai+basic",
+-0.741
+],
+[
+"rebirth+jewel+basic",
+-1.271
+],
+[
+"rebirth+aetherion",
+-1.371
+]
+],
+"margin": 0.071,
+"n": 1,
+"planner": "rebirth+jewel+kunai",
+"value": {
+"rebirth+panacea+kunai": -0.67
+},
+"votes": {
+"rebirth+panacea+kunai": 1
+}
+},
+"C|P2|x23|oBH": {
+"alts": [
+[
+"shield+panacea+kunai",
+-1.003
+],
+[
+"shield+panacea+basic",
+-1.005
+],
+[
+"rebirth+smoke",
+-1.14
+]
+],
+"margin": 0.002,
+"n": 1,
+"planner": "rebirth+panacea",
+"value": {
+"phantom+shield": -1.001
+},
+"votes": {
+"phantom+shield": 1
 }
 },
 "C|P2|x23|oCH": {
@@ -2123,6 +4579,60 @@
 },
 "votes": {
 "resist+shield+kims": 1
+}
+},
+"C|P2|x23|oDHPR": {
+"alts": [
+[
+"rebirth+panacea+kunai",
+-1.376
+],
+[
+"rebirth+panacea+basic",
+-1.415
+],
+[
+"thunders+shield+kunai",
+-1.43
+]
+],
+"margin": 0.277,
+"n": 1,
+"planner": "rebirth+shield",
+"value": {
+"ember+shield": -1.098
+},
+"votes": {
+"ember+shield": 1
+}
+},
+"C|P2|x23|oDHR": {
+"alts": [
+[
+"rebirth+panacea+kunai",
+-0.684
+],
+[
+"thunders+shield+kunai",
+-1.216
+],
+[
+"rebirth+shield",
+-1.237
+]
+],
+"margin": 0.104,
+"n": 4,
+"planner": "rebirth+thunders",
+"value": {
+"rebirth+phantom": 0.581,
+"shield+nights+panacea": -1.011,
+"stormblade+shield": -0.579
+},
+"votes": {
+"rebirth+phantom": 1,
+"shield+nights+panacea": 2,
+"stormblade+shield": 1
 }
 },
 "C|P2|x23|oH": {
@@ -2155,18 +4665,72 @@
 "sealnull+shield+panacea": 1
 }
 },
-"C|P2|x24|oBDH": {
-"margin": 0.779,
-"n": 3,
+"C|P2|x24|oBD": {
+"alts": [
+[
+"stormblade+kunai+basic",
+-1.0
+],
+[
+"stormblade+aetherion",
+-1.0
+],
+[
+"stormblade+kims+kunai",
+-1.0
+]
+],
+"margin": 0.43,
+"n": 8,
+"planner": "stormblade+thunders",
 "value": {
-"ember+kunai+basic": 1.211,
-"ember+nights": -0.594,
-"rebirth+shield": 1.586
+"cleanse+sealnull": 0.041,
+"clear+smoke+jewel": -0.593,
+"ember+thunders": 1.388,
+"lotus+aetherion": -1.0,
+"lotus+smoke+kims": -1.0,
+"stormblade+thunders": -1.0
 },
 "votes": {
+"cleanse+sealnull": 1,
+"clear+smoke+jewel": 1,
+"ember+thunders": 1,
+"lotus+aetherion": 1,
+"lotus+smoke+kims": 1,
+"stormblade+thunders": 3
+}
+},
+"C|P2|x24|oBDH": {
+"alts": [
+[
+"shrapnel+pill+basic",
+1.159
+],
+[
+"shrapnel+replace+basic",
+1.159
+],
+[
+"ember+aetherion",
+1.153
+]
+],
+"margin": 0.393,
+"n": 7,
+"planner": "shrapnel+aetherion",
+"value": {
+"clear+sealnull": 0.124,
+"ember+kunai+basic": 1.211,
+"ember+nights": -0.594,
+"rebirth+shield": 1.586,
+"shrapnel+kims+basic": 1.159
+},
+"votes": {
+"clear+sealnull": 3,
 "ember+kunai+basic": 1,
 "ember+nights": 1,
-"rebirth+shield": 1
+"rebirth+shield": 1,
+"shrapnel+kims+basic": 1
 }
 },
 "C|P2|x24|oBDHLR": {
@@ -2189,6 +4753,58 @@
 "cleanse+pill+basic": 1
 }
 },
+"C|P2|x24|oBDI": {
+"alts": [
+[
+"shrapnel+thunders",
+-1.0
+],
+[
+"thunders+aetherion+kunai",
+-1.0
+],
+[
+"fury+thunders",
+-1.0
+]
+],
+"margin": 2.407,
+"n": 2,
+"planner": "shrapnel+thunders",
+"value": {
+"ember+thunders": 1.407
+},
+"votes": {
+"ember+thunders": 2
+}
+},
+"C|P2|x24|oBHS": {
+"alts": [
+[
+"smoke+kims+panacea+kunai",
+-1.241
+],
+[
+"shield+kims+panacea",
+-1.243
+],
+[
+"resist+kims+panacea",
+-1.266
+]
+],
+"margin": 0.33,
+"n": 2,
+"planner": "clear+kims",
+"value": {
+"clear+jewel": 1.157,
+"clear+kims": -1.187
+},
+"votes": {
+"clear+jewel": 1,
+"clear+kims": 1
+}
+},
 "C|P2|x24|oBLPR": {
 "margin": 0.016,
 "n": 1,
@@ -2207,6 +4823,31 @@
 },
 "votes": {
 "lotus+panacea+defstance": 1
+}
+},
+"C|P2|x24|oH": {
+"alts": [
+[
+"rebirth+panacea+kunai",
+0.501
+],
+[
+"rebirth+panacea+jewel",
+-0.045
+],
+[
+"rebirth+shield",
+-0.493
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "rebirth+shield",
+"value": {
+"rebirth+phantom": 0.501
+},
+"votes": {
+"rebirth+phantom": 1
 }
 },
 "C|P2|x24|oHRY": {
@@ -2279,14 +4920,133 @@
 "shrapnel+kunai+basic": 1
 }
 },
-"C|P2|x34|oBDH": {
-"margin": 0.573,
+"C|P2|x33|oBDHL": {
+"alts": [
+[
+"fury+aetherion",
+1.333
+],
+[
+"shrapnel+pill+basic",
+1.333
+],
+[
+"shrapnel+jewel+basic",
+1.333
+]
+],
+"margin": 0.0,
 "n": 1,
+"planner": "shrapnel+aetherion",
 "value": {
-"rebirth+thunders": -0.581
+"shrapnel+aetherion": 1.333
 },
 "votes": {
-"rebirth+thunders": 1
+"shrapnel+aetherion": 1
+}
+},
+"C|P2|x33|oBH": {
+"alts": [
+[
+"ember+aetherion",
+1.412
+],
+[
+"nights+jewel+offstance+basic",
+1.385
+],
+[
+"ember+nights",
+1.375
+]
+],
+"margin": 0.036,
+"n": 1,
+"planner": "ember+nights",
+"value": {
+"nights+pill+jewel+basic": 1.448
+},
+"votes": {
+"nights+pill+jewel+basic": 1
+}
+},
+"C|P2|x33|oDHR": {
+"alts": [
+[
+"ember+pill+basic",
+1.348
+],
+[
+"lotus+phantom",
+1.286
+],
+[
+"lotus+aetherion",
+1.279
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "lotus+resist",
+"value": {
+"lotus+resist": 1.348
+},
+"votes": {
+"lotus+resist": 1
+}
+},
+"C|P2|x34|oBD": {
+"alts": [
+[
+"cleanse+sealnull",
+1.302
+],
+[
+"cleanse+panacea+jewel",
+1.267
+],
+[
+"resist+shield+kims",
+1.037
+]
+],
+"margin": 0.05,
+"n": 1,
+"planner": "shield+kims+panacea+defstance",
+"value": {
+"cleanse+shield": 1.352
+},
+"votes": {
+"cleanse+shield": 1
+}
+},
+"C|P2|x34|oBDH": {
+"alts": [
+[
+"fury+nights",
+1.172
+],
+[
+"lotus+nights",
+1.153
+],
+[
+"ember+nights",
+1.118
+]
+],
+"margin": 0.886,
+"n": 3,
+"planner": "lotus+nights",
+"value": {
+"rebirth+shield": 1.084,
+"rebirth+thunders": -0.581,
+"shrapnel+nights": 1.173
+},
+"votes": {
+"rebirth+shield": 1,
+"rebirth+thunders": 1,
+"shrapnel+nights": 1
 }
 },
 "C|P2|x34|oBDHI": {
@@ -2297,6 +5057,35 @@
 },
 "votes": {
 "rebirth+panacea+kunai": 1
+}
+},
+"C|P2|x34|oBDHS": {
+"alts": [
+[
+"ember+kunai",
+-1.0
+],
+[
+"fury+basic",
+-1.0
+],
+[
+"ember+basic",
+-1.0
+]
+],
+"margin": 0.0,
+"n": 5,
+"planner": "fury+kunai",
+"value": {
+"fury+kunai": -1.0,
+"lotus+kims": -1.0,
+"lotus+kunai": -1.0
+},
+"votes": {
+"fury+kunai": 3,
+"lotus+kims": 1,
+"lotus+kunai": 1
 }
 },
 "C|P2|x34|oDHP": {
@@ -2381,6 +5170,81 @@
 "shrapnel+aetherion": 1
 }
 },
+"M|P1|h00|x24|b3|s|oBHRS": {
+"alts": [
+[
+"nights+kims+basic",
+1.227
+],
+[
+"nights+pill+basic",
+1.227
+],
+[
+"nights+jewel+basic",
+1.227
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "nights+aetherion",
+"value": {
+"nights+aetherion": 1.227
+},
+"votes": {
+"nights+aetherion": 1
+}
+},
+"M|P1|h00|x32|b2|n|oBDHP": {
+"alts": [
+[
+"lotus+aetherion",
+-1.0
+],
+[
+"fury+aetherion",
+-1.0
+],
+[
+"shrapnel+kims+basic",
+-1.0
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "shrapnel+aetherion",
+"value": {
+"shrapnel+aetherion": -1.0
+},
+"votes": {
+"shrapnel+aetherion": 1
+}
+},
+"M|P1|h01|x00|b3|n|oDHMR": {
+"alts": [
+[
+"basicheal+thunders",
+0.012
+],
+[
+"thunders+shield+pill",
+-0.035
+],
+[
+"thunders+shield+offstance",
+-0.058
+]
+],
+"margin": 1.028,
+"n": 1,
+"planner": "stormblade+subaku",
+"value": {
+"subaku+thunders+pill": 1.04
+},
+"votes": {
+"subaku+thunders+pill": 1
+}
+},
 "M|P1|h01|x01|b3|n|oDPR": {
 "margin": 0.3,
 "n": 1,
@@ -2451,6 +5315,81 @@
 "basicheal+basic": 1
 }
 },
+"M|P1|h10|x03|b3|n|oDHR": {
+"alts": [
+[
+"lotus+nights",
+1.342
+],
+[
+"fury+nights",
+1.341
+],
+[
+"nights+aetherion+basic",
+1.332
+]
+],
+"margin": 0.002,
+"n": 1,
+"planner": "shrapnel+nights",
+"value": {
+"shrapnel+nights": 1.344
+},
+"votes": {
+"shrapnel+nights": 1
+}
+},
+"M|P1|h10|x13|b3|-|oBHR": {
+"alts": [
+[
+"lotus+nights",
+1.316
+],
+[
+"fury+nights",
+1.316
+],
+[
+"shrapnel+kims+basic",
+1.277
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "shrapnel+nights",
+"value": {
+"shrapnel+nights": 1.316
+},
+"votes": {
+"shrapnel+nights": 1
+}
+},
+"M|P1|h10|x14|b3|n|oBDH": {
+"alts": [
+[
+"shrapnel+nights",
+1.26
+],
+[
+"lotus+nights",
+1.259
+],
+[
+"fury+nights",
+1.259
+]
+],
+"margin": 0.097,
+"n": 1,
+"planner": "shrapnel+nights",
+"value": {
+"basicheal+nights": 1.357
+},
+"votes": {
+"basicheal+nights": 1
+}
+},
 "M|P1|h10|x22|b1|n|oH": {
 "margin": 0.0,
 "n": 1,
@@ -2471,6 +5410,33 @@
 "basicheal+kunai+basic": 1
 }
 },
+"M|P1|h10|x24|b3|n|oBDH": {
+"alts": [
+[
+"lotus+aetherion",
+1.294
+],
+[
+"fury+aetherion",
+1.294
+],
+[
+"ember+aetherion",
+1.294
+]
+],
+"margin": 0.059,
+"n": 2,
+"planner": "shrapnel+aetherion",
+"value": {
+"basicheal+nights": 1.44,
+"shrapnel+aetherion": 1.294
+},
+"votes": {
+"basicheal+nights": 1,
+"shrapnel+aetherion": 1
+}
+},
 "M|P1|h11|x10|b2|n|oBDMRS": {
 "margin": 0.468,
 "n": 1,
@@ -2489,6 +5455,31 @@
 },
 "votes": {
 "overflow+thunders+pill": 1
+}
+},
+"M|P1|h11|x13|b3|n|oDPR": {
+"alts": [
+[
+"fury+aetherion",
+1.059
+],
+[
+"fury+kims+basic",
+0.537
+],
+[
+"fury+replace+basic",
+0.537
+]
+],
+"margin": 0.208,
+"n": 1,
+"planner": "shrapnel+aetherion",
+"value": {
+"shrapnel+aetherion": 1.267
+},
+"votes": {
+"shrapnel+aetherion": 1
 }
 },
 "M|P1|h11|x14|b3|d|oBILR": {
@@ -2521,6 +5512,56 @@
 "basicheal+aetherion": 1
 }
 },
+"M|P1|h11|x24|b3|n|oBDL": {
+"alts": [
+[
+"shrapnel+pill+basic",
+1.278
+],
+[
+"shrapnel+jewel+basic",
+1.278
+],
+[
+"shrapnel+replace+basic",
+1.278
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "shrapnel+aetherion",
+"value": {
+"shrapnel+kims+basic": 1.278
+},
+"votes": {
+"shrapnel+kims+basic": 1
+}
+},
+"M|P1|h11|x34|b3|n|oBDL": {
+"alts": [
+[
+"cleanse+pill+basic",
+0.677
+],
+[
+"cleanse+offstance+basic",
+0.608
+],
+[
+"cleanse+kims+basic",
+0.02
+]
+],
+"margin": 0.462,
+"n": 1,
+"planner": "cleanse+panacea+basic",
+"value": {
+"cleanse+aetherion": 1.139
+},
+"votes": {
+"cleanse+aetherion": 1
+}
+},
 "M|P1|h11|x43|b3|n|oBHR": {
 "margin": 0.0,
 "n": 1,
@@ -2549,6 +5590,31 @@
 },
 "votes": {
 "shrapnel+nights": 1
+}
+},
+"M|P1|h11|x44|b3|n|oBDHL": {
+"alts": [
+[
+"cleanse+kunai+offstance",
+1.264
+],
+[
+"cleanse+kunai+basic",
+1.234
+],
+[
+"cleanse+kunai+defstance",
+1.234
+]
+],
+"margin": 0.057,
+"n": 1,
+"planner": "cleanse+kunai+basic",
+"value": {
+"cleanse+pill+kunai": 1.321
+},
+"votes": {
+"cleanse+pill+kunai": 1
 }
 },
 "M|P1|h12|x10|b3|n|oBMR": {
@@ -2591,6 +5657,81 @@
 "resist+shield+panacea": 1
 }
 },
+"M|P1|h12|x21|b3|dc|oBILP": {
+"alts": [
+[
+"overflow+phantom+jewel",
+0.55
+],
+[
+"phantom+jewel+defstance+basic",
+0.014
+],
+[
+"overflow+phantom+defstance",
+-0.531
+]
+],
+"margin": 0.104,
+"n": 1,
+"planner": "overflow+phantom+jewel",
+"value": {
+"phantom+pill+jewel+defstance": 0.654
+},
+"votes": {
+"phantom+pill+jewel+defstance": 1
+}
+},
+"M|P1|h12|x21|b3|n|oDHR": {
+"alts": [
+[
+"fury+kunai+basic",
+0.019
+],
+[
+"cleanse+kunai+defstance",
+0.015
+],
+[
+"cleanse+defstance+basic",
+-0.523
+]
+],
+"margin": 1.135,
+"n": 1,
+"planner": "ember+kunai+basic",
+"value": {
+"ember+kunai+basic": 1.154
+},
+"votes": {
+"ember+kunai+basic": 1
+}
+},
+"M|P1|h12|x30|b3|n|oBDHLMR": {
+"alts": [
+[
+"stormblade+aetherion",
+0.029
+],
+[
+"stormblade+offstance+basic",
+0.026
+],
+[
+"stormblade+kunai+offstance",
+0.002
+]
+],
+"margin": 1.253,
+"n": 1,
+"planner": "cleanse+kunai+basic",
+"value": {
+"cleanse+kunai+basic": 1.282
+},
+"votes": {
+"cleanse+kunai+basic": 1
+}
+},
 "M|P1|h12|x34|b3|n|oBDHP": {
 "margin": 0.069,
 "n": 1,
@@ -2631,11 +5772,61 @@
 "basicheal+resist": 1
 }
 },
+"M|P1|h20|x03|b1|n|oDHR": {
+"alts": [
+[
+"fury+kunai+basic",
+1.359
+],
+[
+"fury+nights",
+1.334
+],
+[
+"shrapnel+nights",
+1.293
+]
+],
+"margin": 0.042,
+"n": 1,
+"planner": "fury+nights",
+"value": {
+"fury+kunai+defstance": 1.401
+},
+"votes": {
+"fury+kunai+defstance": 1
+}
+},
 "M|P1|h20|x03|b3|n|oDHLR": {
 "margin": 0.0,
 "n": 1,
 "value": {
 "shrapnel+nights": 1.462
+},
+"votes": {
+"shrapnel+nights": 1
+}
+},
+"M|P1|h20|x04|b3|cn|oBDIR": {
+"alts": [
+[
+"lotus+nights",
+1.635
+],
+[
+"nights+aetherion+kunai",
+1.635
+],
+[
+"nights+aetherion+basic",
+1.635
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "shrapnel+nights",
+"value": {
+"shrapnel+nights": 1.635
 },
 "votes": {
 "shrapnel+nights": 1
@@ -2671,6 +5862,56 @@
 "basicheal+nights": 1
 }
 },
+"M|P1|h21|x04|b1|n|oBDH": {
+"alts": [
+[
+"fury+kims+kunai",
+1.351
+],
+[
+"fury+kunai+replace",
+1.351
+],
+[
+"fury+pill+kunai",
+1.339
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "fury+nights",
+"value": {
+"fury+kunai+basic": 1.351
+},
+"votes": {
+"fury+kunai+basic": 1
+}
+},
+"M|P1|h21|x04|b3|dn|oBDIR": {
+"alts": [
+[
+"cleanse+pill+kunai",
+1.403
+],
+[
+"cleanse+kunai+offstance",
+1.36
+],
+[
+"cleanse+panacea+kunai",
+1.34
+]
+],
+"margin": 0.075,
+"n": 1,
+"planner": "cleanse+kunai+basic",
+"value": {
+"cleanse+kunai+basic": 1.478
+},
+"votes": {
+"cleanse+kunai+basic": 1
+}
+},
 "M|P1|h21|x12|b3|n|oDR": {
 "margin": 0.051,
 "n": 1,
@@ -2702,13 +5943,53 @@
 }
 },
 "M|P1|h21|x14|b3|n|oBDH": {
+"alts": [
+[
+"clear+kims+basic",
+1.175
+],
+[
+"clear+replace+basic",
+1.175
+],
+[
+"clear+aetherion",
+1.172
+]
+],
 "margin": 0.027,
-"n": 1,
+"n": 2,
+"planner": "clear+aetherion",
 "value": {
 "clear+resist": 1.201
 },
 "votes": {
-"clear+resist": 1
+"clear+resist": 2
+}
+},
+"M|P1|h21|x23|b0|n|oCH": {
+"alts": [
+[
+"fury+resist",
+1.219
+],
+[
+"fury+nights",
+1.186
+],
+[
+"fury+kunai+basic",
+1.186
+]
+],
+"margin": 0.074,
+"n": 4,
+"planner": "fury+nights",
+"value": {
+"ember+overflow": 1.293
+},
+"votes": {
+"ember+overflow": 4
 }
 },
 "M|P1|h21|x23|b3|n|oBDHL": {
@@ -2721,6 +6002,31 @@
 "stormblade+pill+jewel": 1
 }
 },
+"M|P1|h21|x24|b3|n|oBDH": {
+"alts": [
+[
+"clear+pill+basic",
+1.359
+],
+[
+"clear+kims+basic",
+1.316
+],
+[
+"clear+offstance+basic",
+1.297
+]
+],
+"margin": 0.065,
+"n": 1,
+"planner": "clear+aetherion",
+"value": {
+"clear+aetherion": 1.425
+},
+"votes": {
+"clear+aetherion": 1
+}
+},
 "M|P1|h21|x34|b3|n|oCHR": {
 "margin": 0.042,
 "n": 1,
@@ -2731,6 +6037,31 @@
 "subaku+overflow+kunai": 1
 }
 },
+"M|P1|h21|x44|b3|n|oBDHL": {
+"alts": [
+[
+"cleanse+pill+kunai",
+1.376
+],
+[
+"cleanse+aetherion",
+1.33
+],
+[
+"cleanse+kunai+offstance",
+1.318
+]
+],
+"margin": 0.027,
+"n": 1,
+"planner": "cleanse+kunai+basic",
+"value": {
+"fury+subaku": 1.404
+},
+"votes": {
+"fury+subaku": 1
+}
+},
 "M|P1|h21|x44|b3|n|oDH": {
 "margin": 0.0,
 "n": 1,
@@ -2739,6 +6070,106 @@
 },
 "votes": {
 "shrapnel+aetherion": 1
+}
+},
+"M|P1|h22|x01|b2|n|oDHPR": {
+"alts": [
+[
+"overflow+phantom+defstance",
+1.088
+],
+[
+"basicheal+phantom",
+0.078
+],
+[
+"overflow+phantom+offstance",
+0.073
+]
+],
+"margin": 0.191,
+"n": 1,
+"planner": "ember+phantom",
+"value": {
+"ember+phantom": 1.279
+},
+"votes": {
+"ember+phantom": 1
+}
+},
+"M|P1|h22|x01|b3|n|oBDR": {
+"alts": [
+[
+"ember+pill+offstance",
+1.409
+],
+[
+"ember+kims+basic",
+1.341
+],
+[
+"ember+pill+basic",
+1.248
+]
+],
+"margin": 0.072,
+"n": 1,
+"planner": "ember+aetherion",
+"value": {
+"ember+eclipse": 1.481
+},
+"votes": {
+"ember+eclipse": 1
+}
+},
+"M|P1|h22|x02|b3|n|oBDR": {
+"alts": [
+[
+"ember+pill+basic",
+0.091
+],
+[
+"ember+subaku",
+0.03
+],
+[
+"ember+offstance+basic",
+-0.453
+]
+],
+"margin": 0.021,
+"n": 1,
+"planner": "ember+eclipse",
+"value": {
+"ember+eclipse": 0.113
+},
+"votes": {
+"ember+eclipse": 1
+}
+},
+"M|P1|h22|x10|b1|n|oCHR": {
+"alts": [
+[
+"resist+nights+defstance",
+0.581
+],
+[
+"resist+nights+jewel",
+0.024
+],
+[
+"phantom+nights+defstance",
+-0.548
+]
+],
+"margin": 0.503,
+"n": 1,
+"planner": "resist+nights+defstance",
+"value": {
+"basicheal+resist": 1.084
+},
+"votes": {
+"basicheal+resist": 1
 }
 },
 "M|P1|h22|x10|b3|n|oBDHMR": {
@@ -2803,6 +6234,31 @@
 "thunders+shield+basic": 1
 }
 },
+"M|P1|h22|x34|b3|n|oDHR": {
+"alts": [
+[
+"fury+pill+panacea",
+1.245
+],
+[
+"fury+panacea+jewel",
+1.224
+],
+[
+"fury+panacea+offstance",
+1.194
+]
+],
+"margin": 0.033,
+"n": 1,
+"planner": "fury+panacea+kunai",
+"value": {
+"fury+panacea+basic": 1.278
+},
+"votes": {
+"fury+panacea+basic": 1
+}
+},
 "M|P1|h22|x42|b1|n|oBDH": {
 "margin": 0.0,
 "n": 1,
@@ -2811,6 +6267,56 @@
 },
 "votes": {
 "shrapnel+kunai+basic": 1
+}
+},
+"M|P1|h22|x42|b3|dn|oBILR": {
+"alts": [
+[
+"overflow+eclipse+offstance",
+1.112
+],
+[
+"overflow+pill+kunai+offstance",
+0.56
+],
+[
+"subaku+overflow+pill",
+0.132
+]
+],
+"margin": 0.181,
+"n": 1,
+"planner": "subaku+overflow+pill",
+"value": {
+"overflow+eclipse+pill": 1.293
+},
+"votes": {
+"overflow+eclipse+pill": 1
+}
+},
+"M|P1|h22|x44|b3|sn|oBDHS": {
+"alts": [
+[
+"fury+kunai",
+1.638
+],
+[
+"fury+basic",
+1.638
+],
+[
+"fury+offstance",
+1.564
+]
+],
+"margin": 0.007,
+"n": 1,
+"planner": "fury+defstance",
+"value": {
+"fury+pill": 1.645
+},
+"votes": {
+"fury+pill": 1
 }
 },
 "M|P1|h23|x13|b2|-|oCHR": {
@@ -2831,6 +6337,56 @@
 },
 "votes": {
 "ember+resist": 1
+}
+},
+"M|P1|h23|x20|b2|n|oDMPR": {
+"alts": [
+[
+"stormblade+pill+defstance",
+0.017
+],
+[
+"stormblade+defstance+offstance",
+-0.419
+],
+[
+"stormblade+resist",
+-0.478
+]
+],
+"margin": 1.096,
+"n": 1,
+"planner": "stormblade+resist",
+"value": {
+"ember+resist": 1.113
+},
+"votes": {
+"ember+resist": 1
+}
+},
+"M|P1|h23|x30|b2|n|oDMPR": {
+"alts": [
+[
+"stormblade+resist",
+1.113
+],
+[
+"stormblade+defstance+basic",
+0.06
+],
+[
+"stormblade+defstance+offstance",
+-0.529
+]
+],
+"margin": 0.069,
+"n": 1,
+"planner": "stormblade+resist",
+"value": {
+"stormblade+pill+defstance": 1.181
+},
+"votes": {
+"stormblade+pill+defstance": 1
 }
 },
 "M|P1|h23|x34|b3|n|oBCH": {
@@ -2943,6 +6499,31 @@
 "lotus+kunai+basic": 1
 }
 },
+"M|P1|h31|x04|b3|cn|oBDIR": {
+"alts": [
+[
+"lotus+nights",
+1.653
+],
+[
+"nights+aetherion+kunai",
+1.653
+],
+[
+"nights+aetherion+basic",
+1.653
+]
+],
+"margin": 0.0,
+"n": 2,
+"planner": "shrapnel+nights",
+"value": {
+"shrapnel+nights": 1.653
+},
+"votes": {
+"shrapnel+nights": 2
+}
+},
 "M|P1|h31|x22|b0|n|oH": {
 "margin": 0.03,
 "n": 1,
@@ -3053,6 +6634,31 @@
 "overflow+phantom+pill": 1
 }
 },
+"M|P1|h32|x23|b3|n|oBCR": {
+"alts": [
+[
+"stormblade+pill+offstance",
+0.623
+],
+[
+"stormblade+subaku",
+0.616
+],
+[
+"stormblade+eclipse",
+0.519
+]
+],
+"margin": 0.591,
+"n": 1,
+"planner": "stormblade+overflow",
+"value": {
+"stormblade+overflow": 1.214
+},
+"votes": {
+"stormblade+overflow": 1
+}
+},
 "M|P1|h32|x24|b2|n|oCP": {
 "margin": 0.008,
 "n": 1,
@@ -3081,6 +6687,31 @@
 },
 "votes": {
 "shrapnel+pill+basic": 1
+}
+},
+"M|P1|h32|x34|b3|n|oBDH": {
+"alts": [
+[
+"clear+pill+basic",
+1.247
+],
+[
+"clear+aetherion",
+1.205
+],
+[
+"clear+offstance+basic",
+1.205
+]
+],
+"margin": 0.002,
+"n": 1,
+"planner": "clear+aetherion",
+"value": {
+"fury+subaku": 1.249
+},
+"votes": {
+"fury+subaku": 1
 }
 },
 "M|P1|h32|x34|b3|n|oBDL": {
@@ -3134,13 +6765,103 @@
 }
 },
 "M|P1|h32|x44|b2|n|oDH": {
+"alts": [
+[
+"fury+panacea+basic",
+1.01
+],
+[
+"fury+panacea+defstance",
+1.01
+],
+[
+"fury+panacea+jewel",
+1.01
+]
+],
 "margin": 0.059,
-"n": 1,
+"n": 2,
+"planner": "fury+panacea+basic",
 "value": {
 "fury+resist": 1.069
 },
 "votes": {
-"fury+resist": 1
+"fury+resist": 2
+}
+},
+"M|P1|h32|x44|b3|sn|oBDHS": {
+"alts": [
+[
+"cleanse+basic",
+1.347
+],
+[
+"clear+kims",
+1.213
+],
+[
+"clear+replace",
+1.213
+]
+],
+"margin": 0.015,
+"n": 4,
+"planner": "clear+basic",
+"value": {
+"clear+basic": 1.362
+},
+"votes": {
+"clear+basic": 4
+}
+},
+"M|P1|h32|x44|b3|sn|oBHS": {
+"alts": [
+[
+"fury+kunai",
+1.616
+],
+[
+"fury+basic",
+1.616
+],
+[
+"fury+jewel",
+1.612
+]
+],
+"margin": 0.019,
+"n": 2,
+"planner": "fury+defstance",
+"value": {
+"fury+pill": 1.635
+},
+"votes": {
+"fury+pill": 2
+}
+},
+"M|P1|h33|x00|b1|n|oDHPR": {
+"alts": [
+[
+"ember+defstance+basic",
+1.236
+],
+[
+"ember+phantom",
+1.206
+],
+[
+"ember+jewel+defstance",
+1.206
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "ember+phantom",
+"value": {
+"ember+jewel+basic": 1.236
+},
+"votes": {
+"ember+jewel+basic": 1
 }
 },
 "M|P1|h33|x03|b3|n|oDR": {
@@ -3184,12 +6905,29 @@
 }
 },
 "M|P1|h33|x14|b3|n|oBDH": {
-"margin": 0.057,
-"n": 1,
+"alts": [
+[
+"clear+smoke+jewel",
+0.518
+],
+[
+"clear+aetherion",
+0.032
+],
+[
+"clear+smoke+basic",
+-0.6
+]
+],
+"margin": 0.045,
+"n": 2,
+"planner": "clear+smoke+basic",
 "value": {
+"clear+nights": 0.551,
 "ember+subaku": 1.321
 },
 "votes": {
+"clear+nights": 1,
 "ember+subaku": 1
 }
 },
@@ -3203,6 +6941,33 @@
 "overflow+thunders+jewel": 1
 }
 },
+"M|P1|h33|x20|b0|n|oCH": {
+"alts": [
+[
+"resist+phantom+jewel",
+1.156
+],
+[
+"overflow+phantom+pill",
+0.586
+],
+[
+"overflow+resist+jewel",
+0.155
+]
+],
+"margin": 0.371,
+"n": 2,
+"planner": "overflow+phantom+jewel",
+"value": {
+"ember+overflow": 1.325,
+"resist+phantom+jewel": 1.156
+},
+"votes": {
+"ember+overflow": 1,
+"resist+phantom+jewel": 1
+}
+},
 "M|P1|h33|x20|b1|Dn|oLR": {
 "margin": 0.039,
 "n": 1,
@@ -3211,6 +6976,31 @@
 },
 "votes": {
 "rebirth+shield": 1
+}
+},
+"M|P1|h33|x20|b1|n|oBCDH": {
+"alts": [
+[
+"resist+nights+jewel",
+0.59
+],
+[
+"resist+nights+pill",
+-0.032
+],
+[
+"resist+nights+defstance",
+-0.054
+]
+],
+"margin": 0.036,
+"n": 1,
+"planner": "resist+nights+jewel",
+"value": {
+"resist+nights+offstance": 0.627
+},
+"votes": {
+"resist+nights+offstance": 1
 }
 },
 "M|P1|h33|x21|b1|-|oBCDS": {
@@ -3251,6 +7041,33 @@
 },
 "votes": {
 "thunders+shield+kunai": 1
+}
+},
+"M|P1|h33|x24|b3|n|oBD": {
+"alts": [
+[
+"overflow+thunders+basic",
+1.447
+],
+[
+"ember+thunders",
+1.408
+],
+[
+"overflow+thunders+pill",
+1.271
+]
+],
+"margin": 0.078,
+"n": 3,
+"planner": "ember+thunders",
+"value": {
+"ember+thunders": 1.451,
+"overflow+thunders+kunai": 1.504
+},
+"votes": {
+"ember+thunders": 2,
+"overflow+thunders+kunai": 1
 }
 },
 "M|P1|h33|x24|b3|n|oBDP": {
@@ -3303,14 +7120,79 @@
 "overflow+pill+jewel": 1
 }
 },
-"M|P1|h34|x10|b2|sn|oBHS": {
-"margin": 0.142,
+"M|P1|h34|x00|b1|n|oDHPR": {
+"alts": [
+[
+"stormblade+thunders",
+1.516
+],
+[
+"shield+nights+jewel",
+1.386
+],
+[
+"stormblade+shield",
+1.311
+]
+],
+"margin": 0.12,
+"n": 2,
+"planner": "stormblade+shield",
+"value": {
+"thunders+shield+offstance": 1.637
+},
+"votes": {
+"thunders+shield+offstance": 2
+}
+},
+"M|P1|h34|x00|b3|n|oBHPR": {
+"alts": [
+[
+"stormblade+shield",
+1.521
+],
+[
+"stormblade+thunders",
+1.33
+],
+[
+"thunders+shield+offstance",
+1.296
+]
+],
+"margin": 0.155,
 "n": 1,
+"planner": "stormblade+shield",
+"value": {
+"shield+nights+jewel": 1.676
+},
+"votes": {
+"shield+nights+jewel": 1
+}
+},
+"M|P1|h34|x10|b2|sn|oBHS": {
+"alts": [
+[
+"phantom+shield",
+1.278
+],
+[
+"shield+nights",
+1.206
+],
+[
+"stormblade+jewel",
+0.965
+]
+],
+"margin": 0.106,
+"n": 2,
+"planner": "thunders+shield",
 "value": {
 "thunders+shield": 1.348
 },
 "votes": {
-"thunders+shield": 1
+"thunders+shield": 2
 }
 },
 "M|P1|h34|x14|b3|n|oDHR": {
@@ -3364,13 +7246,28 @@
 }
 },
 "M|P1|h34|x34|b3|n|oBD": {
-"margin": 0.589,
-"n": 1,
+"alts": [
+[
+"stormblade+overflow",
+0.803
+],
+[
+"stormblade+pill+basic",
+0.541
+],
+[
+"stormblade+panacea+basic",
+0.523
+]
+],
+"margin": 0.584,
+"n": 2,
+"planner": "stormblade+overflow",
 "value": {
-"ember+overflow": 1.392
+"ember+overflow": 1.382
 },
 "votes": {
-"ember+overflow": 1
+"ember+overflow": 2
 }
 },
 "M|P1|h34|x34|b3|n|oBHPS": {
@@ -3394,13 +7291,28 @@
 }
 },
 "M|P1|h41|x04|b3|cn|oBDIR": {
+"alts": [
+[
+"shrapnel+subaku",
+1.258
+],
+[
+"lotus+subaku",
+1.258
+],
+[
+"ember+subaku",
+1.258
+]
+],
 "margin": 0.106,
-"n": 1,
+"n": 2,
+"planner": "cleanse+aetherion",
 "value": {
 "cleanse+aetherion": 1.364
 },
 "votes": {
-"cleanse+aetherion": 1
+"cleanse+aetherion": 2
 }
 },
 "M|P1|h41|x31|b1|s|oHRS": {
@@ -3421,6 +7333,31 @@
 },
 "votes": {
 "clear+aetherion": 1
+}
+},
+"M|P1|h42|x14|b3|n|oBD": {
+"alts": [
+[
+"cleanse+jewel+basic",
+1.285
+],
+[
+"subaku+phantom+jewel",
+1.24
+],
+[
+"cleanse+resist",
+1.229
+]
+],
+"margin": 0.003,
+"n": 1,
+"planner": "cleanse+phantom",
+"value": {
+"cleanse+aetherion": 1.288
+},
+"votes": {
+"cleanse+aetherion": 1
 }
 },
 "M|P1|h42|x14|b3|n|oBDL": {
@@ -3553,6 +7490,81 @@
 "clear+jewel+basic": 1
 }
 },
+"M|P1|h43|x04|b3|dn|oBIR": {
+"alts": [
+[
+"rebirth+overflow",
+-1.157
+],
+[
+"rebirth+jewel+basic",
+-1.18
+],
+[
+"rebirth+jewel+offstance",
+-1.188
+]
+],
+"margin": 0.714,
+"n": 1,
+"planner": "rebirth+overflow",
+"value": {
+"rebirth+pill+jewel": -0.443
+},
+"votes": {
+"rebirth+pill+jewel": 1
+}
+},
+"M|P1|h43|x04|b3|n|oBDH": {
+"alts": [
+[
+"clear+smoke+defstance",
+0.488
+],
+[
+"clear+smoke+replace",
+0.063
+],
+[
+"clear+smoke+basic",
+-0.404
+]
+],
+"margin": 0.134,
+"n": 1,
+"planner": "clear+smoke+basic",
+"value": {
+"clear+smoke+kims": 0.622
+},
+"votes": {
+"clear+smoke+kims": 1
+}
+},
+"M|P1|h43|x13|b0|n|oD": {
+"alts": [
+[
+"cleanse+pill+basic",
+1.213
+],
+[
+"cleanse+resist",
+1.186
+],
+[
+"cleanse+jewel+defstance",
+0.627
+]
+],
+"margin": 0.009,
+"n": 1,
+"planner": "cleanse+resist",
+"value": {
+"cleanse+jewel+basic": 1.221
+},
+"votes": {
+"cleanse+jewel+basic": 1
+}
+},
 "M|P1|h43|x13|b3|n|oBDR": {
 "margin": 0.06,
 "n": 1,
@@ -3561,6 +7573,58 @@
 },
 "votes": {
 "ember+aetherion": 1
+}
+},
+"M|P1|h43|x14|b3|n|oBDH": {
+"alts": [
+[
+"clear+smoke+jewel",
+0.591
+],
+[
+"clear+jewel+kunai",
+0.054
+],
+[
+"clear+smoke+defstance",
+-0.494
+]
+],
+"margin": 0.032,
+"n": 2,
+"planner": "clear+smoke+kunai",
+"value": {
+"clear+smoke+basic": 0.655,
+"rebirth+panacea+basic": 1.244
+},
+"votes": {
+"clear+smoke+basic": 1,
+"rebirth+panacea+basic": 1
+}
+},
+"M|P1|h43|x14|b3|n|oBDHL": {
+"alts": [
+[
+"clear+kunai+basic",
+0.639
+],
+[
+"clear+smoke+basic",
+0.11
+],
+[
+"clear+kunai+offstance",
+0.077
+]
+],
+"margin": 0.583,
+"n": 2,
+"planner": "clear+smoke+kunai",
+"value": {
+"clear+smoke+kunai": 1.222
+},
+"votes": {
+"clear+smoke+kunai": 2
 }
 },
 "M|P1|h43|x14|b3|n|oBDLR": {
@@ -3574,13 +7638,57 @@
 }
 },
 "M|P1|h43|x14|b3|n|oBDR": {
-"margin": 0.592,
-"n": 1,
+"alts": [
+[
+"clear+aetherion",
+0.607
+],
+[
+"rebirth+subaku",
+0.083
+],
+[
+"clear+kims+basic",
+0.048
+]
+],
+"margin": 0.43,
+"n": 5,
+"planner": "rebirth+subaku",
 "value": {
-"clear+sealnull": 1.199
+"clear+pill+offstance": 1.449,
+"clear+sealnull": 1.199,
+"rebirth+kims+basic": 1.365
 },
 "votes": {
-"clear+sealnull": 1
+"clear+pill+offstance": 1,
+"clear+sealnull": 3,
+"rebirth+kims+basic": 1
+}
+},
+"M|P1|h43|x24|b3|cn|oBIR": {
+"alts": [
+[
+"fury+kunai+basic",
+1.155
+],
+[
+"fury+aetherion",
+0.676
+],
+[
+"fury+pill+basic",
+0.09
+]
+],
+"margin": 0.105,
+"n": 1,
+"planner": "fury+kunai+basic",
+"value": {
+"fury+kims+kunai": 1.259
+},
+"votes": {
+"fury+kims+kunai": 1
 }
 },
 "M|P1|h43|x24|b3|n|oBCR": {
@@ -3591,6 +7699,31 @@
 },
 "votes": {
 "ember+phantom": 1
+}
+},
+"M|P1|h43|x24|b3|n|oBD": {
+"alts": [
+[
+"subaku+thunders+pill",
+-1.0
+],
+[
+"subaku+thunders+offstance",
+-1.0
+],
+[
+"subaku+thunders+basic",
+-1.0
+]
+],
+"margin": 2.682,
+"n": 4,
+"planner": "subaku+thunders+pill",
+"value": {
+"subaku+thunders+kims": 1.682
+},
+"votes": {
+"subaku+thunders+kims": 4
 }
 },
 "M|P1|h43|x24|b3|n|oBDH": {
@@ -3666,13 +7799,28 @@
 }
 },
 "M|P1|h43|x44|b3|n|oBD": {
+"alts": [
+[
+"fury+kunai+replace",
+1.187
+],
+[
+"fury+pill+kunai",
+1.177
+],
+[
+"fury+kunai+offstance",
+1.126
+]
+],
 "margin": 0.0,
-"n": 1,
+"n": 2,
+"planner": "fury+kunai+basic",
 "value": {
 "fury+kunai+basic": 1.187
 },
 "votes": {
-"fury+kunai+basic": 1
+"fury+kunai+basic": 2
 }
 },
 "M|P1|h43|x44|b3|n|oBHR": {
@@ -3685,11 +7833,76 @@
 "fury+smoke+pill": 1
 }
 },
+"M|P1|h44|x00|b2|n|oBDHR": {
+"alts": [
+[
+"stormblade+thunders",
+1.455
+],
+[
+"stormblade+overflow",
+1.375
+],
+[
+"thunders+shield+basic",
+0.809
+]
+],
+"margin": 0.118,
+"n": 4,
+"planner": "stormblade+shield",
+"value": {
+"stormblade+shield": 1.573
+},
+"votes": {
+"stormblade+shield": 4
+}
+},
 "M|P1|h44|x00|b3|dn|oBDIR": {
+"alts": [
+[
+"stormblade+phantom",
+0.645
+],
+[
+"stormblade+panacea+jewel",
+-0.53
+],
+[
+"stormblade+thunders",
+-1.0
+]
+],
 "margin": 0.45,
-"n": 1,
+"n": 3,
+"planner": "stormblade+thunders",
 "value": {
 "stormblade+overflow": 1.095
+},
+"votes": {
+"stormblade+overflow": 3
+}
+},
+"M|P1|h44|x00|b3|dn|oBILR": {
+"alts": [
+[
+"stormblade+phantom",
+1.195
+],
+[
+"stormblade+thunders",
+0.043
+],
+[
+"rebirth+thunders",
+-1.509
+]
+],
+"margin": 0.267,
+"n": 1,
+"planner": "stormblade+thunders",
+"value": {
+"stormblade+overflow": 1.462
 },
 "votes": {
 "stormblade+overflow": 1
@@ -3758,13 +7971,28 @@
 }
 },
 "M|P1|h44|x10|b2|dsn|oBDILS": {
+"alts": [
+[
+"shield+nights",
+1.386
+],
+[
+"overflow+shield",
+1.362
+],
+[
+"shield+jewel+kunai",
+1.309
+]
+],
 "margin": 0.074,
-"n": 1,
+"n": 3,
+"planner": "thunders+shield",
 "value": {
 "thunders+shield": 1.46
 },
 "votes": {
-"thunders+shield": 1
+"thunders+shield": 3
 }
 },
 "M|P1|h44|x11|b2|n|oBDPR": {
@@ -3859,6 +8087,31 @@
 "ember+panacea+kunai": 1
 }
 },
+"M|P1|h44|x14|b3|d|oBIR": {
+"alts": [
+[
+"rebirth+pill+basic",
+-1.188
+],
+[
+"rebirth+aetherion",
+-1.19
+],
+[
+"rebirth+kunai+basic",
+-1.19
+]
+],
+"margin": 0.015,
+"n": 3,
+"planner": "rebirth+nights",
+"value": {
+"rebirth+nights": -1.173
+},
+"votes": {
+"rebirth+nights": 3
+}
+},
 "M|P1|h44|x14|b3|n|oBDL": {
 "margin": 0.167,
 "n": 1,
@@ -3889,6 +8142,31 @@
 "resist+nights+jewel": 1
 }
 },
+"M|P1|h44|x20|b0|n|oDHP": {
+"alts": [
+[
+"thunders+nights+panacea",
+0.085
+],
+[
+"stormblade+phantom",
+0.073
+],
+[
+"stormblade+thunders",
+-0.518
+]
+],
+"margin": 0.019,
+"n": 2,
+"planner": "stormblade+thunders",
+"value": {
+"stormblade+resist": 0.104
+},
+"votes": {
+"stormblade+resist": 2
+}
+},
 "M|P1|h44|x20|b3|n|oBHPR": {
 "margin": 0.165,
 "n": 1,
@@ -3900,8 +8178,23 @@
 }
 },
 "M|P1|h44|x22|b0|-|o0": {
-"margin": 0.115,
-"n": 33,
+"alts": [
+[
+"rebirth+smoke+panacea",
+1.316
+],
+[
+"rebirth+smoke+kunai",
+1.253
+],
+[
+"rebirth+smoke+basic",
+1.221
+]
+],
+"margin": 0.13,
+"n": 53,
+"planner": "rebirth+smoke+panacea",
 "value": {
 "ember+jewel+kunai": 1.942,
 "ember+shield": 1.386,
@@ -3917,7 +8210,7 @@
 "shield+smoke+kunai+basic": 1.935,
 "shield+smoke+panacea+kunai": -0.206,
 "thunders+shield+jewel": 1.686,
-"thunders+shield+panacea": 1.447
+"thunders+shield+panacea": 1.629
 },
 "votes": {
 "ember+jewel+kunai": 1,
@@ -3925,16 +8218,16 @@
 "ember+smoke+kunai": 5,
 "fury+smoke+jewel": 1,
 "rebirth+shield": 5,
-"rebirth+smoke+jewel": 2,
+"rebirth+smoke+jewel": 7,
 "rebirth+smoke+kunai": 3,
 "shield+aetherion+panacea": 1,
-"shield+aetherion+smoke": 3,
+"shield+aetherion+smoke": 8,
 "shield+panacea+jewel+kunai": 1,
 "shield+panacea+kunai+basic": 1,
 "shield+smoke+kunai+basic": 3,
-"shield+smoke+panacea+kunai": 1,
+"shield+smoke+panacea+kunai": 6,
 "thunders+shield+jewel": 1,
-"thunders+shield+panacea": 4
+"thunders+shield+panacea": 9
 }
 },
 "M|P1|h44|x22|b0|-|oBDH": {
@@ -4038,13 +8331,55 @@
 }
 },
 "M|P1|h44|x34|b3|dn|oBD": {
-"margin": 0.125,
-"n": 1,
+"alts": [
+[
+"stormblade+eclipse",
+1.128
+],
+[
+"stormblade+pill+jewel",
+0.637
+],
+[
+"stormblade+overflow",
+0.578
+]
+],
+"margin": 0.12,
+"n": 3,
+"planner": "stormblade+overflow",
 "value": {
-"stormblade+eclipse": 1.358
+"stormblade+eclipse": 1.358,
+"stormblade+pill+kunai": 1.238
 },
 "votes": {
-"stormblade+eclipse": 1
+"stormblade+eclipse": 2,
+"stormblade+pill+kunai": 1
+}
+},
+"M|P1|h44|x34|b3|n|oBDL": {
+"alts": [
+[
+"rebirth+nights",
+-1.185
+],
+[
+"rebirth+aetherion",
+-1.186
+],
+[
+"rebirth+kunai+basic",
+-1.195
+]
+],
+"margin": 2.362,
+"n": 2,
+"planner": "rebirth+kunai+basic",
+"value": {
+"rebirth+kims+kunai": 1.177
+},
+"votes": {
+"rebirth+kims+kunai": 2
 }
 },
 "M|P1|h44|x34|b3|n|oBL": {
@@ -4127,6 +8462,58 @@
 "stormblade+defstance+basic": 1
 }
 },
+"M|P2|h01|x13|b3|n|oCH": {
+"alts": [
+[
+"ember+kunai+basic",
+-1.17
+],
+[
+"danse+kunai+basic",
+-1.187
+],
+[
+"fury+pill+kunai",
+-1.191
+]
+],
+"margin": 0.003,
+"n": 1,
+"planner": "fury+kunai+basic",
+"value": {
+"fury+kunai+basic": -1.167
+},
+"votes": {
+"fury+kunai+basic": 1
+}
+},
+"M|P2|h01|x34|b3|sn|oBDHS": {
+"alts": [
+[
+"lotus+basic",
+-1.0
+],
+[
+"lotus+kims",
+-1.0
+],
+[
+"lotus+pill",
+-1.0
+]
+],
+"margin": 0.0,
+"n": 2,
+"planner": "lotus+kunai",
+"value": {
+"lotus+kims": -1.0,
+"lotus+kunai": -1.0
+},
+"votes": {
+"lotus+kims": 1,
+"lotus+kunai": 1
+}
+},
 "M|P2|h04|x23|b0|n|oCH": {
 "margin": 0.13,
 "n": 1,
@@ -4147,6 +8534,56 @@
 "ember+overflow": 1
 }
 },
+"M|P2|h10|x12|b1|-|oBDH": {
+"alts": [
+[
+"fury+nights",
+1.336
+],
+[
+"ember+nights",
+1.336
+],
+[
+"shrapnel+aetherion",
+1.297
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "shrapnel+nights",
+"value": {
+"shrapnel+nights": 1.336
+},
+"votes": {
+"shrapnel+nights": 1
+}
+},
+"M|P2|h10|x24|b1|n|oBDH": {
+"alts": [
+[
+"shrapnel+pill+basic",
+1.159
+],
+[
+"shrapnel+replace+basic",
+1.159
+],
+[
+"ember+aetherion",
+1.153
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "shrapnel+aetherion",
+"value": {
+"shrapnel+kims+basic": 1.159
+},
+"votes": {
+"shrapnel+kims+basic": 1
+}
+},
 "M|P2|h10|x32|b0|n|oHS": {
 "margin": 0.0,
 "n": 1,
@@ -4155,6 +8592,31 @@
 },
 "votes": {
 "basicheal+aetherion": 1
+}
+},
+"M|P2|h11|x04|b3|n|oBDR": {
+"alts": [
+[
+"ember+aetherion",
+-1.148
+],
+[
+"fury+pill+basic",
+-1.165
+],
+[
+"fury+replace+basic",
+-1.165
+]
+],
+"margin": 0.006,
+"n": 1,
+"planner": "fury+aetherion",
+"value": {
+"fury+aetherion": -1.142
+},
+"votes": {
+"fury+aetherion": 1
 }
 },
 "M|P2|h11|x04|b3|n|oBLR": {
@@ -4167,6 +8629,31 @@
 "fury+aetherion": 1
 }
 },
+"M|P2|h11|x14|b3|n|oBDHR": {
+"alts": [
+[
+"fury+aetherion",
+-1.0
+],
+[
+"ember+aetherion",
+-1.0
+],
+[
+"shrapnel+pill+basic",
+-1.0
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "shrapnel+aetherion",
+"value": {
+"shrapnel+aetherion": -1.0
+},
+"votes": {
+"shrapnel+aetherion": 1
+}
+},
 "M|P2|h11|x24|b3|gn|oBDHR": {
 "margin": 0.011,
 "n": 1,
@@ -4177,11 +8664,236 @@
 "cleanse+pill+basic": 1
 }
 },
+"M|P2|h11|x33|b3|-|oBDHL": {
+"alts": [
+[
+"fury+aetherion",
+1.333
+],
+[
+"shrapnel+pill+basic",
+1.333
+],
+[
+"shrapnel+jewel+basic",
+1.333
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "shrapnel+aetherion",
+"value": {
+"shrapnel+aetherion": 1.333
+},
+"votes": {
+"shrapnel+aetherion": 1
+}
+},
+"M|P2|h11|x34|b3|n|oBDH": {
+"alts": [
+[
+"rebirth+aetherion",
+-1.0
+],
+[
+"rebirth+defstance+basic",
+-1.0
+],
+[
+"rebirth+replace+basic",
+-1.0
+]
+],
+"margin": 2.084,
+"n": 1,
+"planner": "rebirth+shield",
+"value": {
+"rebirth+shield": 1.084
+},
+"votes": {
+"rebirth+shield": 1
+}
+},
+"M|P2|h11|x34|b3|sn|oBDHS": {
+"alts": [
+[
+"ember+kunai",
+-1.0
+],
+[
+"fury+basic",
+-1.0
+],
+[
+"aetherion+kunai+basic",
+-1.0
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "fury+kunai",
+"value": {
+"fury+kunai": -1.0
+},
+"votes": {
+"fury+kunai": 1
+}
+},
+"M|P2|h12|x00|b1|n|oDMPR": {
+"alts": [
+[
+"shrapnel+smoke+kims",
+0.643
+],
+[
+"fury+smoke+kims",
+0.634
+],
+[
+"aetherion+smoke+kims+basic",
+0.16
+]
+],
+"margin": 0.071,
+"n": 1,
+"planner": "basicheal+smoke+kims",
+"value": {
+"ember+smoke+kims": 0.713
+},
+"votes": {
+"ember+smoke+kims": 1
+}
+},
+"M|P2|h12|x03|b3|dn|oDH": {
+"alts": [
+[
+"stormblade+aetherion",
+-1.0
+],
+[
+"stormblade+pill+kunai",
+-1.0
+],
+[
+"stormblade+kunai+offstance",
+-1.0
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "stormblade+kunai+basic",
+"value": {
+"stormblade+kunai+basic": -1.0
+},
+"votes": {
+"stormblade+kunai+basic": 1
+}
+},
+"M|P2|h12|x04|b3|n|oBDHR": {
+"alts": [
+[
+"lotus+pill+basic",
+-1.157
+],
+[
+"lotus+replace+basic",
+-1.157
+],
+[
+"lotus+offstance+basic",
+-1.157
+]
+],
+"margin": 0.01,
+"n": 1,
+"planner": "lotus+aetherion",
+"value": {
+"lotus+aetherion": -1.147
+},
+"votes": {
+"lotus+aetherion": 1
+}
+},
 "M|P2|h12|x13|b1|n|oBDRS": {
 "margin": 0.013,
 "n": 1,
 "value": {
 "lotus+aetherion": -1.078
+},
+"votes": {
+"lotus+aetherion": 1
+}
+},
+"M|P2|h12|x14|b3|n|oDH": {
+"alts": [
+[
+"shrapnel+aetherion",
+-1.116
+],
+[
+"fury+kunai+basic",
+-1.147
+],
+[
+"shrapnel+kunai+basic",
+-1.147
+]
+],
+"margin": 0.094,
+"n": 1,
+"planner": "shrapnel+kunai+basic",
+"value": {
+"ember+kunai+basic": -1.023
+},
+"votes": {
+"ember+kunai+basic": 1
+}
+},
+"M|P2|h12|x14|b3|sn|oBHS": {
+"alts": [
+[
+"nights+replace+basic",
+-1.258
+],
+[
+"nights+offstance+basic",
+-1.258
+],
+[
+"nights+basic",
+-1.258
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "nights+pill+basic",
+"value": {
+"nights+pill+basic": -1.258
+},
+"votes": {
+"nights+pill+basic": 1
+}
+},
+"M|P2|h13|x14|b3|n|oBDH": {
+"alts": [
+[
+"ember+aetherion",
+-1.347
+],
+[
+"lotus+kims+basic",
+-1.348
+],
+[
+"shrapnel+kims+basic",
+-1.349
+]
+],
+"margin": 0.007,
+"n": 1,
+"planner": "shrapnel+aetherion",
+"value": {
+"lotus+aetherion": -1.34
 },
 "votes": {
 "lotus+aetherion": 1
@@ -4247,6 +8959,81 @@
 "rebirth+shield": 1
 }
 },
+"M|P2|h21|x14|b3|n|oBIR": {
+"alts": [
+[
+"ember+thunders",
+-1.0
+],
+[
+"danse+thunders",
+-1.0
+],
+[
+"rebirth+thunders",
+-1.0
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "fury+thunders",
+"value": {
+"fury+thunders": -1.0
+},
+"votes": {
+"fury+thunders": 1
+}
+},
+"M|P2|h21|x14|b3|n|oD": {
+"alts": [
+[
+"shrapnel+aetherion",
+-1.0
+],
+[
+"fury+aetherion",
+-1.0
+],
+[
+"shrapnel+pill+basic",
+-1.0
+]
+],
+"margin": 2.237,
+"n": 1,
+"planner": "shrapnel+aetherion",
+"value": {
+"ember+aetherion": 1.237
+},
+"votes": {
+"ember+aetherion": 1
+}
+},
+"M|P2|h21|x24|b3|n|oBD": {
+"alts": [
+[
+"lotus+pill+basic",
+-1.0
+],
+[
+"lotus+replace+basic",
+-1.0
+],
+[
+"lotus+offstance+basic",
+-1.0
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "lotus+aetherion",
+"value": {
+"lotus+aetherion": -1.0
+},
+"votes": {
+"lotus+aetherion": 1
+}
+},
 "M|P2|h21|x24|b3|n|oBDHLR": {
 "margin": 0.0,
 "n": 1,
@@ -4255,6 +9042,31 @@
 },
 "votes": {
 "lotus+nights": 1
+}
+},
+"M|P2|h21|x34|b3|dcsn|oBDHS": {
+"alts": [
+[
+"ember+kunai",
+-1.0
+],
+[
+"fury+basic",
+-1.0
+],
+[
+"ember+basic",
+-1.0
+]
+],
+"margin": 0.0,
+"n": 2,
+"planner": "fury+kunai",
+"value": {
+"fury+kunai": -1.0
+},
+"votes": {
+"fury+kunai": 2
 }
 },
 "M|P2|h22|x00|b3|-|oBDLMR": {
@@ -4267,6 +9079,256 @@
 "rebirth+kunai+basic": 1
 }
 },
+"M|P2|h22|x00|b3|n|oBHLMPR": {
+"alts": [
+[
+"lotus+kims+basic",
+0.73
+],
+[
+"lotus+kims+jewel",
+0.699
+],
+[
+"lotus+kims+defstance",
+0.693
+]
+],
+"margin": 0.004,
+"n": 1,
+"planner": "lotus+kims+jewel",
+"value": {
+"lotus+kims+pill": 0.734
+},
+"votes": {
+"lotus+kims+pill": 1
+}
+},
+"M|P2|h22|x02|b3|n|oDPR": {
+"alts": [
+[
+"shrapnel+defstance+basic",
+-1.257
+],
+[
+"shrapnel+pill+basic",
+-1.259
+],
+[
+"shrapnel+aetherion",
+-1.26
+]
+],
+"margin": 0.042,
+"n": 1,
+"planner": "shrapnel+aetherion",
+"value": {
+"ember+aetherion": -1.215
+},
+"votes": {
+"ember+aetherion": 1
+}
+},
+"M|P2|h22|x02|b3|n|oPR": {
+"alts": [
+[
+"basicheal+pill+jewel",
+-1.0
+],
+[
+"basicheal+jewel+kunai",
+-1.001
+],
+[
+"basicheal+jewel+basic",
+-1.01
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "basicheal+phantom",
+"value": {
+"basicheal+phantom": -1.0
+},
+"votes": {
+"basicheal+phantom": 1
+}
+},
+"M|P2|h22|x04|b3|dn|oBDL": {
+"alts": [
+[
+"shrapnel+thunders",
+-1.49
+],
+[
+"fury+thunders",
+-1.494
+],
+[
+"danse+thunders",
+-1.516
+]
+],
+"margin": 0.059,
+"n": 1,
+"planner": "shrapnel+thunders",
+"value": {
+"ember+thunders": -1.431
+},
+"votes": {
+"ember+thunders": 1
+}
+},
+"M|P2|h22|x04|b3|n|oBLR": {
+"alts": [
+[
+"resist+phantom+offstance",
+-1.234
+],
+[
+"resist+phantom+pill",
+-1.235
+],
+[
+"resist+phantom+replace",
+-1.253
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "resist+phantom+kunai",
+"value": {
+"resist+phantom+basic": -1.233
+},
+"votes": {
+"resist+phantom+basic": 1
+}
+},
+"M|P2|h22|x11|b2|-|oDHLR": {
+"alts": [
+[
+"ember+phantom",
+1.372
+],
+[
+"overflow+phantom+kunai",
+0.094
+],
+[
+"overflow+phantom+offstance",
+0.076
+]
+],
+"margin": 0.015,
+"n": 1,
+"planner": "overflow+phantom+pill",
+"value": {
+"overflow+phantom+pill": 1.386
+},
+"votes": {
+"overflow+phantom+pill": 1
+}
+},
+"M|P2|h22|x12|b3|n|oHR": {
+"alts": [
+[
+"resist+nights+basic",
+1.254
+],
+[
+"resist+nights+pill",
+1.237
+],
+[
+"basicheal+resist",
+0.203
+]
+],
+"margin": 0.012,
+"n": 1,
+"planner": "basicheal+resist",
+"value": {
+"resist+nights+offstance": 1.266
+},
+"votes": {
+"resist+nights+offstance": 1
+}
+},
+"M|P2|h22|x13|b3|n|oBDH": {
+"alts": [
+[
+"stormblade+aetherion",
+-1.0
+],
+[
+"stormblade+pill+kunai",
+-1.0
+],
+[
+"stormblade+kunai+offstance",
+-1.0
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "stormblade+kunai+basic",
+"value": {
+"stormblade+kunai+basic": -1.0
+},
+"votes": {
+"stormblade+kunai+basic": 1
+}
+},
+"M|P2|h22|x13|b3|n|oBDR": {
+"alts": [
+[
+"stormblade+kunai+offstance",
+-0.436
+],
+[
+"stormblade+kunai+basic",
+-1.0
+],
+[
+"stormblade+kunai+replace",
+-1.0
+]
+],
+"margin": 0.015,
+"n": 1,
+"planner": "stormblade+kunai+basic",
+"value": {
+"stormblade+pill+kunai": -0.421
+},
+"votes": {
+"stormblade+pill+kunai": 1
+}
+},
+"M|P2|h22|x14|b3|dn|oBDHL": {
+"alts": [
+[
+"ember+kunai+basic",
+-1.492
+],
+[
+"shrapnel+kunai+basic",
+-1.507
+],
+[
+"fury+kunai+basic",
+-1.511
+]
+],
+"margin": 0.232,
+"n": 1,
+"planner": "shrapnel+kunai+basic",
+"value": {
+"shrapnel+aetherion": -1.259
+},
+"votes": {
+"shrapnel+aetherion": 1
+}
+},
 "M|P2|h22|x14|b3|gn|oBLR": {
 "margin": 0.008,
 "n": 1,
@@ -4275,6 +9337,106 @@
 },
 "votes": {
 "shrapnel+replace+basic": 1
+}
+},
+"M|P2|h22|x14|b3|n|oBCD": {
+"alts": [
+[
+"thunders+nights+basic",
+-1.0
+],
+[
+"thunders+nights+offstance",
+-1.0
+],
+[
+"thunders+nights+replace",
+-1.0
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "thunders+nights+kunai",
+"value": {
+"thunders+nights+kunai": -1.0
+},
+"votes": {
+"thunders+nights+kunai": 1
+}
+},
+"M|P2|h22|x14|b3|n|oBD": {
+"alts": [
+[
+"cleanse+smoke+jewel",
+0.039
+],
+[
+"cleanse+smoke+defstance",
+-0.533
+],
+[
+"cleanse+smoke+panacea",
+-0.573
+]
+],
+"margin": 0.553,
+"n": 1,
+"planner": "cleanse+smoke+panacea",
+"value": {
+"cleanse+smoke+kims": 0.592
+},
+"votes": {
+"cleanse+smoke+kims": 1
+}
+},
+"M|P2|h22|x14|b3|n|oBDHR": {
+"alts": [
+[
+"shield+smoke+kims+pill",
+-1.148
+],
+[
+"shield+smoke+kims+basic",
+-1.16
+],
+[
+"shield+smoke+kims+panacea",
+-1.171
+]
+],
+"margin": 0.01,
+"n": 1,
+"planner": "shield+smoke+kims+panacea",
+"value": {
+"resist+smoke+kims+panacea": -1.138
+},
+"votes": {
+"resist+smoke+kims+panacea": 1
+}
+},
+"M|P2|h22|x14|b3|n|oBR": {
+"alts": [
+[
+"nights+pill+kunai+basic",
+-1.184
+],
+[
+"fury+nights",
+-1.25
+],
+[
+"nights+kunai+offstance+basic",
+-1.254
+]
+],
+"margin": 0.024,
+"n": 1,
+"planner": "lotus+nights",
+"value": {
+"lotus+nights": -1.16
+},
+"votes": {
+"lotus+nights": 1
 }
 },
 "M|P2|h22|x14|b3|sn|oBDHL": {
@@ -4307,6 +9469,81 @@
 "ember+kunai+basic": 1
 }
 },
+"M|P2|h22|x33|b2|-|oDHR": {
+"alts": [
+[
+"ember+pill+basic",
+1.348
+],
+[
+"lotus+phantom",
+1.286
+],
+[
+"lotus+aetherion",
+1.279
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "lotus+resist",
+"value": {
+"lotus+resist": 1.348
+},
+"votes": {
+"lotus+resist": 1
+}
+},
+"M|P2|h22|x33|b3|-|oBH": {
+"alts": [
+[
+"ember+aetherion",
+1.412
+],
+[
+"nights+jewel+offstance+basic",
+1.385
+],
+[
+"ember+nights",
+1.375
+]
+],
+"margin": 0.036,
+"n": 1,
+"planner": "ember+nights",
+"value": {
+"nights+pill+jewel+basic": 1.448
+},
+"votes": {
+"nights+pill+jewel+basic": 1
+}
+},
+"M|P2|h22|x34|b1|-|oBDH": {
+"alts": [
+[
+"fury+nights",
+1.172
+],
+[
+"lotus+nights",
+1.153
+],
+[
+"ember+nights",
+1.118
+]
+],
+"margin": 0.001,
+"n": 1,
+"planner": "lotus+nights",
+"value": {
+"shrapnel+nights": 1.173
+},
+"votes": {
+"shrapnel+nights": 1
+}
+},
 "M|P2|h22|x42|b2|n|oBHL": {
 "margin": 0.0,
 "n": 1,
@@ -4335,6 +9572,156 @@
 },
 "votes": {
 "resist+sealnull+kunai": 1
+}
+},
+"M|P2|h23|x04|b2|n|oCH": {
+"alts": [
+[
+"shield+nights+kunai",
+-1.075
+],
+[
+"shield+nights+pill",
+-1.125
+],
+[
+"shield+nights+defstance",
+-1.147
+]
+],
+"margin": 0.001,
+"n": 1,
+"planner": "stormblade+shield",
+"value": {
+"shield+nights+basic": -1.074
+},
+"votes": {
+"shield+nights+basic": 1
+}
+},
+"M|P2|h23|x04|b3|dn|oBDL": {
+"alts": [
+[
+"fury+thunders",
+-1.564
+],
+[
+"ember+thunders",
+-1.575
+],
+[
+"danse+thunders",
+-1.576
+]
+],
+"margin": 0.003,
+"n": 1,
+"planner": "shrapnel+thunders",
+"value": {
+"shrapnel+thunders": -1.562
+},
+"votes": {
+"shrapnel+thunders": 1
+}
+},
+"M|P2|h23|x04|b3|dn|oBDLR": {
+"alts": [
+[
+"fury+thunders",
+-1.117
+],
+[
+"thunders+aetherion+basic",
+-1.128
+],
+[
+"shrapnel+aetherion",
+-1.251
+]
+],
+"margin": 0.003,
+"n": 1,
+"planner": "shrapnel+thunders",
+"value": {
+"shrapnel+thunders": -1.114
+},
+"votes": {
+"shrapnel+thunders": 1
+}
+},
+"M|P2|h23|x04|b3|dn|oBDR": {
+"alts": [
+[
+"lotus+aetherion",
+-1.082
+],
+[
+"fury+aetherion",
+-1.083
+],
+[
+"ember+aetherion",
+-1.087
+]
+],
+"margin": 0.003,
+"n": 1,
+"planner": "shrapnel+aetherion",
+"value": {
+"shrapnel+aetherion": -1.079
+},
+"votes": {
+"shrapnel+aetherion": 1
+}
+},
+"M|P2|h23|x04|b3|n|oBD": {
+"alts": [
+[
+"cleanse+smoke+pill",
+-1.162
+],
+[
+"cleanse+smoke+kunai",
+-1.181
+],
+[
+"cleanse+smoke+basic",
+-1.195
+]
+],
+"margin": 0.038,
+"n": 1,
+"planner": "cleanse+resist",
+"value": {
+"cleanse+smoke+jewel": -1.125
+},
+"votes": {
+"cleanse+smoke+jewel": 1
+}
+},
+"M|P2|h23|x12|b3|n|oBHR": {
+"alts": [
+[
+"lotus+smoke+basic",
+1.379
+],
+[
+"lotus+smoke+kims",
+1.291
+],
+[
+"overflow+phantom+kims",
+1.265
+]
+],
+"margin": 0.077,
+"n": 1,
+"planner": "lotus+phantom",
+"value": {
+"basicheal+phantom": 1.456
+},
+"votes": {
+"basicheal+phantom": 1
 }
 },
 "M|P2|h23|x13|b2|Dn|oHIL": {
@@ -4375,6 +9762,106 @@
 },
 "votes": {
 "resist+sealnull+pill": 1
+}
+},
+"M|P2|h23|x14|b3|n|oBDP": {
+"alts": [
+[
+"basicheal+kunai+defstance",
+-1.164
+],
+[
+"basicheal+defstance+basic",
+-1.165
+],
+[
+"basicheal+overflow",
+-1.185
+]
+],
+"margin": 0.001,
+"n": 1,
+"planner": "basicheal+nights",
+"value": {
+"basicheal+pill+defstance": -1.163
+},
+"votes": {
+"basicheal+pill+defstance": 1
+}
+},
+"M|P2|h23|x22|b2|-|oCP": {
+"alts": [
+[
+"overflow+phantom+kims",
+1.214
+],
+[
+"lotus+smoke+kims",
+0.743
+],
+[
+"ember+phantom",
+0.603
+]
+],
+"margin": 0.019,
+"n": 1,
+"planner": "overflow+phantom+kims",
+"value": {
+"overflow+phantom+jewel": 1.233
+},
+"votes": {
+"overflow+phantom+jewel": 1
+}
+},
+"M|P2|h23|x22|b3|-|oBHIR": {
+"alts": [
+[
+"lotus+smoke+kunai",
+-1.0
+],
+[
+"lotus+smoke+basic",
+-1.0
+],
+[
+"lotus+smoke+defstance",
+-1.0
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "lotus+smoke+jewel",
+"value": {
+"lotus+smoke+jewel": -1.0
+},
+"votes": {
+"lotus+smoke+jewel": 1
+}
+},
+"M|P2|h23|x23|b1|-|oBCDH": {
+"alts": [
+[
+"rebirth+jewel+offstance",
+0.594
+],
+[
+"rebirth+nights",
+0.571
+],
+[
+"rebirth+pill+jewel",
+0.571
+]
+],
+"margin": 0.027,
+"n": 1,
+"planner": "rebirth+jewel+defstance",
+"value": {
+"rebirth+jewel+kunai": 0.622
+},
+"votes": {
+"rebirth+jewel+kunai": 1
 }
 },
 "M|P2|h23|x24|b3|d|oHRY": {
@@ -4427,6 +9914,133 @@
 "resist+shield+pill": 1
 }
 },
+"M|P2|h24|x04|b3|n|oBDIR": {
+"alts": [
+[
+"stormblade+pill+kunai",
+-1.112
+],
+[
+"stormblade+kunai+replace",
+-1.153
+],
+[
+"stormblade+kunai+basic",
+-1.213
+]
+],
+"margin": 0.018,
+"n": 1,
+"planner": "stormblade+kunai+basic",
+"value": {
+"stormblade+aetherion": -1.093
+},
+"votes": {
+"stormblade+aetherion": 1
+}
+},
+"M|P2|h24|x04|b3|n|oBIR": {
+"alts": [
+[
+"stormblade+kunai+offstance",
+-1.413
+],
+[
+"stormblade+kunai+replace",
+-1.413
+],
+[
+"stormblade+kunai",
+-1.413
+]
+],
+"margin": 0.054,
+"n": 2,
+"planner": "stormblade+kunai+basic",
+"value": {
+"stormblade+aetherion": -1.171,
+"stormblade+kunai+basic": -1.384
+},
+"votes": {
+"stormblade+aetherion": 1,
+"stormblade+kunai+basic": 1
+}
+},
+"M|P2|h24|x04|b3|n|oBLR": {
+"alts": [
+[
+"basicheal+smoke+basic",
+-1.454
+],
+[
+"basicheal+smoke+defstance",
+-1.457
+],
+[
+"basicheal+smoke+pill",
+-1.467
+]
+],
+"margin": 0.009,
+"n": 1,
+"planner": "basicheal+smoke+kunai",
+"value": {
+"basicheal+smoke+kunai": -1.446
+},
+"votes": {
+"basicheal+smoke+kunai": 1
+}
+},
+"M|P2|h24|x13|b2|n|oBCHR": {
+"alts": [
+[
+"resist+shield+panacea",
+-1.213
+],
+[
+"shield+smoke+panacea+kunai",
+-1.297
+],
+[
+"resist+shield+smoke",
+-1.339
+]
+],
+"margin": 0.062,
+"n": 1,
+"planner": "resist+shield+panacea",
+"value": {
+"phantom+shield+panacea": -1.151
+},
+"votes": {
+"phantom+shield+panacea": 1
+}
+},
+"M|P2|h24|x13|b2|n|oBHIPR": {
+"alts": [
+[
+"basicheal+shield",
+-0.73
+],
+[
+"ember+nights",
+-1.069
+],
+[
+"ember+aetherion",
+-1.106
+]
+],
+"margin": 0.037,
+"n": 1,
+"planner": "stormblade+aetherion",
+"value": {
+"shield+nights+basic": -0.694
+},
+"votes": {
+"shield+nights+basic": 1
+}
+},
 "M|P2|h24|x13|b3|-|oBDLS": {
 "margin": 0.109,
 "n": 1,
@@ -4435,6 +10049,56 @@
 },
 "votes": {
 "lotus+kims+basic": 1
+}
+},
+"M|P2|h24|x14|b3|n|oBHR": {
+"alts": [
+[
+"shield+aetherion+panacea",
+-1.211
+],
+[
+"shield+panacea+kunai+offstance",
+-1.234
+],
+[
+"shield+panacea+kunai+replace",
+-1.242
+]
+],
+"margin": 0.008,
+"n": 1,
+"planner": "shield+nights+panacea",
+"value": {
+"shield+panacea+kunai+basic": -1.204
+},
+"votes": {
+"shield+panacea+kunai+basic": 1
+}
+},
+"M|P2|h24|x23|b0|Dn|oDHPR": {
+"alts": [
+[
+"rebirth+panacea+kunai",
+-1.376
+],
+[
+"rebirth+panacea+basic",
+-1.415
+],
+[
+"thunders+shield+kunai",
+-1.43
+]
+],
+"margin": 0.277,
+"n": 1,
+"planner": "rebirth+shield",
+"value": {
+"ember+shield": -1.098
+},
+"votes": {
+"ember+shield": 1
 }
 },
 "M|P2|h30|x22|b1|-|oCHR": {
@@ -4467,6 +10131,31 @@
 "ember+pill+defstance": 1
 }
 },
+"M|P2|h32|x02|b3|n|oBDP": {
+"alts": [
+[
+"cleanse+thunders",
+0.68
+],
+[
+"cleanse+phantom",
+0.163
+],
+[
+"cleanse+kims+basic",
+0.096
+]
+],
+"margin": 0.499,
+"n": 1,
+"planner": "cleanse+thunders",
+"value": {
+"cleanse+nights": 1.179
+},
+"votes": {
+"cleanse+nights": 1
+}
+},
 "M|P2|h32|x03|b2|dn|oHRY": {
 "margin": 0.009,
 "n": 1,
@@ -4477,6 +10166,31 @@
 "clear+pill+basic": 1
 }
 },
+"M|P2|h32|x04|b3|n|oBDL": {
+"alts": [
+[
+"cleanse+phantom",
+1.3
+],
+[
+"cleanse+resist",
+1.256
+],
+[
+"cleanse+jewel+defstance",
+0.672
+]
+],
+"margin": 0.058,
+"n": 1,
+"planner": "cleanse+thunders",
+"value": {
+"cleanse+thunders": 1.358
+},
+"votes": {
+"cleanse+thunders": 1
+}
+},
 "M|P2|h32|x12|b1|-|oBHL": {
 "margin": 0.021,
 "n": 1,
@@ -4485,6 +10199,31 @@
 },
 "votes": {
 "ember+aetherion": 1
+}
+},
+"M|P2|h32|x14|b3|cn|oBDL": {
+"alts": [
+[
+"lotus+smoke+jewel",
+0.153
+],
+[
+"resist+smoke+kims+jewel",
+-0.409
+],
+[
+"resist+smoke+kims+panacea",
+-1.0
+]
+],
+"margin": 0.442,
+"n": 1,
+"planner": "resist+smoke+kims+panacea",
+"value": {
+"lotus+smoke+kims": 0.595
+},
+"votes": {
+"lotus+smoke+kims": 1
 }
 },
 "M|P2|h32|x14|b3|n|oDHL": {
@@ -4507,6 +10246,106 @@
 "lotus+pill+basic": 1
 }
 },
+"M|P2|h33|x01|b2|s|oDHR": {
+"alts": [
+[
+"rebirth+basic",
+0.692
+],
+[
+"rebirth+kunai",
+0.655
+],
+[
+"rebirth+offstance",
+0.63
+]
+],
+"margin": 0.061,
+"n": 1,
+"planner": "rebirth+kunai",
+"value": {
+"rebirth+defstance": 0.753
+},
+"votes": {
+"rebirth+defstance": 1
+}
+},
+"M|P2|h33|x02|b3|-|oBDR": {
+"alts": [
+[
+"phantom+smoke+kunai+basic",
+1.144
+],
+[
+"resist+smoke+pill+kunai",
+1.104
+],
+[
+"ember+resist",
+0.638
+]
+],
+"margin": 0.092,
+"n": 1,
+"planner": "resist+smoke+kunai+basic",
+"value": {
+"resist+smoke+kunai+basic": 1.236
+},
+"votes": {
+"resist+smoke+kunai+basic": 1
+}
+},
+"M|P2|h33|x04|b3|dn|oDH": {
+"alts": [
+[
+"cleanse+jewel+basic",
+0.03
+],
+[
+"cleanse+pill+jewel",
+0.008
+],
+[
+"cleanse+jewel+kunai",
+-0.01
+]
+],
+"margin": 0.534,
+"n": 1,
+"planner": "cleanse+phantom",
+"value": {
+"cleanse+phantom": 0.564
+},
+"votes": {
+"cleanse+phantom": 1
+}
+},
+"M|P2|h33|x04|b3|n|oBHR": {
+"alts": [
+[
+"clear+panacea+kunai",
+0.132
+],
+[
+"clear+phantom",
+-1.022
+],
+[
+"clear+panacea+offstance",
+-1.031
+]
+],
+"margin": 0.628,
+"n": 2,
+"planner": "clear+panacea+jewel",
+"value": {
+"clear+pill+panacea": 0.189
+},
+"votes": {
+"clear+pill+panacea": 2
+}
+},
 "M|P2|h33|x13|b3|n|oBDH": {
 "margin": 0.009,
 "n": 1,
@@ -4515,6 +10354,31 @@
 },
 "votes": {
 "overflow+shield+kims": 1
+}
+},
+"M|P2|h33|x14|b2|-|oBD": {
+"alts": [
+[
+"cleanse+smoke+offstance",
+1.411
+],
+[
+"cleanse+smoke+pill",
+1.389
+],
+[
+"cleanse+smoke+kunai",
+1.353
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "cleanse+smoke+kunai",
+"value": {
+"cleanse+smoke+basic": 1.411
+},
+"votes": {
+"cleanse+smoke+basic": 1
 }
 },
 "M|P2|h33|x14|b2|sn|oBDHS": {
@@ -4527,6 +10391,31 @@
 "shrapnel+kunai": 1
 }
 },
+"M|P2|h33|x14|b3|n|oBDHIR": {
+"alts": [
+[
+"shield+aetherion+panacea",
+-1.44
+],
+[
+"shield+pill+panacea+kunai",
+-1.455
+],
+[
+"shield+nights+panacea",
+-1.479
+]
+],
+"margin": 0.033,
+"n": 1,
+"planner": "stormblade+shield",
+"value": {
+"stormblade+shield": -1.408
+},
+"votes": {
+"stormblade+shield": 1
+}
+},
 "M|P2|h33|x14|b3|n|oBDI": {
 "margin": 0.067,
 "n": 1,
@@ -4537,6 +10426,31 @@
 "clear+panacea+kunai": 1
 }
 },
+"M|P2|h33|x14|b3|sn|oBDH": {
+"alts": [
+[
+"resist+panacea+jewel",
+1.329
+],
+[
+"lotus+smoke",
+1.288
+],
+[
+"resist+panacea+defstance",
+1.224
+]
+],
+"margin": 0.037,
+"n": 1,
+"planner": "resist+panacea+jewel",
+"value": {
+"smoke+panacea+jewel+basic": 1.367
+},
+"votes": {
+"smoke+panacea+jewel+basic": 1
+}
+},
 "M|P2|h33|x23|b3|-|oDHLR": {
 "margin": 0.006,
 "n": 1,
@@ -4545,6 +10459,106 @@
 },
 "votes": {
 "resist+shield+kims": 1
+}
+},
+"M|P2|h33|x23|b3|n|oBDHP": {
+"alts": [
+[
+"thunders+phantom+kims",
+1.299
+],
+[
+"overflow+nights+kims",
+1.299
+],
+[
+"overflow+phantom+kims",
+1.292
+]
+],
+"margin": 0.002,
+"n": 1,
+"planner": "overflow+thunders+kims",
+"value": {
+"phantom+nights+kims": 1.3
+},
+"votes": {
+"phantom+nights+kims": 1
+}
+},
+"M|P2|h33|x24|b2|n|oBDI": {
+"alts": [
+[
+"shrapnel+thunders",
+-1.0
+],
+[
+"thunders+aetherion+kunai",
+-1.0
+],
+[
+"fury+thunders",
+-1.0
+]
+],
+"margin": 2.407,
+"n": 2,
+"planner": "shrapnel+thunders",
+"value": {
+"ember+thunders": 1.407
+},
+"votes": {
+"ember+thunders": 2
+}
+},
+"M|P2|h33|x24|b3|n|oBD": {
+"alts": [
+[
+"shrapnel+thunders",
+-1.0
+],
+[
+"thunders+aetherion+kunai",
+-1.0
+],
+[
+"fury+thunders",
+-1.0
+]
+],
+"margin": 2.388,
+"n": 1,
+"planner": "shrapnel+thunders",
+"value": {
+"ember+thunders": 1.388
+},
+"votes": {
+"ember+thunders": 1
+}
+},
+"M|P2|h33|x24|b3|sn|oBHS": {
+"alts": [
+[
+"clear+kunai",
+0.551
+],
+[
+"clear+panacea",
+0.09
+],
+[
+"clear+pill",
+0.086
+]
+],
+"margin": 0.606,
+"n": 1,
+"planner": "clear+panacea",
+"value": {
+"clear+jewel": 1.157
+},
+"votes": {
+"clear+jewel": 1
 }
 },
 "M|P2|h33|x33|b2|-|oBC": {
@@ -4567,6 +10581,81 @@
 "cleanse+shield": 1
 }
 },
+"M|P2|h34|x04|b3|Ddn|oBDHP": {
+"alts": [
+[
+"thunders+nights+jewel",
+0.101
+],
+[
+"thunders+shield+jewel",
+-0.617
+],
+[
+"thunders+nights+panacea",
+-0.674
+]
+],
+"margin": 1.18,
+"n": 1,
+"planner": "stormblade+shield",
+"value": {
+"stormblade+thunders": 1.281
+},
+"votes": {
+"stormblade+thunders": 1
+}
+},
+"M|P2|h34|x04|b3|Ddn|oBDHR": {
+"alts": [
+[
+"stormblade+shield",
+-0.484
+],
+[
+"thunders+shield+kunai",
+-0.55
+],
+[
+"thunders+shield+pill",
+-1.108
+]
+],
+"margin": 1.795,
+"n": 1,
+"planner": "stormblade+shield",
+"value": {
+"thunders+nights+panacea": 1.311
+},
+"votes": {
+"thunders+nights+panacea": 1
+}
+},
+"M|P2|h34|x04|b3|n|oBDL": {
+"alts": [
+[
+"stormblade+pill+basic",
+-1.581
+],
+[
+"stormblade+offstance+basic",
+-1.581
+],
+[
+"stormblade+replace+basic",
+-1.589
+]
+],
+"margin": 0.007,
+"n": 1,
+"planner": "stormblade+thunders",
+"value": {
+"stormblade+aetherion": -1.574
+},
+"votes": {
+"stormblade+aetherion": 1
+}
+},
 "M|P2|h34|x12|b3|n|oHP": {
 "margin": 0.017,
 "n": 1,
@@ -4587,14 +10676,179 @@
 "fury+basic": 1
 }
 },
-"M|P2|h34|x14|b2|n|oDHP": {
-"margin": 1.17,
+"M|P2|h34|x14|b1|n|oDH": {
+"alts": [
+[
+"cleanse+jewel+basic",
+0.641
+],
+[
+"cleanse+phantom",
+0.111
+],
+[
+"cleanse+overflow",
+0.105
+]
+],
+"margin": 0.464,
 "n": 1,
+"planner": "cleanse+thunders",
+"value": {
+"cleanse+jewel+kunai": 1.104
+},
+"votes": {
+"cleanse+jewel+kunai": 1
+}
+},
+"M|P2|h34|x14|b2|-|oBDR": {
+"alts": [
+[
+"shield+smoke+jewel+kunai",
+-0.595
+],
+[
+"shield+smoke+jewel+basic",
+-0.7
+],
+[
+"lotus+smoke+kunai",
+-1.193
+]
+],
+"margin": 0.115,
+"n": 1,
+"planner": "lotus+smoke+jewel",
+"value": {
+"lotus+shield": -0.48
+},
+"votes": {
+"lotus+shield": 1
+}
+},
+"M|P2|h34|x14|b2|n|oDHP": {
+"alts": [
+[
+"shield+nights+panacea",
+-1.0
+],
+[
+"phantom+shield+panacea",
+-1.0
+],
+[
+"thunders+shield+panacea",
+-1.084
+]
+],
+"margin": 1.17,
+"n": 4,
+"planner": "stormblade+shield",
 "value": {
 "stormblade+shield": 0.17
 },
 "votes": {
+"stormblade+shield": 4
+}
+},
+"M|P2|h34|x14|b2|n|oDP": {
+"alts": [
+[
+"resist+shield+panacea",
+-1.0
+],
+[
+"shield+nights+panacea",
+-1.188
+],
+[
+"thunders+shield+jewel",
+-1.189
+]
+],
+"margin": 1.216,
+"n": 1,
+"planner": "stormblade+shield",
+"value": {
+"stormblade+shield": 0.216
+},
+"votes": {
 "stormblade+shield": 1
+}
+},
+"M|P2|h34|x14|b3|n|oBDIR": {
+"alts": [
+[
+"ember+nights",
+-1.248
+],
+[
+"nights+aetherion+basic",
+-1.353
+],
+[
+"shrapnel+nights",
+-1.356
+]
+],
+"margin": 0.152,
+"n": 1,
+"planner": "shrapnel+nights",
+"value": {
+"shrapnel+kunai+basic": -1.096
+},
+"votes": {
+"shrapnel+kunai+basic": 1
+}
+},
+"M|P2|h34|x14|b3|n|oBHIR": {
+"alts": [
+[
+"lotus+resist",
+0.002
+],
+[
+"lotus+phantom",
+-0.566
+],
+[
+"rebirth+kunai+defstance",
+-1.109
+]
+],
+"margin": 0.026,
+"n": 1,
+"planner": "lotus+resist",
+"value": {
+"rebirth+kunai+basic": 0.028
+},
+"votes": {
+"rebirth+kunai+basic": 1
+}
+},
+"M|P2|h34|x14|b3|n|oBHS": {
+"alts": [
+[
+"clear+jewel+kunai",
+-0.606
+],
+[
+"clear+panacea+kunai",
+-0.616
+],
+[
+"clear+panacea+basic",
+-0.728
+]
+],
+"margin": 0.618,
+"n": 1,
+"planner": "clear+thunders",
+"value": {
+"clear+panacea+jewel": 0.012
+},
+"votes": {
+"clear+panacea+jewel": 1
 }
 },
 "M|P2|h34|x14|b3|sn|oBHS": {
@@ -4607,6 +10861,108 @@
 "thunders+kims+pill": 1
 }
 },
+"M|P2|h34|x22|b0|Dn|oBDHP": {
+"alts": [
+[
+"ember+shield",
+-1.0
+],
+[
+"rebirth+overflow",
+-1.0
+],
+[
+"rebirth+panacea+kunai",
+-1.111
+]
+],
+"margin": 1.084,
+"n": 1,
+"planner": "rebirth+thunders",
+"value": {
+"rebirth+jewel+kunai": 0.084
+},
+"votes": {
+"rebirth+jewel+kunai": 1
+}
+},
+"M|P2|h34|x22|b0|Dn|oDHP": {
+"alts": [
+[
+"rebirth+jewel+kunai",
+-0.53
+],
+[
+"ember+shield",
+-1.036
+],
+[
+"ember+panacea+kunai",
+-1.071
+]
+],
+"margin": 0.057,
+"n": 1,
+"planner": "rebirth+thunders",
+"value": {
+"rebirth+panacea+kunai": -0.473
+},
+"votes": {
+"rebirth+panacea+kunai": 1
+}
+},
+"M|P2|h34|x23|b0|Dn|oBDHR": {
+"alts": [
+[
+"rebirth+kunai+basic",
+-0.741
+],
+[
+"rebirth+jewel+basic",
+-1.271
+],
+[
+"rebirth+aetherion",
+-1.371
+]
+],
+"margin": 0.071,
+"n": 1,
+"planner": "rebirth+jewel+kunai",
+"value": {
+"rebirth+panacea+kunai": -0.67
+},
+"votes": {
+"rebirth+panacea+kunai": 1
+}
+},
+"M|P2|h34|x23|b0|Dn|oDHR": {
+"alts": [
+[
+"rebirth+panacea+kunai",
+-0.684
+],
+[
+"thunders+shield+kunai",
+-1.216
+],
+[
+"rebirth+shield",
+-1.237
+]
+],
+"margin": 0.114,
+"n": 3,
+"planner": "rebirth+thunders",
+"value": {
+"shield+nights+panacea": -1.011,
+"stormblade+shield": -0.579
+},
+"votes": {
+"shield+nights+panacea": 2,
+"stormblade+shield": 1
+}
+},
 "M|P2|h34|x23|b1|-|oH": {
 "margin": 0.006,
 "n": 1,
@@ -4617,6 +10973,31 @@
 "ember+phantom": 1
 }
 },
+"M|P2|h34|x23|b1|s|oBH": {
+"alts": [
+[
+"shield+panacea+kunai",
+-1.003
+],
+[
+"shield+panacea+basic",
+-1.005
+],
+[
+"rebirth+smoke",
+-1.14
+]
+],
+"margin": 0.002,
+"n": 1,
+"planner": "rebirth+panacea",
+"value": {
+"phantom+shield": -1.001
+},
+"votes": {
+"phantom+shield": 1
+}
+},
 "M|P2|h34|x24|b1|Dn|oBDH": {
 "margin": 0.06,
 "n": 1,
@@ -4625,6 +11006,31 @@
 },
 "votes": {
 "ember+nights": 1
+}
+},
+"M|P2|h34|x24|b3|D|oH": {
+"alts": [
+[
+"rebirth+panacea+kunai",
+0.501
+],
+[
+"rebirth+panacea+jewel",
+-0.045
+],
+[
+"rebirth+shield",
+-0.493
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "rebirth+shield",
+"value": {
+"rebirth+phantom": 0.501
+},
+"votes": {
+"rebirth+phantom": 1
 }
 },
 "M|P2|h34|x24|b3|d|oDHL": {
@@ -4718,12 +11124,29 @@
 }
 },
 "M|P2|h44|x04|b3|-|oBDIR": {
-"margin": 0.084,
-"n": 1,
+"alts": [
+[
+"sealnull+shield+kunai",
+-0.47
+],
+[
+"sealnull+shield+basic",
+-0.508
+],
+[
+"lotus+smoke+panacea",
+-1.133
+]
+],
+"margin": 0.792,
+"n": 3,
+"planner": "rebirth+sealnull",
 "value": {
+"rebirth+sealnull": 0.677,
 "sealnull+shield+basic": 0.061
 },
 "votes": {
+"rebirth+sealnull": 2,
 "sealnull+shield+basic": 1
 }
 },
@@ -4858,13 +11281,28 @@
 }
 },
 "M|P2|h44|x14|b2|-|oBDHR": {
+"alts": [
+[
+"clear+sealnull",
+-1.076
+],
+[
+"lotus+kims+jewel",
+-1.125
+],
+[
+"lotus+kims+panacea",
+-1.196
+]
+],
 "margin": 0.066,
-"n": 1,
+"n": 5,
+"planner": "lotus+smoke+kims",
 "value": {
 "shield+smoke+kims+panacea": -1.009
 },
 "votes": {
-"shield+smoke+kims+panacea": 1
+"shield+smoke+kims+panacea": 5
 }
 },
 "M|P2|h44|x14|b2|dcn|oBCD": {
@@ -4877,6 +11315,31 @@
 "thunders+shield+defstance": 1
 }
 },
+"M|P2|h44|x14|b3|-|oBDHR": {
+"alts": [
+[
+"clear+panacea+kunai",
+-0.518
+],
+[
+"clear+smoke+kims",
+-0.65
+],
+[
+"clear+sealnull",
+-1.0
+]
+],
+"margin": 0.412,
+"n": 2,
+"planner": "clear+sealnull",
+"value": {
+"clear+kims+jewel": -0.106
+},
+"votes": {
+"clear+kims+jewel": 2
+}
+},
 "M|P2|h44|x14|b3|-|oBDILR": {
 "margin": 0.535,
 "n": 1,
@@ -4887,6 +11350,33 @@
 "lotus+smoke+panacea": 1
 }
 },
+"M|P2|h44|x14|b3|-|oBDR": {
+"alts": [
+[
+"clear+smoke+panacea",
+-0.483
+],
+[
+"clear+smoke+jewel",
+-0.611
+],
+[
+"clear+shield",
+-1.048
+]
+],
+"margin": 0.567,
+"n": 2,
+"planner": "clear+sealnull",
+"value": {
+"clear+sealnull": -0.434,
+"clear+smoke+panacea": 0.085
+},
+"votes": {
+"clear+sealnull": 1,
+"clear+smoke+panacea": 1
+}
+},
 "M|P2|h44|x14|b3|dn|oBDIR": {
 "margin": 0.033,
 "n": 1,
@@ -4895,6 +11385,56 @@
 },
 "votes": {
 "lotus+kims+pill": 1
+}
+},
+"M|P2|h44|x14|b3|n|oBIR": {
+"alts": [
+[
+"clear+panacea+jewel",
+1.263
+],
+[
+"clear+jewel+kunai",
+0.64
+],
+[
+"clear+phantom",
+0.325
+]
+],
+"margin": 0.084,
+"n": 1,
+"planner": "clear+shield",
+"value": {
+"clear+overflow": 1.347
+},
+"votes": {
+"clear+overflow": 1
+}
+},
+"M|P2|h44|x14|b3|sn|oBDHS": {
+"alts": [
+[
+"fury+kunai",
+0.791
+],
+[
+"stormblade+kunai",
+-1.134
+],
+[
+"stormblade+basic",
+-1.139
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "nights+kunai+basic",
+"value": {
+"shrapnel+kunai": 0.791
+},
+"votes": {
+"shrapnel+kunai": 1
 }
 },
 "M|P2|h44|x22|b0|-|o0": {
@@ -4947,6 +11487,81 @@
 "thunders+shield+kims": 1
 }
 },
+"M|P2|h44|x23|b1|D|oDHR": {
+"alts": [
+[
+"rebirth+thunders",
+0.507
+],
+[
+"rebirth+panacea+jewel",
+0.134
+],
+[
+"rebirth+shield",
+0.043
+]
+],
+"margin": 0.073,
+"n": 1,
+"planner": "rebirth+thunders",
+"value": {
+"rebirth+phantom": 0.581
+},
+"votes": {
+"rebirth+phantom": 1
+}
+},
+"M|P2|h44|x23|b2|n|oBDHP": {
+"alts": [
+[
+"resist+shield+kims",
+0.134
+],
+[
+"overflow+shield+kims",
+0.13
+],
+[
+"thunders+phantom+kims",
+-1.054
+]
+],
+"margin": 0.568,
+"n": 1,
+"planner": "thunders+shield+kims",
+"value": {
+"phantom+shield+kims": 0.702
+},
+"votes": {
+"phantom+shield+kims": 1
+}
+},
+"M|P2|h44|x24|b1|-|oBD": {
+"alts": [
+[
+"cleanse+smoke+panacea",
+-0.518
+],
+[
+"cleanse+shield",
+-1.0
+],
+[
+"cleanse+resist",
+-1.059
+]
+],
+"margin": 0.559,
+"n": 1,
+"planner": "cleanse+sealnull",
+"value": {
+"cleanse+sealnull": 0.041
+},
+"votes": {
+"cleanse+sealnull": 1
+}
+},
 "M|P2|h44|x24|b2|-|oBDH": {
 "margin": 0.015,
 "n": 1,
@@ -4955,6 +11570,110 @@
 },
 "votes": {
 "rebirth+shield": 1
+}
+},
+"M|P2|h44|x24|b3|-|oBD": {
+"alts": [
+[
+"stormblade+kunai+basic",
+-1.0
+],
+[
+"stormblade+aetherion",
+-1.0
+],
+[
+"stormblade+kims+kunai",
+-1.0
+]
+],
+"margin": 0.099,
+"n": 5,
+"planner": "stormblade+thunders",
+"value": {
+"clear+smoke+jewel": -0.593,
+"lotus+smoke+kims": -1.0,
+"stormblade+thunders": -1.0
+},
+"votes": {
+"clear+smoke+jewel": 1,
+"lotus+smoke+kims": 1,
+"stormblade+thunders": 3
+}
+},
+"M|P2|h44|x24|b3|-|oBDH": {
+"alts": [
+[
+"sealnull+nights+smoke",
+-0.014
+],
+[
+"lotus+smoke+kims",
+-0.054
+],
+[
+"clear+shield",
+-1.166
+]
+],
+"margin": 0.138,
+"n": 3,
+"planner": "clear+sealnull",
+"value": {
+"clear+sealnull": 0.124
+},
+"votes": {
+"clear+sealnull": 3
+}
+},
+"M|P2|h44|x24|b3|s|oBHS": {
+"alts": [
+[
+"smoke+kims+panacea+kunai",
+-1.241
+],
+[
+"shield+kims+panacea",
+-1.243
+],
+[
+"resist+kims+panacea",
+-1.266
+]
+],
+"margin": 0.054,
+"n": 1,
+"planner": "clear+kims",
+"value": {
+"clear+kims": -1.187
+},
+"votes": {
+"clear+kims": 1
+}
+},
+"M|P2|h44|x34|b3|n|oBD": {
+"alts": [
+[
+"cleanse+sealnull",
+1.302
+],
+[
+"cleanse+panacea+jewel",
+1.267
+],
+[
+"resist+shield+kims",
+1.037
+]
+],
+"margin": 0.05,
+"n": 1,
+"planner": "shield+kims+panacea+defstance",
+"value": {
+"cleanse+shield": 1.352
+},
+"votes": {
+"cleanse+shield": 1
 }
 },
 "M|P2|h44|x42|b0|-|o0": {
@@ -5000,6 +11719,81 @@
 },
 "votes": {
 "shrapnel+aetherion": 1
+}
+},
+"P1|h00|x24|b3|s|CP|KSIX|oBHRS": {
+"alts": [
+[
+"nights+kims+basic",
+1.227
+],
+[
+"nights+pill+basic",
+1.227
+],
+[
+"nights+jewel+basic",
+1.227
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "nights+aetherion",
+"value": {
+"nights+aetherion": 1.227
+},
+"votes": {
+"nights+aetherion": 1
+}
+},
+"P1|h00|x32|b2|n||SI|oBDHP": {
+"alts": [
+[
+"lotus+aetherion",
+-1.0
+],
+[
+"fury+aetherion",
+-1.0
+],
+[
+"shrapnel+kims+basic",
+-1.0
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "shrapnel+aetherion",
+"value": {
+"shrapnel+aetherion": -1.0
+},
+"votes": {
+"shrapnel+aetherion": 1
+}
+},
+"P1|h01|x00|b3|n|P|SIX|oDHMR": {
+"alts": [
+[
+"basicheal+thunders",
+0.012
+],
+[
+"thunders+shield+pill",
+-0.035
+],
+[
+"thunders+shield+offstance",
+-0.058
+]
+],
+"margin": 1.028,
+"n": 1,
+"planner": "stormblade+subaku",
+"value": {
+"subaku+thunders+pill": 1.04
+},
+"votes": {
+"subaku+thunders+pill": 1
 }
 },
 "P1|h01|x01|b3|n||SIX|oDPR": {
@@ -5177,6 +11971,81 @@
 "basicheal+basic": 1
 }
 },
+"P1|h10|x03|b3|n|P|SIX|oDHR": {
+"alts": [
+[
+"lotus+nights",
+1.342
+],
+[
+"fury+nights",
+1.341
+],
+[
+"nights+aetherion+basic",
+1.332
+]
+],
+"margin": 0.002,
+"n": 1,
+"planner": "shrapnel+nights",
+"value": {
+"shrapnel+nights": 1.344
+},
+"votes": {
+"shrapnel+nights": 1
+}
+},
+"P1|h10|x13|b3|-|P|SIX|oBHR": {
+"alts": [
+[
+"lotus+nights",
+1.316
+],
+[
+"fury+nights",
+1.316
+],
+[
+"shrapnel+kims+basic",
+1.277
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "shrapnel+nights",
+"value": {
+"shrapnel+nights": 1.316
+},
+"votes": {
+"shrapnel+nights": 1
+}
+},
+"P1|h10|x14|b3|n|CP|LSIX|oBDH": {
+"alts": [
+[
+"shrapnel+nights",
+1.26
+],
+[
+"lotus+nights",
+1.259
+],
+[
+"fury+nights",
+1.259
+]
+],
+"margin": 0.097,
+"n": 1,
+"planner": "shrapnel+nights",
+"value": {
+"basicheal+nights": 1.357
+},
+"votes": {
+"basicheal+nights": 1
+}
+},
 "P1|h10|x22|b1|n|P|KLSIX|oH": {
 "alts": [
 [
@@ -5227,6 +12096,56 @@
 "basicheal+kunai+basic": 1
 }
 },
+"P1|h10|x24|b3|n|CP|KLSI|oBDH": {
+"alts": [
+[
+"lotus+aetherion",
+1.294
+],
+[
+"fury+aetherion",
+1.294
+],
+[
+"ember+aetherion",
+1.294
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "shrapnel+aetherion",
+"value": {
+"shrapnel+aetherion": 1.294
+},
+"votes": {
+"shrapnel+aetherion": 1
+}
+},
+"P1|h10|x24|b3|n|CP|SIX|oBDH": {
+"alts": [
+[
+"shrapnel+nights",
+1.321
+],
+[
+"lotus+nights",
+1.321
+],
+[
+"fury+nights",
+1.321
+]
+],
+"margin": 0.119,
+"n": 1,
+"planner": "basicheal+nights",
+"value": {
+"basicheal+nights": 1.44
+},
+"votes": {
+"basicheal+nights": 1
+}
+},
 "P1|h11|x10|b2|n|C|LMSI|oBDMRS": {
 "alts": [
 [
@@ -5275,6 +12194,31 @@
 },
 "votes": {
 "overflow+thunders+pill": 1
+}
+},
+"P1|h11|x13|b3|n||SIX|oDPR": {
+"alts": [
+[
+"fury+aetherion",
+1.059
+],
+[
+"fury+kims+basic",
+0.537
+],
+[
+"fury+replace+basic",
+0.537
+]
+],
+"margin": 0.208,
+"n": 1,
+"planner": "shrapnel+aetherion",
+"value": {
+"shrapnel+aetherion": 1.267
+},
+"votes": {
+"shrapnel+aetherion": 1
 }
 },
 "P1|h11|x14|b3|d|P|LSI|oBILR": {
@@ -5352,6 +12296,56 @@
 "basicheal+aetherion": 1
 }
 },
+"P1|h11|x24|b3|n|P|SI|oBDL": {
+"alts": [
+[
+"shrapnel+pill+basic",
+1.278
+],
+[
+"shrapnel+jewel+basic",
+1.278
+],
+[
+"shrapnel+replace+basic",
+1.278
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "shrapnel+aetherion",
+"value": {
+"shrapnel+kims+basic": 1.278
+},
+"votes": {
+"shrapnel+kims+basic": 1
+}
+},
+"P1|h11|x34|b3|n|P|LSIX|oBDL": {
+"alts": [
+[
+"cleanse+pill+basic",
+0.677
+],
+[
+"cleanse+offstance+basic",
+0.608
+],
+[
+"cleanse+kims+basic",
+0.02
+]
+],
+"margin": 0.462,
+"n": 1,
+"planner": "cleanse+panacea+basic",
+"value": {
+"cleanse+aetherion": 1.139
+},
+"votes": {
+"cleanse+aetherion": 1
+}
+},
 "P1|h11|x43|b3|n|CP|KLSIX|oHR": {
 "alts": [
 [
@@ -5425,6 +12419,31 @@
 },
 "votes": {
 "shrapnel+nights": 1
+}
+},
+"P1|h11|x44|b3|n|P|LSI|oBDHL": {
+"alts": [
+[
+"cleanse+kunai+offstance",
+1.264
+],
+[
+"cleanse+kunai+basic",
+1.234
+],
+[
+"cleanse+kunai+defstance",
+1.234
+]
+],
+"margin": 0.057,
+"n": 1,
+"planner": "cleanse+kunai+basic",
+"value": {
+"cleanse+pill+kunai": 1.321
+},
+"votes": {
+"cleanse+pill+kunai": 1
 }
 },
 "P1|h12|x10|b3|n|P|KMSIX|oBMR": {
@@ -5527,6 +12546,81 @@
 "resist+shield+panacea": 1
 }
 },
+"P1|h12|x21|b3|dc||LSI|oBILP": {
+"alts": [
+[
+"overflow+phantom+jewel",
+0.55
+],
+[
+"phantom+jewel+defstance+basic",
+0.014
+],
+[
+"overflow+phantom+defstance",
+-0.531
+]
+],
+"margin": 0.104,
+"n": 1,
+"planner": "overflow+phantom+jewel",
+"value": {
+"phantom+pill+jewel+defstance": 0.654
+},
+"votes": {
+"phantom+pill+jewel+defstance": 1
+}
+},
+"P1|h12|x21|b3|n||LSI|oDHR": {
+"alts": [
+[
+"fury+kunai+basic",
+0.019
+],
+[
+"cleanse+kunai+defstance",
+0.015
+],
+[
+"cleanse+defstance+basic",
+-0.523
+]
+],
+"margin": 1.135,
+"n": 1,
+"planner": "ember+kunai+basic",
+"value": {
+"ember+kunai+basic": 1.154
+},
+"votes": {
+"ember+kunai+basic": 1
+}
+},
+"P1|h12|x30|b3|n|P|LSIX|oBDHLMR": {
+"alts": [
+[
+"stormblade+aetherion",
+0.029
+],
+[
+"stormblade+offstance+basic",
+0.026
+],
+[
+"stormblade+kunai+offstance",
+0.002
+]
+],
+"margin": 1.253,
+"n": 1,
+"planner": "cleanse+kunai+basic",
+"value": {
+"cleanse+kunai+basic": 1.282
+},
+"votes": {
+"cleanse+kunai+basic": 1
+}
+},
 "P1|h12|x34|b3|n|C|KLMSIX|oBDHP": {
 "alts": [
 [
@@ -5627,6 +12721,31 @@
 "basicheal+resist": 1
 }
 },
+"P1|h20|x03|b1|n|CP|LSIX|oDHR": {
+"alts": [
+[
+"fury+kunai+basic",
+1.359
+],
+[
+"fury+nights",
+1.334
+],
+[
+"shrapnel+nights",
+1.293
+]
+],
+"margin": 0.042,
+"n": 1,
+"planner": "fury+nights",
+"value": {
+"fury+kunai+defstance": 1.401
+},
+"votes": {
+"fury+kunai+defstance": 1
+}
+},
 "P1|h20|x03|b3|n|P|KLMSIX|oDHLR": {
 "alts": [
 [
@@ -5647,6 +12766,31 @@
 "planner": "shrapnel+nights",
 "value": {
 "shrapnel+nights": 1.462
+},
+"votes": {
+"shrapnel+nights": 1
+}
+},
+"P1|h20|x04|b3|cn|CP|KLSIX|oBDIR": {
+"alts": [
+[
+"lotus+nights",
+1.635
+],
+[
+"nights+aetherion+kunai",
+1.635
+],
+[
+"nights+aetherion+basic",
+1.635
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "shrapnel+nights",
+"value": {
+"shrapnel+nights": 1.635
 },
 "votes": {
 "shrapnel+nights": 1
@@ -5725,6 +12869,56 @@
 },
 "votes": {
 "basicheal+nights": 1
+}
+},
+"P1|h21|x04|b1|n|CP|LSIX|oBDH": {
+"alts": [
+[
+"fury+kims+kunai",
+1.351
+],
+[
+"fury+kunai+replace",
+1.351
+],
+[
+"fury+pill+kunai",
+1.339
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "fury+nights",
+"value": {
+"fury+kunai+basic": 1.351
+},
+"votes": {
+"fury+kunai+basic": 1
+}
+},
+"P1|h21|x04|b3|dn|CP|LSIX|oBDIR": {
+"alts": [
+[
+"cleanse+pill+kunai",
+1.403
+],
+[
+"cleanse+kunai+offstance",
+1.36
+],
+[
+"cleanse+panacea+kunai",
+1.34
+]
+],
+"margin": 0.075,
+"n": 1,
+"planner": "cleanse+kunai+basic",
+"value": {
+"cleanse+kunai+basic": 1.478
+},
+"votes": {
+"cleanse+kunai+basic": 1
 }
 },
 "P1|h21|x12|b3|n|P|KLSI|oDR": {
@@ -5818,13 +13012,38 @@
 ]
 ],
 "margin": 0.027,
-"n": 1,
+"n": 2,
 "planner": "clear+aetherion",
 "value": {
 "clear+resist": 1.201
 },
 "votes": {
-"clear+resist": 1
+"clear+resist": 2
+}
+},
+"P1|h21|x23|b0|n|P|LSIX|oCH": {
+"alts": [
+[
+"fury+resist",
+1.219
+],
+[
+"fury+nights",
+1.186
+],
+[
+"fury+kunai+basic",
+1.186
+]
+],
+"margin": 0.074,
+"n": 4,
+"planner": "fury+nights",
+"value": {
+"ember+overflow": 1.293
+},
+"votes": {
+"ember+overflow": 4
 }
 },
 "P1|h21|x23|b3|n|P|KSIX|oBDHL": {
@@ -5850,6 +13069,31 @@
 },
 "votes": {
 "stormblade+pill+jewel": 1
+}
+},
+"P1|h21|x24|b3|n|CP|KLSI|oBDH": {
+"alts": [
+[
+"clear+pill+basic",
+1.359
+],
+[
+"clear+kims+basic",
+1.316
+],
+[
+"clear+offstance+basic",
+1.297
+]
+],
+"margin": 0.065,
+"n": 1,
+"planner": "clear+aetherion",
+"value": {
+"clear+aetherion": 1.425
+},
+"votes": {
+"clear+aetherion": 1
 }
 },
 "P1|h21|x34|b3|n|P|KLSIX|oCHR": {
@@ -5900,6 +13144,131 @@
 },
 "votes": {
 "shrapnel+aetherion": 1
+}
+},
+"P1|h21|x44|b3|n|P|LSI|oBDHL": {
+"alts": [
+[
+"cleanse+pill+kunai",
+1.376
+],
+[
+"cleanse+aetherion",
+1.33
+],
+[
+"cleanse+kunai+offstance",
+1.318
+]
+],
+"margin": 0.027,
+"n": 1,
+"planner": "cleanse+kunai+basic",
+"value": {
+"fury+subaku": 1.404
+},
+"votes": {
+"fury+subaku": 1
+}
+},
+"P1|h22|x01|b2|n||LSI|oDHPR": {
+"alts": [
+[
+"overflow+phantom+defstance",
+1.088
+],
+[
+"basicheal+phantom",
+0.078
+],
+[
+"overflow+phantom+offstance",
+0.073
+]
+],
+"margin": 0.191,
+"n": 1,
+"planner": "ember+phantom",
+"value": {
+"ember+phantom": 1.279
+},
+"votes": {
+"ember+phantom": 1
+}
+},
+"P1|h22|x01|b3|n||LSI|oBDR": {
+"alts": [
+[
+"ember+pill+offstance",
+1.409
+],
+[
+"ember+kims+basic",
+1.341
+],
+[
+"ember+pill+basic",
+1.248
+]
+],
+"margin": 0.072,
+"n": 1,
+"planner": "ember+aetherion",
+"value": {
+"ember+eclipse": 1.481
+},
+"votes": {
+"ember+eclipse": 1
+}
+},
+"P1|h22|x02|b3|n||LSI|oBDR": {
+"alts": [
+[
+"ember+pill+basic",
+0.091
+],
+[
+"ember+subaku",
+0.03
+],
+[
+"ember+offstance+basic",
+-0.453
+]
+],
+"margin": 0.021,
+"n": 1,
+"planner": "ember+eclipse",
+"value": {
+"ember+eclipse": 0.113
+},
+"votes": {
+"ember+eclipse": 1
+}
+},
+"P1|h22|x10|b1|n|P|LSIX|oCHR": {
+"alts": [
+[
+"resist+nights+defstance",
+0.581
+],
+[
+"resist+nights+jewel",
+0.024
+],
+[
+"phantom+nights+defstance",
+-0.548
+]
+],
+"margin": 0.503,
+"n": 1,
+"planner": "resist+nights+defstance",
+"value": {
+"basicheal+resist": 1.084
+},
+"votes": {
+"basicheal+resist": 1
 }
 },
 "P1|h22|x10|b3|n|P|KLSIX|oBDHMR": {
@@ -6077,6 +13446,31 @@
 "thunders+shield+basic": 1
 }
 },
+"P1|h22|x34|b3|n|P|SI|oDHR": {
+"alts": [
+[
+"fury+pill+panacea",
+1.245
+],
+[
+"fury+panacea+jewel",
+1.224
+],
+[
+"fury+panacea+offstance",
+1.194
+]
+],
+"margin": 0.033,
+"n": 1,
+"planner": "fury+panacea+kunai",
+"value": {
+"fury+panacea+basic": 1.278
+},
+"votes": {
+"fury+panacea+basic": 1
+}
+},
 "P1|h22|x42|b1|n||KLMSI|oBDH": {
 "alts": [
 [
@@ -6100,6 +13494,56 @@
 },
 "votes": {
 "shrapnel+kunai+basic": 1
+}
+},
+"P1|h22|x42|b3|dn||LSI|oBILR": {
+"alts": [
+[
+"overflow+eclipse+offstance",
+1.112
+],
+[
+"overflow+pill+kunai+offstance",
+0.56
+],
+[
+"subaku+overflow+pill",
+0.132
+]
+],
+"margin": 0.181,
+"n": 1,
+"planner": "subaku+overflow+pill",
+"value": {
+"overflow+eclipse+pill": 1.293
+},
+"votes": {
+"overflow+eclipse+pill": 1
+}
+},
+"P1|h22|x44|b3|sn|CP|KLSI|oBDHS": {
+"alts": [
+[
+"fury+kunai",
+1.638
+],
+[
+"fury+basic",
+1.638
+],
+[
+"fury+offstance",
+1.564
+]
+],
+"margin": 0.007,
+"n": 1,
+"planner": "fury+defstance",
+"value": {
+"fury+pill": 1.645
+},
+"votes": {
+"fury+pill": 1
 }
 },
 "P1|h23|x13|b2|-||KLMSI|oCHR": {
@@ -6150,6 +13594,56 @@
 },
 "votes": {
 "ember+resist": 1
+}
+},
+"P1|h23|x20|b2|n||LSIX|oDMPR": {
+"alts": [
+[
+"stormblade+pill+defstance",
+0.017
+],
+[
+"stormblade+defstance+offstance",
+-0.419
+],
+[
+"stormblade+resist",
+-0.478
+]
+],
+"margin": 1.096,
+"n": 1,
+"planner": "stormblade+resist",
+"value": {
+"ember+resist": 1.113
+},
+"votes": {
+"ember+resist": 1
+}
+},
+"P1|h23|x30|b2|n||LSIX|oDMPR": {
+"alts": [
+[
+"stormblade+resist",
+1.113
+],
+[
+"stormblade+defstance+basic",
+0.06
+],
+[
+"stormblade+defstance+offstance",
+-0.529
+]
+],
+"margin": 0.069,
+"n": 1,
+"planner": "stormblade+resist",
+"value": {
+"stormblade+pill+defstance": 1.181
+},
+"votes": {
+"stormblade+pill+defstance": 1
 }
 },
 "P1|h23|x34|b3|n|C|LIX|oDLP": {
@@ -6427,6 +13921,31 @@
 "lotus+kunai+basic": 1
 }
 },
+"P1|h31|x04|b3|cn|CP|KLSIX|oBDIR": {
+"alts": [
+[
+"lotus+nights",
+1.653
+],
+[
+"nights+aetherion+kunai",
+1.653
+],
+[
+"nights+aetherion+basic",
+1.653
+]
+],
+"margin": 0.0,
+"n": 2,
+"planner": "shrapnel+nights",
+"value": {
+"shrapnel+nights": 1.653
+},
+"votes": {
+"shrapnel+nights": 2
+}
+},
 "P1|h31|x22|b0|n||KLMSIX|oH": {
 "alts": [
 [
@@ -6702,6 +14221,31 @@
 "overflow+phantom+pill": 1
 }
 },
+"P1|h32|x23|b3|n||SIX|oBCR": {
+"alts": [
+[
+"stormblade+pill+offstance",
+0.623
+],
+[
+"stormblade+subaku",
+0.616
+],
+[
+"stormblade+eclipse",
+0.519
+]
+],
+"margin": 0.591,
+"n": 1,
+"planner": "stormblade+overflow",
+"value": {
+"stormblade+overflow": 1.214
+},
+"votes": {
+"stormblade+overflow": 1
+}
+},
 "P1|h32|x24|b2|n||KLMSI|oCP": {
 "alts": [
 [
@@ -6800,6 +14344,31 @@
 },
 "votes": {
 "ember+subaku": 1
+}
+},
+"P1|h32|x34|b3|n|CP|KLSI|oBDH": {
+"alts": [
+[
+"clear+pill+basic",
+1.247
+],
+[
+"clear+aetherion",
+1.205
+],
+[
+"clear+offstance+basic",
+1.205
+]
+],
+"margin": 0.002,
+"n": 1,
+"planner": "clear+aetherion",
+"value": {
+"fury+subaku": 1.249
+},
+"votes": {
+"fury+subaku": 1
 }
 },
 "P1|h32|x40|b3|n|CP|KLSI|oDHL": {
@@ -6918,13 +14487,88 @@
 ]
 ],
 "margin": 0.059,
-"n": 1,
+"n": 2,
 "planner": "fury+panacea+basic",
 "value": {
 "fury+resist": 1.069
 },
 "votes": {
-"fury+resist": 1
+"fury+resist": 2
+}
+},
+"P1|h32|x44|b3|sn|CP|KLSI|oBDHS": {
+"alts": [
+[
+"cleanse+basic",
+1.347
+],
+[
+"clear+kims",
+1.213
+],
+[
+"clear+replace",
+1.213
+]
+],
+"margin": 0.015,
+"n": 4,
+"planner": "clear+basic",
+"value": {
+"clear+basic": 1.362
+},
+"votes": {
+"clear+basic": 4
+}
+},
+"P1|h32|x44|b3|sn|CP|KLSI|oBHS": {
+"alts": [
+[
+"fury+kunai",
+1.616
+],
+[
+"fury+basic",
+1.616
+],
+[
+"fury+jewel",
+1.612
+]
+],
+"margin": 0.019,
+"n": 2,
+"planner": "fury+defstance",
+"value": {
+"fury+pill": 1.635
+},
+"votes": {
+"fury+pill": 2
+}
+},
+"P1|h33|x00|b1|n|C|SIX|oDHPR": {
+"alts": [
+[
+"ember+defstance+basic",
+1.236
+],
+[
+"ember+phantom",
+1.206
+],
+[
+"ember+jewel+defstance",
+1.206
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "ember+phantom",
+"value": {
+"ember+jewel+basic": 1.236
+},
+"votes": {
+"ember+jewel+basic": 1
 }
 },
 "P1|h33|x03|b3|n|CP|KLMSI|oDR": {
@@ -7027,6 +14671,31 @@
 "stormblade+thunders": 1
 }
 },
+"P1|h33|x14|b3|n|CP|KLMSIX|oBDH": {
+"alts": [
+[
+"clear+smoke+jewel",
+0.518
+],
+[
+"clear+aetherion",
+0.032
+],
+[
+"clear+smoke+basic",
+-0.6
+]
+],
+"margin": 0.034,
+"n": 1,
+"planner": "clear+smoke+basic",
+"value": {
+"clear+nights": 0.551
+},
+"votes": {
+"clear+nights": 1
+}
+},
 "P1|h33|x14|b3|n|C|KLMSI|oBDH": {
 "alts": [
 [
@@ -7077,6 +14746,33 @@
 "overflow+thunders+jewel": 1
 }
 },
+"P1|h33|x20|b0|n|P|LSI|oCH": {
+"alts": [
+[
+"resist+phantom+jewel",
+1.156
+],
+[
+"overflow+phantom+pill",
+0.586
+],
+[
+"overflow+resist+jewel",
+0.155
+]
+],
+"margin": 0.371,
+"n": 2,
+"planner": "overflow+phantom+jewel",
+"value": {
+"ember+overflow": 1.325,
+"resist+phantom+jewel": 1.156
+},
+"votes": {
+"ember+overflow": 1,
+"resist+phantom+jewel": 1
+}
+},
 "P1|h33|x20|b1|Dn|CP|L|oLR": {
 "alts": [
 [
@@ -7100,6 +14796,31 @@
 },
 "votes": {
 "rebirth+shield": 1
+}
+},
+"P1|h33|x20|b1|n|P|LSIX|oBCDH": {
+"alts": [
+[
+"resist+nights+jewel",
+0.59
+],
+[
+"resist+nights+pill",
+-0.032
+],
+[
+"resist+nights+defstance",
+-0.054
+]
+],
+"margin": 0.036,
+"n": 1,
+"planner": "resist+nights+jewel",
+"value": {
+"resist+nights+offstance": 0.627
+},
+"votes": {
+"resist+nights+offstance": 1
 }
 },
 "P1|h33|x21|b1|-|P|KLM|oBCDS": {
@@ -7200,6 +14921,33 @@
 },
 "votes": {
 "thunders+shield+kunai": 1
+}
+},
+"P1|h33|x24|b3|n|C|KLSI|oBD": {
+"alts": [
+[
+"overflow+thunders+basic",
+1.447
+],
+[
+"ember+thunders",
+1.408
+],
+[
+"overflow+thunders+pill",
+1.271
+]
+],
+"margin": 0.078,
+"n": 3,
+"planner": "ember+thunders",
+"value": {
+"ember+thunders": 1.451,
+"overflow+thunders+kunai": 1.504
+},
+"votes": {
+"ember+thunders": 2,
+"overflow+thunders+kunai": 1
 }
 },
 "P1|h33|x24|b3|n|C|KLSI|oBDP": {
@@ -7327,8 +15075,62 @@
 "ember+kims": 1
 }
 },
+"P1|h34|x00|b1|n|C|KLSIX|oDHPR": {
+"alts": [
+[
+"stormblade+thunders",
+1.516
+],
+[
+"shield+nights+jewel",
+1.386
+],
+[
+"stormblade+shield",
+1.311
+]
+],
+"margin": 0.12,
+"n": 2,
+"planner": "stormblade+shield",
+"value": {
+"thunders+shield+offstance": 1.637
+},
+"votes": {
+"thunders+shield+offstance": 2
+}
+},
+"P1|h34|x00|b3|n|C|KLSIX|oBHPR": {
+"alts": [
+[
+"stormblade+shield",
+1.521
+],
+[
+"stormblade+thunders",
+1.33
+],
+[
+"thunders+shield+offstance",
+1.296
+]
+],
+"margin": 0.155,
+"n": 1,
+"planner": "stormblade+shield",
+"value": {
+"shield+nights+jewel": 1.676
+},
+"votes": {
+"shield+nights+jewel": 1
+}
+},
 "P1|h34|x10|b2|sn|CP|KLSIX|oBHS": {
 "alts": [
+[
+"phantom+shield",
+1.278
+],
 [
 "shield+nights",
 1.206
@@ -7336,20 +15138,16 @@
 [
 "stormblade+jewel",
 0.965
-],
-[
-"phantom+shield",
-0.599
 ]
 ],
-"margin": 0.142,
-"n": 1,
+"margin": 0.106,
+"n": 2,
 "planner": "thunders+shield",
 "value": {
 "thunders+shield": 1.348
 },
 "votes": {
-"thunders+shield": 1
+"thunders+shield": 2
 }
 },
 "P1|h34|x14|b3|n|C|KLMSIX|oDHR": {
@@ -7492,14 +15290,14 @@
 0.523
 ]
 ],
-"margin": 0.589,
-"n": 1,
+"margin": 0.584,
+"n": 2,
 "planner": "stormblade+overflow",
 "value": {
-"ember+overflow": 1.392
+"ember+overflow": 1.382
 },
 "votes": {
-"ember+overflow": 1
+"ember+overflow": 2
 }
 },
 "P1|h34|x34|b3|n|C|KLMSIX|oBHPS": {
@@ -7568,13 +15366,13 @@
 ]
 ],
 "margin": 0.106,
-"n": 1,
+"n": 2,
 "planner": "cleanse+aetherion",
 "value": {
 "cleanse+aetherion": 1.364
 },
 "votes": {
-"cleanse+aetherion": 1
+"cleanse+aetherion": 2
 }
 },
 "P1|h41|x31|b1|s|C|KLSI|oHRS": {
@@ -7625,6 +15423,31 @@
 },
 "votes": {
 "clear+aetherion": 1
+}
+},
+"P1|h42|x14|b3|n|CP|KLSI|oBD": {
+"alts": [
+[
+"cleanse+jewel+basic",
+1.285
+],
+[
+"subaku+phantom+jewel",
+1.24
+],
+[
+"cleanse+resist",
+1.229
+]
+],
+"margin": 0.003,
+"n": 1,
+"planner": "cleanse+phantom",
+"value": {
+"cleanse+aetherion": 1.288
+},
+"votes": {
+"cleanse+aetherion": 1
 }
 },
 "P1|h42|x14|b3|n|CP|LMSI|oBDL": {
@@ -7952,6 +15775,81 @@
 "cleanse+aetherion": 1
 }
 },
+"P1|h43|x04|b3|dn|C|KLSI|oBIR": {
+"alts": [
+[
+"rebirth+overflow",
+-1.157
+],
+[
+"rebirth+jewel+basic",
+-1.18
+],
+[
+"rebirth+jewel+offstance",
+-1.188
+]
+],
+"margin": 0.714,
+"n": 1,
+"planner": "rebirth+overflow",
+"value": {
+"rebirth+pill+jewel": -0.443
+},
+"votes": {
+"rebirth+pill+jewel": 1
+}
+},
+"P1|h43|x04|b3|n|CP|KLMSIX|oBDH": {
+"alts": [
+[
+"clear+smoke+defstance",
+0.488
+],
+[
+"clear+smoke+replace",
+0.063
+],
+[
+"clear+smoke+basic",
+-0.404
+]
+],
+"margin": 0.134,
+"n": 1,
+"planner": "clear+smoke+basic",
+"value": {
+"clear+smoke+kims": 0.622
+},
+"votes": {
+"clear+smoke+kims": 1
+}
+},
+"P1|h43|x13|b0|n|CP|LSI|oD": {
+"alts": [
+[
+"cleanse+pill+basic",
+1.213
+],
+[
+"cleanse+resist",
+1.186
+],
+[
+"cleanse+jewel+defstance",
+0.627
+]
+],
+"margin": 0.009,
+"n": 1,
+"planner": "cleanse+resist",
+"value": {
+"cleanse+jewel+basic": 1.221
+},
+"votes": {
+"cleanse+jewel+basic": 1
+}
+},
 "P1|h43|x13|b3|n|C|LMSI|oBDR": {
 "alts": [
 [
@@ -7977,6 +15875,56 @@
 "ember+aetherion": 1
 }
 },
+"P1|h43|x14|b3|n|CP|KLMSI|oBDH": {
+"alts": [
+[
+"clear+smoke+jewel",
+0.591
+],
+[
+"clear+jewel+kunai",
+0.054
+],
+[
+"clear+smoke+defstance",
+-0.494
+]
+],
+"margin": 0.064,
+"n": 1,
+"planner": "clear+smoke+kunai",
+"value": {
+"clear+smoke+basic": 0.655
+},
+"votes": {
+"clear+smoke+basic": 1
+}
+},
+"P1|h43|x14|b3|n|CP|KLMSI|oBDHL": {
+"alts": [
+[
+"clear+kunai+basic",
+0.639
+],
+[
+"clear+smoke+basic",
+0.11
+],
+[
+"clear+kunai+offstance",
+0.077
+]
+],
+"margin": 0.583,
+"n": 2,
+"planner": "clear+smoke+kunai",
+"value": {
+"clear+smoke+kunai": 1.222
+},
+"votes": {
+"clear+smoke+kunai": 2
+}
+},
 "P1|h43|x14|b3|n|CP|KLSI|oBDR": {
 "alts": [
 [
@@ -7992,14 +15940,41 @@
 0.048
 ]
 ],
-"margin": 0.592,
-"n": 1,
+"margin": 0.499,
+"n": 4,
 "planner": "rebirth+subaku",
 "value": {
+"clear+pill+offstance": 1.449,
 "clear+sealnull": 1.199
 },
 "votes": {
-"clear+sealnull": 1
+"clear+pill+offstance": 1,
+"clear+sealnull": 3
+}
+},
+"P1|h43|x14|b3|n|CP|LSI|oBDH": {
+"alts": [
+[
+"rebirth+defstance+basic",
+1.244
+],
+[
+"shrapnel+aetherion",
+1.203
+],
+[
+"lotus+aetherion",
+1.202
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "rebirth+aetherion",
+"value": {
+"rebirth+panacea+basic": 1.244
+},
+"votes": {
+"rebirth+panacea+basic": 1
 }
 },
 "P1|h43|x14|b3|n|C|KLMSI|oBDLR": {
@@ -8025,6 +16000,81 @@
 },
 "votes": {
 "clear+kims+kunai": 1
+}
+},
+"P1|h43|x14|b3|n|C|KLSI|oBDR": {
+"alts": [
+[
+"rebirth+pill+basic",
+1.208
+],
+[
+"rebirth+offstance+basic",
+1.196
+],
+[
+"rebirth+overflow",
+-0.117
+]
+],
+"margin": 0.157,
+"n": 1,
+"planner": "rebirth+overflow",
+"value": {
+"rebirth+kims+basic": 1.365
+},
+"votes": {
+"rebirth+kims+basic": 1
+}
+},
+"P1|h43|x24|b3|cn|CP|KLSI|oBIR": {
+"alts": [
+[
+"fury+kunai+basic",
+1.155
+],
+[
+"fury+aetherion",
+0.676
+],
+[
+"fury+pill+basic",
+0.09
+]
+],
+"margin": 0.105,
+"n": 1,
+"planner": "fury+kunai+basic",
+"value": {
+"fury+kims+kunai": 1.259
+},
+"votes": {
+"fury+kims+kunai": 1
+}
+},
+"P1|h43|x24|b3|n|CP|KLSI|oBD": {
+"alts": [
+[
+"subaku+thunders+pill",
+-1.0
+],
+[
+"subaku+thunders+offstance",
+-1.0
+],
+[
+"subaku+thunders+basic",
+-1.0
+]
+],
+"margin": 2.682,
+"n": 4,
+"planner": "subaku+thunders+pill",
+"value": {
+"subaku+thunders+kims": 1.682
+},
+"votes": {
+"subaku+thunders+kims": 4
 }
 },
 "P1|h43|x24|b3|n|C|KLMSI|oBDH": {
@@ -8268,13 +16318,13 @@
 ]
 ],
 "margin": 0.0,
-"n": 1,
+"n": 2,
 "planner": "fury+kunai+basic",
 "value": {
 "fury+kunai+basic": 1.187
 },
 "votes": {
-"fury+kunai+basic": 1
+"fury+kunai+basic": 2
 }
 },
 "P1|h43|x44|b3|n|C|KLMSIX|oBHR": {
@@ -8302,6 +16352,31 @@
 "fury+smoke+pill": 1
 }
 },
+"P1|h44|x00|b2|n|CP|KLSIX|oBDHR": {
+"alts": [
+[
+"stormblade+thunders",
+1.455
+],
+[
+"stormblade+overflow",
+1.375
+],
+[
+"thunders+shield+basic",
+0.809
+]
+],
+"margin": 0.118,
+"n": 4,
+"planner": "stormblade+shield",
+"value": {
+"stormblade+shield": 1.573
+},
+"votes": {
+"stormblade+shield": 4
+}
+},
 "P1|h44|x00|b3|dn|CP|KLSIX|oBDIR": {
 "alts": [
 [
@@ -8318,10 +16393,35 @@
 ]
 ],
 "margin": 0.45,
-"n": 1,
+"n": 3,
 "planner": "stormblade+thunders",
 "value": {
 "stormblade+overflow": 1.095
+},
+"votes": {
+"stormblade+overflow": 3
+}
+},
+"P1|h44|x00|b3|dn|CP|KLSIX|oBILR": {
+"alts": [
+[
+"stormblade+phantom",
+1.195
+],
+[
+"stormblade+thunders",
+0.043
+],
+[
+"rebirth+thunders",
+-1.509
+]
+],
+"margin": 0.267,
+"n": 1,
+"planner": "stormblade+thunders",
+"value": {
+"stormblade+overflow": 1.462
 },
 "votes": {
 "stormblade+overflow": 1
@@ -8495,13 +16595,13 @@
 ]
 ],
 "margin": 0.074,
-"n": 1,
+"n": 3,
 "planner": "thunders+shield",
 "value": {
 "thunders+shield": 1.46
 },
 "votes": {
-"thunders+shield": 1
+"thunders+shield": 3
 }
 },
 "P1|h44|x11|b2|n|C|KLMSIX|oBDPR": {
@@ -8754,6 +16854,31 @@
 "ember+panacea+kunai": 1
 }
 },
+"P1|h44|x14|b3|d|CP|KLMSIX|oBIR": {
+"alts": [
+[
+"rebirth+pill+basic",
+-1.188
+],
+[
+"rebirth+aetherion",
+-1.19
+],
+[
+"rebirth+kunai+basic",
+-1.19
+]
+],
+"margin": 0.015,
+"n": 3,
+"planner": "rebirth+nights",
+"value": {
+"rebirth+nights": -1.173
+},
+"votes": {
+"rebirth+nights": 3
+}
+},
 "P1|h44|x14|b3|n|C|KLMSIX|oBDL": {
 "alts": [
 [
@@ -8829,6 +16954,31 @@
 "resist+nights+jewel": 1
 }
 },
+"P1|h44|x20|b0|n|C|KLSIX|oDHP": {
+"alts": [
+[
+"thunders+nights+panacea",
+0.085
+],
+[
+"stormblade+phantom",
+0.073
+],
+[
+"stormblade+thunders",
+-0.518
+]
+],
+"margin": 0.019,
+"n": 2,
+"planner": "stormblade+thunders",
+"value": {
+"stormblade+resist": 0.104
+},
+"votes": {
+"stormblade+resist": 2
+}
+},
 "P1|h44|x20|b3|n|C|KLSIX|oBHPR": {
 "alts": [
 [
@@ -8857,21 +17007,21 @@
 "P1|h44|x22|b0|-|CP|KLMSIX|o0": {
 "alts": [
 [
-"rebirth+shield",
-1.42
+"rebirth+smoke+panacea",
+1.316
 ],
 [
-"resist+shield+jewel",
-1.288
+"rebirth+smoke+kunai",
+1.253
 ],
 [
-"resist+shield+panacea",
-1.195
+"rebirth+smoke+basic",
+1.221
 ]
 ],
-"margin": 0.136,
-"n": 19,
-"planner": "resist+shield+panacea",
+"margin": 0.145,
+"n": 39,
+"planner": "rebirth+smoke+panacea",
 "value": {
 "ember+shield": 1.386,
 "ember+smoke+kunai": 1.607,
@@ -8882,19 +17032,19 @@
 "shield+aetherion+smoke": 0.143,
 "shield+smoke+kunai+basic": -0.557,
 "shield+smoke+panacea+kunai": -0.206,
-"thunders+shield+panacea": 1.447
+"thunders+shield+panacea": 1.629
 },
 "votes": {
 "ember+shield": 1,
 "ember+smoke+kunai": 1,
 "fury+smoke+jewel": 1,
 "rebirth+shield": 3,
-"rebirth+smoke+jewel": 2,
+"rebirth+smoke+jewel": 7,
 "rebirth+smoke+kunai": 1,
-"shield+aetherion+smoke": 3,
+"shield+aetherion+smoke": 8,
 "shield+smoke+kunai+basic": 2,
-"shield+smoke+panacea+kunai": 1,
-"thunders+shield+panacea": 4
+"shield+smoke+panacea+kunai": 6,
+"thunders+shield+panacea": 9
 }
 },
 "P1|h44|x22|b0|-|CY|KLMSIX|o0": {
@@ -9214,26 +17364,53 @@
 "P1|h44|x34|b3|dn|CP|KLSIX|oBD": {
 "alts": [
 [
-"stormblade+phantom",
-1.233
+"stormblade+eclipse",
+1.128
 ],
 [
 "stormblade+pill+jewel",
-1.215
+0.637
 ],
 [
 "stormblade+overflow",
-1.211
+0.578
 ]
 ],
-"margin": 0.125,
-"n": 1,
+"margin": 0.12,
+"n": 3,
 "planner": "stormblade+overflow",
 "value": {
-"stormblade+eclipse": 1.358
+"stormblade+eclipse": 1.358,
+"stormblade+pill+kunai": 1.238
 },
 "votes": {
-"stormblade+eclipse": 1
+"stormblade+eclipse": 2,
+"stormblade+pill+kunai": 1
+}
+},
+"P1|h44|x34|b3|n|CP|KLMSIX|oBDL": {
+"alts": [
+[
+"rebirth+nights",
+-1.185
+],
+[
+"rebirth+aetherion",
+-1.186
+],
+[
+"rebirth+kunai+basic",
+-1.195
+]
+],
+"margin": 2.362,
+"n": 2,
+"planner": "rebirth+kunai+basic",
+"value": {
+"rebirth+kims+kunai": 1.177
+},
+"votes": {
+"rebirth+kims+kunai": 2
 }
 },
 "P1|h44|x34|b3|n|C|LMSIX|oBL": {
@@ -9436,6 +17613,58 @@
 "stormblade+defstance+basic": 1
 }
 },
+"P2|h01|x13|b3|n|P|L|oCH": {
+"alts": [
+[
+"ember+kunai+basic",
+-1.17
+],
+[
+"danse+kunai+basic",
+-1.187
+],
+[
+"fury+pill+kunai",
+-1.191
+]
+],
+"margin": 0.003,
+"n": 1,
+"planner": "fury+kunai+basic",
+"value": {
+"fury+kunai+basic": -1.167
+},
+"votes": {
+"fury+kunai+basic": 1
+}
+},
+"P2|h01|x34|b3|sn|CP|KLMSI|oBDHS": {
+"alts": [
+[
+"lotus+basic",
+-1.0
+],
+[
+"lotus+kims",
+-1.0
+],
+[
+"lotus+pill",
+-1.0
+]
+],
+"margin": 0.0,
+"n": 2,
+"planner": "lotus+kunai",
+"value": {
+"lotus+kims": -1.0,
+"lotus+kunai": -1.0
+},
+"votes": {
+"lotus+kims": 1,
+"lotus+kunai": 1
+}
+},
 "P2|h04|x23|b0|n||KLX|oCH": {
 "alts": [
 [
@@ -9486,6 +17715,56 @@
 "ember+overflow": 1
 }
 },
+"P2|h10|x12|b1|-|C|X|oBDH": {
+"alts": [
+[
+"fury+nights",
+1.336
+],
+[
+"ember+nights",
+1.336
+],
+[
+"shrapnel+aetherion",
+1.297
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "shrapnel+nights",
+"value": {
+"shrapnel+nights": 1.336
+},
+"votes": {
+"shrapnel+nights": 1
+}
+},
+"P2|h10|x24|b1|n|C|I|oBDH": {
+"alts": [
+[
+"shrapnel+pill+basic",
+1.159
+],
+[
+"shrapnel+replace+basic",
+1.159
+],
+[
+"ember+aetherion",
+1.153
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "shrapnel+aetherion",
+"value": {
+"shrapnel+kims+basic": 1.159
+},
+"votes": {
+"shrapnel+kims+basic": 1
+}
+},
 "P2|h10|x32|b0|n|C|KLM|oHS": {
 "alts": [
 [
@@ -9509,6 +17788,31 @@
 },
 "votes": {
 "basicheal+aetherion": 1
+}
+},
+"P2|h11|x04|b3|n||S|oBDR": {
+"alts": [
+[
+"ember+aetherion",
+-1.148
+],
+[
+"fury+pill+basic",
+-1.165
+],
+[
+"fury+replace+basic",
+-1.165
+]
+],
+"margin": 0.006,
+"n": 1,
+"planner": "fury+aetherion",
+"value": {
+"fury+aetherion": -1.142
+},
+"votes": {
+"fury+aetherion": 1
 }
 },
 "P2|h11|x04|b3|n|||oBLR": {
@@ -9536,6 +17840,31 @@
 "fury+aetherion": 1
 }
 },
+"P2|h11|x14|b3|n|P||oBDHR": {
+"alts": [
+[
+"fury+aetherion",
+-1.0
+],
+[
+"ember+aetherion",
+-1.0
+],
+[
+"shrapnel+pill+basic",
+-1.0
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "shrapnel+aetherion",
+"value": {
+"shrapnel+aetherion": -1.0
+},
+"votes": {
+"shrapnel+aetherion": 1
+}
+},
 "P2|h11|x24|b3|gn|CP|KLSIX|oBDHR": {
 "alts": [
 [
@@ -9561,6 +17890,156 @@
 "cleanse+pill+basic": 1
 }
 },
+"P2|h11|x33|b3|-|CP|S|oBDHL": {
+"alts": [
+[
+"fury+aetherion",
+1.333
+],
+[
+"shrapnel+pill+basic",
+1.333
+],
+[
+"shrapnel+jewel+basic",
+1.333
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "shrapnel+aetherion",
+"value": {
+"shrapnel+aetherion": 1.333
+},
+"votes": {
+"shrapnel+aetherion": 1
+}
+},
+"P2|h11|x34|b3|n|P|S|oBDH": {
+"alts": [
+[
+"rebirth+aetherion",
+-1.0
+],
+[
+"rebirth+defstance+basic",
+-1.0
+],
+[
+"rebirth+replace+basic",
+-1.0
+]
+],
+"margin": 2.084,
+"n": 1,
+"planner": "rebirth+shield",
+"value": {
+"rebirth+shield": 1.084
+},
+"votes": {
+"rebirth+shield": 1
+}
+},
+"P2|h11|x34|b3|sn|C|KL|oBDHS": {
+"alts": [
+[
+"ember+kunai",
+-1.0
+],
+[
+"fury+basic",
+-1.0
+],
+[
+"aetherion+kunai+basic",
+-1.0
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "fury+kunai",
+"value": {
+"fury+kunai": -1.0
+},
+"votes": {
+"fury+kunai": 1
+}
+},
+"P2|h12|x00|b1|n|C|MIX|oDMPR": {
+"alts": [
+[
+"shrapnel+smoke+kims",
+0.643
+],
+[
+"fury+smoke+kims",
+0.634
+],
+[
+"aetherion+smoke+kims+basic",
+0.16
+]
+],
+"margin": 0.071,
+"n": 1,
+"planner": "basicheal+smoke+kims",
+"value": {
+"ember+smoke+kims": 0.713
+},
+"votes": {
+"ember+smoke+kims": 1
+}
+},
+"P2|h12|x03|b3|dn||X|oDH": {
+"alts": [
+[
+"stormblade+aetherion",
+-1.0
+],
+[
+"stormblade+pill+kunai",
+-1.0
+],
+[
+"stormblade+kunai+offstance",
+-1.0
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "stormblade+kunai+basic",
+"value": {
+"stormblade+kunai+basic": -1.0
+},
+"votes": {
+"stormblade+kunai+basic": 1
+}
+},
+"P2|h12|x04|b3|n|CP|LMI|oBDHR": {
+"alts": [
+[
+"lotus+pill+basic",
+-1.157
+],
+[
+"lotus+replace+basic",
+-1.157
+],
+[
+"lotus+offstance+basic",
+-1.157
+]
+],
+"margin": 0.01,
+"n": 1,
+"planner": "lotus+aetherion",
+"value": {
+"lotus+aetherion": -1.147
+},
+"votes": {
+"lotus+aetherion": 1
+}
+},
 "P2|h12|x13|b1|n|||oBDRS": {
 "alts": [
 [
@@ -9581,6 +18060,81 @@
 "planner": "lotus+aetherion",
 "value": {
 "lotus+aetherion": -1.078
+},
+"votes": {
+"lotus+aetherion": 1
+}
+},
+"P2|h12|x14|b3|n||S|oDH": {
+"alts": [
+[
+"shrapnel+aetherion",
+-1.116
+],
+[
+"fury+kunai+basic",
+-1.147
+],
+[
+"shrapnel+kunai+basic",
+-1.147
+]
+],
+"margin": 0.094,
+"n": 1,
+"planner": "shrapnel+kunai+basic",
+"value": {
+"ember+kunai+basic": -1.023
+},
+"votes": {
+"ember+kunai+basic": 1
+}
+},
+"P2|h12|x14|b3|sn||SX|oBHS": {
+"alts": [
+[
+"nights+replace+basic",
+-1.258
+],
+[
+"nights+offstance+basic",
+-1.258
+],
+[
+"nights+basic",
+-1.258
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "nights+pill+basic",
+"value": {
+"nights+pill+basic": -1.258
+},
+"votes": {
+"nights+pill+basic": 1
+}
+},
+"P2|h13|x14|b3|n|CP|LI|oBDH": {
+"alts": [
+[
+"ember+aetherion",
+-1.347
+],
+[
+"lotus+kims+basic",
+-1.348
+],
+[
+"shrapnel+kims+basic",
+-1.349
+]
+],
+"margin": 0.007,
+"n": 1,
+"planner": "shrapnel+aetherion",
+"value": {
+"lotus+aetherion": -1.34
 },
 "votes": {
 "lotus+aetherion": 1
@@ -9736,6 +18290,81 @@
 "rebirth+shield": 1
 }
 },
+"P2|h21|x14|b3|n|CP||oBIR": {
+"alts": [
+[
+"ember+thunders",
+-1.0
+],
+[
+"danse+thunders",
+-1.0
+],
+[
+"rebirth+thunders",
+-1.0
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "fury+thunders",
+"value": {
+"fury+thunders": -1.0
+},
+"votes": {
+"fury+thunders": 1
+}
+},
+"P2|h21|x14|b3|n|C||oD": {
+"alts": [
+[
+"shrapnel+aetherion",
+-1.0
+],
+[
+"fury+aetherion",
+-1.0
+],
+[
+"shrapnel+pill+basic",
+-1.0
+]
+],
+"margin": 2.237,
+"n": 1,
+"planner": "shrapnel+aetherion",
+"value": {
+"ember+aetherion": 1.237
+},
+"votes": {
+"ember+aetherion": 1
+}
+},
+"P2|h21|x24|b3|n|C||oBD": {
+"alts": [
+[
+"lotus+pill+basic",
+-1.0
+],
+[
+"lotus+replace+basic",
+-1.0
+],
+[
+"lotus+offstance+basic",
+-1.0
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "lotus+aetherion",
+"value": {
+"lotus+aetherion": -1.0
+},
+"votes": {
+"lotus+aetherion": 1
+}
+},
 "P2|h21|x24|b3|n||LSIX|oBDHLR": {
 "alts": [
 [
@@ -9759,6 +18388,31 @@
 },
 "votes": {
 "lotus+nights": 1
+}
+},
+"P2|h21|x34|b3|dcsn|C|KL|oBDHS": {
+"alts": [
+[
+"ember+kunai",
+-1.0
+],
+[
+"fury+basic",
+-1.0
+],
+[
+"ember+basic",
+-1.0
+]
+],
+"margin": 0.0,
+"n": 2,
+"planner": "fury+kunai",
+"value": {
+"fury+kunai": -1.0
+},
+"votes": {
+"fury+kunai": 2
 }
 },
 "P2|h22|x00|b3|-||KLX|oBDLMR": {
@@ -9786,6 +18440,256 @@
 "rebirth+kunai+basic": 1
 }
 },
+"P2|h22|x00|b3|n|C|IX|oBHLMPR": {
+"alts": [
+[
+"lotus+kims+basic",
+0.73
+],
+[
+"lotus+kims+jewel",
+0.699
+],
+[
+"lotus+kims+defstance",
+0.693
+]
+],
+"margin": 0.004,
+"n": 1,
+"planner": "lotus+kims+jewel",
+"value": {
+"lotus+kims+pill": 0.734
+},
+"votes": {
+"lotus+kims+pill": 1
+}
+},
+"P2|h22|x02|b3|n|C||oPR": {
+"alts": [
+[
+"basicheal+pill+jewel",
+-1.0
+],
+[
+"basicheal+jewel+kunai",
+-1.001
+],
+[
+"basicheal+jewel+basic",
+-1.01
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "basicheal+phantom",
+"value": {
+"basicheal+phantom": -1.0
+},
+"votes": {
+"basicheal+phantom": 1
+}
+},
+"P2|h22|x02|b3|n|||oDPR": {
+"alts": [
+[
+"shrapnel+defstance+basic",
+-1.257
+],
+[
+"shrapnel+pill+basic",
+-1.259
+],
+[
+"shrapnel+aetherion",
+-1.26
+]
+],
+"margin": 0.042,
+"n": 1,
+"planner": "shrapnel+aetherion",
+"value": {
+"ember+aetherion": -1.215
+},
+"votes": {
+"ember+aetherion": 1
+}
+},
+"P2|h22|x04|b3|dn|C|LM|oBDL": {
+"alts": [
+[
+"shrapnel+thunders",
+-1.49
+],
+[
+"fury+thunders",
+-1.494
+],
+[
+"danse+thunders",
+-1.516
+]
+],
+"margin": 0.059,
+"n": 1,
+"planner": "shrapnel+thunders",
+"value": {
+"ember+thunders": -1.431
+},
+"votes": {
+"ember+thunders": 1
+}
+},
+"P2|h22|x04|b3|n|P||oBLR": {
+"alts": [
+[
+"resist+phantom+offstance",
+-1.234
+],
+[
+"resist+phantom+pill",
+-1.235
+],
+[
+"resist+phantom+replace",
+-1.253
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "resist+phantom+kunai",
+"value": {
+"resist+phantom+basic": -1.233
+},
+"votes": {
+"resist+phantom+basic": 1
+}
+},
+"P2|h22|x11|b2|-|C|X|oDHLR": {
+"alts": [
+[
+"ember+phantom",
+1.372
+],
+[
+"overflow+phantom+kunai",
+0.094
+],
+[
+"overflow+phantom+offstance",
+0.076
+]
+],
+"margin": 0.015,
+"n": 1,
+"planner": "overflow+phantom+pill",
+"value": {
+"overflow+phantom+pill": 1.386
+},
+"votes": {
+"overflow+phantom+pill": 1
+}
+},
+"P2|h22|x12|b3|n|C|X|oHR": {
+"alts": [
+[
+"resist+nights+basic",
+1.254
+],
+[
+"resist+nights+pill",
+1.237
+],
+[
+"basicheal+resist",
+0.203
+]
+],
+"margin": 0.012,
+"n": 1,
+"planner": "basicheal+resist",
+"value": {
+"resist+nights+offstance": 1.266
+},
+"votes": {
+"resist+nights+offstance": 1
+}
+},
+"P2|h22|x13|b3|n|C|X|oBDH": {
+"alts": [
+[
+"stormblade+aetherion",
+-1.0
+],
+[
+"stormblade+pill+kunai",
+-1.0
+],
+[
+"stormblade+kunai+offstance",
+-1.0
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "stormblade+kunai+basic",
+"value": {
+"stormblade+kunai+basic": -1.0
+},
+"votes": {
+"stormblade+kunai+basic": 1
+}
+},
+"P2|h22|x13|b3|n|C|X|oBDR": {
+"alts": [
+[
+"stormblade+kunai+offstance",
+-0.436
+],
+[
+"stormblade+kunai+basic",
+-1.0
+],
+[
+"stormblade+kunai+replace",
+-1.0
+]
+],
+"margin": 0.015,
+"n": 1,
+"planner": "stormblade+kunai+basic",
+"value": {
+"stormblade+pill+kunai": -0.421
+},
+"votes": {
+"stormblade+pill+kunai": 1
+}
+},
+"P2|h22|x14|b3|dn|CP|LM|oBDHL": {
+"alts": [
+[
+"ember+kunai+basic",
+-1.492
+],
+[
+"shrapnel+kunai+basic",
+-1.507
+],
+[
+"fury+kunai+basic",
+-1.511
+]
+],
+"margin": 0.232,
+"n": 1,
+"planner": "shrapnel+kunai+basic",
+"value": {
+"shrapnel+aetherion": -1.259
+},
+"votes": {
+"shrapnel+aetherion": 1
+}
+},
 "P2|h22|x14|b3|gn|P|SI|oBLR": {
 "alts": [
 [
@@ -9809,6 +18713,106 @@
 },
 "votes": {
 "shrapnel+replace+basic": 1
+}
+},
+"P2|h22|x14|b3|n|CP|LMI|oBD": {
+"alts": [
+[
+"cleanse+smoke+jewel",
+0.039
+],
+[
+"cleanse+smoke+defstance",
+-0.533
+],
+[
+"cleanse+smoke+panacea",
+-0.573
+]
+],
+"margin": 0.553,
+"n": 1,
+"planner": "cleanse+smoke+panacea",
+"value": {
+"cleanse+smoke+kims": 0.592
+},
+"votes": {
+"cleanse+smoke+kims": 1
+}
+},
+"P2|h22|x14|b3|n|CP|LX|oBR": {
+"alts": [
+[
+"nights+pill+kunai+basic",
+-1.184
+],
+[
+"fury+nights",
+-1.25
+],
+[
+"nights+kunai+offstance+basic",
+-1.254
+]
+],
+"margin": 0.024,
+"n": 1,
+"planner": "lotus+nights",
+"value": {
+"lotus+nights": -1.16
+},
+"votes": {
+"lotus+nights": 1
+}
+},
+"P2|h22|x14|b3|n|C|LMI|oBDHR": {
+"alts": [
+[
+"shield+smoke+kims+pill",
+-1.148
+],
+[
+"shield+smoke+kims+basic",
+-1.16
+],
+[
+"shield+smoke+kims+panacea",
+-1.171
+]
+],
+"margin": 0.01,
+"n": 1,
+"planner": "shield+smoke+kims+panacea",
+"value": {
+"resist+smoke+kims+panacea": -1.138
+},
+"votes": {
+"resist+smoke+kims+panacea": 1
+}
+},
+"P2|h22|x14|b3|n|P|X|oBCD": {
+"alts": [
+[
+"thunders+nights+basic",
+-1.0
+],
+[
+"thunders+nights+offstance",
+-1.0
+],
+[
+"thunders+nights+replace",
+-1.0
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "thunders+nights+kunai",
+"value": {
+"thunders+nights+kunai": -1.0
+},
+"votes": {
+"thunders+nights+kunai": 1
 }
 },
 "P2|h22|x14|b3|sn|CP|LSX|oBDHL": {
@@ -9886,6 +18890,81 @@
 "ember+kunai+basic": 1
 }
 },
+"P2|h22|x33|b2|-|C|X|oDHR": {
+"alts": [
+[
+"ember+pill+basic",
+1.348
+],
+[
+"lotus+phantom",
+1.286
+],
+[
+"lotus+aetherion",
+1.279
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "lotus+resist",
+"value": {
+"lotus+resist": 1.348
+},
+"votes": {
+"lotus+resist": 1
+}
+},
+"P2|h22|x33|b3|-|CP|SX|oBH": {
+"alts": [
+[
+"ember+aetherion",
+1.412
+],
+[
+"nights+jewel+offstance+basic",
+1.385
+],
+[
+"ember+nights",
+1.375
+]
+],
+"margin": 0.036,
+"n": 1,
+"planner": "ember+nights",
+"value": {
+"nights+pill+jewel+basic": 1.448
+},
+"votes": {
+"nights+pill+jewel+basic": 1
+}
+},
+"P2|h22|x34|b1|-|C|IX|oBDH": {
+"alts": [
+[
+"fury+nights",
+1.172
+],
+[
+"lotus+nights",
+1.153
+],
+[
+"ember+nights",
+1.118
+]
+],
+"margin": 0.001,
+"n": 1,
+"planner": "lotus+nights",
+"value": {
+"shrapnel+nights": 1.173
+},
+"votes": {
+"shrapnel+nights": 1
+}
+},
 "P2|h22|x42|b2|n|CY|LMX|oBHL": {
 "alts": [
 [
@@ -9959,6 +19038,156 @@
 },
 "votes": {
 "resist+sealnull+kunai": 1
+}
+},
+"P2|h23|x04|b2|n|P|X|oCH": {
+"alts": [
+[
+"shield+nights+kunai",
+-1.075
+],
+[
+"shield+nights+pill",
+-1.125
+],
+[
+"shield+nights+defstance",
+-1.147
+]
+],
+"margin": 0.001,
+"n": 1,
+"planner": "stormblade+shield",
+"value": {
+"shield+nights+basic": -1.074
+},
+"votes": {
+"shield+nights+basic": 1
+}
+},
+"P2|h23|x04|b3|dn|CP|LM|oBDL": {
+"alts": [
+[
+"fury+thunders",
+-1.564
+],
+[
+"ember+thunders",
+-1.575
+],
+[
+"danse+thunders",
+-1.576
+]
+],
+"margin": 0.003,
+"n": 1,
+"planner": "shrapnel+thunders",
+"value": {
+"shrapnel+thunders": -1.562
+},
+"votes": {
+"shrapnel+thunders": 1
+}
+},
+"P2|h23|x04|b3|dn|CP|LM|oBDLR": {
+"alts": [
+[
+"fury+thunders",
+-1.117
+],
+[
+"thunders+aetherion+basic",
+-1.128
+],
+[
+"shrapnel+aetherion",
+-1.251
+]
+],
+"margin": 0.003,
+"n": 1,
+"planner": "shrapnel+thunders",
+"value": {
+"shrapnel+thunders": -1.114
+},
+"votes": {
+"shrapnel+thunders": 1
+}
+},
+"P2|h23|x04|b3|dn|P|LMI|oBDR": {
+"alts": [
+[
+"lotus+aetherion",
+-1.082
+],
+[
+"fury+aetherion",
+-1.083
+],
+[
+"ember+aetherion",
+-1.087
+]
+],
+"margin": 0.003,
+"n": 1,
+"planner": "shrapnel+aetherion",
+"value": {
+"shrapnel+aetherion": -1.079
+},
+"votes": {
+"shrapnel+aetherion": 1
+}
+},
+"P2|h23|x04|b3|n|C|LM|oBD": {
+"alts": [
+[
+"cleanse+smoke+pill",
+-1.162
+],
+[
+"cleanse+smoke+kunai",
+-1.181
+],
+[
+"cleanse+smoke+basic",
+-1.195
+]
+],
+"margin": 0.038,
+"n": 1,
+"planner": "cleanse+resist",
+"value": {
+"cleanse+smoke+jewel": -1.125
+},
+"votes": {
+"cleanse+smoke+jewel": 1
+}
+},
+"P2|h23|x12|b3|n|CP|MI|oBHR": {
+"alts": [
+[
+"lotus+smoke+basic",
+1.379
+],
+[
+"lotus+smoke+kims",
+1.291
+],
+[
+"overflow+phantom+kims",
+1.265
+]
+],
+"margin": 0.077,
+"n": 1,
+"planner": "lotus+phantom",
+"value": {
+"basicheal+phantom": 1.456
+},
+"votes": {
+"basicheal+phantom": 1
 }
 },
 "P2|h23|x13|b2|Dn|CP|X|oHIL": {
@@ -10059,6 +19288,106 @@
 },
 "votes": {
 "resist+sealnull+pill": 1
+}
+},
+"P2|h23|x14|b3|n||X|oBDP": {
+"alts": [
+[
+"basicheal+kunai+defstance",
+-1.164
+],
+[
+"basicheal+defstance+basic",
+-1.165
+],
+[
+"basicheal+overflow",
+-1.185
+]
+],
+"margin": 0.001,
+"n": 1,
+"planner": "basicheal+nights",
+"value": {
+"basicheal+pill+defstance": -1.163
+},
+"votes": {
+"basicheal+pill+defstance": 1
+}
+},
+"P2|h23|x22|b2|-||MI|oCP": {
+"alts": [
+[
+"overflow+phantom+kims",
+1.214
+],
+[
+"lotus+smoke+kims",
+0.743
+],
+[
+"ember+phantom",
+0.603
+]
+],
+"margin": 0.019,
+"n": 1,
+"planner": "overflow+phantom+kims",
+"value": {
+"overflow+phantom+jewel": 1.233
+},
+"votes": {
+"overflow+phantom+jewel": 1
+}
+},
+"P2|h23|x22|b3|-||MX|oBHIR": {
+"alts": [
+[
+"lotus+smoke+kunai",
+-1.0
+],
+[
+"lotus+smoke+basic",
+-1.0
+],
+[
+"lotus+smoke+defstance",
+-1.0
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "lotus+smoke+jewel",
+"value": {
+"lotus+smoke+jewel": -1.0
+},
+"votes": {
+"lotus+smoke+jewel": 1
+}
+},
+"P2|h23|x23|b1|-|P|X|oBCDH": {
+"alts": [
+[
+"rebirth+jewel+offstance",
+0.594
+],
+[
+"rebirth+nights",
+0.571
+],
+[
+"rebirth+pill+jewel",
+0.571
+]
+],
+"margin": 0.027,
+"n": 1,
+"planner": "rebirth+jewel+defstance",
+"value": {
+"rebirth+jewel+kunai": 0.622
+},
+"votes": {
+"rebirth+jewel+kunai": 1
 }
 },
 "P2|h23|x24|b3|d|CY|KMSIX|oHRY": {
@@ -10186,6 +19515,133 @@
 "resist+shield+pill": 1
 }
 },
+"P2|h24|x04|b3|n|CP|LMX|oBIR": {
+"alts": [
+[
+"stormblade+kunai+offstance",
+-1.413
+],
+[
+"stormblade+kunai+replace",
+-1.413
+],
+[
+"stormblade+kunai",
+-1.413
+]
+],
+"margin": 0.054,
+"n": 2,
+"planner": "stormblade+kunai+basic",
+"value": {
+"stormblade+aetherion": -1.171,
+"stormblade+kunai+basic": -1.384
+},
+"votes": {
+"stormblade+aetherion": 1,
+"stormblade+kunai+basic": 1
+}
+},
+"P2|h24|x04|b3|n|C|LMX|oBLR": {
+"alts": [
+[
+"basicheal+smoke+basic",
+-1.454
+],
+[
+"basicheal+smoke+defstance",
+-1.457
+],
+[
+"basicheal+smoke+pill",
+-1.467
+]
+],
+"margin": 0.009,
+"n": 1,
+"planner": "basicheal+smoke+kunai",
+"value": {
+"basicheal+smoke+kunai": -1.446
+},
+"votes": {
+"basicheal+smoke+kunai": 1
+}
+},
+"P2|h24|x04|b3|n||LMX|oBDIR": {
+"alts": [
+[
+"stormblade+pill+kunai",
+-1.112
+],
+[
+"stormblade+kunai+replace",
+-1.153
+],
+[
+"stormblade+kunai+basic",
+-1.213
+]
+],
+"margin": 0.018,
+"n": 1,
+"planner": "stormblade+kunai+basic",
+"value": {
+"stormblade+aetherion": -1.093
+},
+"votes": {
+"stormblade+aetherion": 1
+}
+},
+"P2|h24|x13|b2|n|C|LMX|oBHIPR": {
+"alts": [
+[
+"basicheal+shield",
+-0.73
+],
+[
+"ember+nights",
+-1.069
+],
+[
+"ember+aetherion",
+-1.106
+]
+],
+"margin": 0.037,
+"n": 1,
+"planner": "stormblade+aetherion",
+"value": {
+"shield+nights+basic": -0.694
+},
+"votes": {
+"shield+nights+basic": 1
+}
+},
+"P2|h24|x13|b2|n||LMX|oBCHR": {
+"alts": [
+[
+"resist+shield+panacea",
+-1.213
+],
+[
+"shield+smoke+panacea+kunai",
+-1.297
+],
+[
+"resist+shield+smoke",
+-1.339
+]
+],
+"margin": 0.062,
+"n": 1,
+"planner": "resist+shield+panacea",
+"value": {
+"phantom+shield+panacea": -1.151
+},
+"votes": {
+"phantom+shield+panacea": 1
+}
+},
 "P2|h24|x13|b3|-|P|IX|oBDLS": {
 "alts": [
 [
@@ -10209,6 +19665,56 @@
 },
 "votes": {
 "lotus+kims+basic": 1
+}
+},
+"P2|h24|x14|b3|n|C|LMX|oBHR": {
+"alts": [
+[
+"shield+aetherion+panacea",
+-1.211
+],
+[
+"shield+panacea+kunai+offstance",
+-1.234
+],
+[
+"shield+panacea+kunai+replace",
+-1.242
+]
+],
+"margin": 0.008,
+"n": 1,
+"planner": "shield+nights+panacea",
+"value": {
+"shield+panacea+kunai+basic": -1.204
+},
+"votes": {
+"shield+panacea+kunai+basic": 1
+}
+},
+"P2|h24|x23|b0|Dn|C|LMX|oDHPR": {
+"alts": [
+[
+"rebirth+panacea+kunai",
+-1.376
+],
+[
+"rebirth+panacea+basic",
+-1.415
+],
+[
+"thunders+shield+kunai",
+-1.43
+]
+],
+"margin": 0.277,
+"n": 1,
+"planner": "rebirth+shield",
+"value": {
+"ember+shield": -1.098
+},
+"votes": {
+"ember+shield": 1
 }
 },
 "P2|h30|x22|b1|-||KLM|oCHR": {
@@ -10286,6 +19792,31 @@
 "ember+pill+defstance": 1
 }
 },
+"P2|h32|x02|b3|n|C|LIX|oBDP": {
+"alts": [
+[
+"cleanse+thunders",
+0.68
+],
+[
+"cleanse+phantom",
+0.163
+],
+[
+"cleanse+kims+basic",
+0.096
+]
+],
+"margin": 0.499,
+"n": 1,
+"planner": "cleanse+thunders",
+"value": {
+"cleanse+nights": 1.179
+},
+"votes": {
+"cleanse+nights": 1
+}
+},
 "P2|h32|x03|b2|dn|CY|KLM|oHRY": {
 "alts": [
 [
@@ -10311,6 +19842,31 @@
 "clear+pill+basic": 1
 }
 },
+"P2|h32|x04|b3|n|CP|LSX|oBDL": {
+"alts": [
+[
+"cleanse+phantom",
+1.3
+],
+[
+"cleanse+resist",
+1.256
+],
+[
+"cleanse+jewel+defstance",
+0.672
+]
+],
+"margin": 0.058,
+"n": 1,
+"planner": "cleanse+thunders",
+"value": {
+"cleanse+thunders": 1.358
+},
+"votes": {
+"cleanse+thunders": 1
+}
+},
 "P2|h32|x12|b1|-|C|KLMX|oBHL": {
 "alts": [
 [
@@ -10334,6 +19890,31 @@
 },
 "votes": {
 "ember+aetherion": 1
+}
+},
+"P2|h32|x14|b3|cn|CP|MI|oBDL": {
+"alts": [
+[
+"lotus+smoke+jewel",
+0.153
+],
+[
+"resist+smoke+kims+jewel",
+-0.409
+],
+[
+"resist+smoke+kims+panacea",
+-1.0
+]
+],
+"margin": 0.442,
+"n": 1,
+"planner": "resist+smoke+kims+panacea",
+"value": {
+"lotus+smoke+kims": 0.595
+},
+"votes": {
+"lotus+smoke+kims": 1
 }
 },
 "P2|h32|x14|b3|n|P|KLSI|oDHL": {
@@ -10386,6 +19967,131 @@
 "lotus+pill+basic": 1
 }
 },
+"P2|h33|x01|b2|s|C|L|oDHR": {
+"alts": [
+[
+"rebirth+basic",
+0.692
+],
+[
+"rebirth+kunai",
+0.655
+],
+[
+"rebirth+offstance",
+0.63
+]
+],
+"margin": 0.061,
+"n": 1,
+"planner": "rebirth+kunai",
+"value": {
+"rebirth+defstance": 0.753
+},
+"votes": {
+"rebirth+defstance": 1
+}
+},
+"P2|h33|x02|b3|-|C|LM|oBDR": {
+"alts": [
+[
+"phantom+smoke+kunai+basic",
+1.144
+],
+[
+"resist+smoke+pill+kunai",
+1.104
+],
+[
+"ember+resist",
+0.638
+]
+],
+"margin": 0.092,
+"n": 1,
+"planner": "resist+smoke+kunai+basic",
+"value": {
+"resist+smoke+kunai+basic": 1.236
+},
+"votes": {
+"resist+smoke+kunai+basic": 1
+}
+},
+"P2|h33|x04|b3|dn|C|LX|oDH": {
+"alts": [
+[
+"cleanse+jewel+basic",
+0.03
+],
+[
+"cleanse+pill+jewel",
+0.008
+],
+[
+"cleanse+jewel+kunai",
+-0.01
+]
+],
+"margin": 0.534,
+"n": 1,
+"planner": "cleanse+phantom",
+"value": {
+"cleanse+phantom": 0.564
+},
+"votes": {
+"cleanse+phantom": 1
+}
+},
+"P2|h33|x04|b3|n|CP|KLM|oBHR": {
+"alts": [
+[
+"clear+resist",
+0.159
+],
+[
+"clear+panacea+jewel",
+0.05
+],
+[
+"clear+panacea+kunai",
+-0.416
+]
+],
+"margin": 1.199,
+"n": 1,
+"planner": "clear+panacea+jewel",
+"value": {
+"clear+pill+panacea": 1.357
+},
+"votes": {
+"clear+pill+panacea": 1
+}
+},
+"P2|h33|x04|b3|n|C|KLM|oBHR": {
+"alts": [
+[
+"clear+panacea+kunai",
+0.132
+],
+[
+"clear+phantom",
+-1.022
+],
+[
+"clear+panacea+offstance",
+-1.031
+]
+],
+"margin": 0.057,
+"n": 1,
+"planner": "clear+panacea+jewel",
+"value": {
+"clear+pill+panacea": 0.189
+},
+"votes": {
+"clear+pill+panacea": 1
+}
+},
 "P2|h33|x13|b3|n|C|KLSI|oBDH": {
 "alts": [
 [
@@ -10409,6 +20115,31 @@
 },
 "votes": {
 "overflow+shield+kims": 1
+}
+},
+"P2|h33|x14|b2|-|CP|LM|oBD": {
+"alts": [
+[
+"cleanse+smoke+offstance",
+1.411
+],
+[
+"cleanse+smoke+pill",
+1.389
+],
+[
+"cleanse+smoke+kunai",
+1.353
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "cleanse+smoke+kunai",
+"value": {
+"cleanse+smoke+basic": 1.411
+},
+"votes": {
+"cleanse+smoke+basic": 1
 }
 },
 "P2|h33|x14|b2|sn|C|L|oBDHS": {
@@ -10436,6 +20167,31 @@
 "shrapnel+kunai": 1
 }
 },
+"P2|h33|x14|b3|n|CP|LMX|oBDHIR": {
+"alts": [
+[
+"shield+aetherion+panacea",
+-1.44
+],
+[
+"shield+pill+panacea+kunai",
+-1.455
+],
+[
+"shield+nights+panacea",
+-1.479
+]
+],
+"margin": 0.033,
+"n": 1,
+"planner": "stormblade+shield",
+"value": {
+"stormblade+shield": -1.408
+},
+"votes": {
+"stormblade+shield": 1
+}
+},
 "P2|h33|x14|b3|n|C|KL|oBDI": {
 "alts": [
 [
@@ -10461,6 +20217,31 @@
 "clear+panacea+kunai": 1
 }
 },
+"P2|h33|x14|b3|sn|CP|MI|oBDH": {
+"alts": [
+[
+"resist+panacea+jewel",
+1.329
+],
+[
+"lotus+smoke",
+1.288
+],
+[
+"resist+panacea+defstance",
+1.224
+]
+],
+"margin": 0.037,
+"n": 1,
+"planner": "resist+panacea+jewel",
+"value": {
+"smoke+panacea+jewel+basic": 1.367
+},
+"votes": {
+"smoke+panacea+jewel+basic": 1
+}
+},
 "P2|h33|x23|b3|-|CP|KLMSIX|oDHLR": {
 "alts": [
 [
@@ -10484,6 +20265,106 @@
 },
 "votes": {
 "resist+shield+kims": 1
+}
+},
+"P2|h33|x23|b3|n|C|IX|oBDHP": {
+"alts": [
+[
+"thunders+phantom+kims",
+1.299
+],
+[
+"overflow+nights+kims",
+1.299
+],
+[
+"overflow+phantom+kims",
+1.292
+]
+],
+"margin": 0.002,
+"n": 1,
+"planner": "overflow+thunders+kims",
+"value": {
+"phantom+nights+kims": 1.3
+},
+"votes": {
+"phantom+nights+kims": 1
+}
+},
+"P2|h33|x24|b2|n|C|KL|oBDI": {
+"alts": [
+[
+"shrapnel+thunders",
+-1.0
+],
+[
+"thunders+aetherion+kunai",
+-1.0
+],
+[
+"fury+thunders",
+-1.0
+]
+],
+"margin": 2.407,
+"n": 2,
+"planner": "shrapnel+thunders",
+"value": {
+"ember+thunders": 1.407
+},
+"votes": {
+"ember+thunders": 2
+}
+},
+"P2|h33|x24|b3|n|C|KL|oBD": {
+"alts": [
+[
+"shrapnel+thunders",
+-1.0
+],
+[
+"thunders+aetherion+kunai",
+-1.0
+],
+[
+"fury+thunders",
+-1.0
+]
+],
+"margin": 2.388,
+"n": 1,
+"planner": "shrapnel+thunders",
+"value": {
+"ember+thunders": 1.388
+},
+"votes": {
+"ember+thunders": 1
+}
+},
+"P2|h33|x24|b3|sn|C|KL|oBHS": {
+"alts": [
+[
+"clear+kunai",
+0.551
+],
+[
+"clear+panacea",
+0.09
+],
+[
+"clear+pill",
+0.086
+]
+],
+"margin": 0.606,
+"n": 1,
+"planner": "clear+panacea",
+"value": {
+"clear+jewel": 1.157
+},
+"votes": {
+"clear+jewel": 1
 }
 },
 "P2|h33|x33|b2|-||KLX|oBC": {
@@ -10536,6 +20417,81 @@
 "cleanse+shield": 1
 }
 },
+"P2|h34|x04|b3|Ddn|CP|KLMX|oBDHR": {
+"alts": [
+[
+"stormblade+shield",
+-0.484
+],
+[
+"thunders+shield+kunai",
+-0.55
+],
+[
+"thunders+shield+pill",
+-1.108
+]
+],
+"margin": 1.795,
+"n": 1,
+"planner": "stormblade+shield",
+"value": {
+"thunders+nights+panacea": 1.311
+},
+"votes": {
+"thunders+nights+panacea": 1
+}
+},
+"P2|h34|x04|b3|Ddn|C|KLMX|oBDHP": {
+"alts": [
+[
+"thunders+nights+jewel",
+0.101
+],
+[
+"thunders+shield+jewel",
+-0.617
+],
+[
+"thunders+nights+panacea",
+-0.674
+]
+],
+"margin": 1.18,
+"n": 1,
+"planner": "stormblade+shield",
+"value": {
+"stormblade+thunders": 1.281
+},
+"votes": {
+"stormblade+thunders": 1
+}
+},
+"P2|h34|x04|b3|n|C|LX|oBDL": {
+"alts": [
+[
+"stormblade+pill+basic",
+-1.581
+],
+[
+"stormblade+offstance+basic",
+-1.581
+],
+[
+"stormblade+replace+basic",
+-1.589
+]
+],
+"margin": 0.007,
+"n": 1,
+"planner": "stormblade+thunders",
+"value": {
+"stormblade+aetherion": -1.574
+},
+"votes": {
+"stormblade+aetherion": 1
+}
+},
 "P2|h34|x12|b3|n|C|KLSIX|oHP": {
 "alts": [
 [
@@ -10586,6 +20542,56 @@
 "fury+basic": 1
 }
 },
+"P2|h34|x14|b1|n|CP|LMX|oDH": {
+"alts": [
+[
+"cleanse+jewel+basic",
+0.641
+],
+[
+"cleanse+phantom",
+0.111
+],
+[
+"cleanse+overflow",
+0.105
+]
+],
+"margin": 0.464,
+"n": 1,
+"planner": "cleanse+thunders",
+"value": {
+"cleanse+jewel+kunai": 1.104
+},
+"votes": {
+"cleanse+jewel+kunai": 1
+}
+},
+"P2|h34|x14|b2|-|CP|MX|oBDR": {
+"alts": [
+[
+"shield+smoke+jewel+kunai",
+-0.595
+],
+[
+"shield+smoke+jewel+basic",
+-0.7
+],
+[
+"lotus+smoke+kunai",
+-1.193
+]
+],
+"margin": 0.115,
+"n": 1,
+"planner": "lotus+smoke+jewel",
+"value": {
+"lotus+shield": -0.48
+},
+"votes": {
+"lotus+shield": 1
+}
+},
 "P2|h34|x14|b2|n|C|KLX|oDHP": {
 "alts": [
 [
@@ -10602,13 +20608,113 @@
 ]
 ],
 "margin": 1.17,
-"n": 1,
+"n": 4,
 "planner": "stormblade+shield",
 "value": {
 "stormblade+shield": 0.17
 },
 "votes": {
+"stormblade+shield": 4
+}
+},
+"P2|h34|x14|b2|n|C|KLX|oDP": {
+"alts": [
+[
+"resist+shield+panacea",
+-1.0
+],
+[
+"shield+nights+panacea",
+-1.188
+],
+[
+"thunders+shield+jewel",
+-1.189
+]
+],
+"margin": 1.216,
+"n": 1,
+"planner": "stormblade+shield",
+"value": {
+"stormblade+shield": 0.216
+},
+"votes": {
 "stormblade+shield": 1
+}
+},
+"P2|h34|x14|b3|n|CP|KMX|oBHS": {
+"alts": [
+[
+"clear+jewel+kunai",
+-0.606
+],
+[
+"clear+panacea+kunai",
+-0.616
+],
+[
+"clear+panacea+basic",
+-0.728
+]
+],
+"margin": 0.618,
+"n": 1,
+"planner": "clear+thunders",
+"value": {
+"clear+panacea+jewel": 0.012
+},
+"votes": {
+"clear+panacea+jewel": 1
+}
+},
+"P2|h34|x14|b3|n|CP|MX|oBDIR": {
+"alts": [
+[
+"ember+nights",
+-1.248
+],
+[
+"nights+aetherion+basic",
+-1.353
+],
+[
+"shrapnel+nights",
+-1.356
+]
+],
+"margin": 0.152,
+"n": 1,
+"planner": "shrapnel+nights",
+"value": {
+"shrapnel+kunai+basic": -1.096
+},
+"votes": {
+"shrapnel+kunai+basic": 1
+}
+},
+"P2|h34|x14|b3|n|C|LX|oBHIR": {
+"alts": [
+[
+"lotus+resist",
+0.002
+],
+[
+"lotus+phantom",
+-0.566
+],
+[
+"rebirth+kunai+defstance",
+-1.109
+]
+],
+"margin": 0.026,
+"n": 1,
+"planner": "lotus+resist",
+"value": {
+"rebirth+kunai+basic": 0.028
+},
+"votes": {
+"rebirth+kunai+basic": 1
 }
 },
 "P2|h34|x14|b3|sn|C|KLMSIX|oBHS": {
@@ -10636,6 +20742,108 @@
 "thunders+kims+pill": 1
 }
 },
+"P2|h34|x22|b0|Dn|C|LMX|oBDHP": {
+"alts": [
+[
+"ember+shield",
+-1.0
+],
+[
+"rebirth+overflow",
+-1.0
+],
+[
+"rebirth+panacea+kunai",
+-1.111
+]
+],
+"margin": 1.084,
+"n": 1,
+"planner": "rebirth+thunders",
+"value": {
+"rebirth+jewel+kunai": 0.084
+},
+"votes": {
+"rebirth+jewel+kunai": 1
+}
+},
+"P2|h34|x22|b0|Dn|C|LMX|oDHP": {
+"alts": [
+[
+"rebirth+jewel+kunai",
+-0.53
+],
+[
+"ember+shield",
+-1.036
+],
+[
+"ember+panacea+kunai",
+-1.071
+]
+],
+"margin": 0.057,
+"n": 1,
+"planner": "rebirth+thunders",
+"value": {
+"rebirth+panacea+kunai": -0.473
+},
+"votes": {
+"rebirth+panacea+kunai": 1
+}
+},
+"P2|h34|x23|b0|Dn|CP|LMX|oBDHR": {
+"alts": [
+[
+"rebirth+kunai+basic",
+-0.741
+],
+[
+"rebirth+jewel+basic",
+-1.271
+],
+[
+"rebirth+aetherion",
+-1.371
+]
+],
+"margin": 0.071,
+"n": 1,
+"planner": "rebirth+jewel+kunai",
+"value": {
+"rebirth+panacea+kunai": -0.67
+},
+"votes": {
+"rebirth+panacea+kunai": 1
+}
+},
+"P2|h34|x23|b0|Dn|CP|LMX|oDHR": {
+"alts": [
+[
+"rebirth+panacea+kunai",
+-0.684
+],
+[
+"thunders+shield+kunai",
+-1.216
+],
+[
+"rebirth+shield",
+-1.237
+]
+],
+"margin": 0.114,
+"n": 3,
+"planner": "rebirth+thunders",
+"value": {
+"shield+nights+panacea": -1.011,
+"stormblade+shield": -0.579
+},
+"votes": {
+"shield+nights+panacea": 2,
+"stormblade+shield": 1
+}
+},
 "P2|h34|x23|b1|-||K|oH": {
 "alts": [
 [
@@ -10661,6 +20869,31 @@
 "ember+phantom": 1
 }
 },
+"P2|h34|x23|b1|s|CP|LMX|oBH": {
+"alts": [
+[
+"shield+panacea+kunai",
+-1.003
+],
+[
+"shield+panacea+basic",
+-1.005
+],
+[
+"rebirth+smoke",
+-1.14
+]
+],
+"margin": 0.002,
+"n": 1,
+"planner": "rebirth+panacea",
+"value": {
+"phantom+shield": -1.001
+},
+"votes": {
+"phantom+shield": 1
+}
+},
 "P2|h34|x24|b1|Dn|C|LMX|oBDH": {
 "alts": [
 [
@@ -10684,6 +20917,31 @@
 },
 "votes": {
 "ember+nights": 1
+}
+},
+"P2|h34|x24|b3|D|CP|KMX|oH": {
+"alts": [
+[
+"rebirth+panacea+kunai",
+0.501
+],
+[
+"rebirth+panacea+jewel",
+-0.045
+],
+[
+"rebirth+shield",
+-0.493
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "rebirth+shield",
+"value": {
+"rebirth+phantom": 0.501
+},
+"votes": {
+"rebirth+phantom": 1
 }
 },
 "P2|h34|x24|b3|d|CP|LMX|oDHL": {
@@ -10915,24 +21173,26 @@
 "alts": [
 [
 "sealnull+shield+kunai",
--0.023
+-0.47
 ],
 [
-"rebirth+sealnull",
--0.56
+"sealnull+shield+basic",
+-0.508
 ],
 [
 "lotus+smoke+panacea",
--1.1
+-1.133
 ]
 ],
-"margin": 0.084,
-"n": 1,
+"margin": 0.792,
+"n": 3,
 "planner": "rebirth+sealnull",
 "value": {
+"rebirth+sealnull": 0.677,
 "sealnull+shield+basic": 0.061
 },
 "votes": {
+"rebirth+sealnull": 2,
 "sealnull+shield+basic": 1
 }
 },
@@ -11252,13 +21512,13 @@
 ]
 ],
 "margin": 0.066,
-"n": 1,
+"n": 5,
 "planner": "lotus+smoke+kims",
 "value": {
 "shield+smoke+kims+panacea": -1.009
 },
 "votes": {
-"shield+smoke+kims+panacea": 1
+"shield+smoke+kims+panacea": 5
 }
 },
 "P2|h44|x14|b2|-|CY|KLMSIX|oBDH": {
@@ -11311,6 +21571,58 @@
 "thunders+shield+defstance": 1
 }
 },
+"P2|h44|x14|b3|-|CP|KLMSIX|oBDHR": {
+"alts": [
+[
+"clear+panacea+kunai",
+-0.518
+],
+[
+"clear+smoke+kims",
+-0.65
+],
+[
+"clear+sealnull",
+-1.0
+]
+],
+"margin": 0.412,
+"n": 2,
+"planner": "clear+sealnull",
+"value": {
+"clear+kims+jewel": -0.106
+},
+"votes": {
+"clear+kims+jewel": 2
+}
+},
+"P2|h44|x14|b3|-|CP|KLMSIX|oBDR": {
+"alts": [
+[
+"clear+smoke+panacea",
+-0.483
+],
+[
+"clear+smoke+jewel",
+-0.611
+],
+[
+"clear+shield",
+-1.048
+]
+],
+"margin": 0.567,
+"n": 2,
+"planner": "clear+sealnull",
+"value": {
+"clear+sealnull": -0.434,
+"clear+smoke+panacea": 0.085
+},
+"votes": {
+"clear+sealnull": 1,
+"clear+smoke+panacea": 1
+}
+},
 "P2|h44|x14|b3|-|CP|LMSIX|oBDILR": {
 "alts": [
 [
@@ -11359,6 +21671,56 @@
 },
 "votes": {
 "lotus+kims+pill": 1
+}
+},
+"P2|h44|x14|b3|n|CP|KMX|oBIR": {
+"alts": [
+[
+"clear+panacea+jewel",
+1.263
+],
+[
+"clear+jewel+kunai",
+0.64
+],
+[
+"clear+phantom",
+0.325
+]
+],
+"margin": 0.084,
+"n": 1,
+"planner": "clear+shield",
+"value": {
+"clear+overflow": 1.347
+},
+"votes": {
+"clear+overflow": 1
+}
+},
+"P2|h44|x14|b3|sn|CP|MX|oBDHS": {
+"alts": [
+[
+"fury+kunai",
+0.791
+],
+[
+"stormblade+kunai",
+-1.134
+],
+[
+"stormblade+basic",
+-1.139
+]
+],
+"margin": 0.0,
+"n": 1,
+"planner": "nights+kunai+basic",
+"value": {
+"shrapnel+kunai": 0.791
+},
+"votes": {
+"shrapnel+kunai": 1
 }
 },
 "P2|h44|x22|b0|-|CP|KLMSIX|oBDHL": {
@@ -11486,6 +21848,81 @@
 "thunders+shield+kims": 1
 }
 },
+"P2|h44|x23|b1|D|CP|KMX|oDHR": {
+"alts": [
+[
+"rebirth+thunders",
+0.507
+],
+[
+"rebirth+panacea+jewel",
+0.134
+],
+[
+"rebirth+shield",
+0.043
+]
+],
+"margin": 0.073,
+"n": 1,
+"planner": "rebirth+thunders",
+"value": {
+"rebirth+phantom": 0.581
+},
+"votes": {
+"rebirth+phantom": 1
+}
+},
+"P2|h44|x23|b2|n|C|LSIX|oBDHP": {
+"alts": [
+[
+"resist+shield+kims",
+0.134
+],
+[
+"overflow+shield+kims",
+0.13
+],
+[
+"thunders+phantom+kims",
+-1.054
+]
+],
+"margin": 0.568,
+"n": 1,
+"planner": "thunders+shield+kims",
+"value": {
+"phantom+shield+kims": 0.702
+},
+"votes": {
+"phantom+shield+kims": 1
+}
+},
+"P2|h44|x24|b1|-|CP|KLMSIX|oBD": {
+"alts": [
+[
+"cleanse+smoke+panacea",
+-0.518
+],
+[
+"cleanse+shield",
+-1.0
+],
+[
+"cleanse+resist",
+-1.059
+]
+],
+"margin": 0.559,
+"n": 1,
+"planner": "cleanse+sealnull",
+"value": {
+"cleanse+sealnull": 0.041
+},
+"votes": {
+"cleanse+sealnull": 1
+}
+},
 "P2|h44|x24|b2|-|C|KLMSIX|oBDH": {
 "alts": [
 [
@@ -11509,6 +21946,110 @@
 },
 "votes": {
 "rebirth+shield": 1
+}
+},
+"P2|h44|x24|b3|-|CP|KLMSIX|oBD": {
+"alts": [
+[
+"stormblade+kunai+basic",
+-1.0
+],
+[
+"stormblade+aetherion",
+-1.0
+],
+[
+"stormblade+kims+kunai",
+-1.0
+]
+],
+"margin": 0.099,
+"n": 5,
+"planner": "stormblade+thunders",
+"value": {
+"clear+smoke+jewel": -0.593,
+"lotus+smoke+kims": -1.0,
+"stormblade+thunders": -1.0
+},
+"votes": {
+"clear+smoke+jewel": 1,
+"lotus+smoke+kims": 1,
+"stormblade+thunders": 3
+}
+},
+"P2|h44|x24|b3|-|CP|KLMSIX|oBDH": {
+"alts": [
+[
+"sealnull+nights+smoke",
+-0.014
+],
+[
+"lotus+smoke+kims",
+-0.054
+],
+[
+"clear+shield",
+-1.166
+]
+],
+"margin": 0.138,
+"n": 3,
+"planner": "clear+sealnull",
+"value": {
+"clear+sealnull": 0.124
+},
+"votes": {
+"clear+sealnull": 3
+}
+},
+"P2|h44|x24|b3|s|CP|KLMSIX|oBHS": {
+"alts": [
+[
+"smoke+kims+panacea+kunai",
+-1.241
+],
+[
+"shield+kims+panacea",
+-1.243
+],
+[
+"resist+kims+panacea",
+-1.266
+]
+],
+"margin": 0.054,
+"n": 1,
+"planner": "clear+kims",
+"value": {
+"clear+kims": -1.187
+},
+"votes": {
+"clear+kims": 1
+}
+},
+"P2|h44|x34|b3|n|CP|KLMSI|oBD": {
+"alts": [
+[
+"cleanse+sealnull",
+1.302
+],
+[
+"cleanse+panacea+jewel",
+1.267
+],
+[
+"resist+shield+kims",
+1.037
+]
+],
+"margin": 0.05,
+"n": 1,
+"planner": "shield+kims+panacea+defstance",
+"value": {
+"cleanse+shield": 1.352
+},
+"votes": {
+"cleanse+shield": 1
 }
 },
 "P2|h44|x42|b0|-|CY|KLMSIX|o0": {

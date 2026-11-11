@@ -665,7 +665,7 @@ def make_clock(acts, rows, en_id, R, en_acted, me0, en0, ctx, cal, his_kit, base
     return clockd, info
 
 
-BOOK_W = 450.0     # HP-equivalent bonus x confidence for the solved answer to this position (solutions.json)
+BOOK_W = float(os.environ.get("TNR_BOOK_W", "450"))     # HP-equivalent bonus x confidence for the solved answer to this position (solutions.json)
 
 
 def rank(P, bundles, ap, W):
