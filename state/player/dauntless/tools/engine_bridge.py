@@ -299,11 +299,30 @@ def _his_kit(rows, en_id, cal):
     return kit
 
 
+def _his_gear(en_id):
+    """His worn gear: kit/opponents/<id>.json "gear" ("endgame" | "none" | [[id, slot], ...]) when known, else the
+    director's endgame assumption. TNR_HIS_GEAR overrides (tests). Gear DR adds to the 50% system DR (damagePipeline
+    drPoints), so the Kaeruun chest + Fortify III alone cut incoming formula damage to 0.7x: get it right."""
+    g = os.environ.get("TNR_HIS_GEAR") or (opponent_kit(en_id) or {}).get("gear", "endgame")
+    if g == "none":
+        return []
+    if g == "endgame":
+        return GEAR_ENDGAME
+    return [tuple(x) for x in g]
+
+
 def _side_mods(bl_id, gear):
     if not GEAR_MODEL:
         return {"passives": [{"type": "increasedamagegiven", "power": PASSIVE}]}
     bl = _bloodline(bl_id) if bl_id else None
     return {"gear": _gear(gear), **({"bloodline": bl} if bl else {})}
+
+
+def _his_gear_mods(en_id):
+    """Gear totals measured from this opponent's logged hits (fit_gear.py), stored with his kit."""
+    if os.environ.get("TNR_HIS_GEAR_MODS_OFF"):
+        return None
+    return (opponent_kit(en_id) or {}).get("gearMods")
 
 
 def _replay_request(rows, me_id, en_id, me, en, me_pos, en_pos, R, his_turn, cal):
@@ -318,7 +337,8 @@ def _replay_request(rows, me_id, en_id, me, en, me_pos, en_pos, R, his_turn, cal
                         "level": prof["jutsuLevels"].get(a, 25)} for a in MY_KIT_IDS if a in recs],
                **_side_mods(prof.get("bloodlineId"), GEAR_ME)},
         "him": {"id": "him", "hp": en["curHealth"], "x": en_pos[0], "y": en_pos[1], "kit": his_kit,
-                **_side_mods(his_bloodline_id(rows, en_id), GEAR_ENDGAME)},
+                **_side_mods(his_bloodline_id(rows, en_id), _his_gear(en_id)),
+                **({"gearMods": _his_gear_mods(en_id)} if GEAR_MODEL and _his_gear_mods(en_id) else {})},
         "log": log,
     }
 

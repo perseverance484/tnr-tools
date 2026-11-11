@@ -43,7 +43,8 @@ def kind_of(rec):
 
 
 def is_bloodline(rec):
-    return ("jutsuType" not in rec and "itemType" not in rec and "aiProfile" not in rec and "village" not in rec
+    return ("jutsuType" not in rec and "itemType" not in rec and "aiProfile" not in rec
+            and ("regenIncrease" in rec or not rec.get("village"))
             and rec.get("rank") in ("D", "C", "B", "A", "S", "H"))
 
 

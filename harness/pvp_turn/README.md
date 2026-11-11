@@ -71,6 +71,20 @@ Out of sample (`tools/validate_engine.py`, every logged turn of mine replayed wi
 (Korin R6), and replays the validator could not place (15 illegal: repeated steps onto one tile, consumables
 aimed at the wrong tile, cooldowns from older fight states). `results/validation.json` has every row.
 
+## Catalog refresh, gear and bloodlines (2026-11-11)
+- `tools/fetch_catalog.py`: unauthenticated read-only public GETs on https://www.theninja-rpg.com (jutsu, items,
+  bloodlines; visible + hidden, every page) into one `harvests/inbox` capture, then `build_catalog.py`. 2026-11-11:
+  2,043 jutsu, 932 items, 101 bloodlines. Run between fights.
+- Gear: the replay equips real worn gear (mine from `item.getUserItems`; opponents: the Kaeruun endgame set with
+  Fortify III and a Subaku Mask) and bloodline rows; the engine folds gear into its pre-battle stage. Gear given
+  points add to a base 60 (x(1+(60+g)/100)); gear DR points add to the 50% system DR (x(1-(50+dr)/100)), so 15 DR
+  points cut incoming formula damage to 0.7x. Opponent gear varies, so `state/player/dauntless/tools/fit_gear.py`
+  measures his totals from the logged hits (my hits -> his DR, his hits -> his given; pierce excluded) and stores
+  `gearMods` in `kit/opponents/<id>.json`. Measured: Lzl3j0y given +72 / DR 0, Targaryen given +87 / DR 9.
+- Fidelity after the fit: Targaryen every hit within 0-1% except his R1 Demons Strike (moved mid-turn, positions
+  pinned) and his R5 Kunai (-32%); Lzl3j0y every hit within 0-9%. Opponent stats are at the caps (Night's
+  Testament, a stat-driven pierce, logs a constant 631 against everyone).
+
 ## Replay fidelity (`tools/replay_fidelity.py`, 2026-11-11)
 Replays a logged fight and compares the engine's HP loss per action with the logged "takes N damage" lines
 (`trace: "effects"` in the request also dumps every live effect with power, level and powerPerLevel).

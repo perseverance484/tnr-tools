@@ -154,6 +154,16 @@ const setActive = (b: CompleteBattle, cid: string, ap?: number) => {
 };
 
 const trace: any[] = [];
+// measured gear totals (tools/fit_gear.py, from the logged hits) override the assumed set's pre-battle gear stage
+const applyGearMods = (b: CompleteBattle) => {
+  const mods: any = (b as any).preBattleGearModifiers ?? (b as any).extraState?.preBattleGearModifiers;
+  if (!mods) return;
+  for (const side of [req.me, req.him]) {
+    if (!side.gearMods) continue;
+    const uid = userOf(b, side.id).userId;
+    mods[uid] = { ...(mods[uid] ?? {}), ...side.gearMods };
+  }
+};
 const prepare = async (): Promise<CompleteBattle> => {
   const me = buildUser(req.me, "village-me");
   const him = buildUser(req.him, "village-him");
@@ -164,6 +174,7 @@ const prepare = async (): Promise<CompleteBattle> => {
   });
   addPassives(b, req.me, userOf(b, req.me.id));
   addPassives(b, req.him, userOf(b, req.him.id));
+  applyGearMods(b);
   b.round = 1;
   let cur = 1;
   let lastActor = "";
@@ -286,6 +297,21 @@ const main = async () => {
   const res: any = { round: base.round,
     ap: Math.max(0, userOf(base, req.me.id).actionPoints - calcApReduction(base as never, userOf(base, req.me.id).userId)), available: available(base, req.me.id),
     replayIssues: issues, ...(req.trace ? { trace } : {}) };
+  if (req.mode === "state") {
+    // assembled battle state for a live cross-check (tools/live_crosscheck.py): what the engine gave each side
+    const pick = (u: any) => ({ username: u.username, controllerId: u.controllerId, level: u.level, rank: u.rank,
+      offence: u.offence, defence: u.defence, strength: u.strength, speed: u.speed, intelligence: u.intelligence,
+      willpower: u.willpower, highestGenerals: u.highestGenerals, primaryElement: u.primaryElement,
+      secondaryElement: u.secondaryElement, bloodlineId: u.bloodlineId, keystoneName: u.keystoneName,
+      maxHealth: u.maxHealth });
+    res.state = {
+      users: base.usersState.map(pick),
+      effects: (base.usersEffects as any[]).map((e) => ({ target: base.usersState.find((u) => u.userId === e.targetId)?.controllerId,
+        type: e.type, power: e.power, powerPerLevel: e.powerPerLevel, level: e.level, fromType: e.fromType,
+        elements: e.elements, rounds: e.rounds })),
+      gear: (base as any).preBattleGearModifiers ?? (base as any).extraState?.preBattleGearModifiers ?? null,
+    };
+  }
   if (req.mode === "eval") {
     res.results = [];
     for (const cand of req.candidates ?? []) {

@@ -317,6 +317,9 @@ def main():
         ap_now = ap_eng
         print(f"engine replay: AP {ap_eng}, {len(eng['available'])} actions available"
               + (f", replay issues {len(eng['replayIssues'])}" if eng.get("replayIssues") else ""))
+    gm = (engine_bridge.opponent_kit(en["userId"]) or {}).get("gearMods")
+    print("his gear: " + (f"MEASURED given +{gm['incDamageGivenFromGear']:g}, DR {gm['drTakenFromGear']:g} (fit_gear.py)" if gm
+                          else "endgame assumption (run fit_gear.py on his turn once hits exist both ways)"))
     src = engine_bridge.his_kit_source(en["userId"])
     print("his kit: " + ("REAL (saved before the fight, opponent_kit.py)" if src == "real"
                          else "ESTIMATED: no pre-fight kit saved, unseen moves use the calibrated stand-in"))
