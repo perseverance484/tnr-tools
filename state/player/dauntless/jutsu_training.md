@@ -77,3 +77,5 @@ very expensive (Cyclone Palm Strike level 19 quoted 1,949,575 ryo for one level;
 | 2026-11-11 03:21 | Divine Pulse | 5 | 6,647 | queued |
 | 2026-11-11 03:21 | First Chakra Gate | 5 | 4,472 | queued (active Ryūsa Kōka 4; waiting Ryūsa Kōka 5, Raijin 4, Divine Pulse 5, FCG 5; ends ~05:58); 4,289 energy to willpower (+483.2, intelligence had passed willpower); asleep |
 | 2026-11-11 07:31 | none | | 0 | queue empty, not refilled: character was in PvP battle vs 4qua (started 07:21, lost at 0 HP), now HOSPITALIZED in 177; startTraining refused ("You are in the hospital"). Did not check out; director notified |
+| 2026-11-11 10:21 | bank.toPocket 10,000,000 | | | pocket was 1,941,486 |
+| 2026-11-11 10:22 | Raijin's Judgement | 5-6 | 10,833 | started (queue was empty). Character was status TRAVEL in sector 1335 (not home), being moved live by another session without the run lock; follow-up startTraining refused ("You are traveling"), travel re-issued (finish 10:25). Stopped: no more queueing, no stat training, not put to sleep. Director notified |
