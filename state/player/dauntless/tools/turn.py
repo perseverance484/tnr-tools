@@ -118,7 +118,7 @@ def enemy_resources(rows, en_id, rnd):
             spent["smoke"] = r
         if "cannot be cleared" in txt:
             spent["kims"] = r
-        if "pierced" in txt or "shield was pierced" in txt:
+        if "pierced" in txt or a in ("osJq3k77YPGoFWgof12FQ", "G6MRbppaDZ2a5Wr0GIjH8") or "immunity to buff prevention" in txt:
             pierce_last = r
         for m in re.finditer(rf"{ME_NAME} takes ([\d.]+) (?:damage|afterburn damage|wound damage)", txt):
             by_round[r] = by_round.get(r, 0) + float(m.group(1))
@@ -196,6 +196,9 @@ def penalties(bundle, ctx):
     # (director 2026-11-11: "Putting your pierce on GCD while the enemy hasn't used a smoke or shield yet is kind of risky")
     if any(x in bundle for x in ("nights", "stormblade")) and not ctx["pierce_window"]:
         p -= 450; why.append("pierce spent with no smoke/shield/DR to beat (save it)")
+    # absorb applies after damage processing, so it also heals back pierce (director 2026-11-11)
+    if any(x in bundle for x in ("nights", "stormblade")) and ctx["en_absorb"] >= 0.2:
+        p -= 400; why.append(f"pierce into his {ctx['en_absorb']:.0%} absorb (Clear it first)")
     if ctx["afk"]:
         wasted = [x for x in bundle if x in ("smoke", "panacea", "shield", "defstance", "kims", "sealnull", "parry")]
         if wasted:
@@ -257,7 +260,8 @@ def main():
             [a for r, u, a, _ in rows if u == en["userId"] and (a == "wait" or a not in ("move",))]
             and [a for r, u, a, _ in rows if u == en["userId"]]),
         "pierce_window": bool(me0.mult("given", R) < 0.6 or en0.live("shield", R) or en0.total("dr", R) >= 0.3
-                              or en0.total("absorb", R) >= 0.3 or en["curHealth"] <= 800),
+                              or en["curHealth"] <= 800),
+        "en_absorb": en0.total("absorb", R),
         "tick": me0.total("wound", R) + me0.total("drain", R),
     }
 
