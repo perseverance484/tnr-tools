@@ -315,9 +315,23 @@ const main = async () => {
         type: e.type, power: e.power, powerPerLevel: e.powerPerLevel, level: e.level, fromType: e.fromType,
         elements: e.elements, rounds: e.rounds, createdRound: e.createdRound, isNew: e.isNew,
         castThisRound: e.castThisRound, calculation: e.calculation, direction: e.direction,
+        timeTracker: e.timeTracker, poolsAffected: e.poolsAffected,
         creator: base.usersState.find((u) => u.userId === e.creatorId)?.controllerId })),
       gear: (base as any).preBattleGearModifiers ?? (base as any).extraState?.preBattleGearModifiers ?? null,
     };
+  }
+  if (req.mode === "probe") {
+    // each of his actions alone on this board: damage to me and HP change on him (his bases, the engine's numbers)
+    res.probe = {};
+    for (const id of req.probeIds ?? []) {
+      await S.withSeed(13, async () => {
+        const b = structuredClone(base);
+        setActive(b, req.him.id);
+        const r = tryAct(b, req.him.id, id);
+        res.probe[id] = r.ok ? { me: hp(base, req.me.id) - hp(r.battle, req.me.id),
+          him: hp(base, req.him.id) - hp(r.battle, req.him.id) } : { reason: r.reason };
+      });
+    }
   }
   if (req.mode === "eval") {
     res.results = [];

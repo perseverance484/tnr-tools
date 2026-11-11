@@ -59,8 +59,40 @@ def positions(rows):
         yield r, path, name
 
 
+EXACT = os.environ.get("TNR_EXACT") == "1"      # live-shaped: exact effect list + this fight's engine bases
+
+
+def exact_inputs(path, name, cal):
+    """Make a turn file live-shaped: the engine's replayed effect list as battle.liveEffects (what the pilot reads
+    from getBattle), plus fight bases for this matchup under battle id ECHK."""
+    import fight_bases
+    battle, me, others, rows = turn.load_input(path)
+    en = next(p for p in others if p["username"] == name)
+    R = battle["battle.round"]
+    ea = any(r == R and u == en["userId"] for r, u, _, _ in rows)
+    st = EB.replay_state(rows, ME, en["userId"], me, en, (me["longitude"], me["latitude"]),
+                         (en["longitude"], en["latitude"]), R, "next" if ea else "same", cal)
+    live = [dict({k: v for k, v in e.items() if k != "target"}, targetId=ME if e["target"] == "me" else en["userId"])
+            for e in ((st or {}).get("state") or {}).get("effects") or []]
+    lines = open(path).read().splitlines()
+    b = json.loads(lines[0])
+    b["battle.liveEffects"] = live
+    open(path, "w").write(json.dumps(b) + "\n" + lines[1] + "\n")
+    key = (en["userId"], tuple(sorted({a for _, u, a, _ in rows if u == en["userId"]})))
+    if _FB.get("key") != key:
+        fb = {"me": fight_bases.mine(rows, en["userId"], [], cal), "him": fight_bases.his(rows, en["userId"], [], cal),
+              "opp": en["userId"]}
+        json.dump(fb, open(os.path.join(fight_bases.LIVE, "ECHK_bases.json"), "w"))
+        _FB["key"] = key
+
+
+_FB = {}
+
+
 def compare(path, name, nb, cal):
-    P, info = P2.build(type("A", (), dict(file=path, enemy=name, loadout="pvp1")))
+    if EXACT:
+        exact_inputs(path, name, cal)
+    P, info = P2.build(type("A", (), dict(file=path, enemy=name, loadout="pvp1", battle="ECHK" if EXACT else None)))
     if P is None:
         return []
     battle, me, others, rows = turn.load_input(path)
@@ -91,11 +123,14 @@ def compare(path, name, nb, cal):
         eng_self = me["curHealth"] - er["afterMe"]["me"]
         py_self = me["curHealth"] - m.hp
         out.append({"round": R, "opp": name, "bundle": list(b), "eng_dealt": round(eng_dealt), "py_dealt": round(py_dealt),
+                    "his_hp": round(en["curHealth"]), "my_hp": round(me["curHealth"]),
                     "eng_self": round(eng_self), "py_self": round(py_self)})
     return out
 
 
 def report(rows):
+    # kill turns compare nothing: the engine stops at his remaining HP, the planner's raw sum runs past it
+    rows = [x for x in rows if not ("his_hp" in x and x["eng_dealt"] >= x["his_hp"] - 1)]
     def err(x, k):
         e, p = x[f"eng_{k}"], x[f"py_{k}"]
         return (p - e) / max(100.0, abs(e))

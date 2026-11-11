@@ -32,6 +32,11 @@ def test_planner():
         "per-opponent gear/stat scales (validate.py --write-scales)": "opp_scale" in info,
         "meal / raid buff factors read (meal_factor.py)": "meal_factors(" in open(P2.__file__).read(),
     }
+    PL, il = P2.build(type("A", (), dict(file=os.path.join(HERE, "ziharkk_r2_live.txt"), enemy="ANBU Member",
+                                         loadout="pvp1")))
+    checks["planner state from the exact live effect list"] = il.get("live_state") is True
+    import pilot
+    checks["pilot reads the live effect list before planning my turn"] = "reading the live state" in open(pilot.__file__).read()
     bad = [k for k, ok in checks.items() if not ok]
     for k, ok in checks.items():
         print(("  ok  " if ok else "  MISSING  ") + k)
@@ -57,7 +62,7 @@ def test_pilot():
     checks["battle start reads both fighters' permanent effects (meals, titles)"] = \
         "battle.usersEffects" in pilot.c_battle("b", effects=True)["select"] and \
         "battle.usersEffects" not in pilot.c_battle("b")["select"]
-    checks["meal factors computed when meals are on"] = "meal_factor.py" in open(pilot.__file__).read()
+    checks["both kits' bases from the engine per fight (fight_bases.py)"] = "fight_bases.py" in open(pilot.__file__).read() and hasattr(P2, "fight_bases") if (P2 := __import__("planner2")) else False
     import engine_bridge
     checks["replay realizes meal / raid buffs"] = engine_bridge._timed({"perm": [{"type": "increasestat",
                                                                                  "timedBuffExpiresAt": 1}]}) != []

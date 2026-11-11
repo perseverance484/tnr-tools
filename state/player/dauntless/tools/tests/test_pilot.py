@@ -32,6 +32,7 @@ def main():
     battle, ents = [json.loads(l) for l in open(FIX).read().splitlines() if l.strip()]
     n = len(ents["*.battleRound"])
     ents["*.id"] = [f"e{n - i}" for i in range(n)]
+    battle["battle.usersEffects"] = []     # this read carried the live effect list, so the pilot plans on it
     with tempfile.TemporaryDirectory() as d:
         tp = os.path.join(d, "t.jsonl")
         fake_transcript(tp, battle, ents)

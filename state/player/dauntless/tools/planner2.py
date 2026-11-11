@@ -172,25 +172,40 @@ def add_tag(side, k, v, o1, o2):
 PERM = 999          # last offset of a permanent effect (bloodline / gear / keystone): Clear and Cleanse leave it
 
 
-def from_engine(effects, R, in_base=("me",)):
-    """(me, him) Sides from the engine's own state after replaying the log (engine_bridge.replay_state: every live
-    effect with its real power, level, elements, rounds and the round it was cast). Replaces the text rebuild."""
+def from_engine(effects, R, in_base=("me",), max_hp=(5050.0, 5050.0), perm_in_base=False):
+    """(me, him) Sides from an exact effect list: the live battle's own (combat.getBattle usersEffects, read every
+    turn; director 2026-11-11: "read the exact live state and feed it into the vector state engine") or the
+    engine's replayed state (engine_bridge.replay_state). Every effect carries its real power, level, elements,
+    rounds left and whether it was cast this round, so nothing is parsed from text. Rules from the source
+    (libs/combat/turn.ts, util.ts, tags.ts, power.ts):
+      power      power + level * powerPerLevel, percentages clamped to +-100
+      active     rounds undefined (permanent) or rounds > 0; at each new round rounds drops by 1 unless it was
+                 cast this round, so a tag cast this round runs rounds R+1..R+rounds, an older one R..R+rounds-1
+      seal       a resolved seal on a fighter switches off his bloodline effects
+      wound      each round: originalDamage * power% (the hit that applied it)
+      drain      each round: power% of max HP (percentage) or power (static), on the Health pool
+    Effects use "target" ("me" / "him"); live ones are mapped from targetId by the caller."""
     sides = {"me": Side(5050.0), "him": Side(5050.0)}
+    sealed = {e.get("target") for e in effects if e.get("type") == "seal" and not e.get("isNew")
+              and (e.get("rounds") is None or int(e.get("rounds") or 0) > 0)}
     for e in effects:
-        side = sides.get(e.get("target"))
+        tgt = e.get("target")
+        side = sides.get(tgt)
         t = e.get("type")
         if side is None or t is None:
             continue
         p = float(e.get("power") or 0) + float(e.get("powerPerLevel") or 0) * float(e.get("level") or 0)
+        if e.get("calculation") == "percentage":
+            p = max(-100.0, min(100.0, p))
         pct = p / 100.0
         perm = e.get("rounds") is None
-        c = int(e.get("createdRound") or 0)
-        # the engine counts "rounds" down once per round from the second round after the cast (state at R2 of a
-        # 2-round tag cast in R1 says 2, at R3 says 1): the last round is cast + rounds + rounds already counted off
-        left = int(e.get("rounds") or 0)
-        o1, o2 = (0, PERM) if perm else (c + 1 - R, c + left + max(0, R - c - 1) - R)
-        if o2 < 0:
+        if perm and e.get("fromType") == "bloodline" and tgt in sealed:
             continue
+        left = 0 if perm else int(e.get("rounds") or 0)
+        if not perm and left <= 0:
+            continue
+        cast_now = bool(e.get("castThisRound"))
+        o1, o2 = (0, PERM) if perm else ((1, left) if cast_now else (0, left - 1))
         els = frozenset(x for x in (e.get("elements") or []) if x)
         k, v = None, None
         if t == "increasedamagegiven":
@@ -209,8 +224,16 @@ def from_engine(effects, R, in_base=("me",)):
             k, v = base, abs(pct)
         elif t == "shield":
             k, v = SHD, abs(p)
-        elif t in ("wound", "drain"):
-            k, v = (WND if t == "wound" else DRN), abs(p)
+        elif t == "wound":
+            orig = float(((e.get("timeTracker") or {}).get("originalDamage")) or 0)
+            k, v = WND, math.floor(orig * abs(pct)) if orig else 0
+            if cast_now:
+                o1 = 1
+        elif t == "drain":
+            if "Health" not in (e.get("poolsAffected") or ["Health"]):
+                continue
+            hpmax = max_hp[0] if tgt == "me" else max_hp[1]
+            k, v = DRN, (math.floor(abs(pct) * hpmax) if e.get("calculation") == "percentage" else abs(p))
         elif t == "recoil":
             k, v = RCL, abs(pct)
         elif t == "debuffprevent":
@@ -223,20 +246,28 @@ def from_engine(effects, R, in_base=("me",)):
             k, v = STUN, 20
         elif t == "decreaseheal":
             k, v = HCUT, abs(pct)
-        if k is None:
+        if k is None or not v:
             continue
         if k in (GUP, GDN, TAKEN, DR):
+            if perm and perm_in_base:
+                continue        # fight_bases.py fired every action with these on: they are inside the bases
             if els and not (els >= ALL_ELS):
                 side.sc.append((k, v, max(o1, 0), o2, els))      # element-scoped: only hits of those elements
                 continue
             if perm:
-                if k in (GUP, GDN) and e.get("target") in in_base:
+                if k in (GUP, GDN) and tgt in in_base:
                     continue        # my bases come from the engine with my bloodline / keystone already in them
                 side.add(k, v, 0, H - 1)                          # bloodline / gear: always on, Clear keeps it
                 side.pm += ((k, v),)
                 continue
         add_tag(side, k, v, o1, min(o2, H - 1))
     return sides["me"], sides["him"]
+
+
+def from_live(effects, me_id, R, max_hp=(5050.0, 5050.0), perm_in_base=False):
+    """from_engine on the live battle's effect list (targetId -> me / him)."""
+    return from_engine([dict(e, target="me" if e.get("targetId") == me_id else "him") for e in effects or []
+                        if e.get("targetId")], R, max_hp=max_hp, perm_in_base=perm_in_base)
 
 
 def from_shotplan(s, R):
@@ -723,12 +754,25 @@ def build(a):
     me0, en0 = from_shotplan(sme, R), from_shotplan(sen, R)
     # the engine's own state after replaying the log (exact powers, elements, rounds, bloodline and gear effects;
     # director 2026-11-11: "get it within ~1% on numbers"); the text rebuild stays as the fallback
-    eng = engine_state(rows, en, me, me_pos, en_pos, R, en_acted, cal) if ENGINE_STATE else None
-    if eng is not None:
-        gg = me0.a[GGRD * H:(GGRD + 1) * H]                  # ground zones: the engine state has no ground list
-        me0, en0 = from_engine(eng, R)
+    # exact state first: the live battle's own effect list (read every turn by the pilot), else the engine's replay
+    # of the log, else the text rebuild
+    live = [e for e in battle.get("battle.liveEffects") or [] if e.get("targetId") in (ME, en["userId"])]
+    fb = fight_bases(getattr(a, "battle", None), en["userId"])      # both kits' bases for this matchup (engine)
+    caps_hp = (float(me.get("maxHealth", 5050)), float(en.get("maxHealth", 5050)))
+    eng = None
+    if live:
+        eng = live
+        gg = me0.a[GGRD * H:(GGRD + 1) * H]                  # ground zones: the effect list has no ground part
+        me0, en0 = from_live(live, ME, R, caps_hp, perm_in_base=bool(fb))
         me0.a[GGRD * H:(GGRD + 1) * H] = gg
         me0.hp, en0.hp = float(me["curHealth"]), float(en["curHealth"])
+    elif ENGINE_STATE:
+        eng = engine_state(rows, en, me, me_pos, en_pos, R, en_acted, cal)
+        if eng is not None:
+            gg = me0.a[GGRD * H:(GGRD + 1) * H]
+            me0, en0 = from_engine(eng, R, max_hp=caps_hp)
+            me0.a[GGRD * H:(GGRD + 1) * H] = gg
+            me0.hp, en0.hp = float(me["curHealth"]), float(en["curHealth"])
     reach = max(0.4, 1 - 0.1 * max(0, d0 - 4))
     his_kit_raw = value_model.generic_kit(cal, reach)
     # his profile (opp_profile: kit read at battle start -> bloodline -> rank, boost and elements): the prior turn
@@ -742,10 +786,12 @@ def build(a):
     s_him, s_me = float(osc.get("him", 1.0)), float(osc.get("me", 1.0))
     meal = meal_factors(getattr(a, "battle", None))       # this fight's meal / raid buffs (meal_factor.py)
     s_him, s_me = s_him * meal.get("him", 1.0), s_me * meal.get("me", 1.0)
+    if fb:
+        s_him = s_me = 1.0                                # the engine bases hold gear, stats, masteries and meals
     for k in ("turn", "burst", "hit", "light", "hit2"):
         v = his_kit_raw[k]
         his_kit_raw[k] = (v[0] * s_him,) + tuple(v[1:])
-    if eng is None:                                       # engine state carries passives and the bloodline
+    if eng is None and not fb:                            # engine state / fight bases carry the bloodline
         en0.passives(**prof.get("passives", {}))
         me0.passives(**mine_prof.get("passives", {}))
         for k in ("turn", "burst", "hit", "light", "hit2"):
@@ -772,15 +818,18 @@ def build(a):
     clock_info, clockd = None, {}
     ctx["copier"] = bool(acts) and any(t[1] == "copy" for v in acts.values() for t in v[4][1])
     if acts and not ctx["afk"]:
-        scale = (1.0 if eng is not None else gmul) / max(1.0, opp_profile.given_mult(mine_prof)) * s_him
+        scale = 1.0 if fb else (1.0 if eng is not None else gmul) / max(1.0, opp_profile.given_mult(mine_prof)) * s_him
         clockd, clock_info = make_clock(acts, rows, en["userId"], R, en_acted, me0, en0, ctx, cal, his_kit,
-                                        his_kit_raw["turn"][0], scale, habit=habit,
+                                        his_kit_raw["turn"][0], scale, habit=habit, his_bases=(fb or {}).get("him"),
                                         his_prev=his_turns[-1][1] if his_turns else None, his_n=len(his_turns))
         clock_info["model"] = (f"{len(model.get('fights', []))} logged fights, {len(model.get('bundles', []))} turns"
                                if model else "no logged fights")
     my_kit = make_my_kit(None if eng is not None else prof)
     if s_me != 1.0:
         my_kit = {k: ((v[0] * s_me,) + tuple(v[1:]) if v[0] and not v[1] else v) for k, v in my_kit.items()}
+    for k, v in ((fb or {}).get("me") or {}).items():
+        if k in my_kit and my_kit[k][0]:
+            my_kit[k] = (float(v),) + tuple(my_kit[k][1:])
     caps = (me.get("maxHealth", 5050), en.get("maxHealth", 5050))
     P = Planner(me0, en0, R, ctx, cal, my_kit, his_kit, st, en_acted, caps, his_kit_raw["turn"][0], clockd)
     # solution-library key: this position plus what his last turn did (solutions.py)
@@ -794,7 +843,7 @@ def build(a):
         P.book_key = None
     info = dict(battle=battle, me=me, en=en, R=R, my_turn=my_turn, en_acted=en_acted, me_pos=me_pos, en_pos=en_pos,
                 d0=d0, ap=ap, stun=stun, others=others, st=st, sme=sme, sen=sen, prof=prof, gmul=gmul, clock=clock_info, rows=rows,
-                engine_state=eng is not None, opp_scale=(s_me, s_him))
+                engine_state=eng is not None, live_state=bool(live), fight_bases=bool(fb), opp_scale=(s_me, s_him))
     return P, info
 
 
@@ -814,6 +863,15 @@ def engine_state(rows, en, me, me_pos, en_pos, R, en_acted, cal, timeout=5):
 
 _ENGINE_BASES = None
 _OPP_SCALES = None
+
+
+def fight_bases(bid, en_id):
+    """fight_bases.py output for this battle and opponent, or None."""
+    try:
+        fb = json.load(open(os.path.join(HERE, "..", "fights", "live", f"{bid}_bases.json"))) if bid else None
+    except (OSError, ValueError):
+        return None
+    return fb if fb and fb.get("opp") == en_id and (fb.get("me") or fb.get("him")) else None
 
 
 def meal_factors(bid):
@@ -864,11 +922,14 @@ def make_my_kit(prof):
 
 
 def make_clock(acts, rows, en_id, R, en_acted, me0, en0, ctx, cal, his_kit, base_turn, scale, habit=None,
-               his_prev=None, his_n=0):
+               his_prev=None, his_n=0, his_bases=None):
     """His clock for planner2: his kit compiled into his_kit (in place), his candidate reply lines (his 12 best on
     this board, plus his best Clear line and best pure-damage line; re-scored per bundle of mine later) and his
     next-turn damage lines (what is ready then). Returns (clockd, printable info)."""
     hr_abs, hn_abs = (R + 1, R + 2) if en_acted else (R, R + 1)
+    if his_bases:                                          # the engine's own numbers for his actions this fight
+        acts = {aid: (v[:4] + (((float(his_bases[aid]),) + tuple(v[4][1:])),) if aid in his_bases and v[4][0] else v)
+                for aid, v in acts.items()}
     for aid, (nm, cost, cd, locks, spec) in acts.items():
         if aid not in his_kit:
             his_kit[aid] = compile_spec(spec, False, (opp_profile._index().get(aid, ["", []])[1]) or None)

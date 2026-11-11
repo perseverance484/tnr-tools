@@ -394,8 +394,25 @@ def replay_state(rows, me_id, en_id, me, en, me_pos, en_pos, R, his_turn, cal, t
     return _run(req, timeout)
 
 
-def replay_eval(rows, me_id, en_id, me, en, me_pos, en_pos, R, his_turn, cal, bundles_with_targets, timeout=10):
+def his_probe(rows, en_id, action_ids, cal, timeout=60, perm=()):
+    """Each of his actions fired alone on a fresh board (both at 5050, adjacent, round 1; his gear the endgame
+    assumption unless known, stats capped): {actionId: damage to me}. His bases from the engine."""
+    me_id = "user_37qazcrgUPldBPI65bb25DQiCjz"
+    me = {"curHealth": 5050, "maxHealth": 5050, "perm": [e for e in perm if e.get("targetId") == me_id]}
+    en = {"curHealth": 5050, "maxHealth": 5050, "userId": en_id, "perm": [e for e in perm if e.get("targetId") == en_id]}
+    req = _replay_request(rows, me_id, en_id, me, en, (7, 4), (6, 4), 1, "same", cal)
+    req["log"] = []
+    req["mode"] = "probe"
+    req["probeIds"] = list(action_ids)
+    out = _run(req, timeout)
+    return {k: v["me"] for k, v in ((out or {}).get("probe") or {}).items() if "me" in v}
+
+
+def replay_eval(rows, me_id, en_id, me, en, me_pos, en_pos, R, his_turn, cal, bundles_with_targets, timeout=10,
+                fresh=False):
     req = _replay_request(rows, me_id, en_id, me, en, me_pos, en_pos, R, his_turn, cal)
+    if fresh:
+        req["log"] = []                     # rows only name his kit and bloodline; nothing is replayed
     req["mode"] = "eval"
     req["candidates"] = [[{"actionId": a, "x": t[0], "y": t[1]} for _, a, t in b] for b in bundles_with_targets]
     req["replyCap"] = 40

@@ -105,6 +105,24 @@ PERM_KEYS = ("type", "targetId", "creatorId", "power", "powerPerLevel", "level",
              "statTypes", "generalTypes", "fromType", "timedBuffExpiresAt", "rounds", "createdRound")
 
 
+LIVE_KEYS = ("type", "targetId", "power", "powerPerLevel", "level", "calculation", "direction", "elements", "fromType",
+             "rounds", "createdRound", "castThisRound", "isNew", "poolsAffected", "timedBuffExpiresAt")
+
+
+def live_effects(effects):
+    """The live effect list, compact: what planner2.from_live needs (wound keeps its recorded hit)."""
+    out = []
+    for e in effects or []:
+        if not isinstance(e, dict):
+            continue
+        x = {k: e.get(k) for k in LIVE_KEYS if e.get(k) is not None}
+        od = (e.get("timeTracker") or {}).get("originalDamage")
+        if od:
+            x["timeTracker"] = {"originalDamage": od}
+        out.append(x)
+    return out
+
+
 def perm_effects(effects):
     """The permanent effects (no round count) from a full getBattle effect list, compact."""
     return [{k: e.get(k) for k in PERM_KEYS if e.get(k) is not None}
@@ -275,12 +293,19 @@ def battle_tick(st, bid, battle, entries):
         st["pending_result"] = {"bid": bid, "foes": [u for u in last.get("battle.usersState.*.userId") or [] if u != ME],
                                 "log_lost": log_says_lost(cache)}
         return finish(st, bid, cache, "battle closed, result on the next read")
-    if "battle.usersEffects" in battle:
-        cache["perm_effects"] = perm_effects(battle.pop("battle.usersEffects"))
-        if any(e.get("timedBuffExpiresAt") for e in cache["perm_effects"]):
-            save(cache_path, dict(cache, battle=battle))
-            subprocess.Popen([sys.executable, os.path.join(HERE, "meal_factor.py"), bid], stdout=subprocess.DEVNULL,
-                             stderr=subprocess.DEVNULL, start_new_session=True)   # ~3 s, beside the fight
+    raw = battle.pop("battle.usersEffects", None)
+    if raw is not None:
+        cache["live"], cache["live_v"] = live_effects(raw), battle.get("battle.version")
+    if raw is not None and "perm_effects" not in cache:
+        cache["perm_effects"] = perm_effects(raw)
+    # both kits' bases for this matchup from the engine (fight_bases.py, ~8 s beside the fight): at the start, and
+    # again whenever he shows an action the last run did not have
+    his_ids = sorted({e[3] for e in cache["entries"] if e[2] != ME})
+    if "perm_effects" in cache and (cache.get("bases_ids") is None or set(his_ids) - set(cache["bases_ids"])):
+        cache["bases_ids"] = his_ids
+        save(cache_path, dict(cache, battle=battle))
+        subprocess.Popen([sys.executable, os.path.join(HERE, "fight_bases.py"), bid], stdout=subprocess.DEVNULL,
+                         stderr=subprocess.DEVNULL, start_new_session=True)
     if "perm_effects" in cache:
         battle["battle.permEffects"] = cache["perm_effects"]
     cache["battle"] = battle
@@ -329,6 +354,14 @@ def battle_tick(st, bid, battle, entries):
             return head + f" | MY TURN: director's move (pilot covers in {left:.0f}s)", \
                 [wait(min(5.0, max(1.0, left)))] + poll
         st.setdefault("pilot_turns", {}).setdefault(bid, []).append(R)
+    # plan on the exact live state (director 2026-11-11: "read the exact live state and feed it into the vector
+    # state engine"): one read with the full effect list at this version, then plan
+    if cache.get("live_v") != v and cache.get("live_try_v") != v:
+        cache["live_try_v"] = v
+        save(cache_path, cache)
+        return head + " | MY TURN: reading the live state", [c_battle(bid, effects=True), c_entries(bid, 8), TICK]
+    if cache.get("live_v") == v:
+        battle["battle.liveEffects"] = cache["live"]
     # a plan already sent for this exact battle version that did not move the version is not resent as is: its first
     # action is banned (covers refusals whose text we did not catch)
     sent = st.get("sent_plan") or {}
