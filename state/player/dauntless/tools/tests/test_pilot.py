@@ -47,7 +47,10 @@ def main():
     assert "MY TURN" in out[0], out
     assert acts == want_ids, (acts, want_ids)
     assert vers == list(range(battle["battle.version"], battle["battle.version"] + len(acts))), vers
-    assert [b.get("call") or "bash" for b in batch[len(acts):]] == ["combat.getBattle", "combat.getBattleEntries", "bash"]
+    tail = [b.get("call") or "bash" for b in batch[len(acts):]]
+    # an opponent with no saved kit gets one kit read riding on the poll (opp_profile)
+    assert tail in (["combat.getBattle", "combat.getBattleEntries", "bash"],
+                    ["combat.getBattle", "combat.getBattleEntries", "jutsu.getPublicUserJutsus", "bash"]), tail
     print("ok: pilot batch = planner pick + poll + tick")
 
 

@@ -88,6 +88,16 @@ def c_entries(bid, n):
     return call("combat.getBattleEntries", {"battleId": bid, "limit": n}, list(ENT))
 
 
+def c_kit(user_id):
+    """His equipped jutsu, read once per opponent at battle start (opp_profile builds his bloodline profile from it)."""
+    return call("jutsu.getPublicUserJutsus", {"userId": user_id}, ["*.jutsuId", "*.level", "*.equipped"])
+
+
+def kit_known(user_id):
+    return os.path.exists(os.path.join(HERE, "..", "..", "..", "..", "harness", "pvp_turn", "kit", "opponents",
+                                       f"{user_id}.json"))
+
+
 def c_act(bid, aid, x, y, v):
     return call("combat.performAction", {"battleId": bid, "actionId": aid, "longitude": x, "latitude": y,
                                          "version": v}, ["notification"])
@@ -212,9 +222,14 @@ def battle_tick(st, bid, battle, entries):
     names = battle["battle.usersState.*.username"]
     head = f"BATTLE R{R} v{v} | me {hp[me_i]:.0f} | {names[foes[0]]} {hp[foes[0]]:.0f}"
     poll = [c_battle(bid), c_entries(bid, 8), TICK]
+    foe_id = users[foes[0]]
+    ai = battle.get("battle.usersState.*.isAi") or []
+    if not (ai and ai[foes[0]]) and not kit_known(foe_id) and cache.get("kit_asked") != foe_id:
+        cache["kit_asked"] = foe_id                         # one kit read per opponent, ridden on this tick's poll
+        save(cache_path, cache)
+        poll = [poll[0], poll[1], c_kit(foe_id), TICK]
     active = battle["battle.activeUserId"]
     if active != ME:
-        ai = battle.get("battle.usersState.*.isAi") or []
         if active in users and ai and ai[users.index(active)]:
             # an AI's turn only advances when some client calls performAction during it (engine: isAITurn);
             # in PvP the human opponent's client drives his own turn
@@ -439,6 +454,13 @@ def tick():
         st["mode"] = sys.argv[2]
     started = time.time()
     res = fresh_results(st.get("last_tick", 0))
+    if "jutsu.getPublicUserJutsus" in res:
+        inp, data, _ = res["jutsu.getPublicUserJutsus"]
+        try:
+            import opponent_kit
+            opponent_kit.save_kit(inp["userId"], data or {})
+        except Exception:  # noqa: BLE001  (a bad kit read must never stop the pilot; the planner uses its stand-in)
+            pass
     bid = st.get("battleId")
     tb = res.get("combat.getBattle", (0, 0, 0))[2]
     tu = res.get("profile.getUser", (0, 0, 0))[2]

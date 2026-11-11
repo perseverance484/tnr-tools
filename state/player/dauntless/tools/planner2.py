@@ -40,6 +40,7 @@ import cd_plan  # noqa: E402
 import shotplan  # noqa: E402
 import value_model  # noqa: E402
 import turn  # noqa: E402  (input parsing, targets, history helpers)
+import opp_profile  # noqa: E402
 
 ME, ME_NAME = turn.ME, turn.ME_NAME
 H = 5
@@ -468,19 +469,31 @@ def build(a):
     me0, en0 = from_shotplan(sme, R), from_shotplan(sen, R)
     reach = max(0.4, 1 - 0.1 * max(0, d0 - 4))
     his_kit_raw = value_model.generic_kit(cal, reach)
+    # his profile (opp_profile: kit read at battle start -> bloodline -> rank, boost and elements): the prior turn
+    # gets his bloodline damage boost; his observed hits already include it
+    prof = opp_profile.profile(en["userId"], rows)
+    gmul = opp_profile.given_mult(prof)
+    for k in ("turn", "burst", "hit", "light", "hit2"):
+        v = his_kit_raw[k]
+        his_kit_raw[k] = (v[0] * gmul,) + tuple(v[1:])
     obs = turn.observed_turns(rows, en["userId"], en["username"], sme, sen)
     if obs:
         n, med = len(obs), sorted(obs)[len(obs) // 2] * reach
         his_kit_raw["turn"] = ((n * med + his_kit_raw["turn"][0]) / (n + 1), [])
         his_kit_raw["burst"] = ((n * max(max(obs) * reach, med * 1.6) + his_kit_raw["burst"][0]) / (n + 1), [])
     his_kit = {k: compile_spec(v, False) for k, v in his_kit_raw.items()}
-    my_kit = {k: compile_spec(v, True) for k, v in shotplan.MINE.items()}
+    idx = opp_profile._index()
+    my_kit = {}
+    for k, v in shotplan.MINE.items():
+        els = (idx.get(turn.ACTION_ID.get(k, ""), ["", []])[1]) or ["None"]
+        f = opp_profile.dr_vs(prof, els)            # his bloodline DR against this jutsu's element
+        my_kit[k] = compile_spec(((v[0] * f,) + tuple(v[1:])) if f != 1.0 and not (len(v) > 2 and v[2] == "pierce") else v, True)
     my_kit["step"] = my_kit["stepback"] = (0, False, [])
     cd_plan.ACTIONS.setdefault("step", (10, 0, None, ""))
     caps = (me.get("maxHealth", 5050), en.get("maxHealth", 5050))
     P = Planner(me0, en0, R, ctx, cal, my_kit, his_kit, st, en_acted, caps, his_kit_raw["turn"][0])
     info = dict(battle=battle, me=me, en=en, R=R, my_turn=my_turn, en_acted=en_acted, me_pos=me_pos, en_pos=en_pos,
-                d0=d0, ap=ap, stun=stun, others=others, st=st, sme=sme, sen=sen)
+                d0=d0, ap=ap, stun=stun, others=others, st=st, sme=sme, sen=sen, prof=prof, gmul=gmul)
     return P, info
 
 
@@ -517,6 +530,10 @@ def main():
           f" | him {en['username']} {en['curHealth']:.0f} HP | dist {info['d0']} | his base turn {P.base_turn:.0f}")
     print(f"me next: given x{P.me0.given(1):.2f} taken x{P.me0.g(TAKEN, 1):.2f} dr x{P.me0.g(DR, 1):.2f} | "
           f"him next: given x{P.en0.given(1):.2f} taken x{P.en0.g(TAKEN, 1):.2f} dr x{P.en0.g(DR, 1):.2f}")
+    pr = info["prof"]
+    print(f"his profile ({pr.get('source')}): {pr.get('bloodline', '?')} rank {pr.get('rank', '?')} | boost +{pr.get('given', (0,))[0]:.0%} "
+          f"on {'/'.join(pr.get('given', (0, []))[1]) or '-'} (x{info['gmul']:.2f} on his hits) | DR {pr.get('dr', (0,))[0]:.0%} "
+          f"vs {'/'.join(pr.get('dr', (0, []))[1]) or '-'} | his elements {'/'.join(pr.get('elements', [])) or '?'}")
     if not info["my_turn"]:
         print("not my turn: poll again in <=15 s"); return
     bundles = legal_bundles(info["st"], R, info["ap"], info["d0"], info["st"]["loadout"], P.me0, P.en0)
