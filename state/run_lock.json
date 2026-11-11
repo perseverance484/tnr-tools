@@ -1,11 +1,10 @@
 {
- "holder": "player",
- "token": "dd2fd485f2a940f48b6ad0e77aed22a4",
- "job": "AP1 live session",
- "instance": null,
- "ttlMinutes": 45,
- "claimedAt": "2026-11-11T21:45:06.702Z",
- "heartbeatAt": "2026-11-11T21:55:33.984Z",
- "expiresAt": "2026-11-11T22:40:33.984Z",
- "note": "One game writer per account at a time (RUL-2026-11-07-133). Written only by forge/tools/run_lock.mjs or Forge; do not hand-edit."
+ "holder": null,
+ "token": null,
+ "job": null,
+ "releasedBy": "player",
+ "releasedInstance": null,
+ "releasedJob": "AP1 live session",
+ "releasedAt": "2026-11-11T22:00:52.164Z",
+ "note": "Free. Claim with node forge/tools/run_lock.mjs claim --holder NAME --job TEXT (RUL-2026-11-07-133)."
 }
