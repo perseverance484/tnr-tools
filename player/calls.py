@@ -107,19 +107,39 @@ def entries(bid, n, whole=False):
                 list(ENT[:4]) + ["*.appliedEffects"] if whole else list(ENT))
 
 
+def _number(v):
+    return isinstance(v, (int, float)) and not isinstance(v, bool)
+
+
+def _line(row):
+    """A log line of the kinds every saved line has: an id that is text or a number, a round that is a number,
+    a fighter and an action that are text."""
+    return ((isinstance(row["*.id"], str) or _number(row["*.id"])) and _number(row["*.battleRound"])
+            and isinstance(row["*.userId"], str) and isinstance(row["*.actionId"], str))
+
+
+def _line_texts(line):
+    """One line's effects, as the game sends them whole -> its texts."""
+    if not isinstance(line, list):
+        return []
+    return [e["txt"] for e in line if isinstance(e, dict) and isinstance(e.get("txt"), str) and e["txt"]]
+
+
 def log_rows(data):
     """A log read -> rows [id, round, user, action, texts], newest first. texts is None on every row when the read
-    cannot say which line each text belongs to. None when the four plain columns do not line up, or when a line
-    has no id, no fighter, or a round that is not a number."""
+    cannot say which line each text belongs to.
+
+    None when the four plain columns do not line up, or when any line is not a whole one (_line). A row is
+    checked before it is a row, so nothing that fails here is ever kept in a fight's state (review of c0006266,
+    finding 1: an action that was an object was kept, and every tick after it failed)."""
     base = columns(data, "", ENT[:4])
-    if base is None or not all(isinstance(row["*.id"], (str, int)) and isinstance(row["*.userId"], str)
-                               and isinstance(row["*.battleRound"], (int, float))
-                               and not isinstance(row["*.battleRound"], bool) for row in base):
+    if base is None or not all(_line(row) for row in base):
         return None
     whole, texts = data.get("*.appliedEffects"), data.get(ENT[4])
     if isinstance(whole, list) and len(whole) == len(base):
-        texts = [[e["txt"] for e in line or [] if isinstance(e, dict) and e.get("txt")] for line in whole]
-    elif not isinstance(texts, list) or len(texts) != len(base):
+        texts = [_line_texts(line) for line in whole]
+    elif (not isinstance(texts, list) or len(texts) != len(base)
+          or not all(isinstance(t, list) and all(isinstance(x, str) for x in t) for t in texts)):
         texts = [None] * len(base)
     return [[row[k] for k in ENT[:4]] + [t] for row, t in zip(base, texts)]
 

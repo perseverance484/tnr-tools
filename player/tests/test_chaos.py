@@ -174,7 +174,7 @@ class BrainCrash(unittest.TestCase):
     def test_a_tick_that_crashes_still_answers_the_relay_and_is_written_down(self):
         from player import brain, relay
         rig = Rig()
-        rig.brain.handle = lambda results, usage=None, strays=0: 1 / 0
+        rig.brain.handle = lambda results, usage=None, strays=0, ask=None: 1 / 0
         req = relay.request_path(rig.dir, 5)
         relay.write(req, {"seq": 5, "results": [], "usage": {}})
         brain.answer(rig.brain, rig.dir, req)

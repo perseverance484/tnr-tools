@@ -46,7 +46,7 @@ TEMPLATE = {
     "records": {"results": [], "pending_result": None, "spend": {"day": "", "ryo": 0.0}, "transfers": {},
                 "turns_missed": 0, "turns_unresolved": 0, "turns_unseen": 0, "last_error": None},
     "decisions": [],            # pending decisions for the director (ask-first calls)
-    "budget": {"calls": []},    # [time, lane] of every call issued in the last minute
+    "budget": {"calls": [], "batch": None},     # the call ledger (player/budget.py); batch: the number of the one out
     "relay": {"seq": 0, "last_batch": [], "issued_at": 0, "expect": None, "stalled": False, "activity": None,
               "note": "", "baseline_tokens": None, "context_tokens": 0, "rotations": 0},
     "activity": {},             # private state, by activity name
@@ -151,21 +151,51 @@ class World:
                 if t:
                     self.d["timers"]["arrive"] = t
 
+    PROFILE_NUMBERS = ("curHealth", "maxHealth", "curChakra", "maxChakra", "curStamina", "maxStamina", "sector",
+                       "longitude", "latitude", "curEnergy")
+
+    @classmethod
+    def _unfit(cls, new):
+        """The first field of a profile read that is not of the kind every module takes it for, or None: the
+        status is text, the battle id text or nothing, my health two numbers, every other pool and my position a
+        number or nothing, pocket and bank an amount or nothing."""
+        def number(v):
+            return isinstance(v, (int, float)) and not isinstance(v, bool)
+
+        def amount(v):
+            try:
+                return not isinstance(v, bool) and float(v) == float(v)
+            except (TypeError, ValueError):
+                return False
+        if not isinstance(new["status"], str):
+            return "status"
+        if not (new.get("battleId") is None or isinstance(new["battleId"], str)):
+            return "battleId"
+        return next((k for k in cls.PROFILE_NUMBERS
+                     if not (number(new.get(k)) or new.get(k) is None and k not in ("curHealth", "maxHealth"))),
+                    next((k for k in ("money", "bank") if not (new.get(k) is None or amount(new[k]))), None))
+
     def _profile(self, r):
         new = {k.split(".", 1)[1]: v for k, v in r.data.items() if k.startswith("userData.")}
         if "status" not in new:
             return
+        unfit = self._unfit(new)
+        if unfit:                                   # the last good profile stands; nothing is built on this one
+            self.event("finding", f"a profile read cannot be used ({unfit}): {json.dumps(new.get(unfit))[:80]}",
+                       about="selects")
+            return
         old = self.me
-        # what was spent: a fall in pocket plus bank between two reads (measured, never estimated)
+        # what was spent: a fall in pocket plus bank between two reads (measured, never estimated). The day is
+        # the brain's own clock's: a result's time is the transcript's, and a wrong one would start the day anew.
         if old.get("money") is not None and new.get("money") is not None:
             before = float(old.get("money") or 0) + float(old.get("bank") or 0)
             after = float(new.get("money") or 0) + float(new.get("bank") or 0)
             spend = self.d["records"]["spend"]
-            if spend.get("day") != utc_day(r.at):
-                spend.update(day=utc_day(r.at), ryo=0.0)
+            if spend.get("day") != utc_day(self.now):
+                spend.update(day=utc_day(self.now), ryo=0.0)
             if after < before:
                 spend["ryo"] = spend.get("ryo", 0.0) + (before - after)
-        new["read_at"] = r.at
+        new["read_at"] = self.now
         self.d["character"] = new
 
     def spent_today(self):

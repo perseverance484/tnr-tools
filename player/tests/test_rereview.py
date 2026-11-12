@@ -62,21 +62,20 @@ class F1TheLimitsByTheClockTheCallsReallyRanOn(unittest.TestCase):
         self.assertLessEqual(self.run_batches("world", [8] + [.4] * 7), C.WORLD_CAP)     # was 24
         self.assertLessEqual(self.run_batches("world", [.05] * 12), C.WORLD_CAP)
 
-    def test_a_call_is_counted_from_when_its_answer_came_back(self):
+    def test_a_call_is_counted_from_when_its_batch_came_back(self):
+        """(At c225ed36 an answered call was counted from the time its answer carried. The review of c0006266
+        showed that time cannot be relied on when it is the transcript's: see test_rereview2.)"""
         rig = Rig()
         rig.tick(user())
         rig.world["budget"]["calls"] = []
         out = rig.tick(user())                                              # the hunt's scan: three or four calls
         t0, n = rig.t, len(rig.calls(out))
         self.assertEqual({len(c) for c in rig.world["budget"]["calls"]}, {3})   # written down, marked as still out
-        first, second = out["steps"][0], [s for s in out["steps"] if "call" in s][1]
-        back = [res(first["call"], user().data, first["input"])._replace(at=t0 + 9.0),
-                res(second["call"], {"users.*.userId": []}, second["input"])._replace(at=t0 + 14.0)]
-        rig.tick(*back, dt=30)                                              # the relay was slow: it is back at t0+30
+        first = out["steps"][0]
+        rig.tick(res(first["call"], user().data, first["input"])._replace(at=t0 + 9.0), dt=30)   # back at t0+30
         times = sorted(c[0] for c in rig.world["budget"]["calls"])[:n]
-        self.assertEqual(times[:2], [t0 + 9.0, t0 + 14.0])                  # the two that were answered: then
-        self.assertEqual(set(times[2:]), {t0 + 30})                         # the rest: when the batch came back
-        self.assertGreater(min(times), t0 + 8)                              # so at t0+68 all are still in the minute
+        self.assertEqual(set(times), {t0 + 30})                             # every call: when the batch came back
+        #                                                                     so at t0+68 all are still in the minute
 
     def test_calls_still_out_survive_a_restart(self):
         rig = Rig()
@@ -86,8 +85,8 @@ class F1TheLimitsByTheClockTheCallsReallyRanOn(unittest.TestCase):
         rig.new_brain()
         self.assertTrue(any(len(c) == 3 for c in rig.world["budget"]["calls"]))
         rig.t += 45
-        rig.brain.budget.settle()
-        self.assertEqual(rig.brain.budget.used(rig.t + 59), len(rig.world["budget"]["calls"]))
+        rig.brain.budget.settle(asked=())                                   # the relay is back
+        self.assertEqual(rig.brain.budget.used(rig.t + 59), len(rig.calls(out)))   # and they count from now
 
 
 class F2AReadThatCannotBeUsed(unittest.TestCase):
@@ -139,15 +138,17 @@ class F2AReadThatCannotBeUsed(unittest.TestCase):
         battle, ents, out = start_fight(rig)
         fight = rig.brain.reg.activities["battle"]
         with mock.patch.object(type(fight), "_absorb", side_effect=RuntimeError("this read breaks the tick")):
+            sent = []
             for seq, results in ((1, answers(out, NOT_VALID) + [battle_read("B1", battle)]), (2, [])):
                 rig.t += 1
                 req = relay.request_path(rig.dir, seq)
                 relay.write(req, {"seq": seq, "results": relay.pack([r._replace(at=rig.t) for r in results])})
                 brain.answer(rig.brain, rig.dir, req)
-                self.assertEqual(relay.read(relay.batch_path(rig.dir, seq))["steps"], [])
+                sent.append(acts(relay.read(relay.batch_path(rig.dir, seq))))
             self.assertNotIn("inbox", rig.world["battle"])                  # it failed twice: not a third time
-        out = rig.tick(dt=1)                                                # and the turn is not stuck behind it
-        self.assertEqual(acts(out), ["defensiveStance"])
+        # and the turn is not stuck behind it. (At c225ed36 the stance went on the next tick that worked; since
+        # the review of c0006266 it goes with the second failure itself: see test_rereview2.)
+        self.assertEqual(sent, [[], ["defensiveStance"]])
 
 
 class F3ARelayReplacedWhileItsOldCallWaits(unittest.TestCase):
@@ -279,19 +280,23 @@ class G1ACallThatIsStillOutStaysInTheLedger(unittest.TestCase):
                 + watching([K.battle("B"), K.entries("B", 8)]))
 
     def test_a_status_write_during_a_long_batch_drops_nothing(self):
-        rig, made = Rig(), []
+        rig, made, stalls = Rig(), [], []
         for n, lag in enumerate([20.0] + [0.3] * 14):                       # the first batch lasts eighty seconds
             out, _ = rig.brain.budget.pace(self.fight_batch(), "battle")
+            if n == 0:                                                      # as the brain notes a batch it issues
+                rig.world["relay"].update(issued_at=rig.t, expect=relay.seconds(out), stalled=False)
             for s in out:
                 if "wait" in s:
                     rig.t += s["wait"]
                 else:
                     made.append(rig.t)
                     rig.t += lag
-                if n == 0 and rig.t - made[0] > 61:
-                    self.assertTrue(rig.brain.watchdog() or True)          # the stall is raised, the status written
-                    rig.brain.budget.used()
+                if n == 0 and rig.t - made[0] > 61 and not stalls:
+                    stalls.append(rig.brain.watchdog())                     # the stall is raised, the status written
+            if n == 0:
+                rig.brain.budget.settle(asked=[x for x in out if "call" in x])   # that relay is back, at last
             rig.t += 0.5
+        self.assertEqual(stalls, [True])
         self.assertLessEqual(most_in_a_minute(made), C.CALL_LIMIT)          # was 31
 
     def test_calls_out_for_over_a_minute_are_still_counted_and_then_settled(self):
@@ -304,7 +309,7 @@ class G1ACallThatIsStillOutStaysInTheLedger(unittest.TestCase):
         self.assertTrue(rig.brain.watchdog())
         self.assertEqual(rig.status()["budget"]["last_minute"], n)          # was 0: dropped by this very read
         self.assertEqual(len(rig.world["budget"]["calls"]), n)
-        rig.brain.budget.settle()
+        rig.brain.budget.settle(asked=())                                   # the relay is back
         self.assertEqual({c[0] for c in rig.world["budget"]["calls"]}, {rig.t})   # counted from when it came back
         self.assertEqual(rig.brain.budget.used(rig.t + 59), n)
 
@@ -393,6 +398,39 @@ class G3ABatchIsKnownByItsOwnId(unittest.TestCase):
         self.assertEqual((seen[-1]["seq"], seen[-1]["id"] != old_id), (old_seq + 1, True))   # was the same number
         self.assertTrue(token_of(got[-1]).endswith(f"-{old_seq + 1}"))
 
+    def test_two_calls_of_one_relay_and_a_batch_that_expires_between_them(self):
+        """The review's own script (its appendix A3): nothing is written into client.json by hand. One call waits
+        on a batch; the batch grows too old; a second call of the same relay has the brain asked afresh, after
+        the director changed a setting; then both wake."""
+        clock, printed = [100.0], {}
+        ready, release = [threading.Event(), threading.Event()], [threading.Event(), threading.Event()]
+        t1 = self.started()
+
+        def run(i):
+            def sleep(_):
+                ready[i].set()
+                release[i].wait(5)
+            printed[i] = self.next(t1, sleep)
+        with mock.patch.object(brain.time, "time", side_effect=lambda: clock[0]):
+            first = threading.Thread(target=run, args=(0,))
+            first.start()
+            self.assertTrue(ready[0].wait(3))
+            old = self.client()["pending"]
+            clock[0] = old["ready_at"] + C.STALE_OUTBOX + 1
+            relay.write(os.path.join(self.rig.dir, "control.json"), {"version": 1, "mode": "guard"})
+            second = threading.Thread(target=run, args=(1,))
+            second.start()
+            self.assertTrue(ready[1].wait(3))
+            fresh = self.client()["pending"]
+            release[0].set()
+            first.join(3)
+            release[1].set()
+            second.join(3)
+        self.assertEqual(fresh["seq"], old["seq"] + 1)                      # was the same number
+        self.assertEqual(self.calls(printed[0]), [])                        # was: the old batch's calls
+        self.assertEqual(self.calls(printed[1]), [x["call"] for x in fresh["steps"] if "call" in x])
+        self.assertNotEqual(self.calls(printed[1]), [x["call"] for x in old["steps"] if "call" in x])
+
 
 class SweptAfterThreeReviews(unittest.TestCase):
     """Not from a review: the same three areas, searched for the next gap of the same kind after three rounds had
@@ -454,9 +492,9 @@ class SweptAfterThreeReviews(unittest.TestCase):
         self.addCleanup(case.env.stop)
         t1, seen, real = case.started(), [], brain.Brain.handle
 
-        def spy(self_, results, usage=None, strays=0):
+        def spy(self_, results, *a, **k):
             seen.append(len(results))
-            return real(self_, results, usage, strays)
+            return real(self_, results, *a, **k)
 
         class Killed(Exception):
             pass
@@ -478,7 +516,10 @@ class SweptAfterThreeReviews(unittest.TestCase):
 class SweptEveryShapeOfARead(unittest.TestCase):
     """Every field of a battle read and of a log read, broken in every way a JSON value can be, on my turn with
     both planned actions refused. Nothing raises, no error is written, an action still goes, and every action
-    that goes has a real tile and version. (The same sweep over both turns, 1,128 cases: 120 failed on 0d10b7c6.)"""
+    that goes has a real tile and version. (The same sweep over both turns, 1,128 cases: 120 failed on 0d10b7c6.)
+
+    Its log half changes lines the fight already has, and those are never taken in again (the review of c0006266
+    saw that): the lines never seen before are swept in test_rereview2.py, class H1."""
 
     EFFECTS = {"battle.usersEffects": [{"type": "damage", "targetId": FOE, "creatorId": C.ME, "power": 30, "rounds": 2,
                                         "createdRound": 1, "timeTracker": {"originalDamage": 55}},

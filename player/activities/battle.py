@@ -54,11 +54,14 @@ class Battle(Activity):
     # ------------------------------------------------------------ results
     def on_result(self, world, results):
         for r in results:
-            if r.endpoint == "profile.getUser" and not r.error:
-                self._profile(world)
-            state = world["battle"]
-            if state and r.endpoint in self.reads[1:] and r.input.get("battleId") == state["bid"]:
-                self._take(world, state, r)
+            try:
+                if r.endpoint == "profile.getUser" and not r.error:
+                    self._profile(world)
+                state = world["battle"]
+                if state and r.endpoint in self.reads[1:] and r.input.get("battleId") == state["bid"]:
+                    self._take(world, state, r)
+            except Exception as err:  # noqa: BLE001  (one answer that cannot be taken in never costs the next)
+                world.event("error", f"battle could not take {r.endpoint} in: {err!r}"[:300], about="crash")
 
     def _profile(self, world):
         """A profile read opens a fight (status BATTLE) and settles the result of the one that just closed."""
@@ -153,7 +156,7 @@ class Battle(Activity):
             # the connector refused it, the game never saw it: nothing to ban, and the turn is still to play
             state["refused_read"] = True
             state["sent_plan"] = None
-        elif r.error:
+        elif r.error or not isinstance(r.data or {}, dict):      # an error, or an answer that is no answer
             if open_turn:
                 turn["unknown"] = turn.get("unknown", 0) + 1     # it may have landed: a read or the log will say
         elif str((r.data or {}).get("notification") or "").strip():
@@ -245,6 +248,55 @@ class Battle(Activity):
             hold = C.RATE_BACKOFF if refused and not mine else 0.0
         return plan((again if mine and not turn.get("accepted") else watching(again)) + self._proof(state), "battle",
                     f"resume battle {bid}", hold=hold, tag="urgent")
+
+    def last_resort(self, world):
+        """The tick has failed twice running (the brain calls this in its place). It uses only what _usable has
+        checked: the fighters, the round, the version and whose turn it is, from the read that came with the
+        failure when that read is a good one, else from the last good read. On my turn, while the game has taken
+        nothing of it, the best line the turn already has or a basic action goes out; a plain read of the fight
+        follows either way, with my profile beside it once a fighter is down."""
+        state = world["battle"]
+        bid, steps, note = state["bid"], [], "the tick failed: reading again"
+        b, mine = self._known(world, state)
+        turn = state.get("turn") or {}
+        if b and (not mine or turn.get("round") != b["battle.round"]):
+            self._turn_over(world, state)                         # a turn of mine that this read shows is over
+            turn = {}
+        if mine and not turn.get("accepted"):
+            turn = B.turn_open(state, b["battle.round"], world.now, state.get("unseen"))
+            steps, how = self._stand_in(world, state, b, turn)
+            note = f"MY TURN, {how} (last good read)"
+        state["asked_full"] = state["asked_ground"] = False
+        again = [K.battle(bid), self._log_read(state, C.ENTRIES_POLL)]
+        return plan(steps + (again if mine and not turn.get("accepted") else watching(again)) + self._proof(state),
+                    "battle", note, tag="urgent")
+
+    def _known(self, world, state):
+        """For the last resort: (the checked part of the newest good read, is it my turn in a fight still on)."""
+        read = state.pop("inbox", None)
+        if isinstance(read, dict) and self._usable(read) and C.ME in read["battle.usersState.*.userId"]:
+            state["battle"] = {k: read[k] for k in ["battle.round", "battle.version", "battle.activeUserId"]
+                               + [f"battle.usersState.*.{c}" for c in K.STATE_COLS[:6]]}
+            state["read_at"] = world.now
+        b = state.get("battle") or {}
+        hp = b.get("battle.usersState.*.curHealth") or [0]
+        if b and min(hp) <= 0:
+            state["prove"] = True                                 # it looks over: my profile will say
+        return b, b.get("battle.activeUserId") == C.ME and min(hp) > 0
+
+    def _stand_in(self, world, state, b, turn):
+        """For the last resort: (the steps of the best line this turn has, or of a basic action; what it is)."""
+        bid, v, i = state["bid"], b["battle.version"], b["battle.usersState.*.userId"].index(C.ME)
+        me_xy = (b["battle.usersState.*.longitude"][i], b["battle.usersState.*.latitude"][i])
+        line, how = self._fallback(turn, v, me_xy, state.get("banned", []) + turn.get("refused", []),
+                                   "the tick failed")
+        world.event("finding", f"round {b['battle.round']}: {how}", about="crash", battle=bid)
+        if not line:
+            return [], how
+        state["sent_plan"] = {"v": v, "first": line[0]["actionId"], "stand_in": True}
+        state["pick"] = {"round": b["battle.round"], "actions": [a["name"] for a in line], "why": how}
+        B.turn_fired(world, bid, turn, how, len(line), True)
+        return [K.act(bid, a["actionId"], a["longitude"], a["latitude"], v + k) for k, a in enumerate(line)], how
 
     def _tick(self, world, state, battle, from_last_read=False):
         """One read of the fight, in order: is the read usable, is the fight over, whose turn is it."""

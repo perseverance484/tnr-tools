@@ -25,7 +25,7 @@ class Lanes(unittest.TestCase):
         self.assertEqual(self.b.used(self.rig.t + 200), 2)             # the first batch is back and has left the
         #                                                                minute; the two still out have not
         self.rig.t += 200
-        self.b.settle()                                                # the batch is back
+        self.b.settle(asked=())                                        # the batch is back
         self.assertEqual(self.b.used(self.rig.t + 61), 0)              # and the window empties a minute after that
 
     def test_actions_and_recovery_wait_for_nothing_but_the_accounts_limit(self):

@@ -67,6 +67,7 @@ CALL_LIMIT = 30          # the connector's limit for the whole account, any clie
 WORLD_CAP = 20           # the world lane outside fights
 RATE_BACKOFF = 6.0       # s to wait after "Too Many Requests" on the world lane
 CALL_COST = 0.4          # s a relayed call is assumed to take, for pacing
+LOOSE_FOR = 900.0        # s the calls of a relay that was replaced mid-batch count in every minute, unless it reports
 
 # ---------------------------------------------------------------- the relay (design section 4.7)
 ROTATE_AFTER_TOKENS = 60_000    # a relay is rotated once its context has grown this much past its first batch
