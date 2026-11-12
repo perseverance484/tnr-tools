@@ -43,6 +43,8 @@ relay that is still running, its calls go uncounted and the account can pass 30 
 - At the start of a session, when no relay from before can be running: `stopped all`.
 - `all` covers exactly what is held at the moment you say it. A relay that is replaced later is not covered:
   say it again then.
+- What is held is read from what the brain last saved. If a batch you expect is not listed yet, let the relay
+  ask once more and list again.
 
 ## What it does
 
