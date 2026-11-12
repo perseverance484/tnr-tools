@@ -482,6 +482,21 @@ class Equipment(Upkeep):
         rig.t += equipment.RETRY + 1
         self.assertEqual(rig.tick(rich())["activity"], "equipment")
 
+    def test_one_loadout_answered_is_not_both_selected(self):
+        """The jutsu loadout's yes came back, the item loadout's answer did not (or it said no)."""
+        for second in (None, {"success": False, "message": "No"}):
+            rig = self.rig(mode="hunt")
+            rig.world["control"]["activities"]["restock"] = False
+            out = rig.tick(rich())
+            answers = [res(out["steps"][0]["call"], {"success": True}, out["steps"][0]["input"])]
+            if second:
+                answers.append(res(out["steps"][1]["call"], second, out["steps"][1]["input"]))
+            rig.tick(*answers, rich())
+            self.assertNotIn("selected", rig.world.own("equipment"), second)
+            self.assertEqual([e for e in rig.events("activity_done") if "loadouts are selected" in e["text"]], [])
+            rig.t += equipment.RETRY + 1
+            self.assertEqual(rig.tick(rich())["steps"][:2], K.loadouts(*equipment.PVP1), second)   # both, again
+
 
 class Bank(Upkeep):
     """RUL-2026-11-12-153: "10m is fine to pull out for training but 200k is the in pocket limit for running
