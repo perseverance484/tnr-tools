@@ -378,6 +378,44 @@ class Training(Upkeep):
         rig.t += training.ENERGY_BLOCK + 1
         self.assertEqual(rig.tick(home)["steps"][0]["call"], "train.startTraining")
 
+    def test_unspent_experience_levels_intelligence_and_willpower_and_then_goes_to_both(self):
+        """ryo_plan.md: "Put it into intelligence until it matches willpower, then split." """
+        for stats, exp, points in (
+                ({"intelligence": 900, "willpower": 1000}, 7054, {"intelligence": 3577, "willpower": 3477}),
+                ({"intelligence": 5000, "willpower": 1000}, 3000, {"willpower": 3000}),   # the one that trails, first
+                ({"intelligence": 1000, "willpower": 1000}, 1001, {"intelligence": 501, "willpower": 500})):
+            rig = self.rig()
+            rig.world.own("training")["next"] = rig.t + 9999                # (the queue was just looked at)
+            out = rig.tick(rich(earnedExperience=exp, **stats))
+            self.assertEqual((out["activity"], out["steps"][0]), ("training", K.spend_experience(points)), exp)
+            sent = out["steps"][0]["input"]
+            self.assertEqual((sorted(sent), sum(sent.values())), (sorted(K.STATS), exp))   # every field; all of it
+        rig = self.rig()
+        rig.world.own("training")["next"] = rig.t + 9999
+        little = rich(earnedExperience=training.EXP_MIN - 1, intelligence=1, willpower=2)
+        self.assertNotEqual(rig.tick(little)["activity"], "training")       # not worth a call yet
+
+    def test_experience_is_not_assigned_twice_in_ten_minutes_and_a_refusal_stops_it_for_an_hour(self):
+        rig = self.rig()
+        rig.world.own("training")["next"] = rig.t + 99999
+        me = rich(earnedExperience=5000, intelligence=1000, willpower=1000)
+        out = rig.tick(me)
+        yes = res("profile.useUnusedExperiencePoints", {"success": True}, out["steps"][0]["input"])
+        self.assertNotEqual(rig.tick(yes, me)["activity"], "training")      # (a profile that still shows it)
+        done = [e["text"] for e in rig.events("activity_done")]
+        self.assertEqual(done, ["training: experience assigned (2,500 to intelligence, 2,500 to willpower)",
+                                "training: 2,500 experience to intelligence, 2,500 experience to willpower"])
+        rig.t += training.SOON + 1
+        out = rig.tick(me)
+        self.assertEqual(out["activity"], "training")                       # ten minutes on, when it is still there
+        no = res("profile.useUnusedExperiencePoints", {"success": False, "message": "No"}, out["steps"][0]["input"])
+        rig.tick(no, me)
+        self.assertIn("the experience was refused (No)", rig.events("finding")[-1]["text"])
+        rig.t += training.SOON + 1
+        self.assertNotEqual(rig.tick(me)["activity"], "training")
+        rig.t += training.ENERGY_BLOCK
+        self.assertEqual(rig.tick(me)["activity"], "training")
+
     def test_a_queue_read_that_cannot_be_used_is_read_again_later(self):
         rig = self.rig()
         rig.tick(rich())

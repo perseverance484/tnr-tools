@@ -28,7 +28,7 @@ def is_call(step):
 USER_SEL = ["userData.status", "userData.battleId", "userData.curHealth", "userData.maxHealth", "userData.sector",
             "userData.longitude", "userData.latitude", "userData.curChakra", "userData.maxChakra",
             "userData.curStamina", "userData.maxStamina", "userData.money", "userData.bank", "userData.curEnergy",
-            "userData.intelligence", "userData.willpower", "userData.dailyErrands"]
+            "userData.intelligence", "userData.willpower", "userData.dailyErrands", "userData.earnedExperience"]
 
 
 def user():
@@ -276,6 +276,16 @@ def train_jutsu(jutsu_id):
 
 def train_stat(stat, energy):
     return call("train.startTraining", {"stat": stat, "energy": int(energy)}, DONE)
+
+
+STATS = ("offence", "defence", "strength", "speed", "intelligence", "willpower", "ninjutsuMastery",
+         "genjutsuMastery", "taijutsuMastery", "bukijutsuMastery", "Fire", "Water", "Wind", "Earth", "Lightning")
+"""Every field profile.useUnusedExperiencePoints asks for (data/mcp_surface.json): all are required."""
+
+
+def spend_experience(points):
+    """Assign unspent experience: {stat: points}; every other stat gets none."""
+    return call("profile.useUnusedExperiencePoints", {s: int(points.get(s, 0)) for s in STATS}, DONE)
 
 
 def to_bank(ryo):

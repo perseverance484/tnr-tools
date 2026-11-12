@@ -18,8 +18,13 @@ willpower, else to willpower. With TRIP or more saved up elsewhere, the characte
 A refusal stops energy training for an hour, and a trip that did not lead to training is not made again for
 half an hour.
 
+Unspent experience goes to intelligence and willpower (state/player/dauntless/ryo_plan.md; director
+2026-11-09: "can spend all our exp on willpower/intelligence"; "Put it into intelligence until it matches
+willpower, then split"): the one that trails is brought level first, the rest is split between the two. EXP_MIN
+or more is worth the call. A refusal stops it for an hour, and it is not tried twice in ten minutes.
+
 Not built here (the allowlist has them as proposed, or they need a decision): the training captcha, the skill
-tree, a sensei, spending unused experience, and level transfers.
+tree, a sensei, and level transfers.
 """
 from .. import calls as K
 from .. import config as C
@@ -40,6 +45,7 @@ SOON = 600.0               # s, when the refusal is about the moment and not the
 ENERGY_BLOCK = 3600.0      # s after a refused stat training
 TRIP_AGAIN = 1800.0        # s before another trip when one did not lead to training
 DRAW_FOR = 120.0           # s a queue fill waits for the bank to fill the pocket
+EXP_MIN = 1_000            # unspent experience worth a call
 PASSING = ("travel", "hospital", "battle", "full", "asleep", "money", "afford", "funds")
 
 
@@ -47,7 +53,8 @@ PASSING = ("travel", "hospital", "battle", "full", "asleep", "money", "afford", 
 class Training(Activity):
     name = "training"
     priority = "upkeep"
-    reads = ("jutsu.getTrainingQueue", "jutsu.getUserJutsus", "jutsu.startTraining", "train.startTraining")
+    reads = ("jutsu.getTrainingQueue", "jutsu.getUserJutsus", "jutsu.startTraining", "train.startTraining",
+             "profile.useUnusedExperiencePoints")
 
     # ------------------------------------------------------------ what there is to do
     def _energy(self, world):
@@ -63,6 +70,18 @@ class Training(Activity):
             return "trip", None
         return None
 
+    def _experience(self, world):
+        """{stat: points} for the unspent experience, or None: the one of intelligence and willpower that trails
+        is brought level with the other, and what is left is split between the two."""
+        me, exp = world.me, world.me.get("earnedExperience")
+        if not isinstance(exp, (int, float)) or isinstance(exp, bool) or exp < EXP_MIN \
+                or world.now < world.own(self.name).get("exp_blocked", 0):
+            return None
+        exp, gap = int(exp), int((me.get("willpower") or 0) - (me.get("intelligence") or 0))
+        low, high = ("intelligence", "willpower") if gap >= 0 else ("willpower", "intelligence")
+        level = min(exp, abs(gap))
+        return {low: level + (exp - level + 1) // 2, high: (exp - level) // 2}
+
     @staticmethod
     def _funded(world):
         """Whether a queue fill may go ahead: the pocket holds what may be drawn for training, or the bank has
@@ -75,7 +94,7 @@ class Training(Activity):
         own = world.own(self.name)
         return (world.status() == "AWAKE" and not world.in_battle()
                 and bool((own.get("fresh") and self._funded(world)) or world.now >= own.get("next", 0)
-                         or self._energy(world)))
+                         or self._energy(world) or self._experience(world)))
 
     def value(self, world):
         return 4.0
@@ -90,6 +109,8 @@ class Training(Activity):
                 self._queued(world, own, r)
             elif r.endpoint == "train.startTraining":
                 self._trained(world, own, r)
+            elif r.endpoint == "profile.useUnusedExperiencePoints":
+                self._assigned(world, own, r)
         if len(seen) == 2:
             self._read(world, own, seen["jutsu.getTrainingQueue"], seen["jutsu.getUserJutsus"])
 
@@ -136,6 +157,15 @@ class Training(Activity):
             own.update(energy_blocked=world.now + ENERGY_BLOCK, no_trip=world.now + TRIP_AGAIN)
             world.event("finding", f"training: the energy was refused ({said})"[:300], about="training")
 
+    def _assigned(self, world, own, r):
+        ok, said = self._said(r)
+        given = ", ".join(f"{n:,} to {s}" for s, n in (r.input or {}).items() if n)
+        if ok:
+            world.event("activity_done", f"training: experience assigned ({given})", activity=self.name)
+        else:
+            own["exp_blocked"] = world.now + ENERGY_BLOCK
+            world.event("finding", f"training: the experience was refused ({said}); {given}"[:300], about="training")
+
     # ------------------------------------------------------------ the plan
     def plan(self, world):
         own = world.own(self.name)
@@ -144,18 +174,23 @@ class Training(Activity):
             world["training"].pop("draw_until", None)              # what the fill leaves may go back to the bank
             steps, notes = self._fill(world)
             if steps:
-                return plan(steps + [K.user()], "world", "training: " + ", ".join(notes))
+                return plan(steps + [K.user()], "world", "queued: " + ", ".join(notes))
         if world.now >= own.get("next", 0):
             own["next"] = world.now + SOON                         # an answer sets the real time of the next look
-            return plan([K.training_queue(), K.my_jutsu(), K.user()], "world", "training: reading the queue")
+            return plan([K.training_queue(), K.my_jutsu(), K.user()], "world", "reading the queue")
         energy = self._energy(world)
         if energy and energy[0] == "train":
             n = int(world.me["curEnergy"])
-            return plan([K.train_stat(energy[1], n), K.user()], "world", f"training: {n} energy to {energy[1]}")
+            return plan([K.train_stat(energy[1], n), K.user()], "world", f"{n} energy to {energy[1]}")
         if energy:
             own["no_trip"] = world.now + TRIP_AGAIN                # (a trip that ends in training is not the last)
             return plan(K.trip(C.HOME_SECTOR), "world",
-                        f"training: {world.me['curEnergy']:.0f} energy, going to the village ({C.HOME_SECTOR})")
+                        f"{world.me['curEnergy']:.0f} energy, going to the village ({C.HOME_SECTOR})")
+        points = self._experience(world)
+        if points:
+            own["exp_blocked"] = world.now + SOON                  # the profile read behind it shows what is left
+            return plan([K.spend_experience(points), K.user()], "world",
+                        ", ".join(f"{n:,} experience to {s}" for s, n in points.items() if n))
         return None
 
     @staticmethod

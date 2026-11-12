@@ -53,14 +53,14 @@ class Bank(Activity):
         want, who = wish(world)
         if who and pocket < want:
             give = min(want - pocket, spare)
-            return (K.to_pocket(give), f"bank: {give:,.0f} ryo to the pocket for {who}", who) if give >= 1 else None
+            return (K.to_pocket(give), f"{give:,.0f} ryo to the pocket for {who}", who) if give >= 1 else None
         if who == "training":
             return None                        # the fill is still to come: what is in the pocket stays there
         if pocket > POCKET:
-            return K.to_bank(pocket - KEEP), f"bank: {pocket - KEEP:,.0f} ryo to the bank", None
+            return K.to_bank(pocket - KEEP), f"{pocket - KEEP:,.0f} ryo to the bank", None
         if pocket < LOW and spare >= 1:
             give = min(KEEP - pocket, spare)
-            return K.to_pocket(give), f"bank: {give:,.0f} ryo to the pocket", None
+            return K.to_pocket(give), f"{give:,.0f} ryo to the pocket", None
         return None
 
     def available(self, world):

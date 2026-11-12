@@ -116,13 +116,13 @@ class Restock(Activity):
         if not own.get("fresh"):
             if own.get("tries", 0) >= READ_TRIES:
                 return self._rest(world, ["my items could not be read"])
-            return plan([K.items(), K.user()], "world", "restock: reading my items")
+            return plan([K.items(), K.user()], "world", "reading my items")
         own["fresh"] = False
         steps, notes = self._short(world)
         if not steps or own["passes"] >= PASSES:
             return self._rest(world, notes)
         own["passes"] += 1
-        return plan(steps + [K.items(), K.user()], "world", "restock: " + "; ".join(notes))
+        return plan(steps + [K.items(), K.user()], "world", "; ".join(notes))
 
     @staticmethod
     def _rest(world, notes):

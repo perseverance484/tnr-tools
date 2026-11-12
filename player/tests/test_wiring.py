@@ -153,6 +153,10 @@ class Session:
                    user(**rich))                                           # training: the free places are filled
         out = tick(*yes(out, "jutsu.startTraining"), user(**rich))         # bank: the pocket is over its mark
         tick(*yes(out, "bank.toBank"), user(money=100_000, bank=929_900_000))
+        said = [e["text"] for e in rig.events("activity_done")]
+        assert any(t.startswith("training: queued: ") for t in said), said
+        twice = [t for t in said if t.split(": ")[0] == (t.split(": ") + [""])[1]]
+        assert not twice, f"an activity's note repeats its name: {twice}"
 
     def marks(self):
         """What the stand-in scripts wrote down, by tool."""

@@ -86,6 +86,6 @@ class Equipment(Activity):
             spare = self.backup(world)
             own["swapping"] = True
             return plan([K.equip(spare["id"], "THROWN"), K.items()], "world",
-                        f"equipment: the thrown slot is empty, the backup goes in ({spare['quantity']})")
+                        f"the thrown slot is empty, the backup goes in ({spare['quantity']})")
         own["answered"] = []
-        return plan(K.loadouts(*PVP1) + [K.user()], "world", "equipment: selecting the PvP 1 loadouts")
+        return plan(K.loadouts(*PVP1) + [K.user()], "world", "selecting the PvP 1 loadouts")
