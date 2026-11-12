@@ -112,30 +112,41 @@ class Brain:
 
     def _ledger(self, results):
         """What became of the last batch's calls, from who the request says has which batch. Evidence that a
-        loose batch is over comes first. Then the last batch: handed in by the relay it was printed to; or
-        printed to a relay that was replaced before it handed it in, and loose; or never printed to any relay
-        (its request died, or it grew old unprinted), and counted from now all the same."""
+        loose batch is over comes first. Then the last batch, by what the request positively says of it:
+          handed in     the relay asking holds it: it was printed to that relay, and that relay is back
+          gone          it was printed to a relay that has been replaced since: loose, under that relay's token
+          never printed its `brain next` died before it had the answer down, or it grew old unprinted: counted
+                        from now all the same
+          not on record none of these: loose, with no relay to its name. Not knowing who has a batch is not
+                        knowing that nobody has it (review of efa79808, finding 2: a client file without the
+                        record, an older one for one, made a printed batch count as never printed)
+        A caller that says nothing of who has what (a test that drives the brain itself) is the relay back."""
         w, ask, last = self.world, self.ask, self.world["budget"].get("batch")
         self.evidence(ask)
-        if "held" not in ask or (ask["held"] or {}).get("id") == last:
+        held = ask.get("held")
+        if "held" not in ask or (held and held.get("id") == last):
             self.budget.settle(results, w["relay"].get("last_batch") or [], ask.get("clock") == "ours")
             return
         holder = next((g for g in ask.get("gone") or [] if isinstance(g, dict) and g.get("id") == last), None)
         if holder:
             self.budget.settle(holder=holder.get("token"))
-        else:
+        elif last is not None and last in (ask.get("unprinted") or []):
             self.budget.settle(asked=())
+        else:
+            self.budget.settle(holder=None)
 
     def evidence(self, ask):
         """The request's word that held batches are over: a replaced relay came back, or the operator says one
-        was stopped. Taking it twice changes nothing, so it is taken from every request, also one that is
+        was stopped. Each row names one batch by its id, so taking it twice changes nothing, and it never
+        reaches a batch that went loose after it was said. So it is taken from every request, also one that is
         otherwise answered from its receipt."""
         for row in ask.get("ended") or []:
             if isinstance(row, list) and len(row) >= 2:
                 n = self.budget.ended(row[0], row[1])
                 if n and row[3:4] == ["stopped"]:
-                    self.world.event("setting_changed", f"the operator says relay {row[2]} has been stopped: {n} "
-                                                        f"held call(s) are counted from then", about="budget")
+                    self.world.event("setting_changed", f"the operator says {row[2] or 'the relay of batch ' + str(row[0])} "
+                                                        f"has been stopped: {n} held call(s) are counted from then",
+                                     about="budget")
 
     def _undo(self, known):
         """The tick failed. The batch will not reach the relay, so nothing it planned was sent: back to what
@@ -178,8 +189,7 @@ class Brain:
             steps = self._compose(act, p)
             if steps is None:
                 raise ValueError("the gates refused the last resort")
-            steps, waited = self.budget.pace(steps, p.lane, w.now)
-            steps, hold = _lead(steps, 0.0)
+            steps, hold, _ = self._paced(steps, p.lane, 0.0)
             out = {"steps": steps, "hold": hold, "stop": None, "activity": act.name, "note": p.note, "queue": []}
             _crashed(self, w.live, crash)
             self._record(out)
@@ -240,16 +250,24 @@ class Brain:
                 w.own("brain")["blocked"][act.name] = w.now + BLOCK_FOR
                 continue
             hold = max(p.hold, C.RATE_BACKOFF) if limited and p.lane == "world" else p.hold
-            wanted = any("call" in x for x in steps)
-            steps, waited = self.budget.pace(steps, "recovery" if p.tag == "fight_end" else p.lane, w.now + hold)
-            steps, hold = _lead(steps, hold)
-            if wanted and not any("call" in x for x in steps):   # the minute had no room for any of it
-                hold = max(hold, C.RATE_BACKOFF)
+            steps, hold, waited = self._paced(steps, "recovery" if p.tag == "fight_end" else p.lane, hold)
             return {"steps": steps, "hold": hold, "stop": None, "activity": act.name,
                     "note": p.note + (f" (paced {waited}s)" if waited else ""),
                     "queue": [(a.name, a.priority, 0) for a in ranked[i + 1:]]}
         why = "paused" if w["control"]["paused"] else "nothing to do"
         return {"steps": [], "hold": IDLE_HOLD, "stop": None, "note": why, "activity": None, "queue": []}
+
+    def _paced(self, steps, lane, hold):
+        """A plan's steps under the call budget: (the steps, the wait in front of them, the seconds paced). When
+        the minute has room for none of the calls the plan asked for, the relay is not sent straight back for
+        the same answer: it waits. Every path that makes a batch comes through here (review of efa79808,
+        finding 3: the last resort did not, and answered with nothing and no wait, again and again)."""
+        wanted = any("call" in x for x in steps)
+        steps, waited = self.budget.pace(steps, lane, self.world.now + hold)
+        steps, hold = _lead(steps, hold)
+        if wanted and not any("call" in x for x in steps):
+            hold = max(hold, C.RATE_BACKOFF)
+        return steps, hold, waited
 
     def _plan(self, act):
         """The activity's plan. A fight's plan that fails fails the tick (which is undone, and the turn's clock
@@ -290,6 +308,8 @@ class Brain:
     def _record(self, out):
         """Book-keeping after a decision: the relay's state, the console's files, the world model on disk."""
         w, r = self.world, self.world["relay"]
+        if not out["stop"] and out["hold"] <= 0 and not any("call" in x for x in out["steps"]):
+            out["hold"] = C.RATE_BACKOFF        # nothing to do and no wait would bring the relay straight back
         prev = r.get("activity")
         if prev and prev != out["activity"] and prev not in QUIET:
             w.event("activity_done", f"{prev}: {r.get('note', '')}", activity=prev)
@@ -486,14 +506,19 @@ RETRY_IN = 5.0            # s before a relay asks again when the brain gave no a
 
 def _who(client):
     """client.json, with who has what in the shape this code writes: a file from an older version, or one that
-    was edited, never makes a batch look held or gone that this code did not print."""
+    was edited, never makes a batch look held or gone that this code did not print. What is dropped here is
+    not taken for its opposite: a batch that this file says nothing of is, to the brain, not on record."""
     state = relay.read(client) or {}
 
     def batch(g):
         return isinstance(g, dict) and isinstance(g.get("token"), str) and isinstance(g.get("id"), str)
     state["held"] = state.get("held") if batch(state.get("held")) else None
     state["gone"] = [g for g in state.get("gone") or [] if batch(g)]
-    state["ended"] = [e for e in state.get("ended") or [] if isinstance(e, list) and len(e) >= 2]
+    state["ended"] = [e for e in state.get("ended") or []          # [batch, when, whose, how], as written here
+                      if isinstance(e, list) and len(e) == 4 and isinstance(e[0], (str, int))
+                      and not isinstance(e[0], bool) and isinstance(e[1], (int, float))
+                      and e[3] in ("back", "stopped")]
+    state["unprinted"] = [u for u in state.get("unprinted") or [] if isinstance(u, str)]
     return state
 
 
@@ -562,7 +587,7 @@ def _greet(client, state, token):
         gone = (state.get("gone") or []) + ([state["held"]] if state.get("held") else [])
         state = {"relay": os.urandom(3).hex(), "seq": state.get("seq", 0), "calls": [], "transcript": None,
                  "new": True, "pending": state.get("pending"), "held": None, "gone": gone,
-                 "ended": state.get("ended") or []}
+                 "ended": state.get("ended") or [], "unprinted": state.get("unprinted") or []}
         state["token"] = f"{state['relay']}-{state['seq']}"
         relay.write(client, state)
         return relay.next_line(state["token"])
@@ -591,17 +616,22 @@ def _exchange(live, client, state, sleep):
         seq, rid = state["seq"] + 1, os.urandom(4).hex()
         _sweep(live)
         req = relay.request_path(live, seq, rid)
-        relay.write(req, {"seq": seq, "id": rid, "relay": state["relay"], "results": relay.pack(results),
-                          "usage": usage, "strays": strays, "at": time.time(),
-                          "clock": "transcript" if path else "ours", "held": state.get("held"),
-                          "gone": state.get("gone") or [], "ended": state.get("ended") or []})
+        ask = {"seq": seq, "id": rid, "relay": state["relay"], "results": relay.pack(results), "usage": usage,
+               "strays": strays, "at": time.time(), "clock": "transcript" if path else "ours",
+               "held": state.get("held"), "gone": state["gone"], "ended": state["ended"],
+               "unprinted": state["unprinted"]}
+        # On record before it is asked: whatever the brain makes of this request has not been printed. If this
+        # `brain next` dies now, the next one can say so, and the brain need not hold that batch for anyone.
+        state["unprinted"] = state["unprinted"] + [rid]
+        relay.write(client, state)
+        relay.write(req, ask)
         batch = _await(live, seq, rid, req, sleep)
         if batch is None:
             return None, RETRY_IN
         hold = batch["hold"]
         pending = {"id": batch.get("id") or rid, "seq": seq, "steps": batch["steps"], "stop": batch["stop"],
                    "ready_at": time.time() + hold}
-        state.update(held=None, ended=[])                          # the brain has them, saved beside its answer
+        state.update(held=None, ended=[], unprinted=[])            # the brain has them, saved beside its answer
     state.update(pending=pending, transcript=path, new=False, handed=state["token"])
     relay.write(client, state)
     _taken(live, state["token"])                                   # and only now are they no longer needed here
@@ -625,6 +655,8 @@ def _owed(state):
     pending = state.get("pending")
     if pending and time.time() - pending["ready_at"] > C.STALE_OUTBOX:
         state["seq"] = max(state.get("seq", 0), pending["seq"])    # its number is not used again
+        state["unprinted"] = state["unprinted"] + [pending["id"]]  # it was not printed, and now never will be
+        state["pending"] = None
         return None
     return pending
 
@@ -653,27 +685,47 @@ def _await(live, seq, rid, req, sleep, limit=90.0):
     return None
 
 
-def stopped(live, tokens, out=sys.stdout):
-    """`brain stopped TOKEN ...`, or `brain stopped all`: the operator's word that a replaced relay has been
-    stopped and will make no call from now on. The brain was holding that relay's batch against the minute; it
-    now counts those calls from this moment, so they leave a minute from now. `all` is every replaced relay,
-    never the one that is running. With no token: the batches that are held, and nothing is changed.
+def stopped(live, names, out=sys.stdout):
+    """`brain stopped TOKEN ...`, or `brain stopped all`: the operator's word that a relay which did not hand
+    its batch in has been stopped and will make no call from now on. The brain was holding that batch against
+    the minute; it now counts those calls from this moment, so they leave a minute from now.
 
-    Say it only of a relay that is known to be stopped: this is the one statement the ledger takes on trust."""
+    The word covers the batches that are held at the moment it is said, each by its id, and is kept that way:
+    it is never read again as "whatever is held by then" (review of efa79808, finding 1). `all` is every held
+    batch: those of the relays replaced so far, and those the ledger holds for a relay that is not on record.
+    It is never the batch of the relay that is running, and never one that goes loose later. A batch can also
+    be named by its id. With no name: the batches that are held, and nothing is changed.
+
+    Say it only of relays that are known to be stopped: this is the one statement the ledger takes on trust."""
     client = os.path.join(live, "client.json")
     with _client(live):
-        state = _who(client)
-        gone, now = state.get("gone") or [], time.time()
-        said = gone if "all" in tokens else [g for g in gone if g["token"] in tokens]
-        if said or "all" in tokens:
-            ended = [["*", now, "every replaced relay", "stopped"]] if "all" in tokens else \
-                [[g["id"], now, g["token"], "stopped"] for g in said]
-            state.update(gone=[g for g in gone if g not in said], ended=(state.get("ended") or []) + ended)
+        state, now = _who(client), time.time()
+        held = _held(live, state)
+        said = {b: t for b, t in held.items() if "all" in names or t in names or b in names}
+        if said:
+            state["gone"] = [g for g in state["gone"] if g["id"] not in said]
+            state["ended"] = state["ended"] + [[b, now, t, "stopped"] for b, t in said.items()]
             relay.write(client, state)
-    out.write(json.dumps({"stopped": [g["token"] for g in said], "all": "all" in tokens,
-                          "not_held": [t for t in tokens if t != "all" and t not in [g["token"] for g in gone]],
-                          "still_held": [g["token"] for g in gone if g not in said]}) + "\n")
+
+    def name(batch):
+        return held[batch] or f"batch {batch}"
+    known = set(held) | {t for t in held.values() if t}
+    out.write(json.dumps({"stopped": [name(b) for b in said], "all": "all" in names,
+                          "not_held": [n for n in names if n != "all" and n not in known],
+                          "still_held": [name(b) for b in held if b not in said]}) + "\n")
     return 0
+
+
+def _held(live, state):
+    """Every batch that is held now, by its id, with the token of the relay that has it (None when that is not
+    on record): those the client's file says went with a replaced relay, and those the brain's saved ledger
+    holds, whoever has them. Never the batch of the relay that is running: that one is out, not loose."""
+    held = {g["id"]: g["token"] for g in state["gone"]}
+    ledger = ((relay.read(os.path.join(live, "world.json")) or {}).get("budget") or {}).get("calls") or []
+    for c in ledger:
+        if c[2:3] == ["loose"] and len(c) > 3 and c[3] is not None:
+            held.setdefault(c[3], c[5] if len(c) > 5 else None)
+    return held
 
 
 def put(live, token, index, text):
@@ -709,7 +761,7 @@ def main(argv=None):
     if cmd == "put" and len(argv) == 3:
         return put(live, argv[1], argv[2], sys.stdin.read())
     if cmd == "stopped":
-        return stopped(live, argv[1:])
+        return stopped(live, argv[1:], sys.stdout)
     if cmd == "set":
         print(json.dumps(console.set_control(live, **dict(_setting(a) for a in argv[1:]))))
         return 0

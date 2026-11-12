@@ -153,7 +153,8 @@ class K1NoLengthOfTimeIsEvidence(Client):
         self.assertEqual(len(about(rig, "budget", "stall")), 3)
         out = rig.tick(user())
         self.assertEqual((rig.calls(out), out["hold"] >= C.RATE_BACKOFF), ([], True))   # the relay is not spun
-        self.assertEqual(budget.ended("*", rig.t), C.CALL_LIMIT)            # the operator's word
+        (token, batch, n, _), = budget.loose()
+        self.assertEqual((token, n, budget.ended(batch, rig.t)), ("aa11bb-4", C.CALL_LIMIT, C.CALL_LIMIT))   # the operator's word
         rig.t += 61
         self.assertEqual(len(budget.pace([K.user()], "recovery")[0]), 1)
 

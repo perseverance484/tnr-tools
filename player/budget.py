@@ -33,7 +33,8 @@ call is in one of three states, and only the brain's own clock moves it from one
           minute later. No length of time is evidence (review of 442a6311: a hold that ended by itself let a
           call made just before its end go uncounted). After LOOSE_ALERT a held batch is raised as a stall.
 A batch is known by the id of the request that made it, and a loose call carries that id and the token its relay
-had: only a report for that very batch settles it.
+had: only a report for that very batch settles it. A batch is also loose when nothing on record says who has
+it: not knowing is not knowing that nobody has it (review of efa79808, finding 2).
 
 So with a relay that is slow, uneven, wrong about the time, or replaced in the middle of a batch, the ledger is
 never ahead of the account's real minute. The price is room: calls held for relays that never come back use up
@@ -45,11 +46,13 @@ line so far is fired; a missing exact read is not waited for past T+12 s; the ac
 turn's timing is logged (turns.jsonl) with how long the fight went unread before the turn was seen, and with how
 the turn ended: acted, missed, or unresolved. A turn that lands within 20 s of the game's limit is a finding.
 """
+import os
+
 from . import calls as K
 from . import config as C
 
 HOW_TO_RELEASE = ("When that relay is known to have been stopped, say so: python3 -m player.brain stopped TOKEN "
-                  "(or: all).")
+                  "(or: all, when every relay but the one running is known to be stopped).")
 TURN_ACTIONS = 5            # the most actions one turn of mine sends: no read ever takes their room
 TURN_RESERVE = TURN_ACTIONS + 3     # kept free for my turn while the fight is only watched: its actions and a poll
 WINDOW = 60.0
@@ -77,9 +80,27 @@ def is_poll(step):
     return bool((step.get("meta") or {}).get("poll"))
 
 
+def _whose(c):
+    """A loose call's relay, in words."""
+    return f"relay {c[5]}" if c[5] else f"a relay that is not on record (batch {c[3]})"
+
+
+def _orphan():
+    """An id for a batch that has none on record, so that it can still be named when it is let go."""
+    return "unknown-" + os.urandom(3).hex()
+
+
 class Budget:
     def __init__(self, world):
         self.world = world
+        self._shape()
+
+    def _shape(self):
+        """A ledger written by an earlier version of this code: a loose call gets the fields it has now (its
+        batch, since when, whose). It stays loose; only an end by the clock, which it may have had, is dropped."""
+        for c in self.world["budget"]["calls"]:
+            if _state(c) == "loose" and len(c) != 6:
+                c[2:] = ["loose", c[3] if len(c) > 3 and c[3] is not None else _orphan(), self.world.now, None]
 
     def _hist(self, now):
         """The calls that count at `now`: the settled ones of the last minute, and every call that is out or
@@ -99,9 +120,9 @@ class Budget:
             if batch not in told and now - c[4] > C.LOOSE_ALERT:
                 told.append(batch)
                 n = sum(1 for x in calls if _state(x) == "loose" and x[3] == batch)
-                self.world.event("stall", f"{n} call(s) of relay {c[5] or '?'} have been held against the minute "
-                                          f"for {now - c[4]:.0f} s: it was replaced with a batch in hand and has "
-                                          f"not come back. {HOW_TO_RELEASE}", about="budget")
+                self.world.event("stall", f"{n} call(s) of {_whose(c)} have been held against the minute for "
+                                          f"{now - c[4]:.0f} s: it had a batch in hand and has not come back. "
+                                          f"{HOW_TO_RELEASE}", about="budget")
         self.world["budget"]["alerted"] = told
 
     def used(self, now=None, lane=None):
@@ -110,12 +131,13 @@ class Budget:
         return sum(1 for c in self._hist(now) if lane is None or c[1] == lane)
 
     def loose(self):
-        """The batches held for relays that have not come back: [(the relay's token, calls, held since), ...]."""
+        """The batches held for relays that have not come back: [(the relay's token, or None when it is not on
+        record; the batch's id; calls; held since), ...]."""
         groups = {}
         for c in self.world["budget"]["calls"]:
             if _state(c) == "loose":
-                groups.setdefault((c[5], c[4]), []).append(c)
-        return [(token, len(cs), since) for (token, since), cs in groups.items()]
+                groups.setdefault((c[5], c[3], c[4]), []).append(c)
+        return [(token, batch, len(cs), since) for (token, batch, since), cs in groups.items()]
 
     def stray(self, n):
         """Calls the relay made that no batch asked for. They used the account's minute all the same."""
@@ -128,17 +150,20 @@ class Budget:
         by now and is counted from now; with own_clock, the results' times are the brain's own (`brain put`), and
         an answered call is counted from its answer when that lies between its admission and now.
 
-        asked None: the batch is given up. Its relay (holder: the token it had) was replaced before it came
-        back, so its calls are loose (review of c0006266, finding 2: they were taken to have run by now, and a
-        relay that went on with them afterwards made a 31st call in a minute)."""
+        asked None: the batch is given up. Its relay (holder: the token it had, or None when nothing on record
+        says who has the batch) did not hand it in, so its calls are loose (review of c0006266, finding 2: they
+        were taken to have run by now, and a relay that went on with them afterwards made a 31st call in a
+        minute). A loose batch always has an id, so that evidence can name it."""
         now, out = self.world.now, [c for c in self.world["budget"]["calls"] if _state(c) == "out"]
         if asked is None:
+            batch = self.world["budget"].get("batch")
+            batch = _orphan() if batch is None else batch
             for c in out:
-                c[2:] = ["loose", self.world["budget"].get("batch"), now, holder]
+                c[2:] = ["loose", batch, now, holder]
             if out:
-                self.world.event("finding", f"relay {holder or '?'} was replaced with a batch in hand: its "
-                                            f"{len(out)} call(s) count in every minute until it comes back or "
-                                            f"is confirmed stopped. {HOW_TO_RELEASE}", about="budget")
+                self.world.event("finding", f"{len(out)} call(s) of {_whose(out[0])} count in every minute until "
+                                            f"it comes back or is confirmed stopped: it did not hand its batch "
+                                            f"in. {HOW_TO_RELEASE}", about="budget")
             return
         left = list(results) if own_clock and len(asked) == len(out) else []
         for i, c in enumerate(out):
@@ -152,12 +177,14 @@ class Budget:
     def ended(self, batch, at):
         """There is evidence that batch `batch` is over as of `at`, by the brain's clock: its replaced relay came
         back, or the operator says that relay was stopped. Its calls are counted from then. Only the batch with
-        that very id is settled; "*" is the operator's word for every loose batch. Returns how many calls."""
+        that very id is settled, so evidence taken a second time, or after other batches have gone loose,
+        settles nothing more (review of efa79808, finding 1: "every loose batch" was a word that grew with the
+        ledger). Returns how many calls."""
         now, n = self.world.now, 0
         at = at if isinstance(at, (int, float)) and not isinstance(at, bool) else now
         mine = batch is not None and self.world["budget"].get("batch") == batch   # still out: not yet called loose
         for c in self.world["budget"]["calls"]:
-            if (_state(c) == "loose" and batch is not None and batch in ("*", c[3])) or (_state(c) == "out" and mine):
+            if (_state(c) == "loose" and batch is not None and c[3] == batch) or (_state(c) == "out" and mine):
                 c[0] = at if c[0] <= at <= now else now
                 del c[2:]
                 n += 1

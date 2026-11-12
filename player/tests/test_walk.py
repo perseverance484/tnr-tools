@@ -1,27 +1,32 @@
 """A random walk of relays against the real `brain next`, to look for the interleaving nobody thought of.
 
 Each walk: relays that do their batches line by line; replacements at any moment, also while the relay that is
-running waits for the batch it asked for; replaced relays that go on
-with the batch they have, at once or much later, and come back; relays that were told to stop and ask again
-all the same; relays that die without a word; `brain next` processes that die before the brain answers, before
-the answer is written down, or before the batch is printed (the relay then runs the line again, or is gone);
-long pauses; and an operator who says "stopped" only of relays that are. The hunt is kept at its fastest, so the world lane runs at its cap and a call that is not counted
-shows as one call too many. Time is the walk's own clock; no call leaves the process.
+running waits for the batch it asked for; replaced relays that go on with the batch they have, at once or much
+later, and come back; relays that were told to stop and ask again all the same; relays that die without a
+word; `brain next` processes that die before the brain answers, before the answer is written down, or before
+the batch is printed (the relay then runs the line again, or is gone); long pauses; a client file that loses
+its record of who holds what, or is lost whole; and an operator who lists what is held, says "stopped" of one
+relay only when that relay is, and says "stopped all" only when every relay but the running one is. The hunt
+is kept at its fastest, so the world lane runs at its cap and a call that is not counted shows as one call too
+many. Time is the walk's own clock; no call leaves the process.
 
 After every step:
   cap       no more calls really made in any minute than the world lane allows (every call here is a world call)
   ledger    every call really made in the last minute is counted by the saved ledger: it is never ahead
-  evidence  the calls of a batch whose relay has neither come back nor been confirmed stopped are all still
-            held (out or loose): nothing but evidence settles them
+  evidence  the calls of a batch whose relay has neither come back nor been stopped are all still held (out or
+            loose): nothing but evidence settles them, and no evidence reaches a batch it was not said of
   heard     once `brain next` has handed the brain the word that a batch is over, none of its calls is loose
-  real      a loose call belongs to a batch that was printed to a relay: none is held for a batch nobody had
+  real      a loose call belongs to a batch that was printed to a relay (or was the brain's last batch when the
+            client's record was lost): none is held for a batch nobody can have
   once      no batch's results reach Brain.handle twice
-  alone     no batch is printed to two relays
+  alone     no batch is printed twice, to one relay or to two
+  listing   asking what is held changes nothing
 
     python3 -m player.tests.test_walk [WALKS [STEPS]]     more walks than the test suite runs (default 200, 300)
 
-What it does not cover: fights, results read from a transcript (the relays here hand results in with `brain
-put`), and a relay that breaks its contract (calls out of order, or `brain next` before its calls).
+What it does not cover: fights and the other lanes, results read from a transcript (the relays here hand
+results in with `brain put`), real processes and locks (a death here is an exception), and a relay that breaks
+its contract (calls out of order, or `brain next` before its calls).
 """
 import collections
 import io
@@ -54,6 +59,7 @@ class Walk:
         self.rig.world.save()
         self.made, self.handed, self.printed, self.batches = [], collections.Counter(), {}, {}
         self.given = set()                        # every batch that was printed, or marked as printed, to a relay
+        self.heard = set()                        # every batch the client has had word of that it is over
         self.inside = False                       # in a replacement's handshake made during another relay's wait
         self.relays, self.cur, self.problems = [], None, []
         real_brain, real_handle = brain.Brain, brain.Brain.handle
@@ -108,11 +114,17 @@ class Walk:
             with mock.patch.object(brain, "answer", answer), mock.patch.object(relay, "write", write):
                 brain.next_batch(self.rig.dir, token, out, sleep)
         finally:
-            self.given.add((self.client().get("held") or {}).get("id"))
+            self.seen()
         return out.getvalue().splitlines()
 
     def client(self):
         return relay.read(os.path.join(self.rig.dir, "client.json")) or {}
+
+    def seen(self):
+        """After anything that writes the client's file: what it now says is printed, and what is over."""
+        state = self.client()
+        self.given.add((state.get("held") or {}).get("id"))
+        self.heard |= {e[0] for e in state.get("ended") or []}
 
     def take(self, r, lines):
         """A relay reads what `brain next` printed. The walk notes which batch that is, by the brain's id."""
@@ -122,8 +134,9 @@ class Walk:
         r["todo"] = [json.loads(x) for x in lines]
         held = self.client().get("held")
         if held and any("call" in x for x in r["todo"]):
-            if self.printed.setdefault(held["id"], r["name"]) != r["name"]:
+            if held["id"] in self.printed:
                 self.problems.append(f"batch {held['id']} printed to {self.printed[held['id']]} and to {r['name']}")
+            self.printed[held["id"]] = r["name"]
             r["batch"] = held["id"]
             self.batches[held["id"]] = {"calls": sum(1 for x in r["todo"] if "call" in x), "over": False}
         if " next" in r["todo"][-1].get("bash", ""):
@@ -148,8 +161,6 @@ class Walk:
                 self.batches[r["batch"]]["over"] = True           # it has done every line of it: it is back
             try:
                 self.take(r, self.next(x["bash"].split(" next")[1].strip() or None, die))
-                if r.get("told") and r.get("batch"):
-                    self.batches[r["batch"]]["said"] = True       # and as a replaced relay, that is the word
             except Died:
                 r["todo"] = [x] if self.rng.random() < 0.7 else []  # it runs the line again, or it is gone
                 r["over"] = r["dead"] = not r["todo"]
@@ -185,7 +196,7 @@ class Walk:
         for batch in {c[3] for c in calls if c[2:3] == ["loose"]}:
             if batch not in self.given:
                 self.problems.append(f"calls are held for batch {batch}, which no relay was given, after {what}")
-            elif self.batches.get(batch, {}).get("said") and batch not in waiting:
+            elif batch in self.heard and batch not in waiting:
                 self.problems.append(f"batch {batch} is still loose, though the brain was told it is over, "
                                      f"after {what}")
         twice = [k for k, n in self.handed.items() if n > 1]
@@ -212,9 +223,9 @@ class Walk:
             r = self.rng.choice(dead)
             r["said"] = True
             if r.get("batch"):
-                self.batches[r["batch"]].update(over=True, said=True)
-            brain.stopped(self.rig.dir, [r["token"]], io.StringIO())
-            return "the operator's word"
+                self.batches[r["batch"]]["over"] = True
+            self.operator([r["token"]])
+            return "the operator's word of one relay"
         told = [r for r in self.relays if r.get("told") and r.get("token")]
         if roll < 0.23 and told:
             r = self.rng.choice(told)                             # a relay that was told to stop asks again
@@ -225,8 +236,54 @@ class Walk:
             die = self.rng.choice(DEATHS)
             self.step(self.cur, die)
             return f"a `brain next` that died {die}"
+        if roll < 0.31:
+            before = self.client()
+            self.operator([])
+            if self.client() != before:
+                self.problems.append("asking what is held changed the client's file")
+            return "the operator asking what is held"
+        if roll < 0.33 and not old:                               # every relay but the running one is stopped
+            for r in self.relays:
+                if r is not self.cur and r.get("batch"):
+                    self.batches[r["batch"]]["over"] = True
+            for batch in self.batches:                            # also what the running relay had and handed in
+                if batch != self.cur.get("batch"):
+                    self.batches[batch]["over"] = True
+            self.operator(["all"])
+            if self.rng.random() < 0.5:
+                return "the operator's word of every relay but the one running"
+            # and then the running relay is replaced, and the replacement's first request dies before it has
+            # its answer down and is asked again: the word is read a second time, with one more relay held
+            self.new()
+            self.step(self.cur, "before the receipt")
+            self.cur["todo"] = self.cur["todo"] or [{"bash": f"x next {self.cur['token'] or ''}".rstrip()}]
+            self.cur["over"] = self.cur["dead"] = False
+            self.step(self.cur)
+            return "the operator's word of every relay, then a replacement that asks twice"
+        if roll < 0.345:
+            return self.lose()
         self.step(self.cur)
         return "a step"
+
+    def operator(self, names):
+        brain.stopped(self.rig.dir, names, io.StringIO())
+        self.seen()
+
+    def lose(self):
+        """The client's file loses its record of who holds what, or is lost whole. What the brain had out then
+        may come to be held for a relay that is not on record; word that was waiting in the file is gone."""
+        path, state = os.path.join(self.rig.dir, "client.json"), self.client()
+        budget = (relay.read(os.path.join(self.rig.dir, "world.json")) or {}).get("budget") or {}
+        self.given.add(budget.get("batch"))
+        self.heard -= {e[0] for e in state.get("ended") or []}
+        if self.rng.random() < 0.5 and state:
+            state.pop("held", None)
+            state.pop("ended", None)
+            relay.write(path, state)
+            return "a client file that lost its record of who holds what"
+        if os.path.exists(path):
+            os.unlink(path)
+        return "a client file that was lost"
 
     def run(self, steps):
         """The problems of a walk of this many steps: the first step that has any ends it."""
