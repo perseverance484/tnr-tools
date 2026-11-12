@@ -33,6 +33,10 @@ is not taken, a waiting batch is not printed, a receipt's batch is not given aga
 stay in the ledger, held. A record's shape cannot say this: an older version wrote a waiting batch with every
 field this one writes, admitted under a rule this one no longer keeps (review of 60a28a84).
 
+A request is also published under a name that carries the number (request_path). A brain reads the requests
+of its own protocol and no other's, so what one version's `brain next` asks is never taken by another
+version's brain.
+
 Change the number whenever the meaning of one of these records changes, or the rules by which the brain admits
 a batch's calls."""
 
@@ -251,10 +255,23 @@ def read(path):
         return None
 
 
+OLD_REQUESTS = "req-*.json"
+"""The name every version before the protocol number gave a request, and the only name a brain of those versions
+looks for. This version never writes it."""
+
+
 def request_path(live, seq, rid=None):
-    """A request's file. rid: the id `brain next` gives each request it makes, so two requests under one number
-    (a relay and its replacement, a request and its retry) are never one file."""
-    return os.path.join(live, "inbox", f"req-{seq:08d}{'-' + rid if rid else ''}.json")
+    """A request's file, under a name that only a brain of this protocol reads. A brain from before the update
+    that is still running looks for OLD_REQUESTS and does not find it (review of 06358ca5: such a brain took
+    this version's request, read it by its own rule as "the last relay is back", and let that relay's calls go;
+    refusing its answer afterwards did not undo that). rid: the id `brain next` gives each request it makes, so
+    two requests under one number (a relay and its replacement, a request and its retry) are never one file."""
+    return os.path.join(live, "inbox", f"p{PROTOCOL}-req-{seq:08d}{'-' + rid if rid else ''}.json")
+
+
+def is_request(path):
+    """Whether a file has this protocol's name for a request."""
+    return os.path.basename(path).startswith(f"p{PROTOCOL}-req-")
 
 
 def batch_path(live, seq, rid=None):
@@ -263,7 +280,11 @@ def batch_path(live, seq, rid=None):
 
 
 def pending_requests(live):
-    return sorted(glob.glob(os.path.join(live, "inbox", "req-*.json")))
+    """What a brain of this protocol looks through: files under the old name, which are there only to be removed
+    (brain.serve), then the requests under its own. A request under another protocol's name is not its to open."""
+    inbox = os.path.join(live, "inbox")
+    return (sorted(glob.glob(os.path.join(inbox, OLD_REQUESTS)))
+            + sorted(glob.glob(os.path.join(inbox, f"p{PROTOCOL}-req-*.json"))))
 
 
 def pack(results):

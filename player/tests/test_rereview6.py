@@ -447,10 +447,24 @@ class N1NothingOfAnotherProtocolIsUsed(Client):
         self.a_request_an_older_brain_answered(as_d7364237_kept_it)
 
     def test_a_receipt_of_the_version_before_itself(self):
+        """Until the review of 06358ca5 this test had the 442a6311 brain answer this version's request, and
+        held that the receipt it kept was not given again. That brain cannot find the request any more (it is
+        under this protocol's name: test_rereview7), so there is no such receipt: the brain of the version
+        before takes nothing and changes nothing, and the relay's request is answered by this version's."""
         if the_package_before() is None:
             self.skipTest("the repository's history does not hold 442a6311")
-        self.a_request_an_older_brain_answered(lambda req: self.assertEqual(
-            by_the_version_before(OLD_BRAIN, self.rig.dir)[1]["answered"], 1))
+        a = self.new_relay_with_a_batch()
+        brain.put(self.rig.dir, a, 1, json.dumps(user(sector=77).data))
+        before = self.saved()
+
+        def the_older_brain_looks(live, seq, rid, req, sleep):
+            self.assertEqual(by_the_version_before(OLD_BRAIN, self.rig.dir)[1]["answered"], 0)   # was 1
+
+        with mock.patch.object(brain, "_await", the_older_brain_looks):
+            self.assertEqual(self.next(a, lambda _: None), [relay.next_line(a)])
+        self.assertEqual(self.saved(), before)                              # was: its batch, receipt and ledger
+        lines, seen = self.asked(a)
+        self.assertEqual((seen, bool(self.calls(lines)), self.loose()), ([1], True, []))   # results taken once
         self.assertEqual(BEFORE[:8], "442a6311")
 
 

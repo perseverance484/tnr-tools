@@ -32,7 +32,9 @@ relay hands it in. A relay that is replaced while it holds one leaves it loose i
 What the two sides keep for each other (the client's file, a request, an answer, a batch that waits to be
 printed, the receipt) carries the protocol number of the code that made it (relay.PROTOCOL). One that does not
 carry this version's number is not used: an older version's file names no relay and no batch, an older brain's
-answer or receipt gives no batch. The calls behind them stay in the ledger, held.
+answer or receipt gives no batch. The calls behind them stay in the ledger, held. A request is also put under
+a name that carries the number (relay.request_path): a brain from before an update that is still running looks
+for another name, takes nothing of this version's, and so changes nothing in the ledger because of it.
 """
 import contextlib
 import fcntl
@@ -420,13 +422,14 @@ its relay, and what that relay knows of who has which batch."""
 
 def serve(brain, live, path):
     """A request file as a running player meets it: the resident brain looking through live/inbox, or `brain
-    next` answering for itself. Only a request this version's `brain next` wrote is answered. Any other file
-    there was left by an older version (or is no request at all): it is removed unanswered, and that is said.
-    Its `brain next` is long gone, and what it does not say must not be read as if it had said it (review of
-    426a9fba, finding 1: a request from before, with no word of who held the last batch, was answered by a
-    brain that came home, and that batch was taken to be back)."""
+    next` answering for itself. Only a request this version's `brain next` wrote is answered: one under this
+    protocol's name, with its number, and with everything such a request carries. Any other file there was left
+    by an older version (or is no request at all): it is removed unanswered, and that is said. Its `brain next`
+    is long gone, and what it does not say must not be read as if it had said it (review of 426a9fba, finding
+    1: a request from before, with no word of who held the last batch, was answered by a brain that came home,
+    and that batch was taken to be back)."""
     req = relay.read(path)
-    if relay.ours(req) and all(k in req for k in REQUEST):
+    if relay.is_request(path) and relay.ours(req) and all(k in req for k in REQUEST):
         return answer(brain, live, path)
     with contextlib.suppress(OSError):
         os.unlink(path)
@@ -709,9 +712,9 @@ def _exchange(live, client, state, sleep):
 
 def _sweep(live):
     """Called with the client's lock held, when no `brain next` is waiting on the brain: a request or a batch
-    file that is there now was left by one that died. Such a request is not answered late, and such a batch is
-    never printed."""
-    for path in glob.glob(os.path.join(live, "inbox", "req-*.json")) + glob.glob(os.path.join(live, "outbox", "batch-*.json")):
+    file that is there now was left by one that died, of this version or any other. Such a request is not
+    answered late, and such a batch is never printed."""
+    for path in glob.glob(os.path.join(live, "inbox", "*req-*.json")) + glob.glob(os.path.join(live, "outbox", "batch-*.json")):
         with contextlib.suppress(OSError):
             os.unlink(path)
 
@@ -731,10 +734,14 @@ def _owed(state):
 
 
 def _await(live, seq, rid, req, sleep, limit=90.0):
-    """The answer to this request, from a brain of this protocol: an answer that any other brain wrote (one of
-    an older version that is still running) is removed and not taken. When no brain holds the lock, this process
-    answers and then starts one."""
-    t0, mine = time.time(), relay.batch_path(live, seq, rid)
+    """The answer to this request, from a brain of this protocol: an answer that any other brain wrote is
+    removed and not taken. When no brain holds the lock, this process answers and then starts one.
+
+    A brain from before the update that is still running holds the lock and does not see the request (it is
+    under this protocol's name). Then nothing is answered until that brain is ended; from that moment the lock
+    is free and the request is answered here. When the request is gone and no answer has come (a brain dropped
+    it), there is nothing to do but wait: that is waited out like any other wait, and a brain is started once."""
+    t0, mine, started = time.time(), relay.batch_path(live, seq, rid), False
     while time.time() - t0 < limit:
         batch = relay.read(mine)
         if batch is not None:
@@ -744,14 +751,17 @@ def _await(live, seq, rid, req, sleep, limit=90.0):
         lock = _lock(live)
         if lock is not None:                                       # nobody is home: answer here, then start a brain
             try:
-                if os.path.exists(req):
+                asked = os.path.exists(req)
+                if asked:
                     serve(Brain(live), live, req)
             finally:
                 lock.close()
-            if os.environ.get("TNR_PLAYER_NO_DAEMON") != "1":
+            if not started and os.environ.get("TNR_PLAYER_NO_DAEMON") != "1":
                 subprocess.Popen([sys.executable, "-m", "player.brain", "run"], cwd=C.ROOT, start_new_session=True,
                                  stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-            continue
+                started = True
+            if asked:
+                continue                                           # its answer is written: read it
         sleep(C.BRAIN_WAIT)
     return None
 

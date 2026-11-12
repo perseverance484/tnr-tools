@@ -54,13 +54,20 @@ writes a `setting_changed` event when it has applied it.
 
 ## After the player's code is updated
 
-The player uses nothing an earlier version of it left for a relay: not the relay's name, not a batch that was
-waiting to be printed, not word that was waiting for the brain. The calls behind them stay counted.
+Do these in this order, before a relay is started.
 
-- A relay started before the update is told to stop when it next asks. Start a new one.
-- A batch that was out, or waiting, is held with no relay to its name. Once no relay from before can be
-  running, list what is held and say `stopped all`. If you had said `stopped` just before the update, say it
-  again.
-- A brain started before the update must be ended (`pkill -f "player.brain run"`). While it runs, the relay's
-  `brain next` waits a minute and a half, gives no call, and says to ask again. The next `brain next` after it
-  is gone starts a new brain.
+1. **End the brain that was running.** `pkill -f "player.brain run"`, then `pgrep -f "player.brain run"` must
+   print nothing. A brain started before the update keeps the call ledger in its own hands and by its own
+   rules for as long as it runs; an older one lets a held call go after fifteen minutes. This version takes the
+   ledger over only when that brain is gone, and from then on holds what it finds.
+2. **Start a new relay.** A relay started before the update is told to stop when it next asks. The player uses
+   nothing an earlier version left for a relay: not the relay's name, not a batch that was waiting to be
+   printed, not word that was waiting for the brain. The calls behind them stay counted.
+3. **Say what has been stopped.** A batch that was out, or waiting, is held with no relay to its name. Once no
+   relay from before can be running, list what is held and say `stopped all`. If you had said `stopped` just
+   before the update, say it again.
+
+If step 1 was left out: this version hands the old brain nothing (its relay's requests go where that brain does
+not look), so the relay's `brain next` waits a minute and a half, gives no call, and says to ask again, every
+time. End the old brain: a `brain next` that is waiting at that moment goes through at once and starts a new
+brain. What the old brain did to its ledger meanwhile is not undone by this, which is why it is ended first.

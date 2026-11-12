@@ -428,7 +428,7 @@ class K5ARequestAndItsAnswerAreOnePair(Client):
 
         def write(path, obj):
             wrote = real(path, obj)
-            if os.sep + "inbox" + os.sep + "req-" in path:
+            if relay.is_request(path):
                 asked.append(obj)                                           # the request is in. Before the brain
                 if len(asked) == 2:                                         # answers the second one, a file turns
                     real(relay.batch_path(self.rig.dir, obj["seq"], obj["id"]), {   # up in its answer's place
