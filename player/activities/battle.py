@@ -129,8 +129,8 @@ class Battle(Activity):
             return
         rows = K.log_rows(r.data)
         if rows is None:
-            world.event("finding", "the battle log's columns do not line up; that read is dropped",
-                        about="selects", battle=state["bid"])
+            world.event("finding", "the battle log's columns do not line up, or a line is incomplete; that read "
+                                   "is dropped", about="selects", battle=state["bid"])
             return
         if rows and rows[0][4] is None and not state.get("log_whole"):
             state["log_whole"] = True
@@ -249,7 +249,8 @@ class Battle(Activity):
     def _tick(self, world, state, battle, from_last_read=False):
         """One read of the fight, in order: is the read usable, is the fight over, whose turn is it."""
         bid = state["bid"]
-        users = battle.get("battle.usersState.*.userId") or []
+        users = battle.get("battle.usersState.*.userId")
+        users = users if isinstance(users, list) else []          # anything else is a read without the fighters
         asked_ground = state.get("asked_ground", False)
         self._plainer(state, users)
         if C.ME not in users:
@@ -261,7 +262,8 @@ class Battle(Activity):
             # finding 2: such reads used to ask for another read for ever, past every deadline of the turn).
             n = state["bad_reads"] = state.get("bad_reads", 0) + 1
             if n == 1 or n % 10 == 0:
-                world.event("finding", f"a battle read cannot be used ({n} so far): its columns do not line up",
+                world.event("finding", f"a battle read cannot be used ({n} so far): a column is short, a value "
+                                       f"is missing or of the wrong kind, or the fighter to move is not in it",
                             about="selects", battle=bid)
             return self._no_read(world, state, False, False)
         if not from_last_read:                                    # how long the fight went unread before this
@@ -318,10 +320,21 @@ class Battle(Activity):
 
     @staticmethod
     def _usable(battle):
-        """A read the tick can work on: the round, the version, whose turn it is, and one value per fighter in
-        every fighter column it reads."""
-        return (all(battle.get(k) is not None for k in ("battle.round", "battle.version", "battle.activeUserId"))
-                and bool(K.columns(battle, "battle.usersState.*.", K.STATE_COLS[:6])))
+        """A read the tick can work on. The round and the version are numbers. Every fighter column has one value
+        per fighter and none is missing: ids and names are text, health and position are numbers. The fighters
+        are distinct, and the one whose turn it is, is one of them. Anything else is not planned on and does not
+        replace the last good read (review of 0d10b7c6, finding 2: an active id that was no fighter passed for
+        his turn, and a null position reached an action)."""
+        def number(v):
+            return isinstance(v, (int, float)) and not isinstance(v, bool)
+        rows = K.columns(battle, "battle.usersState.*.", K.STATE_COLS[:6])
+        if not rows or not number(battle.get("battle.round")) or not number(battle.get("battle.version")):
+            return False
+        ids = [r["userId"] for r in rows]
+        return (len(set(map(str, ids))) == len(ids) and battle.get("battle.activeUserId") in ids
+                and all(isinstance(r["userId"], str) and isinstance(r["username"], str)
+                        and all(number(r[k]) for k in ("curHealth", "maxHealth", "longitude", "latitude"))
+                        for r in rows))
 
     @staticmethod
     def _seat(state, battle):
@@ -339,7 +352,7 @@ class Battle(Activity):
         whole or as columns; asked for and bare means there is none on the field; not asked for means not known."""
         whole = battle.pop("battle.groundEffects", None)
         if whole is not None:
-            return whole, "whole", whole
+            return (whole, "whole", whole) if isinstance(whole, list) else (whole, "misaligned", None)
         cols = {k: v for k, v in battle.items() if k.startswith("battle.groundEffects.")}
         rows = K.ground_cols(battle)
         if rows is None:
@@ -383,6 +396,8 @@ class Battle(Activity):
         if raw_g is not None:
             state["ground"] = ground_effects(raw_g)
         raw = battle.pop("battle.usersEffects", None)
+        if not isinstance(raw, list):
+            raw = None                                            # no effect list, or not one: as if not sent
         if raw is not None:
             self._archive(state, battle, raw, sent_g, how_g)
             state["live"], state["live_v"] = live_effects(raw), battle.get("battle.version")
@@ -511,6 +526,8 @@ class Battle(Activity):
                                                   ban=ban, seconds=left)
             except Exception as err:  # noqa: BLE001
                 return None, f"planner crashed: {err}"
+            if line and not all(self._sendable(a) for a in line):
+                return None, "planner failed: its line cannot be sent"
             bad = next((a["actionId"] for a in line or []
                         if not self.gates.check(K.act(bid, a["actionId"], 0, 0, 0), world, self.name).ok), None)
             if bad is None:
@@ -520,6 +537,13 @@ class Battle(Activity):
             state.setdefault("banned", []).append(bad)
             ban = ban + [bad]
         return None, "planner failed: every line held an action the gates refuse"
+
+    @staticmethod
+    def _sendable(action):
+        """One action of a planner's line: a name, an action id, and a tile given in numbers."""
+        return (isinstance(action, dict) and all(isinstance(action.get(k), str) for k in ("actionId", "name"))
+                and all(isinstance(action.get(k), (int, float)) and not isinstance(action.get(k), bool)
+                        for k in ("longitude", "latitude")))
 
     @staticmethod
     def _fallback(turn, v, me_xy, banned, why):

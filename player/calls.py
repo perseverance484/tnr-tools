@@ -109,9 +109,12 @@ def entries(bid, n, whole=False):
 
 def log_rows(data):
     """A log read -> rows [id, round, user, action, texts], newest first. texts is None on every row when the read
-    cannot say which line each text belongs to. None when even the four plain columns do not line up."""
+    cannot say which line each text belongs to. None when the four plain columns do not line up, or when a line
+    has no id, no fighter, or a round that is not a number."""
     base = columns(data, "", ENT[:4])
-    if base is None:
+    if base is None or not all(isinstance(row["*.id"], (str, int)) and isinstance(row["*.userId"], str)
+                               and isinstance(row["*.battleRound"], (int, float))
+                               and not isinstance(row["*.battleRound"], bool) for row in base):
         return None
     whole, texts = data.get("*.appliedEffects"), data.get(ENT[4])
     if isinstance(whole, list) and len(whole) == len(base):
@@ -153,6 +156,8 @@ def ground_cols(read):
     cols = {k: read.pop(f"battle.groundEffects.*.{k}", None) for k in GROUND_COLS + BARRIER_COLS}
     if all(v is None for v in cols.values()):
         return None
+    if not all(v is None or isinstance(v, list) for v in cols.values()):
+        return False
     base = [cols[k] or [] for k in GROUND_COLS]
     n = len(base[0])
     if any(len(c) != n for c in base):
@@ -168,8 +173,9 @@ def ground_cols(read):
 
 
 def columns(data, prefix, keys):
-    """A column read -> rows. None when the columns are not all the same length (a key was missing somewhere)."""
-    cols = [data.get(f"{prefix}{k}") or [] for k in keys]
-    if len({len(c) for c in cols}) > 1:
+    """A column read -> rows. None when the columns are not all the same length (a key was missing somewhere), or
+    when one of them is not a list at all."""
+    cols = [data.get(f"{prefix}{k}") for k in keys]
+    if not all(c is None or isinstance(c, list) for c in cols) or len({len(c or []) for c in cols}) > 1:
         return None
-    return [dict(zip(keys, x)) for x in zip(*cols)]
+    return [dict(zip(keys, x)) for x in zip(*(c or [] for c in cols))]

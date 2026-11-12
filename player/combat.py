@@ -56,7 +56,8 @@ def live_effects(effects):
         if not isinstance(e, dict):
             continue
         x = {k: e.get(k) for k in LIVE_KEYS if e.get(k) is not None}
-        od = (e.get("timeTracker") or {}).get("originalDamage")
+        tracker = e.get("timeTracker")
+        od = tracker.get("originalDamage") if isinstance(tracker, dict) else None
         if od:
             x["timeTracker"] = {"originalDamage": od}
         out.append(x)

@@ -40,7 +40,8 @@ BLIND_MAX = 2 * C.POLL_GAP_MAX      # s: the longest the reserve may keep the fi
 
 
 def _until(times, t, ceiling):
-    """Seconds from t until fewer than `ceiling` of these calls are inside the minute."""
+    """Seconds from t until fewer than `ceiling` of these calls are inside the minute. (The times are settled
+    ones: pace settles what is out before it schedules, and a tick settles before anything asks.)"""
     live = [x for x in times if x > t - WINDOW]
     if len(live) < ceiling or not live:
         return 0.0
@@ -56,7 +57,10 @@ class Budget:
         self.world = world
 
     def _hist(self, now):
-        hist = [c for c in self.world["budget"]["calls"] if c[0] > now - WINDOW]
+        """The calls that count now: those of the last minute, and every call still out, however long ago it was
+        admitted. A call that is out has no real time yet, so it cannot have left the minute (review of 0d10b7c6,
+        finding 1: a status write during a batch longer than a minute dropped them before they were settled)."""
+        hist = [c for c in self.world["budget"]["calls"] if len(c) > 2 or c[0] > now - WINDOW]
         self.world["budget"]["calls"] = hist
         return hist
 
@@ -64,6 +68,10 @@ class Budget:
         """Calls in the last minute (issued or still to run), in one lane or in all."""
         now = self.world.now if now is None else now
         return sum(1 for c in self._hist(now) if lane is None or c[1] == lane)
+
+    def stray(self, n):
+        """Calls the relay made that no batch asked for. They used the account's minute all the same."""
+        self.world["budget"]["calls"] += [[self.world.now, "stray"] for _ in range(n)]
 
     def settle(self, results=(), asked=()):
         """The last batch is back (or given up): move each of its calls from the earliest moment it could have

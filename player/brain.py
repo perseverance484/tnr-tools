@@ -65,11 +65,15 @@ class Brain:
         w.absorb(results)
         self.combat.absorb(results)
         for a in self.reg.activities.values():
-            a.on_result(w, results)
+            try:
+                a.on_result(w, results)
+            except Exception as err:  # noqa: BLE001  (one activity's bad result must not cost the others theirs)
+                w.event("error", f"{a.name} could not take a result in: {err!r}"[:300], about="crash")
         for r in results:
             if r.error and r.error != RATE_LIMITED:
                 w.event("error", f"{r.endpoint}: {r.error}", about="call")
         if strays:
+            self.budget.stray(strays)
             w.event("finding", f"the relay made {strays} call(s) the batch did not ask for", about="relay")
         known = json.dumps(w.d)                 # what is known before anything is decided
         try:
@@ -119,7 +123,7 @@ class Brain:
             return {"steps": [], "hold": 0.0, "stop": stop, "note": f"STOP {stop}", "activity": None, "queue": []}
         ranked = self.rank()
         for i, act in enumerate(ranked):
-            p = act.plan(w)
+            p = self._plan(act)
             if p is None:
                 continue
             steps = self._compose(act, p)
@@ -134,6 +138,20 @@ class Brain:
                     "queue": [(a.name, a.priority, 0) for a in ranked[i + 1:]]}
         why = "paused" if w["control"]["paused"] else "nothing to do"
         return {"steps": [], "hold": IDLE_HOLD, "stop": None, "note": why, "activity": None, "queue": []}
+
+    def _plan(self, act):
+        """The activity's plan. A fight's plan that fails fails the tick (which is undone, and the turn's clock
+        takes over). Any other activity that fails is set aside for a minute and the next one is asked, so one
+        bad scan or reply cannot stop the player."""
+        try:
+            return act.plan(self.world)
+        except Exception as err:  # noqa: BLE001
+            if act.priority == "battle":
+                raise
+            self.world.event("error", f"{act.name}: its plan failed ({err!r}); set aside for {BLOCK_FOR:.0f} s"[:300],
+                             about="crash")
+            self.world.own("brain")["blocked"][act.name] = self.world.now + BLOCK_FOR
+            return None
 
     def _compose(self, act, p):
         """The plan's steps as they will be sent, or None when the gates refuse one. A fight's closing batch gets
@@ -322,8 +340,10 @@ def next_batch(live=None, token=None, out=sys.stdout, sleep=time.sleep):
         state = relay.read(client) or {}
         if state.get("relay") != me:
             out.write(SUPERSEDED + "\n")                           # the batch stays for the relay that took over
-        elif (state.get("pending") or {}).get("seq") != pending["seq"]:
-            out.write(relay.next_line(state["token"]) + "\n")      # this relay's own other `brain next` has it
+        elif (state.get("pending") or {}).get("id") != pending["id"]:
+            # the batch this call waited for is not the one that is owed any more: another call of this relay
+            # has it, or it grew too old and the brain was asked afresh. Print nothing of it; come back.
+            out.write(relay.next_line(state["token"]) + "\n")
         else:
             state.update(seq=pending["seq"], token=f"{me}-{pending['seq']}", issued_at=time.time(), pending=None,
                          calls=[[x["call"], x["input"]] for x in pending["steps"] if "call" in x])
@@ -353,6 +373,8 @@ def _exchange(live, client, state, sleep):
     relay. The batch is written into client.json before anything else happens to it. Returns (the batch, the
     brain-side wait still to spend, or None for one that was already waiting)."""
     results, usage, strays, path = _collect(live, state, sleep)
+    if state.get("handed") == state["token"]:                      # this batch's results have gone in already
+        results, usage, strays = [], {}, 0
     pending, hold = _owed(state), None
     if pending is None:
         seq = state["seq"] + 1
@@ -363,17 +385,21 @@ def _exchange(live, client, state, sleep):
         if batch is None:                                          # never leave the relay without a next step
             batch = {"steps": [], "stop": None, "hold": 5.0}
         hold = batch["hold"]
-        pending = {"seq": seq, "steps": batch["steps"], "stop": batch["stop"], "ready_at": time.time() + hold}
-    state.update(pending=pending, transcript=path, new=False)
+        pending = {"id": os.urandom(4).hex(), "seq": seq, "steps": batch["steps"], "stop": batch["stop"],
+                   "ready_at": time.time() + hold}
+    state.update(pending=pending, transcript=path, new=False, handed=state["token"])
     relay.write(client, state)
     return pending, hold
 
 
 def _owed(state):
     """A batch the brain made that no relay has had yet (its relay was replaced while it waited), unless it has
-    waited too long to be worth sending: then the brain is asked afresh."""
+    waited too long to be worth sending: then the brain is asked afresh, under the next number. A batch is known
+    by its own id, so a call that is still waiting on the old one cannot publish it in the new one's place
+    (review of 0d10b7c6, finding 3)."""
     pending = state.get("pending")
     if pending and time.time() - pending["ready_at"] > C.STALE_OUTBOX:
+        state["seq"] = max(state.get("seq", 0), pending["seq"])    # its number is not used again
         return None
     return pending
 
