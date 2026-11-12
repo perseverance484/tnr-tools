@@ -5,6 +5,8 @@ has to keep: the command line, every name the file had, and the five places wher
 import io
 import json
 import os
+import re
+import signal
 import subprocess
 import sys
 import tempfile
@@ -79,6 +81,63 @@ class TheCommandLine(unittest.TestCase):
         home.terminate()
         self.assertEqual(home.wait(timeout=20), -15)
         self.assertEqual(home.stderr.read(), "")
+
+
+    def residents(self):
+        """The resident brains of this test's live folder, by what the system says of each process: its command
+        line and its environment."""
+        found = []
+        for pid in (d for d in os.listdir("/proc") if d.isdecimal()):
+            try:
+                with open(f"/proc/{pid}/cmdline", "rb") as f:
+                    words = f.read().split(b"\0")
+                with open(f"/proc/{pid}/environ", "rb") as f:
+                    mine = f"TNR_PLAYER_LIVE={self.live}".encode() in f.read().split(b"\0")
+            except OSError:
+                continue
+            if mine and b"player.brain" in words and b"run" in words:
+                found.append(int(pid))
+        return found
+
+    def ends(self, pid):
+        try:
+            os.kill(pid, signal.SIGTERM)
+        except ProcessLookupError:
+            pass
+
+    def test_a_relays_brain_next_starts_the_resident_by_itself(self):
+        """The split's review ran this by hand (the tests before it kept `brain next` from starting a brain):
+        with nobody home, `brain next` answers its own request and then starts the resident, in a process of
+        its own, which serves the relay from then on."""
+        self.env.pop("TNR_PLAYER_NO_DAEMON")
+        self.addCleanup(lambda: [self.ends(pid) for pid in self.residents()])
+
+        def token(done):
+            self.assertEqual((done[0], done[2]), (0, ""))
+            return re.search(r"next ([0-9a-f]+-\d+)", done[1].splitlines()[-1]).group(1)
+        first = token(self.says("next"))
+        self.assertEqual(self.residents(), [])                              # a relay's hello starts nothing
+        second = token(self.says("next", first))                            # nobody home: answered, and one started
+        until, home = time.monotonic() + 20, None
+        while time.monotonic() < until and home is None:
+            lock = brain._lock(self.live)
+            if lock is None and self.residents():
+                home = self.residents()
+            elif lock is not None:
+                lock.close()
+            time.sleep(0.05)
+        self.assertEqual(len(home or []), 1)                                # one resident, and the lock is its own
+        self.assertEqual(self.says("run")[0], 1)                            # another one ends at once
+        third = token(self.says("next", second))                            # the relay goes on, served by it:
+        self.assertEqual((self.residents(), third != second), (home, True))   # no second one is started
+        self.ends(home[0])
+        until = time.monotonic() + 20
+        while time.monotonic() < until and self.residents():
+            time.sleep(0.05)
+        self.assertEqual(self.residents(), [])
+        lock = brain._lock(self.live)
+        self.assertIsNotNone(lock)                                          # and its lock is free again
+        lock.close()
 
 
 class WhatTheFileHadThePackageHas(unittest.TestCase):
