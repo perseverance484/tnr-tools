@@ -225,14 +225,11 @@ class Brain:
         w = self.world
         stop = self._stop()
         if stop:
-            if not stop.startswith("rotate"):                     # asleep: the session is over, the lock goes back
-                self.lock.release()
-            return {"steps": [], "hold": 0.0, "stop": stop, "note": f"STOP {stop}", "activity": None, "queue": []}
+            return self._idle(stop=stop)
         ranked = self.rank()
-        wait = self.lock.hold(w.in_battle()) if ranked else None    # before anything is planned: no call without it
-        if wait:
-            return {"steps": [], "hold": round(min(wait[0], IDLE_HOLD), 1), "stop": None, "note": wait[1],
-                    "activity": None, "queue": [(a.name, a.priority, 0) for a in ranked]}
+        waiting = self._for_the_lock(ranked)                      # before anything is planned: no call without it
+        if waiting:
+            return waiting
         for i, act in enumerate(ranked):
             p = self._plan(act)
             if p is None:
@@ -246,10 +243,29 @@ class Brain:
             return {"steps": steps, "hold": hold, "stop": None, "activity": act.name,
                     "note": p.note + (f" (paced {waited}s)" if waited else ""),
                     "queue": [(a.name, a.priority, 0) for a in ranked[i + 1:]]}
-        why = "paused" if w["control"]["paused"] else "nothing to do"
-        if w["control"]["paused"] and not w.in_battle():          # paused by the director: others may run meanwhile
+        return self._idle()
+
+    def _for_the_lock(self, ranked):
+        """With something to send and the run lock not this brain's: the batch that tells the relay to ask again
+        when it is worth asking. None when there is nothing to send, or the lock is held."""
+        wait = self.lock.hold(self.world.in_battle()) if ranked else None
+        if not wait:
+            return None
+        return {"steps": [], "hold": round(min(wait[0], IDLE_HOLD), 1), "stop": None, "note": wait[1],
+                "activity": None, "queue": [(a.name, a.priority, 0) for a in ranked]}
+
+    def _idle(self, stop=None):
+        """The batch with nothing in it: the relay is told to stop, or to ask again later. The run lock goes back
+        when the session is over (asleep; not for a fresh relay, which goes on with the session) and when the
+        director has the player paused outside a fight: other runners may work meanwhile."""
+        w = self.world
+        paused = w["control"]["paused"]
+        if (stop and not stop.startswith("rotate")) or (paused and not stop and not w.in_battle()):
             self.lock.release()
-        return {"steps": [], "hold": IDLE_HOLD, "stop": None, "note": why, "activity": None, "queue": []}
+        if stop:
+            return {"steps": [], "hold": 0.0, "stop": stop, "note": f"STOP {stop}", "activity": None, "queue": []}
+        return {"steps": [], "hold": IDLE_HOLD, "stop": None, "note": "paused" if paused else "nothing to do",
+                "activity": None, "queue": []}
 
     def _paced(self, steps, lane, hold):
         """A plan's steps under the call budget: (the steps, the wait in front of them, the seconds paced). When
