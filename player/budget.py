@@ -36,6 +36,14 @@ A batch is known by the id of the request that made it, and a loose call carries
 had: only a report for that very batch settles it. A batch is also loose when nothing on record says who has
 it: not knowing is not knowing that nobody has it (review of efa79808, finding 2).
 
+A ledger that another version of the player kept cannot say what is out: that version may have let calls go
+that its relays can still make (442a6311 did, after fifteen minutes), and a call that is not written down cannot
+be held. So a brain that takes such a ledger over holds a whole minute's calls, CALL_LIMIT of them, under an id
+of their own (Budget.taken_over). They are loose like any other: no call is sent until the operator says the
+relays from before the update have been stopped, and from that word they count for sixty seconds more (review of
+29797ba0). The id is made from the file that was taken over, so the word names that one hold: it lets go neither
+the hold of a later update nor anything else, and it can be said before the brain has started as well as after.
+
 So with a relay that is slow, uneven, wrong about the time, or replaced in the middle of a batch, the ledger is
 never ahead of the account's real minute. The price is room: calls held for relays that never come back use up
 the minute until the operator says they are stopped. A call that then cannot fit under the limit, however long
@@ -60,6 +68,7 @@ BLIND_MAX = 2 * C.POLL_GAP_MAX      # s: the longest the reserve may keep the fi
 
 
 NEVER = float("inf")       # no wait is long enough: the room is taken by calls with no time yet
+UPDATE = "update-"         # how the id of the hold on a ledger taken over from another version begins
 
 
 def _state(c):
@@ -82,6 +91,8 @@ def is_poll(step):
 
 def _whose(c):
     """A loose call's relay, in words."""
+    if str(c[3]).startswith(UPDATE):
+        return f"the relays from before the update ({c[3]})"
     return f"relay {c[5]}" if c[5] else f"a relay that is not on record (batch {c[3]})"
 
 
@@ -120,9 +131,10 @@ class Budget:
             if batch not in told and now - c[4] > C.LOOSE_ALERT:
                 told.append(batch)
                 n = sum(1 for x in calls if _state(x) == "loose" and x[3] == batch)
+                why = ("nobody has said that they are stopped" if str(batch).startswith(UPDATE)
+                       else "it had a batch in hand and has not come back")
                 self.world.event("stall", f"{n} call(s) of {_whose(c)} have been held against the minute for "
-                                          f"{now - c[4]:.0f} s: it had a batch in hand and has not come back. "
-                                          f"{HOW_TO_RELEASE}", about="budget")
+                                          f"{now - c[4]:.0f} s: {why}. {HOW_TO_RELEASE}", about="budget")
         self.world["budget"]["alerted"] = told
 
     def used(self, now=None, lane=None):
@@ -138,6 +150,22 @@ class Budget:
             if _state(c) == "loose":
                 groups.setdefault((c[5], c[3], c[4]), []).append(c)
         return [(token, batch, len(cs), since) for (token, batch, since), cs in groups.items()]
+
+    def taken_over(self, found, written):
+        """This ledger was kept by another version of the player, and is now this brain's. What that version
+        wrote down is kept and held as it stands. What it did not write down, or let go by a rule of its own,
+        cannot be known: so a whole minute's calls are held as well, under an id of their own, until the
+        operator says the relays from before the update have been stopped (`brain stopped`). found: the print
+        of the file that was taken over (world.found), which makes the id. written: when that file was last
+        written; the operator's word counts from when it was said, but never from before that. Returns the id."""
+        now, batch = self.world.now, UPDATE + found
+        self.world["budget"]["calls"] += [[written, "update", "loose", batch, now, None] for _ in range(C.CALL_LIMIT)]
+        self.world.event("stall", f"this call ledger was kept by another version of the player, which may have "
+                                  f"let go calls that its relays can still make. No call is sent until the "
+                                  f"operator says that every relay from before the update has been stopped "
+                                  f"(python3 -m player.brain stopped all, or: stopped {batch}). Calls start a "
+                                  f"minute after that word.", about="budget")
+        return batch
 
     def stray(self, n):
         """Calls the relay made that no batch asked for. They used the account's minute all the same."""

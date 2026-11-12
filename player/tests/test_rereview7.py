@@ -27,7 +27,7 @@ from player.tests.test_relay import token_of
 from player.tests.test_rereview2 import most_in_a_minute
 from player.tests.test_rereview3 import Client
 from player.tests.test_rereview4 import Killed
-from player.tests.test_rereview5 import ledger, the_package_before
+from player.tests.test_rereview5 import held, ledger, the_package_before, update
 
 OLD_RESIDENT = r'''
 import io, json, os
@@ -60,7 +60,8 @@ def requests(live):
 
 
 def loose(live):
-    return [c for c in ledger(live) if c[2:3] == ["loose"]]
+    """The calls the saved ledger holds for batches (the minute held after an update is `update`)."""
+    return held(live)
 
 
 class P1AnOlderBrainIsStillRunning(unittest.TestCase):
@@ -130,9 +131,12 @@ class P1AnOlderBrainIsStillRunning(unittest.TestCase):
         return out.getvalue().splitlines()
 
     def most(self, lane, batches):
-        """The review's count: relay A goes on with its four calls a minute later, beside this version's batches."""
+        """The review's count: relay A goes on with its four calls a minute later, beside this version's batches.
+        The minute held for the update is let go here, as of a minute before: the count is of what the four
+        calls themselves hold."""
         clock = [self.now[0] + 62]
         budget, made = self.real(self.live, clock=lambda: clock[0]).budget, [clock[0]] * 4
+        self.assertEqual(budget.ended(update(self.live)[0][3], clock[0] - 61), C.CALL_LIMIT)
         for _ in range(batches):
             steps, _ = budget.pace([K.user(), K.user()], lane)
             for s in steps:
@@ -144,8 +148,9 @@ class P1AnOlderBrainIsStillRunning(unittest.TestCase):
         return most_in_a_minute(made)
 
     def held_and_inside_the_limits(self):
-        held = loose(self.live)
-        self.assertEqual((len(held), {c[5] for c in held}), (4, {None}))    # held, for a relay not on record
+        kept = loose(self.live)
+        self.assertEqual((len(kept), {c[5] for c in kept}), (4, {None}))    # held, for a relay not on record
+        self.assertEqual(len(update(self.live)), C.CALL_LIMIT)              # and the update's minute beside them
         self.assertLessEqual(self.most("recovery", 15), C.CALL_LIMIT)       # was 34
         self.assertLessEqual(self.most("world", 10), C.WORLD_CAP)           # was 24
 

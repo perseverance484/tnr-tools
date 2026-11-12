@@ -24,6 +24,7 @@ import unittest
 from unittest import mock
 
 from player import brain, calls as K, config as C, relay
+from player.budget import UPDATE
 from player.tests.support import Rig, user
 from player.tests.test_relay import token_of
 from player.tests.test_rereview2 import most_in_a_minute
@@ -110,6 +111,17 @@ def ledger(live):
     return relay.read(os.path.join(live, "world.json"))["budget"]["calls"]
 
 
+def held(live):
+    """The calls the saved ledger holds for batches: every loose call but the minute that is held after an
+    update, which stands for no batch (Budget.taken_over; review of 29797ba0)."""
+    return [c for c in ledger(live) if c[2:3] == ["loose"] and not str(c[3]).startswith(UPDATE)]
+
+
+def update(live):
+    """The minute held for the relays from before the update: [] when there is none."""
+    return [c for c in ledger(live) if c[2:3] == ["loose"] and str(c[3]).startswith(UPDATE)]
+
+
 def events(live, kind):
     with open(os.path.join(live, "events.jsonl"), encoding="utf8") as f:
         return [e for e in map(json.loads, f) if e["kind"] == kind]
@@ -141,24 +153,25 @@ class M1AnOlderRequestSaysNothingOfTheBatch(unittest.TestCase):
         brain.run(live, forever=False)
         self.assertEqual(relay.pending_requests(live), [])                  # the old request is removed,
         self.assertEqual(glob.glob(os.path.join(live, "outbox", "*")), [])  # not answered,
-        self.assertEqual([c[2:] for c in ledger(live)], [["out"]] * made["calls"])   # and nothing is settled by it
+        out = [c[2:] for c in ledger(live) if c not in update(live)]
+        self.assertEqual(out, [["out"]] * made["calls"])                    # and nothing is settled by it
         self.assertIn("not a request of this version", events(live, "finding")[-1]["text"])
 
     def test_the_files_the_version_before_left(self):
         live, made = recorded()
         self.a_brain_comes_home(live, made)                                 # was: all four settled
         new = token_of(self.next(live, token_of(self.next(live)[0]))[-1])   # a relay of this version asks
-        held = [c for c in ledger(live) if c[2:3] == ["loose"]]
-        self.assertEqual((len(held), {c[5] for c in held}), (made["calls"], {None}))   # held, for nobody on record
+        mine = held(live)
+        self.assertEqual((len(mine), {c[5] for c in mine}), (made["calls"], {None}))   # held, for nobody on record
         self.assertEqual(self.next(live, made["holder"]), [brain.SUPERSEDED])   # the old relay coming back
         new = token_of(self.next(live, new)[-1])
-        self.assertEqual(len([c for c in ledger(live) if c[2:3] == ["loose"]]), made["calls"])   # proves nothing
+        self.assertEqual(len(held(live)), made["calls"])                    # proves nothing
         said = io.StringIO()
         with mock.patch.dict(os.environ, {"TNR_PLAYER_LIVE": live}), contextlib.redirect_stdout(said):
             brain.main(["stopped", "1"])                                    # the operator names it as it is listed
         self.assertEqual(json.loads(said.getvalue())["stopped"], ["batch 1"])
         self.next(live, new)
-        self.assertEqual([c for c in ledger(live) if c[2:3] == ["loose"]], [])
+        self.assertEqual((held(live), len(update(live))), ([], C.CALL_LIMIT))   # that batch, and not the update's minute
 
     def test_the_version_before_itself(self):
         state = by_the_version_before()
@@ -170,11 +183,12 @@ class M1AnOlderRequestSaysNothingOfTheBatch(unittest.TestCase):
             self.assertEqual(sorted(relay.read(old)), sorted(json.load(f)))    # the recorded files are true to it
         self.a_brain_comes_home(live, made)
         self.next(live, token_of(self.next(live)[0]))
-        self.assertEqual(len([c for c in ledger(live) if c[2:3] == ["loose"]]), made["calls"])
+        self.assertEqual(len(held(live)), made["calls"])
 
     def test_the_old_relay_going_on_stays_under_the_limits(self):
         """The review's count. The player is paused, as in its script, so that no batch of this version's is in
-        the minute beside the old relay's four calls."""
+        the minute beside the old relay's four calls. The minute held for the update is let go here, as of a
+        minute before, so that the count is of what the old ledger's own four calls hold."""
         for lane, batches, limit in (("recovery", 15, C.CALL_LIMIT), ("world", 10, C.WORLD_CAP)):
             live, made = recorded()
             relay.write(os.path.join(live, "control.json"), {"version": 1, "paused": True})
@@ -182,6 +196,7 @@ class M1AnOlderRequestSaysNothingOfTheBatch(unittest.TestCase):
             self.next(live, token_of(self.next(live)[0]))                   # a relay of this version asks
             now = [time.time() + 62]
             budget = brain.Brain(live, clock=lambda: now[0]).budget
+            self.assertEqual(budget.ended(update(live)[0][3], now[0] - 61), C.CALL_LIMIT)
             done = [now[0]] * made["calls"]                                 # the old relay makes its four calls
             for _ in range(batches):
                 steps, _ = budget.pace([K.user(), K.user()], lane)

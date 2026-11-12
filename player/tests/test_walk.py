@@ -5,9 +5,10 @@ running waits for the batch it asked for; replaced relays that go on with the ba
 later, and come back; relays that were told to stop and ask again all the same; relays that die without a
 word; `brain next` processes that die before the brain answers, before the answer is written down, or before
 the batch is printed (the relay then runs the line again, or is gone); long pauses; a client file that loses
-its record of who holds what, is left without this version's number, or is lost whole; and an operator who
-lists what is held, says "stopped" of one relay only when that relay is, and says "stopped all" only when every
-relay but the running one is. The hunt
+its record of who holds what, is left without this version's number, or is lost whole; a ledger that turns
+into one another version kept (it loses its number, and some of the calls it held: that version let them go);
+and an operator who lists what is held, says "stopped" of one relay only when that relay is, and says "stopped
+all" only when every relay but the running one is. The hunt
 is kept at its fastest, so the world lane runs at its cap and a call that is not counted shows as one call too
 many. Time is the walk's own clock; no call leaves the process.
 
@@ -186,18 +187,18 @@ class Walk:
         budget = (relay.read(os.path.join(self.rig.dir, "world.json")) or {}).get("budget") or {}
         calls = budget.get("calls", [])
         counted, recent = [c for c in calls if len(c) > 2 or c[0] > now - 60], [t for t in self.made if t > now - 60]
-        if len(counted) < len(recent):
+        if budget.get("protocol") == relay.PROTOCOL and len(counted) < len(recent):   # (a ledger of this version)
             self.problems.append(f"the ledger counts {len(counted)}; {len(recent)} calls were made in the last "
                                  f"minute, after {what}")
         for batch, b in self.batches.items():
             held = sum(1 for c in calls if (c[2:3] == ["loose"] and c[3] == batch)
                        or (c[2:3] == ["out"] and budget.get("batch") == batch))
-            if not b["over"] and held != b["calls"]:
+            if not b["over"] and not b.get("forgotten") and held != b["calls"]:
                 self.problems.append(f"batch {batch}: {held} of its {b['calls']} calls are still held, though its "
                                      f"relay has neither come back nor been stopped, after {what}")
         waiting = {e[0] for e in self.client().get("ended") or []}
         for batch in {c[3] for c in calls if c[2:3] == ["loose"]}:
-            if batch not in self.given:
+            if batch not in self.given and not str(batch).startswith("update-"):
                 self.problems.append(f"calls are held for batch {batch}, which no relay was given, after {what}")
             elif batch in self.heard and batch not in waiting:
                 self.problems.append(f"batch {batch} is still loose, though the brain was told it is over, "
@@ -265,6 +266,8 @@ class Walk:
             return "the operator's word of every relay, then a replacement that asks twice"
         if roll < 0.345:
             return self.lose()
+        if roll < 0.355:
+            return self.forget()
         self.step(self.cur)
         return "a step"
 
@@ -293,6 +296,25 @@ class Walk:
         if os.path.exists(path):
             os.unlink(path)
         return "a client file that was lost"
+
+    def forget(self):
+        """The ledger becomes one that another version of the player kept: its number is gone, and so are some
+        of the calls it held for relays that have not come back (review of 29797ba0: 442a6311 let a held call
+        go after fifteen minutes). Those relays go on as before. Nothing stands for their calls now but the
+        minute the brain holds when it takes such a ledger over, until the operator has spoken."""
+        path = os.path.join(self.rig.dir, "world.json")
+        world = relay.read(path)
+        if not world:
+            return "a pause"
+        calls = world["budget"]["calls"]
+        gone = {c[3] for c in calls if c[2:3] == ["loose"] and not str(c[3]).startswith("update-")
+                and self.rng.random() < 0.6}
+        world["budget"] = {"batch": world["budget"].get("batch"),
+                           "calls": [c for c in calls if not (c[2:3] == ["loose"] and c[3] in gone)]}
+        relay.write(path, world)
+        for batch in gone & set(self.batches):
+            self.batches[batch]["forgotten"] = True
+        return "a ledger that another version kept, which let held calls go"
 
     def run(self, steps):
         """The problems of a walk of this many steps: the first step that has any ends it."""

@@ -31,7 +31,8 @@ from player.tests.support import user
 from player.tests.test_relay import token_of
 from player.tests.test_rereview3 import Client
 from player.tests.test_rereview4 import Killed, dies_before_the_receipt
-from player.tests.test_rereview5 import BEFORE, by_the_version_before, ledger, recorded, the_package_before
+from player.tests.test_rereview5 import (BEFORE, by_the_version_before, held, ledger, recorded, the_package_before,
+                                         update)
 
 RECORDED = os.path.join(os.path.dirname(__file__), "fixtures", "upgrade_442a6311_pending")
 OLD_PROGRAM = r'''
@@ -108,7 +109,8 @@ def calls_of(lines):
 
 
 def loose(live):
-    return [c for c in ledger(live) if c[2:3] == ["loose"]]
+    """The calls the saved ledger holds for batches (the minute held after an update is `update`)."""
+    return held(live)
 
 
 STAMPS = ("absent", 0, relay.PROTOCOL + 1, str(relay.PROTOCOL), float(relay.PROTOCOL), True, None)
@@ -165,10 +167,11 @@ class N1ABatchTheVersionBeforeLeftWaiting(unittest.TestCase):
         self.assertEqual(served.call_count, 1)                              # was 0: the brain was not asked
         self.assertEqual(calls_of(lines), [])                               # was: the two calls of the old batch
         self.assertLessEqual(self.in_the_minute(lines), C.WORLD_CAP)        # was 22
-        held = loose(self.live)
-        self.assertEqual(len(held), 23)                                     # the 21 that were held are held,
-        self.assertEqual([c[5] for c in held if c[3] == self.batch], [None, None])   # and the two that waited,
-        return lines                                                        # for nobody on record
+        kept = loose(self.live)
+        self.assertEqual(len(kept), 23)                                     # the 21 that were held are held,
+        self.assertEqual([c[5] for c in kept if c[3] == self.batch], [None, None])   # and the two that waited,
+        self.assertEqual(len(update(self.live)), C.CALL_LIMIT)              # for nobody on record; and a minute
+        return lines                                                        # for what that ledger may not say
 
     def test_the_files_the_version_before_left(self):
         lines = self.a_replacement_asks(recorded(RECORDED))
@@ -181,14 +184,14 @@ class N1ABatchTheVersionBeforeLeftWaiting(unittest.TestCase):
         self.assertEqual(len(loose(self.live)), 23)
         said = io.StringIO()
         brain.stopped(self.live, ["all"], said)                             # the operator's word is the way out
-        self.assertEqual(len(json.loads(said.getvalue())["stopped"]), 8)
+        self.assertEqual(len(json.loads(said.getvalue())["stopped"]), 9)    # eight batches, and the update's minute
         spoken = self.now[0]
         while not calls_of(lines) and self.now[0] < spoken + 300:
             lines = self.next(token)
             token = token_of(lines[-1])
         self.assertTrue(calls_of(lines))
         self.assertGreaterEqual(self.now[0], spoken + 60)                   # a minute after it, not before
-        self.assertEqual(loose(self.live), [])
+        self.assertEqual((loose(self.live), update(self.live)), ([], []))
 
     def test_the_version_before_itself(self):
         state = by_the_version_before(OLD_PROGRAM)
@@ -223,14 +226,17 @@ class N1ABatchTheVersionBeforeLeftWaiting(unittest.TestCase):
         self.start(recorded(RECORDED))
         listed, said = io.StringIO(), io.StringIO()
         brain.stopped(self.live, [], listed)
-        self.assertEqual(json.loads(listed.getvalue())["still_held"], [f"batch {n}" for n in range(1, 8)])
+        listed = json.loads(listed.getvalue())["still_held"]
+        self.assertEqual(listed[:-1], [f"batch {n}" for n in range(1, 8)])
+        self.assertTrue(listed[-1].startswith("the relays from before the update (update-"))
         self.assertEqual(relay.read(os.path.join(self.live, "client.json")), self.left)   # listing wrote nothing
         brain.stopped(self.live, ["3"], said)
         self.assertEqual(json.loads(said.getvalue())["stopped"], ["batch 3"])
         lines = self.next(token_of(self.next()[0]))
-        held = loose(self.live)
-        self.assertEqual(sorted({c[3] for c in held}), [1, 2, 4, 5, 6, 7, self.batch])   # that one, and no other
-        self.assertEqual((len(held), calls_of(lines)), (20, []))            # its three calls count a minute more
+        kept = loose(self.live)
+        self.assertEqual(sorted({c[3] for c in kept}), [1, 2, 4, 5, 6, 7, self.batch])   # that one, and no other
+        self.assertEqual((len(kept), calls_of(lines)), (20, []))            # its three calls count a minute more
+        self.assertEqual(len(update(self.live)), C.CALL_LIMIT)              # (and the update's minute is held)
         self.assertLessEqual(self.in_the_minute(lines), C.WORLD_CAP)
 
     def test_the_old_brain_next_was_not_killed_and_wakes(self):

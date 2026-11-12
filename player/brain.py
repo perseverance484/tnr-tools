@@ -48,11 +48,11 @@ import traceback
 
 from . import config as C
 from . import console, registry, relay
-from .budget import Budget
+from .budget import UPDATE, Budget
 from .combat import Combat
 from .gates import Gates
 from .registry import CLASSES
-from .world import RATE_LIMITED, World
+from .world import RATE_LIMITED, World, found
 
 IDLE_HOLD = 30.0          # s between looks when there is nothing to do (paused, or waiting on the director)
 BLOCK_FOR = 60.0          # s an activity is passed over after the gates refused its plan
@@ -66,6 +66,7 @@ class Brain:
         self.combat = combat or Combat()
         self.gates = gates or Gates()
         self.budget = Budget(self.world)
+        self._take_over()
         self.ask = {}                                               # what the request being answered said
         for a in self.reg.activities.values():
             a.combat, a.budget, a.gates = self.combat, self.budget, self.gates
@@ -75,6 +76,20 @@ class Brain:
             for k in ("lost_to", "skip"):
                 self.world["opponents"][k].update(took.get(k) or {})
             self.world["records"]["handover"] = True
+
+    def _take_over(self):
+        """The ledger as this brain finds it. One that a brain of this protocol kept carries its number, and is
+        taken as it stands. Any other that was on disk was kept by another version, by rules this one cannot
+        check, and may be short of calls that are still out: a minute's calls are held until the operator has
+        spoken (Budget.taken_over; review of 29797ba0). A first start has no ledger to take over. The number is
+        on disk with the first thing this brain saves; a brain that ends before that leaves the ledger as it
+        was, and the next one takes it over afresh."""
+        ledger = self.world["budget"]
+        if relay.ours(ledger):
+            return
+        if self.world.found:
+            self.budget.taken_over(self.world.found, self.world.found_at)
+        ledger["protocol"] = relay.PROTOCOL
 
     # ------------------------------------------------------------ one tick
     def handle(self, results, usage=None, strays=0, ask=None):
@@ -773,7 +788,8 @@ def stopped(live, names, out=sys.stdout):
 
     The word covers the batches that are held at the moment it is said, each by its id, and is kept that way:
     it is never read again as "whatever is held by then" (review of efa79808, finding 1). `all` is every held
-    batch: those of the relays replaced so far, and those the ledger holds for a relay that is not on record.
+    batch: those of the relays replaced so far, those the ledger holds for a relay that is not on record, and,
+    after an update, the minute that is held for the relays from before it (Budget.taken_over).
     It is never the batch of the relay that is running, and never one that goes loose later. A batch can also
     be named by its id, as the listing shows it: an older version's batch has a number for one, and is named
     by that number (review of 426a9fba, finding 2: the number typed did not match the number kept). With no
@@ -791,6 +807,8 @@ def stopped(live, names, out=sys.stdout):
             relay.write(client, state)
 
     def name(batch):
+        if str(batch).startswith(UPDATE):
+            return f"the relays from before the update ({batch})"
         return held[batch] or f"batch {batch}"
     known = {str(b) for b in held} | {t for t in held.values() if t}
     out.write(json.dumps({"stopped": [name(b) for b in said], "all": "all" in names,
@@ -803,11 +821,16 @@ def _held(live, state):
     """Every batch that is held now, by its id, with the token of the relay that has it (None when that is not
     on record): those the client's file says went with a replaced relay, and those the brain's saved ledger
     holds, whoever has them. Never the batch of the relay that is running: that one is out, not loose."""
-    held = {g["id"]: g["token"] for g in state["gone"]}
-    ledger = ((relay.read(os.path.join(live, "world.json")) or {}).get("budget") or {}).get("calls") or []
-    for c in ledger:
+    held, path = {g["id"]: g["token"] for g in state["gone"]}, os.path.join(live, "world.json")
+    world, print_ = relay.read(path), found(path)
+    ledger = world.get("budget") if isinstance(world, dict) else None
+    for c in (ledger if isinstance(ledger, dict) else {}).get("calls") or []:
         if c[2:3] == ["loose"] and len(c) > 3 and c[3] is not None:
             held.setdefault(c[3], c[5] if len(c) > 5 else None)
+    if print_ and not relay.ours(ledger):
+        # another version's ledger, which no brain of this version has taken over yet. The brain that does will
+        # hold a minute's calls under this very id (Brain._take_over), so the operator's word can name it now.
+        held.setdefault(UPDATE + print_, None)
     return held
 
 

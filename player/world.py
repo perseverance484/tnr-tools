@@ -65,12 +65,25 @@ def parse_time(text):
         return None
 
 
+def found(path):
+    """A short print of a world model file exactly as it stands on disk, readable or not; None when there is
+    none. Whoever reads the same file gets the same print: `brain stopped` and the brain name by it the hold
+    that is put on a ledger taken over from another version (player/budget.py)."""
+    try:
+        with open(path, "rb") as f:
+            return hashlib.sha1(f.read()).hexdigest()[:8]
+    except OSError:
+        return None
+
+
 class World:
     def __init__(self, live=None, clock=time.time):
         self.live = live or C.live_dir()
         self.path = os.path.join(self.live, "world.json")
         self.clock = clock
         self.d = copy.deepcopy(TEMPLATE)
+        self.found = found(self.path)               # the file as it was on disk (None on a first start),
+        self.found_at = os.path.getmtime(self.path) if self.found else None   # and when it was last written
         self.load()
 
     # ------------------------------------------------------------ disk
@@ -79,6 +92,8 @@ class World:
             with open(self.path, encoding="utf8") as f:
                 saved = json.load(f)
         except (OSError, ValueError):
+            return False
+        if not isinstance(saved, dict):
             return False
         for k, v in saved.items():
             if k in TEMPLATE:                       # an unknown section is dropped, never guessed at

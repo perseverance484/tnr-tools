@@ -15,7 +15,8 @@ one of two things happens.
 - You say that relay has been stopped.
 
 The same happens to a batch that nothing on record says who has: after the client's file was lost, or left by
-an older version.
+an older version. And after the player's code is updated a whole minute's calls are held, whatever the old
+ledger says: see the last section.
 
 ## What it looks like
 
@@ -54,20 +55,33 @@ writes a `setting_changed` event when it has applied it.
 
 ## After the player's code is updated
 
-Do these in this order, before a relay is started.
+The call ledger a version before this one kept cannot be trusted to say everything that is out. That version
+may have let calls go that its relays can still make; an older one did so after fifteen minutes. So when this
+version takes such a ledger over it sends **no call at all** until you have said that every relay from before
+the update is stopped, and none for a minute after you said it.
+
+Do these in this order.
 
 1. **End the brain that was running.** `pkill -f "player.brain run"`, then `pgrep -f "player.brain run"` must
-   print nothing. A brain started before the update keeps the call ledger in its own hands and by its own
-   rules for as long as it runs; an older one lets a held call go after fifteen minutes. This version takes the
-   ledger over only when that brain is gone, and from then on holds what it finds.
-2. **Start a new relay.** A relay started before the update is told to stop when it next asks. The player uses
-   nothing an earlier version left for a relay: not the relay's name, not a batch that was waiting to be
-   printed, not word that was waiting for the brain. The calls behind them stay counted.
-3. **Say what has been stopped.** A batch that was out, or waiting, is held with no relay to its name. Once no
-   relay from before can be running, list what is held and say `stopped all`. If you had said `stopped` just
-   before the update, say it again.
+   print nothing. While a brain from before the update runs, it keeps the ledger by its own rules, and this
+   version's relay gets no answer at all.
+2. **End every relay from before the update, and see each one end.** A relay from before that asks again is
+   told to stop: the player uses nothing an earlier version left for a relay, not its name, not a batch that
+   was waiting, not word that was waiting for the brain.
+3. **Say so.** `python3 -m player.brain stopped` lists what is held. After an update the list has a line
+   `the relays from before the update (update-…)`: that is the minute held for what the old ledger may not
+   say, 30 calls. `python3 -m player.brain stopped all` lets it go, with every other batch that is listed.
+   If you had said `stopped` just before the update, say it again.
+4. **Start a new relay.** Its first calls come a minute after your word, not before.
 
-If step 1 was left out: this version hands the old brain nothing (its relay's requests go where that brain does
-not look), so the relay's `brain next` waits a minute and a half, gives no call, and says to ask again, every
-time. End the old brain: a `brain next` that is waiting at that moment goes through at once and starts a new
-brain. What the old brain did to its ledger meanwhile is not undone by this, which is why it is ended first.
+Steps 3 and 4 can change places: a relay started first gets no call, only the line to ask again, until a
+minute after you have spoken.
+
+**Say it only when it is true**, here more than anywhere. Nothing in the ledger stands behind this hold: if a
+relay from before the update is still running when you say it, its calls are counted by nobody.
+
+- The word is for this one update. It is of no use for a later one, which is listed under another name.
+- `stopped TOKEN` or `stopped BATCH` for one old batch lets that batch go and leaves the update's minute held.
+- A live folder that is new has no ledger and so no hold. Before the first relay of a new folder, make sure
+  nothing from before is running, as at the start of any session.
+- An ordinary restart, with the ledger this version kept, has no hold either.
