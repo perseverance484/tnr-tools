@@ -24,7 +24,7 @@ import time
 from . import config as C
 from .world import RATE_LIMITED, Result
 
-PROTOCOL = 2
+PROTOCOL = 3
 """What `brain next` and the brain mean by what they keep for each other, and the rules a batch is made under.
 Each of these carries the number of the code that made it: live/client.json and a request (`brain next`), an
 answer, the batch waiting to be printed that is made of it, the receipt, and the call ledger (the brain). One
@@ -46,7 +46,11 @@ a batch's calls. When in doubt, change it: a new number costs the operator one w
      after. c412de4d brought that rule in and kept the number at 1, so a batch its predecessor had admitted
      without the rule (waiting in client.json, kept in a receipt, or made by a brain still running) was still
      printed as this version's own (review of c412de4d). A change to the rule is a new number: that is what
-     makes every record made under the old rule another version's."""
+     makes every record made under the old rule another version's.
+  3  the operator's word lets go the hold of the takeover it was said of, and of no later one. Under 2 the
+     hold was named by the old file's bytes alone, so word kept through a crash let go the hold of a later
+     file of the same bytes (second review of c412de4d). A batch made after such a word is one this version
+     would not have made."""
 
 
 def ours(record):

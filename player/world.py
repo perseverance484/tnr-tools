@@ -66,15 +66,36 @@ def parse_time(text):
         return None
 
 
+def takeovers(live):
+    """How many ledgers of another version the brains of this live folder have taken over and saved as their
+    own (live/takeovers.json). 0 when the file is not there or cannot be read."""
+    try:
+        with open(os.path.join(live, "takeovers.json"), encoding="utf8") as f:
+            n = json.load(f)["count"]
+    except (OSError, ValueError, KeyError, TypeError):
+        return 0
+    return n if type(n) is int and n > 0 else 0
+
+
 def found(path):
-    """A short print of a world model file exactly as it stands on disk, readable or not; None when there is
-    none. Whoever reads the same file gets the same print: `brain stopped` and the brain name by it the hold
-    that is put on a ledger taken over from another version (player/budget.py)."""
+    """A short print of a world model file exactly as it stands on disk, readable or not, as the takeover it
+    would be; None when there is no file. Whoever reads the same file gets the same print: `brain stopped`
+    and the brain name by it the hold that is put on a ledger taken over from another version
+    (player/budget.py), from before any brain has it until one has saved it.
+
+    The print is of the file's bytes, of the time it was last written, and of the number of takeovers saved
+    here so far. The first save of a taken-over ledger raises that number (World.save), so a file that turns
+    up later is another takeover under another name, whatever its bytes and whatever its time: word that was
+    said of the first names nothing in the second (second review of c412de4d: an empty file was
+    `update-da39a3ee` every time, and a word that `brain next` had kept through a crash let go the hold of a
+    later one). The time is there for a file that is written again before any brain has saved it: that is not
+    the file the operator spoke of."""
     try:
         with open(path, "rb") as f:
-            return hashlib.sha1(f.read()).hexdigest()[:8]
+            raw, written = f.read(), os.fstat(f.fileno()).st_mtime_ns
     except OSError:
         return None
+    return hashlib.sha1(raw + b"\0%d\0%d" % (written, takeovers(os.path.dirname(path)))).hexdigest()[:8]
 
 
 class World:
@@ -85,6 +106,7 @@ class World:
         self.d = copy.deepcopy(TEMPLATE)
         self.found = found(self.path)               # the file as it was on disk (None on a first start),
         self.found_at = os.path.getmtime(self.path) if self.found else None   # and when it was last written
+        self.taken_over = False                     # the brain's to set: that file was another version's ledger
         self.load()
 
     # ------------------------------------------------------------ disk
@@ -106,10 +128,20 @@ class World:
 
     def save(self):
         os.makedirs(self.live, exist_ok=True)
-        tmp = f"{self.path}.{os.getpid()}.tmp"
+        if self.taken_over:
+            # The takeover is about to be on disk for good. It is counted first: a brain that ends between
+            # the two writes leaves the same file under a new name, and the operator is asked again. The other
+            # order would leave a saved takeover uncounted, and its name free for the next file of those bytes.
+            self._write(os.path.join(self.live, "takeovers.json"), {"count": takeovers(self.live) + 1})
+            self.taken_over = False
+        self._write(self.path, self.d)
+
+    @staticmethod
+    def _write(path, obj):
+        tmp = f"{path}.{os.getpid()}.tmp"
         with open(tmp, "w", encoding="utf8") as f:
-            json.dump(self.d, f, separators=(",", ":"))
-        os.replace(tmp, self.path)
+            json.dump(obj, f, separators=(",", ":"))
+        os.replace(tmp, path)
 
     def _append(self, name, row):
         os.makedirs(self.live, exist_ok=True)

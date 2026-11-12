@@ -320,6 +320,32 @@ class Q1TheHoldIsThisTakeoversAndLasts(Client):
         self.assertEqual(self.calls(self.next(self.client()["token"])), [])
         self.assertEqual((hold(self.rig.dir), len(update(self.rig.dir))), (second, C.CALL_LIMIT))
 
+    def test_nor_for_a_later_takeover_of_the_very_same_bytes(self):
+        """The second review of c412de4d: the same file again, byte for byte and with the time it had, after
+        the first takeover of it was saved. It was held under the first one's name, and the first word let it
+        go."""
+        a = self.new_relay_with_a_batch()
+        self.another_versions_ledger()
+        path = os.path.join(self.rig.dir, "world.json")
+        with open(path, "rb") as f:
+            taken, written = f.read(), os.stat(path).st_mtime_ns
+        a = token_of(self.next(a)[-1])                                      # a brain takes it over, and saves
+        first = hold(self.rig.dir)
+        self.stopped("all")
+        a = token_of(self.next(a)[-1])                                      # the brain has the word
+        self.assertEqual(update(self.rig.dir), [])
+        with open(path, "wb") as f:
+            f.write(taken)
+        os.utime(path, ns=(written, written))
+        state = self.client()
+        state["ended"] = [[first, time.time(), None, "stopped"]]            # the first word, kept by `brain next`
+        relay.write(os.path.join(self.rig.dir, "client.json"), state)
+        self.assertEqual(self.stopped(first)["not_held"], [first])          # it names nothing that is held now
+        self.assertEqual(self.calls(self.next(a)), [])                      # was: let go by it
+        second = hold(self.rig.dir)
+        self.assertNotEqual(first, second)                                  # was: the same name
+        self.assertEqual(len(update(self.rig.dir)), C.CALL_LIMIT)
+
     def test_the_word_does_not_count_from_before_the_ledger_was_last_written(self):
         """A word that claims to be older than the file it is about is taken as said now."""
         a = self.new_relay_with_a_batch()
