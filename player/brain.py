@@ -17,6 +17,7 @@ is never left without a batch. Every wait is spent here, in the brain, where it 
 A tick that fails after the results are folded in is undone as a whole: what it learned stays, what it decided
 does not, so a plan that never reached the relay is never remembered as sent.
 """
+import contextlib
 import fcntl
 import json
 import os
@@ -60,6 +61,7 @@ class Brain:
         w = self.world
         console.apply_control(w, self.reg.activities)
         relay.log_tokens(w, w["relay"]["seq"], usage, w["relay"].get("note", ""))
+        self.budget.settle(results, w["relay"].get("last_batch") or [])     # when the last batch's calls really ran
         w.absorb(results)
         self.combat.absorb(results)
         for a in self.reg.activities.values():
@@ -72,9 +74,15 @@ class Brain:
         known = json.dumps(w.d)                 # what is known before anything is decided
         try:
             out = self._decide(any(r.error == RATE_LIMITED for r in results))
+            (w["battle"] or {}).pop("crashed", None)
             self._record(out)
         except Exception:
             w.d = json.loads(known)             # the batch will not reach the relay: nothing it planned was sent
+            fight = w["battle"]
+            if fight:
+                fight["crashed"] = fight.get("crashed", 0) + 1
+                if fight["crashed"] > 1:        # the same read has failed twice: it is not tried a third time,
+                    fight.pop("inbox", None)    # and the turn's clock decides from the last good read
             raise
         return out
 
@@ -273,44 +281,101 @@ def _collect(live, state, sleep=time.sleep):
     return results, usage, strays, path
 
 
+@contextlib.contextmanager
+def _client(live):
+    """The lock on live/client.json: who the relay is, and the batch it is owed. One `brain next` at a time reads
+    it, talks to the brain and writes it back, so a relay that takes over and one that is still waiting cannot
+    each write over the other (AP1 re-review, finding 3)."""
+    with open(os.path.join(live, "client.lock"), "w") as f:
+        fcntl.flock(f, fcntl.LOCK_EX)
+        yield
+
+
+SUPERSEDED = "STOP superseded: another relay has taken over"
+
+
 def next_batch(live=None, token=None, out=sys.stdout, sleep=time.sleep):
     """`brain next [token]`: hand in the results, wait for the batch (answering it here if no brain is running),
     spend the brain-side wait, print the batch.
 
     Without a token the relay is new: it is given a name and one line to run, and nothing is taken from it yet.
     With the token of the batch it was last given, it hands that batch in. Any other token is a relay that has
-    been replaced (it is told to stop) or a `brain next` run twice (it is given the current line again)."""
+    been replaced (it is told to stop) or a `brain next` run twice (it is given the current line again).
+
+    A batch the brain has made is kept in client.json until a relay has it. The brain-side wait is spent with
+    the lock released, so a replacement can take over meanwhile; whoever owns the relay when the wait is over
+    gets the batch, and a relay that was replaced during it is told to stop and prints no call."""
     live = live or C.live_dir()
     os.makedirs(os.path.join(live, "inbox"), exist_ok=True)
     client = os.path.join(live, "client.json")
-    state = relay.read(client) or {}
+    with _client(live):
+        state = relay.read(client) or {}
+        said = _greet(client, state, token)
+        if said:
+            out.write(said + "\n")
+            return 0
+        me, (pending, hold) = state["relay"], _exchange(live, client, state, sleep)
+    wait = hold if hold is not None else pending["ready_at"] - time.time()
+    if wait > 0:
+        sleep(wait)
+    with _client(live):
+        state = relay.read(client) or {}
+        if state.get("relay") != me:
+            out.write(SUPERSEDED + "\n")                           # the batch stays for the relay that took over
+        elif (state.get("pending") or {}).get("seq") != pending["seq"]:
+            out.write(relay.next_line(state["token"]) + "\n")      # this relay's own other `brain next` has it
+        else:
+            state.update(seq=pending["seq"], token=f"{me}-{pending['seq']}", issued_at=time.time(), pending=None,
+                         calls=[[x["call"], x["input"]] for x in pending["steps"] if "call" in x])
+            relay.write(client, state)
+            out.write("\n".join(relay.lines(pending["steps"], pending["stop"], state["token"],
+                                            echo=not state.get("transcript"))) + "\n")
+    return 0
+
+
+def _greet(client, state, token):
+    """What to say to a `brain next` that hands nothing in: a new relay gets its name and its first line, a
+    replaced one is told to stop, a second call for the same batch gets the current line. None for a relay that
+    is handing in the batch it was last given."""
     if token is None:
         state = {"relay": os.urandom(3).hex(), "seq": state.get("seq", 0), "calls": [], "transcript": None,
-                 "new": True}
+                 "new": True, "pending": state.get("pending")}
         state["token"] = f"{state['relay']}-{state['seq']}"
         relay.write(client, state)
-        out.write(relay.next_line(state["token"]) + "\n")
-        return 0
+        return relay.next_line(state["token"])
     if token != state.get("token"):
-        mine = token.split("-")[0] == state.get("relay")
-        out.write((relay.next_line(state["token"]) if mine else "STOP superseded: another relay has taken over")
-                  + "\n")
-        return 0
+        return relay.next_line(state["token"]) if token.split("-")[0] == state.get("relay") else SUPERSEDED
+    return None
+
+
+def _exchange(live, client, state, sleep):
+    """Hand this relay's results to the brain and get the next batch, unless a batch is already waiting for a
+    relay. The batch is written into client.json before anything else happens to it. Returns (the batch, the
+    brain-side wait still to spend, or None for one that was already waiting)."""
     results, usage, strays, path = _collect(live, state, sleep)
-    seq = state["seq"] + 1
-    req = relay.request_path(live, seq)
-    relay.write(req, {"seq": seq, "results": relay.pack(results), "usage": usage, "strays": strays,
-                      "at": time.time()})
-    batch = _await(live, seq, req, sleep)
-    if batch is None:                                              # never leave the relay without a next step
-        batch = {"steps": [], "stop": None, "hold": 5.0}
-    if batch["hold"] > 0:
-        sleep(batch["hold"])
-    state.update(seq=seq, token=f"{state['relay']}-{seq}", issued_at=time.time(), transcript=path, new=False,
-                 calls=[[s["call"], s["input"]] for s in batch["steps"] if "call" in s])
+    pending, hold = _owed(state), None
+    if pending is None:
+        seq = state["seq"] + 1
+        req = relay.request_path(live, seq)
+        relay.write(req, {"seq": seq, "results": relay.pack(results), "usage": usage, "strays": strays,
+                          "at": time.time()})
+        batch = _await(live, seq, req, sleep)
+        if batch is None:                                          # never leave the relay without a next step
+            batch = {"steps": [], "stop": None, "hold": 5.0}
+        hold = batch["hold"]
+        pending = {"seq": seq, "steps": batch["steps"], "stop": batch["stop"], "ready_at": time.time() + hold}
+    state.update(pending=pending, transcript=path, new=False)
     relay.write(client, state)
-    out.write("\n".join(relay.lines(batch["steps"], batch["stop"], state["token"], echo=not path)) + "\n")
-    return 0
+    return pending, hold
+
+
+def _owed(state):
+    """A batch the brain made that no relay has had yet (its relay was replaced while it waited), unless it has
+    waited too long to be worth sending: then the brain is asked afresh."""
+    pending = state.get("pending")
+    if pending and time.time() - pending["ready_at"] > C.STALE_OUTBOX:
+        return None
+    return pending
 
 
 def _await(live, seq, req, sleep, limit=90.0):

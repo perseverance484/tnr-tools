@@ -270,7 +270,9 @@ def log_tokens(world, seq, usage, note):
 
 
 def tokens_summary(live, now, window=3600.0):
-    """{"last_hour": tokens, "batches": n, "per_fight_turn": average} from live/tokens.jsonl."""
+    """{"last_hour": tokens, "batches": n, "per_fight_turn": average} from live/tokens.jsonl. per_fight_turn is
+    the tokens of the batches tagged with a battle and a round, over the number of such rounds; a fight's batches
+    with no round yet (its opening read, its closing batch) are in the hour's total only."""
     total, n, turns = 0, 0, {}
     try:
         with open(os.path.join(live, "tokens.jsonl"), encoding="utf8") as f:
@@ -280,8 +282,8 @@ def tokens_summary(live, now, window=3600.0):
                     continue
                 cost = row["in"] + row["out"]
                 total, n = total + cost, n + 1
-                if row.get("battle"):
-                    key = (row["battle"], row.get("round"))
+                if row.get("battle") and row.get("round") is not None:
+                    key = (row["battle"], row["round"])
                     turns[key] = turns.get(key, 0) + cost
     except (OSError, ValueError, KeyError):
         pass

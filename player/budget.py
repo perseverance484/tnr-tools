@@ -17,8 +17,13 @@ No batch makes the relay sit on answers it already has: a watching read that wou
 gap behind the calls in front of it is left out of the batch, and the brain asks again on the next tick (so the
 answers to my actions come back at once). The brain spends a wait in front of a batch's first call itself.
 
-Every call the brain issues is written down with the time it will run, so a brain that restarts still knows what
-the last minute cost.
+Every call the brain issues is written down, so a brain that restarts still knows what the last minute cost. The
+times are kept on the safe side of the truth at both ends. A call is admitted at the earliest moment it could run
+(the batch's start and the waits in front of it, with no time allowed for the calls themselves). Once its batch is
+back it is moved to when it did run: the time of its answer, or the moment the batch came back when there is no
+answer. It leaves the minute sixty seconds after that and never sooner. So however slow or uneven the relay is,
+the ledger is never ahead of the account's real minute (AP1 re-review, finding 1: with predicted times, a slow
+batch followed by fast ones made 31 real calls in a minute, and 24 in a world lane capped at 20).
 
 The turn clock: a turn of mine starts (T) when a read first shows it. The planner is cut off at T+15 s and the best
 line so far is fired; a missing exact read is not waited for past T+12 s; the actions are out by T+20 s. Every
@@ -58,7 +63,21 @@ class Budget:
     def used(self, now=None, lane=None):
         """Calls in the last minute (issued or still to run), in one lane or in all."""
         now = self.world.now if now is None else now
-        return sum(1 for t, ln in self._hist(now) if lane is None or ln == lane)
+        return sum(1 for c in self._hist(now) if lane is None or c[1] == lane)
+
+    def settle(self, results=(), asked=()):
+        """The last batch is back (or given up): move each of its calls from the earliest moment it could have
+        run to when it did. asked: the batch's calls in order; results: the answers that came back. A call with
+        no answer is taken to have run just now, the latest it can have."""
+        now = self.world.now
+        out = [c for c in self.world["budget"]["calls"] if len(c) > 2]
+        left = list(results) if len(asked) == len(out) else []
+        for i, c in enumerate(out):
+            hit = next((r for r in left if r.endpoint == asked[i]["call"] and r.input == asked[i]["input"]), None)
+            if hit:
+                left.remove(hit)
+            c[0] = max(c[0], min(now, hit.at if hit and hit.at else now))
+            del c[2:]
 
     def headroom(self, now=None):
         """World calls that could go right now."""
@@ -91,8 +110,9 @@ class Budget:
         """Schedule a batch that the relay gets at `start` (now, or later when the brain holds it first). Returns
         (steps, waited): a call that does not fit in the minute gets a pause in front of it (see the module's
         notes for who gives way first), and a watching read that would have to wait long behind other calls is
-        left out. Every call that stays is recorded with the time it will run."""
+        left out. Every call that stays is written down at the earliest moment it can run, marked as still out."""
         now = self.world.now
+        self.settle()                                             # whatever is still out has run by now
         hist = self._hist(now)
         out, t, waited, called = [], now if start is None else start, 0.0, False
         for s in steps:
@@ -110,8 +130,7 @@ class Budget:
                 out.append(K.wait(gap))
                 t += gap
                 waited += gap
-            hist.append([round(t + C.CALL_COST, 2), lane])
-            t += C.CALL_COST
+            hist.append([round(t, 2), lane, "out"])
             out.append(s)
         self.world["budget"]["calls"] = hist[-120:]
         return out, round(waited, 1)

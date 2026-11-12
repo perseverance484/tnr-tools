@@ -146,14 +146,14 @@ class Ledger:
     rows of (time it runs, lane, endpoint)."""
 
     def __init__(self, rig):
-        self.rows = [(t, lane, "") for t, lane in rig.world["budget"]["calls"]]
+        self.rows = [(c[0], c[1], "") for c in rig.world["budget"]["calls"]]
         budget, real = rig.brain.budget, rig.brain.budget.pace
 
         def pace(steps, lane, start=None):
             out, waited = real(steps, lane, start)
             calls = [s["call"] for s in out if "call" in s]
             new = rig.world["budget"]["calls"][-len(calls):] if calls else []
-            self.rows += [(t, ln, c) for (t, ln), c in zip(new, calls)]
+            self.rows += [(e[0], e[1], c) for e, c in zip(new, calls)]
             return out, waited
         budget.pace = pace
 

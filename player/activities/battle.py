@@ -74,9 +74,26 @@ class Battle(Activity):
             if status != "BATTLE" or (bid and bid != state["bid"]):
                 state["left"] = True                              # it is out of this battle: the fight is over
         if status == "BATTLE" and bid and not world["battle"]:
-            world["battle"] = {"bid": bid, "entries": [], "opened": world.now}
-            world.event("fight_start", f"fight started ({bid[:6]})", battle=bid,
-                        director_mode=world["control"]["director_mode"])
+            self._open(world, bid)
+
+    @staticmethod
+    def _open(world, bid):
+        world["battle"] = {"bid": bid, "entries": [], "opened": world.now}
+        world.event("fight_start", f"fight started ({bid[:6]})", battle=bid,
+                    director_mode=world["control"]["director_mode"])
+
+    def _left(self, world, state):
+        """My profile is out of this battle. Out of combat: the fight is closed, and its closing batch carries the
+        Full Potion. Straight into another fight (a rematch, a third party; AP1 re-review of c225ed36, finding
+        4): the old fight is closed and kept, its result is the log's own count, no potion is sent into the new
+        fight, and the new fight opens in this same tick."""
+        bid = world.me.get("battleId")
+        if world.status() != "BATTLE" or not bid:
+            return self._close(world, state, None)
+        self._close(world, state, "lost" if self.combat.log_says_lost(state) else "won")
+        world["records"].pop("fight_end", None)                   # nothing of recovery goes into a fight
+        self._open(world, bid)
+        return self.plan(world)
 
     @staticmethod
     def _result(world, fight, result):
@@ -175,7 +192,7 @@ class Battle(Activity):
         refused = state.pop("refused_read", False)
         acts_ok = state.pop("acts_ok", False)
         if state.pop("left", False):
-            return self._close(world, state, None)                # my profile has left the battle
+            return self._left(world, state)
         if read is not None:
             return self._tick(world, state, read)
         if "battle" not in state and not state.get("empty_reads"):
@@ -237,11 +254,16 @@ class Battle(Activity):
         self._plainer(state, users)
         if C.ME not in users:
             return self._without_the_battle(world, state, battle)
-        if K.columns(battle, "battle.usersState.*.", K.STATE_COLS[:6]) is None:
-            # a fighter's column came back short: nothing can be told apart, so read again rather than guess
-            world.event("finding", "the fighters' columns do not line up; reading again", about="selects", battle=bid)
-            return plan([K.battle(bid, effects=True), self._log_read(state, C.ENTRIES_POLL)], "battle",
-                        f"BATTLE {bid}: misaligned read, reading again", tag="urgent")
+        if not self._usable(battle):
+            # a fighter's column came back short, or the read lacks the round, the version or whose turn it is:
+            # nothing can be told apart. It is not planned on, and it is not a read either: the turn's clock and
+            # the last good read decide what happens next, as when no read came back at all (AP1 re-review,
+            # finding 2: such reads used to ask for another read for ever, past every deadline of the turn).
+            n = state["bad_reads"] = state.get("bad_reads", 0) + 1
+            if n == 1 or n % 10 == 0:
+                world.event("finding", f"a battle read cannot be used ({n} so far): its columns do not line up",
+                            about="selects", battle=bid)
+            return self._no_read(world, state, False, False)
         if not from_last_read:                                    # how long the fight went unread before this
             state["unseen"] = round(world.now - state.get("read_at", state.get("opened", world.now)), 1)
             state["read_at"] = world.now
@@ -293,6 +315,13 @@ class Battle(Activity):
             if wait_for_him:
                 return wait_for_him
         return self._my_turn(world, state, battle, turn, poll, head, me_xy, his_hp, from_last_read)
+
+    @staticmethod
+    def _usable(battle):
+        """A read the tick can work on: the round, the version, whose turn it is, and one value per fighter in
+        every fighter column it reads."""
+        return (all(battle.get(k) is not None for k in ("battle.round", "battle.version", "battle.activeUserId"))
+                and bool(K.columns(battle, "battle.usersState.*.", K.STATE_COLS[:6])))
 
     @staticmethod
     def _seat(state, battle):

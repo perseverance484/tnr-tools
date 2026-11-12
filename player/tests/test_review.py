@@ -67,10 +67,14 @@ def my_line(rnd, action="stormblade_id"):
 class Game:
     """A stand-in for the game in a played-through fight. It answers exactly the calls each batch makes, in
     order, and nothing the brain did not ask for; an action is taken only on my turn and at the battle's own
-    version; his turn lasts `his_turn` seconds (an AI's ends when it is nudged)."""
+    version; his turn lasts `his_turn` seconds (an AI's ends when it is nudged).
 
-    def __init__(self, rig, his_turn=15.0, ai=False, lag=3.0, bid="B1"):
+    It keeps its own clock of when each call really ran (`made`), apart from the budget's ledger: the relay
+    spends `lag` seconds on a batch before its first call, and each call takes the next of `call_lags`."""
+
+    def __init__(self, rig, his_turn=15.0, ai=False, lag=3.0, bid="B1", call_lags=(0.4,), before=()):
         self.rig, self.bid, self.his_turn, self.ai, self.lag = rig, bid, his_turn, ai, lag
+        self.call_lags, self.made = call_lags, list(before)        # before: when earlier calls really ran
         self.state, self.first_log = fixture()
         users = self.state["battle.usersState.*.userId"]
         self.state["battle.usersState.*.isAi"] = [ai and u == FOE for u in users]
@@ -109,21 +113,31 @@ class Game:
         return user("BATTLE", bid=self.bid)
 
     def play(self, seconds):
-        """Run the loop for this long: the relay takes `lag` seconds over each batch, plus its waits."""
+        """Run the loop for this long. Each batch: the brain's hold, the relay's `lag`, then every wait and call
+        in order, each call at its own real time; the answers carry the time they came back."""
         end = self.rig.t + seconds
         while self.rig.t < end:
-            out, spent = self.out, self.out["hold"] + waited(self.out) + self.lag
-            now, self.passed = self.rig.t + spent, False
-            results = [self.answer(s, now) for s in out["steps"] if "call" in s]
+            out, now, results, self.passed = self.out, self.rig.t + self.out["hold"] + self.lag, [], False
+            for step in out["steps"]:
+                if "wait" in step:
+                    now += step["wait"]
+                    continue
+                self.made.append(now)
+                now += self.call_lags[len(self.made) % len(self.call_lags)]
+                results.append(self.answer(step, now)._replace(at=now))
             if self.passed:                                         # my actions landed: the turn is his now
                 self.mine, self.back_at = False, now + self.his_turn
-            self.out = self.rig.tick(*results, dt=spent)
+            self.out = self.rig.tick(*results, dt=now - self.rig.t)
             self.delayed += paced_actions(self.out)
             self.fired += [self.rig.t] if acts(self.out) else []
         return self
 
     def longest_unread(self):
         return max(b - a for a, b in zip(self.reads, self.reads[1:]))
+
+    def most_in_a_minute(self):
+        """The most calls that really ran in any rolling minute, by this game's own clock."""
+        return max(sum(1 for u in self.made if t - 60 < u <= t) for t in self.made)
 
 
 class F1TheSharedLimit(unittest.TestCase):
@@ -152,8 +166,10 @@ class F1TheSharedLimit(unittest.TestCase):
         rig.tick(user())
         rig.world["budget"]["calls"] = [[rig.t - 3.0 * i, "world"] for i in range(C.WORLD_CAP)][::-1]
         ledger = Ledger(rig)
-        game = Game(rig, his_turn=15.0).play(240)
+        game = Game(rig, his_turn=15.0, call_lags=(0.4, 2.0, 0.2, 3.0, 0.3),
+                    before=[c[0] for c in rig.world["budget"]["calls"]]).play(240)
         self.assertLessEqual(ledger.worst(), C.CALL_LIMIT)
+        self.assertLessEqual(game.most_in_a_minute(), C.CALL_LIMIT)          # by the game's own clock
         self.assertEqual(game.delayed, [])
         self.assertEqual(about(rig, "budget"), [])
         self.assertLessEqual(game.longest_unread(), B.BLIND_MAX + game.lag + 2 * C.ACTION_GAP)
@@ -170,9 +186,11 @@ class F1TheSharedLimit(unittest.TestCase):
         rig.world["budget"]["calls"] = []
         ledger = Ledger(rig)
         rig.brain.budget.pace([K.user()] * C.WORLD_CAP, "world")
+        burst = [rig.t + 0.4 * i for i in range(C.WORLD_CAP)]               # when those twenty really ran
         rig.t += 10
-        game = Game(rig, his_turn=6.0).play(180)
+        game = Game(rig, his_turn=6.0, call_lags=(0.2, 4.0, 0.3), before=burst).play(180)
         self.assertLessEqual(ledger.worst(), C.CALL_LIMIT)
+        self.assertLessEqual(game.most_in_a_minute(), C.CALL_LIMIT)          # by the game's own clock
         self.assertEqual(game.delayed, [])                                  # the reads gave way, never an action
         self.assertEqual({t["outcome"] for t in turns(rig)}, {"acted"})     # and no turn was lost for it
         late = [e for e in about(rig, "budget")]
@@ -182,8 +200,9 @@ class F1TheSharedLimit(unittest.TestCase):
     def test_turn_after_turn_against_an_ai_stays_under_the_limit(self):
         rig = Rig()
         ledger = Ledger(rig)
-        game = Game(rig, ai=True, lag=2.0).play(240)                        # as fast as the relay can go
+        game = Game(rig, ai=True, lag=2.0, call_lags=(0.2, 0.2, 5.0, 0.2)).play(240)   # as fast as the relay can go
         self.assertLessEqual(ledger.worst(), C.CALL_LIMIT)
+        self.assertLessEqual(game.most_in_a_minute(), C.CALL_LIMIT)          # by the game's clock, not the ledger's
         self.assertEqual(game.delayed, [])                                  # the reads give way, never an action
         played = turns(rig)
         self.assertGreaterEqual(len(played), 10)
@@ -203,7 +222,7 @@ class F1TheSharedLimit(unittest.TestCase):
         ledger = Ledger(rig)
         battle, ents, out = start_fight(rig)
         rig.world["budget"]["calls"] += [[rig.t, "battle"]] * (C.CALL_LIMIT - 4 - rig.brain.budget.used())
-        ledger.rows = [(t, lane, "") for t, lane in rig.world["budget"]["calls"]]
+        ledger.rows = [(c[0], c[1], "") for c in rig.world["budget"]["calls"]]
         out = gone(rig, dt=waited(out) + 1)
         self.assertEqual(rig.calls(out), ["item.consume", "profile.getUser"])
         self.assertLessEqual(ledger.worst(), C.CALL_LIMIT)

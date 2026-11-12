@@ -63,12 +63,12 @@ class Lanes(unittest.TestCase):
 
     def test_waits_inside_a_batch_count(self):
         steps, _ = self.b.pace([K.user(), K.wait(30), K.user()], "world")
-        times = sorted(t for t, _ in self.rig.world["budget"]["calls"])
-        self.assertGreater(times[1] - times[0], 30)
+        times = sorted(c[0] for c in self.rig.world["budget"]["calls"])
+        self.assertGreaterEqual(times[1] - times[0], 30)
 
     def test_a_batch_the_brain_holds_is_counted_from_when_the_relay_gets_it(self):
         self.b.pace([K.user()], "world", start=self.rig.t + 8)
-        self.assertGreater(self.rig.world["budget"]["calls"][0][0], self.rig.t + 8)
+        self.assertGreaterEqual(self.rig.world["budget"]["calls"][0][0], self.rig.t + 8)
 
     def test_a_restart_remembers_the_last_minute(self):
         self.b.pace([K.user()] * 7, "world")
