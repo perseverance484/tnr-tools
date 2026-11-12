@@ -1,6 +1,6 @@
-# DRIFT.md - upstream contract drift (2026-11-11)
+# DRIFT.md - upstream contract drift (2026-11-12)
 
-Upstream: studie-tech/TheNinjaRPG@04f997ab7e8bbf3ef48bf40663b3c5cb4ede6d41
+Upstream: studie-tech/TheNinjaRPG@abd990bb2f0b1466e1f4ac93e2762fe207bfcfc8
 
 Signal only. Nothing below is adopted until the structural diff gate passes.
 
@@ -152,6 +152,8 @@ ADDITIONS
   field  item  lpcProfile
   field  itemVariant  lpcColor
   field  itemVariant  lpcProfile
+  field  quest  raidMaxPlayers
+  field  quest  teamMaxPlayers
 
 BREAKING: 12 change(s) - DO NOT ADOPT (exit 1)
 == 45e_DATA_constants ==
@@ -278,7 +280,7 @@ ADDITIONS
   const-member  MISSION_HALL_SOLO_QUEST_TYPES  pvp
   const-member  MPVP_QUEUE_BATTLE_TYPES  RAID
   const-member  MPVP_QUEUE_BATTLE_TYPES  SHRINE_WAR
-  ... 113 more
+  ... 117 more
 
 BREAKING: 225 change(s) - DO NOT ADOPT (exit 1)
 ~~~
