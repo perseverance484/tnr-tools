@@ -24,6 +24,24 @@ import time
 from . import config as C
 from .world import RATE_LIMITED, Result
 
+PROTOCOL = 1
+"""What `brain next` and the brain mean by what they keep for each other, and the rules a batch is made under.
+Each of these carries the number of the code that made it: live/client.json and a request (`brain next`), an
+answer, the batch waiting to be printed that is made of it, and the receipt (the brain). One that does not carry
+this number is never used as if it did: a client file is read as no file, a request is not answered, an answer
+is not taken, a waiting batch is not printed, a receipt's batch is not given again. Whatever calls it stood for
+stay in the ledger, held. A record's shape cannot say this: an older version wrote a waiting batch with every
+field this one writes, admitted under a rule this one no longer keeps (review of 60a28a84).
+
+Change the number whenever the meaning of one of these records changes, or the rules by which the brain admits
+a batch's calls."""
+
+
+def ours(record):
+    """Whether a record carries this protocol's number, as the number it is: not true, not 1.0, not "1"."""
+    return isinstance(record, dict) and type(record.get("protocol")) is int and record["protocol"] == PROTOCOL
+
+
 NEXT = re.compile(r"player\.brain\s+next(?:\s+([0-9a-f]+-\d+))?(?=\s|$)")
 SAVED = re.compile(r"^Error: result \(([\d,]+) characters[^)]*\) exceeds maximum allowed tokens\. "
                    r"Output has been saved to (\S+?\.txt)\.")

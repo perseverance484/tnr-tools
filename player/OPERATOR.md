@@ -51,3 +51,16 @@ relay that is still running, its calls go uncounted and the account can pass 30 
 The held calls are counted from the moment you spoke, and leave the minute sixty seconds after that. So room
 comes back a minute later, not at once. The brain hears of your word with the relay's next `brain next`, and
 writes a `setting_changed` event when it has applied it.
+
+## After the player's code is updated
+
+The player uses nothing an earlier version of it left for a relay: not the relay's name, not a batch that was
+waiting to be printed, not word that was waiting for the brain. The calls behind them stay counted.
+
+- A relay started before the update is told to stop when it next asks. Start a new one.
+- A batch that was out, or waiting, is held with no relay to its name. Once no relay from before can be
+  running, list what is held and say `stopped all`. If you had said `stopped` just before the update, say it
+  again.
+- A brain started before the update must be ended (`pkill -f "player.brain run"`). While it runs, the relay's
+  `brain next` waits a minute and a half, gives no call, and says to ask again. The next `brain next` after it
+  is gone starts a new brain.

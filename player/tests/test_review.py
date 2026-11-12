@@ -700,7 +700,8 @@ class F11HandingAResultInIsSafe(unittest.TestCase):
                    TNR_PLAYER_FIGHTS=os.path.join(rig.dir, "fights"))
         for text in self.RESULTS:
             relay.write(os.path.join(rig.dir, "client.json"),
-                        {"relay": "ab12cd", "seq": 4, "token": "ab12cd-4", "calls": [["item.consume", {"x": 1}]]})
+                        {"protocol": relay.PROTOCOL, "relay": "ab12cd", "seq": 4, "token": "ab12cd-4",
+                         "calls": [["item.consume", {"x": 1}]]})
             line = json.loads(relay.lines([K.potion("x")], token="ab12cd-4", echo=True)[1])["put"]
             # what player/RELAY.md tells the relay to run: the line, the heredoc mark, the result, the mark
             command = f"{line} <<'TNR_RESULT'\n{text}\nTNR_RESULT"

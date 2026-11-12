@@ -59,34 +59,48 @@ class Killed(Exception):
     pass
 
 
-def recorded():
+def recorded(folder=RECORDED):
     """A live folder as the version before left it, from the recorded files. Returns (the folder, what was made)."""
     live = tempfile.mkdtemp(prefix="player-upgrade-")
     os.makedirs(os.path.join(live, "inbox"))
-    for name in os.listdir(RECORDED):
+    for name in os.listdir(folder):
         if name.startswith("req-"):
-            shutil.copy(os.path.join(RECORDED, name), os.path.join(live, "inbox", name))
+            shutil.copy(os.path.join(folder, name), os.path.join(live, "inbox", name))
         elif name != "made.json":
-            shutil.copy(os.path.join(RECORDED, name), os.path.join(live, name))
-    with open(os.path.join(RECORDED, "made.json"), encoding="utf8") as f:
+            shutil.copy(os.path.join(folder, name), os.path.join(live, name))
+    with open(os.path.join(folder, "made.json"), encoding="utf8") as f:
         return live, json.load(f)
 
 
-def by_the_version_before():
-    """The same state made now, by the 442a6311 package out of the repository's history; None without it."""
+PACKAGE = []
+
+
+def the_package_before():
+    """The 442a6311 package out of the repository's history, in a folder of its own; None without it."""
     def git(*args):
         return subprocess.run(["git", *args], cwd=C.ROOT, capture_output=True)
-    if git("cat-file", "-e", BEFORE + "^{commit}").returncode:
+    if not PACKAGE:
+        PACKAGE.append(None)
+        if not git("cat-file", "-e", BEFORE + "^{commit}").returncode:
+            root = tempfile.mkdtemp(prefix="player-before-")
+            for name in git("ls-tree", "-r", "--name-only", BEFORE, "--", "player").stdout.decode().splitlines():
+                path = os.path.join(root, name)
+                os.makedirs(os.path.dirname(path), exist_ok=True)
+                with open(path, "wb") as f:
+                    f.write(git("show", f"{BEFORE}:{name}").stdout)
+            for name in ("state", "data", "docs", "scripts", "harness", ".claude"):
+                os.symlink(os.path.join(C.ROOT, name), os.path.join(root, name), target_is_directory=True)
+            PACKAGE[0] = root
+    return PACKAGE[0]
+
+
+def by_the_version_before(program=OLD_PROGRAM, *args):
+    """What that package makes when it runs a program (the default: the state of the review of 426a9fba), as
+    the program's last line says: (the live folder, what was made). None without the package."""
+    root = the_package_before()
+    if root is None:
         return None
-    root = tempfile.mkdtemp(prefix="player-before-")
-    for name in git("ls-tree", "-r", "--name-only", BEFORE, "--", "player").stdout.decode().splitlines():
-        path = os.path.join(root, name)
-        os.makedirs(os.path.dirname(path), exist_ok=True)
-        with open(path, "wb") as f:
-            f.write(git("show", f"{BEFORE}:{name}").stdout)
-    for name in ("state", "data", "docs", "scripts", "harness", ".claude"):
-        os.symlink(os.path.join(C.ROOT, name), os.path.join(root, name), target_is_directory=True)
-    out = subprocess.run([sys.executable, "-W", "ignore", "-c", OLD_PROGRAM], cwd=root, capture_output=True,
+    out = subprocess.run([sys.executable, "-W", "ignore", "-c", program, *args], cwd=root, capture_output=True,
                          text=True, env={**os.environ, "PYTHONPATH": root})
     made = json.loads(out.stdout.strip().splitlines()[-1])
     return made["live"], made
@@ -234,12 +248,14 @@ class M1TheRequestsOfThisVersionAreStillAnswered(Client):
 class M1AClientFileOfAnyShapeDoesNotStopBrainNext(Client):
     def test_whatever_an_older_file_holds(self):
         """Not from the review: the other file an older version leaves. A batch waiting in it with no id, a
-        number that is no number, a file that is a list."""
+        number that is no number, a file that is a list. Each as that version left it, and with this version's
+        protocol number on the file (it is then read, and what is not in this version's shape is dropped)."""
         path = os.path.join(self.rig.dir, "client.json")
-        for content in ([1, 2], "text", {"seq": "7", "relay": "aa11bb", "token": "aa11bb-7"},
-                        {"seq": 3, "relay": "aa11bb", "token": "aa11bb-3", "calls": 5,
-                         "pending": {"seq": 4, "steps": [{"call": "old.call", "input": {}, "select": []}],
-                                     "stop": None, "ready_at": time.time()}}):
+        shapes = ([1, 2], "text", {"seq": "7", "relay": "aa11bb", "token": "aa11bb-7"},
+                  {"seq": 3, "relay": "aa11bb", "token": "aa11bb-3", "calls": 5,
+                   "pending": {"seq": 4, "steps": [{"call": "old.call", "input": {}, "select": []}],
+                               "stop": None, "ready_at": time.time()}})
+        for content in shapes + tuple(dict(c, protocol=relay.PROTOCOL) for c in shapes if isinstance(c, dict)):
             relay.write(path, content)
             told = self.next("aa11bb-3")                                    # a relay from before asks
             self.assertNotIn("old.call", "".join(told), content)            # a batch this code did not store

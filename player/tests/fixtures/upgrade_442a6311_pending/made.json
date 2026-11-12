@@ -1,0 +1,72 @@
+{
+ "by": "442a63119d2fa3fe033877bedc86f5df8cd9be00",
+ "how": "OLD_PROGRAM in player/tests/test_rereview6.py: each relay is replaced with its batch in hand; the last one's `brain next` is killed in the brain-side wait, after the batch is stored in client.json and before it is printed",
+ "now": 1800000064.0,
+ "relays": 8,
+ "printed": [
+  [
+   "{\"call\":\"profile.getUser\",\"input\":{},\"select\":[\"userData.status\",\"userData.battleId\",\"userData.curHealth\",\"userData.maxHealth\",\"userData.sector\",\"userData.longitude\",\"userData.latitude\",\"userData.curChakra\",\"userData.maxChakra\",\"userData.curStamina\",\"userData.maxStamina\",\"userData.money\",\"userData.bank\",\"userData.curEnergy\",\"userData.intelligence\",\"userData.willpower\",\"userData.dailyErrands\"]}",
+   "{\"put\":\"cd /tmp/player-before-_x3xc4ok && python3 -m player.brain put a3bedf-1 1\"}",
+   "{\"call\":\"travel.getSectorData\",\"input\":{\"sector\":1538},\"select\":[\"users.*.userId\",\"users.*.username\",\"users.*.longitude\",\"users.*.latitude\",\"users.*.status\",\"users.*.level\",\"users.*.villageId\",\"users.*.immunityUntil\",\"users.*.battleId\"]}",
+   "{\"put\":\"cd /tmp/player-before-_x3xc4ok && python3 -m player.brain put a3bedf-1 2\"}",
+   "{\"call\":\"stealth.useSensory\",\"input\":{\"sector\":1538},\"select\":[\"success\",\"message\"]}",
+   "{\"put\":\"cd /tmp/player-before-_x3xc4ok && python3 -m player.brain put a3bedf-1 3\"}",
+   "{\"call\":\"profile.getStrongestUsers\",\"input\":{},\"select\":[\"*.userId\",\"*.username\"]}",
+   "{\"put\":\"cd /tmp/player-before-_x3xc4ok && python3 -m player.brain put a3bedf-1 4\"}",
+   "{\"bash\":\"cd /tmp/player-before-_x3xc4ok && python3 -m player.brain next a3bedf-1\"}"
+  ],
+  [
+   "{\"call\":\"profile.getUser\",\"input\":{},\"select\":[\"userData.status\",\"userData.battleId\",\"userData.curHealth\",\"userData.maxHealth\",\"userData.sector\",\"userData.longitude\",\"userData.latitude\",\"userData.curChakra\",\"userData.maxChakra\",\"userData.curStamina\",\"userData.maxStamina\",\"userData.money\",\"userData.bank\",\"userData.curEnergy\",\"userData.intelligence\",\"userData.willpower\",\"userData.dailyErrands\"]}",
+   "{\"put\":\"cd /tmp/player-before-_x3xc4ok && python3 -m player.brain put 514714-2 1\"}",
+   "{\"call\":\"travel.getSectorData\",\"input\":{\"sector\":1538},\"select\":[\"users.*.userId\",\"users.*.username\",\"users.*.longitude\",\"users.*.latitude\",\"users.*.status\",\"users.*.level\",\"users.*.villageId\",\"users.*.immunityUntil\",\"users.*.battleId\"]}",
+   "{\"put\":\"cd /tmp/player-before-_x3xc4ok && python3 -m player.brain put 514714-2 2\"}",
+   "{\"call\":\"combat.getBattleHistory\",\"input\":{\"userId\":\"user_2XcFzRak5Me9DXW6cYUk2r9WLVr\",\"limit\":30,\"combatTypes\":[\"COMBAT\",\"RANKED_PVP\",\"RANKED_SPARRING\",\"SPARRING\",\"TOURNAMENT\",\"KAGE_PVP\",\"CLAN_CHALLENGE\"]},\"select\":[\"data.*.battleId\",\"data.*.battleType\",\"data.*.attackedId\",\"data.*.defenderId\",\"data.*.attacker.username\",\"data.*.defender.username\",\"data.*.createdAt\"]}",
+   "{\"put\":\"cd /tmp/player-before-_x3xc4ok && python3 -m player.brain put 514714-2 3\"}",
+   "{\"bash\":\"cd /tmp/player-before-_x3xc4ok && python3 -m player.brain next 514714-2\"}"
+  ],
+  [
+   "{\"call\":\"profile.getUser\",\"input\":{},\"select\":[\"userData.status\",\"userData.battleId\",\"userData.curHealth\",\"userData.maxHealth\",\"userData.sector\",\"userData.longitude\",\"userData.latitude\",\"userData.curChakra\",\"userData.maxChakra\",\"userData.curStamina\",\"userData.maxStamina\",\"userData.money\",\"userData.bank\",\"userData.curEnergy\",\"userData.intelligence\",\"userData.willpower\",\"userData.dailyErrands\"]}",
+   "{\"put\":\"cd /tmp/player-before-_x3xc4ok && python3 -m player.brain put f51d4c-3 1\"}",
+   "{\"call\":\"travel.getSectorData\",\"input\":{\"sector\":1538},\"select\":[\"users.*.userId\",\"users.*.username\",\"users.*.longitude\",\"users.*.latitude\",\"users.*.status\",\"users.*.level\",\"users.*.villageId\",\"users.*.immunityUntil\",\"users.*.battleId\"]}",
+   "{\"put\":\"cd /tmp/player-before-_x3xc4ok && python3 -m player.brain put f51d4c-3 2\"}",
+   "{\"call\":\"combat.getBattleHistory\",\"input\":{\"userId\":\"user_2XcFzRak5Me9DXW6cYUk2r9WLVr\",\"limit\":30,\"combatTypes\":[\"COMBAT\",\"RANKED_PVP\",\"RANKED_SPARRING\",\"SPARRING\",\"TOURNAMENT\",\"KAGE_PVP\",\"CLAN_CHALLENGE\"]},\"select\":[\"data.*.battleId\",\"data.*.battleType\",\"data.*.attackedId\",\"data.*.defenderId\",\"data.*.attacker.username\",\"data.*.defender.username\",\"data.*.createdAt\"]}",
+   "{\"put\":\"cd /tmp/player-before-_x3xc4ok && python3 -m player.brain put f51d4c-3 3\"}",
+   "{\"bash\":\"cd /tmp/player-before-_x3xc4ok && python3 -m player.brain next f51d4c-3\"}"
+  ],
+  [
+   "{\"call\":\"profile.getUser\",\"input\":{},\"select\":[\"userData.status\",\"userData.battleId\",\"userData.curHealth\",\"userData.maxHealth\",\"userData.sector\",\"userData.longitude\",\"userData.latitude\",\"userData.curChakra\",\"userData.maxChakra\",\"userData.curStamina\",\"userData.maxStamina\",\"userData.money\",\"userData.bank\",\"userData.curEnergy\",\"userData.intelligence\",\"userData.willpower\",\"userData.dailyErrands\"]}",
+   "{\"put\":\"cd /tmp/player-before-_x3xc4ok && python3 -m player.brain put 620c62-4 1\"}",
+   "{\"call\":\"travel.getSectorData\",\"input\":{\"sector\":1538},\"select\":[\"users.*.userId\",\"users.*.username\",\"users.*.longitude\",\"users.*.latitude\",\"users.*.status\",\"users.*.level\",\"users.*.villageId\",\"users.*.immunityUntil\",\"users.*.battleId\"]}",
+   "{\"put\":\"cd /tmp/player-before-_x3xc4ok && python3 -m player.brain put 620c62-4 2\"}",
+   "{\"call\":\"combat.getBattleHistory\",\"input\":{\"userId\":\"user_2XcFzRak5Me9DXW6cYUk2r9WLVr\",\"limit\":30,\"combatTypes\":[\"COMBAT\",\"RANKED_PVP\",\"RANKED_SPARRING\",\"SPARRING\",\"TOURNAMENT\",\"KAGE_PVP\",\"CLAN_CHALLENGE\"]},\"select\":[\"data.*.battleId\",\"data.*.battleType\",\"data.*.attackedId\",\"data.*.defenderId\",\"data.*.attacker.username\",\"data.*.defender.username\",\"data.*.createdAt\"]}",
+   "{\"put\":\"cd /tmp/player-before-_x3xc4ok && python3 -m player.brain put 620c62-4 3\"}",
+   "{\"bash\":\"cd /tmp/player-before-_x3xc4ok && python3 -m player.brain next 620c62-4\"}"
+  ],
+  [
+   "{\"call\":\"profile.getUser\",\"input\":{},\"select\":[\"userData.status\",\"userData.battleId\",\"userData.curHealth\",\"userData.maxHealth\",\"userData.sector\",\"userData.longitude\",\"userData.latitude\",\"userData.curChakra\",\"userData.maxChakra\",\"userData.curStamina\",\"userData.maxStamina\",\"userData.money\",\"userData.bank\",\"userData.curEnergy\",\"userData.intelligence\",\"userData.willpower\",\"userData.dailyErrands\"]}",
+   "{\"put\":\"cd /tmp/player-before-_x3xc4ok && python3 -m player.brain put a2dd26-5 1\"}",
+   "{\"call\":\"travel.getSectorData\",\"input\":{\"sector\":1538},\"select\":[\"users.*.userId\",\"users.*.username\",\"users.*.longitude\",\"users.*.latitude\",\"users.*.status\",\"users.*.level\",\"users.*.villageId\",\"users.*.immunityUntil\",\"users.*.battleId\"]}",
+   "{\"put\":\"cd /tmp/player-before-_x3xc4ok && python3 -m player.brain put a2dd26-5 2\"}",
+   "{\"call\":\"stealth.useSensory\",\"input\":{\"sector\":1538},\"select\":[\"success\",\"message\"]}",
+   "{\"put\":\"cd /tmp/player-before-_x3xc4ok && python3 -m player.brain put a2dd26-5 3\"}",
+   "{\"call\":\"combat.getBattleHistory\",\"input\":{\"userId\":\"user_2XcFzRak5Me9DXW6cYUk2r9WLVr\",\"limit\":30,\"combatTypes\":[\"COMBAT\",\"RANKED_PVP\",\"RANKED_SPARRING\",\"SPARRING\",\"TOURNAMENT\",\"KAGE_PVP\",\"CLAN_CHALLENGE\"]},\"select\":[\"data.*.battleId\",\"data.*.battleType\",\"data.*.attackedId\",\"data.*.defenderId\",\"data.*.attacker.username\",\"data.*.defender.username\",\"data.*.createdAt\"]}",
+   "{\"put\":\"cd /tmp/player-before-_x3xc4ok && python3 -m player.brain put a2dd26-5 4\"}",
+   "{\"bash\":\"cd /tmp/player-before-_x3xc4ok && python3 -m player.brain next a2dd26-5\"}"
+  ],
+  [
+   "{\"call\":\"profile.getUser\",\"input\":{},\"select\":[\"userData.status\",\"userData.battleId\",\"userData.curHealth\",\"userData.maxHealth\",\"userData.sector\",\"userData.longitude\",\"userData.latitude\",\"userData.curChakra\",\"userData.maxChakra\",\"userData.curStamina\",\"userData.maxStamina\",\"userData.money\",\"userData.bank\",\"userData.curEnergy\",\"userData.intelligence\",\"userData.willpower\",\"userData.dailyErrands\"]}",
+   "{\"put\":\"cd /tmp/player-before-_x3xc4ok && python3 -m player.brain put e3ba2b-6 1\"}",
+   "{\"call\":\"travel.getSectorData\",\"input\":{\"sector\":1538},\"select\":[\"users.*.userId\",\"users.*.username\",\"users.*.longitude\",\"users.*.latitude\",\"users.*.status\",\"users.*.level\",\"users.*.villageId\",\"users.*.immunityUntil\",\"users.*.battleId\"]}",
+   "{\"put\":\"cd /tmp/player-before-_x3xc4ok && python3 -m player.brain put e3ba2b-6 2\"}",
+   "{\"bash\":\"cd /tmp/player-before-_x3xc4ok && python3 -m player.brain next e3ba2b-6\"}"
+  ],
+  [
+   "{\"call\":\"profile.getUser\",\"input\":{},\"select\":[\"userData.status\",\"userData.battleId\",\"userData.curHealth\",\"userData.maxHealth\",\"userData.sector\",\"userData.longitude\",\"userData.latitude\",\"userData.curChakra\",\"userData.maxChakra\",\"userData.curStamina\",\"userData.maxStamina\",\"userData.money\",\"userData.bank\",\"userData.curEnergy\",\"userData.intelligence\",\"userData.willpower\",\"userData.dailyErrands\"]}",
+   "{\"put\":\"cd /tmp/player-before-_x3xc4ok && python3 -m player.brain put b8034e-7 1\"}",
+   "{\"bash\":\"python3 -c 'import time; time.sleep(60.5)'\"}",
+   "{\"call\":\"travel.getSectorData\",\"input\":{\"sector\":1538},\"select\":[\"users.*.userId\",\"users.*.username\",\"users.*.longitude\",\"users.*.latitude\",\"users.*.status\",\"users.*.level\",\"users.*.villageId\",\"users.*.immunityUntil\",\"users.*.battleId\"]}",
+   "{\"put\":\"cd /tmp/player-before-_x3xc4ok && python3 -m player.brain put b8034e-7 2\"}",
+   "{\"bash\":\"cd /tmp/player-before-_x3xc4ok && python3 -m player.brain next b8034e-7\"}"
+  ]
+ ]
+}

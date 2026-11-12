@@ -157,7 +157,7 @@ class L2NotOnRecordIsNotNeverPrinted(Client):
         token and the calls but no record of who holds what."""
         a = self.new_relay_with_a_batch()
         number, n = int(a.split("-")[1]), len(self.client()["calls"])
-        state = {k: v for k, v in self.client().items() if k not in ("held", "unprinted")}
+        state = {k: v for k, v in self.client().items() if k not in ("held", "unprinted", "protocol")}
         state.update(gone=[f"dead01-{number - 1}"], ended=[[number - 1, time.time()]])   # as it wrote them then
         relay.write(os.path.join(self.rig.dir, "client.json"), state)
         world = self.saved()

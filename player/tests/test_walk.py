@@ -5,8 +5,9 @@ running waits for the batch it asked for; replaced relays that go on with the ba
 later, and come back; relays that were told to stop and ask again all the same; relays that die without a
 word; `brain next` processes that die before the brain answers, before the answer is written down, or before
 the batch is printed (the relay then runs the line again, or is gone); long pauses; a client file that loses
-its record of who holds what, or is lost whole; and an operator who lists what is held, says "stopped" of one
-relay only when that relay is, and says "stopped all" only when every relay but the running one is. The hunt
+its record of who holds what, is left without this version's number, or is lost whole; and an operator who
+lists what is held, says "stopped" of one relay only when that relay is, and says "stopped all" only when every
+relay but the running one is. The hunt
 is kept at its fastest, so the world lane runs at its cap and a call that is not counted shows as one call too
 many. Time is the walk's own clock; no call leaves the process.
 
@@ -118,7 +119,9 @@ class Walk:
         return out.getvalue().splitlines()
 
     def client(self):
-        return relay.read(os.path.join(self.rig.dir, "client.json")) or {}
+        """What the client's file says. One without this version's number says nothing."""
+        state = relay.read(os.path.join(self.rig.dir, "client.json")) or {}
+        return state if state.get("protocol") == relay.PROTOCOL else {}
 
     def seen(self):
         """After anything that writes the client's file: what it now says is printed, and what is over."""
@@ -270,17 +273,23 @@ class Walk:
         self.seen()
 
     def lose(self):
-        """The client's file loses its record of who holds what, or is lost whole. What the brain had out then
-        may come to be held for a relay that is not on record; word that was waiting in the file is gone."""
+        """The client's file loses its record of who holds what, or its number (it is then another version's,
+        and none of it is read), or is lost whole. What the brain had out then may come to be held for a relay
+        that is not on record; word that was waiting in the file is gone."""
         path, state = os.path.join(self.rig.dir, "client.json"), self.client()
         budget = (relay.read(os.path.join(self.rig.dir, "world.json")) or {}).get("budget") or {}
         self.given.add(budget.get("batch"))
         self.heard -= {e[0] for e in state.get("ended") or []}
-        if self.rng.random() < 0.5 and state:
+        roll = self.rng.random()
+        if roll < 0.4 and state:
             state.pop("held", None)
             state.pop("ended", None)
             relay.write(path, state)
             return "a client file that lost its record of who holds what"
+        if roll < 0.7 and state:
+            state.pop("protocol", None)
+            relay.write(path, state)
+            return "a client file without this version's number"
         if os.path.exists(path):
             os.unlink(path)
         return "a client file that was lost"

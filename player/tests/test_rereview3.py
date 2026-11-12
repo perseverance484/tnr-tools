@@ -432,7 +432,7 @@ class K5ARequestAndItsAnswerAreOnePair(Client):
                 asked.append(obj)                                           # the request is in. Before the brain
                 if len(asked) == 2:                                         # answers the second one, a file turns
                     real(relay.batch_path(self.rig.dir, obj["seq"], obj["id"]), {   # up in its answer's place
-                        "seq": obj["seq"], "request": "another", "stop": None, "hold": 0.0,
+                        "protocol": relay.PROTOCOL, "seq": obj["seq"], "request": "another", "stop": None, "hold": 0.0,
                         "steps": [{"call": "not.this", "input": {}, "select": []}]})
             return wrote
         with mock.patch.object(relay, "write", write):

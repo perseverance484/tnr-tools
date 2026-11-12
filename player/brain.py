@@ -28,6 +28,11 @@ Who has which batch is kept by `brain next` (live/client.json), from what it pri
 what a relay says of itself. A batch is the request's id; it is held by the relay it was printed to until that
 relay hands it in. A relay that is replaced while it holds one leaves it loose in the call ledger
 (player/budget.py), until it comes back with that batch's token or the operator says it has been stopped.
+
+What the two sides keep for each other (the client's file, a request, an answer, a batch that waits to be
+printed, the receipt) carries the protocol number of the code that made it (relay.PROTOCOL). One that does not
+carry this version's number is not used: an older version's file names no relay and no batch, an older brain's
+answer or receipt gives no batch. The calls behind them stay in the ledger, held.
 """
 import contextlib
 import fcntl
@@ -333,9 +338,9 @@ class Brain:
     def _receipt(self, out):
         """Keep the answer to this request beside what it changed (it is saved, or lost, in the same write)."""
         if self.ask.get("relay") is not None:
-            self.world["relay"]["answered"] = {"relay": self.ask["relay"], "seq": self.ask.get("seq"),
-                                               "id": self.ask.get("id"), "at": self.world.now,
-                                               "batch": _wire(out) if out else None}
+            self.world["relay"]["answered"] = {"protocol": relay.PROTOCOL, "relay": self.ask["relay"],
+                                               "seq": self.ask.get("seq"), "id": self.ask.get("id"),
+                                               "at": self.world.now, "batch": _wire(out) if out else None}
 
     def watchdog(self):
         """A relay that has not come back in time is a stall (design 4.1). Called by the resident process."""
@@ -388,7 +393,11 @@ def _answered(brain, req):
     """The answer this very request already had, when it is made again: its `brain next` died before it had
     the answer down, and the results it carries are in the world model already (review of c0006266, finding 3:
     they were applied a second time). False for a request older than the last one answered for the same relay:
-    it is dropped. None for a request that is new."""
+    it is dropped. None for a request that is new.
+
+    A receipt that a brain of another protocol left answers the request too, but not with that brain's batch:
+    what the request brings is in the world model already and is not taken in twice, and a batch made under
+    that brain's rules is not this one's to give. The relay is told to come back in a moment."""
     done = brain.world["relay"].get("answered") or {}
     if req.get("relay") is None or req["relay"] != done.get("relay") or not isinstance(done.get("seq"), int):
         return None
@@ -398,14 +407,15 @@ def _answered(brain, req):
         return False
     if req["seq"] > done["seq"]:
         return None
-    batch = dict(done["batch"] or _after_crash(brain), id=done.get("id"))   # the batch it made then, not a new one
+    ours = relay.ours(done) and done["batch"]
+    batch = dict(ours or _after_crash(brain), id=done.get("id"))            # the batch it made then, not a new one
     batch["hold"] = round(max(0.0, batch["hold"] - (brain.world.now - done["at"])), 1)   # what is left of the wait
     return batch
 
 
-REQUEST = ("seq", "id", "relay", "held", "gone", "ended", "unprinted")
-"""What every request of this version's `brain next` carries: its number, its id, its relay, and what that relay
-knows of who has which batch."""
+REQUEST = ("protocol", "seq", "id", "relay", "held", "gone", "ended", "unprinted")
+"""What every request of this version's `brain next` carries: the protocol's number, the request's number and id,
+its relay, and what that relay knows of who has which batch."""
 
 
 def serve(brain, live, path):
@@ -416,7 +426,7 @@ def serve(brain, live, path):
     426a9fba, finding 1: a request from before, with no word of who held the last batch, was answered by a
     brain that came home, and that batch was taken to be back)."""
     req = relay.read(path)
-    if isinstance(req, dict) and all(k in req for k in REQUEST):
+    if relay.ours(req) and all(k in req for k in REQUEST):
         return answer(brain, live, path)
     with contextlib.suppress(OSError):
         os.unlink(path)
@@ -447,7 +457,8 @@ def answer(brain, live, path):
                 _crashed(brain, live)
         if out:
             relay.write(relay.batch_path(live, req["seq"], req.get("id")),
-                        dict(out, seq=req["seq"], relay=req.get("relay"), request=req.get("id")))
+                        dict(out, protocol=relay.PROTOCOL, seq=req["seq"], relay=req.get("relay"),
+                             request=req.get("id")))
     with contextlib.suppress(OSError):          # only the file that was read: never a newer request
         os.unlink(path)
 
@@ -535,12 +546,16 @@ RETRY_IN = 5.0            # s before a relay asks again when the brain gave no a
 
 
 def _who(client):
-    """client.json, in the shape this code writes: a file from an older version, or one that was edited, never
-    makes a batch look held or gone that this code did not print, never has a batch printed that this code did
-    not store, and never stops `brain next` from running. What is dropped here is not taken for its opposite:
-    a batch that this file says nothing of is, to the brain, not on record."""
+    """client.json as this code may use it. A file that does not carry this version's protocol number is read
+    as no file at all: no relay, no batch waiting, nothing held or gone. So an older version's file never has a
+    batch printed that this version's brain did not pace (review of 60a28a84: an older waiting batch had every
+    field of a current one, and was printed past the budget), and its relay is told to stop. Within a file of
+    this protocol, what is not in the shape this code writes is dropped. Nothing dropped here is taken for its
+    opposite: a batch that the file says nothing of is, to the brain, not on record, and is held."""
     state = relay.read(client)
-    state = state if isinstance(state, dict) else {}
+    if not relay.ours(state):
+        state = {}                                                 # another version's file: none of it is read
+    state["protocol"] = relay.PROTOCOL
     if not _a_relay(state):
         for k in ("relay", "token", "seq"):                        # no relay is known by such a file: the next
             state.pop(k, None)                                     # `brain next` with no token starts one afresh
@@ -565,8 +580,8 @@ def _a_batch(g):
 
 
 def _a_waiting_batch(p):
-    """A batch the brain made that is waiting to be printed, as client.json keeps it under pending."""
-    return (isinstance(p, dict) and isinstance(p.get("id"), str) and isinstance(p.get("seq"), int)
+    """A batch this version's brain made that is waiting to be printed, as client.json keeps it under pending."""
+    return (relay.ours(p) and isinstance(p.get("id"), str) and isinstance(p.get("seq"), int)
             and isinstance(p.get("steps"), list) and isinstance(p.get("ready_at"), (int, float)) and "stop" in p)
 
 
@@ -639,9 +654,9 @@ def _greet(client, state, token):
     2: such a relay's token carried the number of a batch another relay held, and released it)."""
     if token is None:
         gone = (state.get("gone") or []) + ([state["held"]] if state.get("held") else [])
-        state = {"relay": os.urandom(3).hex(), "seq": state.get("seq", 0), "calls": [], "transcript": None,
-                 "new": True, "pending": state.get("pending"), "held": None, "gone": gone,
-                 "ended": state.get("ended") or [], "unprinted": state.get("unprinted") or []}
+        state = {"protocol": relay.PROTOCOL, "relay": os.urandom(3).hex(), "seq": state.get("seq", 0),
+                 "calls": [], "transcript": None, "new": True, "pending": state.get("pending"), "held": None,
+                 "gone": gone, "ended": state.get("ended") or [], "unprinted": state.get("unprinted") or []}
         state["token"] = f"{state['relay']}-{state['seq']}"
         relay.write(client, state)
         return relay.next_line(state["token"])
@@ -670,10 +685,10 @@ def _exchange(live, client, state, sleep):
         seq, rid = state["seq"] + 1, os.urandom(4).hex()
         _sweep(live)
         req = relay.request_path(live, seq, rid)
-        ask = {"seq": seq, "id": rid, "relay": state["relay"], "results": relay.pack(results), "usage": usage,
-               "strays": strays, "at": time.time(), "clock": "transcript" if path else "ours",
-               "held": state.get("held"), "gone": state["gone"], "ended": state["ended"],
-               "unprinted": state["unprinted"]}
+        ask = {"protocol": relay.PROTOCOL, "seq": seq, "id": rid, "relay": state["relay"],
+               "results": relay.pack(results), "usage": usage, "strays": strays, "at": time.time(),
+               "clock": "transcript" if path else "ours", "held": state.get("held"), "gone": state["gone"],
+               "ended": state["ended"], "unprinted": state["unprinted"]}
         # On record before it is asked: whatever the brain makes of this request has not been printed. If this
         # `brain next` dies now, the next one can say so, and the brain need not hold that batch for anyone.
         state["unprinted"] = state["unprinted"] + [rid]
@@ -683,8 +698,8 @@ def _exchange(live, client, state, sleep):
         if batch is None:
             return None, RETRY_IN
         hold = batch["hold"]
-        pending = {"id": batch.get("id") or rid, "seq": seq, "steps": batch["steps"], "stop": batch["stop"],
-                   "ready_at": time.time() + hold}
+        pending = {"protocol": batch["protocol"], "id": batch.get("id") or rid, "seq": seq,
+                   "steps": batch["steps"], "stop": batch["stop"], "ready_at": time.time() + hold}
         state.update(held=None, ended=[], unprinted=[])            # the brain has them, saved beside its answer
     state.update(pending=pending, transcript=path, new=False, handed=state["token"])
     relay.write(client, state)
@@ -716,14 +731,16 @@ def _owed(state):
 
 
 def _await(live, seq, rid, req, sleep, limit=90.0):
-    """The answer to this request. When no brain holds the lock, this process answers and then starts one."""
+    """The answer to this request, from a brain of this protocol: an answer that any other brain wrote (one of
+    an older version that is still running) is removed and not taken. When no brain holds the lock, this process
+    answers and then starts one."""
     t0, mine = time.time(), relay.batch_path(live, seq, rid)
     while time.time() - t0 < limit:
         batch = relay.read(mine)
         if batch is not None:
             os.unlink(mine)
-            if batch.get("request") == rid:                        # the answer to this very request
-                return batch
+            if relay.ours(batch) and batch.get("request") == rid:
+                return batch                                       # the answer to this very request
         lock = _lock(live)
         if lock is not None:                                       # nobody is home: answer here, then start a brain
             try:
