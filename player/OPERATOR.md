@@ -80,7 +80,8 @@ minute after you have spoken.
 **Say it only when it is true**, here more than anywhere. Nothing in the ledger stands behind this hold: if a
 relay from before the update is still running when you say it, its calls are counted by nobody.
 
-- The word is for this one update. It is of no use for a later one, which is listed under another name.
+- The word is for this one update. It is of no use for a later one, which is listed under another name, also
+  when the file that is taken over then is the same as before, byte for byte.
 - A batch the last relay from before the update had is listed only once the new relay has asked. List again
   then, and say `stopped all` again: until you do, that batch's calls stay held and the player has less room.
 - `stopped TOKEN` or `stopped BATCH` for one old batch lets that batch go and leaves the update's minute held.

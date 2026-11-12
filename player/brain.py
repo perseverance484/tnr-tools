@@ -89,6 +89,7 @@ class Brain:
             return
         if self.world.found:
             self.budget.taken_over(self.world.found, self.world.found_at)
+            self.world.taken_over = True                            # counted with the first save (World.save)
         ledger["protocol"] = relay.PROTOCOL
 
     # ------------------------------------------------------------ one tick

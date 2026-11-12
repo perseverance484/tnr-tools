@@ -35,7 +35,8 @@ PREDECESSOR = "29797ba0f769152381e71710f812605be9e0bfea"
 """The version c412de4d was reviewed against: the last one without the hold."""
 REVIEWED = "c412de4df43baf4f11fbd817efb0f7ae95c08226"
 """The version the review was of: it has the hold, under the predecessor's number. It is the version before this."""
-EARLIER = ("06358ca539372cae12d41b086a465719f403aba7", PREDECESSOR, REVIEWED)
+EARLIER = ("06358ca539372cae12d41b086a465719f403aba7", PREDECESSOR, REVIEWED,
+           "7cf7d73c5cb235801b66e4b4763cb63e1bc7b14e")
 """Versions whose records carry a number, and whose rules are not this version's."""
 FIXTURES = os.path.join(os.path.dirname(__file__), "fixtures")
 PENDING, RECEIPT = (os.path.join(FIXTURES, f"upgrade_29797ba0_{what}") for what in ("pending", "receipt"))
@@ -120,9 +121,9 @@ def saved(live):
     return relay.read(os.path.join(live, "world.json"))
 
 
-class H1WhatThePredecessorLeft(AfterAnUpdate):
-    """The review's script, mode by mode. A relay of 29797ba0 started, and its `brain next` died over its first
-    batch: four calls, made by that version's rules. Then this version."""
+class WhatAVersionBeforeLeft(AfterAnUpdate):
+    """A relay of an earlier version started, and its `brain next` died over its first batch: four calls, made
+    by that version's rules. Then this version. No test of its own."""
 
     def start(self, state):
         super().start(state)
@@ -141,6 +142,31 @@ class H1WhatThePredecessorLeft(AfterAnUpdate):
         """The calls of the batch it made are in the ledger still, for a relay that is not on record."""
         kept = held(self.live)
         self.assertEqual((len(kept), {c[5] for c in kept}), (self.OLD_CALLS, {None}))
+
+    def nothing_it_made_is_delivered(self, commit):
+        """The package of that commit makes the state, with the batch waiting and with the batch in the receipt:
+        none of it reaches a relay, no call goes until the word, and none for a minute after."""
+        for mode in ("pending", "receipt"):
+            state = by_the_version_at(commit, OLD_PROGRAM, mode)
+            if state is None:
+                self.skipTest(f"the repository's history does not hold {commit[:8]}")
+            self.start(state)
+            number = saved(self.live)["budget"].get("protocol")
+            self.assertTrue(type(number) is int and number != relay.PROTOCOL, number)   # its ledger has its number
+            if mode == "receipt":
+                self.assertEqual(self.next(self.made["relay"]), [brain.SUPERSEDED])
+            lines = self.a_new_relay_asks(seconds=120)
+            self.assertEqual(calls_of(lines), [], mode)
+            self.held_for_the_predecessors_relay()
+            self.says("all")
+            spoken = self.now[0]
+            self.asks_until_a_call(token_of(lines[-1]))
+            self.assertGreaterEqual(self.printed[0][0], spoken + 60, mode)
+            self.inside_the_limits(spoken - .1)
+
+
+class H1WhatThePredecessorLeft(WhatAVersionBeforeLeft):
+    """The review's script, mode by mode, with 29797ba0 as the earlier version."""
 
     # ---- the batch that was waiting in client.json
     def nothing_of_the_waiting_batch_is_sent(self, state, late=0):
@@ -239,22 +265,7 @@ class H1WhatThePredecessorLeft(AfterAnUpdate):
 
     def test_the_version_that_was_reviewed_is_a_version_before_too(self):
         """c412de4d made the same state under the number it shared with 29797ba0."""
-        for mode in ("pending", "receipt"):
-            state = by_the_version_at(REVIEWED, OLD_PROGRAM, mode)
-            if state is None:
-                self.skipTest("the repository's history does not hold c412de4d")
-            self.start(state)
-            self.assertEqual(saved(self.live)["budget"]["protocol"], relay.PROTOCOL - 1)   # its ledger has its number
-            if mode == "receipt":
-                self.assertEqual(self.next(self.made["relay"]), [brain.SUPERSEDED])
-            lines = self.a_new_relay_asks(seconds=120)
-            self.assertEqual(calls_of(lines), [], mode)
-            self.held_for_the_predecessors_relay()
-            self.says("all")
-            spoken = self.now[0]
-            self.asks_until_a_call(token_of(lines[-1]))
-            self.assertGreaterEqual(self.printed[0][0], spoken + 60, mode)
-            self.inside_the_limits(spoken - .1)
+        self.nothing_it_made_is_delivered(REVIEWED)
 
     def test_the_predecessor_itself(self):
         for mode, kept in (("pending", PENDING), ("receipt", RECEIPT)):
