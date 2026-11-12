@@ -156,10 +156,17 @@ class Battle(Activity):
             # the connector refused it, the game never saw it: nothing to ban, and the turn is still to play
             state["refused_read"] = True
             state["sent_plan"] = None
-        elif r.error or not isinstance(r.data or {}, dict):      # an error, or an answer that is no answer
+        elif r.error or not isinstance(r.data, dict):
+            # an error, or an answer that is not an object (nothing, false, 0, a list, a text): nothing in it
+            # says the game took the action. It may have landed: a read or the log will say. (Review of
+            # 442a6311, finding 4: the empty ones were taken for an empty object, which is a taken action.)
             if open_turn:
-                turn["unknown"] = turn.get("unknown", 0) + 1     # it may have landed: a read or the log will say
-        elif str((r.data or {}).get("notification") or "").strip():
+                turn["unknown"] = turn.get("unknown", 0) + 1
+            if not r.error and not state.get("odd_answer"):
+                state["odd_answer"] = True
+                world.event("finding", f"an answer to an action was not an object ({json.dumps(r.data)[:60]}): "
+                                       f"it is not known to have landed", about="selects", battle=state["bid"])
+        elif str(r.data.get("notification") or "").strip():
             self._refusal(world, state, r)
         else:
             state["acts_ok"] = True                              # this action landed: the last read is now stale
@@ -254,9 +261,14 @@ class Battle(Activity):
         checked: the fighters, the round, the version and whose turn it is, from the read that came with the
         failure when that read is a good one, else from the last good read. On my turn, while the game has taken
         nothing of it, the best line the turn already has or a basic action goes out; a plain read of the fight
-        follows either way, with my profile beside it once a fighter is down."""
+        follows either way, with my profile beside it once a fighter is down. Once my profile is out of the
+        fight, only my profile is read."""
         state = world["battle"]
         bid, steps, note = state["bid"], [], "the tick failed: reading again"
+        if state.get("left") or world.status() != "BATTLE" or world.me.get("battleId") != bid:
+            # my profile is out of this fight (review of 442a6311, finding 6: a fight that could not be closed
+            # was still acted on from its last read). Nothing more is sent into it, whatever keeps it open.
+            return plan([K.user()], "battle", "the tick failed, and my profile is out of this fight", tag="urgent")
         b, mine = self._known(world, state)
         turn = state.get("turn") or {}
         if b and (not mine or turn.get("round") != b["battle.round"]):
@@ -624,10 +636,31 @@ class Battle(Activity):
     def _close(self, world, state, result):
         """The fight is over: keep it for the tools that learn from it, and hand the brain the closing batch (the
         brain puts the Full Potion in front of it). result None: not known yet; the next profile read and the
-        log's own HP count decide."""
+        log's own HP count decide. The fight's books (its last turn, its result, its archive) never keep it
+        open: when they fail, that is written down, the fight's state is kept as it is, and the fight closes."""
         bid = state["bid"]
         last = state.get("battle") or {}
         users = last.get("battle.usersState.*.userId") or []
+        try:
+            self._books(world, state, result, users)
+            kept = f"log saved fights/{bid}_entries.json"
+        except Exception as err:  # noqa: BLE001
+            kept = self._unarchived(world, state, err)
+        me = users.index(C.ME) if C.ME in users else None
+        world["records"]["fight_end"] = {
+            "bid": bid, "result": result, "at": world.now,
+            "hp": last["battle.usersState.*.curHealth"][me] if me is not None else 0,
+            "max": (last.get("battle.usersState.*.maxHealth") or [C.MAX_HP] * len(users))[me] if me is not None
+            else C.MAX_HP}
+        world["inventory"]["restock_due"] = True                  # after every fight: durability and stock (AP2)
+        world["battle"] = None
+        return plan([K.user()], "battle", f"BATTLE OVER ({result or 'closed, result on the next read'}): {kept}",
+                    tag="fight_end")
+
+    def _books(self, world, state, result, users):
+        """The end of a fight on record: its last turn closed, its result (or what the next profile needs to
+        tell it), and the fight kept for the tools that learn from it."""
+        bid = state["bid"]
         self._turn_over(world, state, ended=True)
         fight = {"bid": bid, "foes": [u for u in users if u != C.ME], "enemy": state.get("enemy"),
                  "round": state.get("round"), "turning_point": self.combat.turning_point(state),
@@ -638,13 +671,15 @@ class Battle(Activity):
             self._result(world, fight, result)
         self.combat.close_fight(bid, state, sorted(set(state.get("pilot_rounds", []))),
                                 world["control"]["director_mode"])
-        me = users.index(C.ME) if C.ME in users else None
-        world["records"]["fight_end"] = {
-            "bid": bid, "result": result, "at": world.now,
-            "hp": last["battle.usersState.*.curHealth"][me] if me is not None else 0,
-            "max": (last.get("battle.usersState.*.maxHealth") or [C.MAX_HP] * len(users))[me] if me is not None
-            else C.MAX_HP}
-        world["inventory"]["restock_due"] = True                  # after every fight: durability and stock (AP2)
-        world["battle"] = None
-        return plan([K.user()], "battle", f"BATTLE OVER ({result or 'closed, result on the next read'}): "
-                                          f"log saved fights/{bid}_entries.json", tag="fight_end")
+
+    @staticmethod
+    def _unarchived(world, state, err):
+        """The fight's books failed. Its state goes to live/unarchived-<battle>.json as it is, for Duet."""
+        name = f"unarchived-{state['bid']}.json"
+        try:
+            world._append(name, state)
+        except Exception:  # noqa: BLE001
+            name = "nowhere: that failed too"
+        world.event("error", f"the fight {state['bid'][:6]} could not be put on record ({err!r}); its state is "
+                             f"kept in live/{name}"[:300], about="crash", battle=state["bid"])
+        return f"NOT archived, state kept in live/{name}"

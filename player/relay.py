@@ -11,7 +11,8 @@ The relay is a small model in a loop: run `brain next`, make the calls it prints
   asked for. A result from an earlier batch, another relay or another session is never taken.
 - `brain put` is the fallback when no transcript carries the token: the batch then asks for each result in turn.
 - The same transcript gives the relay's token use: per batch, and its context size, which decides rotation.
-- Requests and batches are files under live/inbox and live/outbox, written whole and renamed into place.
+- Requests and batches are files under live/inbox and live/outbox, written whole and renamed into place. Each
+  request has an id of its own in its file's name, and its answer is the file with the same number and id.
 """
 import datetime as dt
 import glob
@@ -232,12 +233,15 @@ def read(path):
         return None
 
 
-def request_path(live, seq):
-    return os.path.join(live, "inbox", f"req-{seq:08d}.json")
+def request_path(live, seq, rid=None):
+    """A request's file. rid: the id `brain next` gives each request it makes, so two requests under one number
+    (a relay and its replacement, a request and its retry) are never one file."""
+    return os.path.join(live, "inbox", f"req-{seq:08d}{'-' + rid if rid else ''}.json")
 
 
-def batch_path(live, seq):
-    return os.path.join(live, "outbox", f"batch-{seq:08d}.json")
+def batch_path(live, seq, rid=None):
+    """The answer to the request with that number and id, and to no other."""
+    return os.path.join(live, "outbox", f"batch-{seq:08d}{'-' + rid if rid else ''}.json")
 
 
 def pending_requests(live):

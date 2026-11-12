@@ -160,18 +160,17 @@ class H2TheLedgerTakesNoTimeItCannotProve(unittest.TestCase):
             rig.t += .01
         self.assertLessEqual(most_in_a_minute(made), C.CALL_LIMIT)          # was 31
 
-    def test_a_loose_call_counts_in_every_minute_until_its_hold_ends(self):
+    def test_a_loose_call_counts_in_every_minute_until_there_is_evidence(self):
+        """(At 442a6311 the hold ended by itself after LOOSE_FOR. The review of that commit ruled that out: see
+        test_rereview3.)"""
         rig = Rig()
         budget, t0 = rig.brain.budget, rig.t
         budget.pace([K.user()] * 3, "world")
         budget.settle()
-        for later in (0, 61, 600, C.LOOSE_FOR - 1):
+        for later in (0, 61, 600, 10 * C.LOOSE_ALERT):
             self.assertEqual(budget.used(t0 + later), 3, later)
-        self.assertEqual(budget.used(t0 + C.LOOSE_FOR + 1), 0)              # asked about then: nothing is dropped
-        self.assertEqual(budget.used(), 3)
-        rig.t = t0 + C.LOOSE_FOR + 1
-        self.assertEqual(budget.used(), 0)
-        self.assertEqual(len(about(rig, "budget")), 1)                      # letting go of them is written down
+            rig.t = t0 + later
+            self.assertEqual(budget.used(), 3, later)
 
     def test_the_replaced_relay_coming_back_settles_its_calls(self):
         rig = Rig()
@@ -240,7 +239,7 @@ class H2TheLedgerTakesNoTimeItCannotProve(unittest.TestCase):
 
     def loose(self, token):
         """The loose calls of the batch a relay had under this token."""
-        return [c for c in self.ledger() if c[2:3] == ["loose"] and c[3] == int(token.split("-")[1])]
+        return [c for c in self.ledger() if c[2:3] == ["loose"] and c[5] == token]
 
     def test_a_replacement_leaves_the_old_relays_batch_loose_until_that_relay_comes_back(self):
         self.client()

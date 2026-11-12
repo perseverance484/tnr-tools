@@ -148,7 +148,9 @@ def write_status(world, budget, activity, why, queue):
                   "last_batch_at": iso(r.get("issued_at")), "context_tokens": r.get("context_tokens"),
                   "rotations": r.get("rotations", 0)},
         "budget": {"limit": C.CALL_LIMIT, "last_minute": budget.used(now),
-                   **{lane: budget.used(now, lane) for lane in ("battle", "recovery", "world")}},
+                   **{lane: budget.used(now, lane) for lane in ("battle", "recovery", "world")},
+                   # calls held for relays that were replaced with a batch in hand (`brain stopped` ends a hold)
+                   "held": [{"relay": token, "calls": n, "since": iso(since)} for token, n, since in budget.loose()]},
         "tokens": relay.tokens_summary(world.live, now),
         "decisions_pending": [{"id": d["id"], "text": d["text"]} for d in world["decisions"] if not d.get("answer")],
         "fights_today": _today(world), "turns_missed": world["records"].get("turns_missed", 0),

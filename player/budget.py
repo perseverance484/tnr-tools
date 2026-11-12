@@ -26,13 +26,19 @@ call is in one of three states, and only the brain's own clock moves it from one
           answer is not used: that is another clock, and one that reads early would let the call leave the minute
           early. Only a result handed in with `brain put` carries a time of the brain's own clock, and is counted
           from it. A settled call leaves the minute sixty seconds later.
-  loose   its relay was replaced before it came back, so nothing says when its calls ran, or whether they still
-          will. They count in every minute until the replaced relay does come back (it is told to stop: its calls
-          had run by then), or until LOOSE_FOR has passed since it was given up.
+  loose   its relay was replaced while it had the batch, so nothing says when its calls ran, or whether they still
+          will. They count in every minute, for as long as that takes, until there is evidence that they are
+          over: the replaced relay comes back (it is told to stop: its calls had run by then), or the operator
+          says that relay has been stopped (`brain stopped`). From that moment they are settled, and leave a
+          minute later. No length of time is evidence (review of 442a6311: a hold that ended by itself let a
+          call made just before its end go uncounted). After LOOSE_ALERT a held batch is raised as a stall.
+A batch is known by the id of the request that made it, and a loose call carries that id and the token its relay
+had: only a report for that very batch settles it.
+
 So with a relay that is slow, uneven, wrong about the time, or replaced in the middle of a batch, the ledger is
-never ahead of the account's real minute. What is not held: a replaced relay that never reports and then makes
-a call more than LOOSE_FOR after it was given up. Nothing in a batch can take back a call already printed to a
-relay; that hold is what stands in for it, and its end is written down as a finding.
+never ahead of the account's real minute. The price is room: calls held for relays that never come back use up
+the minute until the operator says they are stopped. A call that then cannot fit under the limit, however long
+it waits, is not sent, and that is raised as a stall.
 
 The turn clock: a turn of mine starts (T) when a read first shows it. The planner is cut off at T+15 s and the best
 line so far is fired; a missing exact read is not waited for past T+12 s; the actions are out by T+20 s. Every
@@ -42,27 +48,29 @@ the turn ended: acted, missed, or unresolved. A turn that lands within 20 s of t
 from . import calls as K
 from . import config as C
 
+HOW_TO_RELEASE = ("When that relay is known to have been stopped, say so: python3 -m player.brain stopped TOKEN "
+                  "(or: all).")
 TURN_ACTIONS = 5            # the most actions one turn of mine sends: no read ever takes their room
 TURN_RESERVE = TURN_ACTIONS + 3     # kept free for my turn while the fight is only watched: its actions and a poll
 WINDOW = 60.0
 BLIND_MAX = 2 * C.POLL_GAP_MAX      # s: the longest the reserve may keep the fight unread
 
 
+NEVER = float("inf")       # no wait is long enough: the room is taken by calls with no time yet
+
+
 def _state(c):
     return c[2] if len(c) > 2 else None
 
 
-def _when(c):
-    """The moment a call counts from. A loose one counts until its hold ends: as if made a minute before that."""
-    return c[4] - WINDOW if _state(c) == "loose" else c[0]
-
-
 def _until(times, t, ceiling):
-    """Seconds from t until fewer than `ceiling` of these calls are inside the minute."""
+    """Seconds from t until fewer than `ceiling` of these calls are inside the minute; NEVER when none may be."""
+    if ceiling <= 0:
+        return NEVER
     live = [x for x in times if x > t - WINDOW]
-    if len(live) < ceiling or not live:
+    if len(live) < ceiling:
         return 0.0
-    return live[len(live) - max(1, ceiling)] + WINDOW + 0.5 - t
+    return live[len(live) - ceiling] + WINDOW + 0.5 - t
 
 
 def is_poll(step):
@@ -74,45 +82,63 @@ class Budget:
         self.world = world
 
     def _hist(self, now):
-        """The calls that count at `now`: the settled ones of the last minute, every call still out, and every
-        loose call whose hold has not ended. Nothing is forgotten before the brain's own clock says it may be
-        (review of 0d10b7c6, finding 1: a status write during a long batch dropped calls that were still out)."""
-        real, kept, ended = self.world.now, [], 0
-        for c in self.world["budget"]["calls"]:
-            if _state(c) == "loose" and c[4] <= real:
-                ended += 1
-            elif _state(c) or c[0] > real - WINDOW:
-                kept.append(c)
+        """The calls that count at `now`: the settled ones of the last minute, and every call that is out or
+        loose, however long ago it was admitted. A call with no time yet cannot have left the minute (review
+        of 0d10b7c6, finding 1; review of 442a6311, finding 1)."""
+        real = self.world.now
+        kept = [c for c in self.world["budget"]["calls"] if _state(c) or c[0] > real - WINDOW]
         self.world["budget"]["calls"] = kept
-        if ended:
-            self.world.event("finding", f"{ended} call(s) of a relay that was replaced and never came back are no "
-                                        f"longer held against the minute ({C.LOOSE_FOR:.0f} s have passed)",
-                             about="budget")
-        return [c for c in kept if (c[4] > now if _state(c) == "loose" else _state(c) or c[0] > now - WINDOW)]
+        self._alert(kept, real)
+        return [c for c in kept if _state(c) or c[0] > now - WINDOW]
+
+    def _alert(self, calls, now):
+        """A batch that has been loose for LOOSE_ALERT is raised once, with what the operator can do about it."""
+        loose = {c[3]: c for c in calls if _state(c) == "loose"}
+        told = [b for b in self.world["budget"].get("alerted") or [] if b in loose]
+        for batch, c in loose.items():
+            if batch not in told and now - c[4] > C.LOOSE_ALERT:
+                told.append(batch)
+                n = sum(1 for x in calls if _state(x) == "loose" and x[3] == batch)
+                self.world.event("stall", f"{n} call(s) of relay {c[5] or '?'} have been held against the minute "
+                                          f"for {now - c[4]:.0f} s: it was replaced with a batch in hand and has "
+                                          f"not come back. {HOW_TO_RELEASE}", about="budget")
+        self.world["budget"]["alerted"] = told
 
     def used(self, now=None, lane=None):
         """Calls that count in the minute (settled in it, out, or loose), in one lane or in all."""
         now = self.world.now if now is None else now
         return sum(1 for c in self._hist(now) if lane is None or c[1] == lane)
 
+    def loose(self):
+        """The batches held for relays that have not come back: [(the relay's token, calls, held since), ...]."""
+        groups = {}
+        for c in self.world["budget"]["calls"]:
+            if _state(c) == "loose":
+                groups.setdefault((c[5], c[4]), []).append(c)
+        return [(token, len(cs), since) for (token, since), cs in groups.items()]
+
     def stray(self, n):
         """Calls the relay made that no batch asked for. They used the account's minute all the same."""
         self.world["budget"]["calls"] += [[self.world.now, "stray"] for _ in range(n)]
 
-    def settle(self, results=(), asked=None, own_clock=False):
+    def settle(self, results=(), asked=None, own_clock=False, holder=None):
         """What became of the last batch's calls.
 
         asked given (the batch's calls, in order): the relay that had the batch is back. Every call of it has run
         by now and is counted from now; with own_clock, the results' times are the brain's own (`brain put`), and
         an answered call is counted from its answer when that lies between its admission and now.
 
-        asked None: the batch is given up. Its relay was replaced before it came back, so its calls are loose
-        (review of c0006266, finding 2: they were taken to have run by now, and a relay that went on with them
-        afterwards made a 31st call in a minute)."""
+        asked None: the batch is given up. Its relay (holder: the token it had) was replaced before it came
+        back, so its calls are loose (review of c0006266, finding 2: they were taken to have run by now, and a
+        relay that went on with them afterwards made a 31st call in a minute)."""
         now, out = self.world.now, [c for c in self.world["budget"]["calls"] if _state(c) == "out"]
         if asked is None:
             for c in out:
-                c[2:] = ["loose", self.world["budget"].get("batch"), now + C.LOOSE_FOR]
+                c[2:] = ["loose", self.world["budget"].get("batch"), now, holder]
+            if out:
+                self.world.event("finding", f"relay {holder or '?'} was replaced with a batch in hand: its "
+                                            f"{len(out)} call(s) count in every minute until it comes back or "
+                                            f"is confirmed stopped. {HOW_TO_RELEASE}", about="budget")
             return
         left = list(results) if own_clock and len(asked) == len(out) else []
         for i, c in enumerate(out):
@@ -124,14 +150,18 @@ class Budget:
             del c[2:]
 
     def ended(self, batch, at):
-        """The relay that was replaced while it had batch number `batch` has come back, at `at` by the brain's
-        clock: its calls had all run by then."""
-        now = self.world.now
+        """There is evidence that batch `batch` is over as of `at`, by the brain's clock: its replaced relay came
+        back, or the operator says that relay was stopped. Its calls are counted from then. Only the batch with
+        that very id is settled; "*" is the operator's word for every loose batch. Returns how many calls."""
+        now, n = self.world.now, 0
         at = at if isinstance(at, (int, float)) and not isinstance(at, bool) else now
+        mine = batch is not None and self.world["budget"].get("batch") == batch   # still out: not yet called loose
         for c in self.world["budget"]["calls"]:
-            if _state(c) == "loose" and batch is not None and c[3] == batch:
+            if (_state(c) == "loose" and batch is not None and batch in ("*", c[3])) or (_state(c) == "out" and mine):
                 c[0] = at if c[0] <= at <= now else now
                 del c[2:]
+                n += 1
+        return n
 
     def headroom(self, now=None):
         """World calls that could go right now."""
@@ -146,16 +176,24 @@ class Budget:
 
     def _gap(self, hist, t, lane, step, n=1):
         """(seconds before n calls like this one may start at t, the part of that wait that is a finding).
-        BLIND_MAX counts from now, the moment the brain last heard from the fight."""
-        times, since = sorted(_when(x) for x in hist), max(0.0, t - self.world.now)
+        BLIND_MAX counts from now, the moment the brain last heard from the fight.
+
+        A loose call has no time: it takes one place in every minute, and NEVER is the answer when the loose
+        ones leave no place at all. The calls of the batch being paced count from the times they are given
+        here: the relay makes them in order with the batch's waits between them, so they are never closer
+        together than that."""
+        timed = [x for x in hist if _state(x) != "loose"]
+        held, times = len(hist) - len(timed), sorted(x[0] for x in timed)
+        since, room = max(0.0, t - self.world.now), C.CALL_LIMIT - held - n + 1
         if lane == "recovery" or step.get("call") == "combat.performAction":
-            limit = _until(times, t, C.CALL_LIMIT - n + 1)
+            limit = _until(times, t, room)
             return limit, limit
-        floor = _until(times, t, C.CALL_LIMIT - TURN_ACTIONS - n + 1)
-        reserve = _until(times, t, C.CALL_LIMIT - TURN_RESERVE - n + 1)
+        floor = _until(times, t, room - TURN_ACTIONS)
+        reserve = _until(times, t, room - TURN_RESERVE)
         if lane == "world":
-            world = sorted(_when(x) for x in hist if x[1] == "world")
-            return max(reserve, _until(world, t, C.WORLD_CAP - n + 1)), 0.0
+            world = sorted(x[0] for x in timed if x[1] == "world")
+            held_world = sum(1 for x in hist if _state(x) == "loose" and x[1] == "world")
+            return max(reserve, _until(world, t, C.WORLD_CAP - held_world - n + 1)), 0.0
         if is_poll(step):
             floor = max(floor, min(reserve, max(0.0, BLIND_MAX - since)))
         return floor, floor if since + floor > BLIND_MAX else 0.0
@@ -171,13 +209,16 @@ class Budget:
         now = self.world.now
         self.settle(asked=())                                     # what is still out has run by now
         hist = self._hist(now)
-        out, t, waited, called = [], now if start is None else start, 0.0, False
+        out, t, waited, called, shut = [], now if start is None else start, 0.0, False, []
         for s in steps:
             if "wait" in s:
                 t += s["wait"]
                 out.append(s)
                 continue
             gap, forced = self._gap(hist, t, lane, s)
+            if gap == NEVER:
+                shut.append(s["call"])                            # no wait would make room for it: not sent
+                continue
             if called and is_poll(s) and gap > C.POLL_GAP:
                 continue                                          # left for the next batch: see the module's notes
             called = True
@@ -189,6 +230,11 @@ class Budget:
                 waited += gap
             hist.append([round(t, 2), lane, "out"])
             out.append(s)
+        if shut:
+            held = sum(1 for c in hist if _state(c) == "loose")
+            self.world.event("stall", f"{len(shut)} call(s) not sent ({', '.join(sorted(set(shut)))}): {held} call(s) "
+                                      f"of relays that were replaced are held against the minute's "
+                                      f"{C.CALL_LIMIT}. {HOW_TO_RELEASE}", about="budget")
         self.world["budget"]["calls"] = hist
         return out, round(waited, 1)
 
@@ -198,6 +244,8 @@ class Budget:
         it). The wait is spent in the brain, not by the relay."""
         now = self.world.now
         gap, forced = self._gap(self._hist(now), now, "battle", {"meta": {"poll": True}}, n_calls)
+        if gap == NEVER:
+            return max(hold, C.POLL_GAP_MAX)                      # pace will say that it cannot be sent
         if forced > 0:
             self._full("the poll of his turn", forced)
         return round(max(hold, gap), 1)

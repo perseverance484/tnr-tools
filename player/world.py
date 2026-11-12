@@ -46,7 +46,7 @@ TEMPLATE = {
     "records": {"results": [], "pending_result": None, "spend": {"day": "", "ryo": 0.0}, "transfers": {},
                 "turns_missed": 0, "turns_unresolved": 0, "turns_unseen": 0, "last_error": None},
     "decisions": [],            # pending decisions for the director (ask-first calls)
-    "budget": {"calls": [], "batch": None},     # the call ledger (player/budget.py); batch: the number of the one out
+    "budget": {"calls": [], "batch": None},     # the call ledger (player/budget.py); batch: the id of the one out
     "relay": {"seq": 0, "last_batch": [], "issued_at": 0, "expect": None, "stalled": False, "activity": None,
               "note": "", "baseline_tokens": None, "context_tokens": 0, "rotations": 0},
     "activity": {},             # private state, by activity name
