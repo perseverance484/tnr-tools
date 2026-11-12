@@ -32,6 +32,11 @@ REGISTRY.feed("live_state", "every round's full live state, kept per battle (fig
               "list, the fighters and the ground as the game sent them, at the start of my turn and of his")
 REGISTRY.feed("fight_log", "the battle log (fights/*_entries.json), saved when the fight ends: the game deletes it")
 REGISTRY.feed("harvest", "other players' battle logs, read between fights", ("harvest.py",))
+REGISTRY.feed("catalog", "every item's record from the offline catalog (the engine harness's kit/catalog.json): what "
+              "the shop asks for it and in what, how many one purchase may hold, its durability when new",
+              ("engine_bridge.py",))
+REGISTRY.feed("equipped", "what sits in each slot now (fights/live/equipped.json): the planners read the thrown weapon "
+              "from it. Written by the equipment activity from every read of my items")
 # Feeds the planner reads that nothing runs (design section 2, the file map's second finding): listed, not wired.
 REGISTRY.defer("meal_factors", "this fight's meal and raid buffs (fights/live/<battle>_meal.json), read by planner2",
                ("meal_factor.py",), "AP4", "nobody: no code runs it today")
@@ -119,6 +124,22 @@ class Combat:
         except (OSError, ValueError):
             return {}
         return {k: st[k] for k in ("full_potion_uid", "lost_to", "skip") if st.get(k)}
+
+    # ------------------------------------------------------------ the catalog, and what is equipped
+    def item_record(self, item_id):
+        """An item's record from the offline catalog; {} when the catalog has none. Never a live lookup."""
+        try:
+            _tools()
+            import engine_bridge
+            return (engine_bridge._records().get(item_id) or {}).get("record") or {}
+        except Exception:  # noqa: BLE001  (a catalog that cannot be read buys nothing; it never stops the player)
+            return {}
+
+    def write_equipped(self, slots):
+        """What sits in each slot ({slot: item id}), where the planners look for the thrown weapon."""
+        os.makedirs(self.live, exist_ok=True)
+        with open(os.path.join(self.live, "equipped.json"), "w", encoding="utf8") as f:
+            json.dump(slots, f)
 
     # ------------------------------------------------------------ the dossier
     def kit_path(self, user_id):

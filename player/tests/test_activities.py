@@ -157,7 +157,7 @@ class HarvestFeed(unittest.TestCase):
 
     def test_the_director_can_switch_it_off(self):
         rig = Rig()
-        rig.world["control"]["activities"] = {"harvest": False}
+        rig.world["control"]["activities"]["harvest"] = False
         self.assertEqual(rig.calls(rig.tick(user()))[-1], "stealth.useSensory")
 
 

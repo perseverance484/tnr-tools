@@ -18,6 +18,7 @@ import json
 import os
 import time
 
+from . import calls as K
 from . import config as C
 
 Result = collections.namedtuple("Result", "endpoint input data error at")
@@ -155,12 +156,14 @@ class World:
 
     # ------------------------------------------------------------ results
     def absorb(self, results):
-        """Fold the reads every module shares into the model: my profile, and a trip's arrival time."""
+        """Fold the reads every module shares into the model: my profile, my items, and a trip's arrival time."""
         for r in results:
             if r.error or not isinstance(r.data, dict):
                 continue
             if r.endpoint == "profile.getUser":
                 self._profile(r)
+            elif r.endpoint == "item.getUserItems":
+                self._items(r)
             elif r.endpoint == "travel.startGlobalMove" and r.data.get("data.travelFinishAt"):
                 t = parse_time(r.data["data.travelFinishAt"])
                 if t:
@@ -212,6 +215,34 @@ class World:
                 spend["ryo"] = spend.get("ryo", 0.0) + (before - after)
         new["read_at"] = self.now
         self.d["character"] = new
+
+    def _items(self, r):
+        """My items, as rows: what restock, repair and equipment all read. A read whose columns do not line up,
+        or whose ids are not ids, is not used: the last good one stands."""
+        rows = K.rows(r.data, "*.", K.ITEM_COLS)
+        if rows is None or not all(isinstance(x["id"], str) and isinstance(x["itemId"], str) for x in rows):
+            self.event("finding", "a read of my items cannot be used: its columns do not line up", about="selects")
+            return
+        for x in rows:
+            x["quantity"] = x["quantity"] if isinstance(x["quantity"], (int, float)) else 0
+            x["worn"] = x["equipped"] not in (None, "NONE")
+        inv = self.d["inventory"]
+        inv.update(items=rows, read_at=self.now)
+        for x in rows:                                  # each item's slot is remembered while it is equipped
+            if x["worn"]:
+                inv.setdefault("slots", {})[x["itemId"]] = x["equipped"]
+        inv["equipped"] = {x["equipped"]: x["itemId"] for x in rows if x["worn"] and x["quantity"] > 0}
+
+    def items(self, item_id=None, carried=None):
+        """My item rows from the last read: of one item, and only those carried (not stored at home) or only
+        those stored, when asked."""
+        return [x for x in self.d["inventory"].get("items") or []
+                if (item_id is None or x["itemId"] == item_id) and x["quantity"] > 0
+                and (carried is None or bool(x["storedAtHome"]) != carried)]
+
+    def caps(self):
+        """The ryo limits in force: the day's allowance and the reserve, as the director last set them."""
+        return {"daily": C.DAILY_CAP, "reserve": C.RESERVE, **self.d["control"]["spend_caps"]}
 
     def spent_today(self):
         spend = self.d["records"]["spend"]

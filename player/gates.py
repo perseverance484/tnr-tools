@@ -163,7 +163,7 @@ def g_spend_cap(step, world, gates):
     """The call's price against the day's allowance and the reserve. A call that carries no price is taken to
     cost all the money in pocket: the game pays a purchase from the pocket, so that is the most it can take.
     With no profile read yet the pocket is not known either, and the director is asked."""
-    caps = {"daily": C.DAILY_CAP, "reserve": C.RESERVE, **world["control"]["spend_caps"]}
+    caps = world.caps()
     pocket, ryo = world.me.get("money"), (step.get("meta") or {}).get("ryo")
     if pocket is None:
         return ask("spend_cap", f"{step['call']}: the money in hand is not known yet")

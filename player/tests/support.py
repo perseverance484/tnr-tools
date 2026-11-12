@@ -4,7 +4,7 @@ import json
 import os
 import tempfile
 
-from player import config as C
+from player import calls as K, config as C
 from player.brain import Brain
 from player.combat import Combat
 from player.gates import Gates
@@ -37,6 +37,28 @@ def fixture(name="angelsaber_r3.txt"):
     n = len(ents["*.battleRound"])
     ents["*.id"] = [f"e{n - i}" for i in range(n)]
     return battle, ents
+
+
+# What the offline catalog says of the items the upkeep activities handle (harness/pvp_turn/kit/catalog.json,
+# read 2026-11-12), and of two that are made up for the tests: an armour, and a thing sold for reputation.
+CATALOG = {
+    "6DnJn4x6LWWXtBu7UZybb": {"name": "Dr. Kim's Miracle Potion", "inShop": True, "cost": 150000, "repsCost": 0,
+                              "seichiSilverCost": 0, "stackSize": 100, "maxDurability": 100},
+    "TtYPd-LcXKeK3sMuhq1TP": {"name": "Elite Smoke Bomb", "inShop": True, "cost": 50000, "repsCost": 0,
+                              "seichiSilverCost": 0, "stackSize": 100, "maxDurability": 100},
+    "rsc2uO5QuffXzejfhwF_F": {"name": "Panacea", "inShop": True, "cost": 55000, "repsCost": 0,
+                              "seichiSilverCost": 0, "stackSize": 100, "maxDurability": 100},
+    "tZTvqYWiAc_OrY64nDvIo": {"name": "Chakra Pill", "inShop": True, "cost": 1000, "repsCost": 0,
+                              "seichiSilverCost": 0, "stackSize": 100, "maxDurability": 100},
+    "yVNeLzxHSFkNpTPnlm7yQ": {"name": "Bloodthorn Kunai", "inShop": False, "cost": 1, "stackSize": 100,
+                              "maxDurability": 100},
+    "1ovHq7jsGdut2fSNKs5q_": {"name": "Repair Kit", "inShop": False, "cost": 1, "stackSize": 9999,
+                              "maxDurability": 100},
+    "GMF1JZ0MChUHc7AtnKABw": {"name": "Ikazuchi Kunai", "inShop": False, "cost": 1, "stackSize": 100,
+                              "maxDurability": 100},
+    "armour_id": {"name": "Kaeruun Armor", "inShop": False, "cost": 1, "stackSize": 1, "maxDurability": 400},
+    "premium_id": {"name": "Reputation Charm", "inShop": True, "cost": 10, "repsCost": 5, "stackSize": 10},
+}
 
 
 class StubCombat(Combat):
@@ -81,6 +103,14 @@ class StubCombat(Combat):
     def harvest_seed_ids(self):
         return ["user_seed1"]
 
+    def item_record(self, item_id):
+        self._count("catalog")
+        return dict(CATALOG.get(item_id) or {})
+
+    def write_equipped(self, slots):
+        self._count("equipped")
+        super().write_equipped(slots)
+
     def write_cache(self, bid, state, battle=None):
         self._count("cache")
         super().write_cache(bid, state, battle)
@@ -98,22 +128,36 @@ class StubCombat(Combat):
         super().close_fight(bid, state, covered, director_mode)
 
 
+UPKEEP = ("restock", "repair", "training", "equipment", "bank")
+
+
+def my_items(*rows):
+    """A read of my items: rows of (user item id, item id, quantity, slot or None, stored at home, durability)."""
+    cols = list(zip(*rows)) if rows else [()] * 6
+    return res("item.getUserItems", {f"*.{k}": list(c) for k, c in zip(K.ITEM_COLS, cols)})
+
+
 class Rig:
     """A brain in a temporary folder with a clock the test moves."""
 
-    def __init__(self, mode="hunt", combat=None):
+    def __init__(self, mode="hunt", combat=None, upkeep=False):
+        """upkeep: leave the AP2 upkeep activities switched on. The tests written before them ask for a hunt, a
+        fight or a relay and nothing else, so for those they are off, the way the director switches one off."""
         self.dir = tempfile.mkdtemp(prefix="player-test-")
         self.t = 1_800_000_000.0
         self.dna = os.path.join(self.dir, "do_not_attack.md")
         with open(self.dna, "w", encoding="utf8") as f:
             f.write(DNA)
-        self.combat = combat or StubCombat(os.path.join(self.dir, "fights"))
+        self.combat, self.upkeep = combat or StubCombat(os.path.join(self.dir, "fights")), upkeep
         self.brain = self.new_brain()
         self.world["control"]["mode"] = mode
 
     def new_brain(self):
         """A brain started fresh on the same folder: what a restart does."""
         self.brain = Brain(self.dir, clock=lambda: self.t, combat=self.combat, gates=Gates(dna_path=self.dna))
+        if not self.upkeep:                         # off, unless the world model on disk already says otherwise
+            for name in UPKEEP:
+                self.brain.world["control"]["activities"].setdefault(name, False)
         return self.brain
 
     @property

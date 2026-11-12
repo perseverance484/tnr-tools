@@ -5,7 +5,13 @@ stopped with the character awake at 648 HP in an enemy sector; a rematch began w
 round went unplayed). With `end_session` set, the hunt stops, recovery still heals, this activity walks home and
 sleeps, and only then does the brain tell the relay to stop. A fight that starts on the way is fought first.
 
-AP2 adds the rest of the session's life (the run lock, the end-of-session training, the loadouts).
+At home, before it sleeps, the upkeep has its last turn (brief AP2): the energy that is left is trained, and the
+PvP 1 loadouts are selected. Those are the training and the equipment activities' calls: this one only waits
+for them, and only while they have something to do and are switched on.
+
+Not built: the run lock (brief AP2: "start: lock ... release the lock"). The lock is a file on `main` that a
+runner claims by pushing; how the player is to hold it (the brain itself, or whoever starts the relay) is not
+decided, and nothing here pushes anywhere.
 """
 from .. import calls as K
 from .. import config as C
@@ -21,7 +27,16 @@ class Session(Activity):
         ending = world["control"]["end_session"]
         if world.status() == "ASLEEP":
             return world["control"]["mode"] == "hunt" and not ending
-        return ending and world.status() == "AWAKE"
+        return ending and world.status() == "AWAKE" and not self._chores(world)
+
+    @staticmethod
+    def _chores(world):
+        """At home with the session ending: is there upkeep to do before the character sleeps."""
+        if world.me.get("sector") != C.HOME_SECTOR:
+            return False
+        acts, on = REGISTRY.activities, world["control"]["activities"]
+        return any(on.get(name, True) and acts[name].available(world) for name in ("training", "equipment")
+                   if name in acts)
 
     def value(self, world):
         return 10.0

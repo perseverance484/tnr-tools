@@ -32,9 +32,12 @@ from unittest import mock
 import player.activities
 from player import config as C
 from player.combat import Combat
-from player.tests.support import FOE, Rig, battle_read, fixture, log_read, res, scan, user
+from player.tests.support import FOE, Rig, battle_read, fixture, log_read, my_items, res, scan, user
 
 PREY = (FOE, "AngelSaberTwin", 13, 14, "AWAKE", 100, "y", None, None)
+KIMS, SMOKE, PANACEA, PILL, KUNAI, KIT = ("6DnJn4x6LWWXtBu7UZybb", "TtYPd-LcXKeK3sMuhq1TP", "rsc2uO5QuffXzejfhwF_F",
+                                         "tZTvqYWiAc_OrY64nDvIo", "yVNeLzxHSFkNpTPnlm7yQ", "1ovHq7jsGdut2fSNKs5q_")
+OTHERS = (SMOKE, PILL, KIT)                 # in stock, and not what the upkeep part is about
 SCRIPTS = ("turn.py", "planner2.py", "fight_bases.py", "opponents.py", "postmortem.py")
 JOBS = ("fight_bases.py", "opponents.py", "postmortem.py")          # started in the background: the session waits
 STANDIN = r'''"""A stand-in for a pilot tool script (player/tests/test_wiring.py): it writes down what it was given."""
@@ -71,7 +74,7 @@ class Session:
         rig.combat = Combat(os.path.join(rig.dir, "fights"), spawn=True, scripts=self.scripts)   # the production one
         rig.new_brain()
         rig.world["control"]["mode"] = "guard"
-        self.chosen, self.calls, self.sent = [], [], []
+        self.chosen, self.calls, self.sent, self.bought = [], [], [], []
         with self.temporary_folders():
             self.play(harvest)
             self.kit = rig.combat.kit_path(FOE)
@@ -89,6 +92,9 @@ class Session:
         harness = tempfile.mkdtemp(prefix="wiring-harness-")
         os.makedirs(os.path.join(harness, "kit", "opponents"))
         os.symlink(os.path.join(engine_bridge.HARNESS, "kit", "records.json"), os.path.join(harness, "kit", "records.json"))
+        # the catalog is built from the records on first use, into the repository's own folder: here the tracked
+        # records stand in for it, so nothing is built and nothing is written outside the temporary folders
+        os.symlink(os.path.join(engine_bridge.HARNESS, "kit", "records.json"), os.path.join(harness, "kit", "catalog.json"))
         env = {"WIRING_RAN": self.ran, "WIRING_FIGHTS": self.rig.combat.fights}
         return _both(mock.patch.object(engine_bridge, "HARNESS", harness),
                      mock.patch.object(engine_bridge, "_CATALOG", None), mock.patch.dict(os.environ, env))
@@ -98,13 +104,15 @@ class Session:
         self.chosen.append(out["activity"])
         self.calls += self.rig.calls(out)
         self.sent += [s["input"]["actionId"] for s in out["steps"] if s.get("call") == "combat.performAction"]
+        self.bought += [(s["input"]["itemId"], s["input"]["stack"], s["meta"]["ryo"]) for s in out["steps"]
+                        if s.get("call") == "item.buy"]
         return out
 
     def play(self, harvest):
         rig, tick = self.rig, self.tick
         tick()                                                             # watch: the first read
         rig.world["control"]["mode"] = "hunt"
-        rig.world["control"]["activities"] = {"harvest": harvest}
+        rig.world["control"]["activities"]["harvest"] = harvest            # (the upkeep has its turn after the fight)
         tick(user("ASLEEP"))                                               # session: wake
         tick(user("TRAVEL"))                                               # travel: land the trip
         out = tick(user(hp=3000))                                          # recovery: Full Potion
@@ -119,6 +127,32 @@ class Session:
         tick(battle_read("W1", {}))                                        # the battle is gone: my profile is asked
         tick(battle_read("W1", {}), user())                                # I have left it: the fight closes
         tick(user())                                                       # the result is settled
+        self.upkeep()
+
+    def upkeep(self):
+        """After the fight, with every upkeep activity on: a worn item repaired, a short one bought at the price
+        the real catalog gives, the PvP 1 loadouts, the training queue, the pocket banked."""
+        rig, tick = self.rig, self.tick
+        rig.world["control"]["activities"] = {"harvest": False}
+        rich = dict(money=30_000_000, bank=900_000_000)
+        rows = {"kims": ("u1", KIMS, 6, "ITEM_1", False, 100), "panacea": ("u3", PANACEA, 2, "ITEM_3", False, 100),
+                "kunai": ("u5", KUNAI, 30, "THROWN", False, 10)}           # the kunai: 10 of 100, close to broken
+        short = [r for r in rows.values()] + [(f"s{n}", i, 30, "NONE", False, 100) for n, i in enumerate(OTHERS)]
+        mended = [r if r[1] != KUNAI else r[:5] + (100,) for r in short]
+        full = [r if r[1] != PANACEA else r[:2] + (6,) + r[3:] for r in mended]
+        def yes(out, *endpoints):
+            """The game's yes to each of these calls of a batch."""
+            return [res(s["call"], {"success": True}, s["input"]) for s in out["steps"] if s.get("call") in endpoints]
+        tick(user(**rich))                                                 # restock: reads my items
+        out = tick(my_items(*short), user(**rich))                         # repair: the worn kunai
+        out = tick(*yes(out, "item.useRepairAll"), my_items(*mended), user(**rich))    # restock: buys the Panacea
+        out = tick(*yes(out, "item.buy"), my_items(*full), user(**rich))   # equipment: the PvP 1 loadouts
+        tick(*yes(out, "jutsu.selectJutsuLoadout", "item.selectItemLoadout"), user(**rich))   # training: the queue
+        out = tick(res("jutsu.getTrainingQueue", {"capacity": 4, "waiting.*.jutsuId": [], "waiting.*.level": []}),
+                   res("jutsu.getUserJutsus", {"*.jutsuId": ["j1"], "*.level": [3], "*.finishTraining": [None]}),
+                   user(**rich))                                           # training: the free places are filled
+        out = tick(*yes(out, "jutsu.startTraining"), user(**rich))         # bank: the pocket is over its mark
+        tick(*yes(out, "bank.toBank"), user(money=10_000_000, bank=920_000_000))
 
     def marks(self):
         """What the stand-in scripts wrote down, by tool."""
@@ -162,7 +196,18 @@ class Session:
             "fight_log": os.path.exists(os.path.join(fights, "W1_entries.json")),
             "harvest": "players" in rig.world.own("harvest").get("stats", "")
             and "combat.getBattleHistory" in self.calls,
+            # the purchase was sized and priced from the real catalog's record: 4 Panacea at 55,000 ryo
+            "catalog": self.bought == [(PANACEA, 4, 220_000.0)] and "item.useRepairAll" in self.calls,
+            # what is equipped was written where the planners look for the thrown weapon
+            "equipped": self._equipped().get("THROWN") == KUNAI,
         }
+
+    def _equipped(self):
+        try:
+            with open(os.path.join(self.rig.combat.live, "equipped.json"), encoding="utf8") as f:
+                return json.load(f)
+        except (OSError, ValueError):
+            return {}
 
 
 class _both:
@@ -256,6 +301,12 @@ class Unplugged(unittest.TestCase):
 
     def test_a_harvest_that_does_not_ride_fails(self):
         self.assertEqual({k for k, ok in Session(harvest=False).evidence().items() if not ok}, {"harvest"})
+
+    def test_a_catalog_that_is_not_read_fails(self):
+        self.assertEqual(self.broken("item_record", lambda self, item_id: {}), {"catalog"})
+
+    def test_what_is_equipped_and_not_written_down_fails(self):
+        self.assertEqual(self.broken("write_equipped", lambda self, slots: None), {"equipped"})
 
 
 class Inventory(unittest.TestCase):

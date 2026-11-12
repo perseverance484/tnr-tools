@@ -90,6 +90,7 @@ class Settings(unittest.TestCase):
         rig = Rig()
         rig.tick(user())
         rig.world["control"]["do_not_attack"] = ["Luka"]
+        switches = dict(rig.world["control"]["activities"])                  # (the rig's own: the upkeep is off)
         console.set_control(rig.dir, mode="farm", activities={"battle": False, "raids": True}, do_not_attack=[],
                             allowlist=["stripe.createCheckout"], goal_weights={"pvp": -1}, paused="yes")
         rig.tick(user())
@@ -98,7 +99,7 @@ class Settings(unittest.TestCase):
             self.assertIn(why, errors)
         ctl = rig.world["control"]
         self.assertEqual((ctl["mode"], ctl["do_not_attack"], ctl["activities"], ctl["paused"]),
-                         ("hunt", ["Luka"], {}, False))
+                         ("hunt", ["Luka"], switches, False))
         self.assertEqual(rig.events("setting_changed"), [])
 
     def test_pause_stops_the_world_but_never_a_fight(self):

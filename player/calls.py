@@ -199,3 +199,93 @@ def columns(data, prefix, keys):
     if not all(c is None or isinstance(c, list) for c in cols) or len({len(c or []) for c in cols}) > 1:
         return None
     return [dict(zip(keys, x)) for x in zip(*(c or [] for c in cols))]
+
+
+# ---------------------------------------------------------------- upkeep (AP2; the pilot's restock.py and world())
+ITEM_COLS = ("id", "itemId", "quantity", "equipped", "storedAtHome", "durability")
+AUCTION_COLS = ("id", "currencyType", "buyoutPrice", "quantity", "userItem.itemId", "userItem.quantity")
+DONE = ["success", "message"]
+
+
+def rows(data, prefix, keys):
+    """A column read whose first key every element carries -> rows. A column that is not there at all is a
+    column of nothing (the connector leaves out a key no element has); one that is shorter than the first is
+    out of line with it, and then there are no rows: None."""
+    first = data.get(f"{prefix}{keys[0]}")
+    if first is None:
+        return []
+    cols = [data.get(f"{prefix}{k}") for k in keys]
+    cols = [[None] * len(first) if c is None else c for c in cols]
+    if not all(isinstance(c, list) and len(c) == len(first) for c in cols):
+        return None
+    return [dict(zip(keys, x)) for x in zip(*cols)]
+
+
+def items():
+    return call("item.getUserItems", {}, [f"*.{k}" for k in ITEM_COLS])
+
+
+def buy(item_id, n, ryo):
+    """ryo: what the shop asks for the lot, from the catalog record. The gates hold it against the caps."""
+    return call("item.buy", {"itemId": item_id, "stack": int(n), "villageId": C.HOME_VILLAGE}, DONE,
+                ryo=float(ryo), currency="MONEY")
+
+
+def equip(user_item_id, slot):
+    return call("item.toggleEquip", {"userItemId": user_item_id, "slot": slot}, DONE)
+
+
+def unstore(user_item_id):
+    return call("home.toggleStoreItem", {"userItemId": user_item_id}, DONE)
+
+
+def listings(item_id, name):
+    """The auction house's listings for one item, by its name. item: which item the answer is for."""
+    return call("auction.getAuctionListings", {"itemName": name, "limit": 20, "listingType": "AUCTION"},
+                [f"data.*.{k}" for k in AUCTION_COLS], item=item_id)
+
+
+def bid(auction_id, ryo):
+    return call("auction.placeBid", {"auctionId": auction_id, "amount": int(ryo)}, DONE, ryo=float(ryo),
+                currency="MONEY")
+
+
+def repair(kits):
+    """Every worn item at once: with Repair Kits, or with ryo (which needs the Crafting occupation)."""
+    return call("item.useRepairAll" if kits else "item.repairAll", {}, DONE)
+
+
+# ---------------------------------------------------------------- training, the bank, loadouts (AP2)
+QUEUE_SEL = ["capacity", "waiting.*.jutsuId", "waiting.*.level"]
+OWNED_COLS = ("jutsuId", "level", "finishTraining")
+
+
+def training_queue():
+    return call("jutsu.getTrainingQueue", {}, QUEUE_SEL)
+
+
+def my_jutsu():
+    return call("jutsu.getUserJutsus", {}, [f"*.{k}" for k in OWNED_COLS])
+
+
+def train_jutsu(jutsu_id):
+    """One level of one jutsu. What it costs is not known before the game says: the gates take it to be all the
+    money in pocket (spend_cap)."""
+    return call("jutsu.startTraining", {"jutsuId": jutsu_id, "levels": 1}, DONE)
+
+
+def train_stat(stat, energy):
+    return call("train.startTraining", {"stat": stat, "energy": int(energy)}, DONE)
+
+
+def to_bank(ryo):
+    return call("bank.toBank", {"amount": int(ryo)}, DONE)
+
+
+def to_pocket(ryo):
+    return call("bank.toPocket", {"amount": int(ryo)}, DONE)
+
+
+def loadouts(jutsu, items):
+    """Select a jutsu loadout and an item loadout that already exist, by their ids."""
+    return [call("jutsu.selectJutsuLoadout", {"id": jutsu}, DONE), call("item.selectItemLoadout", {"id": items}, DONE)]
