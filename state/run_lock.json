@@ -1,11 +1,10 @@
 {
- "holder": "pilot-thread",
- "job": "check and queue dauntless training",
- "token": "30e625718bfb446bbf59d1b9a128ef5c",
- "instance": null,
- "ttlMinutes": 20,
- "claimedAt": "2026-11-12T18:13:06.091Z",
- "heartbeatAt": "2026-11-12T18:13:06.091Z",
- "expiresAt": "2026-11-12T18:33:06.091Z",
- "note": "One game writer per account at a time (RUL-2026-11-07-133). Written only by forge/tools/run_lock.mjs or Forge; do not hand-edit."
+ "holder": null,
+ "token": null,
+ "job": null,
+ "releasedBy": "pilot-thread",
+ "releasedInstance": null,
+ "releasedJob": "check and queue dauntless training",
+ "releasedAt": "2026-11-12T18:17:44.981Z",
+ "note": "Free. Claim with node forge/tools/run_lock.mjs claim --holder NAME --job TEXT (RUL-2026-11-07-133)."
 }
