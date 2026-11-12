@@ -101,3 +101,4 @@ very expensive (Cyclone Palm Strike level 19 quoted 1,949,575 ryo for one level;
 | 2026-11-12 12:24 | First Chakra Gate | 10 | 26,045 | queued |
 | 2026-11-12 12:25 | Ryūsa Kōka | 10 | 42,043 | queued (active ends ~12:30; waiting Earth Armor 10, Raijin 10, FCG 10, Ryūsa Kōka 10; ends ~16:30). Pocket 11.48M, no withdrawal. 4,550 energy to willpower (+383.15, intelligence had passed willpower); asleep |
 | 2026-11-12 13:24 | Limit Breaker | 11 | 60,800 | queued (active Earth Armor 10 ends ~13:30; waiting Raijin 10, FCG 10, Ryūsa Kōka 10, Limit Breaker 11; ends ~17:30). Pocket 11.42M, no withdrawal. 4,550 energy to intelligence (+383.15); asleep |
+| 2026-11-12 14:23 | Mental Fortress | 11 | 60,800 | queued (active Raijin 10 ends ~14:30; waiting FCG 10, Ryūsa Kōka 10, Limit Breaker 11, Mental Fortress 11; ends ~18:30). Pocket 11.36M, no withdrawal. 4,550 energy to willpower (+269.08, intelligence had passed willpower); asleep |
