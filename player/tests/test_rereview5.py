@@ -73,38 +73,49 @@ def recorded(folder=RECORDED):
         return live, json.load(f)
 
 
-PACKAGE = []
+PACKAGES = {}
 
 
-def the_package_before():
-    """The 442a6311 package out of the repository's history, in a folder of its own; None without it."""
+def the_package_at(commit):
+    """The player package as it stood at a commit, out of the repository's history, in a folder of its own; None
+    when the history does not hold the commit."""
     def git(*args):
         return subprocess.run(["git", *args], cwd=C.ROOT, capture_output=True)
-    if not PACKAGE:
-        PACKAGE.append(None)
-        if not git("cat-file", "-e", BEFORE + "^{commit}").returncode:
+    if commit not in PACKAGES:
+        PACKAGES[commit] = None
+        if not git("cat-file", "-e", commit + "^{commit}").returncode:
             root = tempfile.mkdtemp(prefix="player-before-")
-            for name in git("ls-tree", "-r", "--name-only", BEFORE, "--", "player").stdout.decode().splitlines():
+            for name in git("ls-tree", "-r", "--name-only", commit, "--", "player").stdout.decode().splitlines():
                 path = os.path.join(root, name)
                 os.makedirs(os.path.dirname(path), exist_ok=True)
                 with open(path, "wb") as f:
-                    f.write(git("show", f"{BEFORE}:{name}").stdout)
+                    f.write(git("show", f"{commit}:{name}").stdout)
             for name in ("state", "data", "docs", "scripts", "harness", ".claude"):
                 os.symlink(os.path.join(C.ROOT, name), os.path.join(root, name), target_is_directory=True)
-            PACKAGE[0] = root
-    return PACKAGE[0]
+            PACKAGES[commit] = root
+    return PACKAGES[commit]
 
 
-def by_the_version_before(program=OLD_PROGRAM, *args):
-    """What that package makes when it runs a program (the default: the state of the review of 426a9fba), as
-    the program's last line says: (the live folder, what was made). None without the package."""
-    root = the_package_before()
+def by_the_version_at(commit, program, *args):
+    """What the package of that commit makes when it runs a program, as the program's last line says: (the live
+    folder, what was made). None without the package."""
+    root = the_package_at(commit)
     if root is None:
         return None
     out = subprocess.run([sys.executable, "-W", "ignore", "-c", program, *args], cwd=root, capture_output=True,
                          text=True, env={**os.environ, "PYTHONPATH": root})
     made = json.loads(out.stdout.strip().splitlines()[-1])
     return made["live"], made
+
+
+def the_package_before():
+    """The 442a6311 package (BEFORE)."""
+    return the_package_at(BEFORE)
+
+
+def by_the_version_before(program=OLD_PROGRAM, *args):
+    """The 442a6311 package runs a program (the default: the state of the review of 426a9fba)."""
+    return by_the_version_at(BEFORE, program, *args)
 
 
 def ledger(live):
