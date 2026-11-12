@@ -113,8 +113,10 @@ def loose(live):
     return held(live)
 
 
-STAMPS = ("absent", 0, relay.PROTOCOL + 1, str(relay.PROTOCOL), float(relay.PROTOCOL), True, None)
-"""What a record of another maker has where this version's number goes."""
+STAMPS = ("absent", 0, relay.PROTOCOL - 1, relay.PROTOCOL + 1, str(relay.PROTOCOL), float(relay.PROTOCOL), True,
+          None)
+"""What a record of another maker has where this version's number goes: the version before this one had the
+number before this one (review of c412de4d)."""
 
 
 def stamped(record, stamp):

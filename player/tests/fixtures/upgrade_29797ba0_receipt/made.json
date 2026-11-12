@@ -1,0 +1,13 @@
+{
+ "by": "29797ba0f769152381e71710f812605be9e0bfea",
+ "how": "OLD_PROGRAM in player/tests/test_rereview9.py with `receipt`: a relay starts, and its `brain next` is killed just before it writes the batch it was given into client.json; the brain's receipt is all there is of that batch",
+ "now": 1800000001.0,
+ "relay": "223981-0",
+ "protocol": 1,
+ "batch": [
+  "profile.getUser",
+  "travel.getSectorData",
+  "stealth.useSensory",
+  "profile.getStrongestUsers"
+ ]
+}

@@ -81,6 +81,8 @@ minute after you have spoken.
 relay from before the update is still running when you say it, its calls are counted by nobody.
 
 - The word is for this one update. It is of no use for a later one, which is listed under another name.
+- A batch the last relay from before the update had is listed only once the new relay has asked. List again
+  then, and say `stopped all` again: until you do, that batch's calls stay held and the player has less room.
 - `stopped TOKEN` or `stopped BATCH` for one old batch lets that batch go and leaves the update's minute held.
 - A live folder that is new has no ledger and so no hold. Before the first relay of a new folder, make sure
   nothing from before is running, as at the start of any session.

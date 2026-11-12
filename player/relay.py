@@ -24,21 +24,29 @@ import time
 from . import config as C
 from .world import RATE_LIMITED, Result
 
-PROTOCOL = 1
+PROTOCOL = 2
 """What `brain next` and the brain mean by what they keep for each other, and the rules a batch is made under.
 Each of these carries the number of the code that made it: live/client.json and a request (`brain next`), an
-answer, the batch waiting to be printed that is made of it, and the receipt (the brain). One that does not carry
-this number is never used as if it did: a client file is read as no file, a request is not answered, an answer
-is not taken, a waiting batch is not printed, a receipt's batch is not given again. Whatever calls it stood for
-stay in the ledger, held. A record's shape cannot say this: an older version wrote a waiting batch with every
-field this one writes, admitted under a rule this one no longer keeps (review of 60a28a84).
+answer, the batch waiting to be printed that is made of it, the receipt, and the call ledger (the brain). One
+that does not carry this number is never used as if it did: a client file is read as no file, a request is not
+answered, an answer is not taken, a waiting batch is not printed, a receipt's batch is not given again, a ledger
+is taken over with a minute's calls held (Brain._take_over). Whatever calls it stood for stay in the ledger,
+held. A record's shape cannot say this: an older version wrote a waiting batch with every field this one
+writes, admitted under a rule this one no longer keeps (review of 60a28a84).
 
 A request is also published under a name that carries the number (request_path). A brain reads the requests
 of its own protocol and no other's, so what one version's `brain next` asks is never taken by another
 version's brain.
 
 Change the number whenever the meaning of one of these records changes, or the rules by which the brain admits
-a batch's calls."""
+a batch's calls. When in doubt, change it: a new number costs the operator one word and a minute (OPERATOR.md,
+"After the player's code is updated"); an old one can cost the limit. The numbers so far:
+  1  06358ca5 to c412de4d: the records carry a number.
+  2  no call after a ledger is taken over from another version, until the operator has spoken and a minute
+     after. c412de4d brought that rule in and kept the number at 1, so a batch its predecessor had admitted
+     without the rule (waiting in client.json, kept in a receipt, or made by a brain still running) was still
+     printed as this version's own (review of c412de4d). A change to the rule is a new number: that is what
+     makes every record made under the old rule another version's."""
 
 
 def ours(record):

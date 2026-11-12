@@ -15,6 +15,7 @@ many. Time is the walk's own clock; no call leaves the process.
 After every step:
   cap       no more calls really made in any minute than the world lane allows (every call here is a world call)
   ledger    every call really made in the last minute is counted by the saved ledger: it is never ahead
+  whose     a ledger a brain has saved carries this version's number, whatever number the one it took over had
   evidence  the calls of a batch whose relay has neither come back nor been stopped are all still held (out or
             loose): nothing but evidence settles them, and no evidence reaches a batch it was not said of
   heard     once `brain next` has handed the brain the word that a batch is over, none of its calls is loose
@@ -43,6 +44,7 @@ from unittest import mock
 
 from player import brain, config as C, relay
 from player.tests.support import Rig, user
+from player.world import found as print_of
 
 PROFILE = json.dumps(user().data)
 DEATHS = ("before the answer", "before the receipt", "before the print")
@@ -63,6 +65,7 @@ class Walk:
         self.given = set()                        # every batch that was printed, or marked as printed, to a relay
         self.heard = set()                        # every batch the client has had word of that it is over
         self.inside = False                       # in a replacement's handshake made during another relay's wait
+        self.foreign = None                       # the world model as `forget` left it, until a brain has saved
         self.relays, self.cur, self.problems = [], None, []
         real_brain, real_handle = brain.Brain, brain.Brain.handle
 
@@ -184,8 +187,14 @@ class Walk:
         worst = max((sum(1 for u in self.made if t - 60 < u <= t) for t in self.made[-40:]), default=0)
         if worst > C.WORLD_CAP:
             self.problems.append(f"{worst} calls in a minute after {what}")
-        budget = (relay.read(os.path.join(self.rig.dir, "world.json")) or {}).get("budget") or {}
+        path = os.path.join(self.rig.dir, "world.json")
+        budget = (relay.read(path) or {}).get("budget") or {}
         calls = budget.get("calls", [])
+        if self.foreign and print_of(path) != self.foreign:          # a brain has saved the ledger it took over
+            self.foreign = None
+            if budget.get("protocol") != relay.PROTOCOL:
+                self.problems.append(f"a brain saved the ledger it took over from another version without this "
+                                     f"version's number ({budget.get('protocol')!r}), after {what}")
         counted, recent = [c for c in calls if len(c) > 2 or c[0] > now - 60], [t for t in self.made if t > now - 60]
         if budget.get("protocol") == relay.PROTOCOL and len(counted) < len(recent):   # (a ledger of this version)
             self.problems.append(f"the ledger counts {len(counted)}; {len(recent)} calls were made in the last "
@@ -291,6 +300,8 @@ class Walk:
             return "a client file that lost its record of who holds what"
         if roll < 0.7 and state:
             state.pop("protocol", None)
+            if self.rng.random() < 0.5:
+                state["protocol"] = relay.PROTOCOL - 1              # the version before this one's (review of c412de4d)
             relay.write(path, state)
             return "a client file without this version's number"
         if os.path.exists(path):
@@ -311,7 +322,10 @@ class Walk:
                 and self.rng.random() < 0.6}
         world["budget"] = {"batch": world["budget"].get("batch"),
                            "calls": [c for c in calls if not (c[2:3] == ["loose"] and c[3] in gone)]}
+        if self.rng.random() < 0.5:
+            world["budget"]["protocol"] = relay.PROTOCOL - 1        # c412de4d's ledger had a number: the one before
         relay.write(path, world)
+        self.foreign = print_of(path)
         for batch in gone & set(self.batches):
             self.batches[batch]["forgotten"] = True
         return "a ledger that another version kept, which let held calls go"

@@ -27,7 +27,7 @@ from player.tests.test_relay import token_of
 from player.tests.test_rereview2 import most_in_a_minute
 from player.tests.test_rereview3 import Client
 from player.tests.test_rereview4 import Killed
-from player.tests.test_rereview5 import held, ledger, the_package_before, update
+from player.tests.test_rereview5 import BEFORE, held, ledger, the_package_at, update
 
 OLD_RESIDENT = r'''
 import io, json, os
@@ -68,10 +68,12 @@ class P1AnOlderBrainIsStillRunning(unittest.TestCase):
     """The review's script. Relay A has four calls of the old version's and has not come back. That version's
     brain is running and holds the lock. Then this version's `brain next` starts a replacement."""
 
+    VERSION = BEFORE                    # the commit whose `brain run` is the older brain: here 442a6311
+
     def setUp(self):
-        root = the_package_before()
+        root = the_package_at(self.VERSION)
         if root is None:
-            self.skipTest("the repository's history does not hold 442a6311")
+            self.skipTest(f"the repository's history does not hold {self.VERSION[:8]}")
         self.old = subprocess.Popen([sys.executable, "-W", "ignore", "-c", OLD_RESIDENT], cwd=root, text=True,
                                     stdout=subprocess.PIPE, stderr=subprocess.PIPE,
                                     env={**os.environ, "PYTHONPATH": root})
@@ -234,11 +236,13 @@ class P1ARequestIsPublishedWhereOnlyThisProtocolLooks(Client):
     def test_another_protocols_request_is_not_this_brains_to_open(self):
         path, ask = self.a_request_of_this_version()
         os.unlink(path)
-        other = os.path.join(self.rig.dir, "inbox", f"p{relay.PROTOCOL + 1}-req-{ask['seq']:08d}-{ask['id']}.json")
-        relay.write(other, dict(ask, protocol=relay.PROTOCOL + 1))
-        before = self.saved()
-        brain.run(self.rig.dir, forever=False)
-        self.assertEqual((requests(self.rig.dir), self.outbox(), self.saved()), ([other], [], before))
+        for number in (relay.PROTOCOL + 1, relay.PROTOCOL - 1):             # the next version's, and the one before's
+            other = os.path.join(self.rig.dir, "inbox", f"p{number}-req-{ask['seq']:08d}-{ask['id']}.json")
+            relay.write(other, dict(ask, protocol=number))
+            before = self.saved()
+            brain.run(self.rig.dir, forever=False)
+            self.assertEqual((requests(self.rig.dir), self.outbox(), self.saved()), ([other], [], before), number)
+            os.unlink(other)
 
     def test_with_nothing_to_answer_brain_next_waits_and_starts_one_brain(self):
         """Not from the review: nobody is home, the request is gone and no answer has come (a brain dropped
@@ -256,7 +260,7 @@ class P1ARequestIsPublishedWhereOnlyThisProtocolLooks(Client):
     def test_what_a_dead_brain_next_left_is_swept_under_any_name(self):
         a = self.new_relay_with_a_batch()
         for name in ("req-00000009.json", "req-00000009-abcdabcd.json", f"p{relay.PROTOCOL}-req-00000009-abcdabcd.json",
-                     f"p{relay.PROTOCOL + 1}-req-00000009-abcdabcd.json"):
+                     f"p{relay.PROTOCOL + 1}-req-00000009-abcdabcd.json", f"p{relay.PROTOCOL - 1}-req-00000009-abcdabcd.json"):
             relay.write(os.path.join(self.rig.dir, "inbox", name), {"seq": 9, "relay": "dead01", "results": []})
         seen, handle = [], brain.Brain.handle
         with mock.patch.object(brain.Brain, "handle", lambda *a_, **k: seen.append(1) or handle(*a_, **k)):

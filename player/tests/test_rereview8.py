@@ -30,7 +30,7 @@ from player.tests.test_rereview2 import most_in_a_minute
 from player.tests.test_rereview3 import Client
 from player.tests.test_rereview4 import Killed, dies_before_the_receipt
 from player.tests.test_rereview5 import by_the_version_before, held, ledger, recorded, update
-from player.tests.test_rereview6 import calls_of
+from player.tests.test_rereview6 import STAMPS, calls_of
 
 RECORDED = os.path.join(os.path.dirname(__file__), "fixtures", "upgrade_442a6311_forgotten")
 BRAIN = brain.Brain                     # the class itself: a test here puts a clock on it more than once
@@ -62,9 +62,11 @@ with patch.dict(os.environ, {"TNR_PLAYER_NO_DAEMON": "1", "TNR_TRANSCRIPT": os.p
 
 
 def hold(live):
-    """The id of the minute that is held for the relays from before the update."""
-    (batch,) = {c[3] for c in update(live)}
-    return batch
+    """The id of the minute that is held for the relays from before the update. A test that comes here when
+    no such minute is held fails on that, in those words."""
+    ids = sorted({c[3] for c in update(live)})
+    assert len(ids) == 1, f"one minute should be held after the update; the ledger holds {len(ids)}: {ids}"
+    return ids[0]
 
 
 def first_call_in(out):
@@ -77,12 +79,12 @@ def first_call_in(out):
     return None
 
 
-class Q1TheLedgerOfAnotherVersion(unittest.TestCase):
-    """The review's script: the old version has let relay A's four calls go, and has ended. Then this version."""
+class AfterAnUpdate(unittest.TestCase):
+    """This version on a live folder that another version left, on the test's clock. No test of its own."""
+    OLD_CALLS = 4                       # how many calls a relay from before the update still has to make
 
     def start(self, state):
         self.live, self.made = state
-        self.assertEqual(ledger(self.live), [])                             # A never came back; nothing says so
         self.now, self.real = [self.made["now"]], BRAIN
         relay.write(os.path.join(self.live, "control.json"), {"version": 2, "paused": False})
         for p in (mock.patch.dict(os.environ, {"TNR_PLAYER_NO_DAEMON": "1", "TNR_PLAYER_LIVE": self.live,
@@ -92,14 +94,18 @@ class Q1TheLedgerOfAnotherVersion(unittest.TestCase):
                   mock.patch.object(brain, "Brain", lambda live: self.real(live, clock=lambda: self.now[0]))):
             p.start()
             self.addCleanup(p.stop)
-        self.printed = []                                                   # (when, how many calls) of this version
+        self.printed, self.idle = [], 0                                     # (when, how many calls) of this version
 
     def next(self, token=None):
-        out = io.StringIO()
+        """One `brain next`, its waits spent on the test's clock. A test here asks until a time has passed: so
+        a `brain next` that neither waits nor gives a call, time after time, would never let it end."""
+        out, was = io.StringIO(), self.now[0]
         brain.next_batch(self.live, token, out, lambda t: self.now.__setitem__(0, self.now[0] + max(0, t)))
         lines = out.getvalue().splitlines()
         if calls_of(lines):
             self.printed.append((self.now[0], len(calls_of(lines))))
+        self.idle = 0 if calls_of(lines) or self.now[0] > was else self.idle + 1
+        self.assertLess(self.idle, 50, "`brain next` gives no call and spends no wait, time after time")
         return lines
 
     def says(self, *names):
@@ -108,11 +114,11 @@ class Q1TheLedgerOfAnotherVersion(unittest.TestCase):
         return json.loads(out.getvalue())
 
     def most(self, lane, batches, last_old_call):
-        """The review's count: relay A makes its four calls at `last_old_call`; this version's calls so far are
-        counted when they were printed, and then it paces `batches` more."""
+        """The review's count: the relay from before makes its calls at `last_old_call`; this version's calls
+        so far are counted when they were printed, and then it paces `batches` more."""
         clock = [self.now[0]]
         budget = self.real(self.live, clock=lambda: clock[0]).budget
-        made = [last_old_call] * 4 + [at for at, n in self.printed for _ in range(n)]
+        made = [last_old_call] * self.OLD_CALLS + [at for at, n in self.printed for _ in range(n)]
         for _ in range(batches):
             steps, _ = budget.pace([K.user(), K.user()], lane)
             for s in steps:
@@ -134,6 +140,14 @@ class Q1TheLedgerOfAnotherVersion(unittest.TestCase):
             lines = self.next(token)
             token = token_of(lines[-1])
         return lines, token
+
+
+class Q1TheLedgerOfAnotherVersion(AfterAnUpdate):
+    """The review's script: the old version has let relay A's four calls go, and has ended. Then this version."""
+
+    def start(self, state):
+        super().start(state)
+        self.assertEqual(ledger(self.live), [])                             # A never came back; nothing says so
 
     # ---- no word
     def nothing_is_sent(self, state):
@@ -255,7 +269,7 @@ class Q1TheHoldIsThisTakeoversAndLasts(Client):
         self.new_relay_with_a_batch()
         kept = self.saved()["budget"]
         self.assertEqual((type(kept["protocol"]), kept["protocol"]), (int, relay.PROTOCOL))
-        for other in ("absent", 0, relay.PROTOCOL + 1, str(relay.PROTOCOL), float(relay.PROTOCOL), True, None):
+        for other in STAMPS:
             self.another_versions_ledger()
             world = self.saved()
             if other != "absent":
