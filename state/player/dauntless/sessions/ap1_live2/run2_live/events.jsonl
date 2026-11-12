@@ -1,0 +1,177 @@
+{"at":"2026-11-12T16:19:48Z","kind":"setting_changed","text":"mode: 'guard' -> 'hunt'","setting":"mode"}
+{"at":"2026-11-12T16:19:55Z","kind":"activity_done","text":"session: ASLEEP, hunt mode: waking","activity":"session"}
+{"at":"2026-11-12T16:20:03Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 177 (10, 25): heading to the circuit (1538)","activity":"pvp_hunt"}
+{"at":"2026-11-12T16:20:16Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 6s","activity":"travel"}
+{"at":"2026-11-12T16:20:26Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 1538 (13, 13): nobody to fight here (1 immune, 14 lowlvl), next sector 1490","activity":"pvp_hunt"}
+{"at":"2026-11-12T16:20:38Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 5s","activity":"travel"}
+{"at":"2026-11-12T16:20:46Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 1490 (13, 13): nobody to fight here (2 battle, 8 lowlvl), next sector 1335","activity":"pvp_hunt"}
+{"at":"2026-11-12T16:21:01Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 6s (paced 2.9s)","activity":"travel"}
+{"at":"2026-11-12T16:21:12Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 1335 (13, 13): nobody to fight here (1 immune, 6 lowlvl), next sector 99 (paced 2.2s)","activity":"pvp_hunt"}
+{"at":"2026-11-12T16:21:25Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 6s","activity":"travel"}
+{"at":"2026-11-12T16:21:35Z","kind":"fight_start","text":"fight started (BRDTs8)","battle":"BRDTs8o6wYkhX3cnj_le4","director_mode":false}
+{"at":"2026-11-12T16:21:35Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 99 (13, 13): attacking Luka @ 13,13 (paced 1.8s)","activity":"pvp_hunt"}
+{"at":"2026-11-12T16:22:35Z","kind":"stall","text":"the relay has not come back for 16 s (in a fight)","about":"relay"}
+{"at":"2026-11-12T16:22:51Z","kind":"finding","text":"2 call(s) of relay b5b256-17 count in every minute until it comes back or is confirmed stopped: it did not hand its batch in. When that relay is known to have been stopped, say so: python3 -m player.brain stopped TOKEN (or: all, when every relay but the one running is known to be stopped).","about":"budget"}
+{"at":"2026-11-12T16:23:12Z","kind":"finding","text":"round 1: the fight went unread for 45 s before my turn was seen","about":"turn","battle":"BRDTs8o6wYkhX3cnj_le4"}
+{"at":"2026-11-12T16:23:22Z","kind":"setting_changed","text":"the operator says b5b256-17 has been stopped: 2 held call(s) are counted from then","about":"budget"}
+{"at":"2026-11-12T16:25:44Z","kind":"finding","text":"a battle read came back without the battle (1 in a row). It held: {}","about":"read","battle":"BRDTs8o6wYkhX3cnj_le4"}
+{"at":"2026-11-12T16:25:58Z","kind":"fight_end","text":"WON vs Luka in round 3","battle":"BRDTs8o6wYkhX3cnj_le4","result":"won","opponent":"Luka","round":3,"turning_point":"round 3: I lost 0 HP, Luka lost 3046","joined":1,"unseen_rounds":[]}
+{"at":"2026-11-12T16:26:44Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 99 (13, 13): nobody to fight here (empty), next sector 1538","activity":"pvp_hunt"}
+{"at":"2026-11-12T16:26:57Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 5s","activity":"travel"}
+{"at":"2026-11-12T16:27:07Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 1538 (13, 13): nobody to fight here (1 battle, 13 lowlvl), next sector 1490","activity":"pvp_hunt"}
+{"at":"2026-11-12T16:27:44Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 5s (paced 22.3s)","activity":"travel"}
+{"at":"2026-11-12T16:27:52Z","kind":"fight_start","text":"fight started (d9mEPh)","battle":"d9mEPhdio4ozIgIHy13qW","director_mode":false}
+{"at":"2026-11-12T16:27:52Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 1490 (13, 13): attacking 4qua @ 13,13","activity":"pvp_hunt"}
+{"at":"2026-11-12T16:28:22Z","kind":"finding","text":"the game refused wait: Battle state changed. Choose your action again.","about":"refusal","battle":"d9mEPhdio4ozIgIHy13qW"}
+{"at":"2026-11-12T16:28:39Z","kind":"finding","text":"a battle read came back without the battle (1 in a row). It held: {}","about":"read","battle":"d9mEPhdio4ozIgIHy13qW"}
+{"at":"2026-11-12T16:28:53Z","kind":"fight_end","text":"WON vs Laser in round 2","battle":"d9mEPhdio4ozIgIHy13qW","result":"won","opponent":"Laser","round":2,"turning_point":"round 2: I lost 0 HP, Laser lost 4032","joined":1,"unseen_rounds":[]}
+{"at":"2026-11-12T16:29:34Z","kind":"fight_start","text":"fight started (QC0alL)","battle":"QC0alLwyLdFPiXtaCwWnh","director_mode":false}
+{"at":"2026-11-12T16:29:34Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 4959/5050 HP @ 1490 (13, 13): attacking 4qua @ 13,13","activity":"pvp_hunt"}
+{"at":"2026-11-12T16:30:20Z","kind":"finding","text":"a battle read came back without the battle (1 in a row). It held: {}","about":"read","battle":"QC0alLwyLdFPiXtaCwWnh"}
+{"at":"2026-11-12T16:30:35Z","kind":"fight_end","text":"WON vs Lokananta in round 2","battle":"QC0alLwyLdFPiXtaCwWnh","result":"won","opponent":"Lokananta","round":2,"turning_point":"round 2: I lost 0 HP, Lokananta lost 3998","joined":1,"unseen_rounds":[]}
+{"at":"2026-11-12T16:30:35Z","kind":"item","text":"Full Potion used","item":"Full Potion","why":"end of fight at 4555 HP"}
+{"at":"2026-11-12T16:31:16Z","kind":"fight_start","text":"fight started (yz3Qva)","battle":"yz3QvaKW5nbB9FRjjdVcq","director_mode":false}
+{"at":"2026-11-12T16:31:16Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 1490 (13, 13): attacking Blackwing14 @ 13,8","activity":"pvp_hunt"}
+{"at":"2026-11-12T16:35:19Z","kind":"finding","text":"a battle read came back without the battle (1 in a row). It held: {}","about":"read","battle":"yz3QvaKW5nbB9FRjjdVcq"}
+{"at":"2026-11-12T16:35:31Z","kind":"fight_end","text":"WON vs Blackwing14 in round 3","battle":"yz3QvaKW5nbB9FRjjdVcq","result":"won","opponent":"Blackwing14","round":3,"turning_point":"round 2: I lost 0 HP, Blackwing14 lost 2429","joined":1,"unseen_rounds":[]}
+{"at":"2026-11-12T16:36:16Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 1490 (13, 8): nobody to fight here (8 lowlvl), next sector 1335","activity":"pvp_hunt"}
+{"at":"2026-11-12T16:36:27Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 4s","activity":"travel"}
+{"at":"2026-11-12T16:36:34Z","kind":"fight_start","text":"fight started (fm1Ie6)","battle":"fm1Ie6TRDPfhCHu1c5o3Z","director_mode":false}
+{"at":"2026-11-12T16:36:34Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 1335 (13, 13): attacking 4qua @ 13,13","activity":"pvp_hunt"}
+{"at":"2026-11-12T16:42:03Z","kind":"stall","text":"the relay has not come back for 16 s (in a fight)","about":"relay"}
+{"at":"2026-11-12T16:42:52Z","kind":"stall","text":"the relay has not come back for 19 s (in a fight)","about":"relay"}
+{"at":"2026-11-12T16:42:58Z","kind":"finding","text":"a battle read came back without the battle (1 in a row). It held: {}","about":"read","battle":"fm1Ie6TRDPfhCHu1c5o3Z"}
+{"at":"2026-11-12T16:43:08Z","kind":"fight_end","text":"WON vs 4qua in round 5","battle":"fm1Ie6TRDPfhCHu1c5o3Z","result":"won","opponent":"4qua","round":5,"turning_point":"round 2: I lost 452 HP, 4qua lost 2305","joined":1,"unseen_rounds":[]}
+{"at":"2026-11-12T16:43:08Z","kind":"fight_start","text":"fight started (nnx6eU)","battle":"nnx6eUzQ7b6DYQcz2mrK6","director_mode":false}
+{"at":"2026-11-12T16:43:36Z","kind":"stall","text":"the relay has not come back for 18 s (in a fight)","about":"relay"}
+{"at":"2026-11-12T16:45:16Z","kind":"stall","text":"the relay has not come back for 19 s (in a fight)","about":"relay"}
+{"at":"2026-11-12T16:45:19Z","kind":"finding","text":"the game refused ou7VyChQ-SFCm8T8yGS7I: Battle state changed. Choose your action again.","about":"refusal","battle":"nnx6eUzQ7b6DYQcz2mrK6"}
+{"at":"2026-11-12T16:45:19Z","kind":"finding","text":"the game refused jELEiw5W3N4m2R3oJm3Pk: Not your turn. Wait for Luka","about":"refusal","battle":"nnx6eUzQ7b6DYQcz2mrK6"}
+{"at":"2026-11-12T16:46:18Z","kind":"stall","text":"the relay has not come back for 19 s (in a fight)","about":"relay"}
+{"at":"2026-11-12T16:46:22Z","kind":"finding","text":"round 5: the fight went unread for 22 s before my turn was seen","about":"turn","battle":"nnx6eUzQ7b6DYQcz2mrK6"}
+{"at":"2026-11-12T16:46:35Z","kind":"finding","text":"a battle read came back without the battle (1 in a row). It held: {}","about":"read","battle":"nnx6eUzQ7b6DYQcz2mrK6"}
+{"at":"2026-11-12T16:46:54Z","kind":"fight_end","text":"LOST vs Luka in round 5","battle":"nnx6eUzQ7b6DYQcz2mrK6","result":"lost","opponent":"Luka","round":5,"turning_point":"round 3: I lost 0 HP, Luka lost 1551","joined":1,"unseen_rounds":[]}
+{"at":"2026-11-12T16:46:54Z","kind":"item","text":"Full Potion used","item":"Full Potion","why":"end of fight at 47 HP"}
+{"at":"2026-11-12T16:47:24Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 177 (13, 8): heading to the circuit (1538)","activity":"pvp_hunt"}
+{"at":"2026-11-12T16:47:35Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 6s","activity":"travel"}
+{"at":"2026-11-12T16:47:44Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 1538 (13, 13): nobody to fight here (1 immune, 13 lowlvl), next sector 1490","activity":"pvp_hunt"}
+{"at":"2026-11-12T16:47:56Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 5s","activity":"travel"}
+{"at":"2026-11-12T16:48:06Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 1490 (13, 13): nobody to fight here (8 lowlvl), next sector 1335","activity":"pvp_hunt"}
+{"at":"2026-11-12T16:48:30Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 5s (paced 13.0s)","activity":"travel"}
+{"at":"2026-11-12T16:48:44Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 1335 (13, 13): nobody to fight here (1 beat me, 1 immune, 4 lowlvl), next sector 99 (paced 5.3s)","activity":"pvp_hunt"}
+{"at":"2026-11-12T16:48:54Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 3s","activity":"travel"}
+{"at":"2026-11-12T16:49:01Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 99 (13, 13): nobody to fight here (empty), next sector 1538","activity":"pvp_hunt"}
+{"at":"2026-11-12T16:49:14Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 7s","activity":"travel"}
+{"at":"2026-11-12T16:49:23Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 1538 (13, 13): nobody to fight here (1 immune, 12 lowlvl), next sector 1490","activity":"pvp_hunt"}
+{"at":"2026-11-12T16:49:49Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 3s","activity":"travel"}
+{"at":"2026-11-12T16:49:57Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 1490 (13, 13): nobody to fight here (8 lowlvl), next sector 1335","activity":"pvp_hunt"}
+{"at":"2026-11-12T16:50:11Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 6s","activity":"travel"}
+{"at":"2026-11-12T16:50:18Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 1335 (13, 13): nobody to fight here (1 immune, 4 lowlvl), next sector 99","activity":"pvp_hunt"}
+{"at":"2026-11-12T16:50:31Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 7s","activity":"travel"}
+{"at":"2026-11-12T16:50:40Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 99 (13, 13): nobody to fight here (empty), next sector 1538","activity":"pvp_hunt"}
+{"at":"2026-11-12T16:50:56Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 6s (paced 3.8s)","activity":"travel"}
+{"at":"2026-11-12T16:51:06Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 1538 (13, 13): nobody to fight here (1 immune, 12 lowlvl), next sector 1490 (paced 1.8s)","activity":"pvp_hunt"}
+{"at":"2026-11-12T16:51:17Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 6s","activity":"travel"}
+{"at":"2026-11-12T16:51:26Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 1490 (13, 13): nobody to fight here (8 lowlvl), next sector 1335 (paced 1.0s)","activity":"pvp_hunt"}
+{"at":"2026-11-12T16:51:37Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 6s","activity":"travel"}
+{"at":"2026-11-12T16:51:48Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 1335 (13, 13): nobody to fight here (1 immune, 4 lowlvl), next sector 99 (paced 2.8s)","activity":"pvp_hunt"}
+{"at":"2026-11-12T16:52:00Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 6s","activity":"travel"}
+{"at":"2026-11-12T16:52:14Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 99 (13, 13): nobody to fight here (empty), next sector 1538 (paced 6.1s)","activity":"pvp_hunt"}
+{"at":"2026-11-12T16:52:23Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 3s","activity":"travel"}
+{"at":"2026-11-12T16:52:35Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 1538 (13, 13): nobody to fight here (1 immune, 12 lowlvl), next sector 1490 (paced 3.2s)","activity":"pvp_hunt"}
+{"at":"2026-11-12T16:53:05Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 3s","activity":"travel"}
+{"at":"2026-11-12T16:53:15Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 1490 (13, 13): nobody to fight here (8 lowlvl), next sector 1335","activity":"pvp_hunt"}
+{"at":"2026-11-12T16:53:26Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 5s","activity":"travel"}
+{"at":"2026-11-12T16:53:35Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 1335 (13, 13): nobody to fight here (1 immune, 4 lowlvl), next sector 99","activity":"pvp_hunt"}
+{"at":"2026-11-12T16:53:47Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 5s","activity":"travel"}
+{"at":"2026-11-12T16:54:17Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 99 (13, 13): nobody to fight here (empty), next sector 1538 (paced 18.8s)","activity":"pvp_hunt"}
+{"at":"2026-11-12T16:54:25Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 3s","activity":"travel"}
+{"at":"2026-11-12T16:54:34Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 1538 (13, 13): nobody to fight here (1 immune, 14 lowlvl), next sector 1490","activity":"pvp_hunt"}
+{"at":"2026-11-12T16:54:44Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 5s","activity":"travel"}
+{"at":"2026-11-12T16:54:52Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 1490 (13, 13): nobody to fight here (8 lowlvl), next sector 1335","activity":"pvp_hunt"}
+{"at":"2026-11-12T16:55:05Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 7s","activity":"travel"}
+{"at":"2026-11-12T16:55:30Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 1335 (13, 13): nobody to fight here (1 immune, 4 lowlvl), next sector 99","activity":"pvp_hunt"}
+{"at":"2026-11-12T16:55:42Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 6s","activity":"travel"}
+{"at":"2026-11-12T16:55:49Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 99 (13, 13): nobody to fight here (empty), next sector 1538","activity":"pvp_hunt"}
+{"at":"2026-11-12T16:56:02Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 7s","activity":"travel"}
+{"at":"2026-11-12T16:56:11Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 1538 (13, 13): nobody to fight here (1 immune, 13 lowlvl), next sector 1490","activity":"pvp_hunt"}
+{"at":"2026-11-12T16:56:23Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 6s","activity":"travel"}
+{"at":"2026-11-12T16:56:39Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 1490 (13, 13): nobody to fight here (9 lowlvl), next sector 1335 (paced 7.4s)","activity":"pvp_hunt"}
+{"at":"2026-11-12T16:56:51Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 6s","activity":"travel"}
+{"at":"2026-11-12T16:56:58Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 1335 (13, 13): nobody to fight here (1 immune, 4 lowlvl), next sector 99","activity":"pvp_hunt"}
+{"at":"2026-11-12T16:57:11Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 7s","activity":"travel"}
+{"at":"2026-11-12T16:57:19Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 99 (13, 13): nobody to fight here (empty), next sector 1538 (paced 1.3s)","activity":"pvp_hunt"}
+{"at":"2026-11-12T16:57:32Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 6s","activity":"travel"}
+{"at":"2026-11-12T16:57:50Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 1538 (13, 13): nobody to fight here (1 immune, 13 lowlvl), next sector 1490 (paced 7.5s)","activity":"pvp_hunt"}
+{"at":"2026-11-12T16:58:01Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 3s","activity":"travel"}
+{"at":"2026-11-12T16:58:11Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 1490 (13, 13): nobody to fight here (9 lowlvl), next sector 1335","activity":"pvp_hunt"}
+{"at":"2026-11-12T16:58:41Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 3s","activity":"travel"}
+{"at":"2026-11-12T16:58:51Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 1335 (13, 13): nobody to fight here (1 immune, 4 lowlvl), next sector 99","activity":"pvp_hunt"}
+{"at":"2026-11-12T16:59:02Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 5s","activity":"travel"}
+{"at":"2026-11-12T16:59:09Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 99 (13, 13): nobody to fight here (empty), next sector 1538","activity":"pvp_hunt"}
+{"at":"2026-11-12T16:59:22Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 7s","activity":"travel"}
+{"at":"2026-11-12T16:59:30Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 1538 (13, 13): nobody to fight here (1 immune, 13 lowlvl), next sector 1490","activity":"pvp_hunt"}
+{"at":"2026-11-12T16:59:47Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 6s (paced 4.9s)","activity":"travel"}
+{"at":"2026-11-12T16:59:59Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 1490 (13, 13): nobody to fight here (9 lowlvl), next sector 1335 (paced 4.0s)","activity":"pvp_hunt"}
+{"at":"2026-11-12T17:00:13Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 6s","activity":"travel"}
+{"at":"2026-11-12T17:00:23Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 1335 (13, 13): nobody to fight here (1 immune, 4 lowlvl), next sector 99","activity":"pvp_hunt"}
+{"at":"2026-11-12T17:00:34Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 5s","activity":"travel"}
+{"at":"2026-11-12T17:00:43Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 99 (13, 13): nobody to fight here (empty), next sector 1538","activity":"pvp_hunt"}
+{"at":"2026-11-12T17:01:11Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 3s","activity":"travel"}
+{"at":"2026-11-12T17:01:19Z","kind":"fight_start","text":"fight started (Q0A4r_)","battle":"Q0A4r_zFQaq79bk76Bs0m","director_mode":false}
+{"at":"2026-11-12T17:01:19Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 1538 (13, 13): attacking lipan @ 13,8","activity":"pvp_hunt"}
+{"at":"2026-11-12T17:05:24Z","kind":"finding","text":"the game refused PhP5ZEF5iVa97jcumJ15c: Action Captain's Decree no longer possible for dauntless","about":"refusal","battle":"Q0A4r_zFQaq79bk76Bs0m"}
+{"at":"2026-11-12T17:05:24Z","kind":"fight_end","text":"WON vs lipan in round 3","battle":"Q0A4r_zFQaq79bk76Bs0m","result":"won","opponent":"lipan","round":3,"turning_point":"round 2: I lost 186 HP, lipan lost 2274","joined":1,"unseen_rounds":[]}
+{"at":"2026-11-12T17:05:30Z","kind":"item","text":"Full Potion used","item":"Full Potion","why":"end of fight at 4569 HP"}
+{"at":"2026-11-12T17:06:18Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 1538 (13, 8): nobody to fight here (1 battle, 1 immune, 12 lowlvl), next sector 1490","activity":"pvp_hunt"}
+{"at":"2026-11-12T17:06:29Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 5s","activity":"travel"}
+{"at":"2026-11-12T17:06:39Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 1490 (13, 13): nobody to fight here (9 lowlvl), next sector 1335","activity":"pvp_hunt"}
+{"at":"2026-11-12T17:06:52Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 5s","activity":"travel"}
+{"at":"2026-11-12T17:07:17Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 1335 (13, 13): nobody to fight here (1 battle, 1 immune, 6 lowlvl), next sector 99 (paced 16.4s)","activity":"pvp_hunt"}
+{"at":"2026-11-12T17:07:30Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 6s","activity":"travel"}
+{"at":"2026-11-12T17:07:41Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 99 (13, 13): nobody to fight here (empty), next sector 1538","activity":"pvp_hunt"}
+{"at":"2026-11-12T17:08:09Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 3s","activity":"travel"}
+{"at":"2026-11-12T17:08:19Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 1538 (13, 13): nobody to fight here (1 battle, 1 immune, 12 lowlvl), next sector 1490","activity":"pvp_hunt"}
+{"at":"2026-11-12T17:08:31Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 5s","activity":"travel"}
+{"at":"2026-11-12T17:08:39Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 1490 (13, 13): nobody to fight here (9 lowlvl), next sector 1335","activity":"pvp_hunt"}
+{"at":"2026-11-12T17:08:52Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 6s","activity":"travel"}
+{"at":"2026-11-12T17:09:04Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 1335 (13, 13): nobody to fight here (2 immune, 6 lowlvl), next sector 99","activity":"pvp_hunt"}
+{"at":"2026-11-12T17:09:17Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 6s","activity":"travel"}
+{"at":"2026-11-12T17:09:27Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 99 (13, 13): nobody to fight here (empty), next sector 1538 (paced 2.0s)","activity":"pvp_hunt"}
+{"at":"2026-11-12T17:09:41Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 6s","activity":"travel"}
+{"at":"2026-11-12T17:09:51Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 1538 (13, 13): nobody to fight here (1 battle, 1 immune, 12 lowlvl), next sector 1490","activity":"pvp_hunt"}
+{"at":"2026-11-12T17:10:03Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 5s","activity":"travel"}
+{"at":"2026-11-12T17:10:13Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 1490 (13, 13): nobody to fight here (9 lowlvl), next sector 1335 (paced 2.2s)","activity":"pvp_hunt"}
+{"at":"2026-11-12T17:10:26Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 6s","activity":"travel"}
+{"at":"2026-11-12T17:11:21Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 1335 (13, 8): nobody to fight here (1 battle, 1 immune, 6 lowlvl), next sector 99","activity":"pvp_hunt"}
+{"at":"2026-11-12T17:11:33Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 6s","activity":"travel"}
+{"at":"2026-11-12T17:11:41Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 99 (13, 13): nobody to fight here (empty), next sector 1538","activity":"pvp_hunt"}
+{"at":"2026-11-12T17:12:03Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 6s (paced 8.1s)","activity":"travel"}
+{"at":"2026-11-12T17:12:22Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 1538 (13, 13): nobody to fight here (1 immune, 12 lowlvl), next sector 1490 (paced 10.4s)","activity":"pvp_hunt"}
+{"at":"2026-11-12T17:12:31Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 3s","activity":"travel"}
+{"at":"2026-11-12T17:12:41Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 1490 (13, 13): nobody to fight here (9 lowlvl), next sector 1335","activity":"pvp_hunt"}
+{"at":"2026-11-12T17:13:08Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 3s","activity":"travel"}
+{"at":"2026-11-12T17:13:21Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 1335 (13, 13): nobody to fight here (1 immune, 6 lowlvl), next sector 99","activity":"pvp_hunt"}
+{"at":"2026-11-12T17:13:32Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 5s","activity":"travel"}
+{"at":"2026-11-12T17:13:39Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 99 (13, 13): nobody to fight here (empty), next sector 1538","activity":"pvp_hunt"}
+{"at":"2026-11-12T17:13:52Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 6s","activity":"travel"}
+{"at":"2026-11-12T17:14:00Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 1538 (13, 13): nobody to fight here (1 immune, 12 lowlvl), next sector 1490","activity":"pvp_hunt"}
+{"at":"2026-11-12T17:14:15Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 6s (paced 2.0s)","activity":"travel"}
+{"at":"2026-11-12T17:14:29Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 1490 (13, 13): nobody to fight here (9 lowlvl), next sector 1335 (paced 6.8s)","activity":"pvp_hunt"}
+{"at":"2026-11-12T17:14:42Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 6s","activity":"travel"}
+{"at":"2026-11-12T17:14:52Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 1335 (13, 13): nobody to fight here (1 immune, 6 lowlvl), next sector 99","activity":"pvp_hunt"}
+{"at":"2026-11-12T17:15:04Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 5s","activity":"travel"}
+{"at":"2026-11-12T17:15:11Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 99 (13, 13): nobody to fight here (empty), next sector 1538","activity":"pvp_hunt"}
+{"at":"2026-11-12T17:15:25Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 6s","activity":"travel"}
+{"at":"2026-11-12T17:15:43Z","kind":"fight_start","text":"fight started (PeMlBz)","battle":"PeMlBzyklGB6maKaWT0Zs","director_mode":false}
+{"at":"2026-11-12T17:15:43Z","kind":"activity_done","text":"pvp_hunt: AWAKE hunt 5050/5050 HP @ 1538 (13, 13): attacking lipan @ 13,8 (paced 5.4s)","activity":"pvp_hunt"}
+{"at":"2026-11-12T17:19:26Z","kind":"stall","text":"the relay has not come back for 16 s (in a fight)","about":"relay"}
+{"at":"2026-11-12T17:19:50Z","kind":"stall","text":"the relay has not come back for 19 s (in a fight)","about":"relay"}
+{"at":"2026-11-12T17:19:52Z","kind":"finding","text":"round 5: the fight went unread for 23 s before my turn was seen","about":"turn","battle":"PeMlBzyklGB6maKaWT0Zs"}
+{"at":"2026-11-12T17:22:14Z","kind":"fight_end","text":"WON vs lipan in round 7","battle":"PeMlBzyklGB6maKaWT0Zs","result":"won","opponent":"lipan","round":7,"turning_point":"round 5: I lost 706 HP, lipan lost 1818","joined":1,"unseen_rounds":[]}
+{"at":"2026-11-12T17:22:21Z","kind":"setting_changed","text":"mode: 'hunt' -> 'guard'","setting":"mode"}
+{"at":"2026-11-12T17:22:21Z","kind":"item","text":"Full Potion used","item":"Full Potion","why":"end of fight at 943 HP"}
+{"at":"2026-11-12T17:25:54Z","kind":"setting_changed","text":"end_session: False -> True","setting":"end_session"}
+{"at":"2026-11-12T17:26:01Z","kind":"activity_done","text":"session: session ending: going home (177)","activity":"session"}
+{"at":"2026-11-12T17:26:15Z","kind":"activity_done","text":"travel: TRAVEL: arriving in 7s","activity":"travel"}
+{"at":"2026-11-12T17:26:24Z","kind":"activity_done","text":"session: session ending: sleeping at home","activity":"session"}

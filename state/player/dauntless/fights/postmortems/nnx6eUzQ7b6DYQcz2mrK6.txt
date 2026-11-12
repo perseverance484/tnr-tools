@@ -1,0 +1,12 @@
+lookahead: overflow+thunders+pill +2415 then ember+phantom | overflow+thunders+jewel +1908 then ember+phantom | overflow+phantom+pill +2621 then ember+thunders (0.1s)
+lookahead: fury+overflow +2166 then rebirth+thunders | clear+overflow +2197 then fury+thunders | fury+thunders -444 then clear+overflow (0.2s)
+lookahead: rebirth+aetherion +8427 then - | lotus+aetherion +8427 then - | fury+aetherion +8427 then - (0.0s)
+lookahead: clear+kunai+basic +6270 then stormblade+jewel+basic | clear+thunders +900 then stormblade+kunai+basic | stormblade+shield -37 then clear+kunai+basic (0.0s)
+lookahead: basicheal+thunders -3004 then clear+subaku | basicheal+eclipse -1490 then fury+thunders | basicheal+subaku -1611 then fury+thunders (0.1s)
+nnx6eUzQ vs Luka
+  R1 5050/5050 played phantom+ember | he did Phantom Slash+Abyssal Surge (p 0%) | misread him (setup expected, payoff came)
+  R2 4482/4475 played overflow+shrapnel | he did Dragon King's Impact+Kunai+Elite Smoke Bomb (p 0%) | REGRET +303: fury+overflow; misread him (payoff expected, payoff came); damage off (planner 1020, engine 1020, log 1456)
+  R3 2504/3427 played cleanse+aetherion | he did Eternal Darkness+Eclipse Drain+Panacea (p 0%) | misread him (payoff expected, defend came); damage off (planner 1593, engine 1591, log 1990)
+  R4 2504/1876 played stormblade+shield | he did Shadow Pierce+Kaiken (p 0%) | misread him (payoff expected, payoff came)
+  R5  995/1701 played pill+panacea+fury | he did replacementTechnique+basicAttack (p 0%) | misread him (setup expected, poke came)
+turning point: R2: fury+overflow instead of overflow+shrapnel was worth +303 HP against what he actually did; cause: the opponent model (it did not see his turn coming)

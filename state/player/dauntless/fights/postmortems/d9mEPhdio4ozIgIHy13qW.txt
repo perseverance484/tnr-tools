@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/home/claude/tnr-tools/state/player/dauntless/tools/postmortem.py", line 218, in <module>
+    main()
+    ~~~~^^
+  File "/home/claude/tnr-tools/state/player/dauntless/tools/postmortem.py", line 214, in main
+    report(review(a.bid, a.alts))
+           ~~~~~~^^^^^^^^^^^^^^^
+  File "/home/claude/tnr-tools/state/player/dauntless/tools/postmortem.py", line 96, in review
+    en_id = next(u for u in users if u != ME)
+StopIteration
