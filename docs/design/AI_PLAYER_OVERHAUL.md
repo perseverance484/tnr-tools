@@ -165,7 +165,7 @@ Three things the map turned up that the later phases must carry:
 
 ### 4.1 Brain and hands
 
-- **Brain:** a long-running Python process (`player/brain.py`). It owns the world model, scheduler, arbiter,
+- **Brain:** a long-running Python process (`player/brain/`, run as `python3 -m player.brain`). It owns the world model, scheduler, arbiter,
   activities and combat engine.
 - **The outbox and inbox are the contract.** The brain exposes a batch outbox and a results inbox: files under
   `state/player/<account>/live/`, or a local socket with the same messages.
