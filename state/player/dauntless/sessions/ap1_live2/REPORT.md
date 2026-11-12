@@ -47,7 +47,7 @@ Frozen SHA 06358ca539372cae12d41b086a465719f403aba7 (fable/ai-player-ap1), check
 - No-target stretch 16:47 to 17:01 roaming sectors 1335, 99, 1538, 1490.
 
 ## Departures from the brief
-1. After relay 6 quit, I added one rule to the relay prompt: identical read-only batches are normal while the other player moves; never stop on your own, only a STOP line ends you. No relay quit after that.
+1. The relay prompt was not RELAY.md unchanged for the whole test. Relays 1 to 6 ran RELAY.md unchanged. From relay 7 on (run 2, 16:22:46Z, after relay 6 quit mid-fight) I added one line to the prompt I gave each relay: "Many identical batches in a row that only read the battle are normal: the program is waiting for the other player's move. Keep looping. Never stop on your own for any reason; only a `STOP` line ends you." RELAY.md itself was not edited and nothing under player/ changed; the line lived only in the relay prompt. No relay quit on its own after that.
 2. Two runs instead of one, on the director's word (end, restock, restart).
 3. The director played fight 6 R3 and R4 by hand.
 4. Transcripts: besides scrubbing emails, I removed the harness context entries (system prompt snapshots, memory, skill listing, session context) because they carried personal context unrelated to the relay. The relay's own turns are complete. The 2026-11-11 AP1 relay transcripts were not at sessions/ap1_live/transcripts/; I added copies from my own session under transcripts/2026-11-11/.
