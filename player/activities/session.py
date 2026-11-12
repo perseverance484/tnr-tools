@@ -9,9 +9,9 @@ At home, before it sleeps, the upkeep has its last turn (brief AP2): the energy 
 PvP 1 loadouts are selected. Those are the training and the equipment activities' calls: this one only waits
 for them, and only while they have something to do and are switched on.
 
-Not built: the run lock (brief AP2: "start: lock ... release the lock"). The lock is a file on `main` that a
-runner claims by pushing; how the player is to hold it (the brain itself, or whoever starts the relay) is not
-decided, and nothing here pushes anywhere.
+The run lock (brief AP2: "start: lock ... release the lock") is the brain's (director 2026-11-12: "Give it to
+the brain then"): it is claimed before the session's first call and given back once the character is asleep.
+That is not a game call and no activity's plan: player/runlock.py, called from the brain's tick.
 """
 from .. import calls as K
 from .. import config as C

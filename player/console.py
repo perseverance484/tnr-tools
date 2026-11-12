@@ -127,8 +127,9 @@ def _battle(world):
             "pick": b.get("pick"), "turn_started": iso(turn.get("T")), "fired": iso(turn.get("fired_at"))}
 
 
-def write_status(world, budget, activity, why, queue):
-    """Rewrite live/status.json. queue: [(name, why, eta in seconds), ...], the next activities in line."""
+def write_status(world, budget, activity, why, queue, lock=None):
+    """Rewrite live/status.json. queue: [(name, why, eta in seconds), ...], the next activities in line. lock: the
+    brain's run lock (player/runlock.py); the file says whether it is held, and never its token."""
     me, now, r = world.me, world.now, world["relay"]
     silent = max(0.0, now - r["issued_at"] - r["expect"]) if r.get("expect") is not None else 0.0
     relay.write(os.path.join(world.live, "status.json"), {
@@ -147,6 +148,7 @@ def write_status(world, budget, activity, why, queue):
         "relay": {"healthy": not r.get("stalled"), "silent_s": round(silent, 1),
                   "last_batch_at": iso(r.get("issued_at")), "context_tokens": r.get("context_tokens"),
                   "rotations": r.get("rotations", 0)},
+        "run_lock": lock.status() if lock else None,
         "budget": {"limit": C.CALL_LIMIT, "last_minute": budget.used(now),
                    **{lane: budget.used(now, lane) for lane in ("battle", "recovery", "world")},
                    # calls held for relays that were replaced with a batch in hand (`brain stopped` ends a hold)

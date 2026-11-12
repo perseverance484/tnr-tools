@@ -404,7 +404,9 @@ The fight simulator stays as a smoke test, not a gate.
   - pending decisions;
   - stalls;
   - a daily summary.
-- **Run lock:** claimed as `player` for each session and heartbeated by the brain.
+- **Run lock:** claimed as `player` for each session and heartbeated by the brain (`player/runlock.py`;
+  RUL-2026-11-12-154). Duet does not claim it for a brain's session.
+- **The operator's page:** `player/OPERATOR.md` goes into every session brief Duet is given (the same ruling).
 - **Scheduled jobs:** nightly `tune_real` on the day's fights (between fights only), a weekly report and harvesting
   of public battle histories.
 - **The director's play:** when the director plays in the browser, the brain pauses world activities. Director mode

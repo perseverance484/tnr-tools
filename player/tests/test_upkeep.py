@@ -390,6 +390,7 @@ class Training(Upkeep):
             self.assertEqual((out["activity"], out["steps"][0]), ("training", K.spend_experience(points)), exp)
             sent = out["steps"][0]["input"]
             self.assertEqual((sorted(sent), sum(sent.values())), (sorted(K.STATS), exp))   # every field; all of it
+        self.assertIn("userData.earnedExperience", K.user()["select"])     # and the profile read asks for it
         rig = self.rig()
         rig.world.own("training")["next"] = rig.t + 9999
         little = rich(earnedExperience=training.EXP_MIN - 1, intelligence=1, willpower=2)

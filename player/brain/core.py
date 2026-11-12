@@ -9,6 +9,7 @@ import traceback
 from .. import config as C
 from .. import console, registry, relay
 from ..budget import Budget
+from ..runlock import RunLock
 from ..combat import Combat
 from ..gates import Gates
 from ..registry import CLASSES
@@ -20,12 +21,13 @@ QUIET = ("watch", "harvest", "battle")     # activities whose end is not an even
 
 
 class Brain:
-    def __init__(self, live=None, clock=time.time, combat=None, gates=None):
+    def __init__(self, live=None, clock=time.time, combat=None, gates=None, lock=None):
         self.world = World(live, clock)
         self.reg = registry.load()
         self.combat = combat or Combat()
         self.gates = gates or Gates()
         self.budget = Budget(self.world)
+        self.lock = lock or RunLock(self.world)                     # the account's run lock (player/runlock.py)
         self._take_over()
         self.ask = {}                                               # what the request being answered said
         for a in self.reg.activities.values():
@@ -223,8 +225,14 @@ class Brain:
         w = self.world
         stop = self._stop()
         if stop:
+            if not stop.startswith("rotate"):                     # asleep: the session is over, the lock goes back
+                self.lock.release()
             return {"steps": [], "hold": 0.0, "stop": stop, "note": f"STOP {stop}", "activity": None, "queue": []}
         ranked = self.rank()
+        wait = self.lock.hold(w.in_battle()) if ranked else None    # before anything is planned: no call without it
+        if wait:
+            return {"steps": [], "hold": round(min(wait[0], IDLE_HOLD), 1), "stop": None, "note": wait[1],
+                    "activity": None, "queue": [(a.name, a.priority, 0) for a in ranked]}
         for i, act in enumerate(ranked):
             p = self._plan(act)
             if p is None:
@@ -239,6 +247,8 @@ class Brain:
                     "note": p.note + (f" (paced {waited}s)" if waited else ""),
                     "queue": [(a.name, a.priority, 0) for a in ranked[i + 1:]]}
         why = "paused" if w["control"]["paused"] else "nothing to do"
+        if w["control"]["paused"] and not w.in_battle():          # paused by the director: others may run meanwhile
+            self.lock.release()
         return {"steps": [], "hold": IDLE_HOLD, "stop": None, "note": why, "activity": None, "queue": []}
 
     def _paced(self, steps, lane, hold):
@@ -252,6 +262,8 @@ class Brain:
         back, is for a caller that drives the budget by itself, and the brain does not lean on it."""
         wanted = any("call" in x for x in steps)
         self.budget.settle(holder=None)           # a batch still out here was never placed: it is not on record
+        if wanted and not self.lock.held():       # every path comes through here: without the lock, no call
+            steps = [x for x in steps if "call" not in x]
         steps, waited = self.budget.pace(steps, lane, self.world.now + hold)
         steps, hold = _lead(steps, hold)
         if wanted and not any("call" in x for x in steps):
@@ -308,7 +320,7 @@ class Brain:
         w["budget"]["batch"] = self.ask.get("id")                   # the batch whose calls are out: its request's id
         self._receipt(out)
         try:
-            console.write_status(w, self.budget, out["activity"], out["note"], out["queue"])
+            console.write_status(w, self.budget, out["activity"], out["note"], out["queue"], self.lock)
         except Exception as err:  # noqa: BLE001  (the console's file is not worth a batch)
             w.event("error", f"the status file could not be written: {err!r}"[:300], about="crash")
         w.save()
@@ -330,7 +342,7 @@ class Brain:
         r["stalled"] = True
         w.event("stall", f"the relay has not come back for {w.now - r['issued_at']:.0f} s"
                          + (" (in a fight)" if w.in_battle() else ""), about="relay")
-        console.write_status(w, self.budget, r.get("activity"), "STALLED: " + str(r.get("note", "")), [])
+        console.write_status(w, self.budget, r.get("activity"), "STALLED: " + str(r.get("note", "")), [], self.lock)
         w.save()
         return True
 

@@ -53,6 +53,26 @@ The held calls are counted from the moment you spoke, and leave the minute sixty
 comes back a minute later, not at once. The brain hears of your word with the relay's next `brain next`, and
 writes a `setting_changed` event when it has applied it.
 
+## The run lock
+
+One runner at a time may write to the game on this account (`docs/workflows/FORGE_MCP_RUNNER.md`). The lock is
+`state/run_lock.json` on `main`. **The brain holds it for a play session; you do not claim it for the brain.**
+
+- A play session runs on the account's own live folder (`state/player/<account>/live`), from a checkout that can
+  push to `main` (the lock tool, `forge/tools/run_lock.mjs`, makes one commit a write) and has `node`.
+- The brain claims the lock as `player`, job `play session`, before its first call. Until it has the lock it
+  sends nothing, and the relay is told to ask again. `live/status.json`, `run_lock`, says `held` and until
+  when, or `not held` and why; a stall is written when another runner has it.
+- It renews the claim every 15 minutes. If the lock is taken from it, it stops sending at once. If a renewal
+  cannot be pushed, it plays on until a minute before the lease ends, then stops.
+- It gives the lock back when the session has ended and the character is asleep, and when you pause the player
+  outside a fight. A brain that dies holds the lock until its lease runs out, an hour at most:
+  `node forge/tools/run_lock.mjs status` shows it.
+- If you hold the lock yourself as `player` (a job run by hand), release it before the session: the brain's
+  claim is refused while anyone holds the lock, whatever the label.
+- With `TNR_PLAYER_LIVE` pointing anywhere else the brain is a rehearsal: it claims nothing, and
+  `status.json` says so. **Never give a rehearsal a relay that can reach the game.**
+
 ## After the player's code is updated
 
 The call ledger a version before this one kept cannot be trusted to say everything that is out. That version

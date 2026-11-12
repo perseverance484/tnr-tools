@@ -79,7 +79,8 @@ before the previous one is accepted, unless the director says so.
 
 ### AP1: brain and hands
 
-1. **Brain.** `player/brain.py`: a resident process with the world model (`player/world.py`, persisted after every
+1. **Brain.** `player/brain/` (one file, `player/brain.py`, until its split of 2026-11-12; run as
+   `python3 -m player.brain`): a resident process with the world model (`player/world.py`, persisted after every
    result), the scheduler, the arbiter (design §4.4) and the registry (`player/registry.py`).
 2. **Outbox and inbox, for a Haiku relay** (design §4.7; director: "design it for Haiku and save on tokens"):
    - **The prompt.** `player/RELAY.md`, under 300 words. The loop is `brain next`, then the calls exactly as given
