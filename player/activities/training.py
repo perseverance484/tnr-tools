@@ -8,6 +8,11 @@ level is lowest: low levels take minutes and cost little, so that is the quickes
 the training cap is done. One the game refuses is left alone: for a day, or for ten minutes when the refusal is
 about where I am (travelling, in hospital, in a fight) or a full queue.
 
+Training is paid from the pocket, and the pocket holds little on the road (activities/bank.py). So when places
+are to be filled, the bank is asked first to fill the pocket to what may be drawn for training
+(world["training"]["draw_until"]), and the fill waits for that: until the pocket has it, or the bank has no more
+to give, or DRAW_FOR seconds have gone. A refusal for want of money is about the moment.
+
 Energy trains a stat only in the village sector: there, ENERGY_MIN or more goes to intelligence while it trails
 willpower, else to willpower. With TRIP or more saved up elsewhere, the character goes to the village for it.
 A refusal stops energy training for an hour, and a trip that did not lead to training is not made again for
@@ -34,7 +39,8 @@ REFUSED_FOR = 86_400.0     # s a refused target is left alone
 SOON = 600.0               # s, when the refusal is about the moment and not the jutsu
 ENERGY_BLOCK = 3600.0      # s after a refused stat training
 TRIP_AGAIN = 1800.0        # s before another trip when one did not lead to training
-PASSING = ("travel", "hospital", "battle", "full", "asleep")
+DRAW_FOR = 120.0           # s a queue fill waits for the bank to fill the pocket
+PASSING = ("travel", "hospital", "battle", "full", "asleep", "money", "afford", "funds")
 
 
 @REGISTRY.activity
@@ -57,10 +63,19 @@ class Training(Activity):
             return "trip", None
         return None
 
+    @staticmethod
+    def _funded(world):
+        """Whether a queue fill may go ahead: the pocket holds what may be drawn for training, or the bank has
+        nothing to add to it, or the wait for the bank is over."""
+        pocket, bank = float(world.me.get("money") or 0), float(world.me.get("bank") or 0)
+        return (world["training"].get("draw_until", 0) <= world.now or pocket >= C.TRAINING_DRAW
+                or bank - world.caps()["reserve"] < 1)
+
     def available(self, world):
         own = world.own(self.name)
         return (world.status() == "AWAKE" and not world.in_battle()
-                and bool(own.get("fresh") or world.now >= own.get("next", 0) or self._energy(world)))
+                and bool((own.get("fresh") and self._funded(world)) or world.now >= own.get("next", 0)
+                         or self._energy(world)))
 
     def value(self, world):
         return 4.0
@@ -78,8 +93,7 @@ class Training(Activity):
         if len(seen) == 2:
             self._read(world, own, seen["jutsu.getTrainingQueue"], seen["jutsu.getUserJutsus"])
 
-    @staticmethod
-    def _read(world, own, queue, mine):
+    def _read(self, world, own, queue, mine):
         """The queue and my jutsu, read together. A read that cannot be used leaves the last one standing."""
         waiting = None if queue is None else K.rows(queue, "waiting.*.", ("jutsuId", "level"))
         owned = None if mine is None else K.rows(mine, "*.", K.OWNED_COLS)
@@ -94,6 +108,8 @@ class Training(Activity):
             levels={x["jutsuId"]: x["level"] or 0 for x in owned},
             active=[x["jutsuId"] for x in owned if x["finishTraining"]], read_at=world.now)
         own.update(fresh=True, next=world.now + LOOK)
+        if self._fill(world)[0]:                                   # places to fill: the bank is asked to pay
+            world["training"]["draw_until"] = world.now + DRAW_FOR
 
     @staticmethod
     def _said(r):
@@ -123,7 +139,9 @@ class Training(Activity):
     # ------------------------------------------------------------ the plan
     def plan(self, world):
         own = world.own(self.name)
-        if own.pop("fresh", False):
+        if own.get("fresh") and self._funded(world):
+            own["fresh"] = False
+            world["training"].pop("draw_until", None)              # what the fill leaves may go back to the bank
             steps, notes = self._fill(world)
             if steps:
                 return plan(steps + [K.user()], "world", "training: " + ", ".join(notes))

@@ -151,8 +151,8 @@ Status: APPROVED by the director 2026-11-11 (RUL-2026-11-11-149), with the chang
 |---|---|---|---|---|---|---|
 | `bank.claimInterest` | action | AP2 | proposed | interest waiting | daily | - |
 | `bank.getPendingInterest` | read | AP2 | proposed | none; my own bank | daily | - |
-| `bank.toBank` | action | AP2 | documented | pocket money above the working amount | none known | - |
-| `bank.toPocket` | action | AP2 | documented | bank above the reserve | none known | - |
+| `bank.toBank` | action | AP2 | documented | more than 200k in pocket and no training fill due (RUL-2026-11-12-153) | none known | - |
+| `bank.toPocket` | action | AP2 | documented | bank above the reserve; a training fill is due (to 10M), a shop purchase the pocket cannot pay (to its price, at most 200k), or under 20k in pocket (RUL-2026-11-12-153) | none known | - |
 
 ### session
 

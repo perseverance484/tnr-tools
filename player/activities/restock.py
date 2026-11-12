@@ -11,6 +11,11 @@ an empty stack). Per tracked item, in this order:
   4. otherwise the auction house: a listing in ryo with a buyout at or under the item's cap for one unit.
 What a purchase costs goes to the gates with it (spend_cap holds it against the reserve and the day's cap), and
 only a purchase the catalog or the listing shows to be in ryo is asked for at all (ryo_only).
+
+The shop is paid from the pocket, and the pocket holds little on the road (activities/bank.py). A pass buys what
+the pocket can pay, each purchase out of what the one before left. When it cannot pay for one piece of what is
+short and the bank could, the bank is asked to fill the pocket (inventory.draw, never past the pocket's limit),
+and restock looks again once it has. The auction house is paid from the bank.
 """
 from .. import calls as K
 from .. import config as C
@@ -32,6 +37,7 @@ EVERY = 900.0              # s between passes when nothing calls for one
 PASSES = 4                 # acting passes in a row before it lets go until the next time
 READ_TRIES = 3             # item reads that cannot be used before a pass is given up
 AUCTION_RETRY = 3600.0     # s before the auction house is searched again for an item it did not have
+DRAW_FOR = 300.0           # s the bank is asked to fill the pocket for a purchase
 BOUGHT = {"item.buy": "bought", "auction.placeBid": "won at auction"}
 
 
@@ -127,6 +133,8 @@ class Restock(Activity):
     def _short(self, world):
         """(the calls for everything that is short, in the table's order; a note for each)."""
         inv, steps, notes = world["inventory"], [], []
+        world.own(self.name)["purse"] = float(world.me.get("money") or 0)   # what the pocket can still pay this pass
+        inv.pop("draw", None)
         self._potion(world)
         inv["empty_items"] = [i for i in TRACK if not world.items(i, carried=True)]
         for iid, (name, keep, fill, cap) in self._tracked(world).items():
@@ -185,12 +193,18 @@ class Restock(Activity):
 
     @staticmethod
     def _shop(world, own, iid, name, want, rec):
-        caps, unit = world.caps(), max(1.0, float(rec.get("cost") or 0))
-        pocket = float(world.me.get("money") or 0)
-        n = int(min(want, (pocket - caps["reserve"]) // unit, (caps["daily"] - world.spent_today()) // unit,
-                    rec.get("stackSize") or 50, 50))
-        if n <= 0:
+        caps, unit, purse = world.caps(), max(1.0, float(rec.get("cost") or 0)), own.get("purse", 0.0)
+        above = purse + float(world.me.get("bank") or 0) - caps["reserve"]
+        can = int(min(want, above // unit, (caps["daily"] - world.spent_today()) // unit, rec.get("stackSize") or 50, 50))
+        if can <= 0:
             return [], f"{name}: short, and the reserve or the day's cap leaves nothing to buy it with"
+        n = int(min(can, purse // unit))
+        if n <= 0 and unit > C.POCKET_LIMIT:
+            return [], f"{name}: short, and one costs more than the pocket may hold ({unit:,.0f} ryo)"
+        if n <= 0:
+            world["inventory"]["draw"] = {"ryo": min(can * unit, C.POCKET_LIMIT), "until": world.now + DRAW_FOR}
+            return [], f"{name}: short, and the pocket cannot pay for one: the bank is asked"
+        own["purse"] = purse - n * unit
         step = K.buy(iid, n, n * unit)
         own.setdefault("doing", {})[what(step)] = f"{n} {rec.get('name') or name} ({n * unit:,.0f} ryo)"
         return [step], f"{name}: buy {n} in the shop ({n * unit:,.0f} ryo)"

@@ -152,7 +152,7 @@ class Session:
                    res("jutsu.getUserJutsus", {"*.jutsuId": ["j1"], "*.level": [3], "*.finishTraining": [None]}),
                    user(**rich))                                           # training: the free places are filled
         out = tick(*yes(out, "jutsu.startTraining"), user(**rich))         # bank: the pocket is over its mark
-        tick(*yes(out, "bank.toBank"), user(money=10_000_000, bank=920_000_000))
+        tick(*yes(out, "bank.toBank"), user(money=100_000, bank=929_900_000))
 
     def marks(self):
         """What the stand-in scripts wrote down, by tool."""

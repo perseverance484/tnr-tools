@@ -70,14 +70,45 @@ class Restock(Upkeep):
         rig.tick(res("item.buy", {"success": True}, buys[0]["input"]), stock(), rich())
         self.assertIn("bought 4 Panacea (220,000 ryo)", rig.events("item")[-1]["text"])
 
-    def test_the_reserve_and_the_days_cap_bound_what_is_bought(self):
-        for pocket, spent, n in ((C.RESERVE + 120_000, 0, 2), (C.RESERVE + 10, 0, 0), (10_000_000, C.DAILY_CAP - 60_000, 1)):
+    def test_the_pocket_the_reserve_and_the_days_cap_bound_what_is_bought(self):
+        """A Panacea costs 55,000. The pocket pays; the reserve is what pocket and bank keep between them."""
+        for pocket, bank_, spent, n in ((120_000, 900_000_000, 0, 2),                # what the pocket can pay
+                                        (300_000, C.RESERVE - 180_000, 0, 2),      # 120,000 above the reserve
+                                        (300_000, C.RESERVE - 299_990, 0, 0),      # 10 above it
+                                        (10_000_000, 900_000_000, C.DAILY_CAP - 60_000, 1)):
             rig = self.rig()
-            rig.tick(rich(money=pocket))
+            rig.tick(user(money=pocket, bank=bank_))
             rig.world["records"]["spend"] = {"day": utc_day(rig.t + 1), "ryo": float(spent)}
-            out = rig.tick(stock(**{PANACEA: (0, "ITEM_3", False, None)}), rich(money=pocket))
+            out = rig.tick(stock(**{PANACEA: (0, "ITEM_3", False, None)}), user(money=pocket, bank=bank_))
             buys = [s["input"]["stack"] for s in out["steps"] if s.get("call") == "item.buy"]
-            self.assertEqual(buys, [n] if n else [], (pocket, spent))
+            self.assertEqual(buys, [n] if n else [], (pocket, bank_, spent))
+            self.assertNotIn("draw", rig.world["inventory"])                # and the bank is not asked for more
+
+    def test_one_pass_spends_what_is_in_the_pocket_once(self):
+        rig = self.rig()
+        pocket = user(money=200_000, bank=900_000_000)
+        rig.tick(pocket)
+        out = rig.tick(stock(**{PANACEA: (0, "ITEM_3", False, None), PILL: None}), pocket)
+        buys = [(s["input"]["itemId"], s["input"]["stack"]) for s in out["steps"] if s.get("call") == "item.buy"]
+        self.assertEqual(buys, [(PANACEA, 3), (PILL, 15)])                  # 165,000, then 15,000 of the 35,000 left
+        self.assertEqual(rig.world.own("restock")["purse"], 20_000)
+
+    def test_a_pocket_that_cannot_pay_for_one_asks_the_bank_and_buys_when_it_has(self):
+        rig = self.rig()
+        rig.world["control"]["activities"] = {"training": False, "equipment": False}   # the bank is on
+        poor = user(money=30_000, bank=900_000_000)
+        rig.tick(poor)
+        out = rig.tick(stock(**{PANACEA: (0, "ITEM_3", False, None)}), poor)
+        self.assertNotIn("item.buy", rig.calls(out))
+        self.assertEqual(rig.world["inventory"]["draw"]["ryo"], C.POCKET_LIMIT)   # six cost 330,000: the limit holds
+        out = rig.tick(poor)                                                # the bank's turn comes with the next tick
+        self.assertEqual((out["activity"], out["steps"][0]), ("bank", K.to_pocket(C.POCKET_LIMIT - 30_000)))
+        filled = user(money=C.POCKET_LIMIT, bank=900_000_000 - 170_000)
+        out = rig.tick(res("bank.toPocket", {"success": True}, out["steps"][0]["input"]), filled)
+        self.assertEqual(rig.calls(out), ["item.getUserItems", "profile.getUser"])   # restock looks again at once
+        out = rig.tick(stock(**{PANACEA: (0, "ITEM_3", False, None)}), filled)
+        self.assertEqual([s["input"]["stack"] for s in out["steps"] if s.get("call") == "item.buy"], [3])
+        self.assertNotIn("draw", rig.world["inventory"])
 
     def test_a_purchase_the_caps_do_not_allow_is_asked_first(self):
         rig = self.rig()
@@ -277,7 +308,8 @@ class Training(Upkeep):
         self.assertEqual(self.trained(rig.tick(queue([(T[0], 2)] * 4), jutsu({T[0]: 1}, active=[T[0]]), rich())), [])
 
     def test_a_refused_target_is_left_alone_a_day_or_ten_minutes_when_it_is_the_moment(self):
-        for said, wait in (("Jutsu not for you", training.REFUSED_FOR), ("You are traveling", training.SOON)):
+        for said, wait in (("Jutsu not for you", training.REFUSED_FOR), ("You are traveling", training.SOON),
+                           ("Not enough money", training.SOON)):
             rig = self.rig()
             rig.tick(rich())
             levels = dict.fromkeys(T, training.CAP)
@@ -288,6 +320,33 @@ class Training(Upkeep):
             rig.tick(rich())
             self.assertEqual(self.trained(rig.tick(queue(), jutsu(levels), rich())), [] if wait > training.LOOK else [T[2]] * 5)
             self.assertIn(said, rig.events("finding")[-1]["text"])
+
+    def test_a_fill_waits_for_the_bank_to_fill_the_pocket_and_the_rest_goes_back(self):
+        rig = self.rig()
+        rig.world["control"]["activities"] = {"restock": False, "equipment": False}   # the bank is on
+        road = dict(money=150_000, bank=900_000_000)                        # what is carried on the road
+        self.assertEqual(self.passes(rig, user(**road))[0], "jutsu.getTrainingQueue")
+        out = rig.tick(queue(), jutsu({T[0]: 3}), user(**road))
+        self.assertEqual(self.trained(out), [])                             # not paid out of the 150,000:
+        self.assertEqual((out["activity"], out["steps"][0]), ("bank", K.to_pocket(C.TRAINING_DRAW - 150_000)))
+        drawn = dict(money=C.TRAINING_DRAW, bank=900_000_000 - C.TRAINING_DRAW + 150_000)
+        out = rig.tick(res("bank.toPocket", {"success": True}, out["steps"][0]["input"]), user(**drawn))
+        self.assertEqual(len(self.trained(out)), 5)                         # the fill, with ten million in hand
+        self.assertNotIn("draw_until", rig.world["training"])
+        left = dict(drawn, money=9_400_000)
+        out = rig.tick(*[res("jutsu.startTraining", {"success": True}, s["input"]) for s in out["steps"][:5]], user(**left))
+        self.assertEqual((out["activity"], out["steps"][0]), ("bank", K.to_bank(9_400_000 - bank.KEEP)))
+
+    def test_with_no_bank_to_draw_on_the_fill_goes_ahead(self):
+        for bank_, waits in ((900_000_000, True), (C.RESERVE, False)):      # (the bank activity is off here)
+            rig = self.rig()
+            road = user(money=150_000, bank=bank_)
+            rig.tick(road)
+            out = rig.tick(queue(), jutsu({T[0]: 3}), road)
+            self.assertEqual(bool(self.trained(out)), not waits, bank_)     # nothing to add: it goes ahead at once
+            if waits:
+                rig.t += training.DRAW_FOR + 1                              # nobody filled the pocket: it goes ahead
+                self.assertEqual(len(self.trained(rig.tick(road))), 5)
 
     def test_energy_is_trained_in_the_village_on_the_stat_that_trails(self):
         for stats, stat in (({"intelligence": 900, "willpower": 1000}, "intelligence"),
@@ -386,27 +445,64 @@ class Equipment(Upkeep):
 
 
 class Bank(Upkeep):
+    """RUL-2026-11-12-153: "10m is fine to pull out for training but 200k is the in pocket limit for running
+    around"."""
+
     def rig(self):
         rig = Rig(mode="guard", upkeep=True)
         rig.world["control"]["activities"] = {"restock": False, "training": False, "equipment": False}
         return rig
 
-    def test_the_pocket_is_kept_near_the_working_amount(self):
-        for pocket, bank_, step in ((bank.HIGH + 1, 0, K.to_bank(bank.HIGH + 1 - bank.WORKING)),
-                                    (bank.LOW - 1, 900_000_000, K.to_pocket(bank.WORKING - bank.LOW + 1)),
-                                    (bank.LOW - 1, C.RESERVE + 300_000, K.to_pocket(300_000)),
-                                    (bank.LOW - 1, C.RESERVE, None), (bank.WORKING, 900_000_000, None),
-                                    (bank.HIGH, 0, None), (bank.LOW, 900_000_000, None)):
-            rig = self.rig()
-            out = rig.tick(user(money=pocket, bank=bank_))
-            self.assertEqual(out["steps"][0] if out["activity"] == "bank" else None, step, (pocket, bank_))
+    def move(self, pocket, bank_, training_for=0, purchase=None, later=0):
+        """The transfer that is made with this much in pocket and in the bank, or None: with training asking
+        for that many seconds, restock asking for a purchase's price, and that much time gone since."""
+        rig = self.rig()
+        if training_for:
+            rig.world["training"]["draw_until"] = rig.t + training_for
+        if purchase:
+            rig.world["inventory"]["draw"] = {"ryo": purchase, "until": rig.t + 60}
+        out = rig.tick(user(money=pocket, bank=bank_), dt=later)
+        return out["steps"][0] if out["activity"] == "bank" else None
+
+    def test_running_around_the_pocket_holds_no_more_than_its_limit(self):
+        self.assertEqual((bank.POCKET, bank.TRAINING), (200_000, 10_000_000))   # the director's two figures
+        for pocket, bank_, step in ((bank.POCKET + 1, 0, K.to_bank(bank.POCKET + 1 - bank.KEEP)),
+                                    (10_000_000, 900_000_000, K.to_bank(10_000_000 - bank.KEEP)),
+                                    (bank.POCKET, 0, None), (bank.LOW, 900_000_000, None),
+                                    (bank.LOW - 1, 900_000_000, K.to_pocket(bank.KEEP - bank.LOW + 1)),
+                                    (bank.LOW - 1, C.RESERVE + 30_000, K.to_pocket(30_000)),
+                                    (bank.LOW - 1, C.RESERVE, None)):
+            self.assertEqual(self.move(pocket, bank_), step, (pocket, bank_))
+
+    def test_for_a_training_fill_the_pocket_is_filled_to_ten_million(self):
+        for pocket, bank_, step in ((150_000, 900_000_000, K.to_pocket(bank.TRAINING - 150_000)),
+                                    (150_000, C.RESERVE + 4_000_000, K.to_pocket(4_000_000)),
+                                    (150_000, C.RESERVE, None),             # the bank is not taken under the reserve
+                                    (bank.TRAINING, 900_000_000, None),     # it has it: and it stays while it is wanted
+                                    (12_000_000, 900_000_000, None)):
+            self.assertEqual(self.move(pocket, bank_, training_for=60), step, (pocket, bank_))
+        # the wish lasts a few minutes at most: after it, what is left goes back to the bank
+        self.assertEqual(self.move(9_400_000, 900_000_000, training_for=60, later=61), K.to_bank(9_400_000 - bank.KEEP))
+
+    def test_for_a_purchase_the_pocket_is_filled_to_its_price_and_never_past_the_limit(self):
+        for pocket, price, step in ((30_000, 165_000, K.to_pocket(135_000)),
+                                    (30_000, 450_000, K.to_pocket(bank.POCKET - 30_000)),
+                                    (180_000, 165_000, None)):
+            self.assertEqual(self.move(pocket, 900_000_000, purchase=price), step, (pocket, price))
+        self.assertIsNone(self.move(30_000, 900_000_000, purchase=165_000, later=61))   # the wish has run out
+        rig = self.rig()
+        rig.world["inventory"]["draw"] = {"ryo": 165_000, "until": rig.t + 60}
+        out = rig.tick(user(money=30_000, bank=900_000_000))
+        rig.tick(res("bank.toPocket", {"success": True}, out["steps"][0]["input"]), user(money=165_000, bank=899_865_000))
+        self.assertIs(rig.world["inventory"]["restock_due"], True)          # restock is told the pocket can pay
 
     def test_a_transfer_spends_nothing_and_a_refused_one_waits(self):
         rig = self.rig()
         out = rig.tick(user(money=30_000_000, bank=0))
-        out = rig.tick(res("bank.toBank", {"success": True}, out["steps"][0]["input"]), user(money=10_000_000, bank=20_000_000))
+        out = rig.tick(res("bank.toBank", {"success": True}, out["steps"][0]["input"]),
+                       user(money=bank.KEEP, bank=30_000_000 - bank.KEEP))
         self.assertEqual((rig.world.spent_today(), out["activity"] == "bank"), (0.0, False))
-        self.assertIn("20,000,000 ryo to the bank", rig.events("activity_done")[-1]["text"])
+        self.assertIn("29,900,000 ryo to the bank", rig.events("activity_done")[-1]["text"])
         rig = self.rig()
         out = rig.tick(user(money=30_000_000, bank=0))
         no = res("bank.toBank", {"success": False, "message": "No"}, out["steps"][0]["input"])

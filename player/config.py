@@ -81,6 +81,10 @@ RESERVE = 500_000        # ryo never spent (the pilot's value, from restock.py; 
 DAILY_CAP = 50_000_000   # ryo: a purchase over this, or one that takes the UTC day past it, is asked first
                          # (RUL-2026-11-11-152 item 3: "Over 50m ryo, ask")
 TRANSFER_EVERY = 86_400  # s between two level transfers (RUL-2026-11-11-152 item 5: 24 h from the last one)
+POCKET_LIMIT = 200_000   # ryo: the most carried while running around (RUL-2026-11-12-153: "200k is the in pocket
+                         # limit for running around")
+TRAINING_DRAW = 10_000_000   # ryo: what may be taken out of the bank to pay for training (the same ruling: "10m
+                             # is fine to pull out for training")
 
 
 def goals():
