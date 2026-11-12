@@ -185,10 +185,16 @@ findings pipeline.
 ### AP6: the simplest version that meets every standard
 
 Director, 2026-11-11: "construct the most simplistic version of the ai player code that still fulfills all
-standards … reduce overengineering and needless complexity". AP0–AP5 find out what the player needs. AP6 keeps
-only that, and proves nothing was lost.
+standards … reduce overengineering and needless complexity". AP0–AP5 find out what the player needs. AP6
+implements that behavior as simply as possible and proves the required behavior was preserved.
 
-**1. Freeze the standard first (the contract).** Before deleting anything, build `player/contract/`, which records
+Clarified by the director, 2026-11-12 (RUL-2026-11-12-153): simplify the existing system, including the logic
+inside functions. A long implementation that a few clear lines can replace is a primary target. Review every
+function and the flow between functions for unnecessary work, branching, duplication, state and indirection.
+The outcome must be easier to understand and maintain. Function deletion and line reduction are possible
+results of that work; neither is an acceptance criterion by itself.
+
+**1. Freeze the standard first (the contract).** Before changing the implementation, build `player/contract/`, which records
 what "fulfils all standards" means as runnable checks:
 - **Safety:** every gate test from §2. These must give identical outcomes, with no tolerance.
 - **Robustness:** every chaos test from AP1. Identical outcomes.
@@ -207,25 +213,35 @@ what "fulfils all standards" means as runnable checks:
   - PvP win rate;
   - relay tokens per hour and per fight.
 
-**2. Ablate, then delete.** For every component (module, model, feature, flag, fallback, cache, config knob):
-1. Remove it.
-2. Run the contract.
-3. Keep it only if a safety or robustness check fails, a decision check gets worse outside noise, or a KPI would
-   suffer (say which).
+**2. Find the simplest implementation of each required behavior.** Review every function, module and state flow,
+including components that must remain:
+1. State what behavior it provides, including the required failure cases, and which contract checks cover it.
+2. Identify unnecessary steps, branches, repeated calculations, conversions, stored state and helper layers.
+3. Replace them with a simpler equivalent: a direct operation, a suitable data structure, a shared calculation,
+   or a clearer control flow. Keep useful function boundaries; consolidate or split them when that makes the
+   whole flow easier to follow.
+4. Run the contract and review the before/after code. Explain what became simpler and how the required behavior
+   was preserved. Where the current implementation is already the clearest, record that reason.
 
-Record the verdict for each component in `docs/design/AI_PLAYER_OVERHAUL.md` §10 (component, the check that keeps
-it, or "deleted"). Expect large cuts: features added on a hunch, models that never moved a decision, duplicate state
-paths, simulator-only code, flags left off.
+Record the changes in `docs/design/AI_PLAYER_OVERHAUL.md` §10. Cover substantial functions within a retained
+module as well as changes spanning modules. A component being required does not justify its current complexity.
 
-**3. Rewrite what survives, as plainly as possible.**
+**3. Rewrite plainly and remove proven redundancy.**
 - **Plain code:** plain functions and data tables before classes and frameworks. One battle state machine with
   explicit states. Activities as rows in a table (preconditions, value, call template) wherever their logic allows,
   and code only where it doesn't.
-- **One way to do each thing:** one state path (live), one planner, one call budget, one config file. Delete every
-  alternative.
+- **One way to do each thing:** consolidate duplicate live state paths, planners, call budgets and configuration
+  into their canonical implementations. Preserve explicitly required distinct uses, such as labelled
+  reconstruction of historical logs.
 - **No dead flags:** a setting stays only if a test shows it changes a decision the live player makes. Everything
   else becomes a constant or is deleted. Nothing is left switched off.
 - **No speculative generality:** no plug-in hooks, abstract bases or options that nothing uses today.
+- **Deletion with evidence:** remove unused or redundant functions, components, flags and alternatives once
+  their behavior is shown to be unnecessary or supplied by the simpler implementation. Removing a component
+  experimentally can help establish this. A passing finite test corpus alone does not prove that an untested
+  required fallback or safety condition is unnecessary; close the coverage gap before removing it.
+- **Readable reductions:** prefer a few clear lines to a long equivalent procedure. Avoid dense expressions,
+  hidden side effects, or extra helper layers introduced solely to reduce a function's reported size.
 
 **4. Complexity budget, enforced by a CI check (`player/contract/budget.py`):**
 
@@ -240,6 +256,9 @@ paths, simulator-only code, flags left off.
 | Imports of retired modules (turn.py, shotplan.py, value_model.py, fightsim.py, ...) | 0 |
 
 A budget is changed only by the director, in a ruling.
+These existing limits remain enforced. Counts help locate complexity and measure reductions; meeting them
+does not establish simplification. Moving code between files, splitting a function into wrappers, compressing
+formatting, or dropping required behavior solely to meet a count does not satisfy AP6.
 
 **5. Readability check.**
 - `player/README.md` explains the whole player in at most 2 pages: the loop, the battle state machine, the activity
@@ -247,6 +266,9 @@ A budget is changed only by the director, in a ruling.
 - An independent reviewer (ChatGPT, under `docs/workflows/FABLE_REVIEW.md`) must be able to trace one battle turn
   and one errand from read to call using only that README and the code, and reports anything they could not follow
   as a finding.
+- The reviewer also examines the recorded before/after changes inside functions and across the state flows.
+  Acceptance requires an explanation of the unnecessary logic or machinery removed and why the replacement
+  is easier to understand and maintain, supported by behavior checks. A deletion count is insufficient.
 
 **6. Swap-over.**
 - **Parallel run:** the simplified player runs live beside the AP5 baseline's numbers for 48 h, on the same Haiku
@@ -254,7 +276,8 @@ A budget is changed only by the director, in a ruling.
 - **Swap-over gate:** every contract check passes, every budget is met, and no live KPI is worse than the baseline
   outside noise. Then the old code is deleted from the branch, not just left unused.
 
-**Gate:** all of step 6, the component verdict table complete, and the director's sign-off.
+**Gate:** all of step 6, the simplification record complete, the readability review passed, and the director's
+sign-off. The same required behavior must be substantially easier to understand, implement and maintain.
 
 ### AP7: the director's console
 
@@ -327,7 +350,7 @@ the control reader.
   the start, so nothing is re-plumbed later.
 - **Keep complexity visible from AP1 on.** Each handoff reports the player's line count, its largest file and
   function, its config knobs and anything added that is switched off. A feature that ships switched off has a named
-  date to be switched on or deleted. AP6 cuts what is left; it should not have to undo habits.
+  date to be switched on or deleted. AP6 simplifies the implementation throughout; it should not have to undo habits.
 
 ## 5. Open decisions
 

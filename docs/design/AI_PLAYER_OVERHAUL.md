@@ -420,7 +420,7 @@ The fight simulator stays as a smoke test, not a gate.
 | AP3 | Progression activities: missions, errands, dailies, hunting, farming, PvE combat | Daily routine completes unattended for 3 days |
 | AP4 | Combat consolidation: the move atlas (§5.1b) first, then one planner, curves on if `tune_real` passes, library and post-mortems on the brain, retire turn.py | Atlas coverage and accuracy gates; engine-check and real-fight gates (§6) |
 | AP5 | Further modes: ranked, tournament, war, bounty, shrine; weekly report and findings pipeline | Each mode's playbook and test before it goes live |
-| AP6 | The simplest version that meets every standard: freeze a contract of every gate and a 300-situation decision corpus, delete every component the contract doesn't need (component by component), rewrite the rest plainly, under an enforced complexity budget | Contract green, budget met, 48 h live parity, director sign-off |
+| AP6 | The simplest implementation of every required behavior: freeze the gates and a 300-situation decision corpus; simplify logic inside functions and across state flows; remove unnecessary steps, duplication, state and indirection; delete proven redundancy. See the brief's AP6 and RUL-2026-11-12-153 | Contract green, budget met, reviewed simplification record and readability, 48 h live parity, director sign-off |
 | AP7 | The director's console: status, events and settings files (written from AP1 on), a phone-first Dashboard with Now, Today, Decisions, Settings, Health and Trends tabs, settings flowing back to the brain through the gates, short push notifications | Director can follow, approve, pause and re-weight from his phone; changes live within 2 min; a week with no missing events |
 
 ## 9. Decisions for the director
@@ -439,9 +439,16 @@ The fight simulator stays as a smoke test, not a gate.
    Decided: RUL-2026-11-11-149 item 6.
 6. **Which further modes to enable first:** ranked, tournament, war, bounty, shrine.
 
-## 10. AP6 component verdicts
+## 10. AP6 simplification record
 
-Filled in during AP6: one row per component, the contract check that keeps it, or "deleted".
+Filled in during AP6: record the required behavior, unnecessary complexity, simpler implementation and evidence
+that behavior is preserved. Cover functions inside retained modules and flows spanning modules. Outcomes may
+be rewritten, consolidated, removed as redundant, or retained with a reason that the code is already clear.
 
-| Component | Kept by | Verdict |
-|---|---|---|
+The objective is simpler logic and fewer unnecessary moving parts. A function count or line reduction alone
+does not establish success. Keep useful boundaries, prefer clear direct code, and explain the before/after
+improvement. The governing process and unchanged numerical budgets are in `state/prompt_ai_player_overhaul.md`,
+AP6 (clarification: RUL-2026-11-12-153).
+
+| Function, component or flow | Required behavior | Unnecessary complexity | Change and why it is simpler | Preservation evidence |
+|---|---|---|---|---|
