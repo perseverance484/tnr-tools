@@ -535,6 +535,28 @@
       "waitsFor": [],
       "note": "Director go 2026-11-13 ~03:39 UTC. Hand-sent 04:24-04:27 UTC under the run lock, law 18/60 order on The Silence (IhNR-W1FElTsrWw1KfuQ9); read back: Stillness scale [2.5,1], all else unchanged, hidden; The Silence 8/8 equipped, stats unchanged. Next: director looks at it in practice quest 469, then the bulk pass (58 jutsu, 1,274 animated tags). Forge/validate.py accept the key only on fable/animation-scale-key (b3937081), pending review. Push numbers 584-587 exist on main with no run_queue rows (Nov 10 runs).",
       "result": "state/results/588_moe_stillness_scale.md"
+    },
+    {
+      "id": "589",
+      "manifest": null,
+      "what": "Practice quest straight to a Stillness-only test AI (Stillness Scale Test FotHaXVoYS4In_wM-qczO) for the 588 look",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [],
+      "note": "Director 2026-11-13 ~04:40 UTC. Hidden. Restore the practice quest's Act I (Sayo + The Silence) after the look; exact restore in the results file.",
+      "result": "state/results/589_moe_stillness_test_quest.md"
+    },
+    {
+      "id": "590",
+      "manifest": null,
+      "what": "Restore the practice quest's Act I (Sayo + The Silence, 'Go deeper' only) after the Stillness look",
+      "runner": "connector",
+      "status": "waiting",
+      "waitsFor": [
+        "director's look at 588 in the practice quest",
+        "director go"
+      ],
+      "note": "Values in state/results/589_moe_stillness_test_quest.md."
     }
   ]
 }
