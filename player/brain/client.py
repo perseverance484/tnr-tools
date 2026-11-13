@@ -12,7 +12,7 @@ import time
 
 from .. import brain as B
 from .. import config as C
-from .. import relay
+from .. import hook, relay
 from ..budget import UPDATE
 from ..runlock import given_up, lapsed
 from ..world import World, counted, print_of, seen
@@ -34,11 +34,11 @@ def _collect(live, state, sleep=time.sleep):
     transcript's path or None). Nothing of this batch is removed here: a `brain next` that dies before the
     brain has answered leaves the results where the next one finds them."""
     token, expected = state["token"], [tuple(c) for c in state.get("calls") or []]
-    path = _transcript(state, sleep)
+    path, hooked = _transcript(state, sleep), bool(state.get("hooks"))
     results, usage, strays = [], {}, 0
     if path:
         try:
-            results, usage, strays = relay.read_batch(path, token, expected)
+            results, usage, strays = relay.read_batch(path, token, expected, hooked)
         except OSError:
             path = None
     inbox = os.path.join(live, "inbox")
@@ -47,7 +47,7 @@ def _collect(live, state, sleep=time.sleep):
             os.unlink(os.path.join(inbox, name))                   # a result for any other batch is dropped
             continue
         row = relay.read(os.path.join(inbox, name))                # this batch's stay until the brain has them
-        if row and not path:
+        if row and (hooked or not path):
             results.append(relay.unpack([row])[0])
     return results, usage, strays, path
 
@@ -119,7 +119,7 @@ def _a_word(e):
             and isinstance(e[1], (int, float)) and e[3] in ("back", "stopped"))
 
 
-def next_batch(live=None, token=None, out=sys.stdout, sleep=time.sleep):
+def next_batch(live=None, token=None, out=sys.stdout, sleep=time.sleep, hooks=None):
     """`brain next [token]`: hand in the results, wait for the batch (answering it here if no brain is running),
     spend the brain-side wait, print the batch.
 
@@ -139,7 +139,7 @@ def next_batch(live=None, token=None, out=sys.stdout, sleep=time.sleep):
     client = os.path.join(live, "client.json")
     with _client(live):
         state = _who(client)
-        said = _greet(client, state, token)
+        said = _greet(client, state, token, hooks)
         if said:
             out.write(said + "\n")
             return 0
@@ -166,17 +166,18 @@ def next_batch(live=None, token=None, out=sys.stdout, sleep=time.sleep):
             token = f"{me}-{pending['seq']}"
             calls = [[x["call"], x["input"]] for x in pending["steps"] if "call" in x]
             state.update(seq=pending["seq"], token=token, issued_at=time.time(), pending=None, calls=calls,
-                         held={"token": token, "id": pending["id"]} if calls else None)   # printed: this relay's
+                         held={"token": token, "id": pending["id"]} if calls else None,   # printed: this relay's
+                         steps=pending["steps"], until=pending.get("until"))   # (for the relay's hook)
             relay.write(client, state)
             out.write("\n".join(relay.lines(pending["steps"], pending["stop"], token,
-                                            echo=not state.get("transcript"))) + "\n")
+                                            echo=not state.get("transcript"), hooked=bool(hooks))) + "\n")
     return 0
 
 
-def _greet(client, state, token):
+def _greet(client, state, token, hooks=None):
     """What to say to a `brain next` that hands nothing in: a new relay gets its name and its first line, a
     replaced one is told to stop, a second call for the same batch gets the current line. None for a relay that
-    is handing in the batch it was last given.
+    is handing in the batch it was last given, unless its hooks have failed it (player/hook.py, stop).
 
     A new relay replaces the one that was running. A batch that one still holds (it was printed to it, and the
     brain has not had its results) is gone with it. When a replaced relay comes back with the very token of a
@@ -187,6 +188,7 @@ def _greet(client, state, token):
         gone = (state.get("gone") or []) + ([state["held"]] if state.get("held") else [])
         state = {"protocol": relay.PROTOCOL, "relay": os.urandom(3).hex(), "seq": state.get("seq", 0),
                  "calls": [], "transcript": None, "new": True, "pending": state.get("pending"), "held": None,
+                 "hooks": hooks,
                  "gone": gone, "ended": state.get("ended") or [], "unprinted": state.get("unprinted") or []}
         state["token"] = f"{state['relay']}-{state['seq']}"
         relay.write(client, state)
@@ -200,7 +202,7 @@ def _greet(client, state, token):
             state["ended"] = (state.get("ended") or []) + [[was["id"], time.time(), token, "back"]]
             relay.write(client, state)
         return SUPERSEDED
-    return None
+    return hook.stop(os.path.dirname(client), state, hooks)       # (a relay whose hooks cannot be relied on)
 
 
 def _exchange(live, client, state, sleep):
@@ -218,7 +220,8 @@ def _exchange(live, client, state, sleep):
         req = relay.request_path(live, seq, rid)
         ask = {"protocol": relay.PROTOCOL, "seq": seq, "id": rid, "relay": state["relay"],
                "results": relay.pack(results), "usage": usage, "strays": strays, "at": time.time(),
-               "clock": "transcript" if path else "ours", "held": state.get("held"), "gone": state["gone"],
+               "clock": "transcript" if path and not state.get("hooks") else "ours", "held": state.get("held"),
+               "gone": state["gone"],
                "ended": state["ended"], "unprinted": state["unprinted"]}
         # On record before it is asked: whatever the brain makes of this request has not been printed. If this
         # `brain next` dies now, the next one can say so, and the brain need not hold that batch for anyone.
@@ -391,10 +394,7 @@ def put(live, token, index, text):
     """`brain put TOKEN N`, with the result on standard input: call N (from 1) of batch TOKEN, from a relay whose
     transcript cannot be read. A result for any batch but the one in progress is dropped."""
     state = _who(os.path.join(live, "client.json"))
-    calls = state["calls"]
-    if token != state.get("token") or not str(index).isdigit() or not 1 <= int(index) <= len(calls):
+    if token != state.get("token") or not str(index).isdigit() or not 1 <= int(index) <= len(state["calls"]):
         return 1
-    ep, inp = calls[int(index) - 1]
-    relay.write(os.path.join(live, "inbox", f"put-{token}-{int(index):03d}.json"),
-                list(relay.from_text(ep, inp, text.strip(), time.time())))
+    relay.put(live, token, int(index), relay.from_text(*state["calls"][int(index) - 1], text.strip(), time.time()))
     return 0

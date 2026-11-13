@@ -24,7 +24,7 @@ import time
 from . import config as C
 from .world import RATE_LIMITED, Result
 
-PROTOCOL = 7
+PROTOCOL = 8
 """What `brain next` and the brain mean by what they keep for each other, and the rules a batch is made under.
 Each of these carries the number of the code that made it: live/client.json and a request (`brain next`), an
 answer, the batch waiting to be printed that is made of it, the receipt, and the call ledger (the brain). One
@@ -64,7 +64,11 @@ a batch's calls. When in doubt, change it: a new number costs the operator one w
   7  what a batch may cost stays reserved, and what it may equip stays unread, until a read that is known to
      follow the batch (player/owed.py); and no trip is started by choice over the pocket's limit, the bank
      switched off or not. Under 6 a replacement's earlier read let a second batch of purchases through, and
-     the hunt on (re-review of 87e497a6, H2 to H4): batches this version would not have made."""
+     the hunt on (re-review of 87e497a6, H2 to H4): batches this version would not have made.
+  8  a relay whose `brain next` comes through its hook (player/hook.py) is printed stand-ins, not calls, and
+     its results come from the hooks, never from its transcript. client.json says which kind a relay is and
+     keeps the batch's steps for the hook, which lets a call through under rules of its own. Under 7 a file
+     says neither: a relay it names would be printed calls its hooks refuse."""
 
 
 def ours(record):
@@ -155,7 +159,7 @@ def _stamp(row):
         return 0.0
 
 
-def read_batch(path, token, expected):
+def read_batch(path, token, expected, hooked=False):
     """(results, usage, strays) of the batch a relay hands in with `brain next <token>`.
 
     Only the calls the relay made between its previous `brain next` and this one are looked at, and each is
@@ -164,10 +168,15 @@ def read_batch(path, token, expected):
     that matched nothing. A call with no result is simply absent from the results.
 
     usage: {"in": prompt tokens the batch cost, "out": output tokens, "context": the size of the relay's last
-    prompt}. A request is counted once however many transcript lines it spans."""
+    prompt; of "in", "cached": what was read from the prompt cache, and "written": what was written to it;
+    "hooks": hooked}. A request is counted once however many transcript lines it spans. The plan's limits do
+    not count the three kinds of prompt token alike (RUL-2026-11-13-156), so they are kept apart.
+
+    hooked: the relay's hooks hand its results in (player/hook.py). Its transcript has a stand-in for each call
+    and "ok" for each result, so nothing of it is a result and nothing is a stray: it is read for the usage."""
     made, answers, cost = _span(path, token)
     out = []
-    for ep, inp in expected:
+    for ep, inp in [] if hooked else expected:
         hit = next((m for m in made if m[1] == ep and m[2] == inp), None)
         if hit is None:
             continue
@@ -175,9 +184,13 @@ def read_batch(path, token, expected):
         if hit[0] in answers:
             block, t = answers[hit[0]]
             out.append(_result(ep, inp, block, t, path))
-    reqs = sorted(cost.values())
-    usage = {"in": sum(r[1] for r in reqs), "out": sum(r[2] for r in reqs), "context": reqs[-1][1] if reqs else 0}
-    return out, usage, len(made)
+    return out, _used(sorted(cost.values()), hooked), 0 if hooked else len(made)
+
+
+def _used(reqs, hooked):
+    """A batch's token use, from its requests: (when, prompt tokens, output, read from the cache, written to it)."""
+    return {"in": sum(r[1] for r in reqs), "out": sum(r[2] for r in reqs), "context": reqs[-1][1] if reqs else 0,
+            "cached": sum(r[3] for r in reqs), "written": sum(r[4] for r in reqs), "hooks": hooked}
 
 
 def _span(path, token):
@@ -207,8 +220,10 @@ def _usage(row, t, requests):
     u = msg.get("usage")
     if msg.get("role") != "assistant" or not isinstance(u, dict):
         return
-    size = sum(int(u.get(k) or 0) for k in ("input_tokens", "cache_creation_input_tokens", "cache_read_input_tokens"))
-    requests[row.get("requestId") or f"t{t}"] = (t, size, int(u.get("output_tokens") or 0))
+    fresh, written, cached = (int(u.get(k) or 0) for k in ("input_tokens", "cache_creation_input_tokens",
+                                                             "cache_read_input_tokens"))
+    requests[row.get("requestId") or f"t{t}"] = (t, fresh + written + cached, int(u.get("output_tokens") or 0),
+                                                 cached, written)
 
 
 def _result(ep, inp, block, t, path):
@@ -238,13 +253,19 @@ def next_line(token=""):
                       separators=(",", ":"))
 
 
-def lines(steps, stop=None, token="", echo=False):
+def lines(steps, stop=None, token="", echo=False, hooked=False):
     """A batch as the lines `brain next` prints: one JSON object per step, then the next `brain next`; or one
     STOP line when the relay should end. echo: no transcript can be read for this relay, so each call is
-    followed by a `put` line that hands its result in (player/RELAY.md says how)."""
+    followed by a `put` line that hands its result in (player/RELAY.md says how). hooked: the relay's hooks
+    put each call in and take each result out (player/hook.py), so it is printed a stand-in for each call,
+    which says only which call of which batch it is, and no wait: the hook spends those."""
     if stop:
         return [f"STOP {stop}"]
     out, n = [], 0
+    if hooked:
+        out = [json.dumps({"call": C.STAND_IN, "input": {"b": token, "n": k + 1}}, separators=(",", ":"))
+               for k in range(sum("call" in s for s in steps))]
+        steps = []
     for s in steps:
         if "call" in s:
             n += 1
@@ -313,6 +334,15 @@ def pending_requests(live):
             + sorted(glob.glob(os.path.join(inbox, f"p{PROTOCOL}-req-*.json"))))
 
 
+def put_path(live, token, n):
+    """Where the result of call n (from 1) of batch `token` is handed in, by `brain put` or by the relay's hook."""
+    return os.path.join(live, "inbox", f"put-{token}-{n:03d}.json")
+
+
+def put(live, token, n, result):
+    write(put_path(live, token, n), list(result))
+
+
 def pack(results):
     return [list(r) for r in results]
 
@@ -334,6 +364,8 @@ def log_tokens(world, seq, usage, note):
     relay["context_tokens"] = usage.get("context") or relay.get("context_tokens", 0)
     world._append("tokens.jsonl", {"at": round(world.now, 1), "seq": seq, "in": usage.get("in", 0),
                                    "out": usage.get("out", 0), "context": usage.get("context", 0),
+                                   "cached": usage.get("cached"), "written": usage.get("written"),
+                                   "hooks": bool(usage.get("hooks")),             # a relay with hooks carried it
                                    "calls": len(relay.get("last_batch") or []),      # game calls the batch carried
                                    "battle": b.get("bid"), "round": b.get("round"), "note": note[:60]})
 

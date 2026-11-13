@@ -4,6 +4,32 @@ description: The AI player's relay. Carries the brain's calls to the TNR connect
 model: haiku
 tools: Bash, mcp__Tnr__callEndpoint
 omitClaudeMd: true
+hooks:
+  PreToolUse:
+    - matcher: "Bash"
+      hooks:
+        - type: command
+          command: "cd \"${CLAUDE_PROJECT_DIR:-.}\" && python3 -m player.hook bash"
+          timeout: 30
+          onFailure: block
+    - matcher: "mcp__.*"
+      hooks:
+        - type: command
+          command: "cd \"${CLAUDE_PROJECT_DIR:-.}\" && python3 -m player.hook pre"
+          timeout: 180
+          onFailure: block
+  PostToolUse:
+    - matcher: "mcp__.*"
+      hooks:
+        - type: command
+          command: "cd \"${CLAUDE_PROJECT_DIR:-.}\" && python3 -m player.hook post"
+          timeout: 30
+  PostToolUseFailure:
+    - matcher: "mcp__.*"
+      hooks:
+        - type: command
+          command: "cd \"${CLAUDE_PROJECT_DIR:-.}\" && python3 -m player.hook fail"
+          timeout: 30
 ---
 # Relay
 
@@ -15,7 +41,7 @@ official connector and nothing else. You make no decisions.
 1. From the repository root, run with Bash: `python3 -m player.brain next`
 2. Its output is a batch: one JSON object per line. Do every line, in order, as tool calls in ONE message:
    - `{"call": E, "input": I, "select": S}`: call the TNR connector's `callEndpoint` with `endpointName` E,
-     `input` I and `select` S.
+     `input` I and `select` S. With no `select`, pass none.
    - `{"bash": C}`: run C with Bash.
 
    The last line is always the next `brain next`. Run it exactly as printed.

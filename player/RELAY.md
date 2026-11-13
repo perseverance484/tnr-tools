@@ -8,7 +8,7 @@ official connector and nothing else. You make no decisions.
 1. From the repository root, run with Bash: `python3 -m player.brain next`
 2. Its output is a batch: one JSON object per line. Do every line, in order, as tool calls in ONE message:
    - `{"call": E, "input": I, "select": S}`: call the TNR connector's `callEndpoint` with `endpointName` E,
-     `input` I and `select` S.
+     `input` I and `select` S. With no `select`, pass none.
    - `{"bash": C}`: run C with Bash.
 
    The last line is always the next `brain next`. Run it exactly as printed.

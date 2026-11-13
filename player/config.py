@@ -71,6 +71,7 @@ LOOSE_ALERT = 900.0      # s a replaced relay's calls are held before that is ra
                          # after it: only that relay coming back, or the operator, ends the hold (player/budget.py)
 
 # ---------------------------------------------------------------- the relay (design section 4.7)
+STAND_IN = "player.relay"       # what a relay with hooks is printed in place of each call's endpoint (player/hook.py)
 ROTATE_AFTER_TOKENS = 60_000    # a relay is rotated once its context has grown this much past its first batch
 ROTATE_HARD_CAP = 150_000       # or once its context is this large, whatever it started at
 STALE_OUTBOX = 10.0             # s a batch may wait for a relay before the watchdog alerts

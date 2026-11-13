@@ -288,6 +288,22 @@ entirely.
   - No reasoning, no summaries, no text between calls. Parallel tool calls in one message per batch.
   - Anything that needs judgment never reaches the relay. It becomes a pending decision for the director (or a Duet
     message), raised by the brain.
+- **What is saved is usage against the plan's limits** (RUL-2026-11-13-156). The plan counts what a request
+  reads again from the prompt cache at a tenth of new content, what it adds at 1.25, and its output at 5; and
+  Haiku 5.5 costs five times as much for a request whose prompt is over 100,000 tokens. (The API's price
+  ratios: the plan's own weights are not published.) So, in this order:
+  - No relay request is over 100,000 tokens. A relay that is born large pays the higher price on every
+    request. Inside a fight a relay is not replaced yet, and a long fight still crosses the line.
+  - What a read adds to the conversation counts twelve times what reading it again costs.
+  - A batch costs its output, five-fold, and a tenth of the conversation so far.
+  - A relay's cache lives five minutes. After a longer wait its next request writes its whole context again.
+- **The relay's hooks carry the calls and the results** (RUL-2026-11-13-157; `player/hook.py`). The relay's
+  agent declares Claude Code hooks. A relay that has them is printed a stand-in for each call: which call of
+  which batch, and nothing more. One hook puts the real call in its place, with its select; another hands the
+  result to the brain and shows the model "ok". So the model writes no call out and reads no result, and its
+  conversation grows by a few hundred tokens a batch whatever is read. The same hook refuses whatever is not
+  the next call of the batch the relay holds: a call the brain did not make cannot reach the game through the
+  relay. A relay without hooks is printed the calls themselves, as below.
 - **Tokens in are what the relay pays for, so every response is trimmed at the source.**
   - Every call carries a `select` of only the fields the brain uses.
   - Lists are read as columns, e.g. the ground list (~8× smaller).
@@ -300,7 +316,8 @@ entirely.
   - The brain's waits are Bash sleeps, which cost almost nothing.
 - **Rotation by size, not count.** Relays restart when their context passes a token threshold (default 60k), not
   after a batch count. The brain is resident, so a restart loses nothing.
-- **Results flow:**
+- **Results flow** (for a relay without hooks; one with hooks hands each result in from its hook, the way
+  `brain put` does, and its transcript is read for its token use only):
   - Today the brain reads results out of the relay's transcript.
   - The relay protocol keeps that (no tokens spent echoing results). Every relay gets a name on its first
     `brain next`, and every batch ends with `brain next <token>`. The brain reads only the transcript that

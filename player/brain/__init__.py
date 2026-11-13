@@ -15,6 +15,9 @@ model. The relay copies the batch to the game and comes back with `brain next`.
 `brain next` starts the resident process when none is running, and answers the request itself if it has to: a relay
 is never left without a batch. Every wait is spent here, in the brain, where it costs the relay nothing.
 
+A relay whose agent has the hooks of player/hook.py runs `brain next` with `--hooks ID` behind it: the hook puts
+it there. Such a relay is printed stand-ins for its calls, and its hooks put the calls in and take the results out.
+
 A tick that fails after the results are folded in is undone as a whole: what it learned stays, what it decided
 does not, so a plan that never reached the relay is never remembered as sent. A fight's tick that fails twice
 running still sends what the turn is owed (Battle.last_resort): no turn is lost to a crash.
@@ -53,7 +56,7 @@ import traceback   # noqa: F401
 import weakref     # noqa: F401
 
 from .. import config as C
-from .. import console, registry, relay  # noqa: F401
+from .. import console, hook, registry, relay  # noqa: F401
 from ..budget import UPDATE, Budget  # noqa: F401
 from ..combat import Combat  # noqa: F401
 from ..gates import Gates  # noqa: F401
@@ -86,7 +89,8 @@ def main(argv=None):
     if cmd == "run":
         return run(live)
     if cmd == "next":
-        return next_batch(live, argv[1] if len(argv) > 1 else None)
+        rest, hooks = hook.told(argv[1:])                          # (the id the relay's hook put behind it)
+        return next_batch(live, rest[0] if rest else None, hooks=hooks)
     if cmd == "put" and len(argv) == 3:
         return put(live, argv[1], argv[2], sys.stdin.read())
     if cmd == "stopped":

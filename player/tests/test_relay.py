@@ -63,7 +63,9 @@ class Contract(unittest.TestCase):
             _, head, body = f.read().split("---\n", 2)
         with open(os.path.join(C.ROOT, "player", "RELAY.md"), encoding="utf8") as f:
             self.assertEqual(body, f.read())                               # one prompt, not two
+        head, hooks = head.split("hooks:\n", 1)                             # (the hooks: test_hook_relay.py)
         fields = dict(line.split(": ", 1) for line in head.strip().splitlines())
+        self.assertEqual(sorted(fields), ["description", "model", "name", "omitClaudeMd", "tools"])
         self.assertEqual((fields["model"], fields["omitClaudeMd"]), ("haiku", "true"))
         self.assertEqual([t.strip() for t in fields["tools"].split(",")], ["Bash", "mcp__Tnr__callEndpoint"])
 
@@ -118,8 +120,11 @@ class Transcript(unittest.TestCase):
             ("usage", "r0", 9, 50_000, 30, 90), ("bash", "n1", nxt("ab12cd-1"), 90),
             ("usage", "r1", 10, 60_000, 50, 101), ("usage", "r1", 10, 60_000, 50, 102),
             ("usage", "r2", 5, 61_000, 40, 104), ("bash", "n2", nxt("ab12cd-2"), 104)])
-        self.assertEqual(relay.read_batch(p, "ab12cd-2", [])[1], {"in": 60_010 + 61_005, "out": 90, "context": 61_005})
-        self.assertEqual(relay.read_batch(p, "ab12cd-1", [])[1], {"in": 50_009, "out": 30, "context": 50_009})
+        self.assertEqual(relay.read_batch(p, "ab12cd-2", [])[1],
+                         {"in": 60_010 + 61_005, "out": 90, "context": 61_005,
+                          "cached": 60_000 + 61_000, "written": 0, "hooks": False})   # (kept apart: RUL-156)
+        self.assertEqual(relay.read_batch(p, "ab12cd-1", [])[1],
+                         {"in": 50_009, "out": 30, "context": 50_009, "cached": 50_000, "written": 0, "hooks": False})
 
     def test_a_result_too_large_for_the_conversation_is_read_from_its_file(self):
         rig = Rig()

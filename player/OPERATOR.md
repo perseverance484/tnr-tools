@@ -97,6 +97,34 @@ One runner at a time may write to the game on this account (`docs/workflows/FORG
 - With `TNR_PLAYER_LIVE` pointing anywhere else the brain is a rehearsal: it claims nothing, and
   `status.json` says so. **Never give a rehearsal a relay that can reach the game.**
 
+## Hooks
+
+The relay's agent (`.claude/agents/tnr-relay.md`) declares four hooks (`player/hook.py`). With them the model
+in the relay is printed a stand-in for each call, a hook puts the real call in, and another takes the result
+out and hands it to the brain. The model's conversation then holds no call and no result, which is most of
+what a relay costs (RUL-2026-11-13-156, RUL-2026-11-13-157).
+
+- **Before the first session on a machine.** Claude Code 2.1.295 or later. Start the relay from the
+  repository's root, in a folder whose trust dialog you have accepted: until then Claude Code runs the agent
+  and skips its hooks. If the connector's tool has another name there than `mcp__Tnr__callEndpoint`, put that
+  name on the agent's `tools:` line.
+- **Which kind a relay is.** `live/client.json`, `hooks`: the relay's id, or nothing. `live/tokens.jsonl`,
+  `hooks`: true for a batch such a relay carried; `cached` and `written` there are what the plan counts by.
+  `live/hook/log.jsonl`: every hook that ran, and why a call was refused.
+- **A relay without hooks plays as before**, and costs what it did. That is what you get when the hooks do
+  not run at all: the brain is not told otherwise, and prints the calls themselves.
+- **`STOP the relay's hooks are not running`.** The relay's `brain next` came through its hook, so it was
+  printed stand-ins; but no hook ran in front of its connector calls, or its `brain next` came back without
+  the hook. Nothing it was printed reached the game: a stand-in names no endpoint. The usual cause is the
+  tool's name (above). End that relay, say `stopped` for the batch it had, and start one when the cause is
+  found.
+- **What the hook refuses** is not made: a call that is not the next line of the batch the relay holds, a
+  second copy of one, a call after the run lock's cutoff, a call of a relay that was replaced. So a replaced
+  relay with hooks makes no call from the moment the new one is named. The ledger still holds its batch until
+  it comes back or you say `stopped`: the word is as cheap as before, and now it is true sooner.
+- **A relay with hooks runs one command**, `brain next`. Its hook refuses every other, `brain stopped` and
+  `brain set` among them: those are yours.
+
 ## After the player's code is updated
 
 The call ledger a version before this one kept cannot be trusted to say everything that is out. That version
