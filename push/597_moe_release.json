@@ -1,0 +1,541 @@
+{
+ "_note": "push/597: Mother of Echoes release (job 477's go-live, built 2026-11-13 by mother_of_echoes.gen.py --step golive from the 417/440/461-464/466 bundles and the 489 art bundle). Changes from the generated 477: the quest icon is the literal live url the practice quest already uses (ME13), so no upload and it runs over the connector. Phase 10: the 15 FX assets unhidden (already unhidden Nov 8; idempotent, kept per law 16c). Phase 20: the real quest re-sent whole with hidden false: the three act scenes, Sayo's dialog portraits, 10 objectives, rewards (1/5/3 of the three picks) as the practice quest tested today. The live real quest (updated Nov 3) still has the early one-scene, 8-objective build and rewards 2/5/2; this replaces it. Director go 2026-11-13 18:57 UTC ('I will ship everything'). Run at release, after 596 + hand rerun and 593.",
+ "dedupNames": true,
+ "items": [
+  {
+   "entity": "asset",
+   "slot": "edit",
+   "targetId": "R7rQubXMDT2BvjqTABl5k",
+   "name": "Mother of Echoes FX - Etching mark: unhide",
+   "data": {
+    "name": "Mother of Echoes FX - Etching mark",
+    "type": "STATIC",
+    "folder": "MotherOfEchoes",
+    "frames": 1,
+    "speed": 1,
+    "hidden": false,
+    "onInitialBattleField": false,
+    "licenseDetails": "TNR"
+   },
+   "phase": 10
+  },
+  {
+   "entity": "asset",
+   "slot": "edit",
+   "targetId": "yvuM0nODcxvycD5vs6R9X",
+   "name": "Mother of Echoes FX - Etching glint: unhide",
+   "data": {
+    "name": "Mother of Echoes FX - Etching glint",
+    "type": "ANIMATION",
+    "folder": "MotherOfEchoes",
+    "frames": 16,
+    "speed": 50,
+    "hidden": false,
+    "onInitialBattleField": false,
+    "licenseDetails": "TNR"
+   },
+   "phase": 10
+  },
+  {
+   "entity": "asset",
+   "slot": "edit",
+   "targetId": "-fJXtypAcxoCmy4-_iVsH",
+   "name": "Mother of Echoes FX - Recast: unhide",
+   "data": {
+    "name": "Mother of Echoes FX - Recast",
+    "type": "ANIMATION",
+    "folder": "MotherOfEchoes",
+    "frames": 12,
+    "speed": 50,
+    "hidden": false,
+    "onInitialBattleField": false,
+    "licenseDetails": "TNR"
+   },
+   "phase": 10
+  },
+  {
+   "entity": "asset",
+   "slot": "edit",
+   "targetId": "JIcJEuwCbkCneEskKVfwg",
+   "name": "Mother of Echoes FX - Guard open: unhide",
+   "data": {
+    "name": "Mother of Echoes FX - Guard open",
+    "type": "ANIMATION",
+    "folder": "MotherOfEchoes",
+    "frames": 16,
+    "speed": 50,
+    "hidden": false,
+    "onInitialBattleField": false,
+    "licenseDetails": "TNR"
+   },
+   "phase": 10
+  },
+  {
+   "entity": "asset",
+   "slot": "edit",
+   "targetId": "WTG4YuGdTlhfFHW8xy5uX",
+   "name": "Mother of Echoes FX - The Quiet: unhide",
+   "data": {
+    "name": "Mother of Echoes FX - The Quiet",
+    "type": "ANIMATION",
+    "folder": "MotherOfEchoes",
+    "frames": 12,
+    "speed": 50,
+    "hidden": false,
+    "onInitialBattleField": false,
+    "licenseDetails": "TNR"
+   },
+   "phase": 10
+  },
+  {
+   "entity": "asset",
+   "slot": "edit",
+   "targetId": "UM4_XuljWbPF54aqMFIu_",
+   "name": "Mother of Echoes FX - Glass Lancet: unhide",
+   "data": {
+    "name": "Mother of Echoes FX - Glass Lancet",
+    "type": "ANIMATION",
+    "folder": "MotherOfEchoes",
+    "frames": 11,
+    "speed": 50,
+    "hidden": false,
+    "onInitialBattleField": false,
+    "licenseDetails": "TNR"
+   },
+   "phase": 10
+  },
+  {
+   "entity": "asset",
+   "slot": "edit",
+   "targetId": "YPeKmaPxyWn7Yre529fLA",
+   "name": "Mother of Echoes FX - The Listening: unhide",
+   "data": {
+    "name": "Mother of Echoes FX - The Listening",
+    "type": "ANIMATION",
+    "folder": "MotherOfEchoes",
+    "frames": 14,
+    "speed": 50,
+    "hidden": false,
+    "onInitialBattleField": false,
+    "licenseDetails": "TNR"
+   },
+   "phase": 10
+  },
+  {
+   "entity": "asset",
+   "slot": "edit",
+   "targetId": "gwmoM_7B2HVxFCwJaQK9l",
+   "name": "Mother of Echoes FX - The Glass Falls Quiet: unhide",
+   "data": {
+    "name": "Mother of Echoes FX - The Glass Falls Quiet",
+    "type": "ANIMATION",
+    "folder": "MotherOfEchoes",
+    "frames": 32,
+    "speed": 50,
+    "hidden": false,
+    "onInitialBattleField": false,
+    "licenseDetails": "TNR"
+   },
+   "phase": 10
+  },
+  {
+   "entity": "asset",
+   "slot": "edit",
+   "targetId": "MckaZ1-QmoEVS3zzo45et",
+   "name": "Mother of Echoes FX - Nothing Moves: unhide",
+   "data": {
+    "name": "Mother of Echoes FX - Nothing Moves",
+    "type": "ANIMATION",
+    "folder": "MotherOfEchoes",
+    "frames": 12,
+    "speed": 50,
+    "hidden": false,
+    "onInitialBattleField": false,
+    "licenseDetails": "TNR"
+   },
+   "phase": 10
+  },
+  {
+   "entity": "asset",
+   "slot": "edit",
+   "targetId": "grWZgHoFFyuw2urNp8RaF",
+   "name": "Mother of Echoes FX - Breathless Pull: unhide",
+   "data": {
+    "name": "Mother of Echoes FX - Breathless Pull",
+    "type": "ANIMATION",
+    "folder": "MotherOfEchoes",
+    "frames": 12,
+    "speed": 50,
+    "hidden": false,
+    "onInitialBattleField": false,
+    "licenseDetails": "TNR"
+   },
+   "phase": 10
+  },
+  {
+   "entity": "asset",
+   "slot": "edit",
+   "targetId": "iMtJTNotx8wlvZP0L1ICE",
+   "name": "Mother of Echoes FX - Lucid: unhide",
+   "data": {
+    "name": "Mother of Echoes FX - Lucid",
+    "type": "ANIMATION",
+    "folder": "MotherOfEchoes",
+    "frames": 32,
+    "speed": 50,
+    "hidden": false,
+    "onInitialBattleField": false,
+    "licenseDetails": "TNR"
+   },
+   "phase": 10
+  },
+  {
+   "entity": "asset",
+   "slot": "edit",
+   "targetId": "5QPs8ci-L6gLRl9l32yZx",
+   "name": "Mother of Echoes FX - Your Likeness: unhide",
+   "data": {
+    "name": "Mother of Echoes FX - Your Likeness",
+    "type": "ANIMATION",
+    "folder": "MotherOfEchoes",
+    "frames": 14,
+    "speed": 50,
+    "hidden": false,
+    "onInitialBattleField": false,
+    "licenseDetails": "TNR"
+   },
+   "phase": 10
+  },
+  {
+   "entity": "asset",
+   "slot": "edit",
+   "targetId": "pHEe7NKkfgAftw6R3FYFN",
+   "name": "Mother of Echoes FX - Raise the Worn: unhide",
+   "data": {
+    "name": "Mother of Echoes FX - Raise the Worn",
+    "type": "ANIMATION",
+    "folder": "MotherOfEchoes",
+    "frames": 14,
+    "speed": 50,
+    "hidden": false,
+    "onInitialBattleField": false,
+    "licenseDetails": "TNR"
+   },
+   "phase": 10
+  },
+  {
+   "entity": "asset",
+   "slot": "edit",
+   "targetId": "DIjNs2ylr8QNNXAr0tY2k",
+   "name": "Mother of Echoes FX - Cradle: unhide",
+   "data": {
+    "name": "Mother of Echoes FX - Cradle",
+    "type": "ANIMATION",
+    "folder": "MotherOfEchoes",
+    "frames": 16,
+    "speed": 50,
+    "hidden": false,
+    "onInitialBattleField": false,
+    "licenseDetails": "TNR"
+   },
+   "phase": 10
+  },
+  {
+   "entity": "asset",
+   "slot": "edit",
+   "targetId": "V2WrqSy5bvcAAYDthQpDl",
+   "name": "Mother of Echoes FX - The Names Flood In: unhide",
+   "data": {
+    "name": "Mother of Echoes FX - The Names Flood In",
+    "type": "ANIMATION",
+    "folder": "MotherOfEchoes",
+    "frames": 14,
+    "speed": 50,
+    "hidden": false,
+    "onInitialBattleField": false,
+    "licenseDetails": "TNR"
+   },
+   "phase": 10
+  },
+  {
+   "entity": "quest",
+   "slot": "edit",
+   "targetId": "IBPNwhAzlAJPXoeEnp8gW",
+   "name": "The Mother of Echoes: publish (scenes, portraits, icon, rewards 1/5/3 as the practice quest)",
+   "data": {
+    "name": "The Mother of Echoes",
+    "description": "The four shards are her invitation. Carry one of each (Keel, Crown, Tide and Ledger) to the Mother Glass under Crownhold; all four are spent when the fight begins.\n\nThree battles, one after another. Health, chakra and stamina carry from each battle to the next, with no refills. Lose any battle and the attempt ends; the shards are not returned.\n\nWatch the floor. Every mark she draws is a warning, and every warning comes due.\n\nIf you still have a reward to choose from an earlier attempt, claim it before you start.",
+    "successDescription": "The Mother Glass cracks from the root to the crown. Choose your reward.",
+    "image": "https://ui0arpl8sm.ufs.sh/f/HYiGu0fn2knteovR2CWiQ.webp",
+    "questType": "battlepyramid",
+    "questRank": "S",
+    "hidden": false,
+    "retryDelay": "none",
+    "attemptDelay": "none",
+    "consecutiveObjectives": true,
+    "requiredLevel": 1,
+    "maxLevel": 100,
+    "maxAttempts": 100,
+    "maxCompletes": 100,
+    "prerequisiteQuestId": null,
+    "tierLevel": null,
+    "requiredVillage": null,
+    "requiredBloodlineId": null,
+    "startsAt": null,
+    "endsAt": null,
+    "content": {
+     "objectives": [
+      {
+       "id": "d_intro1",
+       "task": "dialog",
+       "description": "The four shards fit together in your hands, and the seams vanish. They were never broken. They were an invitation.<br><br>They pull you down, past where Crownhold's stair ends, into a hall of glass. Every pane holds a face. The Deck Warden. The Captain, twice: once bareheaded, once crowned. The guards you cut down. Their eyes are open, and none of them blink.",
+       "sceneBackground": "5emzv4rAEFL2iE6Vg5Znm",
+       "sceneCharacters": [
+        "Bph7t93QYpZqQkYM3N2Yr"
+       ],
+       "nextObjectiveId": [
+        {
+         "text": "Go deeper",
+         "nextObjectiveId": "d_intro2"
+        }
+       ]
+      },
+      {
+       "id": "d_intro2",
+       "task": "dialog",
+       "description": "She hangs in the air before the Mother Glass, her fan open behind her like a halo.<br><br>\"Lovely, aren't they? Every one of them held still for me.\" She smiles at the faces. \"The ship, the castle, all of it. I never lost them. I kept them.\" She inclines her head, as if you had asked. \"Sayo. I grew the glass.\"<br><br>\"And you have been cutting them out of my glass, one by one. How interesting.\"",
+       "sceneBackground": "5emzv4rAEFL2iE6Vg5Znm",
+       "sceneCharacters": [
+        "Bph7t93QYpZqQkYM3N2Yr"
+       ],
+       "nextObjectiveId": [
+        {
+         "text": "You did this",
+         "nextObjectiveId": "d_open"
+        }
+       ]
+      },
+      {
+       "id": "d_open",
+       "task": "dialog",
+       "description": "She studies you the way she studied them. \"There is room in the glass for one more.\"<br><br>She turns to the wall, as if choosing a place for you. Her shadow does not turn with her. It stays where it was. Then it stands up off the floor.",
+       "sceneBackground": "5emzv4rAEFL2iE6Vg5Znm",
+       "sceneCharacters": [
+        "Bph7t93QYpZqQkYM3N2Yr"
+       ],
+       "nextObjectiveId": [
+        {
+         "text": "Step into the hall",
+         "nextObjectiveId": "b_act1"
+        }
+       ]
+      },
+      {
+       "id": "b_act1",
+       "task": "start_battle",
+       "description": "Act I: The Glasswright and the Deep",
+       "sceneBackground": "5emzv4rAEFL2iE6Vg5Znm",
+       "sceneCharacters": [],
+       "opponentAIs": [
+        {
+         "ids": [
+          "fJLcH1mpB1XHHGtNWwvzD"
+         ],
+         "number": 1,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "IhNR-W1FElTsrWw1KfuQ9"
+         ],
+         "number": 1,
+         "quantity": 1
+        }
+       ],
+       "completionOutcome": "Win",
+       "scaleGains": 1,
+       "keepOriginalPools": false,
+       "opponent_scaled_to_user": false,
+       "nextObjectiveId": "d_act2",
+       "failObjectiveId": "f_lost",
+       "failDescription": "The glass goes quiet around you. The shards are spent.",
+       "drawDescription": "The glass goes quiet around you. The shards are spent.",
+       "fleeDescription": "You back out of the hall. The shards stay in the glass."
+      },
+      {
+       "id": "d_act2",
+       "task": "dialog",
+       "description": "The deep goes quiet, but the glass does not. Sayo wipes a line of light from her sleeve. \"You read patterns well. Let us see how well you remember them.\"",
+       "sceneBackground": "aleMvSlyXGMaT0UGWmJh-",
+       "sceneCharacters": [
+        "_TB450VtYNqiCLc393Sq4"
+       ],
+       "nextObjectiveId": [
+        {
+         "text": "Hold your ground",
+         "nextObjectiveId": "b_act2"
+        }
+       ]
+      },
+      {
+       "id": "b_act2",
+       "task": "start_battle",
+       "description": "Act II: The Stilling",
+       "sceneBackground": "aleMvSlyXGMaT0UGWmJh-",
+       "sceneCharacters": [],
+       "opponentAIs": [
+        {
+         "ids": [
+          "H3pNj2qUWpMpVRINiH6Vn"
+         ],
+         "number": 1,
+         "quantity": 1
+        }
+       ],
+       "completionOutcome": "Win",
+       "scaleGains": 1,
+       "keepOriginalPools": false,
+       "opponent_scaled_to_user": false,
+       "nextObjectiveId": "d_act3",
+       "failObjectiveId": "f_lost",
+       "failDescription": "The glass goes quiet around you. The shards are spent.",
+       "drawDescription": "The glass goes quiet around you. The shards are spent.",
+       "fleeDescription": "You back out of the hall. The shards stay in the glass."
+      },
+      {
+       "id": "d_act3",
+       "task": "dialog",
+       "description": "Every pane in the hall turns toward you. The dark at the edge of the light folds itself small and slides back across the floor into Sayo's shadow. Her eyes close. When she speaks again, nothing moves her lips. \"Hold still. You will make for a good impression.\"",
+       "sceneBackground": "dXiE-NNZymwmOgceZfkmb",
+       "sceneCharacters": [
+        "9a_5ly9kwKB95FCQRwI1s"
+       ],
+       "nextObjectiveId": [
+        {
+         "text": "Do not hold still",
+         "nextObjectiveId": "b_act3"
+        }
+       ]
+      },
+      {
+       "id": "b_act3",
+       "task": "start_battle",
+       "description": "Act III: A Good Impression",
+       "sceneBackground": "dXiE-NNZymwmOgceZfkmb",
+       "sceneCharacters": [],
+       "opponentAIs": [
+        {
+         "ids": [
+          "k0hgSrghl_KcYs9ATVDJT"
+         ],
+         "number": 1,
+         "quantity": 1
+        }
+       ],
+       "completionOutcome": "Win",
+       "scaleGains": 1,
+       "keepOriginalPools": false,
+       "opponent_scaled_to_user": false,
+       "nextObjectiveId": "w_clear",
+       "failObjectiveId": "f_lost",
+       "failDescription": "The glass goes quiet around you. The shards are spent.",
+       "drawDescription": "The glass goes quiet around you. The shards are spent.",
+       "fleeDescription": "You back out of the hall. The shards stay in the glass."
+      },
+      {
+       "id": "w_clear",
+       "task": "win_quest",
+       "description": "The Mother Glass cracks from the root to the crown. For the first time since the siege, Crownhold makes a sound.<br><br>You are not stilled.",
+       "sceneBackground": "dXiE-NNZymwmOgceZfkmb",
+       "sceneCharacters": [],
+       "reward_exp": 1000,
+       "reward_money": 50000,
+       "reward_items": [
+        {
+         "ids": [
+          "FmQgVG5IX3q607wcHcOGy"
+         ],
+         "number": 25,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "xCAtBCvbA2-TTV2eSe-jx"
+         ],
+         "number": 25,
+         "quantity": 1
+        }
+       ]
+      },
+      {
+       "id": "f_lost",
+       "task": "fail_quest",
+       "description": "The glass keeps what it was given. Find four more shards and come back.",
+       "sceneBackground": "5emzv4rAEFL2iE6Vg5Znm",
+       "sceneCharacters": []
+      }
+     ],
+     "sceneBackground": "5emzv4rAEFL2iE6Vg5Znm",
+     "sceneCharacters": [
+      "1YXbXYW2wz3GETVMb6DT6"
+     ],
+     "entryItems": [
+      {
+       "ids": [
+        "uKnlqlfyE_k1QjLuaVml_"
+       ],
+       "number": 1
+      },
+      {
+       "ids": [
+        "4UNvgWIDGD9QpNVtLr1aM"
+       ],
+       "number": 1
+      },
+      {
+       "ids": [
+        "KHGZAfQFosLQJ29AN2ymC"
+       ],
+       "number": 1
+      },
+      {
+       "ids": [
+        "cGrmhfe88ACBvFk2XqvSu"
+       ],
+       "number": 1
+      }
+     ],
+     "isolated": true,
+     "rewardMode": "choose",
+     "rewardPickCount": 1,
+     "reward": {
+      "reward_items": [
+       {
+        "ids": [
+         "WrnHlt3h6ZDjFaJk3i41O"
+        ],
+        "number": 100,
+        "quantity": 1
+       },
+       {
+        "ids": [
+         "THo7rfzP-S82_43aN8fs3"
+        ],
+        "number": 100,
+        "quantity": 5
+       },
+       {
+        "ids": [
+         "nzCW7A-_AuYMzBs2wClnM"
+        ],
+        "number": 100,
+        "quantity": 3
+       }
+      ]
+     }
+    }
+   },
+   "phase": 20
+  }
+ ]
+}
