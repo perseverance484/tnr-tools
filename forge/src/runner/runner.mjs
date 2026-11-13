@@ -39,6 +39,7 @@ import { TERMINAL_ITEM_STATES, jobOutcome, StaleItem } from "../storage/journal.
 import { recipe, mergeForUpdate, recipeRows, updateInput, rowName } from "./recipes.mjs";
 import { resolveRefs, collectRefs } from "./refs.mjs";
 import { diffAsserted, deepEqualPayload } from "./validate.mjs";
+import { applyLivePatch, livePatchDiffs } from "./livepatch.mjs";
 import { parseManifest, planOrder, toJournalSpecs } from "./manifest.mjs";
 import { readVariant, variantSlotProblem, variantCandidates } from "./variants.mjs";
 import REVIEW from "../review/contract.json" with { type: "json" };
@@ -758,9 +759,18 @@ export class Runner {
       }
       if (planned.expected && !deepEqualPayload(writableSnapshot(item.entity, live.data), planned.expected)) throw new Paused("STALE_PREVIEW", { idx: item.idx, detail: "record changed since preview; prepare a new job" });
     }
-    const problems = this.validator.problems(item.entity, data, live.data, { refreshPackages: planned.refreshPackages === true });
+    // livePatch: the effects are derived from THIS read (taken after the throttle wait), never earlier.
+    let sendData = data, lp = null;
+    if (planned.livePatch) {
+      lp = applyLivePatch(planned.livePatch, live.data);
+      if (!lp.targeted) throw new Error("livePatch: no effect on the live record uses a listed asset; check the target and asset list");
+      // An already-patched record is still sent (an idempotent full write): the journal allows a
+      // send-less PLANNED -> CONFIRMED only for read-only Bloodright reuse, and this does not widen it.
+      sendData = { ...data, ...lp.data };
+    }
+    const problems = this.validator.problems(item.entity, sendData, live.data, { refreshPackages: planned.refreshPackages === true });
     if (problems.length) throw new Error("pre-send validation: " + problems.join("; "));
-    const payload = mergeForUpdate(item.entity, live.data, data, this.validator.knownFields(item.entity));
+    const payload = mergeForUpdate(item.entity, live.data, sendData, this.validator.knownFields(item.entity));
     const decoded = await this._send(jobId, item, { phase: "update" }, rc.update, updateInput(rc, id, payload), reserved, expect);
     const o = readMutation(decoded);
     await this.cache.invalidateRecord(rc.cacheEntity, id);
@@ -768,7 +778,7 @@ export class Runner {
       const next = item.entity === "ai" && Array.isArray(planned.data.rules) ? "rules" : "verify";
       // a dungeon save re-copied these package snapshots from the catalog (refreshPackages)
       const refreshed = item.entity === "dungeon" ? packageDrops(payload) : [];
-      this.journal.transition(jobId, item.idx, "CONFIRMED", { entityId: id, phase: next, asserted: Object.keys(data), ...(refreshed.length ? { packagesRefreshed: refreshed } : {}) });
+      this.journal.transition(jobId, item.idx, "CONFIRMED", { entityId: id, phase: next, asserted: Object.keys(data), ...(refreshed.length ? { packagesRefreshed: refreshed } : {}), ...(lp ? { livePatched: { targeted: lp.targeted, changed: lp.changed, mixed: lp.mixed } } : {}) });
       if (isBloodrightEntity(item.entity)) this._remember(item.srcId, id);
       return;
     }
@@ -916,7 +926,7 @@ export class Runner {
       if (!live.ok && classifyError(live.error) === "SESSION") throw this._authRefused(live.error, { idx: item.idx, path: rc.get });
       if (live.ok && !live.data && isBloodrightEntity(item.entity)) throw new Paused("VISIBILITY", { idx: item.idx, detail: `${rc.get} returned no visible record for ${item.entityId}; recheck the session, hidden-content access and target before resuming` });
       if (!live.ok || !live.data) { this.journal.annotate(jobId, item.idx, { verify: "unread", phase: "verify" }); return; }
-      diffs.push(...diffAsserted(item.entity, data, live.data));
+      diffs.push(...diffAsserted(item.entity, data, live.data), ...livePatchDiffs(planned.livePatch, live.data));
     }
     if ((item.entity === "ai" && Array.isArray(planned.data.rules)) || item.entity === "aiProfile") {
       if (!item.aiProfileId) { this.journal.annotate(jobId, item.idx, { verify: "unread", phase: "verify" }); return; }

@@ -28,6 +28,7 @@ import { contentDiffKeys } from "../dungeon/validate.mjs";
 import { classifyError } from "../transport/outcome.mjs";
 import { AuthRefused } from "../transport/auth.mjs";
 import { diffAsserted, deepEqualPayload, SERVER_OWNED } from "../runner/validate.mjs";
+import { livePatchDiffs } from "../runner/livepatch.mjs";
 import { resolveRefs } from "../runner/refs.mjs";
 import { readVariant, variantCandidates } from "../runner/variants.mjs";
 
@@ -207,8 +208,8 @@ export class Reconciler {
     const { value: data, unresolved } = resolveRefs(planned.data, ctx.lookup ?? (() => undefined));
     if (unresolved.length) return { action: "orphan", candidates: [], note: "cannot compare: unresolved refs " + unresolved.map((u) => `@${u.pfx}:${u.key}`).join(", ") };
     const comparable = Object.keys(data).filter((k) => !SERVER_OWNED.includes(k));
-    if (!comparable.length) return { action: "orphan", candidates: [], note: "cannot compare: no asserted keys to check" };
-    const diffs = diffAsserted(item.entity, data, live.data);
+    if (!comparable.length && !planned.livePatch) return { action: "orphan", candidates: [], note: "cannot compare: no asserted keys to check" };
+    const diffs = [...diffAsserted(item.entity, data, live.data), ...livePatchDiffs(planned.livePatch, live.data)];
     if (!diffs.length) return { action: "confirm", entityId: item.entityId, phase: "verify", landed: true, note: "update already landed: asserted keys match live" };
     return { action: "orphan", candidates: [], note: "update may not have landed: live differs on " + diffs.map((d) => d.key).join(", "), diffs };
   }

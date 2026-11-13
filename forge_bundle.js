@@ -3766,6 +3766,46 @@
     return { value: walk(o, ""), unresolved };
   }
 
+  var LIVE_PATCH_ENTITIES = Object.freeze(["jutsu", "item", "bloodline"]);
+  var ANIM = ["appearAnimation", "staticAnimation", "disappearAnimation"];
+  function livePatchProblems(it) {
+    const p = it.livePatch, out = [];
+    if (!p || typeof p !== "object" || Array.isArray(p)) return ["livePatch must be an object"];
+    if (it.op !== "update") out.push("livePatch is only for an edit (targetId)");
+    if (!LIVE_PATCH_ENTITIES.includes(it.entity)) out.push(`livePatch takes ${LIVE_PATCH_ENTITIES.join(", ")}, not ${it.entity}`);
+    if ("effects" in (it.data ?? {})) out.push("livePatch derives effects from live; do not also send data.effects");
+    const extra = Object.keys(p).filter((k) => !["animationScale", "assets"].includes(k));
+    if (extra.length) out.push(`livePatch does not know ${extra.join(", ")}`);
+    const s = p.animationScale;
+    if (typeof s !== "number" || !Number.isFinite(s) || s < 1 || s > 3) out.push("livePatch.animationScale must be a number from 1 to 3");
+    if (!Array.isArray(p.assets) || !p.assets.length || !p.assets.every((a) => typeof a === "string" && a)) out.push("livePatch.assets must list at least one asset id");
+    return out;
+  }
+  var targeted = (e, assets) => e && typeof e === "object" && ANIM.some((k) => typeof e[k] === "string" && assets.has(e[k]));
+  var mixed = (e, assets) => ANIM.some((k) => typeof e[k] === "string" && e[k] && !assets.has(e[k]));
+  function applyLivePatch(patch, live) {
+    const effects = Array.isArray(live?.effects) ? live.effects : null;
+    if (!effects) throw new Error("livePatch: the live record has no effects array");
+    const assets = new Set(patch.assets);
+    let changed = 0, mix = 0, hit = 0;
+    const next = effects.map((e) => {
+      if (!targeted(e, assets)) return e;
+      hit++;
+      if (mixed(e, assets)) mix++;
+      if (e.animationScale === patch.animationScale) return e;
+      changed++;
+      return { ...e, animationScale: patch.animationScale };
+    });
+    return { data: { effects: next }, targeted: hit, changed, mixed: mix };
+  }
+  function livePatchDiffs(patch, live) {
+    if (!patch) return [];
+    const effects = Array.isArray(live?.effects) ? live.effects : [];
+    const assets = new Set(patch.assets);
+    const off = effects.map((e, i) => [i, e]).filter(([, e]) => targeted(e, assets) && e.animationScale !== patch.animationScale);
+    return off.length ? [{ key: "effects.animationScale", sent: patch.animationScale, live: off.map(([i, e]) => ({ i, animationScale: e.animationScale ?? null })) }] : [];
+  }
+
   var b_DATA_pool_default = JSON.parse(`{"_meta":{"source":"32_REGISTRY_shared_ai_pool.md","generated":"2026-08-26","purpose":"Machine-readable pool. Reference kits by CODE; the tooling resolves id, range, gate (range+1), AP and cooldown. Kills id transcription and gate arithmetic as error classes.","ap_economy":"round = 100 AP. attacks 60, stances 40. one attack + one stance = a full round."},"records":{"A1":{"name":"Cleaving Line","id":"brzGw6WgHsrFPkL9JWGir","target":"r4","range":4,"gate":5,"cooldown":4,"ap":60,"effects":["damage 50"]},"A2":{"name":"Shattering Ring","id":"muGmYnLm8mWFrwoU4zsOE","target":"r3","range":3,"gate":4,"cooldown":4,"ap":60,"effects":["damage 50"]},"A3":{"name":"Erupting Ground","id":"jBRyl7F4UjTyxG5nnzLqj","target":"r3","range":3,"gate":4,"cooldown":5,"ap":60,"effects":["damage 55"]},"B01":{"name":"Cataclysm Fist","id":"I66lzvVHf8v4thxR6tEJn","target":"r5","range":5,"gate":6,"cooldown":8,"ap":60,"effects":["damage 70"]},"B02":{"name":"Annihilating Wave","id":"ZvPl6uyJfwF5EjmLHouQR","target":"r5","range":5,"gate":6,"cooldown":8,"ap":60,"effects":["damage 70"]},"B03":{"name":"Sovereign Undertow","id":"nOYLPmN3TXj6wEe_oE6HQ","target":"r5","range":5,"gate":6,"cooldown":6,"ap":60,"effects":["redirection 3"]},"B04":{"name":"Executioner Seal","id":"tRwJPlTZK9YSUV_0AacID","target":"r5","range":5,"gate":6,"cooldown":12,"ap":60,"effects":["onehitkill 100"]},"B05":{"name":"Devouring Grasp","id":"lft52q7DE_JjhR7PKXimB","target":"r5","range":5,"gate":6,"cooldown":6,"ap":60,"effects":["damage 60","drain 25/2r"]},"B06":{"name":"Split Image","id":"LQ26G2ANWkbTRL7Ry__F0","target":"ground","range":null,"gate":null,"cooldown":6,"ap":60,"effects":["clone 100/3r"]},"B07":{"name":"Stolen Form","id":"VuFuBtE7h5B1nnA2J1lFZ","target":"r4","range":4,"gate":5,"cooldown":6,"ap":60,"effects":["copy 100/3r"]},"B08":{"name":"Tempo Fracture","id":"ecRoSDPCDjO7zH-VBaFyY","target":"r4","range":4,"gate":5,"cooldown":8,"ap":60,"effects":["timecompression 100/2r"]},"B09":{"name":"Veilstep","id":"IBjVpLutojh3m9PRnIce-","target":"self","range":null,"gate":null,"cooldown":6,"ap":40,"effects":["stealth 100/2r"]},"B10":{"name":"Sovereign Ascendance","id":"yDznlfsnPaOSFtdjfCyTZ","target":"self","range":null,"gate":null,"cooldown":10,"ap":40,"effects":["increasedamagegiven 60/3r","increasedamagegiven 60/3r","decreasedamagetaken 60/3r"]},"B11":{"name":"Sovereign Malediction","id":"pJXJUSvq2kZU-tmgC12FL","target":"r4","range":4,"gate":5,"cooldown":10,"ap":60,"effects":["seal 100/2r","increasedamagetaken 60/3r","afterburn 60/3r"]},"B12":{"name":"Sovereign Ruin","id":"-M_BxzqB937XCdD1IMWW0","target":"r4","range":4,"gate":5,"cooldown":10,"ap":60,"effects":["decreasedamagegiven 60/3r","decreasedamagegiven 60/3r","decreaseheal 60/3r"]},"B13":{"name":"Hexweave","id":"_JRHgRL8pfUvt_-q1Xa3H","target":"r4","range":4,"gate":5,"cooldown":8,"ap":60,"effects":["damage 40","increasedamagetaken 40/3r","decreaseheal 60/3r","decreasestat 15/3r"]},"B14":{"name":"Cataclysm Detonation","id":"o-4SCAhJ4LHdCwcBDgJrV","target":"r5","range":5,"gate":6,"cooldown":8,"ap":60,"effects":["damage 85"]},"B15":{"name":"Feast of Marrow","id":"ubwtVj1o9q6VQ6VxOczxt","target":"r5","range":5,"gate":6,"cooldown":8,"ap":60,"effects":["damage 50","drain 100/2r"]},"B16":{"name":"Sovereign Fetters","id":"RPdeeWhFI5AIUUpJXwUlf","target":"r5","range":5,"gate":6,"cooldown":10,"ap":60,"effects":["damage 60","stun 100/2r","seal 100/2r"]},"B17":{"name":"Worldbreaker Chorus","id":"LisNuMJ2gncEByAxG6QPI","target":"r5","range":5,"gate":6,"cooldown":10,"ap":60,"effects":["damage 70","stun 100/2r"]},"B18":{"name":"Apex Hunger","id":"w4F7-w5ubgKsqYPBPvRuV","target":"self","range":null,"gate":null,"cooldown":6,"ap":40,"effects":["increasedamagegiven 60/99r","increasestat 25/99r"]},"B19":{"name":"Warrior's Poise","id":"taxbZNdm1Q7YL5AxaRssW","target":"self","range":null,"gate":null,"cooldown":5,"ap":40,"effects":["increasedamagegiven 30/3r","decreasedamagetaken 30/3r"]},"B20":{"name":"Surging Overflow","id":"AicYoMMpZmHAykb_5hYtY","target":"self","range":null,"gate":null,"cooldown":5,"ap":40,"effects":["increasedamagegiven 30/3r","increasestat 25/3r"]},"B21":{"name":"Hushed Hours","id":"cZrZDI-A4fL324nX1CGss","target":"self","range":null,"gate":null,"cooldown":5,"ap":40,"effects":["absorb 20/3r","increasedamagegiven 25/3r"]},"B22":{"name":"Compression Barrier","id":"6UE5jC71Y6nRjobkJ-UTV","target":"self","range":null,"gate":null,"cooldown":5,"ap":40,"effects":["absorb 20/3r","decreasedamagetaken 25/3r"]},"B23":{"name":"Bulwark Charge","id":"S_ix-gZcXi6RirSVpSLV0","target":"self","range":null,"gate":null,"cooldown":6,"ap":40,"effects":["increasedamagegiven 25/3r","shield 100/2r"]},"B24":{"name":"Veilstrike","id":"yOgwN1WGkwNL9qMImc9aY","target":"self","range":null,"gate":null,"cooldown":8,"ap":40,"effects":["stealth 100/1r","increasedamagegiven 60/3r","decreasedamagetaken 50/3r","heal 25"]},"B26":{"name":"Braced Strike","id":"WvLCyGsPCKSDYl6-e_D9o","target":"r5","range":5,"gate":6,"cooldown":5,"ap":60,"effects":["damage 55","decreasedamagetaken 30/2r"]},"B27":{"name":"Scorching Rend","id":"Uou0sCjZ1rwiMJZ-JWEI_","target":"r5","range":5,"gate":6,"cooldown":6,"ap":60,"effects":["damage 55","wound 15/2r","afterburn 25/2r"]},"B28":{"name":"Recoil Slam","id":"ElSK-RCrLjddEUm76FZrs","target":"r5","range":5,"gate":6,"cooldown":5,"ap":60,"effects":["damage 75","recoil 15"]},"B29":{"name":"Devouring Wave","id":"-45phqE2baTGC--lNSEx9","target":"r5","range":5,"gate":6,"cooldown":6,"ap":60,"effects":["damage 55","absorb 15/2r"]},"B30":{"name":"Suppressing Roar","id":"vWaGTnYOwiTiaMQW10y6A","target":"r5","range":5,"gate":6,"cooldown":8,"ap":60,"effects":["damage 45","decreasedamagegiven 30/2r","stun 100/1r"]},"B31":{"name":"Rallying Spiral","id":"tq_kaS3nJ4Rv4hDRRJJ6p","target":"r3","range":3,"gate":4,"cooldown":8,"ap":40,"effects":["decreasedamagetaken 25/3r","increasedamagegiven 25/3r"]},"B32":{"name":"Nullifying Wave","id":"JWZYiHKPNwYziWEFjw4Fn","target":"r5","range":5,"gate":6,"cooldown":8,"ap":60,"effects":["clear 100"]},"B33":{"name":"Piercing Judgment","id":"OyswJoalfNpmz7FsA8Hd8","target":"r5","range":5,"gate":6,"cooldown":7,"ap":60,"effects":["pierce 55","increasedamagetaken 25/2r"]},"B34":{"name":"Mirror Edge","id":"AEeRf7i9215twJ_iEugZT","target":"r5","range":5,"gate":6,"cooldown":5,"ap":60,"effects":["damage 50","reflect 30/2r"]},"B35":{"name":"Reaping Strike","id":"fuPRuLJ0vcBqSjrqdMi7o","target":"r5","range":5,"gate":6,"cooldown":5,"ap":60,"effects":["damage 50","heal 15"]},"B36":{"name":"Withering Weave","id":"-kMekZ4rR64vjMF2Jc4pe","target":"r4","range":4,"gate":5,"cooldown":5,"ap":60,"effects":["damage 30","increasedamagetaken 15/2r","decreaseheal 20/2r"]},"B37":{"name":"Fighter's Poise","id":"P0GcazZ6yvULoH4kGuh4T","target":"self","range":null,"gate":null,"cooldown":4,"ap":40,"effects":["increasedamagegiven 15/2r","decreasedamagetaken 15/2r"]},"B38":{"name":"Minor Overflow","id":"oQo27NtvRS29CABHGXP94","target":"self","range":null,"gate":null,"cooldown":4,"ap":40,"effects":["increasedamagegiven 15/2r","increasestat 12/2r"]},"B39":{"name":"Light Barrier","id":"05rH3kZNXbtFq9a9iRl-W","target":"self","range":null,"gate":null,"cooldown":5,"ap":40,"effects":["shield 100/2r"]},"EA01":{"name":"Gale Bolt","id":"SJwW0b5tO4PuBhNrLJIR2","target":"r5","range":5,"gate":6,"cooldown":3,"ap":60,"effects":["damage 45"]},"EA02":{"name":"Tempest Breaker","id":"d00wewEL2x6V3Th5gS0dh","target":"r3","range":3,"gate":4,"cooldown":5,"ap":60,"effects":["damage 60","redirection 3"]},"EA03":{"name":"Windlash Focus","id":"_9k7kSYUgMtB-AEFgRly5","target":"self","range":null,"gate":null,"cooldown":4,"ap":40,"effects":["increasedamagegiven 20/2r"]},"EA04":{"name":"Zephyr Lance","id":"A5HrHSzx4J3WM4Fln8Lbf","target":"r5","range":5,"gate":6,"cooldown":6,"ap":60,"effects":["pierce 60"]},"EE01":{"name":"Shale Bolt","id":"qymEx2jhCwmSZPJOnPuRD","target":"r5","range":5,"gate":6,"cooldown":3,"ap":60,"effects":["damage 45"]},"EE02":{"name":"Bedrock Breaker","id":"0qhjpBMtG9HSWoOWztAB1","target":"r3","range":3,"gate":4,"cooldown":5,"ap":60,"effects":["damage 60","moveprevent 100/2r","stun 100/1r"]},"EE03":{"name":"Stoneward","id":"V3WrfQ3pB-eCq2hojsxWe","target":"self","range":null,"gate":null,"cooldown":4,"ap":40,"effects":["decreasedamagetaken 20/2r"]},"EF01":{"name":"Cinder Bolt","id":"Sic286tbCpCjwaic0EX5q","target":"r5","range":5,"gate":6,"cooldown":3,"ap":60,"effects":["damage 45"]},"EF02":{"name":"Pyre Breaker","id":"EJOCWmrrUnECI2MikM8ho","target":"r3","range":3,"gate":4,"cooldown":5,"ap":60,"effects":["damage 60","wound 15/2r"]},"EF03":{"name":"Emberwake","id":"bLBu130QaqCaDlSIcEmUD","target":"r5","range":5,"gate":6,"cooldown":4,"ap":60,"effects":["damage 40","afterburn 20/2r"]},"EL01":{"name":"Arc Bolt","id":"Fkfa_oRbCPPOnBPPHlikF","target":"r5","range":5,"gate":6,"cooldown":3,"ap":60,"effects":["damage 45"]},"EL02":{"name":"Storm Breaker Volt","id":"hxNWprk1AYwH0OVX0rxaR","target":"r3","range":3,"gate":4,"cooldown":5,"ap":60,"effects":["damage 60","reflect 20/2r"]},"EL03":{"name":"Static Jolt","id":"3hMzYwiV8VOEx2XOm1CJe","target":"r5","range":5,"gate":6,"cooldown":4,"ap":60,"effects":["damage 40","stun 100/1r"]},"EL04":{"name":"Ion Lance","id":"xGVqWSX93hXZgfmlKZODp","target":"r5","range":5,"gate":6,"cooldown":6,"ap":60,"effects":["pierce 60"]},"EW01":{"name":"Tide Bolt","id":"UnQKfwq_JoRVu10aTX6Uv","target":"r5","range":5,"gate":6,"cooldown":3,"ap":60,"effects":["damage 45"]},"EW02":{"name":"Deluge Breaker","id":"UAgYZvo_7DUtmBsBAaAar","target":"r3","range":3,"gate":4,"cooldown":5,"ap":60,"effects":["damage 60","shield 100/2r"]},"EW03":{"name":"Springguard","id":"mOA1hXNf4CcuwOhnnN7ZK","target":"self","range":null,"gate":null,"cooldown":4,"ap":40,"effects":["absorb 20/2r"]},"S01":{"name":"Heavy Strike","id":"pUrUJX8Jml7fUIBXKsPwv","target":"r3","range":3,"gate":4,"cooldown":5,"ap":60,"effects":["damage 60"]},"S02":{"name":"Quick Strike","id":"FeYnH7BBw_usnc1K-TM-J","target":"r3","range":3,"gate":4,"cooldown":3,"ap":60,"effects":["damage 45"]},"S03":{"name":"Lunging Strike","id":"_nUaGHlWhn3-U0xbxJHFw","target":"r4","range":4,"gate":5,"cooldown":4,"ap":60,"effects":["damage 45"]},"S04":{"name":"Opening Strike","id":"Cw51Wm_Uy0GiIkiEjlQtn","target":"r4","range":4,"gate":5,"cooldown":3,"ap":60,"effects":["damage 40","increasedamagetaken 15/2r"]},"S06":{"name":"Twin Shot","id":"3v9c1SHlD2GLPF2HW1_Sc","target":"r5","range":5,"gate":6,"cooldown":3,"ap":60,"effects":["damage 45"]},"S07":{"name":"Rapid Fire","id":"Nrxc8m9utE9qaD_gWpLgf","target":"r5","range":5,"gate":6,"cooldown":2,"ap":60,"effects":["damage 40"]},"S08":{"name":"Numbing Shot","id":"m-ur3A8TS8r5jGb84L9x7","target":"r5","range":5,"gate":6,"cooldown":4,"ap":60,"effects":["damage 40","stun 30/1r"]},"S27":{"name":"Weakening Strike","id":"YiRdVytsdxFzZtqkEDs5Q","target":"r5","range":5,"gate":6,"cooldown":4,"ap":60,"effects":["damage 40","decreasedamagegiven 20/2r"]},"S28":{"name":"Enervating Strike","id":"mpHuTrJX7EonpuW_jBunt","target":"r5","range":5,"gate":6,"cooldown":4,"ap":60,"effects":["damage 40","decreasestat 15/2r"]},"S29":{"name":"Venom Strike","id":"LiVOnYq6qHzjB0XkIIA2e","target":"r5","range":5,"gate":6,"cooldown":5,"ap":60,"effects":["damage 40","poison 20/2r"]},"S30":{"name":"Searing Strike","id":"OWAm8o12bkZUMAAHLoGLz","target":"r5","range":5,"gate":6,"cooldown":4,"ap":60,"effects":["damage 40","afterburn 20/2r"]},"S31":{"name":"Unraveling Strike","id":"1OhP0StX4VTsosWtCxhsG","target":"r3","range":3,"gate":4,"cooldown":5,"ap":60,"effects":["damage 40","clear 100"]},"S32":{"name":"Lingering Strike","id":"YD9GEwXU6LDuIC06TGzWG","target":"r5","range":5,"gate":6,"cooldown":4,"ap":60,"effects":["damage 40","cleanseprevent 100/2r"]},"S33":{"name":"Marking Volley","id":"mQ7-q8q46ry5njNVBFpGp","target":"r5","range":5,"gate":6,"cooldown":5,"ap":60,"effects":["damage 50","increasedamagetaken 15/2r"]},"S34":{"name":"Purging Stance","id":"HcAs8gBtvopPZkjP8HCC2","target":"self","range":null,"gate":null,"cooldown":5,"ap":40,"effects":["cleanse 100"]},"S35":{"name":"Second Wind","id":"STu1VHNcfgeC3x-UiQDgt","target":"self","range":null,"gate":null,"cooldown":6,"ap":40,"effects":["heal 15"]},"S36":{"name":"Warding Stance","id":"hh-FMFv67CAL10DA35K2T","target":"self","range":null,"gate":null,"cooldown":5,"ap":40,"effects":["debuffprevent 100/2r"]},"S38":{"name":"Glancing Strike","id":"u7AMx4nbPsU_ev8mfi5yG","target":"r5","range":5,"gate":6,"cooldown":3,"ap":60,"effects":["damage 12"]},"S39":{"name":"Bruising Blow","id":"Rufs-Y-FZIDooXO7g6k0F","target":"r5","range":5,"gate":6,"cooldown":4,"ap":60,"effects":["damage 25"]},"S40":{"name":"Measured Strike","id":"kkGDat1XWUxhOQ1_T5025","target":"r5","range":5,"gate":6,"cooldown":3,"ap":60,"effects":["damage 20"]},"S41":{"name":"Steady Strike","id":"fKvCGRgzGNskgFWocQCAg","target":"r5","range":5,"gate":6,"cooldown":3,"ap":60,"effects":["damage 30"]},"S42":{"name":"Forceful Strike","id":"4TM6iS8P0qgNHsFpALFhg","target":"r5","range":5,"gate":6,"cooldown":3,"ap":60,"effects":["damage 40"]},"S43":{"name":"Heavy Cut","id":"Vo8N1luCT0p48y7JzKe84","target":"r5","range":5,"gate":6,"cooldown":4,"ap":60,"effects":["damage 45"]},"S44":{"name":"Sundering Blow","id":"b7ZOgdZmhZiUbCVrmQiwH","target":"r5","range":5,"gate":6,"cooldown":4,"ap":60,"effects":["damage 50"]}}}`);
 
   var POOL_RECORDS = Object.freeze(b_DATA_pool_default.records ?? {});
@@ -4077,6 +4117,7 @@
       }
       if (it.entity === "aiProfile" && it.op === "create") problems.push(`item ${it.idx}: aiProfile cannot be created directly; create an ai with rules`);
       if ("refreshPackages" in it && (it.refreshPackages !== true || it.entity !== "dungeon" || it.op !== "update")) problems.push(`item ${it.idx} (${it.name}): refreshPackages is true or absent, and only on a dungeon edit`);
+      if ("livePatch" in it) for (const p of livePatchProblems(it)) problems.push(`item ${it.idx} (${it.name}): ${p}`);
     }
     let poolResolved = 0;
     for (const it of items) {
@@ -4205,6 +4246,7 @@
       ...it.expected !== void 0 ? { expected: it.expected } : {},
       ...it.reassign === true ? { reassign: true } : {},
       ...it.refreshPackages !== void 0 ? { refreshPackages: it.refreshPackages } : {},
+      ...it.livePatch !== void 0 ? { livePatch: it.livePatch } : {},
       ...it.suggestion && typeof it.suggestion === "object" ? { suggestion: it.suggestion } : {}
     };
   }
@@ -4247,7 +4289,7 @@
       name: it.name,
       srcId: it.srcId,
       targetId: it.targetId,
-      payloadHash: payloadHash({ data: it.data, targetId: it.targetId, entity: it.entity, op: it.op })
+      payloadHash: payloadHash({ data: it.data, targetId: it.targetId, entity: it.entity, op: it.op, ...it.livePatch ? { livePatch: it.livePatch } : {} })
     }));
   }
 
@@ -4782,16 +4824,22 @@
         }
         if (planned.expected && !deepEqualPayload(writableSnapshot(item.entity, live.data), planned.expected)) throw new Paused("STALE_PREVIEW", { idx: item.idx, detail: "record changed since preview; prepare a new job" });
       }
-      const problems = this.validator.problems(item.entity, data, live.data, { refreshPackages: planned.refreshPackages === true });
+      let sendData = data, lp = null;
+      if (planned.livePatch) {
+        lp = applyLivePatch(planned.livePatch, live.data);
+        if (!lp.targeted) throw new Error("livePatch: no effect on the live record uses a listed asset; check the target and asset list");
+        sendData = { ...data, ...lp.data };
+      }
+      const problems = this.validator.problems(item.entity, sendData, live.data, { refreshPackages: planned.refreshPackages === true });
       if (problems.length) throw new Error("pre-send validation: " + problems.join("; "));
-      const payload = mergeForUpdate(item.entity, live.data, data, this.validator.knownFields(item.entity));
+      const payload = mergeForUpdate(item.entity, live.data, sendData, this.validator.knownFields(item.entity));
       const decoded = await this._send(jobId, item, { phase: "update" }, rc.update, updateInput(rc, id2, payload), reserved, expect);
       const o = readMutation(decoded);
       await this.cache.invalidateRecord(rc.cacheEntity, id2);
       if (o.kind === "ok") {
         const next = item.entity === "ai" && Array.isArray(planned.data.rules) ? "rules" : "verify";
         const refreshed = item.entity === "dungeon" ? packageDrops(payload) : [];
-        this.journal.transition(jobId, item.idx, "CONFIRMED", { entityId: id2, phase: next, asserted: Object.keys(data), ...refreshed.length ? { packagesRefreshed: refreshed } : {} });
+        this.journal.transition(jobId, item.idx, "CONFIRMED", { entityId: id2, phase: next, asserted: Object.keys(data), ...refreshed.length ? { packagesRefreshed: refreshed } : {}, ...lp ? { livePatched: { targeted: lp.targeted, changed: lp.changed, mixed: lp.mixed } } : {} });
         if (isBloodrightEntity(item.entity)) this._remember(item.srcId, id2);
         return;
       }
@@ -4918,7 +4966,7 @@
           this.journal.annotate(jobId, item.idx, { verify: "unread", phase: "verify" });
           return;
         }
-        diffs.push(...diffAsserted(item.entity, data, live.data));
+        diffs.push(...diffAsserted(item.entity, data, live.data), ...livePatchDiffs(planned.livePatch, live.data));
       }
       if (item.entity === "ai" && Array.isArray(planned.data.rules) || item.entity === "aiProfile") {
         if (!item.aiProfileId) {
@@ -5396,8 +5444,8 @@
       const { value: data, unresolved } = resolveRefs(planned.data, ctx.lookup ?? (() => void 0));
       if (unresolved.length) return { action: "orphan", candidates: [], note: "cannot compare: unresolved refs " + unresolved.map((u) => `@${u.pfx}:${u.key}`).join(", ") };
       const comparable = Object.keys(data).filter((k) => !SERVER_OWNED.includes(k));
-      if (!comparable.length) return { action: "orphan", candidates: [], note: "cannot compare: no asserted keys to check" };
-      const diffs = diffAsserted(item.entity, data, live.data);
+      if (!comparable.length && !planned.livePatch) return { action: "orphan", candidates: [], note: "cannot compare: no asserted keys to check" };
+      const diffs = [...diffAsserted(item.entity, data, live.data), ...livePatchDiffs(planned.livePatch, live.data)];
       if (!diffs.length) return { action: "confirm", entityId: item.entityId, phase: "verify", landed: true, note: "update already landed: asserted keys match live" };
       return { action: "orphan", candidates: [], note: "update may not have landed: live differs on " + diffs.map((d) => d.key).join(", "), diffs };
     }
