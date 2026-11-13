@@ -115,3 +115,9 @@ very expensive (Cyclone Palm Strike level 19 quoted 1,949,575 ryo for one level;
 | 2026-11-13 02:25 | Ryūsa Kōka | 12 | 87,924 | queued (active Divine Pulse 12 ends ~02:30; waiting Raijin 12, Earth Armor 12, FCG 12, Ryūsa Kōka 12; ends ~06:30). Pocket 9.63M, no withdrawal. Waking the character drew an immediate PvP attack (Luminous, battle X-MJ9pJGWSkOn-teg8y4r, 02:25:55); the refill job doesn't fight or flee, so no stat training and no sleep; character left AWAKE IN BATTLE; director notified |
 | 2026-11-13 04:23 | Limit Breaker | 13 | 127,148 | queued |
 | 2026-11-13 04:23 | Mental Fortress | 13 | 127,148 | queued (active ends ~04:30; waiting FCG 12, Ryūsa Kōka 12, Limit Breaker 13, Mental Fortress 13; ends ~08:30). Pocket 9.36M, no withdrawal. Waking the character drew an immediate PvP attack again (AngelSaber, COMBAT battle u3su-FSTOvyM3W9vFTs7a, 04:23:29, both at 5,050 HP); the refill job doesn't fight or flee, so no stat training and no sleep; character left AWAKE IN BATTLE in 177; director notified |
+| 2026-11-13 09:22 | bank.toPocket 10,000,000 | | | pocket was 150,531, now 10,150,531 |
+| 2026-11-13 09:23 | Ethereal Nexus | 12 | 181,075 | started (queue was empty; powerPerLevel 0.4 checked) |
+| 2026-11-13 09:23 | Divine Pulse | 13 | 127,148 | queued |
+| 2026-11-13 09:23 | Earth Armor | 13 | 74,961 | queued |
+| 2026-11-13 09:23 | Raijin's Judgement | 13 | 74,961 | queued |
+| 2026-11-13 09:23 | First Chakra Gate | 13 | 74,961 | queued (active Ethereal Nexus 12 ends ~10:23; waiting Divine Pulse 13, Earth Armor 13, Raijin 13, FCG 13; ends ~14:23). Pocket 9.62M. 4,550 energy to intelligence (+549.86); asleep in 177 |
