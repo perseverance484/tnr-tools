@@ -89,12 +89,6 @@ def _claim(live, token, n):
     return os.path.join(live, "hook", f"{token}.{n}.json")
 
 
-def _done(live, token, n):
-    """Call n has been made and answered, or was refused after its turn had come."""
-    return (bool((relay.read(_claim(live, token, n)) or {}).get("refused"))
-            or os.path.exists(relay.put_path(live, token, n)))
-
-
 def _first(live, token):
     """The hooks run in front of this batch's calls. Said once a batch: what is on record of any other batch
     is of no use any more, and goes."""
@@ -205,7 +199,7 @@ def _turn(live, token, n, sleep):
     if not os.path.exists(_claim(live, token, n - 1)):
         return f"call {n - 1} of the batch comes first"
     waited = 0.0
-    while not _done(live, token, n - 1):
+    while not os.path.exists(relay.put_path(live, token, n - 1)):
         if waited >= TURN:
             return f"call {n - 1} of the batch has not been answered"
         sleep(LOOK)
@@ -245,8 +239,7 @@ def release(live, inp, sleep=time.sleep):
     if wait > 0:
         sleep(wait)
     why = _may(holding(live), inp, token, n, time.time())             # the wait is over: is it still so?
-    if why:
-        relay.write(_claim(live, token, n), {"use": inp.get("tool_use_id"), "refused": why})
+    if why:                                                       # (whatever it is, it holds for the calls behind)
         return None, why
     return {"endpointName": step["call"], "input": step["input"], "select": step["select"]}, None
 
