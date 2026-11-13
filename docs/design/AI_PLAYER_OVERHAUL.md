@@ -304,6 +304,13 @@ entirely.
   conversation grows by a few hundred tokens a batch whatever is read. The same hook refuses whatever is not
   the next call of the batch the relay holds: a call the brain did not make cannot reach the game through the
   relay. A relay without hooks is printed the calls themselves, as below.
+  - A batch is closed before it is handed in (`player/hooked.py`; review of 184ce648). The hook in front of
+    `brain next` waits for every call of the batch that is out, then records how each line ended. After that
+    no call of the batch goes, and the brain is handed what that record says, the same however often
+    `brain next` is run. A call still out is handed in as an error; a result that comes later is kept aside
+    and not handed in.
+  - No hook removes what another batch has on record. A batch's records go when the brain has its results.
+  - A result is replaced by "ok" in the model's conversation only once it is written down for the brain.
 - **Tokens in are what the relay pays for, so every response is trimmed at the source.**
   - Every call carries a `select` of only the fields the brain uses.
   - Lists are read as columns, e.g. the ground list (~8× smaller).

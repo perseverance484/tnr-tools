@@ -56,7 +56,7 @@ import traceback   # noqa: F401
 import weakref     # noqa: F401
 
 from .. import config as C
-from .. import console, hook, registry, relay  # noqa: F401
+from .. import console, hooked, registry, relay  # noqa: F401
 from ..budget import UPDATE, Budget  # noqa: F401
 from ..combat import Combat  # noqa: F401
 from ..gates import Gates  # noqa: F401
@@ -89,7 +89,7 @@ def main(argv=None):
     if cmd == "run":
         return run(live)
     if cmd == "next":
-        rest, hooks = hook.told(argv[1:])                          # (the id the relay's hook put behind it)
+        rest, hooks = hooked.told(argv[1:])                        # (the id the relay's hook put behind it)
         return next_batch(live, rest[0] if rest else None, hooks=hooks)
     if cmd == "put" and len(argv) == 3:
         return put(live, argv[1], argv[2], sys.stdin.read())

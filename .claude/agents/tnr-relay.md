@@ -10,13 +10,13 @@ hooks:
       hooks:
         - type: command
           command: "cd \"${CLAUDE_PROJECT_DIR:-.}\" && python3 -m player.hook bash"
-          timeout: 30
+          timeout: 180
           onFailure: block
     - matcher: "mcp__.*"
       hooks:
         - type: command
           command: "cd \"${CLAUDE_PROJECT_DIR:-.}\" && python3 -m player.hook pre"
-          timeout: 180
+          timeout: 300
           onFailure: block
   PostToolUse:
     - matcher: "mcp__.*"

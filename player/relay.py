@@ -24,7 +24,7 @@ import time
 from . import config as C
 from .world import RATE_LIMITED, Result
 
-PROTOCOL = 8
+PROTOCOL = 9
 """What `brain next` and the brain mean by what they keep for each other, and the rules a batch is made under.
 Each of these carries the number of the code that made it: live/client.json and a request (`brain next`), an
 answer, the batch waiting to be printed that is made of it, the receipt, and the call ledger (the brain). One
@@ -66,9 +66,11 @@ a batch's calls. When in doubt, change it: a new number costs the operator one w
      switched off or not. Under 6 a replacement's earlier read let a second batch of purchases through, and
      the hunt on (re-review of 87e497a6, H2 to H4): batches this version would not have made.
   8  a relay whose `brain next` comes through its hook (player/hook.py) is printed stand-ins, not calls, and
-     its results come from the hooks, never from its transcript. client.json says which kind a relay is and
-     keeps the batch's steps for the hook, which lets a call through under rules of its own. Under 7 a file
-     says neither: a relay it names would be printed calls its hooks refuse."""
+     its results come from the hooks. client.json says which kind a relay is and keeps the batch's steps for
+     the hook. Under 7 a file says neither: a relay it names would be printed calls its hooks refuse.
+  9  such a relay's batch is closed by its hook before it is handed in, and the brain is handed what is on
+     record of the closing (player/hooked.py). Under 8 (184ce648, never run) `brain next` took what was
+     there, and a batch held under 8 has no such record to go by (review of 184ce648, H1 to H3)."""
 
 
 def ours(record):
@@ -172,8 +174,7 @@ def read_batch(path, token, expected, hooked=False):
     "hooks": hooked}. A request is counted once however many transcript lines it spans. The plan's limits do
     not count the three kinds of prompt token alike (RUL-2026-11-13-156), so they are kept apart.
 
-    hooked: the relay's hooks hand its results in (player/hook.py). Its transcript has a stand-in for each call
-    and "ok" for each result, so nothing of it is a result and nothing is a stray: it is read for the usage."""
+    hooked: the relay's hooks hand its results in (player/hook.py): its transcript is read for the usage only."""
     made, answers, cost = _span(path, token)
     out = []
     for ep, inp in [] if hooked else expected:

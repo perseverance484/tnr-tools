@@ -99,10 +99,11 @@ One runner at a time may write to the game on this account (`docs/workflows/FORG
 
 ## Hooks
 
-The relay's agent (`.claude/agents/tnr-relay.md`) declares four hooks (`player/hook.py`). With them the model
-in the relay is printed a stand-in for each call, a hook puts the real call in, and another takes the result
-out and hands it to the brain. The model's conversation then holds no call and no result, which is most of
-what a relay costs (RUL-2026-11-13-156, RUL-2026-11-13-157).
+The relay's agent (`.claude/agents/tnr-relay.md`) declares four hooks (`player/hook.py`; what they keep of a
+batch is in `player/hooked.py`). With them the model in the relay is printed a stand-in for each call, a hook
+puts the real call in, and another takes the result out and hands it to the brain. The model's conversation
+then holds no call and no result, which is most of what a relay costs (RUL-2026-11-13-156,
+RUL-2026-11-13-157).
 
 - **Before the first session on a machine.** Claude Code 2.1.295 or later. Start the relay from the
   repository's root, in a folder whose trust dialog you have accepted: until then Claude Code runs the agent
@@ -110,18 +111,27 @@ what a relay costs (RUL-2026-11-13-156, RUL-2026-11-13-157).
   name on the agent's `tools:` line.
 - **Which kind a relay is.** `live/client.json`, `hooks`: the relay's id, or nothing. `live/tokens.jsonl`,
   `hooks`: true for a batch such a relay carried; `cached` and `written` there are what the plan counts by.
-  `live/hook/log.jsonl`: every hook that ran, and why a call was refused.
+  `live/hook/log.jsonl`: every hook that ran, and why a call was refused or a result was not handed in.
 - **A relay without hooks plays as before**, and costs what it did. That is what you get when the hooks do
   not run at all: the brain is not told otherwise, and prints the calls themselves.
 - **`STOP the relay's hooks are not running`.** The relay's `brain next` came through its hook, so it was
   printed stand-ins; but no hook ran in front of its connector calls, or its `brain next` came back without
-  the hook. Nothing it was printed reached the game: a stand-in names no endpoint. The usual cause is the
-  tool's name (above). End that relay, say `stopped` for the batch it had, and start one when the cause is
-  found.
-- **What the hook refuses** is not made: a call that is not the next line of the batch the relay holds, a
-  second copy of one, a call after the run lock's cutoff, a call of a relay that was replaced. So a replaced
-  relay with hooks makes no call from the moment the new one is named. The ledger still holds its batch until
-  it comes back or you say `stopped`: the word is as cheap as before, and now it is true sooner.
+  the hook, or with the id and no hook in front of it (run by hand). Nothing it was printed reached the game:
+  a stand-in names no endpoint. The usual cause is the tool's name (above). End that relay, say `stopped` for
+  the batch it had, and start one when the cause is found.
+- **What the hook refuses** is not made: a call that is not a line of the batch the relay holds, a second
+  copy of one, a call whose line before it was left out or refused, a call after the run lock's cutoff, a
+  call of a batch the relay has come to hand in, a call of a relay that was replaced. So a replaced relay
+  with hooks makes no call from the moment the new one is named. The ledger still holds its batch until it
+  comes back or you say `stopped`: the word is as cheap as before, and now it is true sooner.
+- **`brain next` may take two minutes to start.** Its hook first waits for every call of the batch that went
+  to the connector and has not come back, 120 seconds at most, and 2 seconds for a line the relay left out.
+  A call still out after that is handed to the brain as an error saying so; the brain reads again.
+- **`live/hook/late/`** holds results that came too late to be handed in: for a batch that was closed by
+  then, or one whose relay had been replaced. The brain does not take them, as it takes no late result from a
+  relay without hooks. They are there for you to read, and go when they are an hour old. A result the hook
+  could not write down at all is left in the relay's conversation, and `brain next` takes it from the relay's
+  transcript: `live/hook/log.jsonl` says "could not be handed in" when that happened, which means the disk.
 - **A relay with hooks runs one command**, `brain next`. Its hook refuses every other, `brain stopped` and
   `brain set` among them: those are yours.
 

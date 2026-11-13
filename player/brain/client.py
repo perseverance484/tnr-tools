@@ -12,7 +12,7 @@ import time
 
 from .. import brain as B
 from .. import config as C
-from .. import hook, relay
+from .. import hooked, relay
 from ..budget import UPDATE
 from ..runlock import given_up, lapsed
 from ..world import World, counted, print_of, seen
@@ -30,33 +30,33 @@ def _transcript(state, sleep):
 
 def _collect(live, state, sleep=time.sleep):
     """The results of the batch this relay was last given: from its own transcript when one carries the batch's
-    token, else the ones it handed in with `brain put` for that token. Returns (results, usage, strays, the
+    token, else the ones it handed in with `brain put` for that token; of a relay with hooks, what is on record
+    of the batch's closing. Returns (results, usage, strays, the
     transcript's path or None). Nothing of this batch is removed here: a `brain next` that dies before the
     brain has answered leaves the results where the next one finds them."""
     token, expected = state["token"], [tuple(c) for c in state.get("calls") or []]
-    path, hooked = _transcript(state, sleep), bool(state.get("hooks"))
-    results, usage, strays = [], {}, 0
+    path, results, usage, strays = _transcript(state, sleep), [], {}, 0
     if path:
         try:
-            results, usage, strays = relay.read_batch(path, token, expected, hooked)
+            results, usage, strays = relay.read_batch(path, token, expected, bool(state.get("hooks")))
         except OSError:
             path = None
+    if state.get("hooks"):                                         # its hooks handed them in: player/hooked.py
+        return hooked.handed_in(live, state, path), usage, 0, path
     inbox = os.path.join(live, "inbox")
     for name in sorted(f for f in os.listdir(inbox) if f.startswith("put-")):
         if not name.startswith(f"put-{token}-"):
             os.unlink(os.path.join(inbox, name))                   # a result for any other batch is dropped
             continue
         row = relay.read(os.path.join(inbox, name))                # this batch's stay until the brain has them
-        if row and (hooked or not path):
+        if row and not path:
             results.append(relay.unpack([row])[0])
     return results, usage, strays, path
 
 
 def _taken(live, token):
-    """The brain has this batch's results: the ones handed in with `brain put` can go."""
-    for path in glob.glob(os.path.join(live, "inbox", f"put-{token}-*.json")):
-        with contextlib.suppress(OSError):
-            os.unlink(path)
+    """The brain has this batch's results: the ones handed in for it can go (player/hooked.py, consumed)."""
+    hooked.consumed(live, token)
 
 
 @contextlib.contextmanager
@@ -177,7 +177,7 @@ def next_batch(live=None, token=None, out=sys.stdout, sleep=time.sleep, hooks=No
 def _greet(client, state, token, hooks=None):
     """What to say to a `brain next` that hands nothing in: a new relay gets its name and its first line, a
     replaced one is told to stop, a second call for the same batch gets the current line. None for a relay that
-    is handing in the batch it was last given, unless its hooks have failed it (player/hook.py, stop).
+    is handing in the batch it was last given, unless its hooks have failed it (player/hooked.py, stop).
 
     A new relay replaces the one that was running. A batch that one still holds (it was printed to it, and the
     brain has not had its results) is gone with it. When a replaced relay comes back with the very token of a
@@ -202,7 +202,7 @@ def _greet(client, state, token, hooks=None):
             state["ended"] = (state.get("ended") or []) + [[was["id"], time.time(), token, "back"]]
             relay.write(client, state)
         return SUPERSEDED
-    return hook.stop(os.path.dirname(client), state, hooks)       # (a relay whose hooks cannot be relied on)
+    return hooked.stop(os.path.dirname(client), state, hooks)     # (a relay whose hooks cannot be relied on)
 
 
 def _exchange(live, client, state, sleep):

@@ -12,6 +12,13 @@ What must hold:
 - a relay whose hooks do not run sends nothing into the game, and is stopped;
 - a relay without hooks is given its batches as before.
 
+And since the review of 184ce648 (player/hooked.py):
+- no hook removes what is on record of a batch, so no call goes twice when a relay is replaced (H1);
+- a batch is closed before it is handed in: every call that went is waited for, nothing of it goes after, and
+  the brain is handed the same however often `brain next` is run (H2);
+- a result is taken out of the model's sight only when it is written down for the brain (H3);
+- calls whose hooks start together still go in order.
+
 The hooks are run here the way Claude Code runs them: each gets the hook's input as a dict and gives its answer.
 What that input holds is taken from a probe of Claude Code 2.1.323 (docs/reviews/evidence/ai_player_hook_relay).
 """
@@ -21,10 +28,11 @@ import json
 import os
 import re
 import subprocess
+import threading
 import unittest
 from unittest import mock
 
-from player import brain, calls as K, config as C, hook, relay
+from player import brain, calls as K, config as C, hook, hooked, relay
 from player.brain.core import Brain
 from player.tests.support import FOE, Rig, fixture, user
 from player.tests.test_relay import token_of, transcript
@@ -32,6 +40,9 @@ from player.tests.test_rereview9 import WhatAVersionBeforeLeft
 
 BEFORE = "661f3f63f9bd51887c402ce00f76e8e9735cb2ea"
 """The head this was built on (AP2's first part, approved): protocol 7."""
+
+REVIEWED = "184ce648a0268c8e4b280f280392938b6ee371ac"
+"""The first head with hooks, as it was reviewed (request changes; never run): protocol 8."""
 
 TOOL = "mcp__Tnr__callEndpoint"
 AGENT = "a1b2c3d4e5f60718"
@@ -72,30 +83,32 @@ class Hooks(unittest.TestCase):
         row.update(more)
         return row
 
-    def bash(self, command, agent=AGENT, **more):
-        """The Bash hook's answer to a command: (the command that is run, None) or (None, why it is refused)."""
-        said = hook.run("bash", self.inp("Bash", {"command": command, "description": "x"}, agent, **more), self.r.dir)
+    def bash(self, command, agent=AGENT, meanwhile=None, **more):
+        """The Bash hook's answer to a command: (the command that is run, None) or (None, why it is refused).
+        meanwhile: what happens while the hook waits (it is told each wait)."""
+        said = hook.run("bash", self.inp("Bash", {"command": command, "description": "x"}, agent, **more), self.r.dir,
+                        meanwhile or self.sleep)
         said = said["hookSpecificOutput"]
         if said["permissionDecision"] == "allow":
             self.assertEqual(said["updatedInput"]["description"], "x")      # (the rest of the input is kept)
             return said["updatedInput"]["command"], None
         return None, said["permissionDecisionReason"]
-
-    def next(self, token=None, agent=AGENT, hooked=True):
+    def next(self, token=None, agent=AGENT, hooked=True, meanwhile=None):
         """The relay runs its `brain next` line. -> (the token to come back with, the batch's lines but the
-        last, every line)."""
+        last, every line). self.waited: how long the hook in front of it waited."""
         command = "python3 -m player.brain next" if token is None else json.loads(relay.next_line(token))["bash"]
         hooks = None
         if hooked:
-            command, why = self.bash(command, agent)
+            before = len(self.slept)
+            command, why = self.bash(command, agent, meanwhile)
             self.assertIsNone(why)
             command, hooks = command.split(" --hooks ")
+            self.waited = round(sum(self.slept[before:]), 6)
         out = io.StringIO()
         brain.next_batch(self.r.dir, token, out, self.sleep, hooks=hooks)
         lines = out.getvalue().splitlines()
         stop = lines[-1].startswith("STOP")
         return (None if stop else token_of(lines[-1])), [json.loads(x) for x in lines[:None if stop else -1] if x[:1] == "{"], lines
-
     def call(self, line, agent=AGENT, tool=TOOL, sleep=None):
         """The model makes one tool call for a line it was printed. -> what it is shown for it."""
         asked = {"endpointName": line["call"], "input": line["input"]}
@@ -118,9 +131,41 @@ class Hooks(unittest.TestCase):
         return self.shown[-1]
 
     def after(self, inp, real, response):
+        """The hook behind a call that was answered. -> what the model is shown in the result's place, or None
+        when it is shown the result itself."""
         done = dict(inp, hook_event_name="PostToolUse", tool_input=real, tool_response=response, duration_ms=400)
-        return hook.run("post", done, self.r.dir)["hookSpecificOutput"]["updatedToolOutput"]
+        said = hook.run("post", done, self.r.dir)
+        return said and said["hookSpecificOutput"]["updatedToolOutput"]
 
+    def sent(self, line, agent=AGENT, **more):
+        """The model's tool call for a line, as far as the hook in front of it. -> (the hook's input, the real
+        call, which is with the connector from now; or None when the hook refused it)."""
+        inp = self.inp(TOOL, {"endpointName": line["call"], "input": line["input"]}, agent, **more)
+        real = hook.run("pre", inp, self.r.dir, self.sleep)["hookSpecificOutput"].get("updatedInput")
+        if real:
+            self.game.append(real)
+        return inp, real
+
+    def comes(self, inp, real):
+        """The connector's answer to a call that went. -> what the model is shown for it."""
+        return self.after(inp, real, [{"type": "text", "text": json.dumps(self.answer(real))}])
+
+    def refused(self, line, **kw):
+        n = len(self.game)
+        why = self.call(line, **kw)
+        self.assertEqual(len(self.game), n, why)                            # the game did not see it
+        self.assertIsInstance(why, str)
+        return why
+
+    def kept(self):
+        """What is on record of the relay's batches (live/hook), but the lock and the log."""
+        folder = os.path.join(self.r.dir, "hook")
+        return sorted(os.path.relpath(os.path.join(root, f), folder) for root, _, names in os.walk(folder)
+                      for f in names if f not in ("lock", "log.jsonl"))
+
+    def puts(self):
+        """The results that are handed in and wait for the brain."""
+        return sorted(f for f in os.listdir(os.path.join(self.r.dir, "inbox")) if f.startswith("put-"))
     def answer(self, real):
         """The game."""
         ep = real["endpointName"]
@@ -246,14 +291,14 @@ class WhatSuchARelayIsPrinted(Hooks):
         token, lines = self.first_batch()
         self.does(lines)
         before = self.client()
-        self.assertEqual(self.next(token, hooked=False)[2], [hook.NO_HOOKS])    # its hook did not run this time
-        self.assertEqual(self.next(token, agent="b" * 16)[2], [hook.NO_HOOKS])  # or it is not that relay at all
+        self.assertEqual(self.next(token, hooked=False)[2], [hooked.NO_HOOKS])    # its hook did not run this time
+        self.assertEqual(self.next(token, agent="b" * 16)[2], [hooked.NO_HOOKS])  # or it is not that relay at all
         self.assertEqual(self.client(), before)                              # nothing was taken from either
         self.assertEqual(len(self.next(token)[1]), 4)                        # the relay itself carries on
 
     def test_a_relay_that_began_without_hooks_does_not_get_them_later(self):
         token, lines = self.first_batch(hooked=False)
-        self.assertEqual(self.next(token)[2], [hook.NO_HOOKS])
+        self.assertEqual(self.next(token)[2], [hooked.NO_HOOKS])
 
 
 class WhatTheHookLetsThrough(Hooks):
@@ -280,13 +325,6 @@ class WhatTheHookLetsThrough(Hooks):
         self.assertEqual(len(acts), 2)
         self.assertEqual(self.slept, [C.ACTION_GAP])                        # in front of the second action, once
         self.assertAlmostEqual(at[1] - at[0], C.ACTION_GAP + 0.4, places=3)
-
-    def refused(self, line, **kw):
-        n = len(self.game)
-        why = self.call(line, **kw)
-        self.assertEqual(len(self.game), n, why)                            # the game did not see it
-        self.assertIsInstance(why, str)
-        return why
 
     def test_anything_that_is_not_a_line_of_the_batch_is_refused(self):
         token, lines = self.first_batch()
@@ -320,35 +358,57 @@ class WhatTheHookLetsThrough(Hooks):
         token, lines = self.first_batch()
         self.does(lines)
         token, lines, _ = self.next(token)
-        self.assertIn("call 1 of the batch comes first", self.refused(lines[1]))
-        self.assertEqual(self.call(lines[0]), OK)
-        self.assertIn("call 2 of the batch comes first", self.refused(lines[2]))            # 2 was left out
-        self.assertIn("call 3 of the batch comes first", self.refused(lines[3]))
-        self.assertEqual(self.call(lines[1]), OK)                            # (refused before its turn: not used up)
-        self.assertEqual(len(self.game), 3)
+        self.slept = []
+        self.assertIn("call 1 of the batch was not made", self.refused(lines[1]))           # the second, first
+        self.assertAlmostEqual(sum(self.slept), hooked.GRACE, places=6)      # (the first was waited for, so long)
+        self.assertIn("its turn has passed", self.refused(lines[0]))         # and is passed over for good
+        self.assertIn("made already", self.refused(lines[1]))                # as the second is used up
+        self.slept = []
+        self.assertIn("call 2 of the batch was not made", self.refused(lines[2]))
+        self.assertIn("call 3 of the batch was not made", self.refused(lines[3]))
+        self.assertEqual(self.slept, [])                                     # (that is known at once)
+        self.assertEqual(len(self.game), 1)                                  # nothing of the batch went
+        self.next(token)
+        self.assertEqual(self.waited, 0)                                     # and every line of it has ended
 
-    def test_a_call_waits_for_the_one_before_it_to_be_answered(self):
-        """Claude Code may start the tool calls of one message together. The second is held until the first has
-        its answer, and is refused if that does not come."""
+    def test_calls_that_are_started_together_go_in_order_whichever_hook_runs_first(self):
+        """Claude Code may start the tool calls of one message together (review of 184ce648, check 4: a line
+        whose hook ran before the line in front of it was taken was refused, and the batch was cut there).
+        Here the hook of the last line runs first, and each hook starts while the one behind it waits."""
         token, lines = self.first_batch()
         self.does(lines)
         token, lines, _ = self.next(token)
-        first = self.inp(TOOL, {"endpointName": C.STAND_IN, "input": lines[0]["input"]})
-        real = hook.run("pre", first, self.r.dir, self.sleep)["hookSpecificOutput"]["updatedInput"]
+        shown, begun = {}, set()
+
+        def while_it_waits(n):
+            def sleep(seconds):
+                self.sleep(seconds)
+                if n > 1 and n - 1 not in begun:                             # the hook of the line in front starts
+                    begun.add(n - 1)
+                    shown[n - 1] = self.call(lines[n - 2], sleep=while_it_waits(n - 1))
+            return sleep
+        shown[4] = self.call(lines[3], sleep=while_it_waits(4))
+        self.assertEqual(shown, {n: OK for n in (1, 2, 3, 4)})
+        self.assertEqual([g["endpointName"] for g in self.game[1:]],
+                         [s["call"] for s in self.client()["steps"] if "call" in s])
+    def test_a_call_waits_for_the_one_before_it_to_be_answered(self):
+        """The second is held until the first has its answer, and is refused if that does not come."""
+        token, lines = self.first_batch()
+        self.does(lines)
+        token, lines, _ = self.next(token)
+        first, real = self.sent(lines[0])
         looks = []
 
         def then_it_answers(seconds):                                       # the first call's answer comes meanwhile
             looks.append(seconds)
             if len(looks) == 3:
-                self.after(first, real, [{"type": "text", "text": json.dumps(self.me.data)}])
+                self.comes(first, real)
         self.assertEqual(self.call(lines[1], sleep=then_it_answers), OK)
-        self.assertEqual(looks, [hook.LOOK] * 3)
-        third = self.inp(TOOL, {"endpointName": C.STAND_IN, "input": lines[2]["input"]})
-        hook.run("pre", third, self.r.dir, self.sleep)                       # the third is made, and never answered
+        self.assertEqual(looks, [hooked.LOOK] * 3)
+        self.sent(lines[2])                                                  # the third goes, and is never answered
         self.slept = []
         self.assertIn("call 3 of the batch has not been answered", self.refused(lines[3]))
-        self.assertAlmostEqual(sum(self.slept), hook.TURN, places=2)
-
+        self.assertAlmostEqual(sum(self.slept), hooked.TURN, places=6)
     def test_a_batch_that_is_not_the_one_the_relay_holds(self):
         token, lines = self.first_batch()
         self.does(lines)
@@ -360,8 +420,9 @@ class WhatTheHookLetsThrough(Hooks):
         self.assertEqual(self.call(lines[0]), OK)
 
     def test_a_batch_that_has_been_handed_in(self):
-        """From the moment the brain has a batch's results until the next batch is printed, the relay sits in
-        `brain next`. A call of the old batch that comes then (started together with it, say) is not made."""
+        """From the moment the relay comes to hand a batch in, nothing more of that batch goes: not while the
+        brain is asked, and not while the relay sits in `brain next` until the next batch is printed. A call of
+        it that comes then (started together with `brain next`, say) is not made."""
         token, lines = self.first_batch()
         self.does(lines)
         token, lines, _ = self.next(token)
@@ -370,14 +431,34 @@ class WhatTheHookLetsThrough(Hooks):
 
         def meanwhile(seconds):                                             # the brain-side wait
             self.sleep(seconds)
-            late.append(self.refused(lines[1]))
+            late.append(self.refused(lines[2]))
+        self.bash(json.loads(relay.next_line(token))["bash"])                # the hook in front of `brain next`
+        self.assertIn("handed in", self.refused(lines[1]))
         with mock.patch.object(brain, "_await", lambda *a, **k: dict(self.a_batch(), hold=2.0)):
             brain.next_batch(self.r.dir, token, io.StringIO(), meanwhile, hooks=AGENT)
         self.assertEqual(len(late), 1)
         self.assertIn("handed in", late[0])
-
+        self.assertEqual(len(self.game), 2)
     def a_batch(self, until=None):
         return {"protocol": relay.PROTOCOL, "id": "feedfeed", "steps": [K.user()], "stop": None, "until": until}
+
+    def test_a_brain_next_that_died_when_the_brain_had_the_results_is_given_the_batch_when_run_again(self):
+        token, lines = self.first_batch()
+        self.does(lines)
+
+        class Killed(Exception):
+            pass
+
+        def dies(seconds):                                                  # in the brain-side wait
+            raise Killed
+        self.bash(json.loads(relay.next_line(token))["bash"])
+        with mock.patch.object(brain, "_await", lambda *a, **k: dict(self.a_batch(), hold=2.0)), \
+                self.assertRaises(Killed):
+            brain.next_batch(self.r.dir, token, io.StringIO(), dies, hooks=AGENT)
+        self.assertEqual(self.kept(), [])                                    # (the brain has them: all is cleared)
+        new, lines, printed = self.next(token)
+        self.assertEqual((self.waited, len(lines)), (0, 1))                  # the batch that was waiting, at once
+        self.assertEqual(self.call(lines[0]), OK)
 
     def test_the_cutoff_a_batch_was_made_under_is_kept_for_the_hook(self):
         token, lines = self.first_batch()
@@ -388,15 +469,15 @@ class WhatTheHookLetsThrough(Hooks):
         self.r.t += 50
         self.assertIn("lease", self.refused(lines[0]))
 
-    def test_a_batch_the_brain_has_not_taken_yet_can_still_be_finished(self):
+    def test_a_batch_the_brain_did_not_take_stays_closed(self):
         token, lines = self.first_batch()
         self.does(lines)
         token, lines, _ = self.next(token)
         self.call(lines[0])
         with mock.patch.object(brain, "_await", lambda *a, **k: None):       # the brain gives no answer for now
             self.assertEqual(self.next(token)[2], [relay.next_line(token)])
-        self.assertEqual(self.call(lines[1]), OK)                            # nothing was taken: the batch stands
-
+        self.assertIn("handed in", self.refused(lines[1]))                   # the relay came to hand it in
+        self.assertNotEqual(self.next(token)[0], token)                      # and when the brain answers, goes on
     def test_another_agents_call_for_this_relays_batch(self):
         token, lines = self.first_batch()
         self.assertIn("another relay's", self.refused(lines[0], agent="b" * 16))
@@ -421,12 +502,40 @@ class WhatTheHookLetsThrough(Hooks):
         relay.write(os.path.join(self.r.dir, "client.json"), state)
         self.assertEqual(self.call(lines[0]), OK)
         self.assertIn("lease", self.refused(lines[1]))                       # 1.2 s on: past it, after its wait
-        self.assertIn("lease", self.refused(lines[2]))                       # and everything behind it
-        for bad in ("soon", True, self.r.t - 5, self.r.t):                   # (at the cutoff is past it)
-            state.update(until=bad, token=state["token"])
-            relay.write(os.path.join(self.r.dir, "client.json"), state)
-            self.assertIn("lease", self.refused(lines[2]), bad)
+        self.assertIn("call 2 of the batch was not made", self.refused(lines[2]))            # so nothing behind it
+        for bad in ("soon", True, -5.0, 0.0):                                # (at the cutoff is past it)
+            self.start()
+            token, lines = self.first_batch()
+            until = self.r.t + bad if isinstance(bad, float) else bad
+            relay.write(os.path.join(self.r.dir, "client.json"), dict(self.client(), until=until))
+            self.assertIn("lease", self.refused(lines[0]), bad)
 
+    def test_a_relay_that_is_replaced_while_its_call_waits(self):
+        token, lines = self.into_a_fight()
+        self.call(lines[0])
+
+        def replaced_meanwhile(seconds):                                    # the wait in front of the second action
+            self.sleep(seconds)
+            self.first_batch(agent="c" * 16)
+        self.assertIn("another relay's", self.refused(lines[1], sleep=replaced_meanwhile))
+
+    def test_a_tool_call_with_no_id_is_not_made(self):
+        token, lines = self.first_batch()
+        for bad in (None, "", 7):                                            # (its result could not be known by it)
+            inp = self.inp(TOOL, {"endpointName": C.STAND_IN, "input": lines[0]["input"]}, tool_use_id=bad)
+            said = hook.run("pre", inp, self.r.dir, self.sleep)["hookSpecificOutput"]
+            self.assertEqual(said["permissionDecision"], "deny", bad)
+        self.assertEqual(self.call(lines[0]), OK)
+
+    def test_a_hook_that_fails_with_a_line_in_its_hand_gives_the_line_up(self):
+        token, lines = self.first_batch()
+        self.does(lines)
+        token, lines, _ = self.next(token)
+        with mock.patch.object(hook, "_turn", side_effect=RuntimeError("boom")):
+            self.assertIn("the relay's hook failed", self.refused(lines[0]))
+        self.slept = []
+        self.assertIn("call 1 of the batch was not made", self.refused(lines[1]))
+        self.assertEqual(self.slept, [])                                     # (nobody waits for it)
     def test_with_no_relay_on_record_or_another_versions_file_nothing_goes(self):
         token, lines = self.first_batch()
         state = self.client()
@@ -542,15 +651,6 @@ class WhatTheBrainGets(Hooks):
         self.next(token)
         self.assertEqual(len(self.got), 1)
 
-    def test_a_result_that_cannot_be_taken_is_still_not_shown_to_the_model(self):
-        token, lines = self.first_batch()
-        inp = self.inp(TOOL, {"endpointName": C.STAND_IN, "input": lines[0]["input"]})
-        real = hook.run("pre", inp, self.r.dir, self.sleep)["hookSpecificOutput"]["updatedInput"]
-        with mock.patch.object(relay, "put", side_effect=OSError("disk")):
-            self.assertEqual(self.after(inp, real, [{"type": "text", "text": json.dumps(self.me.data)}]), OK)
-        self.next(token)
-        self.assertEqual(self.got, [])                                       # the brain is told nothing came
-
     def test_its_transcript_is_read_for_the_tokens_and_nothing_else(self):
         """A relay with hooks has a transcript too: its stand-ins, "ok" for each result, and what each request
         cost. None of those calls is a result, and none is a call the batch did not ask for."""
@@ -583,9 +683,9 @@ class ARelayWhoseHooksDoNotRun(Hooks):
         they stood, which knows no such endpoint. Nothing reached the game, and no result will ever come."""
         token, lines = self.first_batch()
         self.r.t += 2                                                       # (the model made the call: no hook ran)
-        self.assertEqual(self.next(token)[2], [hook.NO_HOOKS])
+        self.assertEqual(self.next(token)[2], [hooked.NO_HOOKS])
         self.assertEqual(self.game, [])
-        self.assertEqual(self.next(token)[2], [hook.NO_HOOKS])               # and however often it asks
+        self.assertEqual(self.next(token)[2], [hooked.NO_HOOKS])               # and however often it asks
 
     def test_a_relay_whose_hooks_have_run_is_not_stopped_for_a_batch_it_left_out(self):
         token, lines = self.first_batch()
@@ -593,30 +693,366 @@ class ARelayWhoseHooksDoNotRun(Hooks):
         token, lines, _ = self.next(token)
         self.assertTrue(self.client()["seen"])
         token, lines, printed = self.next(token)                             # it made none of the four calls
-        self.assertNotIn(hook.NO_HOOKS, printed)
+        self.assertNotIn(hooked.NO_HOOKS, printed)
         self.assertTrue(lines)
 
     def test_a_refused_call_is_a_hook_that_ran(self):
         token, lines = self.first_batch()
         self.call({"call": C.STAND_IN, "input": {"b": token, "n": 5}})       # refused: but the hook was there
-        self.assertNotIn(hook.NO_HOOKS, self.next(token)[2])
+        self.assertNotIn(hooked.NO_HOOKS, self.next(token)[2])
 
-    def test_what_is_on_record_of_a_batch_goes_with_the_next(self):
+    def test_a_batch_its_hook_did_not_close_is_not_handed_in(self):
+        """`brain next` with the relay's id behind it, and no hook in front of it: run by hand, say. What
+        the relay holds was not closed, so a call of it may still be on its way: nothing is taken."""
+        token, lines = self.first_batch()
+        self.does(lines)
+        out = io.StringIO()
+        brain.next_batch(self.r.dir, token, out, self.sleep, hooks=AGENT)
+        self.assertEqual(out.getvalue().splitlines(), [hooked.NO_HOOKS])
+        self.assertEqual(self.puts(), [f"put-{token}-001.json"])
+        self.assertEqual(len(self.next(token)[1]), 4)                        # through its hook, the relay carries on
+    def test_a_line_is_one_tool_calls_however_many_ask_for_it_at_once(self):
+        path = os.path.join(self.r.dir, "hook", "ab12cd-1.1.json")
+        self.assertTrue(hooked.once(path, {"use": "toolu_a"}))
+        with mock.patch.object(hooked.os, "getpid", return_value=os.getpid() + 1):   # (another hook's process)
+            self.assertFalse(hooked.once(path, {"use": "toolu_b"}))
+        self.assertEqual(relay.read(path), {"use": "toolu_a"})
+        self.assertEqual(self.kept(), ["ab12cd-1.1.json"])                   # (and nothing is left lying beside it)
+
+class AHookThatIsBehindTheTimes(Hooks):
+    """Review of 184ce648, H1. A hook reads who holds which batch, and may be held up before it goes on: by then
+    its relay may have been replaced. That hook then swept away what was on record of the new relay's batch
+    (the line its call had taken, the sign that its hooks run), and the new relay's call went a second time."""
+
+    def setUp(self):
+        self.start()
+        self.got = self.handed_to_the_brain()
+
+    def test_it_takes_nothing_of_the_new_relays_and_no_call_goes_twice(self):
+        old, old_lines = self.first_batch()
+        read, new = hooked.holding, {}
+
+        def read_and_be_held_up(live):
+            state = read(live)                                              # the old relay's hook reads the file;
+            if not new:
+                new["agent"] = "c" * 16
+                with mock.patch.object(hook, "holding", read):
+                    new["token"], new["lines"] = self.first_batch(agent=new["agent"])    # a new relay takes over
+                    self.assertEqual(self.call(new["lines"][0], agent=new["agent"]), OK)   # and makes its call;
+            return state
+        with mock.patch.object(hook, "holding", read_and_be_held_up):
+            self.assertIn("another relay's", self.call(old_lines[0]))        # and then the old hook goes on
+        self.assertEqual(len(self.game), 1)                                  # (its own call did not go)
+        token, line = new["token"], new["lines"][0]
+        self.assertEqual(self.kept(), sorted([f"{old}.1.json", f"{old}.seen", f"{token}.1.json", f"{token}.seen"]))
+        self.assertEqual(self.puts(), [f"put-{token}-001.json"])
+        self.assertIn("made already", self.refused(line, agent=new["agent"]))                # the same call again
+        self.assertEqual(len(self.game), 1)
+        self.next(token, agent=new["agent"])
+        self.assertEqual([(x.endpoint, x.error) for x in self.got], [(self.game[0]["endpointName"], None)])
+
+    def test_the_hooks_of_a_relay_that_was_replaced_leave_the_new_relays_batch_alone(self):
+        """Every hook of the old relay, run after the new one has taken over and made its first call."""
+        old, old_lines = self.first_batch()
+        self.does(old_lines)
+        old, old_lines, _ = self.next(old)
+        self.call(old_lines[0])
+        inp, real = self.sent(old_lines[1])                                  # one of its calls is with the connector
+        new, lines = self.first_batch(agent="c" * 16)
+        self.assertEqual(self.call(lines[0], agent="c" * 16), OK)
+        mine = [f"{new}.1.json", f"{new}.seen"]
+        before = {name: relay.read(os.path.join(self.r.dir, "hook", name)) for name in mine}
+        self.assertEqual(self.comes(inp, real), OK)                          # its result comes
+        self.assertIn("another relay's", self.refused(old_lines[2]))         # it makes another call
+        self.assertEqual(self.next(old)[2], [brain.SUPERSEDED])              # and comes to hand its batch in
+        self.assertEqual({name: relay.read(os.path.join(self.r.dir, "hook", name)) for name in mine}, before)
+        self.assertNotIn(f"{old}.closed", self.kept())                       # (it is not the old relay's to close)
+        self.assertIn(f"put-{new}-001.json", self.puts())
+        self.assertIn("made already", self.refused(lines[0], agent="c" * 16))
+
+
+class ABatchIsClosedBeforeItIsHandedIn(Hooks):
+    """Review of 184ce648, H2. `brain next` took what results were there when it ran. One that came later was
+    refused (the batch had moved on), or was added to a request the brain had answered already and then
+    removed as taken."""
+
+    def setUp(self):
+        self.start()
+        self.got = self.handed_to_the_brain()
+
+    def four(self):
         token, lines = self.first_batch()
         self.does(lines)
         token, lines, _ = self.next(token)
-        self.does(lines)
-        folder = os.path.join(self.r.dir, "hook")
-        self.assertEqual(sorted(os.listdir(folder)),
-                         [f"{token}.{k}.json" for k in (1, 2, 3, 4)] + [f"{token}.seen", "log.jsonl"])
+        self.assertEqual(len(lines), 4)
+        del self.got[:]
+        return token, lines
 
-    def test_a_call_is_one_tool_calls_however_many_ask_for_it_at_once(self):
+    def test_brain_next_waits_for_a_call_that_is_with_the_connector(self):
+        """The first schedule: Claude Code starts `brain next` while a call of the batch is still out."""
         token, lines = self.first_batch()
-        self.assertTrue(hook._mine(self.r.dir, token, 1, "toolu_a"))
-        with mock.patch.object(hook.os, "getpid", return_value=os.getpid() + 1):   # (another hook's process)
-            self.assertFalse(hook._mine(self.r.dir, token, 1, "toolu_b"))
-        self.assertEqual(relay.read(os.path.join(self.r.dir, "hook", f"{token}.1.json"))["use"], "toolu_a")
-        self.assertEqual([f for f in os.listdir(os.path.join(self.r.dir, "hook")) if f.count(".") > 2], [])
+        inp, real = self.sent(lines[0])
+        looks = []
+
+        def then_it_answers(seconds):
+            self.sleep(seconds)
+            looks.append(seconds)
+            if len(looks) == 4:
+                self.assertEqual(self.comes(inp, real), OK)
+        self.next(token, meanwhile=then_it_answers)
+        self.assertEqual(looks, [hooked.LOOK] * 4)                           # no longer than it took
+        self.assertEqual([(x.endpoint, x.data) for x in self.got], [("profile.getUser", self.me.data)])
+
+    def test_a_call_that_does_not_come_back_is_handed_in_as_unanswered(self):
+        token, lines = self.four()
+        self.call(lines[0])
+        inp, real = self.sent(lines[1])                                      # the second goes, and stays out
+        new, new_lines, _ = self.next(token)
+        self.assertEqual(self.waited, hooked.TURN + hooked.GRACE)            # it was waited for; then the two not begun
+        self.assertEqual([(x.endpoint, x.error) for x in self.got],
+                         [(self.game[-2]["endpointName"], None), (real["endpointName"], hooked.NO_ANSWER)])
+        self.assertEqual(self.kept(), [f"{token}.2.json"])                   # the open line stays, for its result
+        self.assertEqual(self.comes(inp, real), OK)                          # which comes after all: not shown,
+        self.assertEqual(self.puts(), [])                                    # not handed in with another batch,
+        self.assertEqual(self.kept(), [f"{token}.2.json", f"late/{token}.2.json"])           # and not lost
+        result = relay.unpack([relay.read(os.path.join(self.r.dir, "hook", "late", f"{token}.2.json"))])[0]
+        self.assertEqual((result.endpoint, result.input, result.data), (real["endpointName"], real["input"], self.answer(real)))
+        del self.got[:]
+        self.does(new_lines)
+        self.next(new)
+        self.assertEqual([x.endpoint for x in self.got], [g["endpointName"] for g in self.game[-len(new_lines):]])
+        self.assertIn(f"late/{token}.2.json", self.kept())
+
+    def test_a_result_that_is_there_when_the_batch_is_handed_in_is_handed_in_though_it_came_late(self):
+        """It came between the closing and `brain next`: kept aside, and the brain is handed it with the batch."""
+        token, lines = self.four()
+        self.call(lines[0])
+        inp, real = self.sent(lines[1])
+        self.bash(json.loads(relay.next_line(token))["bash"])                # closed: the second is still out
+        self.assertEqual(self.comes(inp, real), OK)
+        self.assertEqual(self.puts(), [f"put-{token}-001.json"])
+        self.assertEqual(self.kept()[-1], f"late/{token}.2.json")
+        brain.next_batch(self.r.dir, token, io.StringIO(), self.sleep, hooks=AGENT)
+        self.assertEqual([(x.endpoint, x.error) for x in self.got], [(g["endpointName"], None) for g in self.game[-2:]])
+        self.assertEqual((self.kept(), self.puts()), ([f"{token}.2.json"], []))             # (late/ holds what was not)
+
+    def test_a_brain_next_that_died_hands_in_the_same_when_it_is_run_again(self):
+        """The second schedule: the brain answers the request, and `brain next` dies before it has the answer.
+        The relay runs its line again. Whatever has come meanwhile, the brain is handed what it was handed."""
+        token, lines = self.four()
+        self.call(lines[0])
+        inp, real = self.sent(lines[1])
+        answer = brain._await
+
+        class Killed(Exception):
+            pass
+
+        def answered_and_then_it_dies(*a, **k):
+            answer(*a, **k)
+            raise Killed
+        with mock.patch.object(brain, "_await", answered_and_then_it_dies), self.assertRaises(Killed):
+            self.next(token)
+        first, kept = self.asks[-1]["results"], self.kept()
+        self.assertEqual(len(first), 2)
+        self.assertEqual(self.comes(inp, real), OK)                          # the second call's result comes now
+        new, new_lines, _ = self.next(token)
+        self.assertEqual(self.waited, 0)                                     # (closed once: nothing is waited for again)
+        self.assertEqual(self.asks[-1]["results"], first)
+        self.assertEqual(len(self.got), 4)                                   # (twice the same two)
+        self.assertEqual(self.kept(), [f"{token}.2.json", f"late/{token}.2.json"])
+        self.assertEqual(self.puts(), [])
+        self.assertTrue(new_lines)
+
+    def test_the_second_schedule_as_the_review_ran_it(self):
+        """The request with the first result is written, `brain next` dies before the brain answers, a brain
+        at home answers the request, and then the relay makes the second call. That call went then; its
+        result was added to the request that was made again, and removed unread. Now it does not go."""
+        token, lines = self.four()
+        self.call(lines[0])
+
+        class Killed(Exception):
+            pass
+
+        def dies(*a, **k):
+            raise Killed
+        with mock.patch.object(brain, "_await", dies), self.assertRaises(Killed):
+            self.next(token)
+        (request,) = relay.pending_requests(self.r.dir)
+        brain.serve(brain.Brain(self.r.dir), self.r.dir, request)            # a brain at home answers it
+        self.assertIn("handed in", self.refused(lines[1]))
+        self.assertNotEqual(self.next(token)[0], token)                      # the relay runs its line again
+        first, again = [a["results"] for a in self.asks[-2:]]
+        self.assertEqual((len(first), again), (1, first))
+        self.assertEqual((self.puts(), self.kept()), ([], []))
+
+    def test_a_line_that_has_not_gone_when_the_batch_is_closed_does_not_go(self):
+        """Its hook is waiting (for its turn, or the wait in front of it) when the relay comes to hand in."""
+        token, lines = self.into_a_fight()
+        self.call(lines[0])
+        del self.got[:]
+        made = []
+
+        def closed_meanwhile(seconds):                                      # the wait in front of the second action
+            self.sleep(seconds)
+            self.bash(json.loads(relay.next_line(token))["bash"])
+            made.append(relay.read(os.path.join(self.r.dir, "hook", f"{token}.closed"))["lines"]["2"])
+        self.assertIn("handed in", self.refused(lines[1], sleep=closed_meanwhile))
+        self.assertEqual(made, ["refused"])
+        brain.next_batch(self.r.dir, token, io.StringIO(), self.sleep, hooks=AGENT)
+        self.assertEqual([x.endpoint for x in self.got], [self.game[-1]["endpointName"]])     # the first, and no more
+
+    def test_the_brain_takes_no_result_of_a_relay_that_was_replaced_and_none_is_lost(self):
+        token, lines = self.four()
+        self.call(lines[0])                                                  # handed in for the batch, which
+        inp, real = self.sent(lines[1])                                      # the relay does not live to hand in
+        new, new_lines = self.first_batch(agent="c" * 16)
+        self.assertEqual(self.comes(inp, real), OK)                          # the old relay's call comes back
+        self.assertEqual(self.puts(), [])                                    # (neither is the new relay's to hand in)
+        self.call(new_lines[0], agent="c" * 16)
+        self.next(new, agent="c" * 16)
+        self.assertEqual([x.endpoint for x in self.got], [self.game[-1]["endpointName"]])     # the new relay's own
+        self.assertEqual(self.puts(), [])
+        self.assertEqual(self.kept(), sorted([f"{token}.1.json", f"{token}.2.json", f"{token}.seen",
+                                              f"late/{token}.2.json", f"late/put-{token}-001.json"]))
+
+
+class AResultThatCannotBeHandedIn(Hooks):
+    """Review of 184ce648, H3. The hook could not write the result down, showed the model "ok" in its place all
+    the same, and the relay went on: the result was nowhere."""
+
+    def setUp(self):
+        self.start()
+        self.got = self.handed_to_the_brain()
+        self.token, lines = self.first_batch()
+        self.asked, self.real = self.sent(lines[0])
+        self.line = lines[0]
+
+    def in_the_relays_transcript(self, text, is_error=False):
+        """The relay's own transcript, with the result as the model was shown it."""
+        path, t, use = os.path.join(self.r.dir, "relay.jsonl"), self.r.t, self.asked["tool_use_id"]
+        transcript(path, [("bash", "b0", "python3 -m player.brain next", t - 9),
+                          ("use", use, C.STAND_IN, self.line["input"], t), ("res", use, text, t, is_error),
+                          ("bash", "b1", json.loads(relay.next_line(self.token))["bash"], t)])
+        return mock.patch.dict(os.environ, {"TNR_TRANSCRIPT": path})
+
+    def test_the_model_is_left_with_it_and_brain_next_takes_it_from_the_relays_transcript(self):
+        text = json.dumps(self.me.data)
+        with mock.patch.object(relay, "put", side_effect=OSError("no space left on device")):
+            self.assertIsNone(self.after(self.asked, self.real, [{"type": "text", "text": text}]))   # no "ok"
+        self.assertEqual(self.puts(), [])
+        with self.in_the_relays_transcript(text):
+            self.next(self.token)
+        self.assertEqual(self.waited, 0)                                     # (its line says what became of it)
+        self.assertEqual([(x.endpoint, x.data, x.error) for x in self.got], [("profile.getUser", self.me.data, None)])
+        with open(os.path.join(self.r.dir, "hook", "log.jsonl"), encoding="utf8") as f:
+            self.assertIn("could not be handed in", f.read())
+
+    def test_a_call_that_failed_and_cannot_be_handed_in(self):
+        failed = dict(self.asked, hook_event_name="PostToolUseFailure", tool_input=self.real, error="connection reset by peer")
+        with mock.patch.object(relay, "put", side_effect=OSError("no space left on device")):
+            self.assertIsNone(hook.run("fail", failed, self.r.dir))
+        with self.in_the_relays_transcript("connection reset by peer", True):
+            self.next(self.token)
+        self.assertEqual(self.waited, 0)
+        self.assertEqual([(x.endpoint, x.data, x.error) for x in self.got],
+                         [("profile.getUser", None, "connection reset by peer")])
+
+    def test_with_no_transcript_to_take_it_from_the_brain_is_told_the_call_has_no_answer(self):
+        with mock.patch.object(relay, "put", side_effect=OSError("no space left on device")):
+            self.assertIsNone(self.comes(self.asked, self.real))
+        self.next(self.token)
+        self.assertEqual([(x.endpoint, x.data, x.error) for x in self.got], [("profile.getUser", None, hooked.NO_ANSWER)])
+
+    def test_when_nothing_at_all_can_be_written_the_call_is_waited_for_and_then_taken_from_the_transcript(self):
+        text = json.dumps(self.me.data)
+        with mock.patch.object(relay, "write", side_effect=OSError("read-only file system")):
+            self.assertIsNone(self.after(self.asked, self.real, [{"type": "text", "text": text}]))
+        with self.in_the_relays_transcript(text):
+            self.next(self.token)
+        self.assertEqual(self.waited, hooked.TURN)                           # its line still says the call is out
+        self.assertEqual([(x.endpoint, x.data) for x in self.got], [("profile.getUser", self.me.data)])
+
+    def test_a_result_the_model_was_shown_ok_for_is_never_taken_from_the_transcript(self):
+        """What stands in a transcript for a result that was handed in is "ok": that is no result."""
+        self.assertEqual(self.comes(self.asked, self.real), OK)
+        os.unlink(os.path.join(self.r.dir, "inbox", self.puts()[0]))         # (and it is lost on the way, say)
+        with self.in_the_relays_transcript("ok"):
+            self.next(self.token)
+        self.assertEqual([(x.data, x.error) for x in self.got], [(None, hooked.NO_ANSWER)])
+
+
+class WhatIsKeptOfABatch(Hooks):
+    def setUp(self):
+        self.start()
+
+    def test_it_goes_when_the_brain_has_the_batchs_results_and_not_before(self):
+        token, lines = self.first_batch()
+        self.does(lines)
+        self.assertEqual(self.kept(), [f"{token}.1.json", f"{token}.seen"])
+        with mock.patch.object(brain, "_await", lambda *a, **k: None):       # the brain gives no answer for now
+            self.next(token)
+        self.assertEqual(self.kept(), [f"{token}.1.json", f"{token}.closed", f"{token}.results", f"{token}.seen"])
+        self.assertEqual(self.puts(), [f"put-{token}-001.json"])
+        new, lines, _ = self.next(token)
+        self.assertEqual((self.kept(), self.puts()), ([], []))
+        self.does(lines)
+        self.assertEqual(self.kept(), [f"{new}.{k}.json" for k in (1, 2, 3, 4)] + [f"{new}.seen"])
+        line = relay.read(os.path.join(self.r.dir, "hook", f"{new}.2.json"))
+        self.assertEqual((sorted(line), line["call"]), (["call", "use"], [self.game[2]["endpointName"], self.game[2]["input"]]))
+
+    def test_what_nobody_handed_in_goes_when_it_is_an_hour_old(self):
+        token, lines = self.first_batch()
+        self.does(lines)                                                     # a relay makes its call, and is replaced
+        new, new_lines = self.first_batch(agent="c" * 16)
+        self.call(new_lines[0], agent="c" * 16)
+        new, _, _ = self.next(new, agent="c" * 16)
+        left = sorted([f"{token}.1.json", f"{token}.seen", f"late/put-{token}-001.json"])
+        self.assertEqual(self.kept(), left)                                  # what it left is kept
+        folder = os.path.join(self.r.dir, "hook")
+        long_ago = os.path.getmtime(os.path.join(folder, "lock")) - hooked.OLD - 60
+        for name in left[:2] + ["log.jsonl"]:
+            os.utime(os.path.join(folder, name), (long_ago, long_ago))
+        self.next(new, agent="c" * 16)                                       # (the next batch the brain has)
+        self.assertEqual(self.kept(), left[2:])
+        self.assertTrue(os.path.exists(os.path.join(folder, "log.jsonl")))   # (the log is the operator's)
+
+    def test_a_relay_without_hooks_keeps_nothing_there(self):
+        token, lines = self.first_batch(hooked=False)
+        self.assertEqual(brain.put(self.r.dir, token, 1, json.dumps(self.me.data)), 0)
+        self.next(token, hooked=False)
+        self.assertEqual(self.puts(), [])
+        self.assertFalse(os.path.exists(os.path.join(self.r.dir, "hook")))
+
+
+class OneAtATime(Hooks):
+    """Whoever lets a call go, hands a result in, closes a batch or clears it away holds the lock for that
+    moment (live/hook/lock): a batch is closed between two of those, never during one."""
+
+    def setUp(self):
+        self.start()
+
+    def waits_for_the_lock(self, does):
+        done = []
+        with hooked.lock(self.r.dir):
+            thread = threading.Thread(target=lambda: done.append(does()))
+            thread.start()
+            thread.join(0.3)
+            waited = thread.is_alive() and not done
+        thread.join(60)
+        self.assertEqual(len(done), 1)
+        return waited
+
+    def test_each_of_them_waits_while_another_has_it(self):
+        token, lines = self.first_batch()
+        self.does(lines)
+        token, lines, _ = self.next(token)
+        went = []
+        self.assertTrue(self.waits_for_the_lock(lambda: went.append(self.sent(lines[0]))))   # a call is let go
+        self.assertTrue(went[0][1])
+        self.assertTrue(self.waits_for_the_lock(lambda: self.comes(*went[0])))               # a result handed in
+        self.assertTrue(self.waits_for_the_lock(lambda: self.bash(json.loads(relay.next_line(token))["bash"])))
+        self.assertTrue(self.waits_for_the_lock(lambda: hooked.consumed(self.r.dir, token)))
+        self.assertEqual((self.kept(), self.puts()), ([], []))
 
 
 class TheSameGameEitherWay(Hooks):
@@ -662,11 +1098,16 @@ class TheSameGameEitherWay(Hooks):
         self.assertEqual(hooked[3], plain[3])                                # and the brain knows the same
 
 
-class TheHeadBeforeTheHooks(WhatAVersionBeforeLeft):
-    def test_what_it_left_is_another_versions(self):
+class TheHeadsBeforeThisOne(WhatAVersionBeforeLeft):
+    def test_what_the_head_before_the_hooks_left_is_another_versions(self):
         """661f3f63 knows no hooks: a relay it named would be printed calls, and a batch it made carries no
-        steps for a hook. The number is 8, so nothing it left is taken for this version's."""
+        steps for a hook. Its number is 7, so nothing it left is taken for this version's."""
         self.nothing_it_made_is_delivered(BEFORE)
+
+    def test_what_the_first_head_with_hooks_left_is_another_versions(self):
+        """184ce648 handed a batch in without closing it, and its hooks kept less on record of one: a batch
+        held under it has no closing to go by. Its number is 8."""
+        self.nothing_it_made_is_delivered(REVIEWED)
 
 
 class TheAgentFile(unittest.TestCase):
@@ -682,6 +1123,17 @@ class TheAgentFile(unittest.TestCase):
         self.assertEqual(block.count("onFailure: block"), 2)                 # the two that stand in front of a call
         before = block[:block.index("  PostToolUse:")]
         self.assertEqual(before.count("onFailure: block"), 2)
+
+    def test_the_hooks_that_wait_are_given_the_time_to(self):
+        """The hook in front of `brain next` waits for a batch's lines to end, the one in front of a call for
+        the line before it and then the wait in front of its own: Claude Code must not end either first."""
+        with open(os.path.join(C.ROOT, ".claude", "agents", "tnr-relay.md"), encoding="utf8") as f:
+            text = f.read()
+        time = {what: int(n) for what, n in re.findall(r'player\.hook (\w+)"\n +timeout: (\d+)', text)}
+        self.assertEqual(set(time), {"bash", "pre", "post", "fail"})
+        self.assertGreaterEqual(time["bash"], hooked.GRACE + hooked.TURN + 30)
+        minute = 60                                  # the longest pause the pacing puts in front of a call (budget.pace)
+        self.assertGreaterEqual(time["pre"], hooked.GRACE + hooked.TURN + minute + 30)
 
     def test_its_commands_run_as_they_are_written(self):
         """Each command of the agent file, run by a shell as Claude Code runs it: from the session's folder,
