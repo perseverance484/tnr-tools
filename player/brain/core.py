@@ -6,6 +6,7 @@ import os
 import time
 import traceback
 
+from .. import brain as B
 from .. import config as C
 from .. import console, registry, relay
 from ..budget import Budget
@@ -21,6 +22,8 @@ QUIET = ("watch", "harvest", "battle")     # activities whose end is not an even
 
 class Brain:
     def __init__(self, live=None, clock=time.time, combat=None, gates=None):
+        live = live or C.live_dir()
+        B._left_save(live)                      # a save that a brain before this one left: under the lock only
         self.world = World(live, clock)
         self.reg = registry.load()
         self.combat = combat or Combat()
