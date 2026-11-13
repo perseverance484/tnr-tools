@@ -1,11 +1,10 @@
 {
- "holder": "release-thread",
- "token": "d1e551caf54542d383cbc71cadcbf2de",
- "job": "Skyglass Nov 13 release sitting",
- "instance": null,
- "ttlMinutes": 60,
- "claimedAt": "2026-11-13T20:32:07.974Z",
- "heartbeatAt": "2026-11-13T21:06:13.530Z",
- "expiresAt": "2026-11-13T22:06:13.530Z",
- "note": "One game writer per account at a time (RUL-2026-11-07-133). Written only by forge/tools/run_lock.mjs or Forge; do not hand-edit."
+ "holder": null,
+ "token": null,
+ "job": null,
+ "releasedBy": "release-thread",
+ "releasedInstance": null,
+ "releasedJob": "Skyglass Nov 13 release sitting",
+ "releasedAt": "2026-11-13T21:13:04.067Z",
+ "note": "Free. Claim with node forge/tools/run_lock.mjs claim --holder NAME --job TEXT (RUL-2026-11-07-133)."
 }
