@@ -1,0 +1,248 @@
+{
+ "builder": "forge-mcp",
+ "at": "2026-11-13T19:12:01.615Z",
+ "cfg": "forge",
+ "checks": null,
+ "state": "DONE",
+ "outcome": "success",
+ "postflight": {
+  "match": 5,
+  "diff": 0,
+  "unverified": 0,
+  "failed": 0,
+  "skipped": 0,
+  "unresolved": 0
+ },
+ "entries": [
+  {
+   "name": "Deck Warden: Quick Strike off (its link reads unequipped; law 18)",
+   "srcId": null,
+   "entity": "ai",
+   "slot": "edit",
+   "op": "update",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 2,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "texZaFi42S3EvJZBwQ8cd"
+  },
+  {
+   "name": "Deck Warden: Seven Planks back on (585 stopped mid phase 1)",
+   "srcId": null,
+   "entity": "ai",
+   "slot": "edit",
+   "op": "update",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 2,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "texZaFi42S3EvJZBwQ8cd"
+  },
+  {
+   "name": "Deck Warden (Chart): Seven Planks back on (585 stopped mid phase 1)",
+   "srcId": null,
+   "entity": "ai",
+   "slot": "edit",
+   "op": "update",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 2,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "3qlQV9EAnTZldvyhv3YnM"
+  },
+  {
+   "name": "Deck Warden (Haul): Seven Planks back on (585 stopped mid phase 1)",
+   "srcId": null,
+   "entity": "ai",
+   "slot": "edit",
+   "op": "update",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 2,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "_MWGqy_lu7mNopka9nm3d"
+  },
+  {
+   "name": "Deck Warden (Lookout): Seven Planks back on (585 stopped mid phase 1)",
+   "srcId": null,
+   "entity": "ai",
+   "slot": "edit",
+   "op": "update",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 2,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "pndCf5CeoeYwHZKUD3NuD"
+  }
+ ],
+ "captures": [],
+ "idmap": {},
+ "journal": {
+  "v": 1,
+  "jobId": "598-mwfclh28",
+  "manifestPath": "push/598_deck_warden_seven_planks_back.json",
+  "manifestNumber": 598,
+  "manifestHash": "89fc3329",
+  "startedAt": "2026-11-13T19:06:34.785Z",
+  "updatedAt": "2026-11-13T19:12:01.612Z",
+  "state": "DONE",
+  "pause": null,
+  "items": [
+   {
+    "idx": 0,
+    "entity": "ai",
+    "op": "update",
+    "name": "Deck Warden: Quick Strike off (its link reads unequipped; law 18)",
+    "srcId": null,
+    "targetId": "texZaFi42S3EvJZBwQ8cd",
+    "payloadHash": "70069c5c",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "texZaFi42S3EvJZBwQ8cd",
+    "snapshotKey": null,
+    "sentAt": "2026-11-13T19:06:47.662Z",
+    "createSentAt": null,
+    "confirmedAt": "2026-11-13T19:07:19.607Z",
+    "verifiedAt": "2026-11-13T19:07:34.382Z",
+    "error": null,
+    "attempt": 1,
+    "asserted": [
+     "jutsus",
+     "items"
+    ],
+    "diffs": [],
+    "verify": "match"
+   },
+   {
+    "idx": 1,
+    "entity": "ai",
+    "op": "update",
+    "name": "Deck Warden: Seven Planks back on (585 stopped mid phase 1)",
+    "srcId": null,
+    "targetId": "texZaFi42S3EvJZBwQ8cd",
+    "payloadHash": "f313978f",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "texZaFi42S3EvJZBwQ8cd",
+    "snapshotKey": null,
+    "sentAt": "2026-11-13T19:07:55.050Z",
+    "createSentAt": null,
+    "confirmedAt": "2026-11-13T19:08:36.425Z",
+    "verifiedAt": "2026-11-13T19:09:19.971Z",
+    "error": null,
+    "attempt": 1,
+    "asserted": [
+     "jutsus",
+     "items"
+    ],
+    "diffs": [],
+    "verify": "match"
+   },
+   {
+    "idx": 2,
+    "entity": "ai",
+    "op": "update",
+    "name": "Deck Warden (Chart): Seven Planks back on (585 stopped mid phase 1)",
+    "srcId": null,
+    "targetId": "3qlQV9EAnTZldvyhv3YnM",
+    "payloadHash": "9adedbfa",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "3qlQV9EAnTZldvyhv3YnM",
+    "snapshotKey": null,
+    "sentAt": "2026-11-13T19:09:30.493Z",
+    "createSentAt": null,
+    "confirmedAt": "2026-11-13T19:09:59.362Z",
+    "verifiedAt": "2026-11-13T19:10:13.497Z",
+    "error": null,
+    "attempt": 1,
+    "asserted": [
+     "jutsus",
+     "items"
+    ],
+    "diffs": [],
+    "verify": "match"
+   },
+   {
+    "idx": 3,
+    "entity": "ai",
+    "op": "update",
+    "name": "Deck Warden (Haul): Seven Planks back on (585 stopped mid phase 1)",
+    "srcId": null,
+    "targetId": "_MWGqy_lu7mNopka9nm3d",
+    "payloadHash": "02050628",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "_MWGqy_lu7mNopka9nm3d",
+    "snapshotKey": null,
+    "sentAt": "2026-11-13T19:10:24.133Z",
+    "createSentAt": null,
+    "confirmedAt": "2026-11-13T19:10:57.067Z",
+    "verifiedAt": "2026-11-13T19:11:07.578Z",
+    "error": null,
+    "attempt": 1,
+    "asserted": [
+     "jutsus",
+     "items"
+    ],
+    "diffs": [],
+    "verify": "match"
+   },
+   {
+    "idx": 4,
+    "entity": "ai",
+    "op": "update",
+    "name": "Deck Warden (Lookout): Seven Planks back on (585 stopped mid phase 1)",
+    "srcId": null,
+    "targetId": "pndCf5CeoeYwHZKUD3NuD",
+    "payloadHash": "ca717b00",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "pndCf5CeoeYwHZKUD3NuD",
+    "snapshotKey": null,
+    "sentAt": "2026-11-13T19:11:18.611Z",
+    "createSentAt": null,
+    "confirmedAt": "2026-11-13T19:11:50.544Z",
+    "verifiedAt": "2026-11-13T19:12:01.610Z",
+    "error": null,
+    "attempt": 1,
+    "asserted": [
+     "jutsus",
+     "items"
+    ],
+    "diffs": [],
+    "verify": "match"
+   }
+  ]
+ }
+}
