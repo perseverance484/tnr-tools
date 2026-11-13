@@ -679,6 +679,8 @@ class WhatTheBrainGets(Hooks):
         self.assertIsNone(real)
         self.assertIsNone(self.after(inp, inp["tool_input"], [{"type": "text", "text": "{}"}]))
         self.assertIsNone(hook.run("fail", dict(inp, error="x"), self.r.dir))
+        with open(os.path.join(self.r.dir, "hook", "log.jsonl"), encoding="utf8") as f:
+            self.assertEqual([json.loads(x)["refused"] for x in f][-2:], ["not a call of a batch"] * 2)
         self.assertEqual((self.puts(), self.kept()), ([], [f"{token}.1.json", f"{token}.seen"]))
 
     def test_its_transcript_is_read_for_the_tokens_and_nothing_else(self):
@@ -949,6 +951,18 @@ class ABatchIsClosedBeforeItIsHandedIn(Hooks):
         first, again = [a["results"] for a in self.asks[-2:]]
         self.assertEqual((len(first), again), (1, first))
         self.assertEqual((self.puts(), self.kept()), ([], []))
+
+    def test_a_batch_is_closed_once_however_often_its_relay_comes(self):
+        token, lines = self.four()
+        self.call(lines[0])
+        self.sent(lines[1])                                                  # the second goes, and stays out
+        closed = os.path.join(self.r.dir, "hook", f"{token}.closed")
+        with mock.patch.object(brain, "_await", lambda *a, **k: None):       # the brain gives no answer for now
+            self.next(token)
+            first = relay.read(closed)
+            self.assertEqual((self.waited, first["lines"]["2"]), (hooked.TURN + hooked.GRACE, "open"))
+            self.next(token)
+        self.assertEqual((self.waited, relay.read(closed)), (0, first))      # the call is not waited for again
 
     def test_a_batch_is_closed_by_the_relay_that_holds_it_and_no_other(self):
         token, lines = self.four()
