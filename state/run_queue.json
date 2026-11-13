@@ -609,12 +609,10 @@
    "status": "waiting",
    "waitsFor": [
     "596 done (it changes the Silence kit; 593 was regenerated with that kit 2026-11-13)",
-    "livePatch review + merge (fable/live-patch-animation-scale @ 419b3e74)",
-    "loader pinned to the merge",
     "director go"
    ],
    "build": "python3 push/593_moe_animation_scale.gen.py",
-   "note": "2026-11-13. Inputs read live today with ids-only selects (state/moe_scale/): kits of 11 AIs, animation fields of all 71 equipped jutsu, her 1,102 asset ids (501's 973 + her FX + 54 Refraction lens clips; the six non-slice MoE folders checked live, 71/71). 12 equipped jutsu have no clip; Stolen Form uses only the library shove strip (not hers, stays 1x); Stillness done by 588 (test AI FotHaXVoYS4In_wM-qczO equips only it, so it is untouched). validate.py: 0 errors, 112 law-20/partial-data warnings that do not apply (Forge merges every key from the live read). Run ONLY on a Forge bundle that has livePatch (after the merge and the auto loader pin): an older bundle ignores the key, sends each jutsu back unchanged and would still show it verified. Harmless, but nothing gets scaled. Claude reads back every record after the run either way."
+   "note": "2026-11-13. Inputs read live today with ids-only selects (state/moe_scale/): kits of 11 AIs, animation fields of all 71 equipped jutsu, her 1,102 asset ids (501's 973 + her FX + 54 Refraction lens clips; the six non-slice MoE folders checked live, 71/71). 12 equipped jutsu have no clip; Stolen Form uses only the library shove strip (not hers, stays 1x); Stillness done by 588 (test AI FotHaXVoYS4In_wM-qczO equips only it, so it is untouched). validate.py: 0 errors, 112 law-20/partial-data warnings that do not apply (Forge merges every key from the live read). Run ONLY on a Forge bundle that has livePatch (after the merge and the auto loader pin): an older bundle ignores the key, sends each jutsu back unchanged and would still show it verified. Harmless, but nothing gets scaled. Claude reads back every record after the run either way. 2026-11-13 19:15 UTC: livePatch merged to main (be77af20, director review + go), loader pinned (40477c41)."
   },
   {
    "id": "597",
