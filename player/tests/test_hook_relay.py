@@ -885,6 +885,13 @@ class ABatchIsClosedBeforeItIsHandedIn(Hooks):
         self.assertEqual((len(first), again), (1, first))
         self.assertEqual((self.puts(), self.kept()), ([], []))
 
+    def test_a_batch_is_closed_by_the_relay_that_holds_it_and_no_other(self):
+        token, lines = self.four()
+        self.call(lines[0])
+        self.assertEqual(self.next(token, agent="b" * 16)[2], [hooked.NO_HOOKS])   # another agent runs the line
+        self.assertEqual((self.waited, self.kept()), (0, [f"{token}.1.json", f"{token}.seen"]))
+        self.assertEqual(self.call(lines[1]), OK)                            # the relay's batch stands as it was
+
     def test_a_line_that_has_not_gone_when_the_batch_is_closed_does_not_go(self):
         """Its hook is waiting (for its turn, or the wait in front of it) when the relay comes to hand in."""
         token, lines = self.into_a_fight()
