@@ -9,12 +9,17 @@ read, so nothing a read did not show is overwritten; the read must be taken afte
 the same records (the chart go-live 538 touches the Wreck drop rows and the three new runs).
 
 What it does (Salvager's Trade write-up, Claude Doc YNEcUm9oBvYijwTRYWYUAc; Nov 13 plan):
-  1. Every win_quest node of every Skyglass run pays Wreck Salvage (number 100): Low Tide and Night Watch 1; the crew
-     charts, the three new runs and the six Haul runs 2; the Epic and tainted runs and Crownhold 3.
+  1. Every win_quest node of every Skyglass run pays Wreck Salvage, inverted by depth and time (director 2026-11-13
+     17:03 UTC: "The inverted pay sounds good. It was done because of length/difficulty of the run"): Low Tide and
+     Night Watch 1 at 50%; the crew charts, the three new runs and the six Haul runs 1; the Epic and tainted runs 3;
+     Crownhold 10. Per hour at the Nov 2 model's minutes: commons ~10, crew ~13, Faded Wreck ~17, Epic ~21, Skyglass
+     Wreck and Crownhold ~30. Starting numbers: re-check against measured run times so chained low content never out-
+     earns the deep runs.
   2. Each order of The Watch Log: The Rotted Heading pays 3 salvage on claim. Later pages carry it in their own build.
-  3. Both Wrecks: a 100% salvage drop (Faded 3, Skyglass 5), and every direct chart drop at half its current chance.
-  4. Unhide Wreck Salvage. The four trades become questType overworld with Wreck Sighted as prerequisite and are
-     unhidden (folds push/543 in).
+  3. Both Wrecks: a 100% salvage drop (Faded 5, Skyglass 10), and every direct chart drop at half its current chance.
+  4. Unhide Wreck Salvage. The four trades stay their own quest-log quests, so players choose them (director
+     2026-11-13 17:03 UTC: "Keep separate so players can choose"): Wreck Sighted as prerequisite and unhidden; their
+     questType is left as it is (not overworld: an NPC tap rolls at random and spends a daily roll).
 Not here: her NPC placement (overworldAi.upsertPlacement isActive true, a direct connector call), the husk and her AI
 (profile.updateAi hidden false, by connector: Forge's MCP host cannot save AI records), the Fire and Wreck Sighted
 (push/510), The Driftline runs (the early-game thread's own build pays salvage). Do not hand-edit the output.
@@ -29,21 +34,21 @@ sys.path.insert(0, os.path.join(ROOT, "push"))
 import salvager_trade as T  # noqa: E402  (push/salvager_trade.gen.py is imported through a shim below)
 
 SALVAGE = T.SALVAGE
-RUNS = {  # quest id: (name, salvage per win). Every id read back by name with quests.get, Nov 9 16:35Z
-    "pFQBaJxU_8RSvSi4Kir1Z": ("The Low Tide Run", 1), "dnzL-bDrAEVXrKB5xariu": ("The Night Watch", 1),
-    "CgwAVCyZLgNQtEnqgLxxv": ("The Buried Cache", 2), "UGHSuhi83C3wRtH3FD4Eu": ("The Drowned Foundry", 2),
-    "-bZ_ZoI6yrUJ_LKT9R5zm": ("The Quarantined Archive", 2), "liljq0yVXWTSna4X6dZE1": ("The Captain's Watch", 2),
-    "iRMyb0WN_ip--EDbvAgLc": ("The Spoiled Hold", 2), "x7ByC_5ssbpibxTB60Ag1": ("The Rotted Galley", 2),
-    "F2eGqpysfQ02E6pXvKqJJ": ("The Glass Nursery", 2),
-    "0_wTZMTqvxM-gvl_s1s7c": ("The Trophy Hold", 2), "5y9wAYELSdNa8Jgim1sgD": ("The Overgrown Stores", 2),
-    "C1JPScsgSMcVXQUfuFgcs": ("The Ore Vault", 2), "UO65dN640MgAbNBBopTVI": ("The Bloom Cellar", 2),
-    "vMh6SDID0XTrVJ0f1QmFD": ("The Snare Room", 2), "ww_baSsbBet0mx7MK52yI": ("The Bone Store", 2),
-    "yZoR_dPSdg8ksO77gDH_A": ("The Sealed Reliquary", 3), "H9YInJtnzKCOEMv-sNgzP": ("The Fall", 3),
-    "FsuXzvaqr_R25p8cEkxoK": ("The Rotted Reliquary", 3), "ozDN-G6nGFXGgKuPZ04Gr": ("The Burning Heading", 3),
-    "fqqpkcp_L4oOsC6yyodlk": ("Crownhold", 3),
+RUNS = {  # quest id: (name, salvage per win, chance %). Every id read back by name with quests.get, Nov 9 16:35Z
+    "pFQBaJxU_8RSvSi4Kir1Z": ("The Low Tide Run", 1, 50), "dnzL-bDrAEVXrKB5xariu": ("The Night Watch", 1, 50),
+    "CgwAVCyZLgNQtEnqgLxxv": ("The Buried Cache", 1, 100), "UGHSuhi83C3wRtH3FD4Eu": ("The Drowned Foundry", 1, 100),
+    "-bZ_ZoI6yrUJ_LKT9R5zm": ("The Quarantined Archive", 1, 100), "liljq0yVXWTSna4X6dZE1": ("The Captain's Watch", 1, 100),
+    "iRMyb0WN_ip--EDbvAgLc": ("The Spoiled Hold", 1, 100), "x7ByC_5ssbpibxTB60Ag1": ("The Rotted Galley", 1, 100),
+    "F2eGqpysfQ02E6pXvKqJJ": ("The Glass Nursery", 1, 100),
+    "0_wTZMTqvxM-gvl_s1s7c": ("The Trophy Hold", 1, 100), "5y9wAYELSdNa8Jgim1sgD": ("The Overgrown Stores", 1, 100),
+    "C1JPScsgSMcVXQUfuFgcs": ("The Ore Vault", 1, 100), "UO65dN640MgAbNBBopTVI": ("The Bloom Cellar", 1, 100),
+    "vMh6SDID0XTrVJ0f1QmFD": ("The Snare Room", 1, 100), "ww_baSsbBet0mx7MK52yI": ("The Bone Store", 1, 100),
+    "yZoR_dPSdg8ksO77gDH_A": ("The Sealed Reliquary", 3, 100), "H9YInJtnzKCOEMv-sNgzP": ("The Fall", 3, 100),
+    "FsuXzvaqr_R25p8cEkxoK": ("The Rotted Reliquary", 3, 100), "ozDN-G6nGFXGgKuPZ04Gr": ("The Burning Heading", 3, 100),
+    "fqqpkcp_L4oOsC6yyodlk": ("Crownhold", 10, 100),
 }
 PAGE = ("V-i3ZcAqPu0hB3G9IEzGo", "The Watch Log: The Rotted Heading", 3)
-WRECKS = {"j4QEUtjbK_lbOYUPVoidk": ("Faded Skyglass Wreck", 3), "RHqzYdY4EAQA9HwsBKWDS": ("Skyglass Wreck", 5)}
+WRECKS = {"j4QEUtjbK_lbOYUPVoidk": ("Faded Skyglass Wreck", 5), "RHqzYdY4EAQA9HwsBKWDS": ("Skyglass Wreck", 10)}
 # The charts she sells, at half their Wreck chance. The Lantern is left to its own pending rate change (Nov 13 plan).
 CHARTS = {cid for k, (cid, _) in T.CH.items() if k != "lantern"}
 
@@ -56,24 +61,27 @@ def read(d, kind, rid):
     return r
 
 
-def with_salvage(items, n):
+def with_salvage(items, n, chance=100):
     assert not any(SALVAGE in i.get("ids", []) for i in items), "salvage already paid here: the read is stale or 545 ran"
-    return list(items) + [T.pay(SALVAGE, n)]
+    row = T.pay(SALVAGE, n)
+    row["number"] = chance  # a reward row's number is its chance in percent
+    return list(items) + [row]
 
 
 def build(d, chart_ids):
     items = [{"entity": "item", "slot": "edit", "targetId": SALVAGE, "phase": 1, "name": "Wreck Salvage: unhide",
               "data": {"hidden": False}}]
-    for qid, (name, n) in RUNS.items():
+    for qid, (name, n, chance) in RUNS.items():
         q = read(d, "quest", qid)
         assert q["name"] == name, (qid, q["name"])
         content = json.loads(json.dumps(q["content"]))
         wins = [o for o in content["objectives"] if o.get("task") == "win_quest"]
         assert wins, name
         for o in wins:
-            o["reward_items"] = with_salvage(o.get("reward_items") or [], n)
+            o["reward_items"] = with_salvage(o.get("reward_items") or [], n, chance)
+        odds = "" if chance == 100 else f" at {chance}%"
         items.append({"entity": "quest", "slot": "edit", "targetId": qid, "phase": 2,
-                      "name": f"{name}: {n} salvage on each of {len(wins)} win(s)", "data": {"content": content}})
+                      "name": f"{name}: {n} salvage{odds} on each of {len(wins)} win(s)", "data": {"content": content}})
     pid, pname, n = PAGE
     q = read(d, "quest", pid)
     assert q["name"] == pname
@@ -96,11 +104,11 @@ def build(d, chart_ids):
                       "name": f"{name}: {n} salvage per clear, {halved} chart drops halved", "data": {"rewards": rewards}})
     for t in T.TIERS:
         items.append({"entity": "quest", "slot": "edit", "targetId": T.IDS[t["key"]], "phase": 3,
-                      "name": f"{t['name']}: overworld, needs Wreck Sighted, unhide",
-                      "data": {"questType": "overworld", "prerequisiteQuestId": T.WRECK_SIGHTED, "hidden": False}})
+                      "name": f"{t['name']}: quest log (player's choice), needs Wreck Sighted, unhide",
+                      "data": {"prerequisiteQuestId": T.WRECK_SIGHTED, "hidden": False}})
     out = {"_note": "push/545, LIVE (Friday Nov 13 release only): salvage on every Skyglass win and Rotted Heading order, "
                     "Wreck salvage drops with direct chart drops halved, Wreck Salvage and the four trades unhidden as "
-                    f"overworld quests. Built from live reads in {os.path.basename(os.path.normpath(d))}. Generated by "
+                    f"their own quest-log quests. Built from live reads in {os.path.basename(os.path.normpath(d))}. Generated by "
                     "push/salvager_golive.gen.py; do not hand-edit.", "items": items}
     path = os.path.join(ROOT, "push/545_salvager_trade_golive.json")
     with open(path, "w") as f:

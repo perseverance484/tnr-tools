@@ -485,11 +485,11 @@
       "manifest": "push/543_salvager_trade_final.json",
       "what": "Salvager's Trade: the 4 trade quests become overworld with Wreck Sighted as prerequisite, full record (fixes 'the The Last Heading'); still hidden",
       "runner": "mcp",
-      "status": "blocked",
+      "status": "superseded",
       "waitsFor": [
         "dauntless trade test"
       ],
-      "note": "Run after the hidden trade test on dauntless; overworld quests can't be started from the quest log. 2026-11-09 20:21 director go: every dialog step now tied to her placement goagM4WhKWtnVb8oP5euM (taps on her show the scenes). Run after the unbound dauntless test; bound steps only work once her placement is active (Friday live check)."
+      "note": "Run after the hidden trade test on dauntless; overworld quests can't be started from the quest log. 2026-11-09 20:21 director go: every dialog step now tied to her placement goagM4WhKWtnVb8oP5euM (taps on her show the scenes). Run after the unbound dauntless test; bound steps only work once her placement is active (Friday live check). 2026-11-13: folded into 545 without the overworld change (RUL-2026-11-13-148)."
     },
     {
       "id": "562",
@@ -565,6 +565,19 @@
       "note": "Director 2026-11-13 09:28 UTC: 'Do the run now' and test all the additional content so it can go live. Contract: state/prompt_skyglass_e2e_run.md (v2). Lock holder player. Report: state/player/dauntless/sessions/<date>_skyglass_e2e.md.",
       "brief": "state/prompt_skyglass_e2e_run.md",
       "result": "2026-11-13 09:33-11:15 UTC: all reachable pieces played by hand. Ready: Whole Wreck, 3 trades (Lantern weekly limit holds), Rotted Galley, Glass Nursery, Closing Hold, Mother practice Acts I-II. Fix first: Mother practice pays a real LEGENDARY reward choice (left unclaimed) + '%target' text in Act III; Driftline Captain stun/reflect (mutual kill); Crowned Captain AI goes passive. Blocked: Wreck Sighted/Salvager's Fire ('Must be in your allied village' from Hyorin), Sealed Chart (salvage), Spoiled Hold (no chart), Driftline (lvl 80 cap). Report: state/player/dauntless/sessions/2026-11-13_skyglass_e2e.md"
+    },
+    {
+      "id": "545",
+      "manifest": "push/545_salvager_trade_golive.json",
+      "what": "Salvage go-live: Wreck Salvage on every Skyglass win (inverted by depth: commons 1 at 50%, crew/new/Haul 1, Epic/tainted 3, Crownhold 10), Wrecks 5/10 per clear with chart drops halved, 3 per Watch Log order, Wreck Salvage and the four trades unhidden in the quest log (Wreck Sighted prerequisite)",
+      "runner": "connector",
+      "status": "waiting",
+      "waitsFor": [
+        "538 chart go-live (touches the Wreck drop rows and the three new runs)",
+        "fresh live reads into DIR, then python3 push/salvager_golive.gen.py --live DIR",
+        "director go on the release"
+      ],
+      "note": "RUL-2026-11-13-148. Generator dry-run 2026-11-13 on stand-in records: 28 items, shape correct. Build from reads taken after 538 so the halving sees the new chart rows. 543's overworld step is dropped by this ruling; 543 is folded into 545."
     }
   ]
 }
