@@ -121,3 +121,5 @@ very expensive (Cyclone Palm Strike level 19 quoted 1,949,575 ryo for one level;
 | 2026-11-13 09:23 | Earth Armor | 13 | 74,961 | queued |
 | 2026-11-13 09:23 | Raijin's Judgement | 13 | 74,961 | queued |
 | 2026-11-13 09:23 | First Chakra Gate | 13 | 74,961 | queued (active Ethereal Nexus 12 ends ~10:23; waiting Divine Pulse 13, Earth Armor 13, Raijin 13, FCG 13; ends ~14:23). Pocket 9.62M. 4,550 energy to intelligence (+549.86); asleep in 177 |
+| 2026-11-13 11:23 | Ryūsa Kōka | 13 | 127,148 | queued |
+| 2026-11-13 11:24 | Ethereal Nexus | 13 | 268,032 | queued (active Earth Armor 13 ends ~12:23; waiting Raijin 13, FCG 13, Ryūsa Kōka 13, Ethereal Nexus 13; ends ~16:23). Pocket 9.29M, no withdrawal. 2,369 energy to willpower (+286.29, intelligence had passed willpower); asleep in 177 |
