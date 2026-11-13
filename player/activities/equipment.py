@@ -12,15 +12,23 @@
      reads are proposed on the allowlist), so it selects, and remembers that it did.
 
      A selection changes what is equipped, so it is not finished until my items have been read again. From
-     the moment it is planned the items are `stale` (world["inventory"]): the hunt, restock and repair wait,
-     the read goes in the same batch behind the two selections, and when it does not come back, or cannot be
-     used, it is asked for again every READ_AGAIN seconds (review of 988c56cc, H4: the selection was followed
-     by a profile read only, and the next fight threw the weapon of the loadout before).
+     the moment it is planned the items are `stale` (world["inventory"], a row for the batch that changes
+     them: player/owed.py): the hunt, restock and repair wait, and the read goes in the same batch behind the
+     two selections (review of 988c56cc, H4: the selection was followed by a profile read only, and the next
+     fight threw the weapon of the loadout before).
+
+     Only a read that is known to follow the selection ends the wait: the batch's own, handed in with it, or
+     one asked for after the brain knew the batch was over. While that batch can still run (a replaced relay
+     has it) no read ends it: a replacement's read, made before the first relay had selected, used to
+     (re-review of 87e497a6, H4). While the wait lasts my items are asked for again every READ_AGAIN seconds,
+     and at once when the batch is known to be over. Each such read brings the feed up to what is equipped at
+     that moment, which is what a fight that comes unasked is planned on.
 
 Not built here: choosing PvP 2 (which opponent calls for it is the dossier's to say: AP4), changing what is in
 PvP 2, and equipping an upgrade the account already owns (nothing says yet which of two items is the better).
 """
 from .. import calls as K
+from .. import owed
 from ..registry import REGISTRY, Activity, plan
 
 BACKUP_THROWN = ("GMF1JZ0MChUHc7AtnKABw",)                     # Ikazuchi Kunai, in the order to try them
@@ -70,9 +78,14 @@ class Equipment(Activity):
                 own["seen"] = inv.get("read_at")                   # (a read that could be used: the world took it)
                 self.combat.write_equipped(inv.get("equipped") or {})
                 inv["backup_thrown"] = bool(self.backup(world))
-                inv.pop("stale", None)                             # what a selection changed has been read
+                inv["stale"] = owed.read(world, inv.get("stale"))   # what it is known to have been read behind
             elif r.endpoint in SELECTS or (r.endpoint == "item.toggleEquip" and own.get("swapping")):
                 self._said(world, own, r)
+        was, inv["stale"] = owed.rows(inv.get("stale")), owed.settle(world, inv.get("stale"))
+        if inv["stale"] != was:
+            own["read_next"] = world.now                            # a batch is over: the read that follows it, now
+        if not inv["stale"]:
+            del inv["stale"]
 
     @staticmethod
     def _said(world, own, r):
@@ -90,6 +103,12 @@ class Equipment(Activity):
             world.event("finding", f"equipment: {r.endpoint} was refused ({said})"[:300], about="equipment")
 
     # ------------------------------------------------------------ the plan
+    @staticmethod
+    def _changing(world):
+        """The batch this tick makes changes what is equipped: my items are stale until they are read behind it."""
+        inv = world["inventory"]
+        inv["stale"] = owed.rows(inv.get("stale")) + [[world.making, None]]
+
     def plan(self, world):
         own, what = world.own(self.name), self.wants(world)
         own["read_next"] = world.now + READ_AGAIN
@@ -98,8 +117,10 @@ class Equipment(Activity):
         own["not_before"] = world.now + RETRY                      # an answer that says yes needs no second try
         if what == "thrown":
             spare = self.backup(world)
-            own["swapping"], world["inventory"]["stale"] = True, True
+            own["swapping"] = True
+            self._changing(world)
             return plan([K.equip(spare["id"], "THROWN"), K.items()], "world",
                         f"the thrown slot is empty, the backup goes in ({spare['quantity']})")
-        own["answered"], world["inventory"]["stale"] = [], True     # until my items are read behind it
+        own["answered"] = []
+        self._changing(world)
         return plan(K.loadouts(*PVP1) + [K.items(), K.user()], "world", "selecting the PvP 1 loadouts")

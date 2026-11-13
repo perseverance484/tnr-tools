@@ -375,7 +375,10 @@ class H2OneAllowanceForABatch(unittest.TestCase):
         self.assertEqual(r.world.reserved(), 180_000)                       # its relay may still make the calls
         self.out_with(r, {"id": "c2", "seq": 3, "relay": "rb", "held": {"id": "c1", "token": "rb-2"},
                           "ended": [["b1", r.t, "ra-1", "stopped"]], "results": [self.me]})
-        self.assertEqual(r.world.reserved(), 0)
+        self.assertEqual(r.world.reserved(), 180_000)                       # that read was asked for before the word
+        self.out_with(r, {"id": "c3", "seq": 4, "relay": "rb", "held": {"id": "c2", "token": "rb-3"},
+                          "results": [self.me]})
+        self.assertEqual(r.world.reserved(), 0)                             # this one after it (test_ap2_rereview1.py)
 
 
 class H3NoTripWithAFullPocket(unittest.TestCase):
@@ -432,7 +435,10 @@ class H3NoTripWithAFullPocket(unittest.TestCase):
             out = r.tick(no, full)
             for _ in range(8):                                              # the ten minutes until it is tried again
                 self.assertEqual(self.trips(out), [], (ending, energy, out["activity"]))
-                self.assertNotIn(out["activity"], ("bank", "session"))
+                self.assertNotEqual(out["activity"], "bank")
+                if ending:                                                  # the session waits here, and says why
+                    self.assertEqual(out["activity"], "session")
+                    self.assertIn("the deposit is tried again later", out["note"])
                 out = r.tick(full, dt=bank.RETRY / 9)
             r.t += bank.RETRY / 4
             self.assertEqual(r.tick(full)["activity"], "bank")              # and it is tried again
@@ -460,9 +466,9 @@ class H3NoTripWithAFullPocket(unittest.TestCase):
         r.tick(user(money=C.POCKET_LIMIT, **self.AWAY))
         self.assertNotEqual(r.brain.gates.check(go, r.world, "session").rule, "pocket_limit")   # at the limit: goes
         r.tick(user(money=9_400_000, **self.AWAY))
-        r.world["control"]["activities"]["bank"] = False                    # the director has the bank switched off:
-        self.assertFalse(r.world.overfull())                                # the pocket is not the player's to mind
-        self.assertNotEqual(r.brain.gates.check(go, r.world, "session").rule, "pocket_limit")
+        r.world["control"]["activities"]["bank"] = False                    # the bank switched off changes nothing
+        self.assertTrue(r.world.overfull())                                 # (test_ap2_rereview1.py, H3)
+        self.assertEqual(r.brain.gates.check(go, r.world, "session").rule, "pocket_limit")
 
     def test_at_home_the_deposit_comes_before_the_character_sleeps(self):
         r = self.rig(ending=True)
@@ -509,17 +515,20 @@ class H4ASelectionIsFinishedByARead(unittest.TestCase):
     def test_until_the_items_are_read_nothing_that_goes_by_them_acts(self):
         failed = res("item.getUserItems", None, {}, error="the connector timed out")
         unusable = res("item.getUserItems", {"*.id": ["u1", "u2"], "*.itemId": ["only one"]})
+        again = ["item.getUserItems", "profile.getUser"]
         for what, read in (("it failed", [failed]), ("its columns do not line up", [unusable]), ("it never came", [])):
             r, yes = self.selected()
-            out = r.tick(*yes, *read, self.me)
+            out = r.tick(*yes, *read, self.me)                              # the batch is over, and not read behind
             self.assertTrue(r.world["inventory"]["stale"], what)
+            self.assertEqual((out["activity"], r.calls(out)), ("equipment", again), what)   # asked for at once
+            out = r.tick(*read, self.me)                                    # and that read is no better
             self.assertEqual(self.thrown(r), KUNAI, what)
             for _ in range(5):                                              # under READ_AGAIN: everybody waits
                 self.assertNotIn(out["activity"], ("pvp_hunt", "restock", "repair", "equipment"), what)
                 out = r.tick(self.me, dt=equipment.READ_AGAIN / 8)
             r.t += equipment.READ_AGAIN
             out = r.tick(self.me)
-            self.assertEqual((out["activity"], r.calls(out)), ("equipment", ["item.getUserItems", "profile.getUser"]), what)
+            self.assertEqual((out["activity"], r.calls(out)), ("equipment", again), what)
             out = r.tick(self.other_loadout(), self.me)
             self.assertEqual((self.thrown(r), out["activity"]), (self.OTHER, "pvp_hunt"), what)
             self.assertEqual(r.calls(r.tick(self.me)).count("item.selectItemLoadout"), 0, what)   # not selected again

@@ -53,6 +53,22 @@ The held calls are counted from the moment you spoke, and leave the minute sixty
 comes back a minute later, not at once. The brain hears of your word with the relay's next `brain next`, and
 writes a `setting_changed` event when it has applied it.
 
+A held batch holds more than its calls, until the brain has read behind it:
+
+- **What it may have cost.** The ryo of its purchases stays reserved against the day's allowance until a
+  profile read that was asked for after the batch was over. Until then the player buys less, never more.
+- **What it may have equipped.** If it selected a loadout or swapped a weapon in, the hunt, restock and repair
+  wait until my items have been read after it was over. While such a batch is held, the player reads my items
+  every half minute and does not hunt. Ending that relay and saying `stopped` is what gets the hunt going.
+
+## The pocket
+
+The pocket holds at most 200,000 ryo on the road (RUL-2026-11-12-153). With more in it the player starts no
+trip by choice: training does not set off for the village, a session's end does not set off for home, the hunt
+stays in its sector. The bank's deposit is what brings it down. **This holds with the bank activity switched
+off as well.** Then nothing brings the pocket down, the player stays where it is, and a session's end waits
+with a note that says so. Bank by hand, or switch the bank back on.
+
 ## The run lock
 
 One runner at a time may write to the game on this account (`docs/workflows/FORGE_MCP_RUNNER.md`). The lock is

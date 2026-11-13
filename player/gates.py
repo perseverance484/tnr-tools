@@ -17,6 +17,7 @@ import json
 import re
 
 from . import config as C
+from . import owed
 
 Verdict = collections.namedtuple("Verdict", "ok kind rule reason")
 """kind: "allow", "refuse" or "ask". rule: the rule or gate that decided. reason: one line for the finding."""
@@ -340,7 +341,8 @@ class Gates:
         with the batch and outlives a restart; a batch that is loose keeps its reservation."""
         ryo = self.price(steps, world)
         if ryo > 0:
-            world["records"]["spend"].setdefault("out", []).append([batch, ryo])
+            spend = world["records"]["spend"]
+            spend["out"] = owed.rows(spend.get("out")) + [[batch, ryo]]
 
     def sent(self, step, world):
         """Book-keeping once a call is really issued (when the last level transfer went)."""

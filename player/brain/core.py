@@ -66,7 +66,7 @@ class Brain:
         replaced before they handed them in; ended, those of them that are known to be over since; clock "ours"
         when the results' times are the brain's own."""
         w, ask = self.world, ask or {}
-        self.ask = ask
+        self.ask, w.making = ask, ask.get("id")
         console.apply_control(w, self.reg.activities)
         relay.log_tokens(w, w["relay"]["seq"], usage, w["relay"].get("note", ""))
         self._take_in(results, strays)

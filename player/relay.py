@@ -24,7 +24,7 @@ import time
 from . import config as C
 from .world import RATE_LIMITED, Result
 
-PROTOCOL = 6
+PROTOCOL = 7
 """What `brain next` and the brain mean by what they keep for each other, and the rules a batch is made under.
 Each of these carries the number of the code that made it: live/client.json and a request (`brain next`), an
 answer, the batch waiting to be printed that is made of it, the receipt, and the call ledger (the brain). One
@@ -60,7 +60,11 @@ a batch's calls. When in doubt, change it: a new number costs the operator one w
   6  a batch carries the cutoff of the run lock's lease it was made under, and is not printed when its last
      call would be made at or after it (player/runlock.py). Under 5 the lease was looked at when a batch
      was planned and never again: one that waited, or was given again from its receipt, was printed after
-     the lease had run out (review of 988c56cc, H1). A batch with no cutoff on record is another version's."""
+     the lease had run out (review of 988c56cc, H1). A batch with no cutoff on record is another version's.
+  7  what a batch may cost stays reserved, and what it may equip stays unread, until a read that is known to
+     follow the batch (player/owed.py); and no trip is started by choice over the pocket's limit, the bank
+     switched off or not. Under 6 a replacement's earlier read let a second batch of purchases through, and
+     the hunt on (re-review of 87e497a6, H2 to H4): batches this version would not have made."""
 
 
 def ours(record):

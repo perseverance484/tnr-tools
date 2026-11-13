@@ -219,7 +219,7 @@ def user(status="AWAKE", hp=5050, sector=1538, pos=(10, 10), bid=None, **more):
     d = {"userData.status": status, "userData.battleId": bid, "userData.curHealth": hp, "userData.maxHealth": 5050,
          "userData.sector": sector, "userData.longitude": pos[0], "userData.latitude": pos[1],
          "userData.curChakra": 100, "userData.maxChakra": 100, "userData.curStamina": 100,
-         "userData.maxStamina": 100, "userData.money": 2_000_000, "userData.bank": 50_000_000,
+         "userData.maxStamina": 100, "userData.money": 150_000, "userData.bank": 50_000_000,
          "userData.curEnergy": 0}
     d.update({f"userData.{k}": v for k, v in more.items()})
     return res("profile.getUser", d)

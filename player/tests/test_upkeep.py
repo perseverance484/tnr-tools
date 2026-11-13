@@ -366,10 +366,11 @@ class Training(Upkeep):
     def test_a_lot_of_energy_elsewhere_is_worth_the_trip_and_a_refusal_ends_it_for_an_hour(self):
         rig = self.rig()
         rig.world.own("training")["next"] = rig.t + 99999
-        self.assertNotEqual(rig.tick(rich(curEnergy=training.TRIP - 1))["activity"], "training")
-        out = rig.tick(rich(curEnergy=training.TRIP))
+        road = {"money": 150_000}                                           # (within what the pocket may hold)
+        self.assertNotEqual(rig.tick(rich(curEnergy=training.TRIP - 1, **road))["activity"], "training")
+        out = rig.tick(rich(curEnergy=training.TRIP, **road))
         self.assertEqual((out["activity"], out["steps"][0]["input"]), ("training", {"sector": C.HOME_SECTOR}))
-        self.assertNotEqual(rig.tick(rich(curEnergy=training.TRIP))["activity"], "training")   # not a second trip
+        self.assertNotEqual(rig.tick(rich(curEnergy=training.TRIP, **road))["activity"], "training")   # not a second trip
         home = rich(sector=C.HOME_SECTOR, curEnergy=training.TRIP)
         out = rig.tick(home)
         self.assertEqual(out["steps"][0]["call"], "train.startTraining")
@@ -578,6 +579,7 @@ class SessionEnd(Upkeep):
             order.append(out["activity"])
             answers = [res(s["call"], {"success": True}, s["input"]) for s in out["steps"]
                        if s.get("call") in ("train.startTraining",) + equipment.SELECTS]
+            answers += [stock()] if "item.getUserItems" in rig.calls(out) else []
             if out["activity"] == "session":
                 break
             energy = 0 if out["activity"] == "training" else energy         # spent, once the game has it

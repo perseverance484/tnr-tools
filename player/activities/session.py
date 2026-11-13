@@ -18,6 +18,9 @@ from .. import config as C
 from ..registry import REGISTRY, Activity, plan
 
 
+WAIT = 30.0                # s between looks while a session's end waits for the pocket to be brought down
+
+
 @REGISTRY.activity
 class Session(Activity):
     name = "session"
@@ -31,14 +34,15 @@ class Session(Activity):
 
     @staticmethod
     def _chores(world):
-        """With the session ending, what comes before this activity's next step. Away from home: the bank, while
-        the pocket holds more than it may on the road (no trip home with it: review of 988c56cc, H3). At home:
-        the upkeep that has something to do before the character sleeps."""
-        if world.me.get("sector") != C.HOME_SECTOR:
-            return world.overfull()
+        """With the session ending, whether upkeep has its turn before this activity's next step. Away from
+        home: the bank, while the pocket holds more than it may on the road (no trip home with it: review of
+        988c56cc, H3). At home: whatever of the upkeep has something to do before the character sleeps."""
+        if world.me.get("sector") == C.HOME_SECTOR:
+            names = ("training", "equipment", "bank")
+        else:
+            names = ("bank",) if world.overfull() else ()
         acts, on = REGISTRY.activities, world["control"]["activities"]
-        return any(on.get(name, True) and acts[name].available(world) for name in ("training", "equipment", "bank")
-                   if name in acts)
+        return any(on.get(name, True) and acts[name].available(world) for name in names if name in acts)
 
     def value(self, world):
         return 10.0
@@ -46,6 +50,14 @@ class Session(Activity):
     def plan(self, world):
         if world.status() == "ASLEEP":
             return plan([K.wake(), K.user()], "world", "ASLEEP, hunt mode: waking")
+        if world.me.get("sector") != C.HOME_SECTOR and world.overfull():
+            # the bank cannot bring the pocket down now (switched off, or its deposit was refused and waits):
+            # the character stays where it is, and the reason is in the note for whoever looks
+            off = not world["control"]["activities"].get("bank", True)
+            return plan([K.user()], "world", f"session ending: staying here, {float(world.me['money']):,.0f} ryo in "
+                        f"the pocket and {C.POCKET_LIMIT:,} is the most it may hold on the road ("
+                        + ("the bank activity is switched off" if off else "the deposit is tried again later") + ")",
+                        hold=WAIT)
         if world.me.get("sector") != C.HOME_SECTOR:
             return plan(K.trip(C.HOME_SECTOR), "world", f"session ending: going home ({C.HOME_SECTOR})")
         return plan([K.wake(), K.user()], "world", "session ending: sleeping at home", hold=C.TRAVEL_RETRY)
