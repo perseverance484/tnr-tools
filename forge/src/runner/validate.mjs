@@ -4,6 +4,7 @@ import { isDungeonEntity, dungeonFields, dungeonProblems, dungeonDiffs } from ".
 import { petSpeciesProblems, petJutsuProblems, normalizeSpecies } from "./pets.mjs";
 import { HIDDENLESS, catalogProblems } from "./catalog.mjs";
 import { variantProblems } from "./variants.mjs";
+import { EFFECT_POST_PIN_KEYS } from "./post_pin_keys.mjs";
 // Pre-send validation (spec section 9, R3). Every content validator on the server is
 // non-strict: an unknown or misspelled key is dropped at .input() parse time with no error
 // and the mutation reports success. The only place that error can surface is here.
@@ -62,15 +63,9 @@ export const AI_POST_0056_KEYS = Object.freeze([
   "bloodlineMastery", "sageMastery",
 ]);
 
-// POST-PIN EFFECT TAG KEY. Upstream 8bd670153 (2026-11-09, "Allow animation sizing per combat
-// effect") added animationScale to BaseAttributes (validators/combat.ts: z.coerce.number().min(1)
-// .max(3).prefault(1)), so every combat tag that spreads BaseAttributes accepts it, and the live
-// jutsu.update schema lists it on every tag. nested.json is pinned to 3314d122, which predates it,
-// so without this list a manifest that sets a clip's size would be refused as an unknown key.
-// Additive and backward compatible, like AI_POST_0056_KEYS: no key the pinned set accepts is
-// refused. Combat tags only: title effects are TitleEffectSchema members, not BaseAttributes.
-// A full re-pin of nested.json supersedes this list.
-export const EFFECT_POST_PIN_KEYS = Object.freeze(["animationScale"]);
+// POST-PIN EFFECT TAG KEY: see post_pin_keys.mjs. Combat tags only: title effects are
+// TitleEffectSchema members, not BaseAttributes.
+export { EFFECT_POST_PIN_KEYS };
 
 // Keys the server owns. Sending them is harmless (stripped) but they are never "asserted".
 export const SERVER_OWNED = Object.freeze(["id", "userId", "createdAt", "updatedAt", "aiProfileId"]);
