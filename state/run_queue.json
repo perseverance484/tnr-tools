@@ -627,6 +627,26 @@
     "Nov 20 Friday routine"
    ],
    "note": "Director 2026-11-13 '1 lantern per'. First copy is tonight's record MSQJTdZEQK1JWjFiVtQVI (545). The Fire's trade topic (510) must point at the current copy each week."
+  },
+  {
+   "id": "596",
+   "manifest": null,
+   "what": "Crowned Captain cannot be stunned (stunprevent on base effects): fixes the e2e 'stands and does nothing' stall",
+   "runner": "connector",
+   "status": "done",
+   "waitsFor": [],
+   "note": "Director go 2026-11-13 19:02 UTC. Sent and read back 19:06 UTC.",
+   "result": "state/results/596_597_captain_stunprevent_and_core_rot_grant.md"
+  },
+  {
+   "id": "597",
+   "manifest": null,
+   "what": "Hidden grant quest x5-kg5W6sHoyXM8yJk-M4 pays 1 Core Rot (restock dauntless for the Spoiled Hold test)",
+   "runner": "connector",
+   "status": "done",
+   "waitsFor": [],
+   "note": "Director go 2026-11-13 19:02 UTC. Read back.",
+   "result": "state/results/596_597_captain_stunprevent_and_core_rot_grant.md"
   }
  ]
 }
