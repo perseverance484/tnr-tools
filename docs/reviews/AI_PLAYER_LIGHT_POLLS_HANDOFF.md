@@ -6,25 +6,35 @@ Workflow: `docs/workflows/IMPLEMENTATION_HANDOFF.md`. Written 2026-11-13.
 Repository: perseverance484/tnr-tools
 Branch: fable/ai-player-light-polls
 Base: 661f3f63f9bd51887c402ce00f76e8e9735cb2ea (fable/ai-player-ap2: AP2's first part, approved on
-      chatgpt/review-ai-player-ap2-rereview2 @ 6bf7d297). Not rebased: this head is two commits on it.
-Code: 4ad93aae33b31efd010f936c5ec86a23813cd0ab
-Head: the commit that adds this note (FROZEN; the exact SHA is in the handoff message)
+      chatgpt/review-ai-player-ap2-rereview2 @ 6bf7d297). Not rebased: this head is three commits on it.
+Code: 4ad93aae33b31efd010f936c5ec86a23813cd0ab. No file under player/ has changed since.
+Supersedes: 6016624e82158162f39242d46b1aba7a85eba8d6, the first handoff of this change, which no review had begun on
+Head: the commit that changes this note for RUL-2026-11-13-156 (FROZEN; the exact SHA is in the handoff message)
 Intended integration: the AI player line, behind AP2's first part. Not `main`, and not before the director says.
 Authority: RUL-2026-11-12-154 (light polls on his turn, approved as the live-session handoff proposed them);
-           RUL-2026-11-13-155 (the state his turn starts on stays in the fight's archive)
+           RUL-2026-11-13-155 (the state his turn starts on stays in the fight's archive);
+           RUL-2026-11-13-156 (the tokens to save are the ones the plan's limits count)
 ```
 
 The diff to review is `git diff 661f3f63 HEAD`. Objective: in a fight against a player, read the full state
 twice a round and watch the rest of his turn with a light read, without losing a turn.
 
-## Read this first: it buys less than I said, and what it buys depends on how tokens are counted
+## Read this first: what it buys, by the count the director has named
 
-When I proposed this (the live-session handoff, case C) I put it at about half of a fight's relay tokens. That
-figure does not hold. I worked it out again for this handoff from the same session's token log, and the
-reviewer can run the script.
+This note supersedes the one at `6016624e`. That one said the saving depended on how tokens are counted and
+that I did not know which count was the director's. He has said (RUL-2026-11-13-156): the cost is usage
+against the plan's limits on this account. The code is the same as at `6016624e`; what changed is this
+section, the evidence script, the design's section 4.7 and the ruling.
 
-**What it does to the reads.** Full reads fall to two a round. It adds a batch to each of my turns: the light
-read that shows the turn, then the full one, where one full poll did both. In the stand-in fight of the tests:
+**How the plan counts.** Anthropic's pages say that what a request reads again from the prompt cache counts
+at the cached rate and less than new content. The plan's weights are not published, so the API's price ratios
+stand in for them: a tenth for what is read from the cache, 1.25 for what a request adds, 5 for its output.
+The relay's model, Haiku 5.5, costs five times as much for a request whose prompt is over 100,000 tokens. The
+ruling quotes the pages.
+
+**What the change does to the reads.** Full reads fall to two a round. It adds a batch to each of my turns:
+the light read that shows the turn, then the full one, where one full poll did both. In the stand-in fight of
+the tests:
 
 | Fight (stand-in) | Full reads a round: base | now | Batches a round: base | now | First action after the turn is seen: base | now |
 |---|---|---|---|---|---|---|
@@ -36,51 +46,49 @@ read that shows the turn, then the full one, where one full poll did both. In th
 Every turn was played in every row, on both sides. The latest first action was 10.8 s into the turn; the rule
 is 20 s.
 
-**What it does to tokens.** The clean stretch of the live session is its first relay's 27 batches: the walk to
-the fight and rounds 1 to 5. On it, 18 full reads as it ran become 10, with 13 light reads and five more
-batches. What that is worth depends on two things I cannot settle from here: how a token is counted, and
-what relay there will be.
+**What it does to the plan's count.** The clean stretch of the live session is its first relay's 27 batches:
+the walk to the fight and rounds 1 to 5. On it, 18 full reads as it ran become 10, with 13 light reads and
+five more batches.
 
-| Relay | Born with | Every token of a request counted alike: as it ran | built here | | Priced as the API prices a cache: as it ran | built here | |
-|---|---|---|---|---|---|---|---|
-| one for the stretch | 118,190 (the session's) | 5.52M | 5.81M | +5% | 0.90M | 0.82M | -9% |
-| one for the stretch | 5,000 | 2.47M | 2.19M | -11% | 0.60M | 0.46M | -23% |
-| replaced past 60,000 (the design's rule) | 5,000 | 0.64M | 0.75M | +18% | 0.41M | 0.32M | -24% |
-| a fresh one every round | 118,190 | 3.60M | 3.98M | +10% | 0.71M | 0.64M | -10% |
-| a fresh one every round | 5,000 | 0.55M | 0.36M | -35% | 0.40M | 0.28M | -32% |
+| Relay | Born with | As it ran | Built here | | Requests over 100,000: as it ran | built |
+|---|---|---|---|---|---|---|
+| one for the stretch (what the code does in a fight) | 118,190 (the session's) | 4.84M | 4.54M | -6% | 27 of 27 | 32 of 32 |
+| one for the stretch | 5,000 | 2.42M | 1.65M | -32% | 10 of 27 | 9 of 32 |
+| replaced past 60,000 | 5,000 | 0.41M | 0.35M | -15% | none | none |
+| a fresh one every round | 5,000 | 0.39M | 0.29M | -27% | none | none |
 
-- **The first way of counting is the session log's**, and the one my proposal used: a batch costs the relay's
-  whole context. By it the number of batches counts as much as what they carry, and this change adds one a
-  turn. It then saves with a small relay that lasts the fight or is replaced every round. It costs more with
-  the relay the session had, and under the design's rule of replacing a relay past 60,000: there the lighter
-  reads only make each relay last longer.
-- **The second prices a request as the API does**: what it adds to the conversation at 1.25, the rest at a
-  tenth, as read from the prompt cache. By it what a read adds is what costs, and the change saves on every
-  relay: 9 to 32% on this stretch.
-- **Which of the two is the director's cost I do not know.** The token log adds fresh input, cache writes and
-  cache reads into one figure (`player/relay.py`, `_usage`). The relay's own transcript has them apart.
+- **The change saves on every relay**: 6% on the one the session had, 15 to 32% on a small one.
+- **The relay's size is worth far more than this change.** The session's relay was born with 118,190 tokens,
+  so every request it made was over 100,000 and paid five-fold. The same stretch on a relay born with 5,000
+  and kept under the line costs about a twelfth: 0.41M against 4.84M, before any light read. The small relay
+  (`.claude/agents/tnr-relay.md`) is prepared and has not been tried.
+- **In a fight a relay is not replaced** (`player/relay.py`, `should_rotate`). A small relay kept for five
+  rounds still crosses 100,000: on 10 of its 27 requests as it ran, on 9 of 32 with this change. The two last
+  rows are what replacing it inside a fight would give. That is not built.
+- **Each of my turns starts one relay round trip later.** In the live session a round trip was 7 to 13 s.
+- **Against an opponent who moves before my first poll it is a small loss**: the same two full reads a round
+  as before and one batch more. The last row of the first table.
 - **Keeping the state his turn starts on (RUL-2026-11-13-155)** is the difference to the proposal's one full
-  read a round: 11 to 22 points by the second count. The script prints that column too.
-- **Against an opponent who moves before my first poll it is a loss by either count**: the same two full reads
-  a round as before, one batch more. The last row of the first table.
-- **Every turn of mine starts one relay round trip later**, on any relay and by any count. In the live
-  session a round trip was 7 to 13 s.
+  read a round, which the script prints as well: 12 points on the session's relay, 29 on a small one kept for
+  the stretch, 4 or none where the relay is replaced.
 
-It is an estimate from 27 batches of one fight against one opponent. It is a reason to measure, not a result.
+**What I said before, and why it was wrong.** In the live-session handoff I put this change at about half of
+a fight's relay tokens. That was in the raw count, every token of every request alike, which is what the
+token log keeps; it was for one full read a round; and it was taken over the whole session, most of which
+after the first relay is that session's defects. In the raw count this change comes out between 35% less and
+18% more on the stretch above, because the batch it adds weighs as much as the reads it saves. The raw count
+is not what the plan counts. I no longer have the script behind the old table and cannot make it again.
 
-**What I recommend.** Review it, so that it is ready. Put it on the head a live session runs from only when
-the director has said which count is his, or when a session on the small relay has shown it: that session's
-transcript says how much of each request was read from the cache. Without this branch nothing is missing:
-`661f3f63` reads the fight as the accepted AP1 does.
+It is an estimate from 27 batches of one fight against one opponent, with a light read put at 2,000 tokens.
+It is a reason to measure, not a result.
+
+**What I recommend.** Review it and take it: by the plan's count it saves on any relay. Try the small relay
+first, in whatever session comes next: it is the larger saving by far and costs no code. Then decide about
+replacing a relay inside a fight, which needs the director's word and Duet's machine.
 
 `docs/reviews/evidence/ai_player_light_polls/tokens_recomputed.py` makes the second table from the session's
-log on `duet/ai-player-ap1-live` @ 112aadbd. Its notes give the model and what is guessed in it (a light read
-is put at 2,000 tokens). `duel.py` beside it makes the first table, on this head and on the base.
-
-The live handoff's table gave case C as 3.6M against 7.1M for the whole session. I no longer have the script
-behind it and cannot make that figure again. By its wording it counted one full read a round. And it was
-taken over the whole session, where most batches after the first relay are that session's defects (reads that
-came back empty, one fight opened four times), which this change does not touch.
+log on `duet/ai-player-ap1-live` @ 112aadbd. Its notes give the model and what is guessed in it. `duel.py`
+beside it makes the first table, on this head and on the base.
 
 ## What was built
 
@@ -228,6 +236,7 @@ code commit.
 | The four pilot tests (`state/player/dauntless/tools/tests/`) | exit 0 each |
 | `rulings_index.py --check`, `check_large_files.py`, `check_no_real_name.py` (files and commits), `git diff --check` | exit 0 each |
 | The two evidence scripts | exit 0; the tables at the top |
+| After RUL-156: `rulings_index.py --check` and the other gates on files, on this head | exit 0 each |
 | Two fuzz scripts of mine, not in the repository: 1,128 broken battle and log reads, 380 broken profiles and action answers | the results of the base: none bad, and the one case known from AP1 |
 
 ## Planted defects
@@ -291,7 +300,9 @@ Seventeen functions branch more than 12 ways: the same seventeen, with the same 
 
 - **No game source was read.** No capture was made. The allowlist is untouched: a light read is
   `combat.getBattle` with fewer fields.
-- **`docs/design/AI_PLAYER_OVERHAUL.md`** section 4.7: the sentence on when the effect list is read.
+- **`docs/design/AI_PLAYER_OVERHAUL.md`** section 4.7: the sentence on when the effect list is read, and
+  what is counted (RUL-156).
+- **`docs/rulings/2026-11.md`, `docs/RULINGS.md`**: RUL-2026-11-13-156.
 - **`docs/reviews/evidence/ai_player_light_polls/`**: the two scripts named above.
 - **The approved brief** (`state/prompt_ai_player_overhaul.md`, AP1 step 1) says to keep "every poll a full
   read" when the pilot is ported. That was done in AP1. RUL-154 is later and governs; the brief is not edited.
@@ -327,14 +338,14 @@ read from the repository.
 
 ## Open
 
-- For the director: whether this goes on the head a live session runs from, and when (the recommendation
-  above); the five readings.
+- For the director: whether this goes on the head a live session runs from (the recommendation above); the
+  five readings; whether a relay may be replaced inside a fight.
 - From before, unchanged: AP1's live gate and which head it runs on; AP2's three readings; whether the line
   goes to `main`.
 
 ## Not begun
 
 AP2's second part; the script that starts short-lived relays; a live run. Also not begun, and not proposed
-without the director's word: anything that would make the choice between light and full polls depend on the
-opponent or on the relay; polling his turn less often, which is what the first way of counting would reward
-and which costs reaction time; and a token log that keeps cache reads apart.
+without the director's word: replacing a relay inside a fight; a token log that keeps cache reads, cache
+writes and output apart, so that a session's log gives the plan's count without a model; and anything that
+would make the choice between light and full polls depend on the opponent.

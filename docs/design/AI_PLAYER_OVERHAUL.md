@@ -288,6 +288,15 @@ entirely.
   - No reasoning, no summaries, no text between calls. Parallel tool calls in one message per batch.
   - Anything that needs judgment never reaches the relay. It becomes a pending decision for the director (or a Duet
     message), raised by the brain.
+- **What is saved is usage against the plan's limits** (RUL-2026-11-13-156). The plan counts what a request
+  reads again from the prompt cache at a tenth of new content, what it adds at 1.25, and its output at 5; and
+  Haiku 5.5 costs five times as much for a request whose prompt is over 100,000 tokens. (The API's price
+  ratios: the plan's own weights are not published.) So, in this order:
+  - No relay request is over 100,000 tokens. A relay that is born large pays the higher price on every
+    request. Inside a fight a relay is not replaced yet, and a long fight still crosses the line.
+  - What a read adds to the conversation counts twelve times what reading it again costs.
+  - A batch costs its output, five-fold, and a tenth of the conversation so far.
+  - A relay's cache lives five minutes. After a longer wait its next request writes its whole context again.
 - **Tokens in are what the relay pays for, so every response is trimmed at the source.**
   - Every call carries a `select` of only the fields the brain uses.
   - Lists are read as columns, e.g. the ground list (~8× smaller).
