@@ -125,3 +125,7 @@ very expensive (Cyclone Palm Strike level 19 quoted 1,949,575 ryo for one level;
 | 2026-11-13 11:24 | Ethereal Nexus | 13 | 268,032 | queued (active Earth Armor 13 ends ~12:23; waiting Raijin 13, FCG 13, Ryūsa Kōka 13, Ethereal Nexus 13; ends ~16:23). Pocket 9.29M, no withdrawal. 2,369 energy to willpower (+286.29, intelligence had passed willpower); asleep in 177 |
 | 2026-11-13 12:22 | none | | 0 | queue already full (active ends ~12:23; waiting Raijin 13, FCG 13, Ryūsa Kōka 13, Ethereal Nexus 13; ends ~16:23). Pocket 9.29M, no withdrawal. No training started, so the character stayed ASLEEP in 177; 5,050 energy left unspent rather than waking it |
 | 2026-11-13 14:26 | none | | 0 | not refilled: TNR connector failed to connect this run (CONNECT_TIMEOUT), so no live calls were made. Last known queue (12:22 log) ends ~16:23. No ryo, energy or sleep change |
+| 2026-11-13 15:24 | Limit Breaker | 14 | 183,874 | queued |
+| 2026-11-13 15:24 | Mental Fortress | 14 | 183,874 | queued |
+| 2026-11-13 15:24 | Divine Pulse | 14 | 183,874 | queued |
+| 2026-11-13 15:24 | Raijin's Judgement | 14 | 106,628 | queued (queue was empty; active Ethereal Nexus 13 ends ~16:23; waiting Limit Breaker 14, Mental Fortress 14, Divine Pulse 14, Raijin 14; ends ~20:23). Pocket 8.63M, no withdrawal. 4,550 energy to willpower (+549.86, intelligence had passed willpower); asleep in 177 |
