@@ -42,12 +42,9 @@ def _collect(live, state, sleep=time.sleep):
         except OSError:
             path = None
     if state.get("hooks"):                                         # its hooks handed them in: player/hooked.py
-        return hooked.handed_in(live, state, path), usage, strays, path
-    inbox = os.path.join(live, "inbox")
-    for name in sorted(f for f in os.listdir(inbox) if f.startswith("put-")):
-        if not name.startswith(f"put-{token}-"):
-            os.unlink(os.path.join(inbox, name))                   # a result for any other batch is dropped
-            continue
+        return hooked.handed_in(live, state, path, sleep), usage, strays, path
+    inbox = os.path.join(live, "inbox")                            # (a result for any other batch is not read)
+    for name in sorted(f for f in os.listdir(inbox) if f.startswith(f"put-{token}-")):
         row = relay.read(os.path.join(inbox, name))                # this batch's stay until the brain has them
         if row and not path:
             results.append(relay.unpack([row])[0])
@@ -133,7 +130,8 @@ def next_batch(live=None, token=None, out=sys.stdout, sleep=time.sleep, hooks=No
 
     client.json says who has what: held is the batch printed to the relay that is running, from the moment it
     is printed until the brain has taken its results; gone are the batches that were held by relays replaced
-    since; ended is the evidence, not yet given to the brain, that one of those is over."""
+    since, and those handed in with a call still out (player/hooked.py, account); ended is the evidence, not
+    yet given to the brain, that one of those is over."""
     live = live or C.live_dir()
     os.makedirs(os.path.join(live, "inbox"), exist_ok=True)
     client = os.path.join(live, "client.json")
@@ -191,15 +189,15 @@ def _greet(client, state, token, hooks=None):
                  "hooks": hooks,
                  "gone": gone, "ended": state.get("ended") or [], "unprinted": state.get("unprinted") or []}
         state["token"] = f"{state['relay']}-{state['seq']}"
-        relay.write(client, state)
+        with hooked.lock(os.path.dirname(client), make=False):     # no hook lets a call go while a relay is named
+            relay.write(client, state)
         return relay.next_line(state["token"])
     if token != state.get("token"):
         if token.split("-")[0] == state.get("relay"):
             return relay.next_line(state["token"])
         was = next((g for g in state.get("gone") or [] if g["token"] == token), None)
         if was:
-            state["gone"].remove(was)
-            state["ended"] = (state.get("ended") or []) + [[was["id"], time.time(), token, "back"]]
+            hooked.back(os.path.dirname(client), state, was)       # (over, unless a call of it is still out)
             relay.write(client, state)
         return SUPERSEDED
     return hooked.stop(os.path.dirname(client), state, hooks)     # (a relay whose hooks cannot be relied on)
@@ -213,6 +211,7 @@ def _exchange(live, client, state, sleep):
     results, usage, strays, path = _collect(live, state, sleep)
     if state.get("handed") == state["token"]:                      # this batch's results have gone in already
         results, usage, strays = [], {}, 0
+    hooked.account(live, state, path)                              # (a batch with a call still out is not over)
     pending, hold = _owed(state), None
     if pending is None:
         seq, rid = state["seq"] + 1, os.urandom(4).hex()
@@ -302,7 +301,7 @@ def stopped(live, names, out=sys.stdout):
     it is never read again as "whatever is held by then" (review of efa79808, finding 1). `all` is every held
     batch: those of the relays replaced so far, those the ledger holds for a relay that is not on record, and,
     after an update, the minute that is held for the relays from before it (Budget.taken_over).
-    It is never the batch of the relay that is running, and never one that goes loose later. A batch can also
+    It is never the batch the running relay holds, and never one that goes loose later. A batch can also
     be named by its id, as the listing shows it: an older version's batch has a number for one, and is named
     by that number (review of 426a9fba, finding 2: the number typed did not match the number kept). With no
     name: the batches that are held, and nothing is changed.

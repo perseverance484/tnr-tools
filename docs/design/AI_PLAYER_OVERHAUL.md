@@ -307,10 +307,18 @@ entirely.
   - A batch is closed before it is handed in (`player/hooked.py`; review of 184ce648). The hook in front of
     `brain next` waits for every call of the batch that is out, then records how each line ended. After that
     no call of the batch goes, and the brain is handed what that record says, the same however often
-    `brain next` is run. A call still out is handed in as an error; a result that comes later is kept aside
-    and not handed in.
-  - No hook removes what another batch has on record. A batch's records go when the brain has its results.
-  - A result is replaced by "ok" in the model's conversation only once it is written down for the brain.
+    `brain next` is run.
+  - Closed is not over (re-review of ec231943). A call that went to the connector and has no result on record
+    is out. A batch with a call out is handed in as gone, not as held: the brain keeps its calls against the
+    minute and what they may cost reserved, and is told that call has no answer. When the result is on
+    record, `brain next` brings the word that the batch is over as of then; a read after that pays off what
+    was reserved. The late result itself is kept and not handed in.
+  - No hook removes what another batch has on record. A batch's records go when the brain has its results;
+    the line of a call that is out stays until its result is on record.
+  - A result is replaced by "ok" in the model's conversation only once it is written down: in the inbox, or
+    beside the late ones. One that cannot be written down stays in the conversation, and `brain next` looks
+    for it in the relay's transcript.
+  - A new relay is named under the hooks' lock, so no call is let go while that happens.
 - **Tokens in are what the relay pays for, so every response is trimmed at the source.**
   - Every call carries a `select` of only the fields the brain uses.
   - Lists are read as columns, e.g. the ground list (~8× smaller).

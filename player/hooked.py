@@ -1,5 +1,5 @@
 """The batch of a relay with hooks (player/hook.py), on record: its lines, its closing, what `brain next` hands
-in for it, and when it is cleared away.
+in for it, when it is over, and when it is cleared away.
 
 A batch on record (live/hook/), by its token T. No hook removes any of it, whatever batch it is of (review of
 184ce648, H1: a hook that had read client.json before its relay was replaced swept away the new relay's
@@ -8,10 +8,11 @@ records, and a call went twice). It goes when the brain has the batch's results 
   T.seen       a hook has run in front of one of the batch's calls
   T.<n>.json   line n, made once, by the tool call that took it ("use", its id). It is refused ("refused"),
                or its call goes to the connector ("call"). {"passed": true}: no tool call took the line in
-               time, and none may any more. "shown": its result could not be handed in (below)
-  T.closed     how each line had ended when the batch was closed: answered, refused, passed, shown, or open
+               time, and none may any more
+  T.closed     how each line had ended when the batch was closed: answered, refused, passed, or open
   T.results    what was handed in for the batch
-  late/        results that came for a batch that was closed, or that its relay no longer held
+  late/        T.<n>.json: the result of line n's call, when it could not go to the inbox: its batch was
+               closed, its relay no longer held it, or the inbox could not be written
 
 The lines of a batch go in order. Line n's call goes when line n-1 has its answer, and not when that line was
 refused or passed over: a batch is cut where a call is left out. A line waits GRACE for a tool call to take
@@ -21,18 +22,34 @@ still made in order.
 Closing (review of 184ce648, H2: `brain next` took what results were there when it ran; one that came later
 was dropped, or was added to a request the brain had answered already). Before `brain next` runs for the batch
 its relay holds, every line is waited for until it has ended. Then how each ended is put on record, once
-(T.closed). From then on no call of the batch goes, and no result is handed in for it: one that comes is kept
-(late/). What the brain is handed is put together from that record, once (T.results): a `brain next` that
-is run again hands in the same, whatever has come since. A call that was still open is handed in as an error
-that says so, unless its result has come by then: that one is taken out of late/ and handed in. The brain takes no result for a batch but with the batch,
-from a relay without hooks either: a late one stays in that relay's transcript.
+(T.closed). From then on no call of the batch goes, and no result goes to the inbox for it. What the brain is
+handed is put together from that record, once (T.results): a `brain next` that is run again hands in the
+same, whatever has come since.
 
-A result that cannot be handed in (review of 184ce648, H3: the model was shown "ok" all the same, and the
-result was nowhere). The model is shown the result itself then, so the relay's transcript has it, and it is
-taken from there.
+A call that is out (re-review of ec231943, R1: a call that had not come back when the batch was closed was
+handed in as an error, and the batch as over; a read made while the purchase was still on its way then let
+go what was reserved for it). A line is out when its call went to the connector and no result of it is on
+record: not in the inbox, not in late/. Closed to new calls is not the same as every call that went being
+over. So a batch with a line out is not handed in as over: client.json has it among the batches that are gone
+(account), the brain keeps its calls against the minute and what they may cost reserved, and the call itself
+is handed in as an error that says it has no answer. When the result is on record, `brain next` brings the
+word that the batch is over as of then, and a read made after that pays off what was reserved (player/owed.py).
+If it never comes, the operator's word ends it (`brain stopped`). The late result itself is kept and not
+handed in: the brain takes no result for a batch but with the batch, from a relay without hooks either.
 
-The lock (live/hook/lock) is held for a moment by whoever lets a call go, hands a result in, closes a batch
-or clears it away: so a batch is closed between two of those, never during one.
+The same holds for a relay that was replaced and comes back while a call of its is out: its coming back is
+no word that its batch is over (back).
+
+A result the hook could not write down (review of 184ce648, H3; re-review of ec231943, R4: the line was put
+down as done before the result was anywhere `brain next` could find it). The hook tries the inbox, then
+late/. If neither can be written the model is shown the result itself, and the line stays out. `brain next`
+looks for the results of lines that are out in the relay's own transcript, for a moment when it hands the
+batch in and again every time it comes, and puts what it finds in late/ (recover).
+
+The locks. live/hook/lock is held for a moment by whoever lets a call go, hands a result in, closes a batch,
+clears it away, or names a new relay (re-review of ec231943, R2: a new relay was named between a hook's last
+look at client.json and its letting the call go). `brain next` takes it while it holds the client's lock
+(live/client.lock); a hook takes it alone. Never the other way round, and never across a wait.
 """
 import contextlib
 import fcntl
@@ -45,7 +62,8 @@ from . import relay
 GRACE = 2.0               # s a line is waited for to be taken by a tool call, before it is passed over
 TURN = 120.0              # s a line that a tool call has taken is waited for: by the next line, and at closing
 LOOK = 0.05               # s between looks while waiting
-OLD = 3600.0              # s after which what is on record of a batch nobody handed in is removed
+SPOOL = (8, 0.25)         # looks, and the s between, for a result in the transcript when a batch is handed in
+OLD = 3600.0              # s after which what is on record of a batch that is not out any more is removed
 LINE = re.compile(r"^(.+)\.(\d+)\.json$")
 NO_ANSWER = "no answer: the call went to the connector, and its result was not there when the batch was handed in"
 NO_HOOKS = "STOP the relay's hooks are not running: nothing more is sent (player/OPERATOR.md, \"Hooks\")"
@@ -80,10 +98,14 @@ def late(live, token, n):
 
 
 @contextlib.contextmanager
-def lock(live):
-    os.makedirs(os.path.join(live, "hook"), exist_ok=True)
-    with open(os.path.join(live, "hook", "lock"), "w") as f:
-        fcntl.flock(f, fcntl.LOCK_EX)
+def lock(live, make=True):
+    """The hooks' lock. make=False: for one who is no hook; where no hook has ever run there is none to wait for."""
+    if make or os.path.isdir(os.path.join(live, "hook")):
+        os.makedirs(os.path.join(live, "hook"), exist_ok=True)
+        with open(os.path.join(live, "hook", "lock"), "w") as f:
+            fcntl.flock(f, fcntl.LOCK_EX)
+            yield
+    else:
         yield
 
 
@@ -102,19 +124,36 @@ def once(path, content):
 
 # ---------------------------------------------------------------- its lines, and its closing
 def shut(live, state, token):
-    """Whether the batch is closed: no call of it goes any more, and no result is handed in for it."""
+    """Whether the batch is closed: no call of it goes any more, and no result goes to the inbox for it."""
     return state.get("handed") == token or os.path.exists(on_record(live, token, "closed"))
+
+
+def _result(live, token, n):
+    """Whether a result of line n's call is on record."""
+    return os.path.exists(relay.put_path(live, token, n)) or os.path.exists(late(live, token, n))
 
 
 def how(live, token, n):
     """How line n stands. None: no tool call has taken it. "open": one has, and it waits its turn, or its call
-    is with the connector. Or how it ended: "answered", "refused", "passed", "shown"."""
-    if os.path.exists(relay.put_path(live, token, n)):
+    is with the connector. Or how it ended: "answered", "refused", "passed"."""
+    if _result(live, token, n):
         return "answered"
     line = relay.read(on_record(live, token, f"{n}.json"))
     if not isinstance(line, dict):
         return None
-    return next((end for end in ("refused", "passed", "shown") if line.get(end)), "open")
+    return next((end for end in ("refused", "passed") if line.get(end)), "open")
+
+
+def out(live, token):
+    """The lines of the batch that are out: their call went to the connector, and no result of it is on record.
+    -> {n: the line}"""
+    found, folder = {}, os.path.join(live, "hook")
+    for name in os.listdir(folder) if os.path.isdir(folder) else []:
+        at = LINE.match(name)
+        line = relay.read(os.path.join(folder, name)) if at and at.group(1) == token else None
+        if isinstance(line, dict) and line.get("call") and not _result(live, token, int(at.group(2))):
+            found[int(at.group(2))] = line
+    return found
 
 
 def patience():
@@ -189,68 +228,134 @@ def stop(live, state, hooks):
     return None
 
 
-def _in_transcript(path, use, endpoint, sent):
-    """A call's result as the relay's transcript has it, when the model was shown the result itself; None when
-    it has "ok" in its place, or nothing."""
+def _look(live, token, path):
+    """One look in the transcript for the lines of the batch that are out. What is found goes to late/."""
+    left = out(live, token)
     try:
-        hit = relay._span(path, "")[1].get(use) if path and use else None
+        answers = relay._span(path, "")[1] if left and path else {}
     except OSError:
-        hit = None
-    body = hit[0].get("content") if hit else "ok"
-    text = body if isinstance(body, str) else "".join(x.get("text", "") for x in body or [] if isinstance(x, dict))
-    return None if text.strip() == "ok" else list(relay._result(endpoint, sent, hit[0], hit[1], path))
+        answers = {}
+    for n, line in left.items():
+        hit = answers.get(line.get("use"))
+        body = hit[0].get("content") if hit else "ok"
+        said = body if isinstance(body, str) else "".join(x.get("text", "") for x in body or [] if isinstance(x, dict))
+        if said.strip() != "ok":                                  # ("ok" stands there for one that was written down)
+            relay.write(late(live, token, n), list(relay._result(*line["call"], hit[0], hit[1], path)))
 
 
-def handed_in(live, state, path):
+def recover(live, token, path, sleep=None):
+    """The lines of the batch that are out may have their results in the relay's transcript: the hook behind
+    such a call could not write it down, or did not run, and the model was shown the result itself. What is
+    found there goes to late/. path: that relay's transcript, or None. sleep: look again for a moment (SPOOL)
+    while a line is still out. -> the lines still out."""
+    looks = SPOOL[0] if sleep else 0
+    while True:
+        _look(live, token, path)
+        left = out(live, token)
+        if not left or not path or looks <= 0:
+            return left
+        sleep(SPOOL[1])
+        looks -= 1
+
+
+def handed_in(live, state, path, sleep=None):
     """The results of the batch a relay with hooks hands in, from how the batch was closed: put together once,
-    and the same from then on. path: the relay's transcript, or None. -> [Result]"""
+    and the same from then on. Nothing is put together for a batch the brain has had (re-review of ec231943,
+    R3). A line that is still out is looked for in the relay's transcript first (recover), and is handed in as
+    an error if it is not there. path: the relay's transcript, or None. -> [Result]"""
     token = state["token"]
+    if state.get("handed") == token:
+        return []
     rows = relay.read(on_record(live, token, "results"))
     if not isinstance(rows, list):
         lines = (relay.read(on_record(live, token, "closed")) or {}).get("lines") or {}
+        recover(live, token, path, sleep)
         rows = []
-        for n in sorted(int(k) for k, end in lines.items() if end in ("answered", "open", "shown")):
-            endpoint, sent = state["calls"][n - 1]
-            use = (relay.read(on_record(live, token, f"{n}.json")) or {}).get("use")
-            with contextlib.suppress(OSError):                    # one that came between the closing and now
+        for n in sorted(int(k) for k, end in lines.items() if end in ("answered", "open")):
+            with contextlib.suppress(OSError):                    # one that is in late/ goes with its batch after all
                 os.replace(late(live, token, n), relay.put_path(live, token, n))
-            rows.append(relay.read(relay.put_path(live, token, n)) or _in_transcript(path, use, endpoint, sent)
-                        or list(relay.Result(endpoint, sent, None, NO_ANSWER, time.time())))
+            rows.append(relay.read(relay.put_path(live, token, n)) or relay.read(late(live, token, n))
+                        or list(relay.Result(*state["calls"][n - 1], None, NO_ANSWER, time.time())))
         relay.write(on_record(live, token, "results"), rows)
     return relay.unpack(rows)
 
 
+def account(live, state, path):
+    """Before `brain next` asks the brain: which batches are over, by what is on record of their calls.
+
+    The batch being handed in, with a line still out, is not over: it goes from held to gone, as a batch whose
+    relay did not hand it in, with the mark that it was closed. A batch that is gone with that mark, or with
+    the mark that its replaced relay came back (back), is over when no line of it is out any more: that goes
+    among the word for the brain (ended), as of the moment its last result came. Lines that are out are looked
+    for in this relay's transcript first. state: client.json, changed here; the caller writes it."""
+    held = state.get("held")
+    if held and out(live, held["token"]):
+        state["gone"], state["held"] = state["gone"] + [dict(held, closed=True)], None
+    for was in [g for g in state["gone"] if g.get("closed") or g.get("back")]:
+        if not recover(live, was["token"], path):
+            state["gone"].remove(was)
+            state["ended"] = state["ended"] + [[was["id"], _last(live, was["token"]), was["token"], "answered"]]
+
+
+def _last(live, token):
+    """When the last result on record of the batch came; now, if none is."""
+    folder, times = os.path.join(live, "hook", "late"), []
+    for name in os.listdir(folder) if os.path.isdir(folder) else []:
+        row = relay.read(os.path.join(folder, name)) if name.startswith(token + ".") else None
+        if isinstance(row, list) and len(row) == 5 and isinstance(row[4], (int, float)):
+            times.append(row[4])
+    return max(times, default=time.time())
+
+
+def back(live, state, was):
+    """A relay that was replaced is back with the token of a batch that is gone (`brain next` tells it to
+    stop). That is the word that its batch is over, unless a call of it is still out: then it is marked, and is
+    over when that call's result is on record (account). state: client.json, changed here."""
+    if out(live, was["token"]):
+        was["back"] = True
+    else:
+        state["gone"].remove(was)
+        state["ended"] = (state.get("ended") or []) + [[was["id"], time.time(), was["token"], "back"]]
+
+
 def consumed(live, token):
     """The brain has the batch's results, and client.json says so (`brain next` holds the client's lock). What
-    was handed in for the batch goes, with what is on record of it: but a line that was open stays, for the
-    result that may yet come for it. A result that was handed in for a batch its relay did not live to hand in
-    is kept (late/). Whatever is on record of any batch goes when it is OLD: no hook lives that long."""
+    was handed in for the batch goes, with what is on record of it, but for the lines that are out: those stay
+    until their result is on record, whatever becomes of the batch. It can be done again and changes nothing
+    more (re-review of ec231943, R3: done a second time it took the line of a call that was out, and the
+    result that came for it was nowhere). A result in the inbox for another batch is kept (late/). What is
+    on record of a batch that is neither held nor gone goes when it is OLD: no hook lives that long."""
     folder, inbox = os.path.join(live, "hook"), os.path.join(live, "inbox")
     if not os.path.isdir(folder):                                 # no relay has had hooks here
         return _puts(inbox, token, None)
     with lock(live):
-        lines = (relay.read(on_record(live, token, "closed")) or {}).get("lines") or {}
-        _puts(inbox, token, os.path.join(folder, "late"))
+        state = relay.read(os.path.join(live, "client.json")) or {}
+        owed = {g.get("token") for g in [state.get("held")] + (state.get("gone") or []) if isinstance(g, dict)}
+        still = {f"{token}.{n}.json" for n in out(live, token)}
         os.utime(os.path.join(folder, "lock"))                    # the time, by the clock that stamps the files
-        _cleared(folder, token, {n for n, end in lines.items() if end == "open"},
-                 os.path.getmtime(os.path.join(folder, "lock")))
+        _cleared(folder, token, still, owed, os.path.getmtime(os.path.join(folder, "lock")))
+        _puts(inbox, token, live)                                 # last: a line with its result in the inbox is not out
 
 
-def _puts(inbox, token, aside):
+def _puts(inbox, token, live):
+    """The batch's results leave the inbox. Another batch's go to late/, under the name of their line: so a
+    line that was answered is not taken for one that is out. live None: no relay has had hooks; they go."""
     for name in [f for f in os.listdir(inbox) if f.startswith("put-")]:
-        with contextlib.suppress(OSError):
-            if name.startswith(f"put-{token}-"):
+        whose, n = name[4:-5].rsplit("-", 1)
+        with contextlib.suppress(OSError, ValueError):
+            if whose == token or not live:
                 os.unlink(os.path.join(inbox, name))
-            elif aside:
-                os.makedirs(aside, exist_ok=True)
-                os.replace(os.path.join(inbox, name), os.path.join(aside, name))
+            else:
+                os.makedirs(os.path.dirname(late(live, whose, int(n))), exist_ok=True)
+                os.replace(os.path.join(inbox, name), late(live, whose, int(n)))
 
 
-def _cleared(folder, token, still_open, now):
+def _cleared(folder, token, still, owed, now):
+    """still: the files of the batch's lines that are out. owed: the tokens of the batches that are held or gone."""
     for root, _, names in os.walk(folder):
         for name in set(names) - {"log.jsonl", "lock"}:
-            at, path = LINE.match(name), os.path.join(root, name)
-            mine = root == folder and name.startswith(token + ".") and not (at and at.group(2) in still_open)
+            path, whose = os.path.join(root, name), name.split(".")[0]
+            mine = root == folder and whose == token and name not in still
             with contextlib.suppress(OSError):
-                if mine or now - os.path.getmtime(path) > OLD:
+                if mine or (whose not in owed and now - os.path.getmtime(path) > OLD):
                     os.unlink(path)

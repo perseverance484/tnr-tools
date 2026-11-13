@@ -126,12 +126,19 @@ RUL-2026-11-13-157).
   comes back or you say `stopped`: the word is as cheap as before, and now it is true sooner.
 - **`brain next` may take two minutes to start.** Its hook first waits for every call of the batch that went
   to the connector and has not come back, 120 seconds at most, and 2 seconds for a line the relay left out.
-  A call still out after that is handed to the brain as an error saying so; the brain reads again.
-- **`live/hook/late/`** holds results that came too late to be handed in: for a batch that was closed by
-  then, or one whose relay had been replaced. The brain does not take them, as it takes no late result from a
-  relay without hooks. They are there for you to read, and go when they are an hour old. A result the hook
-  could not write down at all is left in the relay's conversation, and `brain next` takes it from the relay's
-  transcript: `live/hook/log.jsonl` says "could not be handed in" when that happened, which means the disk.
+- **A call that is still out after that.** The brain is told that call has no answer, and reads again. Its
+  batch is not over: the brain holds the batch's calls against every minute and keeps what they may cost
+  reserved, as for a relay that did not hand its batch in, and the event says so in those words though the
+  relay is running. When the call's result comes, the batch is over as of then, by itself. If it never comes,
+  `brain stopped` lists the batch under its token: say it stopped once you know that call is not on its way
+  any more. The same holds for a replaced relay that came back while a call of its was out.
+- **`live/hook/late/`** holds results that could not go to the inbox: for a batch that was closed by then,
+  for one whose relay had been replaced, or because the inbox could not be written. One that is there when
+  its batch is handed in goes with it. The others the brain does not take, as it takes no late result from a
+  relay without hooks; what they are good for is the word that their batch is over. They are there for you to
+  read, and go an hour after their batch is over. A result the hook could not write down anywhere is left in
+  the relay's conversation; `brain next` looks for it in the relay's transcript each time it comes.
+  `live/hook/log.jsonl` says "could not be written down" when that happened, which means the disk.
 - **A relay with hooks runs one command**, `brain next`. Its hook refuses every other, `brain stopped` and
   `brain set` among them: those are yours.
 

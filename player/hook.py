@@ -23,7 +23,8 @@ How it goes, for a relay whose `brain next` came through the first hook:
          batch in live/client.json. Everything else is refused, and a refused call is not made. A line of the
          batch is one tool call's, once, and goes when the line before it has its answer.
   post   The result goes to the brain as `brain put` hands one in (live/inbox/put-<token>-<n>.json), and only
-         then is the model shown "ok" in its place. One that comes when its batch is closed is kept aside.
+         when it is written down is the model shown "ok" in its place. One that comes when its batch is
+         closed is kept aside.
   fail   The same for a call that failed. The model sees the error, which is short.
   bash   The relay's one command is `brain next`. Every other is refused. `brain next` is let through with the
          relay's own id behind it (--hooks ID): so `brain next` knows hooks run for this relay. The batch the
@@ -35,7 +36,8 @@ What a hook that does not run can cost: nothing in the game. A stand-in that rea
 endpoint of the game. A relay whose `brain next` comes without the id is a relay without hooks, and is given
 its batches as before (player/relay.py, lines). A relay with hooks whose batch was not closed here, or whose
 first calls came back with no sign of this file having run, is told to stop (hooked.stop). A result this file
-cannot hand in is left in front of the model: the relay's transcript has it then (review of 184ce648, H3).
+cannot write down is left in front of the model: the relay's transcript has it then, and `brain next` looks
+for it there (review of 184ce648, H3; hooked.recover).
 
 What it was tried on: Claude Code 2.1.323, 2026-11-13, one read of my own profile's status through the
 connector (docs/reviews/evidence/ai_player_hook_relay/). A hook's input carries the agent's id, the tool's
@@ -191,9 +193,10 @@ def _made(live, use):
 
 
 def answered(live, inp, error=None):
-    """A call's result. Handed in as `brain put` hands one in, while its batch is the one held and is not
-    closed; kept (live/hook/late/) after that. error: the text of a call that failed.
-    -> "handed in", "kept", or None for a tool call that was no call of a batch."""
+    """A call's result, written down. It goes to the inbox, as `brain put` hands one in, while its batch is the
+    one held and is not closed; to live/hook/late/ after that, and when the inbox cannot be written. If it
+    cannot be written there either, that is raised. error: the text of a call that failed.
+    -> "handed in", "kept", or None for a tool call that was no call of a batch: nothing is written for that."""
     made = _made(live, inp.get("tool_use_id"))
     if made is None:
         return None
@@ -211,17 +214,11 @@ def answered(live, inp, error=None):
     with lock(live):
         state = holding(live)
         if state is not None and token == state["token"] and not shut(live, state, token):
-            relay.put(live, token, n, result)
-            return "handed in"
+            with contextlib.suppress(OSError):
+                relay.put(live, token, n, result)
+                return "handed in"
         relay.write(late(live, token, n), list(result))
     return "kept"
-
-
-def _shown(live, use):
-    """A result could not be handed in. Its line says so, if that can be written: the model has the result."""
-    with contextlib.suppress(Exception):
-        token, n, call = _made(live, use)
-        relay.write(on_record(live, token, f"{n}.json"), {"use": use, "call": call, "shown": True})
 
 
 def _dropped(live, inp, why):
@@ -258,12 +255,12 @@ def run(what, inp, live=None, sleep=time.sleep):
     try:
         end = answered(live, inp, None if what == "post" else str(inp.get("error") or ""))
     except Exception as err:  # noqa: BLE001  (it is nowhere but in front of the model: it is left there)
-        _shown(live, inp.get("tool_use_id"))
-        _note(live, what, inp, f"the result could not be handed in: {err!r}"[:200])
-        return None
-    _note(live, what, inp, {"handed in": None, "kept": "its batch is over: the result is kept, not handed in"}.get(
-        end, "not a call of a batch"))
-    if what == "post":
+        end = None
+        _note(live, what, inp, f"the result could not be written down: {err!r}"[:200])
+    else:
+        _note(live, what, inp, {"handed in": None, "kept": "the result is kept beside the late ones"}.get(
+            end, "not a call of a batch"))
+    if what == "post" and end:                                    # written down: the model need not carry it
         return {"hookSpecificOutput": {"hookEventName": "PostToolUse", "updatedToolOutput": OK}}
     return None
 
