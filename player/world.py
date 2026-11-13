@@ -89,8 +89,14 @@ def takeovers(live):
 
 def counted(live, write):
     """An unfinished save of a takeover is counted and closed: (count + 1, not saving). The brain that began it
-    is gone (or will count again when it does save), and what is on disk now is a takeover of its own, under a
-    name nobody has spoken of. `write`: World._write, or what a test puts in its place."""
+    is gone, and what is on disk now is a takeover of its own, under a name nobody has spoken of. `write`:
+    World._write, or what a test puts in its place.
+
+    Only for the one who has the brain's lock (player/brain: a brain that starts, and `brain stopped` with
+    nobody home). Whoever only reads a live folder leaves the count alone: a brain that is saving has the
+    lock, and its save is its own to finish (review of ce1be6e9: every World that was made counted, so one made
+    by a reader between a living brain's writes closed that brain's save, a word was taken for the name of that
+    moment, and the brain then finished on the count it had read before)."""
     n, saving = generation(live)
     if saving:
         write(os.path.join(live, COUNT), {"count": n + 1, "saving": False})
@@ -142,8 +148,7 @@ class World:
         self.live = live or C.live_dir()
         self.path = os.path.join(self.live, "world.json")
         self.clock = clock
-        self.d = copy.deepcopy(TEMPLATE)
-        counted(self.live, self._write)             # a save of a takeover that a brain before this one left
+        self.d = copy.deepcopy(TEMPLATE)            # making a World writes nothing: the count is the brain's
         self.found = found(self.path)               # the file as it was on disk (None on a first start),
         self.found_at = os.path.getmtime(self.path) if self.found else None   # and when it was last written
         self.taken_over = False                     # the brain's to set: that file was another version's ledger
@@ -170,21 +175,24 @@ class World:
         os.makedirs(self.live, exist_ok=True)
         if not self.taken_over:
             return self._write(self.path, self.d)
-        # A takeover is put on disk in three writes, and until the third it can be spoken of by no name.
+        # A takeover is put on disk in three writes, and until the third the file it took over can be spoken of
+        # by no name (once the second is done, its hold is in the saved ledger and is spoken of as that row).
         #   1. the count's file says "saving". A brain that ends after this leaves the old file there: the
         #      next brain counts the save that was left (counted), and takes the file over under a new name.
         #      The other order, the world model first, would leave a saved takeover uncounted and its name free
         #      for the next file of the same bytes.
         #   2. the world model.
-        #   3. the count is raised and "saving" is over.
+        #   3. the count is raised and "saving" is over. The count is read again for it: if anything counted
+        #      since the first write (nothing can while this brain has its lock; a brain a script made has
+        #      none), this save does not end on a number that was passed (review of ce1be6e9).
         # Before this version there were two writes: the count raised, then the world model. Between them the
         # file on disk and the raised count made the name of a takeover that did not exist yet; `brain stopped`
         # could write word of it down, and a later takeover of the same bytes had that name (review of
         # e4a267cd). A save that fails leaves this brain to do all three again.
-        count, n = os.path.join(self.live, COUNT), takeovers(self.live)
-        self._write(count, {"count": n, "saving": True})
+        count = os.path.join(self.live, COUNT)
+        self._write(count, {"count": takeovers(self.live), "saving": True})
         self._write(self.path, self.d)
-        self._write(count, {"count": n + 1, "saving": False})
+        self._write(count, {"count": takeovers(self.live) + 1, "saving": False})
         self.taken_over = False
 
     @staticmethod

@@ -36,7 +36,8 @@ PREDECESSOR = "29797ba0f769152381e71710f812605be9e0bfea"
 REVIEWED = "c412de4df43baf4f11fbd817efb0f7ae95c08226"
 """The version the review was of: it has the hold, under the predecessor's number. It is the version before this."""
 EARLIER = ("06358ca539372cae12d41b086a465719f403aba7", PREDECESSOR, REVIEWED,
-           "7cf7d73c5cb235801b66e4b4763cb63e1bc7b14e", "e4a267cd1ab5ff85c3b2399bab713f2870da6ccb")
+           "7cf7d73c5cb235801b66e4b4763cb63e1bc7b14e", "e4a267cd1ab5ff85c3b2399bab713f2870da6ccb",
+           "ce1be6e98eb39550e79806c5c8f9da87f67fa4eb")
 """Versions whose records carry a number, and whose rules are not this version's."""
 FIXTURES = os.path.join(os.path.dirname(__file__), "fixtures")
 PENDING, RECEIPT = (os.path.join(FIXTURES, f"upgrade_29797ba0_{what}") for what in ("pending", "receipt"))

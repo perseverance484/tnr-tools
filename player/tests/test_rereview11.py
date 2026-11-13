@@ -50,9 +50,10 @@ brain.stopped(sys.argv[1], ["all"])
 '''
 
 
-class WhileATakeoverIsSaved(unittest.TestCase):
+class AFolderOfAnotherVersion(unittest.TestCase):
     """A live folder whose world.json is another version's, on the test's clock (which starts at the real time:
-    a word said by a process of its own carries the real time)."""
+    a word said by a process of its own carries the real time). No tests of its own: the classes below, and
+    those of the next review, are made of it."""
 
     def setUp(self):
         self.live = tempfile.mkdtemp(prefix="player-saving-")
@@ -79,8 +80,8 @@ class WhileATakeoverIsSaved(unittest.TestCase):
         brain.stopped(self.live, list(names), out)
         return json.loads(out.getvalue())
 
-    def a_process_of_its_own_says_all(self):
-        done = subprocess.run([sys.executable, "-W", "ignore", "-c", ASKS, self.live], cwd=C.ROOT, timeout=60,
+    def a_process_of_its_own_says_all(self, program=ASKS):
+        done = subprocess.run([sys.executable, "-W", "ignore", "-c", program, self.live], cwd=C.ROOT, timeout=60,
                               capture_output=True, text=True, env={**os.environ, **self.env, "PYTHONPATH": C.ROOT})
         return json.loads(done.stdout)
 
@@ -110,6 +111,20 @@ class WhileATakeoverIsSaved(unittest.TestCase):
             self.assertEqual(calls_of(lines), [])                           # was: four calls, nine seconds later
         self.assertEqual(len(update(self.live)), C.CALL_LIMIT)
 
+    def dies_at(self, home, which):
+        """The brain ends at one of the save's writes: "saving" (the first), "world" (the second) or "count"
+        (the third). The write it ends at is not made."""
+        def dies(path, obj):
+            if (which == "world" and path == self.path) or (which != "world" and path != self.path
+                                                             and obj.get("saving") is (which == "saving")):
+                raise Killed
+            self.write(path, obj)
+        with mock.patch.object(World, "_write", staticmethod(dies)):
+            with self.assertRaises(Killed):
+                home.world.save()
+
+
+class WhileATakeoverIsSaved(AFolderOfAnotherVersion):
     # ---- the review's first way: a word said between the writes, by a process of its own
     def test_word_said_while_the_resident_saves_is_not_written_down(self):
         seen = {}
@@ -179,16 +194,6 @@ class WhileATakeoverIsSaved(unittest.TestCase):
         self.a_later_takeover_of_the_same_file_is_held([word.split("(")[1][:-1], self.saved_hold()])
 
     # ---- the other moments of the three writes
-    def dies_at(self, home, which):
-        """The brain ends at one of the save's writes: "world" (the second) or "count" (the third)."""
-        def dies(path, obj):
-            if (which == "world" and path == self.path) or (which == "count" and obj.get("saving") is False):
-                raise Killed
-            self.write(path, obj)
-        with mock.patch.object(World, "_write", staticmethod(dies)):
-            with self.assertRaises(Killed):
-                home.world.save()
-
     def test_a_brain_that_ends_after_the_world_model_is_written_has_its_save_counted_by_the_next(self):
         home = self.real(self.live, clock=lambda: self.now[0])
         self.dies_at(home, "count")

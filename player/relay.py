@@ -24,7 +24,7 @@ import time
 from . import config as C
 from .world import RATE_LIMITED, Result
 
-PROTOCOL = 4
+PROTOCOL = 5
 """What `brain next` and the brain mean by what they keep for each other, and the rules a batch is made under.
 Each of these carries the number of the code that made it: live/client.json and a request (`brain next`), an
 answer, the batch waiting to be printed that is made of it, the receipt, and the call ledger (the brain). One
@@ -53,7 +53,10 @@ a batch's calls. When in doubt, change it: a new number costs the operator one w
      would not have made.
   4  no word is taken for a takeover while it is being saved. Under 3 the count was raised before the world
      model was written, and word said between the two was kept under the name of the next takeover of those
-     bytes (review of e4a267cd). The same reason as for 3."""
+     bytes (review of e4a267cd). The same reason as for 3.
+  5  a save of a takeover is closed only by the one who has the brain's lock. Under 4 anything that made a
+     World closed it, a living brain's too, and word said then was again kept under the name of a later
+     takeover (review of ce1be6e9). The same reason as for 3."""
 
 
 def ours(record):

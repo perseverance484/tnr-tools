@@ -8,23 +8,52 @@ import contextlib
 import fcntl
 import os
 import time
+import weakref
 
 from .. import brain as B
 from .. import config as C
 from .. import relay
+from ..world import World, counted
 from .core import _crashed, _wire
 
 # ---------------------------------------------------------------- the resident process and its client
+_HELD = {}
+"""The brain's locks this process has: {live folder: the open file}. A lock is over when its file is closed."""
+
+
 def _lock(live, wait=False):
     """The one-brain lock: whoever holds it owns the world model. Returns the open file, or None."""
     os.makedirs(live, exist_ok=True)
     f = open(os.path.join(live, "brain.lock"), "w")  # noqa: SIM115 (held for the life of the holder)
     try:
         fcntl.flock(f, fcntl.LOCK_EX | (0 if wait else fcntl.LOCK_NB))
-        return f
     except OSError:
         f.close()
         return None
+    _HELD[os.path.realpath(live)] = weakref.ref(f)
+    return f
+
+
+def _home(live):
+    """Does this process have the brain's lock of this live folder?"""
+    f = _HELD.get(os.path.realpath(live), lambda: None)()
+    return f is not None and not f.closed
+
+
+def _left_save(live):
+    """A save of a takeover that a brain began and left is counted (world.counted) before the brain that starts
+    looks at what is on disk, and only under the brain's lock: the lock this process has already (the resident;
+    a `brain next` that answers for itself), or the lock taken here for the moment when nobody has it (a brain
+    made without one). When another process has the lock, a brain is home: the save is that brain's to finish,
+    and nothing is counted (review of ce1be6e9)."""
+    if _home(live):
+        return counted(live, World._write)
+    lock = B._lock(live)
+    if lock is not None:
+        try:
+            counted(live, World._write)
+        finally:
+            lock.close()
 
 
 def _after_crash(brain):
