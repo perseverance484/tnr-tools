@@ -362,5 +362,6 @@ naming it on its Supersedes line, and the index then shows "superseded by".
 | RUL-2026-11-09-146 | Staff reads allowed for developing the PvP skill | ACTIVE | [2026-11.md](rulings/2026-11.md) |
 | RUL-2026-11-11-147 | Live play of the director's character, pilot agents included | ACTIVE | [2026-11.md](rulings/2026-11.md) |
 | RUL-2026-11-13-148 | Wreck Salvage pays by depth and time; the trades stay player-chosen in the quest log | ACTIVE | [2026-11.md](rulings/2026-11.md) |
+| RUL-2026-11-13-149 | Teno Yuki Bloodright passives get lore-based names | ACTIVE | [2026-11.md](rulings/2026-11.md) |
 
 <!-- INDEX:END -->
