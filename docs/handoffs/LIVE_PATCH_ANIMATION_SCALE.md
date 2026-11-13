@@ -1,6 +1,6 @@
 # Handoff: Forge livePatch (per-effect animationScale derived from live)
 
-Lane A. Branch `fable/live-patch-animation-scale`, base `c4724df` (main after #119).
+Lane A. Branch `fable/live-patch-animation-scale`, base `f277a6a` (main).
 
 ## Why
 Job 593 sets `animationScale` 2.5 on the Mother of Echoes' 57 remaining jutsu (~800 KB of effects).
