@@ -17,8 +17,11 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 spec = importlib.util.spec_from_file_location("thread", os.path.join(ROOT, "push/skyglass_thread.gen.py"))
 G = importlib.util.module_from_spec(spec); sys.path.insert(0, os.path.join(ROOT, "push")); spec.loader.exec_module(G)
 V2 = json.load(open(os.path.join(ROOT, "state/skyglass_thread_boards_v2.json")))
+V2.update(json.load(open(os.path.join(ROOT, "state/skyglass_thread_boards_v3.json"))))  # Nov 13 20:21Z: menu v3, shore, closing, below
 BOARD_NODES = {"d_menu": "menu", "r_menu": "menu", "a_threes": "threes", "a_hulls": "hulls", "a_drift": "driftline",
-               "a_loot": "loot", "t_salvage": "salvage", "t_prices": "salvage", "w_board": "logboard"}
+               "a_loot": "loot", "t_salvage": "salvage", "w_board": "logboard",
+               "m_mender": "closing", "m_hold": "closing", "s_four": "below", "s_below": "below", "t_earn": "salvage",
+               "t_deck": "salvage", "t_hold": "salvage", "t_dear": "salvage", "t_how": "salvage", "t_work": "shore"}
 DROP = ("id", "createdAt", "updatedAt", "raidStartedAt", "raidEndsAt", "raidCaptureDeadline", "raidGracePeriodEnd")
 
 
