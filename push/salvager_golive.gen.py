@@ -14,7 +14,7 @@ What it does (Salvager's Trade write-up, Claude Doc YNEcUm9oBvYijwTRYWYUAc; Nov 
      Low Tide and Night Watch 1 at 25%; the crew charts, the three new runs and the six Haul runs 1; the Epic and
      tainted runs 3; Crownhold 10 (it costs a Lantern to enter). Starting numbers: re-check against measured times.
   2. Each order of The Watch Log: The Rotted Heading pays 3 salvage on claim. Later pages carry it in their own build.
-  3. Both Wrecks: a salvage drop (Faded 1 at 50%, Skyglass 3 every clear), and every direct chart drop at half its
+  3. Both Wrecks: a salvage drop (Faded 1 at 25%, Skyglass 3 every clear), and every direct chart drop at half its
      current chance.
   4. Unhide Wreck Salvage. The four trades stay their own quest-log quests, so players choose them (director
      2026-11-13 17:03 UTC: "Keep separate so players can choose"): Wreck Sighted as prerequisite and unhidden; their
@@ -47,7 +47,7 @@ RUNS = {  # quest id: (name, salvage per win, chance %). Every id read back by n
     "fqqpkcp_L4oOsC6yyodlk": ("Crownhold", 10, 100),
 }
 PAGE = ("V-i3ZcAqPu0hB3G9IEzGo", "The Watch Log: The Rotted Heading", 3)
-WRECKS = {"j4QEUtjbK_lbOYUPVoidk": ("Faded Skyglass Wreck", 1, 50), "RHqzYdY4EAQA9HwsBKWDS": ("Skyglass Wreck", 3, 100)}
+WRECKS = {"j4QEUtjbK_lbOYUPVoidk": ("Faded Skyglass Wreck", 1, 25), "RHqzYdY4EAQA9HwsBKWDS": ("Skyglass Wreck", 3, 100)}
 # The charts she sells, at half their Wreck chance. The Lantern is left to its own pending rate change (Nov 13 plan).
 CHARTS = {cid for k, (cid, _) in T.CH.items() if k != "lantern"}
 
