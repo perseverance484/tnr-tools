@@ -1,0 +1,76 @@
+{
+ "builder": "forge-mcp",
+ "at": "2026-11-13T19:47:57.429Z",
+ "cfg": "forge",
+ "checks": null,
+ "state": "DONE",
+ "outcome": "success",
+ "postflight": {
+  "match": 1,
+  "diff": 0,
+  "unverified": 0,
+  "failed": 0,
+  "skipped": 0,
+  "unresolved": 0
+ },
+ "entries": [
+  {
+   "name": "The Watch Log: The Rotted Heading: levels 81-100, needs Wreck Sighted",
+   "srcId": null,
+   "entity": "quest",
+   "slot": "edit",
+   "op": "update",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 2,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "V-i3ZcAqPu0hB3G9IEzGo"
+  }
+ ],
+ "captures": [],
+ "idmap": {},
+ "journal": {
+  "v": 1,
+  "jobId": "601-mwfdyphi",
+  "manifestPath": "push/601_rotted_heading_81_gate.json",
+  "manifestNumber": 601,
+  "manifestHash": "27e5c473",
+  "startedAt": "2026-11-13T19:44:51.846Z",
+  "updatedAt": "2026-11-13T19:47:57.425Z",
+  "state": "DONE",
+  "pause": null,
+  "items": [
+   {
+    "idx": 0,
+    "entity": "quest",
+    "op": "update",
+    "name": "The Watch Log: The Rotted Heading: levels 81-100, needs Wreck Sighted",
+    "srcId": null,
+    "targetId": "V-i3ZcAqPu0hB3G9IEzGo",
+    "payloadHash": "21191d95",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "V-i3ZcAqPu0hB3G9IEzGo",
+    "snapshotKey": null,
+    "sentAt": "2026-11-13T19:45:01.357Z",
+    "createSentAt": null,
+    "confirmedAt": "2026-11-13T19:47:45.840Z",
+    "verifiedAt": "2026-11-13T19:47:57.423Z",
+    "error": null,
+    "attempt": 1,
+    "asserted": [
+     "requiredLevel",
+     "prerequisiteQuestId"
+    ],
+    "diffs": [],
+    "verify": "match"
+   }
+  ]
+ }
+}
