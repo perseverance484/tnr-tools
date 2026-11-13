@@ -52,6 +52,10 @@ test("applyLivePatch: scales only effects that use a listed asset; counts mixed 
   assert.deepEqual(livePatchDiffs(patch(), { effects: r.data.effects }), []);
   assert.equal(livePatchDiffs(patch(), live)[0].key, "effects.animationScale");
   assert.throws(() => applyLivePatch(patch(), { name: "x" }), /no effects array/);
+  // targets gone is never a match (review P2-1)
+  assert.equal(livePatchDiffs(patch(), { name: "x" }).length, 1);
+  assert.equal(livePatchDiffs(patch(), { effects: [] }).length, 1);
+  assert.equal(livePatchDiffs(patch(), { effects: [fx({ staticAnimation: "stock" })] }).length, 1);
 });
 
 test("livePatch: the runner sends the whole live record with the scale set, then verifies it", async () => {
@@ -110,4 +114,37 @@ test("livePatch: reconciling a lost send confirms only when live holds the patch
   h.game.rows("jutsu")[0].effects[0].animationScale = 2.5;
   const after = await rec.resolveSent(job, item, { planned, lookup: () => undefined });
   assert.equal(after.action, "confirm"); assert.equal(after.landed, true);
+});
+
+test("livePatch: verify and reconcile report drift when the targets are gone (review P2-1)", async () => {
+  const h = harness();
+  h.game.seed("jutsu", jutsu("j-6", [fx({ appearAnimation: "moe-a" })]));
+  const planned = { ...parseManifest(edit("j-6", patch())).items[0], deps: [] };
+  const item = { idx: 0, entity: "jutsu", op: "update", state: "SENT", phase: "update", entityId: "j-6", targetId: "j-6" };
+  for (const effects of [[], [fx({ staticAnimation: "stock" })]]) {
+    h.game.rows("jutsu")[0].effects = effects;
+    const r = await h.reconciler.resolveSent({ jobId: "r", items: [] }, item, { planned, lookup: () => undefined });
+    assert.equal(r.action, "orphan");
+  }
+});
+
+test("livePatch: suggest mode refuses it at parse (review P2-2)", () => {
+  const m = { mode: "suggest", suggestion: { title: "Clip size pass", rationale: "Scale her clips to the size they were drawn for." }, ...edit("j", patch()) };
+  assert.throws(() => parseManifest(m), /livePatch cannot be suggested/);
+});
+
+test("livePatch: ordinary verify after the targets were removed is drift, not a match (review P2-1)", async () => {
+  const h = harness();
+  h.game.seed("jutsu", jutsu("j-7", [fx({ appearAnimation: "moe-a" })]));
+  const handle = h.game.handle.bind(h.game);
+  // the update lands, then someone strips the clip before the read-back
+  h.game.handle = (path, input) => {
+    const out = handle(path, input);
+    if (path === "jutsu.update") h.game.rows("jutsu")[0].effects = [fx({ staticAnimation: "stock" })];
+    return out;
+  };
+  h.runner.plan(edit("j-7", patch()), { jobId: "lp7" });
+  const s = await h.runner.run("lp7");
+  assert.notEqual(s.items[0].state, "VERIFIED");
+  assert.equal(h.journal.get("lp7").items[0].verify, "drift");
 });

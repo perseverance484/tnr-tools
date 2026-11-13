@@ -51,6 +51,8 @@ function suggestPolicy(m, items) {
   for (const it of items) {
     const where = `item ${it.idx + 1} (${it.name})`;
     if (it.op !== "update") problems.push(`${where}: suggest mode can only change existing records (slot "edit" with a targetId)`);
+    // The suggestion path builds from planned.data only; a livePatch would be dropped unsent (review P2-2).
+    if (it.livePatch !== undefined) problems.push(`${where}: livePatch cannot be suggested; run it as a direct edit`);
     if (!REVIEW.entityTypes[it.entity]) problems.push(`${where}: ${it.entity} cannot be suggested; the review desk takes ${Object.keys(REVIEW.entityTypes).join(", ")}${REVIEW._meta.notSuggestible[it.entity] ? ` (${it.entity}: ${REVIEW._meta.notSuggestible[it.entity].split(";")[0]})` : ""}`);
     // The desk keeps only its own editable fields and would drop the rest without a word.
     if (it.entity === "ai") {

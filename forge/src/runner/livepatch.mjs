@@ -51,11 +51,17 @@ export function applyLivePatch(patch, live) {
   return { data: { effects: next }, targeted: hit, changed, mixed: mix };
 }
 
-/** Read-back check: every targeted effect holds the scale. [] when it all landed. */
+/**
+ * Read-back check: [] only when the live record has an effects array, at least one effect uses a
+ * listed asset, and every such effect holds the scale. A record whose targets are gone is a diff,
+ * never a match (review P2-1).
+ */
 export function livePatchDiffs(patch, live) {
   if (!patch) return [];
-  const effects = Array.isArray(live?.effects) ? live.effects : [];
+  if (!Array.isArray(live?.effects)) return [{ key: "effects", sent: "livePatch target", live: "no effects array" }];
   const assets = new Set(patch.assets);
-  const off = effects.map((e, i) => [i, e]).filter(([, e]) => targeted(e, assets) && e.animationScale !== patch.animationScale);
+  const hit = live.effects.map((e, i) => [i, e]).filter(([, e]) => targeted(e, assets));
+  if (!hit.length) return [{ key: "effects.animationScale", sent: patch.animationScale, live: "no effect uses a listed asset" }];
+  const off = hit.filter(([, e]) => e.animationScale !== patch.animationScale);
   return off.length ? [{ key: "effects.animationScale", sent: patch.animationScale, live: off.map(([i, e]) => ({ i, animationScale: e.animationScale ?? null })) }] : [];
 }

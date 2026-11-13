@@ -22,10 +22,17 @@ record from the live read at send time, the way the in-game editor does.
   longer reports "no asserted keys" for a livePatch item with empty data.
 - `livePatch` is part of the item payloadHash only when present (existing hashes unchanged).
 
+## Review round 1 (ChatGPT at 419b3e74): both P2s fixed
+- P2-1: `livePatchDiffs` now reports a diff when the record has no effects array, or no effect uses a
+  listed asset; a match needs a non-empty target set all at the scale. Verify and reconcile both use it,
+  so a write whose targets vanished resumes as drift/orphan, never VERIFIED. Tests 9 and 11.
+- P2-2: suggest mode refuses `livePatch` at parse (the suggestion path builds from planned.data only).
+  Test 10.
+
 ## Gates
-- `node --test forge/test/livepatch.test.mjs`: 8/8.
-- `npm test` (forge): 831 tests, 802 pass, 14 fail - the identical 14 failing on main (diffed by name).
-- `npm run build` then `node forge/tools/check_bundle_budget.mjs`: raw 486,414/490,000, gzip 117,508/119,000.
+- `node --test forge/test/livepatch.test.mjs`: 11/11.
+- `npm test` (forge): 834 tests, 805 pass, 14 fail, 15 skipped - the identical 14 names failing on main here (this checkout lacks the historical fixtures; the reviewer, with them fetched, saw the same 4 on base and head).
+- `npm run build` then `node forge/tools/check_bundle_budget.mjs`: raw 486,756/490,000, gzip 117,589/119,000.
 
 ## Not done
 No live requests from this branch. No browser run. Job 593 manifest is generated separately on main.
