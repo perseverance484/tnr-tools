@@ -651,6 +651,17 @@ class WhatTheBrainGets(Hooks):
         self.next(token)
         self.assertEqual(len(self.got), 1)
 
+    def test_what_comes_for_a_call_the_hook_refused_is_no_result(self):
+        """Nothing should: a refused call is not made. If Claude Code ran the hooks behind one all the same,
+        what they are given is not a result of the batch."""
+        token, lines = self.first_batch()
+        relay.write(os.path.join(self.r.dir, "client.json"), dict(self.client(), until=self.r.t - 1))
+        inp, real = self.sent(lines[0])                                      # past the lease: refused, on record
+        self.assertIsNone(real)
+        self.assertEqual(self.after(inp, inp["tool_input"], [{"type": "text", "text": "{}"}]), OK)
+        self.assertIsNone(hook.run("fail", dict(inp, error="x"), self.r.dir))
+        self.assertEqual((self.puts(), self.kept()), ([], [f"{token}.1.json", f"{token}.seen"]))
+
     def test_its_transcript_is_read_for_the_tokens_and_nothing_else(self):
         """A relay with hooks has a transcript too: its stand-ins, "ok" for each result, and what each request
         cost. None of those calls is a result, and none is a call the batch did not ask for."""

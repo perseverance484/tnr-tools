@@ -42,7 +42,7 @@ def _collect(live, state, sleep=time.sleep):
         except OSError:
             path = None
     if state.get("hooks"):                                         # its hooks handed them in: player/hooked.py
-        return hooked.handed_in(live, state, path), usage, 0, path
+        return hooked.handed_in(live, state, path), usage, strays, path
     inbox = os.path.join(live, "inbox")
     for name in sorted(f for f in os.listdir(inbox) if f.startswith("put-")):
         if not name.startswith(f"put-{token}-"):
