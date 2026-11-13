@@ -82,6 +82,9 @@ relay from before the update is still running when you say it, its calls are cou
 
 - The word is for this one update. It is of no use for a later one, which is listed under another name, also
   when the file that is taken over then is the same as before, byte for byte.
+- If the list says `the relays from before the update (a brain is saving the takeover: say it again in a
+  moment)`, nothing was taken down for it: a brain is in the middle of writing what it took over, or could not
+  write it yet. Say `stopped all` again a moment later; the line then has the hold's own `update-…` name.
 - A batch the last relay from before the update had is listed only once the new relay has asked. List again
   then, and say `stopped all` again: until you do, that batch's calls stay held and the player has less room.
 - `stopped TOKEN` or `stopped BATCH` for one old batch lets that batch go and leaves the update's minute held.

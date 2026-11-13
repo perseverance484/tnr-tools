@@ -35,7 +35,7 @@ from player.tests.test_rereview5 import update
 from player.tests.test_rereview6 import calls_of
 from player.tests.test_rereview8 import hold
 from player.tests.test_rereview9 import WhatAVersionBeforeLeft
-from player.world import World, found, takeovers
+from player.world import World, found, generation, takeovers
 
 LAST = "7cf7d73c5cb235801b66e4b4763cb63e1bc7b14e"
 """The head before this one: it has the hold and the number 2, and names the hold by the file's bytes alone."""
@@ -157,8 +157,9 @@ class H2AWordIsForOneTakeover(unittest.TestCase):
         self.assertEqual(takeovers(self.live), 1)                           # saved: counted, once
 
     def test_a_brain_that_ends_between_the_count_and_the_save_leaves_the_file_under_a_new_name(self):
-        """The count is written first. So the takeover that was not saved is asked about again, under a new
-        name; it is never the other way round, a saved takeover whose name stays free."""
+        """The count's file is written first (since the review of e4a267cd it says "saving", and whoever comes
+        next counts the save that was left). So the takeover that was not saved is asked about again, under a
+        new name; it is never the other way round, a saved takeover whose name stays free."""
         self.unreadable()
         (first,) = self.says("all")["stopped"]
         write = World._write
@@ -170,8 +171,10 @@ class H2AWordIsForOneTakeover(unittest.TestCase):
         with mock.patch.object(World, "_write", staticmethod(dies)):
             with self.assertRaises(Killed):
                 self.real(self.live, clock=lambda: self.now[0]).world.save()
-        self.assertEqual((takeovers(self.live), relay.read(self.path)), (1, None))   # counted; the file as it was
-        (second,) = self.says()["still_held"]
+        self.assertEqual((generation(self.live), relay.read(self.path)), ((0, True), None))   # the file as it was
+        with mock.patch.object(brain.client, "LOOKS", (1, 0)):
+            (second,) = self.says()["still_held"]                           # nobody is home: it is counted here
+        self.assertEqual(generation(self.live), (1, False))
         self.assertNotEqual(first, second)
         calls, token = self.asks(token_of(self.next()[0]), 300)
         self.assertEqual(calls, [])                                         # the word of before names nothing now

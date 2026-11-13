@@ -57,12 +57,14 @@ from ..budget import UPDATE, Budget  # noqa: F401
 from ..combat import Combat  # noqa: F401
 from ..gates import Gates  # noqa: F401
 from ..registry import CLASSES  # noqa: F401
-from ..world import RATE_LIMITED, World, found  # noqa: F401
+from ..world import RATE_LIMITED, World, counted, found, print_of, seen  # noqa: F401
 from .core import BLOCK_FOR, IDLE_HOLD, QUIET, Brain, _crashed, _lead, _wire  # noqa: F401
 from .resident import REQUEST, _after_crash, _answered, _lock, answer, run, serve  # noqa: F401
-from .client import (RETRY_IN, SUPERSEDED, _a_batch, _a_relay, _a_waiting_batch, _a_word, _await,  # noqa: F401
-                     _client, _collect, _exchange, _greet, _held, _owed, _sweep, _taken, _transcript, _who,
-                     next_batch, put, stopped)
+from .client import (LOOKS, RETRY_IN, SAVING, SUPERSEDED, _a_batch, _a_relay, _a_waiting_batch,  # noqa: F401
+                     _a_word, _await, _client, _collect, _exchange, _greet, _held, _ledger_in, _named, _on_disk,
+                     _owed, _sweep, _taken, _transcript, _who, next_batch, put, stopped)
+
+B = sys.modules[__name__]  # the package as its own files call it: a function's source, run here again, finds it
 
 
 def _setting(arg):

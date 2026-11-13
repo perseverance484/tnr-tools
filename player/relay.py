@@ -24,7 +24,7 @@ import time
 from . import config as C
 from .world import RATE_LIMITED, Result
 
-PROTOCOL = 3
+PROTOCOL = 4
 """What `brain next` and the brain mean by what they keep for each other, and the rules a batch is made under.
 Each of these carries the number of the code that made it: live/client.json and a request (`brain next`), an
 answer, the batch waiting to be printed that is made of it, the receipt, and the call ledger (the brain). One
@@ -50,7 +50,10 @@ a batch's calls. When in doubt, change it: a new number costs the operator one w
   3  the operator's word lets go the hold of the takeover it was said of, and of no later one. Under 2 the
      hold was named by the old file's bytes alone, so word kept through a crash let go the hold of a later
      file of the same bytes (second review of c412de4d). A batch made after such a word is one this version
-     would not have made."""
+     would not have made.
+  4  no word is taken for a takeover while it is being saved. Under 3 the count was raised before the world
+     model was written, and word said between the two was kept under the name of the next takeover of those
+     bytes (review of e4a267cd). The same reason as for 3."""
 
 
 def ours(record):

@@ -2,6 +2,7 @@
 code and changed no behaviour, and every test that was there runs as it was. These are for what the split itself
 has to keep: the command line, every name the file had, and the five places where the pieces meet.
 """
+import inspect
 import io
 import json
 import os
@@ -87,6 +88,21 @@ class WhatTheFileHadThePackageHas(unittest.TestCase):
         self.assertEqual(len(NAMES), 57)
         self.assertEqual({brain.Brain.__module__, brain.serve.__module__, brain.next_batch.__module__},
                          {"player.brain.core", "player.brain.resident", "player.brain.client"})
+
+
+    def test_what_a_function_of_the_package_uses_the_package_has(self):
+        """One review's script takes the source of `stopped`, changes it, and runs it again in player.brain's own
+        namespace. So every global a function of the three files uses is a name of the package too, the ones
+        that came after the split among them (the review of e4a267cd's correction gave `stopped` two)."""
+        missing = {}
+        for module in (brain.core, brain.resident, brain.client):
+            for name, f in vars(module).items():
+                f = inspect.unwrap(f) if inspect.isfunction(f) else f      # (what a decorator wraps, not its wrapper)
+                if inspect.isfunction(f) and f.__module__ == module.__name__:
+                    lacking = sorted(n for n in f.__code__.co_names if n in f.__globals__ and not hasattr(brain, n))
+                    if lacking:
+                        missing[name] = lacking
+        self.assertEqual(missing, {})
 
 
 class ThePiecesMeetInThePackage(unittest.TestCase):
