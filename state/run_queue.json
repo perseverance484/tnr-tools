@@ -590,12 +590,25 @@
    "note": "Director go 2026-11-13 (fix list). Spec still has old text."
   },
   {
+   "id": "596",
+   "manifest": "push/596_moe_silence_absence_pools.json",
+   "what": "MoE Act I Silence phase (director yes 2026-11-10 01:18-01:22 UTC): Feelers at most every 3 rounds; the Unbridled Silence casts An Absence (settle round = warning) and its opening field becomes the Hush pool (18/round, heal block, 3 rounds); The Hush and The Hush, Unbridled off her kit; Sayo pools 1.01 (5,100 > Silence 5,050). Law 18 on the Silence and An Absence. All hidden.",
+   "runner": "connector",
+   "status": "waiting",
+   "waitsFor": [
+    "run lock (after the Skyglass release jobs)"
+   ],
+   "then": "hand rerun of all three acts on the practice quest, PvE gear, no auto-play; dauntless asleep after",
+   "note": "Director go to ship MoE tonight, timeline 2026-11-13 18:57 UTC. Built Nov 10 as a local 588; the 8 records re-read live 2026-11-13 ~19:05 UTC, unchanged. Run BEFORE 593."
+  },
+  {
    "id": "593",
    "manifest": "push/593_moe_animation_scale.json",
    "what": "Mother of Echoes clips at 2.5x: 56 jutsu by Forge livePatch (effects built from the live record at send time), law 18 on 10 AIs",
    "runner": "browser",
    "status": "waiting",
    "waitsFor": [
+    "596 done (it changes the Silence kit; 593 was regenerated with that kit 2026-11-13)",
     "livePatch review + merge (fable/live-patch-animation-scale @ 419b3e74)",
     "loader pinned to the merge",
     "director go"
