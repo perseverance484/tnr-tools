@@ -7,5 +7,5 @@
 // @match        *://theninja-rpg.com/*
 // @grant        none
 // @run-at       document-idle
-// @require      https://raw.githubusercontent.com/perseverance484/tnr-tools/fc61cdee8a4fd78ecbc8863d1ccbcb85aebdd93f/builder_bundle.js
+// @require      https://raw.githubusercontent.com/perseverance484/tnr-tools/1fb10ebb7462a169e1fab4b8817afe2e20df6205/builder_bundle.js
 // ==/UserScript==
