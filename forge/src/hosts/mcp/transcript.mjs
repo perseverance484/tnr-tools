@@ -67,7 +67,9 @@ export class TranscriptAnswerer {
    */
   constructor({ path, onNote = null }) {
     this.path = resolve(path);
-    this.folder = dirname(this.path) + sep;
+    // A subagent transcript sits in <session>/subagents/; its saved outputs go to <session>/tool-results/.
+    const dir = dirname(this.path);
+    this.folder = (dir.endsWith(sep + "subagents") ? dirname(dir) : dir) + sep;
     this.onNote = onNote;
     this.pos = 0;
     this.rest = "";
