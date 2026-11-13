@@ -348,6 +348,12 @@ const definedKeys = (o) => Object.keys(o).filter((k) => o[k] !== undefined);
  * `''` sent vs null live is equal (server normalises empty strings to null on nullable columns).
  * Numbers within 0.5 are equal for ai (scaleUserStats re-normalises on every write, law 71).
  */
+/** Effects with the server's post-pin defaults filled in (animationScale: 1 when absent). */
+export function withEffectDefaults(effects) {
+  if (!Array.isArray(effects)) return effects;
+  return effects.map((e) => (e && typeof e === "object" && !Array.isArray(e) && e.animationScale === undefined ? { ...e, animationScale: 1 } : e));
+}
+
 export function diffAsserted(entity, asserted, live) {
   // A dungeon is the getAll row {id, content, updatedAt}; its content is compared by the dungeon's
   // own normalisation (defaults, trimmed name, expiry instants), not eqLoose (review F5).
@@ -378,7 +384,9 @@ export function diffAsserted(entity, asserted, live) {
     }
     const s = asserted[k], l = live ? live[k] : undefined;
     if (entity === "skillTree" && k === "effects") {
-      if (!deepEqualPayload(s, l)) diffs.push({ key: k, sent: s, live: l });
+      // The server fills animationScale (prefault 1, upstream 8bd670153) on every effect it saves,
+      // so an effect sent without it reads back with 1. Compare with that default on both sides.
+      if (!deepEqualPayload(withEffectDefaults(s), withEffectDefaults(l))) diffs.push({ key: k, sent: s, live: l });
       continue;
     }
     if (!eqLoose(s, l, entity)) diffs.push({ key: k, sent: s, live: l });
