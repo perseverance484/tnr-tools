@@ -121,7 +121,8 @@ def build(d, chart_ids):
         # questRank D: the Administration Building lists event quests only at the player's letter ranks (Genin D-C,
         # Chunin D-B; queries/quests.ts fetchQuestDiscoveryCandidates ranks filter), so D leaves only the level gates
         # (director Nov 13 20:10Z "No rank gates, just level gates").
-        data = {"name": t["name"], "prerequisiteQuestId": T.WRECK_SIGHTED, "hidden": False, "questRank": "D"}
+        # No key quest (director Nov 13 20:12Z: "they dont need a key as the cost gates them, availability to all is fine").
+        data = {"name": t["name"], "prerequisiteQuestId": None, "hidden": False, "questRank": "D"}
         extra = ""
         if t["key"] == "lantern":
             # One Lantern per weekend (director 2026-11-13 "1 lantern per"): the game week turns over Sunday 6 PM,
@@ -130,7 +131,7 @@ def build(d, chart_ids):
             data.update({"retryDelay": "none", "maxCompletes": 1})
             extra = ", once per record (re-issued each Friday)"
         items.append({"entity": "quest", "slot": "edit", "targetId": T.IDS[t["key"]], "phase": 3,
-                      "name": f"{t['name']}: quest log (player's choice), needs Wreck Sighted, unhide{extra}",
+                      "name": f"{t['name']}: quest log (player's choice), no key, rank D, unhide{extra}",
                       "data": data})
     out = {"_note": "push/545, LIVE (Friday Nov 13 release only): salvage on every Skyglass win and Rotted Heading order, "
                     "Wreck salvage drops with direct chart drops halved, Wreck Salvage and the four trades unhidden as "

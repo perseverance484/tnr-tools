@@ -316,7 +316,7 @@ def golive(bundle_paths, live_path):
 # At release Wreck Sighted moves to the salvager's one overworld NPC (director 2026-11-09 15:58). The Fire stays an
 # Administration Building event so the no-reward repeat costs no daily NPC roll (director 2026-11-09 19:57); it only
 # gains Wreck Sighted as its prerequisite at release, so staff can keep playtesting it hidden until then.
-FIRE_GOLIVE = {"questType": "event", "prerequisiteQuestId": WRECK_SIGHTED_ID}
+FIRE_GOLIVE = {"questType": "event", "prerequisiteQuestId": None}  # no key (director Nov 13 20:12Z)
 
 
 def fire_text(bundle_paths, num=544):
