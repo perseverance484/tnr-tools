@@ -64,7 +64,8 @@ class PvpHunt(Activity):
 
     def available(self, world):
         return (world.status() == "AWAKE" and world["control"]["mode"] == "hunt"
-                and not world["control"]["end_session"])          # an ending session picks no new fight
+                and not world["control"]["end_session"]           # an ending session picks no new fight
+                and not world["inventory"].get("stale"))          # nor one before a loadout's items are read
 
     def value(self, world):
         return 10.0
@@ -87,9 +88,24 @@ class PvpHunt(Activity):
                 own["refused"] = f"attack refused ({kind}): {r.data.get('message')}"
 
     def plan(self, world):
+        """The hunt's plan. With more in the pocket than it may hold on the road it starts no trip (director
+        2026-11-12, RUL-2026-11-12-153; review of 988c56cc, H3): it stays where it is, fights who is there,
+        and scans, until the bank has had its turn."""
+        p = self._hunt(world)
+        if world.overfull() and any(s.get("call") == "travel.startGlobalMove" for s in p.steps):
+            return self._scan(world, ", staying here: the pocket holds more than it may on the road")
+        return p
+
+    @staticmethod
+    def _head(world):
+        me = world.me
+        return (f"AWAKE hunt {me.get('curHealth', 0):.0f}/{me.get('maxHealth', 0):.0f} HP @ {me.get('sector')} "
+                f"{world.position()}")
+
+    def _hunt(self, world):
         own, me = world.own(self.name), world.me
         sector, me_pos = me.get("sector"), world.position()
-        head = f"AWAKE hunt {me.get('curHealth', 0):.0f}/{me.get('maxHealth', 0):.0f} HP @ {sector} {me_pos}"
+        head = self._head(world)
         scan = own.pop("scan", None)
         refused = own.pop("refused", None)
         here = scan is not None and scan["sector"] == sector
@@ -105,11 +121,15 @@ class PvpHunt(Activity):
                             f"{'; ' + refused if refused else ''}, next sector {nxt}", tag="idle")
         if sector not in C.CIRCUIT:
             return plan(K.go(C.CIRCUIT[0]), "world", head + f": heading to the circuit ({C.CIRCUIT[0]})")
+        return self._scan(world)
+
+    def _scan(self, world, why=""):
+        sector = world.me.get("sector")
         steps = [K.user(), K.sector(sector)]
         if world.now - world["map"].get("sensory_at", 0) > C.SENSORY_EVERY:
             world["map"]["sensory_at"] = world.now
             steps.append(K.sensory(sector))
-        return plan(steps, "world", head + ": scanning", hold=C.HUNT_WAIT, tag="idle")
+        return plan(steps, "world", self._head(world) + ": scanning" + why, hold=C.HUNT_WAIT, tag="idle")
 
     def _attack(self, t, sector, me_pos, head):
         there = (t["longitude"], t["latitude"])

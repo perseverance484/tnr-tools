@@ -71,7 +71,7 @@ class Restock(Activity):
 
     def available(self, world):
         own = world.own(self.name)
-        return (world.status() == "AWAKE" and not world.in_battle()
+        return (world.status() == "AWAKE" and not world.in_battle() and not world["inventory"].get("stale")
                 and bool(own.get("active") or world["inventory"].get("restock_due") or world.now >= own.get("next", 0)))
 
     def value(self, world):
@@ -133,7 +133,12 @@ class Restock(Activity):
     def _short(self, world):
         """(the calls for everything that is short, in the table's order; a note for each)."""
         inv, steps, notes = world["inventory"], [], []
-        world.own(self.name)["purse"] = float(world.me.get("money") or 0)   # what the pocket can still pay this pass
+        own, caps, pocket = world.own(self.name), world.caps(), float(world.me.get("money") or 0)
+        # what this pass may still spend, each purchase out of what the one before left: from the pocket, of the
+        # day's allowance, and above the reserve (review of 988c56cc, H2: every purchase was sized by the whole
+        # allowance, and a batch of them went past it). What is admitted and not yet paid counts as spent.
+        own.update(purse=pocket, allow=caps["daily"] - world.spent_today() - world.reserved(),
+                   spare=pocket + float(world.me.get("bank") or 0) - caps["reserve"] - world.reserved())
         inv.pop("draw", None)
         self._potion(world)
         inv["empty_items"] = [i for i in TRACK if not world.items(i, carried=True)]
@@ -193,9 +198,8 @@ class Restock(Activity):
 
     @staticmethod
     def _shop(world, own, iid, name, want, rec):
-        caps, unit, purse = world.caps(), max(1.0, float(rec.get("cost") or 0)), own.get("purse", 0.0)
-        above = purse + float(world.me.get("bank") or 0) - caps["reserve"]
-        can = int(min(want, above // unit, (caps["daily"] - world.spent_today()) // unit, rec.get("stackSize") or 50, 50))
+        unit, purse = max(1.0, float(rec.get("cost") or 0)), own.get("purse", 0.0)
+        can = int(min(want, own["spare"] // unit, own["allow"] // unit, rec.get("stackSize") or 50, 50))
         if can <= 0:
             return [], f"{name}: short, and the reserve or the day's cap leaves nothing to buy it with"
         n = int(min(can, purse // unit))
@@ -204,7 +208,7 @@ class Restock(Activity):
         if n <= 0:
             world["inventory"]["draw"] = {"ryo": min(can * unit, C.POCKET_LIMIT), "until": world.now + DRAW_FOR}
             return [], f"{name}: short, and the pocket cannot pay for one: the bank is asked"
-        own["purse"] = purse - n * unit
+        own.update(purse=purse - n * unit, allow=own["allow"] - n * unit, spare=own["spare"] - n * unit)
         step = K.buy(iid, n, n * unit)
         own.setdefault("doing", {})[what(step)] = f"{n} {rec.get('name') or name} ({n * unit:,.0f} ryo)"
         return [step], f"{name}: buy {n} in the shop ({n * unit:,.0f} ryo)"
@@ -216,6 +220,7 @@ class Restock(Activity):
             best = self._best(world, listed["rows"], iid, cap)
             if best:
                 price, qty = best["buyoutPrice"], best["quantity"] or best["userItem.quantity"] or 1
+                own.update(allow=own["allow"] - price, spare=own["spare"] - price)
                 step = K.bid(best["id"], price)
                 own.setdefault("doing", {})[what(step)] = f"{qty} {rec.get('name') or name} ({price:,.0f} ryo)"
                 return [step], f"{name}: auction buyout, {qty} for {price:,.0f} ryo"
@@ -229,9 +234,10 @@ class Restock(Activity):
     @staticmethod
     def _best(world, rows, iid, cap):
         """The cheapest listing of this item, for one unit, that is in ryo, has a buyout at or under the cap,
-        and that the bank can pay above the reserve and inside the day's cap. None when there is none."""
-        caps, bank = world.caps(), float(world.me.get("bank") or 0)
-        afford = min(bank - caps["reserve"], caps["daily"] - world.spent_today())
+        and that the bank can pay above the reserve and inside what the day still allows this pass. None when
+        there is none."""
+        own = world.own("restock")
+        afford = min(float(world.me.get("bank") or 0) - world.caps()["reserve"], own["spare"], own["allow"])
         priced = [(unit_price(x, iid), x) for x in rows]
         fits = [(unit, n, x) for n, (unit, x) in enumerate(priced)
                 if unit is not None and unit <= cap and x["buyoutPrice"] <= afford]

@@ -24,7 +24,7 @@ import time
 from . import config as C
 from .world import RATE_LIMITED, Result
 
-PROTOCOL = 5
+PROTOCOL = 6
 """What `brain next` and the brain mean by what they keep for each other, and the rules a batch is made under.
 Each of these carries the number of the code that made it: live/client.json and a request (`brain next`), an
 answer, the batch waiting to be printed that is made of it, the receipt, and the call ledger (the brain). One
@@ -56,7 +56,11 @@ a batch's calls. When in doubt, change it: a new number costs the operator one w
      bytes (review of e4a267cd). The same reason as for 3.
   5  a save of a takeover is closed only by the one who has the brain's lock. Under 4 anything that made a
      World closed it, a living brain's too, and word said then was again kept under the name of a later
-     takeover (review of ce1be6e9). The same reason as for 3."""
+     takeover (review of ce1be6e9). The same reason as for 3.
+  6  a batch carries the cutoff of the run lock's lease it was made under, and is not printed when its last
+     call would be made at or after it (player/runlock.py). Under 5 the lease was looked at when a batch
+     was planned and never again: one that waited, or was given again from its receipt, was printed after
+     the lease had run out (review of 988c56cc, H1). A batch with no cutoff on record is another version's."""
 
 
 def ours(record):

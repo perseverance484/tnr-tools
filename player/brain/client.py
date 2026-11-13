@@ -14,6 +14,7 @@ from .. import brain as B
 from .. import config as C
 from .. import relay
 from ..budget import UPDATE
+from ..runlock import given_up, lapsed
 from ..world import World, counted, print_of, seen
 
 def _transcript(state, sleep):
@@ -108,8 +109,8 @@ def _a_batch(g):
 
 def _a_waiting_batch(p):
     """A batch this version's brain made that is waiting to be printed, as client.json keeps it under pending."""
-    return (relay.ours(p) and isinstance(p.get("id"), str) and isinstance(p.get("seq"), int)
-            and isinstance(p.get("steps"), list) and isinstance(p.get("ready_at"), (int, float)) and "stop" in p)
+    return (relay.ours(p) and isinstance(p.get("id"), str) and isinstance(p.get("seq"), int) and "stop" in p
+            and isinstance(p.get("steps"), list) and isinstance(p.get("ready_at"), (int, float)) and "until" in p)
 
 
 def _a_word(e):
@@ -157,6 +158,9 @@ def next_batch(live=None, token=None, out=sys.stdout, sleep=time.sleep):
         elif (state.get("pending") or {}).get("id") != pending["id"]:
             # the batch this call waited for is not the one that is owed any more: another call of this relay
             # has it, or it grew too old and the brain was asked afresh. Print nothing of it; come back.
+            out.write(relay.next_line(state["token"]) + "\n")
+        elif lapsed(pending, time.time()):                         # the run lock's lease no longer reaches its
+            relay.write(client, given_up(state) or state)          # last call: none of it is printed
             out.write(relay.next_line(state["token"]) + "\n")
         else:
             token = f"{me}-{pending['seq']}"
@@ -225,8 +229,8 @@ def _exchange(live, client, state, sleep):
         if batch is None:
             return None, RETRY_IN
         hold = batch["hold"]
-        pending = {"protocol": batch["protocol"], "id": batch.get("id") or rid, "seq": seq,
-                   "steps": batch["steps"], "stop": batch["stop"], "ready_at": time.time() + hold}
+        pending = {"protocol": batch["protocol"], "id": batch.get("id") or rid, "seq": seq, "steps": batch["steps"],
+                   "stop": batch["stop"], "ready_at": time.time() + hold, "until": batch.get("until")}
         state.update(held=None, ended=[], unprinted=[])            # the brain has them, saved beside its answer
     state.update(pending=pending, transcript=path, new=False, handed=state["token"])
     relay.write(client, state)
@@ -245,16 +249,12 @@ def _sweep(live):
 
 def _owed(state):
     """A batch the brain made that no relay has had yet (its relay was replaced while it waited), unless it has
-    waited too long to be worth sending: then the brain is asked afresh, under the next number. A batch is known
-    by its own id, so a call that is still waiting on the old one cannot publish it in the new one's place
-    (review of 0d10b7c6, finding 3)."""
-    pending = state.get("pending")
-    if pending and time.time() - pending["ready_at"] > C.STALE_OUTBOX:
-        state["seq"] = max(state.get("seq", 0), pending["seq"])    # its number is not used again
-        state["unprinted"] = state["unprinted"] + [pending["id"]]  # it was not printed, and now never will be
-        state["pending"] = None
-        return None
-    return pending
+    waited too long to be worth sending, or the run lock's lease it was made under no longer reaches its last
+    call: then the brain is asked afresh, under the next number. A batch is known by its own id, so a call that
+    is still waiting on the old one cannot publish it in the new one's place (review of 0d10b7c6, finding 3)."""
+    pending, now = state.get("pending"), time.time()
+    stale = pending and (now - pending["ready_at"] > C.STALE_OUTBOX or lapsed(pending, now))
+    return given_up(state) if stale else pending
 
 
 def _await(live, seq, rid, req, sleep, limit=90.0):

@@ -10,7 +10,7 @@ from .. import brain as B
 from .. import config as C
 from .. import console, registry, relay
 from ..budget import Budget
-from ..runlock import RunLock
+from ..runlock import RunLock, within
 from ..combat import Combat
 from ..gates import Gates
 from ..registry import CLASSES
@@ -281,9 +281,13 @@ class Brain:
         back, is for a caller that drives the budget by itself, and the brain does not lean on it."""
         wanted = any("call" in x for x in steps)
         self.budget.settle(holder=None)           # a batch still out here was never placed: it is not on record
-        if wanted and not self.lock.held():       # every path comes through here: without the lock, no call
-            steps = [x for x in steps if "call" not in x]
         steps, waited = self.budget.pace(steps, lane, self.world.now + hold)
+        # every path comes through here: no call that would be made at or after the cutoff of the run lock's
+        # lease (review of 988c56cc, H1: the lock was asked for now, and the calls went later). With no claim
+        # the cutoff is 0: without the lock, no call.
+        steps, late = within(steps, self.world.now + hold, self.lock.until())
+        self.budget.unsend(late)
+        self.lock.too_short(late)
         steps, hold = _lead(steps, hold)
         if wanted and not any("call" in x for x in steps):
             hold = max(hold, C.RATE_BACKOFF)
@@ -309,20 +313,21 @@ class Brain:
             return None
         if p.tag == "fight_end":
             heal = self.reg.activities["recovery"].after_fight(w)
-            if heal and self.gates.screen(heal, w, "recovery")[0]:
+            if heal and self.gates.screen(heal, w, "recovery", steps)[0]:
                 steps = heal + steps
         if p.tag == "idle":
             for rider in (a for a in self.reg.activities.values() if getattr(a, "rides", False)):
                 try:
                     if w["control"]["activities"].get(rider.name, True) and rider.available(w):
                         extra = rider.plan(w)
-                        if extra and self.gates.screen(extra.steps, w, rider.name)[0]:
+                        if extra and self.gates.screen(extra.steps, w, rider.name, steps)[0]:
                             steps += extra.steps
                 except Exception as err:  # noqa: BLE001  (a rider never costs the batch it rides on)
                     self._set_aside(rider, f"its plan failed ({err!r})")
         for s in steps:
             if "call" in s:
                 self.gates.sent(s, w)
+        self.gates.reserve(steps, w, self.ask.get("id"))
         return steps
 
     def _record(self, out):
@@ -330,6 +335,7 @@ class Brain:
         w, r = self.world, self.world["relay"]
         if not out["stop"] and out["hold"] <= 0 and not any("call" in x for x in out["steps"]):
             out["hold"] = C.RATE_BACKOFF        # nothing to do and no wait would bring the relay straight back
+        out["until"] = self.lock.until()                            # the cutoff it was made under goes with it
         prev = r.get("activity")
         if prev and prev != out["activity"] and prev not in QUIET:
             w.event("activity_done", f"{prev}: {r.get('note', '')}", activity=prev)
@@ -376,7 +382,7 @@ def _lead(steps, hold):
 
 def _wire(out):
     """A batch as it is written for `brain next`."""
-    return {"stop": out["stop"], "hold": out["hold"],
+    return {"stop": out["stop"], "hold": out["hold"], "until": out.get("until"),
             "steps": [{k: s[k] for k in ("call", "input", "select")} if "call" in s else s for s in out["steps"]]}
 
 

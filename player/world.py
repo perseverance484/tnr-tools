@@ -248,11 +248,12 @@ class World:
     # ------------------------------------------------------------ results
     def absorb(self, results):
         """Fold the reads every module shares into the model: my profile, my items, and a trip's arrival time."""
-        for r in results:
+        last = max((i for i, r in enumerate(results) if r.endpoint != "profile.getUser"), default=-1)
+        for i, r in enumerate(results):
             if r.error or not isinstance(r.data, dict):
                 continue
             if r.endpoint == "profile.getUser":
-                self._profile(r)
+                self._profile(r, closes=i > last)                 # it was read after every other call it came with
             elif r.endpoint == "item.getUserItems":
                 self._items(r)
             elif r.endpoint == "travel.startGlobalMove" and r.data.get("data.travelFinishAt"):
@@ -284,7 +285,7 @@ class World:
                      if not (number(new.get(k)) or new.get(k) is None and k not in ("curHealth", "maxHealth"))),
                     next((k for k in ("money", "bank") if not (new.get(k) is None or amount(new[k]))), None))
 
-    def _profile(self, r):
+    def _profile(self, r, closes=True):
         new = {k.split(".", 1)[1]: v for k, v in r.data.items() if k.startswith("userData.")}
         if "status" not in new:
             return
@@ -304,6 +305,7 @@ class World:
                 spend.update(day=utc_day(self.now), ryo=0.0)
             if after < before:
                 spend["ryo"] = spend.get("ryo", 0.0) + (before - after)
+            self._paid(closes)
         new["read_at"] = self.now
         self.d["character"] = new
 
@@ -338,6 +340,33 @@ class World:
     def spent_today(self):
         spend = self.d["records"]["spend"]
         return spend.get("ryo", 0.0) if spend.get("day") == utc_day(self.now) else 0.0
+
+    def overfull(self):
+        """Whether the pocket holds more than it may on the road (RUL-2026-11-12-153: 200,000), while the bank
+        activity is switched on to bring it down. Then no trip is started by choice: not to the village for
+        training, not home at a session's end, not to the next sector of a hunt, whether the deposit is still
+        to come, was refused, or waits to be tried again (review of 988c56cc, H3). A fight's moves and
+        recovery's are not by choice (Gates._road)."""
+        money = self.me.get("money")
+        return bool(self.d["control"]["activities"].get("bank", True) and money is not None
+                    and float(money) > C.POCKET_LIMIT)
+
+    def _paid(self, closes):
+        """A profile read has shown what was spent: what was reserved for batches that are over is in that
+        measure now, and is dropped. A batch is over when none of its calls is out or loose in the ledger; the
+        one this read came with, only when the read was made after every other call of it (closes)."""
+        calls, spend = self.d["budget"].get("calls") or [], self.d["records"]["spend"]
+        open_ = {c[3] for c in calls if c[2:3] == ["loose"]}
+        if not closes or any(c[2:3] == ["out"] for c in calls):
+            open_.add(self.d["budget"].get("batch"))
+        spend["out"] = [row for row in spend.get("out") or [] if row[0] in open_]
+
+    def reserved(self):
+        """The ryo that calls already admitted may cost, and that no profile read has shown yet (records.spend.out,
+        [batch, ryo] rows: Gates.reserve books them, a profile read drops them). It counts against the day's
+        allowance and the reserve like money spent: a batch of purchases shares one allowance, and so do the
+        batches that are still out (review of 988c56cc, H2)."""
+        return sum(row[1] for row in self.d["records"]["spend"].get("out") or [])
 
     # ------------------------------------------------------------ the console's event log
     def event(self, kind, text, **fields):

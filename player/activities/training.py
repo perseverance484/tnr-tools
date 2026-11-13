@@ -66,8 +66,8 @@ class Training(Activity):
         if me.get("sector") == C.HOME_SECTOR:
             behind = (me.get("intelligence") or 0) < (me.get("willpower") or 0)
             return "train", "intelligence" if behind else "willpower"
-        if energy >= TRIP and world.now >= own.get("no_trip", 0):
-            return "trip", None
+        if energy >= TRIP and world.now >= own.get("no_trip", 0) and not world.overfull():
+            return "trip", None                # (never with more in the pocket than it may hold on the road)
         return None
 
     def _experience(self, world):

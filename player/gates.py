@@ -160,14 +160,17 @@ def g_ryo_only(step, world, gates):
 
 
 def g_spend_cap(step, world, gates):
-    """The call's price against the day's allowance and the reserve. A call that carries no price is taken to
-    cost all the money in pocket: the game pays a purchase from the pocket, so that is the most it can take.
-    With no profile read yet the pocket is not known either, and the director is asked."""
+    """The call's price against the day's allowance and the reserve, together with what is admitted and not yet
+    paid: the calls before it in its batch (gates.ahead) and the batches still out (world.reserved). Each call
+    used to be held against the whole allowance by itself, and a batch of purchases went past it (review of
+    988c56cc, H2). A call that carries no price is taken to cost all the money in pocket: the game pays a
+    purchase from the pocket, so that is the most it can take, and the most that all such calls can take
+    together (Gates.price). With no profile read yet the pocket is not known either, and the director is asked."""
     caps = world.caps()
-    pocket, ryo = world.me.get("money"), (step.get("meta") or {}).get("ryo")
+    pocket = world.me.get("money")
     if pocket is None:
         return ask("spend_cap", f"{step['call']}: the money in hand is not known yet")
-    ryo = float(pocket if ryo is None else ryo)
+    ryo = gates.price(gates.ahead + [step], world) + world.reserved()
     if world.spent_today() + ryo > caps["daily"]:
         return ask("spend_cap", f"{step['call']} could pass the daily cap of {caps['daily']:,.0f} ryo")
     if float(pocket) + float(world.me.get("bank") or 0) - ryo < caps["reserve"]:
@@ -204,12 +207,17 @@ def g_auction_only(step, world, gates):
 
 
 def g_one_transfer_a_day(step, world, gates):
-    """One level transfer in any 24 hours, counted from the last one (RUL-2026-11-11-152 item 5)."""
+    """One level transfer in any 24 hours, counted from the last one (RUL-2026-11-11-152 item 5), and so one in
+    a batch: the last one is written down when a batch is made, not while it is screened."""
+    if any(s.get("call") == step["call"] for s in gates.ahead):
+        return refuse("one_transfer_a_day", "a level transfer is in this batch already")
     left = world["records"]["transfers"].get("last", -C.TRANSFER_EVERY) + C.TRANSFER_EVERY - world.now
     if left > 0:
         return refuse("one_transfer_a_day", f"the last level transfer was under 24 h ago ({left / 3600:.1f} h to go)")
     return None
 
+
+URGENT = ("battle", "recovery")           # the activities whose trips are not by choice
 
 CALL_GATES = {"no_flee": g_no_flee, "do_not_attack": g_do_not_attack, "no_snipe": g_no_snipe,
               "fair_target": g_fair_target, "ryo_only": g_ryo_only, "spend_cap": g_spend_cap,
@@ -237,6 +245,7 @@ class Gates:
         self.never = allowlist.get("never") or []
         self.ask_first = allowlist.get("ask_first") or []
         self.dna_path = dna_path
+        self.ahead = []                               # the steps of the batch being screened that are admitted
         missing = {g for e in self.endpoints.values() for g in e.get("gates", ())} - set(CALL_GATES)
         if missing:                                   # a gate named on the list that no code enforces
             raise ValueError("gates on the allowlist with no code behind them: " + ", ".join(sorted(missing)))
@@ -247,8 +256,17 @@ class Gates:
         entry = self.endpoints.get(name)
         if entry is None:
             return refuse("allowlist", f"{name} is not on the allowlist")
-        return self._fixed(step, entry, activity) or self._gated(step, entry, world) or \
-            self._asked(step, entry, world) or ALLOW
+        return self._fixed(step, entry, activity) or self._road(step, world, activity) or \
+            self._gated(step, entry, world) or self._asked(step, entry, world) or ALLOW
+
+    @staticmethod
+    def _road(step, world, activity):
+        """No trip is started by choice with more in the pocket than it may hold on the road (world.overfull).
+        The activities do not plan one; this is for whichever does."""
+        if step["call"] == "travel.startGlobalMove" and activity not in URGENT and world.overfull():
+            return refuse("pocket_limit", f"a trip with {float(world.me['money']):,.0f} ryo in the pocket: it may "
+                                          f"hold {C.POCKET_LIMIT:,} on the road, and the bank comes first")
+        return None
 
     def _fixed(self, step, entry, activity):
         """The refusals that do not depend on the state of the world."""
@@ -286,22 +304,43 @@ class Gates:
         """What a pending decision is filed under: the rule, the endpoint and the exact input."""
         return f"{rule}:{step['call']}:{json.dumps(step.get('input') or {}, sort_keys=True)}"
 
-    def screen(self, steps, world, activity):
+    def screen(self, steps, world, activity, ahead=()):
         """Check a plan's call steps. Returns (ok, verdict, step): ok is False at the first call that may not be
         sent. A refusal is written down as a finding; an ask-first call becomes a pending decision. Either way the
-        whole plan is dropped: the brain does something else."""
-        for step in steps:
-            if "call" not in step:
-                continue
-            v = self.check(step, world, activity)
-            if v.ok:
-                continue
-            if v.kind == "ask":
-                world.decide(self.key(step, v.rule), f"{activity}: {v.reason}. Say yes or no.", step)
-            else:
-                world.event("finding", f"{activity}: {v.reason}", about="gate", rule=v.rule, call=step["call"])
-            return False, v, step
-        return True, ALLOW, None
+        whole plan is dropped: the brain does something else. ahead: the steps already in the batch this plan
+        is added to; what they and the plan's own earlier calls may cost counts against every later call."""
+        self.ahead = list(ahead)
+        try:
+            for step in steps:
+                if "call" not in step:
+                    continue
+                v = self.check(step, world, activity)
+                if v.ok:
+                    self.ahead.append(step)
+                    continue
+                if v.kind == "ask":
+                    world.decide(self.key(step, v.rule), f"{activity}: {v.reason}. Say yes or no.", step)
+                else:
+                    world.event("finding", f"{activity}: {v.reason}", about="gate", rule=v.rule, call=step["call"])
+                return False, v, step
+            return True, ALLOW, None
+        finally:
+            self.ahead = []                           # a call checked by itself has nothing in front of it
+
+    def price(self, steps, world):
+        """What these calls may cost together: the prices they carry, and for those that carry none the money in
+        the pocket, once. Only calls the spend gate is on count."""
+        costs = [(s.get("meta") or {}).get("ryo") for s in steps
+                 if "spend_cap" in (self.endpoints.get(s.get("call")) or {}).get("gates", ())]
+        return sum(float(c) for c in costs if c is not None) + (float(world.me.get("money") or 0) if None in costs else 0)
+
+    def reserve(self, steps, world, batch):
+        """A batch is made of these steps: what its calls may cost is reserved under the batch's id until a
+        profile read has shown what they did cost (world.reserved). It is in the world model, so it is saved
+        with the batch and outlives a restart; a batch that is loose keeps its reservation."""
+        ryo = self.price(steps, world)
+        if ryo > 0:
+            world["records"]["spend"].setdefault("out", []).append([batch, ryo])
 
     def sent(self, step, world):
         """Book-keeping once a call is really issued (when the last level transfer went)."""

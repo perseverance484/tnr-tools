@@ -11,6 +11,12 @@
      selected and never edited. Nothing the brain is allowed to read yet says which loadout is selected (those
      reads are proposed on the allowlist), so it selects, and remembers that it did.
 
+     A selection changes what is equipped, so it is not finished until my items have been read again. From
+     the moment it is planned the items are `stale` (world["inventory"]): the hunt, restock and repair wait,
+     the read goes in the same batch behind the two selections, and when it does not come back, or cannot be
+     used, it is asked for again every READ_AGAIN seconds (review of 988c56cc, H4: the selection was followed
+     by a profile read only, and the next fight threw the weapon of the loadout before).
+
 Not built here: choosing PvP 2 (which opponent calls for it is the dossier's to say: AP4), changing what is in
 PvP 2, and equipping an upgrade the account already owns (nothing says yet which of two items is the better).
 """
@@ -21,6 +27,7 @@ BACKUP_THROWN = ("GMF1JZ0MChUHc7AtnKABw",)                     # Ikazuchi Kunai,
 PVP1 = ("soXekhNjk7qihu-Rsok-6", "B-bCCtg-_fvcJSrvR1ts0")      # jutsu loadout, item loadout (pvp_playbook.md)
 SELECTS = ("jutsu.selectJutsuLoadout", "item.selectItemLoadout")
 RETRY = 600.0              # s before a refused swap or selection is tried again
+READ_AGAIN = 30.0          # s before my items are asked for again after a selection whose read did not come
 
 
 @REGISTRY.activity
@@ -37,8 +44,11 @@ class Equipment(Activity):
         return next((x for b in BACKUP_THROWN if b != thrown for x in world.items(b, carried=True)), None)
 
     def wants(self, world):
-        """"thrown" (the backup goes in), "loadout" (PvP 1 is to be selected), or None."""
+        """"read" (my items, after a selection), "thrown" (the backup goes in), "loadout" (PvP 1 is to be
+        selected), or None."""
         own, inv = world.own(self.name), world["inventory"]
+        if inv.get("stale"):
+            return "read" if world.now >= own.get("read_next", 0) else None
         if world.now < own.get("not_before", 0):
             return None
         if "equipped" in inv and not inv["equipped"].get("THROWN") and self.backup(world):
@@ -57,9 +67,10 @@ class Equipment(Activity):
         own, inv = world.own(self.name), world["inventory"]
         for r in results:
             if r.endpoint == "item.getUserItems" and inv.get("read_at") != own.get("seen"):
-                own["seen"] = inv.get("read_at")
+                own["seen"] = inv.get("read_at")                   # (a read that could be used: the world took it)
                 self.combat.write_equipped(inv.get("equipped") or {})
                 inv["backup_thrown"] = bool(self.backup(world))
+                inv.pop("stale", None)                             # what a selection changed has been read
             elif r.endpoint in SELECTS or (r.endpoint == "item.toggleEquip" and own.get("swapping")):
                 self._said(world, own, r)
 
@@ -81,11 +92,14 @@ class Equipment(Activity):
     # ------------------------------------------------------------ the plan
     def plan(self, world):
         own, what = world.own(self.name), self.wants(world)
+        own["read_next"] = world.now + READ_AGAIN
+        if what == "read":
+            return plan([K.items(), K.user()], "world", "reading what is equipped since the loadouts were selected")
         own["not_before"] = world.now + RETRY                      # an answer that says yes needs no second try
         if what == "thrown":
             spare = self.backup(world)
-            own["swapping"] = True
+            own["swapping"], world["inventory"]["stale"] = True, True
             return plan([K.equip(spare["id"], "THROWN"), K.items()], "world",
                         f"the thrown slot is empty, the backup goes in ({spare['quantity']})")
-        own["answered"] = []
-        return plan(K.loadouts(*PVP1) + [K.user()], "world", "selecting the PvP 1 loadouts")
+        own["answered"], world["inventory"]["stale"] = [], True     # until my items are read behind it
+        return plan(K.loadouts(*PVP1) + [K.items(), K.user()], "world", "selecting the PvP 1 loadouts")

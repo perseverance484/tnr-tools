@@ -58,6 +58,7 @@ from ..budget import UPDATE, Budget  # noqa: F401
 from ..combat import Combat  # noqa: F401
 from ..gates import Gates  # noqa: F401
 from ..registry import CLASSES  # noqa: F401
+from ..runlock import RunLock, given_up, lapsed, within  # noqa: F401
 from ..world import RATE_LIMITED, World, counted, found, print_of, seen  # noqa: F401
 from .core import BLOCK_FOR, IDLE_HOLD, QUIET, Brain, _crashed, _lead, _wire  # noqa: F401
 from .resident import (REQUEST, _HELD, _after_crash, _answered, _home, _left_save, _lock, answer,  # noqa: F401

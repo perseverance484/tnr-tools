@@ -466,8 +466,9 @@ class Equipment(Upkeep):
         rig.world["control"]["activities"]["restock"] = False
         out = rig.tick(rich())
         self.assertEqual(out["steps"][:2], K.loadouts(*equipment.PVP1))
+        self.assertEqual(out["steps"][2], K.items())                        # what the selection equipped is read
         answers = [res(s["call"], {"success": True}, s["input"]) for s in out["steps"][:2]]
-        self.assertNotEqual(rig.tick(*answers, rich())["activity"], "equipment")
+        self.assertNotEqual(rig.tick(*answers, stock(), rich())["activity"], "equipment")
         self.assertEqual(rig.world.own("equipment")["selected"], list(equipment.PVP1))
         rig.t += 3 * equipment.RETRY
         self.assertNotEqual(rig.tick(rich())["activity"], "equipment")      # selected, and remembered
@@ -477,7 +478,7 @@ class Equipment(Upkeep):
         rig.world["control"]["activities"]["restock"] = False
         out = rig.tick(rich())
         no = res(out["steps"][0]["call"], {"success": False, "message": "In a pyramid"}, out["steps"][0]["input"])
-        self.assertNotEqual(rig.tick(no, rich())["activity"], "equipment")
+        self.assertNotEqual(rig.tick(no, stock(), rich())["activity"], "equipment")
         self.assertIn("In a pyramid", rig.events("finding")[-1]["text"])
         rig.t += equipment.RETRY + 1
         self.assertEqual(rig.tick(rich())["activity"], "equipment")
@@ -491,7 +492,7 @@ class Equipment(Upkeep):
             answers = [res(out["steps"][0]["call"], {"success": True}, out["steps"][0]["input"])]
             if second:
                 answers.append(res(out["steps"][1]["call"], second, out["steps"][1]["input"]))
-            rig.tick(*answers, rich())
+            rig.tick(*answers, stock(), rich())
             self.assertNotIn("selected", rig.world.own("equipment"), second)
             self.assertEqual([e for e in rig.events("activity_done") if "loadouts are selected" in e["text"]], [])
             rig.t += equipment.RETRY + 1

@@ -250,7 +250,7 @@
    "source": "overhaul brief section 2 (premium currency is ask first); design section 4.3 (restock)"
   },
   "spend_cap": {
-   "rule": "Counted against the daily ryo cap and the reserve, with per-unit caps for auctions (design section 9 item 3; a spend over 50M ryo is asked first, RUL-2026-11-11-152 item 3; a 500k reserve). Above a cap the call becomes a pending decision.",
+   "rule": "Counted against the daily ryo cap and the reserve, with per-unit caps for auctions (design section 9 item 3; a spend over 50M ryo is asked first, RUL-2026-11-11-152 item 3; a 500k reserve). The calls of one batch are counted together, with what earlier batches were admitted for and no profile read has shown yet; calls that carry no price share the pocket once. Above a cap the call becomes a pending decision.",
    "required_on": [
     "item.buy",
     "auction.placeBid",
@@ -324,7 +324,7 @@
    ],
    "phase": "AP1",
    "status": "in_use",
-   "prerequisites": "awake, not in battle or hospital",
+   "prerequisites": "awake, not in battle or hospital; by choice (any trip but a fight's or recovery's) only with at most 200k in pocket (RUL-2026-11-12-153)",
    "cooldown": "the trip takes until data.travelFinishAt",
    "evidence": "pilot.py go"
   },
@@ -750,7 +750,7 @@
    "phase": "AP2",
    "status": "documented",
    "prerequisites": "out of battle and out of a pyramid; a loadout that already exists (scope: design section 9 item 2)",
-   "cooldown": "before a fight of another kind; cannot change in battle",
+   "cooldown": "before a fight of another kind; cannot change in battle; my items are read again behind a selection, and the hunt waits for that read",
    "evidence": "tnr-pvp-combat section 0"
   },
   "item.selectItemLoadout": {
@@ -761,7 +761,7 @@
    "phase": "AP2",
    "status": "documented",
    "prerequisites": "out of battle and out of a pyramid; a loadout that already exists (scope: design section 9 item 2)",
-   "cooldown": "before a fight of another kind; cannot change in battle",
+   "cooldown": "before a fight of another kind; cannot change in battle; my items are read again behind a selection, and the hunt waits for that read",
    "evidence": "tnr-pvp-combat section 0"
   },
   "bank.toBank": {

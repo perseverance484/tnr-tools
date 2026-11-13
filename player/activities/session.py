@@ -31,11 +31,13 @@ class Session(Activity):
 
     @staticmethod
     def _chores(world):
-        """At home with the session ending: is there upkeep to do before the character sleeps."""
+        """With the session ending, what comes before this activity's next step. Away from home: the bank, while
+        the pocket holds more than it may on the road (no trip home with it: review of 988c56cc, H3). At home:
+        the upkeep that has something to do before the character sleeps."""
         if world.me.get("sector") != C.HOME_SECTOR:
-            return False
+            return world.overfull()
         acts, on = REGISTRY.activities, world["control"]["activities"]
-        return any(on.get(name, True) and acts[name].available(world) for name in ("training", "equipment")
+        return any(on.get(name, True) and acts[name].available(world) for name in ("training", "equipment", "bank")
                    if name in acts)
 
     def value(self, world):

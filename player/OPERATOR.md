@@ -65,6 +65,14 @@ One runner at a time may write to the game on this account (`docs/workflows/FORG
   when, or `not held` and why; a stall is written when another runner has it.
 - It renews the claim every 15 minutes. If the lock is taken from it, it stops sending at once. If a renewal
   cannot be pushed, it plays on until a minute before the lease ends, then stops.
+- That last minute is kept clear of calls by when they are made, not by when they are planned. The brain puts
+  no call in a batch that is due in it. `brain next` prints nothing of a batch whose last call, after the
+  waits inside the batch, would fall in it: not when the relay was slow to wake, not when the batch waited
+  through a crash, not when it is given again after one. The relay is sent straight back and the brain decides
+  afresh.
+- **The relay's part** is what it always is: the calls of a batch at once and in order, with the waits the
+  batch carries. The last minute of the lease is its time to finish a batch it got just before. A relay that
+  sits on a printed batch for longer than that is making calls outside the lock: end it, and say `stopped`.
 - It gives the lock back when the session has ended and the character is asleep, and when you pause the player
   outside a fight. A brain that dies holds the lock until its lease runs out, an hour at most:
   `node forge/tools/run_lock.mjs status` shows it.

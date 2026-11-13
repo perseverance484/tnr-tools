@@ -35,8 +35,8 @@ class Repair(Activity):
         return next((w for w in WAYS if world.now - tried.get(w[0], 0) > RETRY), None)
 
     def available(self, world):
-        return (world.status() == "AWAKE" and not world.in_battle() and bool(self._way(world))
-                and bool(self.worn(world)))
+        return (world.status() == "AWAKE" and not world.in_battle() and not world["inventory"].get("stale")
+                and bool(self._way(world)) and bool(self.worn(world)))
 
     def value(self, world):
         return 8.0

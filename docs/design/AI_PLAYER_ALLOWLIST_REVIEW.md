@@ -133,9 +133,9 @@ Status: APPROVED by the director 2026-11-11 (RUL-2026-11-11-149), with the chang
 | Endpoint | Kind | Phase | Status | Prerequisites | Cooldown or rate | Gates |
 |---|---|---|---|---|---|---|
 | `item.getItemLoadouts` | read | AP2 | proposed | none; my own loadouts | once per session, then from the world model | - |
-| `item.selectItemLoadout` | action | AP2 | documented | out of battle and out of a pyramid; a loadout that already exists (scope: design section 9 item 2) | before a fight of another kind; cannot change in battle | - |
+| `item.selectItemLoadout` | action | AP2 | documented | out of battle and out of a pyramid; a loadout that already exists (scope: design section 9 item 2) | before a fight of another kind; cannot change in battle; my items are read again behind a selection, and the hunt waits for that read | - |
 | `jutsu.getLoadouts` | read | AP2 | proposed | none; my own loadouts | once per session, then from the world model | - |
-| `jutsu.selectJutsuLoadout` | action | AP2 | documented | out of battle and out of a pyramid; a loadout that already exists (scope: design section 9 item 2) | before a fight of another kind; cannot change in battle | - |
+| `jutsu.selectJutsuLoadout` | action | AP2 | documented | out of battle and out of a pyramid; a loadout that already exists (scope: design section 9 item 2) | before a fight of another kind; cannot change in battle; my items are read again behind a selection, and the hunt waits for that read | - |
 
 ### recovery
 
@@ -167,7 +167,7 @@ Status: APPROVED by the director 2026-11-11 (RUL-2026-11-11-149), with the chang
 |---|---|---|---|---|---|---|
 | `profile.getUser` | read | AP1 | in use | none; my own account | none known; it is the status read on every world tick | - |
 | `travel.finishGlobalMove` | action | AP1 | in use | a trip started, and its arrival time has passed | retried every 3 to 5 s until it lands | - |
-| `travel.startGlobalMove` | action | AP1 | in use | awake, not in battle or hospital | the trip takes until data.travelFinishAt | - |
+| `travel.startGlobalMove` | action | AP1 | in use | awake, not in battle or hospital; by choice (any trip but a fight's or recovery's) only with at most 200k in pocket (RUL-2026-11-12-153) | the trip takes until data.travelFinishAt | - |
 
 ### dossier
 
@@ -217,7 +217,7 @@ An endpoint on the list can still be refused for what a call carries. `player/ga
 | no_snipe | No third-party jump on a player under 'Do not snipe' (AngelSaber). | `combat.attackUser` |
 | fair_target | Awake, not in battle, not immune, level 90 or more, in bracket, not my village or an ally, and not a player who beat me in the last 6 hours or refused within its memory. | - |
 | ryo_only | The call spends ryo and nothing else: the shop record has no reputation or Seichi Silver cost, or the auction listing's currency is MONEY. | - |
-| spend_cap | Counted against the daily ryo cap and the reserve, with per-unit caps for auctions (design section 9 item 3; a spend over 50M ryo is asked first, RUL-2026-11-11-152 item 3; a 500k reserve). Above a cap the call becomes a pending decision. | `item.buy`, `auction.placeBid`, `jutsu.startTraining`, `village.buyFood` |
+| spend_cap | Counted against the daily ryo cap and the reserve, with per-unit caps for auctions (design section 9 item 3; a spend over 50M ryo is asked first, RUL-2026-11-11-152 item 3; a 500k reserve). The calls of one batch are counted together, with what earlier batches were admitted for and no profile read has shown yet; calls that carry no price share the pocket once. Above a cap the call becomes a pending decision. | `item.buy`, `auction.placeBid`, `jutsu.startTraining`, `village.buyFood` |
 | player_visible_only | Only what any player can see through normal play: no hidden or unreleased record, no staff-only field. Hidden records are treated as hidden. | - |
 | study_only | Other players' fights are read between fights only, never in a fight. What they teach may be used in live play, a named opponent included. | - |
 | own_account_only | A userId the call carries is my own. | - |

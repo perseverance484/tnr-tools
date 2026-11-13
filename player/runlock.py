@@ -8,7 +8,11 @@ RUL-2026-11-12-154: "Give it to the brain then"):
 - it renews the claim every RENEW_EVERY seconds while it plays (in a fight only when the lease is close to its
   end: a renewal is a push, and takes a moment);
 - it stops sending STOP_MARGIN seconds before the last expiry the tool confirmed, and at once when a renewal
-  finds the lock taken (the workflow's rule for every runner);
+  finds the lock taken (the workflow's rule for every runner). That moment is the claim's cutoff (until). It
+  holds for when a call is made, not for when it is planned: a call that is due at or after it is not put in
+  a batch (Brain._paced), and every batch carries the cutoff it was made under to `brain next`, which prints
+  nothing of a batch whose last call would fall at or after it (lapsed), whether it waited, was kept through
+  a crash, or is given again from its receipt (review of 988c56cc, H1);
 - it gives the lock back when the session is over (asleep at home), when the player is asleep outside hunt mode,
   and when the director pauses it outside a fight.
 
@@ -85,12 +89,26 @@ class RunLock:
     def state(self):
         return self.world["records"].setdefault("run_lock", {})
 
+    def until(self):
+        """The cutoff: the moment from which no call is made under this claim. None for a rehearsal, which has
+        none; 0 with no claim."""
+        if self.rehearsal:
+            return None
+        s = self.state
+        return s.get("expires", 0) - STOP_MARGIN if s.get("token") else 0.0
+
     def held(self):
         """Whether a call may be sent now: a rehearsal, or a claim of this brain's with time left on it."""
-        if self.rehearsal:
-            return True
-        s = self.state
-        return bool(s.get("token") and self.world.now < s.get("expires", 0) - STOP_MARGIN)
+        until = self.until()
+        return until is None or self.world.now < until
+
+    def too_short(self, calls):
+        """Said once for each lease: calls were due after its cutoff, and were not put in the batch."""
+        s = self.state if calls else {}
+        if calls and s.get("short") != s.get("expires"):
+            s["short"] = s.get("expires")
+            self.world.event("stall", f"the run lock's lease ends too soon for {calls} call(s) that were due, and "
+                                      f"it has not been renewed: they are not sent", about="run_lock")
 
     def hold(self, in_battle=False):
         """Have the lock for the calls that are about to be planned. None when they may be sent; else (the
@@ -161,3 +179,38 @@ class RunLock:
             at = dt.datetime.fromtimestamp(s["expires"], dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
             return {"state": "held", "holder": HOLDER, "expires": at}
         return {"state": "not held", "why": s.get("why")}
+
+
+def within(steps, start, until):
+    """(the steps of a batch that may go, the number of its calls that may not), for a relay that gets the batch
+    at `start`: the first call that would be made at or after the cutoff is left out with everything behind
+    it, and no wait is left at the end of what stays. Each wait inside the batch counts: the relay spends it."""
+    at = start
+    for i, step in enumerate(steps):
+        at += step.get("wait", 0)
+        if "call" in step and until is not None and at >= until:
+            kept = list(steps[:i])
+            while kept and "wait" in kept[-1]:
+                kept.pop()
+            return kept, sum("call" in s for s in steps[i:])
+    return steps, 0
+
+
+def lapsed(batch, now):
+    """Whether a batch may no longer be printed: one of its calls would be made at or after the cutoff it was
+    made under. A batch with no cutoff (a rehearsal's) or no call never lapses; one whose cutoff cannot be
+    read always has."""
+    until = batch.get("until")
+    if until is not None and not isinstance(until, (int, float)):
+        return True
+    return within(batch["steps"], now, until)[1] > 0
+
+
+def given_up(state):
+    """`brain next`, of the batch that waits in its file (client.json): it was not printed, and now never will
+    be. Its number is not used again, and the next request tells the brain so (unprinted): its calls count
+    from then, as for any batch that was not printed. -> None."""
+    pending = state["pending"]
+    state["seq"] = max(state.get("seq", 0), pending["seq"])
+    state["unprinted"] = state["unprinted"] + [pending["id"]]
+    state["pending"] = None

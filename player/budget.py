@@ -293,6 +293,14 @@ class Budget:
         self.world["budget"]["calls"] = hist
         return out, round(waited, 1)
 
+    def unsend(self, n):
+        """The last n calls that pace wrote down are taken back: they are not in the batch after all (the run
+        lock's lease ends before they would be made: Brain._paced)."""
+        calls = self.world["budget"]["calls"]
+        if n:
+            assert all(_state(c) == "out" for c in calls[-n:]), "only calls that were just paced are taken back"
+            del calls[-n:]
+
     def poll_hold(self, n_calls, hold):
         """How long the brain waits before a poll of his turn: at least `hold`, and until the poll's calls fit with
         the reserve for my own turn left free (for at most BLIND_MAX; after that only the account's limit holds
