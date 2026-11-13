@@ -1,0 +1,3686 @@
+{
+ "_note": "606: MoE fix 2. First flood (Rime) becomes a fixed 1400 pierce (7 rows of 100 x2, law 6 cap) instead of a one-hit kill; visuals at 2.5x. Law 18: Saint kit off, edit, kit back. AI edits merge only the jutsus list over the live record. Hidden stays hidden.",
+ "items": [
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "targetId": "k0hgSrghl_KcYs9ATVDJT",
+   "phase": 10,
+   "name": "Sayo, Saint of Stillness: Rime off (law 18)",
+   "data": {
+    "jutsus": [
+     "0yple4t11fS5B6F2fYbad",
+     "1p44ivUB8TjzaPFiqyitx",
+     "2z3YsMSEzMK7R49pYhlX1",
+     "6ixza9w2RBvRD48dMWPFc",
+     "6P9RJUe64Nwes1gWvsoJa",
+     "9lSbi9Zy1xTeGhE9DQgUF",
+     "a-LtVaVvVHN6LcvhA-Jla",
+     "D6iaypIXK3-gQeNV5tCQi",
+     "DOZXlM7mjxqszpLdVhN-r",
+     "dpcEjvUOy58-KE0_H6v8D",
+     "edEaSEaOJ08dyDAGa9PKv",
+     "eovhl9XyDQq1N19lDwr77",
+     "EXkpU9iaPS5poSvlAYaxu",
+     "G_b5yaxm6GMOuQ3eaofKb",
+     "lkcsor1I5A8gD038ncrBW",
+     "LS6aApTpLhkEE76EOuf66",
+     "Ltj0rYwo2a4VGV3JXr976",
+     "mZRQTuyZVYgAukuxle8OL",
+     "nNUaP5r8r7UxYNiAtuF0l",
+     "qrSWUp7qT6a-djyQV-HVi",
+     "TwapdTPQAxVoj1sdLipJv",
+     "wYMWB84DZyFeAqTEoB1td",
+     "Z6vdY9Ir1kKEZouZ-hzY9",
+     "ZxhhjjP4-msn4gjP5Ss0j"
+    ]
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "targetId": "xWDUss579mnkoUiSn-fTt",
+   "phase": 20,
+   "name": "The Names Flood In: Rime: first flood is a 1400 pierce (7 x 200)",
+   "data": {
+    "effects": [
+     {
+      "type": "pierce",
+      "power": 100,
+      "rounds": 0,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The first flood: the glass remembers, but not all of it yet",
+      "disappearSfx": "",
+      "friendlyFire": "ENEMIES",
+      "powerPerLevel": 0,
+      "animationScale": 1,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "statTypes": [
+       "None",
+       "Ninjutsu",
+       "Genjutsu",
+       "Taijutsu",
+       "Bukijutsu"
+      ],
+      "generalTypes": [
+       "Highest",
+       "Strength",
+       "Intelligence",
+       "Willpower",
+       "Speed"
+      ],
+      "elements": [],
+      "dmgModifier": 2,
+      "residualModifier": 1,
+      "allowBloodlineDamageIncrease": true,
+      "allowBloodlineDamageDecrease": true
+     },
+     {
+      "type": "pierce",
+      "power": 100,
+      "rounds": 0,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The first flood: the glass remembers, but not all of it yet",
+      "disappearSfx": "",
+      "friendlyFire": "ENEMIES",
+      "powerPerLevel": 0,
+      "animationScale": 1,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "statTypes": [
+       "None",
+       "Ninjutsu",
+       "Genjutsu",
+       "Taijutsu",
+       "Bukijutsu"
+      ],
+      "generalTypes": [
+       "Highest",
+       "Strength",
+       "Intelligence",
+       "Willpower",
+       "Speed"
+      ],
+      "elements": [],
+      "dmgModifier": 2,
+      "residualModifier": 1,
+      "allowBloodlineDamageIncrease": true,
+      "allowBloodlineDamageDecrease": true
+     },
+     {
+      "type": "pierce",
+      "power": 100,
+      "rounds": 0,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The first flood: the glass remembers, but not all of it yet",
+      "disappearSfx": "",
+      "friendlyFire": "ENEMIES",
+      "powerPerLevel": 0,
+      "animationScale": 1,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "statTypes": [
+       "None",
+       "Ninjutsu",
+       "Genjutsu",
+       "Taijutsu",
+       "Bukijutsu"
+      ],
+      "generalTypes": [
+       "Highest",
+       "Strength",
+       "Intelligence",
+       "Willpower",
+       "Speed"
+      ],
+      "elements": [],
+      "dmgModifier": 2,
+      "residualModifier": 1,
+      "allowBloodlineDamageIncrease": true,
+      "allowBloodlineDamageDecrease": true
+     },
+     {
+      "type": "pierce",
+      "power": 100,
+      "rounds": 0,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The first flood: the glass remembers, but not all of it yet",
+      "disappearSfx": "",
+      "friendlyFire": "ENEMIES",
+      "powerPerLevel": 0,
+      "animationScale": 1,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "statTypes": [
+       "None",
+       "Ninjutsu",
+       "Genjutsu",
+       "Taijutsu",
+       "Bukijutsu"
+      ],
+      "generalTypes": [
+       "Highest",
+       "Strength",
+       "Intelligence",
+       "Willpower",
+       "Speed"
+      ],
+      "elements": [],
+      "dmgModifier": 2,
+      "residualModifier": 1,
+      "allowBloodlineDamageIncrease": true,
+      "allowBloodlineDamageDecrease": true
+     },
+     {
+      "type": "pierce",
+      "power": 100,
+      "rounds": 0,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The first flood: the glass remembers, but not all of it yet",
+      "disappearSfx": "",
+      "friendlyFire": "ENEMIES",
+      "powerPerLevel": 0,
+      "animationScale": 1,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "statTypes": [
+       "None",
+       "Ninjutsu",
+       "Genjutsu",
+       "Taijutsu",
+       "Bukijutsu"
+      ],
+      "generalTypes": [
+       "Highest",
+       "Strength",
+       "Intelligence",
+       "Willpower",
+       "Speed"
+      ],
+      "elements": [],
+      "dmgModifier": 2,
+      "residualModifier": 1,
+      "allowBloodlineDamageIncrease": true,
+      "allowBloodlineDamageDecrease": true
+     },
+     {
+      "type": "pierce",
+      "power": 100,
+      "rounds": 0,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The first flood: the glass remembers, but not all of it yet",
+      "disappearSfx": "",
+      "friendlyFire": "ENEMIES",
+      "powerPerLevel": 0,
+      "animationScale": 1,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "statTypes": [
+       "None",
+       "Ninjutsu",
+       "Genjutsu",
+       "Taijutsu",
+       "Bukijutsu"
+      ],
+      "generalTypes": [
+       "Highest",
+       "Strength",
+       "Intelligence",
+       "Willpower",
+       "Speed"
+      ],
+      "elements": [],
+      "dmgModifier": 2,
+      "residualModifier": 1,
+      "allowBloodlineDamageIncrease": true,
+      "allowBloodlineDamageDecrease": true
+     },
+     {
+      "type": "pierce",
+      "power": 100,
+      "rounds": 0,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The first flood: the glass remembers, but not all of it yet",
+      "disappearSfx": "",
+      "friendlyFire": "ENEMIES",
+      "powerPerLevel": 0,
+      "animationScale": 1,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "statTypes": [
+       "None",
+       "Ninjutsu",
+       "Genjutsu",
+       "Taijutsu",
+       "Bukijutsu"
+      ],
+      "generalTypes": [
+       "Highest",
+       "Strength",
+       "Intelligence",
+       "Willpower",
+       "Speed"
+      ],
+      "elements": [],
+      "dmgModifier": 2,
+      "residualModifier": 1,
+      "allowBloodlineDamageIncrease": true,
+      "allowBloodlineDamageDecrease": true
+     },
+     {
+      "type": "weakness",
+      "items": [],
+      "power": 100,
+      "jutsus": [],
+      "rounds": 1,
+      "target": "SELF",
+      "elements": [],
+      "appearSfx": "",
+      "direction": "offence",
+      "statTypes": [
+       "None",
+       "Ninjutsu",
+       "Genjutsu",
+       "Taijutsu",
+       "Bukijutsu"
+      ],
+      "calculation": "static",
+      "description": "placeholder",
+      "dmgModifier": 2,
+      "disappearSfx": "",
+      "generalTypes": [
+       "Highest",
+       "Strength",
+       "Intelligence",
+       "Willpower",
+       "Speed"
+      ],
+      "powerPerLevel": 0,
+      "animationScale": 1,
+      "appearAnimation": "",
+      "staticAnimation": "JIcJEuwCbkCneEskKVfwg",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 0,0 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "U1ktXrDb_4fa38AH7ux_n",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 0,
+         "longitude": 0
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 0,1 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "3o-D3xuYRffOxUtdDzSrP",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 1,
+         "longitude": 0
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 0,2 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "G3wj_N1jSXaidMC2XEn_N",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 2,
+         "longitude": 0
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 0,3 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "Curjk2iRub4GmClTqfj_f",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 3,
+         "longitude": 0
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 0,4 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "vA2bgunEq84bD5LUNcH-V",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 4,
+         "longitude": 0
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 0,5 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "G3wj_N1jSXaidMC2XEn_N",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 5,
+         "longitude": 0
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 0,6 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "Curjk2iRub4GmClTqfj_f",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 6,
+         "longitude": 0
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 0,7 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "7wiMb9LWJ6Dasorv-wlCW",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 7,
+         "longitude": 0
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 0,8 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "QTEmMBWfeS0tJrv5MylDy",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 8,
+         "longitude": 0
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 0,9 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "ZqkVYil1jL6Sz77vD_CPF",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 9,
+         "longitude": 0
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 1,0 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "KFGXI3dvE-4-9yz4Ul2j2",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 0,
+         "longitude": 1
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 1,1 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "d3eDaVNv2yyC1Q_9PGoV7",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 1,
+         "longitude": 1
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 1,2 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "-kK6loiqlxp7zc54MT8gK",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 2,
+         "longitude": 1
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 1,3 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "UHkOvBTH1EPTgAtEd_X2t",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 3,
+         "longitude": 1
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 1,4 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "d3eDaVNv2yyC1Q_9PGoV7",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 4,
+         "longitude": 1
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 1,5 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "-kK6loiqlxp7zc54MT8gK",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 5,
+         "longitude": 1
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 1,6 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "UHkOvBTH1EPTgAtEd_X2t",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 6,
+         "longitude": 1
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 1,7 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "7i_uzcz7HzGwlhIEJDLxi",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 7,
+         "longitude": 1
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 1,8 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "Z7hd8KRLJnjwRsmJTsgtj",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 8,
+         "longitude": 1
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 1,9 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "VEvbE-1Nc0M6yqYrWIaZG",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 9,
+         "longitude": 1
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 2,0 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "kw3jdJJH6YBCepAaqJ8Gl",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 0,
+         "longitude": 2
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 2,1 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "dxtklLFsH7UzKWyyzDk3o",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 1,
+         "longitude": 2
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 2,2 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "flXkBuZ_dJfe2Cs9RtX4R",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 2,
+         "longitude": 2
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 2,3 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "vRPVtjLshDJMc_j2s-Y-1",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 3,
+         "longitude": 2
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 2,4 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "rnzMxa5NwejMbLEN37gUL",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 4,
+         "longitude": 2
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 2,5 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "flXkBuZ_dJfe2Cs9RtX4R",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 5,
+         "longitude": 2
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 2,6 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "vRPVtjLshDJMc_j2s-Y-1",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 6,
+         "longitude": 2
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 2,7 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "rnzMxa5NwejMbLEN37gUL",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 7,
+         "longitude": 2
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 2,8 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "zmwhSn1kDVh_RjMo9Qu2P",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 8,
+         "longitude": 2
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 2,9 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "vjWEgnnZxGBELF_VGk2gr",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 9,
+         "longitude": 2
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 3,0 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "w4k_gDTz0scQU1LTmos79",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 0,
+         "longitude": 3
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 3,1 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "hSbX4YHSNJxbEj868kgZ0",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 1,
+         "longitude": 3
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 3,2 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "B5QlEWWVCcJfEs6zSkAf8",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 2,
+         "longitude": 3
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 3,3 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "fy_zulLTA7HjvJHKZVkrV",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 3,
+         "longitude": 3
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 3,4 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "NIPCfFDgLCQ_Cf4GLHk6b",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 4,
+         "longitude": 3
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 3,5 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "Fhvd-5bJ5AM8rWWidS8yZ",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 5,
+         "longitude": 3
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 3,6 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "fy_zulLTA7HjvJHKZVkrV",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 6,
+         "longitude": 3
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 3,7 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "hSbX4YHSNJxbEj868kgZ0",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 7,
+         "longitude": 3
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 3,8 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "1y_2s9IE02hkQj9mAIesu",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 8,
+         "longitude": 3
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 3,9 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "VEvbE-1Nc0M6yqYrWIaZG",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 9,
+         "longitude": 3
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 4,0 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "rFP0IdVzT96M2i-u642u1",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 0,
+         "longitude": 4
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 4,1 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "M3P09uCQnVntEcRKZSdM5",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 1,
+         "longitude": 4
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 4,2 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "5GMKVj1YCY-Z8-6grGvPb",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 2,
+         "longitude": 4
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 4,3 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "Simu10OHHNPDtUkohFya3",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 3,
+         "longitude": 4
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 4,4 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "IyvEQwTHIJCg7NidWkGn_",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 4,
+         "longitude": 4
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 4,5 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "lNmf7q-DWFNvhtXL6uwfx",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 5,
+         "longitude": 4
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 4,6 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "fIxgF51zVmFKkXOxLZjrJ",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 6,
+         "longitude": 4
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 4,7 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "y4bfjKN9Jkjrdoy37Ymd8",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 7,
+         "longitude": 4
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 4,8 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "zmwhSn1kDVh_RjMo9Qu2P",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 8,
+         "longitude": 4
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 4,9 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "vjWEgnnZxGBELF_VGk2gr",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 9,
+         "longitude": 4
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 5,0 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "ArJtyLP2hBlNkUXrV_ifM",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 0,
+         "longitude": 5
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 5,1 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "h9AYyh_JCZR06K_Va86B8",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 1,
+         "longitude": 5
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 5,2 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "4YVmq1I_4qdGpMYVixieT",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 2,
+         "longitude": 5
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 5,3 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "s5MxXkJpCUUlTQG6ogWew",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 3,
+         "longitude": 5
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 5,4 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "TOHZyHdMPTcXPtauRyzED",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 4,
+         "longitude": 5
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 5,6 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "Qug9DaY5CyxDTGq0vXkwh",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 6,
+         "longitude": 5
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 5,7 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "fKFIn0ZVyFd8HzP1Qj0R3",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 7,
+         "longitude": 5
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 5,8 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "Le2pjdQ1riVAhyI-e3cM8",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 8,
+         "longitude": 5
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 5,9 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "VEvbE-1Nc0M6yqYrWIaZG",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 9,
+         "longitude": 5
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 6,0 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "kw3jdJJH6YBCepAaqJ8Gl",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 0,
+         "longitude": 6
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 6,1 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "dxtklLFsH7UzKWyyzDk3o",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 1,
+         "longitude": 6
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 6,2 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "flXkBuZ_dJfe2Cs9RtX4R",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 2,
+         "longitude": 6
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 6,3 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "Hzy72KJ27BzaWXKK-ahd6",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 3,
+         "longitude": 6
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 6,4 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "OPzU80JU_db-8Ii-_O8zt",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 4,
+         "longitude": 6
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 6,5 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "Otcm1lB5s9Q4lX1-Aw4jB",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 5,
+         "longitude": 6
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 6,6 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "E9MFknwxu0bnBHrOSRoxU",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 6,
+         "longitude": 6
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 6,7 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "DgAu-0qz1_QQqCKBT3CMd",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 7,
+         "longitude": 6
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 6,9 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "oXCXwPMy0EPT7hb8vUvE-",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 9,
+         "longitude": 6
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 7,0 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "w4k_gDTz0scQU1LTmos79",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 0,
+         "longitude": 7
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 7,1 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "hSbX4YHSNJxbEj868kgZ0",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 1,
+         "longitude": 7
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 7,2 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "B5QlEWWVCcJfEs6zSkAf8",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 2,
+         "longitude": 7
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 7,3 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "fy_zulLTA7HjvJHKZVkrV",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 3,
+         "longitude": 7
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 7,4 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "rEWavo_fDESf8stfsJkdZ",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 4,
+         "longitude": 7
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 7,5 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "syxE0tc_7yBRh-k0vNLTw",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 5,
+         "longitude": 7
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 7,6 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "s5MxXkJpCUUlTQG6ogWew",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 6,
+         "longitude": 7
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 7,7 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "T3H-oQ7sqkZgJI7Gdpujx",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 7,
+         "longitude": 7
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 7,8 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "kWVPbHrQMbA2XCa88xPLH",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 8,
+         "longitude": 7
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 7,9 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "VKxtuDH6U5rCm1sN3Stye",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 9,
+         "longitude": 7
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 8,0 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "rFP0IdVzT96M2i-u642u1",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 0,
+         "longitude": 8
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 8,1 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "M3P09uCQnVntEcRKZSdM5",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 1,
+         "longitude": 8
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 8,2 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "5GMKVj1YCY-Z8-6grGvPb",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 2,
+         "longitude": 8
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 8,3 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "Simu10OHHNPDtUkohFya3",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 3,
+         "longitude": 8
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 8,4 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "-j0aESltg0Wi97ROJ9byZ",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 4,
+         "longitude": 8
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 8,5 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "vyNpGHcVSaweDBgc-gsbw",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 5,
+         "longitude": 8
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 8,6 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "Hzy72KJ27BzaWXKK-ahd6",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 6,
+         "longitude": 8
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 8,7 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "MTSKTzC1ljCtV0kSwqO4I",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 7,
+         "longitude": 8
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 8,8 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "kTdVAuWBbORUpX1uCaQzo",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 8,
+         "longitude": 8
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 8,9 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "jz2JhiHzLs8OoyGKVbGFo",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 9,
+         "longitude": 8
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 9,0 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "ArJtyLP2hBlNkUXrV_ifM",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 0,
+         "longitude": 9
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 9,1 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "h9AYyh_JCZR06K_Va86B8",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 1,
+         "longitude": 9
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 9,2 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "4YVmq1I_4qdGpMYVixieT",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 2,
+         "longitude": 9
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 9,3 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "HATG7N-OTWZsgi36nafV5",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 3,
+         "longitude": 9
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 9,4 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "62D2eM6GTgr_vQe_u2Ufr",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 4,
+         "longitude": 9
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 9,5 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "B5QlEWWVCcJfEs6zSkAf8",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 5,
+         "longitude": 9
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 9,6 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "l3KxhieNolALtkB535St-",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 6,
+         "longitude": 9
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 9,7 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "vCShiNGx7XZcu07VwZMBm",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 7,
+         "longitude": 9
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 9,8 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "oObGT-_2WwEgRylebjJk8",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 8,
+         "longitude": 9
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 9,9 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "daOuaXCcKLSwdCFKyF8J-",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 9,
+         "longitude": 9
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 10,0 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "kw3jdJJH6YBCepAaqJ8Gl",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 0,
+         "longitude": 10
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 10,1 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "u0OcOxjrCprq81f-MDxrk",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 1,
+         "longitude": 10
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 10,2 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "s_VS57H47bUjsm20qX2Et",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 2,
+         "longitude": 10
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 10,3 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "rlnwPWqUuvdFVyJ-ylWZt",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 3,
+         "longitude": 10
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 10,4 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "qU0vJkVecI-HG_zYrTlmN",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 4,
+         "longitude": 10
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 10,5 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "9BZk3oxGQ7R0mTV55-3vn",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 5,
+         "longitude": 10
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 10,6 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "LTwMfwRoZweAi0sPm1CCT",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 6,
+         "longitude": 10
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 10,7 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "zoiO2d1B_n2TyteTPPe6h",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 7,
+         "longitude": 10
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 10,8 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "Ff9Sm0_a3odl2yRSmEmCx",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 8,
+         "longitude": 10
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 10,9 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "jz2JhiHzLs8OoyGKVbGFo",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 9,
+         "longitude": 10
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 11,0 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "o93EZu0WRM0S3iSpjSS_y",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 0,
+         "longitude": 11
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 11,1 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "YWM8zw0b1NQ-0ITj233mJ",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 1,
+         "longitude": 11
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 11,2 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "4fgMuiCVcjjyNKnReDsSk",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 2,
+         "longitude": 11
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 11,3 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "TCVF8zNyAVXSb_-KUzdC_",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 3,
+         "longitude": 11
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 11,4 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "LvuEm_YJUD0snsy3ZKPTs",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 4,
+         "longitude": 11
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 11,5 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "3NNUdfooSgbzTLMPYisYs",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 5,
+         "longitude": 11
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 11,6 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "h1HGL1k_GqITvvZyKBvMb",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 6,
+         "longitude": 11
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 11,7 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "DGYtFTAD75xSWOF3lHS5R",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 7,
+         "longitude": 11
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 11,8 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "E4_obPK12WgTF-TETKccP",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 8,
+         "longitude": 11
+        }
+       ],
+       "randomCount": 1
+      }
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Names Flood In: Rime: 11,9 (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "animationScale": 2.5,
+      "appearAnimation": "vTKiKceWK1KLG583n5LXe",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "BATTLEFIELD",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 9,
+         "longitude": 11
+        }
+       ],
+       "randomCount": 1
+      }
+     }
+    ],
+    "injectableInBattle": false
+   }
+  },
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "targetId": "k0hgSrghl_KcYs9ATVDJT",
+   "phase": 30,
+   "name": "Sayo, Saint of Stillness: kit back (law 18)",
+   "data": {
+    "jutsus": [
+     "0yple4t11fS5B6F2fYbad",
+     "1p44ivUB8TjzaPFiqyitx",
+     "2z3YsMSEzMK7R49pYhlX1",
+     "6ixza9w2RBvRD48dMWPFc",
+     "6P9RJUe64Nwes1gWvsoJa",
+     "9lSbi9Zy1xTeGhE9DQgUF",
+     "a-LtVaVvVHN6LcvhA-Jla",
+     "D6iaypIXK3-gQeNV5tCQi",
+     "DOZXlM7mjxqszpLdVhN-r",
+     "dpcEjvUOy58-KE0_H6v8D",
+     "edEaSEaOJ08dyDAGa9PKv",
+     "eovhl9XyDQq1N19lDwr77",
+     "EXkpU9iaPS5poSvlAYaxu",
+     "G_b5yaxm6GMOuQ3eaofKb",
+     "lkcsor1I5A8gD038ncrBW",
+     "LS6aApTpLhkEE76EOuf66",
+     "Ltj0rYwo2a4VGV3JXr976",
+     "mZRQTuyZVYgAukuxle8OL",
+     "nNUaP5r8r7UxYNiAtuF0l",
+     "qrSWUp7qT6a-djyQV-HVi",
+     "TwapdTPQAxVoj1sdLipJv",
+     "wYMWB84DZyFeAqTEoB1td",
+     "xWDUss579mnkoUiSn-fTt",
+     "Z6vdY9Ir1kKEZouZ-hzY9",
+     "ZxhhjjP4-msn4gjP5Ss0j"
+    ]
+   }
+  }
+ ]
+}
