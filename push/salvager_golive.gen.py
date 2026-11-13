@@ -52,6 +52,13 @@ PAGE = ("V-i3ZcAqPu0hB3G9IEzGo", "The Watch Log: The Rotted Heading", 3)
 WRECKS = {"j4QEUtjbK_lbOYUPVoidk": ("Faded Skyglass Wreck", 1, 25), "RHqzYdY4EAQA9HwsBKWDS": ("Skyglass Wreck", 3, 100)}
 # The charts she sells, at half their Wreck chance. The Lantern is left to its own pending rate change (Nov 13 plan).
 CHARTS = {cid for k, (cid, _) in T.CH.items() if k != "lantern"}
+# Charts first added to the Wrecks by 538 (Nov 13) already carry their final rates (Faded: Rotted Galley 10%; Skyglass:
+# Spoiled 6, Rotted Galley 5, Nursery 3), so they are not halved again.
+NEW_538 = {T.CH[k][0] for k in ("spoiled", "galley", "nursery")}
+# Chart of the Closing Hold (the Mender's entry, 599): 5% on every ending of The Spoiled Hold (director's Mender source,
+# relayed Nov 13 19:58Z; the Skyglass Wreck's 2% row is 538 --closing-hold-drops).
+CLOSING = "oQcPHpr0sqmWHfaJPR4T_"
+SPOILED_HOLD = "iRMyb0WN_ip--EDbvAgLc"
 
 
 def read(d, kind, rid):
@@ -80,6 +87,10 @@ def build(d, chart_ids):
         assert wins, name
         for o in wins:
             o["reward_items"] = with_salvage(o.get("reward_items") or [], n, chance)
+            if qid == SPOILED_HOLD:
+                assert not any(CLOSING in i.get("ids", []) for i in o["reward_items"]), "Closing Hold chart already here"
+                row = T.pay(CLOSING, 1); row["number"] = 5
+                o["reward_items"].append(row)
         odds = "" if chance == 100 else f" at {chance}%"
         items.append({"entity": "quest", "slot": "edit", "targetId": qid, "phase": 2,
                       "name": f"{name}: {n} salvage{odds} on each of {len(wins)} win(s)", "data": {"content": content}})
@@ -97,7 +108,7 @@ def build(d, chart_ids):
         rewards = json.loads(json.dumps(w["rewards"]))
         halved = 0
         for drop in rewards["drops"]:
-            if drop.get("type") == "item" and drop.get("id") in chart_ids:
+            if drop.get("type") == "item" and drop.get("id") in chart_ids and drop.get("id") not in NEW_538:
                 drop["chance"] = max(1, round(drop["chance"] / 2, 2)); halved += 1
         assert not any(dr.get("id") == SALVAGE for dr in rewards["drops"]), "salvage already in this Wreck"
         rewards["drops"].append({"type": "item", "id": SALVAGE, "chance": chance, "quantity": n})
