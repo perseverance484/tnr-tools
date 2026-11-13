@@ -327,7 +327,8 @@ through one mapper, `from_live`, built on the source rules:
 - afterburn as its own effect.
 
 Ground zones come from the ground list. Per-fight engine bases (`fight_bases.py`) carry every permanent modifier, so
-the arrays hold only temporary effects. Every live state is archived per round.
+the arrays hold only temporary effects. Every live state is archived per round: the state my turn starts on and
+the state his turn starts on (RUL-2026-11-13-155).
 
 ### 5.1b Move atlas
 
