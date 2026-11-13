@@ -6,6 +6,11 @@ import { readGh } from "./storage/compat.mjs";
 
 export const GH = Object.freeze({ owner: "perseverance484", repo: "tnr-tools", branch: "main", pushDir: "push", inboxDir: "harvests/inbox" });
 
+/** Request headers api.github.com's CORS preflight allows (Access-Control-Allow-Headers), lower-cased. */
+export const GITHUB_CORS_HEADERS = Object.freeze(["accept", "authorization", "content-type", "if-match", "if-modified-since",
+  "if-none-match", "if-unmodified-since", "accept-encoding", "x-github-otp", "x-requested-with", "user-agent",
+  "graphql-features", "x-github-next-global-id", "x-github-api-version"]);
+
 export class GithubError extends Error {
   constructor(message, info = {}) { super(message); this.name = "GithubError"; Object.assign(this, info); }
 }
@@ -73,7 +78,9 @@ export class Github {
  * an overwrite. Lives outside Github.put on purpose: put re-reads the sha itself and so overwrites.
  */
 export async function readExact(gh, path) {
-  const r = await gh.fetchImpl(gh._url(path) + `&t=${Date.now()}`, { headers: { ...gh._headers(), "cache-control": "no-cache" } });
+  // The &t= query busts caches. No cache-control header: api.github.com's CORS preflight does not
+  // allow it, so a browser refuses the request before sending it ("NetworkError"/"Failed to fetch").
+  const r = await gh.fetchImpl(gh._url(path) + `&t=${Date.now()}`, { headers: gh._headers() });
   if (r.status === 404) return { text: null, sha: null };
   if (!r.ok) throw new GithubError(`read ${path}: HTTP ${r.status}`, { status: r.status });
   const j = await r.json();
