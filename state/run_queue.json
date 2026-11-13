@@ -578,6 +578,16 @@
         "director go on the release"
       ],
       "note": "RUL-2026-11-13-148. Generator dry-run 2026-11-13 on stand-in records: 28 items, shape correct. Build from reads taken after 538 so the halving sees the new chart rows. 543's overworld step is dropped by this ruling; 543 is folded into 545."
+    },
+    {
+      "id": "592",
+      "manifest": null,
+      "what": "MoE: raw %target removed from Hold Still and Every Line Through You (law 18 on the Saint)",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [],
+      "result": "state/results/592_moe_target_text.md",
+      "note": "Director go 2026-11-13 (fix list). Spec still has old text."
     }
   ]
 }
