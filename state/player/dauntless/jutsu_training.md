@@ -134,3 +134,7 @@ very expensive (Cyclone Palm Strike level 19 quoted 1,949,575 ryo for one level;
 | 2026-11-13 18:23 | bank.toPocket 10,000,000 | | | pocket was 150,000 (down from 8.53M at 17:22; spent or moved outside this log), now 10,150,000 |
 | 2026-11-13 18:24 | First Chakra Gate | 14 | 106,628 | queued (queue had 3 waiting; now Divine Pulse 14, Raijin 14, Earth Armor 14, FCG 14; ends ~22:23). Ryūsa Kōka 14 refused, queue full. Pocket 10.04M. 4,550 energy to willpower (+782.95, intelligence had passed willpower); asleep in 177 |
 | 2026-11-13 19:23 | none | | 0 | not refilled: run lock held by an active content session ("598 Deck Warden Seven Planks back on", heartbeat 19:20, ~58 min left), so no live calls were made. Last known queue (18:24 log) ends ~22:23. No ryo, energy or sleep change |
+| 2026-11-13 20:25 | bank.toPocket 10,000,000 | | | pocket was 150,616 (down again from 10.04M at 18:24; spent or moved outside this log), now 10,150,616 |
+| 2026-11-13 20:26 | Ryūsa Kōka | 14 | 183,874 | queued |
+| 2026-11-13 20:26 | Ethereal Nexus | 14 | 396,747 | queued |
+| 2026-11-13 20:26 | Limit Breaker | 15 | 265,905 | queued (queue had 1 waiting; active Earth Armor 14 ends ~21:23; waiting FCG 14, Ryūsa Kōka 14, Ethereal Nexus 14, Limit Breaker 15; ends ~01:23). Pocket 9.30M. 4,550 energy to willpower (+549.86, intelligence had passed willpower); asleep in 177 |
