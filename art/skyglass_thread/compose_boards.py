@@ -44,6 +44,8 @@ BASES = {  # board -> scene art (repo path)
     "below": "mother_of_echoes/exports/scene_moe_stilling.webp",
     "trade": SC + "cache_site.webp",
     "token": SC + "exterior_keel_walk.webp",
+    "salvage": SC + "cache_site.webp",
+    "driftline": SC + "exterior_keel_walk.webp",
     "logboard": "crownhold/scenes/exports/scene_bg_crownhold_planning_hall.webp",  # PLACEHOLDER: TP03 Information Board
     "orders": "crownhold/scenes/exports/scene_bg_crownhold_planning_hall.webp",    # PLACEHOLDER: TP03
 }
@@ -60,7 +62,7 @@ ICON = {
     "crown": MOE + "crown.webp", "tideshard": MOE + "tide.webp", "ledgershard": MOE + "ledger.webp",
     "log": "skyglass_journal/exports/icon-quest-watch-log.webp",
     "treasury": EV + "sealed-treasury.webp", "cargo": EV + "unmarked-cargo.webp", "pouch": EV + "tool-pouch-katon.webp",
-    "jar": EV + "little-horrors-jar.webp", "filament": "ghost_ship_skyglass/icon_ghost_ship_skyglass_filament.webp",
+    "jar": EV + "little-horrors-jar.webp", "salvage": EV + "wreck-salvage-bk.webp", "filament": "ghost_ship_skyglass/icon_ghost_ship_skyglass_filament.webp",
     "crystal": "ghost_ship_skyglass/icon_ghost_ship_skyglass_crystal.webp",
     "fragment": "ghost_ship_skyglass/icon_ghost_ship_skyglass_crown_fragment.webp",
     "skycrown": "ghost_ship_skyglass/icon_ghost_ship_skyglass_crown.webp",
@@ -142,31 +144,31 @@ class Board:
 # --- the boards (captions: one or two words, 12 px or larger) ---------------------------------------------------------
 def b_menu(b):
     b.panel(title="Ask the salvager")
-    b.row(["log", "tide", "seal", "ledger"], 46, 38, ["ABOARD", "CHARTS", "DEEP", "HAUL"], gap=24)
-    b.row(["crown", "token", "log"], 126, 38, ["SHARDS", "TRADE", "THE LOG"], gap=28)
+    b.row(["log", "tide", "chest", "seal"], 46, 38, ["ABOARD", "CHARTS", "CHESTS", "DEEP"], gap=22)
+    b.row(["ledger", "salvage", "token", "log"], 126, 38, ["HAUL", "SALVAGE", "TRADE", "THE LOG"], gap=22)
 
 
 def b_threes(b):
-    b.panel(y1=170, title="Go in threes")
+    b.panel(y1=170, title="Never alone")
     b.big(b.mx, 44, "3", 54)
-    b.text(b.mx, 110, "PLAYERS, EXACTLY", 13)
+    b.text(b.mx, 110, "YOU + 2 TEAMMATES OR 2 PETS", 13)
     b.text(b.mx, 132, "THE WRECK  ·  SECTOR 210", 12, MUTED, "Inter-600")
 
 
 def b_hulls(b):
     b.panel(y1=180, title="She broke in two")
     b.text(b.mx, 50, "THE FADED WRECK", 14)
-    b.text(b.mx, 70, "levels 40 to 60  ·  16/6", 12, MUTED, "Inter-600")
+    b.text(b.mx, 70, "from level 30  ·  16/6", 12, MUTED, "Inter-600")
     b.d.line([(b.mx - 60, 98), (b.mx + 60, 98)], fill=CY + (90,), width=1)
     b.text(b.mx, 112, "THE SKYGLASS WRECK", 14)
-    b.text(b.mx, 132, "level 100  ·  15/6", 12, MUTED, "Inter-600")
+    b.text(b.mx, 132, "from level 80  ·  15/6", 12, MUTED, "Inter-600")
 
 
 def b_loot(b):
     b.panel(y1=190, title="What comes back")
     b.row(["tide", "roster", "cache", "stores"], 52, 44, gap=12)
     b.text(b.mx, 112, "CHARTS AND STORES", 13)
-    b.text(b.mx, 134, "ryo and EXP every clear", 12, MUTED, "Inter-600")
+    b.text(b.mx, 134, "ryo, EXP and salvage every clear", 12, MUTED, "Inter-600")
 
 
 def b_once(b):
@@ -289,9 +291,9 @@ def b_token(b):
 def b_logboard(b):
     b.panel(y1=196, title="The watch log")
     b.chip("log", b.mx - 32, 44, 64)
-    b.text(b.mx, 118, "INFORMATION BOARD", 13)
+    b.text(b.mx, 118, "ADMINISTRATION BUILDING", 13)
     b.text(b.mx, 138, "a new page each weekend", 12, MUTED, "Inter-600")
-    b.text(b.mx, 158, "take it first", 12, MUTED, "Inter-600")
+    b.text(b.mx, 158, "one for 30 to 80, one for 81+", 12, MUTED, "Inter-600")
 
 
 def b_orders(b):
@@ -303,10 +305,30 @@ def b_orders(b):
     b.text(b.mx, 160, "Monday 6 PM Central", 12, MUTED, "Inter-600")
 
 
+def b_salvage(b):
+    b.panel(y1=206, title="Salvage buys charts")
+    b.chip("salvage", PX0 + 18, 46, 52, "SALVAGE")
+    for i, (n, s) in enumerate((("4", "Deck chart"), ("10", "Hold chart"), ("20", "Sealed, weekly"), ("30", "Lantern, level 80"))):
+        y = 46 + i * 22
+        b.text(PX0 + 112, y, n, 14, CY, "Inter-700", anchor="rt")
+        b.text(PX0 + 122, y + 1, s, 12, IVORY, "Inter-600", anchor="lt")
+    b.text(b.mx, 150, "WAKE ISLAND BOARD", 13)
+    b.text(b.mx, 172, "ryo, EXP and salvage every clear", 12, MUTED, "Inter-600")
+
+
+def b_driftline(b):
+    b.panel(y1=206, title="The Driftline")
+    b.row(["tide", "token"], 46, 46, gap=40)
+    b.text(b.mx, 112, "SOLO  ·  LEVELS 30 TO 80", 13)
+    b.text(b.mx, 134, "Beachcombing every day", 12, MUTED, "Inter-600")
+    b.text(b.mx, 152, "two charts to clear", 12, MUTED, "Inter-600")
+    b.text(b.mx, 170, "the Tally pays 2 Skyglass Tokens", 12, MUTED, "Inter-600")
+
+
 BOARDS = {
     "menu": b_menu, "threes": b_threes, "hulls": b_hulls, "loot": b_loot, "once": b_once, "ladder": b_ladder,
     "pick": b_pick, "chests": b_chests, "supplies": b_supplies, "craft": b_craft, "seals": b_seals, "rot": b_rot, "lantern": b_lantern, "haul": b_haul, "shards": b_shards,
-    "below": b_below, "trade": b_trade, "token": b_token, "logboard": b_logboard, "orders": b_orders,
+    "below": b_below, "trade": b_trade, "token": b_token, "logboard": b_logboard, "orders": b_orders, "salvage": b_salvage, "driftline": b_driftline,
 }
 
 
