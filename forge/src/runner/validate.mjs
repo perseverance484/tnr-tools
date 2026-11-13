@@ -4,6 +4,7 @@ import { isDungeonEntity, dungeonFields, dungeonProblems, dungeonDiffs } from ".
 import { petSpeciesProblems, petJutsuProblems, normalizeSpecies } from "./pets.mjs";
 import { HIDDENLESS, catalogProblems } from "./catalog.mjs";
 import { variantProblems } from "./variants.mjs";
+import { EFFECT_POST_PIN_KEYS } from "./post_pin_keys.mjs";
 // Pre-send validation (spec section 9, R3). Every content validator on the server is
 // non-strict: an unknown or misspelled key is dropped at .input() parse time with no error
 // and the mutation reports success. The only place that error can surface is here.
@@ -61,6 +62,10 @@ export const AI_POST_0056_KEYS = Object.freeze([
   "offence", "defence", "ninjutsuMastery", "genjutsuMastery", "taijutsuMastery", "bukijutsuMastery",
   "bloodlineMastery", "sageMastery",
 ]);
+
+// POST-PIN EFFECT TAG KEY: see post_pin_keys.mjs. Combat tags only: title effects are
+// TitleEffectSchema members, not BaseAttributes.
+export { EFFECT_POST_PIN_KEYS };
 
 // Keys the server owns. Sending them is harmless (stripped) but they are never "asserted".
 export const SERVER_OWNED = Object.freeze(["id", "userId", "createdAt", "updatedAt", "aiProfileId"]);
@@ -231,7 +236,8 @@ export class Validator {
       if (!f || typeof f !== "object") { out.push(`effects[${i}] is not an object`); continue; }
       const allowed = typeof f.type === "string" ? fx[f.type] : null;
       if (!allowed) { out.push(`effects[${i}]: unknown effect type ${JSON.stringify(f.type)} at the pin`); continue; }
-      check(f, [...allowed, ...extra], `effects[${i}] (${f.type})`);
+      const post = entity === "title" ? [] : EFFECT_POST_PIN_KEYS;
+      check(f, [...allowed, ...extra, ...post], `effects[${i}] (${f.type})`);
     }
 
     if (entity === "quest" && data.content && typeof data.content === "object") {

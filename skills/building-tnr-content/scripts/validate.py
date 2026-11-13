@@ -337,6 +337,14 @@ def check_rules(rules, ctors, where, rep, include_default_rules=False):
                 rep.err(f"{where}.rules[{i}]", "unconditional rule above the end; every rule below it is dead")
 
 
+# Combat-tag keys added upstream after the 45c pin (3314d122). Upstream 8bd670153 (2026-11-09,
+# "Allow animation sizing per combat effect") put animationScale in BaseAttributes
+# (validators/combat.ts: z.coerce.number().min(1).max(3).prefault(1)); the live jutsu.update
+# schema lists it on all 96 tag variants. Checked and removed here, the same way an intersection's
+# extra keys are, until a 45c re-extraction carries it. Mirrors forge EFFECT_POST_PIN_KEYS.
+POST_PIN_TAG_FIELDS = {"animationScale": {"min": 1, "max": 3}}
+
+
 def check_effects(effects, ctors, where, rep, extra=None):
     """`extra`: keys an intersection adds to every tag (45c intersections; PetSpeciesEffect's
     skillTarget at 3314d122), checked here and removed before the tag itself is."""
@@ -348,6 +356,16 @@ def check_effects(effects, ctors, where, rep, extra=None):
                 if k in e and spec.get("enum") and e[k] not in spec["enum"]:
                     rep.err(f"{where}.effects[{i}]", f"{k}={e[k]!r} not in {spec['enum']}")
             e = {k: v for k, v in e.items() if k not in extra}
+        if isinstance(e, dict) and any(k in e for k in POST_PIN_TAG_FIELDS):
+            for k, spec in POST_PIN_TAG_FIELDS.items():
+                if k not in e:
+                    continue
+                v = e[k]
+                if isinstance(v, bool) or not isinstance(v, (int, float)):
+                    rep.err(f"{where}.effects[{i}]", f"{k}={v!r} must be a number")
+                elif not spec["min"] <= v <= spec["max"]:
+                    rep.err(f"{where}.effects[{i}]", f"{k}={v} outside {spec['min']}..{spec['max']}")
+            e = {k: v for k, v in e.items() if k not in POST_PIN_TAG_FIELDS}
         check_member(e, "AllTags", ctors, f"{where}.effects[{i}]", rep)
 
 
@@ -1095,7 +1113,8 @@ def lint_entries(items, rep, blob):
             if t in LCORE:
                 for k in f:
                     if k not in ("type", "power", "rounds") and k not in LDECOR \
-                            and k not in LCORE[t] and k not in INTERSECTION_KEYS.get(ent, ()):
+                            and k not in LCORE[t] and k not in INTERSECTION_KEYS.get(ent, ()) \
+                            and k not in POST_PIN_TAG_FIELDS:
                         E('L09 %s illegal field "%s"' % (t, k))
             if t in LPCT and (f.get("calculation") == "percentage" or not f.get("calculation")):
                 pc[t] = pc.get(t, 0) + 1

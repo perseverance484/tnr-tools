@@ -492,3 +492,12 @@ test("review L1: a manifest compiled under the previous contract pin is refused;
   row.effects[0].coordinateTargeting = null;
   assert.deepEqual(bloodrightProblems("skillTree", row), []);
 });
+
+test("skill-tree effects accept the post-pin animationScale key and nothing else new (upstream 8bd670153)", () => {
+  const d=setup(), row=compile(d).manifest.items.find(it=>it.entity==="skillTree").data;
+  assert.deepEqual(bloodrightProblems("skillTree",row),[]);
+  const sized=clone(row); sized.effects[0].animationScale=2.5;
+  assert.deepEqual(bloodrightProblems("skillTree",sized),[]);
+  const typo=clone(row); typo.effects[0].animationSize=2.5;
+  assert.match(bloodrightProblems("skillTree",typo).join(";"),/unknown key animationSize/);
+});

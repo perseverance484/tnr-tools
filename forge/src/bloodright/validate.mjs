@@ -1,4 +1,5 @@
 import CONTRACT from "./contract.json" with { type: "json" };
+import { EFFECT_POST_PIN_KEYS } from "../runner/post_pin_keys.mjs";
 export { CONTRACT };
 export const isBloodrightEntity = e => e === "skillTree" || e === "skillTreeFolder";
 export const bloodrightFields = e => new Set(e === "skillTree" ? CONTRACT.skillFields : CONTRACT.folderFields);
@@ -37,7 +38,7 @@ export function bloodrightProblems(entity, data, live = null, { preCreate = fals
   for (const [i, e] of (Array.isArray(d.effects) ? d.effects : []).entries()) {
     const where = `effects[${i}]`;
     if (!obj(e)) { out.push(`${where} must be an object`); continue; }
-    for (const k of Object.keys(e)) if (!CONTRACT.effectFields.includes(k)) out.push(`${where}: unknown key ${k}`);
+    for (const k of Object.keys(e)) if (!CONTRACT.effectFields.includes(k) && !EFFECT_POST_PIN_KEYS.includes(k)) out.push(`${where}: unknown key ${k}`);
     check(["increasepotency", "decreasepotency"].includes(e.type), `${where}: only audited potency effects supported`);
     check(Number.isFinite(e.power) && e.power >= 0, `${where}: power must be nonnegative`);
     check(Number.isFinite(e.powerPerLevel) && e.powerPerLevel >= 0 && e.powerPerLevel <= 1, `${where}: powerPerLevel must be 0..1`);
