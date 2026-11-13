@@ -35,7 +35,7 @@ for jid, r in recs.items():
             nid = idmap[m[e["appearAnimation"]]]
             new_ids.append(nid); e["appearAnimation"] = nid; e["animationScale"] = 2.5
         effs.append(e)
-    items.append({"entity":"jutsu","slot":"edit","targetId":jid,"phase":20,"name":f"{r['name']}: colour art at 2.5x","data":{"effects":effs}})
+    items.append({"entity":"jutsu","slot":"edit","targetId":jid,"phase":20,"name":f"{r['name']}: colour art at 2.5x","data":{"effects":effs,"injectableInBattle":r["injectableInBattle"]}})
 assert len(new_ids) == len(set(new_ids)) == 258, len(set(new_ids))
 for i, a in enumerate(new_ids):
     items.append({"entity":"asset","slot":"edit","targetId":a,"phase":15,"name":f"605 etching slice {i+1}: unhide","data":{"hidden":False}})
