@@ -14,7 +14,7 @@ from .. import brain as B
 from .. import config as C
 from .. import relay
 from ..budget import UPDATE
-from ..world import found
+from ..world import World, counted, print_of, seen
 
 def _transcript(state, sleep):
     """The transcript that carries this batch's token, or None. A new relay's, and one that was readable for the
@@ -309,38 +309,82 @@ def stopped(live, names, out=sys.stdout):
     with _client(live):
         state, now = _who(client), time.time()
         held = _held(live, state)
-        said = {b: t for b, t in held.items() if "all" in names or t in names or str(b) in names}
+        said = {b: t for b, t in held.items()
+                if b != SAVING and ("all" in names or t in names or str(b) in names)}
         if said:
             state["gone"] = [g for g in state["gone"] if g["id"] not in said]
             state["ended"] = state["ended"] + [[b, now, t, "stopped"] for b, t in said.items()]
             relay.write(client, state)
-
-    def name(batch):
-        if str(batch).startswith(UPDATE):
-            return f"the relays from before the update ({batch})"
-        return held[batch] or f"batch {batch}"
-    known = {str(b) for b in held} | {t for t in held.values() if t}
-    out.write(json.dumps({"stopped": [name(b) for b in said], "all": "all" in names,
+    known = {str(b) for b in held if b != SAVING} | {t for t in held.values() if t}
+    out.write(json.dumps({"stopped": [_named(b, held) for b in said], "all": "all" in names,
                           "not_held": [n for n in names if n != "all" and n not in known],
-                          "still_held": [name(b) for b in held if b not in said]}) + "\n")
+                          "still_held": [_named(b, held) for b in held if b not in said]}) + "\n")
     return 0
+
+
+SAVING = "a takeover that is being saved"       # in place of a name: no word is taken, the listing says ask again
+LOOKS = (40, 0.05)        # how often `brain stopped` looks again while a takeover is being saved, and the s between
+
+
+def _named(batch, held):
+    """A held batch as the listing shows it."""
+    if batch == SAVING:
+        return "the relays from before the update (a brain is saving the takeover: say it again in a moment)"
+    if str(batch).startswith(UPDATE):
+        return f"the relays from before the update ({batch})"
+    return held[batch] or f"batch {batch}"
 
 
 def _held(live, state):
     """Every batch that is held now, by its id, with the token of the relay that has it (None when that is not
     on record): those the client's file says went with a replaced relay, and those the brain's saved ledger
     holds, whoever has them. Never the batch of the relay that is running: that one is out, not loose."""
-    held, path = {g["id"]: g["token"] for g in state["gone"]}, os.path.join(live, "world.json")
-    world, print_ = relay.read(path), found(path)
-    ledger = world.get("budget") if isinstance(world, dict) else None
+    held = {g["id"]: g["token"] for g in state["gone"]}
+    ledger, takeover = _on_disk(live, os.path.join(live, "world.json"))
     for c in (ledger if isinstance(ledger, dict) else {}).get("calls") or []:
         if c[2:3] == ["loose"] and len(c) > 3 and c[3] is not None:
             held.setdefault(c[3], c[5] if len(c) > 5 else None)
-    if print_ and not relay.ours(ledger):
-        # another version's ledger, which no brain of this version has taken over yet. The brain that does will
-        # hold a minute's calls under this very id (Brain._take_over), so the operator's word can name it now.
-        held.setdefault(UPDATE + print_, None)
+    if takeover:
+        held.setdefault(takeover, None)
     return held
+
+
+def _on_disk(live, path):
+    """(the saved ledger, what the world model on disk is to the operator's word): None for a ledger of this
+    version's or no file; the name of the hold for another version's ledger that no brain has saved yet (the
+    brain that takes it over holds a minute's calls under this very id, so the word can name it now); or SAVING.
+
+    SAVING: a brain has begun to save the takeover and has not finished (World.save). The count and the file
+    do not belong together then, and no word is taken (review of e4a267cd: word said between the writes was
+    kept under the name of a takeover that did not exist yet, and let a later one go). It is looked at again
+    for a moment. If it stays so and nobody is home, the brain that began it is gone: its save is counted
+    here, under the brain's lock, and the file has a new name. If a brain is home, it is that brain's to end."""
+    for _ in range(LOOKS[0]):
+        raw, written, count, saving = seen(path)
+        ledger = _ledger_in(raw)
+        if raw is None or relay.ours(ledger):
+            return ledger, None
+        if not saving:
+            return ledger, UPDATE + print_of(raw, written, count)
+        time.sleep(LOOKS[1])
+    lock = B._lock(live)
+    if lock is None:
+        return ledger, SAVING
+    try:
+        counted(live, World._write)
+    finally:
+        lock.close()
+    raw, written, count, _ = seen(path)
+    return _ledger_in(raw), None if raw is None else UPDATE + print_of(raw, written, count)
+
+
+def _ledger_in(raw):
+    """The call ledger in a world model file's bytes, or None."""
+    try:
+        world = json.loads(raw)
+    except (TypeError, ValueError):
+        return None
+    return world.get("budget") if isinstance(world, dict) else None
 
 
 def put(live, token, index, text):

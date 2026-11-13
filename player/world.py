@@ -66,15 +66,51 @@ def parse_time(text):
         return None
 
 
-def takeovers(live):
-    """How many ledgers of another version the brains of this live folder have taken over and saved as their
-    own (live/takeovers.json). 0 when the file is not there or cannot be read."""
+COUNT = "takeovers.json"
+
+
+def generation(live):
+    """(count, saving) from live/takeovers.json. count: how many ledgers of another version the brains of this
+    live folder have taken over and saved as their own, or begun to save and left. saving: a brain is saving
+    one now, or one began to and has not finished. (0, False) when the file is not there or cannot be read."""
     try:
-        with open(os.path.join(live, "takeovers.json"), encoding="utf8") as f:
-            n = json.load(f)["count"]
+        with open(os.path.join(live, COUNT), encoding="utf8") as f:
+            kept = json.load(f)
+        n = kept["count"]
     except (OSError, ValueError, KeyError, TypeError):
-        return 0
-    return n if type(n) is int and n > 0 else 0
+        return 0, False
+    return (n if type(n) is int and n > 0 else 0), kept.get("saving") is True
+
+
+def takeovers(live):
+    """The count alone."""
+    return generation(live)[0]
+
+
+def counted(live, write):
+    """An unfinished save of a takeover is counted and closed: (count + 1, not saving). The brain that began it
+    is gone (or will count again when it does save), and what is on disk now is a takeover of its own, under a
+    name nobody has spoken of. `write`: World._write, or what a test puts in its place."""
+    n, saving = generation(live)
+    if saving:
+        write(os.path.join(live, COUNT), {"count": n + 1, "saving": False})
+
+
+def seen(path):
+    """A world model file and the count, read so that they belong together: (bytes, the time the file was
+    written, count, saving). bytes is None when there is no file. The count is read before and after the file,
+    and the file again when it changed in between: a save that ran across the read is not half seen."""
+    live = os.path.dirname(path)
+    for _ in range(8):
+        before = generation(live)
+        try:
+            with open(path, "rb") as f:
+                raw, written = f.read(), os.fstat(f.fileno()).st_mtime_ns
+        except OSError:
+            raw, written = None, None
+        if generation(live) == before:
+            break
+    return raw, written, before[0], before[1]
 
 
 def found(path):
@@ -89,13 +125,16 @@ def found(path):
     said of the first names nothing in the second (second review of c412de4d: an empty file was
     `update-da39a3ee` every time, and a word that `brain next` had kept through a crash let go the hold of a
     later one). The time is there for a file that is written again before any brain has saved it: that is not
-    the file the operator spoke of."""
-    try:
-        with open(path, "rb") as f:
-            raw, written = f.read(), os.fstat(f.fileno()).st_mtime_ns
-    except OSError:
-        return None
-    return hashlib.sha1(raw + b"\0%d\0%d" % (written, takeovers(os.path.dirname(path)))).hexdigest()[:8]
+    the file the operator spoke of.
+
+    While a takeover is being saved the count and the file do not belong together yet, and the print of that
+    moment is nobody's: `brain stopped` asks `seen` and speaks of no name then (review of e4a267cd)."""
+    raw, written, count, _ = seen(path)
+    return None if raw is None else print_of(raw, written, count)
+
+
+def print_of(raw, written, count):
+    return hashlib.sha1(raw + b"\0%d\0%d" % (written, count)).hexdigest()[:8]
 
 
 class World:
@@ -104,6 +143,7 @@ class World:
         self.path = os.path.join(self.live, "world.json")
         self.clock = clock
         self.d = copy.deepcopy(TEMPLATE)
+        counted(self.live, self._write)             # a save of a takeover that a brain before this one left
         self.found = found(self.path)               # the file as it was on disk (None on a first start),
         self.found_at = os.path.getmtime(self.path) if self.found else None   # and when it was last written
         self.taken_over = False                     # the brain's to set: that file was another version's ledger
@@ -128,13 +168,24 @@ class World:
 
     def save(self):
         os.makedirs(self.live, exist_ok=True)
-        if self.taken_over:
-            # The takeover is about to be on disk for good. It is counted first: a brain that ends between
-            # the two writes leaves the same file under a new name, and the operator is asked again. The other
-            # order would leave a saved takeover uncounted, and its name free for the next file of those bytes.
-            self._write(os.path.join(self.live, "takeovers.json"), {"count": takeovers(self.live) + 1})
-            self.taken_over = False
+        if not self.taken_over:
+            return self._write(self.path, self.d)
+        # A takeover is put on disk in three writes, and until the third it can be spoken of by no name.
+        #   1. the count's file says "saving". A brain that ends after this leaves the old file there: the
+        #      next brain counts the save that was left (counted), and takes the file over under a new name.
+        #      The other order, the world model first, would leave a saved takeover uncounted and its name free
+        #      for the next file of the same bytes.
+        #   2. the world model.
+        #   3. the count is raised and "saving" is over.
+        # Before this version there were two writes: the count raised, then the world model. Between them the
+        # file on disk and the raised count made the name of a takeover that did not exist yet; `brain stopped`
+        # could write word of it down, and a later takeover of the same bytes had that name (review of
+        # e4a267cd). A save that fails leaves this brain to do all three again.
+        count, n = os.path.join(self.live, COUNT), takeovers(self.live)
+        self._write(count, {"count": n, "saving": True})
         self._write(self.path, self.d)
+        self._write(count, {"count": n + 1, "saving": False})
+        self.taken_over = False
 
     @staticmethod
     def _write(path, obj):
