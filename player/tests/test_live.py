@@ -78,7 +78,9 @@ class TheLogWithAShortColumn(unittest.TestCase):
         rows = rig.world["battle"]["entries"][n:]
         self.assertEqual([r[0] for r in rows], ["x2", "x1", "x0"])          # was: none of them
         self.assertEqual({str(r[4]) for r in rows}, {"None"})                # whose text is whose is not known
-        select = next(s for s in out["steps"] if s.get("call") == "combat.getBattleEntries")["select"]
+        self.assertNotIn("combat.getBattleEntries", rig.calls(out))          # (his turn is watched without the log)
+        out = rig.tick(battle_read("B1", dict(battle, **{"battle.version": battle["battle.version"] + 3})))
+        select = next(s for s in out["steps"] if s.get("call") == "combat.getBattleEntries")["select"]   # my turn
         self.assertEqual(select[-1], "*.appliedEffects")
         self.assertEqual(len(about(rig, "selects")), 1)
         whole = dict(zip(K.ENT[:4], (["x0", "x1", "x2"], [3] * 3, [FOE] * 3, ["a"] * 3)))

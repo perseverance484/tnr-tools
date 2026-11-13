@@ -51,6 +51,14 @@ def pilot_seq(battle, entries=None, kit_known=False):
     return head, rows
 
 
+def watched_light(rows):
+    """The pilot's batch as the brain sends it on his turn (RUL-2026-11-12-154): the same calls in the same
+    order, but the read of the fight carries no effect list and no ground, and the log is not read."""
+    rich = ("battle.usersEffects", "battle.groundEffects")
+    return [(r[0], r[1], tuple(k for k in r[2] if not k.startswith(rich))) if r[0] == "combat.getBattle" else r
+            for r in rows if r[0] != "combat.getBattleEntries"]
+
+
 class SameAsThePilot(unittest.TestCase):
     def brain_seq(self, battle, ents, combat=None):
         rig = Rig(combat=combat)
@@ -75,7 +83,8 @@ class SameAsThePilot(unittest.TestCase):
         head, want = pilot_seq(dict(battle), dict(ents))
         note, got, _ = self.brain_seq(dict(battle), ents)
         self.assertIn("his turn", note)
-        self.assertEqual(got, want)
+        self.assertEqual(got, watched_light(want))                     # (the state his turn began on is on record)
+        self.assertNotEqual(got, want)
 
     def test_an_ai_turn_is_nudged(self):
         battle, ents = fixture()
@@ -85,7 +94,7 @@ class SameAsThePilot(unittest.TestCase):
         head, want = pilot_seq(dict(battle), dict(ents))
         note, got, _ = self.brain_seq(dict(battle), ents)
         self.assertIn("AI turn", note)
-        self.assertEqual(got, want)
+        self.assertEqual(got, want)                                    # (the read behind the nudge is my turn's)
         self.assertEqual(got[0][0], "combat.performAction")
 
 
@@ -221,15 +230,18 @@ class Refusals(unittest.TestCase):
         for n in range(6):                                                 # the live session saw four in a fight
             out = rig.tick(battle_read("B1", {}), user("BATTLE", bid="B1"), dt=out["hold"] + 4)
             self.assertTrue(rig.world.in_battle())
-            self.assertEqual(rig.calls(out), ["combat.getBattle", "combat.getBattleEntries", "profile.getUser"])
-            self.assertNotIn("battle.usersEffects", out["steps"][0]["select"])   # a plain read, with my profile
+            calls = rig.calls(out)                                         # a plain read, with my profile (the
+            self.assertEqual((calls[0], calls[-1]), ("combat.getBattle", "profile.getUser"))   # budget may leave
+            self.assertIn(calls[1:-1], ([], ["combat.getBattleEntries"]))                      # the log for later)
+            self.assertNotIn("battle.usersEffects", out["steps"][0]["select"])
             self.assertTrue(out["hold"] == 0 if n == 0 else C.RATE_BACKOFF <= out["hold"] <= B.BLIND_MAX, out["hold"])
         self.assertEqual(len(rig.events("fight_start")), 1)                 # the same fight, never opened again
         self.assertNotIn("item.consume", rig.calls(out))                    # and no potion is sent into it
         self.assertEqual(len([e for e in rig.events("finding") if e["about"] == "read"]), 1)   # said once
         out = rig.tick(battle_read("B1", his))                             # a read with the battle: carry on
         self.assertIn("his turn", out["note"])
-        self.assertTrue(rig.world["battle"]["ground_refused"])              # the richest part it asked for is dropped
+        self.assertNotIn("ground_refused", rig.world["battle"])             # (they answered light reads, which ask
+                                                                            # for nothing rich: test_light_polls.py)
 
     def test_the_fight_is_over_when_my_profile_has_left_it(self):
         rig = Rig()

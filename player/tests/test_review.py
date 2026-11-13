@@ -106,7 +106,7 @@ class Game:
             return res(ep, read, inp)
         if ep == "combat.getBattleEntries":
             rows = self.lines[:inp["limit"]]
-            return res(ep, dict(self.first_log) if inp["limit"] > 8 else
+            return res(ep, dict(self.first_log) if inp["limit"] >= C.ENTRIES_START else
                        {k: [r[i] for r in rows] for i, k in enumerate(K.ENT)}, inp)
         if ep == "jutsu.getPublicUserJutsus":
             return res(ep, {"*.jutsuId": ["j1"], "*.level": [25], "*.equipped": [True]}, inp)
@@ -675,6 +675,9 @@ class F10TheOpeningArchive(unittest.TestCase):
         R, v = battle["battle.round"], battle["battle.version"]
         his = dict(battle, **{"battle.activeUserId": FOE, "battle.version": v + 2, "battle.usersEffects": []})
         out = rig.tick(battle_read("B1", his))                              # this one came with the effect list
+        self.assertFalse(any(k.startswith("battle.groundEffects") for k in out["steps"][0]["select"]))   # watched light
+        mine = dict(battle, **{"battle.round": R + 1, "battle.version": v + 4})
+        out = rig.tick(battle_read("B1", mine))                             # my turn: the full read asks for the ground
         self.assertTrue(any(k.startswith("battle.groundEffects") for k in out["steps"][0]["select"]))
         cols = {"battle.groundEffects.*.type": ["fire"], "battle.groundEffects.*.creatorId": [FOE],
                 "battle.groundEffects.*.longitude": [5], "battle.groundEffects.*.latitude": [4],

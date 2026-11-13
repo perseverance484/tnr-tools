@@ -292,7 +292,11 @@ entirely.
   - Every call carries a `select` of only the fields the brain uses.
   - Lists are read as columns, e.g. the ground list (~8× smaller).
   - The effect list is read with a field select once AP0 confirms that selects on arrays stay aligned when a field is
-    missing. Until then, it's read whole only on my turn.
+    missing. Until then it is read whole, twice a round: when my turn starts (the state I plan on), and behind my
+    actions (the state his turn starts on, kept for the opponent models: RUL-2026-11-13-155). Between the two his
+    turn is watched with a light read: the fighters' columns, the version and whose turn it is, and no log
+    (RUL-2026-11-12-154). That costs one batch more at the start of each of my turns: the light read that shows
+    the turn, then the full one.
   - Static data (catalog, kits, maps) is cached in the brain and never re-read through the relay.
 - **Fewer, fuller batches.**
   - Polling backs off on the opponent's turn (long sleeps inside the brain's own wait, not repeated reads).

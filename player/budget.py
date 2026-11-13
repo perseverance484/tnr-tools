@@ -334,8 +334,12 @@ def turn_open(state, rnd, now, unseen=None):
 
 
 def planner_seconds(turn, now):
-    """Seconds the planner may still take: it is cut off at T + BEST_LINE_AT."""
-    return turn["T"] + C.BEST_LINE_AT - now
+    """Seconds the planner may still take: it is cut off at T + BEST_LINE_AT. A turn's first plan gets
+    PLAN_AT_LEAST whatever is left. It is late only when the turn waited for its read (a light read showed the
+    turn, and the full one took its time or never came): that wait is not taken out of the planner whole. A
+    plan that replaces the first gets what is left."""
+    left = turn["T"] + C.BEST_LINE_AT - now
+    return left if turn.get("fired_at") else max(C.PLAN_AT_LEAST, left)
 
 
 def read_is_overdue(turn, now):

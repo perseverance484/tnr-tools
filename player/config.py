@@ -56,11 +56,13 @@ TURN_LIMIT = 60.0        # s the game gives a turn
 FIRE_BY = 20.0           # s from turn start by which the actions are out
 LAST_GOOD_READ_AT = 12.0  # s from turn start after which a missing exact read is not waited for
 BEST_LINE_AT = 15.0      # s from turn start at which the planner is cut off and the best line so far is fired
+PLAN_AT_LEAST = 3.0      # s a turn's first plan gets whatever is left: it is late when the turn waited for its read
 LATE_TURN = TURN_LIMIT - 20.0   # a turn that lands later than this is a finding
 HANDOFF_WAIT = 40.0      # s of each of my turns left to the director in director mode
 KIT_TRIES = 3            # tries to read an opponent's kit in a fight
 ENTRIES_START = 200      # log lines read when a battle starts
-ENTRIES_POLL = 8         # log lines read on each poll
+ENTRIES_POLL = 8         # log lines read with a full poll
+ENTRIES_TURN = 20        # log lines read when my turn starts: all of his turn, which was watched without the log
 
 # ---------------------------------------------------------------- calls a minute (design section 4.6; RUL-2026-11-11-149 item 6)
 CALL_LIMIT = 30          # the connector's limit for the whole account, any client

@@ -1,7 +1,6 @@
 """A fight in progress: the hard real-time lane (design 4.6). Ported from the pilot's battle_tick, rule for rule.
 
 What is kept from the live pilot (Duet's fixes of 2026-11-11):
-- every poll is a full read (the live effect list rides on it), so my turn never waits on a second read;
 - a read that comes back without the battle is retried plainer before the fight is called over;
 - when a read is refused on my turn, the plan is made from the last good read and the actions go first;
 - his kit is read on the first polls until it saves (three tries);
@@ -14,6 +13,18 @@ New here: the turn clock (player/budget.py). The planner is cut off at T+15 s, a
 the longer it lasts, with the wait spent in the brain. Each turn keeps what happened to its actions (sent,
 answered, accepted), so a plan the game refused or never got is replaced while the turn is still open, and a
 turn is closed as acted, missed or unresolved from evidence only.
+
+The reads (director 2026-11-12, RUL-2026-11-12-154, and 2026-11-13, RUL-2026-11-13-155). A full read is the
+fighters, the whole live effect list, the ground and the log's last lines; it is most of what a relay carries
+through a fight, and it used to be every poll. Now there are two in a round, and the rest are light:
+- one behind my actions, which is the state his turn starts on: the opponent models are built on it;
+- one when my turn starts, which is the state I plan on, with the log of his whole turn;
+- between them his turn is watched with a light read: the fighters' columns, the version and whose turn it is.
+  No effect list, no ground, no log. (An AI's turn is not watched: it is over with the nudge, and the read
+  behind the nudge is my turn's full read, as it was.)
+A light read that shows my turn starts the turn's clock, and the full read is asked for at once. If it does not
+come back, the turn is played from the last good read as before (T+12 s), with what the light read said of the
+version, the fighters and where they stand.
 
 The fight's state is world["battle"]: the same dict the combat tools read as fights/live/<battle>.json.
 """
@@ -141,11 +152,26 @@ class Battle(Activity):
                                    "kept, and the log is read with whole effects from now on",
                         about="selects", battle=state["bid"])
         known = {e[0]: e for e in state["entries"]}
-        for row in rows[::-1]:                                    # oldest first
-            if row[0] not in known:
-                state["entries"].append(row)
-            elif known[row[0]][4] is None:
+        state["log_gap"] = Battle._all_new(rows, known, r.input.get("limit"))
+        state["entries"][:] = Battle._merged(state["entries"], known, rows)
+
+    @staticmethod
+    def _all_new(rows, known, asked):
+        """A log read brought as many lines as it asked for and none of them is known: older ones may lie between
+        it and the read before. The next log read asks for the whole log (_log_read)."""
+        return bool(known and asked and len(rows) >= asked and not any(row[0] in known for row in rows))
+
+    @staticmethod
+    def _merged(kept, known, rows):
+        """The log with a read taken in, oldest line first. A read is the log's newest lines, newest first. So
+        what is kept and is not in it is older than all of it, and the read follows in the game's order. (A line
+        that a shorter read left out goes where it belongs, not behind the newer ones that were kept before it:
+        the tools replay the log in order.)"""
+        for row in rows:
+            if row[0] in known and known[row[0]][4] is None:
                 known[row[0]][4] = row[4]                         # a line first seen without its texts
+        read = {row[0] for row in rows}
+        return [e for e in kept if e[0] not in read] + [known.get(row[0], row) for row in rows[::-1]]
 
     def _acted(self, world, state, r):
         turn = state.get("turn") or {}
@@ -214,7 +240,10 @@ class Battle(Activity):
 
     @staticmethod
     def _log_read(state, n):
-        return K.entries(state["bid"], n, bool(state.get("log_whole")))
+        """The log's last n lines; all of it once, after a read that may have left lines out (his turn is watched
+        without the log, and a turn can be longer than the read that follows it)."""
+        return K.entries(state["bid"], C.ENTRIES_START if state.pop("log_gap", False) else n,
+                         bool(state.get("log_whole")))
 
     @staticmethod
     def _proof(state):
@@ -250,7 +279,7 @@ class Battle(Activity):
         if mine and turn:
             turn["looked"] = True
         state["asked_full"] = state["asked_ground"] = False       # this read asks for neither effects nor ground
-        again = [K.battle(bid), self._log_read(state, C.ENTRIES_POLL)]
+        again = [K.battle(bid), self._log_read(state, C.ENTRIES_TURN)]   # (the read before this one was lost)
         if hold is None:
             hold = C.RATE_BACKOFF if refused and not mine else 0.0
         return plan((again if mine and not turn.get("accepted") else watching(again)) + self._proof(state), "battle",
@@ -330,11 +359,13 @@ class Battle(Activity):
                                        f"is missing or of the wrong kind, or the fighter to move is not in it",
                             about="selects", battle=bid)
             return self._no_read(world, state, False, False)
+        light = False
         if not from_last_read:                                    # how long the fight went unread before this
             state["unseen"] = round(world.now - state.get("read_at", state.get("opened", world.now)), 1)
             state["read_at"] = world.now
             state.pop("empty_reads", None)
             self._joined(world, state, battle)
+            light = state.pop("asked_light", False)               # this read was asked for as a light one
         self._seat(state, battle)
         self._absorb(state, battle, users, asked_ground, from_last_read)
         hp = battle["battle.usersState.*.curHealth"]
@@ -349,38 +380,51 @@ class Battle(Activity):
         ai = battle.get("battle.usersState.*.isAi") or []
         if len(ai) != len(users):
             ai = []                                               # not one flag per fighter: treat them as players
-        poll = self._poll(state, users[foes[0]], bool(ai and ai[foes[0]]))
+
+        def poll(light=False):                                    # the next read: made once, where it is used
+            return self._poll(state, users[foes[0]], bool(ai and ai[foes[0]]), light)
         me_xy = (battle["battle.usersState.*.longitude"][me_i], battle["battle.usersState.*.latitude"][me_i])
         active = battle["battle.activeUserId"]
         if active != C.ME:
             return self._not_my_turn(world, state, battle, poll, head, me_xy,
                                      bool(active in users and ai and ai[users.index(active)]))
-        return self._mine(world, state, battle, poll, head, me_xy, hp[foes[0]], from_last_read)
+        return self._mine(world, state, battle, poll, head, me_xy, hp[foes[0]], from_last_read, light)
 
     def _not_my_turn(self, world, state, battle, poll, head, me_xy, ai_turn):
         bid, v = state["bid"], battle["battle.version"]
         self._turn_over(world, state)
         if ai_turn:
-            # an AI's turn only advances when some client calls performAction during it
-            return plan([K.act(bid, "wait", me_xy[0], me_xy[1], v)] + poll, "battle", head + " | AI turn: nudge")
-        # his turn: poll less often the longer it lasts; the wait is spent in the brain, not by the relay
+            # an AI's turn only advances when some client calls performAction during it. It is over with that
+            # call, so the read behind it is the one my turn starts with: a full one, as it was
+            return plan([K.act(bid, "wait", me_xy[0], me_xy[1], v)] + poll(), "battle", head + " | AI turn: nudge")
+        # his turn: watched with light reads once the state it started on is on record for this round, and
+        # polled less often the longer it lasts; the wait is spent in the brain, not by the relay
+        on_record = f"{battle['battle.round']}:him" in state.get("archived", [])
         k = state["his_polls"] = state.get("his_polls", 0) + 1 if state.get("his_v") == v else 0
         state["his_v"] = v
-        return plan(poll, "battle", head + " | his turn",
+        return plan(poll(on_record), "battle", head + " | his turn",
                     hold=self.budget.poll_hold(1, min(C.POLL_GAP + k, C.POLL_GAP_MAX)))
 
-    def _mine(self, world, state, battle, poll, head, me_xy, his_hp, from_last_read):
+    def _mine(self, world, state, battle, poll, head, me_xy, his_hp, from_last_read, light=False):
         R, v = battle["battle.round"], battle["battle.version"]
         state.pop("his_v", None)
         if (state.get("turn") or {}).get("round") != R:
             self._turn_over(world, state)                         # a turn of an earlier round no read closed
         turn = B.turn_open(state, R, world.now, state.get("unseen"))
         turn.setdefault("v", v)
+        if light and v not in (state.get("live_v"), state.get("live_try_v")):
+            # a light read shows my turn, at a version whose effect list is not in hand and has not been asked
+            # for: the turn's clock runs from here, and the state to plan on is read now, with the log of his
+            # whole turn. It is my turn's read, not a watching one: the budget does not drop it. It is asked
+            # for once a version: where the effect list cannot be had, a light read is planned on as it is.
+            state["live_try_v"] = v
+            return plan(self._full(state, C.ENTRIES_TURN) + self._proof(state), "battle",
+                        head + " | MY TURN: reading the live state", tag="urgent")
         if world["control"]["director_mode"]:
             wait_for_him = self._director(world, state, turn, poll, head, v, from_last_read)
             if wait_for_him:
                 return wait_for_him
-        return self._my_turn(world, state, battle, turn, poll, head, me_xy, his_hp, from_last_read)
+        return self._my_turn(world, state, battle, turn, poll(), head, me_xy, his_hp, from_last_read)
 
     @staticmethod
     def _usable(battle):
@@ -482,7 +526,11 @@ class Battle(Activity):
             battle["battle.groundEffects"] = state["ground"]      # this read's ground only: a stale one would mislead
         if not from_last_read:
             state["battle"] = battle
-            state["n_at_battle"] = len(state["entries"])          # log lines already counted in this HP read
+        # The log lines already counted in the HP of the read in hand. From the last good read too: it shows my
+        # turn and the game has taken nothing of it, so every line in hand was logged before it. (His turn's
+        # lines can come in without the full read that was asked for beside them. Counted again, they would
+        # take his whole turn off my HP a second time when the log is asked how the fight ended.)
+        state["n_at_battle"] = len(state["entries"])
         self.combat.write_cache(bid, state)
 
     def _archive(self, state, battle, raw, ground, ground_read):
@@ -501,35 +549,42 @@ class Battle(Activity):
             "fighters": {k: v for k, v in battle.items() if k.startswith("battle.usersState.")},
             "effects": raw, "ground": ground, "ground_read": ground_read, "log_lines": len(state["entries"])})
 
-    def _poll(self, state, foe_id, foe_is_ai):
-        """The next read of the fight. Every poll is a full read (same call count), so my turn never waits on a
-        second one; plain only after full reads were refused twice. His kit read rides it until it saves."""
-        bid = state["bid"]
+    def _full(self, state, lines):
+        """A full read of the fight and the log's last `lines`: the fighters, the live effect list, and the
+        ground once a full read has worked. Plain (the fighters only) after full reads were refused twice."""
         want = "perm_effects" not in state and state.get("perm_tries", 0) < 2   # a refused read never blocks the fight
         if want:
             state["perm_tries"] = state.get("perm_tries", 0) + 1
         full = want or state.get("full_refused", 0) < 2
         state["asked_full"] = full
         state["asked_ground"] = bool(full and state.get("full_ok") and not state.get("ground_refused"))
-        poll = [K.battle(bid, effects=full, ground=state["asked_ground"]), self._log_read(state, C.ENTRIES_POLL)]
+        return [K.battle(state["bid"], effects=full, ground=state["asked_ground"]), self._log_read(state, lines)]
+
+    def _poll(self, state, foe_id, foe_is_ai, light=False):
+        """The next read of the fight, as a watching read. A full one, unless light: then the fighters' columns,
+        the version and whose turn it is, and nothing else (the module's notes say when). His kit read rides
+        either kind until it saves."""
+        if light:
+            state["asked_light"] = True
+            poll = [K.battle(state["bid"])]
+        else:
+            poll = self._full(state, C.ENTRIES_POLL)
         if (not foe_is_ai and not self.combat.kit_known(foe_id) and state.get("kit_tries", 0) < C.KIT_TRIES
                 and self.budget.free() > len(poll)):              # his kit can wait for a minute with room in it
             state["kit_tries"] = state.get("kit_tries", 0) + 1
             poll.append(K.kit(foe_id))
         return watching(poll) + self._proof(state)
 
-    @staticmethod
-    def _director(world, state, turn, poll, head, v, from_last_read):
+    def _director(self, world, state, turn, poll, head, v, from_last_read):
         """Director mode: each of my turns is his for HANDOFF_WAIT s, counted once from the start of the turn; the
         player covers only a turn he leaves untouched. Returns the waiting batch, or None when the player plays."""
-        bid = state["bid"]
         if not from_last_read and state.get("live_v") != v and state.get("live_try_v") != v:
             state["live_try_v"] = v                               # he has the time: one exact read first
-            return plan([K.battle(bid, effects=True), K.entries(bid, C.ENTRIES_POLL, bool(state.get("log_whole")))],
-                        "battle", head + " | MY TURN: reading the live state", tag="urgent")
+            return plan(self._full(state, C.ENTRIES_POLL), "battle", head + " | MY TURN: reading the live state",
+                        tag="urgent")
         left = C.HANDOFF_WAIT - (world.now - turn["T"])
-        if left > 0:
-            return plan(poll, "battle", head + f" | MY TURN: director's move (covered in {left:.0f}s)",
+        if left > 0:                                              # his window is watched with light reads too
+            return plan(poll(True), "battle", head + f" | MY TURN: director's move (covered in {left:.0f}s)",
                         hold=min(5.0, max(1.0, left)))
         if turn["round"] not in state.setdefault("pilot_rounds", []):
             state["pilot_rounds"].append(turn["round"])
