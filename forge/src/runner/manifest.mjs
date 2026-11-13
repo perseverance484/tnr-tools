@@ -14,6 +14,7 @@ import { collectRefs, REF_RE } from "./refs.mjs";
 import { resolvePoolCodes, stuckPoolCodes, kitProblems } from "./pool.mjs";
 import { lintManifest } from "./lints.mjs";
 import { normalizeImagePack } from "./imgpack.mjs";
+import { livePatchProblems } from "./livepatch.mjs";
 import REVIEW from "../review/contract.json" with { type: "json" };
 
 export const ENTITIES = Object.freeze(["jutsu", "item", "bloodline", "asset", "quest", "ai", "aiProfile", "skillTree", "skillTreeFolder", "dungeon", "petSpecies", "badge", "title", "itemVariant"]);
@@ -50,6 +51,8 @@ function suggestPolicy(m, items) {
   for (const it of items) {
     const where = `item ${it.idx + 1} (${it.name})`;
     if (it.op !== "update") problems.push(`${where}: suggest mode can only change existing records (slot "edit" with a targetId)`);
+    // The suggestion path builds from planned.data only; a livePatch would be dropped unsent (review P2-2).
+    if (it.livePatch !== undefined) problems.push(`${where}: livePatch cannot be suggested; run it as a direct edit`);
     if (!REVIEW.entityTypes[it.entity]) problems.push(`${where}: ${it.entity} cannot be suggested; the review desk takes ${Object.keys(REVIEW.entityTypes).join(", ")}${REVIEW._meta.notSuggestible[it.entity] ? ` (${it.entity}: ${REVIEW._meta.notSuggestible[it.entity].split(";")[0]})` : ""}`);
     // The desk keeps only its own editable fields and would drop the rest without a word.
     if (it.entity === "ai") {
@@ -89,6 +92,7 @@ export function parseManifest(source) {
     if (it.srcId) { if (srcIds.has(it.srcId)) problems.push(`duplicate srcId ${it.srcId}`); srcIds.add(it.srcId); }
     if (it.entity === "aiProfile" && it.op === "create") problems.push(`item ${it.idx}: aiProfile cannot be created directly; create an ai with rules`);
     if ("refreshPackages" in it && (it.refreshPackages !== true || it.entity !== "dungeon" || it.op !== "update")) problems.push(`item ${it.idx} (${it.name}): refreshPackages is true or absent, and only on a dungeon edit`);
+    if ("livePatch" in it) for (const p of livePatchProblems(it)) problems.push(`item ${it.idx} (${it.name}): ${p}`);
   }
   // Pool codes are resolved HERE, at parse time, which is before any create, image upload or
   // update can happen for any item (readiness brief 5a / TNR-01). A code that survives resolution
@@ -290,6 +294,8 @@ function normalizeItem(it, idx) {
     ...(it.reassign === true ? { reassign: true } : {}),
     // A dungeon edit that accepts the save re-copying its package snapshots from the catalog.
     ...(it.refreshPackages !== undefined ? { refreshPackages: it.refreshPackages } : {}),
+    // Effects derived from the live record at send time (livepatch.mjs).
+    ...(it.livePatch !== undefined ? { livePatch: it.livePatch } : {}),
     // Suggest mode: this item's own title/category/rationale, over the manifest's.
     ...(it.suggestion && typeof it.suggestion === "object" ? { suggestion: it.suggestion } : {}),
   };
@@ -340,7 +346,7 @@ export function planOrder(manifest, idmap = {}) {
 export function toJournalSpecs(order) {
   return order.map((it) => ({
     entity: it.entity, op: it.op, name: it.name, srcId: it.srcId, targetId: it.targetId,
-    payloadHash: payloadHash({ data: it.data, targetId: it.targetId, entity: it.entity, op: it.op }),
+    payloadHash: payloadHash({ data: it.data, targetId: it.targetId, entity: it.entity, op: it.op, ...(it.livePatch ? { livePatch: it.livePatch } : {}) }),
   }));
 }
 
