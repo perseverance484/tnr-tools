@@ -3120,6 +3120,7 @@
     "bloodlineMastery",
     "sageMastery"
   ]);
+  var EFFECT_POST_PIN_KEYS = Object.freeze(["animationScale"]);
   var SERVER_OWNED = Object.freeze(["id", "userId", "createdAt", "updatedAt", "aiProfileId"]);
   var AI_OMITTED = Object.freeze([...fields_default.entities.ai.omitted]);
   var SCHEMA_ENTITY = Object.freeze({ jutsu: "jutsu", item: "item", bloodline: "bloodline", quest: "quest", asset: "gameAsset", ai: "ai", petSpecies: "petSpecies", badge: "badge", title: "title", itemVariant: "itemVariant" });
@@ -3231,7 +3232,8 @@
           out.push(`effects[${i}]: unknown effect type ${JSON.stringify(f.type)} at the pin`);
           continue;
         }
-        check(f, [...allowed, ...extra], `effects[${i}] (${f.type})`);
+        const post = entity === "title" ? [] : EFFECT_POST_PIN_KEYS;
+        check(f, [...allowed, ...extra, ...post], `effects[${i}] (${f.type})`);
       }
       if (entity === "quest" && data.content && typeof data.content === "object") {
         check(data.content, this.nested.questContent, "content");

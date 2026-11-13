@@ -62,6 +62,16 @@ export const AI_POST_0056_KEYS = Object.freeze([
   "bloodlineMastery", "sageMastery",
 ]);
 
+// POST-PIN EFFECT TAG KEY. Upstream 8bd670153 (2026-11-09, "Allow animation sizing per combat
+// effect") added animationScale to BaseAttributes (validators/combat.ts: z.coerce.number().min(1)
+// .max(3).prefault(1)), so every combat tag that spreads BaseAttributes accepts it, and the live
+// jutsu.update schema lists it on every tag. nested.json is pinned to 3314d122, which predates it,
+// so without this list a manifest that sets a clip's size would be refused as an unknown key.
+// Additive and backward compatible, like AI_POST_0056_KEYS: no key the pinned set accepts is
+// refused. Combat tags only: title effects are TitleEffectSchema members, not BaseAttributes.
+// A full re-pin of nested.json supersedes this list.
+export const EFFECT_POST_PIN_KEYS = Object.freeze(["animationScale"]);
+
 // Keys the server owns. Sending them is harmless (stripped) but they are never "asserted".
 export const SERVER_OWNED = Object.freeze(["id", "userId", "createdAt", "updatedAt", "aiProfileId"]);
 
@@ -231,7 +241,8 @@ export class Validator {
       if (!f || typeof f !== "object") { out.push(`effects[${i}] is not an object`); continue; }
       const allowed = typeof f.type === "string" ? fx[f.type] : null;
       if (!allowed) { out.push(`effects[${i}]: unknown effect type ${JSON.stringify(f.type)} at the pin`); continue; }
-      check(f, [...allowed, ...extra], `effects[${i}] (${f.type})`);
+      const post = entity === "title" ? [] : EFFECT_POST_PIN_KEYS;
+      check(f, [...allowed, ...extra, ...post], `effects[${i}] (${f.type})`);
     }
 
     if (entity === "quest" && data.content && typeof data.content === "object") {
