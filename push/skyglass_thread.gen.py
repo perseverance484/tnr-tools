@@ -74,12 +74,13 @@ MENU_TOPICS = ["a_threes", "c_once", "x_chests", "p_seals", "h_haul", "t_salvage
 
 # The pose each scene wants (docs/handoffs/SKYGLASS_ART_PROMPTS.md section 11). Until a pose's scene-character id is
 # added to POSE_IDS, its scenes fall back to PT01, so adding a pose later is a one-line change and a quest edit.
-POSE_IDS = {"PT01": SALVAGER}
+POSE_IDS = {"PT01": SALVAGER, "PT02": "JIGXen2b2Z1-FK44RSVMO", "PT03": "HfHafDRKp2h_gm_pv87m6", "PT04": "xY9N_r7ywtUWp9TIBJfSW",
+            "PT05": "gG8Ez235q6MTuOtXoewYg", "PT06": "FcKwVdP0NxQyjhYuMQi8i", "PT07": "7hheStqNV0F5iO6z8srrl"}  # created hidden 2026-11-13 (director's painted poses)
 SCENE_POSE = {
     "d_open": "PT06", "d_menu": "PT02", "a_threes": "PT03", "a_hulls": "PT02", "a_drift": "PT01", "a_loot": "PT01", "c_once": "PT01",
     "c_ladder": "PT02", "c_pick": "PT01", "x_chests": "PT02", "x_supplies": "PT05", "x_craft": "PT02", "p_seals": "PT02", "p_rot": "PT01", "p_lantern": "PT04", "h_haul": "PT02",
     "s_four": "PT05", "s_below": "PT04", "t_salvage": "PT07", "t_prices": "PT07", "t_trade": "PT07", "t_token": "PT07", "w_board": "PT02", "w_orders": "PT02",
-    "z_chart": "PT01", "z_bye": "PT07", "r_menu": "PT02",
+    "z_chart": "PT01", "z_bye": "PT06", "r_menu": "PT02",
 }
 
 
