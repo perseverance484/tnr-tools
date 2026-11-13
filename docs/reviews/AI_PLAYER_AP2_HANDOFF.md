@@ -1,13 +1,18 @@
 # AI player overhaul, phase AP2, first part: implementation handoff
 
-Workflow: `docs/workflows/IMPLEMENTATION_HANDOFF.md`. Written 2026-11-12.
+Workflow: `docs/workflows/IMPLEMENTATION_HANDOFF.md`. Written 2026-11-12; issued again 2026-11-13 on AP1's
+corrected head.
 
 ```text
 Repository: perseverance484/tnr-tools
 Branch: fable/ai-player-ap2
-Base: 25308e2a4f2ee905f1bf3412c3f7f85c1811c62f (fable/ai-player-brain-split, the approved split)
-Head: the commit that adds this note (FROZEN; the exact SHA is in the handoff message)
-Integration target: the AI player line. Nothing of it is on main; main was at 7fc91cce when this was written.
+Base: ce1be6e98eb39550e79806c5c8f9da87f67fa4eb (fable/ai-player-ap1: the approved split of brain.py, 25308e2a,
+      and on it AP1's correction after the review of e4a267cd)
+Supersedes: c720743a005a1fd2c5833b7549f6055d83f34f43, the first handoff of this part, which stood on 25308e2a.
+      Not rebased: this head is c720743a, a merge of fable/ai-player-ap1 at ce1be6e9, and this note brought
+      up to date.
+Head: the commit that brings this note up to date (FROZEN; the exact SHA is in the handoff message)
+Integration target: the AI player line. Nothing of it is on main; main was at d0428e9d when this was written.
 ```
 
 ## What this is, and what it stands on
@@ -18,11 +23,24 @@ AP2 that is built. The second waits for playbooks or rules and is listed under "
 It stands on two things, and one of them is not accepted yet:
 
 - the split of `brain.py`, approved at `25308e2a` (`chatgpt/review-ai-player-brain-split` @ `11a0d5df`);
-- under it, AP1's head `e4a267cd`: `7cf7d73c`, which was accepted, plus the correction of the second review's
-  H2 (a takeover is counted; protocol 3), **which has not had its re-check**. Nothing here depends on how that
-  comes out. If it changes code, I merge the change in and issue a new SHA.
+- AP1's head `ce1be6e9`. That is `7cf7d73c`, which was accepted (H1), and two corrections of H2: `e4a267cd`
+  (a takeover is counted; protocol 3), reviewed with one medium finding left, and `ce1be6e9` (a takeover is
+  saved in three writes and no word is taken for it meanwhile; protocol 4), **which has not had its
+  re-check**. Nothing of AP2 depends on how that comes out. If it changes code, I merge the change in and
+  issue a new SHA, as I have done here.
 
-The review target is `git diff 25308e2a HEAD`: 29 files, 2,285 lines added and 28 removed.
+**A correction to the first handoff.** At `c720743a` this note said that `e4a267cd` "has not had its
+re-check". It had. The review was on the remote and had not reached me
+(`chatgpt/review-ai-player-ap1-rereview11-lane-a` @ `219515fe`); I had not looked.
+`docs/reviews/AI_PLAYER_AP1_REREVIEW12_HANDOFF.md` has the account and the correction.
+
+**What changed since `c720743a`.** Nothing of AP2's own. `git diff c720743a HEAD` is AP1's correction, which
+is `git diff 25308e2a ce1be6e9` (ten files), and this note. The three files both lines touch
+(`player/world.py`, `player/OPERATOR.md`, `player/tests/test_brain_package.py`) merged without a conflict. A
+review of `c720743a` that is under way loses nothing by moving here: outside this note, `git diff ce1be6e9
+HEAD` and `git diff 25308e2a c720743a` are the same change, line for line.
+
+The review target is `git diff ce1be6e9 HEAD`: outside this note, 29 files, 2,285 lines added and 28 removed.
 
 ## Objective
 
@@ -49,7 +67,7 @@ Two things touch what AP1's reviews accepted, and I name them so that they are l
 - **The profile read asks for one more column**, `userData.earnedExperience` (`calls.py` `USER_SEL`). Every
   profile read of the player carries it.
 - **`Brain._decide` and `Brain._paced` ask the lock** before anything is planned, and again where every batch
-  is paced. For a rehearsal, which is every brain but the account's own, both are no-ops: the 409 tests of the
+  is paced. For a rehearsal, which is every brain but the account's own, both are no-ops: the 422 tests of the
   base pass. Three lines in two of them (`test_activities.py`, `test_brain.py`) changed with AP2's first cut,
   for the rig's new switches: the upkeep is off in a test unless the test asks for it. What they assert did
   not change.
@@ -76,14 +94,19 @@ It is the one part that writes outside the live folder, so here is exactly what 
 - **The token** is in `world.json` (`records.run_lock`) so that a restarted brain goes on with its claim. It is
   never in `status.json`.
 
-## Verification on the head's parent (the code commit)
+## Verification on the head's parent (the merge commit)
+
+Everything below was run again on the merge. Where a figure differs from the first handoff's, AP1's correction
+is why: its 13 tests are in the suite now.
 
 | Command | Result |
 |---|---|
-| `python3 -W ignore::ResourceWarning -m unittest discover -s player/tests -t .` | `Ran 467 tests`, `OK`, three runs in a row, none skipped |
-| The AP2 tests alone: `test_upkeep` (43), `test_runlock` (12), `test_wiring` (17), `test_brain_package` (7) | 79 tests, `OK` |
+| `python3 -W ignore::ResourceWarning -m unittest discover -s player/tests -t .` | `Ran 480 tests`, `OK`, three runs in a row, none skipped |
+| The AP2 tests alone: `test_upkeep` (43), `test_runlock` (12), `test_wiring` (17), `test_brain_package` (8) | 80 tests, `OK` |
 | The real lock tool against a repository made in a temporary folder (`test_runlock.TheRealTool`, 3 tests) | claim, refusal while held, renewal, release, the quiet minute for another runner, none for the same instance; a session of the brain from its first call to asleep; a repository that cannot be reached. The real `main` is never named |
-| Sixty-six planted defects in the AP2 code, in a throwaway worktree | below |
+| Sixty-six planted defects in the AP2 code, in throwaway worktrees | below |
+| The eleven defects planted for AP1's correction, on this code | every one fails at least one test, in the same numbers as on AP1's head |
+| The scripts of the review of `e4a267cd` (`write_window.py`, four modes; `save_faults.py`), unchanged | what they give on AP1's head, case for case: no call, all 30 held, the same counts. The scripts' clock moves 7 s here where it moves 9 on AP1's head; at `c720743a` it did already |
 | `python3 -m player.tests.test_walk 200 300` | 200 walks, 5,481 calls, no problem: the figures of the base |
 | `python3 -m unittest scripts/test_player_allowlist.py scripts/test_player_catalog.py` | `Ran 46 tests`, `OK` |
 | `python3 scripts/player_allowlist.py check`, and `report --check` | exit 0, both |
@@ -93,7 +116,7 @@ It is the one part that writes outside the live folder, so here is exactly what 
 The planted defects. On the first run 65 of the 66 failed at least one test. One passed them all: PvP 1 counted
 as selected when only one of its two loadouts had answered. The code was right and nothing held it to that; a
 test does now (`test_one_loadout_answered_is_not_both_selected`). The table is from a second run of all 66 on the
-final code; the unchanged code passes.
+final code; the unchanged code passes. A third run, on the merge, gives the same table row for row.
 
 | Planted defect | Tests that fail |
 |---|---|
@@ -166,11 +189,11 @@ final code; the unchanged code passes.
 
 ## Size
 
-Player code 5,251 lines in 29 files (base: 4,185 in 23); tests 8,828 lines (7,744). No new file is over the
+Player code 5,351 lines in 29 files (base: 4,285 in 23); tests 9,111 lines (8,027). No new file is over the
 AP6 budget of 400 lines: the largest are `restock.py` 238 and `training.py` 222, and `brain/core.py` is 387.
-Over it, as before: `activities/battle.py` 685 and `budget.py` 408. Sixteen functions branch more than 12 ways,
-the same sixteen as at the base; none of them is AP2's. Config constants 51 (49): `POCKET_LIMIT`,
-`TRAINING_DRAW`. Nothing ships switched off.
+`world.py`, which both lines add to, is 360. Over the budget, as before: `activities/battle.py` 685 and
+`budget.py` 408. Sixteen functions branch more than 12 ways, the same sixteen as at the base; none of them is
+AP2's. Config constants 51 (49): `POCKET_LIMIT`, `TRAINING_DRAW`. Nothing ships switched off.
 
 ## Source and provenance
 
