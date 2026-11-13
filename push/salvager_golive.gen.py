@@ -47,6 +47,7 @@ RUNS = {  # quest id: (name, salvage per win, chance %). Every id read back by n
     "yZoR_dPSdg8ksO77gDH_A": ("The Sealed Reliquary", 3, 100), "H9YInJtnzKCOEMv-sNgzP": ("The Fall", 3, 100),
     "FsuXzvaqr_R25p8cEkxoK": ("The Rotted Reliquary", 3, 100), "ozDN-G6nGFXGgKuPZ04Gr": ("The Burning Heading", 3, 100),
     "fqqpkcp_L4oOsC6yyodlk": ("Crownhold", 10, 100),
+    "pCFFWT8ZNDMfXCrvR-0hk": ("The Closing Hold", 3, 100),  # director Nov 13 20:10Z "Yes, 3" (unhidden by 599)
 }
 PAGE = ("V-i3ZcAqPu0hB3G9IEzGo", "The Watch Log: The Rotted Heading", 3)
 WRECKS = {"j4QEUtjbK_lbOYUPVoidk": ("Faded Skyglass Wreck", 1, 25), "RHqzYdY4EAQA9HwsBKWDS": ("Skyglass Wreck", 3, 100)}
@@ -117,7 +118,10 @@ def build(d, chart_ids):
                       "name": f"{name}: {n} salvage{odds} per clear, {halved} chart drops halved", "data": {"rewards": rewards}})
     for t in T.TIERS:
         # name: the Nov 13 clones were made as "<name> - copy" (quests.clone); the release edit sets the real name.
-        data = {"name": t["name"], "prerequisiteQuestId": T.WRECK_SIGHTED, "hidden": False}
+        # questRank D: the Administration Building lists event quests only at the player's letter ranks (Genin D-C,
+        # Chunin D-B; queries/quests.ts fetchQuestDiscoveryCandidates ranks filter), so D leaves only the level gates
+        # (director Nov 13 20:10Z "No rank gates, just level gates").
+        data = {"name": t["name"], "prerequisiteQuestId": T.WRECK_SIGHTED, "hidden": False, "questRank": "D"}
         extra = ""
         if t["key"] == "lantern":
             # One Lantern per weekend (director 2026-11-13 "1 lantern per"): the game week turns over Sunday 6 PM,

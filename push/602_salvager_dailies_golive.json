@@ -1,15 +1,16 @@
 {
- "_note": "push/602, LIVE at release (6 PM CT Nov 13): the 3 salvager dailies (built hidden by 600) get Wreck Sighted as their key and are unhidden. Partial edit, fetch-merged. Run after 545.",
+ "_note": "push/602, LIVE at release (6 PM CT Nov 13): the 3 salvager dailies (built hidden by 600) get Wreck Sighted as their key and are unhidden. Partial edit, fetch-merged. Run after 545. questRank D so the Administration Building shows them to every rank (level gates only, director 20:10Z). WS key HELD pending the two-band Wreck Sighted manifests (20:03Z).",
  "items": [
   {
    "entity": "quest",
    "slot": "edit",
    "targetId": "5ZksRGBaMmzG49EtzugNX",
    "phase": 1,
-   "name": "Echoes Ashore: needs Wreck Sighted, unhide",
+   "name": "Echoes Ashore: needs Wreck Sighted, rank D (level gates only), unhide",
    "data": {
     "prerequisiteQuestId": "_zp1l7Y9a_77pgonAdsYx",
-    "hidden": false
+    "hidden": false,
+    "questRank": "D"
    }
   },
   {
@@ -17,10 +18,11 @@
    "slot": "edit",
    "targetId": "ejD1-13fEZupXUU8tf8Au",
    "phase": 1,
-   "name": "Warm Glass: needs Wreck Sighted, unhide",
+   "name": "Warm Glass: needs Wreck Sighted, rank D (level gates only), unhide",
    "data": {
     "prerequisiteQuestId": "_zp1l7Y9a_77pgonAdsYx",
-    "hidden": false
+    "hidden": false,
+    "questRank": "D"
    }
   },
   {
@@ -28,10 +30,11 @@
    "slot": "edit",
    "targetId": "sbssALiuyJVTApe8ZpLvp",
    "phase": 1,
-   "name": "The Tideline Count: needs Wreck Sighted, unhide",
+   "name": "The Tideline Count: needs Wreck Sighted, rank D (level gates only), unhide",
    "data": {
     "prerequisiteQuestId": "_zp1l7Y9a_77pgonAdsYx",
-    "hidden": false
+    "hidden": false,
+    "questRank": "D"
    }
   }
  ]
