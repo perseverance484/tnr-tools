@@ -1012,9 +1012,10 @@ class WhatIsKeptOfABatch(Hooks):
         long_ago = os.path.getmtime(os.path.join(folder, "lock")) - hooked.OLD - 60
         for name in left[:2] + ["log.jsonl"]:
             os.utime(os.path.join(folder, name), (long_ago, long_ago))
-        self.next(new, agent="c" * 16)                                       # (the next batch the brain has)
-        self.assertEqual(self.kept(), left[2:])
-        self.assertTrue(os.path.exists(os.path.join(folder, "log.jsonl")))   # (the log is the operator's)
+        self.first_batch(hooked=False)                                       # a relay without hooks takes over, and
+        self.assertEqual(self.kept(), left[2:])                              # the brain has its first batch
+        self.assertTrue(os.path.exists(os.path.join(folder, "log.jsonl")))   # (the log is the operator's: no hook
+        self.assertLess(os.path.getmtime(os.path.join(folder, "log.jsonl")), long_ago + 1)   # has written to it since)
 
     def test_a_relay_without_hooks_keeps_nothing_there(self):
         token, lines = self.first_batch(hooked=False)
