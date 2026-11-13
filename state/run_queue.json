@@ -554,6 +554,18 @@
       "status": "done",
       "waitsFor": [],
       "note": "Director go 2026-11-13 08:53 UTC (after the offline check: the clips are drawn for 2.5, see 589/588). Restored 09:21 UTC under the run lock: d_intro1 back to 'Go deeper' only; b_act1 back to Sayo fJLcH1mpB1XHHGtNWwvzD + The Silence IhNR-W1FElTsrWw1KfuQ9, 'Act I: The Glasswright and the Deep'. Read back; still hidden. Test AI FotHaXVoYS4In_wM-qczO kept (delete only on a per-record yes)."
+    },
+    {
+      "id": "591",
+      "manifest": null,
+      "what": "Skyglass end-to-end run: the agent plays this weekend's release by hand on dauntless (Wreck Sighted, page 2, both Wrecks, chart runs, claims), PvE loadouts, then the Mother of Echoes practice as a staff test",
+      "runner": "player",
+      "status": "waiting",
+      "waitsFor": [
+        "release live: both Wrecks reopened and page 2 open (Sat 2026-11-14 00:00 UTC)"
+      ],
+      "note": "Director 2026-11-13 09:23 UTC asked for it. Contract: state/prompt_skyglass_e2e_run.md. Lock holder player; finishes a fight then pauses if a content job becomes ready. Report: state/player/dauntless/sessions/<date>_skyglass_e2e.md.",
+      "brief": "state/prompt_skyglass_e2e_run.md"
     }
   ]
 }
