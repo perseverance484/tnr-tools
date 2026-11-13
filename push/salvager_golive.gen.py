@@ -105,7 +105,8 @@ def build(d, chart_ids):
         items.append({"entity": "dungeon", "slot": "edit", "targetId": did, "phase": 2,
                       "name": f"{name}: {n} salvage{odds} per clear, {halved} chart drops halved", "data": {"rewards": rewards}})
     for t in T.TIERS:
-        data = {"prerequisiteQuestId": T.WRECK_SIGHTED, "hidden": False}
+        # name: the Nov 13 clones were made as "<name> - copy" (quests.clone); the release edit sets the real name.
+        data = {"name": t["name"], "prerequisiteQuestId": T.WRECK_SIGHTED, "hidden": False}
         extra = ""
         if t["key"] == "lantern":
             # One Lantern per weekend (director 2026-11-13 "1 lantern per"): the game week turns over Sunday 6 PM,
