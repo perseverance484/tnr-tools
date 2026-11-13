@@ -9,14 +9,13 @@ read, so nothing a read did not show is overwritten; the read must be taken afte
 the same records (the chart go-live 538 touches the Wreck drop rows and the three new runs).
 
 What it does (Salvager's Trade write-up, Claude Doc YNEcUm9oBvYijwTRYWYUAc; Nov 13 plan):
-  1. Every win_quest node of every Skyglass run pays Wreck Salvage, inverted by depth and time (director 2026-11-13
-     17:03 UTC: "The inverted pay sounds good. It was done because of length/difficulty of the run"): Low Tide and
-     Night Watch 1 at 50%; the crew charts, the three new runs and the six Haul runs 1; the Epic and tainted runs 3;
-     Crownhold 10. Per hour at the Nov 2 model's minutes: commons ~10, crew ~13, Faded Wreck ~17, Epic ~21, Skyglass
-     Wreck and Crownhold ~30. Starting numbers: re-check against measured run times so chained low content never out-
-     earns the deep runs.
+  1. Every win_quest node of every Skyglass run pays Wreck Salvage, inverted by depth and time (RUL-2026-11-13-148,
+     retuned 17:10 UTC at the director's endgame clear times: Faded 90 s, Skyglass 10-15 min, 100 completions a day):
+     Low Tide and Night Watch 1 at 25%; the crew charts, the three new runs and the six Haul runs 1; the Epic and
+     tainted runs 3; Crownhold 10 (it costs a Lantern to enter). Starting numbers: re-check against measured times.
   2. Each order of The Watch Log: The Rotted Heading pays 3 salvage on claim. Later pages carry it in their own build.
-  3. Both Wrecks: a 100% salvage drop (Faded 5, Skyglass 10), and every direct chart drop at half its current chance.
+  3. Both Wrecks: a salvage drop (Faded 1 at 50%, Skyglass 3 every clear), and every direct chart drop at half its
+     current chance.
   4. Unhide Wreck Salvage. The four trades stay their own quest-log quests, so players choose them (director
      2026-11-13 17:03 UTC: "Keep separate so players can choose"): Wreck Sighted as prerequisite and unhidden; their
      questType is left as it is (not overworld: an NPC tap rolls at random and spends a daily roll).
@@ -35,7 +34,7 @@ import salvager_trade as T  # noqa: E402  (push/salvager_trade.gen.py is importe
 
 SALVAGE = T.SALVAGE
 RUNS = {  # quest id: (name, salvage per win, chance %). Every id read back by name with quests.get, Nov 9 16:35Z
-    "pFQBaJxU_8RSvSi4Kir1Z": ("The Low Tide Run", 1, 50), "dnzL-bDrAEVXrKB5xariu": ("The Night Watch", 1, 50),
+    "pFQBaJxU_8RSvSi4Kir1Z": ("The Low Tide Run", 1, 25), "dnzL-bDrAEVXrKB5xariu": ("The Night Watch", 1, 25),
     "CgwAVCyZLgNQtEnqgLxxv": ("The Buried Cache", 1, 100), "UGHSuhi83C3wRtH3FD4Eu": ("The Drowned Foundry", 1, 100),
     "-bZ_ZoI6yrUJ_LKT9R5zm": ("The Quarantined Archive", 1, 100), "liljq0yVXWTSna4X6dZE1": ("The Captain's Watch", 1, 100),
     "iRMyb0WN_ip--EDbvAgLc": ("The Spoiled Hold", 1, 100), "x7ByC_5ssbpibxTB60Ag1": ("The Rotted Galley", 1, 100),
@@ -48,7 +47,7 @@ RUNS = {  # quest id: (name, salvage per win, chance %). Every id read back by n
     "fqqpkcp_L4oOsC6yyodlk": ("Crownhold", 10, 100),
 }
 PAGE = ("V-i3ZcAqPu0hB3G9IEzGo", "The Watch Log: The Rotted Heading", 3)
-WRECKS = {"j4QEUtjbK_lbOYUPVoidk": ("Faded Skyglass Wreck", 5), "RHqzYdY4EAQA9HwsBKWDS": ("Skyglass Wreck", 10)}
+WRECKS = {"j4QEUtjbK_lbOYUPVoidk": ("Faded Skyglass Wreck", 1, 50), "RHqzYdY4EAQA9HwsBKWDS": ("Skyglass Wreck", 3, 100)}
 # The charts she sells, at half their Wreck chance. The Lantern is left to its own pending rate change (Nov 13 plan).
 CHARTS = {cid for k, (cid, _) in T.CH.items() if k != "lantern"}
 
@@ -90,7 +89,7 @@ def build(d, chart_ids):
         o["reward_items"] = with_salvage(o.get("reward_items") or [], n)
     items.append({"entity": "quest", "slot": "edit", "targetId": pid, "phase": 2,
                   "name": f"{pname}: {n} salvage per order", "data": {"content": content}})
-    for did, (name, n) in WRECKS.items():
+    for did, (name, n, chance) in WRECKS.items():
         w = read(d, "dungeon", did)
         assert w["name"] == name
         rewards = json.loads(json.dumps(w["rewards"]))
@@ -99,9 +98,10 @@ def build(d, chart_ids):
             if drop.get("type") == "item" and drop.get("id") in chart_ids:
                 drop["chance"] = max(1, round(drop["chance"] / 2, 2)); halved += 1
         assert not any(dr.get("id") == SALVAGE for dr in rewards["drops"]), "salvage already in this Wreck"
-        rewards["drops"].append({"type": "item", "id": SALVAGE, "chance": 100, "quantity": n})
+        rewards["drops"].append({"type": "item", "id": SALVAGE, "chance": chance, "quantity": n})
+        odds = "" if chance == 100 else f" at {chance}%"
         items.append({"entity": "dungeon", "slot": "edit", "targetId": did, "phase": 2,
-                      "name": f"{name}: {n} salvage per clear, {halved} chart drops halved", "data": {"rewards": rewards}})
+                      "name": f"{name}: {n} salvage{odds} per clear, {halved} chart drops halved", "data": {"rewards": rewards}})
     for t in T.TIERS:
         items.append({"entity": "quest", "slot": "edit", "targetId": T.IDS[t["key"]], "phase": 3,
                       "name": f"{t['name']}: quest log (player's choice), needs Wreck Sighted, unhide",
