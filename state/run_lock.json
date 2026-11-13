@@ -1,10 +1,11 @@
 {
- "holder": null,
- "token": null,
- "job": null,
- "releasedBy": "player",
- "releasedInstance": null,
- "releasedJob": "jutsu training refill",
- "releasedAt": "2026-11-13T09:24:07.725Z",
- "note": "Free. Claim with node forge/tools/run_lock.mjs claim --holder NAME --job TEXT (RUL-2026-11-07-133)."
+ "holder": "player",
+ "job": "591 Skyglass e2e run",
+ "token": "8e0b7837ee064d30ba93ea101b6bcbd8",
+ "instance": null,
+ "ttlMinutes": 60,
+ "claimedAt": "2026-11-13T09:33:55.727Z",
+ "heartbeatAt": "2026-11-13T09:33:55.727Z",
+ "expiresAt": "2026-11-13T10:33:55.727Z",
+ "note": "One game writer per account at a time (RUL-2026-11-07-133). Written only by forge/tools/run_lock.mjs or Forge; do not hand-edit."
 }
