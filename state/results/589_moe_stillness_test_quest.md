@@ -24,3 +24,12 @@ to [{"text":"Go deeper","nextObjectiveId":"d_intro2"}]; b_act1 opponentAIs back 
 [{"ids":["fJLcH1mpB1XHHGtNWwvzD"],"number":1,"quantity":1},{"ids":["IhNR-W1FElTsrWw1KfuQ9"],"number":1,"quantity":1}]
 and description back to "Act I: The Glasswright and the Deep". The test AI can then be deleted only on the
 director's per-record yes.
+
+## Size check (offline, 2026-11-13) and restore (590)
+
+art/mother_of_echoes_fx/build_fx.py: a clip frame is 2.5 hex heights (50 px grid, delivered x3 = 150 px);
+the hex is 120x60 px at the frame centre. anim_moe_control_appear_v1 (Stillness's arrival clip) draws
+120x66 px centred ~(78,78): one hex. At 1x the mark covered ~40% x 44% of its hex (gaps between the 36);
+at 2.5x it is the hex, edge to edge. Every MoE FX build script descends from the 2.5 geometry; the
+ratio-1 re-author (build_fx_r1.py, 2026-11-05) never exported or shipped a file. So the whole kit wants
+2.5. The practice quest was restored 09:21 UTC (590); the test AI stays.
