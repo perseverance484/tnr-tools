@@ -45,3 +45,14 @@ test("animationScale: without it the pinned set still refuses it (guards a re-pi
   const pinned = v.nested.effects.damage;
   assert.equal(pinned.includes("animationScale"), false, "nested.json now carries animationScale: retire EFFECT_POST_PIN_KEYS");
 });
+
+test("a skill-tree read-back with the server's animationScale default is not drift (push/594, 2026-11-13)", async () => {
+  const { diffAsserted } = await import("../src/runner/validate.mjs");
+  const effect = { type: "increasepotency", power: 2, rounds: 99, target: "INHERIT", direction: "offence", affectedTag: "increasedamagegiven", calculation: "static", affectedElements: ["Ice"] };
+  const sent = { name: "Cursed Firstborn", effects: [effect] };
+  assert.deepEqual(diffAsserted("skillTree", sent, { ...sent, effects: [{ ...effect, animationScale: 1 }] }), []);
+  // a real size change is still drift, and so is any other effect change
+  assert.equal(diffAsserted("skillTree", sent, { ...sent, effects: [{ ...effect, animationScale: 2 }] }).length, 1);
+  assert.equal(diffAsserted("skillTree", sent, { ...sent, effects: [{ ...effect, power: 3, animationScale: 1 }] }).length, 1);
+  assert.equal(diffAsserted("skillTree", { ...sent, effects: [{ ...effect, animationScale: 2 }] }, { ...sent, effects: [effect] }).length, 1);
+});
