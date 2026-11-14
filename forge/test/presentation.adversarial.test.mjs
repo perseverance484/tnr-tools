@@ -436,7 +436,7 @@ test("F3: a source file whose commit cannot be read is unverified, not verified"
     blobAtRef: (ref, path, fallback) => (path === MARROW_BUNDLE ? null : fallback(ref, path)),
   });
   assert.equal(r.ok, false);
-  assert.match(r.error.message, /could not be read at 42109a566445, so its source lock cannot be verified/);
+  assert.match(r.error.message, /could not be read at 72443c06126e, so its source lock cannot be verified/);
 });
 
 // F4 --------------------------------------------------------------------------------------------

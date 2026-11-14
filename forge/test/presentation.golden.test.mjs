@@ -217,7 +217,7 @@ test("every hard fact points at the evidence record it came from", () => {
   assert.equal(dossier.provenance[`rewards.${STORMCOURT}.fullClear`], "stormcourt-quest");
   // every source carries the file digest, the commit it was verified against, and a timestamp
   assert.equal(dossier.sources.draft, false);
-  assert.equal(dossier.sources.repoCommit, "42109a56644537d8e2de0133173e8b108288c0db");
+  assert.equal(dossier.sources.repoCommit, "72443c06126e2e1122ef3c3c942f86c169bfa551");
   for (const r of dossier.sources.records) {
     assert.match(r.sha256, /^[0-9a-f]{64}$/);
     assert.equal(r.repoCommit, dossier.sources.repoCommit, `${r.id} must be bound to the package's commit`);
@@ -251,7 +251,7 @@ test("the golden summary reads the way the poster is supposed to", () => {
     "Marrow Vaults full clear (d5_victory): 125000 money / 25 tokens / 10 prestige; 0 intermediate cash-out(s), 0 reward item(s)",
     "Stormcourt full clear (d10_victory): 250000 money / 150 tokens / 60 prestige; 0 intermediate cash-out(s), 0 reward item(s)",
     "art: 23 exact-current (5 with verified bytes), 0 derivative, 0 historical, 0 mismatched, 0 missing, of 23",
-    "sources: 7 record(s) at 42109a566445",
+    "sources: 7 record(s) at 72443c06126e",
   ]) {
     assert.ok(text.includes(line), `summary is missing:\n  ${line}\ngot:\n${text}`);
   }
