@@ -137,7 +137,10 @@ class TheCommandLine(unittest.TestCase):
         while time.monotonic() < until and self.residents():
             time.sleep(0.05)
         self.assertEqual(self.residents(), [])
-        lock = brain._lock(self.live)
+        until, lock = time.monotonic() + 5, brain._lock(self.live)          # (a process that is ending is without
+        while lock is None and time.monotonic() < until:                    # its command line a moment before it
+            time.sleep(0.05)                                                # lets go of its files: 3 runs of 40
+            lock = brain._lock(self.live)                                   # looked in between, and failed here)
         self.assertIsNotNone(lock)                                          # and its lock is free again
         lock.close()
 
