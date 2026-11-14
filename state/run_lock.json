@@ -1,10 +1,11 @@
 {
- "holder": null,
- "token": null,
- "job": null,
- "releasedBy": "browser",
- "releasedInstance": "browser:z441ylbr7m",
- "releasedJob": "push/616_moe_unstilled_title_check.json",
- "releasedAt": "2026-11-14T17:03:01.574Z",
- "note": "Free. Claim with node forge/tools/run_lock.mjs claim --holder NAME --job TEXT (RUL-2026-11-07-133)."
+ "holder": "browser",
+ "job": "push/617_unstilled_claim_quest.json",
+ "token": "10710fa0f1de4417a5eaf0b1b9b14698",
+ "instance": "browser:z441ylbr7m",
+ "ttlMinutes": 20,
+ "claimedAt": "2026-11-14T17:06:51.478Z",
+ "heartbeatAt": "2026-11-14T17:06:51.478Z",
+ "expiresAt": "2026-11-14T17:26:51.478Z",
+ "note": "One game writer per account at a time (RUL-2026-11-07-133). Written only by forge/tools/run_lock.mjs or Forge; do not hand-edit."
 }
