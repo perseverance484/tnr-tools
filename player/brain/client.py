@@ -111,9 +111,10 @@ def _a_waiting_batch(p):
 
 
 def _a_word(e):
-    """Word that a batch is over, as client.json keeps it under ended: [the batch, when, whose, how]."""
+    """Word that a batch is over, as client.json keeps it under ended: [the batch, when, whose, how]. "answered":
+    its call that was out has its result (hooked.account; second re-review, R5: that kind was dropped here)."""
     return (isinstance(e, list) and len(e) == 4 and isinstance(e[0], (str, int)) and not isinstance(e[0], bool)
-            and isinstance(e[1], (int, float)) and e[3] in ("back", "stopped"))
+            and isinstance(e[1], (int, float)) and e[3] in ("back", "stopped", "answered"))
 
 
 def next_batch(live=None, token=None, out=sys.stdout, sleep=time.sleep, hooks=None):
