@@ -98,8 +98,8 @@ def _rows(path, tail=TAIL):
                 continue
 
 
-def _blocks(row):
-    content = (row.get("message") or {}).get("content")
+def _blocks(row):             # (of a message only: beside it Claude Code may keep a copy of the request, calls and all)
+    content = (row.get("message") or {}).get("content") if row.get("type") in (None, "assistant", "user") else None
     return [c for c in content if isinstance(c, dict)] if isinstance(content, list) else []
 
 
