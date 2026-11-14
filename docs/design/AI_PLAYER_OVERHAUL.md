@@ -283,9 +283,10 @@ copies calls. The design targets **Claude Haiku as the relay**, and keeps the la
 entirely.
 
 - **The relay contract is mechanical.**
-  - One short system prompt (under 300 words, `player/RELAY.md`) and one loop: run `brain next`, make the calls it
+  - One short system prompt (under 320 words, `player/RELAY.md`) and one loop: run `brain next`, make the calls it
     prints exactly, run `brain next` again.
-  - No reasoning, no summaries, no text between calls. Parallel tool calls in one message per batch.
+  - No reasoning, no summaries, no text between calls. Parallel tool calls in one message per batch, the next
+    `brain next` among them: sent after the calls' results it is one more request a batch (RUL-2026-11-14-160).
   - Anything that needs judgment never reaches the relay. It becomes a pending decision for the director (or a Duet
     message), raised by the brain.
 - **What is saved is usage against the plan's limits** (RUL-2026-11-13-156). The plan counts what a request

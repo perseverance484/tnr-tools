@@ -51,10 +51,25 @@ class Contract(unittest.TestCase):
     def test_the_relay_prompt_is_short_and_says_the_loop(self):
         with open(os.path.join(C.ROOT, "player", "RELAY.md"), encoding="utf8") as f:
             text = f.read()
-        self.assertLess(len(text.split()), 300)
+        self.assertLess(len(text.split()), 320)
         for must in ("brain next", "callEndpoint", "in order", "ONE message", "STOP", "no decisions", "put",
                      "one line at a time", "exactly as printed"):
             self.assertIn(must, text)
+
+    def test_the_next_brain_next_goes_in_the_message_of_the_batchs_calls(self):
+        """The proof of the hooks on Claude Code itself, 2026-11-14 (RUL-2026-11-14-160): told only "in ONE
+        message", Haiku sent the calls, waited for their results and sent `brain next` alone in 20 sessions of
+        26: one more request a batch, a quarter more against the plan. Told that it goes in that same message,
+        it did in every session. A batch with `put` lines is still done one line at a time, and says so after."""
+        with open(os.path.join(C.ROOT, "player", "RELAY.md"), encoding="utf8") as f:
+            text = f.read()
+        loop, rest = text.split("## Rules", 1)
+        last = loop[loop.index("The last line is always the next `brain next`."):]
+        self.assertIn("in that same message", last)
+        self.assertIn("never wait", " ".join(last.split()))
+        put = rest[rest.index("## A batch with `put` lines"):]
+        self.assertIn("one line at a time, not in one message", " ".join(put.split()))
+        self.assertIn("wait for each line's result", " ".join(put.split()))
 
     def test_the_relay_agent_is_that_prompt_with_two_tools_and_nothing_else(self):
         """Live, 2026-11-11: a general-purpose relay was born with 118,190 tokens of context, and every request
