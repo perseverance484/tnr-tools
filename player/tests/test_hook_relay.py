@@ -1091,6 +1091,34 @@ class ACallThatIsOutHoldsWhatItMayCost(Hooks):
         self.assertEqual((self.spend()["ryo"], self.spend()["out"]), (C.DAILY_CAP - 15_000, []))
         self.assertLessEqual(self.planned()[1], 15_000)                      # and the day has 15,000 left
 
+    def test_the_word_that_it_is_over_is_kept_until_the_brain_has_it(self):
+        """The second re-review, R5, its first schedule. The result has come; `brain next` puts down the word
+        that the batch is over, and the brain gives no answer. client.json was read back through a filter that
+        knew two kinds of such word, "back" and "stopped": this one was dropped, and the batch was no longer
+        among those that are gone, so the word was never made again. The brain held the batch's calls and its
+        180,000 for good."""
+        token, lines = self.first_batch()
+        self.does(lines)
+        token, lines, _ = self.next(token)
+        batch, calls = self.client()["held"], len(self.planned()[0])
+        inp, real = self.sent(lines[0])                                      # the purchase goes, and stays out
+        token, lines, _ = self.next(token)
+        self.r.t += 1
+        self.me = user(money=235_000, bank=900_000_000)
+        self.assertEqual(self.comes(inp, real), OK)                          # its result comes
+        word = [batch["id"], self.late(batch["token"], 1).at, batch["token"], "answered"]
+        self.does(lines)
+        with mock.patch.object(brain, "_await", lambda *a, **k: None):       # the brain gives no answer for now
+            self.assertEqual(self.next(token)[2], [relay.next_line(token)])
+        self.assertEqual((self.client()["gone"], self.client()["ended"]), ([], [word]))      # the word is on record,
+        self.assertEqual(self.loose(), {batch["id"]: calls})                 # and the brain has not had it
+        token, lines, _ = self.next(token)                                   # asked again, the brain has it
+        self.assertEqual((self.asks[-1]["ended"], self.loose(), self.client()["ended"]), ([word], {}, []))
+        self.assertEqual(self.spend()["out"], [[batch["id"], 180_000.0, True]])
+        self.does(lines)
+        self.next(token)
+        self.assertEqual((self.spend()["ryo"], self.spend()["out"]), (C.DAILY_CAP - 15_000, []))
+
     def test_the_operators_word_ends_it_when_the_result_never_comes(self):
         token, lines = self.first_batch()
         self.does(lines)
@@ -1320,6 +1348,47 @@ class WhatIsKeptOfABatch(Hooks):
         self.next(new)
         self.assertEqual((self.loose(), self.client()["gone"]), ({}, []))    # and its batch is over
         self.assertEqual(self.kept(), [f"{token}.1.json", f"late/{token}.1.json"])
+
+    def test_the_word_that_a_batch_is_over_waits_with_a_batch_that_is_waiting_to_be_printed(self):
+        """The second re-review, R5, its second schedule, as it ran it. The brain has answered and the batch is
+        cleared away; `brain next` dies before it prints the next. The result of the call that was out comes.
+        Run again, `brain next` has a batch waiting and asks nothing: the word that the old batch is over was
+        put down, read back without it, and lost. Now it waits in client.json for the next request."""
+        self.handed_to_the_brain()
+        asks = self.asks
+        token, lines = self.first_batch()
+        batch = self.client()["held"]
+        inp, real = self.sent(lines[0])
+        clear = client._taken
+
+        class Died(Exception):
+            pass
+
+        def cleared_and_then_it_dies(*args):
+            clear(*args)
+            raise Died
+        with mock.patch.object(client, "_taken", cleared_and_then_it_dies), self.assertRaises(Died):
+            self.next(token)
+        self.assertTrue(self.client()["pending"])
+        self.assertEqual(self.loose(), {batch["id"]: 1})
+        self.assertEqual(self.comes(inp, real), OK)
+        word, requests = [batch["id"], self.late(token, 1).at, token, "answered"], len(asks)
+        new, lines, _ = self.next(token)                                     # the waiting batch is printed
+        self.assertEqual((len(asks), self.client()["gone"], self.client()["ended"]), (requests, [], [word]))
+        self.does(lines)
+        self.next(new)
+        self.assertEqual((asks[-1]["ended"], self.loose(), self.client()["ended"]), ([word], {}, []))
+
+    def test_what_is_put_down_of_a_batch_is_read_back_as_it_was_written(self):
+        """client.json is read through a filter that keeps what is in the shape this code writes
+        (`brain next`, _who). Every mark and every kind of word that is written there has to pass it."""
+        token, lines = self.first_batch()
+        path, state = os.path.join(self.r.dir, "client.json"), self.client()
+        state["gone"] = [{"token": "aa11bb-1", "id": "x1", "closed": True}, {"token": "cc22dd-2", "id": "y2", "back": True}]
+        state["ended"] = [["x1", 1.5, "aa11bb-1", "answered"], ["y2", 2.5, "cc22dd-2", "back"], ["z3", 3.5, None, "stopped"]]
+        relay.write(path, dict(state, ended=state["ended"] + [["q4", 4.5, "ee33ff-3", "some other word"]]))
+        read = client._who(path)
+        self.assertEqual((read["gone"], read["ended"]), (state["gone"], state["ended"]))
 
     def test_a_brain_next_that_dies_before_it_clears_the_batch_away_clears_it_when_run_again(self):
         """The other side of the same crash: the brain has the batch, and nothing is cleared yet. The call that
