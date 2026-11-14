@@ -1,0 +1,4211 @@
+{
+ "_note": "612: the 609/611 failures. 4 chart runs + Split/Stern publish with a scene character; Stern stun copy renamed and the Stern Captain re-saved to keep the equip link.",
+ "items": [
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "targetId": "iSrNSosz66du-HYYl3tRD",
+   "phase": 5,
+   "name": "Steady Command -> Stern's Final Command (Stern Captain's own stun copy; 'Final Command' is taken)",
+   "data": {
+    "name": "Stern's Final Command"
+   }
+  },
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "targetId": "xTfDUSDalduRg43MlcCbO",
+   "phase": 20,
+   "name": "Stern Captain: re-save after the jutsu rename (re-equip link)",
+   "data": {
+    "hidden": true,
+    "jutsus": [
+     "_9k7kSYUgMtB-AEFgRly5",
+     "-uy2-icY9xbviQewAwOE2",
+     "0Y10JpChssDwFUxNRk6p3",
+     "1OhP0StX4VTsosWtCxhsG",
+     "4mu7BPrMKOHXmvp5WKMmw",
+     "AGLdBcv2D-AAAmA8OuRJ3",
+     "cKZVVYKd43hpjTnHl1hUe",
+     "CxGrWF_wJepsT6W4MNkuq",
+     "ddbIyVtoxdPQwLRXxSBq8",
+     "Iyb21Vh0j7g2eD1I-YAQw",
+     "MG9ZujAV8lK7--YxThVbQ",
+     "o-4SCAhJ4LHdCwcBDgJrV",
+     "PdD44PGaNv4MN5fOALhAF",
+     "STu1VHNcfgeC3x-UiQDgt",
+     "KfVaB16cG2rMs3D_dryfC",
+     "VuFuBtE7h5B1nnA2J1lFZ",
+     "iSrNSosz66du-HYYl3tRD"
+    ],
+    "includeDefaultRules": true,
+    "rules": [
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "CxGrWF_wJepsT6W4MNkuq",
+       "description": "Broadside (signature, rows A)"
+      },
+      "conditions": [
+       {
+        "type": "has_effect",
+        "threshold": 1,
+        "effectType": "increaserange",
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "4mu7BPrMKOHXmvp5WKMmw",
+       "description": "Ship's Bell (signature)"
+      },
+      "conditions": [
+       {
+        "type": "has_effect",
+        "threshold": 1,
+        "effectType": "decreasecooldown",
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "AGLdBcv2D-AAAmA8OuRJ3",
+       "description": "Steady the Helm (phase 2 begins; once)"
+      },
+      "conditions": [
+       {
+        "type": "health_below",
+        "value": 50,
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "EMPTY_GROUND_CLOSEST_TO_OPPONENT",
+       "jutsuId": "Iyb21Vh0j7g2eD1I-YAQw",
+       "description": "Raise the Gunwale (transition; once; he falls back behind the rail)"
+      },
+      "conditions": [
+       {
+        "type": "health_below",
+        "value": 50,
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "cKZVVYKd43hpjTnHl1hUe",
+       "description": "Omen: Binding Ring (Ship's Bell, phase 2)"
+      },
+      "conditions": [
+       {
+        "type": "health_below",
+        "value": 50,
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "-uy2-icY9xbviQewAwOE2",
+       "description": "Omen: Rows A (Broadside, phase 2)"
+      },
+      "conditions": [
+       {
+        "type": "health_below",
+        "value": 50,
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "MG9ZujAV8lK7--YxThVbQ",
+       "description": "Last Stand at the Helm (live Battle Trance)"
+      },
+      "conditions": [
+       {
+        "type": "health_below",
+        "value": 50,
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "STu1VHNcfgeC3x-UiQDgt",
+       "description": "Second Wind (under 25%)"
+      },
+      "conditions": [
+       {
+        "type": "health_below",
+        "value": 25,
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "0Y10JpChssDwFUxNRk6p3",
+       "description": "Hold the Line (live Unbroken Command, opener: party 3+ hexes away)"
+      },
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 3,
+        "target": "CLOSEST_OPPONENT",
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "HIGHEST_ENMITY_OPPONENT",
+       "jutsuId": "iSrNSosz66du-HYYl3tRD",
+       "description": "Final Command (duel)"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 4,
+        "target": "HIGHEST_ENMITY_OPPONENT",
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "HIGHEST_ENMITY_OPPONENT",
+       "jutsuId": "PdD44PGaNv4MN5fOALhAF",
+       "description": "Keelbind (duel)"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 5,
+        "target": "HIGHEST_ENMITY_OPPONENT",
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "end_turn",
+       "description": "after lib-omen-rows-a: end turn"
+      },
+      "conditions": [
+       {
+        "type": "has_effect",
+        "threshold": 1,
+        "effectType": "increaserange",
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "end_turn",
+       "description": "after lib-omen-binding-ring: end turn"
+      },
+      "conditions": [
+       {
+        "type": "has_effect",
+        "threshold": 1,
+        "effectType": "decreasecooldown",
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "KfVaB16cG2rMs3D_dryfC",
+       "description": "Braced Guard (duel: a player within 2)"
+      },
+      "conditions": [
+       {
+        "type": "player_within_range",
+        "maxRange": 2,
+        "minRange": 0,
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "HIGHEST_ENMITY_OPPONENT",
+       "jutsuId": "ddbIyVtoxdPQwLRXxSBq8",
+       "description": "Suppression Writ"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 4,
+        "target": "HIGHEST_ENMITY_OPPONENT",
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "CLOSEST_OPPONENT",
+       "jutsuId": "1OhP0StX4VTsosWtCxhsG",
+       "description": "Unraveling Strike"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 4,
+        "target": "CLOSEST_OPPONENT",
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "CLOSEST_OPPONENT",
+       "jutsuId": "o-4SCAhJ4LHdCwcBDgJrV",
+       "description": "Explosive Tag Cataclysm"
+      },
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 6,
+        "target": "CLOSEST_OPPONENT",
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "_9k7kSYUgMtB-AEFgRly5",
+       "description": "Windlash Focus"
+      },
+      "conditions": [
+       {
+        "type": "player_within_range",
+        "maxRange": 4,
+        "minRange": 0,
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "CLOSEST_OPPONENT",
+       "jutsuId": "basicAttack",
+       "description": "basic attack (fallback; never a set piece)"
+      },
+      "conditions": [
+       {
+        "type": "player_within_range",
+        "maxRange": 1,
+        "minRange": 0,
+        "description": ""
+       }
+      ]
+     },
+     {
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "CLOSEST_OPPONENT",
+       "description": "Close on the nearest player (none in reach)"
+      },
+      "conditions": []
+     }
+    ],
+    "username": "Stern Captain"
+   }
+  },
+  {
+   "entity": "quest",
+   "slot": "edit",
+   "targetId": "pCFFWT8ZNDMfXCrvR-0hk",
+   "phase": 30,
+   "name": "The Drowned Cradle: Lantern drop 30% to 10% + The Closing Hold: unhide + The Drowned Cradle: pyramid description (2 line + The Drowned Cradle: 5 salvage on each of 1 win(s) + scene character",
+   "data": {
+    "content": {
+     "reward": {
+      "reward_exp": 0,
+      "reward_rank": "NONE",
+      "reward_items": [
+       {
+        "ids": [
+         "THo7rfzP-S82_43aN8fs3"
+        ],
+        "number": 100,
+        "quantity": 2
+       },
+       {
+        "ids": [
+         "Ma8S90Nmbi0Xvm4u4FzJh"
+        ],
+        "number": 100,
+        "quantity": 1
+       },
+       {
+        "ids": [
+         "nzCW7A-_AuYMzBs2wClnM"
+        ],
+        "number": 100,
+        "quantity": 2
+       },
+       {
+        "ids": [
+         "D-QTnbjgTyIVc593zzdSB"
+        ],
+        "number": 100,
+        "quantity": 3
+       }
+      ],
+      "reward_money": 0,
+      "reward_badges": [],
+      "reward_jutsus": [],
+      "reward_titles": [],
+      "reward_tokens": 0,
+      "reward_prestige": 0,
+      "reward_anbupoints": 0,
+      "reward_bloodlines": [],
+      "reward_clanpoints": 0,
+      "reward_reputation": 0,
+      "reward_sage_modes": [],
+      "reward_war_damage": 0,
+      "reward_skillpoints": 0,
+      "reward_war_healing": 0,
+      "reward_hunter_items": false,
+      "reward_seichi_silver": 0,
+      "reward_gathering_items": false,
+      "reward_hunter_items_ids": [],
+      "reward_hunting_experience": 0,
+      "reward_medical_experience": 0,
+      "reward_village_membership": "NONE",
+      "reward_crafting_experience": 0,
+      "reward_gathering_items_ids": [],
+      "reward_gathering_experience": 0,
+      "reward_sage_mastery_experience": 0
+     },
+     "isolated": true,
+     "entryItems": [
+      {
+       "ids": [
+        "oQcPHpr0sqmWHfaJPR4T_"
+       ],
+       "number": 1
+      }
+     ],
+     "objectives": [
+      {
+       "id": "d_hatch",
+       "task": "dialog",
+       "image": "",
+       "attackers": [],
+       "reward_exp": 0,
+       "description": "The lower hatch opens on a hold that is still being built. Somewhere below, a mallet is working, steady as a heartbeat, and the walls are a little closer every time it lands.",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "nextObjectiveId": [
+        {
+         "text": "Climb down",
+         "nextObjectiveId": "b_apprentice"
+        }
+       ],
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ0pHtoKgrYldRWJcD6vE10SjNsXHeA9pVMfQi",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "attackers_scale_gains": 1,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "attackers_max_per_battle": 1,
+       "attackers_scaled_to_user": false,
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "b_apprentice",
+       "task": "start_battle",
+       "allyAIs": [],
+       "applyBuffs": [],
+       "reward_exp": 0,
+       "scaleGains": 1,
+       "description": "The Mender's Apprentice looks up from his planks. \"You're standing where the wall goes.\"",
+       "opponentAIs": [
+        {
+         "ids": [
+          "sXqGpkQlGDvPr8Tjf_G0J"
+         ],
+         "number": 1,
+         "quantity": 1
+        }
+       ],
+       "reward_rank": "NONE",
+       "applyDebuffs": [],
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "drawDescription": "The fight stalls, and the hold closes over it.",
+       "failDescription": "You are defeated.",
+       "failObjectiveId": "f_lost",
+       "fleeDescription": "You break away, and the hold closes behind you.",
+       "nextObjectiveId": "d_narrow",
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ0pHtoKgrYldRWJcD6vE10SjNsXHeA9pVMfQi",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "completionOutcome": "Win",
+       "keepOriginalPools": false,
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "reward_gathering_items": false,
+       "opponent_scaled_to_user": false,
+       "reward_hunter_items_ids": [],
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "d_narrow",
+       "task": "dialog",
+       "image": "",
+       "attackers": [],
+       "reward_exp": 0,
+       "description": "The hold is narrower than it was a minute ago. Two bilge hands are snapping tarred lines across the boards, and wherever a line lands, the deck splits.",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "nextObjectiveId": [
+        {
+         "text": "Cross the bilge",
+         "nextObjectiveId": "b_crew"
+        }
+       ],
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJTdaBvI5IU29dZYJPoOKSh5vmlqatMub3EigH",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "attackers_scale_gains": 1,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "attackers_max_per_battle": 1,
+       "attackers_scaled_to_user": false,
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "b_crew",
+       "task": "start_battle",
+       "allyAIs": [],
+       "applyBuffs": [],
+       "reward_exp": 0,
+       "scaleGains": 1,
+       "description": "The Bilge Caulker and the Pump Hand call their sides.",
+       "opponentAIs": [
+        {
+         "ids": [
+          "RWaARMwmG6pbM5is6m14e"
+         ],
+         "number": 1,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "1d5_FyPFnRyYSLw7Kyfgd"
+         ],
+         "number": 1,
+         "quantity": 1
+        }
+       ],
+       "reward_rank": "NONE",
+       "applyDebuffs": [],
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "drawDescription": "The fight stalls, and the hold closes over it.",
+       "failDescription": "You are defeated.",
+       "failObjectiveId": "f_lost",
+       "fleeDescription": "You break away, and the hold closes behind you.",
+       "nextObjectiveId": "d_keel",
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJTdaBvI5IU29dZYJPoOKSh5vmlqatMub3EigH",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "completionOutcome": "Win",
+       "keepOriginalPools": false,
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "reward_gathering_items": false,
+       "opponent_scaled_to_user": false,
+       "reward_hunter_items_ids": [],
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "d_keel",
+       "task": "dialog",
+       "image": "",
+       "attackers": [],
+       "reward_exp": 0,
+       "description": "The keel room. A broad, stooped shipwright sets down a plank and turns around, a skyglass mallet on his shoulder. \"Mind your feet. The hull's coming in.\"",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "nextObjectiveId": [
+        {
+         "text": "Face the Hullbound Mender",
+         "nextObjectiveId": "b_mender"
+        }
+       ],
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJRiFRQZ0udmODoNtpa0FMcwI4k2Eq7nJhyvjl",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "attackers_scale_gains": 1,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "attackers_max_per_battle": 1,
+       "attackers_scaled_to_user": false,
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "b_mender",
+       "task": "start_battle",
+       "allyAIs": [],
+       "applyBuffs": [],
+       "reward_exp": 0,
+       "scaleGains": 1,
+       "description": "The Hullbound Mender lifts his mallet, and the hold begins to close.",
+       "opponentAIs": [
+        {
+         "ids": [
+          "6_c1fpF8YXIjoaLX0mIRT"
+         ],
+         "number": 1,
+         "quantity": 1
+        }
+       ],
+       "reward_rank": "NONE",
+       "applyDebuffs": [],
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "drawDescription": "The fight stalls, and the hold closes over it.",
+       "failDescription": "You are defeated.",
+       "failObjectiveId": "f_lost",
+       "fleeDescription": "You break away, and the hold closes behind you.",
+       "nextObjectiveId": "w_done",
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJRiFRQZ0udmODoNtpa0FMcwI4k2Eq7nJhyvjl",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "completionOutcome": "Win",
+       "keepOriginalPools": false,
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "reward_gathering_items": false,
+       "opponent_scaled_to_user": false,
+       "reward_hunter_items_ids": [],
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "w_done",
+       "task": "win_quest",
+       "reward_exp": 5000,
+       "description": "The Mender lowers his mallet. \"...Leave it open. Just this once.\" The walls stop moving, and the hold's stores are yours.",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [
+        {
+         "ids": [
+          "jCJv4N3JSiihuqnK0jJ7t"
+         ],
+         "number": 10,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "KuqLeFB12BdB-0s5O1udk"
+         ],
+         "number": 40,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "uKnlqlfyE_k1QjLuaVml_"
+         ],
+         "number": 50,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "Ma8S90Nmbi0Xvm4u4FzJh"
+         ],
+         "number": 6,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "mW6_ZGtGcCSuXGPhn-H4o"
+         ],
+         "number": 100,
+         "quantity": 5
+        }
+       ],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJRiFRQZ0udmODoNtpa0FMcwI4k2Eq7nJhyvjl",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "f_lost",
+       "task": "fail_quest",
+       "reward_exp": 0,
+       "description": "The hold closes over you, and the Mender goes back to his planks.",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ0pHtoKgrYldRWJcD6vE10SjNsXHeA9pVMfQi",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      }
+     ],
+     "rewardMode": "choose",
+     "rewardPickCount": 2,
+     "sceneBackground": "",
+     "sceneCharacters": [
+      "1YXbXYW2wz3GETVMb6DT6"
+     ]
+    },
+    "hidden": false,
+    "description": "<i>Down in the lower hold, the ship's master carpenter is still mending.</i><br>3 fights · final boss: The Hullbound Mender",
+    "requiredLevel": 81,
+    "maxLevel": 100
+   }
+  },
+  {
+   "entity": "quest",
+   "slot": "edit",
+   "targetId": "iRMyb0WN_ip--EDbvAgLc",
+   "phase": 30,
+   "name": "The Spoiled Hold: unhide + The Spoiled Hold: pyramid description (2 lines) + The Spoiled Hold: level 30+, no max + The Spoiled Hold: 1 salvage on each of 2 win(s); 1 chart pick(s) removed, U2yJb  + scene character",
+   "data": {
+    "hidden": false,
+    "description": "<i>The crew still stand their posts in the deep hold, and the rot stands with them.</i><br>3 fights · final boss: Rot-Touched Core Horror · burn the rot out for 1 more",
+    "requiredLevel": 30,
+    "maxLevel": 100,
+    "content": {
+     "reward": {
+      "reward_exp": 0,
+      "reward_rank": "NONE",
+      "reward_items": [
+       {
+        "ids": [
+         "THo7rfzP-S82_43aN8fs3"
+        ],
+        "number": 100,
+        "quantity": 1
+       },
+       {
+        "ids": [
+         "nzCW7A-_AuYMzBs2wClnM"
+        ],
+        "number": 100,
+        "quantity": 1
+       }
+      ],
+      "reward_money": 0,
+      "reward_badges": [],
+      "reward_jutsus": [],
+      "reward_titles": [],
+      "reward_tokens": 0,
+      "reward_prestige": 0,
+      "reward_anbupoints": 0,
+      "reward_bloodlines": [],
+      "reward_clanpoints": 0,
+      "reward_reputation": 0,
+      "reward_sage_modes": [],
+      "reward_war_damage": 0,
+      "reward_skillpoints": 0,
+      "reward_war_healing": 0,
+      "reward_hunter_items": false,
+      "reward_seichi_silver": 0,
+      "reward_gathering_items": false,
+      "reward_hunter_items_ids": [],
+      "reward_hunting_experience": 0,
+      "reward_medical_experience": 0,
+      "reward_village_membership": "NONE",
+      "reward_crafting_experience": 0,
+      "reward_gathering_items_ids": [],
+      "reward_gathering_experience": 0,
+      "reward_sage_mastery_experience": 0
+     },
+     "isolated": true,
+     "entryItems": [
+      {
+       "ids": [
+        "7tC2tkIuOJpMZ_YkMYDKv"
+       ],
+       "number": 1
+      },
+      {
+       "ids": [
+        "KuqLeFB12BdB-0s5O1udk"
+       ],
+       "number": 2
+      }
+     ],
+     "objectives": [
+      {
+       "id": "d_bilge",
+       "task": "dialog",
+       "image": "",
+       "attackers": [],
+       "reward_exp": 0,
+       "description": "The bilge is ankle-deep in green water. A Deck Warden wades through it on his rounds with a Seal Charge bobbing at his heel, and the boards bend under him like wet bread.",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "nextObjectiveId": [
+        {
+         "text": "Break his round",
+         "nextObjectiveId": "b1"
+        }
+       ],
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ0pHtoKgrYldRWJcD6vE10SjNsXHeA9pVMfQi",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "attackers_scale_gains": 1,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "attackers_max_per_battle": 1,
+       "attackers_scaled_to_user": false,
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "b1",
+       "task": "start_battle",
+       "allyAIs": [],
+       "applyBuffs": [],
+       "reward_exp": 0,
+       "scaleGains": 1,
+       "description": "The Deck Warden and his Seal Charge hold the bilge.",
+       "opponentAIs": [
+        {
+         "ids": [
+          "qCIur1yRxxbqXhVigb-kz"
+         ],
+         "number": 1,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "QPWVE_l2ReFPPzf-u6jai"
+         ],
+         "number": 1,
+         "quantity": 1
+        }
+       ],
+       "reward_rank": "NONE",
+       "applyDebuffs": [],
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "drawDescription": "The fight stalls, and the chart's way closes.",
+       "failDescription": "You are defeated.",
+       "failObjectiveId": "f_lost",
+       "fleeDescription": "You break away, and the way back closes behind you.",
+       "nextObjectiveId": "d_stores",
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ0pHtoKgrYldRWJcD6vE10SjNsXHeA9pVMfQi",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "completionOutcome": "Win",
+       "keepOriginalPools": false,
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "reward_gathering_items": false,
+       "opponent_scaled_to_user": false,
+       "reward_hunter_items_ids": [],
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "d_stores",
+       "task": "dialog",
+       "image": "",
+       "attackers": [],
+       "reward_exp": 0,
+       "description": "The stores beyond have gone soft. Crates sag into the deck, and a Skyglass Sentinel stands guard over them, its glass clouded through with rot.",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "nextObjectiveId": [
+        {
+         "text": "Clear the stores",
+         "nextObjectiveId": "b2"
+        }
+       ],
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJTdaBvI5IU29dZYJPoOKSh5vmlqatMub3EigH",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "attackers_scale_gains": 1,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "attackers_max_per_battle": 1,
+       "attackers_scaled_to_user": false,
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "b2",
+       "task": "start_battle",
+       "allyAIs": [],
+       "applyBuffs": [],
+       "reward_exp": 0,
+       "scaleGains": 1,
+       "description": "The Rot-Touched Sentinel steps off its post.",
+       "opponentAIs": [
+        {
+         "ids": [
+          "KsQdeJQVn_mmxrcv3pOPt"
+         ],
+         "number": 1,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "QPWVE_l2ReFPPzf-u6jai"
+         ],
+         "number": 1,
+         "quantity": 1
+        }
+       ],
+       "reward_rank": "NONE",
+       "applyDebuffs": [],
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "drawDescription": "The fight stalls, and the chart's way closes.",
+       "failDescription": "You are defeated.",
+       "failObjectiveId": "f_lost",
+       "fleeDescription": "You break away, and the way back closes behind you.",
+       "nextObjectiveId": "d_wall",
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJTdaBvI5IU29dZYJPoOKSh5vmlqatMub3EigH",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "completionOutcome": "Win",
+       "keepOriginalPools": false,
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "reward_gathering_items": false,
+       "opponent_scaled_to_user": false,
+       "reward_hunter_items_ids": [],
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "d_wall",
+       "task": "dialog",
+       "image": "",
+       "attackers": [],
+       "reward_exp": 0,
+       "description": "At the bottom of the hold the rot has grown into a wall of wet timber and cloudy skyglass, knit together. Behind it something large is still being rebuilt. You can burn the rot out and take what feeds it, or find a way around.",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "nextObjectiveId": [
+        {
+         "text": "Burn the rot out",
+         "nextObjectiveId": "b_burn"
+        },
+        {
+         "text": "Go around it",
+         "nextObjectiveId": "d_around"
+        }
+       ],
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJTdaBvI5IU29dZYJPoOKSh5vmlqatMub3EigH",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "attackers_scale_gains": 1,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "attackers_max_per_battle": 1,
+       "attackers_scaled_to_user": false,
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "b_burn",
+       "task": "start_battle",
+       "allyAIs": [],
+       "applyBuffs": [],
+       "reward_exp": 0,
+       "scaleGains": 1,
+       "description": "The burning wall stands up and fights back.",
+       "opponentAIs": [
+        {
+         "ids": [
+          "ySwv3MDO5a-fzUF99M3pi"
+         ],
+         "number": 1,
+         "quantity": 1
+        }
+       ],
+       "reward_rank": "NONE",
+       "applyDebuffs": [],
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "drawDescription": "The fight stalls, and the chart's way closes.",
+       "failDescription": "You are defeated.",
+       "failObjectiveId": "f_lost",
+       "fleeDescription": "You break away, and the way back closes behind you.",
+       "nextObjectiveId": "d_ash",
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJTdaBvI5IU29dZYJPoOKSh5vmlqatMub3EigH",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "completionOutcome": "Win",
+       "keepOriginalPools": false,
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "reward_gathering_items": false,
+       "opponent_scaled_to_user": false,
+       "reward_hunter_items_ids": [],
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "d_ash",
+       "task": "dialog",
+       "image": "",
+       "attackers": [],
+       "reward_exp": 0,
+       "description": "The wall falls into ash, and a lump of Core Rot rolls loose from it, still warm. Beyond the ash, the Core Horror is pulling itself out of the frame.",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "nextObjectiveId": [
+        {
+         "text": "Face the Core Horror",
+         "nextObjectiveId": "b_boss_burn"
+        }
+       ],
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJTdaBvI5IU29dZYJPoOKSh5vmlqatMub3EigH",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "attackers_scale_gains": 1,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "attackers_max_per_battle": 1,
+       "attackers_scaled_to_user": false,
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "b_boss_burn",
+       "task": "start_battle",
+       "allyAIs": [],
+       "applyBuffs": [],
+       "reward_exp": 0,
+       "scaleGains": 1,
+       "description": "The Rot-Touched Core Horror rises, dripping green.",
+       "opponentAIs": [
+        {
+         "ids": [
+          "FOsjvngwJvZ8uXJI6q76T"
+         ],
+         "number": 1,
+         "quantity": 1
+        }
+       ],
+       "reward_rank": "NONE",
+       "applyDebuffs": [],
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "drawDescription": "The fight stalls, and the chart's way closes.",
+       "failDescription": "You are defeated.",
+       "failObjectiveId": "f_lost",
+       "fleeDescription": "You break away, and the way back closes behind you.",
+       "nextObjectiveId": "w_burn",
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJTdaBvI5IU29dZYJPoOKSh5vmlqatMub3EigH",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "completionOutcome": "Win",
+       "keepOriginalPools": false,
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "reward_gathering_items": false,
+       "opponent_scaled_to_user": false,
+       "reward_hunter_items_ids": [],
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "d_around",
+       "task": "dialog",
+       "image": "",
+       "attackers": [],
+       "reward_exp": 0,
+       "description": "You find a crawlway along the keel and come out behind the wall, where the Core Horror is pulling itself out of the frame.",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "nextObjectiveId": [
+        {
+         "text": "Face the Core Horror",
+         "nextObjectiveId": "b_boss"
+        }
+       ],
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJTdaBvI5IU29dZYJPoOKSh5vmlqatMub3EigH",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "attackers_scale_gains": 1,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "attackers_max_per_battle": 1,
+       "attackers_scaled_to_user": false,
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "b_boss",
+       "task": "start_battle",
+       "allyAIs": [],
+       "applyBuffs": [],
+       "reward_exp": 0,
+       "scaleGains": 1,
+       "description": "The Rot-Touched Core Horror rises, dripping green.",
+       "opponentAIs": [
+        {
+         "ids": [
+          "FOsjvngwJvZ8uXJI6q76T"
+         ],
+         "number": 1,
+         "quantity": 1
+        }
+       ],
+       "reward_rank": "NONE",
+       "applyDebuffs": [],
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "drawDescription": "The fight stalls, and the chart's way closes.",
+       "failDescription": "You are defeated.",
+       "failObjectiveId": "f_lost",
+       "fleeDescription": "You break away, and the way back closes behind you.",
+       "nextObjectiveId": "w_around",
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJTdaBvI5IU29dZYJPoOKSh5vmlqatMub3EigH",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "completionOutcome": "Win",
+       "keepOriginalPools": false,
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "reward_gathering_items": false,
+       "opponent_scaled_to_user": false,
+       "reward_hunter_items_ids": [],
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "w_burn",
+       "task": "win_quest",
+       "reward_exp": 4000,
+       "description": "The Core Horror sinks back into the rot, and the wall you burned stays burned. You carry the stores out, and the warm lump of Core Rot with them.",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [
+        {
+         "ids": [
+          "Ma8S90Nmbi0Xvm4u4FzJh"
+         ],
+         "number": 4,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "U2yJbBM6_N1xBBf0ez96F"
+         ],
+         "number": 5,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "2sGi5SZXh2UutHmM-mIMD"
+         ],
+         "number": 5,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "JvrytTOdR1voVCoo3fckK"
+         ],
+         "number": 1.5,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "uu6ETQimuBJ69jwr76IIi"
+         ],
+         "number": 1.5,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "6QgcnW0v6gZeHY474BjR0"
+         ],
+         "number": 1.5,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "nLG6TK48xlyZ_t9R28QsY"
+         ],
+         "number": 1.5,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "9j4IErGW1gmZ-5FNjZMEQ"
+         ],
+         "number": 1.5,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "7Sz2ttMScKH8b10XYS12I"
+         ],
+         "number": 1.5,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "KuqLeFB12BdB-0s5O1udk"
+         ],
+         "number": 100,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "mW6_ZGtGcCSuXGPhn-H4o"
+         ],
+         "number": 100,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "oQcPHpr0sqmWHfaJPR4T_"
+         ],
+         "number": 5,
+         "quantity": 1
+        }
+       ],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJTdaBvI5IU29dZYJPoOKSh5vmlqatMub3EigH",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "w_around",
+       "task": "win_quest",
+       "reward_exp": 4000,
+       "description": "The Core Horror sinks back into the rot. The deep hold's stores are yours.",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [
+        {
+         "ids": [
+          "Ma8S90Nmbi0Xvm4u4FzJh"
+         ],
+         "number": 4,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "U2yJbBM6_N1xBBf0ez96F"
+         ],
+         "number": 5,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "2sGi5SZXh2UutHmM-mIMD"
+         ],
+         "number": 5,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "JvrytTOdR1voVCoo3fckK"
+         ],
+         "number": 1.5,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "uu6ETQimuBJ69jwr76IIi"
+         ],
+         "number": 1.5,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "6QgcnW0v6gZeHY474BjR0"
+         ],
+         "number": 1.5,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "nLG6TK48xlyZ_t9R28QsY"
+         ],
+         "number": 1.5,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "9j4IErGW1gmZ-5FNjZMEQ"
+         ],
+         "number": 1.5,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "7Sz2ttMScKH8b10XYS12I"
+         ],
+         "number": 1.5,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "mW6_ZGtGcCSuXGPhn-H4o"
+         ],
+         "number": 100,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "oQcPHpr0sqmWHfaJPR4T_"
+         ],
+         "number": 5,
+         "quantity": 1
+        }
+       ],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJTdaBvI5IU29dZYJPoOKSh5vmlqatMub3EigH",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "f_lost",
+       "task": "fail_quest",
+       "reward_exp": 0,
+       "description": "The rot closes over you, and the hold takes back what you came for.",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ0pHtoKgrYldRWJcD6vE10SjNsXHeA9pVMfQi",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      }
+     ],
+     "rewardMode": "choose",
+     "rewardPickCount": 1,
+     "sceneBackground": "",
+     "sceneCharacters": [
+      "1YXbXYW2wz3GETVMb6DT6"
+     ]
+    }
+   }
+  },
+  {
+   "entity": "quest",
+   "slot": "edit",
+   "targetId": "x7ByC_5ssbpibxTB60Ag1",
+   "phase": 30,
+   "name": "The Rotted Galley: unhide + The Rotted Galley: pyramid description (2 lines) + The Rotted Galley: level 30+, no max + The Rotted Galley: 1 salvage at 25% on each of 1 win(s); 1 chart pick(s) removed + scene character",
+   "data": {
+    "hidden": false,
+    "description": "<i>The cooks are still at work, feeding a crew that has not eaten in a generation.</i><br>3 fights · final boss: First Blade",
+    "requiredLevel": 30,
+    "maxLevel": 100,
+    "content": {
+     "reward": {
+      "reward_exp": 0,
+      "reward_rank": "NONE",
+      "reward_items": [
+       {
+        "ids": [
+         "D-QTnbjgTyIVc593zzdSB"
+        ],
+        "number": 100,
+        "quantity": 2
+       },
+       {
+        "ids": [
+         "ixEKlJ0MmDrX7JoMNJVhi"
+        ],
+        "number": 100,
+        "quantity": 1
+       }
+      ],
+      "reward_money": 0,
+      "reward_badges": [],
+      "reward_jutsus": [],
+      "reward_titles": [],
+      "reward_tokens": 0,
+      "reward_prestige": 0,
+      "reward_anbupoints": 0,
+      "reward_bloodlines": [],
+      "reward_clanpoints": 0,
+      "reward_reputation": 0,
+      "reward_sage_modes": [],
+      "reward_war_damage": 0,
+      "reward_skillpoints": 0,
+      "reward_war_healing": 0,
+      "reward_hunter_items": false,
+      "reward_seichi_silver": 0,
+      "reward_gathering_items": false,
+      "reward_hunter_items_ids": [],
+      "reward_hunting_experience": 0,
+      "reward_medical_experience": 0,
+      "reward_village_membership": "NONE",
+      "reward_crafting_experience": 0,
+      "reward_gathering_items_ids": [],
+      "reward_gathering_experience": 0,
+      "reward_sage_mastery_experience": 0
+     },
+     "isolated": true,
+     "entryItems": [
+      {
+       "ids": [
+        "rztQVUjxTLRpyEPb3yrr6"
+       ],
+       "number": 1
+      }
+     ],
+     "objectives": [
+      {
+       "id": "d_galley",
+       "task": "dialog",
+       "image": "",
+       "attackers": [],
+       "reward_exp": 0,
+       "description": "The galley fires are still lit. An Arsenal Keeper counts sacks of rice gone black, checking them off a list no one will read.",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "nextObjectiveId": [
+        {
+         "text": "Stop the count",
+         "nextObjectiveId": "b1"
+        }
+       ],
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJcoxkatSnxBpQqGNDcTHbLmYz8uXAl3oa54ti",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "attackers_scale_gains": 1,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "attackers_max_per_battle": 1,
+       "attackers_scaled_to_user": false,
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "b1",
+       "task": "start_battle",
+       "allyAIs": [],
+       "applyBuffs": [],
+       "reward_exp": 0,
+       "scaleGains": 1,
+       "description": "The Arsenal Keeper reaches for his charges.",
+       "opponentAIs": [
+        {
+         "ids": [
+          "gd41Je7jTbQXjpHks1x7J"
+         ],
+         "number": 1,
+         "quantity": 1
+        }
+       ],
+       "reward_rank": "NONE",
+       "applyDebuffs": [],
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "drawDescription": "The fight stalls, and the chart's way closes.",
+       "failDescription": "You are defeated.",
+       "failObjectiveId": "f_lost",
+       "fleeDescription": "You break away, and the way back closes behind you.",
+       "nextObjectiveId": "d_mess",
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJcoxkatSnxBpQqGNDcTHbLmYz8uXAl3oa54ti",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "completionOutcome": "Win",
+       "keepOriginalPools": false,
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "reward_gathering_items": false,
+       "opponent_scaled_to_user": true,
+       "reward_hunter_items_ids": [],
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "d_mess",
+       "task": "dialog",
+       "image": "",
+       "attackers": [],
+       "reward_exp": 0,
+       "description": "In the mess, a Deck Warden and an Oathkeeper sit at a table set for forty, waiting for a meal that keeps spoiling on the plates.",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "nextObjectiveId": [
+        {
+         "text": "Clear the mess",
+         "nextObjectiveId": "b2"
+        }
+       ],
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJcoxkatSnxBpQqGNDcTHbLmYz8uXAl3oa54ti",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "attackers_scale_gains": 1,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "attackers_max_per_battle": 1,
+       "attackers_scaled_to_user": false,
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "b2",
+       "task": "start_battle",
+       "allyAIs": [],
+       "applyBuffs": [],
+       "reward_exp": 0,
+       "scaleGains": 1,
+       "description": "They stand, as if the bell had rung.",
+       "opponentAIs": [
+        {
+         "ids": [
+          "3qlQV9EAnTZldvyhv3YnM"
+         ],
+         "number": 1,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "TjKuLv6msiQ2iMyGYz0ks"
+         ],
+         "number": 1,
+         "quantity": 1
+        }
+       ],
+       "reward_rank": "NONE",
+       "applyDebuffs": [],
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "drawDescription": "The fight stalls, and the chart's way closes.",
+       "failDescription": "You are defeated.",
+       "failObjectiveId": "f_lost",
+       "fleeDescription": "You break away, and the way back closes behind you.",
+       "nextObjectiveId": "d_cold",
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJcoxkatSnxBpQqGNDcTHbLmYz8uXAl3oa54ti",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "completionOutcome": "Win",
+       "keepOriginalPools": false,
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "reward_gathering_items": false,
+       "opponent_scaled_to_user": true,
+       "reward_hunter_items_ids": [],
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "d_cold",
+       "task": "dialog",
+       "image": "",
+       "attackers": [],
+       "reward_exp": 0,
+       "description": "The cold room is the worst of it, green to the ceiling. The First Blade guards the last good stores, as if someone might still come down for them.",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "nextObjectiveId": [
+        {
+         "text": "Take the cold room",
+         "nextObjectiveId": "b3"
+        }
+       ],
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJTdaBvI5IU29dZYJPoOKSh5vmlqatMub3EigH",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "attackers_scale_gains": 1,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "attackers_max_per_battle": 1,
+       "attackers_scaled_to_user": false,
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "b3",
+       "task": "start_battle",
+       "allyAIs": [],
+       "applyBuffs": [],
+       "reward_exp": 0,
+       "scaleGains": 1,
+       "description": "The First Blade draws.",
+       "opponentAIs": [
+        {
+         "ids": [
+          "jS-toGkHmQBKdVo2fuGwb"
+         ],
+         "number": 1,
+         "quantity": 1
+        }
+       ],
+       "reward_rank": "NONE",
+       "applyDebuffs": [],
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "drawDescription": "The fight stalls, and the chart's way closes.",
+       "failDescription": "You are defeated.",
+       "failObjectiveId": "f_lost",
+       "fleeDescription": "You break away, and the way back closes behind you.",
+       "nextObjectiveId": "w_done",
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJTdaBvI5IU29dZYJPoOKSh5vmlqatMub3EigH",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "completionOutcome": "Win",
+       "keepOriginalPools": false,
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "reward_gathering_items": false,
+       "opponent_scaled_to_user": true,
+       "reward_hunter_items_ids": [],
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "w_done",
+       "task": "win_quest",
+       "reward_exp": 2000,
+       "description": "The cold room is quiet. You carry out what the rot hadn't reached yet.",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [
+        {
+         "ids": [
+          "Ma8S90Nmbi0Xvm4u4FzJh"
+         ],
+         "number": 2,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "KuqLeFB12BdB-0s5O1udk"
+         ],
+         "number": 25,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "mW6_ZGtGcCSuXGPhn-H4o"
+         ],
+         "number": 25,
+         "quantity": 1
+        }
+       ],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJTdaBvI5IU29dZYJPoOKSh5vmlqatMub3EigH",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "f_lost",
+       "task": "fail_quest",
+       "reward_exp": 0,
+       "description": "The galley keeps you, and the stores stay where they are.",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJcoxkatSnxBpQqGNDcTHbLmYz8uXAl3oa54ti",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      }
+     ],
+     "rewardMode": "choose",
+     "rewardPickCount": 1,
+     "sceneBackground": "",
+     "sceneCharacters": [
+      "1YXbXYW2wz3GETVMb6DT6"
+     ]
+    }
+   }
+  },
+  {
+   "entity": "quest",
+   "slot": "edit",
+   "targetId": "F2eGqpysfQ02E6pXvKqJJ",
+   "phase": 30,
+   "name": "The Glass Nursery: unhide + The Glass Nursery: pyramid description (2 lines) + The Glass Nursery: level 81+, no max + The Glass Nursery: 3 salvage on each of 1 win(s) + scene character",
+   "data": {
+    "hidden": false,
+    "description": "<i>Below the reliquary is a room the ship's builders never drew, and it is still being kept.</i><br>2 fights · final boss: Veteran First Blade",
+    "requiredLevel": 81,
+    "maxLevel": 100,
+    "content": {
+     "reward": {
+      "reward_exp": 0,
+      "reward_rank": "NONE",
+      "reward_items": [
+       {
+        "ids": [
+         "THo7rfzP-S82_43aN8fs3"
+        ],
+        "number": 100,
+        "quantity": 2
+       },
+       {
+        "ids": [
+         "nzCW7A-_AuYMzBs2wClnM"
+        ],
+        "number": 100,
+        "quantity": 2
+       }
+      ],
+      "reward_money": 0,
+      "reward_badges": [],
+      "reward_jutsus": [],
+      "reward_titles": [],
+      "reward_tokens": 0,
+      "reward_prestige": 0,
+      "reward_anbupoints": 0,
+      "reward_bloodlines": [],
+      "reward_clanpoints": 0,
+      "reward_reputation": 0,
+      "reward_sage_modes": [],
+      "reward_war_damage": 0,
+      "reward_skillpoints": 0,
+      "reward_war_healing": 0,
+      "reward_hunter_items": false,
+      "reward_seichi_silver": 0,
+      "reward_gathering_items": false,
+      "reward_hunter_items_ids": [],
+      "reward_hunting_experience": 0,
+      "reward_medical_experience": 0,
+      "reward_village_membership": "NONE",
+      "reward_crafting_experience": 0,
+      "reward_gathering_items_ids": [],
+      "reward_gathering_experience": 0,
+      "reward_sage_mastery_experience": 0
+     },
+     "isolated": true,
+     "entryItems": [
+      {
+       "ids": [
+        "VuTcs22ieSdQY0cEu8Fyt"
+       ],
+       "number": 1
+      }
+     ],
+     "objectives": [
+      {
+       "id": "d_door",
+       "task": "dialog",
+       "image": "",
+       "attackers": [],
+       "reward_exp": 0,
+       "description": "The door is skyglass, soft at the edges as if it were poured yesterday. Small thumbprints are pressed into it in a neat row, one for every frame in the room beyond.",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "nextObjectiveId": [
+        {
+         "text": "Go in",
+         "nextObjectiveId": "b1"
+        }
+       ],
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJRiFRQZ0udmODoNtpa0FMcwI4k2Eq7nJhyvjl",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "attackers_scale_gains": 1,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "attackers_max_per_battle": 1,
+       "attackers_scaled_to_user": false,
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "b1",
+       "task": "start_battle",
+       "allyAIs": [],
+       "applyBuffs": [],
+       "reward_exp": 0,
+       "scaleGains": 1,
+       "description": "The Sealwright's echo steps out of the nearest frame to stop you.",
+       "opponentAIs": [
+        {
+         "ids": [
+          "V1MlOpuen59Qlmscpni3Z"
+         ],
+         "number": 1,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "tAIANvBBijQ-TSUzkVwek"
+         ],
+         "number": 1,
+         "quantity": 1
+        }
+       ],
+       "reward_rank": "NONE",
+       "applyDebuffs": [],
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "drawDescription": "The fight stalls, and the chart's way closes.",
+       "failDescription": "You are defeated.",
+       "failObjectiveId": "f_lost",
+       "fleeDescription": "You break away, and the way back closes behind you.",
+       "nextObjectiveId": "d_rows",
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJRiFRQZ0udmODoNtpa0FMcwI4k2Eq7nJhyvjl",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "completionOutcome": "Win",
+       "keepOriginalPools": false,
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "reward_gathering_items": false,
+       "opponent_scaled_to_user": false,
+       "reward_hunter_items_ids": [],
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "d_rows",
+       "task": "dialog",
+       "image": "",
+       "attackers": [],
+       "reward_exp": 0,
+       "description": "Rows of frames stand in the dark, each holding a face, half set. Somewhere a woman is humming. Every time you move, the humming stops, and a voice says, kindly, 'Hold still.'",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "nextObjectiveId": [
+        {
+         "text": "Read the labels",
+         "nextObjectiveId": "d_labels"
+        },
+        {
+         "text": "Follow the humming",
+         "nextObjectiveId": "d_hum"
+        }
+       ],
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJRiFRQZ0udmODoNtpa0FMcwI4k2Eq7nJhyvjl",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "attackers_scale_gains": 1,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "attackers_max_per_battle": 1,
+       "attackers_scaled_to_user": false,
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "d_labels",
+       "task": "dialog",
+       "image": "",
+       "attackers": [],
+       "reward_exp": 0,
+       "description": "Each frame has a label in the same neat hand: a name, a date and one word. Nearly all of them carry the same date. The word is always 'kept.'",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "nextObjectiveId": [
+        {
+         "text": "Go on",
+         "nextObjectiveId": "b2"
+        }
+       ],
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ8ZwqPukkp45TvAnoIBa0rtCf1lbyXYjVKQ2q",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "attackers_scale_gains": 1,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "attackers_max_per_battle": 1,
+       "attackers_scaled_to_user": false,
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "d_hum",
+       "task": "dialog",
+       "image": "",
+       "attackers": [],
+       "reward_exp": 0,
+       "description": "The humming leads to an empty chair beside the largest frame. A folded fan lies on the seat. The glass in the frame is still warm, as if someone had just been leaning on it.",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "nextObjectiveId": [
+        {
+         "text": "Go on",
+         "nextObjectiveId": "b2"
+        }
+       ],
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ8ZwqPukkp45TvAnoIBa0rtCf1lbyXYjVKQ2q",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "attackers_scale_gains": 1,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "attackers_max_per_battle": 1,
+       "attackers_scaled_to_user": false,
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "b2",
+       "task": "start_battle",
+       "allyAIs": [],
+       "applyBuffs": [],
+       "reward_exp": 0,
+       "scaleGains": 1,
+       "description": "The First Blade's echo comes out of the warm frame, and it does not blink.",
+       "opponentAIs": [
+        {
+         "ids": [
+          "j3oNQLeCMEkrU6rH070eF"
+         ],
+         "number": 1,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "kw5VgfWtdfOZkPY5r1eZg"
+         ],
+         "number": 1,
+         "quantity": 1
+        }
+       ],
+       "reward_rank": "NONE",
+       "applyDebuffs": [],
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "drawDescription": "The fight stalls, and the chart's way closes.",
+       "failDescription": "You are defeated.",
+       "failObjectiveId": "f_lost",
+       "fleeDescription": "You break away, and the way back closes behind you.",
+       "nextObjectiveId": "w_done",
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ8ZwqPukkp45TvAnoIBa0rtCf1lbyXYjVKQ2q",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "completionOutcome": "Win",
+       "keepOriginalPools": false,
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "reward_gathering_items": false,
+       "opponent_scaled_to_user": false,
+       "reward_hunter_items_ids": [],
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "w_done",
+       "task": "win_quest",
+       "reward_exp": 5000,
+       "description": "The echoes break, and the frames fill again behind you, one face at a time. On your way out you notice a new thumbprint in the soft glass of the door. It is yours.",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [
+        {
+         "ids": [
+          "Ma8S90Nmbi0Xvm4u4FzJh"
+         ],
+         "number": 6,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "KHGZAfQFosLQJ29AN2ymC"
+         ],
+         "number": 40,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "mW6_ZGtGcCSuXGPhn-H4o"
+         ],
+         "number": 100,
+         "quantity": 3
+        }
+       ],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ8ZwqPukkp45TvAnoIBa0rtCf1lbyXYjVKQ2q",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "f_lost",
+       "task": "fail_quest",
+       "reward_exp": 0,
+       "description": "You hold still. The humming starts again.",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJRiFRQZ0udmODoNtpa0FMcwI4k2Eq7nJhyvjl",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      }
+     ],
+     "rewardMode": "choose",
+     "rewardPickCount": 1,
+     "sceneBackground": "",
+     "sceneCharacters": [
+      "1YXbXYW2wz3GETVMb6DT6"
+     ]
+    }
+   }
+  },
+  {
+   "entity": "quest",
+   "slot": "edit",
+   "targetId": "ktVUByCZUfREmWYsvPtzQ",
+   "phase": 30,
+   "name": "The Split Hold: salvage reset to 1 at 25% on each of 2 win(s); 3 chart pick(s) removed; Shoal/Stern boss names + The Split Hold: unhide, level 30+, no max",
+   "data": {
+    "content": {
+     "reward": {
+      "reward_exp": 0,
+      "reward_rank": "NONE",
+      "reward_items": [
+       {
+        "ids": [
+         "ixEKlJ0MmDrX7JoMNJVhi"
+        ],
+        "number": 100,
+        "quantity": 1
+       },
+       {
+        "ids": [
+         "D0gtI5dOgj2dFO4VexsLJ"
+        ],
+        "number": 100,
+        "quantity": 1
+       },
+       {
+        "ids": [
+         "D-QTnbjgTyIVc593zzdSB"
+        ],
+        "number": 100,
+        "quantity": 2
+       }
+      ],
+      "reward_money": 0,
+      "reward_badges": [],
+      "reward_jutsus": [],
+      "reward_titles": [],
+      "reward_tokens": 0,
+      "reward_prestige": 0,
+      "reward_anbupoints": 0,
+      "reward_bloodlines": [],
+      "reward_clanpoints": 0,
+      "reward_reputation": 0,
+      "reward_sage_modes": [],
+      "reward_war_damage": 0,
+      "reward_skillpoints": 0,
+      "reward_war_healing": 0,
+      "reward_hunter_items": false,
+      "reward_seichi_silver": 0,
+      "reward_gathering_items": false,
+      "reward_hunter_items_ids": [],
+      "reward_hunting_experience": 0,
+      "reward_medical_experience": 0,
+      "reward_village_membership": "NONE",
+      "reward_crafting_experience": 0,
+      "reward_gathering_items_ids": [],
+      "reward_gathering_experience": 0,
+      "reward_sage_mastery_experience": 0
+     },
+     "isolated": true,
+     "entryItems": [
+      {
+       "ids": [
+        "I09yVwwnSQK8YE2vkdl1l"
+       ],
+       "number": 1
+      }
+     ],
+     "objectives": [
+      {
+       "id": "d_hatch",
+       "task": "dialog",
+       "image": "",
+       "attackers": [],
+       "reward_exp": 0,
+       "description": "The Split Hold lies on its side in the shallows, the sea running in and out of it. A Faded Deck Warden keeps the hatch with a Seal Charge, both still dripping.",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "nextObjectiveId": [
+        {
+         "text": "Take the hatch",
+         "nextObjectiveId": "b1"
+        }
+       ],
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ0pHtoKgrYldRWJcD6vE10SjNsXHeA9pVMfQi",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "attackers_scale_gains": 1,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "attackers_max_per_battle": 1,
+       "attackers_scaled_to_user": false,
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "b1",
+       "task": "start_battle",
+       "allyAIs": [],
+       "givePools": 100,
+       "applyBuffs": [],
+       "reward_exp": 0,
+       "scaleGains": 1,
+       "description": "The Deck Warden plants himself in the hatch.",
+       "opponentAIs": [
+        {
+         "ids": [
+          "q3ZuQQ52cIyB6cpTGH8lA"
+         ],
+         "number": 1,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "lY1qD7dPuxs1rhCFFDitU"
+         ],
+         "number": 1,
+         "quantity": 1
+        }
+       ],
+       "reward_rank": "NONE",
+       "applyDebuffs": [],
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "drawDescription": "The fight stalls, and the tide takes the way back.",
+       "failDescription": "You are defeated.",
+       "failObjectiveId": "f_lost",
+       "fleeDescription": "You break away, and the tide closes behind you.",
+       "nextObjectiveId": "d_stores",
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ0pHtoKgrYldRWJcD6vE10SjNsXHeA9pVMfQi",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "completionOutcome": "Win",
+       "keepOriginalPools": false,
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "reward_gathering_items": false,
+       "opponent_scaled_to_user": true,
+       "reward_hunter_items_ids": [],
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "d_stores",
+       "task": "dialog",
+       "image": "",
+       "attackers": [],
+       "reward_exp": 0,
+       "description": "Below, the stores are knee-deep in seawater. An Arsenal Keeper counts the crates that are left, and he does not like your face.",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "nextObjectiveId": [
+        {
+         "text": "Go down",
+         "nextObjectiveId": "b2"
+        }
+       ],
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJTdaBvI5IU29dZYJPoOKSh5vmlqatMub3EigH",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "attackers_scale_gains": 1,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "attackers_max_per_battle": 1,
+       "attackers_scaled_to_user": false,
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "b2",
+       "task": "start_battle",
+       "allyAIs": [],
+       "givePools": 100,
+       "applyBuffs": [],
+       "reward_exp": 0,
+       "scaleGains": 1,
+       "description": "The Arsenal Keeper reaches for his charges.",
+       "opponentAIs": [
+        {
+         "ids": [
+          "gd41Je7jTbQXjpHks1x7J"
+         ],
+         "number": 1,
+         "quantity": 1
+        }
+       ],
+       "reward_rank": "NONE",
+       "applyDebuffs": [],
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "drawDescription": "The fight stalls, and the tide takes the way back.",
+       "failDescription": "You are defeated.",
+       "failObjectiveId": "f_lost",
+       "fleeDescription": "You break away, and the tide closes behind you.",
+       "nextObjectiveId": "d_split",
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJTdaBvI5IU29dZYJPoOKSh5vmlqatMub3EigH",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "completionOutcome": "Win",
+       "keepOriginalPools": false,
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "reward_gathering_items": false,
+       "opponent_scaled_to_user": true,
+       "reward_hunter_items_ids": [],
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "d_split",
+       "task": "dialog",
+       "image": "",
+       "attackers": [],
+       "reward_exp": 0,
+       "description": "At the bottom the hull has cracked clean in two. To port, a Skyglass Sentinel and the First Blade hold the armory. To starboard, a Wayfinder bends over a soaked chart while an Oathkeeper stands over him.",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "nextObjectiveId": [
+        {
+         "text": "Go port",
+         "nextObjectiveId": "b3_port"
+        },
+        {
+         "text": "Go starboard",
+         "nextObjectiveId": "b3_star"
+        }
+       ],
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJTdaBvI5IU29dZYJPoOKSh5vmlqatMub3EigH",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "attackers_scale_gains": 1,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "attackers_max_per_battle": 1,
+       "attackers_scaled_to_user": false,
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "b3_port",
+       "task": "start_battle",
+       "allyAIs": [],
+       "givePools": 100,
+       "applyBuffs": [],
+       "reward_exp": 0,
+       "scaleGains": 1,
+       "description": "The Sentinel's glass flares, and the First Blade steps in behind it.",
+       "opponentAIs": [
+        {
+         "ids": [
+          "TIHlWmLY6-_bykVShjoM2"
+         ],
+         "number": 1,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "jS-toGkHmQBKdVo2fuGwb"
+         ],
+         "number": 1,
+         "quantity": 1
+        }
+       ],
+       "reward_rank": "NONE",
+       "applyDebuffs": [],
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "drawDescription": "The fight stalls, and the tide takes the way back.",
+       "failDescription": "You are defeated.",
+       "failObjectiveId": "f_lost",
+       "fleeDescription": "You break away, and the tide closes behind you.",
+       "nextObjectiveId": "w_port",
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJcoxkatSnxBpQqGNDcTHbLmYz8uXAl3oa54ti",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "completionOutcome": "Win",
+       "keepOriginalPools": false,
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "reward_gathering_items": false,
+       "opponent_scaled_to_user": true,
+       "reward_hunter_items_ids": [],
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "b3_star",
+       "task": "start_battle",
+       "allyAIs": [],
+       "givePools": 100,
+       "applyBuffs": [],
+       "reward_exp": 0,
+       "scaleGains": 1,
+       "description": "The Wayfinder marks you on his chart, and the Oathkeeper raises his blade.",
+       "opponentAIs": [
+        {
+         "ids": [
+          "kW67ukAMLxHk-_geH7OVN"
+         ],
+         "number": 1,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "TjKuLv6msiQ2iMyGYz0ks"
+         ],
+         "number": 1,
+         "quantity": 1
+        }
+       ],
+       "reward_rank": "NONE",
+       "applyDebuffs": [],
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "drawDescription": "The fight stalls, and the tide takes the way back.",
+       "failDescription": "You are defeated.",
+       "failObjectiveId": "f_lost",
+       "fleeDescription": "You break away, and the tide closes behind you.",
+       "nextObjectiveId": "w_star",
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJqpbYjW5dkOZgJQ8mGRcdx3SsWvPelyYFTt5V",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "completionOutcome": "Win",
+       "keepOriginalPools": false,
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "reward_gathering_items": false,
+       "opponent_scaled_to_user": true,
+       "reward_hunter_items_ids": [],
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "w_port",
+       "task": "win_quest",
+       "reward_exp": 3000,
+       "description": "The armory is yours, what the sea left of it.",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [
+        {
+         "ids": [
+          "mW6_ZGtGcCSuXGPhn-H4o"
+         ],
+         "number": 25,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "Ma8S90Nmbi0Xvm4u4FzJh"
+         ],
+         "number": 3,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "KR5-rVmqtAWeMzpE52aE7"
+         ],
+         "number": 20,
+         "quantity": 1
+        }
+       ],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJcoxkatSnxBpQqGNDcTHbLmYz8uXAl3oa54ti",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "w_star",
+       "task": "win_quest",
+       "reward_exp": 3000,
+       "description": "The Wayfinder's chart is ruined, but the stores behind him are not.",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [
+        {
+         "ids": [
+          "mW6_ZGtGcCSuXGPhn-H4o"
+         ],
+         "number": 25,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "Ma8S90Nmbi0Xvm4u4FzJh"
+         ],
+         "number": 3,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "KR5-rVmqtAWeMzpE52aE7"
+         ],
+         "number": 20,
+         "quantity": 1
+        }
+       ],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJqpbYjW5dkOZgJQ8mGRcdx3SsWvPelyYFTt5V",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "f_lost",
+       "task": "fail_quest",
+       "reward_exp": 0,
+       "description": "The sea pours into the hold behind you, and the run is over.",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJTdaBvI5IU29dZYJPoOKSh5vmlqatMub3EigH",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      }
+     ],
+     "rewardMode": "choose",
+     "rewardPickCount": 1,
+     "sceneBackground": "rX78pJPETsUL2JrsSvGHn",
+     "sceneCharacters": [
+      "1YXbXYW2wz3GETVMb6DT6"
+     ]
+    },
+    "hidden": false,
+    "maxLevel": 100
+   }
+  },
+  {
+   "entity": "quest",
+   "slot": "edit",
+   "targetId": "BDUY4nScGzYiZoHGkmkxP",
+   "phase": 30,
+   "name": "The Broken Stern: salvage reset to 1 on each of 1 win(s); 1 chart pick(s) removed; Shoal/Stern boss names + The Broken Stern: unhide, level 30+, no max",
+   "data": {
+    "content": {
+     "reward": {
+      "reward_exp": 0,
+      "reward_rank": "NONE",
+      "reward_items": [
+       {
+        "ids": [
+         "THo7rfzP-S82_43aN8fs3"
+        ],
+        "number": 100,
+        "quantity": 1
+       },
+       {
+        "ids": [
+         "nzCW7A-_AuYMzBs2wClnM"
+        ],
+        "number": 100,
+        "quantity": 1
+       },
+       {
+        "ids": [
+         "D-QTnbjgTyIVc593zzdSB"
+        ],
+        "number": 100,
+        "quantity": 3
+       }
+      ],
+      "reward_money": 0,
+      "reward_badges": [],
+      "reward_jutsus": [],
+      "reward_titles": [],
+      "reward_tokens": 0,
+      "reward_prestige": 0,
+      "reward_anbupoints": 0,
+      "reward_bloodlines": [],
+      "reward_clanpoints": 0,
+      "reward_reputation": 0,
+      "reward_sage_modes": [],
+      "reward_war_damage": 0,
+      "reward_skillpoints": 0,
+      "reward_war_healing": 0,
+      "reward_hunter_items": false,
+      "reward_seichi_silver": 0,
+      "reward_gathering_items": false,
+      "reward_hunter_items_ids": [],
+      "reward_hunting_experience": 0,
+      "reward_medical_experience": 0,
+      "reward_village_membership": "NONE",
+      "reward_crafting_experience": 0,
+      "reward_gathering_items_ids": [],
+      "reward_gathering_experience": 0,
+      "reward_sage_mastery_experience": 0
+     },
+     "isolated": true,
+     "entryItems": [
+      {
+       "ids": [
+        "KR5-rVmqtAWeMzpE52aE7"
+       ],
+       "number": 1
+      }
+     ],
+     "objectives": [
+      {
+       "id": "d_stern",
+       "task": "dialog",
+       "image": "",
+       "attackers": [],
+       "reward_exp": 0,
+       "description": "The Broken Stern has run aground on the bar, upright, as if she were still under way. Two Faded Deck Wardens and a Seal Charge hold the gangway.",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "nextObjectiveId": [
+        {
+         "text": "Board her",
+         "nextObjectiveId": "b1"
+        }
+       ],
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ0pHtoKgrYldRWJcD6vE10SjNsXHeA9pVMfQi",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "attackers_scale_gains": 1,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "attackers_max_per_battle": 1,
+       "attackers_scaled_to_user": false,
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "b1",
+       "task": "start_battle",
+       "allyAIs": [],
+       "givePools": 100,
+       "applyBuffs": [],
+       "reward_exp": 0,
+       "scaleGains": 1,
+       "description": "The Deck Wardens close ranks on the gangway.",
+       "opponentAIs": [
+        {
+         "ids": [
+          "q3ZuQQ52cIyB6cpTGH8lA"
+         ],
+         "number": 2,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "RX4f6fhxFxgJBj_irxF18"
+         ],
+         "number": 1,
+         "quantity": 1
+        }
+       ],
+       "reward_rank": "NONE",
+       "applyDebuffs": [],
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "drawDescription": "The fight stalls, and the tide takes the way back.",
+       "failDescription": "You are defeated.",
+       "failObjectiveId": "f_lost",
+       "fleeDescription": "You break away, and the tide closes behind you.",
+       "nextObjectiveId": "d_chart",
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ0pHtoKgrYldRWJcD6vE10SjNsXHeA9pVMfQi",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "completionOutcome": "Win",
+       "keepOriginalPools": false,
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "reward_gathering_items": false,
+       "opponent_scaled_to_user": true,
+       "reward_hunter_items_ids": [],
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "d_chart",
+       "task": "dialog",
+       "image": "",
+       "attackers": [],
+       "reward_exp": 0,
+       "description": "In the chart room a Faded Oathkeeper guards the Wayfinder, who is still plotting a course for a ship that is not moving.",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "nextObjectiveId": [
+        {
+         "text": "Break the watch",
+         "nextObjectiveId": "b2"
+        }
+       ],
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJqpbYjW5dkOZgJQ8mGRcdx3SsWvPelyYFTt5V",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "attackers_scale_gains": 1,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "attackers_max_per_battle": 1,
+       "attackers_scaled_to_user": false,
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "b2",
+       "task": "start_battle",
+       "allyAIs": [],
+       "givePools": 100,
+       "applyBuffs": [],
+       "reward_exp": 0,
+       "scaleGains": 1,
+       "description": "The Oathkeeper steps between you and the Wayfinder.",
+       "opponentAIs": [
+        {
+         "ids": [
+          "y3z0Y3NTb9VS0VLWSj9Ox"
+         ],
+         "number": 1,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "kW67ukAMLxHk-_geH7OVN"
+         ],
+         "number": 1,
+         "quantity": 1
+        }
+       ],
+       "reward_rank": "NONE",
+       "applyDebuffs": [],
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "drawDescription": "The fight stalls, and the tide takes the way back.",
+       "failDescription": "You are defeated.",
+       "failObjectiveId": "f_lost",
+       "fleeDescription": "You break away, and the tide closes behind you.",
+       "nextObjectiveId": "d_hold",
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJqpbYjW5dkOZgJQ8mGRcdx3SsWvPelyYFTt5V",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "completionOutcome": "Win",
+       "keepOriginalPools": false,
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "reward_gathering_items": false,
+       "opponent_scaled_to_user": true,
+       "reward_hunter_items_ids": [],
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "d_hold",
+       "task": "dialog",
+       "image": "",
+       "attackers": [],
+       "reward_exp": 0,
+       "description": "Below, something heavy moves in the flooded hold. The Core Horror has come in with this piece of her, smaller than the one in the deep, and just as hungry. Watch the floor: red means move.",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "nextObjectiveId": [
+        {
+         "text": "Face it",
+         "nextObjectiveId": "b3"
+        }
+       ],
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJTdaBvI5IU29dZYJPoOKSh5vmlqatMub3EigH",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "attackers_scale_gains": 1,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "attackers_max_per_battle": 1,
+       "attackers_scaled_to_user": false,
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "b3",
+       "task": "start_battle",
+       "allyAIs": [],
+       "givePools": 100,
+       "applyBuffs": [],
+       "reward_exp": 0,
+       "scaleGains": 1,
+       "description": "The Shoal Core Horror rises out of the bilge.",
+       "opponentAIs": [
+        {
+         "ids": [
+          "I4B1qG4P8jsiPAlxjZ_O4"
+         ],
+         "number": 1,
+         "quantity": 1
+        }
+       ],
+       "reward_rank": "NONE",
+       "applyDebuffs": [],
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "drawDescription": "The fight stalls, and the tide takes the way back.",
+       "failDescription": "You are defeated.",
+       "failObjectiveId": "f_lost",
+       "fleeDescription": "You break away, and the tide closes behind you.",
+       "nextObjectiveId": "d_helm",
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJTdaBvI5IU29dZYJPoOKSh5vmlqatMub3EigH",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "completionOutcome": "Win",
+       "keepOriginalPools": false,
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "reward_gathering_items": false,
+       "opponent_scaled_to_user": true,
+       "reward_hunter_items_ids": [],
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "d_helm",
+       "task": "dialog",
+       "image": "",
+       "attackers": [],
+       "reward_exp": 0,
+       "description": "At the helm the Captain stands with both hands on the wheel, steering a stern that has no ship in front of it. He turns his head. \"You're not on my roster.\"",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "nextObjectiveId": [
+        {
+         "text": "Take the helm",
+         "nextObjectiveId": "b4"
+        }
+       ],
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJIp0fIvxfOewksxBoS1HQCihpL7c42Ky9uUFv",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "attackers_scale_gains": 1,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "attackers_max_per_battle": 1,
+       "attackers_scaled_to_user": false,
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "b4",
+       "task": "start_battle",
+       "allyAIs": [],
+       "givePools": 100,
+       "applyBuffs": [],
+       "reward_exp": 0,
+       "scaleGains": 1,
+       "description": "The Stern Captain lets go of the wheel.",
+       "opponentAIs": [
+        {
+         "ids": [
+          "xTfDUSDalduRg43MlcCbO"
+         ],
+         "number": 1,
+         "quantity": 1
+        }
+       ],
+       "reward_rank": "NONE",
+       "applyDebuffs": [],
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "drawDescription": "The fight stalls, and the tide takes the way back.",
+       "failDescription": "You are defeated.",
+       "failObjectiveId": "f_lost",
+       "fleeDescription": "You break away, and the tide closes behind you.",
+       "nextObjectiveId": "w_done",
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJIp0fIvxfOewksxBoS1HQCihpL7c42Ky9uUFv",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "completionOutcome": "Win",
+       "keepOriginalPools": false,
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "reward_gathering_items": false,
+       "opponent_scaled_to_user": true,
+       "reward_hunter_items_ids": [],
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "w_done",
+       "task": "win_quest",
+       "reward_exp": 4000,
+       "description": "The Captain fades with his hands back on the wheel. The stern is quiet, and the tide lifts her a little, as if she were finally free to go.",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [
+        {
+         "ids": [
+          "mW6_ZGtGcCSuXGPhn-H4o"
+         ],
+         "number": 100,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "Ma8S90Nmbi0Xvm4u4FzJh"
+         ],
+         "number": 4,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "aHFNuo5RkKpDcaOBLIKiu"
+         ],
+         "number": 5,
+         "quantity": 1
+        }
+       ],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJIp0fIvxfOewksxBoS1HQCihpL7c42Ky9uUFv",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "f_lost",
+       "task": "fail_quest",
+       "reward_exp": 0,
+       "description": "The stern keeps her crew, and you wash back up on the sand.",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "reward_prestige": 0,
+       "sceneBackground": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJIp0fIvxfOewksxBoS1HQCihpL7c42Ky9uUFv",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      }
+     ],
+     "rewardMode": "choose",
+     "rewardPickCount": 1,
+     "sceneBackground": "rX78pJPETsUL2JrsSvGHn",
+     "sceneCharacters": [
+      "1YXbXYW2wz3GETVMb6DT6"
+     ]
+    },
+    "hidden": false,
+    "maxLevel": 100
+   }
+  }
+ ]
+}
