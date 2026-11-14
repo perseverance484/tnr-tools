@@ -1,6 +1,6 @@
-# DRIFT.md - upstream contract drift (2026-11-12)
+# DRIFT.md - upstream contract drift (2026-11-14)
 
-Upstream: studie-tech/TheNinjaRPG@abd990bb2f0b1466e1f4ac93e2762fe207bfcfc8
+Upstream: studie-tech/TheNinjaRPG@25800453300bd613a6e7b9bbbd718127ecd45cb8
 
 Signal only. Nothing below is adopted until the structural diff gate passes.
 
@@ -238,6 +238,13 @@ ADDITIONS
   const-member  ActiveBanStates  BAN_ESCALATED
   const-member  ActiveSilenceStates  SILENCE_ACTIVATED
   const-member  ActiveSilenceStates  TIMEOUT_ACTIVATED
+  const-member  AdClickConsents  granted
+  const-member  AdClickConsents  unanswered
+  const-member  AdClickIdTypes  gbraid
+  const-member  AdClickIdTypes  gclid
+  const-member  AdClickIdTypes  wbraid
+  const-member  AdConversionActions  register
+  const-member  AdConversionActions  tutorialComplete
   const-member  AvailableEffectTypes  DecreaseStatTag
   const-member  AvailableEffectTypes  IncreaseStatTag
   const-member  AvailableEffectTypes  RedirectionTag
@@ -273,14 +280,7 @@ ADDITIONS
   const-member  MISSION_HALL_QUEST_TYPES  mission
   const-member  MISSION_HALL_QUEST_TYPES  pvp
   const-member  MISSION_HALL_QUEST_TYPES  war
-  const-member  MISSION_HALL_SOLO_QUEST_TYPES  crime
-  const-member  MISSION_HALL_SOLO_QUEST_TYPES  errand
-  const-member  MISSION_HALL_SOLO_QUEST_TYPES  medical
-  const-member  MISSION_HALL_SOLO_QUEST_TYPES  mission
-  const-member  MISSION_HALL_SOLO_QUEST_TYPES  pvp
-  const-member  MPVP_QUEUE_BATTLE_TYPES  RAID
-  const-member  MPVP_QUEUE_BATTLE_TYPES  SHRINE_WAR
-  ... 117 more
+  ... 124 more
 
 BREAKING: 225 change(s) - DO NOT ADOPT (exit 1)
 ~~~
