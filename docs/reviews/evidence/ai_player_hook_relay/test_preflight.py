@@ -225,9 +225,11 @@ class WhatTheCheckReads(unittest.TestCase):
     def test_a_session_is_let_through_when_all_of_it_is_there(self):
         game, gate = [{"at": "connected", "nonce": "n1", "pid": 7}], [{"kind": "start", "session": S}]
         self.assertEqual(P.admission(init(), game, gate, "n1", [P.TOOL]), (None, False))
-        self.assertEqual(P.admission(init(), [], gate, "n1", [P.TOOL])[1], False)                 # (not yet: it may come)
-        self.assertEqual(P.admission(init(), game, [], "n1", [P.TOOL])[1], False)
-        self.assertEqual(P.admission(init(), game, [{"kind": "start", "session": "another"}], "n1", [P.TOOL])[1], False)
+        for not_yet in (P.admission(init(), [], gate, "n1", [P.TOOL]),                             # (it may still come)
+                        P.admission(init(), [{"at": "came", "endpoint": P.PROBE}], gate, "n1", [P.TOOL]),
+                        P.admission(init(), game, [], "n1", [P.TOOL]),
+                        P.admission(init(), game, [{"kind": "start", "session": "another"}], "n1", [P.TOOL])):
+            self.assertTrue(not_yet[0] and not not_yet[1], not_yet)
         for final in (P.admission(init(), [{"at": "connected", "nonce": "old"}], gate, "n1", [P.TOOL]),
                       P.admission(init(), game * 2, gate, "n1", [P.TOOL]),
                       P.admission(init(servers=[]), game, gate, "n1", [P.TOOL]),
@@ -449,6 +451,13 @@ class TheSessionIsWatched(unittest.TestCase):
         self.says = json.dumps(init()) + "\n"                    # (with spaces, as the check did not know it)
         how, whose, _ = self.run_it()                             # the stand-in and the gate's mark never come
         self.assertEqual((how, whose, self.admitted()), ("ended: the session did not show what it has in time", None, None))
+        for there in ("gate.jsonl", "game.jsonl"):                # one of the two, and not the other
+            self.setUp()
+            self.says = json.dumps(init()) + "\n"
+            self.log(there, {"kind": "start", "session": S} if there == "gate.jsonl" else
+                     {"at": "connected", "nonce": self.nonce, "pid": 1})
+            how, whose, _ = self.run_it()
+            self.assertEqual((how, whose, self.admitted()), ("ended: the session did not show what it has in time", None, None))
         self.setUp()
         self.says = json.dumps(init()) + "\n"
         self.log("gate.jsonl", {"kind": "start", "session": S})
