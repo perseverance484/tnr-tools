@@ -141,3 +141,8 @@ very expensive (Cyclone Palm Strike level 19 quoted 1,949,575 ryo for one level;
 | 2026-11-13 21:22 | none | | 0 | not refilled: run lock held by an active content session ("moe-fixes-1-3+hand-rerun", claimed 21:21, ~59 min left), so no live calls were made. Last known queue (20:26 log) ends ~01:23. No ryo, energy or sleep change |
 | 2026-11-13 22:22 | none | | 0 | not refilled: run lock held by an active content session ("push/607_moe_etching_swap.json", ~20 min left), so no live calls were made. Last known queue (20:26 log) ends ~01:23. No ryo, energy or sleep change |
 | 2026-11-13 23:22 | none | | 0 | not refilled: run lock held by release-thread ("Skyglass Nov 13 hidden prep + flips", claimed 22:34, ~72 min left), so no live calls were made. Last known queue (20:26 log) ends ~01:23. No ryo, energy or sleep change |
+| 2026-11-14 00:24 | bank.toPocket 10,000,000 | | | pocket was 150,965, now 10,150,965 |
+| 2026-11-14 00:24 | Raijin's Judgement | 15 | 151,673 | queued |
+| 2026-11-14 00:24 | Earth Armor | 15 | 151,673 | queued |
+| 2026-11-14 00:24 | First Chakra Gate | 15 | 151,673 | queued |
+| 2026-11-14 00:25 | Mental Fortress | 15 | 265,905 | queued (active Limit Breaker 15 ends ~01:23; waiting Raijin 15, Earth Armor 15, FCG 15, Mental Fortress 15; ends ~05:23). Pocket 9.43M. Character was already AWAKE in sector 222 (not home, not in battle) when the run started, right after release-thread's "sweep + dauntless sleep" lock released: no stat training, not put to sleep; 5,050 energy unspent. Director notified |
