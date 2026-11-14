@@ -9,7 +9,15 @@ the name Tnr in an MCP config, Claude Code calls its tool mcp__Tnr__callEndpoint
 file names. So the relay, its hooks and the brain run as they are, and nothing they send leaves the machine.
 
 Every call it is given is written to the file TNR_FAKE_LOG names, when it comes and when it is answered, so a
-run shows what reached "the game", in which order, and whether two calls were out at once.
+run shows what reached "the game", in which order, and whether two calls were out at once. Each row has the id
+Claude Code gave the tool call (`use`), where it sends one.
+
+It is a stand-in for the game and no more: it answers any endpoint, and refuses none. What a session may ask
+of it is not decided here (preflight_gate.py decides that for the check on the operator's machine).
+
+TNR_FAKE_NONCE names this run. The stand-in then has a second tool, standIn_<nonce>, which does nothing: a
+session that lists it under the server's name has this process behind that name, and no other. Its first row
+in the log (`connected`) carries the nonce and its process id.
 
 TNR_FAKE_CONTROL names a JSON file, read at every call, that makes it misbehave on purpose:
 
@@ -19,8 +27,9 @@ TNR_FAKE_CONTROL names a JSON file, read at every call, that makes it misbehave 
     {"hang": ["profile.getUser"]}          it is never answered
     {"broken": ["profile.getUser"]}        the connector itself answers with an error, not the tool
     {"only": {"profile.getUser": [2]}}     with any of those: only the second call of that endpoint
-    {"unseen": true}                       it answers and writes nothing down, as if something else had answered:
-                                           the proof's guard must end the session (proof.py)
+    {"unseen": true}                       it answers and writes no call down, as if something else had answered
+    {"silent": true}                       it writes nothing down at all, not even that it was started
+    {"profile": {"userData.status": "BATTLE", "userData.battleId": "b1"}}    what my profile says, field by field
     {"status": "ASLEEP"}                   my profile says so (with `brain set end_session=true`, the brain
                                            then tells its relay to stop)
 
@@ -45,6 +54,13 @@ TOOL = {"name": "callEndpoint",
                                        "select": {"type": "array", "items": {"type": "string"}}}}}
 OUT = threading.Lock()
 SEEN = {}
+NONCE = os.environ.get("TNR_FAKE_NONCE") or ""
+
+
+def tools():
+    mark = {"name": f"standIn_{NONCE}", "description": "Names this stand-in for one run. It does nothing.",
+            "inputSchema": {"type": "object", "properties": {}}}
+    return [TOOL] + ([mark] if NONCE else [])
 
 
 def say(message):
@@ -55,7 +71,7 @@ def say(message):
 
 def note(row):
     path = os.environ.get("TNR_FAKE_LOG")
-    if path and not (control().get("unseen") and row.get("at") != "connected"):
+    if path and not control().get("silent") and not (control().get("unseen") and row.get("at") != "connected"):
         with OUT, open(path, "a", encoding="utf8") as f:
             f.write(json.dumps(row) + "\n")
 
@@ -72,7 +88,8 @@ def game(endpoint, select):
     """What the stand-in for the game answers: as player/tests/test_hook_relay.py, Hooks.answer."""
     battle, log = fixture()
     if endpoint == "profile.getUser":
-        return dict(user().data, **({"userData.status": control()["status"]} if control().get("status") else {}))
+        return dict(user().data, **({"userData.status": control()["status"]} if control().get("status") else {}),
+                    **(control().get("profile") or {}))
     if endpoint == "combat.getBattle":
         return dict(battle, **({"battle.usersEffects": []} if "battle.usersEffects" in (select or []) else {}))
     if endpoint == "combat.getBattleEntries":
@@ -80,9 +97,10 @@ def game(endpoint, select):
     return {"success": True}
 
 
-def call(rid, args):
+def call(rid, args, use=None):
     endpoint, how = args.get("endpointName"), control()
-    row = {"endpoint": endpoint, "input": args.get("input"), "select": args.get("select"), "came": round(time.time(), 3)}
+    row = {"endpoint": endpoint, "input": args.get("input"), "select": args.get("select"), "came": round(time.time(), 3),
+           "use": use}
     with OUT:
         SEEN[endpoint] = SEEN.get(endpoint, 0) + 1
         if endpoint in (how.get("only") or {}) and SEEN[endpoint] not in how["only"][endpoint]:
@@ -113,14 +131,19 @@ def serve(lines=sys.stdin):
             continue
         rid, method, params = message.get("id"), message.get("method"), message.get("params") or {}
         if method == "initialize":
-            note({"at": "connected", "client": params.get("clientInfo"), "came": round(time.time(), 3)})
+            note({"at": "connected", "client": params.get("clientInfo"), "came": round(time.time(), 3), "nonce": NONCE,
+                  "pid": os.getpid()})
             say({"jsonrpc": "2.0", "id": rid, "result": {
                 "protocolVersion": params.get("protocolVersion") or "2024-11-05", "capabilities": {"tools": {}},
                 "serverInfo": {"name": "tnr-stand-in", "version": "1"}}})
         elif method == "tools/list":
-            say({"jsonrpc": "2.0", "id": rid, "result": {"tools": [TOOL]}})
+            say({"jsonrpc": "2.0", "id": rid, "result": {"tools": tools()}})
         elif method == "tools/call" and params.get("name") == "callEndpoint":
-            threading.Thread(target=call, args=(rid, params.get("arguments") or {}), daemon=True).start()
+            use = (params.get("_meta") or {}).get("claudecode/toolUseId")
+            threading.Thread(target=call, args=(rid, params.get("arguments") or {}, use), daemon=True).start()
+        elif method == "tools/call" and NONCE and params.get("name") == f"standIn_{NONCE}":
+            say({"jsonrpc": "2.0", "id": rid, "result": {"content": [{"type": "text", "text": "the stand-in"}],
+                                                         "isError": False}})
         elif method == "ping":
             say({"jsonrpc": "2.0", "id": rid, "result": {}})
         elif rid is not None:                                     # (a notification gets no answer)
@@ -148,6 +171,7 @@ def selftest():
             rows = [json.loads(x) for x in f]
         assert [(r.get("endpoint"), r["at"]) for r in rows] == [(None, "connected"), ("profile.getUser", "came"),
                                                                  ("profile.getUser", "answered")]
+        assert rows[0]["pid"] == p.pid and rows[0]["nonce"] == ""
     finally:
         p.kill()
         if os.path.exists(log):

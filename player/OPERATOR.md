@@ -109,11 +109,16 @@ RUL-2026-11-13-157).
   repository's root, in a folder whose trust dialog you have accepted: until then Claude Code runs the agent
   and skips its hooks. If the connector's tool has another name there than `mcp__Tnr__callEndpoint`, put that
   name on the agent's `tools:` line.
-- **Then check it, before a live session** (RUL-2026-11-14-160). From the repository's root on that machine:
+- **Then check it, before a live session** (RUL-2026-11-14-160). From the repository's root on that machine, in
+  a terminal of your own and not from inside a Claude session, at a head whose review has passed the check
+  itself:
   `python3 docs/reviews/evidence/ai_player_hook_relay/preflight.py`. It starts the relay against a stand-in for
-  the connector, once as a session's main agent and once as a subagent, and makes no request of the game. It
-  says for each whether the agent file's hooks ran, and ends with 0 when they did. Do not start a live session
-  while it says no.
+  the connector, once as a session's main agent and once as a subagent, for three reads of my own profile each.
+  It says for each whether the agent file's hooks ran for every call, and ends with 0 when they did. Do not
+  start a live session while it says no. It is built to make no request of the game: its sessions are given
+  the stand-in as their only MCP server, and a gate in front of every call lets nothing through but those
+  reads. If it ever says that a call was answered and not by the stand-in, tell the director: that would have
+  been a read of my profile from the game, where none is allowed.
 - **Which kind a relay is.** `live/client.json`, `hooks`: the relay's id, or nothing. `live/tokens.jsonl`,
   `hooks`: true for a batch such a relay carried; `cached` and `written` there are what the plan counts by.
   `live/hook/log.jsonl`: every hook that ran, and why a call was refused or a result was not handed in.

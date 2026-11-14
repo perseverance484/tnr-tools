@@ -2,6 +2,11 @@
 
 Workflow: `docs/workflows/IMPLEMENTATION_HANDOFF.md`. Written 2026-11-14.
 
+**Superseded.** The review of this head (`chatgpt/review-ai-player-relay-preflight-20261114` @ 5d46d7ef) sent
+it back: of the five guards listed below, 3, 4 and 5 did not hold as described, and the check could say yes
+on partial evidence. The correction and its note: `docs/reviews/AI_PLAYER_HOOK_PROOF_REREVIEW1_HANDOFF.md`.
+This note is kept as it was written.
+
 ```text
 Repository: perseverance484/tnr-tools
 Branch: fable/ai-player-hook-proof

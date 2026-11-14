@@ -1,20 +1,26 @@
 """One run of the proof (PROOF_PLAN.md): the relay's agent under Claude Code itself, against the stand-in for the
-game's connector. It makes no request of the game: the session it starts has one MCP server, fake_connector.py.
+game's connector. The session it starts has one MCP server, fake_connector.py.
+
+It is for a machine that has no connector for the game, as the cloud session the proof was run in. It is not
+to be run on one that has: what it rests on there is --strict-mcp-config alone, and the relay it starts
+carries whatever the brain asks for. The check for such a machine is preflight.py, which has a gate in front
+of every call (review of 65974c02).
 
     python3 docs/reviews/evidence/ai_player_hook_relay/proof.py OUT [--batches N] [--control JSON]
             [--effort LEVEL] [--hooks agent|settings|agents|none] [--break WHICH:NTH:HOW[:TIMEOUT]] [--no-block]
             [--rule TEXT] [--prompt FILE] [--no-transcript] [--as-subagent] [--mode hunt|guard] [--end kill]
-            [--own-env] [--seconds N] [--look]
+            [--seconds N] [--look]
 
 OUT: a folder for the run: the rehearsal's live folder (live/), what the stand-in was asked (game.jsonl), what
 Claude Code printed (stream.jsonl), its debug log (debug.log).
 --look: only start a session with the stand-in and no agent, ask it for one word, and print which MCP servers
 and tools it has. That is looked at before anything else is run.
 
-The session is started with none of this session's own variables: a path, a home, and the proxy's. --own-env:
-with the variables of the terminal it is started from, for a machine where it is started by hand. Either way
-its only MCP server is the stand-in (--strict-mcp-config), and the run is ended at once if its first event
-lists any other.
+The session is started with none of this session's own variables: a path, a home, and the proxy's. Its only
+MCP server is the stand-in (--strict-mcp-config). Two watchers look at it while it runs and end it: if its
+first event lists any other server or MCP tool, or does not come in 45 seconds; and if a call a hook released
+is not in the stand-in's log within two seconds. They see a session after it has started and a call after
+it has gone: they stand in front of nothing.
 
 --hooks agent (the default): the hooks are the ones the agent file declares. Claude Code runs those only in a
 folder whose trust dialog has been accepted on that machine. --hooks settings: the same four hooks, read out of
@@ -31,13 +37,10 @@ line is worth. Both need --hooks settings or agents.
 --rule TEXT: with --hooks agents, one more line under the agent's Rules: a wording that is tried, not one the
 agent file has. --prompt FILE: the same, with the whole of the relay's prompt read from FILE.
 
---mode guard: the brain guards instead of hunting: it asks for nothing but reads of my own profile. --end kill:
-after the batches the session is ended from outside, where otherwise the brain is told the session is over
-and walks home first. The two together are a run in which no call but a read of my own profile is ever
-released (preflight.py).
-
-Whatever the options, a call that a hook has released and that the stand-in has not been given within two
-seconds ends the session: nothing but the stand-in may be answering.
+--mode guard: the brain guards instead of hunting. With the stand-in's healthy profile it asks for nothing
+but reads of that profile; with one that is in hospital, travelling or in a fight it heals, ends the trip or
+reads the fight, as it should (review of 65974c02, B1). --end kill: after the batches the session is ended
+from outside, where otherwise the brain is told the session is over and walks home first.
 
 --as-subagent: the relay is not the session's main agent but a subagent of it, as a session that is doing
 other work would start one: the session is told to start the relay's agent once, with the Agent tool, and to
@@ -55,6 +58,10 @@ import subprocess
 import sys
 import threading
 import time
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+import preflight  # noqa: E402
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(HERE))))
@@ -125,7 +132,7 @@ def main():
     with open(os.path.join(out, "mcp.json"), "w", encoding="utf8") as f:
         json.dump({"mcpServers": {"Tnr": {"command": sys.executable, "args": [os.path.join(HERE, "fake_connector.py")],
                                           "env": {"TNR_FAKE_LOG": game, "TNR_FAKE_CONTROL": ctl}}}}, f)
-    env = dict(os.environ) if "--own-env" in sys.argv else {k: os.environ[k] for k in KEEP if os.environ.get(k)}
+    env = {k: os.environ[k] for k in KEEP if os.environ.get(k)}
     env.update(TNR_PLAYER_LIVE=live, TNR_PLAYER_FIGHTS=os.path.join(out, "fights"), TNR_PLAYER_NO_DAEMON="1")
     if "--no-transcript" in sys.argv:
         env["TNR_TRANSCRIPT"] = os.path.join(out, "no_such_transcript.jsonl")
@@ -169,17 +176,25 @@ def main():
         p = subprocess.Popen(claude + start, cwd=ROOT, env=env, stdout=stream,
                              stderr=subprocess.STDOUT)
 
+        ended = []
+
+        def stop(why, **more):
+            ended.append(why)
+            p.kill()
+            print(json.dumps(dict({"ended": why}, **more)))
+
         def only_the_stand_in():
-            """The session's first event lists its MCP servers and tools. Anything but the stand-in: it is ended."""
+            """The session's first event lists its MCP servers and tools. Anything but the stand-in, or no such
+            event in 45 seconds, or a line that cannot be read: it is ended (review of 65974c02, B3)."""
             while p.poll() is None:
-                with open(os.path.join(out, "stream.jsonl"), encoding="utf8") as f:
-                    first = [json.loads(x) for x in f if x.startswith('{"type":"system","subtype":"init"') and x.endswith("\n")]
+                try:
+                    first = preflight.first_event(preflight.events(os.path.join(out, "stream.jsonl")))
+                    why = first and preflight.inventory(first, ["mcp__Tnr__callEndpoint"])
+                except preflight.Failed as err:
+                    return stop(str(err))
+                if why or (first is None and time.time() - begun > 45):
+                    return stop(why or "the session did not show what it has in time")
                 if first:
-                    servers = [m.get("name") for m in first[0].get("mcp_servers") or []]
-                    tools = [t for t in first[0].get("tools") or [] if t.startswith("mcp__")]
-                    if servers != ["Tnr"] or tools != ["mcp__Tnr__callEndpoint"]:
-                        p.kill()
-                        print(json.dumps({"ended": "the session has more than the stand-in", "servers": servers, "tools": tools}))
                     return
                 time.sleep(0.05)
 
@@ -202,22 +217,19 @@ def main():
                 time.sleep(1)
         def every_call_reaches_the_stand_in():
             """A call a hook released (live/hook/log.jsonl) is in the stand-in's log within two seconds, or the
-            session is ended: something else would be answering."""
+            session is ended. Each log is read by itself: one that is not there has no rows, and a call that
+            was released is still counted (B2)."""
             behind = None
             while p.poll() is None:
                 try:
-                    with open(os.path.join(live, "hook", "log.jsonl"), encoding="utf8") as f:
-                        released = sum(1 for x in f if '"hook": "pre"' in x and '"refused": null' in x)
-                    with open(game, encoding="utf8") as f:
-                        came = sum(1 for x in f if '"at": "came"' in x)
-                except OSError:
-                    released = came = 0
+                    released = sum(1 for h in preflight.rows(os.path.join(live, "hook", "log.jsonl"))
+                                   if h.get("hook") == "pre" and not h.get("refused"))
+                    came = sum(1 for g in preflight.rows(game) if g.get("at") == "came")
+                except preflight.Failed as err:
+                    return stop(str(err))
                 behind = (behind or time.time()) if released > came else None
                 if behind and time.time() - behind > 2:
-                    p.kill()
-                    print(json.dumps({"ended": "a call a hook released did not reach the stand-in", "released": released,
-                                      "came": came}))
-                    return
+                    return stop("a call a hook released did not reach the stand-in", released=released, came=came)
                 time.sleep(0.1)
         threading.Thread(target=only_the_stand_in, daemon=True).start()
         threading.Thread(target=every_call_reaches_the_stand_in, daemon=True).start()
@@ -227,7 +239,7 @@ def main():
         except subprocess.TimeoutExpired:
             p.kill()
             code = "ended by the clock"
-    print(json.dumps({"exit": code, "seconds": round(time.time() - begun, 1)}))
+    print(json.dumps({"exit": code, "seconds": round(time.time() - begun, 1), "ended by a watcher": ended or None}))
     return 0
 
 

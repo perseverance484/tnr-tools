@@ -57,15 +57,9 @@ them:
   `tnr-relay-proof`. These are an agent's own hooks, as the file declares them. 18 sessions.
 
 Both ran all four hooks for every call. What neither shows is that the same hooks, read from the file in a
-trusted folder, are registered. That needs one session on a machine where the dialog has been accepted:
-
-```text
-python3 docs/reviews/evidence/ai_player_hook_relay/proof.py OUT --hooks agent --own-env --batches 8
-python3 docs/reviews/evidence/ai_player_hook_relay/proof_read.py OUT
-```
-
-It talks to the stand-in only. If `hooks:` in the second command's output counts passes and `live/hook/log.jsonl`
-has rows, the file's hooks are registered there. It is the first step I would put before AP1's live gate.
+trusted folder, are registered. That needs a session on a machine where the dialog has been accepted. The
+check for it is `preflight.py` ("After the director's word", below). `proof.py` is not for such a machine: it
+has nothing in front of a relay's calls but the one MCP server it is given.
 
 ## The runs
 
@@ -346,16 +340,56 @@ what makes the next check a condition of the live session and not a courtesy.
 
 ### The check for the operator's machine
 
-`preflight.py`, beside this file. It starts the agent file as it is, as a main agent and as a subagent,
-against the stand-in, and says for each whether the file's hooks ran. Its own text says what keeps it from
-the game. In short: one MCP server and no other; a session that can call nothing is asked what it has before
-any relay is started (the stand-in has one tool, the game's connector several, so a connector under the
-stand-in's name would show); a relay's session is ended if its first event lists anything else, or if a call
-a hook released is not in the stand-in's log within two seconds (tried: run 14c, ended after one call); and
-the brain behind it guards, so nothing but a read of my own profile is ever released (run 14b).
+`preflight.py`, beside this file, with its gate `preflight_gate.py`. It starts the agent file as it is, as a
+main agent and as a subagent, against the stand-in, for three reads of my own profile each, and says for each
+form whether the file's hooks ran for every one of those calls.
 
-Here, where nobody can accept the dialog, it says so for both forms and ends with 1. With the hooks supplied
-on the command line, to try the check itself, both forms pass (`proof_runs/pf1`, `pf2`).
+The first version of it (at 65974c02) was reviewed and sent back
+(`chatgpt/review-ai-player-relay-preflight-20261114` @ 5d46d7ef, B1 to B4). It leaned on the brain's guard
+mode to ask for nothing but profile reads, which guard mode does not promise; on two watchers that looked at
+a session after it had started, one of which could not see a missing log and the other a first event written
+with a space in it; and it said yes on any hook of each kind. What is said of it above ("So a relay whose
+hooks are not running...") stands; what was said of its safety did not.
+
+As it is now, its own text says what stands in front of a call and what only sees one afterwards. In short:
+
+- **In front.** One MCP server and no other (`--strict-mcp-config`), which is what it rests on. A session
+  that has no tools of Claude Code's own and whose every call is refused is started first with the same
+  options: it must list the stand-in's two tools and no other under the one server's name, and one of the two
+  is named after the run, so it cannot be another server's. Then a gate, given on the command line, in front
+  of every tool call of a relay's session: it refuses everything until the session's first event has been
+  read and found right, and after that everything but `brain next`, one start of the relay's agent, and three
+  reads of my own profile, whatever the brain asks for.
+- **Afterwards.** Claude Code names each tool call to the server, so the gate's rows, the relay's hooks' rows
+  and the stand-in's rows are matched call by call. A call that the session shows an answer for and the
+  stand-in did not write down ends the session.
+- **Yes** means: stopped by the check after exactly three calls; each let through by the gate, made by one
+  relay of the form asked for, with one hook before it and one behind it, and written down and answered by
+  the stand-in; in a folder nothing was written into before.
+
+Tried under Claude Code, against the stand-in (`proof_runs/preflight2/`):
+
+| | What was done | What came of it |
+|---|---|---|
+| a | the relay's hooks supplied on the command line, both forms | both forms pass: three calls each, a hook before and behind each |
+| b | as the operator runs it | "no" for both forms: the trust dialog. Nothing was let through |
+| c | the stand-in's profile says HOSPITALIZED | the brain asked for `hospital.npcHeal`; the gate refused it though the relay's hook had allowed it; the stand-in was given a profile read and nothing else |
+| d | TRAVEL, as a subagent | the same for `travel.finishGlobalMove` |
+| e | BATTLE | the same for `combat.getBattle` and `combat.getBattleEntries` |
+| f | the gate never opened | every `brain next` refused; nothing ran |
+| g | the stand-in answers and writes no call down | ended after one call: "a call was answered, and not by the stand-in" |
+| h | the stand-in writes nothing down at all | the session was never let through; nothing was sent |
+| i | a folder that something was written into before | not started |
+
+In c to e the check says no and gives a reason that is about the calls that followed the refused one; that is
+right for a session in which something asked for more than a read.
+
+30 tests run it off line (`test_preflight.py`): the review's four findings as it ran them, the gate's every
+refusal, and the watching loop with a clock the test moves.
+
+It has not been run with the terminal's own variables, which is how the operator runs it: a session started
+from this cloud session needs a bare environment. And it has not said yes for the agent file's own hooks
+anywhere, since nobody can accept the dialog here.
 
 ### What is still not shown
 
