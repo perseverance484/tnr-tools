@@ -146,3 +146,5 @@ very expensive (Cyclone Palm Strike level 19 quoted 1,949,575 ryo for one level;
 | 2026-11-14 00:24 | Earth Armor | 15 | 151,673 | queued |
 | 2026-11-14 00:24 | First Chakra Gate | 15 | 151,673 | queued |
 | 2026-11-14 00:25 | Mental Fortress | 15 | 265,905 | queued (active Limit Breaker 15 ends ~01:23; waiting Raijin 15, Earth Armor 15, FCG 15, Mental Fortress 15; ends ~05:23). Pocket 9.43M. Character was already AWAKE in sector 222 (not home, not in battle) when the run started, right after release-thread's "sweep + dauntless sleep" lock released: no stat training, not put to sleep; 5,050 energy unspent. Director notified |
+| 2026-11-14 01:23 | bank.toPocket 10,000,000 | | | pocket was 152,212 (down from 9.43M at 00:25; spent or moved outside this log), now 10,152,212 |
+| 2026-11-14 01:23 | none | | 0 | queue already full (active Limit Breaker 15 ending; waiting Raijin 15, Earth Armor 15, FCG 15, Mental Fortress 15; ends ~05:23). Character AWAKE in sector 210 (not home, not in battle): no stat training, not put to sleep; 5,050 energy unspent |
