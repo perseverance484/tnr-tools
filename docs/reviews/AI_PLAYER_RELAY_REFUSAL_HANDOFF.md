@@ -2,6 +2,13 @@
 
 Workflow: `docs/workflows/IMPLEMENTATION_HANDOFF.md`. Written 2026-11-14.
 
+**Corrected after review** (`chatgpt/review-ai-player-relay-refusal-20261114` @ 64f7d87a; the correction's
+note is `docs/reviews/AI_PLAYER_RELAY_REFUSAL_REREVIEW1_HANDOFF.md`). Two things this note says were not so at
+this head: that the director's word is asked for "where a batch is printed, every time" (it was asked for
+when `brain next` began, and a batch was printed after the word had gone); and that the batch of a relay
+turned away after it was let in "is held until the operator says `stopped`" (a relay with hooks has to take
+over first). This note is otherwise kept as it was written.
+
 ```text
 Repository: perseverance484/tnr-tools
 Branch: fable/ai-player-relay-refusal
