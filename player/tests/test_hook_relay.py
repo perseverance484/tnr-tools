@@ -1506,6 +1506,118 @@ class TheSameGameEitherWay(Hooks):
         self.assertEqual(hooked[3], plain[3])                                # and the brain knows the same
 
 
+class ARelayWithoutHooksIsTurnedAway(Hooks):
+    """RUL-2026-11-14-161. Under Claude Code itself a relay without hooks stopped of its own accord in 7 sessions
+    of 17, and one with hooks in none of 58. The brain fell back to such a relay without a word whenever no
+    hook ran. It turns one away now, before it is named, unless the director has said it may play."""
+
+    def start(self, mode="hunt", rig=None):
+        super().start(mode, rig or Rig(mode, bare=False))                    # (the director has said nothing of it)
+
+    def client(self):
+        return relay.read(os.path.join(self.r.dir, "client.json"))
+
+    def says(self, **settings):
+        from player import console
+        console.set_control(self.r.dir, **settings)
+
+    def events(self, kind):
+        with open(os.path.join(self.r.dir, "events.jsonl"), encoding="utf8") as f:
+            return [e["text"] for e in map(json.loads, f) if e["kind"] == kind]
+
+    def test_it_is_not_named_and_the_brain_is_asked_nothing(self):
+        self.start()
+        for _ in range(3):                                                   # however often it comes
+            self.assertEqual(self.next(hooked=False), (None, [], [hooked.BARE]))
+            self.assertIsNone(self.client())                                 # no relay is on record,
+            self.assertEqual(os.listdir(os.path.join(self.r.dir, "inbox")), [])   # and no request was made
+        self.assertTrue(hooked.BARE.startswith("STOP "))                     # (the relay's prompt: it ends on that)
+
+    def test_it_replaces_no_relay_that_is_running(self):
+        self.start()
+        token, batch, _ = self.next(self.next()[0])                          # a relay with hooks holds a batch
+        before = self.client()
+        self.assertEqual(self.next(hooked=False)[2], [hooked.BARE])          # one without comes
+        self.assertEqual(self.client(), before)                              # (was: it was named, and the batch gone)
+        self.assertEqual(self.does(batch), [OK] * len(batch))                # the one that is running carries on
+        token, batch, lines = self.next(token)
+        self.assertTrue(token and batch and all(x["call"] == C.STAND_IN for x in batch), lines)
+        self.assertEqual(self.client()["gone"], [])
+
+    def test_a_relay_with_hooks_is_not_asked_for_the_word(self):
+        self.start()
+        token, batch, lines = self.next(self.next()[0])
+        self.assertTrue(batch and all(x["call"] == C.STAND_IN for x in batch), lines)
+        self.start()
+        token, batch, lines = self.next(self.next(agent=None)[0], agent=None)    # the session's main agent, too
+        self.assertTrue(batch and all(x["call"] == C.STAND_IN for x in batch), lines)
+
+    def test_with_the_directors_word_it_plays_as_it_did(self):
+        self.start()
+        self.says(relay_without_hooks=True)
+        token, batch, lines = self.next(self.next(hooked=False)[0], hooked=False)
+        self.assertTrue(token and batch, lines)
+        self.assertFalse(any(x.get("call") == C.STAND_IN for x in batch))    # the calls themselves, as before
+        self.assertEqual(self.client()["hooks"], None)
+        self.assertEqual(self.events("setting_changed"), ["relay_without_hooks: False -> True"])
+
+    def test_the_word_is_true_and_nothing_else(self):
+        for said in ("true", "yes", 1, [True], {"on": True}, None, False):
+            self.start()
+            relay.write(os.path.join(self.r.dir, "control.json"), {"version": 1, "relay_without_hooks": said})
+            self.assertEqual(self.next(hooked=False)[2], [hooked.BARE], said)
+        for doc in ([{"relay_without_hooks": True}], "relay_without_hooks", {"version": 1, "relay": {"without_hooks": True}}):
+            self.start()
+            relay.write(os.path.join(self.r.dir, "control.json"), doc)
+            self.assertEqual(self.next(hooked=False)[2], [hooked.BARE], doc)
+        self.start()
+        with open(os.path.join(self.r.dir, "control.json"), "w", encoding="utf8") as f:
+            f.write('{"relay_without_hooks": true')                          # a file that cannot be read
+        self.assertEqual(self.next(hooked=False)[2], [hooked.BARE])
+
+    def test_when_the_word_is_taken_back_the_relay_it_let_in_is_told_to_stop(self):
+        self.start()
+        self.says(relay_without_hooks=True)
+        token, batch, _ = self.next(self.next(hooked=False)[0], hooked=False)    # it holds a batch
+        self.says(relay_without_hooks=False)
+        kept = self.client()
+        self.assertEqual(self.next(token, hooked=False), (None, [], [hooked.BARE]))
+        self.assertEqual(self.client(), kept)                                # nothing is taken from it: its batch
+        self.assertEqual(kept["held"]["token"], token)                       # is held until the operator says stopped
+        self.says(relay_without_hooks=True)                                  # and with the word again it goes on
+        self.assertIsNotNone(self.next(token, hooked=False)[0])
+
+    def test_one_that_was_replaced_is_told_so_as_before(self):
+        self.start()
+        self.says(relay_without_hooks=True)
+        old, _, _ = self.next(self.next(hooked=False)[0], hooked=False)
+        self.next()                                                          # a relay with hooks takes over
+        self.says(relay_without_hooks=False)
+        self.assertEqual(self.next(old, hooked=False)[2], [brain.SUPERSEDED])
+        self.assertEqual([e[2:] for e in self.client()["ended"]], [[old, "back"]])   # and its batch is over, as before
+
+    def test_one_that_was_named_with_hooks_and_comes_without_is_told_what_it_was_told_before(self):
+        for word in (False, True):
+            self.start()
+            self.says(relay_without_hooks=word)
+            token = self.next()[0]
+            self.assertEqual(self.next(token, hooked=False)[2], [hooked.NO_HOOKS], word)
+
+    def test_it_is_a_setting_of_the_directors(self):
+        from player import console
+        self.start()
+        self.assertIs(self.r.world["control"]["relay_without_hooks"], False)
+        self.assertIs(Brain(Rig(bare=False).dir).world["control"]["relay_without_hooks"], False)   # as a world begins
+        self.assertIsNone(console._check("relay_without_hooks", True, self.r.world, {}))
+        for bad in ("true", 1, None):
+            self.assertEqual(console._check("relay_without_hooks", bad, self.r.world, {}), "must be true or false")
+        said = io.StringIO()
+        with mock.patch.dict(os.environ, {"TNR_PLAYER_LIVE": self.r.dir}), contextlib.redirect_stdout(said):
+            self.assertEqual(brain.main(["set", "relay_without_hooks=true"]), 0)
+        self.assertIs(relay.read(os.path.join(self.r.dir, "control.json"))["relay_without_hooks"], True)
+        self.assertIsNotNone(self.next(hooked=False)[0])
+
+
 class TheHeadsBeforeThisOne(WhatAVersionBeforeLeft):
     def test_what_the_head_before_the_hooks_left_is_another_versions(self):
         """661f3f63 knows no hooks: a relay it named would be printed calls, and a batch it made carries no

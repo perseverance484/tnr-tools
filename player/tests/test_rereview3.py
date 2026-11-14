@@ -18,6 +18,7 @@ import unittest
 from unittest import mock
 
 from player import brain, calls as K, config as C, relay
+from player.tests import support
 from player.tests.support import LINE, Rig, battle_read, res, start_fight, user
 from player.tests.test_relay import token_of
 from player.tests.test_rereview2 import ask, most_in_a_minute
@@ -373,7 +374,7 @@ class K5ARequestAndItsAnswerAreOnePair(Client):
             b = token_of(self.next()[0])                                    # B replaces A
             self.assertEqual(self.next(holder), [brain.SUPERSEDED])         # the holder comes back: its batch is over
             self.assertEqual(len(self.client()["ended"]), 1)
-            real_write(os.path.join(self.rig.dir, "control.json"), {"version": 1, "mode": "guard"})
+            real_write(os.path.join(self.rig.dir, "control.json"), support.and_bare({"version": 1, "mode": "guard"}))
             new = threading.Thread(target=new_client, args=(b,))
             new.start()
             self.assertTrue(new_asked.wait(5))                              # B's request is in, under A's number

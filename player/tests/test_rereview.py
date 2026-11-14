@@ -21,6 +21,7 @@ from unittest import mock
 
 from player import brain, budget as B, calls as K, config as C, relay
 from player.activities.battle import watching
+from player.tests import support
 from player.tests.support import FOE, LINE, Rig, battle_read, fixture, log_read, res, scan, start_fight, user
 from player.tests.test_relay import token_of
 from player.tests.test_review import NOT_VALID, about, acts, answers, turns
@@ -417,7 +418,7 @@ class G3ABatchIsKnownByItsOwnId(unittest.TestCase):
             self.assertTrue(ready[0].wait(3))
             old = self.client()["pending"]
             clock[0] = old["ready_at"] + C.STALE_OUTBOX + 1
-            relay.write(os.path.join(self.rig.dir, "control.json"), {"version": 1, "mode": "guard"})
+            relay.write(os.path.join(self.rig.dir, "control.json"), support.and_bare({"version": 1, "mode": "guard"}))
             second = threading.Thread(target=run, args=(1,))
             second.start()
             self.assertTrue(ready[1].wait(3))

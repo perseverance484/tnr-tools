@@ -56,6 +56,7 @@ SETTINGS = {
     "paused": _rule(lambda v: isinstance(v, bool), "must be true or false"),
     "director_mode": _rule(lambda v: isinstance(v, bool), "must be true or false"),
     "end_session": _rule(lambda v: isinstance(v, bool), "must be true or false"),
+    "relay_without_hooks": _rule(lambda v: isinstance(v, bool), "must be true or false"),   # (hooked.bare)
     "mode": _rule(lambda v: v in MODES, "is not available yet (hunt or guard)"),
     "activities": _switches,
     "goal_weights": _rule(lambda v: _map(v, lambda k: k in C.goals()["weights"], _number),

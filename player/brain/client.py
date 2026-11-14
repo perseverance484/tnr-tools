@@ -138,7 +138,7 @@ def next_batch(live=None, token=None, out=sys.stdout, sleep=time.sleep, hooks=No
     client = os.path.join(live, "client.json")
     with _client(live):
         state = _who(client)
-        said = _greet(client, state, token, hooks)
+        said = hooked.bare(live, state, token, hooks) or _greet(client, state, token, hooks)
         if said:
             out.write(said + "\n")
             return 0

@@ -28,7 +28,7 @@ from unittest import mock
 
 from player import brain, config as C, relay
 from player.budget import UPDATE
-from player.tests import test_rereview7
+from player.tests import support, test_rereview7
 from player.tests.test_relay import token_of
 from player.tests.test_rereview4 import Killed, dies_before_the_receipt
 from player.tests.test_rereview5 import update
@@ -45,7 +45,7 @@ class H2AWordIsForOneTakeover(unittest.TestCase):
     """The review's script. A live folder whose world.json cannot be read, on the test's clock."""
 
     def setUp(self):
-        self.live = tempfile.mkdtemp(prefix="player-unreadable-")
+        self.live = support.bare(tempfile.mkdtemp(prefix="player-unreadable-"))
         self.path = os.path.join(self.live, "world.json")
         self.now, self.real = [time.time()], brain.Brain
         for p in (mock.patch.dict(os.environ, {"TNR_PLAYER_NO_DAEMON": "1", "TNR_PLAYER_LIVE": self.live,
@@ -184,7 +184,7 @@ class H2AWordIsForOneTakeover(unittest.TestCase):
 
 class H2TheCount(unittest.TestCase):
     def folder(self):
-        live = tempfile.mkdtemp(prefix="player-count-")
+        live = support.bare(tempfile.mkdtemp(prefix="player-count-"))
         return live, os.path.join(live, "world.json"), os.path.join(live, "takeovers.json")
 
     def test_only_a_saved_takeover_is_counted(self):

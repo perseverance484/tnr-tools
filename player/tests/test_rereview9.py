@@ -91,6 +91,8 @@ def sleep(t):
     """The wait `brain next` spends for the brain before it prints: meanwhile the code is updated, and a relay
     of the new version starts (its `brain next` runs from the new code's folder)."""
     if t > 1 and not said:
+        with open(os.path.join(r.dir, "control.json"), "w") as f:      # (the director's word for a relay without
+            json.dump({"version": 0, "relay_without_hooks": True}, f)  # hooks, which the new code asks for)
         out = subprocess.run([sys.executable, "-W", "ignore", "-m", "player.brain", "next"], cwd=new_root,
                              capture_output=True, text=True, env={**os.environ, **env, "PYTHONPATH": new_root})
         said.append(out.stdout.strip().splitlines())

@@ -287,6 +287,9 @@ entirely.
     prints exactly, run `brain next` again.
   - No reasoning, no summaries, no text between calls. Parallel tool calls in one message per batch, the next
     `brain next` among them: sent after the calls' results it is one more request a batch (RUL-2026-11-14-160).
+  - The relay is a subagent with hooks (section 4.7's hooks, `player/hook.py`). One whose `brain next` does not
+    come through its hook is turned away before it is named, unless the director has set `relay_without_hooks`
+    (`player/hooked.py`, `bare`; RUL-2026-11-14-161): printed the calls themselves, a small model stops itself.
   - Anything that needs judgment never reaches the relay. It becomes a pending decision for the director (or a Duet
     message), raised by the brain.
 - **What is saved is usage against the plan's limits** (RUL-2026-11-13-156). The plan counts what a request

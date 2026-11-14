@@ -17,6 +17,7 @@ from unittest import mock
 
 from player import brain, config as C, relay
 from player.tests.support import res
+from player.tests import support
 from player.tests.test_relay import token_of
 from player.tests.test_rereview6 import calls_of
 
@@ -35,7 +36,7 @@ class TheCommandLine(unittest.TestCase):
     """`python3 -m player.brain ...`, in processes of their own."""
 
     def setUp(self):
-        self.live = tempfile.mkdtemp(prefix="player-cli-")
+        self.live = support.bare(tempfile.mkdtemp(prefix="player-cli-"))
         self.env = {**os.environ, "PYTHONPATH": C.ROOT, "TNR_PLAYER_LIVE": self.live, "TNR_PLAYER_NO_DAEMON": "1",
                     "TNR_TRANSCRIPT": os.path.join(self.live, "none"),
                     "TNR_PLAYER_FIGHTS": os.path.join(self.live, "fights")}
@@ -169,7 +170,7 @@ class ThePiecesMeetInThePackage(unittest.TestCase):
     were when all of it was one file: what a test puts there in their place is what is used."""
 
     def setUp(self):
-        self.live = tempfile.mkdtemp(prefix="player-seams-")
+        self.live = support.bare(tempfile.mkdtemp(prefix="player-seams-"))
         os.makedirs(os.path.join(self.live, "inbox"))
         env = mock.patch.dict(os.environ, {"TNR_PLAYER_NO_DAEMON": "1", "TNR_PLAYER_LIVE": self.live,
                                            "TNR_TRANSCRIPT": os.path.join(self.live, "none"),

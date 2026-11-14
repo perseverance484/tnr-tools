@@ -37,7 +37,8 @@ TEMPLATE = {
     "version": 1,
     "control": {                # the director's settings as last applied from live/control.json (player/console.py)
         "version": 0, "paused": False, "mode": "guard", "director_mode": False, "activities": {},
-        "goal_weights": {}, "spend_caps": {}, "do_not_attack": [], "end_session": False},
+        "goal_weights": {}, "spend_caps": {}, "do_not_attack": [], "end_session": False,
+        "relay_without_hooks": False},
     "character": {},            # the last profile read, plus read_at
     "inventory": {},            # AP2
     "training": {},             # AP2

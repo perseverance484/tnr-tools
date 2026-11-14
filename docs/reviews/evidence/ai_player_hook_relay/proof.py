@@ -9,7 +9,7 @@ of every call (review of 65974c02).
     python3 docs/reviews/evidence/ai_player_hook_relay/proof.py OUT [--batches N] [--control JSON]
             [--effort LEVEL] [--hooks agent|settings|agents|none] [--break WHICH:NTH:HOW[:TIMEOUT]] [--no-block]
             [--rule TEXT] [--prompt FILE] [--no-transcript] [--as-subagent] [--mode hunt|guard] [--end kill]
-            [--seconds N] [--look]
+            [--no-word] [--seconds N] [--look]
 
 OUT: a folder for the run: the rehearsal's live folder (live/), what the stand-in was asked (game.jsonl), what
 Claude Code printed (stream.jsonl), its debug log (debug.log).
@@ -47,7 +47,9 @@ other work would start one: the session is told to start the relay's agent once,
 do nothing else.
 
 --hooks none: the same agent with no hooks at all, and its two tools allowed on the command line: a relay
-without hooks, which is printed the calls themselves. The brain reads its results in its transcript; with
+without hooks, which is printed the calls themselves. The brain turns such a relay away by itself
+(RUL-2026-11-14-161), so the run sets `relay_without_hooks` as the director would; --no-word leaves that out,
+to see the relay turned away. The brain reads its results in its transcript; with
 --no-transcript it is told there is none, and the relay hands each result in with a `put` line.
 """
 import json
@@ -147,7 +149,9 @@ def main():
                           "tools": len(first.get("tools", [])), "model": first.get("model")}))
         return 0
     brain = [sys.executable, "-m", "player.brain", "set"]
-    subprocess.run(brain + ["mode=" + arg("--mode", "hunt"), "activities=" + json.dumps({a: False for a in UPKEEP})], cwd=ROOT, env=env,
+    word = arg("--hooks", "agent") == "none" and "--no-word" not in sys.argv           # (RUL-2026-11-14-161)
+    subprocess.run(brain + ["mode=" + arg("--mode", "hunt"), "activities=" + json.dumps({a: False for a in UPKEEP})]
+                   + (["relay_without_hooks=true"] if word else []), cwd=ROOT, env=env,
                    check=True, capture_output=True)
     if arg("--effort"):
         claude += ["--effort", arg("--effort")]

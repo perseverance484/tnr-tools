@@ -23,6 +23,7 @@ import unittest
 from unittest import mock
 
 from player import brain, calls as K, config as C, relay
+from player.tests import support
 from player.tests.test_relay import token_of
 from player.tests.test_rereview2 import most_in_a_minute
 from player.tests.test_rereview3 import Client
@@ -33,7 +34,9 @@ OLD_RESIDENT = r'''
 import io, json, os
 from unittest.mock import patch
 from player import brain, relay
+from player.tests import support
 from player.tests.support import Rig, user
+from player.tests import support
 from player.tests.test_relay import token_of
 r = Rig(); r.world.absorb([user()._replace(at=r.t)]); r.world.save()
 def nxt(token=None):
@@ -79,12 +82,12 @@ class P1AnOlderBrainIsStillRunning(unittest.TestCase):
                                     env={**os.environ, "PYTHONPATH": root})
         self.addCleanup(self.the_old_brain_is_ended)
         made = json.loads(self.old.stdout.readline())
-        self.live, self.real, self.waited, self.taken = made["live"], brain.Brain, False, None
+        self.live, self.real, self.waited, self.taken = support.bare(made["live"]), brain.Brain, False, None
         self.assertEqual(made["calls"], 4)
         self.assertIsNone(brain._lock(self.live))                           # it is home: the lock is its own
         # the review's one setting: with the player paused, no batch of this version's is in the minute beside
         # the four calls. It is no word about relay A.
-        relay.write(os.path.join(self.live, "control.json"), {"version": 1, "paused": True})
+        relay.write(os.path.join(self.live, "control.json"), support.and_bare({"version": 1, "paused": True}))
         self.now, self.rounds, lock = [time.time()], 0, brain._lock
 
         def counted(live, wait=False):

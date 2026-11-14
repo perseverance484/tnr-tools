@@ -25,6 +25,7 @@ from unittest import mock
 
 from player import brain, calls as K, config as C, relay
 from player.budget import UPDATE
+from player.tests import support
 from player.tests.support import Rig, user
 from player.tests.test_relay import token_of
 from player.tests.test_rereview2 import most_in_a_minute
@@ -62,7 +63,7 @@ class Killed(Exception):
 
 def recorded(folder=RECORDED):
     """A live folder as the version before left it, from the recorded files. Returns (the folder, what was made)."""
-    live = tempfile.mkdtemp(prefix="player-upgrade-")
+    live = support.bare(tempfile.mkdtemp(prefix="player-upgrade-"))
     os.makedirs(os.path.join(live, "inbox"))
     for name in os.listdir(folder):
         if name.startswith("req-"):
@@ -188,7 +189,7 @@ class M1AnOlderRequestSaysNothingOfTheBatch(unittest.TestCase):
         state = by_the_version_before()
         if state is None:
             self.skipTest("the repository's history does not hold 442a6311")
-        live, made = state
+        live, made = support.bare(state[0]), state[1]
         (old,) = relay.pending_requests(live)
         with open(glob.glob(os.path.join(RECORDED, "req-*.json"))[0], encoding="utf8") as f:
             self.assertEqual(sorted(relay.read(old)), sorted(json.load(f)))    # the recorded files are true to it
@@ -202,7 +203,7 @@ class M1AnOlderRequestSaysNothingOfTheBatch(unittest.TestCase):
         minute before, so that the count is of what the old ledger's own four calls hold."""
         for lane, batches, limit in (("recovery", 15, C.CALL_LIMIT), ("world", 10, C.WORLD_CAP)):
             live, made = recorded()
-            relay.write(os.path.join(live, "control.json"), {"version": 1, "paused": True})
+            relay.write(os.path.join(live, "control.json"), support.and_bare({"version": 1, "paused": True}))
             brain.run(live, forever=False)
             self.next(live, token_of(self.next(live)[0]))                   # a relay of this version asks
             now = [time.time() + 62]

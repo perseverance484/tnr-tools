@@ -338,6 +338,10 @@ calls themselves and reads the results in the relay's transcript. 17 sessions (9
 So a relay whose hooks are not running is not merely dearer on this Claude Code: it is not reliable. That is
 what makes the next check a condition of the live session and not a courtesy.
 
+The director has since ruled that the brain turns such a relay away (RUL-2026-11-14-161): it is given no name
+and no batch unless he has said it may play. The runs above were made before that; `proof.py --hooks none`
+now says so for the run, as he would.
+
 ### The check for the operator's machine
 
 `preflight.py`, beside this file, with its gate `preflight_gate.py`. It starts the agent file as it is, as a

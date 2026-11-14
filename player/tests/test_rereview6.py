@@ -27,6 +27,7 @@ import unittest
 from unittest import mock
 
 from player import brain, config as C, relay
+from player.tests import support
 from player.tests.support import user
 from player.tests.test_relay import token_of
 from player.tests.test_rereview3 import Client
@@ -131,7 +132,7 @@ class N1ABatchTheVersionBeforeLeftWaiting(unittest.TestCase):
 
     def start(self, state):
         """This version, on the folder the version before left and on the clock it stopped at."""
-        self.live, self.made = state
+        self.live, self.made = support.bare(state[0]), state[1]
         self.now, real = [self.made["now"]], brain.Brain
         for p in (mock.patch.dict(os.environ, {"TNR_PLAYER_NO_DAEMON": "1", "TNR_PLAYER_LIVE": self.live,
                                                "TNR_TRANSCRIPT": os.path.join(self.live, "none"),

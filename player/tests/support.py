@@ -137,24 +137,46 @@ def my_items(*rows):
     return res("item.getUserItems", {f"*.{k}": list(c) for k, c in zip(K.ITEM_COLS, cols)})
 
 
+def bare(live):
+    """The director has said a relay without hooks may play in this live folder (RUL-2026-11-14-161: by itself
+    the brain turns one away). Written as control.json's version 0, which the world model starts at: `brain
+    next` reads the word there, and a brain, of this version or an older one, has nothing new to apply."""
+    with open(os.path.join(live, "control.json"), "w", encoding="utf8") as f:
+        json.dump({"version": 0, "relay_without_hooks": True}, f)
+    return live
+
+
+def and_bare(settings):
+    """A control.json a test writes whole, with that word of the director's still in it: `brain set` changes
+    one setting and keeps the others, where a test that writes the file leaves out what it does not name."""
+    return dict(settings, relay_without_hooks=True)
+
+
 class Rig:
     """A brain in a temporary folder with a clock the test moves."""
 
-    def __init__(self, mode="hunt", combat=None, upkeep=False):
+    def __init__(self, mode="hunt", combat=None, upkeep=False, bare=True):
         """upkeep: leave the AP2 upkeep activities switched on. The tests written before them ask for a hunt, a
-        fight or a relay and nothing else, so for those they are off, the way the director switches one off."""
+        fight or a relay and nothing else, so for those they are off, the way the director switches one off.
+        bare: the director has said a relay without hooks may play (RUL-2026-11-14-161: by itself the brain
+        turns one away). Most of the suite hands batches to such a relay, so here it is on unless a test asks
+        otherwise: in control.json, where `brain next` looks, and in the world model as already applied."""
         self.dir = tempfile.mkdtemp(prefix="player-test-")
+        if bare:
+            globals()["bare"](self.dir)
         self.t = 1_800_000_000.0
         self.dna = os.path.join(self.dir, "do_not_attack.md")
         with open(self.dna, "w", encoding="utf8") as f:
             f.write(DNA)
         self.combat, self.upkeep = combat or StubCombat(os.path.join(self.dir, "fights")), upkeep
+        self.bare = bare
         self.brain = self.new_brain()
         self.world["control"]["mode"] = mode
 
     def new_brain(self):
         """A brain started fresh on the same folder: what a restart does."""
         self.brain = Brain(self.dir, clock=lambda: self.t, combat=self.combat, gates=Gates(dna_path=self.dna))
+        self.brain.world["control"]["relay_without_hooks"] = self.bare
         if not self.upkeep:                         # off, unless the world model on disk already says otherwise
             for name in UPKEEP:
                 self.brain.world["control"]["activities"].setdefault(name, False)

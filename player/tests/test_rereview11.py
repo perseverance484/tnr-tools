@@ -30,7 +30,7 @@ from unittest import mock
 
 from player import brain, config as C, relay, world
 from player.brain import client
-from player.tests import test_rereview7
+from player.tests import support, test_rereview7
 from player.tests.test_relay import token_of
 from player.tests.test_rereview4 import Killed
 from player.tests.test_rereview5 import update
@@ -56,7 +56,7 @@ class AFolderOfAnotherVersion(unittest.TestCase):
     those of the next review, are made of it."""
 
     def setUp(self):
-        self.live = tempfile.mkdtemp(prefix="player-saving-")
+        self.live = support.bare(tempfile.mkdtemp(prefix="player-saving-"))
         self.path = os.path.join(self.live, "world.json")
         self.now, self.real, self.write = [time.time()], brain.Brain, World._write
         self.env = {"TNR_PLAYER_NO_DAEMON": "1", "TNR_PLAYER_LIVE": self.live,
@@ -235,7 +235,7 @@ class WhileATakeoverIsSaved(AFolderOfAnotherVersion):
 
 class TheCountAndTheFileAreReadTogether(unittest.TestCase):
     def test_a_save_that_runs_across_the_read_is_not_half_seen(self):
-        live = tempfile.mkdtemp(prefix="player-seen-")
+        live = support.bare(tempfile.mkdtemp(prefix="player-seen-"))
         path = os.path.join(live, "world.json")
         with open(path, "wb") as f:
             f.write(OLD)
@@ -245,7 +245,7 @@ class TheCountAndTheFileAreReadTogether(unittest.TestCase):
         self.assertEqual((raw, count, saving), (OLD, 1, False))             # read again until the count stood still
 
     def test_the_count_keeps_the_older_file_and_says_saving_only_when_it_says_true(self):
-        live = tempfile.mkdtemp(prefix="player-count-")
+        live = support.bare(tempfile.mkdtemp(prefix="player-count-"))
         for kept, said in (({"count": 2}, (2, False)), ({"count": 2, "saving": True}, (2, True)),
                            ({"count": 2, "saving": 1}, (2, False)), ({"count": 2, "saving": "true"}, (2, False)),
                            ({"saving": True}, (0, False)), ([2, True], (0, False))):

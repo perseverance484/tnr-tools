@@ -67,6 +67,8 @@ OLD = 3600.0              # s after which what is on record of a batch that is n
 LINE = re.compile(r"^(.+)\.(\d+)\.json$")
 NO_ANSWER = "no answer: the call went to the connector, and its result was not there when the batch was handed in"
 NO_HOOKS = "STOP the relay's hooks are not running: nothing more is sent (player/OPERATOR.md, \"Hooks\")"
+BARE = ("STOP this relay's hooks are not running, and the brain does not play through a relay without them "
+        "(player/OPERATOR.md, \"Hooks\")")
 
 
 def holding(live):
@@ -203,6 +205,24 @@ def told(args):
         return list(args), None
     at = args.index("--hooks")
     return args[:at] + args[at + 2:], "".join(args[at + 1:at + 2]) or None
+
+
+def bare(live, state, token, hooks):
+    """`brain next` of a relay without hooks that would be given a name, or the batch it comes for: what it is
+    told in their place; None for any other (RUL-2026-11-14-161).
+
+    Under Claude Code itself a relay that is printed the calls themselves stopped of its own accord in 7
+    sessions of 17: it made one call of five and went on, or it read the calls it carried and refused one. A
+    relay with hooks did so in none of 58 (docs/reviews/evidence/ai_player_hook_relay/PROOF.md). So such a
+    relay plays only where the director has said it may (live/control.json, relay_without_hooks: true), and
+    is turned away before it is named: it replaces no relay that is running. hooks: the id that came with
+    this `brain next`, or None. A relay that was named with hooks and comes without them is stop's; one that
+    was replaced is told so, as before."""
+    mine = token is not None and token == state.get("token") and not state.get("hooks")
+    if hooks or not (token is None or mine):
+        return None
+    said = relay.read(os.path.join(live, "control.json"))
+    return None if isinstance(said, dict) and said.get("relay_without_hooks") is True else BARE
 
 
 def stop(live, state, hooks):

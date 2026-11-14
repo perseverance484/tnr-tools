@@ -105,6 +105,10 @@ puts the real call in, and another takes the result out and hands it to the brai
 then holds no call and no result, which is most of what a relay costs (RUL-2026-11-13-156,
 RUL-2026-11-13-157).
 
+- **Start the relay as a subagent** of your session (RUL-2026-11-14-161): the Agent tool, `subagent_type`
+  `tnr-relay`, prompt `Begin.` It is then born with its own prompt and nothing else: Claude Code leaves the
+  repository's `CLAUDE.md` out for a subagent, and not for a session whose main agent is the relay. That is
+  about half the conversation it begins with.
 - **Before the first session on a machine.** Claude Code 2.1.295 or later. Start the relay from the
   repository's root, in a folder whose trust dialog you have accepted: until then Claude Code runs the agent
   and skips its hooks. If the connector's tool has another name there than `mcp__Tnr__callEndpoint`, put that
@@ -112,9 +116,10 @@ RUL-2026-11-13-157).
 - **Then check it, before a live session** (RUL-2026-11-14-160). From the repository's root on that machine, in
   a terminal of your own and not from inside a Claude session, at a head whose review has passed the check
   itself:
-  `python3 docs/reviews/evidence/ai_player_hook_relay/preflight.py`. It starts the relay against a stand-in for
-  the connector, once as a session's main agent and once as a subagent, for three reads of my own profile each.
-  It says for each whether the agent file's hooks ran for every call, and ends with 0 when they did. Do not
+  `python3 docs/reviews/evidence/ai_player_hook_relay/preflight.py --form subagent`. It starts the relay
+  against a stand-in for the connector, as a subagent, for three reads of my own profile (without `--form`:
+  once more as a session's main agent). It says whether the agent file's hooks ran for every call, and ends
+  with 0 when they did. Do not
   start a live session while it says no. It is built to make no request of the game: its sessions are given
   the stand-in as their only MCP server, and a gate in front of every call lets nothing through but those
   reads. If it ever says that a call was answered and not by the stand-in, tell the director: that would have
@@ -122,10 +127,16 @@ RUL-2026-11-13-157).
 - **Which kind a relay is.** `live/client.json`, `hooks`: the relay's id, or nothing. `live/tokens.jsonl`,
   `hooks`: true for a batch such a relay carried; `cached` and `written` there are what the plan counts by.
   `live/hook/log.jsonl`: every hook that ran, and why a call was refused or a result was not handed in.
-- **A relay without hooks plays as before**, and costs what it did. That is what you get when the hooks do
-  not run at all: the brain is not told otherwise, and prints the calls themselves. Do not rely on it: on
-  Claude Code 2.1.325 such a relay stopped itself in 7 sessions of 17 against the stand-in
-  (`docs/reviews/evidence/ai_player_hook_relay/PROOF.md`, "A relay without hooks").
+- **A relay without hooks is turned away** (RUL-2026-11-14-161). Its `brain next` did not come through the
+  hook, so the brain gives it no name and no batch:
+  `STOP this relay's hooks are not running, and the brain does not play through a relay without them`. It
+  replaces nobody: a relay that is running goes on. Find out why the hooks do not run (the check above), and
+  start a relay when they do. On Claude Code 2.1.325 a relay without hooks stopped itself in 7 sessions of 17
+  against the stand-in (`docs/reviews/evidence/ai_player_hook_relay/PROOF.md`, "A relay without hooks").
+- **If the director says such a relay may play**: `python3 -m player.brain set relay_without_hooks=true`. It
+  then plays as before the hooks and costs what it did: it is printed the calls themselves, and its results
+  are read in its transcript. `false` again turns it away at its next `brain next`; the batch it had is held
+  until you say `stopped`.
 - **`STOP the relay's hooks are not running`.** The relay's `brain next` came through its hook, so it was
   printed stand-ins; but no hook ran in front of its connector calls, or its `brain next` came back without
   the hook, or with the id and no hook in front of it (run by hand). Nothing it was printed reached the game:

@@ -24,6 +24,7 @@ from unittest import mock
 
 from player import brain, calls as K, config as C, relay
 from player.budget import UPDATE
+from player.tests import support
 from player.tests.support import Rig, battle_read, fixture, log_read, user
 from player.tests.test_relay import token_of
 from player.tests.test_rereview2 import most_in_a_minute
@@ -84,9 +85,9 @@ class AfterAnUpdate(unittest.TestCase):
     OLD_CALLS = 4                       # how many calls a relay from before the update still has to make
 
     def start(self, state):
-        self.live, self.made = state
+        self.live, self.made = support.bare(state[0]), state[1]
         self.now, self.real = [self.made["now"]], BRAIN
-        relay.write(os.path.join(self.live, "control.json"), {"version": 2, "paused": False})
+        relay.write(os.path.join(self.live, "control.json"), support.and_bare({"version": 2, "paused": False}))
         for p in (mock.patch.dict(os.environ, {"TNR_PLAYER_NO_DAEMON": "1", "TNR_PLAYER_LIVE": self.live,
                                                "TNR_TRANSCRIPT": os.path.join(self.live, "none"),
                                                "TNR_PLAYER_FIGHTS": tempfile.mkdtemp(prefix="player-fights-")}),
