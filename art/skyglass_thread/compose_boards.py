@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Compose the salvager's-thread boards: scene backgrounds for Wreck Sighted and At the Salvager's Fire (v2).
 
-    python3 art/skyglass_thread/compose_boards.py       -> art/skyglass_thread/exports/board-*.webp, preview.png
+    python3 art/skyglass_thread/compose_boards.py       -> art/skyglass_thread/exports/board-*.webp, preview.webp
 
 Direction (RUL-2026-11-07-137): every scene is approved Skyglass scene art of the place the salvager is talking about,
 with one lacquer panel in the clear zone carrying a serif heading, the real item icons and a few short captions. Nothing
@@ -380,7 +380,8 @@ def main():
         r, c = divmod(i, cols)
         sheet.paste(b.im.convert("RGB"), (4 + c * (W + 4), 4 + r * (H + 4)))
         print(f"art/skyglass_thread/exports/board-{key}.webp: {os.path.getsize(path)} bytes")
-    sheet.save(os.path.join(HERE, "preview.png"))
+    # Lossless WebP: the same pixels as a PNG at about 80% of the size, under the repo's 5 MB file limit.
+    sheet.save(os.path.join(HERE, "preview.webp"), "WEBP", lossless=True, method=6)
 
 
 if __name__ == "__main__":

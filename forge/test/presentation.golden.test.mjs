@@ -122,7 +122,7 @@ test("exact art coverage for every entity that needs it, with provenance", () =>
   for (const e of bound) {
     assert.equal(e.status, STATUS.EXACT, `${e.name}: ${e.notes.join("; ")}`);
     assert.equal(e.bytes.verified, true, `${e.name}: the working-tree file must equal the blob at the pack's commit`);
-    assert.equal(e.bytes.verifiedAgainst, "10fb25704dff1bab8105cd83631e0d524193ef0d");
+    assert.equal(e.bytes.verifiedAgainst, "89fbe546edb858b355005efd118eb1a9b9d3b185");
     assert.equal(e.bytes.sha256, e.bytes.declaredSha256);
     assert.equal(e.renderable, true);
     assert.equal(e.uploadedUrl, e.liveUrl, `${e.name}: the bound bytes must be what this entity currently serves`);
@@ -217,7 +217,7 @@ test("every hard fact points at the evidence record it came from", () => {
   assert.equal(dossier.provenance[`rewards.${STORMCOURT}.fullClear`], "stormcourt-quest");
   // every source carries the file digest, the commit it was verified against, and a timestamp
   assert.equal(dossier.sources.draft, false);
-  assert.equal(dossier.sources.repoCommit, "eefefd1afd67111a90c332951a8dd9f83cb99cbd");
+  assert.equal(dossier.sources.repoCommit, "72443c06126e2e1122ef3c3c942f86c169bfa551");
   for (const r of dossier.sources.records) {
     assert.match(r.sha256, /^[0-9a-f]{64}$/);
     assert.equal(r.repoCommit, dossier.sources.repoCommit, `${r.id} must be bound to the package's commit`);
@@ -251,7 +251,7 @@ test("the golden summary reads the way the poster is supposed to", () => {
     "Marrow Vaults full clear (d5_victory): 125000 money / 25 tokens / 10 prestige; 0 intermediate cash-out(s), 0 reward item(s)",
     "Stormcourt full clear (d10_victory): 250000 money / 150 tokens / 60 prestige; 0 intermediate cash-out(s), 0 reward item(s)",
     "art: 23 exact-current (5 with verified bytes), 0 derivative, 0 historical, 0 mismatched, 0 missing, of 23",
-    "sources: 7 record(s) at eefefd1afd67",
+    "sources: 7 record(s) at 72443c06126e",
   ]) {
     assert.ok(text.includes(line), `summary is missing:\n  ${line}\ngot:\n${text}`);
   }
