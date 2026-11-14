@@ -51,10 +51,25 @@ class Contract(unittest.TestCase):
     def test_the_relay_prompt_is_short_and_says_the_loop(self):
         with open(os.path.join(C.ROOT, "player", "RELAY.md"), encoding="utf8") as f:
             text = f.read()
-        self.assertLess(len(text.split()), 300)
+        self.assertLess(len(text.split()), 320)
         for must in ("brain next", "callEndpoint", "in order", "ONE message", "STOP", "no decisions", "put",
                      "one line at a time", "exactly as printed"):
             self.assertIn(must, text)
+
+    def test_the_next_brain_next_goes_in_the_message_of_the_batchs_calls(self):
+        """The proof of the hooks on Claude Code itself, 2026-11-14 (RUL-2026-11-14-160): told only "in ONE
+        message", Haiku sent the calls, waited for their results and sent `brain next` alone in 20 sessions of
+        26: one more request a batch, a quarter more against the plan. Told that it goes in that same message,
+        it did in every session. A batch with `put` lines is still done one line at a time, and says so after."""
+        with open(os.path.join(C.ROOT, "player", "RELAY.md"), encoding="utf8") as f:
+            text = f.read()
+        loop, rest = text.split("## Rules", 1)
+        last = loop[loop.index("The last line is always the next `brain next`."):]
+        self.assertIn("in that same message", last)
+        self.assertIn("never wait", " ".join(last.split()))
+        put = rest[rest.index("## A batch with `put` lines"):]
+        self.assertIn("one line at a time, not in one message", " ".join(put.split()))
+        self.assertIn("wait for each line's result", " ".join(put.split()))
 
     def test_the_relay_agent_is_that_prompt_with_two_tools_and_nothing_else(self):
         """Live, 2026-11-11: a general-purpose relay was born with 118,190 tokens of context, and every request
@@ -112,6 +127,33 @@ class Transcript(unittest.TestCase):
         self.assertIn("Not your turn", results[2].error)
         self.assertIn("unreadable", results[3].error)
         self.assertEqual(strays, 0)
+
+    def test_only_the_messages_of_a_transcript_are_read(self):
+        """The proof of the hooks on Claude Code itself, 2026-11-14: a relay without hooks, run with a debug
+        file on Claude Code 2.1.325. Beside each message its transcript kept a copy of what was sent to the API
+        (a row of type api-request-blob), tool calls and all, under the same ids. Every call of a batch was
+        read twice, and the second counted as one the batch did not ask for: a finding a batch, and the call
+        budget charged for calls nobody made."""
+        rig = Rig()
+        p = os.path.join(rig.dir, "t.jsonl")
+        transcript(p, [("bash", "n1", nxt("ab12cd-1"), 100),
+                       ("use", "a", "profile.getUser", {}, 101), ("res", "a", '{"userData.status":"AWAKE"}', 101),
+                       ("use", "b", "travel.getSectorData", {"sector": 7}, 102), ("res", "b", '{"users":[]}', 102),
+                       ("bash", "n2", nxt("ab12cd-2"), 103)])
+        with open(p, encoding="utf8") as f:
+            rows = [json.loads(x) for x in f]
+        kept = []
+        for row in rows:                                       # as Claude Code wrote them: a type on every row,
+            kept.append(dict(row, type=row["message"]["role"]))
+            if row["message"]["role"] == "assistant":          # and the copy of the request behind each message
+                kept.append({"type": "api-request-blob", "hash": "h", "sessionId": "s",
+                             "message": {"role": "user", "content": row["message"]["content"]}})
+        with open(p, "w", encoding="utf8") as f:
+            f.write("\n".join(json.dumps(x) for x in kept) + "\n")
+        asked = [("profile.getUser", {}), ("travel.getSectorData", {"sector": 7})]
+        results, _, strays = relay.read_batch(p, "ab12cd-2", asked)
+        self.assertEqual(([r.endpoint for r in results], strays), ([a[0] for a in asked], 0))
+        self.assertEqual(relay.find_transcript("ab12cd-2", hint=p), p)
 
     def test_a_request_is_counted_once_and_only_for_its_own_batch(self):
         rig = Rig()

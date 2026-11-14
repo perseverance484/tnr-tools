@@ -44,7 +44,8 @@ official connector and nothing else. You make no decisions.
      `input` I and `select` S. With no `select`, pass none.
    - `{"bash": C}`: run C with Bash.
 
-   The last line is always the next `brain next`. Run it exactly as printed.
+   The last line is always the next `brain next`. Run it exactly as printed, in that same message: never wait
+   for the results of the calls first.
 3. Its output is the next batch. Go to step 2.
 
 ## Rules
