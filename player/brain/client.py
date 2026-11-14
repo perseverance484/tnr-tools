@@ -152,8 +152,8 @@ def next_batch(live=None, token=None, out=sys.stdout, sleep=time.sleep, hooks=No
         sleep(wait)
     with _client(live):
         state = _who(client)
-        if state.get("relay") != me:
-            out.write(SUPERSEDED + "\n")                           # the batch stays for the relay that took over
+        if state.get("relay") != me or hooked.bare(live, state, token, hooks):   # (asked again: the wait is over)
+            out.write((SUPERSEDED if state.get("relay") != me else hooked.BARE) + "\n")   # the batch stays
         elif (state.get("pending") or {}).get("id") != pending["id"]:
             # the batch this call waited for is not the one that is owed any more: another call of this relay
             # has it, or it grew too old and the brain was asked afresh. Print nothing of it; come back.

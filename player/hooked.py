@@ -217,7 +217,13 @@ def bare(live, state, token, hooks):
     relay plays only where the director has said it may (live/control.json, relay_without_hooks: true), and
     is turned away before it is named: it replaces no relay that is running. hooks: the id that came with
     this `brain next`, or None. A relay that was named with hooks and comes without them is stop's; one that
-    was replaced is told so, as before."""
+    was replaced is told so, as before.
+
+    It is asked twice of a `brain next`: when it begins, and again when its batch is about to be printed. The
+    wait for the brain and the wait in front of the batch lie between the two, and the director's word may be
+    taken back in either (review of 9c2955ba, R1: it was asked once, and a batch was printed after the word
+    had gone). Turned away there, the relay keeps its name and is printed nothing; the batch stays in
+    client.json, made and not had, for a relay with hooks, as one does whose relay was replaced."""
     mine = token is not None and token == state.get("token") and not state.get("hooks")
     if hooks or not (token is None or mine):
         return None

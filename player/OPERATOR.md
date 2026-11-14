@@ -128,15 +128,23 @@ RUL-2026-11-13-157).
   `hooks`: true for a batch such a relay carried; `cached` and `written` there are what the plan counts by.
   `live/hook/log.jsonl`: every hook that ran, and why a call was refused or a result was not handed in.
 - **A relay without hooks is turned away** (RUL-2026-11-14-161). Its `brain next` did not come through the
-  hook, so the brain gives it no name and no batch:
-  `STOP this relay's hooks are not running, and the brain does not play through a relay without them`. It
-  replaces nobody: a relay that is running goes on. Find out why the hooks do not run (the check above), and
-  start a relay when they do. On Claude Code 2.1.325 a relay without hooks stopped itself in 7 sessions of 17
-  against the stand-in (`docs/reviews/evidence/ai_player_hook_relay/PROOF.md`, "A relay without hooks").
+  hook, so it is printed
+  `STOP this relay's hooks are not running, and the brain does not play through a relay without them` and no
+  batch. One that is new is given no name either, and replaces nobody: a relay that is running goes on. Find
+  out why the hooks do not run (the check above), and start a relay when they do. On Claude Code 2.1.325 a
+  relay without hooks stopped itself in 7 sessions of 17 against the stand-in
+  (`docs/reviews/evidence/ai_player_hook_relay/PROOF.md`, "A relay without hooks").
 - **If the director says such a relay may play**: `python3 -m player.brain set relay_without_hooks=true`. It
   then plays as before the hooks and costs what it did: it is printed the calls themselves, and its results
-  are read in its transcript. `false` again turns it away at its next `brain next`; the batch it had is held
-  until you say `stopped`.
+  are read in its transcript.
+- **When that word is taken back** (`relay_without_hooks=false`), the relay it let in is printed no more
+  calls from that moment: not at its next `brain next`, and not by one that is waiting for its batch. It
+  keeps its name, and the batch it was last printed is still held against every minute. `brain stopped` does
+  not take that batch yet: it is the running relay's, and the word is never taken for that one. So, in this
+  order: see that the relay has ended; start a relay with hooks, which takes over (the old batch is then
+  listed by `brain stopped`); say `stopped TOKEN` with the old relay's token. The new relay's next
+  `brain next` tells the brain. A batch that was made for the old relay and not printed to it is not lost:
+  the relay that takes over is printed it.
 - **`STOP the relay's hooks are not running`.** The relay's `brain next` came through its hook, so it was
   printed stand-ins; but no hook ran in front of its connector calls, or its `brain next` came back without
   the hook, or with the id and no hook in front of it (run by hand). Nothing it was printed reached the game:

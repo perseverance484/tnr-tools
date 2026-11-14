@@ -1587,6 +1587,135 @@ class ARelayWithoutHooksIsTurnedAway(Hooks):
         self.says(relay_without_hooks=True)                                  # and with the word again it goes on
         self.assertIsNotNone(self.next(token, hooked=False)[0])
 
+    def waiting(self, token, then, when="paced", hooked=False, agent=AGENT):
+        """The relay asks for its batch, and `then` happens while its `brain next` waits: when it has asked the
+        brain and waits for the answer ("asked"), or when it has the batch and spends the wait in front of it
+        ("paced"). -> what `brain next` printed."""
+        real_await, real_sleep, done = brain._await, self.sleep, []
+
+        def asked(*args, **kw):
+            if when == "asked" and not done:
+                done.append(then())
+            return real_await(*args, **kw)
+
+        def paced(seconds):
+            if when == "paced" and not done and (self.client() or {}).get("pending"):
+                done.append(then())
+            real_sleep(seconds)
+        self.sleep = paced
+        try:
+            with mock.patch.object(brain, "_await", asked):
+                out = self.next(token, hooked=hooked, agent=agent)
+        finally:
+            self.sleep = real_sleep
+        self.assertEqual(len(done), 1, "the relay's `brain next` did not wait where the test meant it to")
+        return out
+
+    def a_relay_without_hooks_that_was_let_in(self):
+        """It has been named, in a world where its first batch is a read with a wait in front of it."""
+        self.start("guard")
+        self.r.world.absorb([user()._replace(at=self.r.t)])
+        self.r.world.save()
+        self.says(relay_without_hooks=True)
+        return self.next(hooked=False)[0]
+
+    def test_the_word_taken_back_while_it_waits_is_taken_back_for_the_batch_it_waits_for(self):
+        """Review of 9c2955ba, R1. The word was looked for when `brain next` began and not again: taken back
+        while that `brain next` waited, for the brain's answer or for the batch's time, the batch was printed
+        all the same, calls and all, and was the relay's to make."""
+        def unsaid():
+            self.says(relay_without_hooks=False)
+
+        def gone():
+            os.unlink(os.path.join(self.r.dir, "control.json"))
+
+        def broken():
+            with open(os.path.join(self.r.dir, "control.json"), "w", encoding="utf8") as f:
+                f.write('{"relay_without_hooks": tr')
+        for when in ("paced", "asked"):
+            for then in (unsaid, gone, broken):
+                token = self.a_relay_without_hooks_that_was_let_in()
+                self.assertEqual(self.waiting(token, then, when), (None, [], [hooked.BARE]), (when, then.__name__))
+                kept = self.client()
+                self.assertEqual((kept["token"], kept["held"], kept["calls"]), (token, None, []))   # nothing is its
+                made = [x["call"] for x in kept["pending"]["steps"] if "call" in x]
+                self.assertEqual(made, ["profile.getUser"])                  # the batch is made, and nobody has it
+                self.assertEqual(self.next(token, hooked=False), (None, [], [hooked.BARE]))   # and so the next time,
+                self.assertEqual(self.client(), kept)                        # with nothing changed
+
+    def test_the_batch_it_waited_for_goes_to_the_relay_with_hooks_that_takes_over(self):
+        """R1: what was not printed to it is not lost. It waits, as any batch does that no relay has had."""
+        token = self.a_relay_without_hooks_that_was_let_in()
+        self.waiting(token, lambda: self.says(relay_without_hooks=False))
+        waited = self.client()["pending"]
+        token, batch, lines = self.next(self.next()[0])                      # a relay with hooks, and no word
+        self.assertEqual([x["call"] for x in batch], [C.STAND_IN])
+        self.assertEqual((self.client()["held"]["id"], self.client()["pending"]), (waited["id"], None))
+        self.assertEqual(self.does(batch), [OK])
+        self.assertEqual([x["endpointName"] for x in self.game], ["profile.getUser"])
+
+    def test_with_the_word_standing_through_the_wait_it_is_printed_its_batch(self):
+        token = self.a_relay_without_hooks_that_was_let_in()
+        token, batch, lines = self.waiting(token, lambda: None)
+        self.assertEqual(([x["call"] for x in batch if "call" in x], self.client()["held"]["token"]),
+                         (["profile.getUser"], token))
+        self.start("guard")                                                  # and the word given during the wait
+        self.r.world.absorb([user()._replace(at=self.r.t)])                  # does not undo a refusal that was made
+        self.r.world.save()                                                  # when `brain next` began: (there is
+        self.assertEqual(self.next(hooked=False)[2], [hooked.BARE])          # none to undo: it was never named)
+
+    def test_a_relay_with_hooks_is_printed_its_batch_whatever_becomes_of_the_word_while_it_waits(self):
+        for then in (lambda: self.says(relay_without_hooks=False), lambda: os.unlink(os.path.join(self.r.dir, "control.json"))):
+            self.start("guard")
+            self.r.world.absorb([user()._replace(at=self.r.t)])
+            self.r.world.save()
+            self.says(relay_without_hooks=True)
+            token, batch, lines = self.waiting(self.next()[0], then, hooked=True)
+            self.assertEqual(([x["call"] for x in batch], self.client()["held"]["token"]), ([C.STAND_IN], token), lines)
+
+    def test_one_that_was_replaced_while_it_waited_is_told_so_and_not_the_new_line(self):
+        """R1: the relay that took over comes first, as it did. The batch stays for that one."""
+        token = self.a_relay_without_hooks_that_was_let_in()
+
+        def replaced():
+            self.says(relay_without_hooks=False)
+            return self.next()[0]                                            # a relay with hooks is named meanwhile
+        self.assertEqual(self.waiting(token, replaced), (None, [], [brain.SUPERSEDED]))
+        self.assertIsNotNone(self.client()["pending"])
+
+    def stopped(self, *names):
+        out = io.StringIO()
+        brain.stopped(self.r.dir, list(names), out)
+        return json.loads(out.getvalue())
+
+    def test_its_batch_is_let_go_by_the_operators_word_once_a_relay_with_hooks_has_taken_over(self):
+        """Review of 9c2955ba, R2. The guide said its batch "is held until you say `stopped`". A relay that is
+        turned away after it was let in is still the relay on record, and `stopped` never takes the batch of
+        that one: the word was not taken, said of its token, of its batch or of all. The guide has the order
+        now: see it ended, start a relay with hooks, then say it."""
+        self.start()
+        self.handed_to_the_brain()
+        self.says(relay_without_hooks=True)
+        old, batch, _ = self.next(self.next(hooked=False)[0], hooked=False)  # it holds a batch
+        self.says(relay_without_hooks=False)
+        self.assertEqual(self.next(old, hooked=False)[2], [hooked.BARE])
+        held = self.client()["held"]
+        calls = len([x for x in batch if "call" in x])
+        self.assertEqual((held["token"], calls > 0), (old, True))
+        for names in ((), (old,), (held["id"],), ("all",)):                  # as the review ran it
+            said = self.stopped(*names)
+            self.assertEqual((said["stopped"], said["still_held"]), ([], []), names)
+            self.assertEqual(said["not_held"], [n for n in names if n != "all"], names)
+        self.assertEqual(self.client()["held"], held)                        # (nothing was changed by asking)
+        new = self.next()[0]                                                 # a relay with hooks is started
+        self.assertEqual([(g["token"], g["id"]) for g in self.client()["gone"]], [(old, held["id"])])
+        self.assertEqual(self.stopped()["still_held"], [old])                # now it is listed,
+        self.assertEqual(self.stopped(old)["stopped"], [old])                # and the word is taken;
+        self.assertEqual(self.client()["gone"], [])
+        self.next(new)                                                       # the new relay's `brain next` tells
+        self.assertEqual([row[0::3] for row in self.asks[-1]["ended"]], [[held["id"], "stopped"]])   # the brain,
+        self.assertEqual(self.loose(), {})                                   # which lets the batch's calls go
+
     def test_one_that_was_replaced_is_told_so_as_before(self):
         self.start()
         self.says(relay_without_hooks=True)
