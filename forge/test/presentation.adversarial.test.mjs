@@ -436,7 +436,7 @@ test("F3: a source file whose commit cannot be read is unverified, not verified"
     blobAtRef: (ref, path, fallback) => (path === MARROW_BUNDLE ? null : fallback(ref, path)),
   });
   assert.equal(r.ok, false);
-  assert.match(r.error.message, /could not be read at eefefd1afd67, so its source lock cannot be verified/);
+  assert.match(r.error.message, /could not be read at 42109a566445, so its source lock cannot be verified/);
 });
 
 // F4 --------------------------------------------------------------------------------------------
@@ -605,7 +605,7 @@ test("F1: an unreadable blob makes no binding renderable, even with the right by
   // scenario({blobAtRef: () => null}) would break the source lock first, so only the pack's own
   // commit is made unreadable here - the case a shallow clone actually produces.
   const r = scenario({
-    blobAtRef: (ref, path, fallback) => (ref === "10fb25704dff1bab8105cd83631e0d524193ef0d" ? null : fallback(ref, path)),
+    blobAtRef: (ref, path, fallback) => (ref === "89fbe546edb858b355005efd118eb1a9b9d3b185" ? null : fallback(ref, path)),
   });
   assert.ok(r.ok, r.ok ? "" : String(r.error));
   const bound = r.built.dossier.assets.entries.filter((e) => e.bytes.bound);

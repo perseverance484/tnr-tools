@@ -13,7 +13,7 @@ import { Runner } from "../src/runner/runner.mjs";
 const design = JSON.parse(readFileSync(new URL("../../docs/design/bloodright/examples/blood_enchanted_eyes_structural.json", import.meta.url)));
 const BL = design.bloodline.id, HP = "HWq7986PPhl5emkAM3L4a", FOLDER = "kvxMu9ntHbNcD6FFHKGo3";
 const clone = v => structuredClone(v);
-function config() { return { version: 1, source: { path: "docs/design/bloodright/examples/blood_enchanted_eyes_structural.json", ref: "5963810895aae4e2deaa61b72424c203752f50c1" }, hiddenProbeId: HP, bindings: { folderId: FOLDER, nodes: { p2_t1: HP } }, nodes: Object.fromEntries(design.nodes.map(n => [n.id, { seichiSilverCost: 20, rounds: 99 }])) }; }
+function config() { return { version: 1, source: { path: "docs/design/bloodright/examples/blood_enchanted_eyes_structural.json", ref: "aee9451816af7fa32e8908ad136b747c388c7ca9" }, hiddenProbeId: HP, bindings: { folderId: FOLDER, nodes: { p2_t1: HP } }, nodes: Object.fromEntries(design.nodes.map(n => [n.id, { seichiSilverCost: 20, rounds: 99 }])) }; }
 // 20/99 for all nodes is TEST DATA, not the pilot pricing decision.
 function setup() {
   const game = new BloodrightGame();

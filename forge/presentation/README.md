@@ -4,7 +4,7 @@ Repository-side tooling that turns **selected committed evidence** into a source
 presentation can be built from, and refuses to build one it cannot source.
 
 Governing plan: `docs/plans/FORGE_PRESENTATION_STUDIO_UPGRADE_PLAN.md`
-(`chatgpt/forge-presentation-studio-plan@99f1aa8a6fe7cc7361aa613cdcad258bafb9c83e`).
+(`chatgpt/forge-presentation-studio-plan@bee122660ed339a962a3d83682cba7a42d82ee67`).
 
 This is **P1 only**. There is no renderer, no Forge UI, no publish action and no export here.
 
@@ -102,7 +102,7 @@ An entity whose only current art is a remote URL is `exact-current` with `bytes.
 correct, provenanced, and not renderable. **It does not follow that those bytes require a live
 fetch** — an earlier claim in this file said so and was wrong. `chatgpt/godstorm-art-recovery`
 carries a committed content-addressed archive
-(`art/godstorm_sources/capture-2026-09-14/index.json` at `1bca57eeb0c1836a49334dc2f49196a5a3db24c7`)
+(`art/godstorm_sources/capture-2026-09-14/index.json` at `3b9c213ebf43347a26708845874aa2a6b3a757eb`)
 whose entries join to the remaining portraits and to both listing images by entity id and captured
 URL. Wiring it in as a `sourceArchive` evidence kind is the named next step for this library and is
 deliberately not part of the correction pass; until then the lint says "resolve it from a committed

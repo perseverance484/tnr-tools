@@ -38,7 +38,7 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 // Resolved through the tool's finder so the end-to-end guard survives the manifest being archived
 // after its run, exactly as push/README.md requires.
 const REPAIR_53 = join(HERE, "..", "..", "push", "53_godstorm_failed_items_repair.json");
-const COMMIT = "28bba70d0e14f74a768193881b592b92326f2867"; // a real 40-hex commit, used as a literal ref
+const COMMIT = "1f2d4c39eac5783dbae57c4b636ea05d5a9b7774"; // a real 40-hex commit, used as a literal ref
 
 // The eight Godstorm files and their processed-WebP byte counts, from push/53's own imgSizes.
 const GODSTORM = Object.freeze({
@@ -422,7 +422,7 @@ test("one unreachable blob is reported without abandoning the other seven", asyn
   assert.equal(failed.length, 1);
   assert.equal(failed[0].name, missing);
   assert.equal(failed[0].state, "error");
-  assert.match(failed[0].error, /could not fetch art\/godstorm\/ai_godstorm_marrow_umbral_reaver\.webp at 28bba70d0e14: fetch .* HTTP 404/);
+  assert.match(failed[0].error, /could not fetch art\/godstorm\/ai_godstorm_marrow_umbral_reaver\.webp at 1f2d4c39eac5: fetch .* HTTP 404/);
   assert.equal(core.runner.files.size, 7, "the other seven are prepared and usable");
 });
 

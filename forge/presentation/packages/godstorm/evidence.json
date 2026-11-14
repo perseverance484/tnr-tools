@@ -1,7 +1,7 @@
 {
  "schema": "tnr.presentation.evidence.v2",
  "note": "The committed sources the Godstorm dossier is built from, and nothing else. This file selects sources; it states no fact. Every number, name and image in the dossier is read out of the captures named below, each of which is admitted only if it read back ok, persisted in full, and answered about the entity it was asked about.",
- "repoCommit": "eefefd1afd67111a90c332951a8dd9f83cb99cbd",
+ "repoCommit": "42109a56644537d8e2de0133173e8b108288c0db",
  "subject": {
   "type": "event",
   "title": "Godstorm",
@@ -54,8 +54,8 @@
    "id": "pack-push53",
    "kind": "imagePack",
    "path": "archive/spent-manifests/push-2026-09-19/53_godstorm_failed_items_repair.json",
-   "sha256": "a9f9ab57ffc9787b5c1d79e53af0ab7cd07f6c11a7198bc06262dd5296724724",
-   "note": "The repo-backed image pack push/53 ran with: eight files under art/godstorm/ bound by repository path, the commit 10fb2570 that holds them, and their SHA-256. Parsed by the runner's own imagePack contract, not a second copy of it."
+   "sha256": "5cdeb760414ddba58c48018bbbb0d2bc20b2e02385236146827601489c209f7a",
+   "note": "The repo-backed image pack push/53 ran with: eight files under art/godstorm/ bound by repository path, the commit 89fbe546 that holds them (89fbe546 before the 2026-11-09 history rewrite; same blobs), and their SHA-256. Parsed by the runner's own imagePack contract, not a second copy of it."
   },
   {
    "id": "uploads-push53",
