@@ -212,7 +212,7 @@ At the Salvager's Fire
 
 **`quest:At the Salvager's Fire.description`**
 ```
-Sit with the salvager again and ask about getting aboard, the charts, the chests, the deep, the Haul, salvage, trading or the watch log. No reward, and it uses no daily NPC encounter. Meet her on the shore first (Wreck Sighted).
+Sit with the salvager again and ask about anything on the shore: getting aboard, charts, chests, the deep, the Haul, the Mender, the shards, salvage and shore work, trading or the watch log. No reward, open to everyone.
 ```
 
 **`quest:At the Salvager's Fire.successDescription`**
@@ -235,27 +235,29 @@ She nods at a board of driftwood where she pins what the sea gives back. "Ask wh
 - `choice[2]`: `What's in the chests?`
 - `choice[3]`: `What's down in the deep?`
 - `choice[4]`: `What's the Haul?`
-- `choice[5]`: `What do you want with salvage?`
-- `choice[6]`: `Can I trade what I find?`
-- `choice[7]`: `What's the watch log?`
+- `choice[5]`: `Who's mending the hold?`
+- `choice[6]`: `What's under Crownhold?`
+- `choice[7]`: `What do you want with salvage?`
+- `choice[8]`: `Can I trade what I find?`
+- `choice[9]`: `What's the watch log?`
 
 **`obj:Salvager's thread/back.choice`**: `Ask something else`
 
 **`obj:Salvager's thread/a_threes.description`**
 ```html
-"Nobody goes aboard alone and comes back. Go in threes."<br><br><i>She is ashore Friday to Sunday, every weekend. The Wreck is a party dungeon in sector 210. It takes exactly 3 players, and a run lasts up to an hour.</i>
+"Nobody goes aboard alone. She won't let you. Bring two friends, or two beasts you trust."<br><br><i>The Wrecks open Friday 6 PM to Monday 6 PM Central in sector 210. You can't enter alone: bring 2 teammates or 2 pets. You and 2 pets can clear it, but it's very hard.</i>
 ```
 - `choice[0]`: `Which part of her?`
 
 **`obj:Salvager's thread/a_hulls.description`**
 ```html
-"She broke in two. The near half is faded and gentler. The far half still remembers every order."<br><br><i>The Faded Skyglass Wreck (sector 210, 16/6) opens at level 30. The Skyglass Wreck (15/6) is the endgame hull and opens at level 80.</i>
+"She broke in two. The near half is faded and gentler. The far half still remembers every order."<br><br><i>The Faded Skyglass Wreck (sector 210, 16/6) is for levels 30 to 80, so every fight there is sized for you. The Skyglass Wreck (15/6) is the endgame hull, for 81 and up. Each band takes its own Wreck Sighted to get in.</i>
 ```
-- `choice[0]`: `And on my own?`
+- `choice[0]`: `And without a crew?`
 
 **`obj:Salvager's thread/a_drift.description`** (The Driftline, early-game thread; drop this scene if The Driftline is held)
 ```html
-"No crew, and not yet 80? Wreckage washes off the near half every tide. I'll show you the Driftline. It's sized to whoever walks it."<br><br><i>The Driftline is for one player, levels 30 to 80. The salvager hands out its way in once Wreck Sighted is done.</i>
+"No crew, and not yet 80? Wreckage washes off the near half every tide. I'll show you the Driftline. It's sized to whoever walks it."<br><br><i>The Driftline is for one player, levels 30 to 80. Beachcombing every day, two charts to clear, and the Tally pays 2 Skyglass Tokens.</i>
 ```
 - `choice[0]`: `What comes back out?`
 
@@ -320,7 +322,18 @@ She nods at a board of driftwood where she pins what the sea gives back. "Ask wh
 "Some bring back a ledger page or a stores list and go after holds no chart shows. They come back heavy, or not at all."<br><br><i>A page opens The Haul: up to 5 steps of crate, locker or cut through. Deeper, bigger chests of profession materials. Leave after any step to keep them; lose a fight and you keep nothing. Pages drop from the endgame Wreck and the Rare runs.</i>
 ```
 
-*Held back (RUL-2026-11-09-140): `s_four` and `s_below` are not in the menu until the last fight below Crownhold is live. Kept here for when it is.*
+**`obj:Salvager's thread/m_mender.description`**
+```html
+"Down in the lower hold, the ship's carpenter is still at work. He mends the hold shut around anything that doesn't belong in it. That's you."<br><br><i><b>Chart of the Closing Hold</b> opens The Closing Hold: a Legendary run from level 40, alone, from the Battle Arena. The chart drops rarely from the Skyglass Wreck and the Spoiled Hold.</i>
+```
+- `choice[0]`: `How do I get past him?`
+
+**`obj:Salvager's thread/m_hold.description`**
+```html
+"Mind your feet. The hull comes in a band at a time, and the seams light up before it closes."<br><br><i>Three fights: his apprentice, the bilge crew, then The Hullbound Mender. Glowing seams mark the next band, and you get a turn to step clear. Grown hull shuts off your bloodline's passives, healing and new buffs. A win pays salvage and a pick of rewards.</i>
+```
+
+*Revived Nov 13 (director approved 20:21Z): The Mother of Echoes ships, so `s_four` and `s_below` are menu choice 6.*
 
 **`obj:Salvager's thread/s_four.description`**
 ```html
@@ -330,18 +343,52 @@ She nods at a board of driftwood where she pins what the sea gives back. "Ask wh
 
 **`obj:Salvager's thread/s_below.description`**
 ```html
-"Under Crownhold the stair stops where the rock does. I've stood at the bottom. Something beneath it listens back."<br><br><i>One of each shard opens the last fight, below Crownhold. You go alone, all four are spent when it starts, and a loss pays nothing. A win pays ryo, EXP and a pick of Crown's Hoard, Coffers or Tokens.</i>
+"Under Crownhold the stair stops where the rock does. I've stood at the bottom. Something beneath it listens back."<br><br><i>One of each shard opens <b>The Mother of Echoes</b>, the last fight, from the Battle Arena. You go alone: three battles, and health and chakra carry with no refills. All four shards are spent when it starts. A loss returns nothing.</i>
 ```
 
 **`obj:Salvager's thread/t_salvage.description`**
 ```html
-"Bring me what you pull off her. Brass, glass, rope. I pay in charts."<br><br><i>Every Skyglass win pays <b>Wreck Salvage</b>: Wreck clears, chart runs and watch log orders. It can't be traded. Bring it to her and trade it for charts.</i>
+"Bring me what you pull off her. Brass, glass, rope. I pay in charts."<br><br><i>Every Skyglass win pays <b>Wreck Salvage</b>, and so does her shore work. It keeps from one weekend to the next, so you can save up for the dear charts.</i>
+```
+- `choice[0]`: `How much does a win pay?`
+- `choice[1]`: `What does it buy?`
+- `choice[2]`: `How does a trade work?`
+- `choice[3]`: `Got any work for me?`
+
+*`t_prices` retired Nov 13: its content is now `t_deck`, `t_hold` and `t_dear`. `t_earn` and `t_dear` also offer Ask something else and the ending after their one choice.*
+
+**`obj:Salvager's thread/t_earn.description`**
+```html
+"The far hull pays best. The near half gives little, and not every time."<br><br><i>Skyglass Wreck clear: 3. Faded Wreck clear: 1, one clear in four. Most chart and Haul runs: 1 (the low-tide runs, one win in four). Epic and tainted runs: 3. The Closing Hold: 3. Crownhold: 10. A watch log order: 3. A shore daily: 4.</i>
 ```
 - `choice[0]`: `What does it buy?`
 
-**`obj:Salvager's thread/t_prices.description`**
+**`obj:Salvager's thread/t_deck.description`**
 ```html
-"Four pieces for a deck chart. Ten for one from the hold. The sealed charts and the Lantern, once a week."<br><br><i>Each talk with her on the map uses one daily NPC encounter and may offer a trade. Deck charts 4 (Genin), hold charts 10 (Jonin), a sealed chart 20 weekly, the Lantern 30 weekly (level 80). Back out and she returns the salvage.</i>
+"Four pieces for a deck chart. Pick the one you want."<br><br><i><b>Deck chart, 4 salvage:</b> Tide Chart (opens The Low Tide Run), Watch Roster (The Night Watch), or the Buried Cache or Rotted Galley chart, each opening the run of its name.</i>
+```
+- `choice[0]`: `And from the hold?`
+
+**`obj:Salvager's thread/t_hold.description`**
+```html
+"Ten for one from the hold. The crew drew those deeper."<br><br><i><b>Hold chart, 10 salvage:</b> the Drowned Foundry, Quarantined Archive, Captain's Watch, Glass Nursery or Spoiled Hold chart. Each opens the run of the same name.</i>
+```
+- `choice[0]`: `And the sealed ones?`
+
+**`obj:Salvager's thread/t_dear.description`**
+```html
+"The sealed charts and the Lantern, once a week. I don't find many."<br><br><i><b>Sealed chart, 20, once a week:</b> a Reliquary Seal (opens The Sealed Reliquary) or The Last Heading (The Fall). <b>Lastlight Lantern, 30, once a week, level 80:</b> opens Crownhold.</i>
+```
+- `choice[0]`: `How does a trade work?`
+
+**`obj:Salvager's thread/t_how.description`**
+```html
+"Clear my nets and I'll pay you. Something's always tangled in them."<br><br><i>Take a trade from the Wake Island board, from level 30. The salvage is taken when you start. Beat the <b>Netted Husk</b>, then pick your chart. Back out before the fight and she gives it all back.</i>
+```
+
+**`obj:Salvager's thread/t_work.description`**
+```html
+"Shore work, if you want it. Echoes walk the tideline, the pools run warm with glass, and one deck warden is still counting his watch."<br><br><i>Three daily jobs on the Wake Island board from level 30, 4 salvage a run: <b>Echoes Ashore</b>, <b>Warm Glass</b> and <b>The Tideline Count</b>. Each runs 3 times a day. Lose a fight and the run ends.</i>
 ```
 
 **`obj:Salvager's thread/t_trade.description`**
@@ -357,7 +404,7 @@ She nods at a board of driftwood where she pins what the sea gives back. "Ask wh
 
 **`obj:Salvager's thread/w_board.description`**
 ```html
-"I keep their <b>watch log</b>. It washes up a page at a time. I dry one each weekend and pin it up in the <b>Administration Building</b>."<br><br><i>A new page goes up each weekend in your village's Administration Building; Wake Island has one too, nearest the Wreck. Take it first: only what you do while you carry it counts.</i>
+"I keep their <b>watch log</b>. It washes up a page at a time. I dry one each weekend and pin it up in the <b>Administration Building</b>."<br><br><i>Two pages go up each weekend: one for levels 30 to 80, one for 81 and up. Your band's Wreck Sighted hands you yours. Take it first: only what you do while you carry it counts.</i>
 ```
 - `choice[0]`: `What's on a page?`
 
@@ -366,11 +413,26 @@ She nods at a board of driftwood where she pins what the sea gives back. "Ask wh
 "One watch's orders. Lately the name at the top isn't one of theirs."<br><br><i>Do the orders in any order and claim each reward from your Logbook. Finish them all for the page's last reward. The page closes Tuesday 00:00 UTC (Monday 6 PM Central).</i>
 ```
 
+**`quest:Wreck Sighted (Levels 30 to 80).description`**
+```
+The Ghost Ship has come down off Wake Island. A salvager by the fire has watched everyone who went aboard. Hear her out to open the Faded Skyglass Wreck and this weekend's watch log page for levels 30 to 80.
+```
+
+**`quest:Wreck Sighted (Level 81 and up).description`**
+```
+The Ghost Ship has come down off Wake Island. A salvager by the fire has watched everyone who went aboard. Hear her out to open the Skyglass Wreck and this weekend's watch log page for level 81 and up.
+```
+
+**`quest:Wreck Sighted (band copies).successDescription`**
+```
+You have your first chart. Take it to the Battle Arena. Salvage trades, her shore work and this weekend's watch log page are on the Wake Island board.
+```
+
 **`obj:Wreck Sighted (thread)/ready.choice`**: `I'm ready. Give me the chart`
 
 **`obj:Wreck Sighted (thread)/z_chart.description`**
 ```html
-She pulls a <b>Tide Chart</b> from inside her coat, salt-stiff and still damp at one corner. "Low tide opens her lower hull. Don't sit on it. She's already changing shape."<br><br><i>Talk to her again on the map for salvage trades and work: each talk uses one daily NPC encounter. To hear all this again, sit at her fire from Events in any Administration Building.</i>
+She pulls a <b>Tide Chart</b> from inside her coat, salt-stiff and still damp at one corner. "Low tide opens her lower hull. Don't sit on it. She's already changing shape."<br><br><i>Everything else is on the Wake Island board now: salvage trades, her daily shore work and the weekend's watch log page. To hear all this again, take At the Salvager's Fire there.</i>
 ```
 - `choice[0]`: `Take the chart`
 

@@ -71,13 +71,13 @@
    "manifest": null,
    "what": "Mother of Echoes go-live",
    "runner": "connector",
-   "status": "waiting",
+   "status": "superseded",
    "waitsFor": [
     "469-test",
     "director go"
    ],
    "build": "python3 push/mother_of_echoes.gen.py --step golive",
-   "note": "2026-11-13: the clip-size blocker is answered by upstream per-effect animationScale (8bd670153); 588 tests it on Stillness. Go-live now waits on the 469 look, the bulk scale pass and the director go."
+   "note": "2026-11-13: the clip-size blocker is answered by upstream per-effect animationScale (8bd670153); 588 tests it on Stillness. Go-live now waits on the 469 look, the bulk scale pass and the director go. 2026-11-13: superseded by 597 (same go-live, literal icon url, runs over the connector)."
   },
   {
    "id": "503",
@@ -590,18 +590,40 @@
    "note": "Director go 2026-11-13 (fix list). Spec still has old text."
   },
   {
+   "id": "596",
+   "manifest": "push/596_moe_silence_absence_pools.json",
+   "what": "MoE Act I Silence phase (director yes 2026-11-10 01:18-01:22 UTC): Feelers at most every 3 rounds; the Unbridled Silence casts An Absence (settle round = warning) and its opening field becomes the Hush pool (18/round, heal block, 3 rounds); The Hush and The Hush, Unbridled off her kit; Sayo pools 1.01 (5,100 > Silence 5,050). Law 18 on the Silence and An Absence. All hidden.",
+   "runner": "connector",
+   "status": "done",
+   "waitsFor": [],
+   "then": "hand rerun of all three acts on the practice quest, PvE gear, no auto-play; dauntless asleep after",
+   "note": "Director go to ship MoE tonight, timeline 2026-11-13 18:57 UTC. Built Nov 10 as a local 588; the 8 records re-read live 2026-11-13 ~19:05 UTC, unchanged. Run BEFORE 593. 2026-11-13 ~19:55 UTC: sent by hand over the connector and read back (law 18 on the Silence and An Absence, kits re-equipped and confirmed). Live differs from the file in one value: The Absence Opens pool damage is power 5, not 18, because An Absence carries +350% damage given (5 x 4.5 ~ the Hush's 18-22). Hand rerun 20:00-20:17 UTC: Act I won R15, Act II won R15, Act III lost R12 (missed the dry-tile telegraph, player error)."
+  },
+  {
    "id": "593",
    "manifest": "push/593_moe_animation_scale.json",
    "what": "Mother of Echoes clips at 2.5x: 56 jutsu by Forge livePatch (effects built from the live record at send time), law 18 on 10 AIs",
    "runner": "browser",
    "status": "waiting",
    "waitsFor": [
-    "livePatch review + merge (fable/live-patch-animation-scale @ 419b3e74)",
-    "loader pinned to the merge",
-    "director go"
+    "director go",
+    "Forge browser tab (the connector run is too large)"
    ],
    "build": "python3 push/593_moe_animation_scale.gen.py",
-   "note": "2026-11-13. Inputs read live today with ids-only selects (state/moe_scale/): kits of 11 AIs, animation fields of all 71 equipped jutsu, her 1,102 asset ids (501's 973 + her FX + 54 Refraction lens clips; the six non-slice MoE folders checked live, 71/71). 12 equipped jutsu have no clip; Stolen Form uses only the library shove strip (not hers, stays 1x); Stillness done by 588 (test AI FotHaXVoYS4In_wM-qczO equips only it, so it is untouched). validate.py: 0 errors, 112 law-20/partial-data warnings that do not apply (Forge merges every key from the live read). Run ONLY on a Forge bundle that has livePatch (after the merge and the auto loader pin): an older bundle ignores the key, sends each jutsu back unchanged and would still show it verified. Harmless, but nothing gets scaled. Claude reads back every record after the run either way."
+   "note": "2026-11-13. Inputs read live today with ids-only selects (state/moe_scale/): kits of 11 AIs, animation fields of all 71 equipped jutsu, her 1,102 asset ids (501's 973 + her FX + 54 Refraction lens clips; the six non-slice MoE folders checked live, 71/71). 12 equipped jutsu have no clip; Stolen Form uses only the library shove strip (not hers, stays 1x); Stillness done by 588 (test AI FotHaXVoYS4In_wM-qczO equips only it, so it is untouched). validate.py: 0 errors, 112 law-20/partial-data warnings that do not apply (Forge merges every key from the live read). Run ONLY on a Forge bundle that has livePatch (after the merge and the auto loader pin): an older bundle ignores the key, sends each jutsu back unchanged and would still show it verified. Harmless, but nothing gets scaled. Claude reads back every record after the run either way. 2026-11-13 19:15 UTC: livePatch merged to main (be77af20, director review + go), loader pinned (40477c41). 2026-11-13 20:20 UTC: tried mcp_run --transcript; stopped after item 0 because each AI read is 30-500k chars and the run needs ~150 such calls (too large for one session). Item 0 (Saint off) was undone by hand at once: Saint's 25-jutsu kit re-sent and read back, 25/25 equipped, no jutsu touched. Nothing else sent. Still for the Forge browser tab."
+  },
+  {
+   "id": "597",
+   "manifest": "push/597_moe_release.json",
+   "what": "Mother of Echoes release: real quest IBPNwhAzlAJPXoeEnp8gW re-sent whole with hidden false (three act scenes, portraits, 10 objectives, rewards as the practice quest), 15 FX unhides (idempotent)",
+   "runner": "connector",
+   "status": "waiting",
+   "waitsFor": [
+    "596 done and all three acts rerun by hand",
+    "593 clip-size pass",
+    "release time with the rest of Skyglass (director go 2026-11-13 18:57 UTC)"
+   ],
+   "note": "Built from job 477's generator 2026-11-13; check_manifest 0 problems. The practice quest stays hidden for good (its real rewards are the director's Nov 4 setup for his tester)."
   },
   {
    "id": "595",
@@ -614,6 +636,36 @@
     "Nov 20 Friday routine"
    ],
    "note": "Director 2026-11-13 '1 lantern per'. First copy is tonight's record MSQJTdZEQK1JWjFiVtQVI (545). The Fire's trade topic (510) must point at the current copy each week."
+  },
+  {
+   "id": "596",
+   "manifest": null,
+   "what": "Crowned Captain cannot be stunned (stunprevent on base effects): fixes the e2e 'stands and does nothing' stall",
+   "runner": "connector",
+   "status": "done",
+   "waitsFor": [],
+   "note": "Director go 2026-11-13 19:02 UTC. Sent and read back 19:06 UTC.",
+   "result": "state/results/596_597_captain_stunprevent_and_core_rot_grant.md"
+  },
+  {
+   "id": "597",
+   "manifest": null,
+   "what": "Hidden grant quest x5-kg5W6sHoyXM8yJk-M4 pays 1 Core Rot (restock dauntless for the Spoiled Hold test)",
+   "runner": "connector",
+   "status": "done",
+   "waitsFor": [],
+   "note": "Director go 2026-11-13 19:02 UTC. Read back.",
+   "result": "state/results/596_597_captain_stunprevent_and_core_rot_grant.md"
+  },
+  {
+   "id": "598",
+   "manifest": "push/598_deck_warden_seven_planks_back.json",
+   "what": "Omen: Seven Planks back on the 4 Deck Wardens that 585 left without it; base Deck Warden Quick Strike re-linked",
+   "runner": "mcp",
+   "status": "done",
+   "waitsFor": [],
+   "note": "Director go 2026-11-13 18:57 UTC (ship everything). Job 598-mwfclh28, 5/5 verified 19:12 UTC. 585 log-text reword still not applied (cosmetic).",
+   "result": "harvests/inbox/tnr_results_1794597121616.json"
   }
  ]
 }

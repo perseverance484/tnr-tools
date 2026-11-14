@@ -1,0 +1,492 @@
+{
+ "_note": "push/596 (built Nov 10 as a local 588, renumbered Nov 13: 588-595 were used meanwhile). MoE act 1 Silence phase, director yes Nov 10 01:18 UTC: Feelers at most every 3 rounds; Hush pools come from Absences (his 01:19 refinement: the Absence's settle round is the warning, its opening leaves the pool), so the Unbridled Silence calls An Absence instead of The Hush, Unbridled; Sayo 5,100 HP breaks the tie with the Silence. Law 18: Silence unequipped, Listening Unbridled edited, kit re-equipped. Rules from push 530 (latest). All hidden. Refinement 01:22 UTC (his words: 'The absence already leaves a field, that field just becomes the Hush pools.'): An Absence Opens field swaps its 15%/action drain for the Hush's damage (18 formula/round), heal block kept, 3 rounds (until the Absence fades); the Silence drops both random-pool jutsus (The Hush rule removed, The Hush, Unbridled replaced by An Absence). An Absence AI unequipped/re-equipped (law 18). Nov 13: director go to ship tonight (timeline 18:57 UTC); live re-read 19:0x UTC, the 8 records unchanged since the Nov 10 build. Clips on the two edited jutsu at animationScale 2.5 (job 593's scale, so order with 593 does not matter for size). Run BEFORE 593; 593 regenerated with the Silence's new kit.",
+ "items": [
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "targetId": "IhNR-W1FElTsrWw1KfuQ9",
+   "name": "The Silence: moe jutsu off (law 18)",
+   "phase": 10,
+   "data": {
+    "jutsus": [],
+    "items": [
+     {
+      "ids": [
+       "h-V9uiuxbL7lAWkO6nZWt"
+      ],
+      "number": 0
+     }
+    ]
+   }
+  },
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "targetId": "8GPW--ok-9m9CBUfBucV4",
+   "name": "An Absence: jutsu off (law 18)",
+   "phase": 10,
+   "data": {
+    "jutsus": [],
+    "items": []
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "targetId": "q0QcFoX4HIhxO0cpYTL2N",
+   "name": "The Listening, Unbridled: a new Feeler at most every 3 rounds (cooldown 1 to 3)",
+   "data": {
+    "name": "The Listening, Unbridled",
+    "description": "It no longer waits to hear you. The feelers rise one after another now, and as long as one of them lives, the deep keeps its hold on her.",
+    "extraBaseCost": 1500,
+    "effects": [
+     {
+      "staticAssetPath": "",
+      "staticAnimation": "",
+      "appearAnimation": "SrFBuUWRMdZt9ryBDy3k_",
+      "disappearAnimation": "",
+      "appearSfx": "",
+      "disappearSfx": "",
+      "rounds": 8,
+      "power": 40,
+      "powerPerLevel": 0,
+      "direction": "offence",
+      "target": "INHERIT",
+      "calculation": "percentage",
+      "type": "summon",
+      "description": "placeholder",
+      "aiId": "qFKcwTUkBtRiC-uM_8xG8",
+      "aiHp": 1500,
+      "playerControlled": false,
+      "animationScale": 2.5
+     }
+    ],
+    "target": "EMPTY_GROUND",
+    "range": 5,
+    "cooldown": 3,
+    "bloodlineId": "",
+    "requiredLevel": 1,
+    "requiredRank": "STUDENT",
+    "jutsuType": "AI",
+    "image": "https://ui0arpl8sm.ufs.sh/f/tTUMGYff8L72ewNF8J7XA.webp",
+    "jutsuWeapon": "NONE",
+    "statClassification": "None",
+    "elementClassification": "None",
+    "battleDescription": "It no longer waits to hear you. Another feeler rises, and the deep tightens its hold on her.",
+    "jutsuRank": "A",
+    "actionCostPerc": 40,
+    "staminaCost": 350,
+    "chakraCost": 350,
+    "staminaCostReducePerLvl": 10,
+    "chakraCostReducePerLvl": 10,
+    "healthCostReducePerLvl": 0,
+    "healthCost": 0,
+    "villageId": "",
+    "method": "SINGLE",
+    "hidden": true,
+    "injectableInBattle": false,
+    "battleUsageType": "BOTH"
+   },
+   "phase": 20
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "targetId": "ILOR6lCGa7FjNsBdR66kY",
+   "name": "The Absence Opens: its field is the Hush pool (heal block + Hush damage, 3 rounds)",
+   "phase": 20,
+   "data": {
+    "description": "Whatever stood near it is not heard again. Where it opened, the Hush pools.",
+    "battleDescription": "The Absence opens, and the Hush pools where it stood. Whatever stays in it is not heard again.",
+    "effects": [
+     {
+      "type": "healprevent",
+      "power": 100,
+      "rounds": 3,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Hush",
+      "disappearSfx": "",
+      "friendlyFire": "ENEMIES",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "animationScale": 1
+     },
+     {
+      "type": "damage",
+      "power": 18,
+      "rounds": 3,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "statTypes": [
+       "None"
+      ],
+      "calculation": "formula",
+      "description": "The Hush",
+      "dmgModifier": 1,
+      "disappearSfx": "",
+      "friendlyFire": "ENEMIES",
+      "powerPerLevel": 0,
+      "appearAnimation": "iHOSwsjwVvsc2e4GcFE3J",
+      "staticAnimation": "",
+      "staticAssetPath": "LAlJN4VbIQmTYNQyl4PWC",
+      "residualModifier": 1,
+      "disappearAnimation": "",
+      "allowBloodlineDamageDecrease": true,
+      "allowBloodlineDamageIncrease": true,
+      "animationScale": 2.5
+     },
+     {
+      "type": "visual",
+      "power": 2,
+      "rounds": 1,
+      "target": "COORDINATES",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "The Absence Opens: the burst (art only)",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "BGZgOIHnAr6Z1zVnZuxq4",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": "",
+      "coordinateTargeting": {
+       "origin": "CASTER",
+       "selection": "ALL",
+       "coordinates": [
+        {
+         "latitude": 0,
+         "longitude": 0
+        }
+       ],
+       "randomCount": 1
+      },
+      "animationScale": 2.5
+     }
+    ]
+   }
+  },
+  {
+   "entity": "aiProfile",
+   "slot": "edit",
+   "targetId": "IhNR-W1FElTsrWw1KfuQ9",
+   "name": "The Silence: no random Hush pools; Unbridled calls An Absence (its field is the Hush pool)",
+   "phase": 25,
+   "data": {
+    "rules": [
+     {
+      "conditions": [],
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "WyurLfWSUSGU1pIoBPObD",
+       "description": "Select specific jutsu"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "round_greater_than",
+        "value": 60,
+        "description": "Current round is higher than specified value"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "G_b5yaxm6GMOuQ3eaofKb",
+       "description": "Select specific jutsu"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "has_effect",
+        "threshold": 1,
+        "effectType": "robprevent",
+        "description": "Has effect"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "scGyJW-F0Mqga4FXnj4Jf",
+       "description": "Select specific jutsu"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "target_has_effect",
+        "target": "HIGHEST_MAX_HEALTH_ALLY",
+        "threshold": 1,
+        "effectType": "sealprevent",
+        "description": "Target has effect"
+       },
+       {
+        "type": "does_not_have_summon",
+        "description": "Does not have a summon active"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "EMPTY_GROUND_CLOSEST_TO_OPPONENT",
+       "jutsuId": "q0QcFoX4HIhxO0cpYTL2N",
+       "description": "Select specific jutsu"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "target_has_effect",
+        "target": "HIGHEST_MAX_HEALTH_ALLY",
+        "threshold": 1,
+        "effectType": "sealprevent",
+        "description": "Target has effect"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "EMPTY_GROUND_CLOSEST_TO_OPPONENT",
+       "jutsuId": "nwjETj5gD7gD68KomTmxF",
+       "description": "Select specific jutsu"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "target_has_effect",
+        "target": "HIGHEST_MAX_HEALTH_ALLY",
+        "threshold": 1,
+        "effectType": "sealprevent",
+        "description": "Target has effect"
+       },
+       {
+        "type": "distance_lower_than",
+        "value": 3,
+        "target": "CLOSEST_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "A8c_3evIw6fOfnmKIkTgb",
+       "description": "Select specific jutsu"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "target_has_effect",
+        "target": "HIGHEST_MAX_HEALTH_ALLY",
+        "threshold": 1,
+        "effectType": "sealprevent",
+        "description": "Target has effect"
+       }
+      ],
+      "action": {
+       "type": "end_turn",
+       "description": "End turn"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "does_not_have_summon",
+        "description": "Does not have a summon active"
+       },
+       {
+        "type": "round_greater_than",
+        "value": 1,
+        "description": "Current round is higher than specified value"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "EMPTY_GROUND_CLOSEST_TO_OPPONENT",
+       "jutsuId": "mqko5kLLXqGAVr6MVoKY0",
+       "description": "Select specific jutsu"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 3,
+        "target": "CLOSEST_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "SELF",
+       "jutsuId": "A8c_3evIw6fOfnmKIkTgb",
+       "description": "Select specific jutsu"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_lower_than",
+        "value": 1,
+        "target": "CLOSEST_OPPONENT",
+        "description": "Distance lower than or equal given value"
+       }
+      ],
+      "action": {
+       "type": "use_specific_jutsu",
+       "target": "CLOSEST_OPPONENT",
+       "jutsuId": "basicAttack",
+       "description": "Select specific jutsu"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "has_effect",
+        "threshold": 1,
+        "effectType": "robprevent",
+        "description": "Has effect"
+       }
+      ],
+      "action": {
+       "type": "end_turn",
+       "description": "End turn"
+      }
+     },
+     {
+      "conditions": [
+       {
+        "type": "distance_higher_than",
+        "value": 7,
+        "target": "HIGHEST_MAX_HEALTH_OPPONENT",
+        "description": "Out of reach"
+       }
+      ],
+      "action": {
+       "type": "move_towards_opponent",
+       "target": "HIGHEST_MAX_HEALTH_OPPONENT",
+       "description": "The Silence drifts closer"
+      }
+     },
+     {
+      "conditions": [],
+      "action": {
+       "type": "end_turn",
+       "description": "End turn"
+      }
+     }
+    ],
+    "includeDefaultRules": false
+   }
+  },
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "targetId": "IhNR-W1FElTsrWw1KfuQ9",
+   "name": "The Silence: kit back (law 18), An Absence in place of both Hush jutsus",
+   "phase": 30,
+   "data": {
+    "jutsus": [
+     "A8c_3evIw6fOfnmKIkTgb",
+     "G_b5yaxm6GMOuQ3eaofKb",
+     "mqko5kLLXqGAVr6MVoKY0",
+     "q0QcFoX4HIhxO0cpYTL2N",
+     "scGyJW-F0Mqga4FXnj4Jf",
+     "nwjETj5gD7gD68KomTmxF",
+     "WyurLfWSUSGU1pIoBPObD"
+    ],
+    "items": [
+     {
+      "ids": [
+       "h-V9uiuxbL7lAWkO6nZWt"
+      ],
+      "number": 0
+     }
+    ]
+   }
+  },
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "targetId": "8GPW--ok-9m9CBUfBucV4",
+   "name": "An Absence: kit back (law 18)",
+   "phase": 30,
+   "data": {
+    "jutsus": [
+     "ILOR6lCGa7FjNsBdR66kY",
+     "Lw5vl0foNm-Zuj2kbc6-b"
+    ],
+    "items": []
+   }
+  },
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "targetId": "fJLcH1mpB1XHHGtNWwvzD",
+   "name": "Sayo, Mother of Echoes (act 1): HP 5,050 to 5,100 (pools 1.01), breaks the tie with the Silence",
+   "phase": 30,
+   "data": {
+    "poolsMultiplier": 1.01,
+    "effects": [
+     {
+      "type": "increasedamagegiven",
+      "power": 100,
+      "rounds": 100,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "Increased damage given",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "stunprevent",
+      "power": 100,
+      "rounds": 100,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "Nothing stills the Mother of Echoes",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     },
+     {
+      "type": "onehitkillprevent",
+      "power": 100,
+      "rounds": 100,
+      "target": "SELF",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "static",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     }
+    ]
+   }
+  }
+ ]
+}

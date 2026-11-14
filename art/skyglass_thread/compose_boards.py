@@ -44,6 +44,10 @@ BASES = {  # board -> scene art (repo path)
     "below": "mother_of_echoes/exports/scene_moe_stilling.webp",
     "trade": SC + "cache_site.webp",
     "token": SC + "exterior_keel_walk.webp",
+    "salvage": SC + "cache_site.webp",
+    "driftline": SC + "exterior_keel_walk.webp",
+    "shore": SC + "exterior_keel_walk.webp",
+    "closing": SC + "lower_hull.webp",
     "logboard": "crownhold/scenes/exports/scene_bg_crownhold_planning_hall.webp",  # PLACEHOLDER: TP03 Information Board
     "orders": "crownhold/scenes/exports/scene_bg_crownhold_planning_hall.webp",    # PLACEHOLDER: TP03
 }
@@ -60,7 +64,8 @@ ICON = {
     "crown": MOE + "crown.webp", "tideshard": MOE + "tide.webp", "ledgershard": MOE + "ledger.webp",
     "log": "skyglass_journal/exports/icon-quest-watch-log.webp",
     "treasury": EV + "sealed-treasury.webp", "cargo": EV + "unmarked-cargo.webp", "pouch": EV + "tool-pouch-katon.webp",
-    "jar": EV + "little-horrors-jar.webp", "filament": "ghost_ship_skyglass/icon_ghost_ship_skyglass_filament.webp",
+    "nursery": EV + "glass-nursery-bk.webp",  # the Chart of the Closing Hold uses this icon (hullbound_mender.gen.py CHART_ICON)
+    "jar": EV + "little-horrors-jar.webp", "salvage": EV + "wreck-salvage-bk.webp", "filament": "ghost_ship_skyglass/icon_ghost_ship_skyglass_filament.webp",
     "crystal": "ghost_ship_skyglass/icon_ghost_ship_skyglass_crystal.webp",
     "fragment": "ghost_ship_skyglass/icon_ghost_ship_skyglass_crown_fragment.webp",
     "skycrown": "ghost_ship_skyglass/icon_ghost_ship_skyglass_crown.webp",
@@ -140,33 +145,33 @@ class Board:
 
 
 # --- the boards (captions: one or two words, 12 px or larger) ---------------------------------------------------------
-def b_menu(b):
+def b_menu(b):  # Nov 13 v3: 10 topics (director approved 20:21Z)
     b.panel(title="Ask the salvager")
-    b.row(["log", "tide", "seal", "ledger"], 46, 38, ["ABOARD", "CHARTS", "DEEP", "HAUL"], gap=24)
-    b.row(["crown", "token", "log"], 126, 38, ["SHARDS", "TRADE", "THE LOG"], gap=28)
+    b.row(["log", "tide", "chest", "seal", "ledger"], 48, 34, ["ABOARD", "CHARTS", "CHESTS", "DEEP", "HAUL"], gap=18)
+    b.row(["nursery", "keel", "salvage", "token", "log"], 126, 34, ["MENDER", "BELOW", "SALVAGE", "TRADE", "THE LOG"], gap=18)
 
 
 def b_threes(b):
-    b.panel(y1=170, title="Go in threes")
+    b.panel(y1=170, title="Never alone")
     b.big(b.mx, 44, "3", 54)
-    b.text(b.mx, 110, "PLAYERS, EXACTLY", 13)
+    b.text(b.mx, 110, "YOU + 2 TEAMMATES OR 2 PETS", 13)
     b.text(b.mx, 132, "THE WRECK  ·  SECTOR 210", 12, MUTED, "Inter-600")
 
 
 def b_hulls(b):
     b.panel(y1=180, title="She broke in two")
     b.text(b.mx, 50, "THE FADED WRECK", 14)
-    b.text(b.mx, 70, "levels 40 to 60  ·  16/6", 12, MUTED, "Inter-600")
+    b.text(b.mx, 70, "from level 30  ·  16/6", 12, MUTED, "Inter-600")
     b.d.line([(b.mx - 60, 98), (b.mx + 60, 98)], fill=CY + (90,), width=1)
     b.text(b.mx, 112, "THE SKYGLASS WRECK", 14)
-    b.text(b.mx, 132, "level 100  ·  15/6", 12, MUTED, "Inter-600")
+    b.text(b.mx, 132, "from level 80  ·  15/6", 12, MUTED, "Inter-600")
 
 
 def b_loot(b):
     b.panel(y1=190, title="What comes back")
     b.row(["tide", "roster", "cache", "stores"], 52, 44, gap=12)
     b.text(b.mx, 112, "CHARTS AND STORES", 13)
-    b.text(b.mx, 134, "ryo and EXP every clear", 12, MUTED, "Inter-600")
+    b.text(b.mx, 134, "ryo, EXP and salvage every clear", 12, MUTED, "Inter-600")
 
 
 def b_once(b):
@@ -263,12 +268,29 @@ def b_shards(b):
     b.text(b.mx, 136, "Wreck · Crownhold · deep · Haul", 12, MUTED, "Inter-600")
 
 
-def b_below(b):
-    b.panel(y1=184, title="Below Crownhold")
-    b.row(["keel", "crown", "tideshard", "ledgershard"], 48, 40, gap=14)
-    b.chevron(b.mx, 102)
-    b.big(b.mx, 110, "?", 26)
-    b.text(b.mx, 148, "alone · all four spent", 12, MUTED, "Inter-600")
+def b_below(b):  # Nov 13 v2 (director approved 20:21Z)
+    b.panel(y1=206, title="Below Crownhold")
+    b.row(["keel", "crown", "tideshard", "ledgershard"], 46, 40, ["KEEL", "CROWN", "TIDE", "LEDGER"], gap=16)
+    b.text(b.mx, 120, "one of each opens", 12, MUTED, "Inter-600")
+    b.text(b.mx, 138, "THE MOTHER OF ECHOES", 13)
+    b.text(b.mx, 166, "alone · three battles · no refills", 12, MUTED, "Inter-600")
+
+
+def b_shore(b):  # Nov 13 (director approved 20:21Z)
+    b.panel(y1=206, title="Shore work")
+    b.chip("salvage", b.mx - 20, 42, 40)
+    for i, s in enumerate(["ECHOES ASHORE · 4 fights", "WARM GLASS · the pools", "THE TIDELINE COUNT · one duel"]):
+        b.text(b.mx, 96 + i * 20, s, 12)
+    b.text(b.mx, 162, "from level 30 · 3 a day each", 12, MUTED, "Inter-600")
+    b.text(b.mx, 180, "4 salvage a run", 12, MUTED, "Inter-600")
+
+
+def b_closing(b):  # Nov 13 (director approved 20:21Z)
+    b.panel(y1=196, title="The Closing Hold")
+    b.chip("nursery", b.mx - 26, 42, 52)
+    b.text(b.mx, 110, "LEGENDARY · ALONE · FROM LEVEL 40", 12)
+    b.text(b.mx, 132, "apprentice · bilge crew · the Mender", 12, MUTED, "Inter-600")
+    b.text(b.mx, 158, "watch the seams: the hull closes in", 12, MUTED, "Inter-600")
 
 
 def b_trade(b):
@@ -289,9 +311,9 @@ def b_token(b):
 def b_logboard(b):
     b.panel(y1=196, title="The watch log")
     b.chip("log", b.mx - 32, 44, 64)
-    b.text(b.mx, 118, "INFORMATION BOARD", 13)
+    b.text(b.mx, 118, "ADMINISTRATION BUILDING", 13)
     b.text(b.mx, 138, "a new page each weekend", 12, MUTED, "Inter-600")
-    b.text(b.mx, 158, "take it first", 12, MUTED, "Inter-600")
+    b.text(b.mx, 158, "one for 30 to 80, one for 81+", 12, MUTED, "Inter-600")
 
 
 def b_orders(b):
@@ -303,14 +325,50 @@ def b_orders(b):
     b.text(b.mx, 160, "Monday 6 PM Central", 12, MUTED, "Inter-600")
 
 
+def b_salvage(b):
+    b.panel(y1=206, title="Salvage buys charts")
+    b.chip("salvage", PX0 + 18, 46, 52, "SALVAGE")
+    for i, (n, s) in enumerate((("4", "Deck chart"), ("10", "Hold chart"), ("20", "Sealed, weekly"), ("30", "Lantern, level 80"))):
+        y = 46 + i * 22
+        b.text(PX0 + 112, y, n, 14, CY, "Inter-700", anchor="rt")
+        b.text(PX0 + 122, y + 1, s, 12, IVORY, "Inter-600", anchor="lt")
+    b.text(b.mx, 150, "WAKE ISLAND BOARD", 13)
+    b.text(b.mx, 172, "ryo, EXP and salvage every clear", 12, MUTED, "Inter-600")
+
+
+def b_driftline(b):
+    b.panel(y1=206, title="The Driftline")
+    b.row(["tide", "token"], 46, 46, gap=40)
+    b.text(b.mx, 112, "SOLO  ·  LEVELS 30 TO 80", 13)
+    b.text(b.mx, 134, "Beachcombing every day", 12, MUTED, "Inter-600")
+    b.text(b.mx, 152, "two charts to clear", 12, MUTED, "Inter-600")
+    b.text(b.mx, 170, "the Tally pays 2 Skyglass Tokens", 12, MUTED, "Inter-600")
+
+
 BOARDS = {
     "menu": b_menu, "threes": b_threes, "hulls": b_hulls, "loot": b_loot, "once": b_once, "ladder": b_ladder,
     "pick": b_pick, "chests": b_chests, "supplies": b_supplies, "craft": b_craft, "seals": b_seals, "rot": b_rot, "lantern": b_lantern, "haul": b_haul, "shards": b_shards,
-    "below": b_below, "trade": b_trade, "token": b_token, "logboard": b_logboard, "orders": b_orders,
+    "below": b_below, "trade": b_trade, "token": b_token, "logboard": b_logboard, "orders": b_orders, "salvage": b_salvage, "driftline": b_driftline,
+    "shore": b_shore, "closing": b_closing,
 }
+ONLY = None  # set by --only
 
 
 def main():
+    import sys
+    keys = sys.argv[sys.argv.index("--only") + 1].split(",") if "--only" in sys.argv else None
+    if keys:
+        for key in keys:
+            b = Board(key); BOARDS[key](b)
+            path = os.path.join(OUT, f"board-{key}.webp")
+            b.im.convert("RGB").save(path, "WEBP", quality=90, method=6)
+            print(f"art/skyglass_thread/exports/board-{key}.webp: {os.path.getsize(path)} bytes")
+        sheet = Image.new("RGB", (2 * (W + 4) + 4, 2 * (H + 4) + 4), (11, 15, 20))
+        for i, key in enumerate(keys[:4]):
+            r, c = divmod(i, 2)
+            sheet.paste(Image.open(os.path.join(OUT, f"board-{key}.webp")).convert("RGB"), (4 + c * (W + 4), 4 + r * (H + 4)))
+        sheet.save(os.path.join(HERE, "preview_nov13_new.png"))
+        return
     os.makedirs(OUT, exist_ok=True)
     cols = 3
     sheet = Image.new("RGB", (cols * (W + 4) + 4, ((len(BOARDS) + cols - 1) // cols) * (H + 4) + 4), (11, 15, 20))

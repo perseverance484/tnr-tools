@@ -133,3 +133,18 @@ very expensive (Cyclone Palm Strike level 19 quoted 1,949,575 ryo for one level;
 | 2026-11-13 17:22 | Earth Armor | 14 | 106,628 | queued (queue had 3 waiting; now Mental Fortress 14, Divine Pulse 14, Raijin 14, Earth Armor 14; ends ~21:23). First Chakra Gate 14 refused, queue full. Pocket 8.53M, no withdrawal. 4,550 energy to willpower (+549.86, intelligence had passed willpower); asleep in 177 |
 | 2026-11-13 18:23 | bank.toPocket 10,000,000 | | | pocket was 150,000 (down from 8.53M at 17:22; spent or moved outside this log), now 10,150,000 |
 | 2026-11-13 18:24 | First Chakra Gate | 14 | 106,628 | queued (queue had 3 waiting; now Divine Pulse 14, Raijin 14, Earth Armor 14, FCG 14; ends ~22:23). Ryūsa Kōka 14 refused, queue full. Pocket 10.04M. 4,550 energy to willpower (+782.95, intelligence had passed willpower); asleep in 177 |
+| 2026-11-13 19:23 | none | | 0 | not refilled: run lock held by an active content session ("598 Deck Warden Seven Planks back on", heartbeat 19:20, ~58 min left), so no live calls were made. Last known queue (18:24 log) ends ~22:23. No ryo, energy or sleep change |
+| 2026-11-13 20:25 | bank.toPocket 10,000,000 | | | pocket was 150,616 (down again from 10.04M at 18:24; spent or moved outside this log), now 10,150,616 |
+| 2026-11-13 20:26 | Ryūsa Kōka | 14 | 183,874 | queued |
+| 2026-11-13 20:26 | Ethereal Nexus | 14 | 396,747 | queued |
+| 2026-11-13 20:26 | Limit Breaker | 15 | 265,905 | queued (queue had 1 waiting; active Earth Armor 14 ends ~21:23; waiting FCG 14, Ryūsa Kōka 14, Ethereal Nexus 14, Limit Breaker 15; ends ~01:23). Pocket 9.30M. 4,550 energy to willpower (+549.86, intelligence had passed willpower); asleep in 177 |
+| 2026-11-13 21:22 | none | | 0 | not refilled: run lock held by an active content session ("moe-fixes-1-3+hand-rerun", claimed 21:21, ~59 min left), so no live calls were made. Last known queue (20:26 log) ends ~01:23. No ryo, energy or sleep change |
+| 2026-11-13 22:22 | none | | 0 | not refilled: run lock held by an active content session ("push/607_moe_etching_swap.json", ~20 min left), so no live calls were made. Last known queue (20:26 log) ends ~01:23. No ryo, energy or sleep change |
+| 2026-11-13 23:22 | none | | 0 | not refilled: run lock held by release-thread ("Skyglass Nov 13 hidden prep + flips", claimed 22:34, ~72 min left), so no live calls were made. Last known queue (20:26 log) ends ~01:23. No ryo, energy or sleep change |
+| 2026-11-14 00:24 | bank.toPocket 10,000,000 | | | pocket was 150,965, now 10,150,965 |
+| 2026-11-14 00:24 | Raijin's Judgement | 15 | 151,673 | queued |
+| 2026-11-14 00:24 | Earth Armor | 15 | 151,673 | queued |
+| 2026-11-14 00:24 | First Chakra Gate | 15 | 151,673 | queued |
+| 2026-11-14 00:25 | Mental Fortress | 15 | 265,905 | queued (active Limit Breaker 15 ends ~01:23; waiting Raijin 15, Earth Armor 15, FCG 15, Mental Fortress 15; ends ~05:23). Pocket 9.43M. Character was already AWAKE in sector 222 (not home, not in battle) when the run started, right after release-thread's "sweep + dauntless sleep" lock released: no stat training, not put to sleep; 5,050 energy unspent. Director notified |
+| 2026-11-14 01:23 | bank.toPocket 10,000,000 | | | pocket was 152,212 (down from 9.43M at 00:25; spent or moved outside this log), now 10,152,212 |
+| 2026-11-14 01:23 | none | | 0 | queue already full (active Limit Breaker 15 ending; waiting Raijin 15, Earth Armor 15, FCG 15, Mental Fortress 15; ends ~05:23). Character AWAKE in sector 210 (not home, not in battle): no stat training, not put to sleep; 5,050 energy unspent |

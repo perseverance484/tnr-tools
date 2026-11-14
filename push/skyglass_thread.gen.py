@@ -66,20 +66,28 @@ TOPICS = [
     ("x_chests", "chests", ["x_supplies"]), ("x_supplies", "supplies", ["x_craft"]), ("x_craft", "craft", "END"),
     ("p_seals", "seals", ["p_rot"]), ("p_rot", "rot", ["p_lantern"]), ("p_lantern", "lantern", "END"),
     ("h_haul", "haul", "END"),
-    ("t_salvage", "trade", ["t_prices"]), ("t_prices", "trade", "END"),  # salvage (director 2026-11-09 15:58)
+    # Nov 13 (director approved 20:21Z): the Mender and the revived shards topic; board placeholders here are replaced by
+    # push/skyglass_visuals.py (v2/v3 boards) at the edit. A trailing "+END" adds Ask something else and the ending.
+    ("m_mender", "trade", ["m_hold"]), ("m_hold", "trade", "END"),
+    ("s_four", "trade", ["s_below"]), ("s_below", "trade", "END"),
+    ("t_salvage", "trade", ["t_earn", "t_deck", "t_how", "t_work"]),
+    ("t_earn", "trade", ["t_deck", "+END"]), ("t_deck", "trade", ["t_hold"]), ("t_hold", "trade", ["t_dear"]),
+    ("t_dear", "trade", ["t_how", "+END"]), ("t_how", "trade", "END"), ("t_work", "trade", "END"),
     ("t_trade", "trade", ["t_token"]), ("t_token", "token", "END"),
     ("w_board", "logboard", ["w_orders"]), ("w_orders", "orders", "END"),
 ]
-MENU_TOPICS = ["a_threes", "c_once", "x_chests", "p_seals", "h_haul", "t_salvage", "t_trade", "w_board"]  # in menu-choice order
+MENU_TOPICS = ["a_threes", "c_once", "x_chests", "p_seals", "h_haul", "m_mender", "s_four", "t_salvage", "t_trade", "w_board"]  # in menu-choice order
 
 # The pose each scene wants (docs/handoffs/SKYGLASS_ART_PROMPTS.md section 11). Until a pose's scene-character id is
 # added to POSE_IDS, its scenes fall back to PT01, so adding a pose later is a one-line change and a quest edit.
-POSE_IDS = {"PT01": SALVAGER}
+POSE_IDS = {"PT01": SALVAGER, "PT02": "JIGXen2b2Z1-FK44RSVMO", "PT03": "HfHafDRKp2h_gm_pv87m6", "PT04": "xY9N_r7ywtUWp9TIBJfSW",
+            "PT05": "gG8Ez235q6MTuOtXoewYg", "PT06": "FcKwVdP0NxQyjhYuMQi8i", "PT07": "7hheStqNV0F5iO6z8srrl"}  # created hidden 2026-11-13 (director's painted poses)
 SCENE_POSE = {
     "d_open": "PT06", "d_menu": "PT02", "a_threes": "PT03", "a_hulls": "PT02", "a_drift": "PT01", "a_loot": "PT01", "c_once": "PT01",
     "c_ladder": "PT02", "c_pick": "PT01", "x_chests": "PT02", "x_supplies": "PT05", "x_craft": "PT02", "p_seals": "PT02", "p_rot": "PT01", "p_lantern": "PT04", "h_haul": "PT02",
-    "s_four": "PT05", "s_below": "PT04", "t_salvage": "PT07", "t_prices": "PT07", "t_trade": "PT07", "t_token": "PT07", "w_board": "PT02", "w_orders": "PT02",
-    "z_chart": "PT01", "z_bye": "PT07", "r_menu": "PT02",
+    "s_four": "PT05", "s_below": "PT04", "t_salvage": "PT07", "t_earn": "PT07", "t_deck": "PT02", "t_hold": "PT02", "t_dear": "PT07", "t_how": "PT06", "t_work": "PT06",
+    "m_mender": "PT02", "m_hold": "PT01", "t_trade": "PT07", "t_token": "PT07", "w_board": "PT02", "w_orders": "PT02",
+    "z_chart": "PT01", "z_bye": "PT06", "r_menu": "PT02",
 }
 
 
@@ -119,9 +127,11 @@ def objectives(which):
             assert T.choices(target) == [], node
             ch = [(back, "r_menu"), (ready, spec["end"])]
         else:
+            more = nexts[-1] == "+END"
+            nx = nexts[:-1] if more else nexts
             texts = T.choices(target)
-            assert len(texts) == len(nexts), (node, texts)
-            ch = list(zip(texts, nexts))
+            assert len(texts) == len(nx), (node, texts)
+            ch = list(zip(texts, nx)) + ([(back, "r_menu"), (ready, spec["end"])] if more else [])
         out.append(dialog(node, board, T.block(target), ch))
     out.append({"id": "r_menu", "task": "reset_quest", "description": "Back to the fire.", "resetObjectiveId": "d_menu",
                 "sceneBackground": scene("menu"), "sceneCharacters": [pose("r_menu")]})
@@ -315,7 +325,7 @@ def golive(bundle_paths, live_path):
 # At release Wreck Sighted moves to the salvager's one overworld NPC (director 2026-11-09 15:58). The Fire stays an
 # Administration Building event so the no-reward repeat costs no daily NPC roll (director 2026-11-09 19:57); it only
 # gains Wreck Sighted as its prerequisite at release, so staff can keep playtesting it hidden until then.
-FIRE_GOLIVE = {"questType": "event", "prerequisiteQuestId": WRECK_SIGHTED_ID}
+FIRE_GOLIVE = {"questType": "event", "prerequisiteQuestId": None}  # no key (director Nov 13 20:12Z)
 
 
 def fire_text(bundle_paths, num=544):
