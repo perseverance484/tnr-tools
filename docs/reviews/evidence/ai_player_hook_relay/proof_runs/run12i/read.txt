@@ -1,0 +1,27 @@
+session: {'model': 'claude-haiku-5-5', 'tools': ['Bash', 'mcp__Tnr__callEndpoint'], 'mcp': [{'name': 'Tnr', 'status': 'connected', 'source': 'dynamic'}], 'permission mode': 'default'}
+requests of the model: 24 | read from the cache, written to it, at each: [(7738, 0), (7738, 166), (7904, 464), (8368, 464), (8832, 582), (9414, 1069), (10483, 829), (11312, 1420), (12732, 638), (13370, 1084), (14454, 714), (15168, 1420), (16588, 500), (17088, 738), (17826, 139), (17965, 245), (18210, 514), (18724, 1077), (19801, 470), (20271, 903), (21174, 444), (21618, 371), (21989, 629), (22618, 152)]
+tool calls in one message of the model: {'next': 12, 'call': 2, 'call + call + call + call': 2, 'call + call + call + call + call': 2, 'call + call + call': 2, 'call + call': 2, 'next + call': 1}
+connector calls the model wrote: 31 | not a stand-in: [{'endpointName': 'profile.getUser', 'input': {}, 'select': ['userData.status', 'userData.battleId', 'userData.curHealth', 'userData.maxHealth', 'userData.sector', 'userData.longitude', 'userData.latitude', 'userData.curChakra', 'userData.maxChakra', 'userData.curStamina', 'userData.maxStamina', 'userData.money', 'userData.bank', 'userData.curEnergy', 'userData.intelligence', 'userData.willpower', 'userData.dailyErrands', 'userData.earnedExperience']}, {'endpointName': 'profile.getUser', 'input': {}, 'select': ['userData.status', 'userData.battleId', 'userData.curHealth', 'userData.maxHealth', 'userData.sector', 'userData.longitude', 'userData.latitude', 'userData.curChakra', 'userData.maxChakra', 'userData.curStamina', 'userData.maxStamina', 'userData.money', 'userData.bank', 'userData.curEnergy', 'userData.intelligence', 'userData.willpower', 'userData.dailyErrands', 'userData.earnedExperience']}, {'endpointName': 'travel.getSectorData', 'input': {'sector': 1538}, 'select': ['users.*.userId', 'users.*.username', 'users.*.longitude', 'users.*.latitude', 'users.*.status', 'users.*.level', 'users.*.villageId', 'users.*.immunityUntil', 'users.*.battleId']}] | what it was shown: {'other: {"userData.status": "AWAKE", "userData.battleId": null, "userData.curHealth": 5050, "userData.maxHealth": 5050, "userData.sector": 1538, "userData.longitude": 1': 8, 'other: {"success": true}': 22, 'other: {"userData.status": "ASLEEP", "userData.battleId": null, "userData.curHealth": 5050, "userData.maxHealth": 5050, "userData.sector": 1538, "userData.longitude": ': 1}
+commands the model ran: 13 | not `brain next`: ["python3 -c 'import time; time.sleep(21.3)'", "python3 -c 'import time; time.sleep(1.1)'"]
+hooks: {}
+how long Claude Code says each hook ran, ms: {}
+the stand-in: {'connected': 1, 'calls': 31, 'answered': 31, 'failed': 0}
+endpoints: {'profile.getUser': 9, 'travel.getSectorData': 7, 'stealth.useSensory': 3, 'profile.getStrongestUsers': 1, 'travel.startGlobalMove': 4, 'travel.finishGlobalMove': 4, 'combat.getBattleHistory': 3}
+two calls out at once: 0 times | shortest time from one answer to the next call: 0.22 s
+batches in the token log: 10
+   {'seq': 0, 'in': 7906, 'cached': 7738, 'written': 166, 'out': 236, 'context': 7906, 'hooks': False, 'note': ''}
+   {'seq': 1, 'in': 17204, 'cached': 16272, 'written': 928, 'out': 432, 'context': 8834, 'hooks': False, 'note': 'start'}
+   {'seq': 2, 'in': 19901, 'cached': 18246, 'written': 1651, 'out': 927, 'context': 10485, 'hooks': False, 'note': 'AWAKE hunt 5050/5050 HP @ 1538 (10, 10): scanning'}
+   {'seq': 3, 'in': 24048, 'cached': 21795, 'written': 2249, 'out': 1120, 'context': 12734, 'hooks': False, 'note': 'AWAKE hunt 5050/5050 HP @ 1538 (10, 10): nobody to fight her'}
+   {'seq': 4, 'in': 27828, 'cached': 26102, 'written': 1722, 'out': 870, 'context': 14456, 'hooks': False, 'note': 'AWAKE hunt 5050/5050 HP @ 1538 (10, 10): scanning'}
+   {'seq': 5, 'in': 31760, 'cached': 29622, 'written': 2134, 'out': 1120, 'context': 16590, 'hooks': False, 'note': 'AWAKE hunt 5050/5050 HP @ 1538 (10, 10): nobody to fight her'}
+   {'seq': 6, 'in': 71097, 'cached': 69467, 'written': 1622, 'out': 875, 'context': 18212, 'hooks': False, 'note': 'AWAKE hunt 5050/5050 HP @ 1538 (10, 10): scanning (paced 21.'}
+   {'seq': 7, 'in': 38529, 'cached': 36934, 'written': 1591, 'out': 820, 'context': 19803, 'hooks': False, 'note': 'AWAKE hunt 5050/5050 HP @ 1538 (10, 10): nobody to fight her'}
+   {'seq': 8, 'in': 41449, 'cached': 40072, 'written': 1373, 'out': 689, 'context': 21176, 'hooks': False, 'note': 'AWAKE hunt 5050/5050 HP @ 1538 (10, 10): scanning'}
+   {'seq': 9, 'in': 66231, 'cached': 64781, 'written': 1444, 'out': 724, 'context': 22620, 'hooks': False, 'note': 'session ending: going home (177) (paced 1.1s)'}
+the brain's events: {'setting_changed': 3, 'activity_done': 2}
+the session ended: {'subtype': 'success', 'is_error': False, 'num_turns': 45, 'duration_ms': 95865, 'total_cost_usd': 0.01058955}
+  its last words: STOP session ended by the director: asleep at home
+  its use, all requests: {'input_tokens': 48, 'cache_creation_input_tokens': 15032, 'cache_read_input_tokens': 361385, 'output_tokens': 7929}
+left in live/hook: [] | in the inbox: []
+client.json: {'hooks': None, 'token': '25063e-10', 'held': None, 'gone': [], 'ended': [], 'seen': None}

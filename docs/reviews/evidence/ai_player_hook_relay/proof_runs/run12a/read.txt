@@ -1,0 +1,23 @@
+session: {'model': 'claude-haiku-5-5', 'tools': ['Bash', 'mcp__Tnr__callEndpoint'], 'mcp': [{'name': 'Tnr', 'status': 'connected', 'source': 'dynamic'}], 'permission mode': 'default'}
+requests of the model: 9 | read from the cache, written to it, at each: [(7738, 0), (7738, 166), (7904, 334), (8238, 464), (8702, 586), (9288, 1069), (10357, 907), (11264, 173), (11437, 156)]
+tool calls in one message of the model: {'next': 5, 'call': 2, 'call + call + call + call': 1}
+connector calls the model wrote: 6 | not a stand-in: [{'endpointName': 'profile.getUser', 'input': {}, 'select': ['userData.status', 'userData.battleId', 'userData.curHealth', 'userData.maxHealth', 'userData.sector', 'userData.longitude', 'userData.latitude', 'userData.curChakra', 'userData.maxChakra', 'userData.curStamina', 'userData.maxStamina', 'userData.money', 'userData.bank', 'userData.curEnergy', 'userData.intelligence', 'userData.willpower', 'userData.dailyErrands', 'userData.earnedExperience']}, {'endpointName': 'profile.getUser', 'input': {}, 'select': ['userData.status', 'userData.battleId', 'userData.curHealth', 'userData.maxHealth', 'userData.sector', 'userData.longitude', 'userData.latitude', 'userData.curChakra', 'userData.maxChakra', 'userData.curStamina', 'userData.maxStamina', 'userData.money', 'userData.bank', 'userData.curEnergy', 'userData.intelligence', 'userData.willpower', 'userData.dailyErrands', 'userData.earnedExperience']}, {'endpointName': 'travel.getSectorData', 'input': {'sector': 1538}, 'select': ['users.*.userId', 'users.*.username', 'users.*.longitude', 'users.*.latitude', 'users.*.status', 'users.*.level', 'users.*.villageId', 'users.*.immunityUntil', 'users.*.battleId']}] | what it was shown: {'other: {"userData.status": "AWAKE", "userData.battleId": null, "userData.curHealth": 5050, "userData.maxHealth": 5050, "userData.sector": 1538, "userData.longitude": 1': 2, 'other: {"success": true}': 4}
+commands the model ran: 5 | not `brain next`: []
+hooks: {}
+how long Claude Code says each hook ran, ms: {}
+the stand-in: {'connected': 1, 'calls': 6, 'answered': 6, 'failed': 0}
+endpoints: {'profile.getUser': 2, 'travel.getSectorData': 1, 'stealth.useSensory': 1, 'profile.getStrongestUsers': 1, 'travel.startGlobalMove': 1}
+two calls out at once: 0 times | shortest time from one answer to the next call: 0.27 s
+batches in the token log: 3
+   {'seq': 0, 'in': 7906, 'cached': 7738, 'written': 166, 'out': 106, 'context': 7906, 'hooks': False, 'note': ''}
+   {'seq': 1, 'in': 16944, 'cached': 16142, 'written': 798, 'out': 436, 'context': 8704, 'hooks': False, 'note': 'start'}
+   {'seq': 2, 'in': 19649, 'cached': 17990, 'written': 1655, 'out': 1005, 'context': 10359, 'hooks': False, 'note': 'AWAKE hunt 5050/5050 HP @ 1538 (10, 10): scanning'}
+the brain's events: {'setting_changed': 2}
+the session ended: {'subtype': 'success', 'is_error': False, 'num_turns': 12, 'duration_ms': 23044, 'total_cost_usd': 0.00299696}
+  its last words: I've stopped the loop because I made a mistake in the last batch and can't tell yet whether it changed the program's state.
+
+What went wrong:
+- In batch `727df1-2` I was supposed to send all of its calls in one message. I sent only `travel.startGlobalMove` and did not send the other four: `travel.fi
+  its use, all requests: {'input_tokens': 18, 'cache_creation_input_tokens': 3855, 'cache_read_input_tokens': 82666, 'output_tokens': 2795}
+left in live/hook: [] | in the inbox: []
+client.json: {'hooks': None, 'token': '727df1-3', 'held': {'token': '727df1-3', 'id': '0b1f0ad6'}, 'gone': [], 'ended': [], 'seen': None}

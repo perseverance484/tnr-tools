@@ -6,6 +6,9 @@
 --table: one line a run. "plan" is the count the estimate uses (estimate.py), in fresh input tokens of the
 relay's model: 0.1 x read from the cache + 1.25 x written to it + fresh input + 5 x output, over the whole
 session, from the use Claude Code reports at its end.
+"the relay's batch, by the brain's token log" is the same count from live/tokens.jsonl: the relay's requests
+alone, without its last one. Where the relay is a subagent it is the figure to read: the session's own use is
+its main agent's.
 """
 import json
 import os
@@ -142,6 +145,10 @@ def line(out):
             "read": use.get("cache_read_input_tokens"), "written": use.get("cache_creation_input_tokens"),
             "output": use.get("output_tokens"), "plan": round(plan) if plan else None,
             "a batch": round(plan / len(tokens)) if plan and tokens else None,
+            "the relay's batch, by the brain's token log": round(sum(
+                0.1 * t.get("cached", 0) + 1.25 * t.get("written", 0) + (t["in"] - t.get("cached", 0) - t.get("written", 0))
+                + 5 * t["out"] for t in tokens) / len(tokens)) if tokens else None,
+            "born with": tokens[0].get("context") if tokens else None,
             "context at the end": tokens[-1].get("context") if tokens else None, "end": str(end.get("result"))[:60]}
 
 

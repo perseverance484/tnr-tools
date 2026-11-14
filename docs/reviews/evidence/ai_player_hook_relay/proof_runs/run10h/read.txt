@@ -1,0 +1,19 @@
+session: {'model': 'claude-haiku-5-5', 'tools': ['Bash', 'mcp__Tnr__callEndpoint'], 'mcp': [{'name': 'Tnr', 'status': 'connected', 'source': 'dynamic'}], 'permission mode': 'default'}
+requests of the model: 6 | read from the cache, written to it, at each: [(7738, 0), (7738, 169), (7907, 379), (8286, 464), (8750, 491), (9241, 578)]
+tool calls in one message of the model: {'next': 4, 'call': 1}
+connector calls the model wrote: 1 | not a stand-in: [{'endpointName': 'profile.getUser', 'input': {}, 'select': ['userData.status', 'userData.battleId', 'userData.curHealth', 'userData.maxHealth', 'userData.sector', 'userData.longitude', 'userData.latitude', 'userData.curChakra', 'userData.maxChakra', 'userData.curStamina', 'userData.maxStamina', 'userData.money', 'userData.bank', 'userData.curEnergy', 'userData.intelligence', 'userData.willpower', 'userData.dailyErrands', 'userData.earnedExperience']}] | what it was shown: {'other: {"userData.status": "AWAKE", "userData.battleId": null, "userData.curHealth": 5050, "userData.maxHealth": 5050, "userData.sector": 1538, "userData.longitude": 1': 1}
+commands the model ran: 4 | not `brain next`: ['python3 -m player.brain put e2d83a-1 1 <<\'TNR_RESULT\'\n{"userData.status": "AWAKE", "userData.battleId": null, "userData.curHealth": 5050, "userData.maxHealth": 5050, "userData.sector": 1538, "userData.longitude": 10, "userData.latitude": 10, "userData.curChakra": 100, "userData.maxChakra": 100, "userData.curStamina": 100, "userData.maxStamina": 100, "userData.money": 150000, "userData.bank": 50000000, "userData.curEnergy": 0}\nTNR_RESULT', 'python3 -m player.brain put e2d83a-1 1 <<\'TNR_RESULT\'\n{"userData.status": "AWAKE", "userData.battleId": null, "userData.curHealth": 5050, "userData.maxHealth": 5050, "userData.sector": 1538, "userData.longitude": 10, "userData.latitude": 10, "userData.curChakra": 100, "userData.maxChakra": 100, "userData.curStamina": 100, "userData.maxStamina": 100, "userData.money": 150000, "userData.bank": 50000000, "userData.curEnergy": 0}\nTNR_RESULT']
+hooks: {}
+how long Claude Code says each hook ran, ms: {}
+the stand-in: {'connected': 1, 'calls': 1, 'answered': 1, 'failed': 0}
+endpoints: {'profile.getUser': 1}
+two calls out at once: 0 times | shortest time from one answer to the next call: None s
+batches in the token log: 0
+the brain's events: {'setting_changed': 2}
+the session ended: {'subtype': 'success', 'is_error': False, 'num_turns': 6, 'duration_ms': 12266, 'total_cost_usd': 0.0019515000000000001}
+  its last words: I've stopped the relay. The `put` hand-in for batch `e2d83a-1` was blocked twice by the shell's safety check ("Contains brace with quote character (expansion obfuscation)"), so the program never got the `profile.getUser` result.
+
+- **Done:** I ran `python3 -m player.brain next` and then the batch's
+  its use, all requests: {'input_tokens': 12, 'cache_creation_input_tokens': 2081, 'cache_read_input_tokens': 49660, 'output_tokens': 2075}
+left in live/hook: [] | in the inbox: []
+client.json: {'hooks': None, 'token': 'e2d83a-1', 'held': {'token': 'e2d83a-1', 'id': '114029d5'}, 'gone': [], 'ended': [], 'seen': None}

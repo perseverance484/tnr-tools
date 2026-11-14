@@ -27,6 +27,11 @@ of Haiku by the plan's count, and Claude Code reports $0.20 for them at the API'
 
 Low effort (RUL-2026-11-14-159, point 3) made no difference that can be measured. It is below.
 
+The director has since answered the three decisions this left (RUL-2026-11-14-160). What was done about them,
+and what 50 more sessions found, is the last part of this note, "After the director's word": the wording that
+was put into the relay's prompt, the relay as a subagent, a relay without hooks, and the check for the
+operator's machine.
+
 ## The agent file's own hooks, and trust
 
 Run 0 used the agent file as it is (`--agent tnr-relay`, hooks from its front matter). Claude Code's debug log:
@@ -230,8 +235,8 @@ agent file:
 With it, 9 sessions of 9 wrote every batch in one message. Run side by side with them, 4 of 8 sessions
 without it did. No session with the rule copied a line wrong or sent anything it should not.
 
-The agent file is reviewed code, so I have not changed it. It is a one-line change to put to review if the
-director wants it.
+The agent file is reviewed code, so I did not change it then. The director has since said to
+(RUL-2026-11-14-160, point 2): see "After the director's word".
 
 ## Low effort
 
@@ -248,7 +253,7 @@ yes "if the saving is high". It is not, so I would leave it unset. It is his to 
 
 ## What the proof does not show
 
-- The agent file's own hooks in a trusted folder (above): one session on the operator's machine.
+- The agent file's own hooks in a trusted folder (above): `preflight.py` on the operator's machine.
 - The real connector: how long its calls take and how it fails.
 - A fight, and the count of calls in its batches.
 - A Claude Code that starts the tool calls of a message together. This one does not. The hooks' ordering
@@ -272,3 +277,86 @@ python3 docs/reviews/evidence/ai_player_hook_relay/proof_read.py OUT
 3, 5b, 5g and 5h also the stand-in's log (`game.jsonl`), the hooks' log (`hook_log.jsonl`), the brain's token
 log and events, and the hooks as they were given. This session's own paths are taken out. Claude Code's
 streams and debug logs are not kept; the lines quoted here are from them.
+
+## After the director's word
+
+RUL-2026-11-14-160: the trust check before the live gate, the one-message rule before it, low effort unset.
+50 more sessions, against the stand-in as before; no request of the game. `proof_runs/table2.jsonl` has them;
+runs 9 to 14.
+
+### The wording that went into the prompt
+
+`fable/ai-player-hook-relay` @ 995625fe changes one sentence of step 2 of `player/RELAY.md` (and the agent
+file, which is that prompt):
+
+> The last line is always the next `brain next`. Run it exactly as printed, in that same message: never wait
+> for the results of the calls first.
+
+It is in the step, not under Rules as the wording tried above was, so that the section on a batch with `put`
+lines, which comes after and says "one line at a time, not in one message", reads as the exception it is.
+
+With it, every session with hooks wrote every batch in one message: 23 of 23 (runs 10a to 10f with the prompt
+given to the kit; 11a to 11j with the files as committed; 13a to 13c and 13e to 13h as a subagent). No line
+was copied wrong. A relay that is printed `put` lines still did them one at a time, call then `put`, in 3
+sessions of 3 (10g to 10i), as it did before (9b to 9d).
+
+### The relay as a subagent
+
+Every session above ran the relay as its session's main agent. A session that is doing other work starts it
+with the Agent tool, as a subagent. Runs 13a to 13h did that (`--as-subagent`):
+
+| | As the main agent | As a subagent |
+|---|---|---|
+| The hooks ran for every call | yes | yes: given as the agent's own (13a to 13c), and as settings beside the agent file (13e, 13f) |
+| The agent file's hooks, folder not trusted | skipped, nothing sent (run 0) | skipped, nothing sent (13d) |
+| Who the hooks take the relay for | the session's id | the subagent's id |
+| A large result, a failed call (13g) | as above | the same |
+| A hook before a call that ends with 1 (13h) | blocked | blocked |
+| The conversation it is born with | 7,900 tokens | 4,090 |
+| A batch, by the brain's token log | 3,890 to 4,100 | 3,500 to 3,630 |
+
+The difference at birth is the repository's `CLAUDE.md`. The agent file says `omitClaudeMd: true`. Claude Code
+leaves the file out for a subagent and not for a main agent: a main-agent relay had `CLAUDE.md` in front of
+it in every session here (it is in its transcript, and one quoted it; below). So a subagent is the cheaper
+relay by about a tenth, and the one that reads nothing but its own prompt.
+
+### A relay without hooks
+
+Not the relay that is to be played. It is what the brain falls back to when no hook runs: it prints the
+calls themselves and reads the results in the relay's transcript. 17 sessions (9a, 10j, 10k, 11k, 11l, 12a to
+12l), started with the two tools allowed on the command line.
+
+- **It stopped itself in 7 sessions of 17**, within five batches. In 4 it made one call of a batch of five,
+  ran `brain next`, saw what it had done and stopped. In 3 it read the calls it was carrying, took
+  `combat.getBattleHistory` of another player for "other players' data" under `CLAUDE.md` section 6, and
+  refused to go on. The old wording and the new did the same: 3 of 6 each, side by side (runs 12).
+- **No relay with hooks stopped itself**, in 58 sessions that ran to their end. It is printed five stand-ins
+  where the other is printed five calls with their fields, and it has nothing to judge.
+- **Its calls were counted twice.** Fixed at f4d042d0 (`fable/ai-player-hook-relay`). With a debug file this
+  Claude Code keeps beside each message a copy of what it sent the API, tool calls and all; the brain's
+  reader took a tool call from any row, so every batch had as many "calls the batch did not ask for" as it
+  had calls, and the call budget was charged for them (9a: seven findings in eight batches). After the fix:
+  none (11k, 12a to 12l).
+- **The `put` fallback cannot run with nobody to ask.** Where the brain finds no transcript it asks for each
+  result by a `put` line. Claude Code's permission check does not pass that command by a rule ("Contains
+  brace with quote character"); it asks each time (9b to 9d, 10g to 10i).
+
+So a relay whose hooks are not running is not merely dearer on this Claude Code: it is not reliable. That is
+what makes the next check a condition of the live session and not a courtesy.
+
+### The check for the operator's machine
+
+`preflight.py`, beside this file. It starts the agent file as it is, as a main agent and as a subagent,
+against the stand-in, and says for each whether the file's hooks ran. Its own text says what keeps it from
+the game. In short: one MCP server and no other; a session that can call nothing is asked what it has before
+any relay is started (the stand-in has one tool, the game's connector several, so a connector under the
+stand-in's name would show); a relay's session is ended if its first event lists anything else, or if a call
+a hook released is not in the stand-in's log within two seconds (tried: run 14c, ended after one call); and
+the brain behind it guards, so nothing but a read of my own profile is ever released (run 14b).
+
+Here, where nobody can accept the dialog, it says so for both forms and ends with 1. With the hooks supplied
+on the command line, to try the check itself, both forms pass (`proof_runs/pf1`, `pf2`).
+
+### What is still not shown
+
+The agent file's hooks in a trusted folder, which is what `preflight.py` is for; the real connector; a fight.

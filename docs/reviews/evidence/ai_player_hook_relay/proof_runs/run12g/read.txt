@@ -1,0 +1,24 @@
+session: {'model': 'claude-haiku-5-5', 'tools': ['Bash', 'mcp__Tnr__callEndpoint'], 'mcp': [{'name': 'Tnr', 'status': 'connected', 'source': 'dynamic'}], 'permission mode': 'default'}
+requests of the model: 11 | read from the cache, written to it, at each: [(7738, 0), (7738, 166), (7904, 448), (8352, 464), (8816, 589), (9405, 1069), (10474, 803), (11277, 1420), (12697, 645), (13342, 1084), (14426, 721)]
+tool calls in one message of the model: {'next': 6, 'call': 1, 'call + call + call + call': 1, 'call + call + call + call + call': 1, 'call + call + call': 1}
+connector calls the model wrote: 13 | not a stand-in: [{'endpointName': 'profile.getUser', 'input': {}, 'select': ['userData.status', 'userData.battleId', 'userData.curHealth', 'userData.maxHealth', 'userData.sector', 'userData.longitude', 'userData.latitude', 'userData.curChakra', 'userData.maxChakra', 'userData.curStamina', 'userData.maxStamina', 'userData.money', 'userData.bank', 'userData.curEnergy', 'userData.intelligence', 'userData.willpower', 'userData.dailyErrands', 'userData.earnedExperience']}, {'endpointName': 'profile.getUser', 'input': {}, 'select': ['userData.status', 'userData.battleId', 'userData.curHealth', 'userData.maxHealth', 'userData.sector', 'userData.longitude', 'userData.latitude', 'userData.curChakra', 'userData.maxChakra', 'userData.curStamina', 'userData.maxStamina', 'userData.money', 'userData.bank', 'userData.curEnergy', 'userData.intelligence', 'userData.willpower', 'userData.dailyErrands', 'userData.earnedExperience']}, {'endpointName': 'travel.getSectorData', 'input': {'sector': 1538}, 'select': ['users.*.userId', 'users.*.username', 'users.*.longitude', 'users.*.latitude', 'users.*.status', 'users.*.level', 'users.*.villageId', 'users.*.immunityUntil', 'users.*.battleId']}] | what it was shown: {'other: {"userData.status": "AWAKE", "userData.battleId": null, "userData.curHealth": 5050, "userData.maxHealth": 5050, "userData.sector": 1538, "userData.longitude": 1': 4, 'other: {"success": true}': 9}
+commands the model ran: 6 | not `brain next`: []
+hooks: {}
+how long Claude Code says each hook ran, ms: {}
+the stand-in: {'connected': 1, 'calls': 13, 'answered': 13, 'failed': 0}
+endpoints: {'profile.getUser': 4, 'travel.getSectorData': 3, 'stealth.useSensory': 1, 'profile.getStrongestUsers': 1, 'travel.startGlobalMove': 1, 'travel.finishGlobalMove': 1, 'combat.getBattleHistory': 2}
+two calls out at once: 0 times | shortest time from one answer to the next call: 0.24 s
+batches in the token log: 5
+   {'seq': 0, 'in': 7906, 'cached': 7738, 'written': 166, 'out': 220, 'context': 7906, 'hooks': False, 'note': ''}
+   {'seq': 1, 'in': 17172, 'cached': 16256, 'written': 912, 'out': 439, 'context': 8818, 'hooks': False, 'note': 'start'}
+   {'seq': 2, 'in': 19883, 'cached': 18221, 'written': 1658, 'out': 901, 'context': 10476, 'hooks': False, 'note': 'AWAKE hunt 5050/5050 HP @ 1538 (10, 10): scanning'}
+   {'seq': 3, 'in': 23978, 'cached': 21751, 'written': 2223, 'out': 1127, 'context': 12699, 'hooks': False, 'note': 'AWAKE hunt 5050/5050 HP @ 1538 (10, 10): nobody to fight her'}
+   {'seq': 4, 'in': 27772, 'cached': 26039, 'written': 1729, 'out': 877, 'context': 14428, 'hooks': False, 'note': 'AWAKE hunt 5050/5050 HP @ 1538 (10, 10): scanning'}
+the brain's events: {'setting_changed': 2}
+the session ended: {'subtype': 'success', 'is_error': False, 'num_turns': 20, 'duration_ms': 36446, 'total_cost_usd': 0.00486369}
+  its last words: I'm stopping the relay here, before running the batch that `adbaff-4` returned.
+
+The last few batches have included `combat.getBattleHistory` calls for user IDs other than the session's own account (`user_2ZF2ZQ22MXTO6c62fnmT0bU9kJ2` and `user_2bhsLVJ1naaEoofxoGLh9OQjSoP`). `CLAUDE.md` §6 bars the c
+  its use, all requests: {'input_tokens': 22, 'cache_creation_input_tokens': 7409, 'cache_read_input_tokens': 112169, 'output_tokens': 4516}
+left in live/hook: [] | in the inbox: []
+client.json: {'hooks': None, 'token': 'adbaff-5', 'held': {'token': 'adbaff-5', 'id': '9da2bfa4'}, 'gone': [], 'ended': [], 'seen': None}

@@ -109,11 +109,18 @@ RUL-2026-11-13-157).
   repository's root, in a folder whose trust dialog you have accepted: until then Claude Code runs the agent
   and skips its hooks. If the connector's tool has another name there than `mcp__Tnr__callEndpoint`, put that
   name on the agent's `tools:` line.
+- **Then check it, before a live session** (RUL-2026-11-14-160). From the repository's root on that machine:
+  `python3 docs/reviews/evidence/ai_player_hook_relay/preflight.py`. It starts the relay against a stand-in for
+  the connector, once as a session's main agent and once as a subagent, and makes no request of the game. It
+  says for each whether the agent file's hooks ran, and ends with 0 when they did. Do not start a live session
+  while it says no.
 - **Which kind a relay is.** `live/client.json`, `hooks`: the relay's id, or nothing. `live/tokens.jsonl`,
   `hooks`: true for a batch such a relay carried; `cached` and `written` there are what the plan counts by.
   `live/hook/log.jsonl`: every hook that ran, and why a call was refused or a result was not handed in.
 - **A relay without hooks plays as before**, and costs what it did. That is what you get when the hooks do
-  not run at all: the brain is not told otherwise, and prints the calls themselves.
+  not run at all: the brain is not told otherwise, and prints the calls themselves. Do not rely on it: on
+  Claude Code 2.1.325 such a relay stopped itself in 7 sessions of 17 against the stand-in
+  (`docs/reviews/evidence/ai_player_hook_relay/PROOF.md`, "A relay without hooks").
 - **`STOP the relay's hooks are not running`.** The relay's `brain next` came through its hook, so it was
   printed stand-ins; but no hook ran in front of its connector calls, or its `brain next` came back without
   the hook, or with the id and no hook in front of it (run by hand). Nothing it was printed reached the game:

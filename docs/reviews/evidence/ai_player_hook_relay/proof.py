@@ -2,8 +2,9 @@
 game's connector. It makes no request of the game: the session it starts has one MCP server, fake_connector.py.
 
     python3 docs/reviews/evidence/ai_player_hook_relay/proof.py OUT [--batches N] [--control JSON]
-            [--effort LEVEL] [--hooks agent|settings|agents] [--break WHICH:NTH:HOW[:TIMEOUT]] [--no-block]
-            [--rule TEXT] [--own-env] [--seconds N] [--look]
+            [--effort LEVEL] [--hooks agent|settings|agents|none] [--break WHICH:NTH:HOW[:TIMEOUT]] [--no-block]
+            [--rule TEXT] [--prompt FILE] [--no-transcript] [--as-subagent] [--mode hunt|guard] [--end kill]
+            [--own-env] [--seconds N] [--look]
 
 OUT: a folder for the run: the rehearsal's live folder (live/), what the stand-in was asked (game.jsonl), what
 Claude Code printed (stream.jsonl), its debug log (debug.log).
@@ -28,11 +29,28 @@ writes down what it was given. --no-block: the hooks are declared without onFail
 line is worth. Both need --hooks settings or agents.
 
 --rule TEXT: with --hooks agents, one more line under the agent's Rules: a wording that is tried, not one the
-agent file has.
+agent file has. --prompt FILE: the same, with the whole of the relay's prompt read from FILE.
+
+--mode guard: the brain guards instead of hunting: it asks for nothing but reads of my own profile. --end kill:
+after the batches the session is ended from outside, where otherwise the brain is told the session is over
+and walks home first. The two together are a run in which no call but a read of my own profile is ever
+released (preflight.py).
+
+Whatever the options, a call that a hook has released and that the stand-in has not been given within two
+seconds ends the session: nothing but the stand-in may be answering.
+
+--as-subagent: the relay is not the session's main agent but a subagent of it, as a session that is doing
+other work would start one: the session is told to start the relay's agent once, with the Agent tool, and to
+do nothing else.
+
+--hooks none: the same agent with no hooks at all, and its two tools allowed on the command line: a relay
+without hooks, which is printed the calls themselves. The brain reads its results in its transcript; with
+--no-transcript it is told there is none, and the relay hands each result in with a `put` line.
 """
 import json
 import os
 import re
+import shutil
 import subprocess
 import sys
 import threading
@@ -80,16 +98,21 @@ def broken(doc, how, count, block):
     return doc
 
 
-def the_agent(hooks, rule=None):
+def the_agent(hooks, rule=None, prompt=None):
     """The relay's agent file as --agents takes one, under a name of the proof's own."""
     with open(os.path.join(ROOT, ".claude", "agents", "tnr-relay.md"), encoding="utf8") as f:
         _, head, body = f.read().split("---\n", 2)
+    if prompt:
+        with open(prompt, encoding="utf8") as f:
+            body = f.read()
     if rule:
         at = body.index("\n\n## A batch with `put` lines")
         body = body[:at] + "\n- " + rule + body[at:]
-    return {"tnr-relay-proof": {"description": re.search(r"^description: (.*)$", head, re.M).group(1), "prompt": body,
-                                "tools": re.search(r"^tools: (.*)$", head, re.M).group(1).split(", "), "model": "haiku",
-                                "omitClaudeMd": True, "hooks": hooks["hooks"]}}
+    agent = {"description": re.search(r"^description: (.*)$", head, re.M).group(1), "prompt": body,
+             "tools": re.search(r"^tools: (.*)$", head, re.M).group(1).split(", "), "model": "haiku", "omitClaudeMd": True}
+    if hooks:
+        agent["hooks"] = hooks["hooks"]
+    return {"tnr-relay-proof": agent}
 
 
 def main():
@@ -100,26 +123,33 @@ def main():
     with open(ctl, "w", encoding="utf8") as f:
         json.dump(told, f)
     with open(os.path.join(out, "mcp.json"), "w", encoding="utf8") as f:
-        json.dump({"mcpServers": {"Tnr": {"command": "python3", "args": [os.path.join(HERE, "fake_connector.py")],
+        json.dump({"mcpServers": {"Tnr": {"command": sys.executable, "args": [os.path.join(HERE, "fake_connector.py")],
                                           "env": {"TNR_FAKE_LOG": game, "TNR_FAKE_CONTROL": ctl}}}}, f)
     env = dict(os.environ) if "--own-env" in sys.argv else {k: os.environ[k] for k in KEEP if os.environ.get(k)}
     env.update(TNR_PLAYER_LIVE=live, TNR_PLAYER_FIGHTS=os.path.join(out, "fights"), TNR_PLAYER_NO_DAEMON="1")
-    claude = ["claude", "-p", "--model", "haiku", "--strict-mcp-config", "--mcp-config", os.path.join(out, "mcp.json"),
+    if "--no-transcript" in sys.argv:
+        env["TNR_TRANSCRIPT"] = os.path.join(out, "no_such_transcript.jsonl")
+    claude = [shutil.which("claude", path=env.get("PATH")) or "claude", "-p", "--model", "haiku", "--strict-mcp-config", "--mcp-config", os.path.join(out, "mcp.json"),
               "--output-format", "stream-json", "--verbose", "--debug-file", os.path.join(out, "debug.log")]
     if "--look" in sys.argv:
-        done = subprocess.run(claude + ["Reply with the single word: ready"], cwd=out, env=env, capture_output=True,
+        done = subprocess.run(claude + ["--disallowedTools", "mcp__Tnr__callEndpoint", "--",
+                                        "Reply with the single word: ready"], cwd=out, env=env, capture_output=True,
                               text=True, timeout=120)
         first = json.loads(done.stdout.splitlines()[0])
         print(json.dumps({"mcp_servers": first.get("mcp_servers"), "mcp_tools": [t for t in first.get("tools", []) if t.startswith("mcp__")],
                           "tools": len(first.get("tools", [])), "model": first.get("model")}))
         return 0
     brain = [sys.executable, "-m", "player.brain", "set"]
-    subprocess.run(brain + ["mode=hunt", "activities=" + json.dumps({a: False for a in UPKEEP})], cwd=ROOT, env=env,
+    subprocess.run(brain + ["mode=" + arg("--mode", "hunt"), "activities=" + json.dumps({a: False for a in UPKEEP})], cwd=ROOT, env=env,
                    check=True, capture_output=True)
     if arg("--effort"):
         claude += ["--effort", arg("--effort")]
     how, agent = arg("--hooks", "agent"), "tnr-relay"
-    if how != "agent":
+    if how == "none":
+        agent = "tnr-relay-proof"
+        claude += ["--agents", json.dumps(the_agent(None, arg("--rule"), arg("--prompt"))),
+                   "--allowedTools", "Bash(python3 -m player.brain:*)", "mcp__Tnr__callEndpoint"]
+    elif how != "agent":
         hooks = broken(hooks_of_the_agent(), arg("--break"), os.path.join(out, "hook_runs"), "--no-block" not in sys.argv)
         with open(os.path.join(out, "hooks.json"), "w", encoding="utf8") as f:
             json.dump(hooks, f, indent=1)
@@ -127,10 +157,16 @@ def main():
             claude += ["--settings", json.dumps(hooks)]
         else:
             agent = "tnr-relay-proof"
-            claude += ["--agents", json.dumps(the_agent(hooks, arg("--rule")))]
+            claude += ["--agents", json.dumps(the_agent(hooks, arg("--rule"), arg("--prompt")))]
     batches, begun = int(arg("--batches", "12")), time.time()
     with open(os.path.join(out, "stream.jsonl"), "w", encoding="utf8") as stream:
-        p = subprocess.Popen(claude + ["--agent", agent, "Begin."], cwd=ROOT, env=env, stdout=stream,
+        start = ["--agent", agent, "Begin."]
+        if "--as-subagent" in sys.argv:
+            start = ["--allowedTools", "Agent", "Task", "--",
+                     f"Start the subagent `{agent}` once with the Agent tool: subagent_type \"{agent}\", prompt \"Begin.\", "
+                     "run_in_background false. Do nothing else yourself: run no command and call no other tool. "
+                     "When it returns, reply with its last line only."]
+        p = subprocess.Popen(claude + start, cwd=ROOT, env=env, stdout=stream,
                              stderr=subprocess.STDOUT)
 
         def only_the_stand_in():
@@ -156,13 +192,35 @@ def main():
                         seen = sum(1 for x in f if '"profile.getUser"' in x and '"answered"' in x)
                 except OSError:
                     seen = 0
+                if seen >= batches and arg("--end") == "kill":
+                    return p.terminate()
                 if seen >= batches:
                     with open(ctl, "w", encoding="utf8") as f:
                         json.dump(dict(told, status="ASLEEP"), f)
                     subprocess.run(brain + ["end_session=true"], cwd=ROOT, env=env, capture_output=True)
                     return
                 time.sleep(1)
+        def every_call_reaches_the_stand_in():
+            """A call a hook released (live/hook/log.jsonl) is in the stand-in's log within two seconds, or the
+            session is ended: something else would be answering."""
+            behind = None
+            while p.poll() is None:
+                try:
+                    with open(os.path.join(live, "hook", "log.jsonl"), encoding="utf8") as f:
+                        released = sum(1 for x in f if '"hook": "pre"' in x and '"refused": null' in x)
+                    with open(game, encoding="utf8") as f:
+                        came = sum(1 for x in f if '"at": "came"' in x)
+                except OSError:
+                    released = came = 0
+                behind = (behind or time.time()) if released > came else None
+                if behind and time.time() - behind > 2:
+                    p.kill()
+                    print(json.dumps({"ended": "a call a hook released did not reach the stand-in", "released": released,
+                                      "came": came}))
+                    return
+                time.sleep(0.1)
         threading.Thread(target=only_the_stand_in, daemon=True).start()
+        threading.Thread(target=every_call_reaches_the_stand_in, daemon=True).start()
         threading.Thread(target=enough, daemon=True).start()
         try:
             code = p.wait(timeout=float(arg("--seconds", "900")))

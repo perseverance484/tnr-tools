@@ -19,6 +19,8 @@ TNR_FAKE_CONTROL names a JSON file, read at every call, that makes it misbehave 
     {"hang": ["profile.getUser"]}          it is never answered
     {"broken": ["profile.getUser"]}        the connector itself answers with an error, not the tool
     {"only": {"profile.getUser": [2]}}     with any of those: only the second call of that endpoint
+    {"unseen": true}                       it answers and writes nothing down, as if something else had answered:
+                                           the proof's guard must end the session (proof.py)
     {"status": "ASLEEP"}                   my profile says so (with `brain set end_session=true`, the brain
                                            then tells its relay to stop)
 
@@ -53,7 +55,7 @@ def say(message):
 
 def note(row):
     path = os.environ.get("TNR_FAKE_LOG")
-    if path:
+    if path and not (control().get("unseen") and row.get("at") != "connected"):
         with OUT, open(path, "a", encoding="utf8") as f:
             f.write(json.dumps(row) + "\n")
 

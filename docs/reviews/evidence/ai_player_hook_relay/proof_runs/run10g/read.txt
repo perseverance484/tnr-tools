@@ -1,0 +1,19 @@
+session: {'model': 'claude-haiku-5-5', 'tools': ['Bash', 'mcp__Tnr__callEndpoint'], 'mcp': [{'name': 'Tnr', 'status': 'connected', 'source': 'dynamic'}], 'permission mode': 'default'}
+requests of the model: 8 | read from the cache, written to it, at each: [(7738, 0), (7738, 167), (7905, 462), (8367, 464), (8831, 403), (9234, 646), (9880, 518), (10398, 360)]
+tool calls in one message of the model: {'next': 5, 'call': 2}
+connector calls the model wrote: 2 | not a stand-in: [{'endpointName': 'profile.getUser', 'input': {}, 'select': ['userData.status', 'userData.battleId', 'userData.curHealth', 'userData.maxHealth', 'userData.sector', 'userData.longitude', 'userData.latitude', 'userData.curChakra', 'userData.maxChakra', 'userData.curStamina', 'userData.maxStamina', 'userData.money', 'userData.bank', 'userData.curEnergy', 'userData.intelligence', 'userData.willpower', 'userData.dailyErrands', 'userData.earnedExperience']}, {'endpointName': 'profile.getUser', 'input': {}, 'select': ['userData.status', 'userData.battleId', 'userData.curHealth', 'userData.maxHealth', 'userData.sector', 'userData.longitude', 'userData.latitude', 'userData.curChakra', 'userData.maxChakra', 'userData.curStamina', 'userData.maxStamina', 'userData.money', 'userData.bank', 'userData.curEnergy', 'userData.intelligence', 'userData.willpower', 'userData.dailyErrands', 'userData.earnedExperience']}] | what it was shown: {'other: {"userData.status": "AWAKE", "userData.battleId": null, "userData.curHealth": 5050, "userData.maxHealth": 5050, "userData.sector": 1538, "userData.longitude": 1': 2}
+commands the model ran: 5 | not `brain next`: ['python3 -m player.brain put 9039e6-1 1 <<\'TNR_RESULT\'\n{"userData.status": "AWAKE", "userData.battleId": null, "userData.curHealth": 5050, "userData.maxHealth": 5050, "userData.sector": 1538, "userData.longitude": 10, "userData.latitude": 10, "userData.curChakra": 100, "userData.maxChakra": 100, "userData.curStamina": 100, "userData.maxStamina": 100, "userData.money": 150000, "userData.bank": 50000000, "userData.curEnergy": 0}\nTNR_RESULT', 'python3 -m player.brain put 9039e6-2 1 <<\'TNR_RESULT\'\n{"userData.status": "AWAKE", "userData.battleId": null, "userData.curHealth": 5050, "userData.maxHealth": 5050, "userData.sector": 1538, "userData.longitude": 10, "userData.latitude": 10, "userData.curChakra": 100, "userData.maxChakra": 100, "userData.curStamina": 100, "userData.maxStamina": 100, "userData.money": 150000, "userData.bank": 50000000, "userData.curEnergy": 0}\nTNR_RESULT']
+hooks: {}
+how long Claude Code says each hook ran, ms: {}
+the stand-in: {'connected': 1, 'calls': 2, 'answered': 2, 'failed': 0}
+endpoints: {'profile.getUser': 2}
+two calls out at once: 0 times | shortest time from one answer to the next call: 5.42 s
+batches in the token log: 0
+the brain's events: {'setting_changed': 2}
+the session ended: {'subtype': 'success', 'is_error': False, 'num_turns': 8, 'duration_ms': 14871, 'total_cost_usd': 0.00253801}
+  its last words: I've stopped the loop. The relay can't hand results back to the program, so it can't proceed correctly.
+
+Every `put` handoff has been blocked by the Bash tool with `Contains brace with quote character (expansion obfuscation)`. This happened on both attempts, for `put 9039e6-1` and `put 9039e6-2`. Th
+  its use, all requests: {'input_tokens': 16, 'cache_creation_input_tokens': 3020, 'cache_read_input_tokens': 70091, 'output_tokens': 2463}
+left in live/hook: [] | in the inbox: []
+client.json: {'hooks': None, 'token': '9039e6-2', 'held': {'token': '9039e6-2', 'id': 'f7fe6716'}, 'gone': [], 'ended': [], 'seen': None}
