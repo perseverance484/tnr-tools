@@ -47,7 +47,7 @@ a clock if that does not come.
 | 3. A large result | `large` | what the hook behind the call is given: the result, or the notice that stands for it; whether the brain has the result |
 | 4. A slow call | `slow`, under and over two minutes | the closing waits; over two minutes the batch is held and the late result ends it |
 | 5. A hook that fails | an agent of the proof's own (`--agents`), the same but for one hook that exits 1, and one that sleeps past its timeout | whether the call is blocked (`onFailure: block`), and what the relay is told |
-| 6. Low effort | nothing, with `--effort low` | the tokens of run 1 again; whether a line was copied wrong (RUL-2026-11-14-158: yes to low effort "if the savings cost is high") |
+| 6. Low effort | nothing, with `--effort low` | the tokens of run 1 again, and whether a line was copied wrong: the difference the director asked to have measured (RUL-2026-11-14-159, point 3). Whether it is set is his to say |
 
 What each run found goes into `PROOF.md` beside this file, with the stand-in's log and the hooks' log, as the
 first probe's findings went into `PROBE.md`.
@@ -65,4 +65,6 @@ they do. The first run is made alone and read before the others, so a wrong esti
 - A fight. The stand-in's game is the suite's, which does not fight back.
 
 Those are the first live session's to show. That session is AP1's gate (one live PvP session on a Haiku relay
-with zero missed turns and the token figures recorded), and the director starts it.
+with zero missed turns and the token figures recorded). It is run on the head of the hook relay, with the
+upkeep activities switched off, on Duet's machine, and the director starts it (RUL-2026-11-14-159, point 5).
+It also counts what lands in `live/hook/late/` (point 1).
