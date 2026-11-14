@@ -1,0 +1,179 @@
+{
+ "_note": "617: Some Names Stick, the claim quest for The Unstilled (title hnKEaIEL41GR8ypLfhaYs, read from The Mother of Echoes in 616). Event quest at the Salvager's fire, prerequisite The Mother of Echoes (IBPNwhAzlAJPXoeEnp8gW), maxAttempts 1, maxCompletes 1, grants the title and nothing else. UserTitle's primary key (userId, titleId) means nobody can hold two copies. Created HIDDEN; unhide only on Brandon's go. capture.before reads the title so the bundle shows its name.",
+ "capture": {
+  "before": [
+   {
+    "proc": "title.get",
+    "input": {
+     "id": "hnKEaIEL41GR8ypLfhaYs"
+    },
+    "persist": "full"
+   }
+  ]
+ },
+ "items": [
+  {
+   "entity": "quest",
+   "slot": "create",
+   "name": "Some Names Stick",
+   "srcId": "u2_unstilled_claim",
+   "data": {
+    "name": "Some Names Stick",
+    "description": "The salvager has a word for anyone who already went down to the Mother of Echoes and came back.",
+    "image": "https://bbenpyo9uu.ufs.sh/f/0tzd8oDeiVIztTw3VgzGhyvTwHIbs5xCj3PVfDMUm2z4pn6u",
+    "questType": "event",
+    "questRank": "D",
+    "successDescription": "The shore knows your name now.",
+    "retryDelay": "none",
+    "attemptDelay": "none",
+    "consecutiveObjectives": true,
+    "hidden": true,
+    "requiredLevel": 1,
+    "maxLevel": 100,
+    "maxAttempts": 1,
+    "maxCompletes": 1,
+    "prerequisiteQuestId": "IBPNwhAzlAJPXoeEnp8gW",
+    "tierLevel": null,
+    "requiredVillage": null,
+    "requiredBloodlineId": null,
+    "startsAt": null,
+    "endsAt": null,
+    "content": {
+     "objectives": [
+      {
+       "structureAssetId": "",
+       "locationName": "",
+       "locationDescription": "",
+       "structureScale": 1,
+       "successDescription": "",
+       "sceneBackground": "rX78pJPETsUL2JrsSvGHn",
+       "sceneCharacters": [
+        "Xugt7415D3-tepLfxpwM5"
+       ],
+       "reward_hunter_items_ids": [],
+       "reward_gathering_items_ids": [],
+       "reward_seichi_silver": 0,
+       "reward_money": 0,
+       "reward_clanpoints": 0,
+       "reward_anbupoints": 0,
+       "reward_exp": 0,
+       "reward_tokens": 0,
+       "reward_prestige": 0,
+       "reward_reputation": 0,
+       "reward_skillpoints": 0,
+       "reward_rank": "NONE",
+       "reward_village_membership": "NONE",
+       "reward_items": [],
+       "reward_jutsus": [],
+       "reward_bloodlines": [],
+       "reward_sage_modes": [],
+       "reward_badges": [],
+       "reward_titles": [],
+       "reward_medical_experience": 0,
+       "reward_hunting_experience": 0,
+       "reward_crafting_experience": 0,
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0,
+       "reward_war_damage": 0,
+       "reward_war_healing": 0,
+       "id": "d_open",
+       "task": "dialog",
+       "image": "",
+       "attackers": [],
+       "reward_hunter_items": false,
+       "reward_gathering_items": false,
+       "attackers_scale_gains": 1,
+       "attackers_max_per_battle": 1,
+       "attackers_scaled_to_user": false,
+       "description": "<i> The salvager looks up from her net and studies you longer than usual. </i> <br> <br> \"You went down to her and came back up. The shore noticed, even if nobody told you. Some names stick.\"",
+       "nextObjectiveId": [
+        {
+         "text": "What name?",
+         "nextObjectiveId": "w_name"
+        }
+       ]
+      },
+      {
+       "structureAssetId": "",
+       "locationName": "",
+       "locationDescription": "",
+       "structureScale": 1,
+       "successDescription": "",
+       "sceneBackground": "rX78pJPETsUL2JrsSvGHn",
+       "sceneCharacters": [
+        "Xugt7415D3-tepLfxpwM5"
+       ],
+       "reward_hunter_items_ids": [],
+       "reward_gathering_items_ids": [],
+       "reward_seichi_silver": 0,
+       "reward_money": 0,
+       "reward_clanpoints": 0,
+       "reward_anbupoints": 0,
+       "reward_exp": 0,
+       "reward_tokens": 0,
+       "reward_prestige": 0,
+       "reward_reputation": 0,
+       "reward_skillpoints": 0,
+       "reward_rank": "NONE",
+       "reward_village_membership": "NONE",
+       "reward_items": [],
+       "reward_jutsus": [],
+       "reward_bloodlines": [],
+       "reward_sage_modes": [],
+       "reward_badges": [],
+       "reward_titles": [
+        "hnKEaIEL41GR8ypLfhaYs"
+       ],
+       "reward_medical_experience": 0,
+       "reward_hunting_experience": 0,
+       "reward_crafting_experience": 0,
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0,
+       "reward_war_damage": 0,
+       "reward_war_healing": 0,
+       "id": "w_name",
+       "task": "win_quest",
+       "description": "\"The Unstilled. Wear it. You earned it before anyone thought to write it down.\""
+      }
+     ],
+     "sceneBackground": "rX78pJPETsUL2JrsSvGHn",
+     "sceneCharacters": [
+      "Xugt7415D3-tepLfxpwM5"
+     ],
+     "entryItems": [],
+     "isolated": false,
+     "rewardMode": "all",
+     "rewardPickCount": 1,
+     "reward": {
+      "reward_hunter_items_ids": [],
+      "reward_gathering_items_ids": [],
+      "reward_seichi_silver": 0,
+      "reward_money": 0,
+      "reward_clanpoints": 0,
+      "reward_anbupoints": 0,
+      "reward_exp": 0,
+      "reward_tokens": 0,
+      "reward_prestige": 0,
+      "reward_reputation": 0,
+      "reward_skillpoints": 0,
+      "reward_rank": "NONE",
+      "reward_village_membership": "NONE",
+      "reward_items": [],
+      "reward_jutsus": [],
+      "reward_bloodlines": [],
+      "reward_sage_modes": [],
+      "reward_badges": [],
+      "reward_titles": [],
+      "reward_medical_experience": 0,
+      "reward_hunting_experience": 0,
+      "reward_crafting_experience": 0,
+      "reward_gathering_experience": 0,
+      "reward_sage_mastery_experience": 0,
+      "reward_war_damage": 0,
+      "reward_war_healing": 0
+     }
+    }
+   }
+  }
+ ]
+}
