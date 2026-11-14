@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         TNR forge (loader)
 // @namespace    tnr-tools-forge
-// @version      0.12.6
+// @version      0.12.7
 // @description  Loads forge_bundle.js: the full-page TNR content builder (journal, cache-first reads, two-phase creates, reconciliation). Installs beside the old TNR Content Builder loader; both can stay.
 // @match        *://www.theninja-rpg.com/*
 // @match        *://theninja-rpg.com/*
@@ -9,8 +9,7 @@
 // @run-at       document-start
 // @updateURL    https://raw.githubusercontent.com/perseverance484/tnr-tools/main/forge_loader_user.js
 // @downloadURL  https://raw.githubusercontent.com/perseverance484/tnr-tools/main/forge_loader_user.js
-// @require      https://raw.githubusercontent.com/perseverance484/tnr-tools/be77af2068d8a16cf07b9ea13599b6636ccdd282/forge_bundle.js
-// @x-release-pending 0.12.7
+// @require      https://raw.githubusercontent.com/perseverance484/tnr-tools/88211d1bca3472360e7374f4686cf84d4c2f5b7f/forge_bundle.js
 // ==/UserScript==
 // Open https://www.theninja-rpg.com/forge while logged in. That entry is unchanged, but since
 // 0.4.0 it is a doorway, not the host: /forge is a same-origin 404 that renders through
