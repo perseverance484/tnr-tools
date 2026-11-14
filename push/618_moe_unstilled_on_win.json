@@ -1,0 +1,665 @@
+{
+ "_note": "618: The Mother of Echoes reward fix (director go Nov 14 17:06Z, 'Build the fix'). Moves The Unstilled (hnKEaIEL41GR8ypLfhaYs) off the pick-one quest reward onto the w_clear win node, so every winner gets it on top of their pick. The three item choices, pick count and every other content key are unchanged, copied whole from the 616 live read (results tnr_results_1794675778628, updatedAt 2026-11-14T16:39:37Z). Content-only edit; top-level fields are fetch-merged. capture.after re-reads the quest. nodePositions (editor layout) left out: Forge's pinned validator refuses it as a key the server drops.",
+ "capture": {
+  "after": [
+   {
+    "proc": "quests.get",
+    "input": {
+     "id": "IBPNwhAzlAJPXoeEnp8gW"
+    },
+    "persist": "full"
+   }
+  ]
+ },
+ "items": [
+  {
+   "entity": "quest",
+   "slot": "edit",
+   "targetId": "IBPNwhAzlAJPXoeEnp8gW",
+   "name": "The Mother of Echoes: The Unstilled moves from the reward pick to the win node",
+   "data": {
+    "content": {
+     "reward": {
+      "reward_exp": 0,
+      "reward_rank": "NONE",
+      "reward_items": [
+       {
+        "ids": [
+         "WrnHlt3h6ZDjFaJk3i41O"
+        ],
+        "number": 100,
+        "quantity": 1
+       },
+       {
+        "ids": [
+         "THo7rfzP-S82_43aN8fs3"
+        ],
+        "number": 100,
+        "quantity": 5
+       },
+       {
+        "ids": [
+         "nzCW7A-_AuYMzBs2wClnM"
+        ],
+        "number": 100,
+        "quantity": 3
+       }
+      ],
+      "reward_money": 0,
+      "reward_badges": [],
+      "reward_jutsus": [],
+      "reward_titles": [],
+      "reward_tokens": 0,
+      "reward_prestige": 0,
+      "reward_anbupoints": 0,
+      "reward_bloodlines": [],
+      "reward_clanpoints": 0,
+      "reward_reputation": 0,
+      "reward_sage_modes": [],
+      "reward_war_damage": 0,
+      "reward_skillpoints": 0,
+      "reward_war_healing": 0,
+      "reward_hunter_items": false,
+      "reward_seichi_silver": 0,
+      "reward_gathering_items": false,
+      "reward_hunter_items_ids": [],
+      "reward_hunting_experience": 0,
+      "reward_medical_experience": 0,
+      "reward_village_membership": "NONE",
+      "reward_crafting_experience": 0,
+      "reward_gathering_items_ids": [],
+      "reward_gathering_experience": 0,
+      "reward_sage_mastery_experience": 0
+     },
+     "isolated": true,
+     "entryItems": [
+      {
+       "ids": [
+        "uKnlqlfyE_k1QjLuaVml_"
+       ],
+       "number": 1
+      },
+      {
+       "ids": [
+        "4UNvgWIDGD9QpNVtLr1aM"
+       ],
+       "number": 1
+      },
+      {
+       "ids": [
+        "KHGZAfQFosLQJ29AN2ymC"
+       ],
+       "number": 1
+      },
+      {
+       "ids": [
+        "cGrmhfe88ACBvFk2XqvSu"
+       ],
+       "number": 1
+      }
+     ],
+     "objectives": [
+      {
+       "id": "d_intro1",
+       "task": "dialog",
+       "image": "https://ui0arpl8sm.ufs.sh/f/4utB5tlNoLam-iI-zj7x8.webp",
+       "attackers": [],
+       "reward_exp": 0,
+       "description": "The four shards fit together in your hands, and the seams vanish. They were never broken. They were an invitation.<br><br>They pull you down, past where Crownhold's stair ends, into a hall of glass. Every pane holds a face. The Deck Warden. The Captain, twice: once bareheaded, once crowned. The guards you cut down. Their eyes are open, and none of them blink.",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "nextObjectiveId": [
+        {
+         "text": "Go deeper",
+         "nextObjectiveId": "d_intro2"
+        }
+       ],
+       "reward_prestige": 0,
+       "sceneBackground": "5emzv4rAEFL2iE6Vg5Znm",
+       "sceneCharacters": [
+        "Bph7t93QYpZqQkYM3N2Yr"
+       ],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "attackers_scale_gains": 1,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "attackers_max_per_battle": 1,
+       "attackers_scaled_to_user": false,
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "d_intro2",
+       "task": "dialog",
+       "image": "https://ui0arpl8sm.ufs.sh/f/4utB5tlNoLam-iI-zj7x8.webp",
+       "attackers": [],
+       "reward_exp": 0,
+       "description": "She hangs in the air before the Mother Glass, her fan open behind her like a halo.<br><br>\"Lovely, aren't they? Every one of them held still for me.\" She smiles at the faces. \"The ship, the castle, all of it. I never lost them. I kept them.\" She inclines her head, as if you had asked. \"Sayo. I grew the glass.\"<br><br>\"And you have been cutting them out of my glass, one by one. How interesting.\"",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "nextObjectiveId": [
+        {
+         "text": "You did this",
+         "nextObjectiveId": "d_open"
+        }
+       ],
+       "reward_prestige": 0,
+       "sceneBackground": "5emzv4rAEFL2iE6Vg5Znm",
+       "sceneCharacters": [
+        "Bph7t93QYpZqQkYM3N2Yr"
+       ],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "attackers_scale_gains": 1,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "attackers_max_per_battle": 1,
+       "attackers_scaled_to_user": false,
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "d_open",
+       "task": "dialog",
+       "image": "https://ui0arpl8sm.ufs.sh/f/4utB5tlNoLam-iI-zj7x8.webp",
+       "attackers": [],
+       "reward_exp": 0,
+       "description": "She studies you the way she studied them. \"There is room in the glass for one more.\"<br><br>She turns to the wall, as if choosing a place for you. Her shadow does not turn with her. It stays where it was. Then it stands up off the floor.",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "nextObjectiveId": [
+        {
+         "text": "Step into the hall",
+         "nextObjectiveId": "b_act1"
+        }
+       ],
+       "reward_prestige": 0,
+       "sceneBackground": "5emzv4rAEFL2iE6Vg5Znm",
+       "sceneCharacters": [
+        "Bph7t93QYpZqQkYM3N2Yr"
+       ],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "attackers_scale_gains": 1,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "attackers_max_per_battle": 1,
+       "attackers_scaled_to_user": false,
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "b_act1",
+       "task": "start_battle",
+       "allyAIs": [],
+       "applyBuffs": [],
+       "reward_exp": 0,
+       "scaleGains": 1,
+       "description": "Act I: The Glasswright and the Deep",
+       "opponentAIs": [
+        {
+         "ids": [
+          "fJLcH1mpB1XHHGtNWwvzD"
+         ],
+         "number": 1,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "IhNR-W1FElTsrWw1KfuQ9"
+         ],
+         "number": 1,
+         "quantity": 1
+        }
+       ],
+       "reward_rank": "NONE",
+       "applyDebuffs": [],
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "drawDescription": "The glass goes quiet around you. The shards are spent.",
+       "failDescription": "The glass goes quiet around you. The shards are spent.",
+       "failObjectiveId": "f_lost",
+       "fleeDescription": "You back out of the hall. The shards stay in the glass.",
+       "nextObjectiveId": "d_act2",
+       "reward_prestige": 0,
+       "sceneBackground": "5emzv4rAEFL2iE6Vg5Znm",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "completionOutcome": "Win",
+       "keepOriginalPools": false,
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "reward_gathering_items": false,
+       "opponent_scaled_to_user": false,
+       "reward_hunter_items_ids": [],
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "d_act2",
+       "task": "dialog",
+       "image": "https://ui0arpl8sm.ufs.sh/f/4utB5tlNoLam-iI-zj7x8.webp",
+       "attackers": [],
+       "reward_exp": 0,
+       "description": "The deep goes quiet, but the glass does not. Sayo wipes a line of light from her sleeve. \"You read patterns well. Let us see how well you remember them.\"",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "nextObjectiveId": [
+        {
+         "text": "Hold your ground",
+         "nextObjectiveId": "b_act2"
+        }
+       ],
+       "reward_prestige": 0,
+       "sceneBackground": "aleMvSlyXGMaT0UGWmJh-",
+       "sceneCharacters": [
+        "_TB450VtYNqiCLc393Sq4"
+       ],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "attackers_scale_gains": 1,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "attackers_max_per_battle": 1,
+       "attackers_scaled_to_user": false,
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "b_act2",
+       "task": "start_battle",
+       "allyAIs": [],
+       "applyBuffs": [],
+       "reward_exp": 0,
+       "scaleGains": 1,
+       "description": "Act II: The Stilling",
+       "opponentAIs": [
+        {
+         "ids": [
+          "H3pNj2qUWpMpVRINiH6Vn"
+         ],
+         "number": 1,
+         "quantity": 1
+        }
+       ],
+       "reward_rank": "NONE",
+       "applyDebuffs": [],
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "drawDescription": "The glass goes quiet around you. The shards are spent.",
+       "failDescription": "The glass goes quiet around you. The shards are spent.",
+       "failObjectiveId": "f_lost",
+       "fleeDescription": "You back out of the hall. The shards stay in the glass.",
+       "nextObjectiveId": "d_act3",
+       "reward_prestige": 0,
+       "sceneBackground": "aleMvSlyXGMaT0UGWmJh-",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "completionOutcome": "Win",
+       "keepOriginalPools": false,
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "reward_gathering_items": false,
+       "opponent_scaled_to_user": false,
+       "reward_hunter_items_ids": [],
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "d_act3",
+       "task": "dialog",
+       "image": "https://ui0arpl8sm.ufs.sh/f/4utB5tlNoLam-iI-zj7x8.webp",
+       "attackers": [],
+       "reward_exp": 0,
+       "description": "Every pane in the hall turns toward you. The dark at the edge of the light folds itself small and slides back across the floor into Sayo's shadow. Her eyes close. When she speaks again, nothing moves her lips. \"Hold still. You will make for a good impression.\"",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "nextObjectiveId": [
+        {
+         "text": "Do not hold still",
+         "nextObjectiveId": "b_act3"
+        }
+       ],
+       "reward_prestige": 0,
+       "sceneBackground": "dXiE-NNZymwmOgceZfkmb",
+       "sceneCharacters": [
+        "9a_5ly9kwKB95FCQRwI1s"
+       ],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "attackers_scale_gains": 1,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "attackers_max_per_battle": 1,
+       "attackers_scaled_to_user": false,
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "b_act3",
+       "task": "start_battle",
+       "allyAIs": [],
+       "applyBuffs": [],
+       "reward_exp": 0,
+       "scaleGains": 1,
+       "description": "Act III: A Good Impression",
+       "opponentAIs": [
+        {
+         "ids": [
+          "k0hgSrghl_KcYs9ATVDJT"
+         ],
+         "number": 1,
+         "quantity": 1
+        }
+       ],
+       "reward_rank": "NONE",
+       "applyDebuffs": [],
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "drawDescription": "The glass goes quiet around you. The shards are spent.",
+       "failDescription": "The glass goes quiet around you. The shards are spent.",
+       "failObjectiveId": "f_lost",
+       "fleeDescription": "You back out of the hall. The shards stay in the glass.",
+       "nextObjectiveId": "w_clear",
+       "reward_prestige": 0,
+       "sceneBackground": "dXiE-NNZymwmOgceZfkmb",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "completionOutcome": "Win",
+       "keepOriginalPools": false,
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "reward_gathering_items": false,
+       "opponent_scaled_to_user": false,
+       "reward_hunter_items_ids": [],
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "w_clear",
+       "task": "win_quest",
+       "reward_exp": 1000,
+       "description": "The Mother Glass cracks from the root to the crown. For the first time since the siege, Crownhold makes a sound.<br><br>You are not stilled.",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [
+        {
+         "ids": [
+          "FmQgVG5IX3q607wcHcOGy"
+         ],
+         "number": 25,
+         "quantity": 1
+        },
+        {
+         "ids": [
+          "xCAtBCvbA2-TTV2eSe-jx"
+         ],
+         "number": 25,
+         "quantity": 1
+        }
+       ],
+       "reward_money": 50000,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [
+        "hnKEaIEL41GR8ypLfhaYs"
+       ],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "reward_prestige": 0,
+       "sceneBackground": "dXiE-NNZymwmOgceZfkmb",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      },
+      {
+       "id": "f_lost",
+       "task": "fail_quest",
+       "reward_exp": 0,
+       "description": "The glass keeps what it was given. Find four more shards and come back.",
+       "reward_rank": "NONE",
+       "locationName": "",
+       "reward_items": [],
+       "reward_money": 0,
+       "reward_badges": [],
+       "reward_jutsus": [],
+       "reward_titles": [],
+       "reward_tokens": 0,
+       "structureScale": 1,
+       "reward_prestige": 0,
+       "sceneBackground": "5emzv4rAEFL2iE6Vg5Znm",
+       "sceneCharacters": [],
+       "structureAssetId": "",
+       "reward_anbupoints": 0,
+       "reward_bloodlines": [],
+       "reward_clanpoints": 0,
+       "reward_reputation": 0,
+       "reward_sage_modes": [],
+       "reward_war_damage": 0,
+       "reward_skillpoints": 0,
+       "reward_war_healing": 0,
+       "successDescription": "",
+       "locationDescription": "",
+       "reward_hunter_items": false,
+       "reward_seichi_silver": 0,
+       "reward_gathering_items": false,
+       "reward_hunter_items_ids": [],
+       "reward_hunting_experience": 0,
+       "reward_medical_experience": 0,
+       "reward_village_membership": "NONE",
+       "reward_crafting_experience": 0,
+       "reward_gathering_items_ids": [],
+       "reward_gathering_experience": 0,
+       "reward_sage_mastery_experience": 0
+      }
+     ],
+     "rewardMode": "choose",
+     "rewardPickCount": 1,
+     "sceneBackground": "5emzv4rAEFL2iE6Vg5Znm",
+     "sceneCharacters": [
+      "1YXbXYW2wz3GETVMb6DT6"
+     ]
+    }
+   }
+  }
+ ]
+}
