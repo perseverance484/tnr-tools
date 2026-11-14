@@ -17,6 +17,10 @@ TNR_FAKE_CONTROL names a JSON file, read at every call, that makes it misbehave 
     {"slow": {"profile.getUser": 4}}       it is answered after so many seconds
     {"large": ["profile.getUser"]}         its answer is too large for a conversation
     {"hang": ["profile.getUser"]}          it is never answered
+    {"broken": ["profile.getUser"]}        the connector itself answers with an error, not the tool
+    {"only": {"profile.getUser": [2]}}     with any of those: only the second call of that endpoint
+    {"status": "ASLEEP"}                   my profile says so (with `brain set end_session=true`, the brain
+                                           then tells its relay to stop)
 
     python3 docs/reviews/evidence/ai_player_hook_relay/fake_connector.py --selftest
 """
@@ -38,6 +42,7 @@ TOOL = {"name": "callEndpoint",
                         "properties": {"endpointName": {"type": "string"}, "input": {"type": "object"},
                                        "select": {"type": "array", "items": {"type": "string"}}}}}
 OUT = threading.Lock()
+SEEN = {}
 
 
 def say(message):
@@ -65,7 +70,7 @@ def game(endpoint, select):
     """What the stand-in for the game answers: as player/tests/test_hook_relay.py, Hooks.answer."""
     battle, log = fixture()
     if endpoint == "profile.getUser":
-        return user().data
+        return dict(user().data, **({"userData.status": control()["status"]} if control().get("status") else {}))
     if endpoint == "combat.getBattle":
         return dict(battle, **({"battle.usersEffects": []} if "battle.usersEffects" in (select or []) else {}))
     if endpoint == "combat.getBattleEntries":
@@ -76,10 +81,17 @@ def game(endpoint, select):
 def call(rid, args):
     endpoint, how = args.get("endpointName"), control()
     row = {"endpoint": endpoint, "input": args.get("input"), "select": args.get("select"), "came": round(time.time(), 3)}
+    with OUT:
+        SEEN[endpoint] = SEEN.get(endpoint, 0) + 1
+        if endpoint in (how.get("only") or {}) and SEEN[endpoint] not in how["only"][endpoint]:
+            how = {"status": how.get("status")}                   # (not this one: it is answered as it is meant)
     note(dict(row, at="came"))
     if endpoint in (how.get("hang") or []):
         return
     time.sleep(float((how.get("slow") or {}).get(endpoint, 0)))
+    if endpoint in (how.get("broken") or []):
+        note(dict(row, at="answered", answered=round(time.time(), 3), failed=True, broken=True))
+        return say({"jsonrpc": "2.0", "id": rid, "error": {"code": -32000, "message": "the stand-in was told to break"}})
     if endpoint in (how.get("fail") or []):
         result = {"content": [{"type": "text", "text": "the stand-in was told to fail this call"}], "isError": True}
     else:
@@ -99,6 +111,7 @@ def serve(lines=sys.stdin):
             continue
         rid, method, params = message.get("id"), message.get("method"), message.get("params") or {}
         if method == "initialize":
+            note({"at": "connected", "client": params.get("clientInfo"), "came": round(time.time(), 3)})
             say({"jsonrpc": "2.0", "id": rid, "result": {
                 "protocolVersion": params.get("protocolVersion") or "2024-11-05", "capabilities": {"tools": {}},
                 "serverInfo": {"name": "tnr-stand-in", "version": "1"}}})
@@ -131,7 +144,8 @@ def selftest():
         assert ask(4, "tools/call", {"name": "item.buy", "arguments": {}})["error"]["code"] == -32601
         with open(log, encoding="utf8") as f:
             rows = [json.loads(x) for x in f]
-        assert [(r["endpoint"], r["at"]) for r in rows] == [("profile.getUser", "came"), ("profile.getUser", "answered")]
+        assert [(r.get("endpoint"), r["at"]) for r in rows] == [(None, "connected"), ("profile.getUser", "came"),
+                                                                 ("profile.getUser", "answered")]
     finally:
         p.kill()
         if os.path.exists(log):
