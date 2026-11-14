@@ -1,0 +1,13 @@
+{
+  "_note": "616: READ-ONLY. Reads the full Mother of Echoes quest record (IBPNwhAzlAJPXoeEnp8gW) to confirm The Unstilled is in its reward_titles, before the claim quest (617). No mutations.",
+  "capture": {
+    "before": [
+      {
+        "proc": "quests.get",
+        "input": { "id": "IBPNwhAzlAJPXoeEnp8gW" },
+        "persist": "full"
+      }
+    ]
+  },
+  "items": []
+}
