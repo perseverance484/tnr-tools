@@ -1,0 +1,11 @@
+{
+  "_note": "619: READ-ONLY. Players report missing Skyglass Crowns (Nov 14 19:07Z). Reads the three crown items in full to confirm none was changed by hand or hidden: The Skyglass Crown (yTS9TSpr_QLnh_3zmEpGg), Fragment of the Skyglass Crown (ayiRmSjWs05lMPyL3G-1d), Shard of the Crown (4UNvgWIDGD9QpNVtLr1aM). No mutations.",
+  "capture": {
+    "before": [
+      { "proc": "item.get", "input": { "id": "yTS9TSpr_QLnh_3zmEpGg" }, "persist": "full" },
+      { "proc": "item.get", "input": { "id": "ayiRmSjWs05lMPyL3G-1d" }, "persist": "full" },
+      { "proc": "item.get", "input": { "id": "4UNvgWIDGD9QpNVtLr1aM" }, "persist": "full" }
+    ]
+  },
+  "items": []
+}
