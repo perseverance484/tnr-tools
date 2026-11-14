@@ -1,0 +1,27 @@
+session: {'model': 'claude-haiku-5-5', 'tools': ['Bash', 'mcp__Tnr__callEndpoint'], 'mcp': [{'name': 'Tnr', 'status': 'connected', 'source': 'dynamic'}], 'permission mode': 'default'}
+requests of the model: 12 | read from the cache, written to it, at each: [(7719, 0), (7719, 167), (7886, 204), (8090, 719), (8809, 906), (9715, 985), (10700, 767), (11467, 955), (12422, 598), (13020, 846), (13866, 707), (14573, 593)]
+tool calls in one message of the model: {'next': 2, 'call + next': 1, 'call + call + call + call + next': 2, 'call + call + call + call + call + next': 2, 'call + call + call + next': 3, 'call + call + next': 1}
+connector calls the model wrote: 30 | not a stand-in: [] | what it was shown: {'ok': 30}
+commands the model ran: 11 | not `brain next`: []
+hooks: {'bash passed': 11, 'post passed': 30, 'pre passed': 30}
+how long Claude Code says each hook ran, ms: {'PostToolUse mcp__Tnr__callEndpoint exit 0': {'n': 30, 'least': 25, 'middle': 31, 'most': 47}, 'PreToolUse Bash exit 0': {'n': 11, 'least': 27, 'middle': 32, 'most': 58}, 'PreToolUse mcp__Tnr__callEndpoint exit 0': {'n': 30, 'least': 28, 'middle': 32, 'most': 9333}}
+the stand-in: {'connected': 1, 'calls': 30, 'answered': 30, 'failed': 0}
+endpoints: {'profile.getUser': 9, 'travel.getSectorData': 7, 'stealth.useSensory': 2, 'profile.getStrongestUsers': 1, 'travel.startGlobalMove': 4, 'travel.finishGlobalMove': 4, 'combat.getBattleHistory': 3}
+two calls out at once: 0 times | shortest time from one answer to the next call: 0.07 s
+batches in the token log: 10
+   {'seq': 0, 'in': 7888, 'cached': 7719, 'written': 167, 'out': 106, 'context': 7888, 'hooks': True, 'note': ''}
+   {'seq': 1, 'in': 8092, 'cached': 7886, 'written': 204, 'out': 464, 'context': 8092, 'hooks': True, 'note': 'start'}
+   {'seq': 2, 'in': 8811, 'cached': 8090, 'written': 719, 'out': 506, 'context': 8811, 'hooks': True, 'note': 'AWAKE hunt 5050/5050 HP @ 1538 (10, 10): scanning'}
+   {'seq': 3, 'in': 9717, 'cached': 8809, 'written': 906, 'out': 606, 'context': 9717, 'hooks': True, 'note': 'AWAKE hunt 5050/5050 HP @ 1538 (10, 10): nobody to fight her'}
+   {'seq': 4, 'in': 10702, 'cached': 9715, 'written': 985, 'out': 406, 'context': 10702, 'hooks': True, 'note': 'AWAKE hunt 5050/5050 HP @ 1538 (10, 10): scanning'}
+   {'seq': 5, 'in': 11469, 'cached': 10700, 'written': 767, 'out': 606, 'context': 11469, 'hooks': True, 'note': 'AWAKE hunt 5050/5050 HP @ 1538 (10, 10): nobody to fight her'}
+   {'seq': 6, 'in': 12424, 'cached': 11467, 'written': 955, 'out': 306, 'context': 12424, 'hooks': True, 'note': 'AWAKE hunt 5050/5050 HP @ 1538 (10, 10): scanning'}
+   {'seq': 7, 'in': 13022, 'cached': 12422, 'written': 598, 'out': 506, 'context': 13022, 'hooks': True, 'note': 'AWAKE hunt 5050/5050 HP @ 1538 (10, 10): nobody to fight her'}
+   {'seq': 8, 'in': 13868, 'cached': 13020, 'written': 846, 'out': 406, 'context': 13868, 'hooks': True, 'note': 'AWAKE hunt 5050/5050 HP @ 1538 (10, 10): scanning'}
+   {'seq': 9, 'in': 14575, 'cached': 13866, 'written': 707, 'out': 406, 'context': 14575, 'hooks': True, 'note': 'session ending: going home (177)'}
+the brain's events: {'setting_changed': 3, 'activity_done': 2}
+the session ended: {'subtype': 'success', 'is_error': False, 'num_turns': 42, 'duration_ms': 87313, 'total_cost_usd': 0.00496866}
+  its last words: STOP session ended by the director: asleep at home
+  its use, all requests: {'input_tokens': 24, 'cache_creation_input_tokens': 7447, 'cache_read_input_tokens': 125986, 'output_tokens': 4434}
+left in live/hook: ['hook/lock', 'hook/log.jsonl'] | in the inbox: []
+client.json: {'hooks': '303e0bf8-7485-4989-8a3c-5ff5cdec5a7a', 'token': '83fffe-10', 'held': None, 'gone': [], 'ended': [], 'seen': True}

@@ -4,6 +4,10 @@ Written 2026-11-14 (RUL-2026-11-14-158: "Prepare to move on to proving the hook 
 returns"). Nothing here has been run but the stand-in's self-test. It is run when the review of
 `fable/ai-player-hook-relay` @ b5624861 has returned.
 
+It has been run, on the head that review and the one after it approved (51fac81d): `PROOF.md` beside this
+file. Run 5 was made with the hooks given on the command line, as settings and as an agent's own, and run 6
+twice, with two more sessions of run 1 to set them against.
+
 ## What it is for
 
 Three reviews have judged the hooks through tests that call them as functions, and through `together.py`,
