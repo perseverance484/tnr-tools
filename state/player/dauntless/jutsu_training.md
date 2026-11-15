@@ -151,3 +151,9 @@ very expensive (Cyclone Palm Strike level 19 quoted 1,949,575 ryo for one level;
 | 2026-11-14 02:22 | Divine Pulse | 15 | 265,905 | queued (queue had 3 waiting; now Earth Armor 15, FCG 15, Mental Fortress 15, Divine Pulse 15; ends ~07:23). Pocket 9.89M, no withdrawal. 4,550 energy to intelligence (+549.86); asleep in 177 |
 | 2026-11-15 03:22 | none | | 0 | not refilled: TNR connector needed sign-in this run (server reported it requires authentication), so no live calls were made and the run lock was not claimed. Last known queue (2026-11-14 02:22 log) ended ~07:23 that day. No ryo, energy or sleep change |
 | 2026-11-15 06:22 | none | | 0 | not refilled: TNR connector needed sign-in again this run (server reported it requires authentication), so no live calls were made and the run lock was not claimed. Second run in a row; queue state unknown (last known queue, 2026-11-14 02:22 log, ended ~07:23 that day). No ryo, energy or sleep change |
+| 2026-11-15 07:23 | bank.toPocket 10,000,000 | | | pocket was 120,407, now 10,120,407 |
+| 2026-11-15 07:23 | Ryūsa Kōka | 16 | 384,532 | started (queue was empty; last level had finished 2026-11-14 16:23). Levels 16 on Divine Pulse/Earth Armor/LB/FCG/MF and 15 on Ryūsa Kōka/Ethereal Nexus were reached outside this log |
+| 2026-11-15 07:23 | Ethereal Nexus | 16 | 869,298 | queued |
+| 2026-11-15 07:23 | Limit Breaker | 17 | 556,082 | queued |
+| 2026-11-15 07:23 | Mental Fortress | 17 | 556,082 | queued |
+| 2026-11-15 07:23 | Divine Pulse | 17 | 556,082 | queued (active Ryūsa Kōka 16 ends ~08:23; waiting Ethereal Nexus 16, Limit Breaker 17, Mental Fortress 17, Divine Pulse 17; ends ~12:23). Pocket 7.20M. 4,550 energy to intelligence (+817.78); asleep in 177 |
