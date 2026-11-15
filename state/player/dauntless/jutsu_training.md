@@ -157,3 +157,4 @@ very expensive (Cyclone Palm Strike level 19 quoted 1,949,575 ryo for one level;
 | 2026-11-15 07:23 | Limit Breaker | 17 | 556,082 | queued |
 | 2026-11-15 07:23 | Mental Fortress | 17 | 556,082 | queued |
 | 2026-11-15 07:23 | Divine Pulse | 17 | 556,082 | queued (active Ryūsa Kōka 16 ends ~08:23; waiting Ethereal Nexus 16, Limit Breaker 17, Mental Fortress 17, Divine Pulse 17; ends ~12:23). Pocket 7.20M. 4,550 energy to intelligence (+817.78); asleep in 177 |
+| 2026-11-15 08:24 | none | | 0 | queue already full (active Ethereal Nexus 16 ends ~09:23; waiting Limit Breaker 17, Mental Fortress 17, Divine Pulse 17; ends ~12:23); Earth Armor 17 refused ("queue is full"). Pocket 7.20M, no withdrawal. No training started, so the character stayed ASLEEP in 177; 5,050 energy left unspent rather than waking it |
