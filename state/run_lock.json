@@ -1,11 +1,10 @@
 {
- "holder": "player",
- "token": "58d9f165f9c74c79a11725106758c87a",
- "job": "dauntless automated protector sweep (pilot thread)",
- "instance": null,
- "ttlMinutes": 45,
- "claimedAt": "2026-11-15T12:51:41.114Z",
- "heartbeatAt": "2026-11-15T21:32:57.066Z",
- "expiresAt": "2026-11-15T22:17:57.066Z",
- "note": "One game writer per account at a time (RUL-2026-11-07-133). Written only by forge/tools/run_lock.mjs or Forge; do not hand-edit."
+ "holder": null,
+ "token": null,
+ "job": null,
+ "releasedBy": "player",
+ "releasedInstance": null,
+ "releasedJob": "dauntless automated protector sweep (pilot thread)",
+ "releasedAt": "2026-11-15T21:39:03.054Z",
+ "note": "Free. Claim with node forge/tools/run_lock.mjs claim --holder NAME --job TEXT (RUL-2026-11-07-133)."
 }
