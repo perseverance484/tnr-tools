@@ -1,6 +1,6 @@
-# DRIFT.md - upstream contract drift (2026-11-14)
+# DRIFT.md - upstream contract drift (2026-11-15)
 
-Upstream: studie-tech/TheNinjaRPG@25800453300bd613a6e7b9bbbd718127ecd45cb8
+Upstream: studie-tech/TheNinjaRPG@f6a51fac5fbbc055682a3ec35c0ad36cfb244925
 
 Signal only. Nothing below is adopted until the structural diff gate passes.
 
@@ -253,6 +253,10 @@ ADDITIONS
   const-member  BULK_SELL_WARN_RARITIES  EPIC
   const-member  BULK_SELL_WARN_RARITIES  LEGENDARY
   const-member  BULK_SELL_WARN_RARITIES  RARE
+  const-member  BattleOutcomes  Draw
+  const-member  BattleOutcomes  Fled
+  const-member  BattleOutcomes  Lost
+  const-member  BattleOutcomes  Won
   const-member  BossFightBattleTypes  ARENA
   const-member  BossFightBattleTypes  HUNTING
   const-member  BossFightBattleTypes  OVERWORLD
@@ -276,11 +280,7 @@ ADDITIONS
   const-member  INITIATIVE_PVP_STREAK_BONUSES  0.02
   const-member  MISSION_HALL_QUEST_TYPES  crime
   const-member  MISSION_HALL_QUEST_TYPES  errand
-  const-member  MISSION_HALL_QUEST_TYPES  medical
-  const-member  MISSION_HALL_QUEST_TYPES  mission
-  const-member  MISSION_HALL_QUEST_TYPES  pvp
-  const-member  MISSION_HALL_QUEST_TYPES  war
-  ... 124 more
+  ... 128 more
 
 BREAKING: 225 change(s) - DO NOT ADOPT (exit 1)
 ~~~
