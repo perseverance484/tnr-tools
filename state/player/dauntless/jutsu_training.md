@@ -176,3 +176,5 @@ very expensive (Cyclone Palm Strike level 19 quoted 1,949,575 ryo for one level;
 | 2026-11-16 01:23 | bank.toPocket 10,000,000 | | | pocket was 146,697, now 10,146,697 |
 | 2026-11-16 01:24 | Mental Fortress | 19 | 1,162,924 | queued |
 | 2026-11-16 01:24 | Divine Pulse | 19 | 1,162,924 | queued (Limit Breaker 19 finished 01:23; active Earth Armor 19 ends ~02:23; waiting FCG 19, Mental Fortress 19, Divine Pulse 19; ends ~05:23). Pocket 7.82M. Character was already AWAKE in sector 1490 (not home, not in battle) when the run started, after the scout session's lock: no stat training, not put to sleep; 5,050 energy unspent. Director notified |
+| 2026-11-16 02:23 | bank.toPocket 10,000,000 | | | pocket was 150,710, now 10,150,710 |
+| 2026-11-16 02:24 | Raijin's Judgement | 19 | 620,939 | queued (Earth Armor 19 finished ~02:23; active FCG 19 ends ~03:23; waiting Mental Fortress 19, Divine Pulse 19, Raijin's Judgement 19; ends ~06:23); Ryūsa Kōka 19 refused ("queue is full"). Pocket 9.53M. 4,550 energy to willpower (+504.13, intelligence had passed willpower); asleep in 177 |
