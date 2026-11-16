@@ -69,3 +69,22 @@
 - 2026-11-16T19:34:57Z rotation 10: new relay started.
 - 2026-11-16T19:42:51Z rotation 11: new relay started.
 - Fight 8: LOST vs Selaphiel rd 11. Bank/training churn again (9,950,142 to pocket).
+- 2026-11-16T19:44:12Z DIRECTOR: end run early after fight 8 (bad decisions). end_session=true set by hand.
+- 2026-11-16T19:45:45Z END: end_session applied 19:44:14Z; home 177, run lock released 19:44:42Z; profile read: ASLEEP, sector 177 (13,13), 5050/5050 HP, pocket 100,000, bank 934,695,653. Brain and n_fight_stop stopped, timer cancelled, backup trigger deleted.
+- Final token figures:
+```
+{
+ "batches": 390,
+ "batches_with_hooks": 390,
+ "game_calls_carried": 1019,
+ "plan_count_total": 10730565,
+ "plan_count_per_batch": 27514,
+ "plan_count_per_call": 10530,
+ "plan_count_per_fight_batch": 34913,
+ "max_context": 50805,
+ "files_in_hook_late": 0,
+ "proof_reference": "PROOF.md: 4,200-4,400 a batch (one-message form), estimate 97-98% under the pre-hook live relay"
+}
+```
+- Spending: no shop purchases. Training ~4.5m ryo (jutsu kbrQuf to lvl 19/20; the 19:22 bank cycle put back 5.43m of a ~10m pocket). 4 Full Potions used, Repair Kits once (19:22). No large ramen used at all (director asked for ramen after every fight).
+- Postmortem.py crashed (IndexError, postmortem.py:169) on both losses.
