@@ -572,6 +572,8 @@ class Planner:
         self.pot_cache = {}
         self.clockd = clockd or {}                     # his real kit: candidates, next-turn damage lines, scale
         self.his_cache = {}
+        self.board = None                              # (me_pos, en_pos, occupied, d0), set by build(): where moves land
+        self.land_cache = {}
 
     # ---- windows (director 2026-11-11: "you want to be prepared for windows"): both sides' damage curves over the
     # next CURVE_K turns. Each side fires the hardest line it has ready on each turn (cooldown clocks), through the
@@ -724,8 +726,7 @@ class Planner:
         m0, e0 = self.me0.copy(), self.en0.copy()
         if "cleanse" in b:
             m0.wipe(NEGK)
-        if any(x in ("phantom", "replace", "step") for x in b):
-            m0.wipe((GGRD,))                            # moves fire first: off his ground
+        self.move_ground(m0, b)                         # off his ground, or onto it, by where the move lands
         run_turn(m0, e0, acts, 0, cm, ce)
         if e0.hp <= 0:
             return [(self.en0.hp - e0.hp) - (self.me0.hp - m0.hp)] + [0] * (NF - 1), value_model.KILL, self.en0.hp, [(1.0, ["-"])], 1.0
@@ -814,8 +815,7 @@ class Planner:
         m0, e0 = self.me0.copy(), self.en0.copy()
         if "cleanse" in b:
             m0.wipe(NEGK)
-        if any(x in ("phantom", "replace", "step") for x in b):
-            m0.wipe((GGRD,))
+        self.move_ground(m0, b)
         run_turn(m0, e0, [self.my_kit[x] for x in b if x in self.my_kit], 0, cm, ce)
         if e0.hp <= 0:
             return value_model.KILL + self.en0.hp, None
@@ -889,6 +889,35 @@ class Planner:
             guard -= self.en0.g(ABS, 0) * 631
         g, w = critique.live_guards(b, self.crit())      # the fight 2 critique (critique.py; TNR_CRITIQUE=1)
         return rc, (ap - cost) / 20.0, guard + g, why + w
+
+    def landing(self, b):
+        """The tile a bundle with a move ends on (turn.resolve_targets, as the shot is fired), or None."""
+        if self.board is None:
+            return None
+        key = tuple(sorted(b))
+        if key not in self.land_cache:
+            me_pos, en_pos, occupied, _ = self.board
+            try:
+                self.land_cache[key] = turn.resolve_targets(list(b), me_pos, en_pos, occupied)[1]
+            except Exception:  # noqa: BLE001
+                self.land_cache[key] = None
+        return self.land_cache[key]
+
+    def move_ground(self, m0, b):
+        """His -damage given ground after my moves (Mamba R5, 2026-11-16: the planner took any move as a step off his
+        Ring of Spilled Blood, and Phantom Step landed on it). The game applies ground to whoever stands on the tile
+        at each action, so: off where I stood, on where I land. A move fired last (disengage, turn.moves_last)
+        leaves this turn's hits on the tile I stand on now; the landing tile counts from the next round."""
+        if not any(x in ("phantom", "replace", "step") for x in b):
+            return
+        last = self.board is not None and turn.moves_last(list(b), self.board[3])
+        keep0 = m0.g(GGRD, 0)
+        m0.wipe((GGRD,))
+        g = turn.HIS_GIVEN.get(self.landing(b)) if self.board is not None else None
+        if g and not m0.g(DIMM, 0):
+            m0.add(GGRD, -g[0], 1 if last else 0, g[1])
+        if last:
+            m0.a[GGRD * H] = keep0
 
     def crit(self):
         """critique.context for this turn, built once, on the loadout as main() left it after bans."""
@@ -1058,6 +1087,16 @@ def build(a):
         if k in my_kit and my_kit[k][0]:
             my_kit[k] = (float(v),) + tuple(my_kit[k][1:])
     caps = (me.get("maxHealth", 5050), en.get("maxHealth", 5050))
+    # his ground on the board (turn.set_ground): Phantom Step / Replacement land off it when a tile in reach allows
+    turn.set_ground(battle, en["userId"])
+    g_here = turn.HIS_GIVEN.get(me_pos)
+    if g_here and me0.g(GGRD, 0) == 1.0 and not me0.g(DIMM, 0):
+        me0.add(GGRD, -g_here[0], 0, g_here[1])         # standing on it now: the log text may not have put it on me
+    # the kunai's ryo, priced by the race as turn.py does (planner2 kept value_model's flat 350 before: Mamba R3,
+    # 2026-11-16, basic attack outranked Elemental Kunai in a close race)
+    kwhy = turn.kunai_price(me0.hp, en0.hp, float(en.get("maxHealth", 5050)), R,
+                            max(his_kit_raw["turn"][0], avg or 0), ctx["afk"])
+    print(f"kunai: {kwhy} -> cost {value_model.KUNAI_COST}")
     P = Planner(me0, en0, R, ctx, cal, my_kit, his_kit, st, en_acted, caps, his_kit_raw["turn"][0], clockd)
     # solution-library key: this position plus what his last turn did (solutions.py)
     try:
@@ -1070,6 +1109,7 @@ def build(a):
         P.book_key = None
     # the critique guards' inputs (critique.py): his next turn is this round when I act first, else the next one
     his_turn = R + 1 if en_acted else R
+    P.board = (me_pos, en_pos, {(p["longitude"], p["latitude"]) for p in others}, d0)   # as the FIRE line resolves
     P.crit_args = dict(R=R, en_acted=en_acted, ap=ap, my_hp=me["curHealth"], my_max=caps[0], me_pos=me_pos,
                        ground=battle.get("battle.groundEffects"), me_id=ME, rows=rows, en_id=en["userId"],
                        clear_safe=bool(sme.live("clearimmune", his_turn)), afk=ctx["afk"],

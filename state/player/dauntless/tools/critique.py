@@ -31,6 +31,17 @@ And on round 8 itself, asked why it picked Lotus Dance's buff prevent, a pill an
    result." (The game agrees: a wound is a share of the hit that made it, and its tick is not adjusted by damage
    taken; the planners model it that way, shotplan.apply / planner2 apply.)
 
+Two more from run 2's first fight (Mamba, battle B9Vhd59OKKEfxUBf2oHiB, 2026-11-16), review rules 7 and 8:
+
+  "It chose basic attack over elemental kunai even though kunai should deal more damage and rank higher. It also
+   followed an enemy who used replacement technique to move off the Forbidden Chakra Fury's ground effect, but it did
+   so by moving to the bare minimum required range to hit the enemy, thus remaining on *their* floor effect. It was
+   possible to move to the bottom part of the arena and get off their floor effect while following them."
+
+  His kunai rule (2026-11-13): "don't lose a fight to spare a kunai but dont throw a kunai at an afk or in a fight
+  we're not likely to win or a fight we're sure to win." A ground effect is applied to whoever stands on its tile at
+  each action (process.ts), so the tile a move lands on decides the debuff on every hit after it.
+
 One rule per point, each a penalty in HP units on a bundle with its reason. Two users:
 - the replay review (review_fight, run by postmortem.py after each fight and by `critique.py <battle id>`): every
   turn I played, checked against the rules, the director's way of going over a fight;
@@ -375,16 +386,36 @@ def review_fight(rows, me_id, en_id, me_name="dauntless", my_max=5050, states=No
         tick = sum(ticks.get(k, 0.0) for k in range(r + 1, his_turn + 2))
         kims = any("cannot be cleared" in t and me_name in t for rr, u, _, ts in before if rr == his_turn - 1
                    for t in ts or [])
+        afk = all(_name(a) is None and a == "wait" for rr, u, a, _ in rows if u == en_id)
         c = context(R=r, en_acted=en_acted, st={"loadout": kit, "used": used}, ap=100,
                     my_hp=hp, my_max=float(s_max or my_max), me_pos=pos or (-1, -1), ground=ground or [], me_id=me_id,
                     rows=before, en_id=en_id, clear_safe=kims, nuke_hit=nxt,
-                    afk=all(_name(a) is None and a == "wait" for rr, u, a, _ in rows if u == en_id), tick=tick)
+                    afk=afk, tick=tick)
         _, why = guards(played, c)
         for w in why:
             w = re.sub(r" \(-\d+\)$", "", w).replace("his nuke is ready", f"his next turn took {nxt:.0f}")
             if track and "centre of my Subaku Palace" in w:
                 w = _centre_story(w, rows, track, mine, pos, palaces, r, en_id)
             found.append({"round": r, "played": played, "text": w})
+        # 7. a basic attack in the kunai's place, when his kunai rule allowed it
+        en_state = None
+        if r in states:
+            fs = _cols(states[r].get("fighters") or {}, "battle.usersState")
+            en_state = next((f for f in fs if f.get("userId") == en_id), None)
+        if en_state and en_state.get("curHealth") is not None:
+            his_turns = (r - 1) + (1 if en_acted else 0)
+            race = kunai_race(r, hp, float(s_max or my_max), en_state["curHealth"], en_state.get("maxHealth") or 5050,
+                              his_turns, nxt, afk)
+            text = kunai_over_basic(played, c["ready"], race)
+            if text:
+                found.append({"round": r, "played": played, "text": text})
+        # 8. a move that landed on his -damage given ground while a tile in reach off it still reached him
+        if track and ground is not None and any(x in MOVES for x in played):
+            floor = his_floor(ground, en_id)
+            him0 = ((en_state["longitude"], en_state["latitude"])
+                    if en_state and en_state.get("longitude") is not None else None)
+            for text in move_onto_floor(mine, pos, track, him0, floor):
+                found.append({"round": r, "played": played, "text": text})
         # no positions: a move while my Palace is up is flagged, the centre left to a look at the replay
         if pos is None and not track and any(x in MOVES for x in played):
             cast = [rr for rr, u, a, _ in before + [rows[i] for i, _ in mine]
@@ -486,6 +517,86 @@ def _centre_story(text, rows, track, mine, pos, palaces, r, en_id):
     text += f": {tile_name(centre)} to {tile_name(dest)}, {_dist(centre, dest)} from the centre" if dest else ""
     text += f" (cast R{cast})" if cast is not None else ""
     return text + (f", and he took the centre ({tile_name(centre)}) in R{took[0]}" if took else "")
+
+
+# ---- rules 7 and 8 (run 2, fight 1 vs Mamba): read only by the review, from the log and the archived state
+MOVE_NAMES = {"phantom": "Phantom Step", "replace": "Replacement", "step": "a step", "stepback": "a step back"}
+
+
+def kunai_race(R, my_hp, my_max, en_hp, en_max, his_turns, his_next, afk):
+    """value_model.kunai_cost on the race as it stood at the start of my turn in round R: my turn as the damage I
+    had done so far with a 2,200 prior over R-1 turns plus 2 (turn.kunai_price's), his as the larger of his actual
+    next turn and the same average of what he had done to me."""
+    import value_model
+    my_turn = (float(en_max) - float(en_hp) + 2200.0) / (max(0, R - 1) + 2)
+    en_turn = max(float(his_next or 0), (float(my_max) - float(my_hp) + 2200.0) / (max(0, his_turns) + 2))
+    return value_model.kunai_cost(float(my_hp), float(en_hp), my_turn, en_turn, afk)
+
+
+def kunai_over_basic(played, ready, race):
+    """Rule 7: a basic attack while the kunai was ready (both 20 AP, so it always fits in the basic's place) and his
+    kunai rule allowed it (not an AFK, a likely loss or a sure win). -> the finding's text, or None."""
+    import value_model
+    if "basic" not in played or "kunai" in played or "kunai" not in ready:
+        return None
+    cost, why = race
+    if cost >= value_model.KUNAI_NEVER:
+        return None
+    return (f"basic attack while the kunai was ready at the same 20 AP and hits harder, in a {why}: his rule spares"
+            f" a kunai only at an AFK, a likely loss or a sure win")
+
+
+def his_floor(ground, en_id):
+    """The tiles of his live decreasedamagegiven ground: {tile: power}."""
+    out = {}
+    for g in ground or []:
+        if (g.get("type") == "decreasedamagegiven" and g.get("creatorId") == en_id and (g.get("rounds") or 0) > 0
+                and g.get("longitude") is not None and g.get("latitude") is not None):
+            t = (g["longitude"], g["latitude"])
+            out[t] = max(out.get(t, 0.0), abs(float(g.get("power") or 0)))
+    return out
+
+
+def off_floor_tiles(start, dest, him, floor, reach, need, grid=GRID):
+    """Rule 8's other landings: tiles a move of `reach` from start could take, off his floor and not his tile, that
+    still reach him (within `need`, the shortest range among my actions after the move) or, with nothing aimed after
+    it, are no closer to him than dest. Nearest to dest first. Empty unless dest is on his floor."""
+    if start is None or dest is None or him is None or dest not in floor:
+        return []
+    out = [(x, y) for x in range(grid[0]) for y in range(grid[1])
+           if (x, y) != him and (x, y) not in floor and _dist(start, (x, y)) <= reach
+           and (_dist((x, y), him) <= need if need else _dist((x, y), him) >= _dist(dest, him))]
+    return sorted(out, key=lambda t: (_dist(t, dest), t))
+
+
+def move_onto_floor(mine, start, track, him0, floor):
+    """Rule 8 for one turn: each move of mine that landed on his -damage given ground while a tile in its reach off
+    it still reached him. mine: [(row index, name)] in log order; start: where I stood when my turn began; track:
+    track_positions(); him0: where he stood (the archived state's, else the log's). -> [text]."""
+    out = []
+    pos = start
+    for k, (i, n) in enumerate(mine):
+        if n not in MOVES:
+            continue
+        dest = track[i + 1][0] if track else None
+        him = him0 if him0 is not None else (track[i][1] if track else None)
+        after = [cd_plan.RANGE[x] for _, x in mine[k + 1:] if x and _aims_at_him(x) and cd_plan.RANGE.get(x)]
+        need = min(after) if after else None
+        alt = off_floor_tiles(pos, dest, him, floor, cd_plan.MOVES.get(n, 1), need)
+        if alt:
+            power = floor.get(dest) or 0
+            cut = f" (-{power:.0f}% damage given)" if power else ""
+            reach = f"and still in range {need} of him at {tile_name(him)}" if need else "and no closer to him"
+            hits = [x for _, x in mine[k + 1:] if x in DAMAGE]
+            flat = hits and all(cd_plan.ACTIONS.get(x, (0, 0, None))[2] == "pierce" for x in hits)
+            note = (f" (this turn's hit after it, {'+'.join(hits)}, is a pierce, which damage given does not cut:"
+                    f" the cost is what is still thrown from that tile)") if flat else ""
+            out.append(f"{MOVE_NAMES.get(n, n)} to {tile_name(dest)}, on his decreased damage given ground{cut},"
+                       f" while {', '.join(tile_name(t) for t in alt[:3])} {'was' if len(alt) == 1 else 'were'}"
+                       f" in its reach off that ground {reach}{note}")
+        if dest is not None:
+            pos = dest
+    return out
 
 
 def report_fight(found, title=""):

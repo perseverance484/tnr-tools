@@ -224,6 +224,7 @@ MOVE_COST = float(os.environ.get("TNR_MOVE_COST", "200"))
 FILLERS = ("basic", "defstance", "offstance")
 BARRIERS = []        # live barriers: (x, y, hp, absorb share, creatorId), set by main() from the ground list
 HOSTILE = set()      # tiles under his harmful ground (Subaku Palace's -given, recoil, +taken...), set by main()
+HIS_GIVEN = {}       # tile -> (fraction, last offset): his -damage given ground, set by set_ground()
 HOSTILE_KINDS = {"decreasedamagegiven", "increasedamagetaken", "recoil", "stun", "damage", "poison", "seal",
                  "decreaseheal", "drain", "wound", "afterburn"}
 
@@ -434,6 +435,40 @@ def generic_enemy(avg):
     return {"hit": (base, []), "hit2": (base, []), "basic": (150, [])}
 
 
+def set_ground(battle, en_id):
+    """HOSTILE and HIS_GIVEN from the read's ground: the tiles under his harmful ground, and of those the ones whose
+    -damage given lands on whoever stands there ({tile: (fraction, last round offset)}). The game applies a ground
+    effect to the unit on its tile at every action, from the tile it stands on then (process.ts: "Ground-derived
+    effects apply at the user's current tile but are not persisted as user tags"), so where a move lands decides
+    what my hits after it carry (Mamba R5, 2026-11-16: Phantom Step landed on his Ring of Spilled Blood)."""
+    HOSTILE.clear()
+    HIS_GIVEN.clear()
+    for g in battle.get("battle.groundEffects") or []:
+        if g.get("creatorId") != en_id or g.get("longitude") is None or g.get("latitude") is None:
+            continue
+        if g.get("rounds") is not None and int(g.get("rounds") or 0) <= 0:
+            continue
+        tile = (g["longitude"], g["latitude"])
+        if g.get("type") in HOSTILE_KINDS:
+            HOSTILE.add(tile)
+        if g.get("type") == "decreasedamagegiven":
+            frac = min(1.0, abs(float(g.get("power") or 0)) / 100)
+            last = max(0, int(g.get("rounds") or 1) - 1)
+            old = HIS_GIVEN.get(tile, (0.0, 0))
+            HIS_GIVEN[tile] = (max(old[0], frac), max(old[1], last))
+
+
+def kunai_price(my_hp, en_hp, en_max, R, his_turn, afk):
+    """Set value_model.KUNAI_COST for this turn from the race (value_model.kunai_cost), as both planners do. The
+    director's rule (2026-11-13): "don't lose a fight to spare a kunai but dont throw a kunai at an afk or in a fight
+    we're not likely to win or a fight we're sure to win." My turn = what I have taken off him per round so far,
+    blended with a 1100 prior. Returns the reason."""
+    done = max(0.0, en_max - en_hp)
+    my_turn = (done + 1100 * 2) / (max(0, R - 1) + 2)
+    value_model.KUNAI_COST, why = value_model.kunai_cost(my_hp, en_hp, my_turn, his_turn, afk)
+    return why
+
+
 def place_phantom(me_pos, en_pos, need, occupied):
     """Phantom/Replacement landing hex: within 5 of me, at distance == need from him if possible, else closest."""
     best = None
@@ -599,9 +634,7 @@ def main():
                     g.get("creatorId")) for g in battle.get("battle.groundEffects") or []
                    if g.get("type") == "barrier" and float(g.get("curHealth") or 0) > 0]
     occupied = {(p["longitude"], p["latitude"]) for p in others} | {(x[0], x[1]) for x in BARRIERS}
-    HOSTILE.clear()
-    HOSTILE.update((g["longitude"], g["latitude"]) for g in battle.get("battle.groundEffects") or []
-                   if g.get("type") in HOSTILE_KINDS and g.get("creatorId") == en["userId"])
+    set_ground(battle, en["userId"])
 
     # cooldown state from my own log
     st = {"loadout": list(cd_plan.LOADOUTS[a.loadout]) + ["basicheal"], "used": my_history(rows)}
@@ -848,12 +881,9 @@ def main():
 
     # kunai cost real ryo: price the throw by how close the fight is (value_model.kunai_cost). My turn = what I have
     # taken off him per round so far, blended with a 1100 prior; his turn = his modelled base turn at this distance.
-    done = max(0.0, maxhp_en - en0.hp)
-    my_turn = (done + 1100 * 2) / (max(0, R - 1) + 2)
     # his turn: the larger of his modelled base turn and what he has actually averaged (Arashii R6 averaged 1807 with
     # me on 704: a race, not the "sure win" the 544 base turn read)
-    value_model.KUNAI_COST, kwhy = value_model.kunai_cost(me0.hp, en0.hp, my_turn,
-                                                          max(kit_for(d0)["turn"][0], avg or 0), ctx["afk"])
+    kwhy = kunai_price(me0.hp, en0.hp, maxhp_en, R, max(kit_for(d0)["turn"][0], avg or 0), ctx["afk"])
     print(f"kunai: {kwhy} -> cost {value_model.KUNAI_COST}")
 
     def my_reserve(b, rnd):

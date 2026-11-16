@@ -195,4 +195,84 @@ check("battle ids with underscores", opponents.battle_id_of("x/6_UqBB_MXSIqobeRr
       "6_UqBB_MXSIqobeRrfmdd" and opponents.battle_id_of("9KNISm3xFGViCgkt_o4Fx_luka3.json", {}) ==
       "9KNISm3xFGViCgkt_o4Fx" and opponents.battle_id_of("Q.json", {"_meta": {"battleId": "B"}}) == "B"
       and opponents.battle_id_of("1nKLV-oUazfAEWA6OSfBi.json", {}) == "1nKLV-oUazfAEWA6OSfBi")
+# ---- run 2, fight 1 vs Mamba (B9Vhd59OKKEfxUBf2oHiB, 2026-11-16): rules 7 and 8 on the kept log and live states.
+#      "It chose basic attack over elemental kunai even though kunai should deal more damage and rank higher. It also
+#      followed an enemy who used replacement technique ... remaining on *their* floor effect."
+MAMBA, MAMBA_ID = "B9Vhd59OKKEfxUBf2oHiB", "user_38UxfHXcwBi8IyvtblWpaqkoX7y"
+FIGHTS = os.path.join(TOOLS, "..", "fights")
+raw = json.load(open(os.path.join(FIGHTS, f"{MAMBA}_entries.json")))
+mrows = list(zip(raw["*.battleRound"], raw["*.userId"], raw["*.actionId"], raw["*.appliedEffects.*.txt"]))[::-1]
+mtiles = raw["*.tile"][::-1]
+mfound = K.review_fight(mrows, ingest.ME, MAMBA_ID, states=K.archived_states(MAMBA, FIGHTS), tiles=mtiles)
+mtxt = "\n".join(f"R{f['round']} {f['text']}" for f in mfound)
+check("R3: basic attack in a close race while the kunai was ready",
+      any(f["round"] == 3 and f["text"].startswith("basic attack while the kunai was ready")
+          and "close race" in f["text"] for f in mfound), mtxt)
+check("R5: Phantom Step onto his Ring of Spilled Blood while J2 was off it and in range",
+      any(f["round"] == 5 and f["text"].startswith("Phantom Step to H6, on his decreased damage given ground")
+          and "J2" in f["text"] and "pierce" in f["text"] for f in mfound), mtxt)
+check("no kunai finding on turns without a basic", all(f["round"] == 3 for f in mfound if "kunai" in f["text"]), mtxt)
+import value_model  # noqa: E402
+ready = {"kunai", "basic"}
+check("his kunai rule: no finding at an AFK, a sure win or a likely loss",
+      K.kunai_over_basic(["basic"], ready, (value_model.KUNAI_NEVER, "AFK")) is None
+      and K.kunai_over_basic(["basic"], ready, value_model.kunai_cost(5000, 500, 900, 300, False)) is None
+      and K.kunai_over_basic(["basic"], ready, value_model.kunai_cost(500, 5000, 300, 900, False)) is None
+      and K.kunai_over_basic(["basic"], ready, value_model.kunai_cost(3000, 3000, 700, 700, False)) is not None
+      and K.kunai_over_basic(["basic"], {"basic"}, (0, "close race (1.00)")) is None
+      and K.kunai_over_basic(["basic", "kunai"], ready, (0, "close race (1.00)")) is None)
+ring = {t: 20.0 for t in [(x, y) for x in range(13) for y in range(9) if K._dist((x, y), (8, 6)) <= 4]}
+check("the other landings: off his floor, in the move's reach, still in range of him",
+      K.off_floor_tiles((9, 6), (7, 5), (5, 2), ring, 5, 4) == [(9, 1)]
+      and K.off_floor_tiles((9, 6), (9, 1), (5, 2), ring, 5, 4) == []
+      and K.off_floor_tiles((9, 6), (7, 5), (5, 2), ring, 1, 4) == [])
+check("his floor: his live -damage given ground only",
+      K.his_floor([{"type": "decreasedamagegiven", "creatorId": HIM, "longitude": 1, "latitude": 2, "rounds": 1,
+                    "power": -20}, {"type": "decreasedamagegiven", "creatorId": ME, "longitude": 3, "latitude": 3,
+                                    "rounds": 2},
+                   {"type": "decreasedamagegiven", "creatorId": HIM, "longitude": 4, "latitude": 4, "rounds": 0},
+                   {"type": "recoil", "creatorId": HIM, "longitude": 5, "latitude": 5, "rounds": 2}], HIM)
+      == {(1, 2): 20.0})
+
+# ---- the planner fixes on the same fight (tests/mamba_r3.txt, mamba_r5.txt: the archived state at the start of my
+#      turn with the log before it, as the battle read gives them)
+import planner2  # noqa: E402
+
+
+def plan(fixture, top=8):
+    out = subprocess.run([sys.executable, os.path.join(TOOLS, "planner2.py"), os.path.join(HERE, fixture),
+                          f"--battle={MAMBA}", f"--enemy={MAMBA_ID}", f"--top={top}"],
+                         capture_output=True, text=True, timeout=600, cwd=TOOLS)
+    lines = [ln for ln in out.stdout.splitlines() if re.match(r"\s*\d+\.\s+[+-]\d", ln)]
+    fire = next((json.loads(ln[5:]) for ln in out.stdout.splitlines() if ln.startswith("FIRE:")), None)
+    return out, lines, fire
+
+
+import re  # noqa: E402
+out, lines, fire = plan("mamba_r3.txt", 3)
+check("R3: planner2 prices the kunai by the race (close: free), as turn.py does",
+      "kunai: close race" in out.stdout and "-> cost 0" in out.stdout, out.stdout[-1500:] + out.stderr[-800:])
+check("R3: clear + the kunai over clear + basic attack",
+      fire and [a["name"] for a in fire] == ["clear", "kunai"] and fire[1]["actionId"] == "dY00WA51Mr7-uS6zbcS3r",
+      out.stdout[-1500:])
+out, lines, fire = plan("mamba_r5.txt", 12)
+moved = [ln for ln in lines if re.search(r"(phantom|replace)@", ln)]
+lands = {m.group(1) for ln in moved for m in [re.search(r"(?:phantom|replace)@(\d+,\d+)", ln)] if m}
+check("R5: Phantom Step and Replacement land off his Ring of Spilled Blood", moved and lands <= {"11,2", "9,1"},
+      "\n".join(lines))
+# the landing tile decides the -damage given: on his floor it stays, off it it goes
+import turn as T  # noqa: E402
+battle = json.loads(open(os.path.join(HERE, "mamba_r5.txt")).readline())
+T.set_ground(battle, MAMBA_ID)
+check("set_ground: his Ring as hostile ground and as -20% given on its 54 tiles",
+      len(T.HIS_GIVEN) == 54 and T.HIS_GIVEN[(7, 5)] == (0.2, 0) and (9, 1) not in T.HIS_GIVEN
+      and (7, 5) in T.HOSTILE)
+Pl, info = planner2.build(type("A", (), dict(file=os.path.join(HERE, "mamba_r5.txt"), enemy=MAMBA_ID,
+                                             loadout="pvp1", battle=MAMBA, ban="")))
+on, off = Pl.me0.copy(), Pl.me0.copy()
+Pl.move_ground(on, ("step", "step", "pill", "stormblade"))
+Pl.move_ground(off, ("replace", "pill", "stormblade"))
+check("landing on his floor keeps -20% given, landing off it clears it",
+      Pl.landing(("step", "step", "pill", "stormblade")) == (7, 5) and abs(on.g(planner2.GGRD, 0) - 0.8) < 1e-9
+      and Pl.landing(("replace", "pill", "stormblade")) == (9, 1) and off.g(planner2.GGRD, 0) == 1.0)
 print("ok: the fight 2 critique is a replay review with positions and, switched on, planner terms")
