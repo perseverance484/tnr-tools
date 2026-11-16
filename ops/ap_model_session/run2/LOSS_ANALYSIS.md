@@ -32,3 +32,9 @@ Planner fixes alone, same kit: equal win rate, equal or better HP (Selaphiel/Shi
 - `python3 -W ignore::ResourceWarning -m unittest discover -s player/tests -t .`: 672 run, 1 failure, the same as before any change (`test_chaos.PlannerOutOfTime.test_the_real_planner_is_cut_off_and_returns`: the planner finishes inside its 0.6 s cut on this machine).
 - tools: test_loss_fixes, test_planner2 (4000/4000 parity), test_critique, test_nearkill, test_integration pass; test_pilot fails exactly as before the change (replays fight data the run updated).
 - The new tests fail on the old code.
+
+## Director follow-up (RUL-2026-11-16-163)
+- **Thunder's Judgement back in the game's PvP loadout** in place of Limit Breaker (live, ~20:40Z, read back; `harvests/inbox/2026-11-16_pvp_loadout_thunders.json`). The planner's `pvp1` kit and `PVP1_JUTSU_IDS` match it; `pvp1_thunders` keeps the kit with both for older fights.
+- **Stances only when most efficient:** a stance's AP earns no spent-AP credit, so it is picked only when its effect beats every other use of the AP. Offline replays of both losses: stance picks 2 → 0 (live, those fights played 7).
+- Simulator on the final code (140 fights): 99% (96% for today's kit before the swap, 99% for the swap without the stance rule).
+- Not changed: the out-of-time fallback still plays Defensive Stance when no plan comes back.

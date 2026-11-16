@@ -61,6 +61,7 @@ KIND = {"taken": TAKEN, "dr": DR, "absorb": ABS, "lifesteal": LS, "reflect": REF
         "debuffimmune": DIMM, "clearimmune": CIMM, "wound": WND, "drain": DRN, "recoil_self": RCL, "recoil": RCL,
         "healcut": HCUT, "buffblock": BBLK, "stun": STUN, "afterburn": AFB}
 CLEAR, CLEANSE, HEAL = -1, -2, -3
+STANCES = ("defstance", "offstance")
 WFILE = os.path.join(HERE, "planner2_weights.json")
 # Hand-set (director 2026-11-11: "orient it in the most ideal way possible by editing weights by hand"). Units: HP.
 #   swing    HP dealt minus HP taken this exchange, the base currency
@@ -885,7 +886,10 @@ class Planner:
         for x in b:
             if x in ("stormblade", "nights") and not self.ctx["pierce_window"]:
                 rc += self.res[x]
-        cost = sum(cd_plan.ACTIONS[x][0] for x in b)
+        # a stance spends AP without counting as spent: picked only when its own effect is worth more than every
+        # other use of that AP, idle included (director 2026-11-16: "Stances should only be used when they are the
+        # most efficient choice to achieve victory"; AP run 2's losses padded turn after turn with them)
+        cost = sum(cd_plan.ACTIONS[x][0] for x in b if x not in STANCES)
         guard, why = 0.0, []
         if "basicheal" in b and self.me0.hp > 0.6 * self.caps[0]:
             guard -= 450; why.append("basic heal above 60% HP")

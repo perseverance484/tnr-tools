@@ -2,7 +2,8 @@
 Run: python3 tests/test_loss_fixes.py   (python, no live calls)
 
 1. The planner's "pvp1" kit carried Thunder's Judgement after the game's "PvP" loadout had dropped it: every fight
-   opened on a line the game refused ("Action not valid anymore"). pvp1 is pinned to the game's list.
+   opened on a line the game refused ("Action not valid anymore"). The director put it back in place of Limit
+   Breaker; pvp1 is pinned to the game's list as read back after that swap.
 2. planner2 never priced the kunai by the race (only turn.py did), so it always cost "leaning" (350).
 3. DESPERATION ranked lines by his HP loss after his own reply (his lifesteal heals counted against me), so a stance
    that cut his hit read as damage; and it ignored how likely each line was to keep me alive.
@@ -25,12 +26,12 @@ def test_pvp1_is_the_games_pvp_loadout():
     jutsu = [n for n in cd_plan.LOADOUTS["pvp1"] if n not in ITEMS_AND_BASICS]
     ids = [turn.ACTION_ID[n] for n in jutsu]
     assert sorted(ids) == sorted(cd_plan.PVP1_JUTSU_IDS), (sorted(set(ids) ^ set(cd_plan.PVP1_JUTSU_IDS)), jutsu)
-    assert "thunders" not in cd_plan.LOADOUTS["pvp1"]
+    assert "thunders" in cd_plan.LOADOUTS["pvp1"] and "limitbreaker" not in cd_plan.LOADOUTS["pvp1"]
     assert len(cd_plan.PVP1_JUTSU_IDS) == 15
     # the older fights are replayed on the kit they were played with
     assert "thunders" in cd_plan.LOADOUTS["pvp1_thunders"] and "thunders" in cd_plan.LOADOUTS["pvp1_parry"]
     assert "parry" in cd_plan.LOADOUTS["pvp1_parry"] and "resist" not in cd_plan.LOADOUTS["pvp1_parry"]
-    print("ok: pvp1 is the game's PvP loadout (no Thunder's Judgement); older fights keep their kit")
+    print("ok: pvp1 is the game's PvP loadout (Thunder's Judgement in, Limit Breaker out); older fights keep their kit")
 
 
 class _P:
