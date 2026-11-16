@@ -48,3 +48,18 @@
 - 2026-11-16T19:12:41Z rotation 6: new relay healthy, traveling; 5 fights.
 - 2026-11-16T19:22:56Z rotation 7 (relay 6 ran 257 tool uses, ~10 min, 59k). Fight 6: LOST vs Shisui rd 13; hospitalized, Full Potion refused (in hospital), recovery healed, armor repaired with Repair Kits.
 - Finding (bank/training churn): bank draws ~9.9m to pocket for training, training finds queue full, ~9.9m goes back to bank (18:47, 19:05, 19:22). No net spend, but wasted calls each cycle. Draw is a fill-to-10m target, not cumulative.
+- 2026-11-16T19:27:10Z heartbeat 2:
+```
+{
+ "batches": 276,
+ "batches_with_hooks": 276,
+ "game_calls_carried": 723,
+ "plan_count_total": 6629953,
+ "plan_count_per_batch": 24022,
+ "plan_count_per_call": 9170,
+ "plan_count_per_fight_batch": 29622,
+ "max_context": 50805,
+ "files_in_hook_late": 0,
+ "proof_reference": "PROOF.md: 4,200-4,400 a batch (one-message form), estimate 97-98% under the pre-hook live relay"
+}
+```
