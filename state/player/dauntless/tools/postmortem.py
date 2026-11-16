@@ -107,7 +107,8 @@ def review(bid_prefix, n_alts=6):
     # his fight 2 critique, from the log and the archived live states (critique.review_fight)
     out["errors"] = critique.review_fight(rows, ME, en_id, me_name=turn.ME_NAME,
                                           states=critique.archived_states(bid),
-                                          limit_breaker=critique.had_limit_breaker(rows, ME, log_path))
+                                          limit_breaker=critique.had_limit_breaker(rows, ME, log_path),
+                                          tiles=critique.log_tiles(log_path))
     learned = []
     try:
         live_hist = json.load(open(os.path.join(HERE, "..", "fights", "live_states", f"{bid}.json")))

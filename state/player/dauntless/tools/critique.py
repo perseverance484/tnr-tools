@@ -38,6 +38,8 @@ NUKE_NO_SEAL = 400.0     # a nuke on his clock and neither Danse Macabre nor Cha
 LATE_FILLER = 300.0      # each pill / stance late in the fight when a better ready action fits its AP
 
 LATE_SHARE = 0.4         # my HP at or under this share of my max is "the end of the fight"
+LATE_TURNS = 2           # ... and so is HP that his hardest turn takes in this many turns (fight 2, R8: 2,142 of
+                         # 5,050 by the log, 42%, with his turns taking 1,469 and 1,933: "at the end of the fight")
 NUKE_SHARE = 0.35        # his hit at or over this share of my HP now is a nuke
 CLEAR_CD = 10            # rounds between two Clears (cd_plan.ACTIONS["clear"]; the basic action is the same for all)
 
@@ -122,6 +124,8 @@ def context(*, R, en_acted, st, ap, my_hp, my_max, me_pos, ground, me_id, rows, 
         "clear_safe": bool(clear_safe),
         "setup_live": any(r == R - 1 and n in SETUP for r, n in st["used"]),
         "nuke": float(nuke_hit or 0) > 0 and float(nuke_hit) >= NUKE_SHARE * max(float(my_hp), 1.0),
+        "late": float(my_hp) <= LATE_SHARE * float(my_max or 5050)
+                or (float(nuke_hit or 0) > 0 and float(my_hp) <= LATE_TURNS * float(nuke_hit)),
     }
 
 
@@ -143,7 +147,7 @@ def guards(bundle, c):
     moved = [x for x in b if x in MOVES]
     if c["on_subaku_centre"] and moved:
         p -= OFF_CENTRE
-        why.append(f"{'+'.join(moved)} off the centre of my Subaku Palace (he takes the centre, -{OFF_CENTRE:.0f})")
+        why.append(f"{'+'.join(moved)} off the centre of my Subaku Palace, which he can take (-{OFF_CENTRE:.0f})")
 
     # 2. Buffs into his Clear: two or more with his Clear ready and no clear prevention over his turn. Dr. Kim's
     #    cast now covers his turn only when he moves after the round turns (he acted first this round).
@@ -174,7 +178,7 @@ def guards(bundle, c):
         why.append(f"his nuke is ready and neither Danse Macabre nor Chakra Resistance is used (-{cost:.0f})")
 
     # 5. The end of the fight: no pill and stance padding while a better ready action fits their AP.
-    if c["my_hp"] <= LATE_SHARE * c["my_max"]:
+    if c.get("late", c["my_hp"] <= LATE_SHARE * c["my_max"]):
         pads = [x for x in b if x in LATE_FILLERS]
         if pads:
             room = spare + sum(_cost(x) for x in pads)
@@ -266,11 +270,19 @@ def had_limit_breaker(rows, me_id, path=None):
 
 
 def review_fight(rows, me_id, en_id, me_name="dauntless", my_max=5050, states=None, loadout="pvp1",
-                 limit_breaker=True):
+                 limit_breaker=True, tiles=None):
     """The errors in one fight, turn by turn: [{round, played, text}]. rows: the log, oldest first, as
     (round, userId, actionId, texts); states: archived_states() for the fight, if any; limit_breaker: whether it
-    was in my set (had_limit_breaker)."""
+    was in my set (had_limit_breaker); tiles: each row's tile ("F4", the "*.tile" column), oldest first, when the
+    log kept them. With tiles, positions come from the log: mine at the start of each turn, the Palace's centre
+    where I stood when I cast it, and where each move went."""
     states = states or {}
+    track = track_positions(rows, tiles, me_id, en_id) if tiles and any(tiles) else None
+    palaces = []                                   # (cast round, centre) of each of my Palaces, by the log's tiles
+    if track:
+        for i, (rr, u, a, _) in enumerate(rows):
+            if u == me_id and _name(a) == "subaku" and track[i][0] is not None:
+                palaces.append((rr, track[i][0]))
     kit = [n for n in cd_plan.LOADOUTS[loadout] if limit_breaker or n != "limitbreaker"]
     found = []
     rounds = sorted({r for r, u, _, _ in rows if u == me_id})
@@ -286,6 +298,11 @@ def review_fight(rows, me_id, en_id, me_name="dauntless", my_max=5050, states=No
         pat = re.compile(TAKES.format(me=re.escape(me_name)))
         log_hp = my_max - sum(float(m.group(1)) for _, _, _, ts in before for t in ts or [] for m in pat.finditer(t))
         pos, s_hp, s_max, ground = _from_state(states[r], me_id) if r in states else (None, None, None, None)
+        if track and pos is None:
+            pos = track[first][0]
+        if track and ground is None:
+            live = [(c, ctr) for c, ctr in palaces if c < r <= c + PALACE_ROUNDS - 1]
+            ground = [g for c, ctr in live for g in palace_ground(ctr, me_id, c)]
         hp = float(s_hp) if s_hp is not None else log_hp
         his_turn = r + 1 if en_acted else r
         nxt = _turn_damage(rows, en_id, his_turn, me_name)
@@ -298,9 +315,11 @@ def review_fight(rows, me_id, en_id, me_name="dauntless", my_max=5050, states=No
         _, why = guards(played, c)
         for w in why:
             w = re.sub(r" \(-\d+\)$", "", w).replace("his nuke is ready", f"his next turn took {nxt:.0f}")
+            if track and "centre of my Subaku Palace" in w:
+                w = _centre_story(w, rows, track, mine, pos, palaces, r, en_id)
             found.append({"round": r, "played": played, "text": w})
         # no positions: a move while my Palace is up is flagged, the centre left to a look at the replay
-        if pos is None and any(x in MOVES for x in played):
+        if pos is None and not track and any(x in MOVES for x in played):
             cast = [rr for rr, u, a, _ in before + [rows[i] for i, _ in mine]
                     if u == me_id and _name(a) == "subaku" and rr <= r]
             if cast and r <= max(cast) + PALACE_ROUNDS - 1:
@@ -309,6 +328,97 @@ def review_fight(rows, me_id, en_id, me_name="dauntless", my_max=5050, states=No
                                       f"(cast R{max(cast)}): if I stood on its centre, that let him take it "
                                       f"(no positions kept for this round: check the replay)"})
     return found
+
+
+# ---- positions from the log (director 2026-11-16: "every jutsu used states where it was used, the tile letter and
+#      number: d4, etc"). Each log line's description ends "on <b>F4</b>": the tile the action was aimed at. The board
+#      names its tiles letter = column (A is longitude 0), number = row + 1 (latitude 0 is row 1): hexgrid.ts
+#      nameArenaTile, `${String.fromCharCode(65 + tile.col)}${tile.row + 1}`. The brain keeps that tile per line as
+#      the "*.tile" column of fights/<bid>_entries.json (player/calls.py described, tile_of).
+TILE_RE = re.compile(r"<b>\s*([A-Za-z])\s*(\d{1,2})\s*</b>")
+SELF_AIMED = {"heavenbows", "smoke"}  # mine, aimed at my own tile, that are in no planner table's self list
+
+
+def tile_of(description):
+    """A log line's description -> its tile ("F4"), or None. The last tile named is the one the line was aimed at."""
+    found = TILE_RE.findall(description or "")
+    return f"{found[-1][0].upper()}{int(found[-1][1])}" if found else None
+
+
+def tile_xy(tile):
+    """"F4" -> (5, 3), the (longitude, latitude) the battle state uses; None for anything else."""
+    m = re.fullmatch(r"\s*([A-Za-z])(\d{1,2})\s*", tile or "")
+    if not m:
+        return None
+    x, y = ord(m.group(1).upper()) - 65, int(m.group(2)) - 1
+    return (x, y) if 0 <= x < GRID[0] and 0 <= y < GRID[1] else None
+
+
+def tile_name(xy):
+    return f"{chr(65 + xy[0])}{xy[1] + 1}" if xy else "?"
+
+
+def _aims_at_him(name):
+    """Whether one of my actions is aimed at him (its tile is his) rather than at me (its tile is mine)."""
+    import turn
+    if name in MOVES or name in SELF_AIMED or name in turn.SELF_T:
+        return False
+    return name in DAMAGE or name in {"subaku", "clear", "resist", "danse", "shrapnel"} or name not in BUFFS
+
+
+def track_positions(rows, tiles, me_id, en_id):
+    """Where each of us stood, by the log's tiles: [(mine, his)] before each row, and one more after the last.
+    rows oldest first; tiles the same length (None where a line has none). Mine are read from my own lines (a move
+    or a self-aimed action is my tile, an attack is his); his from his (a line aimed at my tile is aimed at me,
+    any other is his own tile: a buff, a move, a heal). Unknown is None."""
+    me = him = None
+    out = [(me, him)]
+    for (r, u, a, _), t in zip(rows, tiles):
+        xy = tile_xy(t)
+        if xy is not None and u == me_id:
+            name = _name(a) or a
+            if name in MOVES or not _aims_at_him(name):
+                me = xy
+            elif xy != me:
+                him = xy
+        elif xy is not None and u == en_id:
+            if xy != me:
+                him = xy
+        out.append((me, him))
+    return out
+
+
+def log_tiles(path):
+    """A saved log's tiles, oldest first like opponents.load_logs' rows (the file keeps the connector's newest-first
+    order); None when the log kept none (every log saved before 2026-11-16)."""
+    import json
+    try:
+        d = json.load(open(path))
+    except (OSError, ValueError, TypeError):
+        return None
+    t = d.get("*.tile") if isinstance(d, dict) else None
+    return list(t)[::-1] if isinstance(t, list) and any(t) else None
+
+
+def palace_ground(centre, me_id, cast):
+    """My Subaku Palace's ground as the battle read shows it: every hex within 4 of its centre but the centre."""
+    return [{"type": "decreasedamagegiven", "creatorId": me_id, "longitude": x, "latitude": y,
+             "rounds": PALACE_ROUNDS, "createdRound": cast}
+            for x in range(GRID[0]) for y in range(GRID[1]) if 0 < _dist((x, y), centre) <= 4]
+
+
+def _centre_story(text, rows, track, mine, pos, palaces, r, en_id):
+    """The centre finding told with the log's tiles: where I stepped to, and whether he then stood on the centre."""
+    centre = pos
+    cast = max((c for c, ctr in palaces if ctr == centre and c <= r), default=None)
+    last = mine[-1][0]
+    dest = next((track[i + 1][0] for i, n in mine if n in MOVES), None)
+    took = [rr for i, (rr, u, _, _) in enumerate(rows) if i > last and u == en_id and track[i + 1][1] == centre
+            and cast is not None and rr <= cast + PALACE_ROUNDS - 1]
+    text = text.replace(", which he can take", "")
+    text += f": {tile_name(centre)} to {tile_name(dest)}, {_dist(centre, dest)} from the centre" if dest else ""
+    text += f" (cast R{cast})" if cast is not None else ""
+    return text + (f", and he took the centre ({tile_name(centre)}) in R{took[0]}" if took else "")
 
 
 def report_fight(found, title=""):
@@ -330,8 +440,9 @@ def main():
     if a.entries:
         raw = json.load(open(a.entries))
         rows = list(zip(raw["*.battleRound"], raw["*.userId"], raw["*.actionId"], raw["*.appliedEffects.*.txt"]))
+        tiles = raw.get("*.tile") or [None] * len(rows)
         if len(rows) > 1 and rows[0][0] > rows[-1][0]:
-            rows = rows[::-1]
+            rows, tiles = rows[::-1], tiles[::-1]
         bid, path = os.path.basename(a.entries).split("_entries")[0], a.entries
     else:
         import opponents as OM
@@ -339,9 +450,10 @@ def main():
         if not log:
             raise SystemExit(f"no log for {a.bid}")
         bid, rows, path = log
+        tiles = log_tiles(path)
     en_id = next(u for u in dict.fromkeys(u for _, u, _, _ in rows) if u != me_id and (u or "").startswith("user_"))
     report_fight(review_fight(rows, me_id, en_id, states=archived_states(bid),
-                              limit_breaker=had_limit_breaker(rows, me_id, path)), bid[:8])
+                              limit_breaker=had_limit_breaker(rows, me_id, path), tiles=tiles), bid[:8])
 
 
 if __name__ == "__main__":

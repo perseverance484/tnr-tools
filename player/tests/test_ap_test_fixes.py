@@ -7,6 +7,11 @@ It is now rotated by size (ROTATE_AFTER_TOKENS) or by count (ROTATE_AFTER_BATCHE
 rotation nobody picks up is a stall that gives the run lock back.
 F5: end_session=true refuses any new fight at the call (gate session_ending); a fight that is running is played.
 F3: `brain stopped` on a live folder that does not exist yet.
+F7/F8: the fight logs were never kept. They were written in the play session's checkout and lost with it; and the
+second fight's id holds "_" (6_UqBB_MXSIqobeRrfmdd), so the post-mortem read it as battle "6" and found no log.
+Each closed fight is now pushed to main (player/keep.py), and its closing batch reads the log once more with each
+line's description, of which the tile ("on <b>F4</b>") is kept as the log's "*.tile" column: the replay review
+reads positions from it.
 Socket-free: no game call, no connector call; the planners run on a logged state.
 """
 import io
@@ -18,11 +23,11 @@ import tempfile
 import unittest
 from unittest import mock
 
-from player import calls as K, config as C, relay
+from player import calls as K, config as C, keep, relay
 from player.activities.pvp_hunt import PvpHunt
 from player.brain import client
 from player.combat import Combat, planner_argv
-from player.tests.support import FIXTURES, Rig, battle_read, fixture, log_read, user
+from player.tests.support import FIXTURES, Rig, battle_read, fixture, gone, log_read, res, start_fight, user
 from player.tests.test_runlock import on_the_accounts_folder
 
 DASH = "-CH613DKHOF7stgVwrDNR"                    # the id of the AP test's first fight (ASV)
@@ -164,6 +169,90 @@ class EndingSession(unittest.TestCase):
         for s in out["steps"]:
             if s.get("call") == "combat.performAction":
                 self.assertTrue(rig.brain.gates.check(s, rig.world, "battle").ok)
+
+
+class KeptLogs(unittest.TestCase):
+    def test_a_description_names_its_tile(self):
+        self.assertEqual(K.tile_of("Phantom Step: dauntless ... on <b>F4</b>"), "F4")
+        self.assertEqual(K.tile_of("Defensive Stance: x on <b>h5</b>.  It is now dauntless's turn."), "H5")
+        self.assertIsNone(K.tile_of("DDXXD stands and does nothing. "))
+        self.assertEqual(K.log_tiles({"*.id": ["a", "b"], "*.description": ["x", "y on <b>J8</b>"]}),
+                         {"a": None, "b": "J8"})
+        self.assertIsNone(K.log_tiles({"*.id": ["a"], "*.description": []}))
+
+    def test_the_closing_batch_reads_the_tiles_and_they_are_kept(self):
+        rig = Rig()
+        battle, ents, _ = start_fight(rig, "B1")
+        out = gone(rig, "B1")
+        reads = [s for s in out["steps"] if s.get("call") == "combat.getBattleEntries"]
+        self.assertEqual(reads, [K.described("B1")])
+        self.assertEqual(reads[0]["select"], ["*.id", "*.description"])     # the polls never carry descriptions
+        path = os.path.join(rig.combat.fights, "B1_entries.json")
+        with open(path, encoding="utf8") as f:
+            ids = json.load(f)["*.id"]
+        desc = [f"x on <b>{chr(65 + i % 13)}{1 + i % 9}</b>" for i in range(len(ids))]
+        rig.tick(res("combat.getBattleEntries", {"*.id": ids, "*.description": desc},
+                     {"battleId": "B1", "limit": K.LOG_KEEP}))
+        with open(path, encoding="utf8") as f:
+            saved = json.load(f)
+        self.assertEqual(saved["*.tile"], [K.tile_of(d) for d in desc])
+        self.assertEqual(rig.world["records"]["log_tiles_due"], [])
+
+    def test_the_polls_in_a_fight_stay_small(self):
+        self.assertNotIn("*.description", K.entries("B1", 8)["select"])
+        self.assertNotIn("*.description", K.entries("B1", 8, whole=True)["select"])
+
+    def test_a_fight_is_pushed_only_from_the_accounts_own_folder(self):
+        combat = Combat(tempfile.mkdtemp(), spawn=False)
+        combat.keep_fight("B1")
+        self.assertEqual(combat.spawned, [])                                  # a test or rehearsal folder: never
+        real = Combat(spawn=False)
+        with mock.patch.dict(os.environ, {}, clear=False):
+            for k in ("TNR_PLAYER_LIVE", "TNR_PLAYER_FIGHTS", "TNR_PLAYER_KEEP"):
+                os.environ.pop(k, None)
+            real.keep_fight("-CH613DKHOF7stgVwrDNR")
+            self.assertEqual(real.spawned[-1][1:], ["-m", "player.keep", "-CH613DKHOF7stgVwrDNR"])
+            os.environ["TNR_PLAYER_KEEP"] = "0"
+            n = len(real.spawned)
+            real.keep_fight("B2")
+            self.assertEqual(len(real.spawned), n)
+
+    def test_keep_commits_only_the_fight_files_to_main(self):
+        tmp = tempfile.mkdtemp()
+        git = lambda *a, cwd=None: subprocess.run(["git", *a], cwd=cwd, check=True, capture_output=True,  # noqa: E731
+                                                 env=dict(os.environ, GIT_AUTHOR_NAME="t", GIT_AUTHOR_EMAIL="t@x.invalid",
+                                                          GIT_COMMITTER_NAME="t", GIT_COMMITTER_EMAIL="t@x.invalid"))
+        origin, work = os.path.join(tmp, "origin.git"), os.path.join(tmp, "work")
+        git("init", "-q", "--bare", "-b", "main", origin)
+        git("clone", "-q", origin, work)
+        with open(os.path.join(work, "README"), "w") as f:
+            f.write("x\n")
+        git("add", "README", cwd=work)
+        git("-c", "commit.gpgsign=false", "commit", "-q", "-m", "base", cwd=work)
+        git("push", "-q", "origin", "HEAD:main", cwd=work)
+        fights = os.path.join(work, "state", "player", C.ACCOUNT, "fights")
+        bid = "6_UqBB_MXSIqobeRrfmdd"
+        os.makedirs(os.path.join(fights, "live_states"))
+        for name in (f"{bid}_entries.json", f"{bid}_meta.json", os.path.join("live_states", f"{bid}.json")):
+            with open(os.path.join(fights, name), "w") as f:
+                f.write("{}\n")
+        env = dict(os.environ, GIT_AUTHOR_NAME="t", GIT_AUTHOR_EMAIL="t@x.invalid", GIT_COMMITTER_NAME="t",
+                   GIT_COMMITTER_EMAIL="t@x.invalid")
+        with mock.patch.object(keep, "REPO", work), mock.patch.dict(os.environ, env):
+            files = keep.fight_files(bid, fights)
+            self.assertEqual(len(files), 3)
+            first = keep.keep(bid, files)
+            self.assertTrue(first.get("commit"), first)
+            again = keep.keep(bid, files)
+            self.assertIsNone(again["commit"])                                # nothing new: no commit
+            stray = os.path.join(work, "README")
+            self.assertIn("error", keep.keep(bid, [stray]))                    # only fight files
+        listed = subprocess.run(["git", "--git-dir", origin, "show", "--name-only", "--format=", "main"],
+                                capture_output=True, text=True, check=True).stdout.split()
+        self.assertEqual(sorted(listed), sorted(f"state/player/{C.ACCOUNT}/fights/" + os.path.relpath(p, fights)
+                                                for p in files))
+        status = subprocess.run(["git", "status", "--porcelain"], cwd=work, capture_output=True, text=True).stdout
+        self.assertIn("?? state/", status)                                    # the working tree was not touched
 
 
 class StoppedWithNoFolder(unittest.TestCase):

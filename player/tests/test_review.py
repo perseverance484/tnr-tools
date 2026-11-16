@@ -224,7 +224,7 @@ class F1TheSharedLimit(unittest.TestCase):
         rig.world["budget"]["calls"] += [[rig.t, "battle"]] * (C.CALL_LIMIT - 4 - rig.brain.budget.used())
         ledger.rows = [(c[0], c[1], "") for c in rig.world["budget"]["calls"]]
         out = gone(rig, dt=waited(out) + 1)
-        self.assertEqual(rig.calls(out), ["item.consume", "profile.getUser"])
+        self.assertEqual(rig.calls(out), ["item.consume", "profile.getUser", "combat.getBattleEntries"])
         self.assertLessEqual(ledger.worst(), C.CALL_LIMIT)
 
     def test_how_long_the_fight_went_unread_is_logged_apart_from_the_planning_time(self):

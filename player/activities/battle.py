@@ -57,11 +57,27 @@ class Battle(Activity):
             try:
                 if r.endpoint == "profile.getUser" and not r.error:
                     self._profile(world)
+                bid = (r.input or {}).get("battleId")
+                if (r.endpoint == "combat.getBattleEntries" and bid in (world["records"].get("log_tiles_due") or [])
+                        and bid != (world["battle"] or {}).get("bid")):
+                    self._tiles(world, r)                         # a closed fight's tiles (calls.described)
+                    continue
                 state = world["battle"]
                 if state and r.endpoint in self.reads[1:] and r.input.get("battleId") == state["bid"]:
                     self._take(world, state, r)
             except Exception as err:  # noqa: BLE001  (one answer that cannot be taken in never costs the next)
                 world.event("error", f"battle could not take {r.endpoint} in: {err!r}"[:300], about="crash")
+
+    def _tiles(self, world, r):
+        """A closed fight's log read for its tiles (calls.described): kept in its saved log, then pushed. Taken
+        once; an error or a read that does not line up leaves the log as it was saved (it was pushed at the
+        close already)."""
+        bid = r.input.get("battleId")
+        due = world["records"].get("log_tiles_due") or []
+        world["records"]["log_tiles_due"] = [b for b in due if b != bid]
+        tiles = None if r.error else K.log_tiles(r.data)
+        if tiles is None or not self.combat.add_tiles(bid, tiles):
+            world.event("finding", f"the closed fight's tiles were not kept ({bid[:6]})", about="selects", battle=bid)
 
     def _profile(self, world):
         """A profile read opens a fight (status BATTLE) and settles the result of the one that just closed."""
@@ -654,8 +670,12 @@ class Battle(Activity):
             else C.MAX_HP}
         world["inventory"]["restock_due"] = True                  # after every fight: durability and stock (AP2)
         world["battle"] = None
-        return plan([K.user()], "battle", f"BATTLE OVER ({result or 'closed, result on the next read'}): {kept}",
-                    tag="fight_end")
+        # its tiles: one read of the whole log with descriptions, now that no poll has to stay small. A fight
+        # closed straight into another waits for that one's close (no other fight's log is read in a fight).
+        due = (world["records"].get("log_tiles_due") or []) + [bid]
+        world["records"]["log_tiles_due"] = due[-3:]
+        return plan([K.user()] + [K.described(b) for b in world["records"]["log_tiles_due"]], "battle",
+                    f"BATTLE OVER ({result or 'closed, result on the next read'}): {kept}", tag="fight_end")
 
     def _books(self, world, state, result, users):
         """The end of a fight on record: its last turn closed, its result (or what the next profile needs to

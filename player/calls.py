@@ -7,6 +7,8 @@ leaves the brain. Ported from the pilot's c_* helpers; the selects are the ones 
 Lists are read as columns. The connector drops a missing key from its column instead of padding it, so a column
 select is used only on keys every element carries, and readers check the lengths (ground_cols).
 """
+import re
+
 from . import config as C
 
 
@@ -105,6 +107,35 @@ def entries(bid, n, whole=False):
     left out of that column; whole asks for each line's effects as they are, which always lines up."""
     return call("combat.getBattleEntries", {"battleId": bid, "limit": n},
                 list(ENT[:4]) + ["*.appliedEffects"] if whole else list(ENT))
+
+
+LOG_KEEP = 100           # a fight's lines read once at its end for their tiles: a fight's whole log (45 in fight 2)
+_TILE = re.compile(r"<b>\s*([A-Ma-m])\s*(\d{1,2})\s*</b>")
+
+
+def described(bid, n=LOG_KEEP):
+    """The fight's log with each line's description, read once when the fight has closed (the game keeps the log
+    after the fight: fight 2 of the AP test read back hours later, 2026-11-16). Each description ends with the
+    tile the action was aimed at, "on <b>F4</b>" (hexgrid.ts nameArenaTile: letter = column, number = row + 1),
+    which is all that is kept of it: the replay review reads positions from it. Never read in a fight: the
+    descriptions are long, and the polls stay small."""
+    return call("combat.getBattleEntries", {"battleId": bid, "limit": n}, ["*.id", "*.description"])
+
+
+def tile_of(description):
+    """A description -> the tile it was aimed at ("F4"), or None (a wait, a line with no tile)."""
+    found = _TILE.findall(description) if isinstance(description, str) else []
+    return f"{found[-1][0].upper()}{int(found[-1][1])}" if found else None
+
+
+def log_tiles(data):
+    """A described() read -> {line id: tile or None}; None when its two columns do not line up."""
+    if not isinstance(data, dict):
+        return None
+    ids, desc = data.get("*.id"), data.get("*.description")
+    if not isinstance(ids, list) or not isinstance(desc, list) or len(ids) != len(desc):
+        return None
+    return {i: tile_of(d) for i, d in zip(ids, desc) if isinstance(i, (str, int))}
 
 
 def _number(v):

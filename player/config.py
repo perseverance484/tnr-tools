@@ -24,6 +24,13 @@ def fights_dir():
     return os.environ.get("TNR_PLAYER_FIGHTS") or os.path.join(ACCOUNT_DIR, "fights")
 
 
+def keeps_fights():
+    """Whether a finished fight's files are pushed to main (player/keep.py): only for the account's own folders,
+    never in a rehearsal or a test (TNR_PLAYER_LIVE or TNR_PLAYER_FIGHTS set), and not when TNR_PLAYER_KEEP=0."""
+    return not (os.environ.get("TNR_PLAYER_LIVE") or os.environ.get("TNR_PLAYER_FIGHTS")
+                or os.environ.get("TNR_PLAYER_KEEP") == "0")
+
+
 # ---------------------------------------------------------------- the account (from pilot.py)
 ME = "user_37qazcrgUPldBPI65bb25DQiCjz"
 ME_NAME = "dauntless"

@@ -261,7 +261,7 @@ class F4StraightIntoAnotherFight(unittest.TestCase):
         rig, out = self.left_for("BATTLE", "B1")                            # the same battle: it goes on
         self.assertEqual((rig.world["battle"]["bid"], "item.consume" in rig.calls(out)), ("B1", False))
         rig, out = self.left_for("AWAKE", None)                             # out of combat: the potion is right
-        self.assertEqual(rig.calls(out), ["item.consume", "profile.getUser"])
+        self.assertEqual(rig.calls(out), ["item.consume", "profile.getUser", "combat.getBattleEntries"])
 
     def test_no_recovery_call_goes_out_while_the_new_fight_is_on(self):
         rig, out = self.left_for("BATTLE", "B2")

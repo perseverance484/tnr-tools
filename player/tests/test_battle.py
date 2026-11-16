@@ -297,7 +297,7 @@ class EndOfFight(unittest.TestCase):
         rig = Rig()
         start_fight(rig)                                                   # I am at 2,757 of 5,050
         out = self.gone(rig)
-        self.assertEqual(rig.calls(out), ["item.consume", "profile.getUser"])
+        self.assertEqual(rig.calls(out), ["item.consume", "profile.getUser", "combat.getBattleEntries"])
         self.assertEqual(out["hold"], 0)
         self.assertFalse(rig.world.in_battle())
 
@@ -308,13 +308,13 @@ class EndOfFight(unittest.TestCase):
         full = dict(battle, **{"battle.usersState.*.curHealth": [5050 if u == C.ME else 0 for u in users]})
         out = rig.tick(battle_read("B1", full))
         self.assertIn("BATTLE OVER (won)", out["note"])
-        self.assertEqual(rig.calls(out), ["profile.getUser"])
+        self.assertEqual(rig.calls(out), ["profile.getUser", "combat.getBattleEntries"])
         rig = Rig()
         battle, ents, _ = start_fight(rig)
         dead = dict(battle, **{"battle.usersState.*.curHealth": [0 if u == C.ME else 3000 for u in users]})
         out = rig.tick(battle_read("B1", dead))
         self.assertIn("BATTLE OVER (lost)", out["note"])
-        self.assertEqual(rig.calls(out), ["profile.getUser"])
+        self.assertEqual(rig.calls(out), ["profile.getUser", "combat.getBattleEntries"])
         self.assertGreater(rig.world["opponents"]["lost_to"][FOE], rig.t)
         self.assertEqual(rig.events("fight_end")[-1]["result"], "lost")
 

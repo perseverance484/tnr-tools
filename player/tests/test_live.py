@@ -47,7 +47,7 @@ class AReadWithoutTheBattle(unittest.TestCase):
         rig = Rig()
         start_fight(rig)
         out = gone(rig)
-        self.assertEqual(rig.calls(out), ["item.consume", "profile.getUser"])
+        self.assertEqual(rig.calls(out), ["item.consume", "profile.getUser", "combat.getBattleEntries"])
         rig.tick(res("item.consume", {"success": True}, out["steps"][0]["input"]), user())
         self.assertEqual(rig.events("fight_end")[0]["result"], "won")
 

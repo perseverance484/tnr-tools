@@ -94,7 +94,7 @@ check("a nuke on his clock and no seal halves with a shield", p == -0.5 * K.NUKE
 check("a nuke on his clock, no seal, no cover", K.guards(["nights", "pill"], nuke)[0] < -K.NUKE_NO_SEAL + 1)
 check("Chakra Resistance answers it", K.guards(["resist", "nights"], nuke)[0] == 0)
 check("Danse Macabre answers it", K.guards(["danse", "kunai"], nuke)[0] >= -K.BURST_UNPUMPED)
-check("both on cooldown: no guard", K.guards(["nights", "pill"], ctx(my_hp=2400, nuke_hit=1500,
+check("both on cooldown: no guard", K.guards(["nights", "jewel"], ctx(my_hp=2400, nuke_hit=1500,
                                                                      used=[[5, "resist"], [5, "danse"]]))[0] == 0)
 check("a small hit is no nuke", K.guards(["nights", "pill"], ctx(my_hp=5000, nuke_hit=900))[0] == 0)
 rows = [(4, HIM, "x", ["dauntless takes 862.68 damage", "dauntless takes 606.00 afterburn damage"]),
@@ -103,6 +103,8 @@ check("his hardest turn is read from the log", abs(K.observed_peak(rows, HIM, "d
 
 # ---- 5. "Using buff prevent at the end of the fight with a pill and offensive stance while better damage and
 #         defense options are available"
+check("two of his hardest turns from dead is the end of the fight too",
+      K.guards(["pill", "lotus", "offstance"], ctx(my_hp=2142, nuke_hit=1469))[0] <= -2 * K.LATE_FILLER)
 late = ctx(my_hp=1500)
 p, why = K.guards(["pill", "lotus", "offstance"], late)            # his R8
 check("late pill and stance pay for each", p <= -2 * K.LATE_FILLER and "late pill+offstance" in why[-1], why)
@@ -121,14 +123,31 @@ for script in ("turn.py", "planner2.py"):
           out.stdout[-800:] + out.stderr[-800:])
 check("off by default in the planners", K.live_guards(three, ctx(rows=[]))[0] == 0 or K.LIVE)
 
-# ---- the replay review on fight 2 (reconstructed from the operator's decode: no positions, see the file's note)
+# ---- tiles: the log names each line's tile (hexgrid.ts nameArenaTile: letter = column, number = row + 1)
+check("a description's tile", K.tile_of("Phantom Step: ... on <b>F4</b>") == "F4"
+      and K.tile_of("Defensive Stance: x on <b>H5</b>.  It is now dauntless's turn.") == "H5"
+      and K.tile_of("DDXXD stands and does nothing. ") is None)
+check("tile to board position", K.tile_xy("F4") == (5, 3) and K.tile_xy("a1") == (0, 0) and K.tile_xy("M9") == (12, 8)
+      and K.tile_xy("N1") is None and K.tile_xy("A10") is None and K.tile_name((7, 4)) == "H5")
+
+# ---- the replay review on fight 2: the real log, read again from the game on 2026-11-16 (it outlives the fight;
+#      read only), with each line's tile. Kept newest first, as the connector returns it and the brain saves it.
 import json  # noqa: E402
 raw = json.load(open(os.path.join(HERE, "ap_fight2_ddxxd.json")))
-rows = list(zip(raw["*.battleRound"], raw["*.userId"], raw["*.actionId"], raw["*.appliedEffects.*.txt"]))
-found = K.review_fight(rows, ingest.ME, "user_ddxxd_reconstructed")
+rows = list(zip(raw["*.battleRound"], raw["*.userId"], raw["*.actionId"], raw["*.appliedEffects.*.txt"]))[::-1]
+tiles = raw["*.tile"][::-1]
+HIM2 = "user_2vfg5EGCg70w2vuiOwTiZYtaFpd"
+track = K.track_positions(rows, tiles, ingest.ME, HIM2)
+by_round = {}
+for (r, u, a, _), (mine, his) in zip(rows, track[1:]):
+    by_round[r] = (mine, his)
+check("positions from the log: R5 I stand on H5, he on K9", by_round[5] == (K.tile_xy("H5"), K.tile_xy("K9")), by_round)
+check("R7: I step to F4 and he takes H5", by_round[7] == (K.tile_xy("F4"), K.tile_xy("H5")), by_round)
+found = K.review_fight(rows, ingest.ME, HIM2, tiles=tiles)
 txt = " | ".join(f"R{f['round']} {f['text']}" for f in found)
-check("R7: Phantom Step while my Subaku Palace was up", any(f["round"] == 7 and "Subaku Palace" in f["text"]
-                                                            for f in found), txt)
+check("R7: Phantom Step off my Palace's centre, and he took it",
+      any(f["round"] == 7 and "off the centre of my Subaku Palace: H5 to F4" in f["text"]
+          and "he took the centre (H5) in R7" in f["text"] for f in found), txt)
 check("R3: three buffs into his ready Clear", any(f["round"] == 3 and "ready Clear" in f["text"] for f in found), txt)
 check("a burst round without Limit Breaker", any("without Limit Breaker" in f["text"] for f in found), txt)
 check("R8: the burst round without Aetherion", any(f["round"] == 8 and "Aetherion" in f["text"] for f in found), txt)
@@ -139,5 +158,15 @@ check("R8: late pill and offensive stance", any(f["round"] == 8 and "late pill+o
 check("nothing flagged on turns he did not fault", {f["round"] for f in found} <= {3, 4, 7, 8}, txt)
 check("Limit Breaker is no error in a fight it was not in",
       not any("Limit Breaker" in f["text"] and "Aetherion" not in f["text"]
-              for f in K.review_fight(rows, ingest.ME, "user_ddxxd_reconstructed", limit_breaker=False)))
-print("ok: the fight 2 critique is a replay review and, switched on, planner terms")
+              for f in K.review_fight(rows, ingest.ME, HIM2, limit_breaker=False, tiles=tiles)))
+untiled = K.review_fight(rows, ingest.ME, HIM2)
+check("without tiles the move is still flagged, for a look at the replay",
+      any(f["round"] == 7 and "check the replay" in f["text"] for f in untiled))
+
+# ---- the log's battle id: ids may hold "_" (fight 2's post-mortem read it as battle "6" and found no log)
+import opponents  # noqa: E402
+check("battle ids with underscores", opponents.battle_id_of("x/6_UqBB_MXSIqobeRrfmdd_entries.json", {}) ==
+      "6_UqBB_MXSIqobeRrfmdd" and opponents.battle_id_of("9KNISm3xFGViCgkt_o4Fx_luka3.json", {}) ==
+      "9KNISm3xFGViCgkt_o4Fx" and opponents.battle_id_of("Q.json", {"_meta": {"battleId": "B"}}) == "B"
+      and opponents.battle_id_of("1nKLV-oUazfAEWA6OSfBi.json", {}) == "1nKLV-oUazfAEWA6OSfBi")
+print("ok: the fight 2 critique is a replay review with positions and, switched on, planner terms")
