@@ -63,3 +63,4 @@
  "proof_reference": "PROOF.md: 4,200-4,400 a batch (one-message form), estimate 97-98% under the pre-hook live relay"
 }
 ```
+- 2026-11-16T19:28:43Z rotation 8: new relay started.
