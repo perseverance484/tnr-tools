@@ -103,3 +103,19 @@ height).
 shows that a clip is sized from the tile's *height*, half its width: at 1.75 each burst is narrower than its tile and the
 spiral reads as separate columns; at 3.0 the bursts merge into one storm. Previews: `preview/fcf_board_light_stills.png`
 (1.75 vs 3.0), `preview/fcf_preview_frames.png`.
+
+## 7. Addendum: painted floor ripple (director 2026-11-16)
+
+Director: "lines of violent purple chakra rippling across the floor and exploding, then the cracks remain and shimmer"
+(v2, `build_strips.py --v2`), then "Yes painted ripple layer." The v2 ripple lines are scripted; these two layers replace
+them. The script lays them flat (squashes them 2:1 onto the floor) and reveals them outward from the centre with a
+white-hot leading edge, so paint them **flat-on, seen from straight above, unsquashed**.
+
+| Layer | What | Canvas |
+|---|---|---|
+| **E1 RIPPLE WEB** | 8-10 violent jagged chakra lines radiating from the exact centre to near the canvas edge, each forking 1-3 times; thick and bright near the centre, tapering to whip-thin tips; crisp lilac-white cores, violet bodies, soft violet glow fading to clear. No ground, no burst, no centre blob | 1254 x 1254, transparent |
+| **E2 SECOND WAVE** | a different web in the same style (different angles and forks), slightly thinner and brighter, for the chasing wave | 1254 x 1254, transparent |
+
+Palette and rules as section 3: violet `#9b4dff`-`#c58bff`, core `#f4eaff`, glow `#24093f` edge only, no crimson, raw
+chakra not fire, no text or symbols, real transparency (glow fades to clear, no tinted panel). Lines should reach about
+45% of the canvas width from the centre in every direction (they run into the neighbouring tiles in battle).
