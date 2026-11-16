@@ -666,6 +666,19 @@
    "waitsFor": [],
    "note": "Director go 2026-11-13 18:57 UTC (ship everything). Job 598-mwfclh28, 5/5 verified 19:12 UTC. 585 log-text reword still not applied (cosmetic).",
    "result": "harvests/inbox/tnr_results_1794597121616.json"
+  },
+  {
+   "id": "620",
+   "manifest": "push/620_variant_text_weapons.json",
+   "what": "Unique description + battle text for 21 weapon variants (Hemathorn/Weeping Testament pattern)",
+   "runner": "browser or connector",
+   "status": "waiting",
+   "waitsFor": [
+    "director approval of the text (Claude Doc 'Weapon variant text (job 620)')",
+    "director go"
+   ],
+   "build": "python3 push/620_variant_text_weapons.gen.py",
+   "note": "Director 2026-11-15: players want unique text on every variant, faithful to each weapon's own text, premium rewrite. Text source state/variant_text/weapons_20261115.json; parent text and art read live 2026-11-15. check_manifest.mjs: 0 pre-send problems. validate.py reports 'no itemVariant entity' at the pinned contracts (a validator contract gap, same edit shape as push/327)."
   }
  ]
 }
