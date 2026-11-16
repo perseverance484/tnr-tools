@@ -91,3 +91,15 @@ animation so the Fury Burst plays alone; keep its sound. (Art only; the damage i
    `staticAssetPath`, `disappearAnimation` (and `staticAnimation` if D ships) plus `animationScale` 1.75, and effect 1's
    `appearAnimation` cleared if approved. Read back afterwards. This jutsu is a player bloodline jutsu, not an AI's, so
    law 18 does not apply; nothing hidden is saved onto it.
+
+## 6. Assembly result (2026-11-16)
+
+Sources received (`art/jutsu_icons/forbidden_chakra_fury/animation/raws/`, art director handoff). Assembled by
+`build_strips.py`: burst 24 frames x 42 ms, fade 12 x 50 ms, crackle loop 12 x 60 ms (128 px, lossless; 323 KB, 17 KB,
+3 KB), ground image cropped to its painted footprint at its own aspect (the renderer stretches it to the tile's width x
+height).
+
+**Scale changed to 3.0.** The game-geometry board (`--board`, Headless Rider `fxkit` layout: flat hexes squashed 2:1)
+shows that a clip is sized from the tile's *height*, half its width: at 1.75 each burst is narrower than its tile and the
+spiral reads as separate columns; at 3.0 the bursts merge into one storm. Previews: `preview/fcf_board_light_stills.png`
+(1.75 vs 3.0), `preview/fcf_preview_frames.png`.

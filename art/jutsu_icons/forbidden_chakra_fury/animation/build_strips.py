@@ -247,6 +247,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--size", type=int, default=128)
     ap.add_argument("--preview", action="store_true")
+    ap.add_argument("--board", action="store_true", help="game-geometry board preview (fxkit), after the strips")
     a = ap.parse_args()
     os.makedirs(OUT, exist_ok=True)
     clips = {"burst": (build_burst(), 42), "fade": (build_fade(), 50), "crackle": (build_crackle(), 60)}
@@ -255,11 +256,13 @@ def main():
         b = strip(frames, a.size, p)
         print(f"{p}: {len(frames)} frames x {a.size}px, {ms} ms, {b} bytes{'  OVER 460800' if b > 460800 else ''}")
     g = os.path.join(OUT, "ground_fcf_scorch.webp")
-    ground_tile(256).save(
+    ground_tile_aspect(256).save(
         g, "WEBP", lossless=True, method=6)
     print(f"{g}: 256px, {os.path.getsize(g)} bytes")
     if a.preview:
         preview(clips)
+    if a.board:
+        board_preview()
 
 
 def preview(clips):
@@ -297,6 +300,84 @@ def preview(clips):
         sheet.paste(out[idx], (0, k * H))
     sheet.save(os.path.join(HERE, "preview", "fcf_preview_frames.png"))
     print(p)
+
+
+
+def board_preview(scales=(1.75, 3.0), bgs=None, out_name="fcf_board"):
+    """Game-geometry preview via the Headless Rider fxkit board: flat hexes squashed 2:1 (HEX_ASPECT 0.5), the
+    AOE spiral patch, and the Pixi renderer's sizes (combatEffects.ts): clip = tile.height x animationScale, ground
+    image = one tile, width x height. Plays burst -> ground + crackle -> fade on every hit tile at the same instant."""
+    import sys
+    sys.path.insert(0, os.path.join(HERE, "..", "..", "..", "halloween_headless_rider", "fx"))
+    import fxkit  # noqa: E402
+    art = os.path.join(HERE, "..", "..", "..", "halloween_headless_rider")
+    bgs = bgs or [os.path.join(art, "headless_rider_horror_01_background.webp"),
+                  os.path.join(art, "headless_rider_horror_02_village_dawn.webp")]
+    tiles, w, h, (W, H), _ = fxkit.hex_board(scale=2)
+    centre = tiles[len(tiles) // 2 + 2]
+    hit = fxkit.spiral_tiles(tiles, (centre[2], centre[3]), 2, w, h)
+    g = ground_tile_aspect()
+    gt = g.resize((int(w), int(h)), Image.LANCZOS)
+    burst = strip_frames(os.path.join(OUT, "anim_fcf_burst.webp"))
+    crack = strip_frames(os.path.join(OUT, "anim_fcf_crackle.webp"))
+    fade = strip_frames(os.path.join(OUT, "anim_fcf_fade.webp"))
+    timeline = [("burst", i, 42) for i in range(24)] + [("hold", i, 60) for i in range(30)] + \
+               [("fade", i, 50) for i in range(12)] + [("empty", 0, 400)]
+    panels = []
+    for bg in bgs:
+        base = Image.open(bg).convert("RGBA").resize((W, int(W * 2 / 3)), Image.LANCZOS)
+        base = base.crop((0, (base.height - H) // 2, W, (base.height - H) // 2 + H))
+        base.alpha_composite(Image.new("RGBA", (W, H), (0, 0, 0, 70)))
+        from PIL import ImageDraw
+        d = ImageDraw.Draw(base)
+        for t in tiles:
+            d.polygon(fxkit._hex_poly(t[2], t[3], w, h), outline=(255, 255, 255, 40))
+        for sc in scales:
+            eff = int(h * sc)
+            seq = []
+            fb, fc, ff = ([f.resize((eff, eff), Image.LANCZOS) for f in fr] for fr in (burst, crack, fade))
+            for kind, i, ms in timeline:
+                c = base.copy()
+                if kind == "hold" or kind == "fade" or (kind == "burst" and i >= 14):
+                    for t in hit:
+                        c.alpha_composite(gt, (int(t[2] - w / 2), int(t[3] - h / 2)))
+                for t in hit:
+                    fr = fb[i] if kind == "burst" else fc[i % 12] if kind == "hold" else ff[i] if kind == "fade" else None
+                    if fr is not None:
+                        c.alpha_composite(fr, (int(t[2] - eff / 2), int(t[3] - eff / 2)))
+                ImageDraw.Draw(c).text((8, 6), f"animationScale {sc}", fill=(255, 255, 255, 230))
+                seq.append(c)
+            panels.append(seq)
+    cols = len(scales)
+    frames = []
+    for k in range(len(timeline)):
+        sheet = Image.new("RGB", (W * cols, H * len(bgs)))
+        for pi, seq in enumerate(panels):
+            sheet.paste(seq[k].convert("RGB"), ((pi % cols) * W, (pi // cols) * H))
+        frames.append(sheet)
+    p = os.path.join(HERE, "preview", f"{out_name}.gif")
+    frames[0].save(p, save_all=True, append_images=frames[1:], duration=[t[2] for t in timeline], loop=0, optimize=True)
+    stills = Image.new("RGB", (W * cols, H * len(bgs) * 3))
+    for r, k in enumerate([8, 34, 58]):
+        stills.paste(frames[k], (0, r * H * len(bgs)))
+    stills.save(os.path.join(HERE, "preview", f"{out_name}_stills.png"))
+    print(p, os.path.getsize(p))
+
+
+def strip_frames(path):
+    s = Image.open(path).convert("RGBA")
+    return [s.crop((0, i * s.width, s.width, (i + 1) * s.width)) for i in range(s.height // s.width)]
+
+
+def ground_tile_aspect(width=256):
+    """B cropped to its painted footprint keeping its own aspect (the renderer stretches the ground image to the
+    tile's width x height, and tiles are squashed 2:1)."""
+    b = Image.open(os.path.join(RAW, "B_scorched_ground_tile.png")).convert("RGBA")
+    x0, y0, x1, y1 = b.getchannel("A").point(lambda v: 255 if v > 10 else 0).getbbox()
+    pw, ph = int((x1 - x0) * 0.02), int((y1 - y0) * 0.02)
+    c = b.crop((x0 - pw, y0 - ph, x1 + pw, y1 + ph))
+    return c.resize((width, max(1, round(width * c.height / c.width))), Image.LANCZOS)
+
 
 
 if __name__ == "__main__":
