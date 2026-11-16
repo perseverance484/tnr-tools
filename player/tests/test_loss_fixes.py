@@ -13,9 +13,9 @@ import tempfile
 import unittest
 from unittest import mock
 
-from player import calls as K, keep
+from player import calls as K, config as C, keep
 from player.combat import Combat
-from player.tests.support import fixture
+from player.tests.support import Rig, fixture, user
 
 OUT = """R3 v14 | MY TURN | he acted first this round
 me 3880 HP AP 80 (STUNNED -20) | him Selaphiel 3651 HP | dist 2 | his base turn 1005
@@ -85,6 +85,42 @@ class PlanRecord(unittest.TestCase):
                 f.write("x")
         names = [os.path.relpath(p, fights) for p in keep.fight_files("B4", fights)]
         self.assertIn(os.path.join("live_states", "B4.plans.jsonl.gz"), names)
+
+
+class RamenAfterEveryFight(unittest.TestCase):
+    """Director 2026-11-16: "Repair, heal and large ramen after every fight"; "The brain can use Ramen, sure."
+    Ramen refills chakra and stamina only; before, it was bought only under 50%, so run 2 never bought one."""
+
+    def end_fight(self, rig, result="won", hp=5050):
+        rig.world["records"]["fight_end"] = {"bid": "B1", "result": result, "hp": hp, "max": 5050, "at": rig.t}
+        return rig.brain.reg.activities["recovery"].after_fight(rig.world)
+
+    def test_a_large_ramen_after_a_fight_that_left_the_pools_down(self):
+        rig = Rig()
+        out = rig.tick(user(curChakra=79))
+        self.assertNotIn("village.buyFood", rig.calls(out))            # 79% and no fight: nothing (floor is 50%)
+        self.assertEqual(self.end_fight(rig), [])                       # full HP: no potion in the closing batch
+        out = rig.tick(user(curChakra=79))
+        self.assertEqual((out["activity"], rig.calls(out)), ("recovery", ["village.buyFood", "profile.getUser"]))
+        self.assertEqual(out["steps"][0]["input"], {"ramen": "large"})
+        out = rig.tick(user(curChakra=79))
+        self.assertNotIn("village.buyFood", rig.calls(out))            # one ramen per fight, not a loop
+
+    def test_no_ramen_when_the_pools_are_full_enough(self):
+        rig = Rig()
+        self.end_fight(rig)
+        out = rig.tick(user(curStamina=96))
+        self.assertNotIn("village.buyFood", rig.calls(out))
+        self.assertNotIn("ramen_due", rig.world.own("recovery"))
+
+    def test_after_a_loss_the_hospital_first_then_the_ramen(self):
+        rig = Rig()
+        self.end_fight(rig, result="lost", hp=0)
+        out = rig.tick(user("HOSPITALIZED", hp=1, curChakra=40, curStamina=60))
+        self.assertEqual(rig.calls(out), ["hospital.npcHeal", "profile.getUser"])
+        out = rig.tick(user(curChakra=60, curStamina=90))
+        self.assertEqual(rig.calls(out), ["village.buyFood", "profile.getUser"])
+        self.assertEqual(C.POOLS_AFTER_FIGHT, 0.95)
 
 
 if __name__ == "__main__":

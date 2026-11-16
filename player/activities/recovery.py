@@ -5,6 +5,9 @@
   A heal that changed nothing is not tried again for 10 minutes: a guard against a loop, not a fix.
 - At the end of a fight: the Full Potion goes in the same batch as the fight's last read (after_fight), because a
   wounded winner is a third party's target within seconds.
+- After every fight, a large ramen when chakra or stamina is under POOLS_AFTER_FIGHT, on the first tick awake in hunt
+  mode (director 2026-11-16: "Repair, heal and large ramen after every fight"; "The brain can use Ramen, sure.").
+  Jutsu spend those pools; the next fight is not started on what the last one left.
 """
 from .. import calls as K
 from .. import config as C
@@ -32,6 +35,10 @@ class Recovery(Activity):
             return "hp"
         if pools["cpsp"] < C.POOLS_BELOW and "cpsp" not in broken:
             return "cpsp"
+        if own.get("ramen_due"):
+            if pools["cpsp"] < C.POOLS_AFTER_FIGHT and "cpsp" not in broken:
+                return "cpsp"
+            own.pop("ramen_due", None)                            # full enough: nothing owed
         return None
 
     def available(self, world):
@@ -73,7 +80,8 @@ class Recovery(Activity):
         if need == "hp":
             own.setdefault("why", {})["item.consume"] = f"HP at {world.pools()['hp']:.0%}"
             return plan([self._potion(world), K.user()], "recovery", "Full Potion")
-        own.setdefault("why", {})["village.buyFood"] = f"chakra or stamina at {world.pools()['cpsp']:.0%}"
+        why = "after the fight: " if own.pop("ramen_due", None) else ""
+        own.setdefault("why", {})["village.buyFood"] = f"{why}chakra or stamina at {world.pools()['cpsp']:.0%}"
         own["pocket"] = world.me.get("money")                     # the next profile read shows what it cost
         return plan([K.ramen(own.get("ramen_cost")), K.user()], "recovery", "ramen")
 
@@ -84,6 +92,8 @@ class Recovery(Activity):
     def after_fight(self, world):
         """The steps to put in front of a fight's closing batch: a Full Potion when I am alive and hurt."""
         end = world["records"].pop("fight_end", None) or {}
+        if end:
+            world.own(self.name)["ramen_due"] = True              # chakra and stamina, once the fight's reads are in
         if end.get("result") != "lost" and 0 < end.get("hp", 0) < C.HEAL_BELOW * end.get("max", C.MAX_HP):
             world.own(self.name).setdefault("why", {})["item.consume"] = f"end of fight at {end['hp']:.0f} HP"
             return [self._potion(world)]

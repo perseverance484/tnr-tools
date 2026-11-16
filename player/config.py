@@ -46,6 +46,8 @@ MAX_HP = 5050.0
 # ---------------------------------------------------------------- play (from pilot.py; director rulings cited there)
 HEAL_BELOW = 0.95        # fights start at full health
 POOLS_BELOW = 0.5        # chakra / stamina floor before ramen
+POOLS_AFTER_FIGHT = 0.95 # after a fight, a large ramen when chakra or stamina is under this (director 2026-11-16:
+                         # "Repair, heal and large ramen after every fight"; "The brain can use Ramen, sure.")
 HEAL_RETRY = 600         # s a heal that changed nothing is not tried again
 MIN_LEVEL = 90           # targets under this are not farmed
 LOST_TO_HOURS = 6        # a player who just beat me is not attacked again for this long
