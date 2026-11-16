@@ -55,6 +55,15 @@ render_doctrine --check / build_packs --check clean; pack 179,862 bytes.
    21/20 ms four-frame appear/loop clips are reported (640 ms shown for 560 ms). The FCF preview reports 1.02x.
 Gates: fx_board selftest PASS; doctrinemap / render_doctrine --check / build_packs --check clean; pack 180,263 bytes.
 
+## Review round 4 (ChatGPT at 1a458e89): one P2 fixed
+GIF delays are whole centiseconds. `board` now quantizes durations on the cumulative clock (error diffusion, 20 ms
+floor, 10 ms steps) so rounding does not accumulate, then **reads the encoded GIF back** and reports from it: total
+encoded vs game time (faster, slower or same), the largest per-frame start drift, and the count of sub-20 ms intervals
+(`board.last_timing`). A note prints whenever the encoded timing differs at all. Selftests: four 29 ms appear frames
+encode to 116 +/- 5 ms of red (was 80) and the report equals the encoded total; the merged 21/20 ms case is flagged
+(same total, frames up to 80 ms off). FCF preview: same total, up to 10 ms drift.
+Gates: fx_board selftest PASS; doctrinemap / render_doctrine --check / build_packs --check clean; pack size below.
+
 ## Gates (exact)
 - `python3 skills/building-tnr-content/scripts/doctrinemap.py` -> 0 errors, 0 warnings
 - `python3 skills/building-tnr-content/scripts/render_doctrine.py --check` -> all projections current

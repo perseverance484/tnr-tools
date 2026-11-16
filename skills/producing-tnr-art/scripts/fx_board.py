@@ -139,15 +139,36 @@ def board(out, appear=None, loop=None, end=None, ground=None, scale=1.0, ms=(42,
         if shrink != 1.0:
             c = c.resize((int(c.width * shrink), int(c.height * shrink)), Image.LANCZOS)
         frames.append(c)
-        durs.append(max(20, nxt - t_ms))
+        durs.append(nxt - t_ms)
     real = total - times[0]
-    shown = sum(durs)
-    if shown != real:  # clamping is judged on the merged event intervals, not per clip
-        clamped = sum(1 for k, t_ms in enumerate(times) if (times[k + 1] if k + 1 < len(times) else total) - t_ms < 20)
-        print(f"note: {clamped} event interval(s) under the 20 ms GIF floor; the preview runs {shown} ms for "
-              f"{real} ms of game time ({shown / real:.2f}x slower); every frame is still shown")
-    board.last_timing = {"game_ms": real, "gif_ms": shown}
+    # GIF delays are whole centiseconds and viewers clamp under 20 ms. Quantize on the CUMULATIVE clock (error
+    # diffusion) so rounding does not accumulate, never below 20 ms, then measure the encoded file itself.
+    q, acc, done = [], 0, 0
+    for d_ms in durs:
+        acc += d_ms
+        step = max(20, int(round((acc - done) / 10.0)) * 10)
+        q.append(step)
+        done += step
+    durs = q
     frames[0].save(out, save_all=True, append_images=frames[1:], duration=durs, loop=0, optimize=True)
+    enc = Image.open(out)
+    enc_d = []
+    for i in range(getattr(enc, "n_frames", 1)):
+        enc.seek(i)
+        enc_d.append(enc.info.get("duration", 0))
+    shown = sum(enc_d)
+    starts, acc = [], 0
+    for d_ms in enc_d:
+        starts.append(acc)
+        acc += d_ms
+    drift = max(abs(a - (b - times[0])) for a, b in zip(starts, times))  # encoded vs game start of each frame
+    under = sum(1 for k, t_ms in enumerate(times) if (times[k + 1] if k + 1 < len(times) else total) - t_ms < 20)
+    if shown != real or drift:
+        word = "slower" if shown > real else "faster" if shown < real else "same total"
+        print(f"note: encoded GIF {shown} ms for {real} ms of game time ({shown / real:.2f}x, {word}); frames start up "
+              f"to {drift} ms off their game time ({under} interval(s) under the 20 ms floor, delays in 10 ms steps); "
+              f"every frame is still shown")
+    board.last_timing = {"game_ms": real, "gif_ms": shown, "max_drift_ms": drift, "under_floor": under}
     return out, len(frames), len(hit)
 
 
@@ -240,7 +261,21 @@ def selftest():
         save_strip([Image.new("RGBA", (32, 32), (0, 0, 255, 128))] * 4, l4, 32)
         board(os.path.join(td, "m.gif"), appear=a4, loop=l4, scale=3, pattern="one", ms=(21, 20, 50))
         tm = board.last_timing
-        assert tm["gif_ms"] > tm["game_ms"], tm
+        assert tm["under_floor"] > 0 and (tm["gif_ms"] != tm["game_ms"] or tm["max_drift_ms"] > 0), tm
+        # 10 ms quantization: four 29 ms appear frames must not be truncated (cumulative rounding keeps the clip near
+        # 116 ms) and the report must come from the encoded file
+        a29 = os.path.join(td, "a29.webp")
+        save_strip([Image.new("RGBA", (32, 32), (255, 0, 0, 255))] * 4, a29, 32)
+        out, n, _ = board(os.path.join(td, "q.gif"), appear=a29, scale=3, pattern="one", ms=(29, 60, 50))
+        enc, red_ms, total_ms = Image.open(out), 0, 0
+        for i in range(n):
+            enc.seek(i)
+            total_ms += enc.info["duration"]
+            if enc.convert("RGB").getpixel((int(cx), int(cy)))[0] > 150:
+                red_ms += enc.info["duration"]
+        assert abs(red_ms - 116) <= 5, red_ms
+        assert board.last_timing["gif_ms"] == total_ms, (board.last_timing, total_ms)
+        assert board.last_timing["max_drift_ms"] <= 5, board.last_timing
         gc = ground_check(g)
         assert not gc["errors"], gc
         lossy = os.path.join(td, "lossy.webp")
