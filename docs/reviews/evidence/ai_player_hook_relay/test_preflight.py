@@ -656,7 +656,8 @@ if "dies" not in sys.argv:
 LATE = """
 import os, signal, subprocess, sys, time
 def asked(*a):
-    child = subprocess.Popen([sys.executable, "-c", "import time; time.sleep(600)"], start_new_session=True)
+    child = subprocess.Popen([sys.executable, "-c", sys.argv[3]], start_new_session=True, stdout=subprocess.PIPE)
+    child.stdout.readline()
     with open(sys.argv[2] + ".tmp", "w") as f:
         f.write(str(child.pid))
     os.replace(sys.argv[2] + ".tmp", sys.argv[2])
@@ -727,15 +728,14 @@ class TheSessionIsEnded(unittest.TestCase):
                          (True, False))
         self.assertFalse(self.running(child))
 
-    def test_a_child_that_is_seen_in_the_wait_is_not_forgotten_when_its_parent_has_gone(self):
+    def a_child_that_appears_in_the_wait(self, child_code):
         """Review of c2efaaa2, C1, as it was run. The leader has no child. Asked to end, it starts one in a
         session of the child's own, and ends when it is let. The system is asked what runs while the child is
         still the leader's; by the next look the leader has gone and the child has no parent to be found by.
-        Only the look before each signal was kept, so the child was looked for no more: gone, it was said,
-        with the child running."""
+        -> (what `end` said, the child is running after it, how long `end` took from that look on)."""
         folder = tempfile.mkdtemp(prefix="preflight-late-")
         let, born = os.path.join(folder, "let"), os.path.join(folder, "born")
-        leader = subprocess.Popen([sys.executable, "-c", LATE, let, born], stdout=subprocess.PIPE, text=True,
+        leader = subprocess.Popen([sys.executable, "-c", LATE, let, born, child_code], stdout=subprocess.PIPE, text=True,
                                   start_new_session=True)
         self.addCleanup(leader.stdout.close)
         self.assertEqual(leader.stdout.readline().strip(), "ready")
@@ -766,9 +766,20 @@ class TheSessionIsEnded(unittest.TestCase):
             took = time.time() - looked.since
         (child, apart, family), = seen
         self.assertEqual((apart, family), (True, True))                      # (in a group of its own, and seen)
-        self.assertEqual((said, self.running(child)), ((True, True), False))   # was: true, and the child running
-        self.assertLess(took, P.PATIENCE)                                    # asked to end as soon as it was seen,
-                                                                             # not left for the round that ends
+        return said, self.running(child), took
+
+    def test_a_child_that_is_seen_in_the_wait_is_not_forgotten_when_its_parent_has_gone(self):
+        """Only the look before each signal was kept, so the child was looked for no more once its parent had
+        gone: gone, it was said, with the child running. It does not end when it is asked to, so that being
+        asked at once does not stand in for being kept: it is found again by its own id, and ended."""
+        said, running, took = self.a_child_that_appears_in_the_wait(CHILD)
+        self.assertEqual((said, running), ((True, True), False))             # was: true, and the child running
+        self.assertGreaterEqual(took, P.PATIENCE * 0.5)                      # (by the round that ends by force)
+
+    def test_and_one_that_ends_when_asked_is_asked_as_soon_as_it_is_seen(self):
+        said, running, took = self.a_child_that_appears_in_the_wait("print('up', flush=True); import time; time.sleep(600)")
+        self.assertEqual((said, running), ((True, True), False))
+        self.assertLess(took, P.PATIENCE)                                    # not left for the round that ends
 
     def test_what_cannot_be_ended_or_cannot_be_seen_is_not_called_gone(self):
         leader, child = self.start()
@@ -807,6 +818,8 @@ class TheSessionIsEnded(unittest.TestCase):
         for named in ({1}, {me}, {parent}, {0}, {1, me, parent}):
             self.assertEqual(P.family(tree, 10, named), {10, 11, 12}, named)
         self.assertEqual(P.family(tree, 10, {20}), {10, 11, 12, 20})         # (a child of this program can be named)
+        self.assertEqual(P.family({**tree, me: (parent, 10, "S"), 21: (me, 10, "S")}, 10, set()), {10, 11, 12, 21})
+        self.assertEqual(P.family({**tree, 1: (0, 10, "S")}, 10, set()), {10, 11, 12})   # (nor by the group's number)
         self.assertEqual(P.family(listed, 1, {1, me}), set())
 
     def a_form_of_a_process(self, let_go_in_the_first_look):

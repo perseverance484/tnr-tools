@@ -394,7 +394,7 @@ Tried under Claude Code, against the stand-in (`proof_runs/preflight2/`):
 In c to e the check says no and gives a reason that is about the calls that followed the refused one; that is
 right for a session in which something asked for more than a read.
 
-43 tests run it off line (`test_preflight.py`): the first review's four findings as it ran them, the gate's
+44 tests run it off line (`test_preflight.py`): the first review's four findings as it ran them, the gate's
 every refusal, the watching loop with a clock the test moves, and the second review's three: a process group
 whose child does not end when asked, with the leader alive and with it gone, as processes of the machine; a
 session that left every row of a passing one and had ended by itself; and the stand-in answering a call with
