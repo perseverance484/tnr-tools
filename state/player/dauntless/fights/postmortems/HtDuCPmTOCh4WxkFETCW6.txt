@@ -1,0 +1,12 @@
+lookahead: stormblade+basic +1537 then shield+aetherion | stormblade+kunai +1596 then shield+aetherion | stormblade+pill +1407 then rebirth+basic (0.3s)
+Traceback (most recent call last):
+  File "/home/user/tnr-tools/state/player/dauntless/tools/postmortem.py", line 231, in <module>
+    main()
+    ~~~~^^
+  File "/home/user/tnr-tools/state/player/dauntless/tools/postmortem.py", line 227, in main
+    report(review(a.bid, a.alts))
+           ~~~~~~^^^^^^^^^^^^^^^
+  File "/home/user/tnr-tools/state/player/dauntless/tools/postmortem.py", line 169, in review
+    "swing_played": score[0], "best_alt": ([played] + alts)[best_i], "swing_best": score[best_i],
+                    ~~~~~^^^
+IndexError: list index out of range
