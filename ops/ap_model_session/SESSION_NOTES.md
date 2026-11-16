@@ -28,3 +28,19 @@
 - 2026-11-16T18:57:05Z rotation 2: relay be5e9c ended (110 tool uses, ~4 min), new 9b78e9 healthy. Fight 2: WON vs bilatralamia rd 3. Findings: 4 game refusals (battle state changed / action no longer possible) and planner out-of-time in rd 1 (fell back to defensiveStance).
 - 2026-11-16T19:00:11Z rotation 3: relay 9b78e9 ended (71 tool uses, ~3 min), new relay healthy; traveling, 2 fights so far.
 - 2026-11-16T19:05:29Z rotation 4: new relay 61f77f healthy. Fight 3: WON vs Noziroh rd 2. Fight 4: WON vs Mamba rd 7 (2nd fight vs Mamba). Bank: 9,899,219 ryo to pocket for training (within 10m draw). Full Potions used: 3 so far.
+- 2026-11-16T19:06:54Z heartbeat 1:
+```
+{
+ "batches": 142,
+ "batches_with_hooks": 142,
+ "game_calls_carried": 365,
+ "plan_count_total": 2923092,
+ "plan_count_per_batch": 20585,
+ "plan_count_per_call": 8008,
+ "plan_count_per_fight_batch": 24612,
+ "max_context": 32242,
+ "files_in_hook_late": 0,
+ "proof_reference": "PROOF.md: 4,200-4,400 a batch (one-message form), estimate 97-98% under the pre-hook live relay"
+}
+```
+- Finding: per-batch plan count 20,585 (fight batch 24,612) vs PROOF.md 4,200-4,400; max_context 32,242 despite 12k rotation rule. 0 files in hook/late; all 142 batches hooks true.
