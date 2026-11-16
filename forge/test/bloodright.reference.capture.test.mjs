@@ -1,5 +1,5 @@
 // Bloodright Jutsu Reference Library — pilot capture manifest gate
-// (brief: chatgpt/bloodright-reference-library-brief-20261016@1b3b93b3ac939afc2fed1c63390fe68ed0d261d6).
+// (brief: chatgpt/bloodright-reference-library-brief-20261016@9fda21a0cb6954b58f7fe0131579eb3d440cca04).
 //
 // Holds, socket-free, that push/101 is a capture-only Forge job: it parses under Forge's own
 // parser, plans zero items, asks for `persist: "full"` on exactly the six pinned BR-023 jutsu
@@ -17,7 +17,7 @@ import { composeForTest } from "./compose.mjs";
 
 const MANIFEST = new URL("../../push/101_bloodright_reference_ethereal_monarch_pilot_capture.json", import.meta.url);
 
-// Pinned roster: fable/bloodright-planning-20261003@7c1dfdd5e3ee163b90c22694dbb2de94ede08866,
+// Pinned roster: fable/bloodright-planning-20261003@e114d4e9a49f38e0a1ec58bba8503ea6455b577b,
 // docs/design/bloodright/roster.json blob 64f6097cb65daccd636f98c8f35517941b67aebb, BR-023.
 const BLOODLINE_ID = "IxhIoLEmznqdcnc_6MCN9";
 const JUTSU_IDS = Object.freeze([

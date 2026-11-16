@@ -32,7 +32,7 @@ const PACK_BYTES = new Uint8Array(32).map((_, i) => (i * 7 + 3) & 0xff);
 const PACK_SHA = "ab5f8b5cb9435354c7b58603592d5faf081e17ceb05f7a7c67f4b666f12ca457"; // SHA-256 of PACK_BYTES
 const PACK_NAME = "fixture_icon.webp";
 const PACK_PATH = "art/fixtures/fixture_icon.webp";
-const PACK_REF = "28bba70d0e14f74a768193881b592b92326f2867";
+const PACK_REF = "1f2d4c39eac5783dbae57c4b636ea05d5a9b7774";
 const PACK_ENTRY = { name: "46_pack_fixture.json", path: "push/46_pack_fixture.json", sha: "packsha", size: 256, type: "file" };
 
 function packManifest(sha = PACK_SHA) {
