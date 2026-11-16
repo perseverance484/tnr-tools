@@ -40,6 +40,29 @@ Choha, etc." "Limit Breaker, Mental Fortress..."
   so the greedy rule is: always queue the target whose next level is quickest.
 - `jutsu.stopTraining` drops the active level and the whole waiting queue (refund the queue first if needed).
 
+## Donor jutsu (train first, cap level 10)
+Donors are kept at level 10 so the daily transfer can take 5 levels from them. When a donor is below 10, its next
+level comes before every target below (it is cheap and short), and it is never trained past 10.
+- Stone of the Withering `CTYkpwuoqS9mJkOB3Lm8U` (Earth, C, extraBaseCost 1500, not equipped): 5 after the
+  2026-11-16 transfer; train 6-10.
+
+## Daily level transfer (director, 2026-11-16)
+"Once per day I want you to use the free jutsu transfer to hard cap a jutsu at 25. Pick a jutsu and transfer 5 levels
+from a donor jutsu. Ideal donor jutsu would be level 10, then you would train it from 5 to 10 again. This is because
+10 is the lowest level a jutsu can be to transfer its levels to another jutsu and thus you can train it from a low
+level and save ryo then transfer it onto another jutsu." One `jutsu.transferLevel` call in any 24 hours
+(RUL-2026-11-11-149 item 3; `data/player_allowlist.json` gate `one_transfer_a_day`): check `jutsu.getRecentTransfers`
+first and skip the day if the last transfer is under 24 hours old.
+- Target: a jutsu at exactly level 20 with powerPerLevel > 0, not the active level and not in the waiting queue,
+  taken in this order: Mental Fortress, Divine Pulse, Raijin's Judgement, Earth Armor, First Chakra Gate, Ryūsa Kōka,
+  Soul Laceration Mirage, Thunderbolt Fury, Ethereal Nexus, then any other list-3 jutsu that reaches 20.
+- Donor: one of the donor jutsu above at level 10 (or more), not equipped, nothing queued for it. If no donor is at 10,
+  skip the day and say so. Never use an equipped jutsu or a target-list jutsu as a donor.
+- Move exactly 5 levels (20 -> 25), read `jutsu.getRecentTransfers` back, then queue the donor's level 6 if a queue
+  slot is free (the hourly refill trains the rest).
+- If the game would charge reputation points or anything else (the message should say "0 reputation points"), stop
+  and report instead.
+
 ## Training targets (priority order; skip any that says "not for you" and note it)
 1. 40-AP potency/stance self-buffs (+20 dmg given scaling 0.4/level, potency fixed):
    Limit Breaker `P7dDcC102RhwBTTgA4HU_` (no element, C), Mental Fortress `UiBR2V2AKkmh64JiYlL3w` (no element, C),
@@ -49,7 +72,7 @@ Choha, etc." "Limit Breaker, Mental Fortress..."
 2. Scaling damage/setup jutsu near the cap: Soul Laceration Mirage `GlgS3FVoQ6F8k3RAo_Uht` (19),
    Thunderbolt Fury `INuy-ITnPsH22eUoGQgwW` (18), Phantom Requiem `kbrQuf3nYNHoKEvusATTO` (18),
    Cyclone Palm Strike `pqCqPemRNk3ht-SFrjq5G` (18), Ethereal Nexus `iktsCP-RjIhlYlsTg-JTN` (10).
-Owned already at 25: Chakra Edge, Gust Armor (Wind potency).
+Owned already at 25: Chakra Edge, Gust Armor (Wind potency), Limit Breaker (transfer 2026-11-16).
 3. Director (2026-11-16): "I want all Jonin level elemental and none jutsu trained next." Jonin-rank
    (requiredRank JONIN), non-bloodline, element None or one of mine (Lightning, Earth), at least one effect
    powerPerLevel > 0, not yet at 20 (found with `jutsu.getAll {rank:[JONIN], excludedJutsuTypes:[AI,PETS,BLOODLINE]}`).
@@ -219,3 +242,4 @@ very expensive (Cyclone Palm Strike level 19 quoted 1,949,575 ryo for one level;
 | 2026-11-16 13:24 | Ethereal Nexus | 20 | 4,173,274 | queued (Mental Fortress 20 finished ~13:23; active Divine Pulse 20 ends ~14:23; waiting Ryūsa Kōka 20, Thunderbolt Fury 20, Soul Laceration Mirage 20, Ethereal Nexus 20; ends ~18:23). All trainable targets now at or queued to 20 except Phantom Requiem 19 (S) and Cyclone Palm Strike 19 (pending director). Pocket 4.61M, no withdrawal. 4,550 energy to willpower (+359.67, intelligence had passed willpower); asleep in 177 |
 | 2026-11-16 14:24 | none | | 0 | target list exhausted: Divine Pulse 20 finished ~14:23; active Ryūsa Kōka 20 ends ~15:23; waiting Thunderbolt Fury 20, Soul Laceration Mirage 20, Ethereal Nexus 20; queue runs dry ~18:23. Every target is at or queued to the level-20 cap except Phantom Requiem 19 (S) and Cyclone Palm Strike 19 (pending director), passed over as in earlier runs; director asked for new targets. Pocket 4.61M, no withdrawal. 4,550 energy to willpower (+252.60, intelligence had passed willpower); asleep in 177 |
 | 2026-11-16 14:28 | Crescent Reaper Fang | 1 (learned at 0) | 1,615 | queued (new list 3: director asked for all Jonin None/Lightning/Earth jutsu next; active Ryūsa Kōka 20 ends ~15:23; waiting Thunderbolt Fury 20, Soul Laceration Mirage 20, Ethereal Nexus 20, Crescent Reaper Fang 1; ends ~18:25). Asleep in 177 |
+| 2026-11-16 14:46 | transfer: Stone of the Withering -> Limit Breaker | 5 (Limit Breaker 20 -> 25, Stone 10 -> 5) | 0 | "Level transferred for 0 reputation points"; read back in getRecentTransfers. First daily transfer; Stone of the Withering is now the donor (train 6-10). Queue unchanged (full); asleep in 177 |
