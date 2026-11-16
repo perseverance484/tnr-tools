@@ -1,5 +1,9 @@
 # Combat animation engine — what the player actually sees
 
+> **Superseded on clip size (2026-11-16):** clips are now `tile.height x animationScale` (per effect, 1-3; upstream
+> `8bd670153`, checked at `f6a51fac5`), not a fixed 2.5. The working summary for artists is
+> `skills/producing-tnr-art/references/combat_fx.md`.
+
 Status: reference (read-only source analysis). Audience: artists and content authors building custom
 combat animations (first consumer: the three-act "Mother of Echoes" boss fight).
 

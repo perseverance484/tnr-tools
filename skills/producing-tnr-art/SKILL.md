@@ -1,15 +1,13 @@
 ---
 name: producing-tnr-art
-description: Generates and processes pixel art for The Ninja RPG (TNR) - item and jutsu icons, AI avatars, scene backgrounds and scene characters - including prompt scaffolds, chroma keying, alpha cleanup, aspect-ratio padding and pre-upload QC. Use this skill whenever the user asks for an icon, avatar, sprite, portrait or scene asset, uploads generated art for processing, or mentions chroma, keying, transparency, spill, the image picker or the upload byte ceiling, even if they do not mention art directly.
+description: Makes and processes all art for The Ninja RPG (TNR) - item, jutsu and bloodline icons, AI avatars, scene backgrounds and characters, and combat animations and ground tiles - from brief and generation through chroma keying, strip assembly, game-accurate board previews and pre-upload QC to the hidden upload. Use whenever the user asks for any TNR image, icon, avatar, sprite, portrait, scene, jutsu animation, battle effect or ground effect, uploads generated art, or mentions chroma, transparency, frames, animationScale, the image picker or the byte ceiling.
 ---
 
 # Producing TNR art
 
-Art for TNR is generated externally, processed here, and uploaded through the builder as `@img`
-references. This is a different working mode from building content: no manifests, no schema
-validators, a PIL pipeline and visual judgement instead. The two sides share exactly one contract -
-the `@img` filename - which lives in `references/pipeline.md` on the content side and is cited from
-both.
+Art is generated outside (an image model or the director's art partner), processed here with Pillow, judged by eye
+against the game's real rendering, and uploaded hidden through Forge or the builder. No manifests or schema
+validators on this side; the shared contract with content is the `@img` filename (`building-tnr-content` pipeline).
 
 ## Doctrine (rendered)
 
@@ -27,192 +25,81 @@ docs/DOCTRINE.md before building anything.
 
 <!-- doctrine:end -->
 
-## The one thing to internalise
+## Start every job the same way
 
-**`25x_DATA_art_spec.json` is the authority for every number, and the client field decides which
-number applies.** Aspect, delivered width, minimum width, format, byte ceiling, chroma key and
-padding rule all live there per target, each carrying either a source citation or a rationale. Do
-not restate a number from this file or from a scaffold; read the spec.
+1. **Name the target** and its client field: `ICON`, `JUTSU_ICON`, `AVATAR`, `SCENE_BACKGROUND`,
+   `SCENE_CHARACTER`, `ANIMATION`, `STATIC` (ground image).
+2. **Read the target block in `data/25x_DATA_art_spec.json`.** It owns every number: aspect, delivered width, minimum
+   width, format, byte ceiling, key, padding. Never restate a number from memory or from this file. Scripts find the
+   spec in the working directory or `TNR_ART_SPEC`.
+3. **Look at references before prompting:** `python3 scripts/style_refs.py select --target <T> [--register NINJA|
+   CIVILIAN] [--family ..] [--tag ..]`, then open the pixels. For an existing record, read it live (TNR connector with
+   `select`) or with `scripts/jutsu_art.py` at the repo root.
+4. **Route** by asset class:
 
-## Before you generate: look at the references
+| Asset | Read | Tools |
+|---|---|---|
+| Icons, avatars, scenes | `references/prompts.md` (scaffolds, house style, generator failures), `references/processing.md` (format, packaging, gameAsset write, scene wiring) | `rawqc.py`, `chroma.py`, `artpreflight.py`, `shotlist.py` |
+| Jutsu-icon families, studio sessions, art lookup, outside art requests | `references/studio.md` | `jutsu_studio.py`, `style_refs.py` |
+| Combat animations, ground tiles, battle FX | `references/combat_fx.md` | `fx_board.py`, a per-job `build_strips.py` |
 
-**References calibrate; the spec governs.** `art/style_refs/` holds exact copies of approved live
-TNR scene art, materialized from a committed read-only capture with per-file SHA-256s.
-`data/style_refs.json` indexes them and `scripts/style_refs.py` selects them. `art/style_refs/jutsu_icons/`
-adds the director-approved BBE/BEE jutsu-icon finals as `JUTSU_ICON` style/material exemplars, proven
-against their delivery-intake record instead of a live capture (RUL-2026-10-17-021). The pack does not
-replace `spec.house_style` and restates none of its clauses or numbers - it is the calibration
-layer that stops a session reconstructing "TNR style" from prose and memory.
+## How the game shows art (what makes this hard)
 
-Where references exist for the target, this order is required before any production generation:
+- **Icons, avatars and backgrounds are stretched** to their box (no `object-fit`): a wrong ratio distorts.
+  **Scene characters are width-scaled**: a wrong aspect makes them short, and tall art is clipped. The asset editor
+  previews everything as a square avatar, so judge non-square art on a dark composite at the target aspect.
+- **Source above the delivered width is discarded by the CDN**; battle clips arrive as a 50 px-wide rendition.
+- **Battle clips are squares sized from the tile's height** (`animationScale` 1-3) on a board squashed 2:1, and every
+  hit tile plays at once. Preview on the real board (`fx_board.py board`), never on a square tile.
+- **Hidden assets never render.** Create hidden, unhide by edit, check in a battle.
 
-1. Identify the target/type and, for a scene character, the register (`NINJA` or `CIVILIAN`).
-2. Read the current `25x_DATA_art_spec.json` target block and `house_style`. That is the authority.
-3. Run the selector:
-   ```
-   python3 scripts/style_refs.py select --target SCENE_CHARACTER --register NINJA --limit 4
-   python3 scripts/style_refs.py select --target SCENE_BACKGROUND --tag interior
-   python3 scripts/style_refs.py select --target JUTSU_ICON            # style/material only
-   ```
-4. **Open and actually look at each selected image.** Not the filenames, not the notes - the pixels.
-5. Only then compose the prompt and generate.
+So get the composition right at generation (processing cannot fix it) and the canvas right (the client will not).
 
-Three things this order exists to prevent:
+## Production rhythm
 
-- **Prose-only starts.** A prompt assembled from clauses alone drifts, because the clauses were
-  measured from images nobody re-read.
-- **Collage contamination.** When the generation surface accepts real image references, pass the
-  selected **individual images**. A contact sheet or collage puts several subjects in one frame and
-  the generator blends them.
-- **Context contamination.** Start a new asset class in a clean generation context carrying only
-  its own references. Forge UI screenshots once displaced an icon request, and a previously
-  generated cabbage displaced an Ittetsu character request; both were carried-over context.
+One asset at a time, QC between each; batches bake one prompt fault into every image.
 
-When the surface does **not** accept image references, a URL in the prompt proves nothing about
-what the generator ingested. Inspect the images yourself and ground the art-direction wording in
-what you actually see.
+1. **Raw QC before processing** (`rawqc.py --scaffold <id> --record`): right mode and aspect; no text, labels,
+   watermarks, UI, borders or grids; no people in backgrounds; characters on a flat full-canvas chroma field; no
+   franchise insignia, headbands or clan symbols ever. Regenerate, do not repair, a painted glow block or a subject
+   resting on a surface.
+2. **Process:** `chroma.py in.png out.webp --target <T> [--frame full|bust] [--key magenta] --qc qc.png` (keys, crops,
+   pads, exports per spec; refuses wrong extensions and undersized sources). `JUTSU_ICON` may keep a designed opaque
+   background: never key it. Animations: assemble strips by script from painted layers (`combat_fx.md` section 5).
+3. **QC on dark, mid and bright grounds** (spill and chewed edges hide on white); FX on the board preview.
+4. **Preflight:** `artpreflight.py out.webp [--manifest m.json] [--max-bytes N]`, zero errors, and say what you ran.
+5. **Record** slug, type, filename, pixels and bytes (the picker fallback reads the byte ledger).
 
-`select` emits raw repository URLs as well as local paths, so an installed skill ZIP with no
-checkout is still usable; the binaries are deliberately outside the skill package. `verify` needs a
-checkout and audits every reference's bytes, dimensions and format **and proves the pack's
-provenance**: it resolves the single successful committed result for the approved capture manifest
-out of `harvests/inbox/`, fails closed on zero or multiple matches, requires that result to be
-`DONE`/`success` with zero journal mutation items and exactly the expected full-body captures, and
-cross-checks every reference's recorded source URL, capture path and snapshot key against it.
-Byte-level integrity alone would let a pack hash perfectly while being severed from the approved
-capture; `materialize` runs the same check and downloads nothing until it passes.
+## Prompting in one breath
 
-## What makes this hard
+Short concrete prompts beat long ones; objects work, phenomena and amorphous chunks fail, and after three failed
+re-descriptions switch to reference-image prompting. Glow is rim light on edges only (auras and discs get keyed away)
+and leads the negatives. Enclosed spaces are explicitly the key colour. One subject per clean generation context:
+leftover context once turned an icon into a Forge screenshot. For animations, ask for painted layers or key poses,
+not frame sheets.
 
-The client handles each art field differently, and only one of the four leaves the image alone:
-
-- **AI avatars, item and jutsu icons, and scene backgrounds are STRETCHED.** `aspect-square` or
-  `aspect-3/2` sits on the `<img>` with no `object-fit`. A wrong ratio is visibly distorted.
-- **Scene characters are WIDTH-SCALED.** The wrapper has no height, so `object-contain` is a no-op
-  and the box is intrinsically sized. A wrong aspect makes the figure SHORT, not distorted, and
-  past a certain height the client clips the top.
-- **The asset editor previews every type through the square avatar widget, so for anything
-  non-square the editor preview is a lie.** This has already cost one wrong re-export of a correct
-  file. Judge art on a dark composite at the target aspect, never in the editor.
-- **Source resolution above the delivered width is discarded by the CDN**, so a 640px scene
-  character and a 341px one look identical to the player and only differ in upload budget.
-
-So the work is: get the generation right at the source, because processing cannot fix composition,
-and get the canvas right, because the client will not.
-
-## Production order
-
-Generate one asset at a time and QC between each. Batch generation feels faster and is not: a
-systematic prompt fault gets baked into eight images before anyone looks, and regenerating eight
-costs more than checking one.
-
-1. Raw QC the generation before touching it (below).
-2. Process: key, crop, pad to the target ratio, quantize if over budget.
-3. Dark-background composite QC - spill and chewed edges are invisible on white.
-4. Record slug, type, output filename, pixel dimensions and KB. Packaging needs a source of truth,
-   and the byte ledger is what the Android picker fallback reads.
-
-## Raw QC - reject before processing
-
-Processing a bad generation wastes the processing, so check first and state the failure in one line
-rather than salvaging:
-
-- Correct mode and aspect for the asset type.
-- No text, labels, watermarks, UI, panels, borders or grids.
-- Backgrounds contain no people, characters or creatures.
-- Characters sit on a true solid flat chroma field covering the whole canvas - not transparent, not
-  a checkerboard preview, no shadow cast onto the key.
-- No franchise insignia, ever. No forehead protectors, village headbands, clan symbols or
-  real-world logos. Generic masks, wraps, hoods and blank plates only.
-
-Two failures are unprocessable and need a regeneration, not a repair:
-
-- **Painted glow blocks.** A solid pale disc or rectangle rendered as "glow" is art in the same
-  palette as the subject. Keying it eats content.
-- **A subject resting on a surface.** A character leaning on a desk cannot be composited onto any
-  other background, and there is nothing to key.
-
-## Prompting
-
-Read `references/prompts.md` for the per-type scaffolds and the house style. The short version of
-what generators get wrong:
-
-- **Short, concrete prompts beat long multi-clause ones.** The generator reliably produces
-  holdable objects and reliably fails on packaging formats, phenomena and amorphous material
-  chunks. If three blind re-descriptions have failed, switch to reference-image prompting rather
-  than writing a fourth.
-- **Glow must be rim light on edges only.** Auras, halos, light fields and discs get painted in the
-  key colour and then keyed away with the background - see the note in `scripts/chroma.py`. Lead
-  the negative block with them.
-- **Enclosed spaces must be explicitly the key colour**, or a ring interior comes back as grey and
-  cannot be told from the subject.
-
-## Processing
-
-Run the bundled pipeline rather than re-authoring it. This script exists because the keying logic
-was being rebuilt from the guide every session, and small drift in the thresholds produces art that
-looks fine in chat and wrong in game.
-
-```
-python3 scripts/rawqc.py in.png --scaffold <scaffold_id> --record
-python3 scripts/chroma.py in.png out_scene_char.webp --target SCENE_CHARACTER --frame full --qc qc.png
-python3 scripts/artpreflight.py out_scene_char.webp --manifest manifest.json
-```
-
-- `--target` is the path to use. It reads the spec and derives the key, pad ratio, export format,
-  byte ceiling and minimum width, so none of them is a flag anyone can type wrong. It refuses a
-  wrong output extension, because the `@img` filename is the contract, and refuses an undersized
-  source rather than hiding a generation fault behind a silent upscale.
-- `--frame full` pads to 2:3 for a standing figure, `--frame bust` to 1:1 for a portrait. Framing
-  picks the aspect; both are ratified.
-- `--key magenta` overrides the spec for green-conflicting subjects, anything with foliage, jade or
-  green cloth. GPT native transparency is preferred over either when available.
-- Always pass `--qc` and actually look at the composite.
-
-**Jutsu icons have their own target, `JUTSU_ICON`** (RUL-2026-10-14-001). They may carry a designed
-opaque background: never run the key over it and never fabricate alpha. Export square lossless WebP
-with Pillow; `artpreflight.py` accepts the RGB file and skips the key checks it would only misread.
-A transparent jutsu icon takes the normal keyed route and every key check still applies. Item and
-bloodline icons stay on `ICON` and still require alpha. Inference to `JUTSU_ICON` is
-allow-listed because it relaxes a check: the name needs exactly one `jutsu` token
-(`ice_shackles_jutsu_icon.webp`, `glacial_volley_jutsu.webp`), and nothing else in it may hint at
-another target or contain `item`, `img`, `icon` or `bloodline` (only the trailing `_jutsu_icon`
-suffix may say `icon`). `ninjutsu`/`genjutsu` inside a word are not a token. Anything doubtful
-(`icon_jutsu_scroll`, `items_jutsu_icon`) refuses and needs `--type`. A workstream byte cap stricter than the spec goes on `--max-bytes` (BBE: `80000`).
-
-Nothing is handed over unchecked. `artpreflight.py` is to art what `validate.py` is to a manifest:
-zero errors before handover, and you say what you ran.
-
-`references/processing.md` covers packaging, filenames, the gameAsset write validator and the
-upload paths.
-
-## Bundled scripts
+## Scripts
 
 | Script | Use |
 |---|---|
-| `scripts/chroma.py` | Key, crop, pad, export. Spec-driven via `--target`. |
-| `scripts/rawqc.py` | Mechanical raw-QC BEFORE any human look: aspect vs spec, chroma coverage band, 2px ring purity; `--record` appends the scaffold ledger, `--stats` prints accept rates and flags escalation candidates, `--selftest` synthesizes its own red/green fixtures. Run it on every generation before chroma.py. |
-| `scripts/artpreflight.py` | Acceptance check before handover. `--max-bytes N` adds a stricter workstream cap (file must be under N). `--index <art_index.json>` audits the whole live library instead of files. |
-| `scripts/shotlist.py` | **Generate the shot list from the quest graph, never author it.** Takes a `quests.get` capture and emits every asset the quest needs with its exact numbers, filename, `@img` ref and its rendered generator prompt, assembled from `spec.prompt_scaffolds` with `[STYLE]` expanded verbatim and scoped per target. Hand-authoring that list is where assets go missing or land with a filename the manifest does not reference. |
-| `scripts/style_refs.py` | **The visual reference pack.** `select --target ... [--register ...|--family ...|--tag ...]` picks the deterministic reference set for one production target and prints local paths plus raw URLs; `list` shows the whole corpus; `verify --repo-root .` audits bytes/dimensions/format AND fail-closed capture provenance against `data/style_refs.json`; `--selftest` runs socket-free. `materialize` is a maintainer-only path that proves provenance first and only then re-downloads from the captured image URLs. |
-| `scripts/artpreflight_selftest.py` | Exit test: one correct and one deliberately wrong export per asset type. |
-| `scripts/jutsu_studio.py` | **Bloodline jutsu-icon studio, ZIP-first** (protocol: docs/workflows/ISOLATED_ART_GENERATION.md; contract: state/prompt_jutsu_icon_p1_tooling_20261019.md). `doctor` - can this container run the pinned canonical preflight? `intake PACK.zip --out DIR [--roster F]` - safe bounded ZIP scan, true-format decode, hashes, exact jutsu ID/name mapping (never guessed) with its evidence level; `lock-check` - target-lock completeness and approval integrity; `attempts` - attempt log, restart rule and failure statistics; `compare` - candidate beside the family at 125/64/32 (review aid, not a gallery); `finalize approved.json --out DIR [--locks] [--attempts]` - cached lossless VP8L export, the real artpreflight `--type JUTSU_ICON` (canonical only when it matches `data/preflight_pins.json`), the deterministic showcase audited from its written bytes, closeout + `PREFLIGHT_<verdict>` WebP ZIPs; `audit-gallery` - VALID/INVALID for any gallery against its manifest; `bench` times the deterministic steps. It records studio and director judgements; it never decides whether pixels depict the locked technique. Socket-free tests: `scripts/jutsu_studio_selftest.py`. |
+| `rawqc.py` | mechanical raw QC (aspect, chroma coverage, ring purity); `--record` ledger, `--stats`, `--selftest` |
+| `chroma.py` | key, crop, pad, export, all spec-driven via `--target` |
+| `artpreflight.py` | acceptance gate per type; `--index` audits the live library; `artpreflight_selftest.py` |
+| `shotlist.py` | every asset a quest needs, generated from a `quests.get` capture with filenames and prompts |
+| `style_refs.py` | the approved reference pack: `select`, `list`, `verify --repo-root .` (provenance), `--selftest` |
+| `jutsu_studio.py` | ZIP-first jutsu-icon family studio: `doctor`, `intake`, `lock-check`, `attempts`, `compare`, `finalize`, `audit-gallery` |
+| `fx_board.py` | combat FX: `board` (real board GIF), `ground-box` (tile inside a clip frame), `strip-info`, `--selftest` |
 
-All of them read `25x_DATA_art_spec.json` from the working directory. Copy it in at session start,
-or set `TNR_ART_SPEC`.
+## Contracts
 
-## Filenames are a contract
+- **Filenames are the contract:** deliver `@img` names exactly as the manifest references them, in a code block. A
+  corrected image gets a **fresh** filename (`_b`, `_c`); caches serve the old bytes under a reused one.
+- **gameAsset writes:** non-empty `licenseDetails`, alphanumeric `folder`; create `hidden: true`, then unhide every
+  battle asset by edit with the literal id from the results bundle (law 16).
+- **Art onto a record never changes its mechanics.** Jutsu edits are full-record `jutsu.update` (Forge `livePatch`
+  for bulk art fields); a jutsu an AI equips needs law 18. Live writes only on the director's go for that job.
 
-The manifest's `@img:<file>` references resolve by exact filename. So:
+## What belongs to the director
 
-- Filenames in the delivery must match the manifest references character for character. Put them
-  in a code block so they can be copied rather than retyped.
-- **A corrected image gets a fresh filename** (`_b`, `_c`), never a reused one. CDN and picker
-  caching mean a reused name serves the old bytes, and the failure looks like the processing did
-  not work.
-
-## What belongs to the user
-
-Art direction, palette and final acceptance are theirs. Propose, show, and wait - one image at a
-time, with QC between each, is the ratified working rhythm and it exists so that a wrong direction
-costs one generation instead of a set.
+Art direction, palette, scale, framing, whether a stock asset is replaced, and final acceptance. Propose, show the
+real-geometry preview, and wait.
