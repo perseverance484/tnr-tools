@@ -1,5 +1,11 @@
 # AI player, the check for the operator's machine: second correction handoff, after the re-review of 071ba1b1
 
+**Sent back in part** (`chatgpt/review-ai-player-preflight-rereview2-20261116` @ eefb063e): C3 and the refusal
+to start on a system the check was not written for stand. C1 and C2 were open at narrower places than this
+note covers: what was seen in the wait was not kept, and "running" was asked before a look that takes time,
+not "before it sends the first signal" as this note says. The correction and its note:
+`docs/reviews/AI_PLAYER_HOOK_PROOF_REREVIEW3_HANDOFF.md`. This note is kept as it was written.
+
 Workflow: `docs/workflows/IMPLEMENTATION_HANDOFF.md` section 5. Written 2026-11-16, in answer to the re-review
 of `071ba1b1` ("request changes": C1 and C2, medium, block; C3, low, does not).
 

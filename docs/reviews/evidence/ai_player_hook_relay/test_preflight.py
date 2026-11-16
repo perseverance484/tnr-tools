@@ -448,7 +448,7 @@ class TheSessionIsWatched(unittest.TestCase):
         self.clock, self.stub, self.ended = Clock(), Stub(), []
         P.time = self.clock
         P.subprocess.Popen = lambda *a, **k: (self.started(), self.stub)[1]
-        P.end = lambda p, game: (self.ended.append(self.clock.t), True)[1]
+        P.end = lambda p, game: (self.ended.append(self.clock.t), (True, p.poll() is None))[1]
         self.says = None
 
     def tearDown(self):
@@ -653,6 +653,23 @@ if "dies" not in sys.argv:
 """
 
 
+LATE = """
+import os, signal, subprocess, sys, time
+def asked(*a):
+    child = subprocess.Popen([sys.executable, "-c", "import time; time.sleep(600)"], start_new_session=True)
+    with open(sys.argv[2] + ".tmp", "w") as f:
+        f.write(str(child.pid))
+    os.replace(sys.argv[2] + ".tmp", sys.argv[2])
+    while not os.path.exists(sys.argv[1]):
+        time.sleep(0.01)
+    os._exit(0)
+signal.signal(signal.SIGTERM, asked)
+print("ready", flush=True)
+time.sleep(600)
+"""
+WAITS = "import os, sys, time\nwhile not os.path.exists(sys.argv[1]):\n    time.sleep(0.01)\nsys.exit(1)\n"
+
+
 class TheSessionIsEnded(unittest.TestCase):
     """Review of 071ba1b1, C1, with processes of this machine that do nothing: a leader of a process group of its
     own, as the check starts a session, and a child of it that does not end when it is asked to."""
@@ -688,7 +705,7 @@ class TheSessionIsEnded(unittest.TestCase):
         """Was: true, with the child running. The group was asked to end, the leader did, and that was all."""
         leader, child = self.start()
         self.assertTrue(self.running(child) and leader.poll() is None)
-        self.assertIs(P.end(leader, []), True)
+        self.assertEqual(P.end(leader, []), (True, True))
         self.assertFalse(self.running(child))
         self.assertIsNotNone(leader.poll())
 
@@ -697,38 +714,78 @@ class TheSessionIsEnded(unittest.TestCase):
         leader, child = self.start("dies")
         self.assertEqual(leader.wait(timeout=20), 0)
         self.assertTrue(self.running(child))
-        self.assertIs(P.end(leader, []), True)
+        self.assertEqual(P.end(leader, []), (True, False))                   # (gone, and not stopped by this)
         self.assertFalse(self.running(child))
 
     def test_a_child_that_left_the_group_is_ended_while_it_can_be_found(self):
         leader, child = self.start("leaves")                                 # a session of its own: the leader's
-        self.assertIs(P.end(leader, []), True)                               # child still, and found by that
+        self.assertEqual(P.end(leader, []), (True, True))                    # child still, and found by that
         self.assertFalse(self.running(child))
         leader, child = self.start("leaves", "dies")                         # no group and no parent to find it by,
         leader.wait(timeout=20)                                              # but it is the stand-in, by its log:
-        self.assertIs(P.end(leader, [{"at": "connected", "pid": child, "nonce": "n1"}, {"at": "came", "pid": 1}]), True)
+        self.assertEqual(P.end(leader, [{"at": "connected", "pid": child, "nonce": "n1"}, {"at": "came", "pid": 1}]),
+                         (True, False))
         self.assertFalse(self.running(child))
+
+    def test_a_child_that_is_seen_in_the_wait_is_not_forgotten_when_its_parent_has_gone(self):
+        """Review of c2efaaa2, C1, as it was run. The leader has no child. Asked to end, it starts one in a
+        session of the child's own, and ends when it is let. The system is asked what runs while the child is
+        still the leader's; by the next look the leader has gone and the child has no parent to be found by.
+        Only the look before each signal was kept, so the child was looked for no more: gone, it was said,
+        with the child running."""
+        folder = tempfile.mkdtemp(prefix="preflight-late-")
+        let, born = os.path.join(folder, "let"), os.path.join(folder, "born")
+        leader = subprocess.Popen([sys.executable, "-c", LATE, let, born], stdout=subprocess.PIPE, text=True,
+                                  start_new_session=True)
+        self.addCleanup(leader.stdout.close)
+        self.assertEqual(leader.stdout.readline().strip(), "ready")
+        self.started.append(leader.pid)
+        real, looks, seen = P.processes, [], []
+
+        def looked():
+            looks.append(1)
+            if len(looks) != 2:                                              # the first look in the wait:
+                return real()
+            for _ in range(400):                                             # the child is there, and the leader's
+                listed = real()
+                if os.path.exists(born):
+                    with open(born, encoding="utf8") as f:
+                        child = int(f.read())
+                    if listed.get(child, (None,))[0] == leader.pid:
+                        break
+                time.sleep(0.02)
+            self.started.append(child)
+            seen.append((child, listed[child][1] != leader.pid, child in P.family(listed, leader.pid, set())))
+            with open(let, "w", encoding="utf8"):                            # the leader is let go, and has ended
+                pass                                                         # before this look is handed back
+            leader.wait(timeout=20)
+            return listed
+        with mock.patch.object(P, "processes", looked):
+            said = P.end(leader, [])
+        (child, apart, family), = seen
+        self.assertEqual((apart, family), (True, True))                      # (in a group of its own, and seen)
+        self.assertEqual((said, self.running(child)), ((True, True), False))   # was: true, and the child running
 
     def test_what_cannot_be_ended_or_cannot_be_seen_is_not_called_gone(self):
         leader, child = self.start()
         with mock.patch.object(P.os, "killpg", lambda *a: None), mock.patch.object(P.os, "kill", lambda *a: None):
-            self.assertIs(P.end(leader, []), False)                          # (nothing ends: the signals go nowhere)
+            self.assertEqual(P.end(leader, []), (False, True))               # (nothing ends: the signals go nowhere)
         self.assertTrue(self.running(child))
         with mock.patch.object(P, "processes", lambda: None):                # the system cannot be asked what runs
-            self.assertIs(P.end(leader, []), False)
+            self.assertEqual(P.end(leader, []), (False, False))
         real, asked = P.processes, []
         with mock.patch.object(P, "processes", lambda: None if asked else (asked.append(1), real())[1]), \
                 mock.patch.object(P.os, "killpg", lambda *a: None), mock.patch.object(P.os, "kill", lambda *a: None):
-            self.assertIs(P.end(leader, []), False)                          # or can be asked once, and not again
+            self.assertEqual(P.end(leader, []), (False, True))               # or can be asked once, and not again
         self.assertTrue(self.running(child))
-        self.assertIs(P.end(leader, []), True)                               # (and now it is ended)
+        self.assertEqual(P.end(leader, []), (True, True))                    # (and now it is ended)
         self.assertFalse(self.running(child))
 
     def test_a_process_that_ends_when_asked(self):
         one = subprocess.Popen([sys.executable, "-c", "import time; time.sleep(600)"], start_new_session=True)
         self.started.append(one.pid)
         began = time.time()
-        self.assertIs(P.end(one, []), True)
+        self.assertEqual(P.end(one, []), (True, True))
         self.assertEqual(one.poll(), -signal.SIGTERM)                        # asked, not ended by force,
         self.assertLess(time.time() - began, P.PATIENCE)                     # and not waited out
 
@@ -736,8 +793,66 @@ class TheSessionIsEnded(unittest.TestCase):
         listed = P.processes()
         mine = listed[os.getpid()]
         self.assertEqual((mine[0], mine[1]), (os.getppid(), os.getpgid(0)))
-        self.assertEqual(P.family({10: (1, 10, "S"), 11: (10, 10, "S"), 12: (11, 12, "S"), 13: (1, 10, "Z"), 14: (1, 14, "S"),
-                                   15: (14, 14, "R"), 16: (1, 16, "S")}, 10, {14, 99}), {10, 11, 12, 14, 15})
+        some = {10: (1, 10, "S"), 11: (10, 10, "S"), 12: (11, 12, "S"), 13: (1, 10, "Z"), 14: (1, 14, "S"),
+                15: (14, 14, "R"), 16: (1, 16, "S")}
+        self.assertEqual(P.family(some, 10, {14, 99}), {10, 11, 12, 14, 15})
+        # never this program, what it descends from, or the first process, whatever a log names: they would be
+        # asked to end, and everything that descends from them with them
+        me, parent = os.getpid(), os.getppid()
+        tree = {**some, 1: (0, 1, "S"), parent: (1, parent, "S"), me: (parent, me, "S"), 20: (me, 20, "S")}
+        for named in ({1}, {me}, {parent}, {0}, {1, me, parent}):
+            self.assertEqual(P.family(tree, 10, named), {10, 11, 12}, named)
+        self.assertEqual(P.family(tree, 10, {20}), {10, 11, 12, 20})         # (a child of this program can be named)
+        self.assertEqual(P.family(listed, 1, {1, me}), set())
+
+    def a_form_of_a_process(self, let_go_in_the_first_look):
+        """preflight.form, with everything a session that passes leaves, written for this run; and in place of
+        Claude Code a process of this machine that ends with 1 when it is let, and is otherwise running until
+        it is ended. The check's own ending is used, and the system is asked what runs."""
+        out = os.path.join(tempfile.mkdtemp(prefix="preflight-real-"), "main")
+        let, popen, run, processes, looks, made = out + ".let", subprocess.Popen, subprocess.run, P.processes, [], []
+
+        def started(cmd, **k):
+            if os.path.basename(cmd[0]) != "claude":
+                return popen(cmd, **k)                                       # (`ps`, which the system is asked by)
+            child = popen([sys.executable, "-c", WAITS, let], stdout=k["stdout"], stderr=k["stderr"],
+                          stdin=k["stdin"], start_new_session=True)
+            self.started.append(child.pid)
+            made.append(child)
+            with open(os.path.join(out, "run.json"), encoding="utf8") as f:
+                nonce = json.load(f)["nonce"]
+            gate, hooks, game, now = *good(), time.time()
+            os.makedirs(os.path.join(out, "live", "hook"))
+            for name, rows in (("stream.jsonl", [init()]), ("gate.jsonl", [dict(g, at=now) for g in gate]),
+                               (os.path.join("live", "hook", "log.jsonl"), hooks),
+                               ("game.jsonl", [{"at": "connected", "nonce": nonce}] + [dict(g, answered=now) for g in game[1:]])):
+                with open(os.path.join(out, name), "a", encoding="utf8") as f:
+                    f.write("".join(json.dumps(r) + "\n" for r in rows))
+            return child
+
+        def looked():
+            looks.append(1)
+            if let_go_in_the_first_look and len(looks) == 1:                 # while the system is being asked, and
+                with open(let, "w", encoding="utf8"):                        # before any signal: it ends by itself
+                    pass
+                made[0].wait(timeout=20)
+            return processes()
+        with mock.patch.object(P.subprocess, "Popen", started), mock.patch.object(P, "processes", looked), \
+                mock.patch.object(P.subprocess, "run", lambda cmd, **k: run(cmd, **k) if cmd[0] == "ps" else None):
+            return P.form(out, "main", "tnr-relay", [])
+
+    def test_a_session_that_ends_by_itself_while_the_system_is_asked_what_runs_was_not_stopped(self):
+        """Review of c2efaaa2, C2, as it was run, through the form, the loop, the ending and the verdict. The
+        session was running when the loop chose to stop it and when it was looked at once more. Then the
+        system was asked what runs, which takes its time, and in that time the session ended with 1. No signal
+        ever reached it: its group was gone. It was put down as stopped after its calls, and the form passed."""
+        ran, said = self.a_form_of_a_process(let_go_in_the_first_look=True)
+        self.assertEqual((ran, said["how the session ended"], said["it ended with"]), (False, P.BY_ITSELF, 1))
+        self.assertEqual(said["why not"], f"the session was not stopped after its calls: {P.BY_ITSELF} (with 1)")
+        self.assertEqual(said["calls the gate let through"], 3)              # (the rows are all there)
+        ran, said = self.a_form_of_a_process(let_go_in_the_first_look=False)   # the same, and it runs until it is
+        self.assertEqual((ran, said["how the session ended"], said["it ended with"], said["why not"]),
+                         (True, P.STOPPED, -signal.SIGTERM, None))           # ended: stopped by the check
 
 
 if __name__ == "__main__":

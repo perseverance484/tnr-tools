@@ -42,10 +42,15 @@ After a call has gone, which cannot take it back:
    output or of a log that cannot be read, and 150 seconds.
 5. The session is the leader of a process group of its own. When the check ends it, the group is ended,
    whatever its leader has done by then, with what descends from it and the stand-in it started: asked to
-   end, and ended after five seconds if it has not. The check passes only if none of them is left running.
+   end, and ended after five seconds if it has not. The system is asked what runs every tenth of a second
+   until none of them does, and every answer is kept: a process that was once seen with a parent of the
+   session is looked for by its own id from then on, wherever it goes. The check passes only if none of
+   them is left running. What it cannot find is a process that left the group and lost its parent between
+   two such looks, without ever being seen in one; the stand-in is found by its log all the same.
 
-Yes also means that the session was running when the check ended it. One that had ended by itself, with
-whatever code and whatever it left behind, is not one the check stopped after its calls, and does not pass.
+Yes also means that the session was running when the check first asked it to end, which is asked after the
+system has said what runs and in the moment before the signal. One that had ended by itself, with whatever
+code and whatever it left behind, is not one the check stopped after its calls, and does not pass.
 
 It is written for a POSIX system (Linux, macOS). On another it starts nothing and says so.
 
@@ -332,43 +337,63 @@ def processes():
 def family(listed, leader, known):
     """The session's processes that are still running: the ones in its process group, the ones that descend
     from one of them or from one that was seen before (known), and those. One that has ended and waits to
-    be collected (state Z) runs nothing, and is not counted."""
-    kin, more = set(), {leader} | set(known)
+    be collected (state Z) runs nothing, and is not counted.
+
+    Never this program, nor one it descends from, nor the system's first process, whatever a log names: what
+    is found here is asked to end, and then ended."""
+    mine, at = {0, 1}, os.getpid()
+    while at in listed and at not in mine:
+        mine.add(at)
+        at = listed[at][0]
+    kin, more = set(), ({leader} | set(known)) - mine
     while more - kin:
         kin |= more
-        more = {pid for pid, (parent, group, _) in listed.items() if parent in kin or group == leader}
+        more = {pid for pid, (parent, group, _) in listed.items() if parent in kin or group == leader} - mine
     return {pid for pid in kin if pid in listed and not listed[pid][2].startswith("Z")}
 
 
 def end(p, game):
-    """End the session's processes, and see that they are gone. -> they were all seen to be.
+    """End the session's processes, and see that they are gone.
+    -> (they were all seen to be gone, the session was running when it was first asked to end).
 
     The session is started as the leader of a process group of its own. That group is ended, whatever has
     become of its leader, with what descends from it and the stand-in the session started: asked to end,
-    then, after PATIENCE seconds, ended; and it is true only when none of them is left running (review of
+    then, after PATIENCE seconds, ended; and it is gone only when none of them is left running (review of
     071ba1b1, C1: the group was signalled only while its leader lived, and the wait was for the leader alone,
-    so a child that did not end when asked was never ended, and was not looked for)."""
+    so a child that did not end when asked was never ended, and was not looked for).
+
+    Every look at what runs is kept, the looks in the wait too: a process that is seen while its parent is of
+    the family is looked for by its own id from then on, and is asked to end, or ended, as soon as it is seen
+    (review of c2efaaa2, C1: only the look before each signal was kept, so a child that appeared after it,
+    left the group, and lost its parent was no longer looked for, and the session was called gone).
+
+    Whether the session was running is asked here, after the first look at what runs and before the first
+    signal, and not before the look, which takes its time (review of c2efaaa2, C2: a session that ended by
+    itself while the system was being asked was put down as stopped by the check)."""
     known = {g.get("pid") for g in game if g.get("at") == "connected" and isinstance(g.get("pid"), int)}
+    running = None
     for sig in (signal.SIGTERM, signal.SIGKILL):
-        listed = processes()
-        if listed is None:
-            return False
-        left = family(listed, p.pid, known)
-        known |= left                                             # (one that leaves the group is still looked for)
-        for target, send in [(p.pid, os.killpg)] + [(pid, os.kill) for pid in sorted(left) if listed[pid][1] != p.pid]:
-            try:
-                send(target, sig)
-            except (ProcessLookupError, PermissionError):
-                pass
-        until = time.time() + PATIENCE
-        while time.time() < until:
+        told, until = set(), None
+        while until is None or time.time() < until:
             listed = processes()
             if listed is None:
-                return False
-            if p.poll() is not None and not family(listed, p.pid, known):
-                return True
+                return False, bool(running)
+            left = family(listed, p.pid, known)
+            known |= left
+            if running is None:
+                running = p.poll() is None
+            if p.poll() is not None and not left:
+                return True, running
+            for target, send in ([(p.pid, os.killpg)] if until is None else []) + [
+                    (pid, os.kill) for pid in sorted(left - told) if until is not None or listed[pid][1] != p.pid]:
+                try:
+                    send(target, sig)
+                except (ProcessLookupError, PermissionError):
+                    pass
+            told |= left
+            until = until or time.time() + PATIENCE
             time.sleep(0.1)
-    return False
+    return False, bool(running)
 
 
 def session(out, form, start, tools, done):
@@ -381,7 +406,7 @@ def session(out, form, start, tools, done):
     env = environment(out)
     paths = {k: os.path.join(out, v) for k, v in (("stream", "stream.jsonl"), ("gate", "gate.jsonl"), ("game", "game.jsonl"),
                                                   ("hooks", os.path.join("live", "hook", "log.jsonl")))}
-    how, whose, begun, since, running = None, None, time.time(), None, False
+    how, whose, begun, since = None, None, time.time(), None
     with open(paths["stream"], "w", encoding="utf8") as stream:
         p = subprocess.Popen(command(out, env) + start, cwd=ROOT, env=env, stdout=stream, stderr=subprocess.STDOUT,
                              stdin=subprocess.DEVNULL, start_new_session=True)
@@ -412,7 +437,7 @@ def session(out, form, start, tools, done):
                 elif how is None and done(gate, hooks, game):
                     since = since or now
                     if now - since >= 0.2:
-                        how, running = STOPPED, p.poll() is None
+                        how = STOPPED
                 elif how is None and now - begun > CLOCK:
                     how = "ended: the clock ran out"
                 time.sleep(0.05)
@@ -423,9 +448,9 @@ def session(out, form, start, tools, done):
                 last = rows(paths["game"])
             except Failed:
                 last = []                                         # (it is ended all the same; how says why)
-            running = running and p.poll() is None               # (it may have ended in this very moment)
-            gone = end(p, last)
-    return Ended(how if how != STOPPED or running else BY_ITSELF, whose, gone, running, p.poll())
+            gone, running = end(p, last)                          # (running: at the first signal, as end saw it)
+    stopped = how == STOPPED and running
+    return Ended(BY_ITSELF if how == STOPPED and not running else how, whose, gone, stopped, p.poll())
 
 
 def form(out, name, agent, more):
