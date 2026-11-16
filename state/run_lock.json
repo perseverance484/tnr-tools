@@ -1,10 +1,11 @@
 {
- "holder": null,
- "token": null,
- "job": null,
- "releasedBy": "player",
- "releasedInstance": null,
- "releasedJob": "jutsu training: new Jonin targets",
- "releasedAt": "2026-11-16T14:26:36.832Z",
- "note": "Free. Claim with node forge/tools/run_lock.mjs claim --holder NAME --job TEXT (RUL-2026-11-07-133)."
+ "holder": "player",
+ "job": "daily jutsu level transfer",
+ "token": "64597b259cc54e1fa6f763f147d9b8a8",
+ "instance": null,
+ "ttlMinutes": 15,
+ "claimedAt": "2026-11-16T14:45:52.537Z",
+ "heartbeatAt": "2026-11-16T14:45:52.537Z",
+ "expiresAt": "2026-11-16T15:00:52.537Z",
+ "note": "One game writer per account at a time (RUL-2026-11-07-133). Written only by forge/tools/run_lock.mjs or Forge; do not hand-edit."
 }
