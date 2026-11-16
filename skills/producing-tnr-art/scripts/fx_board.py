@@ -21,6 +21,9 @@ import tempfile
 
 from PIL import Image, ImageDraw
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from artpreflight import webp_mode  # noqa: E402  the one RIFF codec reader (VP8L vs 'VP8 ', VP8X-aware)
+
 HEX_ASPECT = 0.5
 STACK = 0.25
 BYTE_CEILING = 460_800  # ANIMATION target; the authority is 25x_DATA_art_spec.json
@@ -78,7 +81,7 @@ def hex_poly(x, y, w, h):
 
 
 def board(out, appear=None, loop=None, end=None, ground=None, scale=1.0, ms=(42, 60, 50), pattern="spiral",
-          bg=None, hold_loops=2, shrink=1.0, tick=40):
+          bg=None, hold_loops=2, shrink=1.0):
     """Engine order (combatEffects.ts): at the strike the ground image, the appear (zIndex 1) and the loop (zIndex 2,
     drawn ON TOP) all start on one clock; the loop keeps cycling while the effect lasts; the end clip plays when it
     ends. Frames are sampled from shared elapsed time, so appear/loop occlusion shows exactly as in battle."""
@@ -100,8 +103,22 @@ def board(out, appear=None, loop=None, end=None, ground=None, scale=1.0, ms=(42,
     lasting = max(len(fa) * a_ms, len(fl) * l_ms * hold_loops if fl else 0, 600 if gt is not None else 0)
     end_ms = len(fe) * e_ms
     total = lasting + end_ms + 400
+    # Sample at every instant any clip changes frame on the shared clock (not a fixed tick, which can skip frames
+    # of fast clips entirely). GIF viewers clamp delays under 20 ms, so a faster clip is shown frame-complete but
+    # slowed; that is reported, never hidden by dropping frames.
+    marks = {0, lasting, total}
+    if fa:
+        marks.update(range(0, min(len(fa) * a_ms, lasting), a_ms))
+    if fl:
+        marks.update(range(0, lasting, l_ms))
+    if fe:
+        marks.update(range(lasting, lasting + end_ms, e_ms))
+    marks.add(lasting + end_ms)
+    times = sorted(m for m in marks if m < total)
+    slowed = min(ms[:1] + ((l_ms,) if fl else ()) + ((e_ms,) if fe else ())) < 20
     frames, durs = [], []
-    for t_ms in range(0, total, tick):
+    for k, t_ms in enumerate(times):
+        nxt = times[k + 1] if k + 1 < len(times) else total
         c = base.copy()
         live = t_ms < lasting
         if gt is not None and live:
@@ -122,7 +139,9 @@ def board(out, appear=None, loop=None, end=None, ground=None, scale=1.0, ms=(42,
         if shrink != 1.0:
             c = c.resize((int(c.width * shrink), int(c.height * shrink)), Image.LANCZOS)
         frames.append(c)
-        durs.append(tick)
+        durs.append(max(20, nxt - t_ms))
+    if slowed:
+        print("note: a clip runs under 20 ms/frame; the GIF shows every frame but slower than the game")
     frames[0].save(out, save_all=True, append_images=frames[1:], duration=durs, loop=0, optimize=True)
     return out, len(frames), len(hit)
 
@@ -132,8 +151,11 @@ def ground_check(path, max_bytes=BYTE_CEILING):
     must be wide, transparent at the edges and real alpha; there is no spec target for it (STATIC is map-pin art)."""
     errors, warns = [], []
     im = Image.open(path)
+    mode = webp_mode(path)
     if im.format != "WEBP":
         errors.append(f"format {im.format}: export lossless WebP")
+    elif mode != "lossless":
+        errors.append(f"WebP codec {mode or 'unreadable'}: export lossless (VP8L)")
     im = im.convert("RGBA")
     W, H = im.size
     ar = W / H
@@ -176,19 +198,34 @@ def selftest():
         g = os.path.join(td, "g.webp")
         Image.new("RGBA", (128, 64), (90, 40, 140, 200)).save(g, "WEBP", lossless=True)
         out, n, hits = board(os.path.join(td, "b.gif"), appear=a, ground=g, scale=3, pattern="spiral")
-        assert n > 10 and hits > 7, (n, hits)
+        assert n == 9 and hits > 7, (n, hits)  # 8 appear frames + the post-effect frame
         # occlusion: a red appear under a blue loop must show blue at t=0, as the engine draws the loop on top
         red, blue = os.path.join(td, "r.webp"), os.path.join(td, "u.webp")
         save_strip([Image.new("RGBA", (32, 32), (255, 0, 0, 255))] * 4, red, 32)
         save_strip([Image.new("RGBA", (32, 32), (0, 0, 255, 255))] * 4, blue, 32)
-        out, n, hits = board(os.path.join(td, "o.gif"), appear=red, loop=blue, scale=3, pattern="one", tick=20)
+        out, n, hits = board(os.path.join(td, "o.gif"), appear=red, loop=blue, scale=3, pattern="one")
         g0 = Image.open(out).convert("RGB")
         tiles, w, h, _ = hex_board()
         cx, cy = pattern_tiles(tiles, w, h, "one")[0][2:]
         px = g0.getpixel((int(cx), int(cy)))
         assert px[2] > 150 and px[0] < 100, px
+        rb = os.path.join(td, "rb.webp")
+        save_strip([Image.new("RGBA", (32, 32), (255, 0, 0, 255)), Image.new("RGBA", (32, 32), (0, 0, 255, 255))], rb, 32)
+        out, n, _ = board(os.path.join(td, "f.gif"), loop=rb, scale=3, pattern="one", ms=(42, 20, 50))
+        gif = Image.open(out)
+        seen = set()
+        for i in range(n):
+            gif.seek(i)
+            p = gif.convert("RGB").getpixel((int(cx), int(cy)))
+            seen.add("r" if p[0] > 150 else "b" if p[2] > 150 else "-")
+        assert {"r", "b"} <= seen, seen
         gc = ground_check(g)
         assert not gc["errors"], gc
+        lossy = os.path.join(td, "lossy.webp")
+        im = Image.new("RGBA", (256, 128), (0, 0, 0, 0))
+        ImageDraw.Draw(im).ellipse((20, 10, 236, 118), fill=(90, 40, 140, 255))
+        im.save(lossy, "WEBP", lossless=False, quality=35)
+        assert any("codec" in e for e in ground_check(lossy)["errors"]), ground_check(lossy)
         sq = os.path.join(td, "sq.webp")
         Image.new("RGBA", (128, 128), (90, 40, 140, 255)).save(sq, "WEBP", lossless=True)
         assert any("aspect" in e for e in ground_check(sq)["errors"])

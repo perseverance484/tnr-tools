@@ -38,6 +38,15 @@ compact useful claude skill."
 6. studio.md keeps PASS / FAIL / NON_CANONICAL (ran, unpinned tool) / NOT_RUN (did not execute) distinct, matching
    jutsu_studio.py's CANONICAL_PREFLIGHT states.
 
+## Review round 2 (ChatGPT at 8c5992d0): two P2s fixed
+1. `board` no longer samples a fixed 40 ms tick: it renders one GIF frame at every instant any clip changes frame on the
+   shared clock, with that frame's real duration (clamped to GIF's 20 ms floor, with a printed note when a clip is
+   faster). Selftest: a two-frame red/blue loop at 20 ms/frame shows both colours.
+2. `ground-check` reads the WebP codec chunk through `artpreflight.webp_mode` (VP8X-aware) and refuses anything not
+   VP8L. Selftest: a 256x128 transparent-edged lossy (quality 35) image is refused on codec.
+Gates: fx_board selftest PASS; FCF ground image 0 errors; FCF board preview 67 frames; doctrinemap /
+render_doctrine --check / build_packs --check clean; pack 179,862 bytes.
+
 ## Gates (exact)
 - `python3 skills/building-tnr-content/scripts/doctrinemap.py` -> 0 errors, 0 warnings
 - `python3 skills/building-tnr-content/scripts/render_doctrine.py --check` -> all projections current
