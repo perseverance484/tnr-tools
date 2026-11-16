@@ -50,6 +50,26 @@ Choha, etc." "Limit Breaker, Mental Fortress..."
    Thunderbolt Fury `INuy-ITnPsH22eUoGQgwW` (18), Phantom Requiem `kbrQuf3nYNHoKEvusATTO` (18),
    Cyclone Palm Strike `pqCqPemRNk3ht-SFrjq5G` (18), Ethereal Nexus `iktsCP-RjIhlYlsTg-JTN` (10).
 Owned already at 25: Chakra Edge, Gust Armor (Wind potency).
+3. Director (2026-11-16): "I want all Jonin level elemental and none jutsu trained next." Jonin-rank
+   (requiredRank JONIN), non-bloodline, element None or one of mine (Lightning, Earth), at least one effect
+   powerPerLevel > 0, not yet at 20 (found with `jutsu.getAll {rank:[JONIN], excludedJutsuTypes:[AI,PETS,BLOODLINE]}`).
+   Same greedy rule: lowest next level first. Skip and note any "not for you" or other refusal.
+   - Owned: Crescent Reaper Fang `cjRErpuffG4GiwIU8OsCw` (0, A), Inferno Leech `0nIgI7oNn-PSesn8T8kGl` (2, A),
+     Kinjutsu: Black Thorn Rose `qB550OM_X-Mh0w_KlNNji` (7, S), Hellfire Apparition `LXBw6TW0yRxGOfUhaTMkT` (13, S).
+   - Normal, not owned yet: Void Pulse Barrage `4eDM_5VVZkasBjaW2fEmI`, Summoning: Unholy Harvest
+     `_rfLi3-QHtVefymRDhDQk`, Shard Pulse Eruption `qVL7NnmNN949g-VH9lyAN`, Chakra Overflow `e2eC-x4UXc5m6QexNbx8w`,
+     Sealing Technique: Lotus Barrier `04HFzvH0IvRZBEc3mGM_r`, Summoning: Hell Hound `kP_KMs7H9wQJwRHeaTGCZ`
+     (needs level 70), Summoning Poison Salamander `JcZb5OE6sMoDxvOKhuKWv` (all A).
+   - Event/special/forbidden, not owned (may be refused if they come from quests or events): Dark World
+     `p4N7lt4QgQjLytzkXJTz9` (Lightning, S), Black Crow `c-yTyBUJil8MzlAIHApUG` (Earth, D), Lastlight
+     `0F-68bxOXW_LkJnXV0lwT`, Forbidden Art: Heaven's Rupture Oath `lOZQks4GCxjXsNQxop-zo` (S, level 80),
+     Crippling Blade `z17S47TiSnNBgQMVkxsnH` (S), Dark Pact `NJMGDcIzIkL9pF5qElwre`, Summoning: Momo
+     `_mTOi6z16b3PNyCSaKcs9` (S).
+   - Left out: Primordial Blight (0.04/level only), Phantom Requiem 19 (already in list 2), village totems
+     (other villages), test entries (Sage Mode Test 3, Storm Style ... 2), and Fire/Water/Wind/Yin-Yang jutsu.
+     No scaling, so not trained: Cosmic Explosion/Rift/Gravity, Corrupting Miasma, Black Coffin, Earthen Bastion,
+     Celestial Dew, Flash Pulse, Echoing Rift, Kuzenbo x3, Herald of the
+     Apocalypse, Spirit Wall.
 
 ## Cost (libs/train.ts calcJutsuTrainCost)
 base (D 50, C 100, B 150, A 200, S 250, + extraBaseCost) ^ (1 + level/20). Low levels are cheap; high levels are
@@ -198,3 +218,4 @@ very expensive (Cyclone Palm Strike level 19 quoted 1,949,575 ryo for one level;
 | 2026-11-16 13:24 | Soul Laceration Mirage | 20 | 1,892,774 | queued |
 | 2026-11-16 13:24 | Ethereal Nexus | 20 | 4,173,274 | queued (Mental Fortress 20 finished ~13:23; active Divine Pulse 20 ends ~14:23; waiting Ryūsa Kōka 20, Thunderbolt Fury 20, Soul Laceration Mirage 20, Ethereal Nexus 20; ends ~18:23). All trainable targets now at or queued to 20 except Phantom Requiem 19 (S) and Cyclone Palm Strike 19 (pending director). Pocket 4.61M, no withdrawal. 4,550 energy to willpower (+359.67, intelligence had passed willpower); asleep in 177 |
 | 2026-11-16 14:24 | none | | 0 | target list exhausted: Divine Pulse 20 finished ~14:23; active Ryūsa Kōka 20 ends ~15:23; waiting Thunderbolt Fury 20, Soul Laceration Mirage 20, Ethereal Nexus 20; queue runs dry ~18:23. Every target is at or queued to the level-20 cap except Phantom Requiem 19 (S) and Cyclone Palm Strike 19 (pending director), passed over as in earlier runs; director asked for new targets. Pocket 4.61M, no withdrawal. 4,550 energy to willpower (+252.60, intelligence had passed willpower); asleep in 177 |
+| 2026-11-16 14:28 | Crescent Reaper Fang | 1 (learned at 0) | 1,615 | queued (new list 3: director asked for all Jonin None/Lightning/Earth jutsu next; active Ryūsa Kōka 20 ends ~15:23; waiting Thunderbolt Fury 20, Soul Laceration Mirage 20, Ethereal Nexus 20, Crescent Reaper Fang 1; ends ~18:25). Asleep in 177 |
