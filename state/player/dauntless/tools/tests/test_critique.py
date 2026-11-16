@@ -21,7 +21,8 @@ ME, HIM = "me_id", "him_id"
 def ctx(**over):
     """A context: round 6, I act first, everything in PvP 1 ready, full AP, healthy, nothing on the board, his
     Clear spent last round (so one rule is checked at a time; the Clear rule's checks pass rows=[])."""
-    st = {"loadout": list(cd_plan.LOADOUTS["pvp1"]), "used": over.pop("used", [])}
+    # the fight 2 critique's rules were written on PvP 1 with Limit Breaker (one of its two burst pumps)
+    st = {"loadout": list(cd_plan.LOADOUTS["pvp1_thunders"]), "used": over.pop("used", [])}
     kw = dict(R=6, en_acted=False, st=st, ap=100, my_hp=5000, my_max=5050, me_pos=(6, 4), ground=[], me_id=ME,
               rows=[(5, HIM, "clear", [])], en_id=HIM, clear_safe=False, nuke_hit=0)
     kw.update(over)
@@ -42,10 +43,13 @@ def check(name, cond, detail=""):
 
 
 # ---- Limit Breaker is a planner action now (it was never in a table, so it could not be picked)
-check("Limit Breaker in every table and in PvP 1",
+# (2026-11-16: the director swapped it out of the game's PvP loadout for Thunder's Judgement; it stays a planner
+# action, in the kit of the fights played with it)
+check("Limit Breaker in every table and in the PvP 1 kit it was played with",
       cd_plan.ACTIONS["limitbreaker"][:3] == (40, 7, "increasepotency") and "limitbreaker" in shotplan.MINE
-      and ingest.IDS["P7dDcC102RhwBTTgA4HU_"] == "limitbreaker" and "limitbreaker" in cd_plan.LOADOUTS["pvp1"]
-      and "limitbreaker" in cd_plan.LOADOUTS["pvp1_parry"] and "limitbreaker" in turn.ORDER)
+      and ingest.IDS["P7dDcC102RhwBTTgA4HU_"] == "limitbreaker" and "limitbreaker" in cd_plan.LOADOUTS["pvp1_thunders"]
+      and "limitbreaker" in cd_plan.LOADOUTS["pvp1_parry"] and "limitbreaker" in turn.ORDER
+      and "limitbreaker" not in cd_plan.LOADOUTS["pvp1"])
 
 # ---- 1. "Phantom stepping off the center of Subaku Palace ... increased their damage"
 g = palace((6, 4))
@@ -166,7 +170,7 @@ for (r, u, a, _), (mine, his) in zip(rows, track[1:]):
     by_round[r] = (mine, his)
 check("positions from the log: R5 I stand on H5, he on K9", by_round[5] == (K.tile_xy("H5"), K.tile_xy("K9")), by_round)
 check("R7: I step to F4 and he takes H5", by_round[7] == (K.tile_xy("F4"), K.tile_xy("H5")), by_round)
-found = K.review_fight(rows, ingest.ME, HIM2, tiles=tiles)
+found = K.review_fight(rows, ingest.ME, HIM2, loadout="pvp1_thunders", tiles=tiles)   # fight 2: played with Limit Breaker
 txt = " | ".join(f"R{f['round']} {f['text']}" for f in found)
 check("R7: Phantom Step off my Palace's centre, and he took it",
       any(f["round"] == 7 and "off the centre of my Subaku Palace: H5 to F4" in f["text"]
@@ -184,8 +188,8 @@ check("R8: Lotus Dance into the last round, with the wound tick his R7 hit left"
 check("nothing flagged on turns he did not fault", {f["round"] for f in found} <= {3, 4, 7, 8}, txt)
 check("Limit Breaker is no error in a fight it was not in",
       not any("Limit Breaker" in f["text"] and "Aetherion" not in f["text"]
-              for f in K.review_fight(rows, ingest.ME, HIM2, limit_breaker=False, tiles=tiles)))
-untiled = K.review_fight(rows, ingest.ME, HIM2)
+              for f in K.review_fight(rows, ingest.ME, HIM2, limit_breaker=False, loadout="pvp1_thunders", tiles=tiles)))
+untiled = K.review_fight(rows, ingest.ME, HIM2, loadout="pvp1_thunders")
 check("without tiles the move is still flagged, for a look at the replay",
       any(f["round"] == 7 and "check the replay" in f["text"] for f in untiled))
 

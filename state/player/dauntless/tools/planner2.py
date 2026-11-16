@@ -61,6 +61,7 @@ KIND = {"taken": TAKEN, "dr": DR, "absorb": ABS, "lifesteal": LS, "reflect": REF
         "debuffimmune": DIMM, "clearimmune": CIMM, "wound": WND, "drain": DRN, "recoil_self": RCL, "recoil": RCL,
         "healcut": HCUT, "buffblock": BBLK, "stun": STUN, "afterburn": AFB}
 CLEAR, CLEANSE, HEAL = -1, -2, -3
+STANCES = ("defstance", "offstance")
 WFILE = os.path.join(HERE, "planner2_weights.json")
 # Hand-set (director 2026-11-11: "orient it in the most ideal way possible by editing weights by hand"). Units: HP.
 #   swing    HP dealt minus HP taken this exchange, the base currency
@@ -729,27 +730,33 @@ class Planner:
         self.move_ground(m0, b)                         # off his ground, or onto it, by where the move lands
         run_turn(m0, e0, acts, 0, cm, ce)
         if e0.hp <= 0:
-            return [(self.en0.hp - e0.hp) - (self.me0.hp - m0.hp)] + [0] * (NF - 1), value_model.KILL, self.en0.hp, [(1.0, ["-"])], 1.0
+            return [(self.en0.hp - e0.hp) - (self.me0.hp - m0.hp)] + [0] * (NF - 1), value_model.KILL, self.en0.hp, [(1.0, ["-"])], 0.0
         feats = [0.0] * NF
-        term = dmg = 0.0
+        term = 0.0
+        # damage to him is what my turn takes off him, before his reply: measured after the reply it counted his
+        # own lifesteal / absorb heals against me, so a stance that cut his hit read as "damage" (AP run 2, fight 8
+        # vs Selaphiel R9: rebirth + basic + Defensive Stance ranked first in DESPERATION)
+        dmg = self.en0.hp - e0.hp
         opts = self.replies(m0, e0)
         outs = []
+        dead = 0.0                                      # weight of his replies that kill me this turn
         for w, names in opts:
             m, e = m0.copy(), e0.copy()
             real = names and names[0] in self.clockd.get("ids", ())
             stun = 1.0 if real else (100 - min(40, e.g(STUN, self.hr))) / 100
             run_turn(e, m, [self.his_kit[n] for n in names if n in self.his_kit], self.hr, ce, cm, stun)
-            dmg += w * (self.en0.hp - e.hp)
             if m.hp <= 0 or e.hp <= 0:
                 t = value_model.KILL if e.hp <= 0 < m.hp else -value_model.DEATH
                 term += w * t
+                dead += w if m.hp <= 0 else 0.0
                 f = [(self.en0.hp - e.hp) - (self.me0.hp - m.hp)] + [0] * (NF - 1)
             else:
                 f = self.features(b, m, e, names)
             outs.append((w, names, f))
             for i in range(NF):
                 feats[i] += w * f[i]
-        return feats, term, dmg, outs, 0.0
+        # the chance I am dead before my next turn: his reply now, or his next turn (feature 7, on the branches I live)
+        return feats, term, dmg, outs, min(1.0, dead - feats[7])
 
     def his_score(self, hb, m0, e0, ho=None):
         """His line from his side on the board he faces: damage now, minus what bounces back, plus what it does to
@@ -879,7 +886,10 @@ class Planner:
         for x in b:
             if x in ("stormblade", "nights") and not self.ctx["pierce_window"]:
                 rc += self.res[x]
-        cost = sum(cd_plan.ACTIONS[x][0] for x in b)
+        # a stance spends AP without counting as spent: picked only when its own effect is worth more than every
+        # other use of that AP, idle included (director 2026-11-16: "Stances should only be used when they are the
+        # most efficient choice to achieve victory"; AP run 2's losses padded turn after turn with them)
+        cost = sum(cd_plan.ACTIONS[x][0] for x in b if x not in STANCES)
         guard, why = 0.0, []
         if "basicheal" in b and self.me0.hp > 0.6 * self.caps[0]:
             guard -= 450; why.append("basic heal above 60% HP")
@@ -1092,8 +1102,9 @@ def build(a):
     g_here = turn.HIS_GIVEN.get(me_pos)
     if g_here and me0.g(GGRD, 0) == 1.0 and not me0.g(DIMM, 0):
         me0.add(GGRD, -g_here[0], 0, g_here[1])         # standing on it now: the log text may not have put it on me
-    # the kunai's ryo, priced by the race as turn.py does (planner2 kept value_model's flat 350 before: Mamba R3,
-    # 2026-11-16, basic attack outranked Elemental Kunai in a close race)
+    # the kunai's ryo, priced by the race (turn.kunai_price, the one copy both planners use). planner2 kept
+    # value_model's flat 350 before: Mamba R3 and Selaphiel R9 (AP run 2, 2026-11-16) threw a basic attack in a
+    # race the director's rule makes the kunai free in
     kwhy = turn.kunai_price(me0.hp, en0.hp, float(en.get("maxHealth", 5050)), R,
                             max(his_kit_raw["turn"][0], avg or 0), ctx["afk"])
     print(f"kunai: {kwhy} -> cost {value_model.KUNAI_COST}")
@@ -1265,16 +1276,21 @@ def rank(P, bundles, ap, W):
         import solutions
         book = solutions.lookup(key, getattr(P, "book_path", None) or solutions.LIVE)
     for b in bundles:
-        feats, term, dmg, outs, _ = P.line(b)
+        feats, term, dmg, outs, p_dead = P.line(b)
         rc, waste, guard, why = P.extras(b, ap)
         if book and book[1] > 0.2 and tuple(sorted(b)) == tuple(sorted(book[0])):
             guard += BOOK_W * book[1]
             why = why + [f"library answer (confidence {book[1]:.0%})"]
-        res.append((total(W, feats, term, rc, waste, guard), b, feats, term, rc, waste, guard, why, dmg, outs))
+        res.append((total(W, feats, term, rc, waste, guard), b, feats, term, rc, waste, guard, why, dmg, outs, p_dead))
     res.sort(key=lambda x: -x[0])
     if res and res[0][0] < -0.6 * value_model.DEATH:
-        res.sort(key=lambda x: -x[8])
-        print("DESPERATION: every line loses; ranked by damage to him")
+        # every line loses: among the lines that keep me alive best (the chance I am dead before my next turn
+        # within 0.10 of the lowest), the one that takes most off him now; the rest after, by score
+        best = min(r[10] for r in res)
+        alive = [r for r in res if r[10] <= best + 0.10]
+        alive.sort(key=lambda x: -x[8])
+        res = alive + [r for r in res if r[10] > best + 0.10]
+        print(f"DESPERATION: every line loses; ranked by damage to him among the lines that live best (die {best:.0%})")
     return res
 
 
@@ -1456,7 +1472,7 @@ def main():
         seq, end = turn.resolve_targets(r[1], info["me_pos"], info["en_pos"], occupied)
         fire = " -> ".join(f"{x}@{t[0]},{t[1]}" for x, _, t in seq)
         f = r[2]
-        print(f"{i}. {r[0]:+6.0f}  {fire}  [swing {f[0]:+.0f} mine {f[1]:.0f} his {-f[2]:.0f} race {f[3]:+.2f} kill {f[6]:.0%} die {-f[7]:.0%} "
+        print(f"{i}. {r[0]:+6.0f}  {fire}  [swing {f[0]:+.0f} mine {f[1]:.0f} his {-f[2]:.0f} race {f[3]:+.2f} kill {f[6]:.0%} die {-f[7]:.0%} dead {r[10]:.0%} "
               f"term {r[3]:+.0f} reserve {r[4]:.0f} unspent {r[5] * 20:.0f}{' GUARD ' + '; '.join(r[7]) if r[7] else ''}]")
     seq, _ = turn.resolve_targets(res[0][1], info["me_pos"], info["en_pos"], occupied)
     print("FIRE:", json.dumps([{"actionId": aid, "longitude": t[0], "latitude": t[1], "name": n} for n, aid, t in seq]))

@@ -1,0 +1,15 @@
+{
+  "job": "director: Thunder's Judgement into the PvP jutsu loadout (replaces Limit Breaker)",
+  "authorized": "director, 2026-11-16: \"Put thunders back in\"",
+  "path": "TNR connector, run lock claimed as claude and released",
+  "loadout": {"id": "soXekhNjk7qihu-Rsok-6", "name": "PvP", "selected": true},
+  "before": ["K0t6Z-Q4lau1jFt8Tkpot", "GiKpip6NxsC8QWlZi6l_R", "zCmYLVL4JYzfhjPXHi9rH", "Lg_thN-MB8FRAr_Agf9tn", "Wy7EBGd7gpP96hyumb0Lz", "cvLrFEzeNcRogHqyLv0Ig", "G6MRbppaDZ2a5Wr0GIjH8", "jELEiw5W3N4m2R3oJm3Pk", "e2eC-x4UXc5m6QexNbx8w", "ou7VyChQ-SFCm8T8yGS7I", "g-b0Fs5o8EzQIphq0YIAX", "GAyHRgaa1lkYGhE9WxlRL", "FimDQpYL0LWRv8U81ZP9H", "hAyQsDqPQQ0bKn4u1DdRn", "P7dDcC102RhwBTTgA4HU_"],
+  "calls": [
+    {"endpoint": "jutsu.toggleEquip", "input": {"userJutsuId": "0i_p3WQ4P5hjE9jfb_Hc1"}, "result": "Jutsu unequipped (Limit Breaker, P7dDcC102RhwBTTgA4HU_)"},
+    {"endpoint": "jutsu.getLoadouts", "result": "PvP: 14 jutsu, Limit Breaker gone"},
+    {"endpoint": "jutsu.toggleEquip", "input": {"userJutsuId": "OZL_7rcYm8dVwuxm_1p2d"}, "result": "Jutsu equipped (Thunder's Judgement, qNeccb2eF20oL0Ws-VhKS)"},
+    {"endpoint": "jutsu.getLoadouts", "result": "read back below"}
+  ],
+  "after": ["K0t6Z-Q4lau1jFt8Tkpot", "GiKpip6NxsC8QWlZi6l_R", "zCmYLVL4JYzfhjPXHi9rH", "Lg_thN-MB8FRAr_Agf9tn", "Wy7EBGd7gpP96hyumb0Lz", "cvLrFEzeNcRogHqyLv0Ig", "G6MRbppaDZ2a5Wr0GIjH8", "jELEiw5W3N4m2R3oJm3Pk", "e2eC-x4UXc5m6QexNbx8w", "ou7VyChQ-SFCm8T8yGS7I", "g-b0Fs5o8EzQIphq0YIAX", "GAyHRgaa1lkYGhE9WxlRL", "FimDQpYL0LWRv8U81ZP9H", "hAyQsDqPQQ0bKn4u1DdRn", "qNeccb2eF20oL0Ws-VhKS"],
+  "note": "toggleEquip's own response shows the loadout before the change; the getLoadouts read-backs are the record. Other loadouts unchanged."
+}

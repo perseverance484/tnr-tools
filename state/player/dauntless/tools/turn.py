@@ -458,14 +458,22 @@ def set_ground(battle, en_id):
             HIS_GIVEN[tile] = (max(old[0], frac), max(old[1], last))
 
 
-def kunai_price(my_hp, en_hp, en_max, R, his_turn, afk):
-    """Set value_model.KUNAI_COST for this turn from the race (value_model.kunai_cost), as both planners do. The
+def kunai_race(my_hp, en_hp, en_max, R, his_turn, afk):
+    """(cost, why): the one kunai price, for both planners and the replay review (critique.review_race). The
     director's rule (2026-11-13): "don't lose a fight to spare a kunai but dont throw a kunai at an afk or in a fight
-    we're not likely to win or a fight we're sure to win." My turn = what I have taken off him per round so far,
-    blended with a 1100 prior. Returns the reason."""
-    done = max(0.0, en_max - en_hp)
+    we're not likely to win or a fight we're sure to win" (value_model.kunai_cost: free in a close race, 350 leaning,
+    never at an AFK, a likely loss or a sure win). My turn = what I have taken off him per round so far, blended with
+    a 1100 prior; his turn is the caller's (the larger of his modelled turn and what he has averaged, or, looking
+    back, his actual next turn)."""
+    done = max(0.0, float(en_max) - float(en_hp))
     my_turn = (done + 1100 * 2) / (max(0, R - 1) + 2)
-    value_model.KUNAI_COST, why = value_model.kunai_cost(my_hp, en_hp, my_turn, his_turn, afk)
+    return value_model.kunai_cost(float(my_hp), float(en_hp), my_turn, float(his_turn), afk)
+
+
+def kunai_price(my_hp, en_hp, en_max, R, his_turn, afk):
+    """Set value_model.KUNAI_COST for this turn from kunai_race (both planners call this, once per turn). Returns
+    the reason."""
+    value_model.KUNAI_COST, why = kunai_race(my_hp, en_hp, en_max, R, his_turn, afk)
     return why
 
 
