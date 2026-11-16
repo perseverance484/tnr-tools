@@ -404,7 +404,7 @@ def review_fight(rows, me_id, en_id, me_name="dauntless", my_max=5050, states=No
             en_state = next((f for f in fs if f.get("userId") == en_id), None)
         if en_state and en_state.get("curHealth") is not None:
             his_turns = (r - 1) + (1 if en_acted else 0)
-            race = kunai_race(r, hp, float(s_max or my_max), en_state["curHealth"], en_state.get("maxHealth") or 5050,
+            race = review_race(r, hp, float(s_max or my_max), en_state["curHealth"], en_state.get("maxHealth") or 5050,
                               his_turns, nxt, afk)
             text = kunai_over_basic(played, c["ready"], race)
             if text:
@@ -523,14 +523,13 @@ def _centre_story(text, rows, track, mine, pos, palaces, r, en_id):
 MOVE_NAMES = {"phantom": "Phantom Step", "replace": "Replacement", "step": "a step", "stepback": "a step back"}
 
 
-def kunai_race(R, my_hp, my_max, en_hp, en_max, his_turns, his_next, afk):
-    """value_model.kunai_cost on the race as it stood at the start of my turn in round R: my turn as the damage I
-    had done so far with a 2,200 prior over R-1 turns plus 2 (turn.kunai_price's), his as the larger of his actual
-    next turn and the same average of what he had done to me."""
-    import value_model
-    my_turn = (float(en_max) - float(en_hp) + 2200.0) / (max(0, R - 1) + 2)
+def review_race(R, my_hp, my_max, en_hp, en_max, his_turns, his_next, afk):
+    """turn.kunai_race (the one kunai price) on the race as it stood at the start of my turn in round R, looking
+    back: his turn is the larger of his actual next turn and his average on me so far (a 2,200 prior over his
+    turns plus 2)."""
+    import turn
     en_turn = max(float(his_next or 0), (float(my_max) - float(my_hp) + 2200.0) / (max(0, his_turns) + 2))
-    return value_model.kunai_cost(float(my_hp), float(en_hp), my_turn, en_turn, afk)
+    return turn.kunai_race(my_hp, en_hp, en_max, R, en_turn, afk)
 
 
 def kunai_over_basic(played, ready, race):

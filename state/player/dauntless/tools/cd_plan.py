@@ -70,10 +70,20 @@ LOCKS = {"barrier": 3, "buffprevent": 4, "cleanse": 3, "cleanseprevent": 3, "cle
          "pierce": 3, "poison": 3, "seal": 3, "siphon": 3, "stun": 4, "summon": 3, "vamp": 3}
 EXTRA_TAGS = {"kims": ("debuffprevent",), "sealnull": ("buffprevent", "debuffprevent"), "lotus": ("buffprevent",)}  # 2026-11-10 Hikuro R5: Seal refused 2 rounds after Kim's  # secondary tags that also take a shared lock
 LOADOUTS = {
+    # The game's "PvP" jutsu loadout (soXekhNjk7qihu-Rsok-6), the one the brain selects for every hunt
+    # (player/activities/equipment.py PVP1). AP run 2 (2026-11-16) found the game's list without Thunder's Judgement
+    # (Limit Breaker in its slot) while this list still had it: every fight opened on a line the game refused. The
+    # director then put Thunder's Judgement back in place of Limit Breaker (2026-11-16 ~20:40Z, harvests/inbox/
+    # 2026-11-16_pvp_loadout_thunders.json). PVP1_JUTSU_IDS pins the game's list; tests/test_loss_fixes.py checks it.
     "pvp1": ["rebirth", "shrapnel", "lotus", "fury", "ember", "danse", "stormblade", "subaku", "overflow",
              "thunders", "resist", "eclipse", "sealnull", "phantom", "shield",
-             "smoke", "kims", "pill", "panacea", "jewel", "kunai", "nights", "aetherion", "limitbreaker",
+             "smoke", "kims", "pill", "panacea", "jewel", "kunai", "nights", "aetherion",
              "clear", "cleanse", "replace", "defstance", "offstance", "basic"],
+    # PvP 1 with both Thunder's Judgement and Limit Breaker, as the planner had it before 2026-11-16: older fights
+    "pvp1_thunders": ["rebirth", "shrapnel", "lotus", "fury", "ember", "danse", "stormblade", "subaku", "overflow",
+                      "thunders", "resist", "eclipse", "sealnull", "phantom", "shield",
+                      "smoke", "kims", "pill", "panacea", "jewel", "kunai", "nights", "aetherion", "limitbreaker",
+                      "clear", "cleanse", "replace", "defstance", "offstance", "basic"],
     # the PvP 1 loadout before 2026-11-11 (Parry, later replaced by Chakra Resistance): used to replay older fights
     "pvp1_parry": None,
     "pvp2": ["rebirth", "leech", "severed", "fury", "ember", "danse", "stormblade", "subaku", "overflow",
@@ -163,5 +173,12 @@ if __name__ == "__main__":
               + ("" if total == ap or total > ap else f"; {ap - total} AP unused"))
 
 
-LOADOUTS["pvp1_parry"] = [("parry" if a == "resist" else a) for a in LOADOUTS["pvp1"]]
+LOADOUTS["pvp1_parry"] = [("parry" if a == "resist" else a) for a in LOADOUTS["pvp1_thunders"]]
+
+# jutsu.getLoadouts read back after the swap, 2026-11-16 ~20:40Z: the jutsu ids of the game's "PvP" loadout
+# (soXekhNjk7qihu-Rsok-6), Thunder's Judgement (qNeccb2eF20oL0Ws-VhKS) in place of Limit Breaker (P7dDcC102RhwBTTgA4HU_)
+PVP1_JUTSU_IDS = ("K0t6Z-Q4lau1jFt8Tkpot", "GiKpip6NxsC8QWlZi6l_R", "zCmYLVL4JYzfhjPXHi9rH", "Lg_thN-MB8FRAr_Agf9tn",
+                  "Wy7EBGd7gpP96hyumb0Lz", "cvLrFEzeNcRogHqyLv0Ig", "G6MRbppaDZ2a5Wr0GIjH8", "jELEiw5W3N4m2R3oJm3Pk",
+                  "e2eC-x4UXc5m6QexNbx8w", "ou7VyChQ-SFCm8T8yGS7I", "g-b0Fs5o8EzQIphq0YIAX", "GAyHRgaa1lkYGhE9WxlRL",
+                  "FimDQpYL0LWRv8U81ZP9H", "hAyQsDqPQQ0bKn4u1DdRn", "qNeccb2eF20oL0Ws-VhKS")
 

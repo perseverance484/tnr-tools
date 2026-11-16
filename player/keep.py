@@ -5,7 +5,7 @@ the log for a while, but nothing kept it for us).
     python3 -m player.keep BATTLE_ID        commit what exists of that fight's files to origin/main; one JSON line
 
 What is kept, under state/player/<account>/fights/: <bid>_entries.json, <bid>_meta.json, live_states/<bid>.json,
-live_states/<bid>.full.jsonl.gz. Not the post-mortem: it is still being written when the fight closes, and it is
+live_states/<bid>.full.jsonl.gz, live_states/<bid>.plans.jsonl.gz (every planner run's choice and candidates). Not the post-mortem: it is still being written when the fight closes, and it is
 made again from the log (tools/postmortem.py -- <bid>). A path outside the fights folder is refused.
 
 How: as forge/tools/run_lock.mjs writes the lock. One commit on origin/main built in a private index from the
@@ -33,7 +33,7 @@ def fight_files(bid, fights=None):
     """The fight's files that exist, as absolute paths."""
     fights = fights or C.fights_dir()
     names = [f"{bid}_entries.json", f"{bid}_meta.json", os.path.join("live_states", f"{bid}.json"),
-             os.path.join("live_states", f"{bid}.full.jsonl.gz")]
+             os.path.join("live_states", f"{bid}.full.jsonl.gz"), os.path.join("live_states", f"{bid}.plans.jsonl.gz")]
     return [p for p in (os.path.join(fights, n) for n in names) if os.path.isfile(p)]
 
 
