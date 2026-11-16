@@ -6,6 +6,7 @@ No session is started and nothing is sent: the brain's batches are made by the s
 written by hand, and the one process is a stand-in for Claude Code that prints what a test tells it to.
 Review of 65974c02 (chatgpt/review-ai-player-relay-preflight-20261114 @ 5d46d7ef), B1 to B4.
 """
+import contextlib
 import io
 import json
 import os
@@ -578,6 +579,18 @@ class TheSessionIsWatched(unittest.TestCase):
         self.stub.code = 1
         self.assertEqual(self.run_it(done=lambda gate, hooks, game: True)[0], P.BY_ITSELF)
         self.assertEqual((self.last.running, self.last.code, self.admitted()), (False, 1, S))
+
+    def test_on_a_system_it_was_not_written_for_nothing_is_started(self):
+        """How it ends a session's processes and sees them gone was written for Windows too, and never run
+        there (review of 071ba1b1, C1). It says so and starts nothing."""
+        started, said = [], io.StringIO()
+        P.subprocess.Popen = P.subprocess.run = lambda *a, **k: started.append(a)
+        with mock.patch.object(P.os, "name", "nt"), mock.patch.object(sys, "argv", ["preflight.py"]), \
+                contextlib.redirect_stdout(said):
+            self.assertEqual(P.main(), 2)
+        self.assertEqual(started, [])
+        self.assertEqual(json.loads(said.getvalue())["started"], False)
+        self.assertIn("POSIX", json.loads(said.getvalue())["why"])
 
     def test_a_log_that_cannot_be_read_ends_it(self):
         self.says = json.dumps(init()) + "\n"
