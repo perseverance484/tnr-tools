@@ -1,8 +1,11 @@
 # Combat animation engine — what the player actually sees
 
-> **Superseded on clip size (2026-11-16):** clips are now `tile.height x animationScale` (per effect, 1-3; upstream
-> `8bd670153`, checked at `f6a51fac5`), not a fixed 2.5. The working summary for artists is
-> `skills/producing-tnr-art/references/combat_fx.md`.
+> **Superseded in part (2026-11-16, checked at game source `f6a51fac5`):**
+> - **Clip size:** clips are `tile.height x animationScale` (per effect, 1-3; upstream `8bd670153`), not a fixed 2.5.
+> - **Timing:** §0 items 1 and 11 and §2's "no timeline" are out of date. `combatPlayback.ts` now replays the actions of
+>   one update in order, one at a time (windup, strike, short hold), and `Combat.tsx` holds the result screen until the
+>   final action has played, so the killing blow is animated. Within one action, its new effects still start together.
+> The working summary for artists is `skills/producing-tnr-art/references/combat_fx.md`.
 
 Status: reference (read-only source analysis). Audience: artists and content authors building custom
 combat animations (first consumer: the three-act "Mother of Echoes" boss fight).

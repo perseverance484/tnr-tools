@@ -25,13 +25,28 @@ compact useful claude skill."
 - `docs/00_INDEX.md`: art row names the skill as the single entry point; new combat-FX row.
   `docs/design/COMBAT_ANIMATION_ENGINE.md`: banner that its fixed 2.5 clip size is superseded.
 
+## Review round 1 (ChatGPT at f2e37351): six P2s fixed
+1. Timing: combat_fx.md gotcha 6 now states the f6a51fac5 playback (actions replay in order with windup, strike,
+   ~120 ms hold, 4 s cutoff, 8-action backlog; the result screen waits for the final action, so the killing blow is
+   animated; one action's effects start together). The engine doc banner now covers timing as well as size.
+2. fx_board.py board samples appear, loop and end from one elapsed clock, loop drawn over appear (zIndex 2 over 1);
+   selftest asserts a red appear under a blue loop shows blue at t=0.
+3. Ground images: new `fx_board.py ground-check` gate (WebP, aspect 1.4-2.6, width >= 128, real alpha, feathered
+   edges, byte ceiling); SKILL.md and combat_fx.md route ground images there and away from `artpreflight --type STATIC`.
+4. `AVATAR` -> `AI_AVATAR` (the spec identifier).
+5. Reference step is conditional again: style_refs covers SCENE_CHARACTER, SCENE_BACKGROUND, JUTSU_ICON only.
+6. studio.md keeps PASS / FAIL / NON_CANONICAL (ran, unpinned tool) / NOT_RUN (did not execute) distinct, matching
+   jutsu_studio.py's CANONICAL_PREFLIGHT states.
+
 ## Gates (exact)
 - `python3 skills/building-tnr-content/scripts/doctrinemap.py` -> 0 errors, 0 warnings
 - `python3 skills/building-tnr-content/scripts/render_doctrine.py --check` -> all projections current
 - `python3 skills/building-tnr-content/scripts/build_packs.py --check` -> all packs and TOCs current
 - `python3 .github/scripts/pack_skills.py` -> producing-tnr-art.zip 168,305 bytes (2 MiB guard); dist not committed
   (the skillpack workflow rebuilds it)
-- `fx_board.py --selftest` PASS; `style_refs.py --selftest` pass; `rawqc.py --selftest` OK;
+- round 1: `fx_board.py --selftest` PASS (now with the occlusion and ground-check cases); `fx_board.py ground-check` on
+  the FCF ground image: 0 errors; pack 179,131 bytes; doctrinemap / render_doctrine --check / build_packs --check clean.
+- round 0: `fx_board.py --selftest` PASS; `style_refs.py --selftest` pass; `rawqc.py --selftest` OK;
   `artpreflight_selftest.py` (spec in cwd) 98 passed; `jutsu_studio_selftest.py` 191 passed
 - `fx_board.py board` on the FCF v2 clips: 73 frames, 19 tiles, scale 3
 

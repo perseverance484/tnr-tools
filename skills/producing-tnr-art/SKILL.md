@@ -27,14 +27,18 @@ docs/DOCTRINE.md before building anything.
 
 ## Start every job the same way
 
-1. **Name the target** and its client field: `ICON`, `JUTSU_ICON`, `AVATAR`, `SCENE_BACKGROUND`,
-   `SCENE_CHARACTER`, `ANIMATION`, `STATIC` (ground image).
+1. **Name the target** and its client field, using the spec's identifiers: `ICON`, `JUTSU_ICON`, `AI_AVATAR`,
+   `SCENE_BACKGROUND`, `SCENE_CHARACTER`, `ANIMATION`, `STATIC` (map pins). A battle **ground image**
+   (`staticAssetPath`) has no spec target of its own: it follows `references/combat_fx.md` and `fx_board.py
+   ground-check`, never `artpreflight.py --type STATIC` (that target is square, circle-masked pin art).
 2. **Read the target block in `data/25x_DATA_art_spec.json`.** It owns every number: aspect, delivered width, minimum
    width, format, byte ceiling, key, padding. Never restate a number from memory or from this file. Scripts find the
    spec in the working directory or `TNR_ART_SPEC`.
-3. **Look at references before prompting:** `python3 scripts/style_refs.py select --target <T> [--register NINJA|
-   CIVILIAN] [--family ..] [--tag ..]`, then open the pixels. For an existing record, read it live (TNR connector with
-   `select`) or with `scripts/jutsu_art.py` at the repo root.
+3. **Where a reference pack exists, look at it before prompting.** `style_refs.py` covers `SCENE_CHARACTER`,
+   `SCENE_BACKGROUND` and `JUTSU_ICON` only: `python3 scripts/style_refs.py select --target <T> [--register NINJA|
+   CIVILIAN] [--family ..] [--tag ..]`, then open the pixels. For other targets there is no pack: use the record's
+   current art and the director's references. For an existing record, read it live (TNR connector with `select`) or
+   with `scripts/jutsu_art.py` at the repo root.
 4. **Route** by asset class:
 
 | Asset | Read | Tools |
@@ -49,8 +53,9 @@ docs/DOCTRINE.md before building anything.
   **Scene characters are width-scaled**: a wrong aspect makes them short, and tall art is clipped. The asset editor
   previews everything as a square avatar, so judge non-square art on a dark composite at the target aspect.
 - **Source above the delivered width is discarded by the CDN**; battle clips arrive as a 50 px-wide rendition.
-- **Battle clips are squares sized from the tile's height** (`animationScale` 1-3) on a board squashed 2:1, and every
-  hit tile plays at once. Preview on the real board (`fx_board.py board`), never on a square tile.
+- **Battle clips are squares sized from the tile's height** (`animationScale` 1-3) on a board squashed 2:1; every
+  tile one action hits plays at once, and actions replay one after another. Preview on the real board
+  (`fx_board.py board`), never on a square tile.
 - **Hidden assets never render.** Create hidden, unhide by edit, check in a battle.
 
 So get the composition right at generation (processing cannot fix it) and the canvas right (the client will not).
@@ -88,7 +93,7 @@ not frame sheets.
 | `shotlist.py` | every asset a quest needs, generated from a `quests.get` capture with filenames and prompts |
 | `style_refs.py` | the approved reference pack: `select`, `list`, `verify --repo-root .` (provenance), `--selftest` |
 | `jutsu_studio.py` | ZIP-first jutsu-icon family studio: `doctor`, `intake`, `lock-check`, `attempts`, `compare`, `finalize`, `audit-gallery` |
-| `fx_board.py` | combat FX: `board` (real board GIF), `ground-box` (tile inside a clip frame), `strip-info`, `--selftest` |
+| `fx_board.py` | combat FX: `board` (real board GIF, appear and loop on one clock), `ground-box`, `ground-check` (ground image gate), `strip-info`, `--selftest` |
 
 ## Contracts
 

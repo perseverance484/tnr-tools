@@ -4,13 +4,14 @@
     python3 fx_board.py board --appear A.webp [--loop L.webp] [--end E.webp] [--ground G.webp] [--scale 3]
                               [--ms 42,60,50] [--pattern spiral|all|one] [--bg BG.webp] --out preview.gif
     python3 fx_board.py ground-box --scale 3 --size 128      # where the tile sits inside a clip frame
+    python3 fx_board.py ground-check G.webp                   # gate for a battle ground image (staticAssetPath)
     python3 fx_board.py strip-info A.webp                     # frames, frame size, bytes vs the ANIMATION ceiling
     python3 fx_board.py --selftest
 
 Geometry is the Pixi renderer's (theninjarpg combatEffects.ts / animation.ts, checked at f6a51fac5): flat hexes in
 a 2:1 box (HEX_ASPECT_RATIO 0.5, stacking 0.25), clips square at tile.height x animationScale centred on the tile,
-the ground image (staticAssetPath) stretched to the tile box, every hit tile starting at the same instant (no
-timeline). Board layout follows art/halloween_headless_rider/fx/fxkit.py. Pillow only; no network.
+the ground image (staticAssetPath) stretched to the tile box; appear and loop start on one clock with the loop
+drawn on top; every tile one action hits starts together (actions themselves replay one after another). Board layout follows art/halloween_headless_rider/fx/fxkit.py. Pillow only; no network.
 """
 import argparse
 import math
@@ -77,7 +78,10 @@ def hex_poly(x, y, w, h):
 
 
 def board(out, appear=None, loop=None, end=None, ground=None, scale=1.0, ms=(42, 60, 50), pattern="spiral",
-          bg=None, hold_loops=2, shrink=1.0):
+          bg=None, hold_loops=2, shrink=1.0, tick=40):
+    """Engine order (combatEffects.ts): at the strike the ground image, the appear (zIndex 1) and the loop (zIndex 2,
+    drawn ON TOP) all start on one clock; the loop keeps cycling while the effect lasts; the end clip plays when it
+    ends. Frames are sampled from shared elapsed time, so appear/loop occlusion shows exactly as in battle."""
     tiles, w, h, (W, H) = hex_board()
     hit = pattern_tiles(tiles, w, h, pattern)
     if bg:
@@ -92,26 +96,63 @@ def board(out, appear=None, loop=None, end=None, ground=None, scale=1.0, ms=(42,
     eff = max(1, int(h * scale))
     fa, fl, fe = ([f.resize((eff, eff), Image.LANCZOS) for f in strip_frames(p)] if p else [] for p in (appear, loop, end))
     gt = Image.open(ground).convert("RGBA").resize((int(w), int(h)), Image.LANCZOS) if ground else None
-    tl = [("a", i, ms[0]) for i in range(len(fa))]
-    tl += [("l", i, ms[1]) for i in range(len(fl) * hold_loops)] if fl else [("l", 0, 600)] if gt else []
-    tl += [("e", i, ms[2]) for i in range(len(fe))] + [("x", 0, 400)]
-    frames = []
-    for kind, i, _ in tl:
+    a_ms, l_ms, e_ms = ms
+    lasting = max(len(fa) * a_ms, len(fl) * l_ms * hold_loops if fl else 0, 600 if gt is not None else 0)
+    end_ms = len(fe) * e_ms
+    total = lasting + end_ms + 400
+    frames, durs = [], []
+    for t_ms in range(0, total, tick):
         c = base.copy()
-        if gt is not None and kind in ("a", "l"):  # the ground image shows from the cast while the effect lasts
+        live = t_ms < lasting
+        if gt is not None and live:
             for t in hit:
                 c.alpha_composite(gt, (int(t[2] - w / 2), int(t[3] - h / 2)))
-        fr = fa[i] if kind == "a" else fl[i % len(fl)] if kind == "l" and fl else fe[i] if kind == "e" else None
-        if fr is not None:
+        layers = []
+        if live and fa and t_ms < len(fa) * a_ms:
+            layers.append(fa[t_ms // a_ms])                      # appear, zIndex 1
+        if live and fl:
+            layers.append(fl[(t_ms // l_ms) % len(fl)])          # loop, zIndex 2, over the appear
+        if not live and fe and t_ms - lasting < end_ms:
+            layers.append(fe[(t_ms - lasting) // e_ms])          # end clip, server visual
+        for fr in layers:
             for t in hit:
                 c.alpha_composite(fr, (int(t[2] - eff / 2), int(t[3] - eff / 2)))
-        ImageDraw.Draw(c).text((6, 4), f"animationScale {scale}", fill=(255, 255, 255, 220))
+        ImageDraw.Draw(c).text((6, 4), f"animationScale {scale}  t={t_ms}ms", fill=(255, 255, 255, 220))
         c = c.convert("RGB")
         if shrink != 1.0:
             c = c.resize((int(c.width * shrink), int(c.height * shrink)), Image.LANCZOS)
         frames.append(c)
-    frames[0].save(out, save_all=True, append_images=frames[1:], duration=[t[2] for t in tl], loop=0, optimize=True)
+        durs.append(tick)
+    frames[0].save(out, save_all=True, append_images=frames[1:], duration=durs, loop=0, optimize=True)
     return out, len(frames), len(hit)
+
+
+def ground_check(path, max_bytes=BYTE_CEILING):
+    """Gate for a battle ground image (effect.staticAssetPath). The renderer stretches it to the 2:1 tile box, so it
+    must be wide, transparent at the edges and real alpha; there is no spec target for it (STATIC is map-pin art)."""
+    errors, warns = [], []
+    im = Image.open(path)
+    if im.format != "WEBP":
+        errors.append(f"format {im.format}: export lossless WebP")
+    im = im.convert("RGBA")
+    W, H = im.size
+    ar = W / H
+    if not 1.4 <= ar <= 2.6:
+        errors.append(f"aspect {ar:.2f}: the tile box is 2:1 (allowed 1.4-2.6); square art is squashed flat")
+    if W < 128:
+        errors.append(f"width {W}px: at least 128")
+    a = im.getchannel("A")
+    lo, hi = a.getextrema()
+    if lo == 255:
+        errors.append("no transparency: a ground image needs real alpha")
+    border = [a.getpixel((x, 0)) for x in range(W)] + [a.getpixel((x, H - 1)) for x in range(W)] + \
+             [a.getpixel((0, y)) for y in range(H)] + [a.getpixel((W - 1, y)) for y in range(H)]
+    if max(border) > 40:
+        warns.append(f"edge alpha up to {max(border)}: feather the edges so tiles blend on any ground")
+    b = os.path.getsize(path)
+    if b >= max_bytes:
+        errors.append(f"{b} bytes: over the {max_bytes} ceiling")
+    return {"file": path, "size": [W, H], "aspect": round(ar, 2), "bytes": b, "errors": errors, "warnings": warns}
 
 
 def strip_info(path):
@@ -135,7 +176,22 @@ def selftest():
         g = os.path.join(td, "g.webp")
         Image.new("RGBA", (128, 64), (90, 40, 140, 200)).save(g, "WEBP", lossless=True)
         out, n, hits = board(os.path.join(td, "b.gif"), appear=a, ground=g, scale=3, pattern="spiral")
-        assert n == 8 + 1 + 1 and hits > 7, (n, hits)
+        assert n > 10 and hits > 7, (n, hits)
+        # occlusion: a red appear under a blue loop must show blue at t=0, as the engine draws the loop on top
+        red, blue = os.path.join(td, "r.webp"), os.path.join(td, "u.webp")
+        save_strip([Image.new("RGBA", (32, 32), (255, 0, 0, 255))] * 4, red, 32)
+        save_strip([Image.new("RGBA", (32, 32), (0, 0, 255, 255))] * 4, blue, 32)
+        out, n, hits = board(os.path.join(td, "o.gif"), appear=red, loop=blue, scale=3, pattern="one", tick=20)
+        g0 = Image.open(out).convert("RGB")
+        tiles, w, h, _ = hex_board()
+        cx, cy = pattern_tiles(tiles, w, h, "one")[0][2:]
+        px = g0.getpixel((int(cx), int(cy)))
+        assert px[2] > 150 and px[0] < 100, px
+        gc = ground_check(g)
+        assert not gc["errors"], gc
+        sq = os.path.join(td, "sq.webp")
+        Image.new("RGBA", (128, 128), (90, 40, 140, 255)).save(sq, "WEBP", lossless=True)
+        assert any("aspect" in e for e in ground_check(sq)["errors"])
         x, y, w, h = ground_box(3, 120)
         assert (round(w), round(h), round(x), round(y)) == (80, 40, 20, 40)
     print("SELFTEST PASS")
@@ -158,6 +214,8 @@ def main():
     g = sub.add_parser("ground-box")
     g.add_argument("--scale", type=float, required=True)
     g.add_argument("--size", type=int, default=128)
+    gc = sub.add_parser("ground-check")
+    gc.add_argument("path")
     s = sub.add_parser("strip-info")
     s.add_argument("path")
     a = ap.parse_args()
@@ -170,6 +228,15 @@ def main():
     elif a.cmd == "ground-box":
         x, y, w, h = ground_box(a.scale, a.size)
         print(f"tile box in a {a.size}px frame at scale {a.scale}: x={x:.1f} y={y:.1f} w={w:.1f} h={h:.1f}")
+    elif a.cmd == "ground-check":
+        r = ground_check(a.path)
+        for e in r["errors"]:
+            print("error  ", e)
+        for wn in r["warnings"]:
+            print("warning", wn)
+        print(f"{r['file']}: {r['size'][0]}x{r['size'][1]}, aspect {r['aspect']}, {r['bytes']} bytes; "
+              f"{len(r['errors'])} error(s), {len(r['warnings'])} warning(s)")
+        return 1 if r["errors"] else 0
     else:
         print(strip_info(a.path))
     return 0

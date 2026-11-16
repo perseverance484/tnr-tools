@@ -39,8 +39,10 @@ python3 scripts/jutsu_studio.py audit-gallery gallery.png --manifest gallery.jso
 ```
 
 N is the verified roster, not the ZIP's file count; an ambiguous id match is `MAPPING_REQUIRED` (ask, never guess).
-The orientation index is studio-only, never a generator reference. `finalize` runs the canonical
-`artpreflight.py --type JUTSU_ICON` only when it matches `data/preflight_pins.json`; otherwise it says NOT_RUN.
+The orientation index is studio-only, never a generator reference. `finalize` always runs `artpreflight.py --type
+JUTSU_ICON`; the verdict is **canonical** only when the script and spec match `data/preflight_pins.json`. With
+mismatched pins it still runs and reports **NON_CANONICAL** when the checks pass (FAIL when they fail). **NOT_RUN**
+means the preflight did not execute (script or dependency missing, per `doctor`, or skipped by `--stop-after export`). Keep the three states distinct in every report.
 Opening prompt for a new family: `docs/design/jutsu_icon_studio/START_PROMPT.md`.
 
 ## Finding existing art

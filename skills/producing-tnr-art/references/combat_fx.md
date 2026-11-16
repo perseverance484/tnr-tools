@@ -29,7 +29,9 @@ line citations, and the size rule below supersedes its fixed 2.5 (upstream `8bd6
   at `(2/3 S) x (1/3 S)`; below k = 2 the tile is wider than the frame. Anything meant to line up with the ground image (cracks that shimmer) must be drawn in
   that box (`scripts/fx_board.py ground-box`).
 - Ground images are stretched to the 2:1 box: paint them wide, or crop to the painted footprint at its own aspect.
-  Square art gets squashed.
+  Square art gets squashed. Gate them with `fx_board.py ground-check` (wide aspect, real alpha, soft edges, lossless
+  WebP, byte ceiling), not `artpreflight.py --type STATIC`: the spec's STATIC target is square circle-masked map-pin
+  art and refuses a wide ground image on aspect.
 - Anything flat on the floor (ripples, rings, marks) is painted from straight above and squashed 2:1 by the script.
 - Clips draw over fighters, portraits and HP bars; ground images draw under them. Character clips sit best with their
   visual centre about 15% above the frame centre.
@@ -56,8 +58,13 @@ line citations, and the size rule below supersedes its fixed 2.5 (upstream `8bd6
 3. **`decrease*` tags on characters are invisible** (power goes negative = "depleted": no appear, loop or ground
    art). Put the art on a visible carrier tag in the same cast.
 4. **Hidden assets never render, with no error.** Create hidden (law 16b), then unhide every battle asset by edit.
-5. "1-round" effects stay through the next round. No timeline: everything new in one update starts at once.
-6. First use in a battle lags one asset fetch. The killing blow is never animated.
+5. "1-round" effects stay through the next round.
+6. **Playback (game source `f6a51fac5`, `combatPlayback.ts`):** the actions in one update replay **in order, one at a
+   time**. Each actor winds up (capped at about 550 ms), its strike lands, the hit holds about 120 ms, then the next
+   action starts; one action is cut off after 4 s; past 8 queued actions the oldest are skipped. Everything one action
+   creates starts together at its strike, appear and loop on the same clock with the loop drawn on top, so design the
+   appear to read under the loop's first frames. The final action plays before the result screen (`Combat.tsx` holds
+   the result), so a killing blow is animated. First use in a battle still lags one asset fetch.
 7. Edits to a jutsu equipped on an AI: law 18 (unequip, edit, re-equip). Player jutsu: not needed.
 
 ## 5. Production pipeline
@@ -74,8 +81,9 @@ line citations, and the size rule below supersedes its fixed 2.5 (upstream `8bd6
    `art/halloween_headless_rider/fx/fxkit.py`). Animate one drawing on continuous curves; cross-fading separate
    drawings makes shapes jump. Dissolve, never a grey fade.
 5. **Board preview, always**: `python3 scripts/fx_board.py board --appear A.webp --loop L.webp --end E.webp --ground
-   G.webp --scale 3 --out preview.gif` draws the real board (2:1 hexes, the spiral patch, every tile at once). A square
-   tile preview lies about size: it has cost one wrong scale already.
+   G.webp --scale 3 --out preview.gif` draws the real board (2:1 hexes, the spiral patch, every tile at once) with the
+   appear and loop composited on one clock, loop on top, as the engine does. A square tile preview lies about size: it
+   has cost one wrong scale already. Gate ground images with `fx_board.py ground-check G.webp`.
 6. **Live** (director go per job): Forge creates each asset hidden, a follow-up edit unhides them, then one full-record
    `jutsu.update` changes only the art fields and `animationScale`; read back. Fresh filenames for corrections.
 
