@@ -47,6 +47,14 @@ compact useful claude skill."
 Gates: fx_board selftest PASS; FCF ground image 0 errors; FCF board preview 67 frames; doctrinemap /
 render_doctrine --check / build_packs --check clean; pack 179,862 bytes.
 
+## Review round 3 (ChatGPT at 3505d0db): two P2s fixed
+1. The appear's expiry (`len(frames) x ms`, capped at the effect's life) is now an event boundary. Selftest: a single
+   100 ms red appear over a 600 ms ground shows red for exactly 100 ms.
+2. Clamping is judged on the merged event intervals: whenever the GIF's total differs from game time, `board` prints
+   how many intervals were under the 20 ms floor and the slowdown factor, and records `board.last_timing`. Selftest:
+   21/20 ms four-frame appear/loop clips are reported (640 ms shown for 560 ms). The FCF preview reports 1.02x.
+Gates: fx_board selftest PASS; doctrinemap / render_doctrine --check / build_packs --check clean; pack 180,263 bytes.
+
 ## Gates (exact)
 - `python3 skills/building-tnr-content/scripts/doctrinemap.py` -> 0 errors, 0 warnings
 - `python3 skills/building-tnr-content/scripts/render_doctrine.py --check` -> all projections current

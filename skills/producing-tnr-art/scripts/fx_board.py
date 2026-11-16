@@ -109,13 +109,13 @@ def board(out, appear=None, loop=None, end=None, ground=None, scale=1.0, ms=(42,
     marks = {0, lasting, total}
     if fa:
         marks.update(range(0, min(len(fa) * a_ms, lasting), a_ms))
+        marks.add(min(len(fa) * a_ms, lasting))  # the appear's expiry is an event too
     if fl:
         marks.update(range(0, lasting, l_ms))
     if fe:
         marks.update(range(lasting, lasting + end_ms, e_ms))
     marks.add(lasting + end_ms)
     times = sorted(m for m in marks if m < total)
-    slowed = min(ms[:1] + ((l_ms,) if fl else ()) + ((e_ms,) if fe else ())) < 20
     frames, durs = [], []
     for k, t_ms in enumerate(times):
         nxt = times[k + 1] if k + 1 < len(times) else total
@@ -140,8 +140,13 @@ def board(out, appear=None, loop=None, end=None, ground=None, scale=1.0, ms=(42,
             c = c.resize((int(c.width * shrink), int(c.height * shrink)), Image.LANCZOS)
         frames.append(c)
         durs.append(max(20, nxt - t_ms))
-    if slowed:
-        print("note: a clip runs under 20 ms/frame; the GIF shows every frame but slower than the game")
+    real = total - times[0]
+    shown = sum(durs)
+    if shown != real:  # clamping is judged on the merged event intervals, not per clip
+        clamped = sum(1 for k, t_ms in enumerate(times) if (times[k + 1] if k + 1 < len(times) else total) - t_ms < 20)
+        print(f"note: {clamped} event interval(s) under the 20 ms GIF floor; the preview runs {shown} ms for "
+              f"{real} ms of game time ({shown / real:.2f}x slower); every frame is still shown")
+    board.last_timing = {"game_ms": real, "gif_ms": shown}
     frames[0].save(out, save_all=True, append_images=frames[1:], duration=durs, loop=0, optimize=True)
     return out, len(frames), len(hit)
 
@@ -198,7 +203,7 @@ def selftest():
         g = os.path.join(td, "g.webp")
         Image.new("RGBA", (128, 64), (90, 40, 140, 200)).save(g, "WEBP", lossless=True)
         out, n, hits = board(os.path.join(td, "b.gif"), appear=a, ground=g, scale=3, pattern="spiral")
-        assert n == 9 and hits > 7, (n, hits)  # 8 appear frames + the post-effect frame
+        assert n == 10 and hits > 7, (n, hits)  # 8 appear frames, ground alone after expiry, post-effect
         # occlusion: a red appear under a blue loop must show blue at t=0, as the engine draws the loop on top
         red, blue = os.path.join(td, "r.webp"), os.path.join(td, "u.webp")
         save_strip([Image.new("RGBA", (32, 32), (255, 0, 0, 255))] * 4, red, 32)
@@ -219,6 +224,23 @@ def selftest():
             p = gif.convert("RGB").getpixel((int(cx), int(cy)))
             seen.add("r" if p[0] > 150 else "b" if p[2] > 150 else "-")
         assert {"r", "b"} <= seen, seen
+        # appear expiry: one 100 ms red appear over a 600 ms ground must leave the tile after 100 ms
+        one = os.path.join(td, "one.webp")
+        save_strip([Image.new("RGBA", (32, 32), (255, 0, 0, 255))], one, 32)
+        out, n, _ = board(os.path.join(td, "x.gif"), appear=one, ground=g, scale=3, pattern="one", ms=(100, 60, 50))
+        gif, t_acc, red_ms = Image.open(out), 0, 0
+        for i in range(n):
+            gif.seek(i)
+            if gif.convert("RGB").getpixel((int(cx), int(cy)))[0] > 150:
+                red_ms += gif.info["duration"]
+        assert red_ms == 100, red_ms
+        # merged schedules: 21/20 ms clips are each over the floor but their merged events are not; must be reported
+        a4, l4 = os.path.join(td, "a4.webp"), os.path.join(td, "l4.webp")
+        save_strip([Image.new("RGBA", (32, 32), (255, 0, 0, 255))] * 4, a4, 32)
+        save_strip([Image.new("RGBA", (32, 32), (0, 0, 255, 128))] * 4, l4, 32)
+        board(os.path.join(td, "m.gif"), appear=a4, loop=l4, scale=3, pattern="one", ms=(21, 20, 50))
+        tm = board.last_timing
+        assert tm["gif_ms"] > tm["game_ms"], tm
         gc = ground_check(g)
         assert not gc["errors"], gc
         lossy = os.path.join(td, "lossy.webp")
