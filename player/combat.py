@@ -254,11 +254,32 @@ class Combat:
                 continue
             m = re.search(r"^FIRE: (.*)$", out, re.M)
             if m:
-                return json.loads(m.group(1)), f"{time.time() - t0:.1f}s {script.split('.')[0]}" + \
-                    (" engine" if "--fast" in extra else "")
+                how = f"{time.time() - t0:.1f}s {script.split('.')[0]}" + (" engine" if "--fast" in extra else "")
+                self.keep_plan(bid, battle, script, how, ban, out)
+                return json.loads(m.group(1)), how
             errs.append(f"{script}: " + ((proc.stderr.strip().splitlines() or out.strip().splitlines()
                                           or ["no output"])[-1])[:120])
+        self.keep_plan(bid, battle, None, "planner failed: " + " | ".join(errs), ban, "")
         return None, "planner failed: " + " | ".join(errs)
+
+    PLAN_LINES = re.compile(r"^(R\d+ v\d+ |me |DESPERATION|kunai:|banned this battle|lookahead:|planner2:|"
+                            r"\s*\d+\.\s+[-+]?\d|FIRE:)")
+
+    def keep_plan(self, bid, battle, script, how, ban, out):
+        """One line in fights/live_states/<battle>.plans.jsonl.gz for every planner run: which planner, how long,
+        the bans it planned under, and its own summary (state line, top candidates with their terms, what it fired).
+        Nothing kept what a turn's plan was or why (AP run 2, 2026-11-16: the two losses had to be rebuilt from the
+        archived states and planned again offline, with opponent models that had since learned the fight)."""
+        try:
+            path = os.path.join(self.fights, "live_states", f"{bid}.plans.jsonl.gz")
+            os.makedirs(os.path.dirname(path), exist_ok=True)
+            rec = {"at": round(time.time(), 1), "round": battle.get("battle.round"),
+                   "version": battle.get("battle.version"), "script": script, "how": how, "ban": list(ban or ()),
+                   "out": [ln for ln in out.splitlines() if self.PLAN_LINES.match(ln)][:24]}
+            with gzip.open(path, "at", encoding="utf8") as f:
+                f.write(json.dumps(rec, separators=(",", ":")) + "\n")
+        except OSError:
+            pass                                               # a lost record never costs the turn
 
     # ------------------------------------------------------------ the end of a fight
     def log_says_lost(self, state):

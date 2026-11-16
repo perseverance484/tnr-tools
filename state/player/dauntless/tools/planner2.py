@@ -728,27 +728,33 @@ class Planner:
             m0.wipe((GGRD,))                            # moves fire first: off his ground
         run_turn(m0, e0, acts, 0, cm, ce)
         if e0.hp <= 0:
-            return [(self.en0.hp - e0.hp) - (self.me0.hp - m0.hp)] + [0] * (NF - 1), value_model.KILL, self.en0.hp, [(1.0, ["-"])], 1.0
+            return [(self.en0.hp - e0.hp) - (self.me0.hp - m0.hp)] + [0] * (NF - 1), value_model.KILL, self.en0.hp, [(1.0, ["-"])], 0.0
         feats = [0.0] * NF
-        term = dmg = 0.0
+        term = 0.0
+        # damage to him is what my turn takes off him, before his reply: measured after the reply it counted his
+        # own lifesteal / absorb heals against me, so a stance that cut his hit read as "damage" (AP run 2, fight 8
+        # vs Selaphiel R9: rebirth + basic + Defensive Stance ranked first in DESPERATION)
+        dmg = self.en0.hp - e0.hp
         opts = self.replies(m0, e0)
         outs = []
+        dead = 0.0                                      # weight of his replies that kill me this turn
         for w, names in opts:
             m, e = m0.copy(), e0.copy()
             real = names and names[0] in self.clockd.get("ids", ())
             stun = 1.0 if real else (100 - min(40, e.g(STUN, self.hr))) / 100
             run_turn(e, m, [self.his_kit[n] for n in names if n in self.his_kit], self.hr, ce, cm, stun)
-            dmg += w * (self.en0.hp - e.hp)
             if m.hp <= 0 or e.hp <= 0:
                 t = value_model.KILL if e.hp <= 0 < m.hp else -value_model.DEATH
                 term += w * t
+                dead += w if m.hp <= 0 else 0.0
                 f = [(self.en0.hp - e.hp) - (self.me0.hp - m.hp)] + [0] * (NF - 1)
             else:
                 f = self.features(b, m, e, names)
             outs.append((w, names, f))
             for i in range(NF):
                 feats[i] += w * f[i]
-        return feats, term, dmg, outs, 0.0
+        # the chance I am dead before my next turn: his reply now, or his next turn (feature 7, on the branches I live)
+        return feats, term, dmg, outs, min(1.0, dead - feats[7])
 
     def his_score(self, hb, m0, e0, ho=None):
         """His line from his side on the board he faces: damage now, minus what bounces back, plus what it does to
@@ -1076,7 +1082,8 @@ def build(a):
                        nuke_hit=max(his_kit_raw["burst"][0], critique.observed_peak(rows, en["userId"], ME_NAME)))
     info = dict(battle=battle, me=me, en=en, R=R, my_turn=my_turn, en_acted=en_acted, me_pos=me_pos, en_pos=en_pos,
                 d0=d0, ap=ap, stun=stun, others=others, st=st, sme=sme, sen=sen, prof=prof, gmul=gmul, clock=clock_info, rows=rows,
-                engine_state=eng is not None, live_state=bool(live), fight_bases=bool(fb), opp_scale=(s_me, s_him))
+                engine_state=eng is not None, live_state=bool(live), fight_bases=bool(fb), opp_scale=(s_me, s_him),
+                avg=avg, afk=ctx["afk"])
     return P, info
 
 
@@ -1217,6 +1224,19 @@ def make_clock(acts, rows, en_id, R, en_acted, me0, en0, ctx, cal, his_kit, base
 BOOK_W = float(os.environ.get("TNR_BOOK_W", "450"))     # HP-equivalent bonus x confidence for the solved answer to this position (solutions.json)
 
 
+def kunai_price(info, P):
+    """(cost, why): a thrown kunai priced by how close the fight is, as turn.py prices it (value_model.kunai_cost;
+    director 2026-11-11: "don't lose a fight to spare a kunai"). My turn = what I have taken off him per round so
+    far, blended with a 1100 prior; his turn = the larger of his modelled base turn and his observed average.
+    planner2 never set it, so from PR 124 (planner2 the default) every kunai was priced "leaning" (350) whatever
+    the race: AP run 2, fight 8 vs Selaphiel R9 (1904 v 2434 HP) threw basic attacks instead of the kunai."""
+    en, R = info["en"], info["R"]
+    done = max(0.0, float(en.get("maxHealth") or 5050) - float(en["curHealth"]))
+    my_turn = (done + 1100 * 2) / (max(0, R - 1) + 2)
+    return value_model.kunai_cost(float(info["me"]["curHealth"]), float(en["curHealth"]), my_turn,
+                                  max(P.base_turn, info.get("avg") or 0), info.get("afk", False))
+
+
 def rank(P, bundles, ap, W):
     res = []
     book = None
@@ -1225,16 +1245,21 @@ def rank(P, bundles, ap, W):
         import solutions
         book = solutions.lookup(key, getattr(P, "book_path", None) or solutions.LIVE)
     for b in bundles:
-        feats, term, dmg, outs, _ = P.line(b)
+        feats, term, dmg, outs, p_dead = P.line(b)
         rc, waste, guard, why = P.extras(b, ap)
         if book and book[1] > 0.2 and tuple(sorted(b)) == tuple(sorted(book[0])):
             guard += BOOK_W * book[1]
             why = why + [f"library answer (confidence {book[1]:.0%})"]
-        res.append((total(W, feats, term, rc, waste, guard), b, feats, term, rc, waste, guard, why, dmg, outs))
+        res.append((total(W, feats, term, rc, waste, guard), b, feats, term, rc, waste, guard, why, dmg, outs, p_dead))
     res.sort(key=lambda x: -x[0])
     if res and res[0][0] < -0.6 * value_model.DEATH:
-        res.sort(key=lambda x: -x[8])
-        print("DESPERATION: every line loses; ranked by damage to him")
+        # every line loses: among the lines that keep me alive best (the chance I am dead before my next turn
+        # within 0.10 of the lowest), the one that takes most off him now; the rest after, by score
+        best = min(r[10] for r in res)
+        alive = [r for r in res if r[10] <= best + 0.10]
+        alive.sort(key=lambda x: -x[8])
+        res = alive + [r for r in res if r[10] > best + 0.10]
+        print(f"DESPERATION: every line loses; ranked by damage to him among the lines that live best (die {best:.0%})")
     return res
 
 
@@ -1393,6 +1418,8 @@ def main():
         print("his clock: no saved kit (generic stand-in)")
     if not info["my_turn"]:
         print("not my turn: poll again in <=15 s"); return
+    value_model.KUNAI_COST, kwhy = kunai_price(info, P)
+    print(f"kunai: {kwhy} -> cost {value_model.KUNAI_COST}")
     banned = {x for x in a.ban.split(",") if x}
     banned |= {turn.IDS.get(x, x) for x in banned}
     if banned:
@@ -1416,7 +1443,7 @@ def main():
         seq, end = turn.resolve_targets(r[1], info["me_pos"], info["en_pos"], occupied)
         fire = " -> ".join(f"{x}@{t[0]},{t[1]}" for x, _, t in seq)
         f = r[2]
-        print(f"{i}. {r[0]:+6.0f}  {fire}  [swing {f[0]:+.0f} mine {f[1]:.0f} his {-f[2]:.0f} race {f[3]:+.2f} kill {f[6]:.0%} die {-f[7]:.0%} "
+        print(f"{i}. {r[0]:+6.0f}  {fire}  [swing {f[0]:+.0f} mine {f[1]:.0f} his {-f[2]:.0f} race {f[3]:+.2f} kill {f[6]:.0%} die {-f[7]:.0%} dead {r[10]:.0%} "
               f"term {r[3]:+.0f} reserve {r[4]:.0f} unspent {r[5] * 20:.0f}{' GUARD ' + '; '.join(r[7]) if r[7] else ''}]")
     seq, _ = turn.resolve_targets(res[0][1], info["me_pos"], info["en_pos"], occupied)
     print("FIRE:", json.dumps([{"actionId": aid, "longitude": t[0], "latitude": t[1], "name": n} for n, aid, t in seq]))

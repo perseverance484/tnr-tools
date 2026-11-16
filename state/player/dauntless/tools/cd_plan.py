@@ -70,10 +70,20 @@ LOCKS = {"barrier": 3, "buffprevent": 4, "cleanse": 3, "cleanseprevent": 3, "cle
          "pierce": 3, "poison": 3, "seal": 3, "siphon": 3, "stun": 4, "summon": 3, "vamp": 3}
 EXTRA_TAGS = {"kims": ("debuffprevent",), "sealnull": ("buffprevent", "debuffprevent"), "lotus": ("buffprevent",)}  # 2026-11-10 Hikuro R5: Seal refused 2 rounds after Kim's  # secondary tags that also take a shared lock
 LOADOUTS = {
+    # The game's "PvP" jutsu loadout (soXekhNjk7qihu-Rsok-6), the one the brain selects for every hunt
+    # (player/activities/equipment.py PVP1), as jutsu.getLoadouts returned it 2026-11-16 ~19:50Z: 15 jutsu, no
+    # Thunder's Judgement. The planner's list carried thunders after the game's loadout had dropped it, so every
+    # fight of AP run 2 opened on a line the game refused ("Action not valid anymore"). PVP1_JUTSU_IDS pins the
+    # game's list; tests/test_loadout.py checks this list against it.
     "pvp1": ["rebirth", "shrapnel", "lotus", "fury", "ember", "danse", "stormblade", "subaku", "overflow",
-             "thunders", "resist", "eclipse", "sealnull", "phantom", "shield",
+             "resist", "eclipse", "sealnull", "phantom", "shield",
              "smoke", "kims", "pill", "panacea", "jewel", "kunai", "nights", "aetherion", "limitbreaker",
              "clear", "cleanse", "replace", "defstance", "offstance", "basic"],
+    # PvP 1 as it was while Thunder's Judgement was in it: used to replay older fights (exam, solutions)
+    "pvp1_thunders": ["rebirth", "shrapnel", "lotus", "fury", "ember", "danse", "stormblade", "subaku", "overflow",
+                      "thunders", "resist", "eclipse", "sealnull", "phantom", "shield",
+                      "smoke", "kims", "pill", "panacea", "jewel", "kunai", "nights", "aetherion", "limitbreaker",
+                      "clear", "cleanse", "replace", "defstance", "offstance", "basic"],
     # the PvP 1 loadout before 2026-11-11 (Parry, later replaced by Chakra Resistance): used to replay older fights
     "pvp1_parry": None,
     "pvp2": ["rebirth", "leech", "severed", "fury", "ember", "danse", "stormblade", "subaku", "overflow",
@@ -163,5 +173,11 @@ if __name__ == "__main__":
               + ("" if total == ap or total > ap else f"; {ap - total} AP unused"))
 
 
-LOADOUTS["pvp1_parry"] = [("parry" if a == "resist" else a) for a in LOADOUTS["pvp1"]]
+LOADOUTS["pvp1_parry"] = [("parry" if a == "resist" else a) for a in LOADOUTS["pvp1_thunders"]]
+
+# jutsu.getLoadouts, 2026-11-16 ~19:50Z: the jutsu ids of the game's "PvP" loadout (soXekhNjk7qihu-Rsok-6)
+PVP1_JUTSU_IDS = ("K0t6Z-Q4lau1jFt8Tkpot", "GiKpip6NxsC8QWlZi6l_R", "zCmYLVL4JYzfhjPXHi9rH", "Lg_thN-MB8FRAr_Agf9tn",
+                  "Wy7EBGd7gpP96hyumb0Lz", "cvLrFEzeNcRogHqyLv0Ig", "G6MRbppaDZ2a5Wr0GIjH8", "jELEiw5W3N4m2R3oJm3Pk",
+                  "e2eC-x4UXc5m6QexNbx8w", "ou7VyChQ-SFCm8T8yGS7I", "g-b0Fs5o8EzQIphq0YIAX", "GAyHRgaa1lkYGhE9WxlRL",
+                  "FimDQpYL0LWRv8U81ZP9H", "hAyQsDqPQQ0bKn4u1DdRn", "P7dDcC102RhwBTTgA4HU_")
 
