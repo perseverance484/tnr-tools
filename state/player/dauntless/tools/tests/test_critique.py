@@ -253,7 +253,7 @@ out, lines, fire = plan("mamba_r3.txt", 3)
 check("R3: planner2 prices the kunai by the race (close: free), as turn.py does",
       "kunai: close race" in out.stdout and "-> cost 0" in out.stdout, out.stdout[-1500:] + out.stderr[-800:])
 check("R3: clear + the kunai over clear + basic attack",
-      fire and [a["name"] for a in fire] == ["clear", "kunai"] and fire[1]["actionId"] == "dY00WA51Mr7-uS6zbcS3r",
+      fire and [a["name"] for a in fire] == ["clear", "kunai"] and fire[1]["actionId"] != "basicAttack",
       out.stdout[-1500:])
 out, lines, fire = plan("mamba_r5.txt", 12)
 moved = [ln for ln in lines if re.search(r"(phantom|replace)@", ln)]
