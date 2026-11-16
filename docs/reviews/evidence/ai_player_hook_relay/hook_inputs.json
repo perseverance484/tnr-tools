@@ -1,0 +1,464 @@
+[
+ {
+  "phase": "1: Bash and a harmless MCP tool",
+  "file": "post-1.json",
+  "input": {
+   "session_id": "<id>",
+   "transcript_path": "<path>",
+   "cwd": "<path>",
+   "scratchpad_dir": "<path>",
+   "prompt_id": "<id>",
+   "permission_mode": "auto",
+   "agent_id": "<the subagent's id: 17 hex characters>",
+   "agent_type": "general-purpose",
+   "effort": {
+    "level": "medium"
+   },
+   "hook_event_name": "PostToolUse",
+   "tool_name": "mcp__claude-code-remote__get_session",
+   "tool_input": {},
+   "tool_response": [
+    {
+     "type": "text",
+     "text": "<this session's own details, 2,581 characters of JSON: left out>"
+    }
+   ],
+   "tool_use_id": "toolu_01AJK1UXJMszsL1ZsaxMkvxo",
+   "duration_ms": 234,
+   "mcp_server": {
+    "name": "claude-code-remote",
+    "source": "dynamic"
+   }
+  },
+  "answer": {
+   "hookSpecificOutput": {
+    "hookEventName": "PostToolUse",
+    "updatedToolOutput": [
+     {
+      "type": "text",
+      "text": "stub 1"
+     }
+    ]
+   }
+  }
+ },
+ {
+  "phase": "1: Bash and a harmless MCP tool",
+  "file": "pre-1.json",
+  "input": {
+   "session_id": "<id>",
+   "transcript_path": "<path>",
+   "cwd": "<path>",
+   "scratchpad_dir": "<path>",
+   "prompt_id": "<id>",
+   "permission_mode": "auto",
+   "agent_id": "<the subagent's id: 17 hex characters>",
+   "agent_type": "general-purpose",
+   "effort": {
+    "level": "medium"
+   },
+   "hook_event_name": "PreToolUse",
+   "tool_name": "Bash",
+   "tool_input": {
+    "command": "echo probe-1",
+    "description": "Print probe-1"
+   },
+   "tool_use_id": "toolu_01TwPfmcm8JKwuWftWXmUHPs"
+  },
+  "answer": {
+   "hookSpecificOutput": {
+    "hookEventName": "PreToolUse",
+    "permissionDecision": "allow",
+    "permissionDecisionReason": "probe: the listed command",
+    "updatedInput": {
+     "command": "echo probe-1 stamped:<the subagent's id>:general-purpose",
+     "description": "Print probe-1"
+    }
+   }
+  }
+ },
+ {
+  "phase": "1: Bash and a harmless MCP tool",
+  "file": "pre-2.json",
+  "input": {
+   "session_id": "<id>",
+   "transcript_path": "<path>",
+   "cwd": "<path>",
+   "scratchpad_dir": "<path>",
+   "prompt_id": "<id>",
+   "permission_mode": "auto",
+   "agent_id": "<the subagent's id: 17 hex characters>",
+   "agent_type": "general-purpose",
+   "effort": {
+    "level": "medium"
+   },
+   "hook_event_name": "PreToolUse",
+   "tool_name": "Bash",
+   "tool_input": {
+    "command": "ls /",
+    "description": "List root directory contents"
+   },
+   "tool_use_id": "toolu_01UHR61aTLsAFq21m633sYSJ"
+  },
+  "answer": {
+   "hookSpecificOutput": {
+    "hookEventName": "PreToolUse",
+    "permissionDecision": "deny",
+    "permissionDecisionReason": "probe: not the listed command"
+   }
+  }
+ },
+ {
+  "phase": "1: Bash and a harmless MCP tool",
+  "file": "pre-3.json",
+  "input": {
+   "session_id": "<id>",
+   "transcript_path": "<path>",
+   "cwd": "<path>",
+   "scratchpad_dir": "<path>",
+   "prompt_id": "<id>",
+   "permission_mode": "auto",
+   "agent_id": "<the subagent's id: 17 hex characters>",
+   "agent_type": "general-purpose",
+   "effort": {
+    "level": "medium"
+   },
+   "hook_event_name": "PreToolUse",
+   "tool_name": "mcp__claude-code-remote__get_session",
+   "tool_input": {
+    "session_id": "probe-1"
+   },
+   "tool_use_id": "toolu_01AJK1UXJMszsL1ZsaxMkvxo",
+   "mcp_server": {
+    "name": "claude-code-remote",
+    "source": "dynamic"
+   }
+  },
+  "answer": {
+   "hookSpecificOutput": {
+    "hookEventName": "PreToolUse",
+    "permissionDecision": "allow",
+    "permissionDecisionReason": "probe: call 1",
+    "updatedInput": {}
+   }
+  }
+ },
+ {
+  "phase": "1: Bash and a harmless MCP tool",
+  "file": "pre-4.json",
+  "input": {
+   "session_id": "<id>",
+   "transcript_path": "<path>",
+   "cwd": "<path>",
+   "scratchpad_dir": "<path>",
+   "prompt_id": "<id>",
+   "permission_mode": "auto",
+   "agent_id": "<the subagent's id: 17 hex characters>",
+   "agent_type": "general-purpose",
+   "effort": {
+    "level": "medium"
+   },
+   "hook_event_name": "PreToolUse",
+   "tool_name": "mcp__claude-code-remote__get_session",
+   "tool_input": {
+    "session_id": "probe-2"
+   },
+   "tool_use_id": "toolu_01CDDdfLmnPgRwcJPmPq9whs",
+   "mcp_server": {
+    "name": "claude-code-remote",
+    "source": "dynamic"
+   }
+  },
+  "answer": {
+   "hookSpecificOutput": {
+    "hookEventName": "PreToolUse",
+    "permissionDecision": "deny",
+    "permissionDecisionReason": "probe: not in the batch"
+   }
+  }
+ },
+ {
+  "phase": "2a: the stand-in, miscopied by the model",
+  "file": "pre-1.json",
+  "input": {
+   "session_id": "<id>",
+   "transcript_path": "<path>",
+   "cwd": "<path>",
+   "scratchpad_dir": "<path>",
+   "prompt_id": "<id>",
+   "permission_mode": "auto",
+   "agent_id": "<the subagent's id: 17 hex characters>",
+   "agent_type": "general-purpose",
+   "effort": {
+    "level": "medium"
+   },
+   "hook_event_name": "PreToolUse",
+   "tool_name": "mcp__Tnr__callEndpoint",
+   "tool_input": {
+    "endpointName": "text relay",
+    "input": {
+     "t": "probe",
+     "n": 1
+    }
+   },
+   "tool_use_id": "toolu_01FcChqrfLKtqmKnUxeQNT98",
+   "mcp_server": {
+    "name": "Tnr",
+    "source": "dynamic"
+   }
+  },
+  "answer": {
+   "hookSpecificOutput": {
+    "hookEventName": "PreToolUse",
+    "permissionDecision": "deny",
+    "permissionDecisionReason": "probe: not in the batch"
+   }
+  }
+ },
+ {
+  "phase": "2a: the stand-in, miscopied by the model",
+  "file": "pre-2.json",
+  "input": {
+   "session_id": "<id>",
+   "transcript_path": "<path>",
+   "cwd": "<path>",
+   "scratchpad_dir": "<path>",
+   "prompt_id": "<id>",
+   "permission_mode": "auto",
+   "agent_id": "<the subagent's id: 17 hex characters>",
+   "agent_type": "general-purpose",
+   "effort": {
+    "level": "medium"
+   },
+   "hook_event_name": "PreToolUse",
+   "tool_name": "mcp__Tnr__callEndpoint",
+   "tool_input": {
+    "endpointName": "text relay",
+    "input": {
+     "t": "probe",
+     "n": 2
+    }
+   },
+   "tool_use_id": "toolu_01FzhWzwAt7n5isudPDMupvE",
+   "mcp_server": {
+    "name": "Tnr",
+    "source": "dynamic"
+   }
+  },
+  "answer": {
+   "hookSpecificOutput": {
+    "hookEventName": "PreToolUse",
+    "permissionDecision": "deny",
+    "permissionDecisionReason": "probe: not in the batch"
+   }
+  }
+ },
+ {
+  "phase": "2a: the stand-in, miscopied by the model",
+  "file": "pre-3.json",
+  "input": {
+   "session_id": "<id>",
+   "transcript_path": "<path>",
+   "cwd": "<path>",
+   "scratchpad_dir": "<path>",
+   "prompt_id": "<id>",
+   "permission_mode": "auto",
+   "agent_id": "<the subagent's id: 17 hex characters>",
+   "agent_type": "general-purpose",
+   "effort": {
+    "level": "medium"
+   },
+   "hook_event_name": "PreToolUse",
+   "tool_name": "mcp__Tnr__callEndpoint",
+   "tool_input": {
+    "endpointName": "text relay",
+    "input": {
+     "t": "probe",
+     "n": 1
+    }
+   },
+   "tool_use_id": "toolu_018J8XPJpXond1TTTLdZp5wY",
+   "mcp_server": {
+    "name": "Tnr",
+    "source": "dynamic"
+   }
+  },
+  "answer": {
+   "hookSpecificOutput": {
+    "hookEventName": "PreToolUse",
+    "permissionDecision": "deny",
+    "permissionDecisionReason": "probe: not in the batch"
+   }
+  }
+ },
+ {
+  "phase": "2: the one live read",
+  "file": "post-1.json",
+  "input": {
+   "session_id": "<id>",
+   "transcript_path": "<path>",
+   "cwd": "<path>",
+   "scratchpad_dir": "<path>",
+   "prompt_id": "<id>",
+   "permission_mode": "auto",
+   "agent_id": "<the subagent's id: 17 hex characters>",
+   "agent_type": "general-purpose",
+   "effort": {
+    "level": "medium"
+   },
+   "hook_event_name": "PostToolUse",
+   "tool_name": "mcp__Tnr__callEndpoint",
+   "tool_input": {
+    "endpointName": "profile.getUser",
+    "input": {},
+    "select": [
+     "userData.status"
+    ]
+   },
+   "tool_response": [
+    {
+     "type": "text",
+     "text": "{\"userData.status\":\"AWAKE\"}"
+    }
+   ],
+   "tool_use_id": "toolu_01VALR67mxmXZ9PeMXeKk3sm",
+   "duration_ms": 493,
+   "mcp_server": {
+    "name": "Tnr",
+    "source": "dynamic"
+   }
+  },
+  "answer": {
+   "hookSpecificOutput": {
+    "hookEventName": "PostToolUse",
+    "updatedToolOutput": [
+     {
+      "type": "text",
+      "text": "stub 1"
+     }
+    ]
+   }
+  }
+ },
+ {
+  "phase": "2: the one live read",
+  "file": "pre-1.json",
+  "input": {
+   "session_id": "<id>",
+   "transcript_path": "<path>",
+   "cwd": "<path>",
+   "scratchpad_dir": "<path>",
+   "prompt_id": "<id>",
+   "permission_mode": "auto",
+   "agent_id": "<the subagent's id: 17 hex characters>",
+   "agent_type": "general-purpose",
+   "effort": {
+    "level": "medium"
+   },
+   "hook_event_name": "PreToolUse",
+   "tool_name": "mcp__Tnr__callEndpoint",
+   "tool_input": {
+    "endpointName": "relay",
+    "input": {
+     "t": "probe",
+     "n": 1
+    }
+   },
+   "tool_use_id": "toolu_01VALR67mxmXZ9PeMXeKk3sm",
+   "mcp_server": {
+    "name": "Tnr",
+    "source": "dynamic"
+   }
+  },
+  "answer": {
+   "hookSpecificOutput": {
+    "hookEventName": "PreToolUse",
+    "permissionDecision": "allow",
+    "permissionDecisionReason": "probe: the one read",
+    "updatedInput": {
+     "endpointName": "profile.getUser",
+     "input": {},
+     "select": [
+      "userData.status"
+     ]
+    }
+   }
+  }
+ },
+ {
+  "phase": "2: the one live read",
+  "file": "pre-2.json",
+  "input": {
+   "session_id": "<id>",
+   "transcript_path": "<path>",
+   "cwd": "<path>",
+   "scratchpad_dir": "<path>",
+   "prompt_id": "<id>",
+   "permission_mode": "auto",
+   "agent_id": "<the subagent's id: 17 hex characters>",
+   "agent_type": "general-purpose",
+   "effort": {
+    "level": "medium"
+   },
+   "hook_event_name": "PreToolUse",
+   "tool_name": "mcp__Tnr__callEndpoint",
+   "tool_input": {
+    "endpointName": "relay",
+    "input": {
+     "t": "probe",
+     "n": 2
+    }
+   },
+   "tool_use_id": "toolu_01KTqt15woYq8yrssfzj5f6Z",
+   "mcp_server": {
+    "name": "Tnr",
+    "source": "dynamic"
+   }
+  },
+  "answer": {
+   "hookSpecificOutput": {
+    "hookEventName": "PreToolUse",
+    "permissionDecision": "deny",
+    "permissionDecisionReason": "probe: not in the batch"
+   }
+  }
+ },
+ {
+  "phase": "2: the one live read",
+  "file": "pre-3.json",
+  "input": {
+   "session_id": "<id>",
+   "transcript_path": "<path>",
+   "cwd": "<path>",
+   "scratchpad_dir": "<path>",
+   "prompt_id": "<id>",
+   "permission_mode": "auto",
+   "agent_id": "<the subagent's id: 17 hex characters>",
+   "agent_type": "general-purpose",
+   "effort": {
+    "level": "medium"
+   },
+   "hook_event_name": "PreToolUse",
+   "tool_name": "mcp__Tnr__callEndpoint",
+   "tool_input": {
+    "endpointName": "relay",
+    "input": {
+     "t": "probe",
+     "n": 1
+    }
+   },
+   "tool_use_id": "toolu_01WdyErwi5nFMDwVhHGSYAHi",
+   "mcp_server": {
+    "name": "Tnr",
+    "source": "dynamic"
+   }
+  },
+  "answer": {
+   "hookSpecificOutput": {
+    "hookEventName": "PreToolUse",
+    "permissionDecision": "deny",
+    "permissionDecisionReason": "probe: not in the batch"
+   }
+  }
+ }
+]

@@ -1,0 +1,96 @@
+{
+ "activity": {
+  "brain": {
+   "blocked": {}
+  },
+  "pvp_hunt": {},
+  "recovery": {}
+ },
+ "battle": null,
+ "budget": {
+  "batch": 4,
+  "calls": []
+ },
+ "character": {
+  "bank": 50000000,
+  "battleId": null,
+  "curChakra": 100,
+  "curEnergy": 0,
+  "curHealth": 5050,
+  "curStamina": 100,
+  "latitude": 10,
+  "longitude": 10,
+  "maxChakra": 100,
+  "maxHealth": 5050,
+  "maxStamina": 100,
+  "money": 2000000,
+  "read_at": 1800000000.0,
+  "sector": 1538,
+  "status": "AWAKE"
+ },
+ "control": {
+  "activities": {},
+  "director_mode": false,
+  "do_not_attack": [],
+  "end_session": false,
+  "goal_weights": {},
+  "mode": "hunt",
+  "paused": true,
+  "spend_caps": {},
+  "version": 1
+ },
+ "decisions": [],
+ "inventory": {},
+ "map": {
+  "last_scan": {},
+  "scan": null,
+  "sensory_at": 1800000001.0
+ },
+ "opponents": {
+  "lost_to": {},
+  "skip": {}
+ },
+ "records": {
+  "handover": true,
+  "last_error": {
+   "at": "2027-01-15T08:17:28Z",
+   "kind": "finding",
+   "text": "4 call(s) of a relay that was replaced and never came back are no longer held against the minute (900 s have passed)"
+  },
+  "pending_result": null,
+  "results": [],
+  "spend": {
+   "day": "",
+   "ryo": 0.0
+  },
+  "transfers": {},
+  "turns_missed": 0,
+  "turns_unresolved": 0,
+  "turns_unseen": 0
+ },
+ "relay": {
+  "activity": null,
+  "answered": {
+   "at": 1800001048.0,
+   "batch": {
+    "hold": 30.0,
+    "steps": [],
+    "stop": null
+   },
+   "relay": "3b29ca",
+   "seq": 4
+  },
+  "baseline_tokens": null,
+  "context_tokens": 0,
+  "expect": 5.0,
+  "issued_at": 1800001078.0,
+  "last_batch": [],
+  "note": "paused",
+  "rotations": 0,
+  "seq": 4,
+  "stalled": false
+ },
+ "timers": {},
+ "training": {},
+ "version": 1
+}

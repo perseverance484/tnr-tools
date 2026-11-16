@@ -26,6 +26,8 @@ Judgement, Shrapnel Clone Barrage, Parry: descriptions say "DON'T TRAIN. ALREADY
 expenditures. Blank check granted." "The new potency skills and 40ap stance skills are interesting. Chakra Edge,
 Choha, etc." "Limit Breaker, Mental Fortress..."
 - Withdraw from the bank with `bank.toPocket` in batches; keep about 10M in pocket, the rest banked (`bank.toBank`).
+  For the AI player this is replaced by RUL-2026-11-12-153: at most 200,000 in pocket while running around;
+  up to 10,000,000 may be drawn for training.
 - Log what is spent; offset it later with ryo-producing play (missions, hunter contracts, PvP).
 
 ## Limits (source: routers/jutsu.ts, libs/train.ts)

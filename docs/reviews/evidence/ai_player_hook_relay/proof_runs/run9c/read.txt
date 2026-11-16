@@ -1,0 +1,19 @@
+session: {'model': 'claude-haiku-5-5', 'tools': ['Bash', 'mcp__Tnr__callEndpoint'], 'mcp': [{'name': 'Tnr', 'status': 'connected', 'source': 'dynamic'}], 'permission mode': 'default'}
+requests of the model: 5 | read from the cache, written to it, at each: [(7719, 0), (7719, 168), (7887, 487), (8374, 464), (8838, 424)]
+tool calls in one message of the model: {'next': 3, 'call': 1}
+connector calls the model wrote: 1 | not a stand-in: [{'endpointName': 'profile.getUser', 'input': {}, 'select': ['userData.status', 'userData.battleId', 'userData.curHealth', 'userData.maxHealth', 'userData.sector', 'userData.longitude', 'userData.latitude', 'userData.curChakra', 'userData.maxChakra', 'userData.curStamina', 'userData.maxStamina', 'userData.money', 'userData.bank', 'userData.curEnergy', 'userData.intelligence', 'userData.willpower', 'userData.dailyErrands', 'userData.earnedExperience']}] | what it was shown: {'other: {"userData.status": "AWAKE", "userData.battleId": null, "userData.curHealth": 5050, "userData.maxHealth": 5050, "userData.sector": 1538, "userData.longitude": 1': 1}
+commands the model ran: 3 | not `brain next`: ['python3 -m player.brain put 5489c4-1 1 <<\'TNR_RESULT\'\n{"userData.status": "AWAKE", "userData.battleId": null, "userData.curHealth": 5050, "userData.maxHealth": 5050, "userData.sector": 1538, "userData.longitude": 10, "userData.latitude": 10, "userData.curChakra": 100, "userData.maxChakra": 100, "userData.curStamina": 100, "userData.maxStamina": 100, "userData.money": 150000, "userData.bank": 50000000, "userData.curEnergy": 0}\nTNR_RESULT']
+hooks: {}
+how long Claude Code says each hook ran, ms: {}
+the stand-in: {'connected': 1, 'calls': 1, 'answered': 1, 'failed': 0}
+endpoints: {'profile.getUser': 1}
+two calls out at once: 0 times | shortest time from one answer to the next call: None s
+batches in the token log: 0
+the brain's events: {'setting_changed': 2}
+the session ended: {'subtype': 'success', 'is_error': False, 'num_turns': 5, 'duration_ms': 11241, 'total_cost_usd': 0.00156547}
+  its last words: I've stopped the loop. The `put` hand-in for the `profile.getUser` result was refused by the Bash safety check ("Contains brace with quote character (expansion obfuscation)"), so I can't record that result for the program.
+
+- **Blocked command:** `python3 -m player.brain put 5489c4-1 1`, with the co
+  its use, all requests: {'input_tokens': 10, 'cache_creation_input_tokens': 1543, 'cache_read_input_tokens': 40537, 'output_tokens': 1701}
+left in live/hook: [] | in the inbox: []
+client.json: {'hooks': None, 'token': '5489c4-1', 'held': {'token': '5489c4-1', 'id': '31ed727e'}, 'gone': [], 'ended': [], 'seen': None}

@@ -1,0 +1,27 @@
+session: {'model': 'claude-haiku-5-5', 'tools': ['Task', 'Bash', 'CronCreate', 'CronDelete', 'CronList', 'DesignSync', 'Edit', 'EnterWorktree', 'ExitWorktree', 'ListAgents', 'Monitor', 'NotebookEdit', 'PushNotification', 'Read', 'RemoteTrigger', 'ReportFindings', 'ScheduleWakeup', 'SendMessage', 'Skill', 'TaskStop', 'ToolSearch', 'WebFetch', 'WebSearch', 'Workflow', 'Write', 'mcp__Tnr__callEndpoint'], 'mcp': [{'name': 'Tnr', 'status': 'connected', 'source': 'dynamic'}], 'permission mode': 'default'}
+requests of the model: 13 | read from the cache, written to it, at each: [(23228, 0), (3921, 0), (3921, 165), (4086, 203), (4289, 512), (4801, 1095), (5896, 1093), (6989, 764), (7753, 952), (8705, 595), (9300, 843), (10143, 704), (23228, 475)]
+tool calls in one message of the model: {'call': 1, 'next': 2, 'call + next': 1, 'call + call + call + call + next': 2, 'call + call + call + call + call + next': 2, 'call + call + call + next': 3, 'call + call + next': 1}
+connector calls the model wrote: 31 | not a stand-in: [{'subagent_type': 'tnr-relay-proof', 'prompt': 'Begin.', 'run_in_background': False, 'description': 'Run tnr-relay-proof subagent'}] | what it was shown: {'other: <tools-used-before-summary>Bash, mcp__Tnr__callEndpoint</tools-used-before-summary>\n  \n[Subagent hand-back] The text below is the final report of a subagent thi': 1, 'ok': 29, 'error: PreToolUse:mcp__Tnr__callEndpoint hook error: [sh "/home/user/tnr-tools/docs/reviews/evidence/ai_player_hook_relay/proof_hook.sh" pre 5 exit1 "OUT': 1}
+commands the model ran: 11 | not `brain next`: []
+hooks: {'bash passed': 11, 'post passed': 29, 'pre passed': 29}
+how long Claude Code says each hook ran, ms: {'PostToolUse mcp__Tnr__callEndpoint exit 0': {'n': 29, 'least': 29, 'middle': 35, 'most': 61}, 'PreToolUse Bash exit 0': {'n': 11, 'least': 34, 'middle': 42, 'most': 2072}, 'PreToolUse mcp__Tnr__callEndpoint exit 0': {'n': 29, 'least': 33, 'middle': 40, 'most': 9353}, 'PreToolUse mcp__Tnr__callEndpoint exit 1': {'n': 1, 'least': 7, 'middle': 7, 'most': 7}}
+the stand-in: {'connected': 1, 'calls': 29, 'answered': 29, 'failed': 0}
+endpoints: {'profile.getUser': 9, 'travel.getSectorData': 7, 'stealth.useSensory': 2, 'travel.startGlobalMove': 4, 'travel.finishGlobalMove': 4, 'combat.getBattleHistory': 3}
+two calls out at once: 0 times | shortest time from one answer to the next call: 0.09 s
+batches in the token log: 10
+   {'seq': 0, 'in': 4088, 'cached': 3921, 'written': 165, 'out': 106, 'context': 4088, 'hooks': True, 'note': ''}
+   {'seq': 1, 'in': 4291, 'cached': 4086, 'written': 203, 'out': 258, 'context': 4291, 'hooks': True, 'note': 'start'}
+   {'seq': 2, 'in': 4803, 'cached': 4289, 'written': 512, 'out': 504, 'context': 4803, 'hooks': True, 'note': 'AWAKE hunt 5050/5050 HP @ 1538 (10, 10): scanning'}
+   {'seq': 3, 'in': 5898, 'cached': 4801, 'written': 1095, 'out': 715, 'context': 5898, 'hooks': True, 'note': 'AWAKE hunt 5050/5050 HP @ 1538 (10, 10): nobody to fight her'}
+   {'seq': 4, 'in': 6991, 'cached': 5896, 'written': 1093, 'out': 404, 'context': 6991, 'hooks': True, 'note': 'AWAKE hunt 5050/5050 HP @ 1538 (10, 10): scanning'}
+   {'seq': 5, 'in': 7755, 'cached': 6989, 'written': 764, 'out': 604, 'context': 7755, 'hooks': True, 'note': 'AWAKE hunt 5050/5050 HP @ 1538 (10, 10): nobody to fight her'}
+   {'seq': 6, 'in': 8707, 'cached': 7753, 'written': 952, 'out': 304, 'context': 8707, 'hooks': True, 'note': 'AWAKE hunt 5050/5050 HP @ 1538 (10, 10): scanning'}
+   {'seq': 7, 'in': 9302, 'cached': 8705, 'written': 595, 'out': 504, 'context': 9302, 'hooks': True, 'note': 'AWAKE hunt 5050/5050 HP @ 1538 (10, 10): nobody to fight her'}
+   {'seq': 8, 'in': 10145, 'cached': 9300, 'written': 843, 'out': 404, 'context': 10145, 'hooks': True, 'note': 'AWAKE hunt 5050/5050 HP @ 1538 (10, 10): scanning'}
+   {'seq': 9, 'in': 10849, 'cached': 10143, 'written': 704, 'out': 404, 'context': 10849, 'hooks': True, 'note': 'session ending: going home (177)'}
+the brain's events: {'setting_changed': 3, 'activity_done': 2}
+the session ended: {'subtype': 'success', 'is_error': False, 'num_turns': 2, 'duration_ms': 88522, 'total_cost_usd': 0.004549995}
+  its last words: STOP session ended by the director: asleep at home
+  its use, all requests: {'input_tokens': 4, 'cache_creation_input_tokens': 475, 'cache_read_input_tokens': 46456, 'output_tokens': 161}
+left in live/hook: ['hook/lock', 'hook/log.jsonl'] | in the inbox: []
+client.json: {'hooks': 'aa29bfe1d7a8158a1', 'token': 'ac8065-10', 'held': None, 'gone': [], 'ended': [], 'seen': True}

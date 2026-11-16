@@ -41,6 +41,29 @@ Owned level-25 jutsu worth a future PvP loadout: Eternity Flux (dmg 40 + stun 90
 Dragon King's Impact (dmg 40, +dmg, afterburn, wound), Particle Cannon (dmg 40 + wound), Cauterize (heal + cleanse),
 Severed Pulse (anti-heal + dmg taken), Momentum Shift.
 
+## Turn order: player 1 vs player 2 (director 2026-11-11, checked against the pinned engine)
+
+Work out the seat at the start of every fight: whoever acts first in round 1 is player 1 for the whole fight
+(engine `actions.ts calcActiveUser`: a fixed ring, the round advances once everyone has acted). The planner prints it
+on every turn ("seat: player 1" / "seat: player 2").
+
+- **Player 1 acts first.** Its damage lands first. Its tags go live only next round, unless instant (damage, heal,
+  pierce, shields) (engine: every tag is stamped `castThisRound` and `getActiveTargetEffects` skips it until the round
+  advances, `turn.ts` clears the flag).
+- **Player 2 sees player 1's tags before they go live** and can answer them in the same round: Clear strips them even
+  though they are not live yet (`tags.ts removeEffects` has no `castThisRound` filter), and defence cast now (Resist,
+  Shield, Panacea) is live for player 1's next hit. Player 2's own tags go live when the round advances, which is
+  before player 1's next action, so for player 2 they are in effect instant.
+- **A stun costs AP only in the rounds after it lands.** A stun player 1 casts this round leaves player 2 the full 100
+  AP now (`calcApReduction` skips `castThisRound`; DDX R5 and Warlord40 R2: 100 AP spent after a same-round stun).
+- **Player 1's buffs are exposed to a same-round Clear.** Anything player 1 casts can be stripped by player 2's Clear
+  before it ever goes live, so player 1 sets up only behind protection.
+- **Kim's Pink (clear/debuff prevent, live the round after it is cast):**
+  - player 1: R1 Kim's; R2 buff setup (protected from player 2's R2 Clear); R3 nuke cashout.
+  - player 2: R1 buff setup + Kim's; R2 nuke cashout (both go live before player 1's R2 Clear).
+- **Reading a stack as player 2:** a +given stack player 1 has just cast is a known fact, not a guess: answer it now
+  (Clear if held, Smoke/Resist/Shield/Seal, or kill first) instead of setting up a round behind.
+
 ## Rules learned
 - Brackets: I can attack brackets 6-8 only (2.5M+ XP, or Elite Jonin).
 - Own village, allies, protected villages (Freedom State) and safe zones (Wake Island) cannot be attacked.
@@ -132,6 +155,16 @@ Read: Winta vs Gario and vs Choris1717; DDXXD vs Korin and vs Enduyn; Ziharkk vs
 - Full Potion: user item `ZlMNc0o96Y_aIai3E8Q-U` (`item.consume {userItemId}`) restores HP to full out of combat.
   Ramen refills CP/SP only. After every fight, drink a Full Potion and buy ramen before hunting on.
 - Ikazuchi Kunai is not sold in the shop (inShop false); 3 left. Restocking it is a director question.
+- 2026-11-11: director bought 50 Ikazuchi Kunai as the backup thrown weapon. Elemental Kunai stays in THROWN (16 left
+  at 19:28Z) and is not rebought while Ikazuchi is carried; when Elemental hits 0 the restock pass equips Ikazuchi
+  into THROWN (restock.BACKUP_THROWN) and the planners' kunai action follows equipped.json. The swap happens between
+  fights; if Elemental runs out mid-fight, kunai is refused once and dropped for the rest of that battle.
+- 2026-11-11 kunai cost (director: ~500k ryo a throw; "don't lose a fight to spare a kunai but dont throw a kunai
+  at an afk or in a fight we're not likely to win or a fight we're sure to win"). The planner prices each throw by
+  the race (rounds he needs to kill me vs rounds I need, his turn = max(model, his logged average)):
+  close (0.8-1.25) free; leaning 350 (only a kill or staying alive pays); AFK / sure win (>=1.8) / likely loss
+  (<=0.55) 5500 (only staying alive pays). The cost is charged on kill lines too, so a kill without the kunai wins.
+  Replay of the 5 logged fights: 13 throws -> 6, all in close races or kill/survival turns.
 
 ## Loadouts by activity (director, 2026-11-09: "Use the loadouts labeled PvE")
 | Activity | Jutsu loadout | Item loadout |

@@ -31,6 +31,8 @@ Usage:
 """
 import argparse
 import itertools
+import os
+import pickle
 import json
 import math
 import os
@@ -58,7 +60,7 @@ FEATURES = ["bias", "lethal_risk", "kill_window", "stack_clearable", "stack_clea
 RULE_FEATURE = {"always": "bias"}
 # firing order inside a bundle: move first, then instant protection / strip, then buffs, then damage, fillers last
 ORDER = ["phantom", "replace", "step", "clear", "cleanse", "kims", "sealnull", "danse", "shield", "subaku", "fury",
-         "smoke", "severed", "disaster", "ember", "aetherion", "overflow", "thunders", "eclipse", "parry", "rebirth",
+         "smoke", "severed", "disaster", "ember", "aetherion", "overflow", "thunders", "eclipse", "parry", "resist", "rebirth",
          "shrapnel", "lotus", "resonance", "leech", "yuki", "stormblade", "nights", "kunai", "pill", "jewel",
          "panacea", "defstance", "offstance"]
 
@@ -184,10 +186,65 @@ def bundle_value(net, x, h, b, cd_cost):
 
 
 # ---------------------------------------------------------------- legality
+_LEGAL_CACHE = {}
+_LEGAL_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "fights", "live", "legal_cache.pkl")
+_LEGAL_SIG = None
+_LEGAL_DIRTY = False
+
+
+def _legal_sig():
+    import hashlib
+    return hashlib.sha1(repr((sorted(ACTIONS.items()), sorted(RANGE.items()), sorted(MOVES.items()),
+                              sorted((k, tuple(tags_of(k))) for k in ACTIONS))).encode()).hexdigest()
+
+
+def _legal_load():
+    """The legal-bundle table persists between planner runs (it depends only on the action tables), so a live turn
+    does not re-enumerate it (~0.4 s). Invalidated by a signature of ACTIONS / RANGE / MOVES / tags."""
+    global _LEGAL_SIG
+    if _LEGAL_SIG is not None:
+        return
+    _LEGAL_SIG = _legal_sig()
+    try:
+        with open(_LEGAL_FILE, "rb") as f:
+            sig, table = pickle.load(f)
+        if sig == _LEGAL_SIG:
+            _LEGAL_CACHE.update(table)
+    except (OSError, ValueError, EOFError, pickle.UnpicklingError):
+        pass
+
+
+def legal_save():
+    if not _LEGAL_DIRTY:
+        return
+    try:
+        os.makedirs(os.path.dirname(_LEGAL_FILE), exist_ok=True)
+        tmp = _LEGAL_FILE + f".{os.getpid()}"
+        with open(tmp, "wb") as f:
+            pickle.dump((_LEGAL_SIG, _LEGAL_CACHE), f)
+        os.replace(tmp, _LEGAL_FILE)
+    except OSError:
+        pass
+
+
 def legal(state, rnd, ap, immune, blocked, loadout, dist):
     names = [n for n in loadout if n in ACTIONS and (state is None or ready_round(state, n) <= rnd)]
     if immune:
         names = [n for n in names if n not in blocked]
+    # the combos depend only on (ready names, AP, distance): memoised, since the lookahead re-asks the same
+    # question ~180 times per turn (speed pass, 2026-11-11). Callers get a fresh list.
+    global _LEGAL_DIRTY
+    _legal_load()
+    key = (tuple(names), ap, dist)
+    if key in _LEGAL_CACHE:
+        return list(_LEGAL_CACHE[key])
+    out = _legal(names, ap, dist)
+    _LEGAL_CACHE[key] = out
+    _LEGAL_DIRTY = True
+    return list(out)
+
+
+def _legal(names, ap, dist):
     out = []
     for k in (1, 2, 3, 4):
         for combo in itertools.combinations(names, k):
@@ -206,7 +263,8 @@ def legal(state, rnd, ap, immune, blocked, loadout, dist):
             if steps * 10 + cost > ap:
                 continue
             full = combo + ("step",) * steps
-            if ap - (cost + steps * 10) >= 10:  # unspent AP
+            # unspent AP: with an odd 10 (a -10 stun leaves 90) one 10 always stays over (arena 2026-11-11)
+            if ap - (cost + steps * 10) >= (20 if ap % 20 else 10):
                 continue
             out.append(full)
     return out

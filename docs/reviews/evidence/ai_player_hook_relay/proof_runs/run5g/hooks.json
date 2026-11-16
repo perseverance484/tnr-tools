@@ -1,0 +1,52 @@
+{
+ "hooks": {
+  "PreToolUse": [
+   {
+    "matcher": "Bash",
+    "hooks": [
+     {
+      "type": "command",
+      "command": "cd \"${CLAUDE_PROJECT_DIR:-.}\" && python3 -m player.hook bash",
+      "timeout": 180,
+      "onFailure": "block"
+     }
+    ]
+   },
+   {
+    "matcher": "mcp__.*",
+    "hooks": [
+     {
+      "type": "command",
+      "command": "cd \"${CLAUDE_PROJECT_DIR:-.}\" && python3 -m player.hook pre",
+      "timeout": 300,
+      "onFailure": "block"
+     }
+    ]
+   }
+  ],
+  "PostToolUse": [
+   {
+    "matcher": "mcp__.*",
+    "hooks": [
+     {
+      "type": "command",
+      "command": "sh \"/home/user/tnr-tools/docs/reviews/evidence/ai_player_hook_relay/proof_hook.sh\" post 5 exit1 \"OUT/hook_runs.post\"",
+      "timeout": 30
+     }
+    ]
+   }
+  ],
+  "PostToolUseFailure": [
+   {
+    "matcher": "mcp__.*",
+    "hooks": [
+     {
+      "type": "command",
+      "command": "cd \"${CLAUDE_PROJECT_DIR:-.}\" && python3 -m player.hook fail",
+      "timeout": 30
+     }
+    ]
+   }
+  ]
+ }
+}

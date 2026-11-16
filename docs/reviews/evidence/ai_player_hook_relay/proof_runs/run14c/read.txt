@@ -1,0 +1,19 @@
+session: {'model': 'claude-haiku-5-5', 'tools': ['Bash', 'mcp__Tnr__callEndpoint'], 'mcp': [{'name': 'Tnr', 'status': 'connected', 'source': 'dynamic'}], 'permission mode': 'default'}
+requests of the model: 3 | read from the cache, written to it, at each: [(7738, 0), (7738, 165), (7903, 202)]
+tool calls in one message of the model: {'next': 2, 'call + next': 1}
+connector calls the model wrote: 1 | not a stand-in: [] | what it was shown: {'ok': 1}
+commands the model ran: 3 | not `brain next`: []
+hooks: {'bash passed': 3, 'post passed': 1, 'pre passed': 1}
+how long Claude Code says each hook ran, ms: {'PostToolUse mcp__Tnr__callEndpoint exit 0': {'n': 1, 'least': 42, 'middle': 42, 'most': 42}, 'PreToolUse Bash exit 0': {'n': 3, 'least': 35, 'middle': 37, 'most': 52}, 'PreToolUse mcp__Tnr__callEndpoint exit 0': {'n': 1, 'least': 45, 'middle': 45, 'most': 45}}
+the stand-in: {'connected': 1, 'calls': 0, 'answered': 0, 'failed': 0}
+endpoints: {}
+two calls out at once: 0 times | shortest time from one answer to the next call: None s
+batches in the token log: 2
+   {'seq': 0, 'in': 7905, 'cached': 7738, 'written': 165, 'out': 108, 'context': 7905, 'hooks': True, 'note': ''}
+   {'seq': 1, 'in': 8107, 'cached': 7903, 'written': 202, 'out': 277, 'context': 8107, 'hooks': True, 'note': 'start'}
+the brain's events: {'setting_changed': 1}
+the session ended: {'subtype': None, 'is_error': None, 'num_turns': None, 'duration_ms': None, 'total_cost_usd': None}
+  its last words: None
+  its use, all requests: {'input_tokens': None, 'cache_creation_input_tokens': None, 'cache_read_input_tokens': None, 'output_tokens': None}
+left in live/hook: ['hook/lock', 'hook/log.jsonl'] | in the inbox: []
+client.json: {'hooks': 'f9803da4-81b3-47a1-88f0-a18bd09d782a', 'token': '136760-2', 'held': {'token': '136760-2', 'id': '392c019e'}, 'gone': [], 'ended': [], 'seen': True}

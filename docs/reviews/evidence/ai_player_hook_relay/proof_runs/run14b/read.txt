@@ -1,0 +1,20 @@
+session: {'model': 'claude-haiku-5-5', 'tools': ['Bash', 'mcp__Tnr__callEndpoint'], 'mcp': [{'name': 'Tnr', 'status': 'connected', 'source': 'dynamic'}], 'permission mode': 'default'}
+requests of the model: 5 | read from the cache, written to it, at each: [(7738, 0), (7738, 172), (7910, 370), (8280, 431), (8711, 374)]
+tool calls in one message of the model: {'next': 2, 'call + next': 3}
+connector calls the model wrote: 3 | not a stand-in: [] | what it was shown: {'ok': 3}
+commands the model ran: 5 | not `brain next`: []
+hooks: {'bash passed': 5, 'post passed': 3, 'pre passed': 3}
+how long Claude Code says each hook ran, ms: {'PostToolUse mcp__Tnr__callEndpoint exit 0': {'n': 3, 'least': 32, 'middle': 34, 'most': 40}, 'PreToolUse Bash exit 0': {'n': 5, 'least': 40, 'middle': 42, 'most': 53}, 'PreToolUse mcp__Tnr__callEndpoint exit 0': {'n': 3, 'least': 33, 'middle': 33, 'most': 34}}
+the stand-in: {'connected': 1, 'calls': 3, 'answered': 3, 'failed': 0}
+endpoints: {'profile.getUser': 3}
+two calls out at once: 0 times | shortest time from one answer to the next call: 8.06 s
+batches in the token log: 3
+   {'seq': 0, 'in': 7912, 'cached': 7738, 'written': 172, 'out': 272, 'context': 7912, 'hooks': True, 'note': ''}
+   {'seq': 1, 'in': 8282, 'cached': 7910, 'written': 370, 'out': 266, 'context': 8282, 'hooks': True, 'note': 'start'}
+   {'seq': 2, 'in': 8713, 'cached': 8280, 'written': 431, 'out': 211, 'context': 8713, 'hooks': True, 'note': 'AWAKE guard 5050/5050 HP @ 1538: guarding'}
+the brain's events: {'setting_changed': 1}
+the session ended: {'subtype': None, 'is_error': None, 'num_turns': None, 'duration_ms': None, 'total_cost_usd': None}
+  its last words: None
+  its use, all requests: {'input_tokens': None, 'cache_creation_input_tokens': None, 'cache_read_input_tokens': None, 'output_tokens': None}
+left in live/hook: ['hook/7508eb-3.1.json', 'hook/7508eb-3.closed', 'hook/7508eb-3.seen', 'hook/lock', 'hook/log.jsonl'] | in the inbox: ['put-7508eb-3-001.json']
+client.json: {'hooks': 'ee2e07e3-8ffd-4f06-984b-01f13af0160b', 'token': '7508eb-3', 'held': {'token': '7508eb-3', 'id': 'd6e406e7'}, 'gone': [], 'ended': [], 'seen': True}

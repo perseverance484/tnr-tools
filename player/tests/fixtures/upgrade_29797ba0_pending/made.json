@@ -1,0 +1,13 @@
+{
+ "by": "29797ba0f769152381e71710f812605be9e0bfea",
+ "how": "OLD_PROGRAM in player/tests/test_rereview9.py with `pending`: a relay starts, and its `brain next` is killed just after it wrote the batch it was given into client.json",
+ "now": 1800000001.0,
+ "relay": "8a9911-0",
+ "protocol": 1,
+ "batch": [
+  "profile.getUser",
+  "travel.getSectorData",
+  "stealth.useSensory",
+  "profile.getStrongestUsers"
+ ]
+}

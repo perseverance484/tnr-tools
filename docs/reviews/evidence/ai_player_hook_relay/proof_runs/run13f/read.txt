@@ -1,0 +1,27 @@
+session: {'model': 'claude-haiku-5-5', 'tools': ['Task', 'Bash', 'CronCreate', 'CronDelete', 'CronList', 'DesignSync', 'Edit', 'EnterWorktree', 'ExitWorktree', 'ListAgents', 'Monitor', 'NotebookEdit', 'PushNotification', 'Read', 'RemoteTrigger', 'ReportFindings', 'ScheduleWakeup', 'SendMessage', 'Skill', 'TaskStop', 'ToolSearch', 'WebFetch', 'WebSearch', 'Workflow', 'Write', 'mcp__Tnr__callEndpoint'], 'mcp': [{'name': 'Tnr', 'status': 'connected', 'source': 'dynamic'}], 'permission mode': 'default'}
+requests of the model: 13 | read from the cache, written to it, at each: [(23134, 0), (3921, 0), (3921, 167), (4088, 322), (4410, 487), (4897, 899), (5796, 979), (6775, 761), (7536, 950), (8486, 594), (9080, 841), (9921, 703), (23134, 469)]
+tool calls in one message of the model: {'call': 1, 'next': 2, 'call + next': 1, 'call + call + call + call + next': 2, 'call + call + call + call + call + next': 2, 'call + call + call + next': 3, 'call + call + next': 1}
+connector calls the model wrote: 31 | not a stand-in: [{'subagent_type': 'tnr-relay', 'prompt': 'Begin.', 'run_in_background': False, 'description': 'Start tnr-relay subagent'}] | what it was shown: {'other: <tools-used-before-summary>Bash, mcp__Tnr__callEndpoint</tools-used-before-summary>\n  \n[Subagent hand-back] The text below is the final report of a subagent thi': 1, 'ok': 30}
+commands the model ran: 11 | not `brain next`: []
+hooks: {'bash passed': 11, 'post passed': 30, 'pre passed': 30}
+how long Claude Code says each hook ran, ms: {'PostToolUse mcp__Tnr__callEndpoint exit 0': {'n': 30, 'least': 28, 'middle': 34, 'most': 50}, 'PreToolUse Bash exit 0': {'n': 11, 'least': 30, 'middle': 36, 'most': 47}, 'PreToolUse mcp__Tnr__callEndpoint exit 0': {'n': 30, 'least': 27, 'middle': 36, 'most': 9439}}
+the stand-in: {'connected': 1, 'calls': 30, 'answered': 30, 'failed': 0}
+endpoints: {'profile.getUser': 9, 'travel.getSectorData': 7, 'stealth.useSensory': 2, 'profile.getStrongestUsers': 1, 'travel.startGlobalMove': 4, 'travel.finishGlobalMove': 4, 'combat.getBattleHistory': 3}
+two calls out at once: 0 times | shortest time from one answer to the next call: 0.08 s
+batches in the token log: 10
+   {'seq': 0, 'in': 4090, 'cached': 3921, 'written': 167, 'out': 226, 'context': 4090, 'hooks': True, 'note': ''}
+   {'seq': 1, 'in': 4412, 'cached': 4088, 'written': 322, 'out': 237, 'context': 4412, 'hooks': True, 'note': 'start'}
+   {'seq': 2, 'in': 4899, 'cached': 4410, 'written': 487, 'out': 505, 'context': 4899, 'hooks': True, 'note': 'AWAKE hunt 5050/5050 HP @ 1538 (10, 10): scanning'}
+   {'seq': 3, 'in': 5798, 'cached': 4897, 'written': 899, 'out': 604, 'context': 5798, 'hooks': True, 'note': 'AWAKE hunt 5050/5050 HP @ 1538 (10, 10): nobody to fight her'}
+   {'seq': 4, 'in': 6777, 'cached': 5796, 'written': 979, 'out': 406, 'context': 6777, 'hooks': True, 'note': 'AWAKE hunt 5050/5050 HP @ 1538 (10, 10): scanning'}
+   {'seq': 5, 'in': 7538, 'cached': 6775, 'written': 761, 'out': 604, 'context': 7538, 'hooks': True, 'note': 'AWAKE hunt 5050/5050 HP @ 1538 (10, 10): nobody to fight her'}
+   {'seq': 6, 'in': 8488, 'cached': 7536, 'written': 950, 'out': 307, 'context': 8488, 'hooks': True, 'note': 'AWAKE hunt 5050/5050 HP @ 1538 (10, 10): scanning'}
+   {'seq': 7, 'in': 9082, 'cached': 8486, 'written': 594, 'out': 505, 'context': 9082, 'hooks': True, 'note': 'AWAKE hunt 5050/5050 HP @ 1538 (10, 10): nobody to fight her'}
+   {'seq': 8, 'in': 9923, 'cached': 9080, 'written': 841, 'out': 406, 'context': 9923, 'hooks': True, 'note': 'AWAKE hunt 5050/5050 HP @ 1538 (10, 10): scanning'}
+   {'seq': 9, 'in': 10626, 'cached': 9921, 'written': 703, 'out': 406, 'context': 10626, 'hooks': True, 'note': 'session ending: going home (177)'}
+the brain's events: {'setting_changed': 3, 'activity_done': 2}
+the session ended: {'subtype': 'success', 'is_error': False, 'num_turns': 2, 'duration_ms': 88188, 'total_cost_usd': 0.00450483}
+  its last words: STOP session ended by the director: asleep at home
+  its use, all requests: {'input_tokens': 4, 'cache_creation_input_tokens': 469, 'cache_read_input_tokens': 46268, 'output_tokens': 155}
+left in live/hook: ['hook/lock', 'hook/log.jsonl'] | in the inbox: []
+client.json: {'hooks': 'a4a6ec74af6fc1d83', 'token': '19016a-10', 'held': None, 'gone': [], 'ended': [], 'seen': True}

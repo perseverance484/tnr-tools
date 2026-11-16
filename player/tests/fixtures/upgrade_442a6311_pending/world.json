@@ -1,0 +1,302 @@
+{
+ "activity": {
+  "brain": {
+   "blocked": {}
+  },
+  "pvp_hunt": {},
+  "recovery": {}
+ },
+ "battle": null,
+ "budget": {
+  "batch": 8,
+  "calls": [
+   [
+    1800000009.0,
+    "world",
+    "loose",
+    1,
+    1800000910.0
+   ],
+   [
+    1800000009.0,
+    "world",
+    "loose",
+    1,
+    1800000910.0
+   ],
+   [
+    1800000009.0,
+    "world",
+    "loose",
+    1,
+    1800000910.0
+   ],
+   [
+    1800000009.0,
+    "world",
+    "loose",
+    1,
+    1800000910.0
+   ],
+   [
+    1800000018.0,
+    "world",
+    "loose",
+    2,
+    1800000919.0
+   ],
+   [
+    1800000018.0,
+    "world",
+    "loose",
+    2,
+    1800000919.0
+   ],
+   [
+    1800000018.0,
+    "world",
+    "loose",
+    2,
+    1800000919.0
+   ],
+   [
+    1800000027.0,
+    "world",
+    "loose",
+    3,
+    1800000928.0
+   ],
+   [
+    1800000027.0,
+    "world",
+    "loose",
+    3,
+    1800000928.0
+   ],
+   [
+    1800000027.0,
+    "world",
+    "loose",
+    3,
+    1800000928.0
+   ],
+   [
+    1800000036.0,
+    "world",
+    "loose",
+    4,
+    1800000937.0
+   ],
+   [
+    1800000036.0,
+    "world",
+    "loose",
+    4,
+    1800000937.0
+   ],
+   [
+    1800000036.0,
+    "world",
+    "loose",
+    4,
+    1800000937.0
+   ],
+   [
+    1800000045.0,
+    "world",
+    "loose",
+    5,
+    1800000946.0
+   ],
+   [
+    1800000045.0,
+    "world",
+    "loose",
+    5,
+    1800000946.0
+   ],
+   [
+    1800000045.0,
+    "world",
+    "loose",
+    5,
+    1800000946.0
+   ],
+   [
+    1800000045.0,
+    "world",
+    "loose",
+    5,
+    1800000946.0
+   ],
+   [
+    1800000054.0,
+    "world",
+    "loose",
+    6,
+    1800000955.0
+   ],
+   [
+    1800000054.0,
+    "world",
+    "loose",
+    6,
+    1800000955.0
+   ],
+   [
+    1800000063.0,
+    "world",
+    "loose",
+    7,
+    1800000964.0
+   ],
+   [
+    1800000123.5,
+    "world",
+    "loose",
+    7,
+    1800000964.0
+   ],
+   [
+    1800000910.5,
+    "world",
+    "out"
+   ],
+   [
+    1800000910.5,
+    "world",
+    "out"
+   ]
+  ]
+ },
+ "character": {
+  "bank": 50000000,
+  "battleId": null,
+  "curChakra": 100,
+  "curEnergy": 0,
+  "curHealth": 5050,
+  "curStamina": 100,
+  "latitude": 10,
+  "longitude": 10,
+  "maxChakra": 100,
+  "maxHealth": 5050,
+  "maxStamina": 100,
+  "money": 2000000,
+  "read_at": 1800000000.0,
+  "sector": 1538,
+  "status": "AWAKE"
+ },
+ "control": {
+  "activities": {},
+  "director_mode": false,
+  "do_not_attack": [],
+  "end_session": false,
+  "goal_weights": {},
+  "mode": "hunt",
+  "paused": false,
+  "spend_caps": {},
+  "version": 0
+ },
+ "decisions": [],
+ "inventory": {},
+ "map": {
+  "last_scan": {},
+  "scan": null,
+  "sensory_at": 1800000037.0
+ },
+ "opponents": {
+  "lost_to": {},
+  "skip": {}
+ },
+ "records": {
+  "handover": true,
+  "last_error": null,
+  "pending_result": null,
+  "results": [],
+  "spend": {
+   "day": "",
+   "ryo": 0.0
+  },
+  "transfers": {},
+  "turns_missed": 0,
+  "turns_unresolved": 0,
+  "turns_unseen": 0
+ },
+ "relay": {
+  "activity": "pvp_hunt",
+  "answered": {
+   "at": 1800000064.0,
+   "batch": {
+    "hold": 846.5,
+    "steps": [
+     {
+      "call": "profile.getUser",
+      "input": {},
+      "select": [
+       "userData.status",
+       "userData.battleId",
+       "userData.curHealth",
+       "userData.maxHealth",
+       "userData.sector",
+       "userData.longitude",
+       "userData.latitude",
+       "userData.curChakra",
+       "userData.maxChakra",
+       "userData.curStamina",
+       "userData.maxStamina",
+       "userData.money",
+       "userData.bank",
+       "userData.curEnergy",
+       "userData.intelligence",
+       "userData.willpower",
+       "userData.dailyErrands"
+      ]
+     },
+     {
+      "call": "travel.getSectorData",
+      "input": {
+       "sector": 1538
+      },
+      "select": [
+       "users.*.userId",
+       "users.*.username",
+       "users.*.longitude",
+       "users.*.latitude",
+       "users.*.status",
+       "users.*.level",
+       "users.*.villageId",
+       "users.*.immunityUntil",
+       "users.*.battleId"
+      ]
+     }
+    ],
+    "stop": null
+   },
+   "relay": "d1e56b",
+   "seq": 8
+  },
+  "baseline_tokens": null,
+  "context_tokens": 0,
+  "expect": 5.8,
+  "issued_at": 1800000910.5,
+  "last_batch": [
+   {
+    "call": "profile.getUser",
+    "input": {}
+   },
+   {
+    "call": "travel.getSectorData",
+    "input": {
+     "sector": 1538
+    }
+   }
+  ],
+  "note": "AWAKE hunt 5050/5050 HP @ 1538 (10, 10): scanning (paced 838.5s)",
+  "rotations": 0,
+  "seq": 8,
+  "stalled": false
+ },
+ "timers": {},
+ "training": {},
+ "version": 1
+}

@@ -1,0 +1,24 @@
+session: {'model': 'claude-haiku-5-5', 'tools': ['Bash', 'mcp__Tnr__callEndpoint'], 'mcp': [{'name': 'Tnr', 'status': 'connected', 'source': 'dynamic'}], 'permission mode': 'default'}
+requests of the model: 14 | read from the cache, written to it, at each: [(7719, 0), (7719, 167), (7886, 440), (8326, 464), (8790, 664), (9454, 1069), (10523, 759), (11282, 173), (11455, 1242), (12697, 637), (13334, 1084), (14418, 713), (15131, 2041), (17172, 1161)]
+tool calls in one message of the model: {'next': 8, 'call': 2, 'call + call + call + call': 2, 'call + call + call': 1}
+connector calls the model wrote: 13 | not a stand-in: [{'endpointName': 'profile.getUser', 'input': {}, 'select': ['userData.status', 'userData.battleId', 'userData.curHealth', 'userData.maxHealth', 'userData.sector', 'userData.longitude', 'userData.latitude', 'userData.curChakra', 'userData.maxChakra', 'userData.curStamina', 'userData.maxStamina', 'userData.money', 'userData.bank', 'userData.curEnergy', 'userData.intelligence', 'userData.willpower', 'userData.dailyErrands', 'userData.earnedExperience']}, {'endpointName': 'profile.getUser', 'input': {}, 'select': ['userData.status', 'userData.battleId', 'userData.curHealth', 'userData.maxHealth', 'userData.sector', 'userData.longitude', 'userData.latitude', 'userData.curChakra', 'userData.maxChakra', 'userData.curStamina', 'userData.maxStamina', 'userData.money', 'userData.bank', 'userData.curEnergy', 'userData.intelligence', 'userData.willpower', 'userData.dailyErrands', 'userData.earnedExperience']}, {'endpointName': 'travel.getSectorData', 'input': {'sector': 1538}, 'select': ['users.*.userId', 'users.*.username', 'users.*.longitude', 'users.*.latitude', 'users.*.status', 'users.*.level', 'users.*.villageId', 'users.*.immunityUntil', 'users.*.battleId']}] | what it was shown: {'other: {"userData.status": "AWAKE", "userData.battleId": null, "userData.curHealth": 5050, "userData.maxHealth": 5050, "userData.sector": 1538, "userData.longitude": 1': 4, 'other: {"success": true}': 9}
+commands the model ran: 8 | not `brain next`: ['ls state/ | head -50; wc -l state/prompt_playing_tnr.md 2>/dev/null && grep -n -i -E "other|battleHistory|getBattleHistory|never|strongest" state/prompt_playing_tnr.md | head -60', 'sed -n 50,100p state/prompt_playing_tnr.md']
+hooks: {}
+how long Claude Code says each hook ran, ms: {}
+the stand-in: {'connected': 1, 'calls': 13, 'answered': 13, 'failed': 0}
+endpoints: {'profile.getUser': 4, 'travel.getSectorData': 3, 'stealth.useSensory': 1, 'profile.getStrongestUsers': 1, 'travel.startGlobalMove': 1, 'travel.finishGlobalMove': 1, 'combat.getBattleHistory': 2}
+two calls out at once: 0 times | shortest time from one answer to the next call: 0.27 s
+batches in the token log: 5
+   {'seq': 0, 'in': 7888, 'cached': 7719, 'written': 167, 'out': 211, 'context': 7888, 'hooks': False, 'note': ''}
+   {'seq': 1, 'in': 17120, 'cached': 16212, 'written': 904, 'out': 513, 'context': 8792, 'hooks': False, 'note': 'start'}
+   {'seq': 2, 'in': 19981, 'cached': 18244, 'written': 1733, 'out': 856, 'context': 10525, 'hooks': False, 'note': 'AWAKE hunt 5050/5050 HP @ 1538 (10, 10): scanning'}
+   {'seq': 3, 'in': 35440, 'cached': 33260, 'written': 2174, 'out': 1121, 'context': 12699, 'hooks': False, 'note': 'AWAKE hunt 5050/5050 HP @ 1538 (10, 10): nobody to fight her'}
+   {'seq': 4, 'in': 27756, 'cached': 26031, 'written': 1721, 'out': 868, 'context': 14420, 'hooks': False, 'note': 'AWAKE hunt 5050/5050 HP @ 1538 (10, 10): scanning'}
+the brain's events: {'setting_changed': 2}
+the session ended: {'subtype': 'success', 'is_error': False, 'num_turns': 22, 'duration_ms': 41554, 'total_cost_usd': 0.0063421599999999995}
+  its last words: I've stopped the loop before running the next batch line, because the batches have started reading other players' data through the connector.
+
+The calls from `combat.getBattleHistory` in the last few batches use user IDs that I can't tie to the director's account: `user_2XcFzRak5Me9DXW6cYUk2r9WLVr`,
+  its use, all requests: {'input_tokens': 28, 'cache_creation_input_tokens': 10614, 'cache_read_input_tokens': 155906, 'output_tokens': 5315}
+left in live/hook: [] | in the inbox: []
+client.json: {'hooks': None, 'token': '4157e9-5', 'held': {'token': '4157e9-5', 'id': '36fb8f0e'}, 'gone': [], 'ended': [], 'seen': None}

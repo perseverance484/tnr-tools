@@ -1,0 +1,193 @@
+{
+ "activity": {
+  "brain": {
+   "blocked": {}
+  },
+  "pvp_hunt": {},
+  "recovery": {}
+ },
+ "battle": null,
+ "budget": {
+  "batch": 1,
+  "calls": [
+   [
+    1794460797.4,
+    "world",
+    "out"
+   ],
+   [
+    1794460797.4,
+    "world",
+    "out"
+   ],
+   [
+    1794460797.4,
+    "world",
+    "out"
+   ],
+   [
+    1794460797.4,
+    "world",
+    "out"
+   ]
+  ]
+ },
+ "character": {
+  "bank": 50000000,
+  "battleId": null,
+  "curChakra": 100,
+  "curEnergy": 0,
+  "curHealth": 5050,
+  "curStamina": 100,
+  "latitude": 10,
+  "longitude": 10,
+  "maxChakra": 100,
+  "maxHealth": 5050,
+  "maxStamina": 100,
+  "money": 2000000,
+  "read_at": 1800000000.0,
+  "sector": 1538,
+  "status": "AWAKE"
+ },
+ "control": {
+  "activities": {},
+  "director_mode": false,
+  "do_not_attack": [],
+  "end_session": false,
+  "goal_weights": {},
+  "mode": "hunt",
+  "paused": false,
+  "spend_caps": {},
+  "version": 0
+ },
+ "decisions": [],
+ "inventory": {},
+ "map": {
+  "last_scan": {},
+  "scan": null,
+  "sensory_at": 1794460789.394962
+ },
+ "opponents": {
+  "lost_to": {},
+  "skip": {}
+ },
+ "records": {
+  "handover": true,
+  "last_error": null,
+  "pending_result": null,
+  "results": [],
+  "spend": {
+   "day": "",
+   "ryo": 0.0
+  },
+  "transfers": {},
+  "turns_missed": 0,
+  "turns_unresolved": 0,
+  "turns_unseen": 0
+ },
+ "relay": {
+  "activity": "pvp_hunt",
+  "answered": {
+   "at": 1794460789.4050207,
+   "batch": {
+    "hold": 8.0,
+    "steps": [
+     {
+      "call": "profile.getUser",
+      "input": {},
+      "select": [
+       "userData.status",
+       "userData.battleId",
+       "userData.curHealth",
+       "userData.maxHealth",
+       "userData.sector",
+       "userData.longitude",
+       "userData.latitude",
+       "userData.curChakra",
+       "userData.maxChakra",
+       "userData.curStamina",
+       "userData.maxStamina",
+       "userData.money",
+       "userData.bank",
+       "userData.curEnergy",
+       "userData.intelligence",
+       "userData.willpower",
+       "userData.dailyErrands"
+      ]
+     },
+     {
+      "call": "travel.getSectorData",
+      "input": {
+       "sector": 1538
+      },
+      "select": [
+       "users.*.userId",
+       "users.*.username",
+       "users.*.longitude",
+       "users.*.latitude",
+       "users.*.status",
+       "users.*.level",
+       "users.*.villageId",
+       "users.*.immunityUntil",
+       "users.*.battleId"
+      ]
+     },
+     {
+      "call": "stealth.useSensory",
+      "input": {
+       "sector": 1538
+      },
+      "select": [
+       "success",
+       "message"
+      ]
+     },
+     {
+      "call": "profile.getStrongestUsers",
+      "input": {},
+      "select": [
+       "*.userId",
+       "*.username"
+      ]
+     }
+    ],
+    "stop": null
+   },
+   "relay": "fe4b50",
+   "seq": 1
+  },
+  "baseline_tokens": null,
+  "context_tokens": 0,
+  "expect": 6.6,
+  "issued_at": 1794460797.405008,
+  "last_batch": [
+   {
+    "call": "profile.getUser",
+    "input": {}
+   },
+   {
+    "call": "travel.getSectorData",
+    "input": {
+     "sector": 1538
+    }
+   },
+   {
+    "call": "stealth.useSensory",
+    "input": {
+     "sector": 1538
+    }
+   },
+   {
+    "call": "profile.getStrongestUsers",
+    "input": {}
+   }
+  ],
+  "note": "AWAKE hunt 5050/5050 HP @ 1538 (10, 10): scanning",
+  "rotations": 0,
+  "seq": 1,
+  "stalled": false
+ },
+ "timers": {},
+ "training": {},
+ "version": 1
+}

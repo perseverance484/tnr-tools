@@ -61,8 +61,9 @@ def enemy_name(rows):
 
 def main():
     my_base, en_hit, en_turn, en_norm = {}, [], [], []
-    opp = {"pierce_vs_shield": [0, 0], "clear_vs_2buffs": [0, 0], "pierce": [0, 0], "clear": [0, 0], "smoke": [0, 0], "setup": [0, 0], "cleanse": [0, 0]}
+    opp = {"pierce_vs_shield": [0, 0], "clear_vs_2buffs": [0, 0], "clear_vs_3buffs": [0, 0], "clear_vs_4buffs": [0, 0], "pierce": [0, 0], "clear": [0, 0], "smoke": [0, 0], "setup": [0, 0], "cleanse": [0, 0]}
     debuff_vals, buff_vals, lengths = [], [], []
+    clear_wait = []  # per Clear on a 4+ stack: how many 4+ opportunities he had seen in that fight (1 = the first)
     for path in sorted(glob.glob(os.path.join(FIGHTS, "*.json"))):
         if "_afk" in path:
             continue
@@ -75,6 +76,7 @@ def main():
         lines, me_side, en_side = [], None, None
         his_turns = {}
         pierce_last, clear_used, smoke_used, cleanse_used = None, False, False, False
+        opp4_seen = 0
         for i, (r, u, a, ts) in enumerate(rows):
             me_side, en_side = shotplan.rebuild(lines, ME_NAME, en, 5050, 5050)
             ts = ts or []
@@ -116,9 +118,17 @@ def main():
                         if shield_up:
                             opp["pierce_vs_shield"][1] += 1
                             cond_pierce = True
+                    stack = sum(1 for x in me_side.tags if shotplan.positive(x) and x[2] <= r <= x[3]
+                                and x[1] not in ("clearimmune", "debuffimmune"))
+                    clear_locked = bool(me_side.live("clearimmune", r))
                     if not clear_used and my_pos >= 2:
                         opp["clear_vs_2buffs"][1] += 1
                         cond_clear = True
+                    if not clear_used and not clear_locked and stack >= 3:
+                        opp["clear_vs_3buffs"][1] += 1
+                    if not clear_used and not clear_locked and stack >= 4:
+                        opp["clear_vs_4buffs"][1] += 1
+                        opp4_seen += 1
                     if not clear_used and me_buffed:
                         opp["clear"][1] += 1
                     if not smoke_used:
@@ -136,6 +146,13 @@ def main():
                     opp["clear"][0] += 1; clear_used = True
                     if sum(1 for x in me_side.tags if shotplan.positive(x) and x[2] <= r <= x[3]) >= 2:
                         opp["clear_vs_2buffs"][0] += 1
+                    if sum(1 for x in me_side.tags if shotplan.positive(x) and x[2] <= r <= x[3]
+                           and x[1] not in ("clearimmune", "debuffimmune")) >= 3:
+                        opp["clear_vs_3buffs"][0] += 1
+                    if sum(1 for x in me_side.tags if shotplan.positive(x) and x[2] <= r <= x[3]
+                           and x[1] not in ("clearimmune", "debuffimmune")) >= 4:
+                        opp["clear_vs_4buffs"][0] += 1
+                        clear_wait.append(opp4_seen)
                 if (a == SMOKE_ID or any("decreased by up to 70%" in t for t in ts)) and not smoke_used:
                     opp["smoke"][0] += 1; smoke_used = True
                 if a == "cleanse" and not cleanse_used:
@@ -178,6 +195,7 @@ def main():
         "buff_value": round(st.mean(buff_vals)) if buff_vals else 300,
         "fight_len": st.median(lengths) if lengths else 7,
     }
+    out["clear_wait_4buffs"] = clear_wait
     json.dump(out, open(os.path.join(HERE, "calibration.json"), "w"), indent=1)
     print(json.dumps({k: v for k, v in out.items() if k not in ("_doc",)}, indent=1))
 

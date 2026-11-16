@@ -139,6 +139,9 @@ director approves the list; any change to it is a reviewed edit.
 
   It then picks the action a player of that profile would take, with realistic errors when the
   profile has them. PvE and PvP use different policies (§4.4).
+- **Turn order (PvP):** player 1 and player 2 have different rules of engagement; the planner works out the
+  seat each fight and plans by it. The rules are in `state/player/dauntless/pvp_playbook.md`, "Turn order: player 1
+  vs player 2" (director 2026-11-11).
 - **Knowledge rule:** the decision layer may use only the account's observations, its notebook and
   public sources (public wiki, public channels, public lore). It does not read this repository's
   design documents, generated contracts or staff data while in play mode (§5.2).

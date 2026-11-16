@@ -211,3 +211,13 @@ round N+2:  P1 turn  ->  P2 turn      | round change: 2-round tags from N switch
   Night's Testament, so the owner's 3-round pierce lock does not cover summons.
 - No death message exists in the log; a live summon is listed in battle usersState. Our Fury (AoE) one-shot Jade
   for 2646, so an AoE turn removes the summon threat.
+
+## Return-damage caps (engine export, verified 2026-11-11 after the director flagged reflect/parry waste)
+- **Reflect** returns at most **60% of each hit** (`REFLECT_CAP_RATIO`). Reflect tags add up to that cap: two 35%
+  reflects (Thunder's + Stormblade) give 70%, so 10% is wasted. Don't stack a second reflect onto a 35% one.
+- **Parry** splits the direct hit **first** (cap 100%) and returns that share. It cuts the damage the defender takes,
+  and reflect then works only on what is left. They do not add: 20% parry + 35% reflect on a 1,000 hit = 800 taken,
+  200 + 280 = 480 returned (not 550). Parry ignores reflected / parried / non-damage hits and pierce.
+- **Absorb** and **lifesteal** are each capped at 60% of a hit (`ABSORB_CAP_RATIO`, `DAMAGE_LEECH_CAP_RATIO`).
+- The planner (`shotplan.apply`, `turn._reply_vec`) uses these caps, so a second reflect or a parry onto a reflect
+  scores only its real, capped value.

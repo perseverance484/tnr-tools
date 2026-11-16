@@ -1,0 +1,23 @@
+session: {'model': 'claude-haiku-5-5', 'tools': ['Bash', 'mcp__Tnr__callEndpoint'], 'mcp': [{'name': 'Tnr', 'status': 'connected', 'source': 'dynamic'}], 'permission mode': 'default'}
+requests of the model: 8 | read from the cache, written to it, at each: [(7738, 0), (7738, 166), (7904, 204), (8108, 479), (8587, 367), (8954, 367), (9321, 427), (9748, 592)]
+tool calls in one message of the model: {'next': 2, 'call + next': 4, 'call + call + call + next': 1}
+connector calls the model wrote: 7 | not a stand-in: [] | what it was shown: {'ok': 7}
+commands the model ran: 7 | not `brain next`: []
+hooks: {'bash passed': 7, 'post passed': 7, 'pre passed': 7}
+how long Claude Code says each hook ran, ms: {'PostToolUse mcp__Tnr__callEndpoint exit 0': {'n': 7, 'least': 27, 'middle': 32, 'most': 38}, 'PreToolUse Bash exit 0': {'n': 7, 'least': 31, 'middle': 33, 'most': 44}, 'PreToolUse mcp__Tnr__callEndpoint exit 0': {'n': 7, 'least': 32, 'middle': 33, 'most': 44}}
+the stand-in: {'connected': 1, 'calls': 7, 'answered': 7, 'failed': 0}
+endpoints: {'profile.getUser': 5, 'travel.startGlobalMove': 1, 'travel.finishGlobalMove': 1}
+two calls out at once: 0 times | shortest time from one answer to the next call: 0.22 s
+batches in the token log: 6
+   {'seq': 0, 'in': 7906, 'cached': 7738, 'written': 166, 'out': 107, 'context': 7906, 'hooks': True, 'note': ''}
+   {'seq': 1, 'in': 8110, 'cached': 7904, 'written': 204, 'out': 315, 'context': 8110, 'hooks': True, 'note': 'start'}
+   {'seq': 2, 'in': 8589, 'cached': 8108, 'written': 479, 'out': 205, 'context': 8589, 'hooks': True, 'note': 'AWAKE guard 5050/5050 HP @ 1538: guarding'}
+   {'seq': 3, 'in': 8956, 'cached': 8587, 'written': 367, 'out': 205, 'context': 8956, 'hooks': True, 'note': 'AWAKE guard 5050/5050 HP @ 1538: guarding'}
+   {'seq': 4, 'in': 9323, 'cached': 8954, 'written': 367, 'out': 205, 'context': 9323, 'hooks': True, 'note': 'AWAKE guard 5050/5050 HP @ 1538: guarding'}
+   {'seq': 5, 'in': 9750, 'cached': 9321, 'written': 427, 'out': 405, 'context': 9750, 'hooks': True, 'note': 'session ending: going home (177)'}
+the brain's events: {'setting_changed': 2, 'activity_done': 1}
+the session ended: {'subtype': 'success', 'is_error': False, 'num_turns': 15, 'duration_ms': 31077, 'total_cost_usd': 0.00198198}
+  its last words: STOP session ended by the director: asleep at home
+  its use, all requests: {'input_tokens': 16, 'cache_creation_input_tokens': 2602, 'cache_read_input_tokens': 68098, 'output_tokens': 1558}
+left in live/hook: ['hook/lock', 'hook/log.jsonl'] | in the inbox: []
+client.json: {'hooks': 'b56d6bbc-6d1a-460d-b156-17d48bbca9c7', 'token': 'f7a800-6', 'held': None, 'gone': [], 'ended': [], 'seen': True}

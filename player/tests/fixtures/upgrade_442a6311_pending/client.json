@@ -1,0 +1,67 @@
+{
+ "calls": [],
+ "ended": [],
+ "gone": [
+  "a3bedf-1",
+  "514714-2",
+  "f51d4c-3",
+  "620c62-4",
+  "a2dd26-5",
+  "e3ba2b-6",
+  "b8034e-7"
+ ],
+ "handed": "d1e56b-7",
+ "new": false,
+ "pending": {
+  "id": "07121fce",
+  "ready_at": 1800000910.5,
+  "seq": 8,
+  "steps": [
+   {
+    "call": "profile.getUser",
+    "input": {},
+    "select": [
+     "userData.status",
+     "userData.battleId",
+     "userData.curHealth",
+     "userData.maxHealth",
+     "userData.sector",
+     "userData.longitude",
+     "userData.latitude",
+     "userData.curChakra",
+     "userData.maxChakra",
+     "userData.curStamina",
+     "userData.maxStamina",
+     "userData.money",
+     "userData.bank",
+     "userData.curEnergy",
+     "userData.intelligence",
+     "userData.willpower",
+     "userData.dailyErrands"
+    ]
+   },
+   {
+    "call": "travel.getSectorData",
+    "input": {
+     "sector": 1538
+    },
+    "select": [
+     "users.*.userId",
+     "users.*.username",
+     "users.*.longitude",
+     "users.*.latitude",
+     "users.*.status",
+     "users.*.level",
+     "users.*.villageId",
+     "users.*.immunityUntil",
+     "users.*.battleId"
+    ]
+   }
+  ],
+  "stop": null
+ },
+ "relay": "d1e56b",
+ "seq": 7,
+ "token": "d1e56b-7",
+ "transcript": null
+}

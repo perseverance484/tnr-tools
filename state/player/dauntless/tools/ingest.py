@@ -24,7 +24,7 @@ ME = "user_37qazcrgUPldBPI65bb25DQiCjz"
 IDS = {"K0t6Z-Q4lau1jFt8Tkpot": "rebirth", "GiKpip6NxsC8QWlZi6l_R": "shrapnel", "zCmYLVL4JYzfhjPXHi9rH": "lotus",
        "Lg_thN-MB8FRAr_Agf9tn": "fury", "Wy7EBGd7gpP96hyumb0Lz": "ember", "cvLrFEzeNcRogHqyLv0Ig": "danse",
        "G6MRbppaDZ2a5Wr0GIjH8": "stormblade", "jELEiw5W3N4m2R3oJm3Pk": "subaku", "e2eC-x4UXc5m6QexNbx8w": "overflow",
-       "qNeccb2eF20oL0Ws-VhKS": "thunders", "73Sn-ihCNNRwxZ_G_2lTZ": "parry", "ou7VyChQ-SFCm8T8yGS7I": "eclipse",
+       "qNeccb2eF20oL0Ws-VhKS": "thunders", "73Sn-ihCNNRwxZ_G_2lTZ": "parry", "hAyQsDqPQQ0bKn4u1DdRn": "resist", "ou7VyChQ-SFCm8T8yGS7I": "eclipse",
        "g-b0Fs5o8EzQIphq0YIAX": "sealnull", "GAyHRgaa1lkYGhE9WxlRL": "phantom", "FimDQpYL0LWRv8U81ZP9H": "shield",
        "kxtK9kUTK4dRb-WPLo16I": "severed", "0nIgI7oNn-PSesn8T8kGl": "leech", "LRgY4b-lE1n2gi6_P8B_1": "resonance",
        "TtYPd-LcXKeK3sMuhq1TP": "smoke", "rsc2uO5QuffXzejfhwF_F": "panacea", "_8HEbybzN5QPX8vUG24Tk": "jewel",
