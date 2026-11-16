@@ -580,6 +580,36 @@ class TheSessionIsWatched(unittest.TestCase):
         self.assertEqual(self.run_it(done=lambda gate, hooks, game: True)[0], P.BY_ITSELF)
         self.assertEqual((self.last.running, self.last.code, self.admitted()), (False, 1, S))
 
+    def a_look(self, code, rows=()):
+        """preflight.look on a session that lists the stand-in alone, has the gate's mark, and ends by itself
+        with `code` (None: it does not end)."""
+        out = os.path.join(tempfile.mkdtemp(prefix="preflight-look-"), "look")
+        self.stub.code, self.stub.after = code, 2
+
+        def started(*a, **k):
+            with open(os.path.join(out, "run.json"), encoding="utf8") as f:
+                nonce = json.load(f)["nonce"]
+            for name, lines in (("stream.jsonl", [init(tools=(P.TOOL, f"mcp__Tnr__standIn_{nonce}"))]),
+                                ("gate.jsonl", [{"kind": "start", "session": S}] + list(rows)),
+                                ("game.jsonl", [{"at": "connected", "nonce": nonce, "pid": 1}])):
+                with open(os.path.join(out, name), "a", encoding="utf8") as f:
+                    f.write("".join(json.dumps(r) + "\n" for r in lines))
+            return self.stub
+        P.subprocess.Popen = started
+        return P.look(out)
+
+    def test_the_session_that_may_call_nothing_ends_by_itself_and_well_or_nothing_is_started(self):
+        self.assertIsNone(self.a_look(0))
+        self.setUp()
+        self.assertIn("could not be looked at: the session ended by itself (with 1)", self.a_look(1))
+        self.setUp()
+        self.assertIn("could not be looked at: ended: the clock ran out", self.a_look(None))
+        self.setUp()
+        self.assertIsNone(self.a_look(0, [{"kind": "bash", "session": S, "refused": "the check has not looked at this session yet"}]))
+        self.setUp()
+        self.assertEqual(self.a_look(0, [{"kind": "bash", "session": S, "refused": None}]),
+                         "the session that may call nothing made a call")
+
     def test_on_a_system_it_was_not_written_for_nothing_is_started(self):
         """How it ends a session's processes and sees them gone was written for Windows too, and never run
         there (review of 071ba1b1, C1). It says so and starts nothing."""
@@ -686,6 +716,11 @@ class TheSessionIsEnded(unittest.TestCase):
         self.assertTrue(self.running(child))
         with mock.patch.object(P, "processes", lambda: None):                # the system cannot be asked what runs
             self.assertIs(P.end(leader, []), False)
+        real, asked = P.processes, []
+        with mock.patch.object(P, "processes", lambda: None if asked else (asked.append(1), real())[1]), \
+                mock.patch.object(P.os, "killpg", lambda *a: None), mock.patch.object(P.os, "kill", lambda *a: None):
+            self.assertIs(P.end(leader, []), False)                          # or can be asked once, and not again
+        self.assertTrue(self.running(child))
         self.assertIs(P.end(leader, []), True)                               # (and now it is ended)
         self.assertFalse(self.running(child))
 
