@@ -248,8 +248,11 @@ def main():
     ap.add_argument("--size", type=int, default=128)
     ap.add_argument("--preview", action="store_true")
     ap.add_argument("--board", action="store_true", help="game-geometry board preview (fxkit), after the strips")
+    ap.add_argument("--v2", action="store_true", help="floor-ripple version (director 2026-11-16) at scale 3")
     a = ap.parse_args()
     os.makedirs(OUT, exist_ok=True)
+    if a.v2:
+        return main_v2(a.size)
     clips = {"burst": (build_burst(), 42), "fade": (build_fade(), 50), "crackle": (build_crackle(), 60)}
     for name, (frames, ms) in clips.items():
         p = os.path.join(OUT, f"anim_fcf_{name}.webp")
@@ -378,6 +381,221 @@ def ground_tile_aspect(width=256):
     c = b.crop((x0 - pw, y0 - ph, x1 + pw, y1 + ph))
     return c.resize((width, max(1, round(width * c.height / c.width))), Image.LANCZOS)
 
+
+
+
+# ------------------------------------------------------------------------------------------- v2: floor ripple
+# Director 2026-11-16: "lines of violent purple chakra rippling across the floor and exploding, then the cracks remain
+# and shimmer". Frame geometry at animationScale 3 (combatEffects.ts): clip side S = 3 x tile.height; the ground image
+# is drawn at tile.width x tile.height = (2/3 S) x (1/3 S), centred (HEX_ASPECT 0.5). Everything on the floor is drawn
+# top-down and squashed 2:1 so it lies flat on the board.
+V2_SCALE = 3.0
+
+
+def floor_box(n):
+    gw, gh = int(n * 2 / 3), int(n / 3)
+    return (n - gw) // 2, (n - gh) // 2, gw, gh
+
+
+def ground_in_frame(n):
+    """The ground image placed exactly where the renderer draws it, inside an n x n clip frame at scale 3."""
+    x, y, gw, gh = floor_box(n)
+    c = Image.new("RGBA", (n, n))
+    c.alpha_composite(ground_tile_aspect(512).resize((gw, gh), Image.LANCZOS), (x, y))
+    return arr(c)
+
+
+def vein_mask(a):
+    return np.clip((a[..., :3].max(-1) - 0.55) / 0.3, 0, 1) * a[..., 3]
+
+
+def bolt(rng, length, steps=7, rough=0.22):
+    """Jagged polyline from (0,0) along +x by midpoint displacement; returns [(x, y)]."""
+    pts = [(0.0, 0.0), (length, 0.0)]
+    amp = length * rough
+    for _ in range(steps):
+        new = [pts[0]]
+        for (x0, y0), (x1, y1) in zip(pts, pts[1:]):
+            new += [((x0 + x1) / 2, (y0 + y1) / 2 + rng.uniform(-amp, amp)), (x1, y1)]
+        pts = new
+        amp *= 0.55
+    return pts
+
+
+def ripple_lines(n, seed=5, count=9):
+    """A web of jagged lines radiating from the centre (top-down space, radius up to ~0.5 n), with forks.
+    Returns list of polylines with per-point distance from centre (for the travelling ripple)."""
+    rng = np.random.default_rng(seed)
+    lines = []
+    for i in range(count):
+        a = (i + rng.uniform(-0.3, 0.3)) / count * 2 * math.pi
+        L = n * rng.uniform(0.40, 0.50)
+        pts = bolt(rng, L)
+        ca, sa = math.cos(a), math.sin(a)
+        poly = [(n / 2 + x * ca - y * sa, n / 2 + x * sa + y * ca) for x, y in pts]
+        lines.append(poly)
+        for _ in range(rng.integers(1, 3)):  # forks
+            k = rng.integers(len(poly) // 3, len(poly) * 3 // 4)
+            fa = a + rng.choice([-1, 1]) * rng.uniform(0.35, 0.8)
+            fp = bolt(rng, L * rng.uniform(0.25, 0.45), steps=6)
+            bx, by = poly[k]
+            lines.append([(bx + x * math.cos(fa) - y * math.sin(fa), by + x * math.sin(fa) + y * math.cos(fa)) for x, y in fp])
+    return lines
+
+
+def draw_ripple(n, lines, head, tail, ss=3):
+    """Lines lit between radius tail..head (top-down), white-hot at the head, violet behind, then squashed 2:1."""
+    from PIL import ImageDraw
+    N = n * ss
+    core = Image.new("L", (N, N))
+    hot = Image.new("L", (N, N))
+    dc, dh = ImageDraw.Draw(core), ImageDraw.Draw(hot)
+    c0 = n / 2
+    for poly in lines:
+        for (x0, y0), (x1, y1) in zip(poly, poly[1:]):
+            r = math.hypot((x0 + x1) / 2 - c0, (y0 + y1) / 2 - c0)
+            if r > head or r < tail:
+                continue
+            seg = [(x0 * ss, y0 * ss), (x1 * ss, y1 * ss)]
+            k = 1 - min(1, (head - r) / max(1, head - tail))  # 1 at the head
+            dc.line(seg, fill=int(190 + 65 * k), width=int(ss * (5 + 5 * k)))
+            if head - r < n * 0.09:
+                dh.line(seg, fill=255, width=int(ss * 4.5))
+    core = core.resize((n, n), Image.LANCZOS)
+    hot = hot.resize((n, n), Image.LANCZOS)
+    glow = core.filter(ImageFilter.GaussianBlur(9))
+    c, h_, g = (np.asarray(x, np.float32) / 255 for x in (core, hot, glow))
+    rgb = np.zeros((n, n, 3), np.float32) + VIOLET * 0.9
+    rgb = rgb * (1 - h_[..., None]) + CORE * h_[..., None]
+    alpha = np.clip(np.maximum(c, g * 1.6), 0, 1)
+    rgb = np.where(c[..., None] > 0.05, rgb * 0.7 + CORE * 0.3 * c[..., None], np.array([0.55, 0.25, 0.95]))
+    out = np.concatenate([rgb, alpha[..., None]], -1)
+    sq = img(out).resize((n, n // 2), Image.LANCZOS)  # lie flat: squash 2:1 about the centre
+    flat = Image.new("RGBA", (n, n))
+    flat.alpha_composite(sq, (0, n // 4))
+    return arr(flat)
+
+
+def build_v2():
+    n = WORK
+    A = load("A_fury_burst_keypose.png")
+    G = ground_in_frame(n)
+    V = vein_mask(G)
+    veins_rgb = np.concatenate([np.broadcast_to(VIOLET * 0.55 + CORE * 0.45, V.shape + (3,)), V[..., None]], -1)
+    lines = ripple_lines(n)
+    er = noise(n, 41, 5)
+    R = n * 0.5
+    burst = []
+    for f in range(28):
+        c = np.zeros((n, n, 4), np.float32)
+        if f < 12:  # ripple outward, two waves
+            t = (f + 1) / 12
+            head = R * (t ** 0.8)
+            c = over(c, draw_ripple(n, lines, head, max(0, head - R * 0.55)))
+            if f >= 6:  # second, brighter wave chasing the first
+                t2 = (f - 5) / 7
+                c = over(c, draw_ripple(n, lines, R * t2 ** 0.9, max(0, R * t2 ** 0.9 - R * 0.25)))
+        elif f < 20:  # the floor explodes: lines flash, the painted burst erupts upward, flattened at the base
+            t = (f - 12) / 7
+            lines_lit = draw_ripple(n, lines, R, 0)
+            lines_lit[..., 3] *= 1 - t * 0.8
+            c = over(c, lines_lit)
+            v = veins_rgb.copy()
+            v[..., 3] *= min(1, t * 2)
+            c = over(c, v)
+            s = 0.45 + 0.75 * min(1, t * 1.6) ** 0.6
+            ex = transform(A, s, (f - 12) * 2.0, -n * 0.10 * t)
+            exa = arr(ex.resize((n, int(n * 0.82)), Image.LANCZOS).crop((0, 0, n, int(n * 0.82))).resize((n, n)))
+            exa = arr(transform(img(exa), 1.0, 0, 0))
+            exa[..., 3] *= np.clip((er - t ** 1.3 + 0.15) / 0.15, 0, 1)
+            if f <= 13:
+                exa[..., :3] = exa[..., :3] * 0.5 + CORE * 0.5
+            c = over(c, exa)
+        else:  # settle: the explosion becomes embers, the lines cool into the cracks
+            t = (f - 20) / 7
+            v = veins_rgb.copy()
+            v[..., 3] *= 1 - 0.35 * t
+            c = over(c, v)
+            ex, ey, rg = bright_points(arr(A), 22, 300 + f)
+            pts = [(x, y * 0.8 - 60 * t * (1 + i % 3), 0.85 * (1 - t)) for i, (x, y) in enumerate(zip(ex, ey))]
+            c = over(c, dots(n, pts, VIOLET, 6))
+        burst.append(img(c))
+    # shimmer loop: light travels along the cracks (aligned to the ground image), 16 frames
+    yy, xx = np.mgrid[0:n, 0:n]
+    shimmer = []
+    nz = noise(n, 51, 3)
+    for f in range(16):
+        ph = f / 16 * 2 * math.pi
+        wave = 0.5 + 0.5 * np.sin((xx * 0.035 + yy * 0.06) - ph * 2 + nz * 5)
+        glint = np.clip((wave - 0.72) / 0.28, 0, 1) ** 1.5
+        a = V * glint
+        rgb = np.broadcast_to(CORE * 0.75 + VIOLET * 0.25, a.shape + (3,))
+        shimmer.append(img(np.concatenate([rgb, a[..., None]], -1)))
+    # fade: the cracks themselves dim out (the ground image vanishes when the effect ends), last sparks rise
+    Cs = arr(load("C_fade_overlay.png"))
+    fade = []
+    for f in range(12):
+        t = f / 11
+        g = G.copy()
+        flick = 1 - t ** 1.2
+        g[..., 3] *= flick
+        vv = veins_rgb.copy()
+        vv[..., 3] *= flick * (0.6 + 0.4 * math.sin(f * 2.7))
+        cs = Cs.copy()
+        cs[..., 3] *= (1 - t) * (0.5 + 0.5 * math.sin(f * 1.9 + 1))
+        fade.append(img(over(over(g, vv), cs)))
+    return burst, shimmer, fade
+
+
+def main_v2(size=128):
+    burst, shimmer, fade = build_v2()
+    for name, frames, ms in (("burst_v2", burst, 42), ("shimmer_v2", shimmer, 70), ("fade_v2", fade, 50)):
+        p = os.path.join(OUT, f"anim_fcf_{name}.webp")
+        b = strip(frames, size, p)
+        print(f"{p}: {len(frames)} frames x {size}px, {ms} ms, {b} bytes{'  OVER 460800' if b > 460800 else ''}")
+    board_preview_v2()
+
+
+def board_preview_v2(out_name="fcf_board_v2"):
+    import sys
+    from PIL import ImageDraw
+    sys.path.insert(0, os.path.join(HERE, "..", "..", "..", "halloween_headless_rider", "fx"))
+    import fxkit  # noqa: E402
+    art = os.path.join(HERE, "..", "..", "..", "halloween_headless_rider")
+    bg = os.path.join(art, "headless_rider_horror_01_background.webp")
+    tiles, w, h, (W, H), _ = fxkit.hex_board(scale=2)
+    centre = tiles[len(tiles) // 2 + 2]
+    hit = fxkit.spiral_tiles(tiles, (centre[2], centre[3]), 2, w, h)
+    gt = ground_tile_aspect(512).resize((int(w), int(h)), Image.LANCZOS)
+    eff = int(h * V2_SCALE)
+    fb, fs, ff = ([f.resize((eff, eff), Image.LANCZOS) for f in strip_frames(os.path.join(OUT, f"anim_fcf_{k}.webp"))]
+                  for k in ("burst_v2", "shimmer_v2", "fade_v2"))
+    base = Image.open(bg).convert("RGBA").resize((W, int(W * 2 / 3)), Image.LANCZOS)
+    base = base.crop((0, (base.height - H) // 2, W, (base.height - H) // 2 + H))
+    base.alpha_composite(Image.new("RGBA", (W, H), (0, 0, 0, 70)))
+    d = ImageDraw.Draw(base)
+    for t in tiles:
+        d.polygon(fxkit._hex_poly(t[2], t[3], w, h), outline=(255, 255, 255, 40))
+    tl = [("burst", i, 42) for i in range(28)] + [("hold", i, 70) for i in range(32)] + [("fade", i, 50) for i in range(12)] + [("empty", 0, 400)]
+    frames = []
+    for kind, i, ms in tl:
+        c = base.copy()
+        if kind == "hold" or (kind == "burst" and i >= 16):
+            for t in hit:
+                c.alpha_composite(gt, (int(t[2] - w / 2), int(t[3] - h / 2)))
+        fr = fb[i] if kind == "burst" else fs[i % 16] if kind == "hold" else ff[i] if kind == "fade" else None
+        if fr is not None:
+            for t in hit:
+                c.alpha_composite(fr, (int(t[2] - eff / 2), int(t[3] - eff / 2)))
+        c = c.convert("RGB")
+        frames.append(c.resize((c.width * 2 // 3, c.height * 2 // 3), Image.LANCZOS))
+    p = os.path.join(HERE, "preview", f"{out_name}.gif")
+    frames[0].save(p, save_all=True, append_images=frames[1:], duration=[t[2] for t in tl], loop=0, optimize=True)
+    st = Image.new("RGB", (frames[0].width, frames[0].height * 5))
+    for r, k in enumerate([5, 11, 15, 22, 45]):
+        st.paste(frames[k], (0, r * frames[0].height))
+    st.save(os.path.join(HERE, "preview", f"{out_name}_stills.png"))
+    print(p, os.path.getsize(p))
 
 
 if __name__ == "__main__":
