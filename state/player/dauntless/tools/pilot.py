@@ -537,8 +537,8 @@ def plan_turn(bid, battle, entries, enemy, exact=False, ban=()):
     errs = []
     for script, extra, budget in tries:
         try:
-            proc = subprocess.run([sys.executable, os.path.join(HERE, script), path, "--battle", bid, "--top", "1",
-                                   "--enemy", enemy, *extra], capture_output=True, text=True, timeout=budget)
+            proc = subprocess.run([sys.executable, os.path.join(HERE, script), path, f"--battle={bid}", "--top=1",
+                                   f"--enemy={enemy}", *extra], capture_output=True, text=True, timeout=budget)  # = form: ids may start with "-"
             out = proc.stdout
         except subprocess.TimeoutExpired:
             errs.append(f"{script} >{budget:.0f}s")
@@ -579,7 +579,7 @@ def finish(st, bid, cache, why):
     # solution library (postmortem.py, minutes, low priority beside the pilot)
     try:
         os.makedirs(os.path.join(FIGHTS, "postmortems"), exist_ok=True)
-        subprocess.Popen(["nice", "-n", "15", sys.executable, os.path.join(HERE, "postmortem.py"), bid[:8]],
+        subprocess.Popen(["nice", "-n", "15", sys.executable, os.path.join(HERE, "postmortem.py"), "--", bid[:8]],
                          start_new_session=True, stdout=open(os.path.join(FIGHTS, "postmortems", f"{bid}.txt"), "w"),
                          stderr=subprocess.STDOUT)
     except OSError:

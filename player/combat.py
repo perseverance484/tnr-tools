@@ -81,6 +81,13 @@ def ground_effects(raw):
             if isinstance(g, dict) and g.get("type") not in ("visual", "move")]
 
 
+def planner_argv(script, path, bid, enemy, extra=()):
+    """The command line of one planner run. Ids and names go in as --flag=value: a battle id may start with a dash
+    (2026-11-16, -CH613DKHOF7stgVwrDNR), and `--battle -CH6...` reads to argparse as a flag with no value, so every
+    planner run of that fight failed and only the emergency actions were played."""
+    return [sys.executable, script, path, f"--battle={bid}", "--top=1", f"--enemy={enemy}", *extra]
+
+
 def _texts(entries):
     """The fight's log lines, for the tools: a line whose effect texts are not known has none."""
     return [e[:4] + [e[4] or []] for e in entries or []]
@@ -208,7 +215,7 @@ class Combat:
             pass
 
     def start_fight_bases(self, bid):
-        self._popen([sys.executable, os.path.join(self.scripts, "fight_bases.py"), bid])
+        self._popen([sys.executable, os.path.join(self.scripts, "fight_bases.py"), bid])  # sys.argv[1]: a dash is safe
 
     # ------------------------------------------------------------ the planner
     def plan_turn(self, bid, battle, entries, enemy, exact=False, ban=(), seconds=None):
@@ -235,8 +242,8 @@ class Combat:
                 errs.append("out of time")
                 break
             try:
-                proc = subprocess.run([sys.executable, os.path.join(self.scripts, script), path, "--battle", bid, "--top",
-                                       "1", "--enemy", enemy, *extra], capture_output=True, text=True,
+                proc = subprocess.run(planner_argv(os.path.join(self.scripts, script), path, bid, enemy, extra),
+                                      capture_output=True, text=True,
                                       timeout=budget if left is None else min(budget, left))
                 out = proc.stdout
             except subprocess.TimeoutExpired:
@@ -302,7 +309,7 @@ class Combat:
         if self.spawn:
             os.makedirs(os.path.join(self.fights, "postmortems"), exist_ok=True)
             out = open(os.path.join(self.fights, "postmortems", f"{bid}.txt"), "w")  # noqa: SIM115 (the child owns it)
-        self._popen(["nice", "-n", "15", sys.executable, os.path.join(self.scripts, "postmortem.py"), bid[:8]],
+        self._popen(["nice", "-n", "15", sys.executable, os.path.join(self.scripts, "postmortem.py"), "--", bid[:8]],
                     stdout=out)
 
     # ------------------------------------------------------------ the harvest feed

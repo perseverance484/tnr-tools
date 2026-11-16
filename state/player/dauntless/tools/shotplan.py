@@ -53,6 +53,9 @@ MINE = {
     "overflow": (0, [("me", "given", 0.35, 2), ("me", "given", 0.35, 2)]),
     "thunders": (0, [("me", "given", 0.30, 2), ("me", "reflect", 0.35, 2)]),
     "parry": (0, [("me", "given", 0.30, 2), ("me", "parry", 0.20, 2)]),
+    # Limit Breaker (lvl 25): +30% given for 2 rounds from next round; its +10 potency on damage tags is instant
+    # (engine potency(), as Chakra Resistance's cut below) and modelled the same way, as +10% given now.
+    "limitbreaker": (0, [("me", "given", 0.30, 2), ("me", "given", 0.10, 1, True)]),
     # Chakra Resistance (lvl 25): -30% damage taken on me for 2 rounds; his next casts lose 10 potency (consumed as he
     # casts; modelled as -10% damage given for his next turn). Replaced Parry in PvP 1 (director 2026-11-11).
     # The potency cut is instant (engine potency(): applies when isNew, consumed by his next casts), so it hits his

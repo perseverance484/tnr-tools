@@ -13,6 +13,10 @@ this matchup's engine bases) and three things are measured:
 The turn with the largest regret is where the fight turned; a big miss on "read" there means the opponent model
 caused it, a big miss on "numbers" means the simulator did, otherwise the choice itself was the mistake.
 
+Then the replay review (critique.review_fight): every turn I played, checked against the director's fight 2
+critique (positions vs my Subaku Palace, buffs into his ready Clear, the burst round without Limit Breaker or
+Aetherion, no Danse Macabre / Chakra Resistance before a nuke, late pill and stance padding).
+
 Writes fights/postmortems/<bid>.json and prints a short report.
 Usage: postmortem.py <battleId prefix> [--alts 6]
 """
@@ -31,6 +35,7 @@ import opponents as OM  # noqa: E402
 import planner2 as P2  # noqa: E402
 import turn  # noqa: E402
 import validate  # noqa: E402
+import critique  # noqa: E402
 import value_model  # noqa: E402
 from ingest import IDS, ME  # noqa: E402
 
@@ -88,16 +93,21 @@ def exchange(rows_pre, en, me, R, en_acted, cal, bundles, his_actual):
 def review(bid_prefix, n_alts=6):
     cal = value_model.load_cal()
     value_model.calibrate_kit(cal)
-    log = next(((b, rows) for b, p, rows, m in OM.load_logs() if b.startswith(bid_prefix)), None)
+    log = next(((b, rows, p) for b, p, rows, m in OM.load_logs() if b.startswith(bid_prefix)), None)
     if not log:
         sys.exit(f"no log for {bid_prefix}")
-    bid, rows = log
+    bid, rows, log_path = log
     users = [u for u in dict.fromkeys(u for _, u, _, _ in rows) if (u or "").startswith("user_")]
     en_id = next(u for u in users if u != ME)
     os.environ["TNR_OM_EXCLUDE"] = bid          # his model without this fight: an honest read
     model = OM.load().get(en_id)
     acts = OM.acts_for(model) if model else {}
     out = {"fight": bid, "opp": OM.names_in(rows, en_id), "turns": []}
+    # the replay review (director 2026-11-16: "analyze replays as I just did to spot errors"): every turn against
+    # his fight 2 critique, from the log and the archived live states (critique.review_fight)
+    out["errors"] = critique.review_fight(rows, ME, en_id, me_name=turn.ME_NAME,
+                                          states=critique.archived_states(bid),
+                                          limit_breaker=critique.had_limit_breaker(rows, ME, log_path))
     learned = []
     try:
         live_hist = json.load(open(os.path.join(HERE, "..", "fights", "live_states", f"{bid}.json")))
@@ -197,6 +207,8 @@ def report(out):
             flag.append(f"damage off (planner {t['dmg_planner']}, engine {t.get('dmg_engine')}, log {t['dmg_logged']})")
         print(f"  R{t['round']} {t['my_hp']:>4}/{t['his_hp']:<4} played {'+'.join(t['played'])} | he did "
               f"{'+'.join(t['his_next'])[:50]} (p {t['p_his_actual']:.0%}) | {'; '.join(flag) or 'ok'}")
+    if out.get("errors") is not None:
+        critique.report_fight(out["errors"])
     worst = max((t for t in out["turns"] if t["regret"] is not None), key=lambda t: t["regret"], default=None)
     if worst:
         cause = ("the opponent model (it did not see his turn coming)" if worst["p_his_actual"] < 0.1 else

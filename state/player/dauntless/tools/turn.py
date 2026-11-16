@@ -190,19 +190,20 @@ import engine_bridge  # noqa: E402
 from ingest import IDS, ME  # noqa: E402
 from policy import legal  # noqa: E402
 import policy  # noqa: E402
+import critique  # noqa: E402
 
 ME_NAME = "dauntless"
 GRID_W, GRID_H = 13, 9
 
 # firing order inside a turn: reposition, strip/lock, defensive locks, buffs, damage, fillers, kite step last
 ORDER = ["cleanse", "phantom", "replace", "step", "clear", "sealnull", "kims", "smoke", "ember", "overflow", "thunders",
-         "parry", "eclipse", "pill", "jewel", "subaku", "severed", "disaster", "shield", "panacea", "lotus", "danse",
+         "parry", "limitbreaker", "eclipse", "pill", "jewel", "subaku", "severed", "disaster", "shield", "panacea", "lotus", "danse",
          "shrapnel", "fury", "rebirth", "resonance", "leech", "yuki", "stormblade", "nights", "aetherion", "kunai",
          "basic", "basicheal", "defstance", "offstance", "stepback"]
-SELF_T = {"overflow", "thunders", "parry", "eclipse", "shield", "pill", "jewel", "panacea", "kims", "defstance",
+SELF_T = {"overflow", "thunders", "parry", "limitbreaker", "eclipse", "shield", "pill", "jewel", "panacea", "kims", "defstance",
           "offstance", "basicheal", "cleanse"}
 AOE = {"fury", "shrapnel"}
-BUFFS = {"overflow", "thunders", "parry", "eclipse", "pill", "jewel", "ember", "phantom"}
+BUFFS = {"overflow", "thunders", "parry", "limitbreaker", "eclipse", "pill", "jewel", "ember", "phantom"}
 ACTION_ID = {v: k for k, v in IDS.items()}
 GROUND_EXIT = {"phantom", "replace", "step"}
 # Near-kill rules (director 2026-11-11 after Korin R11, "Make all three"): the quick forecast ran ~25% hot there (his
@@ -548,7 +549,8 @@ def penalties(bundle, ctx, cal):
             p -= MOVE_COST; why.append(f"Replacement buys no range or clear line (-{MOVE_COST:.0f})")
     if ctx["tick"] >= ctx["my_hp"] - 50 and "cleanse" not in bundle:
         p -= 6000; why.append(f"wound/drain tick {ctx['tick']:.0f} kills me: Cleanse FIRST")
-    return p, why
+    g, w = critique.live_guards(bundle, ctx.get("crit"))  # the fight 2 critique (critique.py; TNR_CRITIQUE=1)
+    return p + g, why + w
 
 
 
@@ -660,6 +662,15 @@ def main():
         "en_absorb": en0.total("absorb", R),
         "tick": me0.total("wound", R) + me0.total("drain", R),
     }
+    # the critique guards (critique.py): his next turn is this round when I act first, else the next one
+    _his_turn = R + 1 if en_acted else R
+    _kit_hits = sorted((v[0] for v in ekit.values() if isinstance(v, tuple) and v and isinstance(v[0], (int, float))),
+                       reverse=True)
+    ctx["crit"] = critique.context(
+        R=R, en_acted=en_acted, st=st, ap=ap_now, my_hp=me["curHealth"], my_max=ctx["my_max"], me_pos=me_pos,
+        ground=battle.get("battle.groundEffects"), me_id=ME, rows=rows, en_id=en["userId"], afk=ctx["afk"],
+        clear_safe=bool(me0.live("clearimmune", _his_turn)),
+        nuke_hit=max(sum(_kit_hits[:2]), critique.observed_peak(rows, en["userId"], ME_NAME)))
 
     print(f"R{R} v{battle['battle.version']} | {'MY TURN' if my_turn else 'his turn'} | "
           f"{'he acted first this round' if en_acted else 'I act first this round'}"

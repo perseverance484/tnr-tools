@@ -43,7 +43,7 @@ JOBS = ("fight_bases.py", "opponents.py", "postmortem.py")          # started in
 STANDIN = r'''"""A stand-in for a pilot tool script (player/tests/test_wiring.py): it writes down what it was given."""
 import json, os, sys, time
 name, fights = os.path.basename(__file__), os.environ["WIRING_FIGHTS"]
-row = {"tool": name, "argv": sys.argv[1:]}
+row = {"tool": name, "argv": [a for a in sys.argv[1:] if a != "--"]}
 if name in ("turn.py", "planner2.py"):
     with open(sys.argv[1], encoding="utf8") as f:
         battle, log = [json.loads(line) for line in f.read().splitlines()]
@@ -55,7 +55,7 @@ elif name == "fight_bases.py":
 elif name == "opponents.py":
     row["logs"] = sorted(f for f in os.listdir(fights) if f.endswith("_entries.json"))
 elif name == "postmortem.py":
-    print("stand-in post-mortem of", sys.argv[1])
+    print("stand-in post-mortem of", row["argv"][0])
 with open(os.path.join(os.environ["WIRING_RAN"], f"{name}-{time.time_ns()}.json"), "w", encoding="utf8") as f:
     json.dump(row, f)
 '''
@@ -184,7 +184,7 @@ class Session:
             pass
         return {
             # the planner got the fight's file with the live state in it, and its line is the line that was sent
-            "planner": bool(planned) and planned[-1]["live"] and "W1" in planned[-1]["argv"]
+            "planner": bool(planned) and planned[-1]["live"] and "--battle=W1" in planned[-1]["argv"]
             and set(self.sent) == {"standin_strike"},
             # the kit read before the attack was saved by the real tool, so the fight did not read it again
             "dossier": self.kit_saved and self.calls.count("jutsu.getPublicUserJutsus") == 1,

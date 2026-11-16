@@ -42,6 +42,7 @@ import value_model  # noqa: E402
 import turn  # noqa: E402  (input parsing, targets, history helpers)
 import opp_profile  # noqa: E402
 import clock  # noqa: E402
+import critique  # noqa: E402
 
 ME, ME_NAME = turn.ME, turn.ME_NAME
 H = 5
@@ -871,7 +872,15 @@ class Planner:
             guard -= 800; why.append("smoke into his debuff immunity (smokes only me)")
         if any(x in ("stormblade", "nights") for x in b) and self.en0.g(ABS, 0) >= 0.2:
             guard -= self.en0.g(ABS, 0) * 631
-        return rc, (ap - cost) / 20.0, guard, why
+        g, w = critique.live_guards(b, self.crit())      # the fight 2 critique (critique.py; TNR_CRITIQUE=1)
+        return rc, (ap - cost) / 20.0, guard + g, why + w
+
+    def crit(self):
+        """critique.context for this turn, built once, on the loadout as main() left it after bans."""
+        if getattr(self, "_crit", None) is None:
+            args = getattr(self, "crit_args", None)
+            self._crit = critique.context(st=self.st, **args) if args else {}
+        return self._crit
 
 
 _W = None
@@ -1043,6 +1052,12 @@ def build(a):
         P.book_key = solutions.situation_key(P, ctx, st, R, last, clock.acts_from_ids(last))
     except Exception:  # noqa: BLE001  (the library is an aid; planning never depends on it)
         P.book_key = None
+    # the critique guards' inputs (critique.py): his next turn is this round when I act first, else the next one
+    his_turn = R + 1 if en_acted else R
+    P.crit_args = dict(R=R, en_acted=en_acted, ap=ap, my_hp=me["curHealth"], my_max=caps[0], me_pos=me_pos,
+                       ground=battle.get("battle.groundEffects"), me_id=ME, rows=rows, en_id=en["userId"],
+                       clear_safe=bool(sme.live("clearimmune", his_turn)), afk=ctx["afk"],
+                       nuke_hit=max(his_kit_raw["burst"][0], critique.observed_peak(rows, en["userId"], ME_NAME)))
     info = dict(battle=battle, me=me, en=en, R=R, my_turn=my_turn, en_acted=en_acted, me_pos=me_pos, en_pos=en_pos,
                 d0=d0, ap=ap, stun=stun, others=others, st=st, sme=sme, sen=sen, prof=prof, gmul=gmul, clock=clock_info, rows=rows,
                 engine_state=eng is not None, live_state=bool(live), fight_bases=bool(fb), opp_scale=(s_me, s_him))

@@ -483,3 +483,33 @@ legal bundle: my turn -> his predicted turn (enemy_model habit bundle and his to
 smoke 0.3, pierce flat (breaks shields), drains flat (not absorbed), absorb/lifesteal/recoil/reflect/parry, Clear/
 Cleanse, prevents, wound/drain ticks on the first action. Run it with policy.py each turn; when they disagree,
 prefer the plan that survives his predicted turn.
+
+## AP test fight 2 vs DDXXD (2026-11-16, lost R9): the director's review
+His words, typed after the fight:
+
+> "Huge blunders made. Phantom stepping off the center of Subaku Palace and within range of the center tile allowed the
+> enemy to move into the center and thus no longer be debuffed by decreased damage taken. Essentially phantom stepping
+> like that increased their damage. Using buff prevent at the end of the fight with a pill and offensive stance while
+> better damage and defense options are available?? Set yourself behind massively there. Not using limit Breaker to
+> pump damage during burst round? Not using aetherion during burst round? Using all buffs while enemy had clear and you
+> did not have clear prevention active? That was a mess. Didnt try to use Danse Macabre or Chakra Resistance to prevent
+> getting nuked even though they have damage mitigation effects that can stack with DR"
+
+Later: "that battle was not ideal decision making." And on how to learn from it (2026-11-16): "I might be better to
+analyze replays as I just did to spot errors rather than trying to veto live decisions. In other words go over and
+analyze data then update the planner to account for new knowledge."
+
+The rules, as `tools/critique.py` checks them:
+1. **Subaku Palace's centre.** The Palace grounds every hex within 4 of me but my own (AOE_SPIRAL_SHOOT). Its centre is
+   the one safe hex for him: while it is up and I stand there, I don't Phantom Step, Replace or step off it.
+2. **No buffs into his Clear.** Two or more buffs while his Clear is ready need clear prevention live over his turn
+   (Dr. Kim's cast now covers his turn only when he moves after the round turns).
+3. **Pump the burst round.** The turn after a setup that throws a big hit gets Limit Breaker or Aetherion when one is
+   ready (with 100 AP and a 60 AP hit only one fits). Limit Breaker is in PvP 1 from 2026-11-16.
+4. **Mitigate a nuke.** When his next turn can take 35% of my HP, Danse Macabre or Chakra Resistance goes in: both
+   stack with DR.
+5. **No padding late.** At 40% HP or less, no Chakra Pill or stance in place of a better ready action.
+
+How they are used: the replay review (`critique.py <battle id>`, and in every post-mortem) lists each turn that breaks
+one. In the planners they are score terms switched on with TNR_CRITIQUE=1, and stay off until tune_real.py shows they
+help against real opponents.
