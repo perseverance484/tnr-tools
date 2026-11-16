@@ -759,12 +759,16 @@ class TheSessionIsEnded(unittest.TestCase):
             with open(let, "w", encoding="utf8"):                            # the leader is let go, and has ended
                 pass                                                         # before this look is handed back
             leader.wait(timeout=20)
+            looked.since = time.time()
             return listed
         with mock.patch.object(P, "processes", looked):
             said = P.end(leader, [])
+            took = time.time() - looked.since
         (child, apart, family), = seen
         self.assertEqual((apart, family), (True, True))                      # (in a group of its own, and seen)
         self.assertEqual((said, self.running(child)), ((True, True), False))   # was: true, and the child running
+        self.assertLess(took, P.PATIENCE)                                    # asked to end as soon as it was seen,
+                                                                             # not left for the round that ends
 
     def test_what_cannot_be_ended_or_cannot_be_seen_is_not_called_gone(self):
         leader, child = self.start()
