@@ -67,6 +67,8 @@ class Brain:
         when the results' times are the brain's own."""
         w, ask = self.world, ask or {}
         self.ask, w.making = ask, ask.get("id")
+        w["relay"].pop("rotated_at", None)       # a relay has asked: a rotation, if one was waiting, is picked up
+        w["relay"].pop("rotation_stalled", None)
         console.apply_control(w, self.reg.activities)
         relay.log_tokens(w, w["relay"]["seq"], usage, w["relay"].get("note", ""))
         self._take_in(results, strays)
@@ -218,7 +220,8 @@ class Brain:
         if w["control"]["end_session"] and w.status() == "ASLEEP":
             return "session ended by the director: asleep at home"   # never while awake (activities/session.py)
         if relay.should_rotate(w):
-            w["relay"].update(baseline_tokens=None, context_tokens=0, rotations=w["relay"].get("rotations", 0) + 1)
+            w["relay"].update(baseline_tokens=None, context_tokens=0, batches=0, rotated_at=w.now,
+                              rotations=w["relay"].get("rotations", 0) + 1)
             return "rotate: start a fresh relay"
         if w.status() == "ASLEEP" and w["control"]["mode"] != "hunt":
             return "asleep"
@@ -360,6 +363,8 @@ class Brain:
     def watchdog(self):
         """A relay that has not come back in time is a stall (design 4.1). Called by the resident process."""
         w, r = self.world, self.world["relay"]
+        if r.get("rotated_at") is not None:
+            return self._rotation_watch()
         if r.get("expect") is None or r.get("stalled"):
             return False
         if w.now <= r["issued_at"] + r["expect"] + C.STALE_OUTBOX:
@@ -368,6 +373,31 @@ class Brain:
         w.event("stall", f"the relay has not come back for {w.now - r['issued_at']:.0f} s"
                          + (" (in a fight)" if w.in_battle() else ""), about="relay")
         console.write_status(w, self.budget, r.get("activity"), "STALLED: " + str(r.get("note", "")), [], self.lock)
+        w.save()
+        return True
+
+
+    def _rotation_watch(self):
+        """A rotation is the one stop after which the session goes on, so nobody may be there to pick it up (AP
+        test 2026-11-16: the operator's session was refused the start of the next relay, and the lock stayed held
+        with the character awake). Once the next relay is ROTATE_GRACE late, that is a stall: it is said in the
+        events and the status file, with where the character stands, and the run lock goes back, so the director
+        or another runner can act at once instead of waiting out the lease. A relay that comes later claims the
+        lock again before its first call, as at the start of a session."""
+        w, r = self.world, self.world["relay"]
+        if r.get("rotation_stalled") or w.now < r["rotated_at"] + C.ROTATE_GRACE:
+            return False
+        r["rotation_stalled"] = True
+        me = w.me
+        where = (f"{w.status()} at sector {me.get('sector')}" + (" (home)" if me.get("sector") == C.HOME_SECTOR else "")
+                 + f", {me.get('curHealth', 0):.0f} HP")
+        w.event("stall", f"the relay was rotated {w.now - r['rotated_at']:.0f} s ago and no relay has asked since: "
+                         f"the character is {where}. Start a relay, or take over by hand; the run lock is given back",
+                about="relay")
+        if not w.in_battle():
+            self.lock.release()
+        console.write_status(w, self.budget, r.get("activity"), f"STALLED: rotation not picked up ({where})", [],
+                             self.lock)
         w.save()
         return True
 

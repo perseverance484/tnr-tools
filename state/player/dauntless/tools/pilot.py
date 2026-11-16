@@ -518,8 +518,10 @@ def plan_turn(bid, battle, entries, enemy, exact=False, ban=()):
     # planner2 (director 2026-11-11: "start it again with the new planner"): numeric engine, his clock and profile,
     # ~0.1-0.5 s; the old python planner stays as the fallback if it fails or overruns
     bans = ("--ban", ",".join(ban)) if ban else ()
-    # which planner leads is a state switch (fights/live/pilot.json "planner": "turn" | "planner2"). Default turn.py:
-    # planner2 went 0-6 live on 2026-11-11 while it plays too defensively against real players
+    # which planner leads is a state switch (fights/live/pilot.json "planner": "turn" | "planner2"). Default planner2
+    # since 2026-11-16 (AP test, fight 2 R8: turn.py's 15% burst weight and missing death check picked pill + Lotus
+    # Dance + stance into the last round; the brain, player/combat.py, defaults the same way). It was turn.py after
+    # planner2 went 0-6 live on 2026-11-11 playing too defensively.
     # 2026-11-11 Zak fight: every planner call failed live ("over budget") and the defensiveStance stand-in was
     # refused all fight. Budgets now leave room inside the 60 s turn (worst case ~22 s), and failures are reported.
     # planner choice: fights/live/planner_choice ("planner2" | "turn"), a file of its own so a supervisor can flip it
@@ -527,7 +529,7 @@ def plan_turn(bid, battle, entries, enemy, exact=False, ban=()):
     try:
         choice = open(os.path.join(LIVE, "planner_choice")).read().strip()
     except OSError:
-        choice = load_state().get("planner", "turn")
+        choice = load_state().get("planner", "planner2")   # the brain's default too (player/combat.py, 2026-11-16)
     if choice == "planner2":
         tries = [("planner2.py", bans, 6.0), ("turn.py", ("--no-engine", "--keep", "6", "--cash", "3") + bans, 6.0)]
     else:
@@ -537,8 +539,8 @@ def plan_turn(bid, battle, entries, enemy, exact=False, ban=()):
     errs = []
     for script, extra, budget in tries:
         try:
-            proc = subprocess.run([sys.executable, os.path.join(HERE, script), path, "--battle", bid, "--top", "1",
-                                   "--enemy", enemy, *extra], capture_output=True, text=True, timeout=budget)
+            proc = subprocess.run([sys.executable, os.path.join(HERE, script), path, f"--battle={bid}", "--top=1",
+                                   f"--enemy={enemy}", *extra], capture_output=True, text=True, timeout=budget)  # = form: ids may start with "-"
             out = proc.stdout
         except subprocess.TimeoutExpired:
             errs.append(f"{script} >{budget:.0f}s")
@@ -579,7 +581,7 @@ def finish(st, bid, cache, why):
     # solution library (postmortem.py, minutes, low priority beside the pilot)
     try:
         os.makedirs(os.path.join(FIGHTS, "postmortems"), exist_ok=True)
-        subprocess.Popen(["nice", "-n", "15", sys.executable, os.path.join(HERE, "postmortem.py"), bid[:8]],
+        subprocess.Popen(["nice", "-n", "15", sys.executable, os.path.join(HERE, "postmortem.py"), "--", bid[:8]],
                          start_new_session=True, stdout=open(os.path.join(FIGHTS, "postmortems", f"{bid}.txt"), "w"),
                          stderr=subprocess.STDOUT)
     except OSError:

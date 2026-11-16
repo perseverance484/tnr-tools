@@ -24,6 +24,13 @@ def fights_dir():
     return os.environ.get("TNR_PLAYER_FIGHTS") or os.path.join(ACCOUNT_DIR, "fights")
 
 
+def keeps_fights():
+    """Whether a finished fight's files are pushed to main (player/keep.py): only for the account's own folders,
+    never in a rehearsal or a test (TNR_PLAYER_LIVE or TNR_PLAYER_FIGHTS set), and not when TNR_PLAYER_KEEP=0."""
+    return not (os.environ.get("TNR_PLAYER_LIVE") or os.environ.get("TNR_PLAYER_FIGHTS")
+                or os.environ.get("TNR_PLAYER_KEEP") == "0")
+
+
 # ---------------------------------------------------------------- the account (from pilot.py)
 ME = "user_37qazcrgUPldBPI65bb25DQiCjz"
 ME_NAME = "dauntless"
@@ -72,8 +79,13 @@ LOOSE_ALERT = 900.0      # s a replaced relay's calls are held before that is ra
 
 # ---------------------------------------------------------------- the relay (design section 4.7)
 STAND_IN = "player.relay"       # what a relay with hooks is printed in place of each call's endpoint (player/hook.py)
-ROTATE_AFTER_TOKENS = 60_000    # a relay is rotated once its context has grown this much past its first batch
+ROTATE_AFTER_TOKENS = 12_000    # a relay is rotated once its context has grown this much past its first batch
+ROTATE_AFTER_BATCHES = 20       # or once it has carried this many batches (AP test 2026-11-16: at 60,000 the one
+                                # relay grew from 6k to 95k over 148 batches, and cache reads were two thirds of a
+                                # batch's cost, 7,698 against the proof's 4,200 to 4,400; the proof's relays carried
+                                # ten batches, 7.9k to 15k: docs/reviews/evidence/ai_player_hook_relay/PROOF.md)
 ROTATE_HARD_CAP = 150_000       # or once its context is this large, whatever it started at
+ROTATE_GRACE = 120.0            # s a rotation waits for the next relay before it is a stall: the run lock goes back
 STALE_OUTBOX = 10.0             # s a batch may wait for a relay before the watchdog alerts
 BRAIN_WAIT = 0.05               # s between looks at the outbox and inbox files
 

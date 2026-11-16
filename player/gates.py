@@ -257,8 +257,17 @@ class Gates:
         entry = self.endpoints.get(name)
         if entry is None:
             return refuse("allowlist", f"{name} is not on the allowlist")
-        return self._fixed(step, entry, activity) or self._road(step, world, activity) or \
-            self._gated(step, entry, world) or self._asked(step, entry, world) or ALLOW
+        return self._fixed(step, entry, activity) or self._ending(step, world) or self._road(step, world, activity) \
+            or self._gated(step, entry, world) or self._asked(step, entry, world) or ALLOW
+
+    @staticmethod
+    def _ending(step, world):
+        """A session that is ending starts no fight (AP test 2026-11-16, finding F5). The hunt plans none then
+        (pvp_hunt.available); this is the second lock, at the call, for any plan that would. A fight already
+        running is played to its end, and one he starts is fought: those are combat.performAction, not this."""
+        if step["call"] == "combat.attackUser" and world["control"]["end_session"]:
+            return refuse("session_ending", "the session is ending: no new fight is started")
+        return None
 
     @staticmethod
     def _road(step, world, activity):

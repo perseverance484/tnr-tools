@@ -36,8 +36,18 @@ def main():
     with tempfile.TemporaryDirectory() as d:
         tp = os.path.join(d, "t.jsonl")
         fake_transcript(tp, battle, ents)
+        env = dict(os.environ, TNR_TRANSCRIPT=tp, TNR_PILOT_LIVE=os.path.join(d, "live"))
+        # no switch file: planner2 leads (the default since 2026-11-16, as the brain's)
+        first = subprocess.run([sys.executable, os.path.join(HERE, "pilot.py")], capture_output=True, text=True,
+                               env=env).stdout.splitlines()
+        assert first and first[0].rstrip().endswith("planner2)"), first[:1]
+        # turn.py by the switch, checked pick for pick against turn.py run on its own
+        os.makedirs(env["TNR_PILOT_LIVE"], exist_ok=True)
+        with open(os.path.join(env["TNR_PILOT_LIVE"], "planner_choice"), "w") as f:
+            f.write("turn\n")
+        fake_transcript(tp, battle, ents)
         out = subprocess.run([sys.executable, os.path.join(HERE, "pilot.py")], capture_output=True, text=True,
-                             env=dict(os.environ, TNR_TRANSCRIPT=tp, TNR_PILOT_LIVE=os.path.join(d, "live"))).stdout.splitlines()
+                             env=env).stdout.splitlines()
     want = subprocess.run([sys.executable, os.path.join(HERE, "turn.py"), FIX, "--battle", BID + "_ref", "--top", "1",
                            "--no-engine"], capture_output=True, text=True).stdout
     want_ids = [a["actionId"] for a in json.loads(want.split("FIRE: ", 1)[1].splitlines()[0])]

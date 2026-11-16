@@ -30,7 +30,8 @@ REGISTRY.model("fight_result", "who won, and the round that decided it, from the
 REGISTRY.feed("fight_bases", "both kits' base damage for this matchup, from the offline engine", ("fight_bases.py",))
 REGISTRY.feed("live_state", "every round's full live state, kept per battle (fights/live_states): the whole effect "
               "list, the fighters and the ground as the game sent them, at the start of my turn and of his")
-REGISTRY.feed("fight_log", "the battle log (fights/*_entries.json), saved when the fight ends: the game deletes it")
+REGISTRY.feed("fight_log", "the battle log (fights/*_entries.json), saved when the fight ends with each line's tile, "
+                           "and pushed to main (player/keep.py): the play session's checkout is not kept")
 REGISTRY.feed("harvest", "other players' battle logs, read between fights", ("harvest.py",))
 REGISTRY.feed("catalog", "every item's record from the offline catalog (the engine harness's kit/catalog.json): what "
               "the shop asks for it and in what, how many one purchase may hold, its durability when new",
@@ -81,6 +82,13 @@ def ground_effects(raw):
             if isinstance(g, dict) and g.get("type") not in ("visual", "move")]
 
 
+def planner_argv(script, path, bid, enemy, extra=()):
+    """The command line of one planner run. Ids and names go in as --flag=value: a battle id may start with a dash
+    (2026-11-16, -CH613DKHOF7stgVwrDNR), and `--battle -CH6...` reads to argparse as a flag with no value, so every
+    planner run of that fight failed and only the emergency actions were played."""
+    return [sys.executable, script, path, f"--battle={bid}", "--top=1", f"--enemy={enemy}", *extra]
+
+
 def _texts(entries):
     """The fight's log lines, for the tools: a line whose effect texts are not known has none."""
     return [e[:4] + [e[4] or []] for e in entries or []]
@@ -111,9 +119,11 @@ class Combat:
             return ""
 
     def planner_choice(self):
-        """fights/live/planner_choice: "planner2" or "turn" (the pilot's default). The pilot's own switch file, kept
-        so the brain and the pilot fight with the same planner; it goes when AP4 leaves one planner."""
-        return self._switch("planner_choice") or "turn"
+        """fights/live/planner_choice: "planner2" or "turn". The pilot's own switch file, kept so the brain and the
+        pilot fight with the same planner; it goes when AP4 leaves one planner. With no file the brain plays planner2
+        (director 2026-11-16: the AP test's fresh checkout had no file, fell back to turn.py, and its round 8 vs DDXXD
+        banked on a kill turn it could not live to; planner2 played Stormblade + Chakra Resistance there)."""
+        return self._switch("planner_choice") or "planner2"
 
     def pilot_handover(self):
         """What the brain takes over from the pilot the first time it starts on this account: the Full Potion's
@@ -197,18 +207,18 @@ class Combat:
         with gzip.open(path, "at", encoding="utf8") as f:
             f.write(json.dumps(record, separators=(",", ":")) + "\n")
 
-    def _popen(self, argv, stdout=None):
+    def _popen(self, argv, stdout=None, cwd=None):
         self.spawned.append(argv)
         if not self.spawn:
             return
         try:
             subprocess.Popen(argv, stdout=stdout or subprocess.DEVNULL, stderr=subprocess.STDOUT if stdout else
-                             subprocess.DEVNULL, start_new_session=True)
+                             subprocess.DEVNULL, start_new_session=True, cwd=cwd)
         except OSError:
             pass
 
     def start_fight_bases(self, bid):
-        self._popen([sys.executable, os.path.join(self.scripts, "fight_bases.py"), bid])
+        self._popen([sys.executable, os.path.join(self.scripts, "fight_bases.py"), bid])  # sys.argv[1]: a dash is safe
 
     # ------------------------------------------------------------ the planner
     def plan_turn(self, bid, battle, entries, enemy, exact=False, ban=(), seconds=None):
@@ -235,8 +245,8 @@ class Combat:
                 errs.append("out of time")
                 break
             try:
-                proc = subprocess.run([sys.executable, os.path.join(self.scripts, script), path, "--battle", bid, "--top",
-                                       "1", "--enemy", enemy, *extra], capture_output=True, text=True,
+                proc = subprocess.run(planner_argv(os.path.join(self.scripts, script), path, bid, enemy, extra),
+                                      capture_output=True, text=True,
                                       timeout=budget if left is None else min(budget, left))
                 out = proc.stdout
             except subprocess.TimeoutExpired:
@@ -287,8 +297,9 @@ class Combat:
             return None
 
     def close_fight(self, bid, state, covered, director_mode):
-        """Keep the fight for the tools that learn from it (the game deletes the log): the log, who played which
-        round, the exact live state of every round; then rebuild the opponent models and review the fight."""
+        """Keep the fight for the tools that learn from it: the log, who played which round, the exact live state
+        of every round; push them to main (keep_fight), then rebuild the opponent models and review the fight.
+        The log's tiles come after, from the closing batch's described() read (add_tiles)."""
         rows = _texts(state.get("entries"))[::-1]
         if rows:
             self._save(os.path.join(self.fights, f"{bid}_entries.json"),
@@ -297,13 +308,36 @@ class Combat:
                        {"director_mode": director_mode, "pilot_rounds": covered})
         if state.get("live_hist"):
             self._save(os.path.join(self.fights, "live_states", f"{bid}.json"), state["live_hist"])
+        self.keep_fight(bid)
         self._popen([sys.executable, os.path.join(self.scripts, "opponents.py"), "build"])
         out = None
         if self.spawn:
             os.makedirs(os.path.join(self.fights, "postmortems"), exist_ok=True)
             out = open(os.path.join(self.fights, "postmortems", f"{bid}.txt"), "w")  # noqa: SIM115 (the child owns it)
-        self._popen(["nice", "-n", "15", sys.executable, os.path.join(self.scripts, "postmortem.py"), bid[:8]],
+        self._popen(["nice", "-n", "15", sys.executable, os.path.join(self.scripts, "postmortem.py"), "--", bid[:8]],
                     stdout=out)
+
+    def add_tiles(self, bid, tiles):
+        """The closing batch's described() read: each saved line's tile as the log's "*.tile" column (None where the
+        read had no tile for it), then the fight is pushed again. False when there is no saved log to add them to."""
+        path = os.path.join(self.fights, f"{bid}_entries.json")
+        try:
+            with open(path, encoding="utf8") as f:
+                log = json.load(f)
+        except (OSError, ValueError):
+            return False
+        if not isinstance(log, dict) or not isinstance(log.get("*.id"), list):
+            return False
+        log["*.tile"] = [tiles.get(i) for i in log["*.id"]]
+        self._save(path, log)
+        self.keep_fight(bid)
+        return True
+
+    def keep_fight(self, bid):
+        """Push the fight's files to main in the background (player/keep.py): a play session's checkout is not kept,
+        and the AP test's two fights were lost with it (2026-11-16, F8). Only for the account's own folder."""
+        if C.keeps_fights() and os.path.abspath(self.fights) == os.path.abspath(C.fights_dir()):
+            self._popen([sys.executable, "-m", "player.keep", bid], cwd=C.ROOT)
 
     # ------------------------------------------------------------ the harvest feed
     def harvest(self):

@@ -97,6 +97,15 @@ One runner at a time may write to the game on this account (`docs/workflows/FORG
 - With `TNR_PLAYER_LIVE` pointing anywhere else the brain is a rehearsal: it claims nothing, and
   `status.json` says so. **Never give a rehearsal a relay that can reach the game.**
 
+## Fight logs
+
+Every fight the brain closes is pushed to `main` straight away (`player/keep.py`, one commit that touches only that
+fight's files under `state/player/<account>/fights/`: the log, its meta, its live states). The closing batch also
+reads the log once more with each line's description, and the tile in it ("on <b>F4</b>") is kept as the log's
+`*.tile` column, then pushed again. The replay review (`tools/critique.py <bid>`) reads positions from it. A push
+that fails leaves the files in the checkout: `python3 -m player.keep <battle id>` pushes them by hand. A rehearsal
+or a test never pushes; `TNR_PLAYER_KEEP=0` turns it off.
+
 ## Hooks
 
 The relay's agent (`.claude/agents/tnr-relay.md`) declares four hooks (`player/hook.py`; what they keep of a

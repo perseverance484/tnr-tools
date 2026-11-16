@@ -215,7 +215,7 @@ class FullPotionAtTheEnd(unittest.TestCase):
         start_fight(rig)
         rig.world["budget"]["calls"] = [[rig.t, "battle"]] * (C.CALL_LIMIT - B.TURN_ACTIONS - 4)   # a busy fight
         out = gone(rig)
-        self.assertEqual(rig.calls(out), ["item.consume", "profile.getUser"])
+        self.assertEqual(rig.calls(out), ["item.consume", "profile.getUser", "combat.getBattleEntries"])
         self.assertEqual(([k for s in out["steps"] for k in s if k == "wait"], out["hold"]), ([], 0))
 
 

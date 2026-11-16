@@ -483,3 +483,71 @@ legal bundle: my turn -> his predicted turn (enemy_model habit bundle and his to
 smoke 0.3, pierce flat (breaks shields), drains flat (not absorbed), absorb/lifesteal/recoil/reflect/parry, Clear/
 Cleanse, prevents, wound/drain ticks on the first action. Run it with policy.py each turn; when they disagree,
 prefer the plan that survives his predicted turn.
+
+## AP test fight 2 vs DDXXD (2026-11-16, lost R9): the director's review
+His words, typed after the fight:
+
+> "Huge blunders made. Phantom stepping off the center of Subaku Palace and within range of the center tile allowed the
+> enemy to move into the center and thus no longer be debuffed by decreased damage taken. Essentially phantom stepping
+> like that increased their damage. Using buff prevent at the end of the fight with a pill and offensive stance while
+> better damage and defense options are available?? Set yourself behind massively there. Not using limit Breaker to
+> pump damage during burst round? Not using aetherion during burst round? Using all buffs while enemy had clear and you
+> did not have clear prevention active? That was a mess. Didnt try to use Danse Macabre or Chakra Resistance to prevent
+> getting nuked even though they have damage mitigation effects that can stack with DR"
+
+Later: "that battle was not ideal decision making." And on how to learn from it (2026-11-16): "I might be better to
+analyze replays as I just did to spot errors rather than trying to veto live decisions. In other words go over and
+analyze data then update the planner to account for new knowledge."
+
+The rules, as `tools/critique.py` checks them:
+1. **Subaku Palace's centre.** The Palace grounds every hex within 4 of me but my own (AOE_SPIRAL_SHOOT). Its centre is
+   the one safe hex for him: while it is up and I stand there, I don't Phantom Step, Replace or step off it.
+2. **No buffs into his Clear.** Two or more buffs while his Clear is ready need clear prevention live over his turn
+   (Dr. Kim's cast now covers his turn only when he moves after the round turns).
+3. **Pump the burst round.** The turn after a setup that throws a big hit gets Limit Breaker or Aetherion when one is
+   ready (with 100 AP and a 60 AP hit only one fits). Limit Breaker is in PvP 1 from 2026-11-16.
+4. **Mitigate a nuke.** When his next turn can take 35% of my HP, Danse Macabre or Chakra Resistance goes in: both
+   stack with DR.
+5. **No padding late.** At 40% HP or less, no Chakra Pill or stance in place of a better ready action.
+6. **Nothing for a round I won't reach.** When his next turn and my wound tick take what I have, no setup and no buff
+   prevent (Lotus Dance, Seal Null, a buff that pays next round) while an attack or a seal fits. Any attack but Lotus
+   Dance; Forgotten Ember Blade, Forbidden Chakra Fury and Shrapnel Clone Barrage move his HP pool most. Danse Macabre
+   cuts his damage at once: pair it with Chakra Resistance to survive his turn, or with one buff (Chakra Overflow) to
+   live long enough to go for the kill.
+
+### Round 8 again (2026-11-16): why pill + Lotus Dance + stance, and what was right
+Asked why the planner picked Chakra Pill, Lotus Dance and Offensive Stance on R8, he wrote:
+
+> "Buff prevent does prevent the enemies buffs. The reason why it was a bad choice is because the next round was the
+> final round... It should have prioritized something it could benefit from, the Buff prevent was never going to pay
+> off. 2. My buffs were not blocked. Pill and stance is significantly less value than any other choices on the
+> board... 3. It should have seen the nuke coming. Opponent had a burst window and a nuke available. Could have tried
+> to seal and phantom step if they had debuff prevent, chakra resistance and subaku palace also work if they did not.
+> Even chakra shield would have been good"
+
+> "It does. Look at how decreasepotency of Damage tags works. It subtracts 10 EP to opponents damage instantly"
+
+> "I dont think chakra resistance or any damage reduction works on wound ticks themselves but yeah maybe if it cut the
+> incoming damage i wouldve taken a smaller overall hit and then less wound damage also as a result. And pretty much
+> any attack except lotus dance would have been acceptable. Forgotten Ember Blade, Forbidden Chakra Fury and Shrapnel
+> Clone Barrage are all high value there for their ability to give me more leverage over the enemy's hp pool. Danse
+> would have been nice as an instant damage cut to the enemy's damage, and could've been paired with chakra
+> resistance to attempt to survive the next round or with a buff(chakra overflow perhaps) to keep me alive long
+> enough to go for the kill"
+
+What the game source says, and what the planners now do (PR 124):
+- **The wound tick lands first.** It is due at the start of my turn and DR does not touch it. A smaller hit makes a
+  smaller wound (the wound is a share of the hit that made it), so DR on his hit still shrinks the next ticks.
+- **Chakra Resistance's potency cut is at once:** -10 EP on his damage this round, about 26% of a hit. Its 30% DR
+  starts next round (damage modifiers wait while the cast is new).
+- **Danse Macabre's seal** switches off his bloodline's damage boost, so it cuts his hit at once too.
+- **A stun cuts next turn's AP** (Fury of the White Tiger: -20 AP for 2 rounds), so a two-turn plan can't count 100 AP.
+- **No setup value past a likely death:** a line that leaves me inside his next turn plus my tick is scored as death.
+- **planner2 leads**, turn.py is its fallback (turn.py's 15% burst weight let it bet on him not nuking).
+- On R8 Forgotten Ember Blade, Forbidden Chakra Fury, Shrapnel Clone Barrage and Chakra Overflow were all on cooldown,
+  so of his answers Danse Macabre + Chakra Resistance was the one on the board. Re-run on the R8 read: planner2 puts
+  Danse Macabre + Chakra Resistance first; turn.py puts Danse Macabre + Aetherion first and Danse + Resistance sixth.
+
+How they are used: the replay review (`critique.py <battle id>`, and in every post-mortem) lists each turn that breaks
+one. In the planners they are score terms switched on with TNR_CRITIQUE=1, and stay off until tune_real.py shows they
+help against real opponents.

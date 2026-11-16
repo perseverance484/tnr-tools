@@ -31,6 +31,25 @@ from enemy_model import PROFILES, _predict
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
+# Chakra Resistance's "-10 power points on his Damage tags" (decreasepotency) lands on his very next jutsu, his turn
+# in the same round included (director 2026-11-16; engine potency.ts resolvePotencyTags reads it once it is no longer
+# isNew, which it stops being when my cast is processed). Its 30% damage-taken cut waits a round (tags.ts skips damage
+# modifiers while castThisRound). Damage is linear in power (tags.ts powerEffect: baseline * EP / normalisation), and
+# engine_bridge measures ~13.4 HP per EP, so 10 EP is ~134 HP off each of his jutsu hits: as a share of his
+# calibrated jutsu hit (value_model en_hit, ~510), ~26%. It was modelled as 10%.
+RESIST_POTENCY = round(10 * 13.4 / 510, 3)
+
+
+def set_seal_cut(gmul):
+    """Danse Macabre seals his bloodline at once for 2 rounds, which switches its passive damage boost off
+    (planner2.from_engine, damagePipeline.ts sealCheck): an instant cut to his damage (director 2026-11-16, fight 2
+    R8: "Danse would have been nice as an instant damage cut to the enemy's damage"). The planners call this with his
+    bloodline boost on his hits (opp_profile.given_mult); with none known the seal stays a tag only."""
+    tags = [("en", "seal", 1, 2, True)]
+    if gmul and gmul > 1.0:
+        tags.append(("en", "given", round(1.0 / gmul - 1.0, 4), 2, True))
+    MINE["danse"] = (MINE["danse"][0], tags) + tuple(MINE["danse"][2:])
+
 # my actions: base damage vs an average target before his DR (calibrated from 2026-11-10 logs vs Luka/Shisui:
 # Fury 649-776 under +60% given & DR35 -> ~620; Rebirth 433-689; Shrapnel 442-645; Lotus 317-776; Ember 100-682;
 # kunai 194-337; basic ~150), plus the tags each applies: (who, kind, value, rounds, instant?)
@@ -53,13 +72,16 @@ MINE = {
     "overflow": (0, [("me", "given", 0.35, 2), ("me", "given", 0.35, 2)]),
     "thunders": (0, [("me", "given", 0.30, 2), ("me", "reflect", 0.35, 2)]),
     "parry": (0, [("me", "given", 0.30, 2), ("me", "parry", 0.20, 2)]),
+    # Limit Breaker (lvl 25): +30% given for 2 rounds from next round; its +10 potency on damage tags is instant
+    # (engine potency(), as Chakra Resistance's cut below) and modelled the same way, as +10% given now.
+    "limitbreaker": (0, [("me", "given", 0.30, 2), ("me", "given", 0.10, 1, True)]),
     # Chakra Resistance (lvl 25): -30% damage taken on me for 2 rounds; his next casts lose 10 potency (consumed as he
     # casts; modelled as -10% damage given for his next turn). Replaced Parry in PvP 1 (director 2026-11-11).
     # The potency cut is instant (engine potency(): applies when isNew, consumed by his next casts), so it hits his
     # turn later THIS round when I act first, and his next turn when I act second. The -30% taken starts next round
     # like every tag, which covers his next turn whether I act first or second. Director 2026-11-11: Seal + Chakra
     # Resistance is the emergency damage nerf (his buffs blocked, his casts weakened, my damage taken -30%).
-    "resist": (0, [("me", "dr", 0.30, 2), ("en", "given", -0.10, 2, True)]),
+    "resist": (0, [("me", "dr", 0.30, 2), ("en", "given", -RESIST_POTENCY, 2, True)]),
     "eclipse": (0, [("me", "given", 0.30, 2), ("me", "lifesteal", 0.35, 2)]),
     "sealnull": (0, [("en", "buffblock", 1, 1), ("me", "debuffimmune", 1, 2)]),
     "phantom": (0, [("me", "given", 0.30, 2), ("me", "dr", 0.25, 2)]),
@@ -269,6 +291,7 @@ def apply(src_side, dst_side, spec, r, actor_is_me):
     base, tags = spec[0], spec[1]
     pierce = len(spec) > 2 and spec[2] == "pierce"
     to_tgt = to_self = 0.0
+    wmul = 1.0          # a wound is a share of the hit that made it (tags.ts wound: originalDamage * power)
     # tick my own wound/drain on my first action is handled by the caller
     if base:
         sa, da = _agg(src_side, r), _agg(dst_side, r)
@@ -279,6 +302,7 @@ def apply(src_side, dst_side, spec, r, actor_is_me):
         else:
             dmg = base * sa.get("given", _Z)[1] * da.get("taken", _Z)[1]
             dmg *= da.get("dr", _Z)[2]
+            wmul = dmg / base
             # system DR already inside the calibrated base
             # engine order: parry splits the direct hit before shields (process.ts splitParriedDamage), cap 100%
             parried = dmg * min(1.0, da.get("parry", _Z)[0])
@@ -308,8 +332,11 @@ def apply(src_side, dst_side, spec, r, actor_is_me):
     for t in tags:
         who, kind, val, dur = t[0], t[1], t[2], t[3]
         instant = len(t) > 4 and t[4]
-        side = src_side if who == ("me" if actor_is_me else "en") or (who == "me" and actor_is_me) else None
         side = src_side if (who == "me") == actor_is_me else dst_side
+        if kind == "wound" and side is dst_side:
+            # a smaller hit leaves a smaller wound (director 2026-11-16); damage reduction never cuts the tick
+            # itself (tags.ts: the tick is a "wound" consequence, which adjustDamageTaken does not touch)
+            val *= wmul
         if kind == "clear":
             if not side.live("clearimmune", r):
                 # a ground -taken (Phantom Step) is cleared too here, for parity with planner2 (its tile puts it back
@@ -337,6 +364,11 @@ def run_turn(actor, other, acts, kit, r, actor_is_me):
     dealt = taken = 0.0
     if acts:  # wound + drain tick on the first action of the turn
         taken += actor.total("wound", r) + actor.total("drain", r)
+        if taken >= actor.hp:
+            # the tick lands BEFORE the first action (fight 2 vs DDXXD R9, 2026-11-16: 303 wound at 264 HP killed me
+            # before I acted; netted against that turn's lifesteal, the lookahead had me living and killing him)
+            actor.hp -= taken
+            return 0.0, taken
     for a in acts:
         spec = kit.get(a)
         if spec is None:

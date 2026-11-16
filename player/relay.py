@@ -363,6 +363,7 @@ def log_tokens(world, seq, usage, note):
     if relay.get("baseline_tokens") is None:
         relay["baseline_tokens"] = usage.get("context") or 0
     relay["context_tokens"] = usage.get("context") or relay.get("context_tokens", 0)
+    relay["batches"] = relay.get("batches", 0) + 1                    # carried by this relay, for rotation
     world._append("tokens.jsonl", {"at": round(world.now, 1), "seq": seq, "in": usage.get("in", 0),
                                    "out": usage.get("out", 0), "context": usage.get("context", 0),
                                    "cached": usage.get("cached"), "written": usage.get("written"),
@@ -394,7 +395,9 @@ def tokens_summary(live, now, window=3600.0):
 
 
 def should_rotate(world):
-    """Rotate the relay by size, not by count (design 4.7), and never in a fight."""
+    """Rotate the relay by size, or by the batches it has carried, and never in a fight (design 4.7). The count is
+    there because size alone came too late (AP test 2026-11-16): a relay's every batch reads its whole context."""
     relay = world["relay"]
     ctx, base = relay.get("context_tokens") or 0, relay.get("baseline_tokens") or 0
-    return not world.in_battle() and (ctx - base >= C.ROTATE_AFTER_TOKENS or ctx >= C.ROTATE_HARD_CAP)
+    return not world.in_battle() and (ctx - base >= C.ROTATE_AFTER_TOKENS or ctx >= C.ROTATE_HARD_CAP
+                                      or relay.get("batches", 0) >= C.ROTATE_AFTER_BATCHES)

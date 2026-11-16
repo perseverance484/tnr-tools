@@ -33,6 +33,23 @@ NAME_RE = re.compile(r"^(.+?) (?:takes|damage|will|cannot|is|was|marked|heals|ab
                      r"resists|uses|moves|pierced|dodges)\b")
 
 
+def battle_id_of(path, d):
+    """A log file's battle id. A battle id is 21 characters and may hold "_" itself (6_UqBB_MXSIqobeRrfmdd), so the
+    name is not split at the first "_": that read the AP test's fight 2 as battle "6" and its post-mortem found no
+    log (2026-11-16). The order: the file's own _meta battleId (harvested logs), then <bid>_entries.json, then the
+    21 characters before a "_" or ".json" (<bid>_<name>.json, <bid>.json), then the old first-"_" split."""
+    meta = d.get("_meta") if isinstance(d, dict) else None
+    if isinstance(meta, dict) and isinstance(meta.get("battleId"), str) and meta["battleId"]:
+        return meta["battleId"]
+    base = os.path.basename(path)
+    if base.endswith("_entries.json"):
+        return base[: -len("_entries.json")]
+    stem = base[:-5] if base.endswith(".json") else base
+    if len(stem) >= 21 and (len(stem) == 21 or stem[21] == "_"):
+        return stem[:21]
+    return stem.split("_")[0]
+
+
 def load_logs():
     """[(battle id, rows oldest-first [(round, user, action, texts)])] for every entries-form log."""
     out = []
@@ -46,7 +63,7 @@ def load_logs():
             continue
         rows = list(zip(d["*.battleRound"], d["*.userId"], d["*.actionId"],
                         d.get("*.appliedEffects.*.txt") or [None] * len(d["*.battleRound"])))[::-1]
-        bid = os.path.basename(p).split("_")[0].replace(".json", "")
+        bid = battle_id_of(p, d)
         out.append((bid, p, rows, d.get("_meta") or {}))
     return out
 

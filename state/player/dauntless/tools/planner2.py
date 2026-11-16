@@ -42,6 +42,7 @@ import value_model  # noqa: E402
 import turn  # noqa: E402  (input parsing, targets, history helpers)
 import opp_profile  # noqa: E402
 import clock  # noqa: E402
+import critique  # noqa: E402
 
 ME, ME_NAME = turn.ME, turn.ME_NAME
 H = 5
@@ -355,6 +356,7 @@ def apply(src, dst, act, o, scale=1.0):
     els = act[3] if len(act) > 3 else ALL_ELS
     base *= scale
     to_t = to_s = 0.0
+    wmul = 1.0          # a wound is a share of the hit that made it (shotplan.apply)
     if base:
         sa, da = src.a, dst.a
         parried = 0.0
@@ -365,6 +367,7 @@ def apply(src, dst, act, o, scale=1.0):
             dmg = base * src.given0(o) * da[TAKEN * H + o] * da[DR * H + o]
             if src.sc or dst.sc:
                 dmg *= src.scoped((GUP, GDN), o, els) * dst.scoped((TAKEN, DR), o, els)
+            wmul = dmg / base
             parried = dmg * min(1.0, da[PAR * H + o])
             dmg -= parried
         pre = max(dmg, 0.0)                               # pre-shield damage: the absorb / leech / reflect caps
@@ -413,6 +416,8 @@ def apply(src, dst, act, o, scale=1.0):
             continue
         if not on_src and (v < 0 or k in HOSTILE) and dst.g(DIMM, o):
             continue
+        if k == WND and not on_src:
+            v *= wmul
         if on_src and v > 0 and k in (GUP, ABS, LS, DR, REF) and src.g(BBLK, o):
             continue
         add_tag(side, k, v, o + o1, o + o2)
@@ -423,6 +428,9 @@ def run_turn(actor, other, acts, o, cap_a, cap_o, scale=1.0):
     dealt = taken = 0.0
     if acts:
         taken += actor.g(WND, o) + actor.g(DRN, o)
+        if taken >= actor.hp:   # the tick lands before the first action: dead before acting (shotplan.run_turn)
+            actor.hp = min(cap_a, actor.hp - taken)
+            return 0.0, taken
     for act in acts:
         d, s = apply(actor, other, act, o, scale)
         dealt += d
@@ -704,7 +712,10 @@ class Planner:
         plain = e.g(DR, o2) * (1 - min(0.6, e.g(ABS, o2) + e.g(PABS, o2)) * (1 - e.g(HCUT, o2)))
         mine2 = value_model.BURST_BASE * (m.given(o2) * e.g(TAKEN, o2) * e.g(DR, o2) * stick - plain)
         his2 = self.base_turn * (e.given(h2) * m.g(TAKEN, h2) * m.g(DR, h2) * (1 - min(0.6, m.g(ABS, h2))) - 1)
-        return [swing, mine_net, -his_net, race, mine2, -his2, p_kill, -p_die]
+        # my next-turn damage and 2-round setup only pay if I live to use them (fight 2 vs DDXXD R8, 2026-11-16:
+        # Pill + Offensive Stance bought for a round 9 I did not live to see)
+        live = 1.0 - p_die
+        return [swing, mine_net * live, -his_net, race, mine2 * live, -his2, p_kill, -p_die]
 
     def line(self, b):
         """Expected features and terminal value of bundle b over his weighted replies."""
@@ -814,11 +825,16 @@ class Planner:
             real = names and names[0] in self.clockd.get("ids", ())
             stun = 1.0 if real else (100 - min(40, e.g(STUN, self.hr))) / 100
             run_turn(e, m, [self.his_kit[n] for n in names if n in self.his_kit], self.hr, ce, cm, stun)
-            if m.hp <= 0 or e.hp <= 0:
-                total += w * ((value_model.KILL if e.hp <= 0 < m.hp else -value_model.DEATH) + self._trade(m, e))
+            if m.hp <= 0 or e.hp <= 0 or m.hp <= m.g(WND, 1) + m.g(DRN, 1):
+                # a wound / drain tick at least my HP kills me before my next action: no follow-up, no setup payoff
+                dead = m.hp <= 0 or (e.hp > 0 and m.hp <= m.g(WND, 1) + m.g(DRN, 1))
+                total += w * ((-value_model.DEATH if dead else value_model.KILL) + self._trade(m, e))
                 continue
             best, best_fb = None, None
+            ap1 = 100 - min(40, m.g(STUN, 1))      # a stun from his reply costs me AP next turn
             for fb in follows:
+                if ap1 < 100 and sum(cd_plan.ACTIONS[x][0] for x in fb if x in cd_plan.ACTIONS) > ap1:
+                    continue
                 m1, e1 = m.copy(), e.copy()
                 if "cleanse" in fb:
                     m1.wipe(NEGK)
@@ -871,7 +887,15 @@ class Planner:
             guard -= 800; why.append("smoke into his debuff immunity (smokes only me)")
         if any(x in ("stormblade", "nights") for x in b) and self.en0.g(ABS, 0) >= 0.2:
             guard -= self.en0.g(ABS, 0) * 631
-        return rc, (ap - cost) / 20.0, guard, why
+        g, w = critique.live_guards(b, self.crit())      # the fight 2 critique (critique.py; TNR_CRITIQUE=1)
+        return rc, (ap - cost) / 20.0, guard + g, why + w
+
+    def crit(self):
+        """critique.context for this turn, built once, on the loadout as main() left it after bans."""
+        if getattr(self, "_crit", None) is None:
+            args = getattr(self, "crit_args", None)
+            self._crit = critique.context(st=self.st, **args) if args else {}
+        return self._crit
 
 
 _W = None
@@ -1026,6 +1050,7 @@ def build(a):
                                         his_fight=[b for _, b in his_turns])
         clock_info["model"] = (f"{len(model.get('fights', []))} logged fights, {len(model.get('bundles', []))} turns"
                                if model else "no logged fights")
+    shotplan.set_seal_cut(gmul)       # Danse Macabre's seal switches his bloodline boost off at once
     my_kit = make_my_kit(None if eng is not None else prof)
     if s_me != 1.0:
         my_kit = {k: ((v[0] * s_me,) + tuple(v[1:]) if v[0] and not v[1] else v) for k, v in my_kit.items()}
@@ -1043,6 +1068,12 @@ def build(a):
         P.book_key = solutions.situation_key(P, ctx, st, R, last, clock.acts_from_ids(last))
     except Exception:  # noqa: BLE001  (the library is an aid; planning never depends on it)
         P.book_key = None
+    # the critique guards' inputs (critique.py): his next turn is this round when I act first, else the next one
+    his_turn = R + 1 if en_acted else R
+    P.crit_args = dict(R=R, en_acted=en_acted, ap=ap, my_hp=me["curHealth"], my_max=caps[0], me_pos=me_pos,
+                       ground=battle.get("battle.groundEffects"), me_id=ME, rows=rows, en_id=en["userId"],
+                       clear_safe=bool(sme.live("clearimmune", his_turn)), afk=ctx["afk"],
+                       nuke_hit=max(his_kit_raw["burst"][0], critique.observed_peak(rows, en["userId"], ME_NAME)))
     info = dict(battle=battle, me=me, en=en, R=R, my_turn=my_turn, en_acted=en_acted, me_pos=me_pos, en_pos=en_pos,
                 d0=d0, ap=ap, stun=stun, others=others, st=st, sme=sme, sen=sen, prof=prof, gmul=gmul, clock=clock_info, rows=rows,
                 engine_state=eng is not None, live_state=bool(live), fight_bases=bool(fb), opp_scale=(s_me, s_him))

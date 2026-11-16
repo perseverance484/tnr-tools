@@ -29,6 +29,10 @@ ACTIONS = {
     "parry": (40, 7, None, "self +dmg, parry 20"),
     "resist": (40, 7, None, "self -30% dmg taken 2r (lvl 25), his next casts -10 potency"),
     "eclipse": (40, 7, None, "lifesteal 35 + 30 given (next round)"),
+    # Limit Breaker P7dDcC102RhwBTTgA4HU_ (catalog: +20 given +0.4/level, 2 r; +10 potency on damage tags, 2 r;
+    # level 25 by transfer 2026-11-16). Director 2026-11-16, AP test fight 2: "Not using limit Breaker to pump
+    # damage during burst round?" Its increasepotency tag takes that shared lock.
+    "limitbreaker": (40, 7, "increasepotency", "self +30 given 2 r (next round), +10 potency on my damage now"),
     "sealnull": (40, 7, None, "their buffs blocked next round; I can't be debuffed 2 r"),
     "phantom": (40, 6, None, "move 5 + DR ground + 30 given"),
     "shield": (40, 7, None, "500 shield (instant) + absorb 35 (next round)"),
@@ -68,7 +72,7 @@ EXTRA_TAGS = {"kims": ("debuffprevent",), "sealnull": ("buffprevent", "debuffpre
 LOADOUTS = {
     "pvp1": ["rebirth", "shrapnel", "lotus", "fury", "ember", "danse", "stormblade", "subaku", "overflow",
              "thunders", "resist", "eclipse", "sealnull", "phantom", "shield",
-             "smoke", "kims", "pill", "panacea", "jewel", "kunai", "nights", "aetherion",
+             "smoke", "kims", "pill", "panacea", "jewel", "kunai", "nights", "aetherion", "limitbreaker",
              "clear", "cleanse", "replace", "defstance", "offstance", "basic"],
     # the PvP 1 loadout before 2026-11-11 (Parry, later replaced by Chakra Resistance): used to replay older fights
     "pvp1_parry": None,

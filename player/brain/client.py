@@ -61,6 +61,7 @@ def _client(live):
     """The lock on live/client.json: who the relay is, and the batch it is owed. One `brain next` at a time reads
     it, talks to the brain and writes it back, so a relay that takes over and one that is still waiting cannot
     each write over the other (AP1 re-review, finding 3)."""
+    os.makedirs(live, exist_ok=True)         # `brain stopped` on a fresh container, before anything made the folder
     with open(os.path.join(live, "client.lock"), "w") as f:
         fcntl.flock(f, fcntl.LOCK_EX)
         yield
