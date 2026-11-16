@@ -122,8 +122,9 @@ RUL-2026-11-13-157).
   with 0 when they did. Do not
   start a live session while it says no. It is built to make no request of the game: its sessions are given
   the stand-in as their only MCP server, and a gate in front of every call lets nothing through but those
-  reads. If it ever says that a call was answered and not by the stand-in, tell the director: that would have
-  been a read of my profile from the game, where none is allowed.
+  reads. If it ever says that a call was answered and not by the stand-in, or that it cannot be told whether
+  a call went, tell the director: that may have been a read of my profile from the game, where none is
+  allowed. It is for Linux and macOS; on Windows it starts nothing and says so.
 - **Which kind a relay is.** `live/client.json`, `hooks`: the relay's id, or nothing. `live/tokens.jsonl`,
   `hooks`: true for a batch such a relay carried; `cached` and `written` there are what the plan counts by.
   `live/hook/log.jsonl`: every hook that ran, and why a call was refused or a result was not handed in.

@@ -366,10 +366,14 @@ As it is now, its own text says what stands in front of a call and what only see
   reads of my own profile, whatever the brain asks for.
 - **Afterwards.** Claude Code names each tool call to the server, so the gate's rows, the relay's hooks' rows
   and the stand-in's rows are matched call by call. A call that the session shows an answer for and the
-  stand-in did not write down ends the session.
-- **Yes** means: stopped by the check after exactly three calls; each let through by the gate, made by one
-  relay of the form asked for, with one hook before it and one behind it, and written down and answered by
-  the stand-in; in a folder nothing was written into before.
+  stand-in did not write down ends the session. So does one that came back as an error and is not in the
+  stand-in's log, unless the relay's own hook refused it on record: an error does not say whether a call
+  went (second review, C3).
+- **Yes** means: the session was running when the check stopped it, after exactly three calls; each let
+  through by the gate, made by one relay of the form asked for, with one hook before it and one behind it,
+  and written down and answered by the stand-in; in a folder nothing was written into before; and its whole
+  process group, what descends from it and the stand-in were seen to be gone. A session that had ended by
+  itself does not pass, whatever it left (C2); nor one of which a process is left running (C1).
 
 Tried under Claude Code, against the stand-in (`proof_runs/preflight2/`):
 
@@ -388,12 +392,22 @@ Tried under Claude Code, against the stand-in (`proof_runs/preflight2/`):
 In c to e the check says no and gives a reason that is about the calls that followed the refused one; that is
 right for a session in which something asked for more than a read.
 
-30 tests run it off line (`test_preflight.py`): the review's four findings as it ran them, the gate's every
-refusal, and the watching loop with a clock the test moves.
+39 tests run it off line (`test_preflight.py`): the first review's four findings as it ran them, the gate's
+every refusal, the watching loop with a clock the test moves, and the second review's three: a process group
+whose child does not end when asked, with the leader alive and with it gone, as processes of the machine; a
+session that left every row of a passing one and had ended by itself; and the stand-in answering a call with
+an error and writing nothing down.
+
+The second review (`chatgpt/review-ai-player-preflight-rereview1-20261116` @ 1e238719) passed the gate and the
+way a session is let through, and sent back how a session was ended and judged (C1 to C3, above). After
+that correction the eight runs of the table were made again where they bear on it (`proof_runs/preflight3/`):
+a, b, c, f and g came out as before; and with the stand-in told to answer with an error and write nothing
+down, the session was ended after one call: "came back as an error and is not in the stand-in's log: whether
+it went cannot be told". No process of a session was left running after the check returned.
 
 It has not been run with the terminal's own variables, which is how the operator runs it: a session started
-from this cloud session needs a bare environment. And it has not said yes for the agent file's own hooks
-anywhere, since nobody can accept the dialog here.
+from this cloud session needs a bare environment. It has not said yes for the agent file's own hooks
+anywhere, since nobody can accept the dialog here. And it is for a POSIX system: on Windows it starts nothing.
 
 ### What is still not shown
 

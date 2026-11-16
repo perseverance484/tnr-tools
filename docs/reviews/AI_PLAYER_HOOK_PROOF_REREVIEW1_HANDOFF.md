@@ -1,5 +1,10 @@
 # AI player, the check for the operator's machine: correction handoff, after the review of 65974c02
 
+**Sent back in part** (`chatgpt/review-ai-player-preflight-rereview1-20261116` @ 1e238719): the gate and the
+way a session is let through stand; how a session was ended and judged did not (C1, C2), and an error for a
+call was read as "never went" (C3). The correction and its note:
+`docs/reviews/AI_PLAYER_HOOK_PROOF_REREVIEW2_HANDOFF.md`. This note is kept as it was written.
+
 Workflow: `docs/workflows/IMPLEMENTATION_HANDOFF.md` section 5. Written 2026-11-14, in answer to the review of
 `65974c02` ("request changes before running this preflight on the operator's connected machine": B1 to B4,
 and the overstatements in the five guards). A, `fable/ai-player-hook-relay` @ bf2231f6, was approved and is

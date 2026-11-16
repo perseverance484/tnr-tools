@@ -9,9 +9,13 @@ Review of 65974c02 (chatgpt/review-ai-player-relay-preflight-20261114 @ 5d46d7ef
 import io
 import json
 import os
+import signal
+import subprocess
 import sys
 import tempfile
+import time
 import unittest
+from unittest import mock
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
@@ -241,22 +245,61 @@ class WhatTheCheckReads(unittest.TestCase):
         shows for it: an answer that is no error, and no row of the stand-in's."""
         through = [{"kind": "call", "use": "u1", "refused": None, "at": 100.0}]
         came = [{"at": "came", "endpoint": P.PROBE, "input": {}, "use": "u1"}]
-        self.assertIsNone(P.astray(through, came, {"u1": False}, 500.0))
-        self.assertIsNone(P.astray(through, [], {}, 100.0 + P.LATE))                     # (no result yet, and in time)
-        self.assertEqual(P.astray(through, [], {"u1": False}, 100.1), "a call was answered, and not by the stand-in")
-        self.assertIsNone(P.astray(through, [], {"u1": True}, 900.0))                    # (refused after the gate: it never went)
-        self.assertIn("has no result after", P.astray(through, [], {}, 100.1 + P.LATE))
-        self.assertIn("did not let through", P.astray([], came, {}, 100.0))
-        self.assertIn("did not let through", P.astray([dict(through[0], refused="x")], came, {}, 100.0))
-        self.assertIn("not a read of my own profile", P.astray(through, [dict(came[0], endpoint="hospital.npcHeal")], {}, 100.0))
-        self.assertIn("not a read of my own profile", P.astray(through, [dict(came[0], input={"userId": "x"})], {}, 100.0))
-        self.assertIn("do not name their tool calls", P.astray(through, [dict(came[0], use=None)], {}, 100.0))
-        self.assertIn("do not name their tool calls", P.astray(through * 2, came * 2, {}, 100.0))
+        self.assertIsNone(P.astray(through, came, {"u1": False}, [], 500.0))
+        self.assertIsNone(P.astray(through, [], {}, [], 100.0 + P.LATE))                     # (no result yet, and in time)
+        self.assertEqual(P.astray(through, [], {"u1": False}, [], 100.1), "a call was answered, and not by the stand-in")
+        refused = [{"hook": "pre", "use": "u1", "refused": "call 1 of the batch was not made"}]
+        self.assertIsNone(P.astray(through, [], {"u1": True}, refused, 900.0))          # the relay's hook refused it,
+        self.assertIsNone(P.astray(through, [], {}, refused, 900.0))                    # on record: it never went
+        for hooks in ([], [{"hook": "pre", "use": "u1", "refused": None}], [{"hook": "post", "use": "u1", "refused": "x"}],
+                      [{"hook": "pre", "use": "u2", "refused": "x"}]):
+            self.assertIn("whether it went cannot be told", P.astray(through, [], {"u1": True}, hooks, 100.1), hooks)
+        self.assertIn("has no result after", P.astray(through, [], {}, [], 100.1 + P.LATE))
+        self.assertIn("did not let through", P.astray([], came, {}, [], 100.0))
+        self.assertIn("did not let through", P.astray([dict(through[0], refused="x")], came, {}, [], 100.0))
+        self.assertIn("not a read of my own profile", P.astray(through, [dict(came[0], endpoint="hospital.npcHeal")], {}, [], 100.0))
+        self.assertIn("not a read of my own profile", P.astray(through, [dict(came[0], input={"userId": "x"})], {}, [], 100.0))
+        self.assertIn("do not name their tool calls", P.astray(through, [dict(came[0], use=None)], {}, [], 100.0))
+        self.assertIn("do not name their tool calls", P.astray(through * 2, came * 2, {}, [], 100.0))
         shown = P.results([{"type": "user", "message": {"content": [{"type": "tool_result", "tool_use_id": "u1", "is_error": True},
                                                                     {"type": "tool_result", "tool_use_id": "u2"}]}},
                            {"type": "assistant", "message": {"content": [{"type": "tool_result", "tool_use_id": "u3"}]}},
                            {"type": "user", "message": {"content": "text"}}, {"type": "user"}])
         self.assertEqual(shown, {"u1": True, "u2": False})
+
+    def test_an_error_for_a_call_does_not_say_that_it_never_went(self):
+        """Review of 071ba1b1, C3, as it was run: the stand-in itself is told to answer a call with an error
+        and to write nothing down. It was given the call. What the session shows for it is an error, which
+        was read as "refused before it went" and passed over, for as long as the session lasted."""
+        log, control = os.path.join(self.dir, "game.jsonl"), self.put("control.json", "{}")
+        server = subprocess.Popen([sys.executable, os.path.join(HERE, "fake_connector.py")], stdin=subprocess.PIPE,
+                                  stdout=subprocess.PIPE, text=True,
+                                  env=dict(os.environ, TNR_FAKE_LOG=log, TNR_FAKE_CONTROL=control, TNR_FAKE_NONCE="n1"))
+
+        def ask(rid, method, params=None):
+            server.stdin.write(json.dumps({"jsonrpc": "2.0", "id": rid, "method": method, "params": params or {}}) + "\n")
+            server.stdin.flush()
+            return json.loads(server.stdout.readline())
+
+        def call(rid, use):
+            return ask(rid, "tools/call", {"name": "callEndpoint", "arguments": {"endpointName": P.PROBE, "input": {}},
+                                           "_meta": {"claudecode/toolUseId": use}})["result"]
+        try:
+            ask(1, "initialize", {})
+            self.assertFalse(call(2, "u1")["isError"])
+            self.put("control.json", json.dumps({"unseen": True, "fail": [P.PROBE]}))
+            self.assertTrue(call(3, "u2")["isError"])                               # it was given the call,
+        finally:
+            server.kill()
+            server.wait()
+            server.stdin.close()
+            server.stdout.close()
+        game = P.rows(log)
+        self.assertEqual([g.get("use") for g in game if g.get("at") == "came"], ["u1"])   # and wrote the first down
+        gate = [{"kind": "call", "use": u, "refused": None, "at": 100.0} for u in ("u1", "u2")]
+        said = P.astray(gate, game, {"u1": False, "u2": True}, [], 100.1)
+        self.assertIn("came back as an error and is not in the stand-in's log", said)   # (was: None, at any time)
+        self.assertIsNone(P.astray(gate[:1], game, {"u1": False}, [], 900.0))
 
     def test_a_shell_that_sets_the_live_folder_itself_stops_the_check(self):
         """`brain next` is run by the session's shell: with another TNR_PLAYER_LIVE it would play in the
@@ -308,10 +351,11 @@ def good(form="main"):
 
 
 class WhenItSaysYes(unittest.TestCase):
-    def verdict(self, form="main", how=P.STOPPED, session=S, reaped=True, gate=None, hooks=None, game=None):
+    def verdict(self, form="main", how=P.STOPPED, session=S, reaped=True, gate=None, hooks=None, game=None,
+                running=True, code=143):
         g, h, s = good(form)
-        return P.verdict(form, how, session, g if gate is None else gate, h if hooks is None else hooks,
-                         s if game is None else game, reaped)
+        return P.verdict(form, P.Ended(how, session, reaped, running, code), g if gate is None else gate,
+                         h if hooks is None else hooks, s if game is None else game)
 
     def test_a_relay_whose_hooks_ran_for_each_of_the_three_calls(self):
         self.assertIsNone(self.verdict())
@@ -328,10 +372,12 @@ class WhenItSaysYes(unittest.TestCase):
         self.assertIn("did not let through", self.verdict(hooks=hooks + [{"hook": "pre", "by": S, "use": "u9", "refused": None}]))
 
     def test_a_session_that_was_not_stopped_after_its_calls_does_not_pass(self):
-        for how in ("ended: the clock ran out", "the session ended by itself", "ended: a call was answered, and not by the stand-in",
+        for how in ("ended: the clock ran out", P.BY_ITSELF, "ended: a call was answered, and not by the stand-in",
                     "ended: the session did not show what it has in time", None, ""):
             self.assertIn("was not stopped after its calls", self.verdict(how=how))
         self.assertIn("could not be seen to end", self.verdict(reaped=False))
+        self.assertIn("was not stopped after its calls", self.verdict(running=False))   # (C2: said to be stopped,
+        self.assertIn("ended by itself (with 1)", self.verdict(how=P.BY_ITSELF, code=1))  # and was not running)
 
     def test_what_another_session_left_behind_does_not_pass(self):
         """B4: logs of an earlier run in the same folder, and two sessions that then failed to start."""
@@ -365,6 +411,9 @@ class WhenItSaysYes(unittest.TestCase):
         self.assertIsNone(self.verdict(gate=over, hooks=hooks + [{"hook": "pre", "by": S, "use": "u4", "refused": "no relay holds it"}]))
 
 
+REAL = (P.time, subprocess.Popen, P.end, subprocess.run)
+
+
 class Clock:
     def __init__(self):
         self.t = 1000.0
@@ -377,11 +426,13 @@ class Clock:
 
 
 class Stub:
-    """In place of Claude Code: a process that is running until a test ends it."""
-    pid, code = 4242, None
+    """In place of Claude Code: a process that is running until a test ends it, or that ends by itself with
+    `code` once it has been looked at `after` times."""
+    pid, code, after = 4242, None, 0
 
     def poll(self):
-        return self.code
+        self.after -= 1
+        return self.code if self.after < 0 else None
 
     def wait(self, timeout=None):
         return self.code
@@ -394,14 +445,14 @@ class TheSessionIsWatched(unittest.TestCase):
         self.out = tempfile.mkdtemp(prefix="preflight-loop-")
         self.nonce = P.prepare(self.out, "main", "tnr-relay")
         self.clock, self.stub, self.ended = Clock(), Stub(), []
-        self.old = (P.time, P.subprocess.Popen, P.end)
         P.time = self.clock
         P.subprocess.Popen = lambda *a, **k: (self.started(), self.stub)[1]
         P.end = lambda p, game: (self.ended.append(self.clock.t), True)[1]
         self.says = None
 
     def tearDown(self):
-        P.time, P.subprocess.Popen, P.end = self.old
+        P.time, P.subprocess.Popen, P.end, P.subprocess.run = REAL           # (whatever a test put in their place,
+                                                                             # and however often it began again)
 
     def started(self):
         if self.says is not None:
@@ -414,7 +465,8 @@ class TheSessionIsWatched(unittest.TestCase):
             f.write("".join(json.dumps(r) + "\n" for r in rows))
 
     def run_it(self, done=lambda gate, hooks, game: False):
-        return P.session(self.out, "main", ["--agent", "tnr-relay", "Begin."], [P.TOOL], done)
+        self.last = P.session(self.out, "main", ["--agent", "tnr-relay", "Begin."], [P.TOOL], done)
+        return self.last.how, self.last.session, self.last.gone
 
     def admitted(self):
         try:
@@ -464,6 +516,7 @@ class TheSessionIsWatched(unittest.TestCase):
         self.log("game.jsonl", {"at": "connected", "nonce": self.nonce, "pid": 1})
         how, whose, _ = self.run_it(done=lambda gate, hooks, game: self.admitted() == S)
         self.assertEqual((how, whose, self.admitted()), (P.STOPPED, S, S))
+        self.assertEqual((self.last.running, self.last.gone), (True, True))
 
     def test_a_call_that_is_answered_and_not_by_the_stand_in_ends_the_session(self):
         """B2, with no log of the stand-in's calls at all."""
@@ -475,6 +528,56 @@ class TheSessionIsWatched(unittest.TestCase):
         how, _, _ = self.run_it()
         self.assertEqual(how, "ended: a call was answered, and not by the stand-in")
         self.assertLess(self.ended[0] - 1000.0, 1.0)
+
+    def everything_a_session_that_passed_leaves(self, out, nonce):
+        """Written when the session is started: its first event, and three calls from the gate to the stand-in
+        and back, each with its hooks."""
+        gate, hooks, game = good()
+        t = self.clock.t
+        with open(os.path.join(out, "stream.jsonl"), "a", encoding="utf8") as f:
+            f.write(json.dumps(init()) + "\n")
+        os.makedirs(os.path.join(out, "live", "hook"), exist_ok=True)
+        for name, rows in (("gate.jsonl", [dict(g, at=t) for g in gate]), (os.path.join("live", "hook", "log.jsonl"), hooks),
+                           ("game.jsonl", [dict(g, nonce=nonce, answered=t) if g["at"] != "came" else g for g in game])):
+            with open(os.path.join(out, name), "a", encoding="utf8") as f:
+                f.write("".join(json.dumps(r) + "\n" for r in rows))
+
+    def a_form(self, code, after=0):
+        """preflight.form on a session that leaves everything a passing one leaves, and whose process ends by
+        itself with `code` (None: it is running until the check ends it)."""
+        out = os.path.join(tempfile.mkdtemp(prefix="preflight-form-"), "main")
+        self.stub.code, self.stub.after = code, after
+
+        def started(*a, **k):
+            with open(os.path.join(out, "run.json"), encoding="utf8") as f:
+                self.everything_a_session_that_passed_leaves(out, json.load(f)["nonce"])
+            return self.stub
+        P.subprocess.Popen = started
+        P.subprocess.run = lambda *a, **k: None                              # (`brain set`, in the check's own folder)
+        return P.form(out, "main", "tnr-relay", [])
+
+    def test_a_session_that_ended_by_itself_is_not_one_the_check_stopped_whatever_it_left(self):
+        """Review of 071ba1b1, C2, as it was run: every row of a passing session, written for this run, and a
+        process that had ended with 1. What it had left was looked at first, and the session was put down as
+        stopped after its calls: the form passed."""
+        for code, after in ((1, 0), (0, 0), (1, 3), (0, 5)):                 # at once, and while the check waits a
+            self.setUp()                                                     # moment before it ends the session
+            ran, said = self.a_form(code, after)
+            self.assertEqual((ran, said["the relay's hooks ran for every call"]), (False, False), (code, after))
+            self.assertEqual((said["how the session ended"], said["it ended with"]), (P.BY_ITSELF, code))
+            self.assertEqual(said["why not"], f"the session was not stopped after its calls: {P.BY_ITSELF} (with {code})")
+            self.assertEqual(said["calls the gate let through"], 3)          # (the rows are all there)
+        self.setUp()
+        ran, said = self.a_form(None)                                        # the same rows, and a session that
+        self.assertEqual((ran, said["how the session ended"], said["why not"]), (True, P.STOPPED, None))   # is running
+
+    def test_the_loop_looks_at_the_process_before_it_looks_at_what_was_done(self):
+        self.says = json.dumps(init()) + "\n"
+        self.log("gate.jsonl", {"kind": "start", "session": S})
+        self.log("game.jsonl", {"at": "connected", "nonce": self.nonce, "pid": 1})
+        self.stub.code = 1
+        self.assertEqual(self.run_it(done=lambda gate, hooks, game: True)[0], P.BY_ITSELF)
+        self.assertEqual((self.last.running, self.last.code, self.admitted()), (False, 1, S))
 
     def test_a_log_that_cannot_be_read_ends_it(self):
         self.says = json.dumps(init()) + "\n"
@@ -490,9 +593,103 @@ class TheSessionIsWatched(unittest.TestCase):
         self.assertEqual(how, "ended: the clock ran out")
         self.setUp()
         self.says, self.stub.code = json.dumps(init()) + "\n", 1
+        self.stub.after = 0
         self.log("gate.jsonl", {"kind": "start", "session": S})
         self.log("game.jsonl", {"at": "connected", "nonce": self.nonce, "pid": 1})
-        self.assertEqual(self.run_it()[0], "the session ended by itself")
+        self.assertEqual(self.run_it()[0], P.BY_ITSELF)
+        self.assertEqual((self.last.running, self.last.code), (False, 1))
+
+
+CHILD = "import signal, time; signal.signal(signal.SIGTERM, signal.SIG_IGN); print('deaf', flush=True); time.sleep(600)"
+PARENT = """
+import subprocess, sys, time
+child = subprocess.Popen([sys.executable, "-c", sys.argv[1]], start_new_session="leaves" in sys.argv)
+print(child.pid, flush=True)
+if "dies" not in sys.argv:
+    time.sleep(600)
+"""
+
+
+class TheSessionIsEnded(unittest.TestCase):
+    """Review of 071ba1b1, C1, with processes of this machine that do nothing: a leader of a process group of its
+    own, as the check starts a session, and a child of it that does not end when it is asked to."""
+
+    def setUp(self):
+        self.patience, P.PATIENCE = P.PATIENCE, 1.0
+        self.addCleanup(setattr, P, "PATIENCE", self.patience)
+        self.started = []
+
+    def tearDown(self):
+        for pid in self.started:
+            for kill in (os.killpg, os.kill):
+                try:
+                    kill(pid, signal.SIGKILL)
+                except (ProcessLookupError, PermissionError):
+                    pass
+
+    def start(self, *how):
+        """-> (the leader, its child's pid). The child has said that it does not hear a request to end."""
+        leader = subprocess.Popen([sys.executable, "-c", PARENT, CHILD, *how], stdout=subprocess.PIPE, text=True,
+                                  start_new_session=True)
+        self.addCleanup(leader.stdout.close)
+        child = int(leader.stdout.readline())
+        self.assertEqual(leader.stdout.readline().strip(), "deaf")
+        self.started += [leader.pid, child]
+        return leader, child
+
+    def running(self, pid):
+        listed = P.processes()
+        return pid in listed and not listed[pid][2].startswith("Z")
+
+    def test_a_child_that_does_not_end_when_asked_is_ended_and_seen_gone(self):
+        """Was: true, with the child running. The group was asked to end, the leader did, and that was all."""
+        leader, child = self.start()
+        self.assertTrue(self.running(child) and leader.poll() is None)
+        self.assertIs(P.end(leader, []), True)
+        self.assertFalse(self.running(child))
+        self.assertIsNotNone(leader.poll())
+
+    def test_and_so_it_is_when_the_leader_had_ended_before(self):
+        """Was: true, with the child running, and no signal sent at all."""
+        leader, child = self.start("dies")
+        self.assertEqual(leader.wait(timeout=20), 0)
+        self.assertTrue(self.running(child))
+        self.assertIs(P.end(leader, []), True)
+        self.assertFalse(self.running(child))
+
+    def test_a_child_that_left_the_group_is_ended_while_it_can_be_found(self):
+        leader, child = self.start("leaves")                                 # a session of its own: the leader's
+        self.assertIs(P.end(leader, []), True)                               # child still, and found by that
+        self.assertFalse(self.running(child))
+        leader, child = self.start("leaves", "dies")                         # no group and no parent to find it by,
+        leader.wait(timeout=20)                                              # but it is the stand-in, by its log:
+        self.assertIs(P.end(leader, [{"at": "connected", "pid": child, "nonce": "n1"}, {"at": "came", "pid": 1}]), True)
+        self.assertFalse(self.running(child))
+
+    def test_what_cannot_be_ended_or_cannot_be_seen_is_not_called_gone(self):
+        leader, child = self.start()
+        with mock.patch.object(P.os, "killpg", lambda *a: None), mock.patch.object(P.os, "kill", lambda *a: None):
+            self.assertIs(P.end(leader, []), False)                          # (nothing ends: the signals go nowhere)
+        self.assertTrue(self.running(child))
+        with mock.patch.object(P, "processes", lambda: None):                # the system cannot be asked what runs
+            self.assertIs(P.end(leader, []), False)
+        self.assertIs(P.end(leader, []), True)                               # (and now it is ended)
+        self.assertFalse(self.running(child))
+
+    def test_a_process_that_ends_when_asked(self):
+        one = subprocess.Popen([sys.executable, "-c", "import time; time.sleep(600)"], start_new_session=True)
+        self.started.append(one.pid)
+        began = time.time()
+        self.assertIs(P.end(one, []), True)
+        self.assertEqual(one.poll(), -signal.SIGTERM)                        # asked, not ended by force,
+        self.assertLess(time.time() - began, P.PATIENCE)                     # and not waited out
+
+    def test_what_the_system_lists(self):
+        listed = P.processes()
+        mine = listed[os.getpid()]
+        self.assertEqual((mine[0], mine[1]), (os.getppid(), os.getpgid(0)))
+        self.assertEqual(P.family({10: (1, 10, "S"), 11: (10, 10, "S"), 12: (11, 12, "S"), 13: (1, 10, "Z"), 14: (1, 14, "S"),
+                                   15: (14, 14, "R"), 16: (1, 16, "S")}, 10, {14, 99}), {10, 11, 12, 14, 15})
 
 
 if __name__ == "__main__":

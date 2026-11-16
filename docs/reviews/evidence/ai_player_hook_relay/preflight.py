@@ -35,10 +35,19 @@ In front of every call:
 After a call has gone, which cannot take it back:
 
 4. A call that the session shows an answer for and the stand-in did not write down, or a call the stand-in
-   was given that the gate did not let through, ends the session and fails the check. So does a call the gate
-   let through that has neither after 20 seconds, a first event that does not come within 45 seconds, a line
-   of the session's output or of a log that cannot be read, and 150 seconds.
-5. The session's processes are ended as a group and the stand-in is seen to be gone.
+   was given that the gate did not let through, ends the session and fails the check. So does a call that
+   came back as an error and is not in the stand-in's log, unless the relay's own hook refused it on record:
+   an error does not say whether a call went. So does a call the gate let through that has neither result
+   nor row after 20 seconds, a first event that does not come within 45 seconds, a line of the session's
+   output or of a log that cannot be read, and 150 seconds.
+5. The session is the leader of a process group of its own. When the check ends it, the group is ended,
+   whatever its leader has done by then, with what descends from it and the stand-in it started: asked to
+   end, and ended after five seconds if it has not. The check passes only if none of them is left running.
+
+Yes also means that the session was running when the check ended it. One that had ended by itself, with
+whatever code and whatever it left behind, is not one the check stopped after its calls, and does not pass.
+
+It is written for a POSIX system (Linux, macOS). On another it starts nothing and says so.
 
 The relay's `brain next` is run by the session's shell. It plays in the check's own folder because the
 session is given TNR_PLAYER_LIVE; a shell on that machine that sets the variable itself would send it to the
@@ -47,7 +56,8 @@ has; if it is not the check's folder, nothing is started. That asks a shell like
 session's own.
 
 So if 1 failed on some machine, and 2 did not catch it, the most that could reach the game is three reads of
-my own profile for each form, and 4 would say so. That would be a request of the game where none is allowed:
+my own profile for each form. 4 would say so for a call that was answered; for one that came back as an
+error it says that it cannot be told. That would be a request of the game where none is allowed:
 it is to be reported, not passed over.
 
 --try: the relay's hooks are given on the command line as an agent's own, not read from the agent file. That
@@ -57,6 +67,7 @@ where nobody can accept the dialog. With it, to try the gate: --control JSON is 
 never opens the gate. --bare-env: the sessions are started with a path, a home and the proxy's
 variables only, not with the terminal's own: the cloud session this was built in needs that.
 """
+import collections
 import json
 import os
 import secrets
@@ -73,8 +84,11 @@ KEEP = ("PATH", "HOME", "LANG", "TERM", "HTTPS_PROXY", "https_proxy", "NO_PROXY"
         "SSL_CERT_FILE", "NIX_SSL_CERT_FILE")
 UPKEEP = ("restock", "repair", "training", "equipment", "bank")
 TOOL, PROBE = "mcp__Tnr__callEndpoint", "profile.getUser"
-BOUND, STARTUP, LATE, CLOCK, AFTER = 3, 45.0, 20.0, 150.0, 3.0
-STOPPED = "stopped after the check's calls"
+BOUND, STARTUP, LATE, CLOCK, AFTER, PATIENCE = 3, 45.0, 20.0, 150.0, 3.0, 5.0
+STOPPED, BY_ITSELF = "stopped after the check's calls", "the session ended by itself"
+Ended = collections.namedtuple("Ended", "how session gone running code")
+"""How a session ended: in words; its first event's session id; its processes were all seen to be gone; it was
+still running when the check ended it; what it ended with."""
 TRUST = ("Claude Code skipped the agent file's hooks: this folder's trust dialog has not been accepted. Open "
          "Claude Code in this folder once, accept it, and run this again")
 
@@ -178,14 +192,17 @@ def results(stream):
     return out
 
 
-def astray(gate, game, shown, now):
-    """Why what went to a connector and what the stand-in was given are not the same calls; None while they
-    are. shown: results(), read before the stand-in's log was.
+def astray(gate, game, shown, hooks, now):
+    """Why what went to a connector and what the stand-in was given are not the same calls, or cannot be told
+    to be; None while they are. shown: results(), read before the logs were. hooks: the relay's hooks' log.
 
-    The gate lets a call through by not refusing it. The relay's hook, or the session's permissions, may still
-    refuse it, and then it has an error for its result and never went. A call that has a result which is no
-    error went somewhere: if the stand-in did not write it down, something else answered it. A call with no
-    result has LATE seconds to be written down by the stand-in."""
+    The gate lets a call through by not refusing it. For one the stand-in has not written down:
+    - the relay's own hook refused it, on record, before it went: it never went;
+    - the session shows an answer for it that is no error: something else answered it;
+    - the session shows an error for it: the session's permissions may have refused it, or it may have gone to
+      something that answered with an error. An error does not say which (review of 071ba1b1, C3: it was read
+      as "never went"), so it is not passed over;
+    - nothing yet: it has LATE seconds to be written down by the stand-in."""
     through = [g for g in gate if g.get("kind") == "call" and not g.get("refused")]
     came = [g for g in game if g.get("at") == "came"]
     if any(g.get("endpoint") != PROBE or g.get("input") not in ({}, None) for g in came):
@@ -195,23 +212,29 @@ def astray(gate, game, shown, now):
         return "the stand-in's rows do not name their tool calls: this Claude Code is not one the check knows"
     if set(ids) - {g.get("use") for g in through}:
         return "the stand-in was given a call the gate did not let through"
+    refused = {h.get("use") for h in hooks if h.get("hook") == "pre" and h.get("refused")}
     for g in through:
-        if g.get("use") in ids or shown.get(g.get("use")) is True:
+        if g.get("use") in ids or g.get("use") in refused:
             continue
         if shown.get(g.get("use")) is False:
             return "a call was answered, and not by the stand-in"
+        if shown.get(g.get("use")) is True:
+            return ("a call the gate let through came back as an error and is not in the stand-in's log: "
+                    "whether it went cannot be told")
         if now - g["at"] > LATE:
             return f"a call the gate let through is not in the stand-in's log and has no result after {LATE:.0f} seconds"
     return None
 
 
-def verdict(form, how, session, gate, hooks, game, reaped):
+def verdict(form, ended, gate, hooks, game):
     """Did the relay's hooks run for every one of the check's calls? -> why not, or None.
     (B4: any hook of each kind and any call of the stand-in's was taken for all of it; a session that had run
     out of time, or had failed to start, could pass on what an earlier one left behind.)"""
-    if how != STOPPED:
-        return f"the session was not stopped after its calls: {how}"
-    if not reaped:
+    session = ended.session
+    if ended.how != STOPPED or not ended.running:
+        return f"the session was not stopped after its calls: {ended.how}" + (
+            f" (with {ended.code})" if ended.how == BY_ITSELF else "")
+    if not ended.gone:
         return "the session's processes could not be seen to end"
     through = [g for g in gate if g.get("kind") == "call" and not g.get("refused")]
     uses = [g.get("use") for g in through]
@@ -290,59 +313,78 @@ def command(out, env):
             "--output-format", "stream-json", "--verbose", "--debug-file", os.path.join(out, "debug.log")]
 
 
-def end(p, game):
-    """End the session's processes as a group. -> the session and the stand-in it started are gone."""
-    if p.poll() is None:
-        if os.name == "nt":
-            subprocess.run(["taskkill", "/F", "/T", "/PID", str(p.pid)], capture_output=True)
-        else:
-            for sig in (signal.SIGTERM, signal.SIGKILL):
-                try:
-                    os.killpg(p.pid, sig)
-                except ProcessLookupError:
-                    break
-                try:
-                    p.wait(timeout=5)
-                    break
-                except subprocess.TimeoutExpired:
-                    continue
+def processes():
+    """Every process the system lists: {pid: (its parent, its process group, its state)}. None where the
+    system cannot be asked (`ps`, as POSIX has it): the check then cannot say that a session has ended."""
     try:
-        p.wait(timeout=10)
-    except subprocess.TimeoutExpired:
-        return False
-    if os.name == "nt":
-        return True
-    for pid in [g.get("pid") for g in game if g.get("at") == "connected" and isinstance(g.get("pid"), int)]:
-        for _ in range(60):
-            try:
-                os.kill(pid, 0)
-            except ProcessLookupError:
-                break
-            except PermissionError:
-                return False
-            time.sleep(0.05)
-        else:
-            try:
-                os.kill(pid, signal.SIGKILL)
-            except ProcessLookupError:
-                pass
+        said = subprocess.run(["ps", "-A", "-o", "pid=", "-o", "ppid=", "-o", "pgid=", "-o", "stat="],
+                              capture_output=True, text=True, timeout=20, stdin=subprocess.DEVNULL)
+    except (OSError, subprocess.TimeoutExpired):
+        return None
+    listed = {}
+    for line in said.stdout.splitlines() if said.returncode == 0 else []:
+        f = line.split()
+        if len(f) >= 4 and all(x.isdigit() for x in f[:3]):
+            listed[int(f[0])] = (int(f[1]), int(f[2]), f[3])
+    return listed or None
+
+
+def family(listed, leader, known):
+    """The session's processes that are still running: the ones in its process group, the ones that descend
+    from one of them or from one that was seen before (known), and those. One that has ended and waits to
+    be collected (state Z) runs nothing, and is not counted."""
+    kin, more = set(), {leader} | set(known)
+    while more - kin:
+        kin |= more
+        more = {pid for pid, (parent, group, _) in listed.items() if parent in kin or group == leader}
+    return {pid for pid in kin if pid in listed and not listed[pid][2].startswith("Z")}
+
+
+def end(p, game):
+    """End the session's processes, and see that they are gone. -> they were all seen to be.
+
+    The session is started as the leader of a process group of its own. That group is ended, whatever has
+    become of its leader, with what descends from it and the stand-in the session started: asked to end,
+    then, after PATIENCE seconds, ended; and it is true only when none of them is left running (review of
+    071ba1b1, C1: the group was signalled only while its leader lived, and the wait was for the leader alone,
+    so a child that did not end when asked was never ended, and was not looked for)."""
+    known = {g.get("pid") for g in game if g.get("at") == "connected" and isinstance(g.get("pid"), int)}
+    for sig in (signal.SIGTERM, signal.SIGKILL):
+        listed = processes()
+        if listed is None:
             return False
-    return True
+        left = family(listed, p.pid, known)
+        known |= left                                             # (one that leaves the group is still looked for)
+        for target, send in [(p.pid, os.killpg)] + [(pid, os.kill) for pid in sorted(left) if listed[pid][1] != p.pid]:
+            try:
+                send(target, sig)
+            except (ProcessLookupError, PermissionError):
+                pass
+        until = time.time() + PATIENCE
+        while time.time() < until:
+            listed = processes()
+            if listed is None:
+                return False
+            if p.poll() is not None and not family(listed, p.pid, known):
+                return True
+            time.sleep(0.1)
+    return False
 
 
 def session(out, form, start, tools, done):
-    """Start one session and watch it. -> (how it ended, its first event's session id, the group was seen to end).
-    done(gate, hooks, game): the session has done what it was started for, and is stopped."""
+    """Start one session and watch it. -> Ended.
+    done(gate, hooks, game): the session has done what it was started for, and is stopped. A session that has
+    ended by itself is never taken for one that was stopped, whatever it left behind (review of 071ba1b1, C2:
+    what it had done was looked at first, and a session that had failed was put down as stopped)."""
     with open(os.path.join(out, "run.json"), encoding="utf8") as f:
         nonce = json.load(f)["nonce"]
     env = environment(out)
     paths = {k: os.path.join(out, v) for k, v in (("stream", "stream.jsonl"), ("gate", "gate.jsonl"), ("game", "game.jsonl"),
                                                   ("hooks", os.path.join("live", "hook", "log.jsonl")))}
-    how, whose, begun, since = None, None, time.time(), None
+    how, whose, begun, since, running = None, None, time.time(), None, False
     with open(paths["stream"], "w", encoding="utf8") as stream:
         p = subprocess.Popen(command(out, env) + start, cwd=ROOT, env=env, stdout=stream, stderr=subprocess.STDOUT,
-                             stdin=subprocess.DEVNULL, **({"start_new_session": True} if os.name != "nt" else
-                                                         {"creationflags": subprocess.CREATE_NEW_PROCESS_GROUP}))
+                             stdin=subprocess.DEVNULL, start_new_session=True)
         try:
             while how is None:
                 now = time.time()
@@ -362,15 +404,15 @@ def session(out, form, start, tools, done):
                         how = "ended: " + why
                 if how is None and whose is None and now - begun > STARTUP:
                     how = "ended: the session did not show what it has in time"
-                lost = astray(gate, game, results(said), now)
+                lost = astray(gate, game, results(said), hooks, now)
                 if how is None and lost:
                     how = "ended: " + lost
-                if how is None and done(gate, hooks, game):
+                if how is None and p.poll() is not None:          # before anything is made of what it left:
+                    how = BY_ITSELF                               # a session that ended was not stopped (C2)
+                elif how is None and done(gate, hooks, game):
                     since = since or now
                     if now - since >= 0.2:
-                        how = STOPPED
-                elif how is None and p.poll() is not None:
-                    how = "the session ended by itself"
+                        how, running = STOPPED, p.poll() is None
                 elif how is None and now - begun > CLOCK:
                     how = "ended: the clock ran out"
                 time.sleep(0.05)
@@ -381,8 +423,9 @@ def session(out, form, start, tools, done):
                 last = rows(paths["game"])
             except Failed:
                 last = []                                         # (it is ended all the same; how says why)
-            reaped = end(p, last)
-    return how, whose, reaped
+            running = running and p.poll() is None               # (it may have ended in this very moment)
+            gone = end(p, last)
+    return Ended(how if how != STOPPED or running else BY_ITSELF, whose, gone, running, p.poll())
 
 
 def form(out, name, agent, more):
@@ -407,10 +450,10 @@ def form(out, name, agent, more):
         return uses <= behind or time.time() - answered[BOUND - 1]["answered"] > AFTER
     # (a main agent's session lists the agent's own tools; one that starts a subagent lists all it has)
     tools = [TOOL] if name == "main" else [TOOL, f"mcp__Tnr__standIn_{nonce}"]
-    how, whose, reaped = session(out, name, more + start, tools, done)
+    ended = session(out, name, more + start, tools, done)
     gate, game = rows(os.path.join(out, "gate.jsonl")), rows(os.path.join(out, "game.jsonl"))
     hooks = rows(os.path.join(out, "live", "hook", "log.jsonl"))
-    why = verdict(name, how, whose, gate, hooks, game, reaped)
+    why = verdict(name, ended, gate, hooks, game)
     try:
         with open(os.path.join(out, "debug.log"), encoding="utf8", errors="replace") as f:
             skipped = "Skipping frontmatter hooks" in f.read()
@@ -423,15 +466,13 @@ def form(out, name, agent, more):
                          "calls the gate let through": sum(1 for g in gate if g.get("kind") == "call" and not g.get("refused")),
                          "calls the stand-in was given": sum(1 for g in game if g.get("at") == "came"),
                          "hooks before `brain next`, before a call, behind a call": [count[k] for k in ("bash", "pre", "post")],
-                         "how the session ended": how, "why not": why}
+                         "how the session ended": ended.how, "it ended with": ended.code, "why not": why}
 
 
 def shell_keeps(out):
     """Why the session's shell would not run `brain next` in the check's folder; None when a login shell with
-    the check's variables has that folder for TNR_PLAYER_LIVE, or where there is no such shell to ask."""
+    the check's variables has that folder for TNR_PLAYER_LIVE."""
     env = environment(out)
-    if os.name == "nt":
-        return None
     try:
         said = subprocess.run([env.get("SHELL") or "/bin/sh", "-lc", 'printf "%s" "$TNR_PLAYER_LIVE"'], env=env,
                               capture_output=True, text=True, timeout=30, stdin=subprocess.DEVNULL)
@@ -445,14 +486,14 @@ def shell_keeps(out):
 def look(out):
     """Guard 2: a session that can call nothing, with the same options. -> why nothing may be started, or None."""
     nonce = prepare(fresh(out), "look", None)
-    how, whose, reaped = session(out, "look", ["--tools", "", "--", "Reply with the single word: ready"],
-                                 [TOOL, f"mcp__Tnr__standIn_{nonce}"], lambda gate, hooks, game: False)
+    ended = session(out, "look", ["--tools", "", "--", "Reply with the single word: ready"],
+                    [TOOL, f"mcp__Tnr__standIn_{nonce}"], lambda gate, hooks, game: False)
     gate, game = rows(os.path.join(out, "gate.jsonl")), rows(os.path.join(out, "game.jsonl"))
-    if how != "the session ended by itself" or whose is None:
-        return f"a session with the stand-in alone could not be looked at: {how}"
+    if ended.how != BY_ITSELF or ended.code != 0 or ended.session is None:
+        return f"a session with the stand-in alone could not be looked at: {ended.how} (with {ended.code})"
     if any(g.get("kind") != "start" and not g.get("refused") for g in gate) or any(g.get("at") != "connected" for g in game):
         return "the session that may call nothing made a call"
-    return None if reaped else "its processes could not be seen to end"
+    return None if ended.gone else "its processes could not be seen to end"
 
 
 def main():
@@ -461,6 +502,9 @@ def main():
     forms = [sys.argv[sys.argv.index("--form") + 1]] if "--form" in sys.argv else ["main", "subagent"]
     agent, more = "tnr-relay", []
     try:
+        if os.name != "posix":
+            raise Failed("the check is written for a POSIX system (Linux, macOS): how it ends a session's "
+                         "processes and sees them gone is not made for this one")
         out = fresh(os.path.abspath(named[0])) if named else tempfile.mkdtemp(prefix="tnr_preflight_")
         if "--try" in sys.argv:
             sys.path.insert(0, HERE)
