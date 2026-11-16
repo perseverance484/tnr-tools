@@ -45,3 +45,4 @@
 ```
 - Finding: per-batch plan count 20,585 (fight batch 24,612) vs PROOF.md 4,200-4,400; max_context 32,242 despite 12k rotation rule. 0 files in hook/late; all 142 batches hooks true.
 - 2026-11-16T19:09:10Z rotation 5: new relay healthy. Fight 5: WON vs Uesugi rd 2. Training refused once (queue full), left 0.2 h.
+- 2026-11-16T19:12:41Z rotation 6: new relay healthy, traveling; 5 fights.
