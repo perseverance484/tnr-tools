@@ -1,0 +1,26 @@
+{
+ "_note": "Step 0 (connector, or the Clone button in the quest editor). Clone the ORIGINAL Wreck Sighted _zp1l7Y9a_77pgonAdsYx three times: it is an event quest and hidden, and a clone keeps both. Never clone a visible record and never Forge-create an event quest (bulk-assigns it to every active player). Then: python3 stolen_stores_band.gen.py --page-id A --ws-low-id B --ws-high-id C",
+ "calls": [
+  {
+   "endpoint": "quests.clone",
+   "input": {
+    "id": "_zp1l7Y9a_77pgonAdsYx"
+   },
+   "expect": "new id -> --page-id"
+  },
+  {
+   "endpoint": "quests.clone",
+   "input": {
+    "id": "_zp1l7Y9a_77pgonAdsYx"
+   },
+   "expect": "new id -> --ws-low-id"
+  },
+  {
+   "endpoint": "quests.clone",
+   "input": {
+    "id": "_zp1l7Y9a_77pgonAdsYx"
+   },
+   "expect": "new id -> --ws-high-id"
+  }
+ ]
+}
