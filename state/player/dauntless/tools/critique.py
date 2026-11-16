@@ -11,6 +11,26 @@ His words, typed after the fight (state/player/dauntless/pvp_playbook.md, "AP te
    did not have clear prevention active? That was a mess. Didnt try to use Danse Macabre or Chakra Resistance to
    prevent getting nuked even though they have damage mitigation effects that can stack with DR"
 
+And on round 8 itself, asked why it picked Lotus Dance's buff prevent, a pill and a stance (rule 6):
+
+  "Buff prevent does prevent the enemies buffs. The reason why it was a bad choice is because the next round was the
+   final round... It should have prioritized something it could benefit from, the Buff prevent was never going to
+   pay off. 2. My buffs were not blocked. Pill and stance is significantly less value than any other choices on the
+   board... 3. It should have seen the nuke coming. Opponent had a burst window and a nuke available. Could have
+   tried to seal and phantom step if they had debuff prevent, chakra resistance and subaku palace also work if they
+   did not. Even chakra shield would have been good"
+
+  "pretty much any attack except lotus dance would have been acceptable. Forgotten Ember Blade, Forbidden Chakra
+   Fury and Shrapnel Clone Barrage are all high value there for their ability to give me more leverage over the
+   enemy's hp pool. Danse would have been nice as an instant damage cut to the enemy's damage, and could've been
+   paired with chakra resistance to attempt to survive the next round or with a buff(chakra overflow perhaps) to
+   keep me alive long enough to go for the kill"
+
+  On the wound tick: "I dont think chakra resistance or any damage reduction works on wound ticks themselves but yeah
+   maybe if it cut the incoming damage i wouldve taken a smaller overall hit and then less wound damage also as a
+   result." (The game agrees: a wound is a share of the hit that made it, and its tick is not adjusted by damage
+   taken; the planners model it that way, shotplan.apply / planner2 apply.)
+
 One rule per point, each a penalty in HP units on a bundle with its reason. Two users:
 - the replay review (review_fight, run by postmortem.py after each fight and by `critique.py <battle id>`): every
   turn I played, checked against the rules, the director's way of going over a fight;
@@ -36,6 +56,7 @@ BUFF_INTO_CLEAR = 250.0  # each self-buff in a bundle of two or more, into his r
 BURST_UNPUMPED = 300.0   # a burst round with neither Limit Breaker nor Aetherion while one is ready and fits
 NUKE_NO_SEAL = 400.0     # a nuke on his clock and neither Danse Macabre nor Chakra Resistance in the bundle
 LATE_FILLER = 300.0      # each pill / stance late in the fight when a better ready action fits its AP
+LAST_WASTED = 400.0      # each setup or buff prevent in a likely last round, when an attack or a seal fits its AP
 
 LATE_SHARE = 0.4         # my HP at or under this share of my max is "the end of the fight"
 LATE_TURNS = 2           # ... and so is HP that his hardest turn takes in this many turns (fight 2, R8: 2,142 of
@@ -51,10 +72,19 @@ SETUP = {"overflow", "thunders", "parry", "eclipse", "ember", "subaku", "limitbr
 PUMPS = ("limitbreaker", "aetherion")
 SHOW = {"panacea": "Panacea", "resist": "Chakra Resistance", "danse": "Danse Macabre", "shield": "Chakra Shield",
         "smoke": "Elite Smoke Bomb", "jewel": "Colored Jewel", "aetherion": "Aetherion", "limitbreaker": "Limit Breaker",
-        "stormblade": "Stormblade", "nights": "Night's Testament", "kims": "Dr. Kim's"}
+        "stormblade": "Stormblade", "nights": "Night's Testament", "kims": "Dr. Kim's",
+        "ember": "Forgotten Ember Blade", "fury": "Forbidden Chakra Fury", "shrapnel": "Shrapnel Clone Barrage",
+        "rebirth": "Rebirth", "subaku": "Subaku Palace", "phantom": "Phantom Step", "lotus": "Lotus Dance",
+        "sealnull": "Seal Null", "overflow": "Chakra Overflow"}
 PUMP_NAMES = {"limitbreaker": "Limit Breaker", "aetherion": "Aetherion"}
 SEALS = ("danse", "resist")          # Danse Macabre's bloodline seal, Chakra Resistance's -taken and -potency
 LATE_FILLERS = ("pill", "offstance", "defstance")
+# Rule 6, a likely last round: what pays only in a round I will not reach. Lotus Dance's damage is real, but "any
+# attack except lotus dance would have been acceptable": its buff prevent is the reason to pick it over the others.
+LAST_WASTED_SET = ("lotus", "sealnull", "thunders", "parry", "eclipse", "overflow", "jewel")
+WITH_DANSE = ("overflow", "eclipse", "thunders", "parry", "jewel")   # "or with a buff (chakra overflow perhaps)"
+LAST_BETTER = ("ember", "fury", "shrapnel", "danse", "resist", "rebirth", "stormblade", "nights", "aetherion",
+               "subaku", "shield", "phantom")
 BETTER_LATE = ("panacea", "resist", "danse", "shield", "smoke", "jewel", "aetherion", "limitbreaker", "stormblade",
                "nights", "kims")
 
@@ -108,11 +138,25 @@ def observed_peak(rows, en_id, me_name):
     return max(per.values(), default=0.0)
 
 
+def wound_ticks(rows, me_name):
+    """{round: wound damage due on me at that round's start}, from the log's "<me> will take N wound damage for the
+    next K rounds" (cast in round c: due in c+1 .. c+K)."""
+    due = {}
+    pat = re.compile(rf"{re.escape(me_name)} will take ([\d.]+) wound damage for the next (\d+) rounds")
+    for r, _, _, ts in rows:
+        for t in ts or []:
+            for m in pat.finditer(t):
+                for k in range(1, int(m.group(2)) + 1):
+                    due[r + k] = due.get(r + k, 0.0) + float(m.group(1))
+    return due
+
+
 def context(*, R, en_acted, st, ap, my_hp, my_max, me_pos, ground, me_id, rows, en_id, clear_safe, nuke_hit,
-            afk=False):
+            afk=False, tick=0.0):
     """What the guards read, once per turn.
     st: the planner's {"loadout", "used"} after bans; clear_safe: clear-immunity live on me for his next turn
-    already (Dr. Kim's cast before); nuke_hit: the planner's estimate of his hardest next turn on me."""
+    already (Dr. Kim's cast before); nuke_hit: the planner's estimate of his hardest next turn on me; tick: the wound
+    and drain due on me from now to the start of the round after his next turn (no damage reduction cuts it)."""
     his_turn = R + 1 if en_acted else R            # his next turn: this round when I act first, else next round
     last = his_last_clear(rows, en_id)
     return {
@@ -124,6 +168,8 @@ def context(*, R, en_acted, st, ap, my_hp, my_max, me_pos, ground, me_id, rows, 
         "clear_safe": bool(clear_safe),
         "setup_live": any(r == R - 1 and n in SETUP for r, n in st["used"]),
         "nuke": float(nuke_hit or 0) > 0 and float(nuke_hit) >= NUKE_SHARE * max(float(my_hp), 1.0),
+        "last_round": float(nuke_hit or 0) > 0 and float(my_hp) <= float(nuke_hit) + float(tick or 0),
+        "tick": float(tick or 0), "nuke_hit": float(nuke_hit or 0),
         "late": float(my_hp) <= LATE_SHARE * float(my_max or 5050)
                 or (float(nuke_hit or 0) > 0 and float(my_hp) <= LATE_TURNS * float(nuke_hit)),
     }
@@ -187,6 +233,25 @@ def guards(bundle, c):
                 cost = LATE_FILLER * len(pads)
                 p -= cost
                 why.append(f"late {'+'.join(pads)} while {SHOW.get(better[0], better[0])} is ready (-{cost:.0f})")
+
+    # 6. A likely last round (his next turn and my wound tick take what I have): setup and buff prevent pay only in a
+    #    round I will not reach. One buff beside Danse Macabre is the exception ("paired ... with a buff to keep me
+    #    alive long enough to go for the kill"). What fits instead: an attack that moves his HP pool, or a seal.
+    if c.get("last_round"):
+        wasted = [x for x in b if x in LAST_WASTED_SET]
+        if "danse" in b:
+            spare_buff = next((x for x in wasted if x in WITH_DANSE), None)
+            wasted = [x for x in wasted if x != spare_buff]
+        if wasted:
+            room = spare + sum(_cost(x) for x in wasted)
+            better = [x for x in LAST_BETTER if x in ready and _cost(x) <= room]
+            if better:
+                cost = LAST_WASTED * len(wasted)
+                p -= cost
+                names = ", ".join(SHOW.get(x, x) for x in better[:3])
+                why.append(f"{'+'.join(wasted)} into a likely last round (his next turn {c.get('nuke_hit', 0):.0f}"
+                           f" and my wound tick {c.get('tick', 0):.0f} against {c['my_hp']:.0f} HP): it pays only"
+                           f" in a round I will not reach, while {names} fit (-{cost:.0f})")
     return p, why
 
 
@@ -306,12 +371,14 @@ def review_fight(rows, me_id, en_id, me_name="dauntless", my_max=5050, states=No
         hp = float(s_hp) if s_hp is not None else log_hp
         his_turn = r + 1 if en_acted else r
         nxt = _turn_damage(rows, en_id, his_turn, me_name)
+        ticks = wound_ticks(before + [rows[i] for i, _ in mine], me_name)
+        tick = sum(ticks.get(k, 0.0) for k in range(r + 1, his_turn + 2))
         kims = any("cannot be cleared" in t and me_name in t for rr, u, _, ts in before if rr == his_turn - 1
                    for t in ts or [])
         c = context(R=r, en_acted=en_acted, st={"loadout": kit, "used": used}, ap=100,
                     my_hp=hp, my_max=float(s_max or my_max), me_pos=pos or (-1, -1), ground=ground or [], me_id=me_id,
                     rows=before, en_id=en_id, clear_safe=kims, nuke_hit=nxt,
-                    afk=all(_name(a) is None and a == "wait" for rr, u, a, _ in rows if u == en_id))
+                    afk=all(_name(a) is None and a == "wait" for rr, u, a, _ in rows if u == en_id), tick=tick)
         _, why = guards(played, c)
         for w in why:
             w = re.sub(r" \(-\d+\)$", "", w).replace("his nuke is ready", f"his next turn took {nxt:.0f}")

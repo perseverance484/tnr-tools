@@ -119,9 +119,11 @@ class Combat:
             return ""
 
     def planner_choice(self):
-        """fights/live/planner_choice: "planner2" or "turn" (the pilot's default). The pilot's own switch file, kept
-        so the brain and the pilot fight with the same planner; it goes when AP4 leaves one planner."""
-        return self._switch("planner_choice") or "turn"
+        """fights/live/planner_choice: "planner2" or "turn". The pilot's own switch file, kept so the brain and the
+        pilot fight with the same planner; it goes when AP4 leaves one planner. With no file the brain plays planner2
+        (director 2026-11-16: the AP test's fresh checkout had no file, fell back to turn.py, and its round 8 vs DDXXD
+        banked on a kill turn it could not live to; planner2 played Stormblade + Chakra Resistance there)."""
+        return self._switch("planner_choice") or "planner2"
 
     def pilot_handover(self):
         """What the brain takes over from the pilot the first time it starts on this account: the Full Potion's

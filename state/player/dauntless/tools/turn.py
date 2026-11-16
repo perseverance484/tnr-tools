@@ -614,6 +614,11 @@ def main():
 
     lines = [f"{r}|{t.strip()}" for r, u, _, ts in rows for t in (ts or [])]
     me0, en0 = shotplan.rebuild(lines, ME_NAME, en["username"], me["curHealth"], en["curHealth"])
+    try:                              # Danse Macabre's seal switches his bloodline boost off at once
+        import opp_profile
+        shotplan.set_seal_cut(opp_profile.given_mult(opp_profile.profile(en["userId"], rows)))
+    except Exception:  # noqa: BLE001
+        shotplan.set_seal_cut(1.0)
     shotplan.off_ground(me0, rows, ME, MOVE_IDS)
     shotplan.off_ground(en0, rows, en["userId"], MOVE_IDS)
     _gm = (engine_bridge.opponent_kit(en["userId"]) or {}).get("gearMods") or {}
@@ -913,14 +918,21 @@ def main():
             e.hp = 1.0
             log[-1] = log[-1][:6] + (e.hp,)
         sc = value_model.score(m, e, me["curHealth"], en["curHealth"])
+        if doomed(m, e):
+            sc -= value_model.DEATH   # his reply left me under next turn's tick: dead before I act again
         if p_kill < 1.0:
             sc = p_kill * sc_kill + (1 - p_kill) * sc
             e.p_kill = p_kill        # the lookahead and setup credit only count for the share where he lives
         return m, e, sc, log
 
+    def doomed(m, e):
+        """Alive now, but next round's wound / drain tick is at least my HP: it lands before my first action
+        (fight 2 vs DDXXD R9, 2026-11-16), so nothing I set up for that turn pays."""
+        return 0 < m.hp <= m.total("wound", R + 1) + m.total("drain", R + 1) and e.hp > 0
+
     def ply2(m, e, b, dend, kit):
         """My best follow-up next round (after cooldowns from b) and his expected reply to it."""
-        if m.hp <= 0 or e.hp <= 0:
+        if m.hp <= 0 or e.hp <= 0 or doomed(m, e):
             return 0.0, None
         st2 = {"loadout": st["loadout"], "used": st["used"] + [[R, x] for x in b if x not in ("step", "stepback")]}
         best = (-1e9, None)
@@ -975,7 +987,8 @@ def main():
                 cm, ce = _contrib(v[2], hr2), _contrib(v[3], hr2)
                 cvec[x] = _vec(ce, cm) if (cm or ce) else None
             reply_bases = {False: [kit["turn"][0]], True: [kit["turn"][0], (kit.get("summon") or (0, []))[0]]}
-        for b2 in legal(st2, r1, 100, bool(e.live("debuffimmune", r1)), blocked, st["loadout"], dend):
+        ap2 = 100 - min(40, int(m.total("stun", r1)))   # his stun in his reply costs me AP next round
+        for b2 in legal(st2, r1, ap2, bool(e.live("debuffimmune", r1)), blocked, st["loadout"], dend):
             if tagless and not any(x not in acts or acts[x][4] for x in b2):
                 dealt, taken = 0.0, tick if b2 else 0.0
                 for x in b2:
@@ -1103,8 +1116,8 @@ def main():
             outs.append((w, sc + (-kc if kill else pen - rc), m, e, log, kill))
         # stage-1 setup estimate so 2-round setups survive pruning (they score ~0 on one ply): what my multipliers
         # live next round add to a typical burst, discounted like the lookahead
-        outs = [(w, v + (0 if kill else (1 - getattr(e, "p_kill", 0.0)) * setup_est(m, e, kit)), m, e, log, kill)
-                for w, v, m, e, log, kill in outs]
+        outs = [(w, v + (0 if kill or doomed(m, e) else (1 - getattr(e, "p_kill", 0.0)) * setup_est(m, e, kit)),
+                 m, e, log, kill) for w, v, m, e, log, kill in outs]
         ev = sum(w * v for w, v, *_ in outs)
         worst = min(outs, key=lambda o: o[1])
         stage.append(((1 - value_model.RISK) * ev + value_model.RISK * worst[1], b, outs, worst, dend, kit,
@@ -1141,7 +1154,7 @@ def main():
         vals = []
         for w, v, m, e, log, kill in outs:
             live = 1 - getattr(e, "p_kill", 0.0)
-            if not kill:
+            if not kill and not doomed(m, e):
                 v -= live * setup_est(m, e, kit)
             f, b2 = ply2(m, e, b, dend, kit)
             vals.append((w, v + live * value_model.GAMMA * f, b2))

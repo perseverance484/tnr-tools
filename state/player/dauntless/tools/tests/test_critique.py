@@ -112,6 +112,29 @@ check("not late: the guard is off", K.guards(["pill", "lotus", "offstance"], ctx
 spent = [[R, n] for R in (5,) for n in K.BETTER_LATE]
 check("nothing better ready: no guard", K.guards(["pill", "lotus", "offstance"], ctx(my_hp=1500, used=spent))[0] == 0)
 
+# ---- 6. Round 8 again: "the next round was the final round... the Buff prevent was never going to pay off";
+#         "pretty much any attack except lotus dance would have been acceptable"; Danse "paired with chakra
+#         resistance ... or with a buff (chakra overflow perhaps)"
+last = ctx(my_hp=2142, nuke_hit=1933, tick=303)
+check("his next turn and my wound tick take what I have: a likely last round", last["last_round"], last)
+check("his next turn alone does not: no tick, no last round", not ctx(my_hp=2142, nuke_hit=1933)["last_round"])
+p, why = K.guards(["lotus"], last)
+check("Lotus Dance into a likely last round pays", p <= -K.LAST_WASTED and "into a likely last round" in why[-1]
+      and "Forgotten Ember Blade" in why[-1], why)
+check("not in a round I will reach", not any("last round" in w for w in K.guards(["lotus"], ctx(my_hp=4000))[1]))
+check("Danse Macabre + Chakra Resistance: nothing wasted",
+      not any("last round" in w for w in K.guards(["danse", "resist"], last)[1]))
+check("Danse Macabre + one buff to stay alive: nothing wasted",
+      not any("last round" in w for w in K.guards(["danse", "overflow"], last)[1]))
+check("an attack that moves his HP pool: nothing wasted",
+      not any("last round" in w for w in K.guards(["ember"], last)[1]))
+spent6 = [[5, n] for n in K.LAST_BETTER]
+check("nothing better ready: no guard", not any("last round" in w for w in K.guards(["lotus"], ctx(
+    my_hp=2142, nuke_hit=1933, tick=303, used=spent6))[1]))
+check("the wound due on me, read from the log",
+      K.wound_ticks([(7, HIM, "x", ["dauntless will take 303.00 wound damage for the next 2 rounds"])], "dauntless")
+      == {8: 303.0, 9: 303.0})
+
 # ---- both planners run with the guards on a logged turn (ANBU Member R3, a battle id that starts with a dash)
 for script in ("turn.py", "planner2.py"):
     extra = ["--no-engine"] if script == "turn.py" else []
@@ -155,6 +178,9 @@ check("before his nukes: no Danse Macabre or Chakra Resistance",
       {f["round"] for f in found if "Danse Macabre" in f["text"]} == {7, 8}, txt)
 check("R8: late pill and offensive stance", any(f["round"] == 8 and "late pill+offstance" in f["text"]
                                                 for f in found), txt)
+check("R8: Lotus Dance into the last round, with the wound tick his R7 hit left",
+      any(f["round"] == 8 and f["text"].startswith("lotus into a likely last round") and "wound tick 303" in f["text"]
+          for f in found), txt)
 check("nothing flagged on turns he did not fault", {f["round"] for f in found} <= {3, 4, 7, 8}, txt)
 check("Limit Breaker is no error in a fight it was not in",
       not any("Limit Breaker" in f["text"] and "Aetherion" not in f["text"]
