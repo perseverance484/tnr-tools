@@ -65,19 +65,53 @@ def his_next_turn(rows, r_me, en_id):
     return out
 
 
+def turns_after(rows, r_me, en_id, depth):
+    """The turns that followed my turn of round r_me in the log, his and mine in turn, as the engine's script:
+    [{"who": "him" | "me", "actions": [ids]}], from his next turn to his depth-th. Waits and plain moves are left
+    out, as in his_next_turn; a turn that was only those is an empty one."""
+    out, seen_me = [], False
+    for r, u, a, ts in rows:
+        if u == ME and r == r_me and not out:
+            seen_me = True
+            continue
+        if not seen_me or u not in (ME, en_id):
+            continue
+        who = "me" if u == ME else "him"
+        if not out or out[-1]["who"] != who or out[-1]["round"] != r:
+            if sum(t["who"] == "him" for t in out) >= depth and who == "me":
+                break
+            out.append({"who": who, "round": r, "actions": []})
+        if a not in ("wait", "move"):
+            out[-1]["actions"].append(a)
+    while out and out[0]["who"] == "me":                  # (my own turn went on: not a turn after it)
+        out.pop(0)
+    kept, his = [], 0
+    for t in out:
+        kept.append({"who": t["who"], "actions": t["actions"]})
+        his += t["who"] == "him"
+        if his >= depth:
+            break
+    return kept
+
+
 def my_turn_at(rows, r_me):
     return [IDS.get(a, a) for r, u, a, ts in rows if u == ME and r == r_me and a not in ("wait", "move")]
 
 
-def exchange(rows_pre, en, me, R, en_acted, cal, bundles, his_actual):
+def exchange(rows_pre, en, me, R, en_acted, cal, bundles, his_actual, script=None):
     """Engine: each bundle on this exact position, then his actual next turn replayed (as a scripted reply).
-    Returns [(my HP, his HP)] or None per bundle."""
+    Returns (my HP, his HP, his HP after my turn alone, deep) or None per bundle. With a script (turns_after, more
+    than his one turn) the turns that followed are played on, mine as I actually played them, and deep is
+    [(my HP, his HP)] after each of his turns; else it is None."""
     me_pos, en_pos = (me["longitude"], me["latitude"]), (en["longitude"], en["latitude"])
     seqs = [turn.resolve_targets(tuple(b), me_pos, en_pos, set())[0] for b in bundles]
     req = EB._replay_request(rows_pre, ME, en["userId"], me, en, me_pos, en_pos, R, "next" if en_acted else "same", cal)
     req["mode"] = "eval"
     req["candidates"] = [[{"actionId": a, "x": t[0], "y": t[1]} for _, a, t in s] for s in seqs]
-    req["scriptedReply"] = list(his_actual)
+    if script and len(script) > 1:
+        req["script"] = script
+    else:
+        req["scriptedReply"] = list(his_actual)
     req["replyCap"] = 1
     res = EB._run(req, 90) or {}
     out = []
@@ -85,12 +119,28 @@ def exchange(rows_pre, en, me, R, en_acted, cal, bundles, his_actual):
         if not r.get("legal"):
             out.append(None)
             continue
-        after = r.get("afterScripted") or r.get("afterMe")
-        out.append((after["me"], after["him"], r["afterMe"]["him"]))
+        his = [t for t in r.get("afterScript") or [] if t["who"] == "him"]
+        after = (his[0] if his else None) or r.get("afterScripted") or r.get("afterMe")
+        last = (r.get("afterScript") or [None])[-1]
+        deep = [(t["me"], t["him"]) for t in his] + ([(last["me"], last["him"])] if last and last["who"] == "me" else [])
+        out.append((after["me"], after["him"], r["afterMe"]["him"], deep if "script" in req else None))
     return out
 
 
 UNMEASURED = ()      # what swings() gives for the exchanges when the engine gave no answer
+# How many of his actual turns each alternative is played against (tune_real.py --depth). One: his next turn, as it
+# always was. More: the turns that followed are played on, his and mine as the log has them, and each turn also
+# keeps where things stood after his last one ("deep"). One exchange gives a buff no credit for the rounds after
+# (RUL-2026-11-17-166, 3). The turns of mine that follow are the ones played after what was played, so the
+# deeper figure leans to what was played: read it as "with the same follow-up", not as each line's best.
+DEPTH = int(os.environ.get("TNR_TUNE_DEPTH", "1"))
+
+
+def deep_swings(ex, n):
+    """My HP minus his after the last turn the script reached, per bundle; None where there is none."""
+    if len(ex) != n:
+        return [None] * n
+    return [(round(v[3][-1][0] - v[3][-1][1]) if v is not None and v[3] else None) for v in ex]
 
 
 def swings(ex, n):
@@ -164,9 +214,11 @@ def review(bid_prefix, n_alts=6):
             pick = list(ranked[0][1])
             alts = [list(x[1]) for x in ranked[:n_alts] if sorted(x[1]) != sorted(played)]
             en_acted = info["en_acted"]
-            ex, score = swings(exchange(rows_pre, en, me, info["R"], en_acted, cal, [played] + alts, his_actual),
-                               1 + len(alts))
+            script = turns_after(rows, r, en_id, DEPTH) if DEPTH > 1 else None
+            ex, score = swings(exchange(rows_pre, en, me, info["R"], en_acted, cal, [played] + alts, his_actual,
+                                        script), 1 + len(alts))
             out["engine"] = out["engine"] and ex is not UNMEASURED
+            deep = deep_swings(ex, 1 + len(alts))
             # what worked against what he actually did goes into the solution library, keyed by the situation and
             # his last turn's signature (director 2026-11-11: "update the solutions library as we see it and
             # successfully respond to it")
@@ -186,6 +238,11 @@ def review(bid_prefix, n_alts=6):
                 "pick": pick, "swing_pick": next((score[i] for i, bb in enumerate([played] + alts)
                                                   if sorted(bb) == sorted(pick)), None),
             })
+            if DEPTH > 1:
+                at = lambda b: next((deep[i] for i, bb in enumerate([played] + alts) if sorted(bb) == sorted(b)), None)
+                out["turns"][-1]["deep"] = {
+                    "his_turns": sum(t["who"] == "him" for t in script), "played": deep[0], "pick": at(pick),
+                    "best": max((d for d in deep if d is not None), default=None)}
         finally:
             os.unlink(tp)
     os.makedirs(OUT, exist_ok=True)

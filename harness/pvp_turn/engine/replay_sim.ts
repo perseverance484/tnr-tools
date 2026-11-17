@@ -13,6 +13,7 @@
  *   log: [{ round, actor: "me" | "him", actionId }]       — chronological, "wait"/"move" allowed (skipped)
  *   candidates?: [[{ actionId, x, y }]]                   — eval mode
  *   replyCap?: number                                      — max enemy reply bundles to try (default 60)
+ *   script?: [{ who: "him" | "me", actions: [ids] }]       — eval mode: the logged turns after mine, played in order
  * Output: { ap, available: [{id, name, cost}], replayIssues: [...], results?: [...] }
  *   results[i] = { legal, failedAt?, reason?, afterMe: {me, him}, best: {me, him, actions}, typical: {...} }
  */
@@ -357,6 +358,27 @@ const main = async () => {
         const b1 = structuredClone(b);
         if (req.hisTurn === "next") I.nextRound(b1);
         setActive(b1, req.him.id);
+        if (req.script) {
+          // the turns that followed in the log, his and mine in turn, as they were actually played (postmortem.py,
+          // TNR_TUNE_DEPTH): [{ who: "him" | "me", actions: [ids] }]. A new round begins before the side that acts
+          // first in a round; a step the engine refuses is noted and passed over. One row of health per turn.
+          let bs = structuredClone(b);
+          const first = req.hisTurn === "next" ? "him" : "me";
+          out.afterScript = [];
+          for (const turn of req.script) {
+            const cid = turn.who === "me" ? req.me.id : req.him.id;
+            if (turn.who === first) I.nextRound(bs);
+            setActive(bs, cid);
+            for (const id of turn.actions) {
+              const r = tryAct(bs, cid, id);
+              if (r.ok) bs = r.battle; else (out.scriptFail ??= []).push([turn.who, id, r.reason]);
+              if (hp(bs, req.me.id) <= 0 || hp(bs, req.him.id) <= 0) break;
+            }
+            out.afterScript.push({ who: turn.who, me: hp(bs, req.me.id), him: hp(bs, req.him.id) });
+            if (hp(bs, req.me.id) <= 0 || hp(bs, req.him.id) <= 0) break;
+          }
+          return;
+        }
         if (req.scriptedReply) {
           // his logged next turn, as he actually played it (postmortem.py)
           let bs = structuredClone(b1);

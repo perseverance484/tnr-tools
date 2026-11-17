@@ -73,6 +73,37 @@ def test_a_turn_the_engine_did_not_answer_has_no_regret():
     print("ok: a turn the engine did not answer has no regret; one it answered keeps a rejected bundle apart")
 
 
+def test_the_turns_that_followed_mine():
+    """What tune_real --depth plays each line against: his next turns as he played them, mine in between as I
+    played them, up to his depth-th. Waits and plain moves are left out."""
+    T = postmortem.turns_after
+    first = [(1, ME, "a1", []), (1, HIM, "h1", []), (1, HIM, "wait", []), (2, ME, "move", []), (2, ME, "a2", []),
+             (2, ME, "a2b", []), (2, HIM, "h2", []), (3, ME, "a3", []), (3, HIM, "h3", []), (4, ME, "a4", [])]
+    assert T(first, 1, HIM, 1) == [{"who": "him", "actions": ["h1"]}]
+    assert T(first, 1, HIM, 2) == [{"who": "him", "actions": ["h1"]}, {"who": "me", "actions": ["a2", "a2b"]},
+                                   {"who": "him", "actions": ["h2"]}]
+    assert [t["who"] for t in T(first, 1, HIM, 3)] == ["him", "me", "him", "me", "him"]
+    assert T(first, 3, HIM, 3) == [{"who": "him", "actions": ["h3"]}, {"who": "me", "actions": ["a4"]}]   # it ended
+    second = [(1, HIM, "h1", []), (1, ME, "a1", []), (2, HIM, "h2", []), (2, ME, "a2", []), (3, HIM, "h3", [])]
+    assert T(second, 1, HIM, 2) == [{"who": "him", "actions": ["h2"]}, {"who": "me", "actions": ["a2"]},
+                                    {"who": "him", "actions": ["h3"]}]                # he acts first in a round
+    assert T(second, 2, HIM, 1) == [{"who": "him", "actions": ["h3"]}] and T(second, 9, HIM, 2) == []
+    other = first[:2] + [(1, "aiSummon", "bite", [])] + first[2:]                     # a third actor is nobody's turn
+    assert T(other, 1, HIM, 2) == T(first, 1, HIM, 2)
+    print("ok: the turns that followed mine, his and mine in turn, up to his depth-th")
+
+
+def test_where_things_stood_after_his_last_turn():
+    S = postmortem.deep_swings
+    ex = [(3000, 2500, 2600, [(3000, 2500), (2000, 2400), (1500, 900)]), None, (2800, 2000, 2100, [(2800, 2000)]),
+          (2800, 2000, 2100, None), (2800, 2000, 2100, [])]
+    assert S(ex, 5) == [600, None, 800, None, None]
+    assert S(postmortem.UNMEASURED, 3) == [None, None, None]                          # no engine: nothing measured
+    ex1, score = postmortem.swings(ex, 5)
+    assert score == [500, None, 800, 800, 800]                                        # one exchange: as it was
+    print("ok: the deeper figure is where things stood after his last scripted turn; one exchange is unchanged")
+
+
 def test_a_loss_is_reviewed_where_there_is_no_engine():
     """Run 2's first loss, as it was reviewed in the cloud container: no engine app. It ends well, says what was
     not measured, and still writes the turns and the replay review."""
@@ -86,6 +117,13 @@ def test_a_loss_is_reviewed_where_there_is_no_engine():
         assert kept["engine"] is False and len(kept["turns"]) >= 10 and kept["errors"], (kept["engine"], len(kept["turns"]))
         assert all(t["regret"] is None and t["swing_played"] is None for t in kept["turns"])
         assert all(t["dmg_logged"] is not None and t["played"] for t in kept["turns"])
+        assert not any("deep" in t for t in kept["turns"])                           # depth 1: the review as it was
+        out = subprocess.run([sys.executable, os.path.join(TOOLS, "postmortem.py"), LOSS[:10]], capture_output=True,
+                             text=True, timeout=300, env=dict(env, TNR_TUNE_DEPTH="3"))
+        assert out.returncode == 0, out.stderr[-800:]
+        deep = [t["deep"] for t in json.load(open(os.path.join(d, LOSS + ".json")))["turns"]]
+        assert all(x["played"] is None and x["pick"] is None and x["best"] is None for x in deep), deep[:2]
+        assert [x["his_turns"] for x in deep][:3] == [3, 3, 3] and deep[-1]["his_turns"] <= 2, deep[-2:]
     print(f"ok: {LOSS[:8]} is reviewed with no engine: {len(kept['turns'])} turns, {len(kept['errors'])} review "
           "errors, no regret claimed")
 
@@ -94,4 +132,6 @@ if __name__ == "__main__":
     test_the_other_side_of_a_log()
     test_the_review_reads_a_fight_against_an_ai()
     test_a_turn_the_engine_did_not_answer_has_no_regret()
+    test_the_turns_that_followed_mine()
+    test_where_things_stood_after_his_last_turn()
     test_a_loss_is_reviewed_where_there_is_no_engine()
