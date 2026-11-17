@@ -9,7 +9,7 @@ live_states/<bid>.full.jsonl.gz, live_states/<bid>.plans.jsonl.gz (every planner
 the saved kit of each player the log names beside me (harness/pvp_turn/kit/opponents/<user id>.json): the planner
 and the reviews read it, and AP run 2's kits were lost with its container. Not the post-mortem: it is still being
 written when the fight closes, and is made again from the log (tools/postmortem.py -- <bid>). Any other path is
-refused.
+refused: another fight's file, and any other file of the fights folder, too.
 
 How: as forge/tools/run_lock.mjs writes the lock. One commit on origin/main built in a private index from the
 fetched main, so the working tree, its branch and its index are never touched; a plain fast-forward push; if main
@@ -34,13 +34,17 @@ TRIES = 4
 KITS = "harness/pvp_turn/kit/opponents"      # where the tools save what an opponent has equipped (combat.save_kit)
 
 
+def _own(bid):
+    """The five files a fight leaves, as paths inside the fights folder."""
+    return [f"{bid}_entries.json", f"{bid}_meta.json", os.path.join("live_states", f"{bid}.json"),
+            os.path.join("live_states", f"{bid}.full.jsonl.gz"), os.path.join("live_states", f"{bid}.plans.jsonl.gz")]
+
+
 def fight_files(bid, fights=None):
     """The fight's files that exist, as absolute paths: its own, then the kits of the players in its log."""
     fights = fights or C.fights_dir()
-    names = [f"{bid}_entries.json", f"{bid}_meta.json", os.path.join("live_states", f"{bid}.json"),
-             os.path.join("live_states", f"{bid}.full.jsonl.gz"), os.path.join("live_states", f"{bid}.plans.jsonl.gz")]
     kits = [os.path.join(REPO, rel) for rel in _kits(os.path.join(fights, f"{bid}_entries.json"))]
-    return [p for p in [os.path.join(fights, n) for n in names] + kits if os.path.isfile(p)]
+    return [p for p in [os.path.join(fights, n) for n in _own(bid)] + kits if os.path.isfile(p)]
 
 
 def _kits(entries):
@@ -60,10 +64,13 @@ def _git(args, env=None, data=None):
 
 
 def _rel(path, bid):
+    """The path inside the repository, if it is one of this fight's: its five own files, or the kit of a player
+    its log names. Anything else is refused, another fight's file and any other file of the fights folder among
+    them (review of e051d062, F4: the whole folder used to pass)."""
     rel = os.path.relpath(os.path.abspath(path), REPO).replace(os.sep, "/")
     home = f"state/player/{C.ACCOUNT}/fights/"
-    mine = rel.startswith(home) or rel in _kits(os.path.join(REPO, home, f"{bid}_entries.json"))
-    if rel.startswith("../") or not mine:
+    mine = {home + n.replace(os.sep, "/") for n in _own(bid)}
+    if rel not in mine | set(_kits(os.path.join(REPO, home, f"{bid}_entries.json"))):
         raise ValueError(f"not a file of this fight: {rel}")
     return rel
 

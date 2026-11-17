@@ -247,6 +247,17 @@ class KeptLogs(unittest.TestCase):
             self.assertIsNone(again["commit"])                                # nothing new: no commit
             stray = os.path.join(work, "README")
             self.assertIn("error", keep.keep(bid, [stray]))                    # only fight files
+            # and only this fight's (review of e051d062, F4): another fight's log, any other file of the folder,
+            # and this fight's own log asked for under another fight's name
+            for name in ("otherFight_entries.json", "notes.txt", os.path.join("live_states", "otherFight.json"),
+                         os.path.join("postmortems", f"{bid}.json")):
+                path = os.path.join(fights, name)
+                os.makedirs(os.path.dirname(path), exist_ok=True)
+                with open(path, "w") as f:
+                    f.write("{}\n")
+                self.assertIn("not a file of this fight", keep.keep(bid, [path]).get("error", ""), name)
+            self.assertIn("error", keep.keep("otherFight", [files[0]]))
+            self.assertIn("error", keep.keep(bid, files + [os.path.join(fights, "notes.txt")]))   # one bad: none goes
         listed = subprocess.run(["git", "--git-dir", origin, "show", "--name-only", "--format=", "main"],
                                 capture_output=True, text=True, check=True).stdout.split()
         self.assertEqual(sorted(listed), sorted(f"state/player/{C.ACCOUNT}/fights/" + os.path.relpath(p, fights)
