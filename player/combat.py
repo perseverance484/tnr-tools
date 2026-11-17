@@ -19,8 +19,9 @@ from . import calls as K
 from . import config as C
 from .registry import REGISTRY
 
-REGISTRY.model("planner", "the turn planner (planner2.py; turn.py while AP4 has not consolidated them)",
-               ("planner2.py", "turn.py"))
+REGISTRY.model("planner", "the turn planner (planner2.py; turn.py while AP4 has not consolidated them), and its "
+               "calibration (value_model.py), which the atlas's engine requests are built with (player/atlas.py)",
+               ("planner2.py", "turn.py", "value_model.py"))
 REGISTRY.model("dossier", "the opponent's kit, weapons and imbues, read before the first action; his bloodline and "
                "rank, which the planner reads from it", ("opponent_kit.py", "engine_bridge.py"), ("opp_profile.py",))
 REGISTRY.model("opponents", "opponent models from every logged fight, rebuilt after each one", ("opponents.py",))
