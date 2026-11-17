@@ -268,9 +268,14 @@ out, lines, fire = plan("mamba_r5.txt", 12)
 OFF = {"11,2", "9,1"}
 land = lambda ln: (re.search(r"(?:phantom|replace)@(\d+,\d+)", ln) or [None, None])[1]  # noqa: E731
 moved = [ln for ln in lines if land(ln)]
+# The planner must have run and fired a line before where it goes is looked at: with no FIRE line the check below
+# held for nothing (review of e051d062: the output with its FIRE line taken out still passed).
+check("R5: planner2 ran to its end and fired a line", out.returncode == 0 and isinstance(fire, list) and len(fire) > 0
+      and all(isinstance(a, dict) and a.get("name") and a.get("actionId") for a in fire),
+      out.stdout[-800:] + out.stderr[-800:])
 fired = [f"{a['longitude']},{a['latitude']}" for a in fire or [] if a["name"] in ("phantom", "replace")]
 check("R5: the first Phantom Step or Replacement line, and the move that is fired, land off his Ring of Spilled Blood",
-      moved and land(moved[0]) in OFF and all(t in OFF for t in fired), "\n".join(lines))
+      bool(fire) and moved and land(moved[0]) in OFF and all(t in OFF for t in fired), "\n".join(lines))
 # the landing tile decides the -damage given: on his floor it stays, off it it goes
 import turn as T  # noqa: E402
 battle = json.loads(open(os.path.join(HERE, "mamba_r5.txt")).readline())
