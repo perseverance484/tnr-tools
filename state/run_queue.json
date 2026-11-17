@@ -690,6 +690,32 @@
     "Duet uploads state/fcf_upload/upload_list.json to the director's UploadThing (uploaded.json)"
    ],
    "note": "Director 2026-11-16: 'Let's do this animation'. Then Claude: gameAsset.create x4 hidden (ANIMATION x3 with frames/speed, STATIC ground), unhide by edit, one full-record jutsu.update of Lg_thN-MB8FRAr_Agf9tn changing only art fields: effect 2 appear=burst v4 (28 x 42), static=shimmer (16 x 70), staticAssetPath=ground, disappear=fade (10 x 50), animationScale 3; effect 1 appearAnimation cleared, appearSfx kept. Player bloodline jutsu: no law 18. Read back. Brief: docs/handoffs/FORBIDDEN_CHAKRA_FURY_ANIMATION_ART_REQUEST.md."
+  },
+  {
+   "id": "622",
+   "manifest": "push/622_gobblefather_jutsu.json",
+   "what": "The Gobblefather (Thanksgiving 2026) step 1: 15 boss jutsu, hidden",
+   "runner": "connector",
+   "status": "waiting",
+   "waitsFor": [
+    "director review of state/gobblefather/build_notes.md (placeholders, design calls)",
+    "director go"
+   ],
+   "build": "python3 push/622_gobblefather_core.gen.py",
+   "note": "validate.py 0/0, check_manifest 0. Keep the results bundle: 623 is built from its idmap."
+  },
+  {
+   "id": "623",
+   "manifest": "push/623_gobblefather_ai_quest.json",
+   "what": "The Gobblefather step 2: 7 AI (rules on the AI) + the event quest, hidden",
+   "runner": "connector",
+   "status": "blocked",
+   "waitsFor": [
+    "622 results bundle",
+    "director go"
+   ],
+   "build": "python3 push/622_gobblefather_core.gen.py --ids <622 bundle>",
+   "note": "Dry build (stand-in ids): check_manifest 0; validate.py 7 errors, all law-14 preferredStat, ledgered under RUL-2026-10-25-009 by the generator with the manifest sha."
   }
  ]
 }
