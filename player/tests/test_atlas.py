@@ -1,7 +1,6 @@
 """The move atlas (player/atlas.py, player/atlas.json): what the generator makes of a record and of the engine's
 answer, and what the committed atlas holds. None of these needs the engine or the catalog."""
 import json
-import os
 import sys
 import unittest
 from unittest import mock
