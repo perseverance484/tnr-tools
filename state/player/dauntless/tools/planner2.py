@@ -1283,7 +1283,8 @@ def rank(P, bundles, ap, W):
             why = why + [f"library answer (confidence {book[1]:.0%})"]
         res.append((total(W, feats, term, rc, waste, guard), b, feats, term, rc, waste, guard, why, dmg, outs, p_dead))
     res.sort(key=lambda x: -x[0])
-    if res and res[0][0] < -0.6 * value_model.DEATH:
+    P.desperate = bool(res and res[0][0] < -0.6 * value_model.DEATH)     # (the rerank steps leave this order alone)
+    if P.desperate:
         # every line loses: among the lines that keep me alive best (the chance I am dead before my next turn
         # within 0.10 of the lowest), the one that takes most off him now; the rest after, by score
         best = min(r[10] for r in res)
@@ -1338,7 +1339,13 @@ def follow_set(P, info, res, n=14):
 
 
 def lookahead_rerank(P, info, res, budget):
-    """The top LA_K one-turn candidates re-scored by the two-exchange lookahead (P.lookahead); within budget."""
+    """The top LA_K one-turn candidates re-scored by the two-exchange lookahead (P.lookahead); within budget.
+    Not when every line loses: rank() has put the lines that keep me alive best first, hardest hit first, and a
+    sort by the one-turn score plus two exchanges ahead undoes exactly that. On AP test fight 2's round 8 (DDXXD,
+    2026-11-16), replayed, it fired Basic Heal + Chakra Resistance, 99% dead and 16 damage, over the line that
+    lived best (67%) and took 788 off him."""
+    if getattr(P, "desperate", False):
+        return res
     t0 = time.time()
     st, R = info["st"], info["R"]
     pool = follow_set(P, info, res)
@@ -1364,7 +1371,10 @@ def rollout_rerank(P, info, res, n, budget, k=4):
     """Decision-time playouts (director 2026-11-11: "it's like having extra processing power"): the top k bundles,
     plus the best Cleanse / Clear line when it is not among them, are each played to the end of the fight n times
     against his model (opponents.py habits + kit; else his saved kit), common seeds; the best mean outcome is fired.
-    Replaying the Ziharkk loss, playouts found Cleanse + Thunder's on R2 where the one-turn score ranked it 18th."""
+    Replaying the Ziharkk loss, playouts found Cleanse + Thunder's on R2 where the one-turn score ranked it 18th.
+    Not when every line loses (lookahead_rerank says why)."""
+    if getattr(P, "desperate", False):
+        return res
     t0 = time.time()
     try:
         import fightsim
