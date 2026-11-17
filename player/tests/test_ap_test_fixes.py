@@ -254,6 +254,39 @@ class KeptLogs(unittest.TestCase):
         status = subprocess.run(["git", "status", "--porcelain"], cwd=work, capture_output=True, text=True).stdout
         self.assertIn("?? state/", status)                                    # the working tree was not touched
 
+    def test_the_kits_of_the_players_in_a_fight_are_kept_with_it(self):
+        """AP run 2 saved the kit of every player it met and pushed none: on main the reviews of its two losses
+        had no kit to read him from."""
+        tmp = tempfile.mkdtemp()
+        env = dict(os.environ, GIT_AUTHOR_NAME="t", GIT_AUTHOR_EMAIL="t@x.invalid", GIT_COMMITTER_NAME="t",
+                   GIT_COMMITTER_EMAIL="t@x.invalid")
+        git = lambda *a, cwd=None: subprocess.run(["git", *a], cwd=cwd, check=True, capture_output=True, env=env)  # noqa: E731
+        origin, work = os.path.join(tmp, "origin.git"), os.path.join(tmp, "work")
+        git("init", "-q", "--bare", "-b", "main", origin)
+        git("clone", "-q", origin, work)
+        git("-c", "commit.gpgsign=false", "commit", "-q", "--allow-empty", "-m", "base", cwd=work)
+        git("push", "-q", "origin", "HEAD:main", cwd=work)
+        fights, kits = os.path.join(work, "state", "player", C.ACCOUNT, "fights"), os.path.join(work, keep.KITS)
+        os.makedirs(fights), os.makedirs(kits)
+        bid, him, other = "9j3DIjLVbD_9b1RmJ69UM", "user_2SAAMvwqsbjyS2Qd8A2pB0Gzn4W", "user_38UxfHXcwBi8IyvtblWpaqkoX7y"
+        with open(os.path.join(fights, f"{bid}_entries.json"), "w") as f:
+            json.dump({"*.userId": [him, C.ME, "aTGxSsvezuwZbqj2rPHQN", None, him]}, f)   # an AI's id is no player's
+        for name in (him, other, "aTGxSsvezuwZbqj2rPHQN", C.ME):
+            with open(os.path.join(kits, name + ".json"), "w") as f:
+                f.write("{}\n")
+        with mock.patch.object(keep, "REPO", work), mock.patch.dict(os.environ, env):
+            files = keep.fight_files(bid, fights)
+            self.assertEqual([os.path.relpath(p, work) for p in files],
+                             [f"state/player/{C.ACCOUNT}/fights/{bid}_entries.json", f"{keep.KITS}/{him}.json"])
+            self.assertTrue(keep.keep(bid, files).get("commit"))
+            for stray in (other, C.ME, "aTGxSsvezuwZbqj2rPHQN"):               # not this fight's opponent: refused
+                self.assertIn("error", keep.keep(bid, [os.path.join(kits, stray + ".json")]), stray)
+            self.assertIn("error", keep.keep("B-other", [os.path.join(kits, him + ".json")]))   # nor for another fight
+        listed = subprocess.run(["git", "--git-dir", origin, "show", "--name-only", "--format=", "main"],
+                                capture_output=True, text=True, check=True).stdout.split()
+        self.assertEqual(sorted(listed), sorted([f"state/player/{C.ACCOUNT}/fights/{bid}_entries.json",
+                                                 f"{keep.KITS}/{him}.json"]))
+
 
 class StoppedWithNoFolder(unittest.TestCase):
     def test_brain_stopped_on_a_folder_that_is_not_there_yet(self):

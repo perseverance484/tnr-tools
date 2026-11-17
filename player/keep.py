@@ -5,8 +5,11 @@ the log for a while, but nothing kept it for us).
     python3 -m player.keep BATTLE_ID        commit what exists of that fight's files to origin/main; one JSON line
 
 What is kept, under state/player/<account>/fights/: <bid>_entries.json, <bid>_meta.json, live_states/<bid>.json,
-live_states/<bid>.full.jsonl.gz, live_states/<bid>.plans.jsonl.gz (every planner run's choice and candidates). Not the post-mortem: it is still being written when the fight closes, and it is
-made again from the log (tools/postmortem.py -- <bid>). A path outside the fights folder is refused.
+live_states/<bid>.full.jsonl.gz, live_states/<bid>.plans.jsonl.gz (every planner run's choice and candidates). And
+the saved kit of each player the log names beside me (harness/pvp_turn/kit/opponents/<user id>.json): the planner
+and the reviews read it, and AP run 2's kits were lost with its container. Not the post-mortem: it is still being
+written when the fight closes, and is made again from the log (tools/postmortem.py -- <bid>). Any other path is
+refused.
 
 How: as forge/tools/run_lock.mjs writes the lock. One commit on origin/main built in a private index from the
 fetched main, so the working tree, its branch and its index are never touched; a plain fast-forward push; if main
@@ -17,6 +20,7 @@ KEEP_REPO, KEEP_REMOTE, KEEP_BRANCH point it elsewhere (the tests use a local ba
 """
 import json
 import os
+import re
 import subprocess
 import sys
 import tempfile
@@ -27,14 +31,27 @@ REPO = os.environ.get("KEEP_REPO") or C.ROOT
 REMOTE = os.environ.get("KEEP_REMOTE") or "origin"
 BRANCH = os.environ.get("KEEP_BRANCH") or "main"
 TRIES = 4
+KITS = "harness/pvp_turn/kit/opponents"      # where the tools save what an opponent has equipped (combat.save_kit)
 
 
 def fight_files(bid, fights=None):
-    """The fight's files that exist, as absolute paths."""
+    """The fight's files that exist, as absolute paths: its own, then the kits of the players in its log."""
     fights = fights or C.fights_dir()
     names = [f"{bid}_entries.json", f"{bid}_meta.json", os.path.join("live_states", f"{bid}.json"),
              os.path.join("live_states", f"{bid}.full.jsonl.gz"), os.path.join("live_states", f"{bid}.plans.jsonl.gz")]
-    return [p for p in (os.path.join(fights, n) for n in names) if os.path.isfile(p)]
+    kits = [os.path.join(REPO, rel) for rel in _kits(os.path.join(fights, f"{bid}_entries.json"))]
+    return [p for p in [os.path.join(fights, n) for n in names] + kits if os.path.isfile(p)]
+
+
+def _kits(entries):
+    """Where the kit of each player a fight's log names beside me is saved, as paths in the repository."""
+    try:
+        with open(entries, encoding="utf8") as f:
+            ids = json.load(f).get("*.userId") or []
+    except (OSError, ValueError, AttributeError):
+        return []
+    return sorted({f"{KITS}/{u}.json" for u in ids
+                   if isinstance(u, str) and re.fullmatch(r"user_[A-Za-z0-9]+", u) and u != C.ME})
 
 
 def _git(args, env=None, data=None):
@@ -42,10 +59,12 @@ def _git(args, env=None, data=None):
                           env=env).stdout
 
 
-def _rel(path):
+def _rel(path, bid):
     rel = os.path.relpath(os.path.abspath(path), REPO).replace(os.sep, "/")
-    if rel.startswith("../") or not rel.startswith(f"state/player/{C.ACCOUNT}/fights/"):
-        raise ValueError(f"not a fight file of this account: {rel}")
+    home = f"state/player/{C.ACCOUNT}/fights/"
+    mine = rel.startswith(home) or rel in _kits(os.path.join(REPO, home, f"{bid}_entries.json"))
+    if rel.startswith("../") or not mine:
+        raise ValueError(f"not a file of this fight: {rel}")
     return rel
 
 
@@ -77,7 +96,7 @@ def keep(bid, paths=None):
     if not paths:
         return {"kept": [], "commit": None, "note": "no files for this fight"}
     try:
-        files = [(_rel(p), p) for p in paths]
+        files = [(_rel(p, bid), p) for p in paths]
     except ValueError as err:
         return {"error": str(err)}
     last = None
