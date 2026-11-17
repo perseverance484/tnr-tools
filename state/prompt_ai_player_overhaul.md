@@ -63,6 +63,8 @@ loses a turn, learns from every real fight, and stays inside the game rules and 
 Each phase ends with a handoff at an exact SHA, its gates green, and a short findings note. Do not start a phase
 before the previous one is accepted, unless the director says so.
 
+**Order (RUL-2026-11-17-165, -166):** the director began the next phases on 2026-11-17, and AP4 comes before AP3.
+
 ### AP0: inventory and one base
 
 1. **Merge into one base.** Merge `fable/pvp-engine-harness` and `fable/pilot-planner-fixes` into
