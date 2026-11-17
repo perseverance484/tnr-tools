@@ -345,6 +345,14 @@ def had_limit_breaker(rows, me_id, path=None):
     return day >= LIMIT_BREAKER_FROM
 
 
+def opponent_of(rows, me_id):
+    """The other side of a logged fight: the first player who acts in it and is not me. An AI opponent's id is no
+    user id, so in a fight with no other player it is the first other actor (run 2: the review's command line
+    stopped on every such log). None when nobody else acts."""
+    others = [u for u in dict.fromkeys(u for _, u, _, _ in rows) if u and u != me_id]
+    return next((u for u in others if u.startswith("user_")), others[0] if others else None)
+
+
 def review_fight(rows, me_id, en_id, me_name="dauntless", my_max=5050, states=None, loadout="pvp1",
                  limit_breaker=True, tiles=None):
     """The errors in one fight, turn by turn: [{round, played, text}]. rows: the log, oldest first, as
@@ -628,7 +636,9 @@ def main():
             raise SystemExit(f"no log for {a.bid}")
         bid, rows, path = log
         tiles = log_tiles(path)
-    en_id = next(u for u in dict.fromkeys(u for _, u, _, _ in rows) if u != me_id and (u or "").startswith("user_"))
+    en_id = opponent_of(rows, me_id)
+    if en_id is None:
+        raise SystemExit(f"{bid}: nobody but me acts in this log")
     report_fight(review_fight(rows, me_id, en_id, states=archived_states(bid),
                               limit_breaker=had_limit_breaker(rows, me_id, path), tiles=tiles), bid[:8])
 

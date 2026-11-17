@@ -39,7 +39,7 @@ import critique  # noqa: E402
 import value_model  # noqa: E402
 from ingest import IDS, ME  # noqa: E402
 
-OUT = os.path.join(HERE, "..", "fights", "postmortems")
+OUT = os.environ.get("TNR_POSTMORTEM_OUT") or os.path.join(HERE, "..", "fights", "postmortems")
 LEARN = os.environ.get("TNR_LEARN", "1") == "1"
 
 
@@ -90,6 +90,19 @@ def exchange(rows_pre, en, me, R, en_acted, cal, bundles, his_actual):
     return out
 
 
+UNMEASURED = ()      # what swings() gives for the exchanges when the engine gave no answer
+
+
+def swings(ex, n):
+    """(the exchanges, my HP minus his after each of the n bundles and his actual reply). A bundle the engine
+    rejects is None. With no answer for the turn (no engine app on this machine, or the engine failed), none of
+    the n is measured: the turn keeps its read and its numbers, and has no regret. Run 2 ran where there is no
+    engine, and the review of both its losses stopped here on the first turn."""
+    if len(ex) != n:
+        return UNMEASURED, [None] * n
+    return ex, [(None if v is None else round(v[0] - v[1])) for v in ex]
+
+
 def review(bid_prefix, n_alts=6):
     cal = value_model.load_cal()
     value_model.calibrate_kit(cal)
@@ -97,12 +110,13 @@ def review(bid_prefix, n_alts=6):
     if not log:
         sys.exit(f"no log for {bid_prefix}")
     bid, rows, log_path = log
-    users = [u for u in dict.fromkeys(u for _, u, _, _ in rows) if (u or "").startswith("user_")]
-    en_id = next(u for u in users if u != ME)
+    en_id = critique.opponent_of(rows, ME)
+    if en_id is None:
+        sys.exit(f"{bid}: nobody but me acts in this log")
     os.environ["TNR_OM_EXCLUDE"] = bid          # his model without this fight: an honest read
     model = OM.load().get(en_id)
     acts = OM.acts_for(model) if model else {}
-    out = {"fight": bid, "opp": OM.names_in(rows, en_id), "turns": []}
+    out = {"fight": bid, "opp": OM.names_in(rows, en_id), "turns": [], "engine": True}
     # the replay review (director 2026-11-16: "analyze replays as I just did to spot errors"): every turn against
     # his fight 2 critique, from the log and the archived live states (critique.review_fight)
     out["errors"] = critique.review_fight(rows, ME, en_id, me_name=turn.ME_NAME,
@@ -150,8 +164,9 @@ def review(bid_prefix, n_alts=6):
             pick = list(ranked[0][1])
             alts = [list(x[1]) for x in ranked[:n_alts] if sorted(x[1]) != sorted(played)]
             en_acted = info["en_acted"]
-            ex = exchange(rows_pre, en, me, info["R"], en_acted, cal, [played] + alts, his_actual)
-            score = [(None if v is None else round(v[0] - v[1])) for v in ex]
+            ex, score = swings(exchange(rows_pre, en, me, info["R"], en_acted, cal, [played] + alts, his_actual),
+                               1 + len(alts))
+            out["engine"] = out["engine"] and ex is not UNMEASURED
             # what worked against what he actually did goes into the solution library, keyed by the situation and
             # his last turn's signature (director 2026-11-11: "update the solutions library as we see it and
             # successfully respond to it")
@@ -208,6 +223,9 @@ def report(out):
             flag.append(f"damage off (planner {t['dmg_planner']}, engine {t.get('dmg_engine')}, log {t['dmg_logged']})")
         print(f"  R{t['round']} {t['my_hp']:>4}/{t['his_hp']:<4} played {'+'.join(t['played'])} | he did "
               f"{'+'.join(t['his_next'])[:50]} (p {t['p_his_actual']:.0%}) | {'; '.join(flag) or 'ok'}")
+    if not out.get("engine", True):
+        print("  the engine gave no answer for a turn (no engine app on this machine? harness/pvp_turn/README.md, "
+              "\"Engine version\"): what the alternatives were worth against his actual reply is not measured there")
     if out.get("errors") is not None:
         critique.report_fight(out["errors"])
     worst = max((t for t in out["turns"] if t["regret"] is not None), key=lambda t: t["regret"], default=None)
