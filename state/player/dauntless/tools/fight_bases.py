@@ -24,7 +24,7 @@ import turn  # noqa: E402
 import value_model  # noqa: E402
 from ingest import ME  # noqa: E402
 
-LIVE = os.path.join(HERE, "..", "fights", "live")
+LIVE = os.environ.get("TNR_PILOT_LIVE") or os.path.join(HERE, "..", "fights", "live")   # gitignored runtime (pilot.LIVE)
 
 
 def mine(rows, en_id, perm, cal):

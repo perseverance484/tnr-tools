@@ -26,7 +26,8 @@ def _index():
     global _IDX
     if _IDX is None:
         cat = os.path.join(EB.HARNESS, "kit", "catalog.json")
-        idx = os.path.join(HERE, "..", "fights", "live", "jutsu_index.json")
+        idx = os.path.join(os.environ.get("TNR_PILOT_LIVE") or os.path.join(HERE, "..", "fights", "live"),
+                           "jutsu_index.json")                     # gitignored runtime, as pilot.LIVE
         try:
             if os.path.getmtime(idx) >= os.path.getmtime(cat):
                 _IDX = json.load(open(idx))

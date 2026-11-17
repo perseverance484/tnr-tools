@@ -188,6 +188,15 @@ def review(bid_prefix, n_alts=6):
             })
         finally:
             os.unlink(tp)
+    if not out["turns"]:
+        # No turn was rebuilt, so nothing was measured, with or without an engine (review of e051d062, F2: a fight
+        # against an AI came back "engine: true" with no turn in it). engine_check.positions rebuilds a fight of two
+        # players; the replay review above reads any log.
+        out["engine"] = None
+        out["note"] = ("no turn-by-turn review: " + (
+            "the opponent is an AI, and positions are rebuilt for a fight of two players only"
+            if not en_id.startswith("user_") else "no turn of mine could be rebuilt from this log")
+            + "; the replay review is all there is")
     os.makedirs(OUT, exist_ok=True)
     json.dump(out, open(os.path.join(OUT, f"{bid}.json"), "w"), indent=1)
     if learned:
@@ -223,7 +232,9 @@ def report(out):
             flag.append(f"damage off (planner {t['dmg_planner']}, engine {t.get('dmg_engine')}, log {t['dmg_logged']})")
         print(f"  R{t['round']} {t['my_hp']:>4}/{t['his_hp']:<4} played {'+'.join(t['played'])} | he did "
               f"{'+'.join(t['his_next'])[:50]} (p {t['p_his_actual']:.0%}) | {'; '.join(flag) or 'ok'}")
-    if not out.get("engine", True):
+    if out.get("note"):
+        print("  " + out["note"])
+    if out.get("engine") is False:
         print("  the engine gave no answer for a turn (no engine app on this machine? harness/pvp_turn/README.md, "
               "\"Engine version\"): what the alternatives were worth against his actual reply is not measured there")
     if out.get("errors") is not None:

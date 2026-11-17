@@ -26,6 +26,13 @@ AI, HIM = "aTGxSsvezuwZbqj2rPHQN", "user_2SAAMvwqsbjyS2Qd8A2pB0Gzn4W"
 LOSS = "9j3DIjLVbD_9b1RmJ69UM"          # run 2, fight 6: lost to Shisui in round 13
 
 
+def quiet(d):
+    """The environment of a review that touches nothing of the checkout: no engine, nothing learned, its report
+    and what it writes on the way (fights/live, which is not tracked and not there in a fresh checkout) under d."""
+    return dict(os.environ, TNR_ENGINE_APP=os.path.join(d, "no-engine"), TNR_LEARN="0", TNR_POSTMORTEM_OUT=d,
+                TNR_PILOT_LIVE=os.path.join(d, "live"))
+
+
 def rows(*who):
     return [(1 + i // 2, u, "basicAttack", []) for i, u in enumerate(who)]
 
@@ -76,11 +83,17 @@ def test_a_turn_the_engine_did_not_answer_has_no_regret():
 def test_a_loss_is_reviewed_where_there_is_no_engine():
     """Run 2's first loss, as it was reviewed in the cloud container: no engine app. It ends well, says what was
     not measured, and still writes the turns and the replay review."""
+    real = os.path.join(TOOLS, "..", "fights", "live")
+    was = os.path.isdir(real)
     with tempfile.TemporaryDirectory() as d:
-        env = dict(os.environ, TNR_ENGINE_APP=os.path.join(d, "no-engine"), TNR_LEARN="0", TNR_POSTMORTEM_OUT=d)
+        env = quiet(d)
         out = subprocess.run([sys.executable, os.path.join(TOOLS, "postmortem.py"), LOSS[:10]],
                              capture_output=True, text=True, timeout=300, env=env)
         assert out.returncode == 0, out.stderr[-800:]
+        assert os.path.isdir(real) == was, "the review made the checkout's fights/live"
+        # what the review writes on its way is in the test's own folder, which did not exist: a fresh checkout has
+        # no fights/live, and the first run of this test there ended in FileNotFoundError (review of e051d062, F3)
+        assert os.path.isfile(os.path.join(d, "live", "ECHK_bases.json")), os.listdir(d)
         assert "the engine gave no answer" in out.stdout and "replay review" in out.stdout, out.stdout[-600:]
         kept = json.load(open(os.path.join(d, LOSS + ".json")))
         assert kept["engine"] is False and len(kept["turns"]) >= 10 and kept["errors"], (kept["engine"], len(kept["turns"]))
@@ -90,8 +103,25 @@ def test_a_loss_is_reviewed_where_there_is_no_engine():
           "errors, no regret claimed")
 
 
+def test_a_fight_against_an_ai_says_that_its_turns_were_not_reviewed():
+    """Review of e051d062, F2. The post-mortem no longer stopped on an AI's log, and came back with no turn in it
+    and "engine": true: positions are rebuilt for a fight of two players. It now says what it did not do."""
+    ai_fight = "1nKLV-oUazfAEWA6OSfBi"                     # two rounds against Arsenal Keeper, committed
+    with tempfile.TemporaryDirectory() as d:
+        out = subprocess.run([sys.executable, os.path.join(TOOLS, "postmortem.py"), ai_fight[:10]],
+                             capture_output=True, text=True, timeout=300, env=quiet(d))
+        assert out.returncode == 0, out.stderr[-800:]
+        kept = json.load(open(os.path.join(d, ai_fight + ".json")))
+    assert kept["turns"] == [] and kept["engine"] is None, (len(kept["turns"]), kept["engine"])
+    assert "the opponent is an AI" in kept["note"] and kept["note"] in out.stdout, kept.get("note")
+    assert "the engine gave no answer" not in out.stdout and "turning point" not in out.stdout
+    assert isinstance(kept["errors"], list) and "replay review" in out.stdout      # that part reads any log
+    print(f"ok: {ai_fight[:8]} against an AI: no turn reviewed, said so, and not called measured")
+
+
 if __name__ == "__main__":
     test_the_other_side_of_a_log()
     test_the_review_reads_a_fight_against_an_ai()
     test_a_turn_the_engine_did_not_answer_has_no_regret()
     test_a_loss_is_reviewed_where_there_is_no_engine()
+    test_a_fight_against_an_ai_says_that_its_turns_were_not_reviewed()

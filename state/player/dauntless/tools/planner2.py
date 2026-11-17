@@ -35,6 +35,7 @@ import sys
 import time
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+LIVE = os.environ.get("TNR_PILOT_LIVE") or os.path.join(HERE, "..", "fights", "live")   # as pilot.py and fight_bases.py
 sys.path.insert(0, HERE)
 import cd_plan  # noqa: E402
 import shotplan  # noqa: E402
@@ -1152,7 +1153,7 @@ _OPP_SCALES = None
 def fight_bases(bid, en_id):
     """fight_bases.py output for this battle and opponent, or None."""
     try:
-        fb = json.load(open(os.path.join(HERE, "..", "fights", "live", f"{bid}_bases.json"))) if bid else None
+        fb = json.load(open(os.path.join(LIVE, f"{bid}_bases.json"))) if bid else None
     except (OSError, ValueError):
         return None
     return fb if fb and fb.get("opp") == en_id and (fb.get("me") or fb.get("him")) else None
@@ -1160,7 +1161,7 @@ def fight_bases(bid, en_id):
 
 def meal_factors(bid):
     try:
-        return json.load(open(os.path.join(HERE, "..", "fights", "live", f"{bid}_meal.json"))) if bid else {}
+        return json.load(open(os.path.join(LIVE, f"{bid}_meal.json"))) if bid else {}
     except (OSError, ValueError):
         return {}
 

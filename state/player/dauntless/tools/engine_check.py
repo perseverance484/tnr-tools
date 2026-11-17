@@ -82,6 +82,7 @@ def exact_inputs(path, name, cal):
     if _FB.get("key") != key:
         fb = {"me": fight_bases.mine(rows, en["userId"], [], cal), "him": fight_bases.his(rows, en["userId"], [], cal),
               "opp": en["userId"]}
+        os.makedirs(fight_bases.LIVE, exist_ok=True)      # (a fresh checkout has no fights/live: it is not tracked)
         json.dump(fb, open(os.path.join(fight_bases.LIVE, "ECHK_bases.json"), "w"))
         _FB["key"] = key
 
