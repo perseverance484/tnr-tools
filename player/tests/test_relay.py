@@ -5,10 +5,11 @@ import os
 import re
 import subprocess
 import sys
+import tempfile
 import time
 import unittest
 
-from player import brain, config as C, relay
+from player import brain, config as C, relay, tokens
 from player.tests.support import Rig, user
 
 
@@ -212,6 +213,54 @@ class Tokens(unittest.TestCase):
         self.assertEqual(rig.world["relay"]["baseline_tokens"], 62_000)
         with open(os.path.join(rig.dir, "tokens.jsonl")) as f:
             self.assertEqual([json.loads(line)["calls"] for line in f], [4, 3, 3])   # the calls each batch carried
+
+    # two rows of AP run 2's log (2026-11-16), as the brain wrote them: its first batch, and one in a fight
+    FIRST = {"in": 6161, "out": 246, "context": 6161, "cached": 4642, "written": 1517, "hooks": True, "calls": 0,
+             "battle": None}
+    FIGHT = {"in": 24507, "out": 305, "context": 24507, "cached": 23971, "written": 534, "hooks": True, "calls": 2,
+             "battle": "9j3DIjLVbD_9b1RmJ69UM"}
+
+    def test_the_plans_count_counts_a_batchs_input_once(self):
+        """`in` is the whole input, cached and written included. The run's own report added it as fresh input on
+        top of both, and said 27,514 a batch for a run that cost 4,930."""
+        self.assertAlmostEqual(tokens.plan_count(self.FIRST), 0.1 * 4642 + 1.25 * 1517 + 2 + 5 * 246)    # 3,592.45
+        self.assertAlmostEqual(tokens.plan_count(self.FIGHT), 0.1 * 23971 + 1.25 * 534 + 2 + 5 * 305)    # 4,591.6
+        self.assertLess(tokens.plan_count(self.FIGHT), self.FIGHT["in"])       # counted twice it was 29,097
+        # a row that does not say what was cached: all of its input is fresh, the most it can have been
+        self.assertEqual(tokens.plan_count({"in": 1000, "out": 50, "cached": None, "written": None}), 1250)
+        self.assertEqual(tokens.plan_count({"in": 1000, "out": 50}), 1250)
+        self.assertEqual(tokens.plan_count({"in": 100, "out": 0, "cached": 90, "written": 20}), 34)   # never under 0
+
+    def test_the_report_is_the_whole_log_in_and_out_of_a_fight(self):
+        with tempfile.TemporaryDirectory() as live:
+            self.assertEqual(tokens.report(live), {"batches": 0})                # no log yet
+            with open(os.path.join(live, "tokens.jsonl"), "w") as f:
+                for row in (self.FIRST, self.FIGHT, dict(self.FIGHT, hooks=False, cached=None, written=None)):
+                    f.write(json.dumps(row) + "\n")
+            said = tokens.report(live)
+        costs = [3592.45, 4591.6, 24507 + 5 * 305]
+        self.assertEqual((said["batches"], said["batches_with_hooks"], said["calls_carried"]), (3, 2, 4))
+        self.assertEqual(said["plan_total"], round(sum(costs)))
+        self.assertEqual(said["plan_per_batch"], round(sum(costs) / 3))
+        self.assertEqual(said["plan_per_call"], round(sum(costs) / 4))
+        self.assertEqual((said["plan_per_fight_batch"], said["plan_per_other_batch"]),
+                         (round(sum(costs[1:]) / 2), round(costs[0])))
+        self.assertEqual(said["of_a_batch"], {"read_from_cache": round((464.2 + 2397.1) / 3),
+                                              "written_to_cache": round((1896.25 + 667.5) / 3),
+                                              "output": round(5 * (246 + 305 + 305) / 3)})
+        self.assertEqual((said["context_mean"], said["context_max"]), (round((6161 + 2 * 24507) / 3), 24507))
+        self.assertEqual(said["rows_without_cache_figures"], 1)
+
+    def test_the_status_file_has_the_hour_by_the_plans_count(self):
+        rig = Rig()
+        rig.tick(user())
+        relay.log_tokens(rig.world, 7, {"in": 6161, "out": 246, "context": 6161, "cached": 4642, "written": 1517}, "")
+        with open(os.path.join(rig.dir, "tokens.jsonl")) as f:
+            rows = [json.loads(line) for line in f]
+        s = relay.tokens_summary(rig.dir, rig.t)
+        self.assertEqual(s["plan_last_hour"], round(sum(map(tokens.plan_count, rows))))
+        self.assertEqual(round(tokens.plan_count(rows[-1])), 3592)
+        self.assertEqual(relay.tokens_summary(rig.dir, rig.t + 7200)["plan_last_hour"], 0)
 
     def test_the_relay_is_rotated_by_size_and_never_in_a_fight(self):
         rig = Rig()

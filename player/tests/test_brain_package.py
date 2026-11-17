@@ -53,7 +53,9 @@ class TheCommandLine(unittest.TestCase):
         self.assertEqual((code, out), (2, ""))
         lines = usage.splitlines()
         self.assertEqual([x.split()[:4] for x in lines],
-                         [["python3", "-m", "player.brain", w] for w in ("run", "next", "put", "set", "stopped", "status")])
+                         [["python3", "-m", "player.brain", w] for w in ("run", "next", "put", "set", "stopped", "status",
+                                                                     "tokens")])
+        self.assertEqual(self.says("tokens"), (0, '{\n "batches": 0\n}\n', ""))    # no batch carried yet
         code, out, _ = self.says("set", "paused=true")
         self.assertEqual((code, json.loads(out)["paused"]), (0, True))
         self.assertEqual(json.loads(self.says("stopped")[1])["still_held"], [])

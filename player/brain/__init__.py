@@ -6,6 +6,7 @@
     python3 -m player.brain set KEY=JSON   change a setting (writes live/control.json; Duet does the same)
     python3 -m player.brain stopped TOKEN  the operator's word that a replaced relay has been stopped (or: all)
     python3 -m player.brain status         print live/status.json
+    python3 -m player.brain tokens         what the relays' batches cost, by the plan's count (live/tokens.jsonl)
 
 One tick (Brain.handle): apply the director's settings, fold the results into the world model, let each activity
 read what it understands, pick the activity with the highest priority class and score (the arbiter, design 4.4),
@@ -56,7 +57,7 @@ import traceback   # noqa: F401
 import weakref     # noqa: F401
 
 from .. import config as C
-from .. import console, hooked, registry, relay  # noqa: F401
+from .. import console, hooked, registry, relay, tokens  # noqa: F401
 from ..budget import UPDATE, Budget  # noqa: F401
 from ..combat import Combat  # noqa: F401
 from ..gates import Gates  # noqa: F401
@@ -100,6 +101,9 @@ def main(argv=None):
         return 0
     if cmd == "status":
         print(json.dumps(relay.read(os.path.join(live, "status.json")), indent=1))
+        return 0
+    if cmd == "tokens":
+        print(json.dumps(tokens.report(live), indent=1))
         return 0
     sys.stderr.write(__doc__.split("\n\n")[1] + "\n")
     return 2

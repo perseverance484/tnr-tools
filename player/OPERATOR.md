@@ -137,6 +137,10 @@ RUL-2026-11-13-157).
 - **Which kind a relay is.** `live/client.json`, `hooks`: the relay's id, or nothing. `live/tokens.jsonl`,
   `hooks`: true for a batch such a relay carried; `cached` and `written` there are what the plan counts by.
   `live/hook/log.jsonl`: every hook that ran, and why a call was refused or a result was not handed in.
+- **What the relays cost.** `python3 -m player.brain tokens` prints what a batch cost by the plan's count, in a
+  fight and out of one, and what that was made of. In `live/tokens.jsonl` a row's `in` is the batch's whole
+  input, `cached` and `written` included: a count that adds `in` to them has the conversation twice. The session
+  that starts the relays is not in that file.
 - **A relay without hooks is turned away** (RUL-2026-11-14-161). Its `brain next` did not come through the
   hook, so it is printed
   `STOP this relay's hooks are not running, and the brain does not play through a relay without them` and no
