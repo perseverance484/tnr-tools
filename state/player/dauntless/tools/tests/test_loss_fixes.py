@@ -76,51 +76,72 @@ def test_desperation_hits_hardest_among_the_lines_that_live_best():
     print("ok: DESPERATION takes the most off him among the lines that keep me alive best")
 
 
-def test_the_rerank_steps_leave_a_desperate_order_alone():
-    """rank() says whether every line loses; the lookahead and the playouts then change nothing. Before, the
-    lookahead sorted the candidates again by score plus two exchanges ahead, and the order above was lost."""
-    P = _Desperate()
-    P.lookahead = P.rollouts = lambda *a, **k: (_ for _ in ()).throw(AssertionError("looked ahead in desperation"))
-    res = p2.rank(P, list(_Desperate.LINES), 100, p2.load_weights())
-    assert P.desperate is True
+def test_what_the_lookahead_may_reorder_when_every_line_loses():
+    """rank() says how many lines head the list as those that live best (P.desperate). TNR_DESPERATE_LA then says
+    what the lookahead may reorder: "all" as it always has, "alive" only those lines, "off" nothing."""
+    looked = []
+
+    class P(_Desperate):
+        def lookahead(self, b, follows):                 # two exchanges ahead, the nuke looks best and the hit worst
+            looked.append(b)
+            return {("nuke",): 9000.0, ("poke",): 500.0, ("stance",): 100.0, ("hit",): 0.0}[b], None
     info = {"st": {"used": [], "loadout": []}, "R": 8}
-    assert p2.lookahead_rerank(P, info, res, 3.0) is res
-    assert p2.rollout_rerank(P, info, res, 8, 3.0) is res
-    assert [r[1] for r in res][0] == ("hit",)
+    was, p2.follow_set = (p2.DESPERATE_LA, p2.follow_set), lambda *a: []
+    try:
+        ranked = p2.rank(P(), list(_Desperate.LINES), 100, p2.load_weights())
+        assert [r[1] for r in ranked] == [("hit",), ("stance",), ("poke",), ("nuke",)]
+        for mode, order, seen in (
+                ("off", [("hit",), ("stance",), ("poke",), ("nuke",)], 0),
+                ("alive", [("poke",), ("stance",), ("hit",), ("nuke",)], 3),      # the three that live best only
+                ("all", [("nuke",), ("poke",), ("stance",), ("hit",)], 4)):       # as before: the nuke, 95% dead
+            p2.DESPERATE_LA, planner = mode, P()
+            res = p2.rank(planner, list(_Desperate.LINES), 100, p2.load_weights())
+            assert planner.desperate == 3, planner.desperate
+            del looked[:]
+            got = [r[1] for r in p2.lookahead_rerank(planner, info, res, 3.0)]
+            assert got == order and len(looked) == seen, (mode, got, looked)
 
-    class Fine(_Desperate):                              # one line that does not lose: not desperate
-        def line(self, b):
-            feats, term, dmg, outs, dead = super().line(b)
-            return (feats, 0.0, dmg, outs, 0.05) if b == ("poke",) else (feats, term, dmg, outs, dead)
-    F = Fine()
-    p2.rank(F, list(_Desperate.LINES), 100, p2.load_weights())
-    assert F.desperate is False
-    print("ok: when every line loses, the lookahead and the playouts leave survival-then-damage as it is")
+        class Fine(P):                                   # one line that does not lose: the switch plays no part
+            def line(self, b):
+                feats, term, dmg, outs, dead = super().line(b)
+                return (feats, 0.0, dmg, outs, 0.05) if b == ("poke",) else (feats, term, dmg, outs, dead)
+        p2.DESPERATE_LA, fine = "off", Fine()
+        res = p2.rank(fine, list(_Desperate.LINES), 100, p2.load_weights())
+        del looked[:]
+        p2.lookahead_rerank(fine, info, res, 3.0)
+        assert fine.desperate == 0 and len(looked) == 4, (fine.desperate, looked)
+    finally:
+        p2.DESPERATE_LA, p2.follow_set = was
+    print("ok: when every line loses the lookahead reorders all, the lines that live best, or nothing, as it is set")
 
 
-def test_round_8_against_ddxxd_fires_the_line_that_lives_best():
-    """AP test fight 2, round 8, rebuilt from its log (tests/ddxxd_r8.txt): with the lookahead on, as in a live
-    fight, what is fired is DESPERATION's first line. His model grows with every logged fight against him; should
-    this position stop being one where every line loses, this check says so and the one above still holds."""
+def test_round_8_against_ddxxd_under_each_setting():
+    """AP test fight 2, round 8, rebuilt from its log (tests/ddxxd_r8.txt). With "alive" and with "off" what is
+    fired is one of the lines that live best. With "all", today's setting, it is whatever the lookahead likes:
+    printed, not judged. His model grows with every logged fight against him; should this stop being a position
+    where every line loses, this check says so and the one above still holds."""
+    import json
     import re
     import subprocess
-    out = subprocess.run([sys.executable, os.path.join(os.path.dirname(HERE), "planner2.py"),
-                          os.path.join(HERE, "ddxxd_r8.txt"), "--battle=6_UqBB_MXSIqobeRrfmdd", "--enemy=DDXXD",
-                          "--loadout=pvp1_thunders", "--top=3"], capture_output=True, text=True, timeout=600,
-                         cwd=os.path.dirname(HERE), env=dict(os.environ, TNR_LOOKAHEAD="1"))
-    assert out.returncode == 0, out.stderr[-800:]
-    said = re.search(r"^DESPERATION: .*\(die (\d+)%\)", out.stdout, re.M)
-    if not said:
-        print("note: round 8 against DDXXD is no longer a position where every line loses; not checked")
-        return
-    first = next(ln for ln in out.stdout.splitlines() if re.match(r"\s*1\.\s+[+-]\d", ln))
-    dead = int(re.search(r"dead (\d+)%", first).group(1))
-    assert dead <= int(said.group(1)) + 10, (said.group(0), first)
-    assert "lookahead:" not in out.stdout, out.stdout[-600:]
-    fire = [a["name"] for a in __import__("json").loads(next(ln for ln in out.stdout.splitlines()
-                                                             if ln.startswith("FIRE:"))[5:])]
-    assert all(n in first for n in fire), (fire, first)
-    print(f"ok: round 8 against DDXXD fires {'+'.join(fire)}, the line that lives best (dead {dead}%)")
+    tools = os.path.dirname(HERE)
+    for mode in ("alive", "off", "all"):
+        out = subprocess.run([sys.executable, os.path.join(tools, "planner2.py"), os.path.join(HERE, "ddxxd_r8.txt"),
+                              "--battle=6_UqBB_MXSIqobeRrfmdd", "--enemy=DDXXD", "--loadout=pvp1_thunders", "--top=3"],
+                             capture_output=True, text=True, timeout=600, cwd=tools,
+                             env=dict(os.environ, TNR_LOOKAHEAD="1", TNR_DESPERATE_LA=mode))
+        assert out.returncode == 0, out.stderr[-800:]
+        said = re.search(r"^DESPERATION: .*\(die (\d+)%\)", out.stdout, re.M)
+        if not said:
+            print("note: round 8 against DDXXD is no longer a position where every line loses; not checked")
+            return
+        first = next(ln for ln in out.stdout.splitlines() if re.match(r"\s*1\.\s+[+-]\d", ln))
+        dead = int(re.search(r"dead (\d+)%", first).group(1))
+        fire = [a["name"] for a in json.loads(next(ln for ln in out.stdout.splitlines() if ln.startswith("FIRE:"))[5:])]
+        assert all(n in first for n in fire), (fire, first)
+        if mode != "all":
+            assert dead <= int(said.group(1)) + 10, (mode, said.group(0), first)
+        print(f"ok: round 8 against DDXXD, lookahead over {mode}: fires {'+'.join(fire)} (dead {dead}%, "
+              f"best {said.group(1)}%)")
 
 
 def test_damage_to_him_is_my_turns_not_after_his_reply():
@@ -158,6 +179,6 @@ if __name__ == "__main__":
     test_pvp1_is_the_games_pvp_loadout()
     test_one_kunai_price_for_both_planners()
     test_desperation_hits_hardest_among_the_lines_that_live_best()
-    test_the_rerank_steps_leave_a_desperate_order_alone()
-    test_round_8_against_ddxxd_fires_the_line_that_lives_best()
+    test_what_the_lookahead_may_reorder_when_every_line_loses()
+    test_round_8_against_ddxxd_under_each_setting()
     test_damage_to_him_is_my_turns_not_after_his_reply()
