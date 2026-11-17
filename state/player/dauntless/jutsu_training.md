@@ -44,7 +44,7 @@ Choha, etc." "Limit Breaker, Mental Fortress..."
 Donors are kept at level 10 so the daily transfer can take 5 levels from them. When a donor is below 10, its next
 level comes before every target below (it is cheap and short), and it is never trained past 10.
 - Stone of the Withering `CTYkpwuoqS9mJkOB3Lm8U` (Earth, C, extraBaseCost 1500, not equipped): 5 after the
-  2026-11-16 transfer; train 6-10.
+  2026-11-17 transfer; level 6 queued, train 6-10.
 
 ## Daily level transfer (director, 2026-11-16)
 "Once per day I want you to use the free jutsu transfer to hard cap a jutsu at 25. Pick a jutsu and transfer 5 levels
@@ -72,7 +72,7 @@ first and skip the day if the last transfer is under 24 hours old.
 2. Scaling damage/setup jutsu near the cap: Soul Laceration Mirage `GlgS3FVoQ6F8k3RAo_Uht` (19),
    Thunderbolt Fury `INuy-ITnPsH22eUoGQgwW` (18), Phantom Requiem `kbrQuf3nYNHoKEvusATTO` (18),
    Cyclone Palm Strike `pqCqPemRNk3ht-SFrjq5G` (18), Ethereal Nexus `iktsCP-RjIhlYlsTg-JTN` (10).
-Owned already at 25: Chakra Edge, Gust Armor (Wind potency), Limit Breaker (transfer 2026-11-16).
+Owned already at 25: Chakra Edge, Gust Armor (Wind potency), Limit Breaker (transfer 2026-11-16), Mental Fortress (transfer 2026-11-17).
 3. Director (2026-11-16): "I want all Jonin level elemental and none jutsu trained next." Jonin-rank
    (requiredRank JONIN), non-bloodline, element None or one of mine (Lightning, Earth), at least one effect
    powerPerLevel > 0, not yet at 20 (found with `jutsu.getAll {rank:[JONIN], excludedJutsuTypes:[AI,PETS,BLOODLINE]}`).
@@ -340,3 +340,4 @@ very expensive (Cyclone Palm Strike level 19 quoted 1,949,575 ryo for one level;
 | 2026-11-17 17:24 | Shattering Strike, Spectral Chain, Summoning: Lord Pengu, Swift Combination | 1 each (learned at 0) | 4,655 total | queued (4 waiting, ends ~17:29). Stone of the Withering already at donor cap 10. Pocket 10.04M, no withdrawal. Intelligence and willpower both at the 400,000 cap, so 5,050 energy left unspent; asleep in 177 (read back) |
 | 2026-11-17 18:23 | Toxic Pool | 1 (learned at 0) | 1,520 | started (queue was empty; last not-owned list-4 entries) |
 | 2026-11-17 18:24 | Weary Fists 1 (learned at 0); Netherblight, Rock Cleaver, Rending Slash 2 each | | 8,111 total | queued (4 waiting, ends ~18:52). All list-4 not-owned entries are now learned; next refills take owned level-1 targets to 2. Stone of the Withering already at donor cap 10. Pocket 10.03M, no withdrawal. Intelligence and willpower both at the 400,000 cap, so 5,050 energy left unspent; asleep in 177 (read back) |
+| 2026-11-17 18:39 | Transfer Stone of the Withering -> Mental Fortress | 5 (MF 20-25; donor 10-5) | 0 | done, 0 reputation points, read back in getRecentTransfers; Stone of the Withering 6 queued (1 was waiting); asleep in 177 |
