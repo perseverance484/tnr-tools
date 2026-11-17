@@ -1,7 +1,8 @@
 """Recovery: the Full Potion, ramen and the hospital (design 4.3). Ported from the pilot's world().
 
 - Hospitalized: heal at the village hospital.
-- While hunting: under 95% HP a Full Potion; chakra or stamina under 50%, ramen (which refills those two only).
+- While hunting: with any HP missing a Full Potion (config.HEAL_BELOW); chakra or stamina under 50%, ramen
+  (which refills those two only).
   A heal that changed nothing is not tried again for 10 minutes: a guard against a loop, not a fix.
 - At the end of a fight: the Full Potion goes in the same batch as the fight's last read (after_fight), because a
   wounded winner is a third party's target within seconds.

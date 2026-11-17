@@ -44,7 +44,8 @@ FULL_POTION = "IRfg2NFKKYe0ynroXI7qZ"   # user item: HP to full out of combat (r
 MAX_HP = 5050.0
 
 # ---------------------------------------------------------------- play (from pilot.py; director rulings cited there)
-HEAL_BELOW = 0.95        # fights start at full health
+HEAL_BELOW = 1.0         # fights start at full health: any HP missing is healed first (director, with the
+                         # review of AP runs 1 and 2, 2026-11-17: "never start a fight missing HP"; it was 0.95)
 POOLS_BELOW = 0.5        # chakra / stamina floor before ramen
 POOLS_AFTER_FIGHT = 0.95 # after a fight, a large ramen when chakra or stamina is under this (director 2026-11-16:
                          # "Repair, heal and large ramen after every fight"; "The brain can use Ramen, sure.")

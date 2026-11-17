@@ -123,5 +123,27 @@ class RamenAfterEveryFight(unittest.TestCase):
         self.assertEqual(C.POOLS_AFTER_FIGHT, 0.95)
 
 
+class NoFightIsStartedMissingHealth(unittest.TestCase):
+    """Director, with the review of AP runs 1 and 2 (2026-11-17): "never start a fight missing HP". The line was
+    95%: a fight could start with up to 252 of 5,050 HP missing."""
+
+    def test_any_health_missing_is_healed_before_the_hunt_goes_on(self):
+        rig = Rig()
+        out = rig.tick(user(hp=5049))                                    # one point missing, hunting
+        self.assertEqual((out["activity"], rig.calls(out)[0]), ("recovery", "item.consume"))
+        out = Rig().tick(user(hp=4900))                                  # 97%: went unhealed before
+        self.assertEqual((out["activity"], rig.calls(out)[0]), ("recovery", "item.consume"))
+        out = Rig().tick(user())                                         # full: nothing to heal
+        self.assertNotEqual(out["activity"], "recovery")
+        self.assertEqual(C.HEAL_BELOW, 1.0)
+
+    def test_the_fights_closing_batch_heals_whatever_is_missing(self):
+        rig = Rig()
+        end = RamenAfterEveryFight.end_fight
+        self.assertEqual([s["call"] for s in end(self, rig, hp=5000)], ["item.consume"])     # 99%: none before
+        self.assertEqual(end(self, Rig(), hp=5050), [])                                       # full: none
+        self.assertEqual(end(self, Rig(), result="lost", hp=0), [])                           # the hospital's
+
+
 if __name__ == "__main__":
     unittest.main()
