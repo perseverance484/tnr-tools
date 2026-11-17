@@ -274,6 +274,17 @@ MY_KIT_IDS = ["K0t6Z-Q4lau1jFt8Tkpot", "GiKpip6NxsC8QWlZi6l_R", "zCmYLVL4JYzfhjP
 SKIP = {"wait", "move", "flee"}
 
 
+def my_kit_ids():
+    """MY_KIT_IDS, then every action of my loadouts that the list does not have (cd_plan.LOADOUTS by ingest.IDS).
+    The list is kept by hand and fell behind the loadouts: Chakra Resistance and Limit Breaker were never in it, so
+    the engine refused every line of mine that had one (AP run 2's reviews: no figure for phantom + resist). The
+    new ones go behind the old, so the elements the engine gives me from my kit's order stay as they were."""
+    import cd_plan
+    from ingest import IDS
+    names = {n for kit in cd_plan.LOADOUTS.values() for n in kit}
+    return MY_KIT_IDS + sorted(i for i, n in IDS.items() if n in names and i not in MY_KIT_IDS)
+
+
 def missing_records(rows, me_id):
     """Logged action ids with no record in the offline catalog (a catalog gap: refresh harvests between fights and
     rerun build_catalog.py; never fetched mid-fight)."""
@@ -342,7 +353,7 @@ def _replay_request(rows, me_id, en_id, me, en, me_pos, en_pos, R, his_turn, cal
         "round": R, "hisTurn": his_turn,
         "me": {"id": "me", "hp": me["curHealth"], "x": me_pos[0], "y": me_pos[1], "profile": prof,
                "kit": [{"record": recs[a]["record"], "kind": "item" if a in ITEM_IDS else "jutsu",
-                        "level": prof["jutsuLevels"].get(a, 25)} for a in MY_KIT_IDS if a in recs],
+                        "level": prof["jutsuLevels"].get(a, 25)} for a in my_kit_ids() if a in recs],
                **_side_mods(prof.get("bloodlineId"), GEAR_ME)},
         "him": {"id": "him", "hp": en["curHealth"], "x": en_pos[0], "y": en_pos[1], "kit": his_kit,
                 **_side_mods(his_bloodline_id(rows, en_id), _his_gear(en_id)),
