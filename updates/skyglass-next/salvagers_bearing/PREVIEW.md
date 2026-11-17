@@ -1,67 +1,82 @@
-# Salvager's Bearing: preview
+# Salvager's Bearing (working name): preview
 
-Status: **built and validated, awaiting the director.** Nothing has been written to the game. Every live step below
-waits for his typed go.
+Status: **redesigned to the director's crew-hunt idea (2026-11-17), validated, awaiting the director.** Nothing has been
+written to the game. Every live step waits for his typed go. The first draft (one "go to the Wreck tile" order taken
+from the Wake Island board) is replaced; it's in git history.
 
 ## What the player sees
 
-On the Wake Island board (Administration Building), during the Wreck weekend only:
+- **Friday 6 PM Central, without visiting any board:** the quest is already in their logbook, and the world map marks
+  sector 210. Hover shows "Salvager's Bearing", "Defeat" and the current order.
+- **Name:** Salvager's Bearing (working name)
+- **Description:** The Quartermaster's crew have come ashore in sector 210. They walk the sand around the Skyglass
+  Wrecks as if they were still on watch, and the salvager wants three of them put down before they strip the beach
+  bare. **Beat 3 of the crew on the beach in sector 210.** Once a day. They fight at your level.
+- **Orders, in order:**
+  1. The Skyglass Wrecks lie in sector 210, and the crew walk the sand around them. Beat one. (1 of 3)
+  2. Beat another of the crew on the beach in sector 210. (2 of 3)
+  3. One more of the crew in sector 210. (3 of 3)
+- **How a fight starts:** walk up to a wandering crew member on the beach and attack. While the quest is open, the
+  fight is the quest's fight, scaled to the player's level.
+- **Win:** "Three of the crew lie in the sand. The salvager will hear about it." Pays the reward.
+- **Loss, flee or draw:** today's try ends ("The crew drive you off the sand..."), same as the live Salvager dailies.
+- **Reward: proposed 3 Wreck Salvage a day** (the same pay as a Watch Log order and the proposed Short Rations).
+  Fallback: 1,000 ryo.
+- **Levels:** 30 to 100. **One quest for both bands**, because the crew scale to the player and the Wreck tiles
+  don't matter.
 
-| | Shallows copy (levels 30 to 80) | 81+ copy (levels 81 to 100) |
-| --- | --- | --- |
-| Name | Salvager's Bearing (Shallows) | Salvager's Bearing |
-| Description | The salvager has scratched a bearing on a strip of sailcloth: a line from wherever you stand to the beach where the Ghost Ship came down. Carry it, and your map will show you the way.<br><br>**Go to the Faded Skyglass Wreck in sector 210.** Once a day. | Same, ending **Go to the Skyglass Wreck in sector 210.** Once a day. |
-| Objective (the director's words) | The Skyglass Wrecks lie in sector 210. Gather a crew of three and board. | Same |
-| Goes to | sector 210, tile 7/1 (Faded Skyglass Wreck entrance) | sector 210, tile 21/6 (Skyglass Wreck entrance) |
-| On arrival | "You stand in the shadow of the Faded Skyglass Wreck." | "You stand in the shadow of the Skyglass Wreck." |
-| Reward | **Proposed: 1,000 ryo** (awaiting the director) | Same |
+## How it reaches players (pinned source TheNinjaRPG@94b585ea)
 
-While the quest is active, the world map draws a marker on sector 210. Hovering it shows the quest name, "Travel" and
-the objective line (2 lines max). The marker goes away once the player reaches the tile, since the order is done.
+- **Day one of each weekend, no board:** when a quest is turned into an event, the game hands it to every player
+  active in the last 7 days whose rank fits (routers/quests.ts 990-1001). That's the signpost. It goes by rank, not
+  level, so it **also lands in logbooks below level 30**. The level gate only stops people taking it from the board.
+- **Days two and three:** players take it again from the Administration Building board. The source has no way to
+  auto-hand an event quest out every day:
+  - event quests can't come from an NPC (overworld NPC quests exclude events);
+  - a true "daily" quest is one random pick a day from every visible daily in the game. There are 7 today, and only
+    one for 81+, so ours would show up about half the days and push the other daily out on those days.
+- **Daily limit:** once per day, resetting 6 PM Central, so up to 3 a weekend. Window 2026-11-21 to 2026-11-24 for
+  weekend 3.
 
-## Schedule
+## How it ships (each step waits for the director's go)
 
-- Opens with the Wrecks: Friday 6 PM Central (startsAt Saturday, 00:00 UTC). Closes with them: Monday 6 PM Central
-  (endsAt Tuesday, 00:00 UTC). First window in the build: 2026-11-21 to 2026-11-24 (weekend 3, Stolen Stores).
-- Daily: once per UTC day (resets 6 PM Central), so up to 3 runs per weekend. Lifetime cap 100 attempts.
-- Each later weekend needs a re-date edit (`--redate`). It fits beside the Friday Wreck window job (run_queue 515).
-  The other way, one window from the first weekend to the event's end, would leave it on the board midweek, which
-  breaks "nothing live midweek".
+0. **Needs the beach raiders first.** Each order is tied to a crew placement, and the game fills in the opponent from
+   that placement when the quest saves. So the raider placements on 210 (Stolen Stores design, test placement still
+   awaiting his go) must exist before step 1.
+1. `salvagers_bearing_build`: create the quest **hidden, as a mission**, so saving hands it to nobody.
+2. `salvagers_bearing_release`, at the Friday release:
+   - edit A turns it into an **event at rank S, unhidden**, which hands it to everyone;
+   - edit B re-saves it at rank D. Without that, only Jonin and up would see it on the board. A re-save doesn't hand
+     it out again.
+3. `salvagers_bearing_rearm` before each later Friday: back to mission, hidden, with the new dates. Then step 2 again.
+   The event flip hands it out fresh, including to players who did it the week before.
 
-## How it ships (no step runs without the director's go)
-
-1. STEP 0, live: `quests.clone` of the hidden event quest `jUQYz9zyMdJIRdLbucYjm` **twice** (one per band). A clone
-   keeps questType event and hidden, and hands it to nobody. Building it fresh would bulk-assign it to every active
-   player (pinned source, routers/quests.ts 990-1001).
-2. Rerun `python3 salvagers_bearing.gen.py --weekend 2026-11-21 --id-shallows <A> --id-deep <B>` and validate.
-3. Run the two edits. They land hidden.
-4. Unhide at the Friday release with the rest of the weekend.
-
-## Why two copies instead of one
-
-The spec put both Wrecks side by side at 15/6 and 16/6 (docs/design/SKYGLASS_EVENT_MAP.md). The live dungeon records
-(read 2026-11-16) put them far apart after the beach remake: Faded at 7/1, Skyglass at 21/6. One order can complete on
-one tile only, so each band gets the Wreck it can enter. Both copies still light up sector 210. If the director wants
-one quest, the fallback is a single 30-100 copy pointing at one Wreck.
+Regenerate with real ids: `python3 salvagers_bearing.gen.py --weekend 2026-11-21 --quest <id> --crew <placement>`
+(one `--crew` for all three fights, or three for a mix such as Deckhand, Blade, Mate).
 
 ## Checks
 
-- `validate.py salvagers_bearing.TEMPLATE.json`: **0 errors, 3 warnings**, all reviewed:
-  - "no win_quest node" (both copies): a one-objective consecutive quest completes when that objective is done
-    (libs/objectives.ts 146-164), same as the live Salvager dailies.
-  - "law 54: latitude 1 inside the 2-tile margin" (Shallows): 7/1 is where the live Faded Wreck entrance already
-    sits and players reach it every weekend. Moving the order off that tile would mean it no longer completes at the
-    door.
-- maxAttempts: upstream allows unlimited (-1), but our contract (45d) has min 0, so it's 100, as on the dailies.
+- `validate.py` on all three templates: **0 errors, 0 warnings.**
+- Each order has sector 210 and no hidden location, so the map marker shows (layout/Map.tsx 73-95).
+- `defeat_opponents` has no kill count, so "beat 3" is three orders. Each tied fight is one opponent
+  (libs/overworldAi.ts 642-668). A tied order completes only through its crew placement, never by standing on its
+  stored tile (libs/quest.ts 286-301). The stored tile is the Salvager's fire, 210 14/7.
+
+## Open for the director
+
+1. Reward: 3 Wreck Salvage, or 1,000 ryo.
+2. Fine that the Friday hand-out also reaches players under 30?
+3. Does this replace Short Rations? It is the same job: a beach-fight daily paying salvage.
+4. The name.
+5. Which crew it counts: any one crew placement, or a set mix.
+6. Go for each step, once the raiders exist.
 
 ## Icon prompt (attach ref_style_skyglass_icons.png)
 
 Salvager's Bearing. Game item icon in the same hand-painted style as the attached icons: a torn strip of weathered
-sailcloth, loosely rolled, with one long scratched bearing line and a small arrowhead burned into it, a tarnished brass
-compass needle tied to its corner with twine. A few pale cyan skyglass flecks in the weave; one faint green rot stain
-at the frayed edge. Thick dark ink outlines, cel shading with a few highlight steps, weathered texture, cool blue-black
-and sun-bleached canvas palette with one pale cyan accent. Single object, centered, small even margin, square
-1024x1024, transparent background. No readable text, letters or numbers, no UI, no frame, no surface or shadow, no
-glow halo, no second object.
-
-Until the icon exists, the build reuses the Watch Log page icon.
+sailcloth, loosely rolled, with three short scratched tally marks and a small arrowhead burned into it, a tarnished
+brass compass needle tied to its corner with twine. A few pale cyan skyglass flecks in the weave; one faint green rot
+stain at the frayed edge. Thick dark ink outlines, cel shading with a few highlight steps, weathered texture, cool
+blue-black and sun-bleached canvas palette with one pale cyan accent. Single object, centered, small even margin,
+square 1024x1024, transparent background. No readable text, letters or numbers, no UI, no frame, no surface or shadow,
+no glow halo, no second object.

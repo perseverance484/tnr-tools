@@ -21,9 +21,9 @@ Status words: **approved** (director said yes), **awaiting director** (built or 
 
 | # | Piece | Status | Where | Open decisions |
 | --- | --- | --- | --- | --- |
-| 1 | **Salvager's Bearing**: daily quest that marks sector 210 on the map | awaiting director | `salvagers_bearing/` (generator, validated template manifest, `PREVIEW.md`, icon prompt) | reward (proposed 1,000 ryo); two band copies (built) or one quest; weekly re-date (built) or whole-event dates; go for the clone + edits |
+| 1 | **Salvager's Bearing** (working name): daily crew hunt on the 210 beach, beat 3 wandering crew; handed to every active player at the Friday release, so the map marks sector 210 with no board visit (redesigned Nov 17 to the director's idea) | awaiting director | `salvagers_bearing/` (generator, 3 validated template manifests: build, release, re-arm; `PREVIEW.md`; icon prompt) | needs the beach raiders placed first; reward (proposed 3 Wreck Salvage); Friday hand-out also reaches under-30s; replaces Short Rations?; name; go for each step |
 | 2 | **"Sector 210" text lines** for Watch Log pages, Wreck Salvage, chart items | awaiting director | `TEXT_ADDITIONS.md` | which lines to ship; drop the chart line? |
-| 3 | **Discord patch notes**, weekend 3 | draft | `PATCH_NOTES.md` | ⏳ lines follow decisions 1, 6-11 |
+| 3 | **Discord patch notes**, weekend 3 | draft | `PATCH_NOTES.md` | ⏳ lines follow the decisions in rows 1, 5, 8 and 10 |
 | 4 | **Stolen Stores Watch Log pages + Wreck Sighted copies** (81+ page, new 30-80 page, two Wreck Sighted copies, Wreck gate repoint) | awaiting director (built Nov 14, not run) | `stolen_stores_pages/` (copied from project files `tnr/manifests/skyglass_nov20/`, Nov 14); repo push/517-518, `state/skyglass_schedule.json`, `docs/design/EVENT_JOURNAL.md` §5 | run the flips Wednesday or Friday; gate repoint by connector direct save (Forge refuses dungeons); the 30-80 challenge mix. `TUNING_PROPOSAL.md` there was **rejected** Nov 14 ("Nah, none of that"), kept for reference only |
 | 5 | **Stolen Stores full update design** (beach raiders as hostile AI, The Quartermaster's Stores run + the Mascot, Short Rations, the Fire's "This weekend" topic, 10 art prompts) | awaiting director | Claude Doc "Stolen Stores: full update design" https://claude.ai/artifact/AZZtxsZahaubm2rwiC3cva (snapshot `designs/stolen_stores_full_update.rev15.snapshot.md`); "Skyglass patch 3: direction" https://claude.ai/artifact/Q2DqHZmxQiAvpGkiLubfzh | test placement go; Short Rations home; numbers; reward found below; chart hand-out; 81+ page swap; beach publish; names (8 decisions, listed in the doc) |
 | 6 | **Weeks 2-3 design** (Stolen Stores twist, Her Invitation, the Quartermaster ~10k HP, "Your Own Voice" echoes) | draft | Claude Doc https://claude.ai/artifact/9sAvsEiubZRbe3kkcJkFTx (rev 26) | chart hand-out via Wreck Sighted; Her Invitation #5 (MoE win vs 5 dailies); names |
@@ -39,8 +39,8 @@ Status words: **approved** (director said yes), **awaiting director** (built or 
 
 - **Wreck tiles.** `docs/design/SKYGLASS_EVENT_MAP.md` (N1/N2), push/366 and `push/skyglass_wreck.gen.py` say 16/6 and
   15/6. The live dungeons (read 2026-11-16), the live Wreck Sighted text (push/615) and the beach build (`map210/build3.py`)
-  say Faded **7/1**, Skyglass **21/6**. The live tiles win; the design doc is pre-remake history. Salvager's Bearing uses
-  the live tiles.
+  say Faded **7/1**, Skyglass **21/6**. The live tiles win; the design doc is pre-remake history. (The crew-hunt
+  Salvager's Bearing no longer depends on either tile.)
 - **Maw of the Deep.** The design doc's Discord draft says the Maw "hits for a fixed amount"; it has been a one-hit KO
   on all five Core Horrors since Nov 16.
 - **Faded band.** The Faded Wreck's push/366 description says "For level 45 and up"; the band is 30-80. The live
@@ -49,6 +49,6 @@ Status words: **approved** (director said yes), **awaiting director** (built or 
 
 ## Gates run for this folder
 
-- `skills/building-tnr-content/scripts/validate.py salvagers_bearing/salvagers_bearing.TEMPLATE.json`: 0 errors,
-  3 reviewed warnings (see `salvagers_bearing/PREVIEW.md`).
+- `skills/building-tnr-content/scripts/validate.py` on `salvagers_bearing/salvagers_bearing_{build,release,rearm}.TEMPLATE.json`:
+  0 errors, 0 warnings each.
 - `scripts/check_no_real_name.py`: 0 hits in this folder (copied files had the old name in notes; replaced with "the director"). The check still reports 3 older hits elsewhere on main.
