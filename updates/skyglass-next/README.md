@@ -21,7 +21,7 @@ Status words: **approved** (director said yes), **awaiting director** (built or 
 
 | # | Piece | Status | Where | Open decisions |
 | --- | --- | --- | --- | --- |
-| 1 | **Salvager's Bearing** (working name): daily crew hunt on the 210 beach, beat 3 wandering crew; handed to every active player at the Friday release, so the map marks sector 210 with no board visit (redesigned Nov 17 to the director's idea) | awaiting director | `salvagers_bearing/` (generator, 3 validated template manifests: build, release, re-arm; `PREVIEW.md`; icon prompt) | needs the beach raiders placed first; reward (proposed 3 Wreck Salvage); Friday hand-out also reaches under-30s; replaces Short Rations?; name; go for each step |
+| 1 | **Salvager's Bearing** (working name): daily crew hunt on the 210 beach, beat 3 wandering crew; on the Administration Building board once a day for anyone who finished their band's Wreck Sighted, so it needs no Wake Island stop (crew hunt Nov 17, prerequisite delivery Nov 17 01:23Z, both the director's ideas) | awaiting director | `salvagers_bearing/` (generator, clone plan, 3 template manifests: build/re-arm, release, close; `PREVIEW.md`; icon prompt) | needs the beach raiders placed first; two copies, one per Wreck Sighted band, re-pointed weekly; reward (proposed 3 Wreck Salvage); replaces Short Rations?; name; go for each step |
 | 2 | **"Sector 210" text lines** for Watch Log pages, Wreck Salvage, chart items | awaiting director | `TEXT_ADDITIONS.md` | which lines to ship; drop the chart line? |
 | 3 | **Discord patch notes**, weekend 3 | draft | `PATCH_NOTES.md` | ⏳ lines follow the decisions in rows 1, 5, 8 and 10 |
 | 4 | **Stolen Stores Watch Log pages + Wreck Sighted copies** (81+ page, new 30-80 page, two Wreck Sighted copies, Wreck gate repoint) | awaiting director (built Nov 14, not run) | `stolen_stores_pages/` (copied from project files `tnr/manifests/skyglass_nov20/`, Nov 14); repo push/517-518, `state/skyglass_schedule.json`, `docs/design/EVENT_JOURNAL.md` §5 | run the flips Wednesday or Friday; gate repoint by connector direct save (Forge refuses dungeons); the 30-80 challenge mix. `TUNING_PROPOSAL.md` there was **rejected** Nov 14 ("Nah, none of that"), kept for reference only |
@@ -49,6 +49,6 @@ Status words: **approved** (director said yes), **awaiting director** (built or 
 
 ## Gates run for this folder
 
-- `skills/building-tnr-content/scripts/validate.py` on `salvagers_bearing/salvagers_bearing_{build,release,rearm}.TEMPLATE.json`:
-  0 errors, 0 warnings each.
-- `scripts/check_no_real_name.py`: 0 hits in this folder (copied files had the old name in notes; replaced with "the director"). The check still reports 3 older hits elsewhere on main.
+- `skills/building-tnr-content/scripts/validate.py` on `salvagers_bearing/salvagers_bearing_{build,release,close}.TEMPLATE.json`:
+  0 errors each; build 0 warnings, release and close 2 each (partial hide/unhide edits).
+- `scripts/check_no_real_name.py`: 0 hits in this folder (copied files had the old name in notes; replaced with "the director"). The check still reports 6 older hits elsewhere on main.

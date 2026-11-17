@@ -15,4 +15,4 @@ Two things to weigh:
 - The chart line adds a sixth line to the chart text layout the director set on Nov 13. It also says where charts
   come from, not where to use one (runs open in the Battle Arena), so a player could read it as "go to 210 to run
   this". Dropping the chart line is the safe choice.
-- The Watch Log line no longer names Salvager's Bearing, since the crew hunt reaches players without the board.
+- The Watch Log line doesn't name Salvager's Bearing; Wreck Sighted unlocks it on the Administration Building board.

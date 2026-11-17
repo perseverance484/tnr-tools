@@ -15,8 +15,9 @@ thread: short lines, one infographic each, no explanations.
 - ⏳ New run: **The Quartermaster's Stores**, solo, level 30+. Something below the galley is eating the stores.
   *(names and rewards)*
 - ⏳ New job: **Short Rations** on the Wake Island board, once a day. *(board job or a fifth Salvager daily)*
-- ⏳ New daily: **Salvager's Bearing**. It's already in your logbook: beat 3 of the crew on the beach in sector 210,
-  once a day. They fight at your level. *(name, reward, and whether it replaces Short Rations)*
+- ⏳ New daily: **Salvager's Bearing**. Finish Wreck Sighted, then take it from the Administration Building once a
+  day: beat 3 of the crew on the beach in sector 210. They fight at your level. *(name, reward, and whether it
+  replaces Short Rations)*
 - Levels 30 to 80: the Faded Wreck, the beach and your own Watch Log page are all sized for you.
 - ⏳ Fixes: *(wording: the design draft says "Maw of the Deep hits for a fixed amount", but the Maw is now a one-hit
   KO on the Core Horrors; and the reflect-stance animation is still "not yet")*
