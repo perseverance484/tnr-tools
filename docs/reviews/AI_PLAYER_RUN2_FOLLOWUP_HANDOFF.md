@@ -2,6 +2,10 @@
 
 Workflow: `docs/workflows/IMPLEMENTATION_HANDOFF.md`. Written 2026-11-17.
 
+**Sent back** (`chatgpt/review-ai-player-run2-followup-20261117` @ c05e5a86): four findings and a test's weakness.
+The token recount, the planner's default and its three settings, and the kits stand. The correction and its
+note: `docs/reviews/AI_PLAYER_RUN2_FOLLOWUP_REREVIEW1_HANDOFF.md`. This note is kept as it was written.
+
 ```text
 Repository: perseverance484/tnr-tools
 Branch: fable/ai-player-run2-followup
