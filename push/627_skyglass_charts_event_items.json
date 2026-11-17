@@ -1,0 +1,145 @@
+{
+ "_note": "push/627, LIVE edit of 14 VISIBLE items, DRAFT for the director's yes (director 2026-11-17: 'change all the Skyglass charts/ledgers to event items'). Sets isEventItem true on the 11 Skyglass charts and the 3 Ledger Pages; nothing else changes. Live read 2026-11-17: all 14 isEventItem false, visible, itemType OTHER, cost 1, not in shop. Effect at theninjarpg 94b585e: carried stacks move from the normal backpack to the event-item bucket (libs/item.ts getInventoryBucket; capacity calcMaxEventItems), sell value becomes 0 (was 1 ryo per item), and the inspector shows them as drop-only. Trading, entry-item use and drops are unaffected. Not included: Archive Chart Case (a chest that drops charts) and Shard of the Ledger (an invitation shard). Partial edits; Forge fetch-merges.",
+ "items": [
+  {
+   "entity": "item",
+   "slot": "edit",
+   "targetId": "7tC2tkIuOJpMZ_YkMYDKv",
+   "phase": 1,
+   "name": "Chart of the Spoiled Hold: event item",
+   "data": {
+    "isEventItem": true
+   }
+  },
+  {
+   "entity": "item",
+   "slot": "edit",
+   "targetId": "aHFNuo5RkKpDcaOBLIKiu",
+   "phase": 1,
+   "name": "Chart of the Captain's Watch: event item",
+   "data": {
+    "isEventItem": true
+   }
+  },
+  {
+   "entity": "item",
+   "slot": "edit",
+   "targetId": "cRZT41zm5vhPTQwwn8vtv",
+   "phase": 1,
+   "name": "Chart of the Quarantined Archive: event item",
+   "data": {
+    "isEventItem": true
+   }
+  },
+  {
+   "entity": "item",
+   "slot": "edit",
+   "targetId": "H1s2IwtZ5JqgPEoJ55IVj",
+   "phase": 1,
+   "name": "Tide Chart: event item",
+   "data": {
+    "isEventItem": true
+   }
+  },
+  {
+   "entity": "item",
+   "slot": "edit",
+   "targetId": "I09yVwwnSQK8YE2vkdl1l",
+   "phase": 1,
+   "name": "Chart of the Split Hold: event item",
+   "data": {
+    "isEventItem": true
+   }
+  },
+  {
+   "entity": "item",
+   "slot": "edit",
+   "targetId": "KR5-rVmqtAWeMzpE52aE7",
+   "phase": 1,
+   "name": "Chart of the Broken Stern: event item",
+   "data": {
+    "isEventItem": true
+   }
+  },
+  {
+   "entity": "item",
+   "slot": "edit",
+   "targetId": "nbLC37UzBamthKXvZsgQB",
+   "phase": 1,
+   "name": "Chart of the Buried Cache: event item",
+   "data": {
+    "isEventItem": true
+   }
+  },
+  {
+   "entity": "item",
+   "slot": "edit",
+   "targetId": "oQcPHpr0sqmWHfaJPR4T_",
+   "phase": 1,
+   "name": "Chart of the Drowned Cradle: event item",
+   "data": {
+    "isEventItem": true
+   }
+  },
+  {
+   "entity": "item",
+   "slot": "edit",
+   "targetId": "pY-0O5Gs2n89pf0kYb5J2",
+   "phase": 1,
+   "name": "Chart of the Drowned Foundry: event item",
+   "data": {
+    "isEventItem": true
+   }
+  },
+  {
+   "entity": "item",
+   "slot": "edit",
+   "targetId": "rztQVUjxTLRpyEPb3yrr6",
+   "phase": 1,
+   "name": "Chart of the Rotted Galley: event item",
+   "data": {
+    "isEventItem": true
+   }
+  },
+  {
+   "entity": "item",
+   "slot": "edit",
+   "targetId": "VuTcs22ieSdQY0cEu8Fyt",
+   "phase": 1,
+   "name": "Chart of the Glass Nursery: event item",
+   "data": {
+    "isEventItem": true
+   }
+  },
+  {
+   "entity": "item",
+   "slot": "edit",
+   "targetId": "6QgcnW0v6gZeHY474BjR0",
+   "phase": 1,
+   "name": "Ledger Page: The Snare Room: event item",
+   "data": {
+    "isEventItem": true
+   }
+  },
+  {
+   "entity": "item",
+   "slot": "edit",
+   "targetId": "JvrytTOdR1voVCoo3fckK",
+   "phase": 1,
+   "name": "Ledger Page: The Trophy Hold: event item",
+   "data": {
+    "isEventItem": true
+   }
+  },
+  {
+   "entity": "item",
+   "slot": "edit",
+   "targetId": "uu6ETQimuBJ69jwr76IIi",
+   "phase": 1,
+   "name": "Ledger Page: The Bone Store: event item",
+   "data": {
+    "isEventItem": true
+   }
+  }
+ ]
+}
