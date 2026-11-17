@@ -10,7 +10,7 @@ ORDER = ['asset', 'jutsu', 'ai', 'item', 'quest']
 PHASE = {'asset': 1, 'jutsu': 5, 'ai': 20, 'item': 25, 'quest': 30}
 SALV = 'https://bbenpyo9uu.ufs.sh/f/0tzd8oDeiVIztTw3VgzGhyvTwHIbs5xCj3PVfDMUm2z4pn6u'   # Wreck Salvage icon
 DEFAULT = 'https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp'
-ICONS = {  # quests with the blank default icon -> hosted art matched to the quest (interim until Brandon's icons)
+ICONS = {  # quests with the blank default icon -> hosted art matched to the quest (interim until the director's icons)
  '26MTz1wdUuKbfm1nPQNGU': ('The Salvager\'s Trade: The Lantern', 'https://ui0arpl8sm.ufs.sh/f/e4eNC9JdUPrchiJKcMGUX.webp'),
  'oMBY3r0XiSZ_2HaJN0L39': ('The Salvager\'s Trade: A Sealed Chart', 'https://ui0arpl8sm.ufs.sh/f/GnbyPivtXnCa3YLP97KfO.webp'),
  'OCrpmCXlh1v9CnQPzDRpj': ('The Salvager\'s Trade: Hold Charts', 'https://bbenpyo9uu.ufs.sh/f/0tzd8oDeiVIzxSrkvFDZouNGF4UVirBmDjJE9Av510SeWbdK'),
