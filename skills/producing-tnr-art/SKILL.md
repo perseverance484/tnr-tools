@@ -45,7 +45,7 @@ docs/DOCTRINE.md before building anything.
 |---|---|---|
 | Icons, avatars, scenes | `references/prompts.md` (scaffolds, house style, generator failures), `references/processing.md` (format, packaging, gameAsset write, scene wiring) | `rawqc.py`, `chroma.py`, `artpreflight.py`, `shotlist.py` |
 | Jutsu-icon families, studio sessions, art lookup, outside art requests | `references/studio.md` | `jutsu_studio.py`, `style_refs.py` |
-| Combat animations, ground tiles, battle FX | `references/combat_fx.md` | `fx_board.py`, a per-job `build_strips.py` |
+| Combat animations, ground tiles, battle FX | `references/combat_fx.md` (house design rules in section 3) | `fx_board.py`, a per-job `build_strips.py` |
 
 ## How the game shows art (what makes this hard)
 
@@ -70,7 +70,8 @@ One asset at a time, QC between each; batches bake one prompt fault into every i
    resting on a surface.
 2. **Process:** `chroma.py in.png out.webp --target <T> [--frame full|bust] [--key magenta] --qc qc.png` (keys, crops,
    pads, exports per spec; refuses wrong extensions and undersized sources). `JUTSU_ICON` may keep a designed opaque
-   background: never key it. Animations: assemble strips by script from painted layers (`combat_fx.md` section 5).
+   background: never key it. Animations: assemble strips by script from painted layers (`combat_fx.md` section 6;
+   design rules in section 3).
 3. **QC on dark, mid and bright grounds** (spill and chewed edges hide on white); FX on the board preview.
 4. **Preflight:** `artpreflight.py out.webp [--manifest m.json] [--max-bytes N]`, zero errors, and say what you ran.
 5. **Record** slug, type, filename, pixels and bytes (the picker fallback reads the byte ledger).
