@@ -115,6 +115,50 @@ def test_what_the_lookahead_may_reorder_when_every_line_loses():
     print("ok: when every line loses the lookahead reorders all, the lines that live best, or nothing, as it is set")
 
 
+def test_the_worst_case_reply_check_is_a_setting_and_off():
+    """RUL-2026-11-17-166, 2. With TNR_WORST_CASE=guard a line that one of his listed replies kills goes behind the
+    lines that survive them all, and the lookahead does not bring it back. Off, nothing moves."""
+    class P:
+        LINES = {("burst",): (0.9, True), ("hit",): (0.6, False), ("heal",): (0.2, False), ("gamble",): (0.8, True)}
+
+        def __init__(self):
+            self._wc = {b: dies for b, (_, dies) in self.LINES.items()}
+
+        def line(self, b):
+            feats = [0.0] * p2.NF
+            feats[0] = 1000.0 * self.LINES[b][0]                 # the swing: burst, gamble, hit, heal
+            return feats, 0.0, 100.0, [], 0.3 if self.LINES[b][1] else 0.0
+
+        def extras(self, b, ap):
+            return 0.0, 0.0, 0.0, []
+
+        def lookahead(self, b, follows):                         # two exchanges ahead the burst looks best again
+            return (5000.0 if b == ("burst",) else 0.0), None
+    info = {"st": {"used": [], "loadout": []}, "R": 4}
+    was, p2.follow_set = (p2.WORST_CASE, p2.follow_set), lambda *a: []
+    try:
+        p2.WORST_CASE = "off"
+        res = p2.rank(P(), list(P.LINES), 100, p2.load_weights())
+        assert [r[1] for r in res] == [("burst",), ("gamble",), ("hit",), ("heal",)], [r[1] for r in res]
+        assert [r[1] for r in p2.lookahead_rerank(P(), info, res, 3.0)][0] == ("burst",)
+        p2.WORST_CASE, planner = "guard", P()
+        res = p2.rank(planner, list(P.LINES), 100, p2.load_weights())
+        assert [r[1] for r in res] == [("hit",), ("heal",), ("burst",), ("gamble",)], [r[1] for r in res]
+        after = [r[1] for r in p2.lookahead_rerank(planner, info, res, 3.0)]
+        assert after[:2] == [("hit",), ("heal",)] and after[2] == ("burst",), after
+        planner._wc = {b: True for b in P.LINES}                  # every line dies to something: nothing to prefer
+        res = p2.rank(planner, list(P.LINES), 100, p2.load_weights())
+        assert [r[1] for r in res][0] == ("burst",)
+        desperate = _Desperate()                                  # every line loses: rank()'s own order stands
+        desperate._wc = {("hit",): True, ("stance",): False, ("poke",): False, ("nuke",): True}
+        res = p2.rank(desperate, list(_Desperate.LINES), 100, p2.load_weights())
+        assert [r[1] for r in res][0] == ("hit",) and desperate.desperate == 3
+    finally:
+        p2.WORST_CASE, p2.follow_set = was
+    assert p2.WORST_CASE == "off" or os.environ.get("TNR_WORST_CASE")
+    print("ok: the worst-case reply check moves the lines he can kill behind the rest when it is on; it is off")
+
+
 def test_round_8_against_ddxxd_under_each_setting():
     """AP test fight 2, round 8, rebuilt from its log (tests/ddxxd_r8.txt). With "alive" and with "off" what is
     fired is one of the lines that live best. With "all", today's setting, it is whatever the lookahead likes:
@@ -180,5 +224,6 @@ if __name__ == "__main__":
     test_one_kunai_price_for_both_planners()
     test_desperation_hits_hardest_among_the_lines_that_live_best()
     test_what_the_lookahead_may_reorder_when_every_line_loses()
+    test_the_worst_case_reply_check_is_a_setting_and_off()
     test_round_8_against_ddxxd_under_each_setting()
     test_damage_to_him_is_my_turns_not_after_his_reply()

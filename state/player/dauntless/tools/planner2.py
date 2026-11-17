@@ -729,6 +729,8 @@ class Planner:
             m0.wipe(NEGK)
         self.move_ground(m0, b)                         # off his ground, or onto it, by where the move lands
         run_turn(m0, e0, acts, 0, cm, ce)
+        wc = self.__dict__.setdefault("_wc", {})        # bundle -> one of his listed replies kills me (rank, WORST_CASE)
+        wc[tuple(b)] = False
         if e0.hp <= 0:
             return [(self.en0.hp - e0.hp) - (self.me0.hp - m0.hp)] + [0] * (NF - 1), value_model.KILL, self.en0.hp, [(1.0, ["-"])], 0.0
         feats = [0.0] * NF
@@ -749,6 +751,7 @@ class Planner:
                 t = value_model.KILL if e.hp <= 0 < m.hp else -value_model.DEATH
                 term += w * t
                 dead += w if m.hp <= 0 else 0.0
+                wc[tuple(b)] = wc[tuple(b)] or m.hp <= 0
                 f = [(self.en0.hp - e.hp) - (self.me0.hp - m.hp)] + [0] * (NF - 1)
             else:
                 f = self.features(b, m, e, names)
@@ -1293,7 +1296,23 @@ def rank(P, bundles, ap, W):
         res = alive + [r for r in res if r[10] > best + 0.10]
         P.desperate = len(alive)
         print(f"DESPERATION: every line loses; ranked by damage to him among the lines that live best (die {best:.0%})")
-    return res
+    return worst_case_last(P, res, say=True)
+
+
+def worst_case_last(P, res, say=False):
+    """The worst-case reply check (RUL-2026-11-17-166, 2), with TNR_WORST_CASE=guard: a line that one of his listed
+    replies kills (his likely lines, and the hardest one he has ready: hedge) goes behind every line that survives
+    them all. Not when every line loses: that order is rank()'s own. Off until the simulator and tune_real say it
+    helps; it can also make the planner too careful to win a race."""
+    if WORST_CASE != "guard" or getattr(P, "desperate", 0):
+        return res
+    dies = getattr(P, "_wc", {})
+    safe = [r for r in res if not dies.get(tuple(r[1]))]
+    if not safe or len(safe) == len(res):
+        return res
+    if say and dies.get(tuple(res[0][1])):
+        print(f"worst case: {'+'.join(res[0][1])} dies to one of his replies; {'+'.join(safe[0][1])} does not")
+    return safe + [r for r in res if dies.get(tuple(r[1]))]
 
 
 LOOKAHEAD = os.environ.get("TNR_LOOKAHEAD", "1") == "1"     # on: judged on real fights + loss post-mortems (director 2026-11-11)
@@ -1302,6 +1321,7 @@ LA_K = int(os.environ.get("TNR_LA_K", "20"))          # candidates played two ex
 LA_W = float(os.environ.get("TNR_LA_W", "1.0"))        # weight of the lookahead value against the one-turn score
 LA_RACE = float(os.environ.get("TNR_LA_RACE", "250"))  # HP-equivalent per turn of time-to-kill lead
 DESPERATE_LA = os.environ.get("TNR_DESPERATE_LA", "all")   # what the lookahead reorders when every line loses
+WORST_CASE = os.environ.get("TNR_WORST_CASE", "off")       # "guard": lines one of his replies kills go last (rank)
 
 
 HEDGE = float(os.environ.get("TNR_HEDGE", "0.35"))   # weight on his hardest-hitting ready line in every reply set
@@ -1372,7 +1392,7 @@ def lookahead_rerank(P, info, res, budget):
     print("lookahead: " + " | ".join(f"{'+'.join(x[3][1])} {x[1]:+.0f} then {'+'.join(x[2] or ['-'])}"
                                      for x in scored[:3]) + f" ({time.time() - t0:.1f}s)")
     head = [x[3] for x in scored]
-    return head + [r for r in res if r not in head]
+    return worst_case_last(P, head + [r for r in res if r not in head])
 
 
 def rollout_rerank(P, info, res, n, budget, k=4):
