@@ -14,6 +14,7 @@
  *   candidates?: [[{ actionId, x, y }]]                   — eval mode
  *   replyCap?: number                                      — max enemy reply bundles to try (default 60)
  *   script?: [{ who: "him" | "me", actions: [ids] }]       — eval mode: the logged turns after mine, played in order
+ *   cards?: [{ id, side: { kit, bloodline } }]             — cards mode: each fired alone by "him", built for it
  * Output: { ap, available: [{id, name, cost}], replayIssues: [...], results?: [...] }
  *   results[i] = { legal, failedAt?, reason?, afterMe: {me, him}, best: {me, him, actions}, typical: {...} }
  */
@@ -298,7 +299,66 @@ const replyBundles = (b: CompleteBattle) => {
   return { ap, bundles: out.slice(0, req.replyCap ?? 60) };
 };
 
+/** The move atlas (player/atlas.py): each card fired alone by the standard caster ("him") on a fresh board. The
+ *  caster is built again for every card, with that card for his whole kit and what it needs (its bloodline), so no
+ *  card's legality rests on another's. Read back: whether the engine lists it as an action and what it costs, what
+ *  it took off each side, every effect and ground effect it left, where both stand, and one idle round on. */
+const cards = async () => {
+  const out: any = {};
+  for (const card of req.cards ?? []) {
+    // card.by "me": fired by me as I am (my kit, my gear, my bloodline) at the standard opponent. Else by him,
+    // built for this card.
+    const cid = card.by === "me" ? req.me.id : req.him.id, oid = card.by === "me" ? req.him.id : req.me.id;
+    if (card.side) Object.assign(req.him, card.side);
+    KIT.clear();
+    for (const side of [req.me, req.him]) for (const k of side.kit ?? []) KIT.set(k.record.id, k.record);
+    const c: any = {};
+    try {
+      const base = await S.withSeed(7, prepare);
+      await S.withSeed(13, async () => {
+        const b = structuredClone(base);
+        setActive(b, cid);
+        const u = userOf(b, cid);
+        const who = (bb: CompleteBattle, uid: string) =>
+          bb.usersState.find((x) => x.userId === uid)?.controllerId === cid ? "caster" : "target";
+        const eff = (bb: CompleteBattle, e: any) => ({ type: e.type, on: who(bb, e.targetId), by: who(bb, e.creatorId),
+          power: e.power, powerPerLevel: e.powerPerLevel, level: e.level, rounds: e.rounds, calculation: e.calculation,
+          isNew: !!e.isNew, castThisRound: !!e.castThisRound, direction: e.direction, elements: e.elements,
+          statTypes: e.statTypes, generalTypes: e.generalTypes, poolsAffected: e.poolsAffected,
+          ...(e.targetId ? {} : { x: e.longitude, y: e.latitude }) });
+        const act: any = availableUserActions(b as never, u.userId, true, true).find((a: any) => a.id === card.id);
+        c.listed = !!act;
+        if (act) c.cost = getActionPointCost(u.userId, b as never, act);
+        const seen = new Set([...(b.usersEffects as any[]), ...(b.groundEffects as any[])].map((e) => e.id));
+        const r = tryAct(b, cid, card.id);
+        c.legal = r.ok;
+        if (!r.ok) { c.reason = r.reason; return; }
+        const a = r.battle;
+        c.now = { caster: hp(a, cid) - hp(base, cid), target: hp(a, oid) - hp(base, oid) };
+        c.effects = (a.usersEffects as any[]).filter((e) => !seen.has(e.id)).map((e) => eff(a, e));
+        c.ground = (a.groundEffects as any[]).filter((e) => !seen.has(e.id)).map((e) => eff(a, e));
+        const cu = userOf(a, cid), tu = userOf(a, oid);
+        c.at = { caster: [cu.longitude, cu.latitude], target: [tu.longitude, tu.latitude] };
+        const n = structuredClone(a);
+        I.nextRound(n);
+        c.next = { caster: hp(n, cid) - hp(a, cid), target: hp(n, oid) - hp(a, oid),
+          left: [...(n.usersEffects as any[]), ...(n.groundEffects as any[])].filter((e) => !seen.has(e.id))
+            .map((e) => [e.type, e.rounds]) };
+      });
+    } catch (err) {
+      c.legal = false;
+      c.reason = "assemble: " + String((err as Error).message).slice(0, 160);
+    }
+    out[card.by === "me" ? `me:${card.id}` : card.id] = c;
+  }
+  return out;
+};
+
 const main = async () => {
+  if (req.mode === "cards") {
+    process.stdout.write(JSON.stringify({ cards: await cards() }));
+    return;
+  }
   const base = await S.withSeed(7, prepare);
   const res: any = { round: base.round,
     ap: Math.max(0, userOf(base, req.me.id).actionPoints - calcApReduction(base as never, userOf(base, req.me.id).userId)), available: available(base, req.me.id),
