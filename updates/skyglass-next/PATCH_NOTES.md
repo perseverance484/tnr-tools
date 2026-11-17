@@ -1,7 +1,7 @@
 # Discord patch notes: Skyglass weekend 3, Stolen Stores
 
 Status: **draft.** Lines marked ⏳ wait on a decision from the director; strip the marks before posting. Built from
-the Discord draft in "Stolen Stores: full update design" (rev 15) plus Salvager's Bearing. Same shape as weekend 2's
+the Discord draft in "Stolen Stores: full update design" (rev 15) plus the Watch Log's Wreck signpost. Same shape as weekend 2's
 thread: short lines, one infographic each, no explanations.
 
 **Thread title:** Skyglass Wreck · Weekend 3: Stolen Stores
@@ -15,9 +15,8 @@ thread: short lines, one infographic each, no explanations.
 - ⏳ New run: **The Quartermaster's Stores**, solo, level 30+. Something below the galley is eating the stores.
   *(names and rewards)*
 - ⏳ New job: **Short Rations** on the Wake Island board, once a day. *(board job or a fifth Salvager daily)*
-- ⏳ New daily: **Salvager's Bearing**. Finish Wreck Sighted, then take it from the Administration Building once a
-  day: beat 3 of the crew on the beach in sector 210. They fight at your level. *(name, reward, and whether it
-  replaces Short Rations)*
+- Can't find the Wreck? Your Watch Log page now says exactly where it is: open it in your Logbook and read the
+  briefing.
 - Levels 30 to 80: the Faded Wreck, the beach and your own Watch Log page are all sized for you.
 - ⏳ Fixes: *(wording: the design draft says "Maw of the Deep hits for a fixed amount", but the Maw is now a one-hit
   KO on the Core Horrors; and the reflect-stance animation is still "not yet")*

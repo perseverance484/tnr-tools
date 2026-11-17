@@ -56,6 +56,13 @@ REWARD_ZERO = {"reward_exp": 0, "reward_rank": "NONE", "reward_money": 0, "rewar
                "reward_gathering_items_ids": [], "reward_gathering_experience": 0,
                "reward_sage_mastery_experience": 0}
 PAGE_LOW_NAME = "The Watch Log: Stolen Stores (Shallows)"
+# Signpost (director 2026-11-17 01:39Z: "I want something that clearly indicates where the wreck is... Perhaps our
+# weekly watch log can state where the wreck is"; 01:46Z: "Can't it just be in the description somehow?"). One bold
+# line under each page's hook names sector 210 and that band's Wreck tile, read live from coop.dungeon.getAll
+# 2026-11-16 (the design doc's 15/6 and 16/6 are stale). TheNinjaRPG@94b585ea layout/Logbook.tsx 738-739, 849-865: the
+# Logbook shows the description of every held quest (not tier or daily) under a "Read briefing" toggle for as long as
+# it is held. No travel objective: one would mark the map only until the player arrives (layout/Map.tsx 73-95).
+WRECK = {"low": ("the Faded Skyglass Wreck", 210, 7, 1), "high": ("the Skyglass Wreck", 210, 21, 6)}
 
 
 def row(item, qty=1):
@@ -112,7 +119,9 @@ def description(hook, objs, band):
     for n, o in enumerate(objs, 1):
         plain, rew = o["description"].split("<br><br>", 1)[1].split(" Reward when you claim it: ")
         lines.append(f"{n}. {plain} <i>Reward: {rew.rstrip('.')}.</i>")
-    return (f"<i>{hook}</i><br><br><b>This weekend's challenges</b><br>" + "<br>".join(lines) +
+    name, sector, lon, lat = WRECK[band]
+    where = f"<b>{name[0].upper() + name[1:]} is in sector {sector}, tile {lon}, {lat}.</b>"
+    return (f"<i>{hook}</i><br><br>{where}<br><br><b>This weekend's challenges</b><br>" + "<br>".join(lines) +
             f"<br><b>All five:</b> a Skyglass Token.<br><br><b>Rules</b><br>{RULES[band]}")
 
 

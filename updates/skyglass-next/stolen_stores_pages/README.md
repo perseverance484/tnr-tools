@@ -30,6 +30,12 @@ no Wreck Salvage on its orders. Confirmed against 517/518 and the release thread
   Treasury), 3 salvage each, Skyglass Token for all five. Beachcombing is no longer its own challenge (still counts as
   a daily).
 
+## Wreck signpost (added 2026-11-17, director's direction)
+Each page's description gets one bold line under its hook: "The Faded Skyglass Wreck is in sector 210, tile 7, 1." on
+the Shallows page, "The Skyglass Wreck is in sector 210, tile 21, 6." on Stolen Stores (live tiles, coop.dungeon.getAll
+2026-11-16). The Logbook shows a held page's description under "Read briefing" for as long as it is held
+(TheNinjaRPG@94b585ea layout/Logbook.tsx 738-739, 849-865). No objectives changed.
+
 ## Icon prompts (attach ref_style_skyglass_icons.png)
 1. The Watch Log: Stolen Stores. Game item icon in the same hand-painted style as the attached icons: a dented,
    salt-crusted tin ration box lying open at a 3/4 angle, a folded page of a ship's log tucked under its lid, the
