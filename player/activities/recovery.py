@@ -3,7 +3,8 @@
 - Hospitalized: heal at the village hospital.
 - While hunting: with any HP missing a Full Potion (config.HEAL_BELOW); chakra or stamina under 50%, ramen
   (which refills those two only).
-  A heal that changed nothing is not tried again for 10 minutes: a guard against a loop, not a fix.
+  A heal that changed nothing is not tried again for 10 minutes: a guard against a loop, not a fix. The hunt
+  starts no fight meanwhile (pvp_hunt; gates, health_missing).
 - At the end of a fight: the Full Potion goes in the same batch as the fight's last read (after_fight), because a
   wounded winner is a third party's target within seconds.
 - After every fight, a large ramen when chakra or stamina is under POOLS_AFTER_FIGHT, on the first tick awake in hunt

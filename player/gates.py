@@ -257,8 +257,9 @@ class Gates:
         entry = self.endpoints.get(name)
         if entry is None:
             return refuse("allowlist", f"{name} is not on the allowlist")
-        return self._fixed(step, entry, activity) or self._ending(step, world) or self._road(step, world, activity) \
-            or self._gated(step, entry, world) or self._asked(step, entry, world) or ALLOW
+        return self._fixed(step, entry, activity) or self._ending(step, world) or self._whole(step, world) \
+            or self._road(step, world, activity) or self._gated(step, entry, world) \
+            or self._asked(step, entry, world) or ALLOW
 
     @staticmethod
     def _ending(step, world):
@@ -267,6 +268,18 @@ class Gates:
         running is played to its end, and one he starts is fought: those are combat.performAction, not this."""
         if step["call"] == "combat.attackUser" and world["control"]["end_session"]:
             return refuse("session_ending", "the session is ending: no new fight is started")
+        return None
+
+    @staticmethod
+    def _whole(step, world):
+        """No fight is started with health missing (RUL-2026-11-17-165, rule 8: "never start a fight missing HP").
+        Recovery heals first; when its heal did not take it waits ten minutes before the next, and until then the
+        hunt plans no attack (pvp_hunt). This is the second lock, at the call. A fight already running is played,
+        and one he starts is fought."""
+        if step["call"] == "combat.attackUser" and world.pools()["hp"] < C.HEAL_BELOW:
+            me = world.me
+            return refuse("health_missing", f"{me.get('curHealth', 0):.0f} of {me.get('maxHealth', 0):.0f} HP: no "
+                                            "fight is started with health missing")
         return None
 
     @staticmethod

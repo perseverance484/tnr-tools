@@ -100,7 +100,8 @@ class Recovery(unittest.TestCase):
         rig = Rig()
         rig.tick(user(hp=3000))
         out = rig.tick(user(hp=3000))                                      # the potion changed nothing
-        self.assertEqual(out["activity"], "pvp_hunt")
+        self.assertEqual(out["activity"], "pvp_hunt")                      # the hunt goes on looking; it starts no
+        self.assertNotIn("combat.attackUser", rig.calls(out))              # fight hurt (test_loss_fixes, F1)
         out = rig.tick(user(hp=3000), dt=C.HEAL_RETRY + 1)
         self.assertEqual(out["activity"], "recovery")
 

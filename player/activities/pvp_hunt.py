@@ -112,6 +112,11 @@ class PvpHunt(Activity):
         if here:
             target, why = pick_target(world, scan["rows"], me_pos, self.gates.dna_path)
             world["map"]["last_scan"] = why
+            if target and world.pools()["hp"] < C.HEAL_BELOW:
+                # no fight is started with health missing (RUL-2026-11-17-165, rule 8). Recovery heals first; when
+                # its heal did not take, it is not tried again for ten minutes, and the hunt waits here meanwhile
+                return self._scan(world, f", not attacking {target['username']}: health is missing and the heal "
+                                         "has not taken")
             if target:
                 return self._attack(target, sector, me_pos, head)
             if sector in C.CIRCUIT or sector == C.HOME_SECTOR:

@@ -15,7 +15,7 @@ from unittest import mock
 
 from player import calls as K, config as C, keep
 from player.combat import Combat
-from player.tests.support import Rig, fixture, user
+from player.tests.support import Rig, fixture, res, scan, user
 
 OUT = """R3 v14 | MY TURN | he acted first this round
 me 3880 HP AP 80 (STUNNED -20) | him Selaphiel 3651 HP | dist 2 | his base turn 1005
@@ -136,6 +136,38 @@ class NoFightIsStartedMissingHealth(unittest.TestCase):
         out = Rig().tick(user())                                         # full: nothing to heal
         self.assertNotEqual(out["activity"], "recovery")
         self.assertEqual(C.HEAL_BELOW, 1.0)
+
+    TARGET = ("user_testOpponent", "Target", 10, 10, "AWAKE", 100, "enemyVillage", None, None)
+
+    def test_a_heal_that_did_not_take_does_not_free_the_hunt_to_attack(self):
+        """Review of e051d062, F1. Recovery does not try a heal again for ten minutes when it changed nothing, and
+        steps aside meanwhile. The hunt then attacked whoever the next scan showed, one point short of full."""
+        rig = Rig()
+        out = rig.tick(user(hp=5049), scan([self.TARGET]))
+        self.assertEqual((out["activity"], rig.calls(out)[0]), ("recovery", "item.consume"))
+        out = rig.tick(res("item.consume", {"success": False, "message": "Unavailable"}), user(hp=5049),
+                       scan([self.TARGET]))
+        self.assertEqual(out["activity"], "pvp_hunt")                     # the hunt goes on looking
+        self.assertNotIn("combat.attackUser", rig.calls(out))             # and starts no fight
+        self.assertIn("not attacking Target: health is missing", out["note"])
+        out = rig.tick(user(hp=5049), scan([self.TARGET]))
+        self.assertNotIn("combat.attackUser", rig.calls(out))             # nor on the next look
+        out = rig.tick(user(), scan([self.TARGET]))                       # whole again: the fight is started
+        self.assertIn("combat.attackUser", rig.calls(out))
+
+    def test_the_attack_is_refused_at_the_call_too(self):
+        rig = Rig()
+        rig.tick(user(hp=5049))
+        target = {"userId": "u1", "username": "Somebody", "longitude": 3, "latitude": 3}
+        v = rig.brain.gates.check(K.attack(target, 1538), rig.world, "pvp_hunt")
+        self.assertEqual((v.kind, v.rule), ("refuse", "health_missing"))
+        rig.tick(user())
+        self.assertNotEqual(rig.brain.gates.check(K.attack(target, 1538), rig.world, "pvp_hunt").kind, "refuse")
+
+    def test_a_fight_that_is_running_is_played_whatever_my_health(self):
+        rig = Rig()
+        out = rig.tick(user("BATTLE", bid="B1", hp=900))
+        self.assertEqual(out["activity"], "battle")                       # his attack, or one begun whole: fought
 
     def test_the_fights_closing_batch_heals_whatever_is_missing(self):
         rig = Rig()
