@@ -750,6 +750,14 @@
    ],
    "build": "python3 push/626_rengoku_suggestion.gen.py <624 bundle> [fresh capture bundle]",
    "note": "Suggest mode from Forge; never skipPreflight. Mechanics/text unchanged."
+  },
+  {
+   "id": "627",
+   "manifest": "push/627_skyglass_charts_event_items.json",
+   "what": "Skyglass charts (11) and Ledger Pages (3) become event items (isEventItem true)",
+   "runner": "connector",
+   "status": "done",
+   "result": "harvests/inbox/2026-11-17_push627_skyglass_charts_event_items.json: 14/14 VERIFIED (2026-11-17)"
   }
  ]
 }
