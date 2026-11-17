@@ -1,6 +1,6 @@
-# DRIFT.md - upstream contract drift (2026-11-15)
+# DRIFT.md - upstream contract drift (2026-11-17)
 
-Upstream: studie-tech/TheNinjaRPG@f6a51fac5fbbc055682a3ec35c0ad36cfb244925
+Upstream: studie-tech/TheNinjaRPG@a00430f035a63abfaed1be1266c38dac55ab5043
 
 Signal only. Nothing below is adopted until the structural diff gate passes.
 
@@ -148,6 +148,7 @@ CHANGES
   type-changed  quest  petTaskMinutes  preprocess -> ref
 ADDITIONS
   field  gameAsset  lpcConfig
+  field  item  craftingOutputQuantity
   field  item  lpcColor
   field  item  lpcProfile
   field  itemVariant  lpcColor
@@ -218,7 +219,7 @@ REMOVALS
   const-member  AvailableEffectTypes  onehitkillprevent
   const-member  AvailableEffectTypes  pierce
   const-member  AvailableEffectTypes  poison
-  ... 165 more
+  ... 195 more
 ADDITIONS
   const-member  ABANDONABLE_QUEST_TYPES  battlepyramid
   const-member  ABANDONABLE_QUEST_TYPES  crime
@@ -278,9 +279,9 @@ ADDITIONS
   const-member  INITIATIVE_PVP_STREAK_BONUSES  0.01
   const-member  INITIATIVE_PVP_STREAK_BONUSES  0.015
   const-member  INITIATIVE_PVP_STREAK_BONUSES  0.02
+  const-member  ItemTypes  COSMETIC
   const-member  MISSION_HALL_QUEST_TYPES  crime
-  const-member  MISSION_HALL_QUEST_TYPES  errand
-  ... 128 more
+  ... 131 more
 
-BREAKING: 225 change(s) - DO NOT ADOPT (exit 1)
+BREAKING: 255 change(s) - DO NOT ADOPT (exit 1)
 ~~~
