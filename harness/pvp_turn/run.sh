@@ -9,16 +9,24 @@ APP="${TNR_ENGINE_APP:?Set TNR_ENGINE_APP to the exported engine app dir}"
 [[ -d "$APP/node_modules" ]] || { echo "engine app has no node_modules" >&2; exit 2; }
 SUITE="$APP/tests/tnr_pvp_turn"
 mkdir -p "$SUITE/lib"
-cp "$HERE"/engine/*.ts "$SUITE/"
+# Several engine processes run at once (the atlas, tune_real, post-mortems). A file is put in place only when it
+# differs, and then by a rename, so a process that is loading it never reads half of one: a plain cp on every run
+# gave "I.act is not a function" to whoever loaded lib/itembattle.ts while another run was writing it.
+put() {
+  cmp -s "$1" "$2" && return 0
+  cp "$1" "$2.$$.tmp" && mv -f "$2.$$.tmp" "$2"
+}
+for f in "$HERE"/engine/*.ts; do put "$f" "$SUITE/$(basename "$f")"; done
 SCRIPT="${2:-turn_sim.ts}"
 # lib = ghost_ship_final/engine/lib ported to the upstream engine layout (see engine/lib/*.ts headers)
-for f in fixtures sim itembattle; do cp "$HERE/engine/lib/$f.ts" "$SUITE/lib/"; done
+for f in fixtures sim itembattle; do put "$HERE/engine/lib/$f.ts" "$SUITE/lib/$f.ts"; done
 # test-helper location differs by engine version (tests/setup/combat.ts upstream; older pins: libs/combat/helpers)
 if [[ -f "$APP/tests/setup/combat.ts" ]]; then
-  echo 'export { makeEffect } from "../../setup/combat";' > "$SUITE/lib/helpers.ts"
+  echo 'export { makeEffect } from "../../setup/combat";' > "$SUITE/lib/helpers.ts.$$.new"
 else
-  echo 'export { makeEffect } from "../../libs/combat/helpers/battleScenario";' > "$SUITE/lib/helpers.ts"
+  echo 'export { makeEffect } from "../../libs/combat/helpers/battleScenario";' > "$SUITE/lib/helpers.ts.$$.new"
 fi
+put "$SUITE/lib/helpers.ts.$$.new" "$SUITE/lib/helpers.ts"; rm -f "$SUITE/lib/helpers.ts.$$.new"
 REQ="$(realpath "$1")"
 cd "$APP"
 # only CI placeholders enter the child (same allowlist as harness/ghost_ship_final/tools/test_env.sh)
