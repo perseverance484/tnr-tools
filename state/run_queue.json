@@ -679,6 +679,17 @@
    ],
    "build": "python3 push/620_variant_text_weapons.gen.py",
    "note": "Director 2026-11-15: players want unique text on every variant, faithful to each weapon's own text, premium rewrite. Text source state/variant_text/weapons_20261115.json; parent text and art read live 2026-11-15. check_manifest.mjs: 0 pre-send problems. validate.py reports 'no itemVariant entity' at the pinned contracts (a validator contract gap, same edit shape as push/327)."
+  },
+  {
+   "id": "621",
+   "manifest": null,
+   "what": "Forbidden Chakra Fury: painted floor ripple -> eruption -> cracks shimmer on the recoil tag at animationScale 3; light end clip; damage effect's stock zap cleared (sound kept)",
+   "runner": "Duet upload, then connector",
+   "status": "waiting",
+   "waitsFor": [
+    "Duet uploads state/fcf_upload/upload_list.json to the director's UploadThing (uploaded.json)"
+   ],
+   "note": "Director 2026-11-16: 'Let's do this animation'. Then Claude: gameAsset.create x4 hidden (ANIMATION x3 with frames/speed, STATIC ground), unhide by edit, one full-record jutsu.update of Lg_thN-MB8FRAr_Agf9tn changing only art fields: effect 2 appear=burst (28 x 42), static=shimmer (16 x 70), staticAssetPath=ground, disappear=fade (10 x 50), animationScale 3; effect 1 appearAnimation cleared, appearSfx kept. Player bloodline jutsu: no law 18. Read back. Brief: docs/handoffs/FORBIDDEN_CHAKRA_FURY_ANIMATION_ART_REQUEST.md."
   }
  ]
 }

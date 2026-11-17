@@ -249,10 +249,16 @@ def main():
     ap.add_argument("--preview", action="store_true")
     ap.add_argument("--board", action="store_true", help="game-geometry board preview (fxkit), after the strips")
     ap.add_argument("--v2", action="store_true", help="floor-ripple version (director 2026-11-16) at scale 3")
+    ap.add_argument("--v3", action="store_true", help="painted floor ripple (E1/E2) and the light end clip")
+    ap.add_argument("--final", action="store_true", help="export the upload set (192 px, fresh names) to final/")
     a = ap.parse_args()
     os.makedirs(OUT, exist_ok=True)
     if a.v2:
         return main_v2(a.size)
+    if a.v3:
+        return main_v3(a.size)
+    if a.final:
+        return export_final(a.size if a.size != 128 else 192)
     clips = {"burst": (build_burst(), 42), "fade": (build_fade(), 50), "crackle": (build_crackle(), 60)}
     for name, (frames, ms) in clips.items():
         p = os.path.join(OUT, f"anim_fcf_{name}.webp")
@@ -596,6 +602,122 @@ def board_preview_v2(out_name="fcf_board_v2"):
         st.paste(frames[k], (0, r * frames[0].height))
     st.save(os.path.join(HERE, "preview", f"{out_name}_stills.png"))
     print(p, os.path.getsize(p))
+
+
+
+# ------------------------------------------------------------------------------------------- v3: painted ripple
+# Director 2026-11-16: painted floor ripple (art request section 7, raws E1/E2) replaces the scripted lines; "Sharper is
+# fine. Let's do this animation." The end clip is kept light (vein flicker and sparks, no ground plate): a ground
+# tag's disappearAnimation repeats on anyone standing in it (combat_fx.md gotcha 2).
+def painted_ripple(n, layer, head, hot=0.09, tail_fade=0.55):
+    """Reveal a painted top-down web out to radius `head` (fraction of n), white-hot at the head, then squash 2:1."""
+    L = arr(Image.open(os.path.join(RAW, layer)).convert("RGBA").resize((n, n), Image.LANCZOS))
+    _, r, _ = radial(n, 1, 1)
+    r = r * 0.5  # radius as a fraction of n
+    vis = np.clip((head - r) / 0.02 + 0.5, 0, 1)
+    band = np.clip(1 - (head - r) / hot, 0, 1) * (r <= head)
+    behind = 1 - tail_fade * np.clip((head - r - hot) / 0.35, 0, 1)
+    out = L.copy()
+    out[..., :3] = out[..., :3] * (1 - band[..., None] * 0.85) + CORE * band[..., None] * 0.85
+    out[..., 3] = out[..., 3] * vis * np.maximum(behind, band)
+    sq = img(out).resize((n, n // 2), Image.LANCZOS)
+    flat = Image.new("RGBA", (n, n))
+    flat.alpha_composite(sq, (0, n // 4))
+    return arr(flat)
+
+
+def build_v3():
+    n = WORK
+    A = load("A_fury_burst_keypose.png")
+    G = ground_in_frame(n)
+    V = vein_mask(G)
+    veins_rgb = np.concatenate([np.broadcast_to(VIOLET * 0.55 + CORE * 0.45, V.shape + (3,)), V[..., None]], -1)
+    er = noise(n, 41, 5)
+    reach = 0.47
+    burst = []
+    for f in range(28):
+        c = np.zeros((n, n, 4), np.float32)
+        if f < 12:  # E1 races out; E2 chases from frame 6
+            t = (f + 1) / 12
+            c = over(c, painted_ripple(n, "E1_Ripple_Web.png", reach * t ** 0.8))
+            if f >= 6:
+                t2 = (f - 5) / 7
+                c = over(c, painted_ripple(n, "E2_Second_Wave.png", reach * t2 ** 0.9, hot=0.12, tail_fade=0.75))
+        elif f < 20:  # the floor erupts: webs flash out, the painted burst rises, cracks flare in
+            t = (f - 12) / 7
+            w1 = painted_ripple(n, "E1_Ripple_Web.png", reach, tail_fade=0.0)
+            w2 = painted_ripple(n, "E2_Second_Wave.png", reach, tail_fade=0.0)
+            for w in (w1, w2):
+                w[..., 3] *= max(0.0, 1 - t * 1.3)
+                c = over(c, w)
+            v = veins_rgb.copy()
+            v[..., 3] *= min(1, t * 2)
+            c = over(c, v)
+            s = 0.45 + 0.75 * min(1, t * 1.6) ** 0.6
+            ex = arr(transform(A, s, (f - 12) * 2.0, -n * 0.10 * t))
+            ex[..., 3] *= np.clip((er - t ** 1.3 + 0.15) / 0.15, 0, 1)
+            if f <= 13:
+                ex[..., :3] = ex[..., :3] * 0.5 + CORE * 0.5
+            c = over(c, ex)
+        else:  # settle into the cracks, embers rise
+            t = (f - 20) / 7
+            v = veins_rgb.copy()
+            v[..., 3] *= 1 - 0.35 * t
+            c = over(c, v)
+            ex_, ey, _ = bright_points(arr(A), 22, 300 + f)
+            pts = [(x, y * 0.8 - 60 * t * (1 + i % 3), 0.85 * (1 - t)) for i, (x, y) in enumerate(zip(ex_, ey))]
+            c = over(c, dots(n, pts, VIOLET, 6))
+        burst.append(img(c))
+    # light end clip: vein flicker and the C sparks only (no ground plate; repeats on occupants)
+    Cs = arr(load("C_fade_overlay.png"))
+    fade = []
+    for f in range(10):
+        t = f / 9
+        vv = veins_rgb.copy()
+        vv[..., 3] *= (1 - t) * (0.45 + 0.35 * math.sin(f * 2.7))
+        cs = Cs.copy()
+        cs[..., 3] *= (1 - t) * (0.5 + 0.5 * math.sin(f * 1.9 + 1))
+        fade.append(img(over(vv, cs)))
+    return burst, fade
+
+
+def main_v3(size=128):
+    burst, fade = build_v3()
+    for name, frames, ms in (("burst_v3", burst, 42), ("fade_v3", fade, 50)):
+        p = os.path.join(OUT, f"anim_fcf_{name}.webp")
+        b = strip(frames, size, p)
+        print(f"{p}: {len(frames)} frames x {size}px, {ms} ms, {b} bytes{'  OVER 460800' if b > 460800 else ''}")
+
+
+
+def export_final(size=192):
+    """Final upload set (director 2026-11-16: own host, native resolution). Fresh filenames; 2 px clear margin at the
+    top and bottom of every frame (linear sampling bleeds between frames)."""
+    burst, fade = build_v3()
+    _, shimmer, _ = build_v2()
+    fin = os.path.join(HERE, "final")
+    os.makedirs(fin, exist_ok=True)
+
+    def margin(frames):
+        out = []
+        for f in frames:
+            f = f.resize((size, size), Image.LANCZOS)
+            a = np.asarray(f).copy()
+            a[:2, :, 3] = 0
+            a[-2:, :, 3] = 0
+            out.append(Image.fromarray(a, "RGBA"))
+        return out
+
+    rows = []
+    for name, frames, ms in (("fcf_burst_v3", burst, 42), ("fcf_shimmer_v3", shimmer, 70), ("fcf_fade_v3", fade, 50)):
+        p = os.path.join(fin, f"anim_{name}_{size}.webp")
+        b = strip(margin(frames), size, p)
+        rows.append((os.path.basename(p), len(frames), ms, b))
+    g = os.path.join(fin, "ground_fcf_scorch_v3.webp")
+    ground_tile_aspect(384).save(g, "WEBP", lossless=True, method=6)
+    rows.append((os.path.basename(g), 1, 0, os.path.getsize(g)))
+    for r in rows:
+        print("%s: %d frames, %d ms, %d bytes" % r)
 
 
 if __name__ == "__main__":
