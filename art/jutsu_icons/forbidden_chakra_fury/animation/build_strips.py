@@ -235,10 +235,14 @@ def build_crackle():
     return frames
 
 
-def strip(frames, size, path):
+def strip(frames, size, path, palette=False):
+    """Vertical strip, lossless WebP. palette=True quantizes to 256 colours first (still lossless encoding): soft
+    gradients like the eruption blades compress about 3x smaller with no visible change (checked side by side)."""
     s = Image.new("RGBA", (size, size * len(frames)))
     for i, fr in enumerate(frames):
         s.paste(fr.resize((size, size), Image.LANCZOS), (0, i * size))
+    if palette:
+        s = s.quantize(colors=256, method=Image.Quantize.FASTOCTREE).convert("RGBA")
     s.save(path, "WEBP", lossless=True, method=6)
     return os.path.getsize(path)
 
@@ -250,6 +254,7 @@ def main():
     ap.add_argument("--board", action="store_true", help="game-geometry board preview (fxkit), after the strips")
     ap.add_argument("--v2", action="store_true", help="floor-ripple version (director 2026-11-16) at scale 3")
     ap.add_argument("--v3", action="store_true", help="painted floor ripple (E1/E2) and the light end clip")
+    ap.add_argument("--v4", action="store_true", help="lines erupt upward (anime ground-slash), no painted burst")
     ap.add_argument("--final", action="store_true", help="export the upload set (192 px, fresh names) to final/")
     a = ap.parse_args()
     os.makedirs(OUT, exist_ok=True)
@@ -257,6 +262,8 @@ def main():
         return main_v2(a.size)
     if a.v3:
         return main_v3(a.size)
+    if a.v4:
+        return main_v4(a.size)
     if a.final:
         return export_final(a.size if a.size != 128 else 192)
     clips = {"burst": (build_burst(), 42), "fade": (build_fade(), 50), "crackle": (build_crackle(), 60)}
@@ -691,9 +698,10 @@ def main_v3(size=128):
 
 
 def export_final(size=192):
-    """Final upload set (director 2026-11-16: own host, native resolution). Fresh filenames; 2 px clear margin at the
-    top and bottom of every frame (linear sampling bleeds between frames)."""
-    burst, fade = build_v3()
+    """Final upload set (director 2026-11-16: own host, native resolution; "lines... explode upwards", v4). Fresh
+    filenames; 2 px clear margin at the top and bottom of every frame (linear sampling bleeds between frames)."""
+    burst = build_v4()
+    _, fade = build_v3()
     _, shimmer, _ = build_v2()
     fin = os.path.join(HERE, "final")
     os.makedirs(fin, exist_ok=True)
@@ -709,15 +717,121 @@ def export_final(size=192):
         return out
 
     rows = []
-    for name, frames, ms in (("fcf_burst_v3", burst, 42), ("fcf_shimmer_v3", shimmer, 70), ("fcf_fade_v3", fade, 50)):
+    for name, frames, ms, pal in (("fcf_burst_v4", burst, 42, True), ("fcf_shimmer_v3", shimmer, 70, False),
+                                  ("fcf_fade_v3", fade, 50, False)):
         p = os.path.join(fin, f"anim_{name}_{size}.webp")
-        b = strip(margin(frames), size, p)
+        b = strip(margin(frames), size, p, palette=pal)
         rows.append((os.path.basename(p), len(frames), ms, b))
     g = os.path.join(fin, "ground_fcf_scorch_v3.webp")
     ground_tile_aspect(384).save(g, "WEBP", lossless=True, method=6)
     rows.append((os.path.basename(g), 1, 0, os.path.getsize(g)))
     for r in rows:
         print("%s: %d frames, %d ms, %d bytes" % r)
+
+
+# ------------------------------------------------------------------------------------------- v4: lines erupt upward
+# Director 2026-11-16: "I dont like the explosion bit. The lines are the best part and they should just kinda explode
+# upwards... linear cutting the ground and exploding upwards" (the anime ground-slash eruption). No painted burst:
+# the painted webs (E1/E2) cut the floor, flare, then a curtain of light erupts straight up out of every line.
+def web_flat(n, layer):
+    """The painted web fully revealed and laid flat (squashed 2:1 about the centre), as float RGBA."""
+    return painted_ripple(n, layer, 0.6, tail_fade=0.0)
+
+
+def erupt(n, mask, height, seed, strength=1.0):
+    """Blades of light rising straight up from `mask` (n x n alpha of the flat lines). Only thin, sparse vertical
+    stripes of the lines erupt (so the web reads as separate blades, not a wall); each stripe has its own height and
+    the light falls off quickly upward. Returns float alpha and a 0..1 'heat' map (1 at the crack)."""
+    rng = np.random.default_rng(seed)
+    raw = rng.random(n)
+    stripes = (raw > 0.72).astype(np.float32)  # about 28% of columns erupt
+    stripes = np.maximum(stripes, np.roll(stripes, 1) * (rng.random(n) > 0.5))  # some blades 2 px wide
+    reach = height * (0.25 + 0.75 * rng.random(n) ** 0.7)
+    src = mask * stripes[None, :]
+    acc = np.zeros((n, n), np.float32)
+    heat = np.zeros((n, n), np.float32)
+    H = int(max(1, height))
+    for k in range(0, H, 2):
+        sh = np.zeros_like(src)
+        sh[:n - k] = src[k:]
+        rel = k / np.maximum(reach, 1)[None, :]
+        a = sh * np.clip(1 - rel, 0, 1) ** 1.6
+        acc = np.maximum(acc, a)
+        heat = np.maximum(heat, sh * np.clip(1 - rel / 0.25, 0, 1))
+    return np.clip(acc * strength, 0, 1), heat
+
+
+def build_v4():
+    n = WORK
+    G = ground_in_frame(n)
+    V = vein_mask(G)
+    veins_rgb = np.concatenate([np.broadcast_to(VIOLET * 0.55 + CORE * 0.45, V.shape + (3,)), V[..., None]], -1)
+    reach = 0.47
+    w1, w2 = web_flat(n, "E1_Ripple_Web.png"), web_flat(n, "E2_Second_Wave.png")
+    lines = np.clip(np.maximum(w1[..., 3], w2[..., 3]) * 1.4, 0, 1)
+    core = np.clip((lines - 0.45) / 0.4, 0, 1)  # the bright line cores, where the eruption starts
+    burst = []
+    for f in range(28):
+        c = np.zeros((n, n, 4), np.float32)
+        if f < 11:  # the lines cut the floor
+            t = (f + 1) / 11
+            c = over(c, painted_ripple(n, "E1_Ripple_Web.png", reach * t ** 0.8))
+            if f >= 5:
+                t2 = (f - 4) / 6
+                c = over(c, painted_ripple(n, "E2_Second_Wave.png", reach * t2 ** 0.9, hot=0.12, tail_fade=0.75))
+        else:
+            # webs stay lit, flaring white at the moment of eruption, then cooling into the cracks
+            fl = max(0.0, 1 - abs(f - 12) / 2.5)
+            cool = np.clip((f - 14) / 10, 0, 1)
+            for w in (w1, w2):
+                ww = w.copy()
+                ww[..., :3] = ww[..., :3] * (1 - fl * 0.7) + CORE * fl * 0.7
+                ww[..., 3] *= 1 - 0.8 * cool
+                c = over(c, ww)
+            v = veins_rgb.copy()
+            v[..., 3] *= min(1, (f - 11) / 6)
+            c = over(c, v)
+            # the eruption: rises fast (frames 12-16), holds and flickers, then breaks upward and fades
+            if f >= 12:
+                t = (f - 12) / 15
+                rise = min(1, (f - 11) / 4) ** 0.6
+                height = n * 0.42 * rise * (1 + 0.15 * t)
+                strength = (1.0 if f < 19 else max(0.0, 1 - (f - 19) / 8)) * (0.85 + 0.15 * math.sin(f * 2.3))
+                a, heat = erupt(n, core, height, seed=70 + f // 2, strength=strength)
+                lift = int(n * 0.10 * max(0, t - 0.45))  # breaking away upward at the end
+                if lift:
+                    a = np.roll(a, -lift, axis=0)
+                    heat = np.roll(heat, -lift, axis=0)
+                    a[-lift:] = 0
+                deep = np.array([0.62, 0.30, 1.0], np.float32)
+                rgb = deep[None, None, :] * (1 - heat[..., None]) + CORE[None, None, :] * heat[..., None]
+                glow = np.asarray(img(np.concatenate([rgb, a[..., None]], -1)).filter(ImageFilter.GaussianBlur(3)),
+                                  np.float32) / 255
+                glow[..., 3] *= 0.45
+                c = over(c, glow)
+                c = over(c, np.concatenate([rgb, a[..., None]], -1))
+                for w in (w1, w2):  # the lines stay readable over the base of the blades
+                    ww = w.copy()
+                    ww[..., 3] *= 0.85 * (1 - 0.8 * cool)
+                    c = over(c, ww)
+                # sparks flung up from the lines
+                ys, xs = np.nonzero(core > 0.6)
+                if len(xs):
+                    rng = np.random.default_rng(500 + f)
+                    idx = rng.choice(len(xs), size=min(26, len(xs)), replace=False)
+                    up = n * (0.08 + 0.35 * t)
+                    pts = [(xs[i] + rng.uniform(-6, 6), ys[i] - up * rng.uniform(0.4, 1.0), 0.9 * (1 - t))
+                           for i in idx]
+                    c = over(c, dots(n, pts, CORE * 0.6 + VIOLET * 0.4, 4))
+        burst.append(img(c))
+    return burst
+
+
+def main_v4(size=128):
+    burst = build_v4()
+    p = os.path.join(OUT, "anim_fcf_burst_v4.webp")
+    b = strip(burst, size, p)
+    print(f"{p}: {len(burst)} frames x {size}px, 42 ms, {b} bytes{'  OVER 460800' if b > 460800 else ''}")
 
 
 if __name__ == "__main__":
