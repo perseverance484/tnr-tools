@@ -25,6 +25,18 @@ python3 scripts/artpreflight.py out.webp --manifest manifest.json
 The four keying stages and the reason global colour-keying was retired are in the `chroma.py`
 docstring. Read them there. Restating them here is how they drift.
 
+**Jutsu icons have their own target, `JUTSU_ICON`** (RUL-2026-10-14-001). They may carry a designed
+opaque background: never run the key over it and never fabricate alpha. Export square lossless WebP
+with Pillow; `artpreflight.py` accepts the RGB file and skips the key checks it would only misread.
+A transparent jutsu icon takes the normal keyed route and every key check still applies. Item and
+bloodline icons stay on `ICON` and still require alpha. Inference to `JUTSU_ICON` is allow-listed
+because it relaxes a check: the name needs exactly one `jutsu` token (`ice_shackles_jutsu_icon.webp`,
+`glacial_volley_jutsu.webp`), and nothing else in it may hint at another target or contain `item`,
+`img`, `icon` or `bloodline` (only the trailing `_jutsu_icon` suffix may say `icon`). `ninjutsu`/
+`genjutsu` inside a word are not a token. Anything doubtful (`icon_jutsu_scroll`, `items_jutsu_icon`)
+refuses and needs `--type`. A workstream byte cap stricter than the spec goes on `--max-bytes`
+(BBE: `80000`). (Moved from SKILL.md, 2026-11-16.)
+
 The legacy flags (`--pad-2-3`, `--square`, `--max-kb`) still work and still export PNG. They
 exist for scripts written before the spec. Do not use them for new work.
 
