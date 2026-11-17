@@ -44,7 +44,7 @@ Choha, etc." "Limit Breaker, Mental Fortress..."
 Donors are kept at level 10 so the daily transfer can take 5 levels from them. When a donor is below 10, its next
 level comes before every target below (it is cheap and short), and it is never trained past 10.
 - Stone of the Withering `CTYkpwuoqS9mJkOB3Lm8U` (Earth, C, extraBaseCost 1500, not equipped): 5 after the
-  2026-11-17 transfer; level 6 queued, train 6-10.
+  2026-11-17 transfer; 6 trained, 7-10 queued 2026-11-17 19:23 (back to 10 ~23:19).
 
 ## Daily level transfer (director, 2026-11-16)
 "Once per day I want you to use the free jutsu transfer to hard cap a jutsu at 25. Pick a jutsu and transfer 5 levels
@@ -341,3 +341,4 @@ very expensive (Cyclone Palm Strike level 19 quoted 1,949,575 ryo for one level;
 | 2026-11-17 18:23 | Toxic Pool | 1 (learned at 0) | 1,520 | started (queue was empty; last not-owned list-4 entries) |
 | 2026-11-17 18:24 | Weary Fists 1 (learned at 0); Netherblight, Rock Cleaver, Rending Slash 2 each | | 8,111 total | queued (4 waiting, ends ~18:52). All list-4 not-owned entries are now learned; next refills take owned level-1 targets to 2. Stone of the Withering already at donor cap 10. Pocket 10.03M, no withdrawal. Intelligence and willpower both at the 400,000 cap, so 5,050 energy left unspent; asleep in 177 (read back) |
 | 2026-11-17 18:39 | Transfer Stone of the Withering -> Mental Fortress | 5 (MF 20-25; donor 10-5) | 0 | done, 0 reputation points, read back in getRecentTransfers; Stone of the Withering 6 queued (1 was waiting); asleep in 177 |
+| 2026-11-17 19:23 | Stone of the Withering (donor) | 7-10 | 105,119 | queued (active Stone of the Withering 6 ends ~19:33; 4 waiting, ends ~23:19); donor back to cap 10 for the next daily transfer. Pocket 9.91M, no withdrawal. Intelligence and willpower both at the 400,000 cap, so 5,050 energy left unspent; asleep in 177 (read back) |
