@@ -716,6 +716,40 @@
    ],
    "build": "python3 push/622_gobblefather_core.gen.py --ids <622 bundle>",
    "note": "Dry build (stand-in ids): check_manifest 0; validate.py 7 errors, all law-14 preferredStat, ledgered under RUL-2026-10-25-009 by the generator with the manifest sha."
+  },
+  {
+   "id": "624",
+   "manifest": "push/624_rengoku_animations.json",
+   "what": "Rengoku Ro step 1: create the strike and smoulder animation assets, hidden (art from Duelyst fx_f4_obliterate, CC0)",
+   "runner": "browser",
+   "status": "ready",
+   "waitsFor": [],
+   "build": "python3 push/624_rengoku_animations.gen.py",
+   "note": "Director: tight variant, 'submit it for review' (2026-11-16). validate.py 0/0, check_manifest 0. Image uploads: Forge only. Keep the results bundle: 625 and 626 are built from its idmap. Prompt: state/prompt_rengoku_624_626.md."
+  },
+  {
+   "id": "625",
+   "manifest": "push/625_rengoku_animations_unhide.json",
+   "what": "Rengoku Ro step 2: unhide the two animation assets (law 16c)",
+   "runner": "browser",
+   "status": "waiting",
+   "waitsFor": [
+    "624 results bundle"
+   ],
+   "build": "python3 push/625_rengoku_animations_unhide.gen.py <624 bundle>",
+   "note": "Direct edits by literal id."
+  },
+  {
+   "id": "626",
+   "manifest": "push/626_rengoku_suggestion.json",
+   "what": "Rengoku Ro step 3: suggestion ticket to the content review desk (ANIMATION): new strike + smoulder, scale 3, stock end clip cleared",
+   "runner": "browser",
+   "status": "waiting",
+   "waitsFor": [
+    "625 done"
+   ],
+   "build": "python3 push/626_rengoku_suggestion.gen.py <624 bundle> [fresh capture bundle]",
+   "note": "Suggest mode from Forge; never skipPreflight. Mechanics/text unchanged."
   }
  ]
 }
