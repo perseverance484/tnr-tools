@@ -260,10 +260,17 @@ check("R3: clear + the kunai over clear + basic attack",
       fire and [a["name"] for a in fire] == ["clear", "kunai"] and fire[1]["actionId"] != "basicAttack",
       out.stdout[-1500:])
 out, lines, fire = plan("mamba_r5.txt", 12)
-moved = [ln for ln in lines if re.search(r"(phantom|replace)@", ln)]
-lands = {m.group(1) for ln in moved for m in [re.search(r"(?:phantom|replace)@(\d+,\d+)", ln)] if m}
-check("R5: Phantom Step and Replacement land off his Ring of Spilled Blood", moved and lands <= {"11,2", "9,1"},
-      "\n".join(lines))
+# The two landings in reach that are off his Ring. The check was that every Phantom Step and Replacement among the
+# top twelve lands on one of them. That held while his kit was not saved; with the kit run 2 saved of him (now kept
+# with the fight, player/keep.py) a Replacement next to him, on the Ring, for a basic attack, is fifth: scored with
+# the Ring's -20% and below the same turn off it. What the rule asks is where the planner goes, so that is checked:
+# the first such line, and the move that is fired.
+OFF = {"11,2", "9,1"}
+land = lambda ln: (re.search(r"(?:phantom|replace)@(\d+,\d+)", ln) or [None, None])[1]  # noqa: E731
+moved = [ln for ln in lines if land(ln)]
+fired = [f"{a['longitude']},{a['latitude']}" for a in fire or [] if a["name"] in ("phantom", "replace")]
+check("R5: the first Phantom Step or Replacement line, and the move that is fired, land off his Ring of Spilled Blood",
+      moved and land(moved[0]) in OFF and all(t in OFF for t in fired), "\n".join(lines))
 # the landing tile decides the -damage given: on his floor it stays, off it it goes
 import turn as T  # noqa: E402
 battle = json.loads(open(os.path.join(HERE, "mamba_r5.txt")).readline())
