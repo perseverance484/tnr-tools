@@ -94,6 +94,62 @@ Owned already at 25: Chakra Edge, Gust Armor (Wind potency), Limit Breaker (tran
      Celestial Dew, Flash Pulse, Echoing Rift, Kuzenbo x3, Herald of the
      Apocalypse, Spirit Wall.
 
+4. Director (2026-11-17): add the Chunin-rank jutsu, owned and not owned. Chunin rank (requiredRank CHUNIN),
+   type NORMAL, non-bloodline, not another village's, elementClassification None/Lightning/Earth, at least one
+   effect powerPerLevel > 0, below 20. Same greedy rule as list 3 (all targets in lists 3 and 4 compete: lowest next
+   level first). Skip and note any "not for you" or other refusal. Not included: Genin jutsu and the special/event
+   leftovers (director declined for now); Cyclone Palm Strike (still pending) and the donor.
+   - Owned (28): Crimson Surge `2JqtZoGk8FuMbym6Ng5zc` (15, C, None), Rock Fortress Strike `p0-15kTrb_uMirGLE5p5R`
+     (15, C, Earth), Crimson Vein `GGms9iTcZq_gICEuZYF2Q` (15, C, None), Stormguard Aura `J2KOpNHk5LJthnzb27H1h` (13,
+     B, None), Martial Movement `V34OBxnSDj6PfxT4Y3fhx` (12, C, None), Decapitating Slash `mXC6PujAXANZwri71jOTZ` (11,
+     C, None), Stunning Jab `VT7oxj_fObWuQa3Rq_BbI` (8, B, None), Lightning Drift `57xgGwYtfhQXFQePC4_V4` (7, B,
+     Lightning), Storm Fist `j2H5lwEkOq4HwxgMR9a4j` (7, B, Lightning), Veil of Shadows `l6iUf3mc7LZQQEDDif1zW` (6, C,
+     None), Void Rend `_QfGq0SseWD11jHO23pr1` (5, C, None), Stone Dance Slash `UMGgKY9iM29Xtcfqb1qyO` (3, C, Earth),
+     Rejuvenating Chakra `fAKcf34Vlt_-utDdDdjxH` (3, C, None), Earthquake Fist `eX60fhnB15ChiqatViMjS` (2, C, Earth),
+     Netherblight `l5kgBGL2CZjzLMW5wFHdP` (1, C, None), Rock Cleaver `bP9QCHwyqyP8nBNDlN9mC` (1, C, Earth), Rending
+     Slash `B6AWSCTjuD_BCcqUU1qZi` (1, C, None), Stormguard Retaliation `ZDXT84wQHPqA3Lri8u8ue` (1, C, Lightning),
+     Static Flicker `UwWqo_4Igdue7-unPXwne` (1, C, Lightning), Terra Shift `CLlN7iJPGCGRIDbJTo4P5` (1, B, Earth), Fist
+     of 10 ,000 Volts `JKgaTbuFTeNZjYOXrb49M` (1, B, Lightning), Guard `lNvXZycno0P0LKOMuo6Zr` (1, B, None), Storm's
+     Lullaby `Ac1nbz3RUrPCCWmiOl7Jr` (1, B, None), Primate Assimilate `AFxOB8St3rqdY3xqkBJo4` (1, B, None), Chakra
+     Enfeeblement `FlQ0Mk8CB7afkYqxFempz` (1, C, None), Boulder Barrage `fEMP_dLlFKLg-BbQ7S0Hm` (1, C, Earth), Quaking
+     Earth Strike `VOS_VDwAUUlpYxYlNSLnt` (1, B, Earth), Inner Flame `kUcL8K94TW3iCkRcoik_7` (1, B, None).
+   - Not owned yet (67): Earthquake Slam `W3DYPc2NbNjFP8KJlrWAG` (B, Earth), Eight Fist Style: Earthen Grasp
+     `0LpgkGVTHrg3mJXFTQPNK` (B, Earth), Ganpaken `YyvGod-dr31VQJQYJKxwC` (B, Earth), Stone Stomp
+     `oi7gQl0TuwV8oPcLXGhi6` (B, Earth), Tectonic Stomp `CXbUs7Ew7JVkh72rRWNrD` (B, Earth), Earth Release: Earthquake
+     `1fkXurgdTdV5QkLZiG0LH` (C, Earth), Earth Release: Seven Heavenly Pillars `0f-qDg-CcolKVZ25lVY7k` (C, Earth,
+     needs level 50), Gaia's Wrath `2Ye-jrvIAdn2Ckk6lqhiP` (C, Earth), Graveyard of Stone `Ad0K8Kgo0WqDgDt5E4lkx` (C,
+     Earth), Mountain Crusher `yNyBxYW9BupuWp1R_ssWp` (C, Earth), Quaking Fist `XVHy-OORSuDuZi0U8jXu3` (C, Earth),
+     Quicksand Trap `fv98USDeNTb8DFPgBkfDS` (C, Earth), Stone Breaker `VUDhCjKW-RseBAAl7Ag-b` (C, Earth), Stone Hammer
+     Kick `ixKFXfF3g16_kIj5AksTs` (C, Earth), Stone Warden `rhXnjfAdFMqYavvjX1Qp_` (C, Earth), Stonebreaker Strike
+     `ntGBMLX_UAwPgGw0vytDU` (C, Earth), Divine Thunder Slap `Je0gvHDVCm__vy2rT8YBB` (B, Lightning), Eclipse Cyclone
+     `UgCKhDiEvNuXsrwf85tMM` (B, Lightning), Lightning Blitz Strike `HNMweb8uPrZFIJXlMhdkm` (B, Lightning), Lightning
+     Release: Raijin's Bow `cEu_gGsh8kJk0JIBI64ga` (B, Lightning), Lightning Release: Spark Blade
+     `LwCDZpiRgXoApfDUnBNPa` (B, Lightning), Lightning Release: Stormcaller Whip `BEaaogbbqkL_WeEk95bPH` (B,
+     Lightning), Lightning Release: Thunder Edge `aj1gDBeNKzxWKEPOPiKKp` (B, Lightning), Lightning Surge
+     `OqGevgRisdJXE2EpHl5XK` (B, Lightning), Raijin Puncture `ixCVqH2jC1nbB2Mul5uSb` (B, Lightning), Retribution
+     `ZnXkvxDfvw6SNtpVj7yhe` (B, Lightning), Thunderbolt Fusillade `WfluLTdmhSRBkOCbLK54Q` (B, Lightning), Arashi
+     Ikari `eJISnE5IrvC09FuoeuQ5X` (C, Lightning), Arcbound Vortex `Yp9zmQuJBdL8BmCbQAjTp` (C, Lightning, needs level
+     50), Bolt of Terror `7_Mxzow6OAyK8UF9-HXgn` (C, Lightning), Electric Prison `Y57kLbqcGN7PYeWBAg0d6` (C,
+     Lightning), Rai Yari `lTgAFUgVj1Erzh6LbzI0w` (C, Lightning), Rensa Kaminari `TI1JQAG1ltx_uLHE9-UUs` (C,
+     Lightning), Storm Kick `exOKjKQiIi0r2xFxGWC6n` (C, Lightning), Thunder Fist `WWc1ny_fRgPXEy2N5ZgXU` (C,
+     Lightning), Thunder Shockwave `ipNt-D4NAs-4r_7rUf873` (C, Lightning), Thunderbolt Spear `41ZvXLK7xw_Y2ePKdsCSB`
+     (C, Lightning), Thunderstorm Delusion `80fuWZZhMMG7PtHFe09Qx` (C, Lightning), Thunderstrike Blade
+     `DIveDAYAb_4uNUaaSXnRJ` (C, Lightning), Thunderstrike Punch `6l-E6XDZfGr2h6q_1eQ-K` (C, Lightning), Volt Crash
+     `fXpFymFNqyTPNiivQKGnv` (C, Lightning), Volt Jab Barrage `tAV232faDLgzFoYcnkWc3` (C, Lightning), Volt Reaper
+     `ZZ3BNMarAAO-G2vI2zvHV` (C, Lightning), Iron Fist `Oi5pYxNaHa-5o737i5gAu` (A, None), Aqua Barrier
+     `cUPCLvCCEO9MCSRtFsulW` (B, None), Cleansing Aura `MTH9bqTMRo8yJaD7J5Vx4` (B, None), Heaven's Blessing
+     `gkZYgOkTp8sQ_6qLR0uIy` (B, None), Wind Dance `wL3GSeUVnts8GxCZCb4jB` (B, None), Bonecrusher Kick
+     `PB70sBEpFd3AWm81h3w7R` (C, None), Chakra Palm `5JCcW9EdcDy7a5-0SiH_W` (C, None), Chakra Siphon
+     `bETFmYm_J6RJRZTedogld` (C, None), Dreamshell `jkWkH36d6apM11qyt-Zn4` (C, None), Echoing Void
+     `jy77jG_yHWnag4xQURz5s` (C, None), Force Wave `f_1_leJBO29rTRqPTkOs5` (C, None), Illusionary Celestial Mirage
+     `UEZY8uf5EbpN7_8vIKiKH` (C, None), Lunar Descent `sks41OM0PDvM2RH_ECjQh` (C, None), Mind Flay
+     `BkM8yq3J-P9SkCsCoKrtG` (C, None), Phantom Scythe `OkPqXUMvbXZPGH3UA-I6M` (C, None), Resounding Crescendo
+     `kvuECU_A6qeZYsWwU_Zvq` (C, None), Rib Breaker `cNVnsrANAhtym1JmW1ZJl` (C, None), Senbon Sakura
+     `eGKKXArrxlpzk9iZaWyOo` (C, None), Shattering Strike `uhEr3x6ucxHJbcjnTs7ps` (C, None), Spectral Chain
+     `NavJ494P96fquk81SQxVF` (C, None), Summoning: Lord Pengu `eyp7n2EBpiRXavV6KG8Wa` (C, None), Swift Combination
+     `ngoQnm-PqVMslvj3hcybD` (C, None), Toxic Pool `HBof21qe_fP_mUE5UNKtR` (C, None), Weary Fists
+     `8TNJHxH0dswm6Tl52m_vn` (C, None).
+
 ## Cost (libs/train.ts calcJutsuTrainCost)
 base (D 50, C 100, B 150, A 200, S 250, + extraBaseCost) ^ (1 + level/20). Low levels are cheap; high levels are
 very expensive (Cyclone Palm Strike level 19 quoted 1,949,575 ryo for one level; cancelled pending director).
