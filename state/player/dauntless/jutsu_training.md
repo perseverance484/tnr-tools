@@ -40,28 +40,19 @@ Choha, etc." "Limit Breaker, Mental Fortress..."
   so the greedy rule is: always queue the target whose next level is quickest.
 - `jutsu.stopTraining` drops the active level and the whole waiting queue (refund the queue first if needed).
 
-## Donor jutsu (train first, cap level 10)
-Donors are kept at level 10 so the daily transfer can take 5 levels from them. When a donor is below 10, its next
-level comes before every target below (it is cheap and short), and it is never trained past 10.
-- Stone of the Withering `CTYkpwuoqS9mJkOB3Lm8U` (Earth, C, extraBaseCost 1500, not equipped): 5 after the
-  2026-11-17 transfer; 6 trained, 7-10 queued 2026-11-17 19:23 (back to 10 ~23:19).
-
-## Daily level transfer (director, 2026-11-16)
-"Once per day I want you to use the free jutsu transfer to hard cap a jutsu at 25. Pick a jutsu and transfer 5 levels
-from a donor jutsu. Ideal donor jutsu would be level 10, then you would train it from 5 to 10 again. This is because
-10 is the lowest level a jutsu can be to transfer its levels to another jutsu and thus you can train it from a low
-level and save ryo then transfer it onto another jutsu." One `jutsu.transferLevel` call in any 24 hours
-(RUL-2026-11-11-149 item 3; `data/player_allowlist.json` gate `one_transfer_a_day`): check `jutsu.getRecentTransfers`
-first and skip the day if the last transfer is under 24 hours old.
-- Target: a jutsu at exactly level 20 with powerPerLevel > 0, not the active level and not in the waiting queue,
-  taken in this order: Mental Fortress, Divine Pulse, Raijin's Judgement, Earth Armor, First Chakra Gate, Ryūsa Kōka,
-  Soul Laceration Mirage, Thunderbolt Fury, Ethereal Nexus, then any other list-3 jutsu that reaches 20.
-- Donor: one of the donor jutsu above at level 10 (or more), not equipped, nothing queued for it. If no donor is at 10,
-  skip the day and say so. Never use an equipped jutsu or a target-list jutsu as a donor.
-- Move exactly 5 levels (20 -> 25), read `jutsu.getRecentTransfers` back, then queue the donor's level 6 if a queue
-  slot is free (the hourly refill trains the rest).
-- If the game would charge reputation points or anything else (the message should say "0 reputation points"), stop
-  and report instead.
+## Donor jutsu and level transfers (RUL-2026-11-17-167)
+Transfers are free and unlimited for this account; the one-a-day limit is gone. The `tnr-jutsu-engine` skill runs
+every 30 minutes and does both the transfers and the queue (it replaces the old refill and daily-transfer jobs; its
+rules win where this file differs). Plan and 14-day simulation: Claude artifact "Dauntless jutsu plan: next 2 weeks".
+- Eligibility (game source, routers/jutsu.ts): same jutsuType AND same jutsuRank, no evolution jutsu, source 10+ and
+  left at 1+, target at most 25, neither training or queued.
+- Donors, trained 1 to 10 and drained back to 1 (they come off the target lists):
+  NORMAL C: Summoning: Lord Pengu `eyp7n2EBpiRXavV6KG8Wa` (extraBaseCost 0).
+  NORMAL B: Primate Assimilate `AFxOB8St3rqdY3xqkBJo4`, Fist of 10,000 Volts `JKgaTbuFTeNZjYOXrb49M` (0).
+  NORMAL A: Iron Fist `Oi5pYxNaHa-5o737i5gAu` (1500).
+- Retired: Stone of the Withering `CTYkpwuoqS9mJkOB3Lm8U` (C, extraBaseCost 1500): drained once into C targets, never
+  trained again. NORMAL S and FORBIDDEN S have no spare donor; equipped PvP jutsu are never donors.
+- Targets past 4 are not trained directly; their levels come by transfer (highest targets and 20-24 first).
 
 ## Training targets (priority order; skip any that says "not for you" and note it)
 1. 40-AP potency/stance self-buffs (+20 dmg given scaling 0.4/level, potency fixed):

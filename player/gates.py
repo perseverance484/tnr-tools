@@ -207,24 +207,12 @@ def g_auction_only(step, world, gates):
     return None
 
 
-def g_one_transfer_a_day(step, world, gates):
-    """One level transfer in any 24 hours, counted from the last one (RUL-2026-11-11-152 item 5), and so one in
-    a batch: the last one is written down when a batch is made, not while it is screened."""
-    if any(s.get("call") == step["call"] for s in gates.ahead):
-        return refuse("one_transfer_a_day", "a level transfer is in this batch already")
-    left = world["records"]["transfers"].get("last", -C.TRANSFER_EVERY) + C.TRANSFER_EVERY - world.now
-    if left > 0:
-        return refuse("one_transfer_a_day", f"the last level transfer was under 24 h ago ({left / 3600:.1f} h to go)")
-    return None
-
-
 URGENT = ("battle", "recovery")           # the activities whose trips are not by choice
 
 CALL_GATES = {"no_flee": g_no_flee, "do_not_attack": g_do_not_attack, "no_snipe": g_no_snipe,
               "fair_target": g_fair_target, "ryo_only": g_ryo_only, "spend_cap": g_spend_cap,
               "player_visible_only": g_player_visible_only, "study_only": g_study_only,
-              "own_account_only": g_own_account_only, "auction_only": g_auction_only,
-              "one_transfer_a_day": g_one_transfer_a_day}
+              "own_account_only": g_own_account_only, "auction_only": g_auction_only}
 
 
 def _credential(value, depth=0):

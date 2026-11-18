@@ -163,14 +163,11 @@ class AskFirst(unittest.TestCase):
         self.w.me.update(money=100_000, bank=100_000)                 # under the reserve
         self.asks(K.ramen(), "recovery", "spend_cap")
 
-    def test_one_level_transfer_a_day(self):
+    def test_level_transfers_are_not_rationed(self):
+        # RUL-2026-11-17-167: free and unlimited, so a second transfer straight after the first is admitted
         s = step("jutsu.transferLevel", fromJutsuId="a", toJutsuId="b", transferLevels=24)
         self.assertTrue(self.g.check(s, self.w, "training").ok)
         self.g.sent(s, self.w)
-        self.assertEqual(self.g.check(s, self.w, "training").rule, "one_transfer_a_day")
-        self.rig.t += 86_400 - 60                                      # 24 h from the last one, not a new day
-        self.assertEqual(self.g.check(s, self.w, "training").rule, "one_transfer_a_day")
-        self.rig.t += 60
         self.assertTrue(self.g.check(s, self.w, "training").ok)
 
     def test_captchas_are_answered(self):

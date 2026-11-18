@@ -364,7 +364,7 @@ naming it on its Supersedes line, and the index then shows "superseded by".
 | RUL-2026-11-13-148 | Wreck Salvage pays by depth and time; the trades stay player-chosen in the quest log | ACTIVE | [2026-11.md](rulings/2026-11.md) |
 | RUL-2026-11-13-149 | Teno Yuki Bloodright passives get lore-based names | ACTIVE | [2026-11.md](rulings/2026-11.md) |
 | RUL-2026-11-11-148 | AI player overhaul: one fully automated player | ACTIVE | [2026-11.md](rulings/2026-11.md) |
-| RUL-2026-11-11-149 | AI player AP0: allowlist approved; captchas answered; one level transfer a day; hidden records stay hidden; goals and session windows | ACTIVE | [2026-11.md](rulings/2026-11.md) |
+| RUL-2026-11-11-149 | AI player AP0: allowlist approved; captchas answered; one level transfer a day (item 3 superseded by RUL-2026-11-17-167); hidden records stay hidden; goals and session windows | ACTIVE | [2026-11.md](rulings/2026-11.md) |
 | RUL-2026-11-11-150 | AI player: a second loadout, PvP 2, for the matchups the standard build loses | ACTIVE | [2026-11.md](rulings/2026-11.md) |
 | RUL-2026-11-11-151 | AI player: harvested fight logs may be used in live play; relays rotate on context growth | ACTIVE | [2026-11.md](rulings/2026-11.md) |
 | RUL-2026-11-11-152 | AI player: the budget's wording; End Turn as the last resort; spends over 50M ask; PvP 2 only for experiments; one level transfer in 24 hours | ACTIVE | [2026-11.md](rulings/2026-11.md) |
@@ -381,5 +381,6 @@ naming it on its Supersedes line, and the index then shows "superseded by".
 | RUL-2026-11-16-163 | AI player: stances only when they are the most efficient choice; Thunder's Judgement back in the PvP loadout | ACTIVE | [2026-11.md](rulings/2026-11.md) |
 | RUL-2026-11-16-164 | AI player: a large ramen after every fight | ACTIVE | [2026-11.md](rulings/2026-11.md) |
 | RUL-2026-11-17-166 | Battle art: no lingering loops on buffs | ACTIVE | [2026-11.md](rulings/2026-11.md) |
+| RUL-2026-11-17-167 | AI player: level transfers free and unlimited; one jutsu engine job every 30 minutes | ACTIVE | [2026-11.md](rulings/2026-11.md) |
 
 <!-- INDEX:END -->

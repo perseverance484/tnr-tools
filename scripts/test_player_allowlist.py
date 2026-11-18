@@ -156,10 +156,11 @@ class CallGates(unittest.TestCase):
     def test_do_not_attack_is_required_on_robbing(self):
         self.assertTrue(any("'do_not_attack' is required" in x for x in errors("travel.robPlayer", entry())))
 
-    def test_one_level_transfer_a_day(self):
-        self.assertTrue(any("'one_transfer_a_day' is required" in x for x in errors("jutsu.transferLevel", entry())))
-        self.assertEqual(errors("jutsu.transferLevel", entry(gates=["one_transfer_a_day"])), [])
-        self.assertIn("one_transfer_a_day", ALLOW["endpoints"]["jutsu.transferLevel"]["gates"])
+    def test_level_transfers_are_ungated(self):
+        # RUL-2026-11-17-167: free and unlimited for this staff account; the one-a-day gate is gone
+        self.assertEqual(errors("jutsu.transferLevel", entry()), [])
+        self.assertEqual(ALLOW["endpoints"]["jutsu.transferLevel"]["gates"], [])
+        self.assertNotIn("one_transfer_a_day", ALLOW["call_gates"])
 
     def test_captchas_are_answered(self):
         # RUL-2026-11-11-149 item 2: the three captcha endpoints are on the list and no rule stops them

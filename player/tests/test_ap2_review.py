@@ -317,15 +317,14 @@ class H2OneAllowanceForABatch(unittest.TestCase):
             self.assertEqual([s["call"] for s in steps], ["village.buyFood"] * goes + ["item.buy"], left)
             self.assertEqual(r.world.reserved(), 180_000 if goes else 165_000)
 
-    def test_the_same_question_of_the_other_gate_that_counts(self):
-        """One level transfer in 24 hours: the last one is written down when a batch is made, so two in one
-        plan were each held against a day with none in it."""
+    def test_two_transfers_in_one_plan_are_admitted(self):
+        """RUL-2026-11-17-167 lifted the one-a-day gate: two transfers in one plan both pass."""
         r = self.rig(left=1_000_000)
         one = K.call("jutsu.transferLevel", {"fromJutsuId": "a", "toJutsuId": "b", "transferLevels": 24}, K.DONE)
         two = K.call("jutsu.transferLevel", {"fromJutsuId": "c", "toJutsuId": "d", "transferLevels": 3}, K.DONE)
         self.assertTrue(r.brain.gates.screen([one], r.world, "training")[0])
         ok, verdict, step = r.brain.gates.screen([one, two], r.world, "training")
-        self.assertEqual((ok, verdict.rule, step), (False, "one_transfer_a_day", two))   # was: both admitted
+        self.assertTrue(ok, (verdict, step))
 
     # ---- what is admitted stays reserved until a profile read has shown what it cost
     def out_with(self, r, ask):

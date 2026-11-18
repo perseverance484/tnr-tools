@@ -277,13 +277,6 @@
     "auction.createAuctionListing"
    ],
    "source": "RUL-2026-11-09-145 item 3 (no trade requests); overhaul brief section 2 (premium currency)"
-  },
-  "one_transfer_a_day": {
-   "rule": "At most one jutsu.transferLevel call in any 24 hours, counted from the last one. That one call may move any number of levels from one jutsu to another.",
-   "required_on": [
-    "jutsu.transferLevel"
-   ],
-   "source": "RUL-2026-11-11-149 item 3; RUL-2026-11-11-152 item 5"
   }
  },
  "not_calls": {
@@ -1411,12 +1404,10 @@
    ],
    "phase": "AP2",
    "status": "documented",
-   "prerequisites": "source jutsu at level 10 or more, target at most 25 after it; queued training on either is cancelled first",
-   "cooldown": "one transfer in any 24 hours",
-   "gates": [
-    "one_transfer_a_day"
-   ],
-   "evidence": "RUL-2026-11-11-149 item 3; state/player/dauntless/jutsu_training.md"
+   "prerequisites": "same jutsuType and jutsuRank; source at level 10 or more and left at 1 or more; target at most 25 after it; neither jutsu training or queued",
+   "cooldown": "none: free and unlimited for this staff account (RUL-2026-11-17-167)",
+   "gates": [],
+   "evidence": "RUL-2026-11-17-167 (lifts RUL-2026-11-11-149 item 3); game source server/api/routers/jutsu.ts transferLevel"
   }
  }
 }
