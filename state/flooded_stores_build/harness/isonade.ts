@@ -57,6 +57,8 @@ export const ISO_DEFAULTS = {
   poolPct: 8, // brine pool: % of max HP drained each action begun on it
   poolRounds: 3,
   poolRoundsBitten: 4,
+  poolKind: "drain" as "drain" | "damage", // "damage": lingering ground damage instead of brine drain (live drain shares a 4-round lock)
+  poolPower: 0, // poolKind "damage": formula power of each pool hit; the land's own hit is slamPower - poolPower, so a land still totals slamPower
   armHp: 4000,
   armPower: 60, // summon stat scale (% of Isonade's)
   armRounds: 30, // lifetime: it stays until cut
@@ -156,8 +158,10 @@ export const buildRecords = (P: IsoParams) => {
     }));
     const next = ({ A: "B", B: "C", C: "A" } as const)[k];
     const slamEffects = (rounds: number, bitten: boolean) => [
-      heavy(P.slamPower, ANIM.slamHit),
-      tag("drain", { power: P.poolPct, rounds, calculation: "percentage", friendlyFire: "ENEMIES", poolsAffected: ["Health"], description: "Brine pool: drains health with every action begun on it" }),
+      ...(P.poolKind === "damage"
+        ? [heavy(P.slamPower - P.poolPower, ANIM.slamHit), T.pool(P.poolPower, rounds, { description: "Brine pool: hits anyone standing in it with every action" })]
+        : [heavy(P.slamPower, ANIM.slamHit),
+           tag("drain", { power: P.poolPct, rounds, calculation: "percentage", friendlyFire: "ENEMIES", poolsAffected: ["Health"], description: "Brine pool: drains health with every action begun on it" })]),
       T.visual(ANIM.brine, rounds),
       ...(bitten && k === "C" && P.bittenChainEnds
         ? []
@@ -227,8 +231,11 @@ export const buildRecords = (P: IsoParams) => {
 const toPlayer = (type: "distance_lower_than" | "distance_higher_than", value: number) =>
   ({ type, value, target: "HIGHEST_MAX_HEALTH_OPPONENT", description: type === "distance_lower_than" ? "Distance lower than or equal given value" : "Distance higher than or equal given value" });
 /** Rule order. Engine facts it rests on (engine 3314d122):
- *  - every jutsu with a drain tag shares a 3-round cooldown when one with cooldown > 0 is used
- *    (SHARED_COOLDOWN_TAGS), so the slam lands carry cooldown 0 and are gated by their marks;
+ *  - pin 3314d122 shares a 3-round lock only when the cast action has cooldown > 0, but the LIVE game reads a
+ *    per-tag table (misc.getSharedCooldowns; drain 4 rounds) and locks every other action sharing a tag whatever
+ *    the cast's cooldown. Run against engwork_live (patched applyActionCooldowns) to model it. Brine (drain)
+ *    therefore locks the next slam; poolKind "damage" pools are not in the table. Slam lands carry cooldown 0
+ *    and are gated by their marks;
  *  - an AI re-reads its rules from the top after every action and a marker laid this turn already counts,
  *    so action costs keep a mark and its slam out of one turn (churn 10 + mark 46 + slam 90 or bitten slam 50 > 100),
  *    keep two marks and two slams out of one turn, and leave room for the arm or undertow beside either.
@@ -354,7 +361,7 @@ export const runFight = async (P: IsoParams, seed: number, readP: number, start:
       const red = groundOf((g) => g.type === "visual" && g.staticAnimation === ANIM.red);
       const safe = groundOf((g) => g.type === "visual" && g.staticAnimation === ANIM.safe);
       if (safe.size) for (const c of ALL) if (!safe.has(key(c))) red.add(key(c));
-      return { red, pools: groundOf((g) => g.type === "drain") };
+      return { red, pools: groundOf((g) => g.type === "drain" || (g.type === "damage" && (g.rounds ?? 0) > 0)) };
     };
     const free = (c: Cell) => !b.usersState.some((u) => u.longitude === c[0] && u.latitude === c[1] && stillInBattle(u, b.usersEffects)) && !(b.groundEffects as any[]).some((g) => g.type === "barrier" && g.longitude === c[0] && g.latitude === c[1]);
     const tryAction = (actionId: string, c: Cell) => {
