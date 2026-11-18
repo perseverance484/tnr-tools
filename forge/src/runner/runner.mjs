@@ -39,7 +39,7 @@ import { TERMINAL_ITEM_STATES, jobOutcome, StaleItem } from "../storage/journal.
 import { recipe, mergeForUpdate, recipeRows, updateInput, rowName } from "./recipes.mjs";
 import { resolveRefs, collectRefs } from "./refs.mjs";
 import { diffAsserted, deepEqualPayload } from "./validate.mjs";
-import { applyLivePatch, livePatchDiffs } from "./livepatch.mjs";
+import { applyLivePatch, livePatchDiffs, livePatchMissMessage } from "./livepatch.mjs";
 import { parseManifest, planOrder, toJournalSpecs } from "./manifest.mjs";
 import { readVariant, variantSlotProblem, variantCandidates } from "./variants.mjs";
 import REVIEW from "../review/contract.json" with { type: "json" };
@@ -763,7 +763,7 @@ export class Runner {
     let sendData = data, lp = null;
     if (planned.livePatch) {
       lp = applyLivePatch(planned.livePatch, live.data);
-      if (!lp.targeted) throw new Error("livePatch: no effect on the live record uses a listed asset; check the target and asset list");
+      if (!lp.targeted) throw new Error(livePatchMissMessage(planned.livePatch));
       // An already-patched record is still sent (an idempotent full write): the journal allows a
       // send-less PLANNED -> CONFIRMED only for read-only Bloodright reuse, and this does not widen it.
       sendData = { ...data, ...lp.data };

@@ -8,7 +8,7 @@ import { FakeGame } from "./fakegame.mjs";
 import { MemoryStorage } from "./shim.mjs";
 import { composeForTest } from "./compose.mjs";
 import { parseManifest, planOrder, toJournalSpecs } from "../src/runner/manifest.mjs";
-import { applyLivePatch, livePatchDiffs } from "../src/runner/livepatch.mjs";
+import { applyLivePatch, livePatchDiffs, livePatchMissMessage } from "../src/runner/livepatch.mjs";
 
 const harness = () => composeForTest({ game: new FakeGame(), storage: new MemoryStorage(), idb: new IDBFactory(), tabId: "tab" });
 const fx = (anim = {}, extra = {}) => ({
@@ -147,4 +147,77 @@ test("livePatch: ordinary verify after the targets were removed is drift, not a 
   const s = await h.runner.run("lp7");
   assert.notEqual(s.items[0].state, "VERIFIED");
   assert.equal(h.journal.get("lp7").items[0].verify, "drift");
+});
+
+// Second kind: zeroInstantResidual (residual equip cap clean-up). An instant hit with a nonzero
+// residualModifier is counted by the game's residual cap although it never ticks.
+const zr = { zeroInstantResidual: true };
+const hitFx = (extra = {}) => fx({}, { residualModifier: 1, ...extra });
+
+test("zeroInstantResidual: parse accepts true and refuses anything else", () => {
+  assert.ok(parseManifest(edit("j", zr)).items[0].livePatch);
+  assert.throws(() => parseManifest(edit("j", { zeroInstantResidual: 1 })), /must be true/);
+  assert.throws(() => parseManifest(edit("j", { zeroInstantResidual: false })), /must be true/);
+  assert.throws(() => parseManifest(edit("j", { zeroInstantResidual: true, animationScale: 2 })), /does not know animationScale alongside/);
+  assert.throws(() => parseManifest(edit("j", zr, { effects: [] })), /do not also send data.effects/);
+  const a = toJournalSpecs(planOrder(parseManifest(edit("j", zr))))[0].payloadHash;
+  const b = toJournalSpecs(planOrder(parseManifest(edit("j", patch()))))[0].payloadHash;
+  assert.notEqual(a, b);
+});
+
+test("zeroInstantResidual: zeroes only instant damage, pierce and elementaldamage; leaves real residuals", () => {
+  const live = { effects: [
+    hitFx(),                                         // instant damage: zeroed
+    hitFx({ type: "pierce", residualModifier: 2 }),  // instant pierce: zeroed
+    hitFx({ type: "elementaldamage" }),              // instant elemental: zeroed
+    hitFx({ rounds: 3 }),                            // real damage over time: untouched
+    (({ rounds, ...e }) => e)(hitFx()),              // no rounds = ticks forever: untouched
+    hitFx({ residualModifier: 0 }),                  // already 0
+    { type: "heal", rounds: 0, residualModifier: 1 }, // not damage: untouched
+  ] };
+  const r = applyLivePatch(zr, live);
+  assert.deepEqual(r.data.effects.map((e) => e.residualModifier), [0, 0, 0, 1, 1, 0, 1]);
+  assert.deepEqual([r.targeted, r.changed, r.mixed], [4, 3, 2]);
+  assert.equal(live.effects[0].residualModifier, 1, "the live row is not mutated");
+  assert.equal(r.data.effects[3], live.effects[3], "residual effects pass through as live holds them");
+  assert.equal(applyLivePatch(zr, { effects: r.data.effects }).changed, 0);
+  assert.deepEqual(livePatchDiffs(zr, { effects: r.data.effects }), []);
+  assert.deepEqual(livePatchDiffs(zr, live)[0].live, [{ i: 0, residualModifier: 1 }, { i: 1, residualModifier: 2 }, { i: 2, residualModifier: 1 }]);
+  assert.equal(livePatchDiffs(zr, { effects: [hitFx({ rounds: 3 })] })[0].live, "no instant damage effect");
+  assert.equal(livePatchDiffs(zr, { name: "x" }).length, 1);
+});
+
+test("zeroInstantResidual: the runner sends the whole live record with the modifier at 0, then verifies", async () => {
+  const h = harness();
+  h.game.seed("jutsu", jutsu("z-1", [hitFx({ power: 88 }), fx({}, { type: "stun", rounds: 2 })]));
+  h.runner.plan(edit("z-1", zr), { jobId: "zr1" });
+  const s = await h.runner.run("zr1");
+  assert.equal(s.items[0].state, "VERIFIED", JSON.stringify(s.items[0]));
+  const row = h.game.rows("jutsu")[0];
+  assert.deepEqual(row.effects.map((e) => e.residualModifier), [0, undefined]);
+  assert.equal(row.effects[0].power, 88); assert.equal(row.description, "keep me");
+  assert.equal(h.game.calls.filter((c) => c.path === "jutsu.update").length, 1);
+  assert.deepEqual(h.journal.get("zr1").items[0].livePatched, { targeted: 1, changed: 1, mixed: 0 });
+});
+
+test("zeroInstantResidual: no instant damage effect FAILS the item without a send", async () => {
+  const h = harness();
+  h.game.seed("jutsu", jutsu("z-2", [hitFx({ rounds: 3 })]));
+  h.runner.plan(edit("z-2", zr), { jobId: "zr2" });
+  const s = await h.runner.run("zr2");
+  assert.equal(s.items[0].state, "FAILED"); assert.match(s.items[0].error, /no instant damage effect/);
+  assert.equal(h.game.calls.filter((c) => c.path === "jutsu.update").length, 0);
+  assert.match(livePatchMissMessage(patch()), /listed asset/);
+});
+
+test("zeroInstantResidual: reconciling a lost send confirms only when live holds the patch", async () => {
+  const h = harness();
+  h.game.seed("jutsu", jutsu("z-3", [hitFx()]));
+  const planned = { ...parseManifest(edit("z-3", zr)).items[0], deps: [] };
+  const item = { idx: 0, entity: "jutsu", op: "update", state: "SENT", phase: "update", entityId: "z-3", targetId: "z-3" };
+  const before = await h.reconciler.resolveSent({ jobId: "r", items: [] }, item, { planned, lookup: () => undefined });
+  assert.equal(before.action, "orphan"); assert.match(before.note, /effects.residualModifier/);
+  h.game.rows("jutsu")[0].effects[0].residualModifier = 0;
+  const after = await h.reconciler.resolveSent({ jobId: "r", items: [] }, item, { planned, lookup: () => undefined });
+  assert.equal(after.action, "confirm");
 });
