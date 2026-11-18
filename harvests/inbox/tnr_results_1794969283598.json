@@ -1,0 +1,136 @@
+{
+ "builder": "forge-mcp",
+ "at": "2026-11-18T02:34:43.598Z",
+ "cfg": "forge",
+ "checks": null,
+ "state": "DONE",
+ "outcome": "success",
+ "postflight": {
+  "match": 2,
+  "diff": 0,
+  "unverified": 0,
+  "failed": 0,
+  "skipped": 0,
+  "unresolved": 0
+ },
+ "entries": [
+  {
+   "name": "Fury of The White Tiger - Gates",
+   "srcId": "white_tiger_anim_gates",
+   "entity": "asset",
+   "slot": "create",
+   "op": "create",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 9,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "92C_BYjulGUsL1y1X49Ee"
+  },
+  {
+   "name": "Fury of The White Tiger - Tiger",
+   "srcId": "white_tiger_anim_tiger",
+   "entity": "asset",
+   "slot": "create",
+   "op": "create",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 9,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "A7JDFeATf0DL-Sdv_6ssF"
+  }
+ ],
+ "captures": [],
+ "idmap": {
+  "white_tiger_anim_gates": "92C_BYjulGUsL1y1X49Ee",
+  "white_tiger_anim_tiger": "A7JDFeATf0DL-Sdv_6ssF"
+ },
+ "journal": {
+  "v": 1,
+  "jobId": "627-mwlibblz",
+  "manifestPath": "push/627_white_tiger_animations_ut.json",
+  "manifestNumber": 627,
+  "manifestHash": "f7262bdd",
+  "startedAt": "2026-11-18T02:33:15.912Z",
+  "updatedAt": "2026-11-18T02:34:43.594Z",
+  "state": "DONE",
+  "pause": null,
+  "items": [
+   {
+    "idx": 0,
+    "entity": "asset",
+    "op": "create",
+    "name": "Fury of The White Tiger - Gates",
+    "srcId": "white_tiger_anim_gates",
+    "targetId": null,
+    "payloadHash": "5257d829",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "92C_BYjulGUsL1y1X49Ee",
+    "snapshotKey": "tnr_forge_snap_v1:627-mwlibblz:asset",
+    "sentAt": "2026-11-18T02:33:44.752Z",
+    "createSentAt": "2026-11-18T02:33:24.272Z",
+    "confirmedAt": "2026-11-18T02:33:54.732Z",
+    "verifiedAt": "2026-11-18T02:34:03.085Z",
+    "error": null,
+    "attempt": 2,
+    "asserted": [
+     "name",
+     "type",
+     "image",
+     "folder",
+     "frames",
+     "speed",
+     "hidden",
+     "onInitialBattleField",
+     "licenseDetails"
+    ],
+    "diffs": [],
+    "verify": "match"
+   },
+   {
+    "idx": 1,
+    "entity": "asset",
+    "op": "create",
+    "name": "Fury of The White Tiger - Tiger",
+    "srcId": "white_tiger_anim_tiger",
+    "targetId": null,
+    "payloadHash": "260539ce",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "A7JDFeATf0DL-Sdv_6ssF",
+    "snapshotKey": "tnr_forge_snap_v1:627-mwlibblz:asset",
+    "sentAt": "2026-11-18T02:34:24.146Z",
+    "createSentAt": "2026-11-18T02:34:03.089Z",
+    "confirmedAt": "2026-11-18T02:34:35.187Z",
+    "verifiedAt": "2026-11-18T02:34:43.593Z",
+    "error": null,
+    "attempt": 2,
+    "asserted": [
+     "name",
+     "type",
+     "image",
+     "folder",
+     "frames",
+     "speed",
+     "hidden",
+     "onInitialBattleField",
+     "licenseDetails"
+    ],
+    "diffs": [],
+    "verify": "match"
+   }
+  ]
+ }
+}
