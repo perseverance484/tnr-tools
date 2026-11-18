@@ -1,0 +1,76 @@
+{
+ "builder": "forge-mcp",
+ "at": "2026-11-18T02:38:42.626Z",
+ "cfg": "forge",
+ "checks": null,
+ "state": "DONE",
+ "outcome": "success",
+ "postflight": {
+  "match": 0,
+  "diff": 0,
+  "unverified": 0,
+  "failed": 0,
+  "skipped": 0,
+  "unresolved": 0
+ },
+ "entries": [
+  {
+   "name": "Fury of The White Tiger",
+   "srcId": null,
+   "entity": "jutsu",
+   "slot": "edit",
+   "op": "update",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "suggest-find",
+   "detail": "",
+   "verdict": "suggested",
+   "asserted": null,
+   "diffs": [],
+   "id": "QXE9J0fnu1t-DAGTGbaCX"
+  }
+ ],
+ "captures": [],
+ "idmap": {
+  "white_tiger_anim_gates": "92C_BYjulGUsL1y1X49Ee",
+  "white_tiger_anim_tiger": "A7JDFeATf0DL-Sdv_6ssF"
+ },
+ "journal": {
+  "v": 1,
+  "jobId": "629-mwlig8oz",
+  "manifestPath": "push/629_white_tiger_suggestion.json",
+  "manifestNumber": 629,
+  "manifestHash": "4cc4cb15",
+  "startedAt": "2026-11-18T02:37:05.431Z",
+  "updatedAt": "2026-11-18T02:38:42.613Z",
+  "state": "DONE",
+  "pause": null,
+  "items": [
+   {
+    "idx": 0,
+    "entity": "jutsu",
+    "op": "update",
+    "name": "Fury of The White Tiger",
+    "srcId": null,
+    "targetId": "QXE9J0fnu1t-DAGTGbaCX",
+    "payloadHash": "f1b03af9",
+    "state": "VERIFIED",
+    "phase": "suggest-find",
+    "entityId": "QXE9J0fnu1t-DAGTGbaCX",
+    "snapshotKey": null,
+    "sentAt": "2026-11-18T02:37:14.428Z",
+    "createSentAt": null,
+    "confirmedAt": "2026-11-18T02:37:28.483Z",
+    "verifiedAt": "2026-11-18T02:38:42.611Z",
+    "error": null,
+    "suggestTitle": "New gates and tiger animations · Fury of The White Tiger [lig8oz-1]",
+    "attempt": 1,
+    "verify": "suggested",
+    "suggestion": {
+     "id": "JN13oYKmHKNjcVW_xifOs",
+     "status": "PENDING"
+    }
+   }
+  ]
+ }
+}
