@@ -39,6 +39,10 @@ from factory import Factory  # noqa: E402
 
 F = Factory()
 BUNDLES = [a.split("=", 1)[1] for a in sys.argv[1:] if a.startswith("--bundle=")]
+# --hosted=<uploaded.json>: the strips already sit on the director's UploadThing (state/isonade_upload, the
+# isonade-uploadthing workflow), so stage 1 creates point at those URLs and runs over the connector (mcp_run refuses
+# @img uploads). Each URL is checked against the strip's sha256 before it is used.
+HOSTED = next((a.split("=", 1)[1] for a in sys.argv[1:] if a.startswith("--hosted=")), None)
 ISO = json.load(open(os.path.join(HERE, "isonade_spec.json")))
 STO = json.load(open(os.path.join(HERE, "stores_spec.json")))
 
@@ -210,9 +214,16 @@ for name, (title, frames) in STRIPS.items():
     p = os.path.join(ART, fn)
     assert os.path.exists(p), p
     imgSizes[fn] = os.path.getsize(p)
+    image = f"@img:{fn}"
+    if HOSTED:
+        import hashlib
+        u = json.load(open(HOSTED))["files"][sid(name)]
+        assert u["file"] == fn and u["sha256"] == hashlib.sha256(open(p, "rb").read()).hexdigest(), ("upload does not match strip", fn)
+        assert u["url"].startswith("https://bbenpyo9uu.ufs.sh/f/"), u["url"]
+        image = u["url"]
     items.append({"entity": "asset", "slot": "create", "srcId": sid(name), "name": title, "phase": 10, "data": {
         "name": title, "type": "ANIMATION", "folder": FOLDER, "frames": frames, "speed": 50, "hidden": True,
-        "onInitialBattleField": False, "licenseDetails": "TNR", "image": f"@img:{fn}"}})
+        "onInitialBattleField": False, "licenseDetails": "TNR", "image": image}})
 for jid, rec in jutsu.items():
     if jid not in SUMMON_JUTSU:
         items.append(jutsu_entry(jid, rec, 20))
@@ -274,7 +285,7 @@ for fname, phases, what in STAGES:
         "dedupNames": True,
         "items": st,
     }
-    if any(it["entity"] == "asset" for it in st):
+    if any(it["entity"] == "asset" for it in st) and not HOSTED:
         man["imgSizes"] = imgSizes
     out = os.path.join(HERE, "manifests", f"{fname}.json")
     os.makedirs(os.path.dirname(out), exist_ok=True)
