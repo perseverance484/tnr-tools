@@ -8,9 +8,11 @@ Effects: damage on the target (rounds 0) + increasedamagegiven on the caster (SE
 both sides get art with no new tags and no mechanics change. Every clip of one action starts together, and a clip
 stays on its own hex, so the flight is told by timing: the phoenix climbs out of the top of the caster's clip, and
 the target's clip is held back until then and opens with the fireball diving in from above.
-- CASTER appear (buff effect), 18 frames x 70 ms: fire-tinted swirl (Duelyst fx_f1_inmolation 2-7) round the legs;
-  it flares up (inmolation 14-16) while the phoenix fades in out of it (fx_f2_phoenixfire 19); wings fold then open
-  (phoenixfire 20-21); a launch flash (phoenixfire 24); the phoenix climbs and leaves the frame (22, 23, 25, 26).
+- CASTER appear (buff effect), about 19 frames x 70 ms (empty tail trimmed). The swirl (Duelyst fx_f1_inmolation, remapped by luminance onto
+  a colour ramp sampled from the phoenix's own frames, so it is the same fire) coils up from the shins and tightens
+  on the chest while embers spiral in; it flares (inmolation 14-15) over the start of Duelyst's drawn birth
+  (fx_f2_phoenixfire 15-19: the fireball bursts with the phoenix inside), wings fold and open (20-21), a launch
+  flash (24), and the phoenix climbs out of the frame (22, 23, 25, 26) over the birth's dying embers (27-31).
 - No loop or end clip on the buff (director: "There's so many buffs in tnr it would be a mess if they all stayed"):
   the flames show during the cast only; the buff itself stays invisible like other TNR buffs.
 - TARGET appear (damage effect): phoenixfire 8-37 (dive, egg, burst, phoenix, embers) behind a blank lead as long as
@@ -52,31 +54,94 @@ def stamp(canvas, im, cx, cy):
     canvas.alpha_composite(im, (int(round(cx - im.width / 2)), int(round(cy - im.height / 2))))
 
 
+def ramp_from(frames, bins=256):
+    """A luminance -> colour lookup sampled from frames (the phoenix's own fire), dark to light."""
+    import numpy as np
+    pix = []
+    for f in frames:
+        a = np.asarray(f.convert("RGBA")).reshape(-1, 4)
+        pix.append(a[a[:, 3] > 200][:, :3])
+    pix = np.concatenate(pix).astype(np.float32)
+    lum = pix @ np.array([0.299, 0.587, 0.114], np.float32)
+    order = np.argsort(lum)
+    pix, lum = pix[order], lum[order]
+    lut = np.zeros((bins, 3), np.float32)
+    edges = np.linspace(0, len(lum), bins + 1).astype(int)
+    for i in range(bins):
+        seg = pix[edges[i]:max(edges[i] + 1, edges[i + 1])]
+        lut[i] = seg.mean(0)
+    return lut
+
+
+def remap(im, lut):
+    """Recolour by luminance rank onto `lut`, keeping alpha: the swirl becomes the phoenix's fire."""
+    import numpy as np
+    a = np.asarray(im.convert("RGBA")).astype(np.float32)
+    lum = a[..., :3] @ np.array([0.299, 0.587, 0.114], np.float32)
+    idx = np.clip((lum / 255 * (len(lut) - 1)).astype(int), 0, len(lut) - 1)
+    out = a.copy()
+    out[..., :3] = lut[idx]
+    return Image.fromarray(out.astype(np.uint8), "RGBA")
+
+
+def sparks(canvas, centre, n, t, radius, seed=3):
+    """Embers spiralling inward to `centre` (t 0 -> 1), drawn in phoenix colours."""
+    import math
+    import random
+    rnd = random.Random(seed)
+    d = ImageDraw.Draw(canvas)
+    cols = [(255, 214, 90, 255), (255, 150, 40, 255), (230, 70, 30, 255)]
+    for i in range(n):
+        a0 = rnd.uniform(0, 2 * math.pi)
+        r = radius * (1 - t) * rnd.uniform(0.6, 1.0)
+        a = a0 + t * 2.4
+        x, y = centre[0] + math.cos(a) * r, centre[1] + math.sin(a) * r * 0.55
+        sz = 2 + (i % 2)
+        d.rectangle((x, y, x + sz, y + sz), fill=cols[i % 3])
+
+
 def build(app):
     src = os.path.join(app, "resources", "fx")
-    inmo = [D.tint(f, FIRE).resize((140, 140), Image.NEAREST) for f in D.squared(D.frames(src, "fx_f1_inmolation"))]
     phx = D.squared(D.frames(src, "fx_f2_phoenixfire"))           # 150 px
-    swirl_y = FEET - 0.45 * TH                                      # swirl centre round the shins/thighs
-    phx_y = BODY - 10                                               # phoenix forms over the body
+    lut = ramp_from(phx[20:27])
+    inmo = [remap(f, lut).resize((140, 140), Image.NEAREST) for f in D.squared(D.frames(src, "fx_f1_inmolation"))]
+    swirl_y0 = FEET - 0.45 * TH                                     # starts round the shins
+    phx_y = BODY - 10                                               # the phoenix is born over the chest
     blank = lambda: Image.new("RGBA", (C, C), (0, 0, 0, 0))         # noqa: E731
+    shrink = lambda im, k: im.resize((max(1, int(im.width * k)),) * 2, Image.NEAREST)  # noqa: E731
     appear = []
-    for i in range(2, 8):                                           # swirl gathers
-        f = blank(); stamp(f, inmo[i], CX, swirl_y); appear.append(f)
-    for k, i in enumerate((14, 15, 16)):                            # flare up, phoenix fades in
-        f = blank(); stamp(f, inmo[i], CX, swirl_y - 8 * k)
-        stamp(f, alpha(phx[19], (0.25, 0.55, 0.85)[k]), CX, phx_y); appear.append(f)
-    for i in (20, 21):                                              # wings fold, open
-        f = blank(); stamp(f, alpha(inmo[18], 0.6), CX, swirl_y); stamp(f, phx[i], CX, phx_y); appear.append(f)
-    f = blank(); stamp(f, phx[24], CX, phx_y); appear.append(f)     # launch flash
-    rise = [10, 28, 56, 96, 150, 215]
-    for k, i in enumerate((22, 23, 25, 26, 22, 23)):                # climbs out of the frame
+    # 1. the swirl coils up the body and tightens (6 frames)
+    for k, i in enumerate(range(2, 8)):
+        u = k / 5
+        f = blank()
+        stamp(f, shrink(inmo[i], 1.0 - 0.25 * u), CX, swirl_y0 + (phx_y + 18 - swirl_y0) * u)
+        if k >= 2:
+            sparks(f, (CX, phx_y + 10), 10, (k - 2) / 4, 70)
+        appear.append(f)
+    # 2. it flares into a fireball (2 frames), the drawn birth begins underneath
+    for k, i in enumerate((14, 15)):
+        f = blank()
+        stamp(f, alpha(shrink(phx[15 + k], 0.85), 0.5 + 0.4 * k), CX, phx_y + 6)
+        stamp(f, shrink(inmo[i], 0.72), CX, phx_y + 18)
+        sparks(f, (CX, phx_y + 10), 10, 0.85 + 0.15 * k, 70)
+        appear.append(f)
+    # 3. the phoenix bursts out of the fireball (Duelyst's own frames 16-19), wings fold and open (20-21)
+    for i in (16, 17, 18, 19, 20, 21):
+        f = blank()
+        stamp(f, shrink(phx[i], 0.85 if i < 20 else 0.9), CX, phx_y + (6 if i < 20 else 0))
+        appear.append(f)
+    # 4. launch flash, then it climbs out of the frame leaving embers
+    f = blank(); stamp(f, shrink(phx[24], 0.9), CX, phx_y); appear.append(f)
+    rise = [12, 32, 62, 104, 160, 225]
+    for k, i in enumerate((22, 23, 25, 26, 22, 23)):
         f = blank()
         if k < 3:
-            stamp(f, alpha(inmo[19 + k], 0.7 - 0.2 * k), CX, swirl_y)   # embers left behind
+            stamp(f, alpha(shrink(phx[27 + 2 * k], 0.85), 0.8 - 0.25 * k), CX, phx_y + 6)
         p = phx[i] if k < 4 else ImageEnhance.Brightness(phx[i]).enhance(1.15)
-        stamp(f, p, CX, phx_y - rise[k]); appear.append(f)
-    launch_ms = len(appear) * APPEAR_MS - 2 * APPEAR_MS             # the phoenix is gone two frames before the end
-    # target: dive onwards, anchored as build_showcase.py (fire egg's base on the feet), behind a blank lead
+        stamp(f, shrink(p, 0.9), CX, phx_y - rise[k]); appear.append(f)
+    while appear and appear[-1].getbbox() is None:                 # the phoenix has left: drop empty tail
+        appear.pop()
+    launch_ms = len(appear) * APPEAR_MS
     tframes, tpx, _ = fit(phx, 146, FEET_H, 1.5)
     lead = round(launch_ms / TARGET_MS)
     target = [Image.new("RGBA", (tpx, tpx), (0, 0, 0, 0))] * lead + tframes[8:]
