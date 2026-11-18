@@ -1,6 +1,6 @@
-# DRIFT.md - upstream contract drift (2026-11-17)
+# DRIFT.md - upstream contract drift (2026-11-18)
 
-Upstream: studie-tech/TheNinjaRPG@a00430f035a63abfaed1be1266c38dac55ab5043
+Upstream: studie-tech/TheNinjaRPG@8268f6ae690ede09a39ba5de7abce08ed6464627
 
 Signal only. Nothing below is adopted until the structural diff gate passes.
 
@@ -75,6 +75,7 @@ ADDITIONS
   enum-member  AllTags.DecreaseStatTag.calculation  static
   enum-member  AllTags.DecreaseStatTag.direction  both
   enum-member  AllTags.DecreaseStatTag.direction  defence
+  enum-member  AllTags.DecreaseStatTag.direction  none
   enum-member  AllTags.DecreaseStatTag.direction  offence
   enum-member  AllTags.DecreaseStatTag.elements  Boil
   enum-member  AllTags.DecreaseStatTag.elements  Crystal
@@ -105,12 +106,6 @@ ADDITIONS
   enum-member  AllTags.DecreaseStatTag.generalTypes  Speed
   enum-member  AllTags.DecreaseStatTag.generalTypes  Strength
   enum-member  AllTags.DecreaseStatTag.generalTypes  Willpower
-  enum-member  AllTags.DecreaseStatTag.statTypes  Bukijutsu
-  enum-member  AllTags.DecreaseStatTag.statTypes  Genjutsu
-  enum-member  AllTags.DecreaseStatTag.statTypes  Highest
-  enum-member  AllTags.DecreaseStatTag.statTypes  Ninjutsu
-  enum-member  AllTags.DecreaseStatTag.statTypes  None
-  enum-member  AllTags.DecreaseStatTag.statTypes  Taijutsu
   enum-member  AllTags.DecreaseStatTag.target  COORDINATES
   enum-member  AllTags.DecreaseStatTag.target  INHERIT
   enum-member  AllTags.DecreaseStatTag.target  SELF
@@ -118,6 +113,7 @@ ADDITIONS
   enum-member  AllTags.IncreaseStatTag.calculation  static
   enum-member  AllTags.IncreaseStatTag.direction  both
   enum-member  AllTags.IncreaseStatTag.direction  defence
+  enum-member  AllTags.IncreaseStatTag.direction  none
   enum-member  AllTags.IncreaseStatTag.direction  offence
   enum-member  AllTags.IncreaseStatTag.elements  Boil
   enum-member  AllTags.IncreaseStatTag.elements  Crystal
@@ -129,7 +125,11 @@ ADDITIONS
   enum-member  AllTags.IncreaseStatTag.elements  Lava
   enum-member  AllTags.IncreaseStatTag.elements  Light
   enum-member  AllTags.IncreaseStatTag.elements  Lightning
-  ... 220 more
+  enum-member  AllTags.IncreaseStatTag.elements  Magnet
+  enum-member  AllTags.IncreaseStatTag.elements  Metal
+  enum-member  AllTags.IncreaseStatTag.elements  None
+  enum-member  AllTags.IncreaseStatTag.elements  Sand
+  ... 201 more
 
 BREAKING: 4494 change(s) - DO NOT ADOPT (exit 1)
 == 45d_DATA_entity_schemas ==
@@ -153,6 +153,11 @@ ADDITIONS
   field  item  lpcProfile
   field  itemVariant  lpcColor
   field  itemVariant  lpcProfile
+  field  petSpecies  potentialMax
+  field  petSpecies  potentialMin
+  field  petSpecies  potentialMode
+  field  petSpecies  potentialValue
+  field  petSpecies  potentialWeights
   field  quest  raidMaxPlayers
   field  quest  teamMaxPlayers
 
@@ -254,6 +259,7 @@ ADDITIONS
   const-member  BULK_SELL_WARN_RARITIES  EPIC
   const-member  BULK_SELL_WARN_RARITIES  LEGENDARY
   const-member  BULK_SELL_WARN_RARITIES  RARE
+  const-member  BattleDataEntryType  participant
   const-member  BattleOutcomes  Draw
   const-member  BattleOutcomes  Fled
   const-member  BattleOutcomes  Lost
@@ -263,6 +269,10 @@ ADDITIONS
   const-member  BossFightBattleTypes  OVERWORLD
   const-member  BossFightBattleTypes  QUEST
   const-member  BossFightBattleTypes  RANDOM_ENCOUNTER
+  const-member  CRAFTING_SERVICES  CRAFT
+  const-member  CRAFTING_SERVICES  DISIMBUE
+  const-member  CRAFTING_SERVICES  IMBUE
+  const-member  CRAFTING_SERVICES  REPAIR
   const-member  FARM_SHOP_ENTRY_TYPES  EXTRACTOR
   const-member  FARM_SHOP_ENTRY_TYPES  FERTILIZER
   const-member  FARM_SHOP_ENTRY_TYPES  PLOT
@@ -276,12 +286,7 @@ ADDITIONS
   const-member  HP_DAMAGE_KEYS  wound
   const-member  INITIATIVE_PVP_STREAK_BONUSES  0.0025
   const-member  INITIATIVE_PVP_STREAK_BONUSES  0.005
-  const-member  INITIATIVE_PVP_STREAK_BONUSES  0.01
-  const-member  INITIATIVE_PVP_STREAK_BONUSES  0.015
-  const-member  INITIATIVE_PVP_STREAK_BONUSES  0.02
-  const-member  ItemTypes  COSMETIC
-  const-member  MISSION_HALL_QUEST_TYPES  crime
-  ... 131 more
+  ... 138 more
 
 BREAKING: 255 change(s) - DO NOT ADOPT (exit 1)
 ~~~
