@@ -63,7 +63,7 @@ rules win where this file differs). Plan and 14-day simulation: Claude artifact 
 2. Scaling damage/setup jutsu near the cap: Soul Laceration Mirage `GlgS3FVoQ6F8k3RAo_Uht` (19),
    Thunderbolt Fury `INuy-ITnPsH22eUoGQgwW` (18), Phantom Requiem `kbrQuf3nYNHoKEvusATTO` (18),
    Cyclone Palm Strike `pqCqPemRNk3ht-SFrjq5G` (18), Ethereal Nexus `iktsCP-RjIhlYlsTg-JTN` (10).
-Owned already at 25: Chakra Edge, Gust Armor (Wind potency), Limit Breaker (transfer 2026-11-16), Mental Fortress (transfer 2026-11-17).
+Owned already at 25: Chakra Edge, Gust Armor (Wind potency), Limit Breaker (transfer 2026-11-16), Mental Fortress (transfer 2026-11-17), Divine Pulse (transfer 2026-11-18).
 3. Director (2026-11-16): "I want all Jonin level elemental and none jutsu trained next." Jonin-rank
    (requiredRank JONIN), non-bloodline, element None or one of mine (Lightning, Earth), at least one effect
    powerPerLevel > 0, not yet at 20 (found with `jutsu.getAll {rank:[JONIN], excludedJutsuTypes:[AI,PETS,BLOODLINE]}`).
@@ -346,3 +346,7 @@ very expensive (Cyclone Palm Strike level 19 quoted 1,949,575 ryo for one level;
 | 2026-11-18 04:23 | Bank withdrawal | | +10,000,000 | pocket was 124,478 (spent during the 03:17-04:18 hunt session), under 2M, so `bank.toPocket` 10M |
 | 2026-11-18 04:23 | Rensa Kaminari | 2 (from 1) | 2,197 | started (queue was empty; ends ~04:32) |
 | 2026-11-18 04:24 | Storm Kick, Thunder Fist, Thunder Shockwave, Thunderbolt Spear | 2 each (from 1) | 8,788 total | queued (4 waiting, ends ~05:08). Next refills keep taking owned level-1 list-4 Lightning C targets to 2. Stone of the Withering at donor cap 10. Pocket 10.11M. Intelligence and willpower both at the 400,000 cap, so 5,050 energy left unspent; asleep in 177 (read back) |
+| 2026-11-18 05:23 | Bank withdrawal | | +10,000,000 | pocket was 129,034, under 2M, so `bank.toPocket` 10M |
+| 2026-11-18 05:23 | Transfer Stone of the Withering -> Divine Pulse, 5 levels (Divine Pulse 20-25; Stone of the Withering 10-5) | | 0 | done ("Level transferred for 0 reputation points", reputation delta 0), read back in getRecentTransfers |
+| 2026-11-18 05:23 | Transfer Stone of the Withering -> Ryūsa Kōka, 4 levels | | 0 | refused: "Source jutsu must be at least 10 to transfer levels". The game checks the source at 10+ before every transfer, so a donor makes one transfer per refill, not several. Stone of the Withering retired at 5 (not retrained) |
+| 2026-11-18 05:24 | Summoning: Lord Pengu (donor, NORMAL C) | 2-5 | 695 | queued behind the active Thunderbolt Spear 2 (4 waiting, ends ~06:50, ~86 min). Best C target Ryūsa Kōka 20; direct-only fill would have held under 70 min. Intelligence and willpower both at the 400,000 cap, so 5,050 energy left unspent; asleep in 177 (read back) |
