@@ -27,7 +27,8 @@ import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 NANO = re.compile(r"^[A-Za-z0-9_-]{21}$")
-NUM_ITEM, NUM_RUN = 635, 636
+NUM_ITEM, NUM_RUN, NUM_FIX = 635, 636, 640
+RUN_ID = "-_1MdlGp-gxdiWKb6Bf3V"  # push/636 results bundle (hidden)
 PFX = "fs635_"
 
 ITEM = {  # push/skyglass_new_charts.gen.py ITEM, design_data.json
@@ -69,13 +70,13 @@ def dialog(i, scene, desc, choices):
             "nextObjectiveId": [{"text": t, "nextObjectiveId": n} for t, n in choices]}
 
 
-def battle(i, scene, desc, keys, nxt):
+def battle(i, scene, desc, keys, nxt, scaled=True):
     counts = {}
     for k in keys:
         counts[AI[k]] = counts.get(AI[k], 0) + 1
     return {"id": i, "task": "start_battle", "description": desc, "sceneBackground": SCENE[scene],
             "sceneCharacters": [], "opponentAIs": [{"ids": [a], "number": n, "quantity": 1} for a, n in counts.items()],
-            "completionOutcome": "Win", "scaleGains": 1, "keepOriginalPools": False, "opponent_scaled_to_user": True,
+            "completionOutcome": "Win", "scaleGains": 1, "keepOriginalPools": False, "opponent_scaled_to_user": scaled,
             "nextObjectiveId": nxt, "failObjectiveId": "f_lost", **SHARED}
 
 
@@ -107,7 +108,11 @@ def objectives():
                [("Take the stores", "w_take"), ("Go below", "d_below")]),
         dialog("d_below", "lower_hull", "The storeroom is half sea now. What's left of the stores floats in black water, "
                "and something in the water is eating them.", [("Wade in", "b4")]),
-        battle("b4", "lower_hull", "The water heaves, and one pale eye opens in it.", ["isonade"], "w_below"),
+        # The director, 2026-11-18 18:37 UTC: the crew scale to the player, Isonade does not. Scaling is per fight
+        # (routers/combat.ts scaleTarget), and Isonade fights alone, so b4 is the one unscaled fight: its stored
+        # level-100 record, capped at JONIN, which is exactly the row the harness tuned (cclib aiRow + sim capUserStats).
+        battle("b4", "lower_hull", "The water heaves, and one pale eye opens in it.", ["isonade"], "w_below",
+               scaled=False),
         win("w_take", "hold", "You carry the stores up past a crew that never looks at you.",
             [("Wreck Salvage", 100, 1)]),
         win("w_below", "lower_hull", "It lets go and slides back out through the crack in the hull. The ship settles. "
@@ -241,6 +246,21 @@ def main():
               "fight fails the run) and the test-only grant quest repointed to pay 1 chart. Reward pick count "
               "gap: both endings share one choose-one (engine allows one per quest).", items,
               {"_chart_id": cid, "_ai_keys": AI})
+        return
+    if mode == "isonade-fixed":
+        cid = sys.argv[sys.argv.index("--chart") + 1]
+        assert NANO.match(cid) and NANO.match(RUN_ID)
+        content = run_entry(cid)["data"]["content"]
+        check_graph(content["objectives"])
+        fixed = [o["id"] for o in content["objectives"] if o.get("task") == "start_battle"
+                 and not o["opponent_scaled_to_user"]]
+        assert fixed == ["b4"], fixed
+        write(NUM_FIX, "flooded_stores_isonade_fixed", "push/640, HIDDEN: The Flooded Stores, b4 (Isonade) no longer "
+              "scales to the player, so Isonade fights at its stored level 100 while fights 1 to 3 still scale. "
+              "Content is sent whole; only b4's opponent_scaled_to_user changes.",
+              [{"entity": "quest", "slot": "edit", "targetId": RUN_ID, "phase": 1,
+                "name": "The Flooded Stores: Isonade fixed at level 100", "data": {"hidden": True, "content": content}}],
+              {"_chart_id": cid})
         return
     print(__doc__)
     sys.exit(2)
