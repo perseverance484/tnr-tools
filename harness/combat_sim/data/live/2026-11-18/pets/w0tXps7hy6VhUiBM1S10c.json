@@ -1,0 +1,900 @@
+{
+ "_source": {
+  "endpoint": "pets.getPet",
+  "input": {
+   "petId": "w0tXps7hy6VhUiBM1S10c"
+  },
+  "readAt": "2026-11-18T23:35:47.756Z"
+ },
+ "data": {
+  "abilities": {
+   "jutsus": [
+    {
+     "actionCostPerc": 60,
+     "battleDescription": "%user opens a maw far too big for its body and bites down on %target.",
+     "battleUsageType": "BOTH",
+     "bloodlineId": "",
+     "bloodlineReskinId": null,
+     "chakraCost": 0,
+     "chakraCostReducePerLvl": 0,
+     "cooldown": 5,
+     "coordinateTargeting": null,
+     "createdAt": "2026-10-31T16:19:01.818Z",
+     "description": "The Little Horror opens a mouth far too big for its body and bites, leaving the target easier to hurt for a round.",
+     "effects": [
+      {
+       "allowBloodlineDamageDecrease": true,
+       "allowBloodlineDamageIncrease": true,
+       "appearAnimation": "DXJGnbF6RUGKfK9vTc__n",
+       "appearSfx": "PFY2oXpwIpNwUOx327WCm",
+       "calculation": "formula",
+       "description": "Deals damage to target",
+       "direction": "offence",
+       "disappearAnimation": "",
+       "disappearSfx": "",
+       "dmgModifier": 1,
+       "generalTypes": [
+        "Highest"
+       ],
+       "power": 50,
+       "powerPerLevel": 0,
+       "residualModifier": 0,
+       "rounds": 0,
+       "staticAnimation": "",
+       "staticAssetPath": "",
+       "target": "INHERIT",
+       "type": "damage"
+      },
+      {
+       "appearAnimation": "",
+       "appearSfx": "",
+       "calculation": "percentage",
+       "description": "Increase damage taken of target",
+       "direction": "offence",
+       "disappearAnimation": "",
+       "disappearSfx": "",
+       "power": 10,
+       "powerPerLevel": 0,
+       "rounds": 1,
+       "staticAnimation": "",
+       "staticAssetPath": "",
+       "target": "INHERIT",
+       "type": "increasedamagetaken"
+      }
+     ],
+     "elementClassification": "None",
+     "extraBaseCost": 0,
+     "healthCost": 0,
+     "healthCostReducePerLvl": 0,
+     "hidden": false,
+     "id": "GYy5K24tGkYIeGEJef3TW",
+     "image": "https://ui0arpl8sm.ufs.sh/f/ZPnVDDrb1FvWNvlxyQ4bv.webp",
+     "injectableInBattle": false,
+     "jutsuRank": "D",
+     "jutsuType": "PETS",
+     "jutsuWeapon": "NONE",
+     "method": "SINGLE",
+     "methodSize": null,
+     "name": "Little Maw",
+     "parentJutsuId": null,
+     "range": 4,
+     "requiredBloodlineItemId": null,
+     "requiredBloodlineMastery": null,
+     "requiredBukijutsuMastery": null,
+     "requiredGenjutsuMastery": null,
+     "requiredIntelligence": null,
+     "requiredLevel": 1,
+     "requiredNinjutsuMastery": null,
+     "requiredPetSpeciesId": "eI2UFBlBTEhXpcHk5uBra",
+     "requiredRank": "STUDENT",
+     "requiredSageMastery": null,
+     "requiredSkillId": null,
+     "requiredSpeed": null,
+     "requiredStrength": null,
+     "requiredTaijutsuMastery": null,
+     "requiredWillpower": null,
+     "reskinParentJutsuId": null,
+     "staminaCost": 0,
+     "staminaCostReducePerLvl": 0,
+     "statClassification": "None",
+     "target": "OPPONENT",
+     "updatedAt": "2026-10-31T23:37:01.475Z",
+     "villageId": ""
+    }
+   ],
+   "skills": []
+  },
+  "abilityCapacity": {
+   "budget": 6,
+   "maxSlots": 6
+  },
+  "activePetId": "w0tXps7hy6VhUiBM1S10c",
+  "bonusSlots": 3,
+  "canAcquire": false,
+  "canFeed": true,
+  "canRankUp": false,
+  "dayKey": "2026-11-18",
+  "feedAvailableAt": null,
+  "feedMeals": [
+   {
+    "experience": 500,
+    "id": "6tb6mUn3BUsx2l9athLl-",
+    "name": "Apple Pie",
+    "quantity": 4,
+    "rarity": "COMMON"
+   },
+   {
+    "experience": 500,
+    "id": "ptM85RoWJHiaFXyrsrqKa",
+    "name": "Apple Cr\u00eapes",
+    "quantity": 9,
+    "rarity": "COMMON"
+   },
+   {
+    "experience": 500,
+    "id": "PZfRtQPgUqnzDXVtpjpTk",
+    "name": "Hearty Beef Stew",
+    "quantity": 10,
+    "rarity": "COMMON"
+   },
+   {
+    "experience": 500,
+    "id": "sOtH4sL6TLT54yOQgdGce",
+    "name": "Honey-Roasted Plums",
+    "quantity": 9,
+    "rarity": "COMMON"
+   }
+  ],
+  "generationLimit": 3,
+  "generationRetryAt": "2026-11-15T23:31:33.693Z",
+  "maxRank": 7,
+  "maxSlots": 9,
+  "nextRank": {
+   "experienceRequired": 232500,
+   "levelCap": 40,
+   "minUserRank": "JONIN",
+   "name": "Warden",
+   "rank": 6
+  },
+  "optionCount": 8,
+  "options": {
+   "auras": [
+    {
+     "description": "Two or three tiny drifting leaf-shaped motes",
+     "index": 6,
+     "name": "Leaf"
+    },
+    {
+     "description": "A few subtle floating blue water droplets",
+     "index": 1,
+     "name": "Water"
+    },
+    {
+     "description": "A few tiny warm ember motes without fire or smoke",
+     "index": 2,
+     "name": "Ember"
+    },
+    {
+     "description": "A few faint pearl-coloured spirit motes",
+     "index": 7,
+     "name": "Spirit"
+    },
+    {
+     "description": "A few subtle golden dust motes",
+     "index": 3,
+     "name": "Earth"
+    },
+    {
+     "description": "A few short, gentle violet sparks",
+     "index": 4,
+     "name": "Lightning"
+    },
+    {
+     "description": "A faint cool moonlit glow at the silhouette",
+     "index": 5,
+     "name": "Moon"
+    },
+    {
+     "description": "A few subtle pale wind wisps close to the body",
+     "index": 0,
+     "name": "Wind"
+    }
+   ],
+   "characteristics": [
+    {
+     "description": "A simple woven cord on one limb",
+     "index": 13,
+     "name": "Cord bracelet"
+    },
+    {
+     "description": "Fine contrasting stripe accents",
+     "index": 8,
+     "name": "Striped accents"
+    },
+    {
+     "description": "Two distinct, harmonious eye colours",
+     "index": 5,
+     "name": "Mismatched eyes"
+    },
+    {
+     "description": "A small star-shaped forehead marking",
+     "index": 0,
+     "name": "Star marking"
+    },
+    {
+     "description": "A small leaf-shaped marking on the cheek",
+     "index": 3,
+     "name": "Leaf marking"
+    },
+    {
+     "description": "A small plain cloth scarf around the neck",
+     "index": 12,
+     "name": "Neck scarf"
+    },
+    {
+     "description": "A little carved leaf charm on a woven collar",
+     "index": 15,
+     "name": "Leaf charm"
+    },
+    {
+     "description": "Small contrasting dappled spots",
+     "index": 9,
+     "name": "Dappled accents"
+    }
+   ],
+   "palettes": [
+    {
+     "description": "Graphite, lavender grey and electric blue",
+     "index": 6,
+     "name": "Storm"
+    },
+    {
+     "description": "Ash grey, smoke blue and chalk",
+     "index": 22,
+     "name": "Ash"
+    },
+    {
+     "description": "Dusky mauve, ink blue and rose gold",
+     "index": 20,
+     "name": "Dusk"
+    },
+    {
+     "description": "Warm russet, charcoal and amber",
+     "index": 0,
+     "name": "Ember"
+    },
+    {
+     "description": "Apricot, coral and soft gold",
+     "index": 7,
+     "name": "Sunrise"
+    },
+    {
+     "description": "Coral red, sea blue and cream",
+     "index": 28,
+     "name": "Coral"
+    },
+    {
+     "description": "Chocolate brown, caramel and ivory",
+     "index": 26,
+     "name": "Cocoa"
+    },
+    {
+     "description": "Turquoise, deep green and pearl",
+     "index": 24,
+     "name": "Lagoon"
+    }
+   ],
+   "species": [
+    {
+     "aiRules": [],
+     "artDirection": null,
+     "createdAt": "2026-10-17T16:02:56.570Z",
+     "defaultJutsuIds": [
+      "-ekGyNHB-xJOw0T3yUaSK",
+      "Kjs8HuyNavEesJRfpYCqe"
+     ],
+     "description": "A butterfly with large symmetrical wings",
+     "effects": [
+      {
+       "animationScale": 1,
+       "appearAnimation": "",
+       "appearSfx": "",
+       "calculation": "percentage",
+       "description": "Pet passive: increaseheal",
+       "direction": "offence",
+       "disappearAnimation": "",
+       "disappearSfx": "",
+       "power": 10,
+       "powerPerLevel": 0,
+       "rounds": 30,
+       "skillTarget": "SELF",
+       "staticAnimation": "",
+       "staticAssetPath": "",
+       "target": "INHERIT",
+       "type": "increaseheal"
+      },
+      {
+       "animationScale": 1,
+       "appearAnimation": "",
+       "appearSfx": "",
+       "calculation": "percentage",
+       "description": "Pet passive: decreasepoolcost",
+       "direction": "defence",
+       "disappearAnimation": "",
+       "disappearSfx": "",
+       "poolsAffected": [
+        "Health"
+       ],
+       "power": 10,
+       "powerPerLevel": 0,
+       "rounds": 20,
+       "skillTarget": "SELF",
+       "staticAnimation": "",
+       "staticAssetPath": "",
+       "target": "INHERIT",
+       "type": "decreasepoolcost"
+      }
+     ],
+     "id": "pet-species-59",
+     "includeDefaultRules": true,
+     "isActive": true,
+     "name": "Butterfly",
+     "potentialMax": 5,
+     "potentialMin": 1,
+     "potentialMode": "RANDOM",
+     "potentialValue": 1,
+     "potentialWeights": [
+      70,
+      50,
+      20,
+      10,
+      2
+     ],
+     "preferredDamageElement": null,
+     "rankConcepts": [],
+     "rarity": "COMMON",
+     "role": "HEALER",
+     "updatedAt": "2026-11-18T15:30:22.888Z"
+    },
+    {
+     "aiRules": [],
+     "artDirection": null,
+     "createdAt": "2026-10-17T16:02:56.570Z",
+     "defaultJutsuIds": [],
+     "description": "A slender ferret with a long flexible body",
+     "effects": [
+      {
+       "animationScale": 1,
+       "appearAnimation": "",
+       "appearSfx": "",
+       "calculation": "percentage",
+       "description": "Pet passive: recoil",
+       "direction": "offence",
+       "disappearAnimation": "",
+       "disappearSfx": "",
+       "power": 10,
+       "powerPerLevel": 0,
+       "rounds": 30,
+       "skillTarget": "SELF",
+       "staticAnimation": "",
+       "staticAssetPath": "",
+       "target": "INHERIT",
+       "type": "recoil"
+      }
+     ],
+     "id": "pet-species-15",
+     "includeDefaultRules": true,
+     "isActive": true,
+     "name": "Ferret",
+     "potentialMax": 5,
+     "potentialMin": 1,
+     "potentialMode": "RANDOM",
+     "potentialValue": 1,
+     "potentialWeights": [
+      70,
+      50,
+      20,
+      10,
+      2
+     ],
+     "preferredDamageElement": null,
+     "rankConcepts": [],
+     "rarity": "COMMON",
+     "role": "SUPPORT",
+     "updatedAt": "2026-11-18T15:38:31.818Z"
+    },
+    {
+     "aiRules": [],
+     "artDirection": null,
+     "createdAt": "2026-10-17T16:02:56.570Z",
+     "defaultJutsuIds": [],
+     "description": "A smooth salamander with a long tail",
+     "effects": [],
+     "id": "pet-species-53",
+     "includeDefaultRules": true,
+     "isActive": true,
+     "name": "Salamander",
+     "potentialMax": 5,
+     "potentialMin": 1,
+     "potentialMode": "RANDOM",
+     "potentialValue": 1,
+     "potentialWeights": [
+      70,
+      50,
+      20,
+      10,
+      2
+     ],
+     "preferredDamageElement": null,
+     "rankConcepts": [],
+     "rarity": "COMMON",
+     "role": "SUPPORT",
+     "updatedAt": "2026-11-18T15:40:46.247Z"
+    },
+    {
+     "aiRules": [],
+     "artDirection": null,
+     "createdAt": "2026-10-17T16:02:56.570Z",
+     "defaultJutsuIds": [],
+     "description": "A small sparrow with a round body",
+     "effects": [],
+     "id": "pet-species-46",
+     "includeDefaultRules": true,
+     "isActive": true,
+     "name": "Sparrow",
+     "potentialMax": 5,
+     "potentialMin": 1,
+     "potentialMode": "RANDOM",
+     "potentialValue": 1,
+     "potentialWeights": [
+      70,
+      50,
+      20,
+      10,
+      2
+     ],
+     "preferredDamageElement": null,
+     "rankConcepts": [],
+     "rarity": "COMMON",
+     "role": "SUPPORT",
+     "updatedAt": "2026-11-18T15:40:54.224Z"
+    },
+    {
+     "aiRules": [],
+     "artDirection": null,
+     "createdAt": "2026-10-17T16:02:56.570Z",
+     "defaultJutsuIds": [],
+     "description": "A clever raccoon with a striped tail",
+     "effects": [],
+     "id": "pet-species-12",
+     "includeDefaultRules": true,
+     "isActive": true,
+     "name": "Raccoon",
+     "potentialMax": 5,
+     "potentialMin": 1,
+     "potentialMode": "RANDOM",
+     "potentialValue": 1,
+     "potentialWeights": [
+      70,
+      50,
+      20,
+      10,
+      2
+     ],
+     "preferredDamageElement": null,
+     "rankConcepts": [],
+     "rarity": "COMMON",
+     "role": "ASSAULT",
+     "updatedAt": "2026-11-18T15:40:35.735Z"
+    },
+    {
+     "aiRules": [],
+     "artDirection": null,
+     "createdAt": "2026-10-17T16:02:56.570Z",
+     "defaultJutsuIds": [],
+     "description": "A forest elk with large branching antlers, a strong build, and soft fur.",
+     "effects": [],
+     "id": "pet-species-33",
+     "includeDefaultRules": true,
+     "isActive": true,
+     "name": "Elk",
+     "potentialMax": 5,
+     "potentialMin": 1,
+     "potentialMode": "RANDOM",
+     "potentialValue": 1,
+     "potentialWeights": [
+      70,
+      50,
+      20,
+      10,
+      2
+     ],
+     "preferredDamageElement": null,
+     "rankConcepts": [],
+     "rarity": "UNCOMMON",
+     "role": "HEALER",
+     "updatedAt": "2026-11-18T15:38:31.026Z"
+    },
+    {
+     "aiRules": [],
+     "artDirection": null,
+     "createdAt": "2026-10-17T16:02:56.570Z",
+     "defaultJutsuIds": [],
+     "description": "An alert crow with a compact silhouette",
+     "effects": [
+      {
+       "animationScale": 1,
+       "appearAnimation": "",
+       "appearSfx": "",
+       "calculation": "static",
+       "description": "Pet passive: rob",
+       "direction": "offence",
+       "disappearAnimation": "",
+       "disappearSfx": "",
+       "power": 10,
+       "powerPerLevel": 0,
+       "robPercentage": 10,
+       "rounds": 30,
+       "skillTarget": "SELF",
+       "staticAnimation": "",
+       "staticAssetPath": "",
+       "target": "INHERIT",
+       "type": "rob"
+      },
+      {
+       "animationScale": 1,
+       "appearAnimation": "",
+       "appearSfx": "",
+       "calculation": "percentage",
+       "description": "Pet passive: increasedamagegiven",
+       "direction": "offence",
+       "disappearAnimation": "",
+       "disappearSfx": "",
+       "power": 10,
+       "powerPerLevel": 0,
+       "rounds": 30,
+       "skillTarget": "SELF",
+       "staticAnimation": "",
+       "staticAssetPath": "",
+       "target": "INHERIT",
+       "type": "increasedamagegiven"
+      },
+      {
+       "animationScale": 1,
+       "appearAnimation": "",
+       "appearSfx": "",
+       "calculation": "percentage",
+       "description": "Pet passive: decreasedamagetaken",
+       "direction": "offence",
+       "disappearAnimation": "",
+       "disappearSfx": "",
+       "power": 10,
+       "powerPerLevel": 0,
+       "rounds": 30,
+       "skillTarget": "SELF",
+       "staticAnimation": "",
+       "staticAssetPath": "",
+       "target": "INHERIT",
+       "type": "decreasedamagetaken"
+      }
+     ],
+     "id": "pet-species-42",
+     "includeDefaultRules": true,
+     "isActive": true,
+     "name": "Crow",
+     "potentialMax": 5,
+     "potentialMin": 1,
+     "potentialMode": "RANDOM",
+     "potentialValue": 1,
+     "potentialWeights": [
+      70,
+      50,
+      20,
+      10,
+      2
+     ],
+     "preferredDamageElement": null,
+     "rankConcepts": [],
+     "rarity": "UNCOMMON",
+     "role": "SUPPORT",
+     "updatedAt": "2026-11-18T15:38:29.317Z"
+    },
+    {
+     "aiRules": [],
+     "artDirection": null,
+     "createdAt": "2026-10-17T16:02:56.570Z",
+     "defaultJutsuIds": [],
+     "description": "A nimble fox with a bushy tail and pointed ears",
+     "effects": [
+      {
+       "animationScale": 1,
+       "appearAnimation": "",
+       "appearSfx": "",
+       "calculation": "percentage",
+       "description": "Pet passive: increaseheal",
+       "direction": "offence",
+       "disappearAnimation": "",
+       "disappearSfx": "",
+       "power": 10,
+       "powerPerLevel": 0,
+       "rounds": 30,
+       "skillTarget": "SELF",
+       "staticAnimation": "",
+       "staticAssetPath": "",
+       "target": "INHERIT",
+       "type": "increaseheal"
+      }
+     ],
+     "id": "pet-species-0",
+     "includeDefaultRules": true,
+     "isActive": true,
+     "name": "Fox",
+     "potentialMax": 5,
+     "potentialMin": 2,
+     "potentialMode": "RANDOM",
+     "potentialValue": 1,
+     "potentialWeights": [
+      70,
+      50,
+      20,
+      10,
+      2
+     ],
+     "preferredDamageElement": null,
+     "rankConcepts": [],
+     "rarity": "RARE",
+     "role": "SUPPORT",
+     "updatedAt": "2026-11-18T15:38:32.144Z"
+    }
+   ]
+  },
+  "permanentSlots": 1,
+  "pet": {
+   "aiRules": [],
+   "artRank": 5,
+   "auraIndex": 5,
+   "avatar": "https://ui0arpl8sm.ufs.sh/f/pet-VLOh8yNp8sWrjrQX2HJJ1.webp",
+   "avatarFacing": "left",
+   "battleEnabled": true,
+   "characteristicIndex": 1,
+   "createdAt": "2026-10-31T22:20:47.918Z",
+   "defence": 37912,
+   "experience": 177852,
+   "gender": null,
+   "generationAttempts": 1,
+   "generationStartedAt": "2026-11-15T23:30:33.693Z",
+   "generationStatus": "READY",
+   "id": "w0tXps7hy6VhUiBM1S10c",
+   "includeDefaultRules": true,
+   "intelligence": 20000,
+   "jutsuIds": [
+    "GYy5K24tGkYIeGEJef3TW"
+   ],
+   "lastFedAt": "2026-11-15T23:27:23.110Z",
+   "name": "Little Horror",
+   "offence": 60000,
+   "paletteIndex": 0,
+   "potentialChances": [],
+   "potentialRevealed": true,
+   "potentialValue": 1,
+   "rank": 5,
+   "revision": 32,
+   "skillIds": [],
+   "spawnPosition": "BEHIND",
+   "species": {
+    "aiRules": [],
+    "artDirection": "Hairless, no fur or tufts: a round-bodied, frog-like rot creature with a plump torso, a big round head and four short stubby legs with soft paw pads, and a short tapering tail. Its hide is glossy and tar-slick, streaked with thick dripping slime in the palette's accent colour. Clouded crystal is crusted into its hide in small irregular barnacle clusters, sitting flush, never standing up as spikes, posts or a row. Its eyes are always pale skyglass cyan with a bright pinpoint highlight, whatever the palette. Its signature: an enormous grin that splits its face nearly ear to ear, packed with jagged white teeth. Creepy-cute, mischievous, a little unsettling.",
+    "createdAt": "2026-10-31T16:18:58.893Z",
+    "defaultJutsuIds": [
+     "GYy5K24tGkYIeGEJef3TW"
+    ],
+    "description": "The Core tried to remember the ship's mascot and rebuilt it from the wreck's rot: a round, tar-slick thing dripping slime, crusted with clouded crystal, its grin far too wide and far too full of teeth. It has decided you are its crew.",
+    "effects": [
+     {
+      "animationScale": 1,
+      "appearAnimation": "",
+      "appearSfx": "",
+      "calculation": "percentage",
+      "description": "Decrease damage given by target",
+      "direction": "offence",
+      "disappearAnimation": "",
+      "disappearSfx": "",
+      "power": 10,
+      "powerPerLevel": 0,
+      "rounds": 30,
+      "skillTarget": "ENEMIES",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "target": "SELF",
+      "type": "decreasedamagegiven"
+     },
+     {
+      "animationScale": 1,
+      "appearAnimation": "",
+      "appearSfx": "",
+      "calculation": "percentage",
+      "description": "Increase damage given by target",
+      "direction": "offence",
+      "disappearAnimation": "",
+      "disappearSfx": "",
+      "power": 20,
+      "powerPerLevel": 0,
+      "rounds": 30,
+      "skillTarget": "SELF",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "target": "INHERIT",
+      "type": "increasedamagegiven"
+     }
+    ],
+    "id": "eI2UFBlBTEhXpcHk5uBra",
+    "includeDefaultRules": true,
+    "isActive": false,
+    "name": "Little Horror",
+    "potentialMax": 5,
+    "potentialMin": 4,
+    "potentialMode": "RANDOM",
+    "potentialValue": 1,
+    "potentialWeights": [
+     70,
+     50,
+     20,
+     10,
+     2
+    ],
+    "preferredDamageElement": null,
+    "rankConcepts": [
+     "A round, tar-slick rot creature on stubby legs with a huge toothy grin and pale cyan eyes, slime dripping off it, a few flush crystal barnacles on its back",
+     "A little longer in the legs and steadier on its feet; the crystal barnacles spread in an uneven patch over its back",
+     "Full adult size, still round-bodied; the grin reaches nearly ear to ear and the slime streaks run thicker",
+     "Its teeth turn jagged and crystal-tipped and its paw claws darken; the grin is now plainly a weapon",
+     "The barnacle patch fuses into one smooth crystal plate lying flat across its back and shoulders",
+     "Slime streaks settle into bold painted patterns across its hide in the palette's accent colour",
+     "The slime patterns glow faintly in its aura colour and the crystal plate lights from within",
+     "A collar of tarred rigging rope with a small crystal medallion, worn alongside any collar, scarf or charm it already has",
+     "Sitting up proud with one paw raised, head high, the crystal plate polished clear, grin wide",
+     "The wreck's guardian: glossy and commanding, its crystal plate catching the light, the same enormous grin and cyan eyes"
+    ],
+    "rarity": "LEGENDARY",
+    "role": "ASSAULT",
+    "updatedAt": "2026-11-18T15:40:03.688Z"
+   },
+   "speciesId": "eI2UFBlBTEhXpcHk5uBra",
+   "speed": 20000,
+   "storedExperience": 0,
+   "strength": 20000,
+   "updatedAt": "2026-11-15T23:31:07.681Z",
+   "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+   "willpower": 20000
+  },
+  "pets": [
+   {
+    "aiRules": [],
+    "artRank": 5,
+    "auraIndex": 5,
+    "avatar": "https://ui0arpl8sm.ufs.sh/f/pet-VLOh8yNp8sWrjrQX2HJJ1.webp",
+    "avatarFacing": "left",
+    "battleEnabled": true,
+    "characteristicIndex": 1,
+    "createdAt": "2026-10-31T22:20:47.918Z",
+    "defence": 37912,
+    "experience": 177852,
+    "gender": null,
+    "generationAttempts": 1,
+    "generationStartedAt": "2026-11-15T23:30:33.693Z",
+    "generationStatus": "READY",
+    "id": "w0tXps7hy6VhUiBM1S10c",
+    "includeDefaultRules": true,
+    "intelligence": 20000,
+    "jutsuIds": [
+     "GYy5K24tGkYIeGEJef3TW"
+    ],
+    "lastFedAt": "2026-11-15T23:27:23.110Z",
+    "name": "Little Horror",
+    "offence": 60000,
+    "paletteIndex": 0,
+    "potentialChances": [],
+    "potentialRevealed": true,
+    "potentialValue": 1,
+    "rank": 5,
+    "revision": 32,
+    "skillIds": [],
+    "spawnPosition": "BEHIND",
+    "species": {
+     "aiRules": [],
+     "artDirection": "Hairless, no fur or tufts: a round-bodied, frog-like rot creature with a plump torso, a big round head and four short stubby legs with soft paw pads, and a short tapering tail. Its hide is glossy and tar-slick, streaked with thick dripping slime in the palette's accent colour. Clouded crystal is crusted into its hide in small irregular barnacle clusters, sitting flush, never standing up as spikes, posts or a row. Its eyes are always pale skyglass cyan with a bright pinpoint highlight, whatever the palette. Its signature: an enormous grin that splits its face nearly ear to ear, packed with jagged white teeth. Creepy-cute, mischievous, a little unsettling.",
+     "createdAt": "2026-10-31T16:18:58.893Z",
+     "defaultJutsuIds": [
+      "GYy5K24tGkYIeGEJef3TW"
+     ],
+     "description": "The Core tried to remember the ship's mascot and rebuilt it from the wreck's rot: a round, tar-slick thing dripping slime, crusted with clouded crystal, its grin far too wide and far too full of teeth. It has decided you are its crew.",
+     "effects": [
+      {
+       "animationScale": 1,
+       "appearAnimation": "",
+       "appearSfx": "",
+       "calculation": "percentage",
+       "description": "Decrease damage given by target",
+       "direction": "offence",
+       "disappearAnimation": "",
+       "disappearSfx": "",
+       "power": 10,
+       "powerPerLevel": 0,
+       "rounds": 30,
+       "skillTarget": "ENEMIES",
+       "staticAnimation": "",
+       "staticAssetPath": "",
+       "target": "SELF",
+       "type": "decreasedamagegiven"
+      },
+      {
+       "animationScale": 1,
+       "appearAnimation": "",
+       "appearSfx": "",
+       "calculation": "percentage",
+       "description": "Increase damage given by target",
+       "direction": "offence",
+       "disappearAnimation": "",
+       "disappearSfx": "",
+       "power": 20,
+       "powerPerLevel": 0,
+       "rounds": 30,
+       "skillTarget": "SELF",
+       "staticAnimation": "",
+       "staticAssetPath": "",
+       "target": "INHERIT",
+       "type": "increasedamagegiven"
+      }
+     ],
+     "id": "eI2UFBlBTEhXpcHk5uBra",
+     "includeDefaultRules": true,
+     "isActive": false,
+     "name": "Little Horror",
+     "potentialMax": 5,
+     "potentialMin": 4,
+     "potentialMode": "RANDOM",
+     "potentialValue": 1,
+     "potentialWeights": [
+      70,
+      50,
+      20,
+      10,
+      2
+     ],
+     "preferredDamageElement": null,
+     "rankConcepts": [
+      "A round, tar-slick rot creature on stubby legs with a huge toothy grin and pale cyan eyes, slime dripping off it, a few flush crystal barnacles on its back",
+      "A little longer in the legs and steadier on its feet; the crystal barnacles spread in an uneven patch over its back",
+      "Full adult size, still round-bodied; the grin reaches nearly ear to ear and the slime streaks run thicker",
+      "Its teeth turn jagged and crystal-tipped and its paw claws darken; the grin is now plainly a weapon",
+      "The barnacle patch fuses into one smooth crystal plate lying flat across its back and shoulders",
+      "Slime streaks settle into bold painted patterns across its hide in the palette's accent colour",
+      "The slime patterns glow faintly in its aura colour and the crystal plate lights from within",
+      "A collar of tarred rigging rope with a small crystal medallion, worn alongside any collar, scarf or charm it already has",
+      "Sitting up proud with one paw raised, head high, the crystal plate polished clear, grin wide",
+      "The wreck's guardian: glossy and commanding, its crystal plate catching the light, the same enormous grin and cyan eyes"
+     ],
+     "rarity": "LEGENDARY",
+     "role": "ASSAULT",
+     "updatedAt": "2026-11-18T15:40:03.688Z"
+    },
+    "speciesId": "eI2UFBlBTEhXpcHk5uBra",
+    "speed": 20000,
+    "storedExperience": 0,
+    "strength": 20000,
+    "updatedAt": "2026-11-15T23:31:07.681Z",
+    "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "willpower": 20000
+   }
+  ],
+  "rankUpReason": "Assign 232,500 total experience to evolve to Warden.",
+  "remainingGenerations": 2,
+  "replacementCost": 30,
+  "replacementSilverCost": 50,
+  "slotCost": 20,
+  "slotSilverCost": 50,
+  "slots": 4,
+  "unavailableReason": "Visit Bondkeeper Sanctuary on Wake Island to adopt a companion.",
+  "unusedExperience": 26143
+ }
+}

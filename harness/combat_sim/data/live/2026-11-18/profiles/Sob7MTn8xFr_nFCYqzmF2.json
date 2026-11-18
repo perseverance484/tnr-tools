@@ -1,0 +1,64 @@
+{
+ "_source": {
+  "endpoint": "ai.getAiProfile",
+  "input": {
+   "id": "Sob7MTn8xFr_nFCYqzmF2"
+  },
+  "readAt": "2026-11-18T23:27:22.666Z"
+ },
+ "data": {
+  "id": "Sob7MTn8xFr_nFCYqzmF2",
+  "includeDefaultRules": false,
+  "jutsuLoadoutId": null,
+  "rules": [
+   {
+    "action": {
+     "description": "Rally (lands next round, 2 rounds, clearable)",
+     "jutsuId": "T84MZeY5TAQtZDQqqpyRb",
+     "target": "SELF",
+     "type": "use_specific_jutsu"
+    },
+    "conditions": [
+     {
+      "description": "",
+      "target": "CLOSEST_OPPONENT",
+      "type": "distance_lower_than",
+      "value": 4
+     }
+    ]
+   },
+   {
+    "action": {
+     "description": "close in",
+     "target": "CLOSEST_OPPONENT",
+     "type": "move_towards_opponent"
+    },
+    "conditions": [
+     {
+      "description": "",
+      "target": "CLOSEST_OPPONENT",
+      "type": "distance_higher_than",
+      "value": 1
+     }
+    ]
+   },
+   {
+    "action": {
+     "description": "basic attack",
+     "jutsuId": "basicAttack",
+     "target": "CLOSEST_OPPONENT",
+     "type": "use_specific_jutsu"
+    },
+    "conditions": []
+   },
+   {
+    "action": {
+     "description": "unconditional tail (law 41)",
+     "type": "end_turn"
+    },
+    "conditions": []
+   }
+  ],
+  "userId": "8XeldBr2bzcySv2opeHQQ"
+ }
+}

@@ -1,0 +1,159 @@
+{
+ "_source": {
+  "endpoint": "ai.getAiProfile",
+  "input": {
+   "id": "MyXvI2nNBpa3tCcyMVkTN"
+  },
+  "readAt": "2026-11-18T23:27:21.470Z"
+ },
+ "data": {
+  "id": "MyXvI2nNBpa3tCcyMVkTN",
+  "includeDefaultRules": false,
+  "jutsuLoadoutId": null,
+  "rules": [
+   {
+    "action": {
+     "description": "Cleave payoff (+ Winded on self)",
+     "jutsuId": "cCCFDOliWMo3ufp-HNRhS",
+     "target": "SELF",
+     "type": "use_specific_jutsu"
+    },
+    "conditions": [
+     {
+      "description": "",
+      "effectType": "lifesteal",
+      "threshold": 1,
+      "type": "has_effect"
+     }
+    ]
+   },
+   {
+    "action": {
+     "description": "Sweep payoff",
+     "jutsuId": "kL1Qsddg7T0yS1piK6GMS",
+     "target": "SELF",
+     "type": "use_specific_jutsu"
+    },
+    "conditions": [
+     {
+      "description": "",
+      "effectType": "increasecooldown",
+      "threshold": 1,
+      "type": "has_effect"
+     }
+    ]
+   },
+   {
+    "action": {
+     "description": "Reinforcements under half health, one at a time",
+     "jutsuId": "QZYMMnmUcBK9CPS8XX2Lf",
+     "target": "EMPTY_GROUND_CLOSEST_TO_SELF",
+     "type": "use_specific_jutsu"
+    },
+    "conditions": [
+     {
+      "description": "",
+      "type": "health_below",
+      "value": 50
+     },
+     {
+      "description": "",
+      "type": "does_not_have_summon"
+     }
+    ]
+   },
+   {
+    "action": {
+     "description": "mark Sweep when a player is adjacent",
+     "jutsuId": "Z9B3wJGA12Zlb5s8-MNUh",
+     "target": "SELF",
+     "type": "use_specific_jutsu"
+    },
+    "conditions": [
+     {
+      "description": "",
+      "maxRange": 1,
+      "minRange": 1,
+      "type": "player_within_range"
+     }
+    ]
+   },
+   {
+    "action": {
+     "description": "hold still while the ring is marked",
+     "type": "end_turn"
+    },
+    "conditions": [
+     {
+      "description": "",
+      "effectType": "increasecooldown",
+      "threshold": 1,
+      "type": "has_effect"
+     }
+    ]
+   },
+   {
+    "action": {
+     "description": "mark Cleave when a player is within 3",
+     "jutsuId": "gLsou07qLtM34zyepQRcS",
+     "target": "SELF",
+     "type": "use_specific_jutsu"
+    },
+    "conditions": [
+     {
+      "description": "",
+      "maxRange": 3,
+      "minRange": 1,
+      "type": "player_within_range"
+     }
+    ]
+   },
+   {
+    "action": {
+     "description": "hold still while the line is marked",
+     "type": "end_turn"
+    },
+    "conditions": [
+     {
+      "description": "",
+      "effectType": "lifesteal",
+      "threshold": 1,
+      "type": "has_effect"
+     }
+    ]
+   },
+   {
+    "action": {
+     "description": "close in",
+     "target": "CLOSEST_OPPONENT",
+     "type": "move_towards_opponent"
+    },
+    "conditions": [
+     {
+      "description": "",
+      "target": "CLOSEST_OPPONENT",
+      "type": "distance_higher_than",
+      "value": 1
+     }
+    ]
+   },
+   {
+    "action": {
+     "description": "basic attack",
+     "jutsuId": "basicAttack",
+     "target": "CLOSEST_OPPONENT",
+     "type": "use_specific_jutsu"
+    },
+    "conditions": []
+   },
+   {
+    "action": {
+     "description": "unconditional tail (law 41)",
+     "type": "end_turn"
+    },
+    "conditions": []
+   }
+  ],
+  "userId": "87lDmGM8szRjL6_8m2GjK"
+ }
+}

@@ -1,0 +1,94 @@
+{
+ "_source": {
+  "endpoint": "ai.getAiProfile",
+  "input": {
+   "id": "yJ9sIBnhulMTKl5LBnkwp"
+  },
+  "readAt": "2026-11-18T23:27:23.097Z"
+ },
+ "data": {
+  "id": "yJ9sIBnhulMTKl5LBnkwp",
+  "includeDefaultRules": false,
+  "jutsuLoadoutId": null,
+  "rules": [
+   {
+    "action": {
+     "description": "payoff of the mark",
+     "jutsuId": "_O62ht0B7XNYzlISG1Gp5",
+     "target": "SELF",
+     "type": "use_specific_jutsu"
+    },
+    "conditions": [
+     {
+      "description": "",
+      "effectType": "lifesteal",
+      "threshold": 1,
+      "type": "has_effect"
+     }
+    ]
+   },
+   {
+    "action": {
+     "description": "mark",
+     "jutsuId": "gLsou07qLtM34zyepQRcS",
+     "target": "SELF",
+     "type": "use_specific_jutsu"
+    },
+    "conditions": [
+     {
+      "description": "",
+      "maxRange": 3,
+      "minRange": 1,
+      "type": "player_within_range"
+     }
+    ]
+   },
+   {
+    "action": {
+     "description": "hold still while the mark is up",
+     "type": "end_turn"
+    },
+    "conditions": [
+     {
+      "description": "",
+      "effectType": "lifesteal",
+      "threshold": 1,
+      "type": "has_effect"
+     }
+    ]
+   },
+   {
+    "action": {
+     "description": "close in",
+     "target": "CLOSEST_OPPONENT",
+     "type": "move_towards_opponent"
+    },
+    "conditions": [
+     {
+      "description": "",
+      "target": "CLOSEST_OPPONENT",
+      "type": "distance_higher_than",
+      "value": 1
+     }
+    ]
+   },
+   {
+    "action": {
+     "description": "basic attack",
+     "jutsuId": "basicAttack",
+     "target": "CLOSEST_OPPONENT",
+     "type": "use_specific_jutsu"
+    },
+    "conditions": []
+   },
+   {
+    "action": {
+     "description": "unconditional tail (law 41)",
+     "type": "end_turn"
+    },
+    "conditions": []
+   }
+  ],
+  "userId": "AL8afmS1JHgW84pySWL2F"
+ }
+}
