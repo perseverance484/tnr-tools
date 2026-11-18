@@ -33,7 +33,7 @@ art/animations in that style"): the library, catalogue, search, contact sheets a
 python3 skills/building-tnr-content/scripts/doctrinemap.py      # 0 errors, 0 warnings
 python3 skills/building-tnr-content/scripts/render_doctrine.py --check
 python3 skills/building-tnr-content/scripts/build_packs.py --check
-python3 .github/scripts/pack_skills.py                          # producing-tnr-art.zip 228,284 bytes (dist reverted)
+python3 .github/scripts/pack_skills.py                          # producing-tnr-art.zip ~227-228 KB, under 2 MiB (the bot-built dist is authoritative)
 python3 scripts/check_no_real_name.py                           # 0 hits
 python3 skills/producing-tnr-art/scripts/fx_board.py --selftest # PASS
 python3 skills/producing-tnr-art/scripts/duelyst_kit.py --selftest  # PASS
@@ -65,8 +65,8 @@ TNR_DUELYST=<cache> python3 skills/producing-tnr-art/scripts/duelyst_kit.py cata
    frames are 80 ms.
 2. P2 prefixes: `frames` matches the exact prefix (`prefix_of(key) == prefix`) and refuses a prefix that is not one
    of the sheet's animations. `neutral_ion:neutral_ion_attack_` is 19 frames.
-3. P2 contact sheets: duration = the longest match's play plus its gap (cap 20 s), step 40 ms or coarser (cap 400
-   shots). `fx_f5_bbs_egg` plays all 62 frames.
+3. P2 contact sheets: duration = the longest match's play plus its gap (cap 20 s). `fx_f5_bbs_egg` plays all 62
+   frames. (Round 2 replaced the fixed sampling step; see below.)
 4. P2 actions: with several animations the action is what follows their shared prefix (cut at `_`), so
    `f2_hammonnladeseeker` (frames `f2_hammonbladeseeker_*`) and `neutral_dilotas_attack` (holds `_idle_`, `_hit_`...)
    resolve; 64 action labels changed. One animation keeps the stem rule or `main`.
@@ -82,3 +82,17 @@ TNR_DUELYST=<cache> python3 skills/producing-tnr-art/scripts/duelyst_kit.py cata
 ## Not done
 
 No live calls, uploads or browser checks. No connector writes.
+
+## Review round 2 (ChatGPT, against 33db6375): correction
+
+P2 fast animations: the 40 ms sampling step dropped frames from fast clips (`fx_fluid_puff`, 54 frames at 10 ms,
+showed 14). `contact_plan` now schedules shots on every clip's source-frame boundaries (rounded to 10 ms, GIF
+centiseconds) with per-shot durations, so every frame gets a slot. A clip faster than 20 ms/frame (the GIF/browser
+floor) slows the whole sheet by one factor, and the sheet prints that (`slowed x2: the fastest clip runs 10 ms/frame`);
+a sheet longer than 20 s prints that it was cut. Checks:
+
+- selftest: synthetic `[(10, 54), (80, 12), (33, 7)]` shows every frame of every clip; durations are whole 10 ms;
+  the slow-down and cut notes appear. With a cache present (`$TNR_DUELYST`), the real `fx_fluid_puff` (54 x 10 ms)
+  is read and every frame is scheduled; without a cache that case is skipped and says so.
+- `sheet fluid_puff --out puff.gif` decodes to 55 GIF frames (54 at 20 ms, the gap 120 ms); `sheet --kind fx
+  --limit 40` renders in about 7 s.

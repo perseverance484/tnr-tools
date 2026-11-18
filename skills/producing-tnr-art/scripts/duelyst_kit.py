@@ -23,6 +23,7 @@ marked `"msFrom": "default"` in the catalogue). Pixel art: scale by whole steps 
 "Duelyst library (CC0)".
 """
 import argparse
+import bisect
 import colorsys
 import json
 import os
@@ -400,23 +401,55 @@ def find(cat, kind=None, hue=None, shape=None, terms=(), min_frames=None, max_fr
     return out
 
 
-GAP = 6           # blank frames after each play in a contact sheet
-PREVIEW_MAX_MS = 20000
-PREVIEW_MAX_SHOTS = 400
+GAP = 6               # blank frames after each play in a contact sheet
+PREVIEW_MAX_MS = 20000    # longest sheet, in preview time
+GIF_MIN_MS = 20           # GIF delays are whole centiseconds; browsers clamp anything under 20 ms
 
 
-def preview_schedule(clips_ms_frames):
-    """(duration ms, step ms) for a contact sheet: long enough for the longest clip to play once with its gap
-    (capped at PREVIEW_MAX_MS), sampled at 40 ms or coarser to stay under PREVIEW_MAX_SHOTS frames."""
-    total = max((n + GAP) * ms for ms, n in clips_ms_frames)
-    total = min(total, PREVIEW_MAX_MS)
-    step = max(40, -(-total // PREVIEW_MAX_SHOTS // 10) * 10)
-    return total, step
+def contact_plan(clips_ms_frames):
+    """Schedule a contact sheet on source-frame boundaries, so no frame is skipped.
+
+    Every clip plays once with its gap. A clip faster than GIF_MIN_MS per frame cannot be shown at true speed, so the
+    whole sheet is slowed by one factor until the fastest frame lasts GIF_MIN_MS. Shots start at every clip's frame
+    boundary (rounded to 10 ms; a frame of 20 ms or more always keeps a slot of its own). Returns
+    (shots, notes): shots = [(duration ms, [frame index per clip, or None in the gap])], notes = adjustments made."""
+    notes = []
+    fastest = min(ms for ms, _ in clips_ms_frames)
+    slow = GIF_MIN_MS / fastest if fastest < GIF_MIN_MS else 1.0
+    if slow > 1:
+        notes.append(f"slowed x{slow:g}: the fastest clip runs {fastest} ms/frame, under the {GIF_MIN_MS} ms a GIF "
+                     f"can show")
+    scaled = [ms * slow for ms, _ in clips_ms_frames]
+    total = max((n + GAP) * m for (_, n), m in zip(clips_ms_frames, scaled))
+    if total > PREVIEW_MAX_MS:
+        notes.append(f"cut at {PREVIEW_MAX_MS} ms of {round(total)}: later frames of the longest clips are not shown")
+        total = PREVIEW_MAX_MS
+    total = int(round(total / 10) * 10)
+    r10 = lambda t: int(round(t / 10) * 10)
+    starts = []  # per clip: rounded start time of each frame slot (frames then gap, repeating)
+    for (_, n), m in zip(clips_ms_frames, scaled):
+        st, k = [], 0
+        while r10(k * m) < total:
+            st.append(r10(k * m))
+            k += 1
+        starts.append(st)
+    cuts = sorted({0, total} | {t for st in starts for t in st})
+    shots = []
+    for t0, t1 in zip(cuts, cuts[1:]):
+        idx = []
+        for (_, n), st in zip(clips_ms_frames, starts):
+            k = (bisect.bisect_right(st, t0) - 1) % (n + GAP)
+            idx.append(k if k < n else None)
+        if shots and shots[-1][1] == idx:
+            shots[-1] = (shots[-1][0] + t1 - t0, idx)
+        else:
+            shots.append((t1 - t0, idx))
+    return shots, notes
 
 
 def contact(refs, out, app=None, cell=150, cols=5):
-    """Animated contact sheet: every match plays on its own clock, with a short gap between plays; the sheet runs
-    as long as the longest match needs to play once."""
+    """Animated contact sheet: every match plays through once on its own clock, then a short gap. Prints any timing
+    adjustment (contact_plan)."""
     from PIL import Image, ImageDraw
     table = delays(app)
     clips = []
@@ -428,20 +461,32 @@ def contact(refs, out, app=None, cell=150, cols=5):
                       delay_ms(ref, table)))
     rows = (len(clips) + cols - 1) // cols
     W, H = cols * cell, rows * (cell + 14)
-    total, step = preview_schedule([(ms, len(frs)) for _, frs, ms in clips])
-    shots = []
-    for t in range(0, total, step):
+    plan, notes = contact_plan([(ms, len(frs)) for _, frs, ms in clips])
+    for n in notes:
+        print(f"contact sheet: {n}", file=sys.stderr)
+    shots, durs = [], []
+    for dur, idx in plan:
         im = Image.new("RGB", (W, H), (34, 36, 32))
         d = ImageDraw.Draw(im)
-        for i, (label, frs, ms) in enumerate(clips):
+        for i, ((label, frs, _), k) in enumerate(zip(clips, idx)):
             x, y = (i % cols) * cell, (i // cols) * (cell + 14)
-            k = (t // ms) % (len(frs) + GAP)
-            if k < len(frs):
+            if k is not None:
                 im.paste(frs[k], (x, y + 14), frs[k])
             d.text((x + 3, y + 1), label, fill=(220, 220, 220))
         shots.append(im)
-    shots[0].save(out, save_all=True, append_images=shots[1:], duration=step, loop=0, optimize=True)
+        durs.append(dur)
+    shots[0].save(out, save_all=True, append_images=shots[1:], duration=durs, loop=0, optimize=False)
     return out
+
+
+def plan_shows_every_frame(plan, n_frames):
+    """For each clip, whether every source frame index appears in some shot (selftest helper)."""
+    seen = [set() for _ in n_frames]
+    for _, idx in plan:
+        for c, k in enumerate(idx):
+            if k is not None:
+                seen[c].add(k)
+    return [s == set(range(n)) for s, n in zip(seen, n_frames)]
 
 
 # ------------------------------------------------------------------------------------------------ selftest
@@ -533,9 +578,14 @@ def selftest():
     except SystemExit:
         pass
 
-    assert preview_schedule([(80, 62), (80, 10)]) == ((62 + GAP) * 80, 40)
-    total, step = preview_schedule([(1000, 30)])
-    assert total == PREVIEW_MAX_MS and total // step <= PREVIEW_MAX_SHOTS
+    plan, notes = contact_plan([(80, 62), (80, 10)])
+    assert sum(d for d, _ in plan) == (62 + GAP) * 80 and not notes
+    assert plan_shows_every_frame(plan, [62, 10]) == [True, True]
+    plan, notes = contact_plan([(10, 54), (80, 12), (33, 7)])   # fx_fluid_puff runs 54 frames at 10 ms
+    assert plan_shows_every_frame(plan, [54, 12, 7]) == [True, True, True], "frames dropped"
+    assert all(d >= 10 and d % 10 == 0 for d, _ in plan) and "slowed x2" in notes[0], notes
+    plan, notes = contact_plan([(1000, 30)])
+    assert sum(d for d, _ in plan) == PREVIEW_MAX_MS and "cut at" in notes[0]
 
     cat = catalog(os.path.join(tmp, "cat.json"), app)
     by = {e["name"]: e for e in cat["entries"]}
@@ -553,6 +603,16 @@ def selftest():
         assert os.path.exists(os.path.join(tmp, "bare.json"))
     finally:
         os.chdir(here)
+    real = app_dir()
+    if os.path.exists(os.path.join(real, "resources", "fx", "fx_fluid_puff.plist")):
+        n = len(frames("fx_fluid_puff", real))
+        ms = delay_ms("fx_fluid_puff", delays(real))
+        assert (n, ms) == (54, 10), (n, ms)
+        plan, _ = contact_plan([(ms, n)])
+        assert plan_shows_every_frame(plan, [n]) == [True], "real fx_fluid_puff: frames dropped"
+        print("duelyst_kit selftest: real-source fx_fluid_puff 54 x 10 ms, every frame scheduled")
+    else:
+        print("duelyst_kit selftest: no cache, real-source cases skipped")
     print("duelyst_kit selftest: PASS")
 
 
