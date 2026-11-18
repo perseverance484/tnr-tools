@@ -1,0 +1,222 @@
+{
+ "builder": "forge-mcp",
+ "at": "2026-11-18T23:08:18.158Z",
+ "cfg": "forge",
+ "checks": null,
+ "state": "INCOMPLETE",
+ "outcome": "unverified",
+ "postflight": {
+  "match": 1,
+  "diff": 1,
+  "unverified": 0,
+  "failed": 0,
+  "skipped": 0,
+  "unresolved": 1
+ },
+ "entries": [
+  {
+   "name": "Rogue Sighting",
+   "srcId": "gd_quest",
+   "entity": "quest",
+   "slot": "create",
+   "op": "create",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 21,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "UYGJUT6c1hvRfc8yKVoyz"
+  },
+  {
+   "name": "Rogue Hideout",
+   "srcId": "gd_dungeon",
+   "entity": "dungeon",
+   "slot": "create",
+   "op": "create",
+   "state": "ok",
+   "forgeState": "CONFIRMED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "drift",
+   "asserted": {
+    "ok": 12,
+    "fail": [
+     {
+      "k": "requirements",
+      "c": "mismatch",
+      "d": [
+       "sent {\"requiredLevel\":10,\"prerequisiteQuestId\":\"UYGJUT6c1hvRfc8yKVoyz\",\"requiredItemId\":\"j6TLapVp-nXa0e7IK3wIg\",\"requiredItemQuantity\":1,\"maxAttempts\":null,\"maxCompletes\":null,\"attemptDelay\":\"none\",\"retryDelay\":\"none\"}  live {\"retryDelay\":\"none\",\"maxAttempts\":null,\"attemptDelay\":\"none\",\"maxCompletes\":null,\"requiredLevel\":10,\"requiredItemId\":\"j6TLapVp-nXa0e7IK3wIg\",\"requiredItemName\":\"Hideout Pass\",\"prerequisiteQuestId\":\"UYGJUT6c1hvRfc8yKVoyz\",\"requiredItemQuantity\":1,\"prerequisiteQuestName\":\"Rogue Sighting\"}"
+      ]
+     }
+    ]
+   },
+   "diffs": [
+    {
+     "key": "requirements",
+     "sent": {
+      "requiredLevel": 10,
+      "prerequisiteQuestId": "UYGJUT6c1hvRfc8yKVoyz",
+      "requiredItemId": "j6TLapVp-nXa0e7IK3wIg",
+      "requiredItemQuantity": 1,
+      "maxAttempts": null,
+      "maxCompletes": null,
+      "attemptDelay": "none",
+      "retryDelay": "none"
+     },
+     "live": {
+      "retryDelay": "none",
+      "maxAttempts": null,
+      "attemptDelay": "none",
+      "maxCompletes": null,
+      "requiredLevel": 10,
+      "requiredItemId": "j6TLapVp-nXa0e7IK3wIg",
+      "requiredItemName": "Hideout Pass",
+      "prerequisiteQuestId": "UYGJUT6c1hvRfc8yKVoyz",
+      "requiredItemQuantity": 1,
+      "prerequisiteQuestName": "Rogue Sighting"
+     }
+    }
+   ],
+   "id": "pF070lhxLGIywzAoBWeYl"
+  }
+ ],
+ "captures": [],
+ "idmap": {
+  "gd_pass": "j6TLapVp-nXa0e7IK3wIg",
+  "gd_cleave": "cCCFDOliWMo3ufp-HNRhS",
+  "gd_sweep": "kL1Qsddg7T0yS1piK6GMS",
+  "gd_rally": "T84MZeY5TAQtZDQqqpyRb",
+  "gd_shinobi": "pz4azy5M6ZYJiwURtKZjp",
+  "gd_marksman": "BKOhuY1tTCbq4KhtxbUuN",
+  "gd_leader": "8XeldBr2bzcySv2opeHQQ",
+  "gd_shinobi_summon": "AL8afmS1JHgW84pySWL2F",
+  "gd_reinforce": "QZYMMnmUcBK9CPS8XX2Lf",
+  "gd_captain": "87lDmGM8szRjL6_8m2GjK",
+  "gd_quest": "UYGJUT6c1hvRfc8yKVoyz",
+  "gd_dungeon": "pF070lhxLGIywzAoBWeYl"
+ },
+ "journal": {
+  "v": 1,
+  "jobId": "664-mwmqdw92",
+  "manifestPath": "push/664_genin_dungeon_quest_dungeon.json",
+  "manifestNumber": 664,
+  "manifestHash": "158c8edd",
+  "startedAt": "2026-11-18T23:06:59.086Z",
+  "updatedAt": "2026-11-18T23:08:18.155Z",
+  "state": "INCOMPLETE",
+  "pause": null,
+  "items": [
+   {
+    "idx": 0,
+    "entity": "quest",
+    "op": "create",
+    "name": "Rogue Sighting",
+    "srcId": "gd_quest",
+    "targetId": null,
+    "payloadHash": "1f629615",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "UYGJUT6c1hvRfc8yKVoyz",
+    "snapshotKey": "tnr_forge_snap_v1:664-mwmqdw92:quest",
+    "sentAt": "2026-11-18T23:07:23.287Z",
+    "createSentAt": "2026-11-18T23:07:10.804Z",
+    "confirmedAt": "2026-11-18T23:07:31.621Z",
+    "verifiedAt": "2026-11-18T23:07:34.813Z",
+    "error": null,
+    "attempt": 2,
+    "asserted": [
+     "name",
+     "image",
+     "questType",
+     "questRank",
+     "description",
+     "successDescription",
+     "retryDelay",
+     "attemptDelay",
+     "consecutiveObjectives",
+     "hidden",
+     "requiredLevel",
+     "maxLevel",
+     "maxAttempts",
+     "maxCompletes",
+     "prerequisiteQuestId",
+     "tierLevel",
+     "requiredVillage",
+     "requiredBloodlineId",
+     "startsAt",
+     "endsAt",
+     "content"
+    ],
+    "diffs": [],
+    "verify": "match"
+   },
+   {
+    "idx": 1,
+    "entity": "dungeon",
+    "op": "create",
+    "name": "Rogue Hideout",
+    "srcId": "gd_dungeon",
+    "targetId": null,
+    "payloadHash": "0e1bd65a",
+    "state": "CONFIRMED",
+    "phase": "verify",
+    "entityId": "pF070lhxLGIywzAoBWeYl",
+    "snapshotKey": "tnr_forge_snap_v1:664-mwmqdw92:dungeon",
+    "sentAt": "2026-11-18T23:07:38.341Z",
+    "createSentAt": "2026-11-18T23:07:38.341Z",
+    "confirmedAt": "2026-11-18T23:08:11.747Z",
+    "verifiedAt": null,
+    "error": null,
+    "attempt": 1,
+    "asserted": [
+     "name",
+     "description",
+     "requirements",
+     "structureAssetId",
+     "structureScale",
+     "sector",
+     "longitude",
+     "latitude",
+     "expiresAt",
+     "hidden",
+     "background",
+     "tiers",
+     "rewards"
+    ],
+    "diffs": [
+     {
+      "key": "requirements",
+      "sent": {
+       "requiredLevel": 10,
+       "prerequisiteQuestId": "UYGJUT6c1hvRfc8yKVoyz",
+       "requiredItemId": "j6TLapVp-nXa0e7IK3wIg",
+       "requiredItemQuantity": 1,
+       "maxAttempts": null,
+       "maxCompletes": null,
+       "attemptDelay": "none",
+       "retryDelay": "none"
+      },
+      "live": {
+       "retryDelay": "none",
+       "maxAttempts": null,
+       "attemptDelay": "none",
+       "maxCompletes": null,
+       "requiredLevel": 10,
+       "requiredItemId": "j6TLapVp-nXa0e7IK3wIg",
+       "requiredItemName": "Hideout Pass",
+       "prerequisiteQuestId": "UYGJUT6c1hvRfc8yKVoyz",
+       "requiredItemQuantity": 1,
+       "prerequisiteQuestName": "Rogue Sighting"
+      }
+     }
+    ],
+    "verify": "drift"
+   }
+  ]
+ }
+}
