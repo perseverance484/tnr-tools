@@ -63,7 +63,7 @@ rules win where this file differs). Plan and 14-day simulation: Claude artifact 
 2. Scaling damage/setup jutsu near the cap: Soul Laceration Mirage `GlgS3FVoQ6F8k3RAo_Uht` (19),
    Thunderbolt Fury `INuy-ITnPsH22eUoGQgwW` (18), Phantom Requiem `kbrQuf3nYNHoKEvusATTO` (18),
    Cyclone Palm Strike `pqCqPemRNk3ht-SFrjq5G` (18), Ethereal Nexus `iktsCP-RjIhlYlsTg-JTN` (10).
-Owned already at 25: Chakra Edge, Gust Armor (Wind potency), Limit Breaker (transfer 2026-11-16), Mental Fortress (transfer 2026-11-17), Divine Pulse (transfer 2026-11-18).
+Owned already at 25: Chakra Edge, Gust Armor (Wind potency), Limit Breaker (transfer 2026-11-16), Mental Fortress (transfer 2026-11-17), Divine Pulse (transfer 2026-11-18), Ryūsa Kōka (transfer 2026-11-18).
 3. Director (2026-11-16): "I want all Jonin level elemental and none jutsu trained next." Jonin-rank
    (requiredRank JONIN), non-bloodline, element None or one of mine (Lightning, Earth), at least one effect
    powerPerLevel > 0, not yet at 20 (found with `jutsu.getAll {rank:[JONIN], excludedJutsuTypes:[AI,PETS,BLOODLINE]}`).
@@ -361,3 +361,6 @@ very expensive (Cyclone Palm Strike level 19 quoted 1,949,575 ryo for one level;
 | 2026-11-18 11:23 | Force Wave | 2 (from 1) | 2,197 | queued (4 waiting, ends ~12:55, ~93 min). Pocket 10.10M, no withdrawal. Intelligence and willpower both at the 400,000 cap, so 5,050 energy left unspent; asleep in 177 (read back) |
 | 2026-11-18 12:24 | Primate Assimilate (donor, NORMAL B) | 2-3 | 416 | queued behind the active Pengu 10 (ends 12:46) and Force Wave 2; direct-only fill would have held ~60 min, under 70. Pengu still training level 10, so no drain this pass (drain next pass). Best B target at 20 (Earth Armor, Raijin, Thunderbolt Fury, First Chakra Gate) |
 | 2026-11-18 12:24 | Volt Crash | 2 (from 1) | 2,197 | queued (4 waiting, ends ~13:34, ~71 min). Pocket 10.10M, no withdrawal. Intelligence and willpower both at the 400,000 cap, so 5,050 energy left unspent; asleep in 177 (read back) |
+| 2026-11-18 13:23 | Transfer Summoning: Lord Pengu -> Ryūsa Kōka, 5 levels (Ryūsa Kōka 20-25; Pengu 10-5) | | 0 | done ("Level transferred for 0 reputation points", reputation delta 0), read back in getRecentTransfers. Pengu left at 5 (one transfer per refill), refill continues from 5 |
+| 2026-11-18 13:25 | Primate Assimilate (donor, NORMAL B) | 4-5 | 689 | queued behind the active Primate 3 (ends 13:24) and Volt Crash 2; direct-only fill would have held ~36-55 min, under 70 |
+| 2026-11-18 13:25 | Toxic Pool | 2 (from 1) | 2,197 | queued (4 waiting: Volt Crash 2, Primate 4-5, Toxic Pool 2; ends ~14:47, ~82 min). Pocket 10.10M, no withdrawal. Intelligence and willpower at the 400,000 cap, energy unspent. Waking the character drew an immediate PvP attack (battle H0tgFVIfzfbkFzdI_0n8a, 13:25, sector 177); the engine doesn't fight or flee, so no sleep: character left IN BATTLE; director notified |
