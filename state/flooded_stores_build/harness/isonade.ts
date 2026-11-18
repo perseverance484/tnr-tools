@@ -69,6 +69,10 @@ export const ISO_DEFAULTS = {
   bodyWaterRounds: 1, // re-laid every turn by the churn
   churnAp: 10, // the validator floor
   landAp: 90,
+  bwLandAp: 90, // Black Water land (was landAp)
+  bittenChainEnds: false, // the bitten slam on the last rows (C) lays no next mark: the chain runs A, B, C, then a free turn
+  bw3At: 25, // health below which the third Black Water is marked
+  stunPrevent: false, // innate stunprevent on Isonade (a stun cuts its AP so a marked land cannot be paid for)
   rows: { A: [2, 6], B: [3, 7], C: [4, 8] } as Record<"A" | "B" | "C", number[]>,
   crates: [[6, 1], [4, 5], [6, 9]] as Cell[],
   undertowCols: 4, // columns 0..N are pulled
@@ -76,7 +80,7 @@ export const ISO_DEFAULTS = {
   bwMarkAp: 40, // Black Water mark: fits after the churn + a bitten slam
   sideAp: 40, // arm, undertow
   bittenLandAp: 50, // bitten slam (also lays the next mark): + arm fits, two never do
-  playerPoolPolicy: "soft" as "soft" | "strict",
+  playerPoolPolicy: "soft" as "soft" | "strict" | "good",
 };
 export type IsoParams = typeof ISO_DEFAULTS;
 const isoParams = (over: any = {}): IsoParams => ({ ...ISO_DEFAULTS, ...over });
@@ -155,7 +159,9 @@ export const buildRecords = (P: IsoParams) => {
       heavy(P.slamPower, ANIM.slamHit),
       tag("drain", { power: P.poolPct, rounds, calculation: "percentage", friendlyFire: "ENEMIES", poolsAffected: ["Health"], description: "Brine pool: drains health with every action begun on it" }),
       T.visual(ANIM.brine, rounds),
-      ...(bitten
+      ...(bitten && k === "C" && P.bittenChainEnds
+        ? []
+        : bitten
         ? [T.visual(ANIM.red, 1, { target: "COORDINATES", coordinateTargeting: field(pat[next]) }), marker(MK[next]), marker(MK.chain)]
         : k === "A" ? [marker(MK.tokA)] : k === "B" ? [marker(MK.tokB)] : []),
     ];
@@ -165,7 +171,7 @@ export const buildRecords = (P: IsoParams) => {
       cooldown: 0, actionCostPerc: P.landAp, coordinateTargeting: field(pat[k]), effects: slamEffects(P.poolRounds, false),
     }));
     add(jutsu(JID.slamBit[k], {
-      name: "Slam", description: `After the bite: the arms slam and rise again at once (the next rows go red), and the brine lasts ${P.poolRoundsBitten} rounds.`,
+      name: "Slam", description: P.bittenChainEnds && k === "C" ? `After the bite: the third slam in a row. The arms come down and stay down, and the brine lasts ${P.poolRoundsBitten} rounds.` : `After the bite: the arms slam and rise again at once (the next rows go red), and the brine lasts ${P.poolRoundsBitten} rounds.`,
       battleDescription: "The arms crash down and rise again at once, dripping rot.", target: "GROUND", method: "COORDINATES", range: 0,
       cooldown: 0, actionCostPerc: P.bittenLandAp, coordinateTargeting: field(pat[k]), effects: slamEffects(P.poolRoundsBitten, true),
     }));
@@ -180,14 +186,14 @@ export const buildRecords = (P: IsoParams) => {
   add(jutsu(JID.blackWater, {
     name: "Black Water", description: `Black water fills every hex but the crates; then Isonade surfaces to feed and takes x${P.feedMult} damage for 1 round.`,
     battleDescription: "Black water rises to head height and crashes down. %user surfaces to feed, its great eye open.",
-    target: "CHARACTER", method: "COORDINATES", range: 0, cooldown: 1, actionCostPerc: P.landAp, coordinateTargeting: field(pat.crates, "EXCLUDE"),
+    target: "CHARACTER", method: "COORDINATES", range: 0, cooldown: 1, actionCostPerc: P.bwLandAp, coordinateTargeting: field(pat.crates, "EXCLUDE"),
     effects: [
       heavy(P.blackWaterPower, ANIM.blackWater),
       tag("weakness", { target: "SELF", rounds: 1, dmgModifier: P.feedMult, statTypes: ALL_STATS, generalTypes: ALL_GENERALS, power: 100, staticAnimation: ANIM.eye, description: "Surfaces to feed: takes extra damage" }),
     ],
   }));
   add(jutsu(JID.bite, {
-    name: "Bite of the Ship", description: "Once, at half health: Isonade tears off a piece of the hull. From now on it slams faster and its brine lasts longer.",
+    name: "Bite of the Ship", description: P.bittenChainEnds ? "Once, at half health: Isonade tears off a piece of the hull. From now on it slams three turns running." : "Once, at half health: Isonade tears off a piece of the hull. From now on it slams faster and its brine lasts longer.",
     battleDescription: "%user tears a piece out of the hull. Planks rip inward and vanish into the water.",
     target: "SELF", method: "SINGLE", range: 0, cooldown: 99, actionCostPerc: 20,
     effects: [{ ...marker(MK.bite, 100), appearAnimation: ANIM.bite, staticAnimation: ANIM.biteDrip, description: "Bitten: it slams faster" }],
@@ -240,7 +246,7 @@ export const isoRules = (P: IsoParams) => [
   // Half health, once.
   R.jutsu(JID.bite, "SELF", [C.hb(50)]),
   // Black Water marks (each once); nothing else is marked that turn.
-  R.jutsu(JID.bwMark[2]!, "SELF", [C.hb(25)]),
+  R.jutsu(JID.bwMark[2]!, "SELF", [C.hb(P.bw3At)]),
   R.jutsu(JID.bwMark[1]!, "SELF", [C.hb(50)]),
   R.jutsu(JID.bwMark[0]!, "SELF", [C.hb(75)]),
   R.end([C.has(MK.bw)]),
@@ -260,10 +266,15 @@ export const armRules = () => [R.jutsu(JID.lash, "SELF", []), R.end([])];
 
 /* ------------------------------------------------------------------ AI records and rows */
 export const isoKit = () => [JID.bodyWater, ...Object.values(JID.mark), ...Object.values(JID.slam), ...Object.values(JID.slamBit), ...JID.bwMark, JID.blackWater, JID.bite, JID.arm, JID.undertow];
+export const STUN_PREVENT = {
+  type: "stunprevent", power: 100, rounds: 99, target: "INHERIT", appearSfx: "", direction: "offence", calculation: "percentage",
+  description: "Prevents being stunned", disappearSfx: "", powerPerLevel: 0, appearAnimation: "", staticAnimation: "",
+  staticAssetPath: "", disappearAnimation: "",
+};
 export const isoAiRecord = (P: IsoParams) => ({
   ...IN.boss.data, username: "Isonade", poolsMultiplier: P.poolsMultiplier, statsMultiplier: P.statsMultiplier,
   ...Object.fromEntries(STATS.map((s) => [s, Math.round(STAT_PER_MULT * P.statsMultiplier * 100) / 100])),
-  jutsus: isoKit(), effects: [...idgRowTags(P.idgRows)], includeDefaultRules: false, rules: isoRules(P), avatarFacing: "left",
+  jutsus: isoKit(), effects: [...idgRowTags(P.idgRows), ...(P.stunPrevent ? [STUN_PREVENT] : [])], includeDefaultRules: false, rules: isoRules(P), avatarFacing: "left",
 });
 export const armAiRecord = () => ({
   ...IN.echo.data, username: "Grasping Arm", isSummon: true, jutsus: [JID.lash], effects: [], items: [], includeDefaultRules: false, rules: armRules(),
@@ -302,6 +313,7 @@ type Fight = {
   feedWindows: number; feedDmg: number; feedPlayerHits: number; bite: number | null; undertow: number; undertowRounds: number[];
   bwRounds: number[]; phaseRounds: Record<string, number | null>; bossIdleTurns: number; bossTurns: number; dodges: number; misreads: number;
   petBossDmg: number; bossDmgTotal: number; minHpPct: number; ruleCount: number; trace?: string[];
+  markLog: { r: number; sp: string }[]; landLog: { r: number; sp: string }[]; lapsed: number; overlaps: number;
 };
 
 export const runFight = async (P: IsoParams, seed: number, readP: number, start: { hpFrac?: number } = {}, trace = false): Promise<Fight> => {
@@ -331,7 +343,7 @@ export const runFight = async (P: IsoParams, seed: number, readP: number, start:
       seed, read: readP, outcome: "stalled", rounds: 0, playerHpPct: 0, bossHpPct: 0, sets: { Slam: { mark: 0, land: 0, hit: 0, dmg: 0 }, "Black Water": { mark: 0, land: 0, hit: 0, dmg: 0 } },
       untelegraphedLands: 0, dmgBySource: {}, poolActions: 0, poolDmg: 0, maxPoolRows: 0, maxPoolHexes: 0, armCasts: [], armDeaths: [], regrowGaps: [], bodyWaterLastRound: null, bodyWaterHexesEnd: 0,
       feedWindows: 0, feedDmg: 0, feedPlayerHits: 0, bite: null, undertow: 0, undertowRounds: [], bwRounds: [], phaseRounds: { "75": null, "50": null, "25": null }, bossIdleTurns: 0, bossTurns: 0,
-      dodges: 0, misreads: 0, petBossDmg: 0, bossDmgTotal: 0, minHpPct: 100, ruleCount: isoRules(P).length, ...(trace ? { trace: [] } : {}),
+      dodges: 0, misreads: 0, petBossDmg: 0, bossDmgTotal: 0, minHpPct: 100, ruleCount: isoRules(P).length, markLog: [], landLog: [], lapsed: 0, overlaps: 0, ...(trace ? { trace: [] } : {}),
     };
     const actionRounds: number[] = [];
     const turnActs = new Map<string, string[]>();
@@ -372,7 +384,14 @@ export const runFight = async (P: IsoParams, seed: number, readP: number, start:
         // In a pool only: step to a clean neighbour no farther from Isonade, else stay and fight.
         const step = ALL.filter((c) => dist(c, here) === 1 && free(c) && !pools.has(key(c)) && !red.has(key(c)) && dist(c, bp0) <= dist(here, bp0))
           .sort((a, c) => dist(a, bp0) - dist(c, bp0))[0];
-        return step ? tryAction("move", step) : false;
+        if (step) return tryAction("move", step);
+        if (P.playerPoolPolicy !== "good") return false;
+        // A good player walks up to two hexes to a clean one that still keeps Isonade within 2.
+        const reach = Math.max(2, dist(here, bp0));
+        for (const n of ALL.filter((c) => dist(c, here) === 1 && free(c) && !red.has(key(c)))) {
+          if (ALL.some((c) => dist(c, n) === 1 && free(c) && !pools.has(key(c)) && !red.has(key(c)) && dist(c, bp0) <= reach)) return tryAction("move", n);
+        }
+        return false;
       }
       const bad = (k: string) => (readsNow && red.has(k)) || (strict && pools.has(k));
       if (!availableUserActions(b, puid, true, true).some((a) => a.id === "move")) return false;
@@ -416,7 +435,20 @@ export const runFight = async (P: IsoParams, seed: number, readP: number, start:
       const human = actor.userId === puid;
       tickClock(1000);
       const tk = `${b.round}:${actor.userId}`;
-      if (!turnActs.has(tk)) turnActs.set(tk, []);
+      if (!turnActs.has(tk)) {
+        turnActs.set(tk, []);
+        if (actor.userId === bossUid) {
+          // Player effects on Isonade, re-applied each of its turns (not cast this round, so they count now).
+          const inj = (type: string, over: Record<string, unknown>) => (b.usersEffects as any[]).push({
+            ...tag(type, { rounds: 1, power: 100, ...over }), id: `inj-${type}-${b.round}`, targetId: bossUid, creatorId: puid,
+            castThisRound: false, isNew: false, createdRound: b.round, longitude: bossU().longitude, latitude: bossU().latitude,
+          });
+          const stunAp = Number(opt("stun", "0"));
+          const stunEvery = Number(opt("stunEvery", "1"));
+          if (stunAp > 0 && !P.stunPrevent && b.round % stunEvery === 0) inj("stun", { apReduction: stunAp });
+          if (opt("tc")) inj("timecompression", {});
+        }
+      }
       const hpBefore = new Map(b.usersState.map((u) => [u.userId, u.curHealth]));
       const pPos: Cell = [pu().longitude, pu().latitude];
       const bPos: Cell = [bossU().longitude, bossU().latitude];
@@ -460,15 +492,21 @@ export const runFight = async (P: IsoParams, seed: number, readP: number, start:
       if (isBoss && actionId && SETS[actionId]) {
         const [sp, kind] = SETS[actionId]!;
         const s = f.sets[sp]!;
-        if (kind === "mark") { s.mark++; lastMark[sp] = pre.actionRound; if (sp === "Black Water") f.bwRounds.push(pre.actionRound); }
+        const slamKey = (id: string) => (Object.entries(JID.mark).find(([, v]) => v === id) ?? Object.entries(JID.slam).find(([, v]) => v === id) ?? Object.entries(JID.slamBit).find(([, v]) => v === id))?.[0];
+        if (kind === "mark") { s.mark++; lastMark[sp] = pre.actionRound; if (sp === "Black Water") f.bwRounds.push(pre.actionRound); f.markLog.push({ r: pre.actionRound, sp: sp === "Slam" ? `Slam ${slamKey(actionId)}` : sp }); }
         else {
+          f.landLog.push({ r: pre.actionRound, sp: sp === "Slam" ? `Slam ${slamKey(actionId)}` : sp });
           s.land++;
           if (patCells(recs[actionId!], bPos).has(key(pPos))) { s.hit++; s.dmg += pLoss; }
           if (pre.actionRound - (lastMark[sp] ?? -9) > 1) f.untelegraphedLands++;
           if (sp === "Black Water") f.feedWindows++;
         }
         // A bitten slam also lays the next mark.
-        if (Object.values(JID.slamBit).includes(actionId as never)) { s.mark++; lastMark[sp] = pre.actionRound; }
+        if (Object.values(JID.slamBit).includes(actionId as never) && !(P.bittenChainEnds && actionId === JID.slamBit.C)) {
+          s.mark++; lastMark[sp] = pre.actionRound;
+          const k = Object.entries(JID.slamBit).find(([, v]) => v === actionId)![0];
+          f.markLog.push({ r: pre.actionRound, sp: `Slam ${({ A: "B", B: "C", C: "A" } as any)[k]}` });
+        }
       }
       if (isBoss && actionId === JID.bite) f.bite = pre.actionRound;
       if (isBoss && actionId === JID.undertow) { f.undertow++; f.undertowRounds.push(pre.actionRound); }
@@ -499,6 +537,12 @@ export const runFight = async (P: IsoParams, seed: number, readP: number, start:
       if (!b.usersState.some((u) => u.controllerId === BOSS_ID && !u.isSummon && stillInBattle(u, b.usersEffects))) { f.outcome = "won"; break; }
     }
     for (const [k, acts] of turnActs) if (k.split(":")[1] === bossUid) { f.bossTurns++; if (acts.every((a) => a === "wait" || a === "none")) f.bossIdleTurns++; }
+    // A warning lapses when its land does not follow next round (and the fight goes on); two warnings laid in one turn overlap.
+    const endRound = f.landLog.length || f.markLog.length ? b.round : 0;
+    for (const m of f.markLog) if (m.r + 1 < endRound && !f.landLog.some((l) => l.sp === m.sp && l.r === m.r + 1)) f.lapsed++;
+    const byRound = new Map<number, number>();
+    for (const m of f.markLog) byRound.set(m.r, (byRound.get(m.r) ?? 0) + 1);
+    f.overlaps = [...byRound.values()].filter((n) => n > 1).length;
     for (const d of f.armDeaths) { const next = f.armCasts.find((c) => c > d); if (next !== undefined) f.regrowGaps.push(next - d); }
     const bu = bossU();
     f.rounds = b.round;
@@ -526,6 +570,9 @@ const summarise = (fs: Fight[]) => {
     slam: { marks: per("Slam", "mark"), lands: per("Slam", "land"), hits: per("Slam", "hit") },
     blackWater: { marks: per("Black Water", "mark"), lands: per("Black Water", "land"), hits: per("Black Water", "hit"), roundsMedian: [0, 1, 2].map((i) => median(fs.flatMap((f) => (f.bwRounds[i] === undefined ? [] : [f.bwRounds[i]!])))) },
     untelegraphedLands: fs.reduce((s, f) => s + f.untelegraphedLands, 0),
+    lapsedWarnings: fs.reduce((s, f) => s + f.lapsed, 0), overlappedWarnings: fs.reduce((s, f) => s + f.overlaps, 0),
+    fightsWith3FeedWindowsPct: r1((100 * fs.filter((f) => f.feedWindows >= 3).length) / fs.length),
+    feedWindowsInWinsMin: wins.length ? Math.min(...wins.map((f) => f.feedWindows)) : null,
     feed: { windowsPerFight: r1(fs.reduce((s, f) => s + f.feedWindows, 0) / fs.length), bossDmgSharePct: r1((100 * fs.reduce((s, f) => s + f.feedDmg, 0)) / Math.max(1, fs.reduce((s, f) => s + f.bossDmgTotal, 0))) },
     pools: { maxRowsEver: Math.max(...fs.map((f) => f.maxPoolRows)), maxHexesEver: Math.max(...fs.map((f) => f.maxPoolHexes)), actionsInPoolPerFight: r1(fs.reduce((s, f) => s + f.poolActions, 0) / fs.length) },
     arm: { castsPerFight: r1(fs.reduce((s, f) => s + f.armCasts.length, 0) / fs.length), cutPerFight: r1(fs.reduce((s, f) => s + f.armDeaths.length, 0) / fs.length), regrowGapMedian: median(fs.flatMap((f) => f.regrowGaps)), regrowGapMin: fs.some((f) => f.regrowGaps.length) ? Math.min(...fs.flatMap((f) => f.regrowGaps)) : null },

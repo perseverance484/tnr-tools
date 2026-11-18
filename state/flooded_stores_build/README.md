@@ -9,6 +9,11 @@ requests, nothing uploaded, created or unhidden. Every stage below needs the dir
   drop into `harness/skyglass_wreck_sim/engine/` on `fable/mother-of-echoes-act3` @ 11041772 (not on main) and import
   its modules unchanged. Engine: game pin 3314d122.
 - `isonade_spec.json`, `isonade_results.json`: Isonade and the Grasping Arm records and the 30-seed fight results.
+- `isonade_params_v2.json`, `isonade_spec_v2.json`, `isonade_results_v2*.json`: the Nov 18 fix (push/645). Isonade's
+  warnings never overlap or lapse (innate stunprevent, slam and Black Water lands 70 AP, Black Water omens 50 AP, the
+  bitten run ends on Slam III, third Black Water below 33%) and it is harder (slam 560, Black Water 640, brine 12%,
+  bitten brine 3 rounds, pools x8.4). Run with `--params <abs>/isonade_params_v2.json`; with no params the harness
+  reproduces v1. `_timecompression` adds `--tc 1`, `_goodplayer` uses the "good" pool policy.
 - `stores_spec.json`, `stores_results.json`: the crew records (fs-* only; chart-* rows are the harness's own) and the
   30-seed results for The Flooded Stores fights 1-3 and the two beach fights.
 - `flooded_stores_build.gen.py` -> `manifests/1_strips_and_jutsu.json` .. `4_ais.json`. Do not hand-edit.

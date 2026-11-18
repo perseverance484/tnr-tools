@@ -1,0 +1,5177 @@
+{
+ "generatedBy": "isonade.ts",
+ "params": {
+  "name": "I_good",
+  "poolsMultiplier": 8.4,
+  "statsMultiplier": 5.83,
+  "idgRows": 0,
+  "slamPower": 560,
+  "blackWaterPower": 640,
+  "feedMult": 3,
+  "poolPct": 12,
+  "poolRounds": 3,
+  "poolRoundsBitten": 3,
+  "armHp": 4000,
+  "armPower": 60,
+  "armRounds": 30,
+  "armCooldown": 5,
+  "lashPower": 70,
+  "undertowPower": 30,
+  "undertowPull": 3,
+  "undertowFrom": 5,
+  "undertowCooldown": 3,
+  "bodyWaterRounds": 1,
+  "churnAp": 10,
+  "landAp": 70,
+  "bwLandAp": 70,
+  "bittenChainEnds": true,
+  "bw3At": 33,
+  "stunPrevent": true,
+  "rows": {
+   "A": [
+    2,
+    6
+   ],
+   "B": [
+    3,
+    7
+   ],
+   "C": [
+    4,
+    8
+   ]
+  },
+  "crates": [
+   [
+    6,
+    1
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    6,
+    9
+   ]
+  ],
+  "undertowCols": 4,
+  "markAp": 46,
+  "bwMarkAp": 50,
+  "sideAp": 40,
+  "bittenLandAp": 50,
+  "playerPoolPolicy": "good"
+ },
+ "dmgConfig": "live (misc.getDmgConfig, 2026-10-28)",
+ "grid": {
+  "width": 12,
+  "height": 10
+ },
+ "seeds": 30,
+ "start": "full",
+ "reads": {
+  "1": {
+   "summary": {
+    "fights": 30,
+    "wins": 19,
+    "winPct": 63.3,
+    "roundsWinMedian": 21,
+    "roundsWinP10": 15,
+    "roundsWinP90": 26,
+    "hpLeftWinMedian": 46.4,
+    "minHpMedian": 33.7,
+    "bossHpLeftLossMedian": 17.5,
+    "slam": {
+     "marks": 8.5,
+     "lands": 7.9,
+     "hits": 0
+    },
+    "blackWater": {
+     "marks": 2.8,
+     "lands": 2.8,
+     "hits": 0,
+     "roundsMedian": [
+      7,
+      11,
+      17
+     ]
+    },
+    "untelegraphedLands": 0,
+    "lapsedWarnings": 0,
+    "overlappedWarnings": 0,
+    "fightsWith3FeedWindowsPct": 86.7,
+    "feedWindowsInWinsMin": 3,
+    "feed": {
+     "windowsPerFight": 2.8,
+     "bossDmgSharePct": 34.5
+    },
+    "pools": {
+     "maxRowsEver": 6,
+     "maxHexesEver": 72,
+     "actionsInPoolPerFight": 5.4
+    },
+    "arm": {
+     "castsPerFight": 3.4,
+     "cutPerFight": 3.2,
+     "regrowGapMedian": 3,
+     "regrowGapMin": 1
+    },
+    "undertowPerFight": 0,
+    "biteRoundMedian": 10,
+    "bodyWater": {
+     "lastsWholeFightPct": 100,
+     "hexesAtEndMedian": 6,
+     "groundEffectsAtEndMedian": 120
+    },
+    "phaseRoundMedian": {
+     "25": 17,
+     "50": 10,
+     "75": 7
+    },
+    "bossMovedPct": 0,
+    "bossIdleTurnPct": 0,
+    "petBossDmgSharePct": 0.2,
+    "misreadsPerFight": 0,
+    "damageShareToPlayerPct": {
+     "Brine pool": 74.3,
+     "Grasping Arm": 25.7
+    }
+   },
+   "fights": [
+    {
+     "seed": 1,
+     "read": 1,
+     "outcome": "lost",
+     "rounds": 22,
+     "playerHpPct": 0,
+     "bossHpPct": 15.9,
+     "sets": {
+      "Slam": {
+       "mark": 10,
+       "land": 9,
+       "hit": 0,
+       "dmg": 0
+      },
+      "Black Water": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "untelegraphedLands": 0,
+     "dmgBySource": {
+      "Grasping Arm": 1152.5878384615366,
+      "Brine pool": 3897.4121615384634
+     },
+     "poolActions": 15,
+     "poolDmg": 3897.4121615384634,
+     "maxPoolRows": 6,
+     "maxPoolHexes": 72,
+     "armCasts": [
+      1,
+      9,
+      14,
+      19
+     ],
+     "armDeaths": [
+      3,
+      11,
+      17
+     ],
+     "regrowGaps": [
+      6,
+      3,
+      2
+     ],
+     "bodyWaterLastRound": 22,
+     "bodyWaterHexesEnd": 6,
+     "feedWindows": 3,
+     "feedDmg": 14868.391875599225,
+     "feedPlayerHits": 5,
+     "bite": 10,
+     "undertow": 0,
+     "undertowRounds": [],
+     "bwRounds": [
+      7,
+      11,
+      17
+     ],
+     "phaseRounds": {
+      "25": 19,
+      "50": 10,
+      "75": 6
+     },
+     "bossIdleTurns": 0,
+     "bossTurns": 21,
+     "dodges": 8,
+     "misreads": 0,
+     "petBossDmg": 0,
+     "bossDmgTotal": 35689.59745408779,
+     "minHpPct": 0,
+     "ruleCount": 20,
+     "markLog": [
+      {
+       "r": 1,
+       "sp": "Slam A"
+      },
+      {
+       "r": 3,
+       "sp": "Slam B"
+      },
+      {
+       "r": 5,
+       "sp": "Slam C"
+      },
+      {
+       "r": 7,
+       "sp": "Black Water"
+      },
+      {
+       "r": 9,
+       "sp": "Slam A"
+      },
+      {
+       "r": 11,
+       "sp": "Black Water"
+      },
+      {
+       "r": 13,
+       "sp": "Slam A"
+      },
+      {
+       "r": 14,
+       "sp": "Slam B"
+      },
+      {
+       "r": 15,
+       "sp": "Slam C"
+      },
+      {
+       "r": 17,
+       "sp": "Black Water"
+      },
+      {
+       "r": 19,
+       "sp": "Slam A"
+      },
+      {
+       "r": 20,
+       "sp": "Slam B"
+      },
+      {
+       "r": 21,
+       "sp": "Slam C"
+      }
+     ],
+     "landLog": [
+      {
+       "r": 2,
+       "sp": "Slam A"
+      },
+      {
+       "r": 4,
+       "sp": "Slam B"
+      },
+      {
+       "r": 6,
+       "sp": "Slam C"
+      },
+      {
+       "r": 8,
+       "sp": "Black Water"
+      },
+      {
+       "r": 10,
+       "sp": "Slam A"
+      },
+      {
+       "r": 12,
+       "sp": "Black Water"
+      },
+      {
+       "r": 14,
+       "sp": "Slam A"
+      },
+      {
+       "r": 15,
+       "sp": "Slam B"
+      },
+      {
+       "r": 16,
+       "sp": "Slam C"
+      },
+      {
+       "r": 18,
+       "sp": "Black Water"
+      },
+      {
+       "r": 20,
+       "sp": "Slam A"
+      },
+      {
+       "r": 21,
+       "sp": "Slam B"
+      }
+     ],
+     "lapsed": 0,
+     "overlaps": 0,
+     "bodyWaterEffectsEnd": 126,
+     "bossMoved": false
+    },
+    {
+     "seed": 2,
+     "read": 1,
+     "outcome": "won",
+     "rounds": 23,
+     "playerHpPct": 39.2,
+     "bossHpPct": 0,
+     "sets": {
+      "Slam": {
+       "mark": 9,
+       "land": 8,
+       "hit": 0,
+       "dmg": 0
+      },
+      "Black Water": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "untelegraphedLands": 0,
+     "dmgBySource": {
+      "Brine pool": 1818,
+      "Grasping Arm": 779.1173990384609
+     },
+     "poolActions": 3,
+     "poolDmg": 1818,
+     "maxPoolRows": 4,
+     "maxPoolHexes": 48,
+     "armCasts": [
+      1,
+      7,
+      13,
+      21
+     ],
+     "armDeaths": [
+      4,
+      11,
+      16,
+      23
+     ],
+     "regrowGaps": [
+      3,
+      2,
+      5
+     ],
+     "bodyWaterLastRound": 23,
+     "bodyWaterHexesEnd": 6,
+     "feedWindows": 3,
+     "feedDmg": 10110.57297171537,
+     "feedPlayerHits": 5,
+     "bite": 16,
+     "undertow": 0,
+     "undertowRounds": [],
+     "bwRounds": [
+      9,
+      17,
+      19
+     ],
+     "phaseRounds": {
+      "25": 19,
+      "50": 16,
+      "75": 8
+     },
+     "bossIdleTurns": 0,
+     "bossTurns": 22,
+     "dodges": 10,
+     "misreads": 0,
+     "petBossDmg": 44.5625,
+     "bossDmgTotal": 42420,
+     "minHpPct": 39.2,
+     "ruleCount": 20,
+     "markLog": [
+      {
+       "r": 1,
+       "sp": "Slam A"
+      },
+      {
+       "r": 3,
+       "sp": "Slam B"
+      },
+      {
+       "r": 5,
+       "sp": "Slam C"
+      },
+      {
+       "r": 7,
+       "sp": "Slam A"
+      },
+      {
+       "r": 9,
+       "sp": "Black Water"
+      },
+      {
+       "r": 11,
+       "sp": "Slam A"
+      },
+      {
+       "r": 13,
+       "sp": "Slam B"
+      },
+      {
+       "r": 15,
+       "sp": "Slam C"
+      },
+      {
+       "r": 17,
+       "sp": "Black Water"
+      },
+      {
+       "r": 19,
+       "sp": "Black Water"
+      },
+      {
+       "r": 21,
+       "sp": "Slam A"
+      },
+      {
+       "r": 22,
+       "sp": "Slam B"
+      }
+     ],
+     "landLog": [
+      {
+       "r": 2,
+       "sp": "Slam A"
+      },
+      {
+       "r": 4,
+       "sp": "Slam B"
+      },
+      {
+       "r": 6,
+       "sp": "Slam C"
+      },
+      {
+       "r": 8,
+       "sp": "Slam A"
+      },
+      {
+       "r": 10,
+       "sp": "Black Water"
+      },
+      {
+       "r": 12,
+       "sp": "Slam A"
+      },
+      {
+       "r": 14,
+       "sp": "Slam B"
+      },
+      {
+       "r": 16,
+       "sp": "Slam C"
+      },
+      {
+       "r": 18,
+       "sp": "Black Water"
+      },
+      {
+       "r": 20,
+       "sp": "Black Water"
+      },
+      {
+       "r": 22,
+       "sp": "Slam A"
+      }
+     ],
+     "lapsed": 0,
+     "overlaps": 0,
+     "bodyWaterEffectsEnd": 132,
+     "bossMoved": false
+    },
+    {
+     "seed": 3,
+     "read": 1,
+     "outcome": "lost",
+     "rounds": 13,
+     "playerHpPct": 0,
+     "bossHpPct": 62.3,
+     "sets": {
+      "Slam": {
+       "mark": 5,
+       "land": 5,
+       "hit": 0,
+       "dmg": 0
+      },
+      "Black Water": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "untelegraphedLands": 0,
+     "dmgBySource": {
+      "Brine pool": 5938.353040384615,
+      "Grasping Arm": 311.6469596153846
+     },
+     "poolActions": 10,
+     "poolDmg": 5938.353040384615,
+     "maxPoolRows": 4,
+     "maxPoolHexes": 48,
+     "armCasts": [
+      1,
+      7
+     ],
+     "armDeaths": [
+      4,
+      12
+     ],
+     "regrowGaps": [
+      3
+     ],
+     "bodyWaterLastRound": 13,
+     "bodyWaterHexesEnd": 6,
+     "feedWindows": 1,
+     "feedDmg": 3640.607556569368,
+     "feedPlayerHits": 1,
+     "bite": null,
+     "undertow": 0,
+     "undertowRounds": [],
+     "bwRounds": [
+      9
+     ],
+     "phaseRounds": {
+      "25": null,
+      "50": null,
+      "75": 9
+     },
+     "bossIdleTurns": 0,
+     "bossTurns": 12,
+     "dodges": 14,
+     "misreads": 0,
+     "petBossDmg": 22.28125,
+     "bossDmgTotal": 15992.380356841633,
+     "minHpPct": 0,
+     "ruleCount": 20,
+     "markLog": [
+      {
+       "r": 1,
+       "sp": "Slam A"
+      },
+      {
+       "r": 3,
+       "sp": "Slam B"
+      },
+      {
+       "r": 5,
+       "sp": "Slam C"
+      },
+      {
+       "r": 7,
+       "sp": "Slam A"
+      },
+      {
+       "r": 9,
+       "sp": "Black Water"
+      },
+      {
+       "r": 11,
+       "sp": "Slam A"
+      }
+     ],
+     "landLog": [
+      {
+       "r": 2,
+       "sp": "Slam A"
+      },
+      {
+       "r": 4,
+       "sp": "Slam B"
+      },
+      {
+       "r": 6,
+       "sp": "Slam C"
+      },
+      {
+       "r": 8,
+       "sp": "Slam A"
+      },
+      {
+       "r": 10,
+       "sp": "Black Water"
+      },
+      {
+       "r": 12,
+       "sp": "Slam A"
+      }
+     ],
+     "lapsed": 0,
+     "overlaps": 0,
+     "bodyWaterEffectsEnd": 72,
+     "bossMoved": false
+    },
+    {
+     "seed": 4,
+     "read": 1,
+     "outcome": "won",
+     "rounds": 21,
+     "playerHpPct": 44.7,
+     "bossHpPct": 0,
+     "sets": {
+      "Slam": {
+       "mark": 9,
+       "land": 8,
+       "hit": 0,
+       "dmg": 0
+      },
+      "Black Water": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "untelegraphedLands": 0,
+     "dmgBySource": {
+      "Grasping Arm": 1043.7643586538438,
+      "Brine pool": 1212
+     },
+     "poolActions": 2,
+     "poolDmg": 1212,
+     "maxPoolRows": 6,
+     "maxPoolHexes": 72,
+     "armCasts": [
+      1,
+      9,
+      14,
+      19
+     ],
+     "armDeaths": [
+      7,
+      13,
+      17,
+      21
+     ],
+     "regrowGaps": [
+      2,
+      1,
+      2
+     ],
+     "bodyWaterLastRound": 21,
+     "bodyWaterHexesEnd": 6,
+     "feedWindows": 3,
+     "feedDmg": 11101.714089020741,
+     "feedPlayerHits": 5,
+     "bite": 10,
+     "undertow": 0,
+     "undertowRounds": [],
+     "bwRounds": [
+      7,
+      11,
+      17
+     ],
+     "phaseRounds": {
+      "25": 17,
+      "50": 10,
+      "75": 6
+     },
+     "bossIdleTurns": 0,
+     "bossTurns": 20,
+     "dodges": 8,
+     "misreads": 0,
+     "petBossDmg": 22.28125,
+     "bossDmgTotal": 42420,
+     "minHpPct": 44.7,
+     "ruleCount": 20,
+     "markLog": [
+      {
+       "r": 1,
+       "sp": "Slam A"
+      },
+      {
+       "r": 3,
+       "sp": "Slam B"
+      },
+      {
+       "r": 5,
+       "sp": "Slam C"
+      },
+      {
+       "r": 7,
+       "sp": "Black Water"
+      },
+      {
+       "r": 9,
+       "sp": "Slam A"
+      },
+      {
+       "r": 11,
+       "sp": "Black Water"
+      },
+      {
+       "r": 13,
+       "sp": "Slam A"
+      },
+      {
+       "r": 14,
+       "sp": "Slam B"
+      },
+      {
+       "r": 15,
+       "sp": "Slam C"
+      },
+      {
+       "r": 17,
+       "sp": "Black Water"
+      },
+      {
+       "r": 19,
+       "sp": "Slam A"
+      },
+      {
+       "r": 20,
+       "sp": "Slam B"
+      }
+     ],
+     "landLog": [
+      {
+       "r": 2,
+       "sp": "Slam A"
+      },
+      {
+       "r": 4,
+       "sp": "Slam B"
+      },
+      {
+       "r": 6,
+       "sp": "Slam C"
+      },
+      {
+       "r": 8,
+       "sp": "Black Water"
+      },
+      {
+       "r": 10,
+       "sp": "Slam A"
+      },
+      {
+       "r": 12,
+       "sp": "Black Water"
+      },
+      {
+       "r": 14,
+       "sp": "Slam A"
+      },
+      {
+       "r": 15,
+       "sp": "Slam B"
+      },
+      {
+       "r": 16,
+       "sp": "Slam C"
+      },
+      {
+       "r": 18,
+       "sp": "Black Water"
+      },
+      {
+       "r": 20,
+       "sp": "Slam A"
+      }
+     ],
+     "lapsed": 0,
+     "overlaps": 0,
+     "bodyWaterEffectsEnd": 120,
+     "bossMoved": false
+    },
+    {
+     "seed": 5,
+     "read": 1,
+     "outcome": "won",
+     "rounds": 23,
+     "playerHpPct": 19.9,
+     "bossHpPct": 0,
+     "sets": {
+      "Slam": {
+       "mark": 9,
+       "land": 8,
+       "hit": 0,
+       "dmg": 0
+      },
+      "Black Water": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "untelegraphedLands": 0,
+     "dmgBySource": {
+      "Brine pool": 3030,
+      "Grasping Arm": 779.1173990384614
+     },
+     "poolActions": 5,
+     "poolDmg": 3030,
+     "maxPoolRows": 4,
+     "maxPoolHexes": 48,
+     "armCasts": [
+      1,
+      7,
+      13,
+      21
+     ],
+     "armDeaths": [
+      6,
+      11,
+      16,
+      23
+     ],
+     "regrowGaps": [
+      1,
+      2,
+      5
+     ],
+     "bodyWaterLastRound": 23,
+     "bodyWaterHexesEnd": 6,
+     "feedWindows": 3,
+     "feedDmg": 10110.57297171537,
+     "feedPlayerHits": 5,
+     "bite": 16,
+     "undertow": 0,
+     "undertowRounds": [],
+     "bwRounds": [
+      9,
+      17,
+      19
+     ],
+     "phaseRounds": {
+      "25": 19,
+      "50": 16,
+      "75": 8
+     },
+     "bossIdleTurns": 0,
+     "bossTurns": 22,
+     "dodges": 12,
+     "misreads": 0,
+     "petBossDmg": 22.28125,
+     "bossDmgTotal": 42420,
+     "minHpPct": 19.9,
+     "ruleCount": 20,
+     "markLog": [
+      {
+       "r": 1,
+       "sp": "Slam A"
+      },
+      {
+       "r": 3,
+       "sp": "Slam B"
+      },
+      {
+       "r": 5,
+       "sp": "Slam C"
+      },
+      {
+       "r": 7,
+       "sp": "Slam A"
+      },
+      {
+       "r": 9,
+       "sp": "Black Water"
+      },
+      {
+       "r": 11,
+       "sp": "Slam A"
+      },
+      {
+       "r": 13,
+       "sp": "Slam B"
+      },
+      {
+       "r": 15,
+       "sp": "Slam C"
+      },
+      {
+       "r": 17,
+       "sp": "Black Water"
+      },
+      {
+       "r": 19,
+       "sp": "Black Water"
+      },
+      {
+       "r": 21,
+       "sp": "Slam A"
+      },
+      {
+       "r": 22,
+       "sp": "Slam B"
+      }
+     ],
+     "landLog": [
+      {
+       "r": 2,
+       "sp": "Slam A"
+      },
+      {
+       "r": 4,
+       "sp": "Slam B"
+      },
+      {
+       "r": 6,
+       "sp": "Slam C"
+      },
+      {
+       "r": 8,
+       "sp": "Slam A"
+      },
+      {
+       "r": 10,
+       "sp": "Black Water"
+      },
+      {
+       "r": 12,
+       "sp": "Slam A"
+      },
+      {
+       "r": 14,
+       "sp": "Slam B"
+      },
+      {
+       "r": 16,
+       "sp": "Slam C"
+      },
+      {
+       "r": 18,
+       "sp": "Black Water"
+      },
+      {
+       "r": 20,
+       "sp": "Black Water"
+      },
+      {
+       "r": 22,
+       "sp": "Slam A"
+      }
+     ],
+     "lapsed": 0,
+     "overlaps": 0,
+     "bodyWaterEffectsEnd": 132,
+     "bossMoved": false
+    },
+    {
+     "seed": 6,
+     "read": 1,
+     "outcome": "won",
+     "rounds": 19,
+     "playerHpPct": 76.1,
+     "bossHpPct": 0,
+     "sets": {
+      "Slam": {
+       "mark": 7,
+       "land": 7,
+       "hit": 0,
+       "dmg": 0
+      },
+      "Black Water": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "untelegraphedLands": 0,
+     "dmgBySource": {
+      "Brine pool": 606,
+      "Grasping Arm": 887.9408788461515
+     },
+     "poolActions": 1,
+     "poolDmg": 606,
+     "maxPoolRows": 6,
+     "maxPoolHexes": 72,
+     "armCasts": [
+      1,
+      9,
+      14
+     ],
+     "armDeaths": [
+      5,
+      11,
+      17
+     ],
+     "regrowGaps": [
+      4,
+      3
+     ],
+     "bodyWaterLastRound": 19,
+     "bodyWaterHexesEnd": 6,
+     "feedWindows": 3,
+     "feedDmg": 15643.011096815859,
+     "feedPlayerHits": 7,
+     "bite": 10,
+     "undertow": 0,
+     "undertowRounds": [],
+     "bwRounds": [
+      7,
+      11,
+      17
+     ],
+     "phaseRounds": {
+      "25": 15,
+      "50": 10,
+      "75": 7
+     },
+     "bossIdleTurns": 0,
+     "bossTurns": 18,
+     "dodges": 4,
+     "misreads": 0,
+     "petBossDmg": 66.84375,
+     "bossDmgTotal": 42420,
+     "minHpPct": 76.1,
+     "ruleCount": 20,
+     "markLog": [
+      {
+       "r": 1,
+       "sp": "Slam A"
+      },
+      {
+       "r": 3,
+       "sp": "Slam B"
+      },
+      {
+       "r": 5,
+       "sp": "Slam C"
+      },
+      {
+       "r": 7,
+       "sp": "Black Water"
+      },
+      {
+       "r": 9,
+       "sp": "Slam A"
+      },
+      {
+       "r": 11,
+       "sp": "Black Water"
+      },
+      {
+       "r": 13,
+       "sp": "Slam A"
+      },
+      {
+       "r": 14,
+       "sp": "Slam B"
+      },
+      {
+       "r": 15,
+       "sp": "Slam C"
+      },
+      {
+       "r": 17,
+       "sp": "Black Water"
+      }
+     ],
+     "landLog": [
+      {
+       "r": 2,
+       "sp": "Slam A"
+      },
+      {
+       "r": 4,
+       "sp": "Slam B"
+      },
+      {
+       "r": 6,
+       "sp": "Slam C"
+      },
+      {
+       "r": 8,
+       "sp": "Black Water"
+      },
+      {
+       "r": 10,
+       "sp": "Slam A"
+      },
+      {
+       "r": 12,
+       "sp": "Black Water"
+      },
+      {
+       "r": 14,
+       "sp": "Slam A"
+      },
+      {
+       "r": 15,
+       "sp": "Slam B"
+      },
+      {
+       "r": 16,
+       "sp": "Slam C"
+      },
+      {
+       "r": 18,
+       "sp": "Black Water"
+      }
+     ],
+     "lapsed": 0,
+     "overlaps": 0,
+     "bodyWaterEffectsEnd": 108,
+     "bossMoved": false
+    },
+    {
+     "seed": 7,
+     "read": 1,
+     "outcome": "won",
+     "rounds": 25,
+     "playerHpPct": 52.7,
+     "bossHpPct": 0,
+     "sets": {
+      "Slam": {
+       "mark": 12,
+       "land": 11,
+       "hit": 0,
+       "dmg": 0
+      },
+      "Black Water": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "untelegraphedLands": 0,
+     "dmgBySource": {
+      "Grasping Arm": 1152.5878384615366,
+      "Brine pool": 606
+     },
+     "poolActions": 1,
+     "poolDmg": 606,
+     "maxPoolRows": 6,
+     "maxPoolHexes": 72,
+     "armCasts": [
+      1,
+      9,
+      16,
+      21
+     ],
+     "armDeaths": [
+      3,
+      16,
+      19,
+      24
+     ],
+     "regrowGaps": [
+      6,
+      5,
+      2
+     ],
+     "bodyWaterLastRound": 25,
+     "bodyWaterHexesEnd": 6,
+     "feedWindows": 3,
+     "feedDmg": 6202.414600676744,
+     "feedPlayerHits": 2,
+     "bite": 10,
+     "undertow": 0,
+     "undertowRounds": [],
+     "bwRounds": [
+      7,
+      11,
+      17
+     ],
+     "phaseRounds": {
+      "25": 17,
+      "50": 10,
+      "75": 6
+     },
+     "bossIdleTurns": 0,
+     "bossTurns": 24,
+     "dodges": 6,
+     "misreads": 0,
+     "petBossDmg": 209.8362500000003,
+     "bossDmgTotal": 42420,
+     "minHpPct": 52.7,
+     "ruleCount": 20,
+     "markLog": [
+      {
+       "r": 1,
+       "sp": "Slam A"
+      },
+      {
+       "r": 3,
+       "sp": "Slam B"
+      },
+      {
+       "r": 5,
+       "sp": "Slam C"
+      },
+      {
+       "r": 7,
+       "sp": "Black Water"
+      },
+      {
+       "r": 9,
+       "sp": "Slam A"
+      },
+      {
+       "r": 11,
+       "sp": "Black Water"
+      },
+      {
+       "r": 13,
+       "sp": "Slam A"
+      },
+      {
+       "r": 14,
+       "sp": "Slam B"
+      },
+      {
+       "r": 15,
+       "sp": "Slam C"
+      },
+      {
+       "r": 17,
+       "sp": "Black Water"
+      },
+      {
+       "r": 19,
+       "sp": "Slam A"
+      },
+      {
+       "r": 20,
+       "sp": "Slam B"
+      },
+      {
+       "r": 21,
+       "sp": "Slam C"
+      },
+      {
+       "r": 23,
+       "sp": "Slam A"
+      },
+      {
+       "r": 24,
+       "sp": "Slam B"
+      }
+     ],
+     "landLog": [
+      {
+       "r": 2,
+       "sp": "Slam A"
+      },
+      {
+       "r": 4,
+       "sp": "Slam B"
+      },
+      {
+       "r": 6,
+       "sp": "Slam C"
+      },
+      {
+       "r": 8,
+       "sp": "Black Water"
+      },
+      {
+       "r": 10,
+       "sp": "Slam A"
+      },
+      {
+       "r": 12,
+       "sp": "Black Water"
+      },
+      {
+       "r": 14,
+       "sp": "Slam A"
+      },
+      {
+       "r": 15,
+       "sp": "Slam B"
+      },
+      {
+       "r": 16,
+       "sp": "Slam C"
+      },
+      {
+       "r": 18,
+       "sp": "Black Water"
+      },
+      {
+       "r": 20,
+       "sp": "Slam A"
+      },
+      {
+       "r": 21,
+       "sp": "Slam B"
+      },
+      {
+       "r": 22,
+       "sp": "Slam C"
+      },
+      {
+       "r": 24,
+       "sp": "Slam A"
+      }
+     ],
+     "lapsed": 0,
+     "overlaps": 0,
+     "bodyWaterEffectsEnd": 144,
+     "bossMoved": false
+    },
+    {
+     "seed": 8,
+     "read": 1,
+     "outcome": "lost",
+     "rounds": 13,
+     "playerHpPct": 0,
+     "bossHpPct": 62.9,
+     "sets": {
+      "Slam": {
+       "mark": 5,
+       "land": 5,
+       "hit": 0,
+       "dmg": 0
+      },
+      "Black Water": {
+       "mark": 1,
+       "land": 1,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "untelegraphedLands": 0,
+     "dmgBySource": {
+      "Grasping Arm": 420.4704394230765,
+      "Brine pool": 5829.529560576923
+     },
+     "poolActions": 10,
+     "poolDmg": 5829.529560576923,
+     "maxPoolRows": 4,
+     "maxPoolHexes": 48,
+     "armCasts": [
+      1,
+      7
+     ],
+     "armDeaths": [
+      4,
+      12
+     ],
+     "regrowGaps": [
+      3
+     ],
+     "bodyWaterLastRound": 13,
+     "bodyWaterHexesEnd": 6,
+     "feedWindows": 1,
+     "feedDmg": 3640.607556569368,
+     "feedPlayerHits": 1,
+     "bite": null,
+     "undertow": 0,
+     "undertowRounds": [],
+     "bwRounds": [
+      9
+     ],
+     "phaseRounds": {
+      "25": null,
+      "50": null,
+      "75": 9
+     },
+     "bossIdleTurns": 0,
+     "bossTurns": 12,
+     "dodges": 14,
+     "misreads": 0,
+     "petBossDmg": 44.5625,
+     "bossDmgTotal": 15725.724499177399,
+     "minHpPct": 0,
+     "ruleCount": 20,
+     "markLog": [
+      {
+       "r": 1,
+       "sp": "Slam A"
+      },
+      {
+       "r": 3,
+       "sp": "Slam B"
+      },
+      {
+       "r": 5,
+       "sp": "Slam C"
+      },
+      {
+       "r": 7,
+       "sp": "Slam A"
+      },
+      {
+       "r": 9,
+       "sp": "Black Water"
+      },
+      {
+       "r": 11,
+       "sp": "Slam A"
+      }
+     ],
+     "landLog": [
+      {
+       "r": 2,
+       "sp": "Slam A"
+      },
+      {
+       "r": 4,
+       "sp": "Slam B"
+      },
+      {
+       "r": 6,
+       "sp": "Slam C"
+      },
+      {
+       "r": 8,
+       "sp": "Slam A"
+      },
+      {
+       "r": 10,
+       "sp": "Black Water"
+      },
+      {
+       "r": 12,
+       "sp": "Slam A"
+      }
+     ],
+     "lapsed": 0,
+     "overlaps": 0,
+     "bodyWaterEffectsEnd": 72,
+     "bossMoved": false
+    },
+    {
+     "seed": 9,
+     "read": 1,
+     "outcome": "lost",
+     "rounds": 23,
+     "playerHpPct": 0,
+     "bossHpPct": 17.5,
+     "sets": {
+      "Slam": {
+       "mark": 10,
+       "land": 10,
+       "hit": 0,
+       "dmg": 0
+      },
+      "Black Water": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "untelegraphedLands": 0,
+     "dmgBySource": {
+      "Grasping Arm": 996.764358653845,
+      "Brine pool": 4053.235641346155
+     },
+     "poolActions": 7,
+     "poolDmg": 4053.235641346155,
+     "maxPoolRows": 6,
+     "maxPoolHexes": 72,
+     "armCasts": [
+      1,
+      9,
+      16,
+      21
+     ],
+     "armDeaths": [
+      3,
+      16,
+      19
+     ],
+     "regrowGaps": [
+      6,
+      5,
+      2
+     ],
+     "bodyWaterLastRound": 23,
+     "bodyWaterHexesEnd": 6,
+     "feedWindows": 3,
+     "feedDmg": 5946.290908462626,
+     "feedPlayerHits": 2,
+     "bite": 10,
+     "undertow": 0,
+     "undertowRounds": [],
+     "bwRounds": [
+      7,
+      11,
+      17
+     ],
+     "phaseRounds": {
+      "25": 21,
+      "50": 10,
+      "75": 7
+     },
+     "bossIdleTurns": 0,
+     "bossTurns": 22,
+     "dodges": 15,
+     "misreads": 0,
+     "petBossDmg": 95.75624999999854,
+     "bossDmgTotal": 34992.57067199381,
+     "minHpPct": 0,
+     "ruleCount": 20,
+     "markLog": [
+      {
+       "r": 1,
+       "sp": "Slam A"
+      },
+      {
+       "r": 3,
+       "sp": "Slam B"
+      },
+      {
+       "r": 5,
+       "sp": "Slam C"
+      },
+      {
+       "r": 7,
+       "sp": "Black Water"
+      },
+      {
+       "r": 9,
+       "sp": "Slam A"
+      },
+      {
+       "r": 11,
+       "sp": "Black Water"
+      },
+      {
+       "r": 13,
+       "sp": "Slam A"
+      },
+      {
+       "r": 14,
+       "sp": "Slam B"
+      },
+      {
+       "r": 15,
+       "sp": "Slam C"
+      },
+      {
+       "r": 17,
+       "sp": "Black Water"
+      },
+      {
+       "r": 19,
+       "sp": "Slam A"
+      },
+      {
+       "r": 20,
+       "sp": "Slam B"
+      },
+      {
+       "r": 21,
+       "sp": "Slam C"
+      }
+     ],
+     "landLog": [
+      {
+       "r": 2,
+       "sp": "Slam A"
+      },
+      {
+       "r": 4,
+       "sp": "Slam B"
+      },
+      {
+       "r": 6,
+       "sp": "Slam C"
+      },
+      {
+       "r": 8,
+       "sp": "Black Water"
+      },
+      {
+       "r": 10,
+       "sp": "Slam A"
+      },
+      {
+       "r": 12,
+       "sp": "Black Water"
+      },
+      {
+       "r": 14,
+       "sp": "Slam A"
+      },
+      {
+       "r": 15,
+       "sp": "Slam B"
+      },
+      {
+       "r": 16,
+       "sp": "Slam C"
+      },
+      {
+       "r": 18,
+       "sp": "Black Water"
+      },
+      {
+       "r": 20,
+       "sp": "Slam A"
+      },
+      {
+       "r": 21,
+       "sp": "Slam B"
+      },
+      {
+       "r": 22,
+       "sp": "Slam C"
+      }
+     ],
+     "lapsed": 0,
+     "overlaps": 0,
+     "bodyWaterEffectsEnd": 132,
+     "bossMoved": false
+    },
+    {
+     "seed": 10,
+     "read": 1,
+     "outcome": "lost",
+     "rounds": 21,
+     "playerHpPct": 0,
+     "bossHpPct": 4.9,
+     "sets": {
+      "Slam": {
+       "mark": 9,
+       "land": 8,
+       "hit": 0,
+       "dmg": 0
+      },
+      "Black Water": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "untelegraphedLands": 0,
+     "dmgBySource": {
+      "Grasping Arm": 996.7643586538455,
+      "Brine pool": 5253.235641346155
+     },
+     "poolActions": 9,
+     "poolDmg": 5253.235641346155,
+     "maxPoolRows": 6,
+     "maxPoolHexes": 72,
+     "armCasts": [
+      1,
+      9,
+      15,
+      20
+     ],
+     "armDeaths": [
+      3,
+      11,
+      17
+     ],
+     "regrowGaps": [
+      6,
+      4,
+      3
+     ],
+     "bodyWaterLastRound": 21,
+     "bodyWaterHexesEnd": 6,
+     "feedWindows": 3,
+     "feedDmg": 18516.19472373643,
+     "feedPlayerHits": 6,
+     "bite": 10,
+     "undertow": 0,
+     "undertowRounds": [],
+     "bwRounds": [
+      7,
+      11,
+      13
+     ],
+     "phaseRounds": {
+      "25": 15,
+      "50": 10,
+      "75": 7
+     },
+     "bossIdleTurns": 0,
+     "bossTurns": 20,
+     "dodges": 15,
+     "misreads": 0,
+     "petBossDmg": 44.5625,
+     "bossDmgTotal": 40345.524118181485,
+     "minHpPct": 0,
+     "ruleCount": 20,
+     "markLog": [
+      {
+       "r": 1,
+       "sp": "Slam A"
+      },
+      {
+       "r": 3,
+       "sp": "Slam B"
+      },
+      {
+       "r": 5,
+       "sp": "Slam C"
+      },
+      {
+       "r": 7,
+       "sp": "Black Water"
+      },
+      {
+       "r": 9,
+       "sp": "Slam A"
+      },
+      {
+       "r": 11,
+       "sp": "Black Water"
+      },
+      {
+       "r": 13,
+       "sp": "Black Water"
+      },
+      {
+       "r": 15,
+       "sp": "Slam A"
+      },
+      {
+       "r": 16,
+       "sp": "Slam B"
+      },
+      {
+       "r": 17,
+       "sp": "Slam C"
+      },
+      {
+       "r": 19,
+       "sp": "Slam A"
+      },
+      {
+       "r": 20,
+       "sp": "Slam B"
+      }
+     ],
+     "landLog": [
+      {
+       "r": 2,
+       "sp": "Slam A"
+      },
+      {
+       "r": 4,
+       "sp": "Slam B"
+      },
+      {
+       "r": 6,
+       "sp": "Slam C"
+      },
+      {
+       "r": 8,
+       "sp": "Black Water"
+      },
+      {
+       "r": 10,
+       "sp": "Slam A"
+      },
+      {
+       "r": 12,
+       "sp": "Black Water"
+      },
+      {
+       "r": 14,
+       "sp": "Black Water"
+      },
+      {
+       "r": 16,
+       "sp": "Slam A"
+      },
+      {
+       "r": 17,
+       "sp": "Slam B"
+      },
+      {
+       "r": 18,
+       "sp": "Slam C"
+      },
+      {
+       "r": 20,
+       "sp": "Slam A"
+      }
+     ],
+     "lapsed": 0,
+     "overlaps": 0,
+     "bodyWaterEffectsEnd": 120,
+     "bossMoved": false
+    },
+    {
+     "seed": 11,
+     "read": 1,
+     "outcome": "won",
+     "rounds": 15,
+     "playerHpPct": 66.7,
+     "bossHpPct": 0,
+     "sets": {
+      "Slam": {
+       "mark": 5,
+       "land": 4,
+       "hit": 0,
+       "dmg": 0
+      },
+      "Black Water": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "untelegraphedLands": 0,
+     "dmgBySource": {
+      "Grasping Arm": 264.6469596153838,
+      "Brine pool": 1818
+     },
+     "poolActions": 3,
+     "poolDmg": 1818,
+     "maxPoolRows": 4,
+     "maxPoolHexes": 48,
+     "armCasts": [
+      1,
+      13
+     ],
+     "armDeaths": [
+      9,
+      15
+     ],
+     "regrowGaps": [
+      4
+     ],
+     "bodyWaterLastRound": 15,
+     "bodyWaterHexesEnd": 6,
+     "feedWindows": 3,
+     "feedDmg": 21016.96187144173,
+     "feedPlayerHits": 6,
+     "bite": 9,
+     "undertow": 0,
+     "undertowRounds": [],
+     "bwRounds": [
+      7,
+      9,
+      11
+     ],
+     "phaseRounds": {
+      "25": 13,
+      "50": 9,
+      "75": 6
+     },
+     "bossIdleTurns": 0,
+     "bossTurns": 14,
+     "dodges": 8,
+     "misreads": 0,
+     "petBossDmg": 0,
+     "bossDmgTotal": 42420,
+     "minHpPct": 66.7,
+     "ruleCount": 20,
+     "markLog": [
+      {
+       "r": 1,
+       "sp": "Slam A"
+      },
+      {
+       "r": 3,
+       "sp": "Slam B"
+      },
+      {
+       "r": 5,
+       "sp": "Slam C"
+      },
+      {
+       "r": 7,
+       "sp": "Black Water"
+      },
+      {
+       "r": 9,
+       "sp": "Black Water"
+      },
+      {
+       "r": 11,
+       "sp": "Black Water"
+      },
+      {
+       "r": 13,
+       "sp": "Slam A"
+      },
+      {
+       "r": 14,
+       "sp": "Slam B"
+      }
+     ],
+     "landLog": [
+      {
+       "r": 2,
+       "sp": "Slam A"
+      },
+      {
+       "r": 4,
+       "sp": "Slam B"
+      },
+      {
+       "r": 6,
+       "sp": "Slam C"
+      },
+      {
+       "r": 8,
+       "sp": "Black Water"
+      },
+      {
+       "r": 10,
+       "sp": "Black Water"
+      },
+      {
+       "r": 12,
+       "sp": "Black Water"
+      },
+      {
+       "r": 14,
+       "sp": "Slam A"
+      }
+     ],
+     "lapsed": 0,
+     "overlaps": 0,
+     "bodyWaterEffectsEnd": 84,
+     "bossMoved": false
+    },
+    {
+     "seed": 12,
+     "read": 1,
+     "outcome": "won",
+     "rounds": 15,
+     "playerHpPct": 91.5,
+     "bossHpPct": 0,
+     "sets": {
+      "Slam": {
+       "mark": 5,
+       "land": 4,
+       "hit": 0,
+       "dmg": 0
+      },
+      "Black Water": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "untelegraphedLands": 0,
+     "dmgBySource": {
+      "Grasping Arm": 529.2939192307676
+     },
+     "poolActions": 0,
+     "poolDmg": 0,
+     "maxPoolRows": 4,
+     "maxPoolHexes": 48,
+     "armCasts": [
+      1,
+      13
+     ],
+     "armDeaths": [
+      3,
+      15
+     ],
+     "regrowGaps": [
+      10
+     ],
+     "bodyWaterLastRound": 15,
+     "bodyWaterHexesEnd": 6,
+     "feedWindows": 3,
+     "feedDmg": 21016.96187144173,
+     "feedPlayerHits": 6,
+     "bite": 9,
+     "undertow": 0,
+     "undertowRounds": [],
+     "bwRounds": [
+      7,
+      9,
+      11
+     ],
+     "phaseRounds": {
+      "25": 13,
+      "50": 9,
+      "75": 6
+     },
+     "bossIdleTurns": 0,
+     "bossTurns": 15,
+     "dodges": 3,
+     "misreads": 0,
+     "petBossDmg": 165.2737500000003,
+     "bossDmgTotal": 42420,
+     "minHpPct": 91.5,
+     "ruleCount": 20,
+     "markLog": [
+      {
+       "r": 1,
+       "sp": "Slam A"
+      },
+      {
+       "r": 3,
+       "sp": "Slam B"
+      },
+      {
+       "r": 5,
+       "sp": "Slam C"
+      },
+      {
+       "r": 7,
+       "sp": "Black Water"
+      },
+      {
+       "r": 9,
+       "sp": "Black Water"
+      },
+      {
+       "r": 11,
+       "sp": "Black Water"
+      },
+      {
+       "r": 13,
+       "sp": "Slam A"
+      },
+      {
+       "r": 14,
+       "sp": "Slam B"
+      }
+     ],
+     "landLog": [
+      {
+       "r": 2,
+       "sp": "Slam A"
+      },
+      {
+       "r": 4,
+       "sp": "Slam B"
+      },
+      {
+       "r": 6,
+       "sp": "Slam C"
+      },
+      {
+       "r": 8,
+       "sp": "Black Water"
+      },
+      {
+       "r": 10,
+       "sp": "Black Water"
+      },
+      {
+       "r": 12,
+       "sp": "Black Water"
+      },
+      {
+       "r": 14,
+       "sp": "Slam A"
+      }
+     ],
+     "lapsed": 0,
+     "overlaps": 0,
+     "bodyWaterEffectsEnd": 90,
+     "bossMoved": false
+    },
+    {
+     "seed": 13,
+     "read": 1,
+     "outcome": "won",
+     "rounds": 15,
+     "playerHpPct": 91.5,
+     "bossHpPct": 0,
+     "sets": {
+      "Slam": {
+       "mark": 5,
+       "land": 4,
+       "hit": 0,
+       "dmg": 0
+      },
+      "Black Water": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "untelegraphedLands": 0,
+     "dmgBySource": {
+      "Grasping Arm": 529.2939192307676
+     },
+     "poolActions": 0,
+     "poolDmg": 0,
+     "maxPoolRows": 4,
+     "maxPoolHexes": 48,
+     "armCasts": [
+      1,
+      13
+     ],
+     "armDeaths": [
+      3,
+      15
+     ],
+     "regrowGaps": [
+      10
+     ],
+     "bodyWaterLastRound": 15,
+     "bodyWaterHexesEnd": 6,
+     "feedWindows": 3,
+     "feedDmg": 21016.96187144173,
+     "feedPlayerHits": 6,
+     "bite": 9,
+     "undertow": 0,
+     "undertowRounds": [],
+     "bwRounds": [
+      7,
+      9,
+      11
+     ],
+     "phaseRounds": {
+      "25": 13,
+      "50": 9,
+      "75": 6
+     },
+     "bossIdleTurns": 0,
+     "bossTurns": 15,
+     "dodges": 3,
+     "misreads": 0,
+     "petBossDmg": 209.8362500000003,
+     "bossDmgTotal": 42420,
+     "minHpPct": 91.5,
+     "ruleCount": 20,
+     "markLog": [
+      {
+       "r": 1,
+       "sp": "Slam A"
+      },
+      {
+       "r": 3,
+       "sp": "Slam B"
+      },
+      {
+       "r": 5,
+       "sp": "Slam C"
+      },
+      {
+       "r": 7,
+       "sp": "Black Water"
+      },
+      {
+       "r": 9,
+       "sp": "Black Water"
+      },
+      {
+       "r": 11,
+       "sp": "Black Water"
+      },
+      {
+       "r": 13,
+       "sp": "Slam A"
+      },
+      {
+       "r": 14,
+       "sp": "Slam B"
+      }
+     ],
+     "landLog": [
+      {
+       "r": 2,
+       "sp": "Slam A"
+      },
+      {
+       "r": 4,
+       "sp": "Slam B"
+      },
+      {
+       "r": 6,
+       "sp": "Slam C"
+      },
+      {
+       "r": 8,
+       "sp": "Black Water"
+      },
+      {
+       "r": 10,
+       "sp": "Black Water"
+      },
+      {
+       "r": 12,
+       "sp": "Black Water"
+      },
+      {
+       "r": 14,
+       "sp": "Slam A"
+      }
+     ],
+     "lapsed": 0,
+     "overlaps": 0,
+     "bodyWaterEffectsEnd": 90,
+     "bossMoved": false
+    },
+    {
+     "seed": 14,
+     "read": 1,
+     "outcome": "won",
+     "rounds": 25,
+     "playerHpPct": 40.5,
+     "bossHpPct": 0,
+     "sets": {
+      "Slam": {
+       "mark": 12,
+       "land": 11,
+       "hit": 0,
+       "dmg": 0
+      },
+      "Black Water": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "untelegraphedLands": 0,
+     "dmgBySource": {
+      "Grasping Arm": 1308.4113182692286,
+      "Brine pool": 1212
+     },
+     "poolActions": 2,
+     "poolDmg": 1212,
+     "maxPoolRows": 6,
+     "maxPoolHexes": 72,
+     "armCasts": [
+      1,
+      9,
+      16,
+      21
+     ],
+     "armDeaths": [
+      3,
+      16,
+      19,
+      24
+     ],
+     "regrowGaps": [
+      6,
+      5,
+      2
+     ],
+     "bodyWaterLastRound": 25,
+     "bodyWaterHexesEnd": 6,
+     "feedWindows": 3,
+     "feedDmg": 5239.290908462626,
+     "feedPlayerHits": 1,
+     "bite": 10,
+     "undertow": 0,
+     "undertowRounds": [],
+     "bwRounds": [
+      7,
+      11,
+      17
+     ],
+     "phaseRounds": {
+      "25": 17,
+      "50": 10,
+      "75": 6
+     },
+     "bossIdleTurns": 0,
+     "bossTurns": 24,
+     "dodges": 8,
+     "misreads": 0,
+     "petBossDmg": 22.28125,
+     "bossDmgTotal": 42420,
+     "minHpPct": 40.5,
+     "ruleCount": 20,
+     "markLog": [
+      {
+       "r": 1,
+       "sp": "Slam A"
+      },
+      {
+       "r": 3,
+       "sp": "Slam B"
+      },
+      {
+       "r": 5,
+       "sp": "Slam C"
+      },
+      {
+       "r": 7,
+       "sp": "Black Water"
+      },
+      {
+       "r": 9,
+       "sp": "Slam A"
+      },
+      {
+       "r": 11,
+       "sp": "Black Water"
+      },
+      {
+       "r": 13,
+       "sp": "Slam A"
+      },
+      {
+       "r": 14,
+       "sp": "Slam B"
+      },
+      {
+       "r": 15,
+       "sp": "Slam C"
+      },
+      {
+       "r": 17,
+       "sp": "Black Water"
+      },
+      {
+       "r": 19,
+       "sp": "Slam A"
+      },
+      {
+       "r": 20,
+       "sp": "Slam B"
+      },
+      {
+       "r": 21,
+       "sp": "Slam C"
+      },
+      {
+       "r": 23,
+       "sp": "Slam A"
+      },
+      {
+       "r": 24,
+       "sp": "Slam B"
+      }
+     ],
+     "landLog": [
+      {
+       "r": 2,
+       "sp": "Slam A"
+      },
+      {
+       "r": 4,
+       "sp": "Slam B"
+      },
+      {
+       "r": 6,
+       "sp": "Slam C"
+      },
+      {
+       "r": 8,
+       "sp": "Black Water"
+      },
+      {
+       "r": 10,
+       "sp": "Slam A"
+      },
+      {
+       "r": 12,
+       "sp": "Black Water"
+      },
+      {
+       "r": 14,
+       "sp": "Slam A"
+      },
+      {
+       "r": 15,
+       "sp": "Slam B"
+      },
+      {
+       "r": 16,
+       "sp": "Slam C"
+      },
+      {
+       "r": 18,
+       "sp": "Black Water"
+      },
+      {
+       "r": 20,
+       "sp": "Slam A"
+      },
+      {
+       "r": 21,
+       "sp": "Slam B"
+      },
+      {
+       "r": 22,
+       "sp": "Slam C"
+      },
+      {
+       "r": 24,
+       "sp": "Slam A"
+      }
+     ],
+     "lapsed": 0,
+     "overlaps": 0,
+     "bodyWaterEffectsEnd": 144,
+     "bossMoved": false
+    },
+    {
+     "seed": 15,
+     "read": 1,
+     "outcome": "lost",
+     "rounds": 24,
+     "playerHpPct": 0,
+     "bossHpPct": 11.8,
+     "sets": {
+      "Slam": {
+       "mark": 11,
+       "land": 10,
+       "hit": 0,
+       "dmg": 0
+      },
+      "Black Water": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "untelegraphedLands": 0,
+     "dmgBySource": {
+      "Grasping Arm": 1152.587838461537,
+      "Brine pool": 3897.412161538463
+     },
+     "poolActions": 7,
+     "poolDmg": 3897.412161538463,
+     "maxPoolRows": 6,
+     "maxPoolHexes": 72,
+     "armCasts": [
+      1,
+      9,
+      16,
+      21
+     ],
+     "armDeaths": [
+      3,
+      16,
+      19,
+      24
+     ],
+     "regrowGaps": [
+      6,
+      5,
+      2
+     ],
+     "bodyWaterLastRound": 24,
+     "bodyWaterHexesEnd": 6,
+     "feedWindows": 3,
+     "feedDmg": 5946.290908462626,
+     "feedPlayerHits": 2,
+     "bite": 10,
+     "undertow": 0,
+     "undertowRounds": [],
+     "bwRounds": [
+      7,
+      11,
+      17
+     ],
+     "phaseRounds": {
+      "25": 21,
+      "50": 10,
+      "75": 7
+     },
+     "bossIdleTurns": 0,
+     "bossTurns": 23,
+     "dodges": 15,
+     "misreads": 0,
+     "petBossDmg": 95.75624999999854,
+     "bossDmgTotal": 37415.302654945466,
+     "minHpPct": 0,
+     "ruleCount": 20,
+     "markLog": [
+      {
+       "r": 1,
+       "sp": "Slam A"
+      },
+      {
+       "r": 3,
+       "sp": "Slam B"
+      },
+      {
+       "r": 5,
+       "sp": "Slam C"
+      },
+      {
+       "r": 7,
+       "sp": "Black Water"
+      },
+      {
+       "r": 9,
+       "sp": "Slam A"
+      },
+      {
+       "r": 11,
+       "sp": "Black Water"
+      },
+      {
+       "r": 13,
+       "sp": "Slam A"
+      },
+      {
+       "r": 14,
+       "sp": "Slam B"
+      },
+      {
+       "r": 15,
+       "sp": "Slam C"
+      },
+      {
+       "r": 17,
+       "sp": "Black Water"
+      },
+      {
+       "r": 19,
+       "sp": "Slam A"
+      },
+      {
+       "r": 20,
+       "sp": "Slam B"
+      },
+      {
+       "r": 21,
+       "sp": "Slam C"
+      },
+      {
+       "r": 23,
+       "sp": "Slam A"
+      }
+     ],
+     "landLog": [
+      {
+       "r": 2,
+       "sp": "Slam A"
+      },
+      {
+       "r": 4,
+       "sp": "Slam B"
+      },
+      {
+       "r": 6,
+       "sp": "Slam C"
+      },
+      {
+       "r": 8,
+       "sp": "Black Water"
+      },
+      {
+       "r": 10,
+       "sp": "Slam A"
+      },
+      {
+       "r": 12,
+       "sp": "Black Water"
+      },
+      {
+       "r": 14,
+       "sp": "Slam A"
+      },
+      {
+       "r": 15,
+       "sp": "Slam B"
+      },
+      {
+       "r": 16,
+       "sp": "Slam C"
+      },
+      {
+       "r": 18,
+       "sp": "Black Water"
+      },
+      {
+       "r": 20,
+       "sp": "Slam A"
+      },
+      {
+       "r": 21,
+       "sp": "Slam B"
+      },
+      {
+       "r": 22,
+       "sp": "Slam C"
+      }
+     ],
+     "lapsed": 0,
+     "overlaps": 0,
+     "bodyWaterEffectsEnd": 138,
+     "bossMoved": false
+    },
+    {
+     "seed": 16,
+     "read": 1,
+     "outcome": "won",
+     "rounds": 17,
+     "playerHpPct": 93.3,
+     "bossHpPct": 0,
+     "sets": {
+      "Slam": {
+       "mark": 5,
+       "land": 5,
+       "hit": 0,
+       "dmg": 0
+      },
+      "Black Water": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "untelegraphedLands": 0,
+     "dmgBySource": {
+      "Grasping Arm": 420.47043942307573
+     },
+     "poolActions": 0,
+     "poolDmg": 0,
+     "maxPoolRows": 4,
+     "maxPoolHexes": 48,
+     "armCasts": [
+      1,
+      9
+     ],
+     "armDeaths": [
+      6,
+      11
+     ],
+     "regrowGaps": [
+      3
+     ],
+     "bodyWaterLastRound": 17,
+     "bodyWaterHexesEnd": 6,
+     "feedWindows": 3,
+     "feedDmg": 25407.344569841756,
+     "feedPlayerHits": 7,
+     "bite": 12,
+     "undertow": 0,
+     "undertowRounds": [],
+     "bwRounds": [
+      7,
+      13,
+      15
+     ],
+     "phaseRounds": {
+      "25": 16,
+      "50": 12,
+      "75": 7
+     },
+     "bossIdleTurns": 0,
+     "bossTurns": 16,
+     "dodges": 2,
+     "misreads": 0,
+     "petBossDmg": 22.28125,
+     "bossDmgTotal": 42420,
+     "minHpPct": 93.3,
+     "ruleCount": 20,
+     "markLog": [
+      {
+       "r": 1,
+       "sp": "Slam A"
+      },
+      {
+       "r": 3,
+       "sp": "Slam B"
+      },
+      {
+       "r": 5,
+       "sp": "Slam C"
+      },
+      {
+       "r": 7,
+       "sp": "Black Water"
+      },
+      {
+       "r": 9,
+       "sp": "Slam A"
+      },
+      {
+       "r": 11,
+       "sp": "Slam B"
+      },
+      {
+       "r": 13,
+       "sp": "Black Water"
+      },
+      {
+       "r": 15,
+       "sp": "Black Water"
+      }
+     ],
+     "landLog": [
+      {
+       "r": 2,
+       "sp": "Slam A"
+      },
+      {
+       "r": 4,
+       "sp": "Slam B"
+      },
+      {
+       "r": 6,
+       "sp": "Slam C"
+      },
+      {
+       "r": 8,
+       "sp": "Black Water"
+      },
+      {
+       "r": 10,
+       "sp": "Slam A"
+      },
+      {
+       "r": 12,
+       "sp": "Slam B"
+      },
+      {
+       "r": 14,
+       "sp": "Black Water"
+      },
+      {
+       "r": 16,
+       "sp": "Black Water"
+      }
+     ],
+     "lapsed": 0,
+     "overlaps": 0,
+     "bodyWaterEffectsEnd": 96,
+     "bossMoved": false
+    },
+    {
+     "seed": 17,
+     "read": 1,
+     "outcome": "won",
+     "rounds": 29,
+     "playerHpPct": 37.7,
+     "bossHpPct": 0,
+     "sets": {
+      "Slam": {
+       "mark": 15,
+       "land": 14,
+       "hit": 0,
+       "dmg": 0
+      },
+      "Black Water": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "untelegraphedLands": 0,
+     "dmgBySource": {
+      "Grasping Arm": 2087.528717307689,
+      "Brine pool": 606
+     },
+     "poolActions": 1,
+     "poolDmg": 606,
+     "maxPoolRows": 6,
+     "maxPoolHexes": 72,
+     "armCasts": [
+      1,
+      9,
+      14,
+      19,
+      24
+     ],
+     "armDeaths": [
+      3,
+      11,
+      17,
+      22,
+      27
+     ],
+     "regrowGaps": [
+      6,
+      3,
+      2,
+      2
+     ],
+     "bodyWaterLastRound": 29,
+     "bodyWaterHexesEnd": 6,
+     "feedWindows": 3,
+     "feedDmg": 14868.391875599225,
+     "feedPlayerHits": 5,
+     "bite": 10,
+     "undertow": 0,
+     "undertowRounds": [],
+     "bwRounds": [
+      7,
+      11,
+      17
+     ],
+     "phaseRounds": {
+      "25": 19,
+      "50": 10,
+      "75": 7
+     },
+     "bossIdleTurns": 0,
+     "bossTurns": 28,
+     "dodges": 4,
+     "misreads": 0,
+     "petBossDmg": 0,
+     "bossDmgTotal": 42420,
+     "minHpPct": 37.7,
+     "ruleCount": 20,
+     "markLog": [
+      {
+       "r": 1,
+       "sp": "Slam A"
+      },
+      {
+       "r": 3,
+       "sp": "Slam B"
+      },
+      {
+       "r": 5,
+       "sp": "Slam C"
+      },
+      {
+       "r": 7,
+       "sp": "Black Water"
+      },
+      {
+       "r": 9,
+       "sp": "Slam A"
+      },
+      {
+       "r": 11,
+       "sp": "Black Water"
+      },
+      {
+       "r": 13,
+       "sp": "Slam A"
+      },
+      {
+       "r": 14,
+       "sp": "Slam B"
+      },
+      {
+       "r": 15,
+       "sp": "Slam C"
+      },
+      {
+       "r": 17,
+       "sp": "Black Water"
+      },
+      {
+       "r": 19,
+       "sp": "Slam A"
+      },
+      {
+       "r": 20,
+       "sp": "Slam B"
+      },
+      {
+       "r": 21,
+       "sp": "Slam C"
+      },
+      {
+       "r": 23,
+       "sp": "Slam A"
+      },
+      {
+       "r": 24,
+       "sp": "Slam B"
+      },
+      {
+       "r": 25,
+       "sp": "Slam C"
+      },
+      {
+       "r": 27,
+       "sp": "Slam A"
+      },
+      {
+       "r": 28,
+       "sp": "Slam B"
+      }
+     ],
+     "landLog": [
+      {
+       "r": 2,
+       "sp": "Slam A"
+      },
+      {
+       "r": 4,
+       "sp": "Slam B"
+      },
+      {
+       "r": 6,
+       "sp": "Slam C"
+      },
+      {
+       "r": 8,
+       "sp": "Black Water"
+      },
+      {
+       "r": 10,
+       "sp": "Slam A"
+      },
+      {
+       "r": 12,
+       "sp": "Black Water"
+      },
+      {
+       "r": 14,
+       "sp": "Slam A"
+      },
+      {
+       "r": 15,
+       "sp": "Slam B"
+      },
+      {
+       "r": 16,
+       "sp": "Slam C"
+      },
+      {
+       "r": 18,
+       "sp": "Black Water"
+      },
+      {
+       "r": 20,
+       "sp": "Slam A"
+      },
+      {
+       "r": 21,
+       "sp": "Slam B"
+      },
+      {
+       "r": 22,
+       "sp": "Slam C"
+      },
+      {
+       "r": 24,
+       "sp": "Slam A"
+      },
+      {
+       "r": 25,
+       "sp": "Slam B"
+      },
+      {
+       "r": 26,
+       "sp": "Slam C"
+      },
+      {
+       "r": 28,
+       "sp": "Slam A"
+      }
+     ],
+     "lapsed": 0,
+     "overlaps": 0,
+     "bodyWaterEffectsEnd": 168,
+     "bossMoved": false
+    },
+    {
+     "seed": 18,
+     "read": 1,
+     "outcome": "won",
+     "rounds": 22,
+     "playerHpPct": 47.2,
+     "bossHpPct": 0,
+     "sets": {
+      "Slam": {
+       "mark": 10,
+       "land": 9,
+       "hit": 0,
+       "dmg": 0
+      },
+      "Black Water": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "untelegraphedLands": 0,
+     "dmgBySource": {
+      "Grasping Arm": 887.9408788461515,
+      "Brine pool": 1212
+     },
+     "poolActions": 2,
+     "poolDmg": 1212,
+     "maxPoolRows": 6,
+     "maxPoolHexes": 72,
+     "armCasts": [
+      1,
+      9,
+      14,
+      19
+     ],
+     "armDeaths": [
+      6,
+      13,
+      17,
+      22
+     ],
+     "regrowGaps": [
+      3,
+      1,
+      2
+     ],
+     "bodyWaterLastRound": 22,
+     "bodyWaterHexesEnd": 6,
+     "feedWindows": 3,
+     "feedDmg": 11601.71408902074,
+     "feedPlayerHits": 5,
+     "bite": 10,
+     "undertow": 0,
+     "undertowRounds": [],
+     "bwRounds": [
+      7,
+      11,
+      17
+     ],
+     "phaseRounds": {
+      "25": 17,
+      "50": 10,
+      "75": 7
+     },
+     "bossIdleTurns": 0,
+     "bossTurns": 21,
+     "dodges": 8,
+     "misreads": 0,
+     "petBossDmg": 22.28125,
+     "bossDmgTotal": 42420,
+     "minHpPct": 47.2,
+     "ruleCount": 20,
+     "markLog": [
+      {
+       "r": 1,
+       "sp": "Slam A"
+      },
+      {
+       "r": 3,
+       "sp": "Slam B"
+      },
+      {
+       "r": 5,
+       "sp": "Slam C"
+      },
+      {
+       "r": 7,
+       "sp": "Black Water"
+      },
+      {
+       "r": 9,
+       "sp": "Slam A"
+      },
+      {
+       "r": 11,
+       "sp": "Black Water"
+      },
+      {
+       "r": 13,
+       "sp": "Slam A"
+      },
+      {
+       "r": 14,
+       "sp": "Slam B"
+      },
+      {
+       "r": 15,
+       "sp": "Slam C"
+      },
+      {
+       "r": 17,
+       "sp": "Black Water"
+      },
+      {
+       "r": 19,
+       "sp": "Slam A"
+      },
+      {
+       "r": 20,
+       "sp": "Slam B"
+      },
+      {
+       "r": 21,
+       "sp": "Slam C"
+      }
+     ],
+     "landLog": [
+      {
+       "r": 2,
+       "sp": "Slam A"
+      },
+      {
+       "r": 4,
+       "sp": "Slam B"
+      },
+      {
+       "r": 6,
+       "sp": "Slam C"
+      },
+      {
+       "r": 8,
+       "sp": "Black Water"
+      },
+      {
+       "r": 10,
+       "sp": "Slam A"
+      },
+      {
+       "r": 12,
+       "sp": "Black Water"
+      },
+      {
+       "r": 14,
+       "sp": "Slam A"
+      },
+      {
+       "r": 15,
+       "sp": "Slam B"
+      },
+      {
+       "r": 16,
+       "sp": "Slam C"
+      },
+      {
+       "r": 18,
+       "sp": "Black Water"
+      },
+      {
+       "r": 20,
+       "sp": "Slam A"
+      },
+      {
+       "r": 21,
+       "sp": "Slam B"
+      }
+     ],
+     "lapsed": 0,
+     "overlaps": 0,
+     "bodyWaterEffectsEnd": 126,
+     "bossMoved": false
+    },
+    {
+     "seed": 19,
+     "read": 1,
+     "outcome": "won",
+     "rounds": 26,
+     "playerHpPct": 40.2,
+     "bossHpPct": 0,
+     "sets": {
+      "Slam": {
+       "mark": 13,
+       "land": 13,
+       "hit": 0,
+       "dmg": 0
+      },
+      "Black Water": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "untelegraphedLands": 0,
+     "dmgBySource": {
+      "Grasping Arm": 1931.7052374999967,
+      "Brine pool": 606
+     },
+     "poolActions": 1,
+     "poolDmg": 606,
+     "maxPoolRows": 6,
+     "maxPoolHexes": 72,
+     "armCasts": [
+      1,
+      9,
+      14,
+      19,
+      24
+     ],
+     "armDeaths": [
+      3,
+      11,
+      17,
+      22,
+      25
+     ],
+     "regrowGaps": [
+      6,
+      3,
+      2,
+      2
+     ],
+     "bodyWaterLastRound": 26,
+     "bodyWaterHexesEnd": 6,
+     "feedWindows": 3,
+     "feedDmg": 14868.391875599225,
+     "feedPlayerHits": 5,
+     "bite": 10,
+     "undertow": 0,
+     "undertowRounds": [],
+     "bwRounds": [
+      7,
+      11,
+      17
+     ],
+     "phaseRounds": {
+      "25": 17,
+      "50": 10,
+      "75": 6
+     },
+     "bossIdleTurns": 0,
+     "bossTurns": 26,
+     "dodges": 4,
+     "misreads": 0,
+     "petBossDmg": 180.87062499999956,
+     "bossDmgTotal": 42420.00000000001,
+     "minHpPct": 40.2,
+     "ruleCount": 20,
+     "markLog": [
+      {
+       "r": 1,
+       "sp": "Slam A"
+      },
+      {
+       "r": 3,
+       "sp": "Slam B"
+      },
+      {
+       "r": 5,
+       "sp": "Slam C"
+      },
+      {
+       "r": 7,
+       "sp": "Black Water"
+      },
+      {
+       "r": 9,
+       "sp": "Slam A"
+      },
+      {
+       "r": 11,
+       "sp": "Black Water"
+      },
+      {
+       "r": 13,
+       "sp": "Slam A"
+      },
+      {
+       "r": 14,
+       "sp": "Slam B"
+      },
+      {
+       "r": 15,
+       "sp": "Slam C"
+      },
+      {
+       "r": 17,
+       "sp": "Black Water"
+      },
+      {
+       "r": 19,
+       "sp": "Slam A"
+      },
+      {
+       "r": 20,
+       "sp": "Slam B"
+      },
+      {
+       "r": 21,
+       "sp": "Slam C"
+      },
+      {
+       "r": 23,
+       "sp": "Slam A"
+      },
+      {
+       "r": 24,
+       "sp": "Slam B"
+      },
+      {
+       "r": 25,
+       "sp": "Slam C"
+      }
+     ],
+     "landLog": [
+      {
+       "r": 2,
+       "sp": "Slam A"
+      },
+      {
+       "r": 4,
+       "sp": "Slam B"
+      },
+      {
+       "r": 6,
+       "sp": "Slam C"
+      },
+      {
+       "r": 8,
+       "sp": "Black Water"
+      },
+      {
+       "r": 10,
+       "sp": "Slam A"
+      },
+      {
+       "r": 12,
+       "sp": "Black Water"
+      },
+      {
+       "r": 14,
+       "sp": "Slam A"
+      },
+      {
+       "r": 15,
+       "sp": "Slam B"
+      },
+      {
+       "r": 16,
+       "sp": "Slam C"
+      },
+      {
+       "r": 18,
+       "sp": "Black Water"
+      },
+      {
+       "r": 20,
+       "sp": "Slam A"
+      },
+      {
+       "r": 21,
+       "sp": "Slam B"
+      },
+      {
+       "r": 22,
+       "sp": "Slam C"
+      },
+      {
+       "r": 24,
+       "sp": "Slam A"
+      },
+      {
+       "r": 25,
+       "sp": "Slam B"
+      },
+      {
+       "r": 26,
+       "sp": "Slam C"
+      }
+     ],
+     "lapsed": 0,
+     "overlaps": 0,
+     "bodyWaterEffectsEnd": 156,
+     "bossMoved": false
+    },
+    {
+     "seed": 20,
+     "read": 1,
+     "outcome": "won",
+     "rounds": 19,
+     "playerHpPct": 9,
+     "bossHpPct": 0,
+     "sets": {
+      "Slam": {
+       "mark": 7,
+       "land": 7,
+       "hit": 0,
+       "dmg": 0
+      },
+      "Black Water": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "untelegraphedLands": 0,
+     "dmgBySource": {
+      "Grasping Arm": 840.9408788461528,
+      "Brine pool": 4848
+     },
+     "poolActions": 8,
+     "poolDmg": 4848,
+     "maxPoolRows": 6,
+     "maxPoolHexes": 72,
+     "armCasts": [
+      1,
+      9,
+      14
+     ],
+     "armDeaths": [
+      3,
+      11,
+      17
+     ],
+     "regrowGaps": [
+      6,
+      3
+     ],
+     "bodyWaterLastRound": 19,
+     "bodyWaterHexesEnd": 6,
+     "feedWindows": 3,
+     "feedDmg": 14022.67625123222,
+     "feedPlayerHits": 5,
+     "bite": 10,
+     "undertow": 0,
+     "undertowRounds": [],
+     "bwRounds": [
+      7,
+      11,
+      17
+     ],
+     "phaseRounds": {
+      "25": 16,
+      "50": 10,
+      "75": 7
+     },
+     "bossIdleTurns": 0,
+     "bossTurns": 18,
+     "dodges": 14,
+     "misreads": 0,
+     "petBossDmg": 95.75624999999854,
+     "bossDmgTotal": 42420,
+     "minHpPct": 9,
+     "ruleCount": 20,
+     "markLog": [
+      {
+       "r": 1,
+       "sp": "Slam A"
+      },
+      {
+       "r": 3,
+       "sp": "Slam B"
+      },
+      {
+       "r": 5,
+       "sp": "Slam C"
+      },
+      {
+       "r": 7,
+       "sp": "Black Water"
+      },
+      {
+       "r": 9,
+       "sp": "Slam A"
+      },
+      {
+       "r": 11,
+       "sp": "Black Water"
+      },
+      {
+       "r": 13,
+       "sp": "Slam A"
+      },
+      {
+       "r": 14,
+       "sp": "Slam B"
+      },
+      {
+       "r": 15,
+       "sp": "Slam C"
+      },
+      {
+       "r": 17,
+       "sp": "Black Water"
+      }
+     ],
+     "landLog": [
+      {
+       "r": 2,
+       "sp": "Slam A"
+      },
+      {
+       "r": 4,
+       "sp": "Slam B"
+      },
+      {
+       "r": 6,
+       "sp": "Slam C"
+      },
+      {
+       "r": 8,
+       "sp": "Black Water"
+      },
+      {
+       "r": 10,
+       "sp": "Slam A"
+      },
+      {
+       "r": 12,
+       "sp": "Black Water"
+      },
+      {
+       "r": 14,
+       "sp": "Slam A"
+      },
+      {
+       "r": 15,
+       "sp": "Slam B"
+      },
+      {
+       "r": 16,
+       "sp": "Slam C"
+      },
+      {
+       "r": 18,
+       "sp": "Black Water"
+      }
+     ],
+     "lapsed": 0,
+     "overlaps": 0,
+     "bodyWaterEffectsEnd": 108,
+     "bossMoved": false
+    },
+    {
+     "seed": 21,
+     "read": 1,
+     "outcome": "lost",
+     "rounds": 19,
+     "playerHpPct": 0,
+     "bossHpPct": 27.3,
+     "sets": {
+      "Slam": {
+       "mark": 8,
+       "land": 8,
+       "hit": 0,
+       "dmg": 0
+      },
+      "Black Water": {
+       "mark": 2,
+       "land": 2,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "untelegraphedLands": 0,
+     "dmgBySource": {
+      "Grasping Arm": 685.1173990384609,
+      "Brine pool": 5564.882600961539
+     },
+     "poolActions": 10,
+     "poolDmg": 5564.882600961539,
+     "maxPoolRows": 6,
+     "maxPoolHexes": 72,
+     "armCasts": [
+      1,
+      9,
+      15
+     ],
+     "armDeaths": [
+      3,
+      11
+     ],
+     "regrowGaps": [
+      6,
+      4
+     ],
+     "bodyWaterLastRound": 19,
+     "bodyWaterHexesEnd": 6,
+     "feedWindows": 2,
+     "feedDmg": 7950.959999078517,
+     "feedPlayerHits": 2,
+     "bite": 12,
+     "undertow": 0,
+     "undertowRounds": [],
+     "bwRounds": [
+      7,
+      13
+     ],
+     "phaseRounds": {
+      "25": null,
+      "50": 12,
+      "75": 7
+     },
+     "bossIdleTurns": 0,
+     "bossTurns": 18,
+     "dodges": 16,
+     "misreads": 0,
+     "petBossDmg": 22.28125,
+     "bossDmgTotal": 30841.666395970366,
+     "minHpPct": 0,
+     "ruleCount": 20,
+     "markLog": [
+      {
+       "r": 1,
+       "sp": "Slam A"
+      },
+      {
+       "r": 3,
+       "sp": "Slam B"
+      },
+      {
+       "r": 5,
+       "sp": "Slam C"
+      },
+      {
+       "r": 7,
+       "sp": "Black Water"
+      },
+      {
+       "r": 9,
+       "sp": "Slam A"
+      },
+      {
+       "r": 11,
+       "sp": "Slam B"
+      },
+      {
+       "r": 13,
+       "sp": "Black Water"
+      },
+      {
+       "r": 15,
+       "sp": "Slam A"
+      },
+      {
+       "r": 16,
+       "sp": "Slam B"
+      },
+      {
+       "r": 17,
+       "sp": "Slam C"
+      }
+     ],
+     "landLog": [
+      {
+       "r": 2,
+       "sp": "Slam A"
+      },
+      {
+       "r": 4,
+       "sp": "Slam B"
+      },
+      {
+       "r": 6,
+       "sp": "Slam C"
+      },
+      {
+       "r": 8,
+       "sp": "Black Water"
+      },
+      {
+       "r": 10,
+       "sp": "Slam A"
+      },
+      {
+       "r": 12,
+       "sp": "Slam B"
+      },
+      {
+       "r": 14,
+       "sp": "Black Water"
+      },
+      {
+       "r": 16,
+       "sp": "Slam A"
+      },
+      {
+       "r": 17,
+       "sp": "Slam B"
+      },
+      {
+       "r": 18,
+       "sp": "Slam C"
+      }
+     ],
+     "lapsed": 0,
+     "overlaps": 0,
+     "bodyWaterEffectsEnd": 108,
+     "bossMoved": false
+    },
+    {
+     "seed": 22,
+     "read": 1,
+     "outcome": "lost",
+     "rounds": 19,
+     "playerHpPct": 0,
+     "bossHpPct": 27.3,
+     "sets": {
+      "Slam": {
+       "mark": 8,
+       "land": 8,
+       "hit": 0,
+       "dmg": 0
+      },
+      "Black Water": {
+       "mark": 2,
+       "land": 2,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "untelegraphedLands": 0,
+     "dmgBySource": {
+      "Grasping Arm": 685.1173990384609,
+      "Brine pool": 5564.882600961539
+     },
+     "poolActions": 10,
+     "poolDmg": 5564.882600961539,
+     "maxPoolRows": 6,
+     "maxPoolHexes": 72,
+     "armCasts": [
+      1,
+      9,
+      15
+     ],
+     "armDeaths": [
+      3,
+      11
+     ],
+     "regrowGaps": [
+      6,
+      4
+     ],
+     "bodyWaterLastRound": 19,
+     "bodyWaterHexesEnd": 6,
+     "feedWindows": 2,
+     "feedDmg": 7950.959999078517,
+     "feedPlayerHits": 2,
+     "bite": 12,
+     "undertow": 0,
+     "undertowRounds": [],
+     "bwRounds": [
+      7,
+      13
+     ],
+     "phaseRounds": {
+      "25": null,
+      "50": 12,
+      "75": 7
+     },
+     "bossIdleTurns": 0,
+     "bossTurns": 18,
+     "dodges": 16,
+     "misreads": 0,
+     "petBossDmg": 22.28125,
+     "bossDmgTotal": 30841.666395970366,
+     "minHpPct": 0,
+     "ruleCount": 20,
+     "markLog": [
+      {
+       "r": 1,
+       "sp": "Slam A"
+      },
+      {
+       "r": 3,
+       "sp": "Slam B"
+      },
+      {
+       "r": 5,
+       "sp": "Slam C"
+      },
+      {
+       "r": 7,
+       "sp": "Black Water"
+      },
+      {
+       "r": 9,
+       "sp": "Slam A"
+      },
+      {
+       "r": 11,
+       "sp": "Slam B"
+      },
+      {
+       "r": 13,
+       "sp": "Black Water"
+      },
+      {
+       "r": 15,
+       "sp": "Slam A"
+      },
+      {
+       "r": 16,
+       "sp": "Slam B"
+      },
+      {
+       "r": 17,
+       "sp": "Slam C"
+      }
+     ],
+     "landLog": [
+      {
+       "r": 2,
+       "sp": "Slam A"
+      },
+      {
+       "r": 4,
+       "sp": "Slam B"
+      },
+      {
+       "r": 6,
+       "sp": "Slam C"
+      },
+      {
+       "r": 8,
+       "sp": "Black Water"
+      },
+      {
+       "r": 10,
+       "sp": "Slam A"
+      },
+      {
+       "r": 12,
+       "sp": "Slam B"
+      },
+      {
+       "r": 14,
+       "sp": "Black Water"
+      },
+      {
+       "r": 16,
+       "sp": "Slam A"
+      },
+      {
+       "r": 17,
+       "sp": "Slam B"
+      },
+      {
+       "r": 18,
+       "sp": "Slam C"
+      }
+     ],
+     "lapsed": 0,
+     "overlaps": 0,
+     "bodyWaterEffectsEnd": 108,
+     "bossMoved": false
+    },
+    {
+     "seed": 23,
+     "read": 1,
+     "outcome": "won",
+     "rounds": 19,
+     "playerHpPct": 9,
+     "bossHpPct": 0,
+     "sets": {
+      "Slam": {
+       "mark": 7,
+       "land": 7,
+       "hit": 0,
+       "dmg": 0
+      },
+      "Black Water": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "untelegraphedLands": 0,
+     "dmgBySource": {
+      "Grasping Arm": 840.9408788461528,
+      "Brine pool": 4848
+     },
+     "poolActions": 8,
+     "poolDmg": 4848,
+     "maxPoolRows": 6,
+     "maxPoolHexes": 72,
+     "armCasts": [
+      1,
+      9,
+      14
+     ],
+     "armDeaths": [
+      3,
+      11,
+      17
+     ],
+     "regrowGaps": [
+      6,
+      3
+     ],
+     "bodyWaterLastRound": 19,
+     "bodyWaterHexesEnd": 6,
+     "feedWindows": 3,
+     "feedDmg": 13733.739143567982,
+     "feedPlayerHits": 5,
+     "bite": 10,
+     "undertow": 0,
+     "undertowRounds": [],
+     "bwRounds": [
+      7,
+      11,
+      17
+     ],
+     "phaseRounds": {
+      "25": 16,
+      "50": 10,
+      "75": 7
+     },
+     "bossIdleTurns": 0,
+     "bossTurns": 18,
+     "dodges": 14,
+     "misreads": 0,
+     "petBossDmg": 95.75624999999854,
+     "bossDmgTotal": 42420,
+     "minHpPct": 9,
+     "ruleCount": 20,
+     "markLog": [
+      {
+       "r": 1,
+       "sp": "Slam A"
+      },
+      {
+       "r": 3,
+       "sp": "Slam B"
+      },
+      {
+       "r": 5,
+       "sp": "Slam C"
+      },
+      {
+       "r": 7,
+       "sp": "Black Water"
+      },
+      {
+       "r": 9,
+       "sp": "Slam A"
+      },
+      {
+       "r": 11,
+       "sp": "Black Water"
+      },
+      {
+       "r": 13,
+       "sp": "Slam A"
+      },
+      {
+       "r": 14,
+       "sp": "Slam B"
+      },
+      {
+       "r": 15,
+       "sp": "Slam C"
+      },
+      {
+       "r": 17,
+       "sp": "Black Water"
+      }
+     ],
+     "landLog": [
+      {
+       "r": 2,
+       "sp": "Slam A"
+      },
+      {
+       "r": 4,
+       "sp": "Slam B"
+      },
+      {
+       "r": 6,
+       "sp": "Slam C"
+      },
+      {
+       "r": 8,
+       "sp": "Black Water"
+      },
+      {
+       "r": 10,
+       "sp": "Slam A"
+      },
+      {
+       "r": 12,
+       "sp": "Black Water"
+      },
+      {
+       "r": 14,
+       "sp": "Slam A"
+      },
+      {
+       "r": 15,
+       "sp": "Slam B"
+      },
+      {
+       "r": 16,
+       "sp": "Slam C"
+      },
+      {
+       "r": 18,
+       "sp": "Black Water"
+      }
+     ],
+     "lapsed": 0,
+     "overlaps": 0,
+     "bodyWaterEffectsEnd": 108,
+     "bossMoved": false
+    },
+    {
+     "seed": 24,
+     "read": 1,
+     "outcome": "won",
+     "rounds": 16,
+     "playerHpPct": 68.9,
+     "bossHpPct": 0,
+     "sets": {
+      "Slam": {
+       "mark": 5,
+       "land": 4,
+       "hit": 0,
+       "dmg": 0
+      },
+      "Black Water": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "untelegraphedLands": 0,
+     "dmgBySource": {
+      "Brine pool": 1212,
+      "Grasping Arm": 732.1173990384596
+     },
+     "poolActions": 2,
+     "poolDmg": 1212,
+     "maxPoolRows": 4,
+     "maxPoolHexes": 48,
+     "armCasts": [
+      1,
+      7,
+      15
+     ],
+     "armDeaths": [
+      6,
+      10,
+      16
+     ],
+     "regrowGaps": [
+      1,
+      5
+     ],
+     "bodyWaterLastRound": 16,
+     "bodyWaterHexesEnd": 6,
+     "feedWindows": 3,
+     "feedDmg": 21613.01038641891,
+     "feedPlayerHits": 6,
+     "bite": 11,
+     "undertow": 0,
+     "undertowRounds": [],
+     "bwRounds": [
+      9,
+      11,
+      13
+     ],
+     "phaseRounds": {
+      "25": 14,
+      "50": 11,
+      "75": 8
+     },
+     "bossIdleTurns": 0,
+     "bossTurns": 16,
+     "dodges": 7,
+     "misreads": 0,
+     "petBossDmg": 44.5625,
+     "bossDmgTotal": 42419.99999999999,
+     "minHpPct": 68.9,
+     "ruleCount": 20,
+     "markLog": [
+      {
+       "r": 1,
+       "sp": "Slam A"
+      },
+      {
+       "r": 3,
+       "sp": "Slam B"
+      },
+      {
+       "r": 5,
+       "sp": "Slam C"
+      },
+      {
+       "r": 7,
+       "sp": "Slam A"
+      },
+      {
+       "r": 9,
+       "sp": "Black Water"
+      },
+      {
+       "r": 11,
+       "sp": "Black Water"
+      },
+      {
+       "r": 13,
+       "sp": "Black Water"
+      },
+      {
+       "r": 15,
+       "sp": "Slam A"
+      }
+     ],
+     "landLog": [
+      {
+       "r": 2,
+       "sp": "Slam A"
+      },
+      {
+       "r": 4,
+       "sp": "Slam B"
+      },
+      {
+       "r": 6,
+       "sp": "Slam C"
+      },
+      {
+       "r": 8,
+       "sp": "Slam A"
+      },
+      {
+       "r": 10,
+       "sp": "Black Water"
+      },
+      {
+       "r": 12,
+       "sp": "Black Water"
+      },
+      {
+       "r": 14,
+       "sp": "Black Water"
+      }
+     ],
+     "lapsed": 0,
+     "overlaps": 0,
+     "bodyWaterEffectsEnd": 96,
+     "bossMoved": false
+    },
+    {
+     "seed": 25,
+     "read": 1,
+     "outcome": "won",
+     "rounds": 15,
+     "playerHpPct": 90.8,
+     "bossHpPct": 0,
+     "sets": {
+      "Slam": {
+       "mark": 5,
+       "land": 4,
+       "hit": 0,
+       "dmg": 0
+      },
+      "Black Water": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "untelegraphedLands": 0,
+     "dmgBySource": {
+      "Grasping Arm": 576.2939192307676
+     },
+     "poolActions": 0,
+     "poolDmg": 0,
+     "maxPoolRows": 4,
+     "maxPoolHexes": 48,
+     "armCasts": [
+      1,
+      13
+     ],
+     "armDeaths": [
+      9,
+      15
+     ],
+     "regrowGaps": [
+      4
+     ],
+     "bodyWaterLastRound": 15,
+     "bodyWaterHexesEnd": 6,
+     "feedWindows": 3,
+     "feedDmg": 21016.96187144173,
+     "feedPlayerHits": 6,
+     "bite": 9,
+     "undertow": 0,
+     "undertowRounds": [],
+     "bwRounds": [
+      7,
+      9,
+      11
+     ],
+     "phaseRounds": {
+      "25": 12,
+      "50": 9,
+      "75": 6
+     },
+     "bossIdleTurns": 0,
+     "bossTurns": 15,
+     "dodges": 4,
+     "misreads": 0,
+     "petBossDmg": 0,
+     "bossDmgTotal": 42420,
+     "minHpPct": 90.8,
+     "ruleCount": 20,
+     "markLog": [
+      {
+       "r": 1,
+       "sp": "Slam A"
+      },
+      {
+       "r": 3,
+       "sp": "Slam B"
+      },
+      {
+       "r": 5,
+       "sp": "Slam C"
+      },
+      {
+       "r": 7,
+       "sp": "Black Water"
+      },
+      {
+       "r": 9,
+       "sp": "Black Water"
+      },
+      {
+       "r": 11,
+       "sp": "Black Water"
+      },
+      {
+       "r": 13,
+       "sp": "Slam A"
+      },
+      {
+       "r": 14,
+       "sp": "Slam B"
+      }
+     ],
+     "landLog": [
+      {
+       "r": 2,
+       "sp": "Slam A"
+      },
+      {
+       "r": 4,
+       "sp": "Slam B"
+      },
+      {
+       "r": 6,
+       "sp": "Slam C"
+      },
+      {
+       "r": 8,
+       "sp": "Black Water"
+      },
+      {
+       "r": 10,
+       "sp": "Black Water"
+      },
+      {
+       "r": 12,
+       "sp": "Black Water"
+      },
+      {
+       "r": 14,
+       "sp": "Slam A"
+      }
+     ],
+     "lapsed": 0,
+     "overlaps": 0,
+     "bodyWaterEffectsEnd": 90,
+     "bossMoved": false
+    },
+    {
+     "seed": 26,
+     "read": 1,
+     "outcome": "won",
+     "rounds": 21,
+     "playerHpPct": 46.4,
+     "bossHpPct": 0,
+     "sets": {
+      "Slam": {
+       "mark": 9,
+       "land": 8,
+       "hit": 0,
+       "dmg": 0
+      },
+      "Black Water": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "untelegraphedLands": 0,
+     "dmgBySource": {
+      "Brine pool": 1212,
+      "Grasping Arm": 934.9408788461515
+     },
+     "poolActions": 2,
+     "poolDmg": 1212,
+     "maxPoolRows": 6,
+     "maxPoolHexes": 72,
+     "armCasts": [
+      1,
+      9,
+      14,
+      19
+     ],
+     "armDeaths": [
+      7,
+      13,
+      17,
+      21
+     ],
+     "regrowGaps": [
+      2,
+      1,
+      2
+     ],
+     "bodyWaterLastRound": 21,
+     "bodyWaterHexesEnd": 6,
+     "feedWindows": 3,
+     "feedDmg": 11101.714089020741,
+     "feedPlayerHits": 5,
+     "bite": 10,
+     "undertow": 0,
+     "undertowRounds": [],
+     "bwRounds": [
+      7,
+      11,
+      17
+     ],
+     "phaseRounds": {
+      "25": 17,
+      "50": 10,
+      "75": 6
+     },
+     "bossIdleTurns": 0,
+     "bossTurns": 20,
+     "dodges": 8,
+     "misreads": 0,
+     "petBossDmg": 44.5625,
+     "bossDmgTotal": 42420,
+     "minHpPct": 46.4,
+     "ruleCount": 20,
+     "markLog": [
+      {
+       "r": 1,
+       "sp": "Slam A"
+      },
+      {
+       "r": 3,
+       "sp": "Slam B"
+      },
+      {
+       "r": 5,
+       "sp": "Slam C"
+      },
+      {
+       "r": 7,
+       "sp": "Black Water"
+      },
+      {
+       "r": 9,
+       "sp": "Slam A"
+      },
+      {
+       "r": 11,
+       "sp": "Black Water"
+      },
+      {
+       "r": 13,
+       "sp": "Slam A"
+      },
+      {
+       "r": 14,
+       "sp": "Slam B"
+      },
+      {
+       "r": 15,
+       "sp": "Slam C"
+      },
+      {
+       "r": 17,
+       "sp": "Black Water"
+      },
+      {
+       "r": 19,
+       "sp": "Slam A"
+      },
+      {
+       "r": 20,
+       "sp": "Slam B"
+      }
+     ],
+     "landLog": [
+      {
+       "r": 2,
+       "sp": "Slam A"
+      },
+      {
+       "r": 4,
+       "sp": "Slam B"
+      },
+      {
+       "r": 6,
+       "sp": "Slam C"
+      },
+      {
+       "r": 8,
+       "sp": "Black Water"
+      },
+      {
+       "r": 10,
+       "sp": "Slam A"
+      },
+      {
+       "r": 12,
+       "sp": "Black Water"
+      },
+      {
+       "r": 14,
+       "sp": "Slam A"
+      },
+      {
+       "r": 15,
+       "sp": "Slam B"
+      },
+      {
+       "r": 16,
+       "sp": "Slam C"
+      },
+      {
+       "r": 18,
+       "sp": "Black Water"
+      },
+      {
+       "r": 20,
+       "sp": "Slam A"
+      }
+     ],
+     "lapsed": 0,
+     "overlaps": 0,
+     "bodyWaterEffectsEnd": 120,
+     "bossMoved": false
+    },
+    {
+     "seed": 27,
+     "read": 1,
+     "outcome": "lost",
+     "rounds": 22,
+     "playerHpPct": 0,
+     "bossHpPct": 14.5,
+     "sets": {
+      "Slam": {
+       "mark": 10,
+       "land": 9,
+       "hit": 0,
+       "dmg": 0
+      },
+      "Black Water": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "untelegraphedLands": 0,
+     "dmgBySource": {
+      "Brine pool": 4849,
+      "Grasping Arm": 934.940878846153
+     },
+     "poolActions": 17,
+     "poolDmg": 4849,
+     "maxPoolRows": 6,
+     "maxPoolHexes": 72,
+     "armCasts": [
+      1,
+      9,
+      14,
+      19
+     ],
+     "armDeaths": [
+      9,
+      11,
+      17
+     ],
+     "regrowGaps": [
+      5,
+      3,
+      2
+     ],
+     "bodyWaterLastRound": 22,
+     "bodyWaterHexesEnd": 6,
+     "feedWindows": 3,
+     "feedDmg": 14868.391875599227,
+     "feedPlayerHits": 5,
+     "bite": 10,
+     "undertow": 0,
+     "undertowRounds": [],
+     "bwRounds": [
+      7,
+      11,
+      17
+     ],
+     "phaseRounds": {
+      "25": 17,
+      "50": 10,
+      "75": 6
+     },
+     "bossIdleTurns": 0,
+     "bossTurns": 21,
+     "dodges": 10,
+     "misreads": 0,
+     "petBossDmg": 44.5625,
+     "bossDmgTotal": 36260.747832805864,
+     "minHpPct": 0,
+     "ruleCount": 20,
+     "markLog": [
+      {
+       "r": 1,
+       "sp": "Slam A"
+      },
+      {
+       "r": 3,
+       "sp": "Slam B"
+      },
+      {
+       "r": 5,
+       "sp": "Slam C"
+      },
+      {
+       "r": 7,
+       "sp": "Black Water"
+      },
+      {
+       "r": 9,
+       "sp": "Slam A"
+      },
+      {
+       "r": 11,
+       "sp": "Black Water"
+      },
+      {
+       "r": 13,
+       "sp": "Slam A"
+      },
+      {
+       "r": 14,
+       "sp": "Slam B"
+      },
+      {
+       "r": 15,
+       "sp": "Slam C"
+      },
+      {
+       "r": 17,
+       "sp": "Black Water"
+      },
+      {
+       "r": 19,
+       "sp": "Slam A"
+      },
+      {
+       "r": 20,
+       "sp": "Slam B"
+      },
+      {
+       "r": 21,
+       "sp": "Slam C"
+      }
+     ],
+     "landLog": [
+      {
+       "r": 2,
+       "sp": "Slam A"
+      },
+      {
+       "r": 4,
+       "sp": "Slam B"
+      },
+      {
+       "r": 6,
+       "sp": "Slam C"
+      },
+      {
+       "r": 8,
+       "sp": "Black Water"
+      },
+      {
+       "r": 10,
+       "sp": "Slam A"
+      },
+      {
+       "r": 12,
+       "sp": "Black Water"
+      },
+      {
+       "r": 14,
+       "sp": "Slam A"
+      },
+      {
+       "r": 15,
+       "sp": "Slam B"
+      },
+      {
+       "r": 16,
+       "sp": "Slam C"
+      },
+      {
+       "r": 18,
+       "sp": "Black Water"
+      },
+      {
+       "r": 20,
+       "sp": "Slam A"
+      },
+      {
+       "r": 21,
+       "sp": "Slam B"
+      }
+     ],
+     "lapsed": 0,
+     "overlaps": 0,
+     "bodyWaterEffectsEnd": 126,
+     "bossMoved": false
+    },
+    {
+     "seed": 28,
+     "read": 1,
+     "outcome": "lost",
+     "rounds": 22,
+     "playerHpPct": 0,
+     "bossHpPct": 17.6,
+     "sets": {
+      "Slam": {
+       "mark": 10,
+       "land": 9,
+       "hit": 0,
+       "dmg": 0
+      },
+      "Black Water": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "untelegraphedLands": 0,
+     "dmgBySource": {
+      "Grasping Arm": 1152.5878384615369,
+      "Brine pool": 4243
+     },
+     "poolActions": 16,
+     "poolDmg": 4243,
+     "maxPoolRows": 6,
+     "maxPoolHexes": 72,
+     "armCasts": [
+      1,
+      9,
+      14,
+      19
+     ],
+     "armDeaths": [
+      3,
+      11,
+      17
+     ],
+     "regrowGaps": [
+      6,
+      3,
+      2
+     ],
+     "bodyWaterLastRound": 22,
+     "bodyWaterHexesEnd": 6,
+     "feedWindows": 3,
+     "feedDmg": 14868.391875599225,
+     "feedPlayerHits": 5,
+     "bite": 11,
+     "undertow": 0,
+     "undertowRounds": [],
+     "bwRounds": [
+      7,
+      11,
+      17
+     ],
+     "phaseRounds": {
+      "25": 19,
+      "50": 11,
+      "75": 7
+     },
+     "bossIdleTurns": 0,
+     "bossTurns": 21,
+     "dodges": 9,
+     "misreads": 0,
+     "petBossDmg": 165.2737500000003,
+     "bossDmgTotal": 34953.387428175374,
+     "minHpPct": 0,
+     "ruleCount": 20,
+     "markLog": [
+      {
+       "r": 1,
+       "sp": "Slam A"
+      },
+      {
+       "r": 3,
+       "sp": "Slam B"
+      },
+      {
+       "r": 5,
+       "sp": "Slam C"
+      },
+      {
+       "r": 7,
+       "sp": "Black Water"
+      },
+      {
+       "r": 9,
+       "sp": "Slam A"
+      },
+      {
+       "r": 11,
+       "sp": "Black Water"
+      },
+      {
+       "r": 13,
+       "sp": "Slam A"
+      },
+      {
+       "r": 14,
+       "sp": "Slam B"
+      },
+      {
+       "r": 15,
+       "sp": "Slam C"
+      },
+      {
+       "r": 17,
+       "sp": "Black Water"
+      },
+      {
+       "r": 19,
+       "sp": "Slam A"
+      },
+      {
+       "r": 20,
+       "sp": "Slam B"
+      },
+      {
+       "r": 21,
+       "sp": "Slam C"
+      }
+     ],
+     "landLog": [
+      {
+       "r": 2,
+       "sp": "Slam A"
+      },
+      {
+       "r": 4,
+       "sp": "Slam B"
+      },
+      {
+       "r": 6,
+       "sp": "Slam C"
+      },
+      {
+       "r": 8,
+       "sp": "Black Water"
+      },
+      {
+       "r": 10,
+       "sp": "Slam A"
+      },
+      {
+       "r": 12,
+       "sp": "Black Water"
+      },
+      {
+       "r": 14,
+       "sp": "Slam A"
+      },
+      {
+       "r": 15,
+       "sp": "Slam B"
+      },
+      {
+       "r": 16,
+       "sp": "Slam C"
+      },
+      {
+       "r": 18,
+       "sp": "Black Water"
+      },
+      {
+       "r": 20,
+       "sp": "Slam A"
+      },
+      {
+       "r": 21,
+       "sp": "Slam B"
+      }
+     ],
+     "lapsed": 0,
+     "overlaps": 0,
+     "bodyWaterEffectsEnd": 126,
+     "bossMoved": false
+    },
+    {
+     "seed": 29,
+     "read": 1,
+     "outcome": "won",
+     "rounds": 28,
+     "playerHpPct": 29.7,
+     "bossHpPct": 0,
+     "sets": {
+      "Slam": {
+       "mark": 14,
+       "land": 13,
+       "hit": 0,
+       "dmg": 0
+      },
+      "Black Water": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "untelegraphedLands": 0,
+     "dmgBySource": {
+      "Brine pool": 1212,
+      "Grasping Arm": 1978.705237499998
+     },
+     "poolActions": 2,
+     "poolDmg": 1212,
+     "maxPoolRows": 6,
+     "maxPoolHexes": 72,
+     "armCasts": [
+      1,
+      9,
+      14,
+      19,
+      24
+     ],
+     "armDeaths": [
+      9,
+      11,
+      17,
+      22,
+      27
+     ],
+     "regrowGaps": [
+      5,
+      3,
+      2,
+      2
+     ],
+     "bodyWaterLastRound": 28,
+     "bodyWaterHexesEnd": 6,
+     "feedWindows": 3,
+     "feedDmg": 14868.391875599227,
+     "feedPlayerHits": 5,
+     "bite": 10,
+     "undertow": 0,
+     "undertowRounds": [],
+     "bwRounds": [
+      7,
+      11,
+      17
+     ],
+     "phaseRounds": {
+      "25": 17,
+      "50": 10,
+      "75": 6
+     },
+     "bossIdleTurns": 0,
+     "bossTurns": 27,
+     "dodges": 6,
+     "misreads": 0,
+     "petBossDmg": 44.5625,
+     "bossDmgTotal": 42420.000000000015,
+     "minHpPct": 29.7,
+     "ruleCount": 20,
+     "markLog": [
+      {
+       "r": 1,
+       "sp": "Slam A"
+      },
+      {
+       "r": 3,
+       "sp": "Slam B"
+      },
+      {
+       "r": 5,
+       "sp": "Slam C"
+      },
+      {
+       "r": 7,
+       "sp": "Black Water"
+      },
+      {
+       "r": 9,
+       "sp": "Slam A"
+      },
+      {
+       "r": 11,
+       "sp": "Black Water"
+      },
+      {
+       "r": 13,
+       "sp": "Slam A"
+      },
+      {
+       "r": 14,
+       "sp": "Slam B"
+      },
+      {
+       "r": 15,
+       "sp": "Slam C"
+      },
+      {
+       "r": 17,
+       "sp": "Black Water"
+      },
+      {
+       "r": 19,
+       "sp": "Slam A"
+      },
+      {
+       "r": 20,
+       "sp": "Slam B"
+      },
+      {
+       "r": 21,
+       "sp": "Slam C"
+      },
+      {
+       "r": 23,
+       "sp": "Slam A"
+      },
+      {
+       "r": 24,
+       "sp": "Slam B"
+      },
+      {
+       "r": 25,
+       "sp": "Slam C"
+      },
+      {
+       "r": 27,
+       "sp": "Slam A"
+      }
+     ],
+     "landLog": [
+      {
+       "r": 2,
+       "sp": "Slam A"
+      },
+      {
+       "r": 4,
+       "sp": "Slam B"
+      },
+      {
+       "r": 6,
+       "sp": "Slam C"
+      },
+      {
+       "r": 8,
+       "sp": "Black Water"
+      },
+      {
+       "r": 10,
+       "sp": "Slam A"
+      },
+      {
+       "r": 12,
+       "sp": "Black Water"
+      },
+      {
+       "r": 14,
+       "sp": "Slam A"
+      },
+      {
+       "r": 15,
+       "sp": "Slam B"
+      },
+      {
+       "r": 16,
+       "sp": "Slam C"
+      },
+      {
+       "r": 18,
+       "sp": "Black Water"
+      },
+      {
+       "r": 20,
+       "sp": "Slam A"
+      },
+      {
+       "r": 21,
+       "sp": "Slam B"
+      },
+      {
+       "r": 22,
+       "sp": "Slam C"
+      },
+      {
+       "r": 24,
+       "sp": "Slam A"
+      },
+      {
+       "r": 25,
+       "sp": "Slam B"
+      },
+      {
+       "r": 26,
+       "sp": "Slam C"
+      }
+     ],
+     "lapsed": 0,
+     "overlaps": 0,
+     "bodyWaterEffectsEnd": 162,
+     "bossMoved": false
+    },
+    {
+     "seed": 30,
+     "read": 1,
+     "outcome": "lost",
+     "rounds": 19,
+     "playerHpPct": 0,
+     "bossHpPct": 1.5,
+     "sets": {
+      "Slam": {
+       "mark": 7,
+       "land": 7,
+       "hit": 0,
+       "dmg": 0
+      },
+      "Black Water": {
+       "mark": 3,
+       "land": 3,
+       "hit": 0,
+       "dmg": 0
+      }
+     },
+     "untelegraphedLands": 0,
+     "dmgBySource": {
+      "Grasping Arm": 887.9408788461537,
+      "Brine pool": 5362.059121153847
+     },
+     "poolActions": 9,
+     "poolDmg": 5362.059121153847,
+     "maxPoolRows": 6,
+     "maxPoolHexes": 72,
+     "armCasts": [
+      1,
+      9,
+      14
+     ],
+     "armDeaths": [
+      9,
+      11,
+      17
+     ],
+     "regrowGaps": [
+      5,
+      3
+     ],
+     "bodyWaterLastRound": 19,
+     "bodyWaterHexesEnd": 6,
+     "feedWindows": 3,
+     "feedDmg": 17286.821554636663,
+     "feedPlayerHits": 7,
+     "bite": 10,
+     "undertow": 0,
+     "undertowRounds": [],
+     "bwRounds": [
+      7,
+      11,
+      17
+     ],
+     "phaseRounds": {
+      "25": 15,
+      "50": 10,
+      "75": 7
+     },
+     "bossIdleTurns": 0,
+     "bossTurns": 18,
+     "dodges": 16,
+     "misreads": 0,
+     "petBossDmg": 0,
+     "bossDmgTotal": 41778.75638844304,
+     "minHpPct": 0,
+     "ruleCount": 20,
+     "markLog": [
+      {
+       "r": 1,
+       "sp": "Slam A"
+      },
+      {
+       "r": 3,
+       "sp": "Slam B"
+      },
+      {
+       "r": 5,
+       "sp": "Slam C"
+      },
+      {
+       "r": 7,
+       "sp": "Black Water"
+      },
+      {
+       "r": 9,
+       "sp": "Slam A"
+      },
+      {
+       "r": 11,
+       "sp": "Black Water"
+      },
+      {
+       "r": 13,
+       "sp": "Slam A"
+      },
+      {
+       "r": 14,
+       "sp": "Slam B"
+      },
+      {
+       "r": 15,
+       "sp": "Slam C"
+      },
+      {
+       "r": 17,
+       "sp": "Black Water"
+      }
+     ],
+     "landLog": [
+      {
+       "r": 2,
+       "sp": "Slam A"
+      },
+      {
+       "r": 4,
+       "sp": "Slam B"
+      },
+      {
+       "r": 6,
+       "sp": "Slam C"
+      },
+      {
+       "r": 8,
+       "sp": "Black Water"
+      },
+      {
+       "r": 10,
+       "sp": "Slam A"
+      },
+      {
+       "r": 12,
+       "sp": "Black Water"
+      },
+      {
+       "r": 14,
+       "sp": "Slam A"
+      },
+      {
+       "r": 15,
+       "sp": "Slam B"
+      },
+      {
+       "r": 16,
+       "sp": "Slam C"
+      },
+      {
+       "r": 18,
+       "sp": "Black Water"
+      }
+     ],
+     "lapsed": 0,
+     "overlaps": 0,
+     "bodyWaterEffectsEnd": 108,
+     "bossMoved": false
+    }
+   ]
+  }
+ }
+}
