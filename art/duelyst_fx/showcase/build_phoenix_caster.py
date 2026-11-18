@@ -11,12 +11,12 @@ the target's clip is held back until then and opens with the fireball diving in 
 - CASTER appear (buff effect), 18 frames x 70 ms: fire-tinted swirl (Duelyst fx_f1_inmolation 2-7) round the legs;
   it flares up (inmolation 14-16) while the phoenix fades in out of it (fx_f2_phoenixfire 19); wings fold then open
   (phoenixfire 20-21); a launch flash (phoenixfire 24); the phoenix climbs and leaves the frame (22, 23, 25, 26).
-- CASTER loop (2 rounds): inmolation 3-14, the swirl keeps circling (seamless with the appear's opening).
-- CASTER end: inmolation 15-22, the swirl flares and scatters.
+- No loop or end clip on the buff (director: "There's so many buffs in tnr it would be a mess if they all stayed"):
+  the flames show during the cast only; the buff itself stays invisible like other TNR buffs.
 - TARGET appear (damage effect): phoenixfire 8-37 (dive, egg, burst, phoenix, embers) behind a blank lead as long as
   the caster's launch, 80 ms; replaces the earlier showcase strip (fresh _b name).
 All CC0 (OpenDuelyst). Geometry: clip = SCALE tile heights centred on the hex centre; feet 0.4 tile heights below.
-Outputs: final/anim_phoenix_caster_{appear,loop,end}_<px>.webp, final/anim_phoenix_flame_strike_225_b.webp,
+Outputs: final/anim_phoenix_caster_appear_<px>.webp, final/anim_phoenix_flame_strike_225_b.webp,
 preview/phoenix_full_discord.gif.
 """
 import argparse
@@ -39,7 +39,7 @@ TH = C / SCALE
 CX, CY = C // 2, C // 2
 FEET = CY + FEET_H * TH      # 171
 BODY = CY - 0.4 * TH         # 99
-APPEAR_MS, LOOP_MS, END_MS, TARGET_MS = 70, 80, 80, 80
+APPEAR_MS, TARGET_MS = 70, 80
 
 
 def alpha(im, k):
@@ -76,20 +76,14 @@ def build(app):
         p = phx[i] if k < 4 else ImageEnhance.Brightness(phx[i]).enhance(1.15)
         stamp(f, p, CX, phx_y - rise[k]); appear.append(f)
     launch_ms = len(appear) * APPEAR_MS - 2 * APPEAR_MS             # the phoenix is gone two frames before the end
-    loop = []
-    for i in range(3, 15):
-        f = blank(); stamp(f, inmo[i], CX, swirl_y); loop.append(f)
-    end = []
-    for i in range(15, 23):
-        f = blank(); stamp(f, inmo[i], CX, swirl_y); end.append(f)
     # target: dive onwards, anchored as build_showcase.py (fire egg's base on the feet), behind a blank lead
     tframes, tpx, _ = fit(phx, 146, FEET_H, 1.5)
     lead = round(launch_ms / TARGET_MS)
     target = [Image.new("RGBA", (tpx, tpx), (0, 0, 0, 0))] * lead + tframes[8:]
-    return appear, loop, end, target, tpx, lead
+    return appear, target, tpx, lead
 
 
-def preview(appear, loop, end, target, out):
+def preview(appear, target, out):
     W, H = 720, 380
     w = 150
     h = w / 2
@@ -97,7 +91,7 @@ def preview(appear, loop, end, target, out):
     caster = (W * 0.24, H * 0.68)
     tgt = (caster[0] + 3 * w * 0.75, caster[1] - h / 2)
     rs = lambda frs: [f.resize((e, e), Image.LANCZOS) for f in frs]  # noqa: E731
-    A, L, E, T = rs(appear), rs(loop), rs(end), rs(target)
+    A, T = rs(appear), rs(target)
     base = Image.new("RGBA", (W, H), (30, 20, 20, 255))
     d = ImageDraw.Draw(base)
     for c in range(-2, 7):
@@ -116,18 +110,12 @@ def preview(appear, loop, end, target, out):
     title = ImageFont.truetype(FONT, 26)
     sub = ImageFont.truetype(FONT2, 13)
     small = ImageFont.truetype(FONT2, 12)
-    strike_end = max(len(A) * APPEAR_MS, len(T) * TARGET_MS)
-    loop_until = strike_end + 2200          # the buff's two rounds, shortened for the preview
-    total = loop_until + len(E) * END_MS + 600
+    total = max(len(A) * APPEAR_MS, len(T) * TARGET_MS) + 700
     shots = []
     for t in range(0, total, 35):
         im = base.copy()
         im.alpha_composite(figs)
         put = lambda fr, p: im.alpha_composite(fr, (int(p[0] - e / 2), int(p[1] - e / 2)))  # noqa: E731
-        if t < loop_until:
-            put(L[(t // LOOP_MS) % len(L)], caster)   # the loop runs from the strike, under the appear
-        elif t < loop_until + len(E) * END_MS:
-            put(E[(t - loop_until) // END_MS], caster)
         if t < len(A) * APPEAR_MS:
             put(A[t // APPEAR_MS], caster)
         if t < len(T) * TARGET_MS:
@@ -137,8 +125,6 @@ def preview(appear, loop, end, target, out):
         dd.text((22, 48), "Fire Style · new battle animation", font=sub, fill=(200, 170, 140, 255))
         dd.text((caster[0] - 22, caster[1] + h * 0.78), "caster", font=small, fill=(200, 180, 170, 255))
         dd.text((tgt[0] - 20, tgt[1] + h * 0.78), "target", font=small, fill=(200, 180, 170, 255))
-        if t >= loop_until:
-            dd.text((W - 200, H - 24), "buff ends (2 rounds later)", font=small, fill=(200, 170, 140, 255))
         shots.append(im.convert("RGB").quantize(colors=220, method=Image.Quantize.MEDIANCUT,
                                                 dither=Image.Dither.NONE))
     shots[0].save(out, save_all=True, append_images=shots[1:], duration=35, loop=0, optimize=True)
@@ -148,16 +134,15 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--duelyst", required=True)
     a = ap.parse_args()
-    appear, loop, end, target, tpx, lead = build(a.duelyst)
+    appear, target, tpx, lead = build(a.duelyst)
     fin = os.path.join(HERE, "final")
     for old in ("anim_phoenix_caster_appear_234.webp", "anim_phoenix_caster_loop_315.webp",
-                "anim_phoenix_caster_end_315.webp", "anim_phoenix_flame_strike_225.webp"):
+                "anim_phoenix_caster_end_315.webp", "anim_phoenix_flame_strike_225.webp",
+                "anim_phoenix_caster_loop_270.webp", "anim_phoenix_caster_end_270.webp"):
         p = os.path.join(fin, old)
         if os.path.exists(p):
             os.remove(p)
     for name, frs, px, ms in (("anim_phoenix_caster_appear", appear, C, APPEAR_MS),
-                              ("anim_phoenix_caster_loop", loop, C, LOOP_MS),
-                              ("anim_phoenix_caster_end", end, C, END_MS),
                               ("anim_phoenix_flame_strike", target, tpx, TARGET_MS)):
         suffix = "_b" if name == "anim_phoenix_flame_strike" else ""
         p = os.path.join(fin, f"{name}_{px}{suffix}.webp")
@@ -165,7 +150,7 @@ def main():
         print(f"{os.path.basename(p)}: {len(frs)} frames x {ms} ms, {b} bytes")
     print(f"target lead: {lead} blank frames")
     g = os.path.join(HERE, "preview", "phoenix_full_discord.gif")
-    preview(appear, loop, end, target, g)
+    preview(appear, target, g)
     print(g, os.path.getsize(g))
 
 
