@@ -785,15 +785,15 @@
   },
   {
    "id": "630",
-   "manifest": "push/630_rengoku_recut.json",
-   "what": "Rengoku Ro fix: repoint the two live animation assets at strips re-cut to <= 4096 px tall (phones showed black boxes)",
+   "manifest": "push/630_strip_recut.json",
+   "what": "Repoint 4 live animation assets (Rengoku strike/smoulder, White Tiger gates/tiger) at strips re-cut to <= 4096 px tall (phones drew them as black boxes)",
    "runner": "connector",
    "status": "waiting",
    "waitsFor": [
     "state/recut_upload/uploaded.json"
    ],
-   "build": "python3 push/630_rengoku_recut.gen.py",
-   "note": "Direct asset edits, ids unchanged (suggestion 96rmM8V6Qj2Ksq6s40e31 stays valid). Needs the director's go. Read both back: image = new URL, frames 23/35, speed 70, hidden false."
+   "build": "python3 push/630_strip_recut.gen.py",
+   "note": "Director: 'update your prompt appropriately to fix' (2026-11-17). Direct asset edits, ids unchanged (both suggestions stay valid). Prompt: state/prompt_strip_recut_630.md. Read back: image = new URL, frames/speed unchanged, hidden false."
   }
  ]
 }
