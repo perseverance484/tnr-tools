@@ -1,0 +1,175 @@
+{
+ "builder": "forge-mcp",
+ "at": "2026-11-18T02:18:59.325Z",
+ "cfg": "forge",
+ "checks": null,
+ "state": "DONE",
+ "outcome": "success",
+ "postflight": {
+  "match": 0,
+  "diff": 0,
+  "unverified": 0,
+  "failed": 0,
+  "skipped": 0,
+  "unresolved": 0
+ },
+ "entries": [],
+ "captures": [
+  {
+   "phase": "before",
+   "proc": "jutsu.get",
+   "input": {
+    "id": "fKQxOwBqZs8PXvpdGlbPg"
+   },
+   "ok": true,
+   "rows": 1,
+   "error": null,
+   "persist": "full",
+   "snapshotKey": "626-mwlhst6x::before::0",
+   "persistOk": true,
+   "persistError": null,
+   "bytes": 2743,
+   "at": "2026-11-18T02:18:59.318Z",
+   "data": {
+    "id": "fKQxOwBqZs8PXvpdGlbPg",
+    "name": "Rengoku Rō",
+    "description": "The user locks eyes with the target and drags them into an illusory prison of endless flame. The phantom fire keeps smoldering in their mind, so the blows that follow burn deeper for a short time.",
+    "createdAt": "2024-09-29T19:28:12.812Z",
+    "updatedAt": "2026-11-14T17:49:57.404Z",
+    "extraBaseCost": 1500,
+    "effects": [
+     {
+      "type": "damage",
+      "power": 30,
+      "rounds": 0,
+      "target": "INHERIT",
+      "elements": [
+       "Fire"
+      ],
+      "appearSfx": "9-b8hbTXA019dgn8yyr3j",
+      "direction": "offence",
+      "statTypes": [
+       "Genjutsu"
+      ],
+      "calculation": "formula",
+      "description": "placeholder",
+      "dmgModifier": 0,
+      "disappearSfx": "",
+      "friendlyFire": "ENEMIES",
+      "generalTypes": [
+       "Intelligence",
+       "Willpower"
+      ],
+      "powerPerLevel": 0.4,
+      "animationScale": 1,
+      "appearAnimation": "o7OZjzCesfwdgw6PsE1eg",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "residualModifier": 0,
+      "disappearAnimation": "o7OZjzCesfwdgw6PsE1eg",
+      "allowBloodlineDamageDecrease": true,
+      "allowBloodlineDamageIncrease": true
+     },
+     {
+      "type": "afterburn",
+      "power": 20,
+      "rounds": 2,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "generalTypes": [
+       "Highest"
+      ],
+      "powerPerLevel": 0.4,
+      "animationScale": 1,
+      "appearAnimation": "",
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "disappearAnimation": ""
+     }
+    ],
+    "target": "OPPONENT",
+    "range": 4,
+    "cooldown": 7,
+    "bloodlineId": "",
+    "requiredLevel": 1,
+    "requiredRank": "CHUNIN",
+    "jutsuType": "NORMAL",
+    "image": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJlMjIp5rWYxAsuC7ofQn9pM45OD0ERqkdBXJU",
+    "jutsuWeapon": "NONE",
+    "statClassification": "Genjutsu",
+    "elementClassification": "Fire",
+    "battleDescription": "%user locks eyes with %target and channels overwhelming genjutsu energy, summoning a fiery illusion that consumes reality around the victim. Walls of flame twist into phantasmal figures, dragging %target into an endless mental prison of agony and despair. Every sensory input is distorted, disorienting the enemy and leaving their will fractured under the crushing weight of illusionary suffering.",
+    "jutsuRank": "C",
+    "actionCostPerc": 60,
+    "staminaCost": 350,
+    "chakraCost": 350,
+    "staminaCostReducePerLvl": 10,
+    "chakraCostReducePerLvl": 10,
+    "healthCostReducePerLvl": 0,
+    "healthCost": 0,
+    "villageId": "",
+    "requiredPetSpeciesId": null,
+    "method": "SINGLE",
+    "coordinateTargeting": null,
+    "methodSize": null,
+    "hidden": false,
+    "injectableInBattle": false,
+    "battleUsageType": "BOTH",
+    "reskinParentJutsuId": null,
+    "bloodlineReskinId": null,
+    "parentJutsuId": null,
+    "requiredNinjutsuMastery": null,
+    "requiredGenjutsuMastery": null,
+    "requiredTaijutsuMastery": null,
+    "requiredBukijutsuMastery": null,
+    "requiredBloodlineMastery": null,
+    "requiredSageMastery": null,
+    "requiredStrength": null,
+    "requiredSpeed": null,
+    "requiredIntelligence": null,
+    "requiredWillpower": null,
+    "requiredSkillId": null,
+    "requiredBloodlineItemId": null
+   }
+  }
+ ],
+ "idmap": {
+  "rengoku_anim_strike": "nAUh6EdgIUrPwLeyaeTPB",
+  "rengoku_anim_smoulder": "cMax_mQ9G8TGmWBB-DcVR"
+ },
+ "journal": {
+  "v": 1,
+  "jobId": "626-mwlhst6x",
+  "manifestPath": "push/626_rengoku_live_capture.json",
+  "manifestNumber": 626,
+  "manifestHash": "bc676533",
+  "startedAt": "2026-11-18T02:18:52.239Z",
+  "updatedAt": "2026-11-18T02:18:59.324Z",
+  "state": "DONE",
+  "pause": null,
+  "items": [],
+  "capturesBeforePartial": null,
+  "capturesBefore": [
+   {
+    "phase": "before",
+    "proc": "jutsu.get",
+    "input": {
+     "id": "fKQxOwBqZs8PXvpdGlbPg"
+    },
+    "ok": true,
+    "rows": 1,
+    "error": null,
+    "persist": "full",
+    "snapshotKey": "626-mwlhst6x::before::0",
+    "persistOk": true,
+    "persistError": null,
+    "bytes": 2743,
+    "at": "2026-11-18T02:18:59.318Z"
+   }
+  ]
+ }
+}

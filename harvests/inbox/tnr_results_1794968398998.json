@@ -1,0 +1,76 @@
+{
+ "builder": "forge-mcp",
+ "at": "2026-11-18T02:19:58.998Z",
+ "cfg": "forge",
+ "checks": null,
+ "state": "DONE",
+ "outcome": "success",
+ "postflight": {
+  "match": 0,
+  "diff": 0,
+  "unverified": 0,
+  "failed": 0,
+  "skipped": 0,
+  "unresolved": 0
+ },
+ "entries": [
+  {
+   "name": "Rengoku Rō",
+   "srcId": null,
+   "entity": "jutsu",
+   "slot": "edit",
+   "op": "update",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "suggest-find",
+   "detail": "",
+   "verdict": "suggested",
+   "asserted": null,
+   "diffs": [],
+   "id": "fKQxOwBqZs8PXvpdGlbPg"
+  }
+ ],
+ "captures": [],
+ "idmap": {
+  "rengoku_anim_strike": "nAUh6EdgIUrPwLeyaeTPB",
+  "rengoku_anim_smoulder": "cMax_mQ9G8TGmWBB-DcVR"
+ },
+ "journal": {
+  "v": 1,
+  "jobId": "626-mwlhthbd",
+  "manifestPath": "push/626_rengoku_suggestion.json",
+  "manifestNumber": 626,
+  "manifestHash": "58ed92db",
+  "startedAt": "2026-11-18T02:19:23.506Z",
+  "updatedAt": "2026-11-18T02:19:58.994Z",
+  "state": "DONE",
+  "pause": null,
+  "items": [
+   {
+    "idx": 0,
+    "entity": "jutsu",
+    "op": "update",
+    "name": "Rengoku Rō",
+    "srcId": null,
+    "targetId": "fKQxOwBqZs8PXvpdGlbPg",
+    "payloadHash": "9be9dcd5",
+    "state": "VERIFIED",
+    "phase": "suggest-find",
+    "entityId": "fKQxOwBqZs8PXvpdGlbPg",
+    "snapshotKey": null,
+    "sentAt": "2026-11-18T02:19:31.560Z",
+    "createSentAt": null,
+    "confirmedAt": "2026-11-18T02:19:49.446Z",
+    "verifiedAt": "2026-11-18T02:19:58.992Z",
+    "error": null,
+    "suggestTitle": "New strike and smoulder animations · Rengoku Rō [lhthbd-1]",
+    "attempt": 1,
+    "verify": "suggested",
+    "suggestion": {
+     "id": "96rmM8V6Qj2Ksq6s40e31",
+     "status": "PENDING"
+    }
+   }
+  ]
+ }
+}

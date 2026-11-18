@@ -1,0 +1,134 @@
+{
+ "builder": "forge-mcp",
+ "at": "2026-11-18T02:18:28.797Z",
+ "cfg": "forge",
+ "checks": null,
+ "state": "DONE",
+ "outcome": "success",
+ "postflight": {
+  "match": 2,
+  "diff": 0,
+  "unverified": 0,
+  "failed": 0,
+  "skipped": 0,
+  "unresolved": 0
+ },
+ "entries": [
+  {
+   "name": "Rengoku Ro - Purgatory Prison",
+   "srcId": null,
+   "entity": "asset",
+   "slot": "edit",
+   "op": "update",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 8,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "nAUh6EdgIUrPwLeyaeTPB"
+  },
+  {
+   "name": "Rengoku Ro - Smoulder",
+   "srcId": null,
+   "entity": "asset",
+   "slot": "edit",
+   "op": "update",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 8,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "cMax_mQ9G8TGmWBB-DcVR"
+  }
+ ],
+ "captures": [],
+ "idmap": {
+  "rengoku_anim_strike": "nAUh6EdgIUrPwLeyaeTPB",
+  "rengoku_anim_smoulder": "cMax_mQ9G8TGmWBB-DcVR"
+ },
+ "journal": {
+  "v": 1,
+  "jobId": "625-mwlhr7dm",
+  "manifestPath": "push/625_rengoku_animations_unhide.json",
+  "manifestNumber": 625,
+  "manifestHash": "69cb4a21",
+  "startedAt": "2026-11-18T02:17:37.307Z",
+  "updatedAt": "2026-11-18T02:18:28.794Z",
+  "state": "DONE",
+  "pause": null,
+  "items": [
+   {
+    "idx": 0,
+    "entity": "asset",
+    "op": "update",
+    "name": "Rengoku Ro - Purgatory Prison",
+    "srcId": null,
+    "targetId": "nAUh6EdgIUrPwLeyaeTPB",
+    "payloadHash": "779f215c",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "nAUh6EdgIUrPwLeyaeTPB",
+    "snapshotKey": null,
+    "sentAt": "2026-11-18T02:17:45.136Z",
+    "createSentAt": null,
+    "confirmedAt": "2026-11-18T02:17:54.641Z",
+    "verifiedAt": "2026-11-18T02:18:01.885Z",
+    "error": null,
+    "attempt": 1,
+    "asserted": [
+     "name",
+     "type",
+     "folder",
+     "frames",
+     "speed",
+     "hidden",
+     "onInitialBattleField",
+     "licenseDetails"
+    ],
+    "diffs": [],
+    "verify": "match"
+   },
+   {
+    "idx": 1,
+    "entity": "asset",
+    "op": "update",
+    "name": "Rengoku Ro - Smoulder",
+    "srcId": null,
+    "targetId": "cMax_mQ9G8TGmWBB-DcVR",
+    "payloadHash": "f4127464",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "cMax_mQ9G8TGmWBB-DcVR",
+    "snapshotKey": null,
+    "sentAt": "2026-11-18T02:18:09.386Z",
+    "createSentAt": null,
+    "confirmedAt": "2026-11-18T02:18:20.924Z",
+    "verifiedAt": "2026-11-18T02:18:28.793Z",
+    "error": null,
+    "attempt": 1,
+    "asserted": [
+     "name",
+     "type",
+     "folder",
+     "frames",
+     "speed",
+     "hidden",
+     "onInitialBattleField",
+     "licenseDetails"
+    ],
+    "diffs": [],
+    "verify": "match"
+   }
+  ]
+ }
+}

@@ -719,37 +719,36 @@
   },
   {
    "id": "624",
-   "manifest": "push/624_rengoku_animations.json",
+   "manifest": "push/624_rengoku_animations_ut.json",
    "what": "Rengoku Ro step 1: create the strike and smoulder animation assets, hidden (art from Duelyst fx_f4_obliterate, CC0)",
-   "runner": "browser",
-   "status": "ready",
+   "runner": "connector",
+   "status": "done",
    "waitsFor": [],
    "build": "python3 push/624_rengoku_animations.gen.py",
-   "note": "Director: tight variant, 'submit it for review' (2026-11-16). validate.py 0/0, check_manifest 0. Image uploads: Forge only. Keep the results bundle: 625 and 626 are built from its idmap. Prompt: state/prompt_rengoku_624_626.md."
+   "note": "Director 2026-11-18 'Use UploadThing': strips on the director's UploadThing (state/rengoku_upload/uploaded.json, uploaded by a one-off workflow on claude/project-thread-kbi6r8), run over the connector as push/624_rengoku_animations_ut.json (same srcIds; push/624 with its imagePack left unrun). Job 624-mwlhoril 2/2 verified 2026-11-18 02:17 UTC: strike nAUh6EdgIUrPwLeyaeTPB, smoulder cMax_mQ9G8TGmWBB-DcVR, hidden.",
+   "result": "harvests/inbox/tnr_results_1794968230881.json"
   },
   {
    "id": "625",
    "manifest": "push/625_rengoku_animations_unhide.json",
    "what": "Rengoku Ro step 2: unhide the two animation assets (law 16c)",
-   "runner": "browser",
-   "status": "waiting",
-   "waitsFor": [
-    "624 results bundle"
-   ],
+   "runner": "connector",
+   "status": "done",
+   "waitsFor": [],
    "build": "python3 push/625_rengoku_animations_unhide.gen.py <624 bundle>",
-   "note": "Direct edits by literal id."
+   "note": "Built from the 624 UT bundle. Job 625-mwlhr7dm 2/2 verified 02:18 UTC; read back: hidden false, frames 23/35, speed 70.",
+   "result": "harvests/inbox/tnr_results_1794968308797.json"
   },
   {
    "id": "626",
    "manifest": "push/626_rengoku_suggestion.json",
    "what": "Rengoku Ro step 3: suggestion ticket to the content review desk (ANIMATION): new strike + smoulder, scale 3, stock end clip cleared",
-   "runner": "browser",
-   "status": "waiting",
-   "waitsFor": [
-    "625 done"
-   ],
+   "runner": "connector",
+   "status": "done",
+   "waitsFor": [],
    "build": "python3 push/626_rengoku_suggestion.gen.py <624 bundle> [fresh capture bundle]",
-   "note": "Suggest mode from Forge; never skipPreflight. Mechanics/text unchanged."
+   "note": "Fresh jutsu.get capture harvests/inbox/tnr_results_1794968339326.json (push/626_rengoku_live_capture.json); generator live check passed. Suggest mode over the connector, no skipPreflight. Job 626-mwlhthbd verified 02:19 UTC: proposal 96rmM8V6Qj2Ksq6s40e31 (ANIMATION, PENDING, fields: effects). The review desk applies it.",
+   "result": "harvests/inbox/tnr_results_1794968398998.json"
   },
   {
    "id": "627",
