@@ -16,8 +16,8 @@ sys.path.insert(0, os.path.join(HERE, "..", "..", "jutsu_icons", "forbidden_chak
 import build_v5 as V  # noqa: E402
 
 FINAL = os.path.join(HERE, "final")
-STRIKE, STRIKE_MS = "anim_rengoku_strike_tight_300.webp", 70
-SMOULDER, SMOULDER_MS = "anim_rengoku_smoulder_tight_300.webp", 70
+STRIKE, STRIKE_MS = "anim_rengoku_strike_tight_300_b.webp", 70
+SMOULDER, SMOULDER_MS = "anim_rengoku_smoulder_tight_300_b.webp", 70
 FONT = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
 FONT2 = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
 
@@ -33,7 +33,7 @@ def main():
     w = 190                     # hex width on this canvas (zoomed board)
     h = w / 2
     e = int(h * 3)              # clip side at animationScale 3
-    cx, cy = W * 0.6, H * 0.7   # the target's tile centre
+    cx, cy = W * 0.6, H * 0.6   # the target's tile centre (the clip centre)
     strike = [f.resize((e, e), Image.LANCZOS) for f in strip_frames(os.path.join(FINAL, STRIKE))]
     smoulder = [f.resize((e, e), Image.LANCZOS) for f in strip_frames(os.path.join(FINAL, SMOULDER))]
 
@@ -49,10 +49,11 @@ def main():
     # stand-in target figure (a silhouette, so the dome's height reads against a body)
     fig = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     fd = ImageDraw.Draw(fig)
-    bw, bh = w * 0.17, h * 1.55
-    fd.ellipse((cx - bw * 0.55, cy - bh - bw * 0.9, cx + bw * 0.55, cy - bh + bw * 0.15), fill=(58, 54, 70, 255))
-    fd.rounded_rectangle((cx - bw / 2, cy - bh, cx + bw / 2, cy - 4), radius=10, fill=(58, 54, 70, 255))
-    fd.ellipse((cx - w * 0.16, cy - h * 0.09, cx + w * 0.16, cy + h * 0.09), fill=(0, 0, 0, 70))
+    feet, top = cy + 0.4 * h, cy - 1.2 * h   # real placement: feet 0.4h below the clip centre, 1.6h tall
+    bw, head = w * 0.17, w * 0.1
+    fd.ellipse((cx - w * 0.16, feet - h * 0.09, cx + w * 0.16, feet + h * 0.09), fill=(0, 0, 0, 70))
+    fd.rounded_rectangle((cx - bw / 2, top + head * 1.6, cx + bw / 2, feet - 4), radius=10, fill=(58, 54, 70, 255))
+    fd.ellipse((cx - head, top, cx + head, top + head * 2), fill=(58, 54, 70, 255))
     title = ImageFont.truetype(FONT, 30)
     sub = ImageFont.truetype(FONT2, 15)
 

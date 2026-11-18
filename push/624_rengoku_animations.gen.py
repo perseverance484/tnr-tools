@@ -3,7 +3,7 @@
 
     python3 push/624_rengoku_animations.gen.py
 
-Strips: art/duelyst_fx/rengoku/final/anim_rengoku_{strike,smoulder}_tight_300.webp (build_rengoku.py, the "tight"
+Strips: art/duelyst_fx/rengoku/final/anim_rengoku_{strike,smoulder}_tight_300_b.webp (build_rengoku.py, the "tight"
 variant the director chose 2026-11-16), 300 px frames, 70 ms. Source art: OpenDuelyst fx_f4_obliterate, CC0 1.0.
 Strike -> the damage effect's appear; smoulder -> the afterburn's static loop (push/626, the suggestion). Created
 hidden (law 16b gate); push/625, built from this run's results bundle, unhides them (law 16c). The image pack is
@@ -18,8 +18,8 @@ OUT = 'push/624_rengoku_animations.json'
 PX = 300
 LICENSE = 'CC0 1.0 - OpenDuelyst (open-duelyst/duelyst), fx_f4_obliterate, adapted for TNR'
 ASSETS = [  # srcId, name, file, frames, speed (ms per frame)
-    ('rengoku_anim_strike', 'Rengoku Ro - Purgatory Prison', 'anim_rengoku_strike_tight_300.webp', 23, 70),
-    ('rengoku_anim_smoulder', 'Rengoku Ro - Smoulder', 'anim_rengoku_smoulder_tight_300.webp', 35, 70),
+    ('rengoku_anim_strike', 'Rengoku Ro - Purgatory Prison', 'anim_rengoku_strike_tight_300_b.webp', 23, 70),
+    ('rengoku_anim_smoulder', 'Rengoku Ro - Smoulder', 'anim_rengoku_smoulder_tight_300_b.webp', 35, 70),
 ]
 from PIL import Image
 ref = subprocess.check_output(['git', 'rev-parse', 'HEAD']).decode().strip()

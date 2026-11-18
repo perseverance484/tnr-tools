@@ -9,8 +9,9 @@ Jutsu: SINGLE / OPPONENT, range 4. Effects: damage (rounds 0) + afterburn (round
   ring (frames 5-11, ping-pong): "the phantom fire keeps smouldering" for its 2 rounds.
 - damage disappear: cleared (the stock wind clip would replay on top).
 Variants for the director: native 80 ms; tight (ring hold trimmed, 70 ms); hellfire tint.
-Source frames are 300 px pixel art; the ring is centred about 7% below the frame centre, so frames shift up to put
-the ring on the target's tile centre (feet).
+Source frames are 300 px pixel art. The engine centres a clip on the hex centre while fighters stand 0.4 tile heights
+lower (their feet near the front of the hex), so frames shift down slightly to put the ring on the feet. Files carry
+a _b suffix: the first build (2026-11-16) anchored the ring on the hex centre, which floats it at shin height.
 """
 import argparse
 import os
@@ -25,7 +26,9 @@ import duelyst_fx as D  # noqa: E402
 import build_v5 as V  # noqa: E402
 
 NAME = "fx_f4_obliterate"
-SHIFT = -0.07          # ring centre onto the frame centre
+SHIFT = 0.035          # ring onto the target's feet: fighters stand 0.4 tile heights below the clip centre
+                       # (combatActors.ts feet y=0.1-0.15h vs combatEffects.ts clip centre y=h/2); at scale 3
+                       # that is +0.133 of the frame, and the source ring already sits ~0.1 low
 SCALE = 3.0            # 1.5 hexes: the ring encircles the target's tile
 TIGHT_DROP = {8, 10, 12, 24, 26}   # ring hold and tail frames removed in the tight cut
 
@@ -91,8 +94,9 @@ def preview(variants, out, px=2, shrink=0.8):
         im = base.copy()
         dd = ImageDraw.Draw(im)
         for (x, y), label, a, ams, lp, lms in vs:
-            dd.rounded_rectangle((x - w * 0.13, y - h * 1.7, x + w * 0.13, y), radius=6, fill=(70, 66, 84, 255),
-                                 outline=(150, 140, 170, 255))
+            feet = y + 0.4 * h  # real placement: feet 0.4 tile heights below the clip centre
+            dd.rounded_rectangle((x - w * 0.13, feet - h * 1.6, x + w * 0.13, feet), radius=6,
+                                 fill=(70, 66, 84, 255), outline=(150, 140, 170, 255))
             dd.text((x - w * 0.55, y + h * 1.2), label, fill=(235, 235, 235, 255))
             end = len(a) * ams
             if t < end:
@@ -126,7 +130,7 @@ def main():
     os.makedirs(outdir, exist_ok=True)
     for tag, app_frs, loop_frs in (("native", frs, sm_native), ("tight", tight, sm_tight), ("hellfire", hf, sm_hell)):
         for kind, seq in (("strike", app_frs), ("smoulder", loop_frs)):
-            p = os.path.join(outdir, f"anim_rengoku_{kind}_{tag}_{a.size}.webp")
+            p = os.path.join(outdir, f"anim_rengoku_{kind}_{tag}_{a.size}_b.webp")
             b = D.write_strip(fit(seq, a.size), p, a.size)
             print(f"{os.path.basename(p)}: {len(seq)} frames, {b} bytes")
 
