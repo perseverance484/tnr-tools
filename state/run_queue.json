@@ -758,7 +758,7 @@
    "status": "ready",
    "waitsFor": [],
    "build": "python3 push/627_white_tiger_animations.gen.py",
-   "note": "Director: 'Prep the white tiger one for a ticket' (2026-11-17). validate.py 0/0. Image uploads: Forge only. Keep the results bundle: 628 and 629 are built from its idmap. Prompt: state/prompt_white_tiger_627_629.md."
+   "note": "Director: 'Prep the white tiger one for a ticket' (2026-11-17). Strips re-cut to <= 4096 px tall (140 / 102 px): phones draw taller native strips as black boxes. Forge route: this manifest. UploadThing route: upload state/recut_upload/upload_list.json, then run push/627_white_tiger_animations_ut.json (python3 push/627_white_tiger_animations_ut.gen.py). Keep the results bundle: 628 and 629 are built from its idmap. Prompt: state/prompt_white_tiger_627_629.md."
   },
   {
    "id": "628",
@@ -783,6 +783,18 @@
    ],
    "build": "python3 push/629_white_tiger_suggestion.gen.py <627 bundle> [fresh capture bundle]",
    "note": "Suggest mode from Forge; never skipPreflight. Mechanics/text unchanged. RUL-2026-11-17-166."
+  },
+  {
+   "id": "630",
+   "manifest": "push/630_rengoku_recut.json",
+   "what": "Rengoku Ro fix: repoint the two live animation assets at strips re-cut to <= 4096 px tall (phones showed black boxes)",
+   "runner": "connector",
+   "status": "waiting",
+   "waitsFor": [
+    "state/recut_upload/uploaded.json"
+   ],
+   "build": "python3 push/630_rengoku_recut.gen.py",
+   "note": "Direct asset edits, ids unchanged (suggestion 96rmM8V6Qj2Ksq6s40e31 stays valid). Needs the director's go. Read both back: image = new URL, frames 23/35, speed 70, hidden false."
   }
  ]
 }
