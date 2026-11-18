@@ -17,7 +17,8 @@ the asset's licenseDetails. The assets (~70 MB) live in a cache OUTSIDE the repo
 Sheets are cocos2d plists (format 2): each frame has a `frame` rect in the atlas (`rotated` = stored 90 degrees
 clockwise) and a `sourceColorRect` placing the trimmed pixels in `sourceSize`. One sheet can hold several
 animations (units: idle, run, attack, hit, death, breathing, caststart, cast, castend...), named by frame prefix;
-`frameDelay` per animation comes from app/data/resources.js. Pixel art: scale by whole steps with NEAREST
+`frameDelay` per animation comes from app/data/resources.js (a sequence with no entry there falls back to 80 ms,
+marked `"msFrom": "default"` in the catalogue). Pixel art: scale by whole steps with NEAREST
 (--nearest, or --size a multiple of the source) to keep it crisp. How to use it: references/combat_fx.md, section
 "Duelyst library (CC0)".
 """
@@ -97,12 +98,30 @@ def read_plist(path):
     return plistlib.load(open(path, "rb"))
 
 
+def prefix_of(key):
+    """Animation prefix of a frame key: `neutral_ion_attack_projectile_003.png` -> `neutral_ion_attack_projectile_`."""
+    return re.sub(r"\d+\.png$", "", key)
+
+
 def sequences_of(plist):
     out = {}
     for k in plist.get("frames", {}):
-        pre = re.sub(r"\d+\.png$", "", k)
+        pre = prefix_of(k)
         out[pre] = out.get(pre, 0) + 1
     return out
+
+
+def actions_of(stem, seqs):
+    """{prefix: action}. Several animations: the action is what follows their shared prefix (cut at an underscore),
+    because upstream stems and frame prefixes differ (f2_hammonnladeseeker holds f2_hammonbladeseeker_attack_,
+    neutral_dilotas_attack holds neutral_dilotas_idle_). One animation: what follows the stem, else `main`."""
+    pres = sorted(seqs)
+    if len(pres) == 1:
+        pre = pres[0]
+        return {pre: (pre[len(stem):].strip("_") if pre.startswith(stem) else "") or "main"}
+    common = os.path.commonprefix(pres)
+    common = common[:common.rfind("_") + 1]
+    return {pre: pre[len(common):].strip("_") or "main" for pre in pres}
 
 
 def frames(name, app=None):
@@ -114,10 +133,12 @@ def frames(name, app=None):
     seqs = sequences_of(d)
     if not prefix and len(seqs) > 1:
         raise SystemExit(f"{sheet} holds several animations, pick one as {sheet}:<prefix>: {sorted(seqs)}")
+    if prefix and prefix not in seqs:
+        raise SystemExit(f"{sheet} has no animation {prefix!r} (prefixes are exact): {sorted(seqs)}")
     atlas = Image.open(path[:-6] + ".png").convert("RGBA")
     out = []
     for k in sorted(d["frames"], key=natural):
-        if prefix and not k.startswith(prefix):
+        if prefix and prefix_of(k) != prefix:
             continue
         v = d["frames"][k]
         x, y, w, h = _nums(v["frame"])[:4]
@@ -133,17 +154,29 @@ def frames(name, app=None):
     return out
 
 
-def delays(app=None):
-    """{(plist stem, framePrefix): ms} from resources.js."""
-    path = os.path.join(app or app_dir(), "data", "resources.js")
+ENTRY = re.compile(r"\{([^{}]*)\}", re.S)
+PROP = re.compile(r"""\b(framePrefix|plist)\s*:\s*(['"])(.*?)\2""", re.S)
+DELAY = re.compile(r"\bframeDelay\s*:\s*([0-9]*\.?[0-9]+)")
+
+
+def parse_delays(text):
+    """{(plist stem, framePrefix): ms} from resources.js text: each `{...}` entry is read whole, so property order,
+    line breaks and quote style do not matter. Entries missing any of the three properties are ignored."""
     out = {}
-    if not os.path.exists(path):
-        return out
-    for line in open(path, encoding="utf-8", errors="replace"):
-        m = re.search(r"framePrefix:\s*'([^']+)'.*?frameDelay:\s*([0-9.]+).*?plist:\s*'[^']*/([^/']+)\.plist'", line)
-        if m:
-            out[(m.group(3), m.group(1))] = int(round(float(m.group(2)) * 1000))
+    for body in ENTRY.findall(text):
+        props = {k: v for k, _, v in PROP.findall(body)}
+        m = DELAY.search(body)
+        if m and "framePrefix" in props and props.get("plist", "").endswith(".plist"):
+            stem = os.path.basename(props["plist"])[:-6]
+            out[(stem, props["framePrefix"])] = int(round(float(m.group(1)) * 1000))
     return out
+
+
+def delays(app=None):
+    path = os.path.join(app or app_dir(), "data", "resources.js")
+    if not os.path.exists(path):
+        return {}
+    return parse_delays(open(path, encoding="utf-8", errors="replace").read())
 
 
 def delay_ms(name, table=None, default=80):
@@ -219,9 +252,31 @@ def place(frs, size_px, fit=1.0, dy=0.0, tint_rgb=None, swap=None, nearest=False
     return out
 
 
-def write_strip(frs, path, size_px):
-    """One-column vertical strip, lossless WebP (the TNR ANIMATION format)."""
+WEBP_MAX = 16383   # WebP's dimension limit
+TEXTURE_MAX = 4096  # phones: a taller battle strip on a native host draws as a black box (combat_fx.md section 3)
+
+
+def strip_height_problem(size_px, n, allow_tall=False):
+    """None, or why a size_px x n-frame strip cannot ship, with the largest frame size that fits."""
+    h = size_px * n
+    limit = WEBP_MAX if allow_tall else TEXTURE_MAX
+    if h <= limit:
+        return None
+    if allow_tall:
+        why = "WebP cannot encode it"
+    else:
+        why = "phones cannot load a battle texture that tall" + (" and WebP cannot encode it" if h > WEBP_MAX else "")
+    return (f"{n} frames x {size_px} px = {h} px tall: {why} (limit {limit}). Use --size {limit // n} or fewer "
+            f"frames (keep {limit // size_px} at this size).")
+
+
+def write_strip(frs, path, size_px, allow_tall=False):
+    """One-column vertical strip, lossless WebP (the TNR ANIMATION format). Refuses a strip over 4096 px tall
+    (allow_tall: only for Bunny-hosted art, which the game shrinks to 50 px wide) or over WebP's 16383."""
     from PIL import Image
+    problem = strip_height_problem(size_px, len(frs), allow_tall)
+    if problem:
+        raise SystemExit(problem)
     sheet = Image.new("RGBA", (size_px, size_px * len(frs)), (0, 0, 0, 0))
     for i, f in enumerate(frs):
         sheet.paste(f, (0, i * size_px))
@@ -267,26 +322,36 @@ def stats(frs):
 def catalog(out=None, app=None):
     app = app or app_dir()
     table = delays(app)
-    entries = []
+    entries, skipped = [], []
+
+    def skip(stem, kind, why):
+        skipped.append({"name": stem, "kind": kind, "why": why})
+        print(f"skip {kind}/{stem}: {why}", file=sys.stderr)
+
     for kind, sub in KINDS.items():
         folder = os.path.join(app, sub.replace("app/", "", 1))
         for fn in sorted(os.listdir(folder)):
-            if not fn.endswith(".plist") or not os.path.exists(os.path.join(folder, fn[:-6] + ".png")):
+            if not fn.endswith(".plist"):
                 continue
             stem = fn[:-6]
+            if not os.path.exists(os.path.join(folder, stem + ".png")):
+                skip(stem, kind, "no matching .png in the cache")
+                continue
             try:
                 d = read_plist(os.path.join(folder, fn))
-            except Exception:  # noqa: BLE001 - a malformed sheet is skipped and reported below
-                print(f"skip {stem}: unreadable plist", file=sys.stderr)
+            except Exception:  # noqa: BLE001 - a malformed sheet is skipped and reported
+                skip(stem, kind, "unreadable plist")
                 continue
             seqs = sequences_of(d)
             if not seqs:
+                skip(stem, kind, "no frames")
                 continue
             row = {"name": stem, "kind": kind, "seq": {}}
+            acts = actions_of(stem, seqs)
             for pre, n in sorted(seqs.items()):
-                action = pre[len(stem):].strip("_") if pre.startswith(stem) else pre.strip("_")
-                row["seq"][pre] = {"action": action or "main", "frames": n,
-                                   "ms": table.get((stem, pre), 80)}
+                ms = table.get((stem, pre))
+                row["seq"][pre] = {"action": acts[pre], "frames": n, "ms": ms or 80,
+                                   "msFrom": "resources.js" if ms else "default"}
             first = sorted(seqs)[0] if len(seqs) > 1 else ""
             pick = next((p for p in seqs if p.endswith("idle_")), first)
             try:
@@ -296,14 +361,14 @@ def catalog(out=None, app=None):
             entries.append(row)
     data = {"source": REPO, "pin": PIN, "license": "CC0 1.0 (OpenDuelyst)",
             "note": "Built by duelyst_kit.py catalog; do not hand-edit. Assets live in the cache, not the repo.",
-            "entries": entries}
+            "entries": entries, "skipped": skipped}
     out = out or CATALOG
-    os.makedirs(os.path.dirname(out), exist_ok=True)
+    os.makedirs(os.path.dirname(out) or ".", exist_ok=True)
     with open(out, "w") as fh:
         json.dump(data, fh, separators=(",", ":"))
         fh.write("\n")
     by = {k: sum(1 for e in entries if e["kind"] == k) for k in KINDS}
-    print(f"catalogue: {len(entries)} sheets {by} -> {out} ({os.path.getsize(out)} bytes)")
+    print(f"catalogue: {len(entries)} sheets {by}, {len(skipped)} skipped -> {out} ({os.path.getsize(out)} bytes)")
     return data
 
 
@@ -335,8 +400,23 @@ def find(cat, kind=None, hue=None, shape=None, terms=(), min_frames=None, max_fr
     return out
 
 
+GAP = 6           # blank frames after each play in a contact sheet
+PREVIEW_MAX_MS = 20000
+PREVIEW_MAX_SHOTS = 400
+
+
+def preview_schedule(clips_ms_frames):
+    """(duration ms, step ms) for a contact sheet: long enough for the longest clip to play once with its gap
+    (capped at PREVIEW_MAX_MS), sampled at 40 ms or coarser to stay under PREVIEW_MAX_SHOTS frames."""
+    total = max((n + GAP) * ms for ms, n in clips_ms_frames)
+    total = min(total, PREVIEW_MAX_MS)
+    step = max(40, -(-total // PREVIEW_MAX_SHOTS // 10) * 10)
+    return total, step
+
+
 def contact(refs, out, app=None, cell=150, cols=5):
-    """Animated contact sheet: every match plays on its own clock, with a short gap between plays."""
+    """Animated contact sheet: every match plays on its own clock, with a short gap between plays; the sheet runs
+    as long as the longest match needs to play once."""
     from PIL import Image, ImageDraw
     table = delays(app)
     clips = []
@@ -348,25 +428,26 @@ def contact(refs, out, app=None, cell=150, cols=5):
                       delay_ms(ref, table)))
     rows = (len(clips) + cols - 1) // cols
     W, H = cols * cell, rows * (cell + 14)
+    total, step = preview_schedule([(ms, len(frs)) for _, frs, ms in clips])
     shots = []
-    for t in range(0, 2400, 40):
+    for t in range(0, total, step):
         im = Image.new("RGB", (W, H), (34, 36, 32))
         d = ImageDraw.Draw(im)
         for i, (label, frs, ms) in enumerate(clips):
             x, y = (i % cols) * cell, (i // cols) * (cell + 14)
-            k = (t // ms) % (len(frs) + 6)
+            k = (t // ms) % (len(frs) + GAP)
             if k < len(frs):
                 im.paste(frs[k], (x, y + 14), frs[k])
             d.text((x + 3, y + 1), label, fill=(220, 220, 220))
         shots.append(im)
-    shots[0].save(out, save_all=True, append_images=shots[1:], duration=40, loop=0, optimize=True)
+    shots[0].save(out, save_all=True, append_images=shots[1:], duration=step, loop=0, optimize=True)
     return out
 
 
 # ------------------------------------------------------------------------------------------------ selftest
 def selftest():
-    """No network: a synthetic two-animation sheet (one rotated frame) through frames/sequences/place/strip,
-    catalog on a temp app tree, find, hue_swap and delays."""
+    """No network. Synthetic sheets through frames/sequences/place/strip, catalog on a temp app tree, find, hue_swap,
+    delays and the contact-sheet schedule. Fixtures are asymmetric so a reversed rotation or a wrong order fails."""
     import tempfile
     from PIL import Image
     tmp = tempfile.mkdtemp()
@@ -374,44 +455,104 @@ def selftest():
     for sub in KINDS.values():
         os.makedirs(os.path.join(tmp, sub), exist_ok=True)
     os.makedirs(os.path.join(app, "data"), exist_ok=True)
+    units = os.path.join(app, "resources", "units")
+    RED, BLUE, GOLD = (255, 0, 0, 255), (0, 120, 255, 255), (255, 200, 0, 255)
+
+    # Sheet "a": idle (plain) and hit (stored rotated). The hit source is 10x20, blue with a red top-left pixel;
+    # the atlas holds it turned 90 degrees clockwise, as cocos2d stores `rotated` frames.
+    src = Image.new("RGBA", (10, 20), BLUE)
+    src.putpixel((0, 0), RED)
     atlas = Image.new("RGBA", (40, 20), (0, 0, 0, 0))
-    atlas.paste((255, 200, 0, 255), (0, 0, 10, 20))     # frame a_idle_0: 10x20 at (0,0), not rotated
-    atlas.paste((0, 120, 255, 255), (10, 0, 30, 10))    # frame a_hit_0: stored rotated, 10x20 source
-    atlas.save(os.path.join(app, "resources", "units", "a.png"))
-    frames_d = {
+    atlas.paste(GOLD, (0, 0, 10, 20))
+    atlas.paste(src.rotate(-90, expand=True), (10, 0))       # 20x10 at (10,0)
+    atlas.save(os.path.join(units, "a.png"))
+    plistlib.dump({"frames": {
         "a_idle_0.png": {"frame": "{{0,0},{10,20}}", "rotated": False, "sourceSize": "{30,30}",
                          "sourceColorRect": "{{10,5},{10,20}}"},
         "a_hit_0.png": {"frame": "{{10,0},{10,20}}", "rotated": True, "sourceSize": "{30,30}",
                         "sourceColorRect": "{{10,5},{10,20}}"},
-    }
-    plistlib.dump({"frames": frames_d, "metadata": {"format": 2}},
-                  open(os.path.join(app, "resources", "units", "a.plist"), "wb"))
+    }, "metadata": {"format": 2}}, open(os.path.join(units, "a.plist"), "wb"))
+
+    # Sheet "u_stem" (stem differs from its prefixes, like f2_hammonnladeseeker): u_attack_ has frames 2 and 10
+    # (natural order 2 < 10; red then gold), u_attack_projectile_ overlaps its prefix, u_idle_ is one frame.
+    atlas = Image.new("RGBA", (40, 10), (0, 0, 0, 0))
+    for i, c in enumerate((RED, GOLD, BLUE, BLUE)):
+        atlas.paste(c, (i * 10, 0, i * 10 + 10, 10))
+    atlas.save(os.path.join(units, "u_stem.png"))
+    fr = lambda i: {"frame": "{{%d,0},{10,10}}" % (i * 10), "rotated": False, "sourceSize": "{10,10}",
+                    "sourceColorRect": "{{0,0},{10,10}}"}
+    plistlib.dump({"frames": {"u_attack_10.png": fr(1), "u_attack_2.png": fr(0), "u_attack_projectile_0.png": fr(2),
+                              "u_idle_0.png": fr(3)}, "metadata": {"format": 2}},
+                  open(os.path.join(units, "u_stem.plist"), "wb"))
+    # A plist with no atlas: skipped and reported.
+    plistlib.dump({"frames": {}}, open(os.path.join(units, "orphan.plist"), "wb"))
+
+    # resources.js: plist first and single quotes, a multiline double-quoted entry, and one entry lacking a delay.
     open(os.path.join(app, "data", "resources.js"), "w").write(
-        "  aIdle: { name: 'aIdle', framePrefix: 'a_idle_', frameDelay: 0.12, img: 'resources/units/a.png', "
-        "plist: 'resources/units/a.plist',\n")
-    assert sequences_of(read_plist(os.path.join(app, "resources", "units", "a.plist"))) == {"a_idle_": 1, "a_hit_": 1}
-    try:
-        frames("a", app)
-        raise AssertionError("multi-animation sheet without a prefix must refuse")
-    except SystemExit:
-        pass
+        "  aIdle: {\n    name: 'aIdle', img: 'resources/units/a.png', plist: 'resources/units/a.plist', "
+        "framePrefix: 'a_idle_', frameDelay: 0.12,\n  },\n"
+        '  uAttack: {\n    framePrefix: "u_attack_",\n    plist: "resources/units/u_stem.plist",\n'
+        "    frameDelay: 1,\n  },\n"
+        "  uIdle: { framePrefix: 'u_idle_', plist: 'resources/units/u_stem.plist' },\n")
+    table = delays(app)
+    assert table == {("a", "a_idle_"): 120, ("u_stem", "u_attack_"): 1000}, table
+
+    assert sequences_of(read_plist(os.path.join(units, "a.plist"))) == {"a_idle_": 1, "a_hit_": 1}
+    for bad in ("a", "u_stem:u_att", "u_stem:u_"):
+        try:
+            frames(bad, app)
+            raise AssertionError(f"{bad} must refuse (no prefix on a multi-animation sheet, or a partial prefix)")
+        except SystemExit:
+            pass
     idle = frames("a:a_idle_", app)
     hit = frames("a:a_hit_", app)
-    assert idle[0].size == (30, 30) and idle[0].getpixel((12, 10))[:3] == (255, 200, 0)
-    assert hit[0].size == (30, 30) and hit[0].getbbox() == (10, 5, 20, 25), hit[0].getbbox()
-    assert delay_ms("a:a_idle_", delays(app)) == 120 and delay_ms("a:a_hit_", delays(app)) == 80
+    assert idle[0].size == (30, 30) and idle[0].getpixel((12, 10)) == GOLD
+    assert hit[0].getbbox() == (10, 5, 20, 25), hit[0].getbbox()
+    assert hit[0].getpixel((10, 5)) == RED and hit[0].getpixel((19, 24)) == BLUE, "rotated frame reversed"
+    atk = frames("u_stem:u_attack_", app)
+    assert len(atk) == 2 and atk[0].getpixel((5, 5)) == RED and atk[1].getpixel((5, 5)) == GOLD, "order or prefix"
+    assert len(frames("u_stem:u_attack_projectile_", app)) == 1
+    assert delay_ms("a:a_idle_", table) == 120 and delay_ms("a:a_hit_", table) == 80
+    assert actions_of("u_stem", {"u_attack_": 2, "u_attack_projectile_": 1, "u_idle_": 1}) == {
+        "u_attack_": "attack", "u_attack_projectile_": "attack_projectile", "u_idle_": "idle"}
+    assert actions_of("fx_x", {"fx_x_": 4}) == {"fx_x_": "main"}
+
     placed = place(idle, 90, nearest=True)
-    assert placed[0].size == (90, 90) and placed[0].getpixel((45, 40))[:3] == (255, 200, 0)
+    assert placed[0].size == (90, 90) and placed[0].getpixel((45, 40)) == GOLD
     sw = hue_swap(idle[0], 0, 100, 352)
     h = colorsys.rgb_to_hls(*(c / 255 for c in sw.getpixel((12, 10))[:3]))[0] * 360
     assert abs(h - 352) < 2, h
     p = os.path.join(tmp, "s.webp")
     write_strip(placed, p, 90)
     assert Image.open(p).size == (90, 90)
+    assert strip_height_problem(144, 28) is None and "--size 66" in strip_height_problem(288, 62)
+    assert "WebP" in strip_height_problem(288, 62, allow_tall=True)
+    try:
+        write_strip(placed * 50, p, 90)
+        raise AssertionError("a 4500 px strip must refuse")
+    except SystemExit:
+        pass
+
+    assert preview_schedule([(80, 62), (80, 10)]) == ((62 + GAP) * 80, 40)
+    total, step = preview_schedule([(1000, 30)])
+    assert total == PREVIEW_MAX_MS and total // step <= PREVIEW_MAX_SHOTS
+
     cat = catalog(os.path.join(tmp, "cat.json"), app)
-    assert len(cat["entries"]) == 1 and cat["entries"][0]["seq"]["a_idle_"]["ms"] == 120
-    hits = find(cat, kind="unit", action="hit")
-    assert [r for r, _, _ in hits] == ["a:a_hit_"], hits
+    by = {e["name"]: e for e in cat["entries"]}
+    assert set(by) == {"a", "u_stem"} and cat["skipped"] == [
+        {"name": "orphan", "kind": "unit", "why": "no matching .png in the cache"}], cat["skipped"]
+    assert by["a"]["seq"]["a_idle_"] == {"action": "idle", "frames": 1, "ms": 120, "msFrom": "resources.js"}
+    assert by["a"]["seq"]["a_hit_"]["msFrom"] == "default"
+    assert by["u_stem"]["seq"]["u_attack_"]["ms"] == 1000
+    assert [r for r, _, _ in find(cat, kind="unit", action="attack")] == ["u_stem:u_attack_"]
+    assert [r for r, _, _ in find(cat, kind="unit", action="hit")] == ["a:a_hit_"]
+    here = os.getcwd()
+    try:
+        os.chdir(tmp)
+        catalog("bare.json", app)  # basename-only --out
+        assert os.path.exists(os.path.join(tmp, "bare.json"))
+    finally:
+        os.chdir(here)
     print("duelyst_kit selftest: PASS")
 
 
@@ -443,6 +584,8 @@ def main():
     s.add_argument("--tint")
     s.add_argument("--swap", help="LO:HI:HUE in degrees, e.g. 0:100:352 (gold -> coral)")
     s.add_argument("--nearest", action="store_true")
+    s.add_argument("--allow-tall", action="store_true",
+                   help="allow strips over 4096 px tall (Bunny-hosted art only; never for a native host)")
     a = ap.parse_args()
     if a.selftest:
         return selftest()
@@ -463,8 +606,12 @@ def main():
     if a.cmd == "strip":
         rgb = tuple(float(x) for x in a.tint.split(",")) if a.tint else None
         swap = tuple(float(x) for x in a.swap.split(":")) if a.swap else None
-        frs = place(frames(a.name), a.size, a.fit, a.dy, rgb, swap, a.nearest)
-        b = write_strip(frs, a.out, a.size)
+        src = frames(a.name)
+        problem = strip_height_problem(a.size, len(src), a.allow_tall)
+        if problem:
+            raise SystemExit(problem)
+        frs = place(src, a.size, a.fit, a.dy, rgb, swap, a.nearest)
+        b = write_strip(frs, a.out, a.size, a.allow_tall)
         print(f"{a.out}: {len(frs)} frames x {delay_ms(a.name)} ms, {a.size}px, {b} bytes")
         return
     ap.print_help()
