@@ -24,3 +24,22 @@ II and III lands on its warning (the only unmatched warnings are ones whose figh
 Pick: pool power 200 (formula, 3 rounds), the closest match to the old 12% brine. The land's own hit is 360 so a land
 still totals 560 on anyone caught in the rows (the pool tag also hits on the landing action). Shipped hidden as
 push/648.
+
+## Live retest on dauntless, hidden (2026-11-18 ~22:00-22:55Z)
+
+All four Flooded Stores fights won from full pools: fight 1 in 7 rounds, fight 2 in 3, The Quartermaster in 9, Isonade
+in 12 (42,420 HP to 0). dauntless ended the Isonade fight at 4,132 of 5,050 HP (82%).
+
+Isonade's damage to dauntless: Undertow 137 and two brine pool hits of 915 raw (about 612 after the Kitsune belt's 30%
+absorb, about 12% of max HP), in rounds 5 and 6 while dauntless stood in the Slam I pool. No slam land hit dauntless
+directly.
+
+Every warning landed the round after it showed, none lapsed: Slam I (warned r2, landed r3), Slam II (r4, r5; locked
+out under v2), Black Water I (r6, r7), Black Water II with Bite (r8, r9), Black Water III (r10, r11).
+
+Slam III never warned. The Black Water mark at <75% HP (AI rule 11) outranks the Slam III mark (rule 17) and took the
+r6 turn at 69% HP; the 50% and 33% marks took later turns. This is rule priority, not the shared-cooldown lock.
+
+Engine reading (pin 3314d122, util.ts shouldApply and tags.ts move): a ground damage pool hits each fighter once per
+round, plus a free round on stepping in, not on every action. The pool text pushed in 648 ("hits anyone standing in it
+with every action") overstates it; a hidden text fix needs a law 18 cycle.
