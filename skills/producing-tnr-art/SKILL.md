@@ -45,7 +45,7 @@ docs/DOCTRINE.md before building anything.
 |---|---|---|
 | Icons, avatars, scenes | `references/prompts.md` (scaffolds, house style, generator failures), `references/processing.md` (format, packaging, gameAsset write, scene wiring) | `rawqc.py`, `chroma.py`, `artpreflight.py`, `shotlist.py` |
 | Jutsu-icon families, studio sessions, art lookup, outside art requests | `references/studio.md` | `jutsu_studio.py`, `style_refs.py` |
-| Combat animations, ground tiles, battle FX | `references/combat_fx.md` | `fx_board.py`, a per-job `build_strips.py` |
+| Combat animations, ground tiles, battle FX | `references/combat_fx.md` (stock library: section 7) | `fx_board.py`, `duelyst_kit.py`, a per-job `build_strips.py` |
 
 ## How the game shows art (what makes this hard)
 
@@ -93,6 +93,7 @@ not frame sheets.
 | `shotlist.py` | every asset a quest needs, generated from a `quests.get` capture with filenames and prompts |
 | `style_refs.py` | the approved reference pack: `select`, `list`, `verify --repo-root .` (provenance), `--selftest` |
 | `jutsu_studio.py` | ZIP-first jutsu-icon family studio: `doctor`, `intake`, `lock-check`, `attempts`, `compare`, `finalize`, `audit-gallery` |
+| `duelyst_kit.py` | the CC0 Duelyst library: `fetch` (cache, pinned), `catalog`, `find`, `sheet` (contact GIF), `strip`, `--selftest` |
 | `fx_board.py` | combat FX: `board` (real board GIF, appear and loop on one clock), `ground-box`, `ground-check` (ground image gate), `strip-info`, `--selftest` |
 
 ## Contracts
