@@ -1,0 +1,4522 @@
+{
+ "scenario": "/home/user/tnr-tools/harness/combat_sim/scenarios/genin_hideout.json",
+ "enginePin": "3f1eda3149b1d04f6fb5270ba3b8558b9294bd87",
+ "seeds": 10,
+ "mode": "dungeon",
+ "sources": {
+  "ai/87lDmGM8szRjL6_8m2GjK": {
+   "endpoint": "profile.getAi",
+   "readAt": "2026-11-18T23:23:38.907Z",
+   "dir": "/home/user/tnr-tools/harness/combat_sim/data/live/2026-11-18"
+  },
+  "ai/8XeldBr2bzcySv2opeHQQ": {
+   "endpoint": "profile.getAi",
+   "readAt": "2026-11-18T23:27:15.824Z",
+   "dir": "/home/user/tnr-tools/harness/combat_sim/data/live/2026-11-18"
+  },
+  "ai/AL8afmS1JHgW84pySWL2F": {
+   "endpoint": "profile.getAi",
+   "readAt": "2026-11-18T23:27:16.336Z",
+   "dir": "/home/user/tnr-tools/harness/combat_sim/data/live/2026-11-18"
+  },
+  "ai/BKOhuY1tTCbq4KhtxbUuN": {
+   "endpoint": "profile.getAi",
+   "readAt": "2026-11-18T23:27:15.347Z",
+   "dir": "/home/user/tnr-tools/harness/combat_sim/data/live/2026-11-18"
+  },
+  "ai/K_lwNvMPJLMsn1sUGXqZm": {
+   "endpoint": "profile.getAi",
+   "readAt": "2026-11-18T23:27:53.065Z",
+   "dir": "/home/user/tnr-tools/harness/combat_sim/data/live/2026-11-18"
+  },
+  "ai/lJAnVI4eBn5YjCgghqBji": {
+   "endpoint": "profile.getAi",
+   "readAt": "2026-11-18T23:27:59.250Z",
+   "dir": "/home/user/tnr-tools/harness/combat_sim/data/live/2026-11-18"
+  },
+  "ai/pz4azy5M6ZYJiwURtKZjp": {
+   "endpoint": "profile.getAi",
+   "readAt": "2026-11-18T23:27:14.898Z",
+   "dir": "/home/user/tnr-tools/harness/combat_sim/data/live/2026-11-18"
+  }
+ },
+ "builds": {
+  "L10 solo": [
+   {
+    "name": "Genin L10",
+    "level": 10,
+    "rank": "GENIN",
+    "hp": 550,
+    "cp": 550,
+    "sp": 550,
+    "offence": 4510,
+    "defence": 4510,
+    "generals": [
+     4510,
+     4510,
+     4510,
+     4510
+    ],
+    "jutsu": [
+     "Shockwave Fist@5",
+     "Liver Shot@5",
+     "Searing Might@5",
+     "Chakra Barrier@5"
+    ],
+    "items": [],
+    "bloodline": null,
+    "elements": [
+     "Lightning"
+    ]
+   }
+  ],
+  "L15 solo": [
+   {
+    "name": "Genin L15",
+    "level": 15,
+    "rank": "GENIN",
+    "hp": 800,
+    "cp": 800,
+    "sp": 800,
+    "offence": 9926.67,
+    "defence": 9926.67,
+    "generals": [
+     9926.67,
+     9926.67,
+     9926.67,
+     9926.67
+    ],
+    "jutsu": [
+     "Shockwave Fist@8",
+     "Liver Shot@8",
+     "Searing Might@8",
+     "Chakra Barrier@8"
+    ],
+    "items": [],
+    "bloodline": null,
+    "elements": [
+     "Lightning"
+    ]
+   }
+  ],
+  "L10 party of 3": [
+   {
+    "name": "Genin L10 1#1",
+    "level": 10,
+    "rank": "GENIN",
+    "hp": 550,
+    "cp": 550,
+    "sp": 550,
+    "offence": 4510,
+    "defence": 4510,
+    "generals": [
+     4510,
+     4510,
+     4510,
+     4510
+    ],
+    "jutsu": [
+     "Shockwave Fist@5",
+     "Liver Shot@5",
+     "Searing Might@5",
+     "Chakra Barrier@5"
+    ],
+    "items": [],
+    "bloodline": null,
+    "elements": [
+     "Lightning"
+    ]
+   },
+   {
+    "name": "Genin L10 1#2",
+    "level": 10,
+    "rank": "GENIN",
+    "hp": 550,
+    "cp": 550,
+    "sp": 550,
+    "offence": 4510,
+    "defence": 4510,
+    "generals": [
+     4510,
+     4510,
+     4510,
+     4510
+    ],
+    "jutsu": [
+     "Shockwave Fist@5",
+     "Liver Shot@5",
+     "Searing Might@5",
+     "Chakra Barrier@5"
+    ],
+    "items": [],
+    "bloodline": null,
+    "elements": [
+     "Lightning"
+    ]
+   },
+   {
+    "name": "Genin L10 1",
+    "level": 10,
+    "rank": "GENIN",
+    "hp": 550,
+    "cp": 550,
+    "sp": 550,
+    "offence": 4510,
+    "defence": 4510,
+    "generals": [
+     4510,
+     4510,
+     4510,
+     4510
+    ],
+    "jutsu": [
+     "Shockwave Fist@5",
+     "Liver Shot@5",
+     "Searing Might@5",
+     "Chakra Barrier@5"
+    ],
+    "items": [],
+    "bloodline": null,
+    "elements": [
+     "Lightning"
+    ]
+   }
+  ],
+  "L15 party of 3": [
+   {
+    "name": "Genin L15 1#1",
+    "level": 15,
+    "rank": "GENIN",
+    "hp": 800,
+    "cp": 800,
+    "sp": 800,
+    "offence": 9926.67,
+    "defence": 9926.67,
+    "generals": [
+     9926.67,
+     9926.67,
+     9926.67,
+     9926.67
+    ],
+    "jutsu": [
+     "Shockwave Fist@8",
+     "Liver Shot@8",
+     "Searing Might@8",
+     "Chakra Barrier@8"
+    ],
+    "items": [],
+    "bloodline": null,
+    "elements": [
+     "Lightning"
+    ]
+   },
+   {
+    "name": "Genin L15 1#2",
+    "level": 15,
+    "rank": "GENIN",
+    "hp": 800,
+    "cp": 800,
+    "sp": 800,
+    "offence": 9926.67,
+    "defence": 9926.67,
+    "generals": [
+     9926.67,
+     9926.67,
+     9926.67,
+     9926.67
+    ],
+    "jutsu": [
+     "Shockwave Fist@8",
+     "Liver Shot@8",
+     "Searing Might@8",
+     "Chakra Barrier@8"
+    ],
+    "items": [],
+    "bloodline": null,
+    "elements": [
+     "Lightning"
+    ]
+   },
+   {
+    "name": "Genin L15 1",
+    "level": 15,
+    "rank": "GENIN",
+    "hp": 800,
+    "cp": 800,
+    "sp": 800,
+    "offence": 9926.67,
+    "defence": 9926.67,
+    "generals": [
+     9926.67,
+     9926.67,
+     9926.67,
+     9926.67
+    ],
+    "jutsu": [
+     "Shockwave Fist@8",
+     "Liver Shot@8",
+     "Searing Might@8",
+     "Chakra Barrier@8"
+    ],
+    "items": [],
+    "bloodline": null,
+    "elements": [
+     "Lightning"
+    ]
+   }
+  ]
+ },
+ "variants": [
+  {
+   "name": "L10 solo",
+   "party": [
+    "Genin L10"
+   ],
+   "policy": {
+    "dodge": true
+   },
+   "fights": [
+    {
+     "fight": "Floor 1",
+     "winRate": 0,
+     "outcomes": {
+      "won": 0,
+      "lost": 10,
+      "stalled": 0
+     },
+     "roundsToWin": null,
+     "roundsAll": {
+      "median": 42,
+      "p10": 36,
+      "p90": 42,
+      "mean": 40.8
+     },
+     "partyHpLeftPctWhenWon": null,
+     "playersDownWhenWon": null,
+     "enemyMoves": {
+      "Rogue Shinobi": {
+       "Omen: Three-Plank Line": {
+        "perFight": 40.2,
+        "firstRound": 4,
+        "typicalRound": 19,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "Eruption: Three-Plank Line": {
+        "perFight": 35.6,
+        "firstRound": 5,
+        "typicalRound": 20,
+        "hitPartyPct": 1,
+        "damageWhenHit": {
+         "median": 97.9,
+         "p10": 97.9,
+         "p90": 97.9,
+         "mean": 97.9
+        }
+       },
+       "basicAttack": {
+        "perFight": 39.6,
+        "firstRound": 6,
+        "typicalRound": 21,
+        "hitPartyPct": 100,
+        "damageWhenHit": {
+         "median": 13.6,
+         "p10": 11.6,
+         "p90": 14.5,
+         "mean": 13.4
+        }
+       }
+      }
+     },
+     "playerMovesPerFight": {
+      "Searing Might": 10.6,
+      "Chakra Barrier": 8.8,
+      "move": 3.9,
+      "Shockwave Fist": 8.6,
+      "basicAttack": 35.8,
+      "wait": 32.5,
+      "Liver Shot": 7.8,
+      "meditate": 4.8
+     },
+     "dodgeStepsPerFight": 1.9,
+     "issues": []
+    },
+    {
+     "fight": "Floor 2",
+     "winRate": 0,
+     "outcomes": {
+      "won": 0,
+      "lost": 10,
+      "stalled": 0
+     },
+     "roundsToWin": null,
+     "roundsAll": {
+      "median": 42,
+      "p10": 20,
+      "p90": 45,
+      "mean": 37.7
+     },
+     "partyHpLeftPctWhenWon": null,
+     "playersDownWhenWon": null,
+     "enemyMoves": {
+      "Rogue Shinobi": {
+       "Omen: Three-Plank Line": {
+        "perFight": 12.3,
+        "firstRound": 4,
+        "typicalRound": 19,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "Eruption: Three-Plank Line": {
+        "perFight": 11.1,
+        "firstRound": 5,
+        "typicalRound": 20,
+        "hitPartyPct": 1,
+        "damageWhenHit": {
+         "median": 115.2,
+         "p10": 115.2,
+         "p90": 115.2,
+         "mean": 115.2
+        }
+       },
+       "basicAttack": {
+        "perFight": 11.8,
+        "firstRound": 6,
+        "typicalRound": 21,
+        "hitPartyPct": 100,
+        "damageWhenHit": {
+         "median": 13.6,
+         "p10": 11.6,
+         "p90": 14.5,
+         "mean": 13.4
+        }
+       }
+      },
+      "Rogue Marksman": {
+       "Omen: Seven Planks": {
+        "perFight": 24.1,
+        "firstRound": 4,
+        "typicalRound": 19,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "Eruption: Seven Planks": {
+        "perFight": 21.2,
+        "firstRound": 5,
+        "typicalRound": 17,
+        "hitPartyPct": 3,
+        "damageWhenHit": {
+         "median": 102.4,
+         "p10": 87,
+         "p90": 108.9,
+         "mean": 93.4
+        }
+       },
+       "basicAttack": {
+        "perFight": 23.5,
+        "firstRound": 6,
+        "typicalRound": 18,
+        "hitPartyPct": 100,
+        "damageWhenHit": {
+         "median": 13.6,
+         "p10": 11.6,
+         "p90": 14.5,
+         "mean": 13.4
+        }
+       }
+      }
+     },
+     "playerMovesPerFight": {
+      "Searing Might": 10,
+      "Chakra Barrier": 7.8,
+      "move": 9.5,
+      "Shockwave Fist": 7.7,
+      "basicAttack": 32.2,
+      "wait": 28.9,
+      "Liver Shot": 7.4,
+      "meditate": 4.2
+     },
+     "dodgeStepsPerFight": 5.1,
+     "issues": []
+    },
+    {
+     "fight": "Floor 3",
+     "winRate": 0,
+     "outcomes": {
+      "won": 0,
+      "lost": 10,
+      "stalled": 0
+     },
+     "roundsToWin": null,
+     "roundsAll": {
+      "median": 42,
+      "p10": 36,
+      "p90": 45,
+      "mean": 40.5
+     },
+     "partyHpLeftPctWhenWon": null,
+     "playersDownWhenWon": null,
+     "enemyMoves": {
+      "Rogue Marksman": {
+       "Omen: Seven Planks": {
+        "perFight": 13.5,
+        "firstRound": 4,
+        "typicalRound": 19,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "Eruption: Seven Planks": {
+        "perFight": 13.1,
+        "firstRound": 5,
+        "typicalRound": 20,
+        "hitPartyPct": 1,
+        "damageWhenHit": {
+         "median": 87,
+         "p10": 87,
+         "p90": 87,
+         "mean": 87
+        }
+       },
+       "basicAttack": {
+        "perFight": 13.3,
+        "firstRound": 6,
+        "typicalRound": 21,
+        "hitPartyPct": 100,
+        "damageWhenHit": {
+         "median": 13.6,
+         "p10": 11.6,
+         "p90": 14.5,
+         "mean": 13.3
+        }
+       }
+      },
+      "Rogue Shinobi": {
+       "Omen: Three-Plank Line": {
+        "perFight": 26.2,
+        "firstRound": 4,
+        "typicalRound": 19,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "Eruption: Three-Plank Line": {
+        "perFight": 22.4,
+        "firstRound": 5,
+        "typicalRound": 20,
+        "hitPartyPct": 1,
+        "damageWhenHit": {
+         "median": 97.9,
+         "p10": 97.9,
+         "p90": 97.9,
+         "mean": 97.9
+        }
+       },
+       "basicAttack": {
+        "perFight": 25.6,
+        "firstRound": 6,
+        "typicalRound": 21,
+        "hitPartyPct": 100,
+        "damageWhenHit": {
+         "median": 13.6,
+         "p10": 11.6,
+         "p90": 14.5,
+         "mean": 13.4
+        }
+       }
+      }
+     },
+     "playerMovesPerFight": {
+      "Searing Might": 10.6,
+      "Chakra Barrier": 8.6,
+      "move": 5.6,
+      "Shockwave Fist": 8.5,
+      "basicAttack": 35.6,
+      "wait": 31.8,
+      "Liver Shot": 7.8,
+      "meditate": 4.7
+     },
+     "dodgeStepsPerFight": 3.2,
+     "issues": []
+    },
+    {
+     "fight": "Floor 4",
+     "winRate": 0,
+     "outcomes": {
+      "won": 0,
+      "lost": 10,
+      "stalled": 0
+     },
+     "roundsToWin": null,
+     "roundsAll": {
+      "median": 19,
+      "p10": 19,
+      "p90": 19,
+      "mean": 19
+     },
+     "partyHpLeftPctWhenWon": null,
+     "playersDownWhenWon": null,
+     "enemyMoves": {
+      "Rogue Shinobi": {
+       "Omen: Three-Plank Line": {
+        "perFight": 13.1,
+        "firstRound": 1,
+        "typicalRound": 10,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "Eruption: Three-Plank Line": {
+        "perFight": 10.6,
+        "firstRound": 2,
+        "typicalRound": 11,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "basicAttack": {
+        "perFight": 12,
+        "firstRound": 3,
+        "typicalRound": 12,
+        "hitPartyPct": 100,
+        "damageWhenHit": {
+         "median": 13.6,
+         "p10": 11.6,
+         "p90": 14.5,
+         "mean": 13.3
+        }
+       }
+      },
+      "Rogue Squad Leader": {
+       "Rogue Rally": {
+        "perFight": 5,
+        "firstRound": 1,
+        "typicalRound": 9,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "basicAttack": {
+        "perFight": 19,
+        "firstRound": 2,
+        "typicalRound": 10,
+        "hitPartyPct": 100,
+        "damageWhenHit": {
+         "median": 20.4,
+         "p10": 19.2,
+         "p90": 24.5,
+         "mean": 20.5
+        }
+       }
+      }
+     },
+     "playerMovesPerFight": {
+      "Searing Might": 5,
+      "Chakra Barrier": 4,
+      "move": 2.1,
+      "Shockwave Fist": 4,
+      "basicAttack": 16,
+      "wait": 15.4,
+      "Liver Shot": 4,
+      "meditate": 2
+     },
+     "dodgeStepsPerFight": 0.6,
+     "issues": []
+    },
+    {
+     "fight": "Captain",
+     "winRate": 0,
+     "outcomes": {
+      "won": 0,
+      "lost": 2,
+      "stalled": 8
+     },
+     "roundsToWin": null,
+     "roundsAll": {
+      "median": 121,
+      "p10": 120,
+      "p90": 121,
+      "mean": 120.5
+     },
+     "partyHpLeftPctWhenWon": null,
+     "playersDownWhenWon": null,
+     "enemyMoves": {
+      "Rogue Captain": {
+       "Omen: Three-Plank Line": {
+        "perFight": 29.8,
+        "firstRound": 13,
+        "typicalRound": 59,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "Rogue Cleave": {
+        "perFight": 29.8,
+        "firstRound": 14,
+        "typicalRound": 60,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "Omen: Cracking Ring": {
+        "perFight": 30,
+        "firstRound": 13,
+        "typicalRound": 61,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "Rogue Sweep": {
+        "perFight": 29.9,
+        "firstRound": 14,
+        "typicalRound": 60,
+        "hitPartyPct": 3,
+        "damageWhenHit": {
+         "median": 101.1,
+         "p10": 95.1,
+         "p90": 119,
+         "mean": 100.2
+        }
+       },
+       "Rogue Reinforcements": {
+        "perFight": 1,
+        "firstRound": 87,
+        "typicalRound": 97,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "basicAttack": {
+        "perFight": 0.2,
+        "firstRound": 119,
+        "typicalRound": 120,
+        "hitPartyPct": 100,
+        "damageWhenHit": {
+         "median": 37.2,
+         "p10": 37.2,
+         "p90": 37.2,
+         "mean": 37.2
+        }
+       }
+      },
+      "Rogue Shinobi Reinforcement (summon)": {
+       "Omen: Three-Plank Line": {
+        "perFight": 9.2,
+        "firstRound": 94,
+        "typicalRound": 106,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "Eruption: Three-Plank Line": {
+        "perFight": 5.8,
+        "firstRound": 92,
+        "typicalRound": 106,
+        "hitPartyPct": 2,
+        "damageWhenHit": {
+         "median": 178.7,
+         "p10": 178.7,
+         "p90": 178.7,
+         "mean": 178.7
+        }
+       },
+       "basicAttack": {
+        "perFight": 9.1,
+        "firstRound": 96,
+        "typicalRound": 108,
+        "hitPartyPct": 100,
+        "damageWhenHit": {
+         "median": 25.6,
+         "p10": 20.4,
+         "p90": 25.6,
+         "mean": 24
+        }
+       }
+      }
+     },
+     "playerMovesPerFight": {
+      "Searing Might": 30,
+      "Chakra Barrier": 24,
+      "move": 259.7,
+      "Shockwave Fist": 24,
+      "basicAttack": 73,
+      "Liver Shot": 23.9,
+      "wait": 61.5,
+      "meditate": 14
+     },
+     "dodgeStepsPerFight": 138.2,
+     "issues": []
+    }
+   ],
+   "everyFloorFirstTry": 0
+  },
+  {
+   "name": "L15 solo",
+   "party": [
+    "Genin L15"
+   ],
+   "policy": {
+    "dodge": true
+   },
+   "fights": [
+    {
+     "fight": "Floor 1",
+     "winRate": 100,
+     "outcomes": {
+      "won": 10,
+      "lost": 0,
+      "stalled": 0
+     },
+     "roundsToWin": {
+      "median": 80,
+      "p10": 78,
+      "p90": 80,
+      "mean": 79.6
+     },
+     "roundsAll": {
+      "median": 80,
+      "p10": 78,
+      "p90": 80,
+      "mean": 79.6
+     },
+     "partyHpLeftPctWhenWon": {
+      "median": 60,
+      "p10": 51,
+      "p90": 61,
+      "mean": 54.4
+     },
+     "playersDownWhenWon": {
+      "median": 0,
+      "p10": 0,
+      "p90": 0,
+      "mean": 0
+     },
+     "enemyMoves": {
+      "Rogue Shinobi": {
+       "Omen: Three-Plank Line": {
+        "perFight": 49.5,
+        "firstRound": 4,
+        "typicalRound": 28,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "Eruption: Three-Plank Line": {
+        "perFight": 41.5,
+        "firstRound": 5,
+        "typicalRound": 29,
+        "hitPartyPct": 0,
+        "damageWhenHit": {
+         "median": 57.8,
+         "p10": 57.8,
+         "p90": 57.8,
+         "mean": 57.8
+        }
+       },
+       "basicAttack": {
+        "perFight": 33.5,
+        "firstRound": 6,
+        "typicalRound": 18,
+        "hitPartyPct": 100,
+        "damageWhenHit": {
+         "median": 8.1,
+         "p10": 7.3,
+         "p90": 8.6,
+         "mean": 8.1
+        }
+       }
+      },
+      "Rogue Marksman": {
+       "Omen: Seven Planks": {
+        "perFight": 7.2,
+        "firstRound": 41,
+        "typicalRound": 50,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "Eruption: Seven Planks": {
+        "perFight": 5.8,
+        "firstRound": 42,
+        "typicalRound": 50,
+        "hitPartyPct": 9,
+        "damageWhenHit": {
+         "median": 64.8,
+         "p10": 55,
+         "p90": 64.8,
+         "mean": 62.8
+        }
+       },
+       "basicAttack": {
+        "perFight": 6.3,
+        "firstRound": 43,
+        "typicalRound": 52,
+        "hitPartyPct": 100,
+        "damageWhenHit": {
+         "median": 8.1,
+         "p10": 6.8,
+         "p90": 8.6,
+         "mean": 8
+        }
+       }
+      }
+     },
+     "playerMovesPerFight": {
+      "Searing Might": 20.2,
+      "Chakra Barrier": 16.2,
+      "move": 16.5,
+      "Shockwave Fist": 16.1,
+      "basicAttack": 68.5,
+      "wait": 61,
+      "Liver Shot": 16.1,
+      "meditate": 9.1
+     },
+     "dodgeStepsPerFight": 7.9,
+     "issues": []
+    },
+    {
+     "fight": "Floor 2",
+     "winRate": 20,
+     "outcomes": {
+      "won": 2,
+      "lost": 8,
+      "stalled": 0
+     },
+     "roundsToWin": {
+      "median": 102,
+      "p10": 102,
+      "p90": 102,
+      "mean": 102
+     },
+     "roundsAll": {
+      "median": 82,
+      "p10": 76,
+      "p90": 102,
+      "mean": 84.2
+     },
+     "partyHpLeftPctWhenWon": {
+      "median": 6,
+      "p10": 2,
+      "p90": 6,
+      "mean": 4
+     },
+     "playersDownWhenWon": {
+      "median": 0,
+      "p10": 0,
+      "p90": 0,
+      "mean": 0
+     },
+     "enemyMoves": {
+      "Rogue Shinobi": {
+       "Omen: Three-Plank Line": {
+        "perFight": 31.5,
+        "firstRound": 10,
+        "typicalRound": 49,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "Eruption: Three-Plank Line": {
+        "perFight": 28.4,
+        "firstRound": 11,
+        "typicalRound": 51,
+        "hitPartyPct": 0,
+        "damageWhenHit": {
+         "median": 68,
+         "p10": 68,
+         "p90": 68,
+         "mean": 68
+        }
+       },
+       "basicAttack": {
+        "perFight": 20.9,
+        "firstRound": 9,
+        "typicalRound": 43,
+        "hitPartyPct": 100,
+        "damageWhenHit": {
+         "median": 8.1,
+         "p10": 7.3,
+         "p90": 8.6,
+         "mean": 8.1
+        }
+       }
+      },
+      "Rogue Marksman": {
+       "Omen: Seven Planks": {
+        "perFight": 17.8,
+        "firstRound": 1,
+        "typicalRound": 13,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "Eruption: Seven Planks": {
+        "perFight": 15.2,
+        "firstRound": 2,
+        "typicalRound": 14,
+        "hitPartyPct": 3,
+        "damageWhenHit": {
+         "median": 60.5,
+         "p10": 51.4,
+         "p90": 64.8,
+         "mean": 60.4
+        }
+       },
+       "basicAttack": {
+        "perFight": 16.7,
+        "firstRound": 3,
+        "typicalRound": 15,
+        "hitPartyPct": 100,
+        "damageWhenHit": {
+         "median": 8.1,
+         "p10": 7.3,
+         "p90": 8.6,
+         "mean": 8.1
+        }
+       }
+      },
+      "Rogue Squad Leader": {
+       "Rogue Rally": {
+        "perFight": 9.9,
+        "firstRound": 45,
+        "typicalRound": 60,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "basicAttack": {
+        "perFight": 38.3,
+        "firstRound": 45,
+        "typicalRound": 60,
+        "hitPartyPct": 100,
+        "damageWhenHit": {
+         "median": 11.6,
+         "p10": 10.9,
+         "p90": 14,
+         "mean": 11.8
+        }
+       }
+      }
+     },
+     "playerMovesPerFight": {
+      "Searing Might": 21.2,
+      "Chakra Barrier": 17,
+      "move": 10.8,
+      "Shockwave Fist": 16.9,
+      "basicAttack": 73.4,
+      "wait": 64.7,
+      "Liver Shot": 16.5,
+      "meditate": 9.6
+     },
+     "dodgeStepsPerFight": 5.2,
+     "issues": []
+    },
+    {
+     "fight": "Floor 3",
+     "winRate": 0,
+     "outcomes": {
+      "won": 0,
+      "lost": 7,
+      "stalled": 3
+     },
+     "roundsToWin": null,
+     "roundsAll": {
+      "median": 117,
+      "p10": 111,
+      "p90": 121,
+      "mean": 116.7
+     },
+     "partyHpLeftPctWhenWon": null,
+     "playersDownWhenWon": null,
+     "enemyMoves": {
+      "Rogue Marksman": {
+       "Omen: Seven Planks": {
+        "perFight": 36.3,
+        "firstRound": 10,
+        "typicalRound": 50,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "Eruption: Seven Planks": {
+        "perFight": 30.6,
+        "firstRound": 11,
+        "typicalRound": 51,
+        "hitPartyPct": 0,
+        "damageWhenHit": {
+         "median": 51.4,
+         "p10": 51.4,
+         "p90": 51.4,
+         "mean": 51.4
+        }
+       },
+       "basicAttack": {
+        "perFight": 22.3,
+        "firstRound": 9,
+        "typicalRound": 43,
+        "hitPartyPct": 100,
+        "damageWhenHit": {
+         "median": 8.1,
+         "p10": 7.3,
+         "p90": 8.6,
+         "mean": 8.1
+        }
+       }
+      },
+      "Rogue Shinobi": {
+       "Omen: Three-Plank Line": {
+        "perFight": 28.9,
+        "firstRound": 4,
+        "typicalRound": 25,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "Eruption: Three-Plank Line": {
+        "perFight": 24.3,
+        "firstRound": 5,
+        "typicalRound": 26,
+        "hitPartyPct": 1,
+        "damageWhenHit": {
+         "median": 57.8,
+         "p10": 57.8,
+         "p90": 57.8,
+         "mean": 57.8
+        }
+       },
+       "basicAttack": {
+        "perFight": 19.4,
+        "firstRound": 3,
+        "typicalRound": 15,
+        "hitPartyPct": 100,
+        "damageWhenHit": {
+         "median": 8.1,
+         "p10": 7.3,
+         "p90": 8.6,
+         "mean": 8.1
+        }
+       }
+      },
+      "Rogue Squad Leader": {
+       "Rogue Rally": {
+        "perFight": 9.3,
+        "firstRound": 80,
+        "typicalRound": 96,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "basicAttack": {
+        "perFight": 36.2,
+        "firstRound": 83,
+        "typicalRound": 97,
+        "hitPartyPct": 100,
+        "damageWhenHit": {
+         "median": 11.6,
+         "p10": 9.9,
+         "p90": 14,
+         "mean": 11.9
+        }
+       }
+      }
+     },
+     "playerMovesPerFight": {
+      "Searing Might": 29.2,
+      "Chakra Barrier": 23.4,
+      "move": 9.2,
+      "Shockwave Fist": 23.2,
+      "basicAttack": 103.3,
+      "wait": 90.3,
+      "Liver Shot": 23.2,
+      "meditate": 14.2
+     },
+     "dodgeStepsPerFight": 4.2,
+     "issues": []
+    },
+    {
+     "fight": "Floor 4",
+     "winRate": 0,
+     "outcomes": {
+      "won": 0,
+      "lost": 10,
+      "stalled": 0
+     },
+     "roundsToWin": null,
+     "roundsAll": {
+      "median": 59,
+      "p10": 58,
+      "p90": 69,
+      "mean": 62.3
+     },
+     "partyHpLeftPctWhenWon": null,
+     "playersDownWhenWon": null,
+     "enemyMoves": {
+      "Rogue Shinobi": {
+       "Omen: Three-Plank Line": {
+        "perFight": 22.7,
+        "firstRound": 4,
+        "typicalRound": 16,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "Eruption: Three-Plank Line": {
+        "perFight": 18.3,
+        "firstRound": 2,
+        "typicalRound": 17,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "basicAttack": {
+        "perFight": 20.8,
+        "firstRound": 6,
+        "typicalRound": 18,
+        "hitPartyPct": 100,
+        "damageWhenHit": {
+         "median": 8.1,
+         "p10": 7.3,
+         "p90": 8.6,
+         "mean": 8.1
+        }
+       }
+      },
+      "Rogue Squad Leader": {
+       "Rogue Rally": {
+        "perFight": 13.6,
+        "firstRound": 5,
+        "typicalRound": 25,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "basicAttack": {
+        "perFight": 52.7,
+        "firstRound": 6,
+        "typicalRound": 27,
+        "hitPartyPct": 100,
+        "damageWhenHit": {
+         "median": 11.6,
+         "p10": 10.9,
+         "p90": 14,
+         "mean": 11.9
+        }
+       }
+      },
+      "Rogue Marksman": {
+       "Omen: Seven Planks": {
+        "perFight": 1.6,
+        "firstRound": 63,
+        "typicalRound": 66,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "Eruption: Seven Planks": {
+        "perFight": 1.4,
+        "firstRound": 64,
+        "typicalRound": 64,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "basicAttack": {
+        "perFight": 0.8,
+        "firstRound": 65,
+        "typicalRound": 68,
+        "hitPartyPct": 100,
+        "damageWhenHit": {
+         "median": 8.6,
+         "p10": 8.1,
+         "p90": 8.6,
+         "mean": 7.5
+        }
+       }
+      }
+     },
+     "playerMovesPerFight": {
+      "Searing Might": 15.7,
+      "Chakra Barrier": 12.7,
+      "move": 2.9,
+      "Shockwave Fist": 12.7,
+      "basicAttack": 54.8,
+      "wait": 48.8,
+      "Liver Shot": 12.6,
+      "meditate": 7.3
+     },
+     "dodgeStepsPerFight": 1,
+     "issues": []
+    },
+    {
+     "fight": "Captain",
+     "winRate": 0,
+     "outcomes": {
+      "won": 0,
+      "lost": 2,
+      "stalled": 8
+     },
+     "roundsToWin": null,
+     "roundsAll": {
+      "median": 121,
+      "p10": 112,
+      "p90": 121,
+      "mean": 118.4
+     },
+     "partyHpLeftPctWhenWon": null,
+     "playersDownWhenWon": null,
+     "enemyMoves": {
+      "Rogue Captain": {
+       "Omen: Three-Plank Line": {
+        "perFight": 29.2,
+        "firstRound": 11,
+        "typicalRound": 59,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "Rogue Cleave": {
+        "perFight": 29.2,
+        "firstRound": 12,
+        "typicalRound": 60,
+        "hitPartyPct": 0,
+        "damageWhenHit": {
+         "median": 127.3,
+         "p10": 127.3,
+         "p90": 127.3,
+         "mean": 127.3
+        }
+       },
+       "Omen: Cracking Ring": {
+        "perFight": 29.4,
+        "firstRound": 11,
+        "typicalRound": 59,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "Rogue Sweep": {
+        "perFight": 29.2,
+        "firstRound": 12,
+        "typicalRound": 60,
+        "hitPartyPct": 15,
+        "damageWhenHit": {
+         "median": 59.4,
+         "p10": 50.5,
+         "p90": 63.6,
+         "mean": 57.7
+        }
+       },
+       "Rogue Reinforcements": {
+        "perFight": 5.5,
+        "firstRound": 37,
+        "typicalRound": 69,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "basicAttack": {
+        "perFight": 0.4,
+        "firstRound": 63,
+        "typicalRound": 95,
+        "hitPartyPct": 100,
+        "damageWhenHit": {
+         "median": 19.9,
+         "p10": 18.6,
+         "p90": 19.9,
+         "mean": 19.6
+        }
+       }
+      },
+      "Rogue Shinobi Reinforcement (summon)": {
+       "Omen: Three-Plank Line": {
+        "perFight": 27.5,
+        "firstRound": 43,
+        "typicalRound": 75,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "Eruption: Three-Plank Line": {
+        "perFight": 19.6,
+        "firstRound": 42,
+        "typicalRound": 74,
+        "hitPartyPct": 2,
+        "damageWhenHit": {
+         "median": 102.1,
+         "p10": 95.3,
+         "p90": 102.1,
+         "mean": 99.8
+        }
+       },
+       "basicAttack": {
+        "perFight": 26.5,
+        "firstRound": 44,
+        "typicalRound": 79,
+        "hitPartyPct": 100,
+        "damageWhenHit": {
+         "median": 13.6,
+         "p10": 12.4,
+         "p90": 14.6,
+         "mean": 13.7
+        }
+       }
+      }
+     },
+     "playerMovesPerFight": {
+      "Searing Might": 29.4,
+      "Chakra Barrier": 23.6,
+      "move": 231,
+      "Shockwave Fist": 23.6,
+      "basicAttack": 76.5,
+      "Liver Shot": 23.4,
+      "wait": 65.2,
+      "meditate": 13.7
+     },
+     "dodgeStepsPerFight": 129.7,
+     "issues": []
+    }
+   ],
+   "everyFloorFirstTry": 0
+  },
+  {
+   "name": "L10 party of 3",
+   "party": [
+    "Genin L10 1#1",
+    "Genin L10 1#2",
+    "Genin L10 1"
+   ],
+   "policy": {
+    "dodge": true
+   },
+   "fights": [
+    {
+     "fight": "Floor 1",
+     "winRate": 90,
+     "outcomes": {
+      "won": 9,
+      "lost": 0,
+      "stalled": 1
+     },
+     "roundsToWin": {
+      "median": 74,
+      "p10": 72,
+      "p90": 85,
+      "mean": 77.9
+     },
+     "roundsAll": {
+      "median": 83,
+      "p10": 72,
+      "p90": 86,
+      "mean": 82.2
+     },
+     "partyHpLeftPctWhenWon": {
+      "median": 44,
+      "p10": 36,
+      "p90": 48,
+      "mean": 42.9
+     },
+     "playersDownWhenWon": {
+      "median": 0,
+      "p10": 0,
+      "p90": 1,
+      "mean": 0.4
+     },
+     "enemyMoves": {
+      "Rogue Shinobi": {
+       "Omen: Three-Plank Line": {
+        "perFight": 59.8,
+        "firstRound": 7,
+        "typicalRound": 31,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "Eruption: Three-Plank Line": {
+        "perFight": 42.7,
+        "firstRound": 5,
+        "typicalRound": 35,
+        "hitPartyPct": 4,
+        "damageWhenHit": {
+         "median": 97.9,
+         "p10": 97.9,
+         "p90": 122.5,
+         "mean": 106.8
+        }
+       },
+       "basicAttack": {
+        "perFight": 51.1,
+        "firstRound": 6,
+        "typicalRound": 30,
+        "hitPartyPct": 100,
+        "damageWhenHit": {
+         "median": 13.6,
+         "p10": 12.3,
+         "p90": 14.5,
+         "mean": 13.5
+        }
+       }
+      },
+      "Rogue Marksman": {
+       "Omen: Seven Planks": {
+        "perFight": 9.8,
+        "firstRound": 41,
+        "typicalRound": 53,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "Eruption: Seven Planks": {
+        "perFight": 7.1,
+        "firstRound": 39,
+        "typicalRound": 51,
+        "hitPartyPct": 13,
+        "damageWhenHit": {
+         "median": 87,
+         "p10": 38.9,
+         "p90": 108.9,
+         "mean": 83.6
+        }
+       },
+       "basicAttack": {
+        "perFight": 5.5,
+        "firstRound": 40,
+        "typicalRound": 52,
+        "hitPartyPct": 100,
+        "damageWhenHit": {
+         "median": 13.6,
+         "p10": 12.3,
+         "p90": 14.5,
+         "mean": 13.6
+        }
+       }
+      }
+     },
+     "playerMovesPerFight": {
+      "Searing Might": 54.5,
+      "Chakra Barrier": 44.3,
+      "move": 43.6,
+      "wait": 163.7,
+      "Shockwave Fist": 43.9,
+      "basicAttack": 187.6,
+      "Liver Shot": 42.6,
+      "meditate": 26.7
+     },
+     "dodgeStepsPerFight": 18.5,
+     "issues": []
+    },
+    {
+     "fight": "Floor 2",
+     "winRate": 0,
+     "outcomes": {
+      "won": 0,
+      "lost": 10,
+      "stalled": 0
+     },
+     "roundsToWin": null,
+     "roundsAll": {
+      "median": 70,
+      "p10": 64,
+      "p90": 79,
+      "mean": 70.2
+     },
+     "partyHpLeftPctWhenWon": null,
+     "playersDownWhenWon": null,
+     "enemyMoves": {
+      "Rogue Shinobi": {
+       "Omen: Three-Plank Line": {
+        "perFight": 28.3,
+        "firstRound": 7,
+        "typicalRound": 44,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "Eruption: Three-Plank Line": {
+        "perFight": 21.5,
+        "firstRound": 8,
+        "typicalRound": 45,
+        "hitPartyPct": 4,
+        "damageWhenHit": {
+         "median": 115.2,
+         "p10": 97.9,
+         "p90": 122.5,
+         "mean": 109.2
+        }
+       },
+       "basicAttack": {
+        "perFight": 23.1,
+        "firstRound": 9,
+        "typicalRound": 43,
+        "hitPartyPct": 100,
+        "damageWhenHit": {
+         "median": 13.6,
+         "p10": 11.6,
+         "p90": 14.5,
+         "mean": 13.5
+        }
+       }
+      },
+      "Rogue Marksman": {
+       "Omen: Seven Planks": {
+        "perFight": 21.5,
+        "firstRound": 4,
+        "typicalRound": 16,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "Eruption: Seven Planks": {
+        "perFight": 15.3,
+        "firstRound": 2,
+        "typicalRound": 17,
+        "hitPartyPct": 20,
+        "damageWhenHit": {
+         "median": 108.9,
+         "p10": 87,
+         "p90": 174,
+         "mean": 115.6
+        }
+       },
+       "basicAttack": {
+        "perFight": 20.1,
+        "firstRound": 6,
+        "typicalRound": 18,
+        "hitPartyPct": 100,
+        "damageWhenHit": {
+         "median": 13.6,
+         "p10": 11.6,
+         "p90": 14.5,
+         "mean": 13.5
+        }
+       }
+      },
+      "Rogue Squad Leader": {
+       "Rogue Rally": {
+        "perFight": 8.2,
+        "firstRound": 42,
+        "typicalRound": 55,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "basicAttack": {
+        "perFight": 30.9,
+        "firstRound": 42,
+        "typicalRound": 55,
+        "hitPartyPct": 100,
+        "damageWhenHit": {
+         "median": 20.4,
+         "p10": 16.3,
+         "p90": 24.5,
+         "mean": 20.4
+        }
+       }
+      }
+     },
+     "playerMovesPerFight": {
+      "Searing Might": 44.6,
+      "Chakra Barrier": 36,
+      "move": 69.4,
+      "wait": 129.8,
+      "Shockwave Fist": 35.3,
+      "basicAttack": 146.5,
+      "Liver Shot": 34.6,
+      "meditate": 20.9
+     },
+     "dodgeStepsPerFight": 33.4,
+     "issues": []
+    },
+    {
+     "fight": "Floor 3",
+     "winRate": 0,
+     "outcomes": {
+      "won": 0,
+      "lost": 10,
+      "stalled": 0
+     },
+     "roundsToWin": null,
+     "roundsAll": {
+      "median": 106,
+      "p10": 98,
+      "p90": 116,
+      "mean": 103.8
+     },
+     "partyHpLeftPctWhenWon": null,
+     "playersDownWhenWon": null,
+     "enemyMoves": {
+      "Rogue Shinobi": {
+       "Omen: Three-Plank Line": {
+        "perFight": 32.8,
+        "firstRound": 4,
+        "typicalRound": 25,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "Eruption: Three-Plank Line": {
+        "perFight": 22.7,
+        "firstRound": 5,
+        "typicalRound": 26,
+        "hitPartyPct": 3,
+        "damageWhenHit": {
+         "median": 97.9,
+         "p10": 97.9,
+         "p90": 122.5,
+         "mean": 102.3
+        }
+       },
+       "basicAttack": {
+        "perFight": 28.5,
+        "firstRound": 6,
+        "typicalRound": 24,
+        "hitPartyPct": 100,
+        "damageWhenHit": {
+         "median": 13.6,
+         "p10": 12.3,
+         "p90": 14.5,
+         "mean": 13.6
+        }
+       }
+      },
+      "Rogue Marksman": {
+       "Omen: Seven Planks": {
+        "perFight": 42,
+        "firstRound": 13,
+        "typicalRound": 53,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "Eruption: Seven Planks": {
+        "perFight": 29.9,
+        "firstRound": 11,
+        "typicalRound": 52,
+        "hitPartyPct": 12,
+        "damageWhenHit": {
+         "median": 108.9,
+         "p10": 62.7,
+         "p90": 174,
+         "mean": 110.3
+        }
+       },
+       "basicAttack": {
+        "perFight": 29.3,
+        "firstRound": 9,
+        "typicalRound": 46,
+        "hitPartyPct": 100,
+        "damageWhenHit": {
+         "median": 13.6,
+         "p10": 11.8,
+         "p90": 14.5,
+         "mean": 13.5
+        }
+       }
+      },
+      "Rogue Squad Leader": {
+       "Rogue Rally": {
+        "perFight": 5.5,
+        "firstRound": 77,
+        "typicalRound": 93,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "basicAttack": {
+        "perFight": 20.7,
+        "firstRound": 79,
+        "typicalRound": 94,
+        "hitPartyPct": 100,
+        "damageWhenHit": {
+         "median": 20.4,
+         "p10": 17,
+         "p90": 24.5,
+         "mean": 20.2
+        }
+       }
+      }
+     },
+     "playerMovesPerFight": {
+      "Searing Might": 63.5,
+      "Chakra Barrier": 51.2,
+      "move": 82.8,
+      "wait": 185.2,
+      "Shockwave Fist": 50.1,
+      "basicAttack": 213.5,
+      "Liver Shot": 49.6,
+      "meditate": 30.8
+     },
+     "dodgeStepsPerFight": 37.4,
+     "issues": []
+    },
+    {
+     "fight": "Floor 4",
+     "winRate": 0,
+     "outcomes": {
+      "won": 0,
+      "lost": 10,
+      "stalled": 0
+     },
+     "roundsToWin": null,
+     "roundsAll": {
+      "median": 62,
+      "p10": 38,
+      "p90": 71,
+      "mean": 56.5
+     },
+     "partyHpLeftPctWhenWon": null,
+     "playersDownWhenWon": null,
+     "enemyMoves": {
+      "Rogue Squad Leader": {
+       "Rogue Rally": {
+        "perFight": 13.9,
+        "firstRound": 5,
+        "typicalRound": 25,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "basicAttack": {
+        "perFight": 54.4,
+        "firstRound": 6,
+        "typicalRound": 28,
+        "hitPartyPct": 100,
+        "damageWhenHit": {
+         "median": 20.4,
+         "p10": 19.2,
+         "p90": 24.5,
+         "mean": 20.5
+        }
+       }
+      },
+      "Rogue Shinobi": {
+       "Omen: Three-Plank Line": {
+        "perFight": 27.2,
+        "firstRound": 4,
+        "typicalRound": 19,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "Eruption: Three-Plank Line": {
+        "perFight": 22,
+        "firstRound": 5,
+        "typicalRound": 23,
+        "hitPartyPct": 9,
+        "damageWhenHit": {
+         "median": 122.5,
+         "p10": 91.9,
+         "p90": 122.5,
+         "mean": 109.4
+        }
+       },
+       "basicAttack": {
+        "perFight": 23.3,
+        "firstRound": 6,
+        "typicalRound": 18,
+        "hitPartyPct": 100,
+        "damageWhenHit": {
+         "median": 13.6,
+         "p10": 11.6,
+         "p90": 14.5,
+         "mean": 13.5
+        }
+       }
+      },
+      "Rogue Marksman": {
+       "Omen: Seven Planks": {
+        "perFight": 0.4,
+        "firstRound": 69,
+        "typicalRound": 73,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "Eruption: Seven Planks": {
+        "perFight": 0.3,
+        "firstRound": 70,
+        "typicalRound": 74,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "basicAttack": {
+        "perFight": 0.2,
+        "firstRound": 75,
+        "typicalRound": 75,
+        "hitPartyPct": 100,
+        "damageWhenHit": {
+         "median": 14.5,
+         "p10": 14.5,
+         "p90": 14.5,
+         "mean": 14.5
+        }
+       }
+      }
+     },
+     "playerMovesPerFight": {
+      "Searing Might": 32.1,
+      "Chakra Barrier": 25.9,
+      "move": 27,
+      "Shockwave Fist": 25.3,
+      "basicAttack": 106.9,
+      "wait": 95.8,
+      "Liver Shot": 24.6,
+      "meditate": 14.3
+     },
+     "dodgeStepsPerFight": 11.2,
+     "issues": []
+    },
+    {
+     "fight": "Captain",
+     "winRate": 0,
+     "outcomes": {
+      "won": 0,
+      "lost": 10,
+      "stalled": 0
+     },
+     "roundsToWin": null,
+     "roundsAll": {
+      "median": 105,
+      "p10": 55,
+      "p90": 116,
+      "mean": 83.4
+     },
+     "partyHpLeftPctWhenWon": null,
+     "playersDownWhenWon": null,
+     "enemyMoves": {
+      "Rogue Captain": {
+       "Omen: Three-Plank Line": {
+        "perFight": 21.1,
+        "firstRound": 9,
+        "typicalRound": 43,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "Rogue Cleave": {
+        "perFight": 21,
+        "firstRound": 10,
+        "typicalRound": 44,
+        "hitPartyPct": 15,
+        "damageWhenHit": {
+         "median": 216.7,
+         "p10": 115.4,
+         "p90": 255,
+         "mean": 201.2
+        }
+       },
+       "Omen: Cracking Ring": {
+        "perFight": 17.7,
+        "firstRound": 7,
+        "typicalRound": 37,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "Rogue Sweep": {
+        "perFight": 17.7,
+        "firstRound": 8,
+        "typicalRound": 38,
+        "hitPartyPct": 33,
+        "damageWhenHit": {
+         "median": 111.9,
+         "p10": 88.3,
+         "p90": 119,
+         "mean": 104.6
+        }
+       },
+       "Rogue Reinforcements": {
+        "perFight": 1.7,
+        "firstRound": 31,
+        "typicalRound": 47,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       }
+      },
+      "Rogue Shinobi Reinforcement (summon)": {
+       "Omen: Three-Plank Line": {
+        "perFight": 15.1,
+        "firstRound": 41,
+        "typicalRound": 65,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "Eruption: Three-Plank Line": {
+        "perFight": 9.9,
+        "firstRound": 41,
+        "typicalRound": 65,
+        "hitPartyPct": 4,
+        "damageWhenHit": {
+         "median": 168,
+         "p10": 5,
+         "p90": 210.2,
+         "mean": 116.3
+        }
+       },
+       "basicAttack": {
+        "perFight": 14.5,
+        "firstRound": 42,
+        "typicalRound": 67,
+        "hitPartyPct": 100,
+        "damageWhenHit": {
+         "median": 24,
+         "p10": 20.4,
+         "p90": 25.6,
+         "mean": 23.6
+        }
+       }
+      }
+     },
+     "playerMovesPerFight": {
+      "Searing Might": 39.6,
+      "Chakra Barrier": 32.2,
+      "move": 371.9,
+      "Shockwave Fist": 31.8,
+      "basicAttack": 88.4,
+      "wait": 74.1,
+      "Liver Shot": 30.6,
+      "meditate": 16.7
+     },
+     "dodgeStepsPerFight": 193.2,
+     "issues": []
+    }
+   ],
+   "everyFloorFirstTry": 0
+  },
+  {
+   "name": "L15 party of 3",
+   "party": [
+    "Genin L15 1#1",
+    "Genin L15 1#2",
+    "Genin L15 1"
+   ],
+   "policy": {
+    "dodge": true
+   },
+   "fights": [
+    {
+     "fight": "Floor 1",
+     "winRate": 100,
+     "outcomes": {
+      "won": 10,
+      "lost": 0,
+      "stalled": 0
+     },
+     "roundsToWin": {
+      "median": 27,
+      "p10": 27,
+      "p90": 28,
+      "mean": 27.3
+     },
+     "roundsAll": {
+      "median": 27,
+      "p10": 27,
+      "p90": 28,
+      "mean": 27.3
+     },
+     "partyHpLeftPctWhenWon": {
+      "median": 89,
+      "p10": 86,
+      "p90": 93,
+      "mean": 89.3
+     },
+     "playersDownWhenWon": {
+      "median": 0,
+      "p10": 0,
+      "p90": 0,
+      "mean": 0
+     },
+     "enemyMoves": {
+      "Rogue Shinobi": {
+       "Omen: Three-Plank Line": {
+        "perFight": 20.3,
+        "firstRound": 1,
+        "typicalRound": 10,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "Eruption: Three-Plank Line": {
+        "perFight": 14.2,
+        "firstRound": 2,
+        "typicalRound": 11,
+        "hitPartyPct": 11,
+        "damageWhenHit": {
+         "median": 57.8,
+         "p10": 57.8,
+         "p90": 72.9,
+         "mean": 63.5
+        }
+       },
+       "basicAttack": {
+        "perFight": 16.1,
+        "firstRound": 3,
+        "typicalRound": 9,
+        "hitPartyPct": 100,
+        "damageWhenHit": {
+         "median": 8.1,
+         "p10": 7.3,
+         "p90": 8.6,
+         "mean": 8.1
+        }
+       }
+      },
+      "Rogue Marksman": {
+       "Omen: Seven Planks": {
+        "perFight": 3.7,
+        "firstRound": 14,
+        "typicalRound": 17,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "Eruption: Seven Planks": {
+        "perFight": 2.2,
+        "firstRound": 15,
+        "typicalRound": 18,
+        "hitPartyPct": 14,
+        "damageWhenHit": {
+         "median": 60.5,
+         "p10": 55,
+         "p90": 64.8,
+         "mean": 60.1
+        }
+       },
+       "basicAttack": {
+        "perFight": 1.9,
+        "firstRound": 16,
+        "typicalRound": 19,
+        "hitPartyPct": 100,
+        "damageWhenHit": {
+         "median": 8.6,
+         "p10": 6.8,
+         "p90": 8.6,
+         "mean": 8.2
+        }
+       }
+      }
+     },
+     "playerMovesPerFight": {
+      "Searing Might": 21,
+      "Chakra Barrier": 18,
+      "move": 45.4,
+      "wait": 60.4,
+      "Shockwave Fist": 17.3,
+      "basicAttack": 66.7,
+      "Liver Shot": 15.2,
+      "meditate": 6.1
+     },
+     "dodgeStepsPerFight": 18.6,
+     "issues": []
+    },
+    {
+     "fight": "Floor 2",
+     "winRate": 100,
+     "outcomes": {
+      "won": 10,
+      "lost": 0,
+      "stalled": 0
+     },
+     "roundsToWin": {
+      "median": 34,
+      "p10": 34,
+      "p90": 34,
+      "mean": 34
+     },
+     "roundsAll": {
+      "median": 34,
+      "p10": 34,
+      "p90": 34,
+      "mean": 34
+     },
+     "partyHpLeftPctWhenWon": {
+      "median": 81,
+      "p10": 75,
+      "p90": 83,
+      "mean": 79.1
+     },
+     "playersDownWhenWon": {
+      "median": 0,
+      "p10": 0,
+      "p90": 0,
+      "mean": 0
+     },
+     "enemyMoves": {
+      "Rogue Marksman": {
+       "Omen: Seven Planks": {
+        "perFight": 7.5,
+        "firstRound": 1,
+        "typicalRound": 4,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "Eruption: Seven Planks": {
+        "perFight": 5.8,
+        "firstRound": 2,
+        "typicalRound": 5,
+        "hitPartyPct": 33,
+        "damageWhenHit": {
+         "median": 60.5,
+         "p10": 51.4,
+         "p90": 102.8,
+         "mean": 65.4
+        }
+       },
+       "basicAttack": {
+        "perFight": 6.1,
+        "firstRound": 3,
+        "typicalRound": 6,
+        "hitPartyPct": 100,
+        "damageWhenHit": {
+         "median": 8.1,
+         "p10": 7.3,
+         "p90": 8.6,
+         "mean": 8
+        }
+       }
+      },
+      "Rogue Shinobi": {
+       "Omen: Three-Plank Line": {
+        "perFight": 13.6,
+        "firstRound": 4,
+        "typicalRound": 17,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "Eruption: Three-Plank Line": {
+        "perFight": 9.6,
+        "firstRound": 5,
+        "typicalRound": 18,
+        "hitPartyPct": 4,
+        "damageWhenHit": {
+         "median": 61.9,
+         "p10": 57.8,
+         "p90": 72.9,
+         "mean": 62.6
+        }
+       },
+       "basicAttack": {
+        "perFight": 10.9,
+        "firstRound": 6,
+        "typicalRound": 19,
+        "hitPartyPct": 100,
+        "damageWhenHit": {
+         "median": 8.1,
+         "p10": 7.3,
+         "p90": 8.6,
+         "mean": 8.1
+        }
+       }
+      },
+      "Rogue Squad Leader": {
+       "Rogue Rally": {
+        "perFight": 4.6,
+        "firstRound": 15,
+        "typicalRound": 22,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "basicAttack": {
+        "perFight": 17.9,
+        "firstRound": 16,
+        "typicalRound": 23,
+        "hitPartyPct": 100,
+        "damageWhenHit": {
+         "median": 11.6,
+         "p10": 9.2,
+         "p90": 14,
+         "mean": 12
+        }
+       }
+      }
+     },
+     "playerMovesPerFight": {
+      "Searing Might": 27,
+      "Chakra Barrier": 21,
+      "move": 42.9,
+      "Shockwave Fist": 21,
+      "basicAttack": 84,
+      "wait": 75.3,
+      "Liver Shot": 20.9,
+      "meditate": 9
+     },
+     "dodgeStepsPerFight": 18.2,
+     "issues": []
+    },
+    {
+     "fight": "Floor 3",
+     "winRate": 100,
+     "outcomes": {
+      "won": 10,
+      "lost": 0,
+      "stalled": 0
+     },
+     "roundsToWin": {
+      "median": 43,
+      "p10": 43,
+      "p90": 45,
+      "mean": 43.5
+     },
+     "roundsAll": {
+      "median": 43,
+      "p10": 43,
+      "p90": 45,
+      "mean": 43.5
+     },
+     "partyHpLeftPctWhenWon": {
+      "median": 77,
+      "p10": 65,
+      "p90": 81,
+      "mean": 74.1
+     },
+     "playersDownWhenWon": {
+      "median": 0,
+      "p10": 0,
+      "p90": 0,
+      "mean": 0
+     },
+     "enemyMoves": {
+      "Rogue Shinobi": {
+       "Omen: Three-Plank Line": {
+        "perFight": 11.9,
+        "firstRound": 1,
+        "typicalRound": 10,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "Eruption: Three-Plank Line": {
+        "perFight": 7.8,
+        "firstRound": 2,
+        "typicalRound": 5,
+        "hitPartyPct": 8,
+        "damageWhenHit": {
+         "median": 72.9,
+         "p10": 57.8,
+         "p90": 115.7,
+         "mean": 74.2
+        }
+       },
+       "basicAttack": {
+        "perFight": 9.7,
+        "firstRound": 3,
+        "typicalRound": 9,
+        "hitPartyPct": 100,
+        "damageWhenHit": {
+         "median": 8.1,
+         "p10": 7.3,
+         "p90": 8.6,
+         "mean": 8
+        }
+       }
+      },
+      "Rogue Marksman": {
+       "Omen: Seven Planks": {
+        "perFight": 16.8,
+        "firstRound": 4,
+        "typicalRound": 20,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "Eruption: Seven Planks": {
+        "perFight": 11.5,
+        "firstRound": 5,
+        "typicalRound": 20,
+        "hitPartyPct": 26,
+        "damageWhenHit": {
+         "median": 64.8,
+         "p10": 51.4,
+         "p90": 129.5,
+         "mean": 76.1
+        }
+       },
+       "basicAttack": {
+        "perFight": 10.9,
+        "firstRound": 6,
+        "typicalRound": 19,
+        "hitPartyPct": 100,
+        "damageWhenHit": {
+         "median": 8.1,
+         "p10": 7.3,
+         "p90": 8.6,
+         "mean": 8
+        }
+       }
+      },
+      "Rogue Squad Leader": {
+       "Rogue Rally": {
+        "perFight": 4.1,
+        "firstRound": 28,
+        "typicalRound": 35,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "basicAttack": {
+        "perFight": 15.6,
+        "firstRound": 29,
+        "typicalRound": 35,
+        "hitPartyPct": 100,
+        "damageWhenHit": {
+         "median": 11.6,
+         "p10": 10.9,
+         "p90": 14,
+         "mean": 11.9
+        }
+       }
+      }
+     },
+     "playerMovesPerFight": {
+      "Searing Might": 33.4,
+      "Chakra Barrier": 27.1,
+      "move": 74,
+      "wait": 91.3,
+      "Shockwave Fist": 27,
+      "basicAttack": 105,
+      "Liver Shot": 25.9,
+      "meditate": 12.5
+     },
+     "dodgeStepsPerFight": 32.9,
+     "issues": []
+    },
+    {
+     "fight": "Floor 4",
+     "winRate": 100,
+     "outcomes": {
+      "won": 10,
+      "lost": 0,
+      "stalled": 0
+     },
+     "roundsToWin": {
+      "median": 55,
+      "p10": 53,
+      "p90": 57,
+      "mean": 55.1
+     },
+     "roundsAll": {
+      "median": 55,
+      "p10": 53,
+      "p90": 57,
+      "mean": 55.1
+     },
+     "partyHpLeftPctWhenWon": {
+      "median": 66,
+      "p10": 48,
+      "p90": 70,
+      "mean": 59
+     },
+     "playersDownWhenWon": {
+      "median": 0,
+      "p10": 0,
+      "p90": 0,
+      "mean": 0
+     },
+     "enemyMoves": {
+      "Rogue Squad Leader": {
+       "Rogue Rally": {
+        "perFight": 10.2,
+        "firstRound": 5,
+        "typicalRound": 21,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "basicAttack": {
+        "perFight": 37.9,
+        "firstRound": 4,
+        "typicalRound": 20,
+        "hitPartyPct": 100,
+        "damageWhenHit": {
+         "median": 11.6,
+         "p10": 9.9,
+         "p90": 14,
+         "mean": 12
+        }
+       }
+      },
+      "Rogue Shinobi": {
+       "Omen: Three-Plank Line": {
+        "perFight": 20.8,
+        "firstRound": 4,
+        "typicalRound": 42,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "Eruption: Three-Plank Line": {
+        "perFight": 15.1,
+        "firstRound": 2,
+        "typicalRound": 20,
+        "hitPartyPct": 14,
+        "damageWhenHit": {
+         "median": 72.9,
+         "p10": 57.8,
+         "p90": 72.9,
+         "mean": 70.6
+        }
+       },
+       "basicAttack": {
+        "perFight": 15.3,
+        "firstRound": 3,
+        "typicalRound": 15,
+        "hitPartyPct": 100,
+        "damageWhenHit": {
+         "median": 8.1,
+         "p10": 7.3,
+         "p90": 8.6,
+         "mean": 8.1
+        }
+       }
+      },
+      "Rogue Marksman": {
+       "Omen: Seven Planks": {
+        "perFight": 10.1,
+        "firstRound": 23,
+        "typicalRound": 29,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "Eruption: Seven Planks": {
+        "perFight": 7.3,
+        "firstRound": 24,
+        "typicalRound": 29,
+        "hitPartyPct": 33,
+        "damageWhenHit": {
+         "median": 64.8,
+         "p10": 55,
+         "p90": 129.5,
+         "mean": 83.3
+        }
+       },
+       "basicAttack": {
+        "perFight": 7.1,
+        "firstRound": 24,
+        "typicalRound": 30,
+        "hitPartyPct": 100,
+        "damageWhenHit": {
+         "median": 8.1,
+         "p10": 7.3,
+         "p90": 8.6,
+         "mean": 8.1
+        }
+       }
+      }
+     },
+     "playerMovesPerFight": {
+      "Searing Might": 42.2,
+      "Chakra Barrier": 34.1,
+      "move": 77.3,
+      "Shockwave Fist": 33.5,
+      "basicAttack": 136.7,
+      "wait": 121.6,
+      "Liver Shot": 32.8,
+      "meditate": 18.1
+     },
+     "dodgeStepsPerFight": 31.3,
+     "issues": []
+    },
+    {
+     "fight": "Captain",
+     "winRate": 100,
+     "outcomes": {
+      "won": 10,
+      "lost": 0,
+      "stalled": 0
+     },
+     "roundsToWin": {
+      "median": 37,
+      "p10": 31,
+      "p90": 47,
+      "mean": 37.4
+     },
+     "roundsAll": {
+      "median": 37,
+      "p10": 31,
+      "p90": 47,
+      "mean": 37.4
+     },
+     "partyHpLeftPctWhenWon": {
+      "median": 66,
+      "p10": 24,
+      "p90": 80,
+      "mean": 59.1
+     },
+     "playersDownWhenWon": {
+      "median": 0,
+      "p10": 0,
+      "p90": 1,
+      "mean": 0.2
+     },
+     "enemyMoves": {
+      "Rogue Captain": {
+       "Omen: Three-Plank Line": {
+        "perFight": 9.4,
+        "firstRound": 3,
+        "typicalRound": 19,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "Rogue Cleave": {
+        "perFight": 9.2,
+        "firstRound": 4,
+        "typicalRound": 20,
+        "hitPartyPct": 38,
+        "damageWhenHit": {
+         "median": 115.9,
+         "p10": 108.2,
+         "p90": 127.3,
+         "mean": 120.2
+        }
+       },
+       "Omen: Cracking Ring": {
+        "perFight": 9.1,
+        "firstRound": 3,
+        "typicalRound": 19,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "Rogue Sweep": {
+        "perFight": 8.9,
+        "firstRound": 4,
+        "typicalRound": 20,
+        "hitPartyPct": 51,
+        "damageWhenHit": {
+         "median": 63.6,
+         "p10": 50.5,
+         "p90": 127.2,
+         "mean": 75.9
+        }
+       },
+       "Rogue Reinforcements": {
+        "perFight": 3,
+        "firstRound": 11,
+        "typicalRound": 23,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       }
+      },
+      "Rogue Shinobi Reinforcement (summon)": {
+       "Omen: Three-Plank Line": {
+        "perFight": 8.9,
+        "firstRound": 13,
+        "typicalRound": 23,
+        "hitPartyPct": 0,
+        "damageWhenHit": null
+       },
+       "Eruption: Three-Plank Line": {
+        "perFight": 6.4,
+        "firstRound": 14,
+        "typicalRound": 24,
+        "hitPartyPct": 16,
+        "damageWhenHit": {
+         "median": 120.1,
+         "p10": 102.1,
+         "p90": 120.1,
+         "mean": 115.7
+        }
+       },
+       "basicAttack": {
+        "perFight": 7.5,
+        "firstRound": 15,
+        "typicalRound": 25,
+        "hitPartyPct": 100,
+        "damageWhenHit": {
+         "median": 14.6,
+         "p10": 12.4,
+         "p90": 14.6,
+         "mean": 13.9
+        }
+       }
+      }
+     },
+     "playerMovesPerFight": {
+      "Searing Might": 27.6,
+      "Chakra Barrier": 22.7,
+      "move": 313.3,
+      "Shockwave Fist": 21.7,
+      "basicAttack": 54.3,
+      "wait": 48.5,
+      "Liver Shot": 20.4,
+      "meditate": 8.4
+     },
+     "dodgeStepsPerFight": 159.2,
+     "issues": []
+    }
+   ],
+   "everyFloorFirstTry": 100
+  }
+ ],
+ "sampleFirstSeed": {
+  "L10 solo/Floor 1": [
+   "r1 w1 Genin L10: Searing Might {}",
+   "r1 w1 Genin L10: Chakra Barrier {}",
+   "r1 w1 Genin L10: move {}",
+   "r1 w1 Genin L10: move {}",
+   "r1 w1 Rogue Shinobi#3: Omen: Three-Plank Line {}",
+   "r1 w1 Rogue Shinobi#3: wait {}",
+   "r1 w1 Rogue Shinobi#1: Omen: Three-Plank Line {}",
+   "r1 w1 Rogue Shinobi#1: wait {}",
+   "r1 w1 Rogue Shinobi#2: Omen: Three-Plank Line {}",
+   "r1 w1 Rogue Shinobi#2: wait {}",
+   "r2 w1 Genin L10: move (dodge) {}",
+   "r2 w1 Genin L10: Shockwave Fist {\"Rogue Shinobi#1\":-24.9}",
+   "r2 w1 Genin L10: basicAttack {\"Rogue Shinobi#1\":-11.88}",
+   "r2 w1 Genin L10: wait {}",
+   "r2 w1 Rogue Shinobi#3: Eruption: Three-Plank Line {}",
+   "r2 w1 Rogue Shinobi#1: Eruption: Three-Plank Line {}",
+   "r2 w1 Rogue Shinobi#2: Eruption: Three-Plank Line {}",
+   "r3 w1 Genin L10: Liver Shot {\"Rogue Shinobi#1\":-23.76}",
+   "r3 w1 Genin L10: basicAttack {\"Rogue Shinobi#1\":-11.88}",
+   "r3 w1 Genin L10: wait {}",
+   "r3 w1 Rogue Shinobi#3: move {}",
+   "r3 w1 Rogue Shinobi#3: basicAttack {\"Genin L10\":-13.63}",
+   "r3 w1 Rogue Shinobi#3: wait {}",
+   "r3 w1 Rogue Shinobi#1: basicAttack {\"Genin L10\":-13.63}",
+   "r3 w1 Rogue Shinobi#1: wait {}",
+   "r3 w1 Rogue Shinobi#2: move {}",
+   "r3 w1 Rogue Shinobi#2: basicAttack {\"Genin L10\":-13.63}",
+   "r3 w1 Rogue Shinobi#2: wait {}",
+   "r4 w1 Genin L10: basicAttack {\"Rogue Shinobi#3\":-11.88}",
+   "r4 w1 Genin L10: wait {}",
+   "r4 w1 Rogue Shinobi#3: Omen: Three-Plank Line {}",
+   "r4 w1 Rogue Shinobi#3: wait {}",
+   "r4 w1 Rogue Shinobi#1: Omen: Three-Plank Line {}",
+   "r4 w1 Rogue Shinobi#1: wait {}",
+   "r4 w1 Rogue Shinobi#2: Omen: Three-Plank Line {}",
+   "r4 w1 Rogue Shinobi#2: wait {}",
+   "r5 w1 Genin L10: Searing Might {}",
+   "r5 w1 Genin L10: basicAttack {\"Rogue Shinobi#3\":-11.88}",
+   "r5 w1 Genin L10: wait {}",
+   "r5 w1 Rogue Shinobi#3: Eruption: Three-Plank Line {}",
+   "r5 w1 Rogue Shinobi#1: Eruption: Three-Plank Line {}",
+   "r5 w1 Rogue Shinobi#2: Eruption: Three-Plank Line {}",
+   "r6 w1 Genin L10: Chakra Barrier {}",
+   "r6 w1 Genin L10: basicAttack {\"Rogue Shinobi#3\":-11.88}",
+   "r6 w1 Genin L10: wait {}",
+   "r6 w1 Rogue Shinobi#3: basicAttack {\"Genin L10\":-12.32}",
+   "r6 w1 Rogue Shinobi#3: wait {}",
+   "r6 w1 Rogue Shinobi#1: basicAttack {\"Genin L10\":-12.32}",
+   "r6 w1 Rogue Shinobi#1: wait {}",
+   "r6 w1 Rogue Shinobi#2: basicAttack {\"Genin L10\":-12.32}",
+   "r6 w1 Rogue Shinobi#2: wait {}",
+   "r7 w1 Genin L10: Shockwave Fist {\"Rogue Shinobi#3\":-24.9}",
+   "r7 w1 Genin L10: basicAttack {\"Rogue Shinobi#3\":-11.88}",
+   "r7 w1 Genin L10: wait {}",
+   "r7 w1 Rogue Shinobi#3: Omen: Three-Plank Line {}",
+   "r7 w1 Rogue Shinobi#3: wait {}",
+   "r7 w1 Rogue Shinobi#1: Omen: Three-Plank Line {}",
+   "r7 w1 Rogue Shinobi#1: wait {}",
+   "r7 w1 Rogue Shinobi#2: Omen: Three-Plank Line {}",
+   "r7 w1 Rogue Shinobi#2: wait {}",
+   "r8 w1 Genin L10: Liver Shot {\"Rogue Shinobi#3\":-23.76}",
+   "r8 w1 Genin L10: basicAttack {\"Rogue Shinobi#3\":-11.88}",
+   "r8 w1 Genin L10: wait {}",
+   "r8 w1 Rogue Shinobi#3: wait {}",
+   "r8 w1 Rogue Shinobi#1: Eruption: Three-Plank Line {}",
+   "r8 w1 Rogue Shinobi#2: Eruption: Three-Plank Line {}",
+   "r9 w1 Genin L10: Searing Might {}",
+   "r9 w1 Genin L10: basicAttack {\"Rogue Shinobi#3\":-13.31}",
+   "r9 w1 Genin L10: meditate {}",
+   "r9 w1 Genin L10: wait {}",
+   "r9 w1 Rogue Shinobi#3: basicAttack {\"Genin L10\":-14.5}",
+   "r9 w1 Rogue Shinobi#3: wait {}",
+   "r9 w1 Rogue Shinobi#1: basicAttack {\"Genin L10\":-14.5}",
+   "r9 w1 Rogue Shinobi#1: wait {}",
+   "r9 w1 Rogue Shinobi#2: basicAttack {\"Genin L10\":-14.5}",
+   "r9 w1 Rogue Shinobi#2: wait {}",
+   "r10 w1 Genin L10: basicAttack {\"Rogue Shinobi#3\":-13.31}",
+   "r10 w1 Genin L10: wait {}",
+   "r10 w1 Rogue Shinobi#3: Omen: Three-Plank Line {}",
+   "r10 w1 Rogue Shinobi#3: wait {}",
+   "r10 w1 Rogue Shinobi#1: Omen: Three-Plank Line {}",
+   "r10 w1 Rogue Shinobi#1: wait {}",
+   "r10 w1 Rogue Shinobi#2: Omen: Three-Plank Line {}",
+   "r10 w1 Rogue Shinobi#2: wait {}",
+   "r11 w1 Genin L10: Chakra Barrier {}",
+   "r11 w1 Genin L10: basicAttack {\"Rogue Shinobi#3\":-11.88}",
+   "r11 w1 Genin L10: wait {}",
+   "r11 w1 Rogue Shinobi#3: Eruption: Three-Plank Line {}",
+   "r11 w1 Rogue Shinobi#1: Eruption: Three-Plank Line {}",
+   "r11 w1 Rogue Shinobi#2: Eruption: Three-Plank Line {}",
+   "r12 w1 Genin L10: Shockwave Fist {\"Rogue Shinobi#3\":-24.9}",
+   "r12 w1 Genin L10: basicAttack {\"Rogue Shinobi#3\":-11.88}",
+   "r12 w1 Genin L10: wait {}",
+   "r12 w1 Rogue Shinobi#3: basicAttack {\"Genin L10\":-13.63}",
+   "r12 w1 Rogue Shinobi#3: wait {}",
+   "r12 w1 Rogue Shinobi#1: basicAttack {\"Genin L10\":-13.63}",
+   "r12 w1 Rogue Shinobi#1: wait {}",
+   "r12 w1 Rogue Shinobi#2: basicAttack {\"Genin L10\":-13.63}",
+   "r12 w1 Rogue Shinobi#2: wait {}",
+   "r13 w1 Genin L10: Searing Might {}",
+   "r13 w1 Genin L10: Liver Shot {\"Rogue Shinobi#3\":-23.76}",
+   "r13 w1 Rogue Shinobi#3: Omen: Three-Plank Line {}",
+   "r13 w1 Rogue Shinobi#3: wait {}",
+   "r13 w1 Rogue Shinobi#1: Omen: Three-Plank Line {}",
+   "r13 w1 Rogue Shinobi#1: wait {}",
+   "r13 w1 Rogue Shinobi#2: Omen: Three-Plank Line {}",
+   "r13 w1 Rogue Shinobi#2: wait {}",
+   "r14 w1 Genin L10: basicAttack {\"Rogue Shinobi#3\":-13.31}",
+   "r14 w1 Genin L10: wait {}",
+   "r14 w1 Rogue Shinobi#3: wait {}",
+   "r14 w1 Rogue Shinobi#1: Eruption: Three-Plank Line {}",
+   "r14 w1 Rogue Shinobi#2: Eruption: Three-Plank Line {}",
+   "r15 w1 Genin L10: basicAttack {\"Rogue Shinobi#3\":-13.31}",
+   "r15 w1 Genin L10: wait {}",
+   "r15 w1 Rogue Shinobi#3: basicAttack {\"Genin L10\":-14.5}",
+   "r15 w1 Rogue Shinobi#3: wait {}",
+   "r15 w1 Rogue Shinobi#1: basicAttack {\"Genin L10\":-14.5}",
+   "r15 w1 Rogue Shinobi#1: wait {}",
+   "r15 w1 Rogue Shinobi#2: basicAttack {\"Genin L10\":-14.5}",
+   "r15 w1 Rogue Shinobi#2: wait {}",
+   "r16 w1 Genin L10: Chakra Barrier {}",
+   "r16 w1 Genin L10: basicAttack {\"Rogue Shinobi#3\":-11.88}",
+   "r16 w1 Genin L10: wait {}",
+   "r16 w1 Rogue Shinobi#3: Omen: Three-Plank Line {}",
+   "r16 w1 Rogue Shinobi#3: wait {}",
+   "r16 w1 Rogue Shinobi#1: Omen: Three-Plank Line {}",
+   "r16 w1 Rogue Shinobi#1: wait {}",
+   "r16 w1 Rogue Shinobi#2: Omen: Three-Plank Line {}",
+   "r16 w1 Rogue Shinobi#2: wait {}",
+   "r17 w1 Genin L10: Searing Might {}",
+   "r17 w1 Genin L10: Shockwave Fist {\"Rogue Shinobi#3\":-24.9}",
+   "r17 w1 Rogue Shinobi#3: Eruption: Three-Plank Line {}",
+   "r17 w1 Rogue Shinobi#1: Eruption: Three-Plank Line {}",
+   "r17 w1 Rogue Shinobi#2: Eruption: Three-Plank Line {}",
+   "r18 w1 Genin L10: Liver Shot {\"Rogue Shinobi#3\":-23.76}",
+   "r18 w1 Genin L10: basicAttack {\"Rogue Shinobi#3\":-11.88}",
+   "r18 w1 Genin L10: meditate {}",
+   "r18 w1 Rogue Shinobi#3: basicAttack {\"Genin L10\":-11.58}",
+   "r18 w1 Rogue Shinobi#3: wait {}",
+   "r18 w1 Rogue Shinobi#1: basicAttack {\"Genin L10\":-11.58}",
+   "r18 w1 Rogue Shinobi#1: wait {}",
+   "r18 w1 Rogue Shinobi#2: basicAttack {\"Genin L10\":-11.58}",
+   "r18 w1 Rogue Shinobi#2: wait {}",
+   "r19 w1 Genin L10: basicAttack {\"Rogue Shinobi#3\":-13.31}",
+   "r19 w1 Genin L10: wait {}",
+   "r19 w1 Rogue Shinobi#3: Omen: Three-Plank Line {}",
+   "r19 w1 Rogue Shinobi#3: wait {}",
+   "r19 w1 Rogue Shinobi#1: Omen: Three-Plank Line {}",
+   "r19 w1 Rogue Shinobi#1: wait {}",
+   "r19 w1 Rogue Shinobi#2: Omen: Three-Plank Line {}",
+   "r19 w1 Rogue Shinobi#2: wait {}",
+   "r20 w1 Genin L10: basicAttack {\"Rogue Shinobi#3\":-13.31}",
+   "r20 w1 Genin L10: wait {}",
+   "r20 w1 Rogue Shinobi#3: Eruption: Three-Plank Line {}",
+   "r20 w1 Rogue Shinobi#1: Eruption: Three-Plank Line {}",
+   "r20 w1 Rogue Shinobi#2: Eruption: Three-Plank Line {}",
+   "r21 w1 Genin L10: Searing Might {}",
+   "r21 w1 Genin L10: Chakra Barrier {}",
+   "r21 w1 Genin L10: basicAttack {\"Rogue Shinobi#3\":-11.88}",
+   "r21 w1 Rogue Shinobi#3: basicAttack {\"Genin L10\":-14.5}",
+   "r21 w1 Rogue Shinobi#3: wait {}",
+   "r21 w1 Rogue Shinobi#1: basicAttack {\"Genin L10\":-14.5}",
+   "r21 w1 Rogue Shinobi#1: wait {}",
+   "r21 w1 Rogue Shinobi#2: basicAttack {\"Genin L10\":-14.5}",
+   "r21 w1 Rogue Shinobi#2: wait {}",
+   "r22 w1 Genin L10: Shockwave Fist {\"Rogue Shinobi#3\":-24.9}",
+   "r22 w1 Genin L10: basicAttack {\"Rogue Shinobi#3\":-11.88}",
+   "r22 w1 Genin L10: wait {}",
+   "r22 w1 Rogue Shinobi#3: Omen: Three-Plank Line {}",
+   "r22 w1 Rogue Shinobi#3: wait {}",
+   "r22 w1 Rogue Shinobi#1: Omen: Three-Plank Line {}",
+   "r22 w1 Rogue Shinobi#1: wait {}",
+   "r22 w1 Rogue Shinobi#2: Omen: Three-Plank Line {}",
+   "r22 w1 Rogue Shinobi#2: wait {}",
+   "r23 w1 Genin L10: Liver Shot {\"Rogue Shinobi#3\":-23.76}",
+   "r23 w1 Genin L10: basicAttack {\"Rogue Shinobi#3\":-11.88}",
+   "r23 w1 Genin L10: wait {}",
+   "r23 w1 Rogue Shinobi#3: wait {}",
+   "r23 w1 Rogue Shinobi#1: Eruption: Three-Plank Line {}",
+   "r23 w1 Rogue Shinobi#2: Eruption: Three-Plank Line {}",
+   "r24 w1 Genin L10: basicAttack {\"Rogue Shinobi#3\":-13.31}",
+   "r24 w1 Genin L10: meditate {}",
+   "r24 w1 Genin L10: wait {}",
+   "r24 w1 Rogue Shinobi#3: basicAttack {\"Genin L10\":-14.5}",
+   "r24 w1 Rogue Shinobi#3: wait {}",
+   "r24 w1 Rogue Shinobi#1: basicAttack {\"Genin L10\":-14.5}",
+   "r24 w1 Rogue Shinobi#1: wait {}",
+   "r24 w1 Rogue Shinobi#2: basicAttack {\"Genin L10\":-14.5}",
+   "r24 w1 Rogue Shinobi#2: wait {}",
+   "r25 w1 Genin L10: Searing Might {}",
+   "r25 w1 Genin L10: basicAttack {\"Rogue Shinobi#3\":-13.31}",
+   "r25 w1 Genin L10: wait {}",
+   "r25 w1 Rogue Shinobi#3: Omen: Three-Plank Line {}",
+   "r25 w1 Rogue Shinobi#3: wait {}",
+   "r25 w1 Rogue Shinobi#1: Omen: Three-Plank Line {}",
+   "r25 w1 Rogue Shinobi#1: wait {}",
+   "r25 w1 Rogue Shinobi#2: Omen: Three-Plank Line {}",
+   "r25 w1 Rogue Shinobi#2: wait {}",
+   "r26 w1 Genin L10: Chakra Barrier {}",
+   "r26 w1 Genin L10: basicAttack {\"Rogue Shinobi#3\":-11.88}",
+   "r26 w1 Genin L10: wait {}",
+   "r26 w1 Rogue Shinobi#3: Eruption: Three-Plank Line {}",
+   "r26 w1 Rogue Shinobi#1: Eruption: Three-Plank Line {}",
+   "r26 w1 Rogue Shinobi#2: Eruption: Three-Plank Line {}",
+   "r27 w1 Genin L10: Shockwave Fist {\"Rogue Shinobi#3\":-24.9}",
+   "r27 w1 Genin L10: basicAttack {\"Rogue Shinobi#3\":-11.88}",
+   "r27 w1 Genin L10: wait {}",
+   "r27 w1 Rogue Shinobi#3: basicAttack {\"Genin L10\":-13.63}",
+   "r27 w1 Rogue Shinobi#3: wait {}",
+   "r27 w1 Rogue Shinobi#1: basicAttack {\"Genin L10\":-13.63}",
+   "r27 w1 Rogue Shinobi#1: wait {}",
+   "r27 w1 Rogue Shinobi#2: basicAttack {\"Genin L10\":-13.63}",
+   "r27 w1 Rogue Shinobi#2: wait {}",
+   "r28 w1 Genin L10: Liver Shot {\"Rogue Shinobi#3\":-23.76}",
+   "r28 w1 Genin L10: basicAttack {\"Rogue Shinobi#3\":-11.88}",
+   "r28 w1 Genin L10: wait {}",
+   "r28 w1 Rogue Shinobi#3: Omen: Three-Plank Line {}",
+   "r28 w1 Rogue Shinobi#3: wait {}",
+   "r28 w1 Rogue Shinobi#1: Omen: Three-Plank Line {}",
+   "r28 w1 Rogue Shinobi#1: wait {}",
+   "r28 w1 Rogue Shinobi#2: Omen: Three-Plank Line {}",
+   "r28 w1 Rogue Shinobi#2: wait {}",
+   "r29 w1 Genin L10: Searing Might {}",
+   "r29 w1 Genin L10: basicAttack {\"Rogue Shinobi#3\":-13.31}",
+   "r29 w1 Genin L10: wait {}",
+   "r29 w1 Rogue Shinobi#3: wait {}",
+   "r29 w1 Rogue Shinobi#1: Eruption: Three-Plank Line {}",
+   "r29 w1 Rogue Shinobi#2: Eruption: Three-Plank Line {}",
+   "r30 w1 Genin L10: basicAttack {\"Rogue Shinobi#3\":-13.31}",
+   "r30 w1 Genin L10: wait {}",
+   "r30 w1 Rogue Shinobi#3: basicAttack {\"Genin L10\":-12.32}",
+   "r30 w1 Rogue Shinobi#3: wait {}",
+   "r30 w1 Rogue Shinobi#1: basicAttack {\"Genin L10\":-12.32}",
+   "r30 w1 Rogue Shinobi#1: wait {}",
+   "r30 w1 Rogue Shinobi#2: basicAttack {\"Genin L10\":-12.32}",
+   "r30 w1 Rogue Shinobi#2: wait {}",
+   "r31 w1 Genin L10: Chakra Barrier {}",
+   "r31 w1 Genin L10: basicAttack {\"Rogue Shinobi#3\":-11.88}",
+   "r31 w1 Genin L10: wait {}",
+   "r31 w1 Rogue Shinobi#3: Omen: Three-Plank Line {}",
+   "r31 w1 Rogue Shinobi#3: wait {}",
+   "r31 w1 Rogue Shinobi#1: Omen: Three-Plank Line {}",
+   "r31 w1 Rogue Shinobi#1: wait {}",
+   "r31 w1 Rogue Shinobi#2: Omen: Three-Plank Line {}",
+   "r31 w1 Rogue Shinobi#2: wait {}",
+   "r32 w1 Genin L10: Shockwave Fist {\"Rogue Shinobi#3\":-24.9}",
+   "r32 w1 Genin L10: basicAttack {\"Rogue Shinobi#3\":-11.88}",
+   "r32 w1 Genin L10: meditate {}",
+   "r32 w1 Rogue Shinobi#3: Eruption: Three-Plank Line {}",
+   "r32 w1 Rogue Shinobi#1: Eruption: Three-Plank Line {}",
+   "r32 w1 Rogue Shinobi#2: Eruption: Three-Plank Line {}",
+   "r33 w1 Genin L10: Searing Might {}",
+   "r33 w1 Genin L10: Liver Shot {\"Rogue Shinobi#3\":-23.76}",
+   "r33 w1 Rogue Shinobi#3: basicAttack {\"Genin L10\":-13.63}",
+   "r33 w1 Rogue Shinobi#3: wait {}",
+   "r33 w1 Rogue Shinobi#1: basicAttack {\"Genin L10\":-13.63}",
+   "r33 w1 Rogue Shinobi#1: wait {}",
+   "r33 w1 Rogue Shinobi#2: basicAttack {\"Genin L10\":-13.63}",
+   "r33 w1 Rogue Shinobi#2: wait {}",
+   "r34 w1 Genin L10: basicAttack {\"Rogue Shinobi#3\":-13.31}",
+   "r34 w1 Genin L10: wait {}",
+   "r34 w1 Rogue Shinobi#3: Omen: Three-Plank Line {}",
+   "r34 w1 Rogue Shinobi#3: wait {}",
+   "r34 w1 Rogue Shinobi#1: Omen: Three-Plank Line {}",
+   "r34 w1 Rogue Shinobi#1: wait {}",
+   "r34 w1 Rogue Shinobi#2: Omen: Three-Plank Line {}",
+   "r34 w1 Rogue Shinobi#2: wait {}",
+   "r35 w1 Genin L10: basicAttack {\"Rogue Shinobi#3\":-13.31}",
+   "r35 w1 Genin L10: wait {}",
+   "r35 w1 Rogue Shinobi#3: Eruption: Three-Plank Line {}",
+   "r35 w1 Rogue Shinobi#1: Eruption: Three-Plank Line {}",
+   "r35 w1 Rogue Shinobi#2: Eruption: Three-Plank Line {}",
+   "r36 w1 Genin L10: Chakra Barrier {}",
+   "r36 w1 Genin L10: basicAttack {\"Rogue Shinobi#3\":-11.88}",
+   "r36 w1 Genin L10: wait {}",
+   "r36 w1 Rogue Shinobi#3: basicAttack {\"Genin L10\":-14.5}",
+   "r36 w1 Rogue Shinobi#3: wait {}",
+   "r36 w1 Rogue Shinobi#1: basicAttack {\"Genin L10\":-14.5}",
+   "r36 w1 Rogue Shinobi#1: wait {}",
+   "r36 w1 Rogue Shinobi#2: basicAttack {\"Genin L10\":-14.5}",
+   "r36 w1 Rogue Shinobi#2: wait {}",
+   "r37 w1 Genin L10: Searing Might {}",
+   "r37 w1 Genin L10: Shockwave Fist {\"Rogue Shinobi#3\":-24.9}",
+   "r37 w1 Rogue Shinobi#3: Omen: Three-Plank Line {}",
+   "r37 w1 Rogue Shinobi#3: wait {}",
+   "r37 w1 Rogue Shinobi#1: Omen: Three-Plank Line {}",
+   "r37 w1 Rogue Shinobi#1: wait {}",
+   "r37 w1 Rogue Shinobi#2: Omen: Three-Plank Line {}",
+   "r37 w1 Rogue Shinobi#2: wait {}",
+   "r38 w1 Genin L10: Liver Shot {\"Rogue Shinobi#3\":-23.76}",
+   "r38 w1 Genin L10: basicAttack {\"Rogue Shinobi#3\":-11.88}",
+   "r38 w1 Genin L10: wait {}",
+   "r38 w1 Rogue Shinobi#3: wait {}",
+   "r38 w1 Rogue Shinobi#1: Eruption: Three-Plank Line {}",
+   "r38 w1 Rogue Shinobi#2: Eruption: Three-Plank Line {}",
+   "r39 w1 Genin L10: basicAttack {\"Rogue Shinobi#3\":-13.31}",
+   "r39 w1 Genin L10: meditate {}",
+   "r39 w1 Genin L10: wait {}",
+   "r39 w1 Rogue Shinobi#3: basicAttack {\"Genin L10\":-14.5}",
+   "r39 w1 Rogue Shinobi#3: wait {}",
+   "r39 w1 Rogue Shinobi#1: basicAttack {\"Genin L10\":-14.5}",
+   "r39 w1 Rogue Shinobi#1: wait {}",
+   "r39 w1 Rogue Shinobi#2: basicAttack {\"Genin L10\":-14.5}",
+   "r39 w1 Rogue Shinobi#2: wait {}",
+   "r40 w1 Genin L10: basicAttack {\"Rogue Shinobi#3\":-10.6}",
+   "r40 w1 Genin L10: wait {}",
+   "r40 w1 Rogue Shinobi#1: Omen: Three-Plank Line {}",
+   "r40 w1 Rogue Shinobi#1: wait {}",
+   "r40 w1 Rogue Shinobi#2: Omen: Three-Plank Line {}",
+   "r40 w1 Rogue Shinobi#2: wait {}",
+   "r41 w1 Genin L10: Searing Might {}",
+   "r41 w1 Genin L10: Chakra Barrier {}",
+   "r41 w1 Genin L10: basicAttack {\"Rogue Shinobi#2\":-11.88}",
+   "r41 w1 Rogue Shinobi#1: Eruption: Three-Plank Line {}",
+   "r41 w1 Rogue Shinobi#2: Eruption: Three-Plank Line {}",
+   "r42 w1 Genin L10: Shockwave Fist {\"Rogue Shinobi#2\":-24.9}",
+   "r42 w1 Genin L10: basicAttack {\"Rogue Shinobi#2\":-11.88}",
+   "r42 w1 Genin L10: wait {}",
+   "r42 w1 Rogue Shinobi#1: basicAttack {\"Genin L10\":-11.58}",
+   "r42 w1 Rogue Shinobi#1: wait {}",
+   "r42 w1 Rogue Shinobi#2: basicAttack {\"Genin L10\":-5.27}"
+  ],
+  "L10 solo/Floor 2": [
+   "r1 w1 Genin L10: Searing Might {}",
+   "r1 w1 Genin L10: Chakra Barrier {}",
+   "r1 w1 Genin L10: move {}",
+   "r1 w1 Genin L10: move {}",
+   "r1 w1 Rogue Shinobi#1: Omen: Three-Plank Line {}",
+   "r1 w1 Rogue Shinobi#1: wait {}",
+   "r1 w1 Rogue Marksman#1: Omen: Seven Planks {}",
+   "r1 w1 Rogue Marksman#1: wait {}",
+   "r1 w1 Rogue Marksman#2: move {}",
+   "r1 w1 Rogue Marksman#2: move {}",
+   "r1 w1 Rogue Marksman#2: move {}",
+   "r1 w1 Rogue Marksman#2: Omen: Seven Planks {}",
+   "r1 w1 Rogue Marksman#2: wait {}",
+   "r2 w1 Genin L10: Shockwave Fist {\"Rogue Shinobi#1\":-24.9}",
+   "r2 w1 Genin L10: move {}",
+   "r2 w1 Genin L10: basicAttack {\"Rogue Shinobi#1\":-11.88}",
+   "r2 w1 Genin L10: wait {}",
+   "r2 w1 Rogue Shinobi#1: Eruption: Three-Plank Line {}",
+   "r2 w1 Rogue Marksman#1: Eruption: Seven Planks {}",
+   "r2 w1 Rogue Marksman#2: Eruption: Seven Planks {}",
+   "r3 w1 Genin L10: Liver Shot {\"Rogue Shinobi#1\":-23.76}",
+   "r3 w1 Genin L10: basicAttack {\"Rogue Shinobi#1\":-11.88}",
+   "r3 w1 Genin L10: wait {}",
+   "r3 w1 Rogue Shinobi#1: basicAttack {\"Genin L10\":-13.63}",
+   "r3 w1 Rogue Shinobi#1: wait {}",
+   "r3 w1 Rogue Marksman#1: move {}",
+   "r3 w1 Rogue Marksman#1: basicAttack {\"Genin L10\":-13.63}",
+   "r3 w1 Rogue Marksman#1: wait {}",
+   "r3 w1 Rogue Marksman#2: move {}",
+   "r3 w1 Rogue Marksman#2: move {}",
+   "r3 w1 Rogue Marksman#2: basicAttack {\"Genin L10\":-13.63}",
+   "r3 w1 Rogue Marksman#2: wait {}",
+   "r4 w1 Genin L10: basicAttack {\"Rogue Shinobi#1\":-13.31}",
+   "r4 w1 Genin L10: wait {}",
+   "r4 w1 Rogue Shinobi#1: Omen: Three-Plank Line {}",
+   "r4 w1 Rogue Shinobi#1: wait {}",
+   "r4 w1 Rogue Marksman#1: Omen: Seven Planks {}",
+   "r4 w1 Rogue Marksman#1: wait {}",
+   "r4 w1 Rogue Marksman#2: Omen: Seven Planks {}",
+   "r4 w1 Rogue Marksman#2: wait {}",
+   "r5 w1 Genin L10: Searing Might {}",
+   "r5 w1 Genin L10: basicAttack {\"Rogue Shinobi#1\":-13.31}",
+   "r5 w1 Genin L10: wait {}",
+   "r5 w1 Rogue Shinobi#1: Eruption: Three-Plank Line {}",
+   "r5 w1 Rogue Marksman#1: Eruption: Seven Planks {}",
+   "r5 w1 Rogue Marksman#2: Eruption: Seven Planks {}",
+   "r6 w1 Genin L10: Chakra Barrier {}",
+   "r6 w1 Genin L10: basicAttack {\"Rogue Shinobi#1\":-11.88}",
+   "r6 w1 Genin L10: wait {}",
+   "r6 w1 Rogue Shinobi#1: basicAttack {\"Genin L10\":-12.32}",
+   "r6 w1 Rogue Shinobi#1: wait {}",
+   "r6 w1 Rogue Marksman#1: basicAttack {\"Genin L10\":-12.32}",
+   "r6 w1 Rogue Marksman#1: wait {}",
+   "r6 w1 Rogue Marksman#2: basicAttack {\"Genin L10\":-12.32}",
+   "r6 w1 Rogue Marksman#2: wait {}",
+   "r7 w1 Genin L10: Shockwave Fist {\"Rogue Shinobi#1\":-24.9}",
+   "r7 w1 Genin L10: basicAttack {\"Rogue Shinobi#1\":-11.88}",
+   "r7 w1 Genin L10: wait {}",
+   "r7 w1 Rogue Shinobi#1: Omen: Three-Plank Line {}",
+   "r7 w1 Rogue Shinobi#1: wait {}",
+   "r7 w1 Rogue Marksman#1: Omen: Seven Planks {}",
+   "r7 w1 Rogue Marksman#1: wait {}",
+   "r7 w1 Rogue Marksman#2: Omen: Seven Planks {}",
+   "r7 w1 Rogue Marksman#2: wait {}",
+   "r8 w1 Genin L10: Liver Shot {\"Rogue Shinobi#1\":-23.76}",
+   "r8 w1 Genin L10: basicAttack {\"Rogue Shinobi#1\":-11.88}",
+   "r8 w1 Genin L10: wait {}",
+   "r8 w1 Rogue Shinobi#1: wait {}",
+   "r8 w1 Rogue Marksman#1: Eruption: Seven Planks {}",
+   "r8 w1 Rogue Marksman#2: Eruption: Seven Planks {}",
+   "r9 w1 Genin L10: Searing Might {}",
+   "r9 w1 Genin L10: basicAttack {\"Rogue Shinobi#1\":-13.31}",
+   "r9 w1 Genin L10: meditate {}",
+   "r9 w1 Genin L10: wait {}",
+   "r9 w1 Rogue Shinobi#1: basicAttack {\"Genin L10\":-14.5}",
+   "r9 w1 Rogue Shinobi#1: wait {}",
+   "r9 w1 Rogue Marksman#1: basicAttack {\"Genin L10\":-14.5}",
+   "r9 w1 Rogue Marksman#1: wait {}",
+   "r9 w1 Rogue Marksman#2: basicAttack {\"Genin L10\":-14.5}",
+   "r9 w1 Rogue Marksman#2: wait {}",
+   "r10 w1 Genin L10: basicAttack {\"Rogue Shinobi#1\":-13.31}",
+   "r10 w1 Genin L10: wait {}",
+   "r10 w1 Rogue Shinobi#1: Omen: Three-Plank Line {}",
+   "r10 w1 Rogue Shinobi#1: wait {}",
+   "r10 w1 Rogue Marksman#1: Omen: Seven Planks {}",
+   "r10 w1 Rogue Marksman#1: wait {}",
+   "r10 w1 Rogue Marksman#2: Omen: Seven Planks {}",
+   "r10 w1 Rogue Marksman#2: wait {}",
+   "r11 w1 Genin L10: Chakra Barrier {}",
+   "r11 w1 Genin L10: basicAttack {\"Rogue Shinobi#1\":-11.88}",
+   "r11 w1 Genin L10: wait {}",
+   "r11 w1 Rogue Shinobi#1: Eruption: Three-Plank Line {}",
+   "r11 w1 Rogue Marksman#1: Eruption: Seven Planks {}",
+   "r11 w1 Rogue Marksman#2: Eruption: Seven Planks {}",
+   "r12 w1 Genin L10: Shockwave Fist {\"Rogue Shinobi#1\":-24.9}",
+   "r12 w1 Genin L10: basicAttack {\"Rogue Shinobi#1\":-11.88}",
+   "r12 w1 Genin L10: wait {}",
+   "r12 w1 Rogue Shinobi#1: basicAttack {\"Genin L10\":-13.63}",
+   "r12 w1 Rogue Shinobi#1: wait {}",
+   "r12 w1 Rogue Marksman#1: basicAttack {\"Genin L10\":-13.63}",
+   "r12 w1 Rogue Marksman#1: wait {}",
+   "r12 w1 Rogue Marksman#2: basicAttack {\"Genin L10\":-13.63}",
+   "r12 w1 Rogue Marksman#2: wait {}",
+   "r13 w1 Genin L10: Searing Might {}",
+   "r13 w1 Genin L10: Liver Shot {\"Rogue Shinobi#1\":-23.76}",
+   "r13 w1 Rogue Shinobi#1: Omen: Three-Plank Line {}",
+   "r13 w1 Rogue Shinobi#1: wait {}",
+   "r13 w1 Rogue Marksman#1: Omen: Seven Planks {}",
+   "r13 w1 Rogue Marksman#1: wait {}",
+   "r13 w1 Rogue Marksman#2: Omen: Seven Planks {}",
+   "r13 w1 Rogue Marksman#2: wait {}",
+   "r14 w1 Genin L10: basicAttack {\"Rogue Shinobi#1\":-13.31}",
+   "r14 w1 Genin L10: wait {}",
+   "r14 w1 Rogue Shinobi#1: wait {}",
+   "r14 w1 Rogue Marksman#1: Eruption: Seven Planks {}",
+   "r14 w1 Rogue Marksman#2: Eruption: Seven Planks {}",
+   "r15 w1 Genin L10: basicAttack {\"Rogue Shinobi#1\":-13.31}",
+   "r15 w1 Genin L10: wait {}",
+   "r15 w1 Rogue Shinobi#1: basicAttack {\"Genin L10\":-14.5}",
+   "r15 w1 Rogue Shinobi#1: wait {}",
+   "r15 w1 Rogue Marksman#1: basicAttack {\"Genin L10\":-14.5}",
+   "r15 w1 Rogue Marksman#1: wait {}",
+   "r15 w1 Rogue Marksman#2: basicAttack {\"Genin L10\":-14.5}",
+   "r15 w1 Rogue Marksman#2: wait {}",
+   "r16 w1 Genin L10: Chakra Barrier {}",
+   "r16 w1 Genin L10: basicAttack {\"Rogue Shinobi#1\":-11.88}",
+   "r16 w1 Genin L10: wait {}",
+   "r16 w1 Rogue Shinobi#1: Omen: Three-Plank Line {}",
+   "r16 w1 Rogue Shinobi#1: wait {}",
+   "r16 w1 Rogue Marksman#1: Omen: Seven Planks {}",
+   "r16 w1 Rogue Marksman#1: wait {}",
+   "r16 w1 Rogue Marksman#2: Omen: Seven Planks {}",
+   "r16 w1 Rogue Marksman#2: wait {}",
+   "r17 w1 Genin L10: Searing Might {}",
+   "r17 w1 Genin L10: Shockwave Fist {\"Rogue Shinobi#1\":-24.9}",
+   "r17 w1 Rogue Shinobi#1: Eruption: Three-Plank Line {}",
+   "r17 w1 Rogue Marksman#1: Eruption: Seven Planks {}",
+   "r17 w1 Rogue Marksman#2: Eruption: Seven Planks {}",
+   "r18 w1 Genin L10: Liver Shot {\"Rogue Shinobi#1\":-23.76}",
+   "r18 w1 Genin L10: basicAttack {\"Rogue Shinobi#1\":-11.88}",
+   "r18 w1 Genin L10: meditate {}",
+   "r18 w1 Rogue Shinobi#1: basicAttack {\"Genin L10\":-11.58}",
+   "r18 w1 Rogue Shinobi#1: wait {}",
+   "r18 w1 Rogue Marksman#1: basicAttack {\"Genin L10\":-11.58}",
+   "r18 w1 Rogue Marksman#1: wait {}",
+   "r18 w1 Rogue Marksman#2: basicAttack {\"Genin L10\":-11.58}",
+   "r18 w1 Rogue Marksman#2: wait {}",
+   "r19 w1 Genin L10: basicAttack {\"Rogue Shinobi#1\":-13.31}",
+   "r19 w1 Genin L10: wait {}",
+   "r19 w1 Rogue Shinobi#1: Omen: Three-Plank Line {}",
+   "r19 w1 Rogue Shinobi#1: wait {}",
+   "r19 w1 Rogue Marksman#1: Omen: Seven Planks {}",
+   "r19 w1 Rogue Marksman#1: wait {}",
+   "r19 w1 Rogue Marksman#2: Omen: Seven Planks {}",
+   "r19 w1 Rogue Marksman#2: wait {}",
+   "r20 w1 Genin L10: basicAttack {\"Rogue Shinobi#1\":-13.31}",
+   "r20 w1 Genin L10: wait {}",
+   "r20 w1 Rogue Shinobi#1: Eruption: Three-Plank Line {}",
+   "r20 w1 Rogue Marksman#1: Eruption: Seven Planks {}",
+   "r20 w1 Rogue Marksman#2: Eruption: Seven Planks {}",
+   "r21 w1 Genin L10: Searing Might {}",
+   "r21 w1 Genin L10: Chakra Barrier {}",
+   "r21 w1 Genin L10: basicAttack {\"Rogue Shinobi#1\":-11.88}",
+   "r21 w1 Rogue Shinobi#1: basicAttack {\"Genin L10\":-14.5}",
+   "r21 w1 Rogue Shinobi#1: wait {}",
+   "r21 w1 Rogue Marksman#1: basicAttack {\"Genin L10\":-14.5}",
+   "r21 w1 Rogue Marksman#1: wait {}",
+   "r21 w1 Rogue Marksman#2: basicAttack {\"Genin L10\":-14.5}",
+   "r21 w1 Rogue Marksman#2: wait {}",
+   "r22 w1 Genin L10: Shockwave Fist {\"Rogue Shinobi#1\":-24.9}",
+   "r22 w1 Genin L10: basicAttack {\"Rogue Shinobi#1\":-11.88}",
+   "r22 w1 Genin L10: wait {}",
+   "r22 w1 Rogue Shinobi#1: Omen: Three-Plank Line {}",
+   "r22 w1 Rogue Shinobi#1: wait {}",
+   "r22 w1 Rogue Marksman#1: Omen: Seven Planks {}",
+   "r22 w1 Rogue Marksman#1: wait {}",
+   "r22 w1 Rogue Marksman#2: Omen: Seven Planks {}",
+   "r22 w1 Rogue Marksman#2: wait {}",
+   "r23 w1 Genin L10: Liver Shot {\"Rogue Shinobi#1\":-23.76}",
+   "r23 w1 Genin L10: basicAttack {\"Rogue Shinobi#1\":-11.88}",
+   "r23 w1 Genin L10: wait {}",
+   "r23 w1 Rogue Shinobi#1: wait {}",
+   "r23 w1 Rogue Marksman#1: Eruption: Seven Planks {}",
+   "r23 w1 Rogue Marksman#2: Eruption: Seven Planks {}",
+   "r24 w1 Genin L10: basicAttack {\"Rogue Shinobi#1\":-13.31}",
+   "r24 w1 Genin L10: meditate {}",
+   "r24 w1 Genin L10: wait {}",
+   "r24 w1 Rogue Shinobi#1: basicAttack {\"Genin L10\":-14.5}",
+   "r24 w1 Rogue Shinobi#1: wait {}",
+   "r24 w1 Rogue Marksman#1: basicAttack {\"Genin L10\":-14.5}",
+   "r24 w1 Rogue Marksman#1: wait {}",
+   "r24 w1 Rogue Marksman#2: basicAttack {\"Genin L10\":-14.5}",
+   "r24 w1 Rogue Marksman#2: wait {}",
+   "r25 w1 Genin L10: Searing Might {}",
+   "r25 w1 Genin L10: basicAttack {\"Rogue Shinobi#1\":-13.31}",
+   "r25 w1 Genin L10: wait {}",
+   "r25 w1 Rogue Shinobi#1: Omen: Three-Plank Line {}",
+   "r25 w1 Rogue Shinobi#1: wait {}",
+   "r25 w1 Rogue Marksman#1: Omen: Seven Planks {}",
+   "r25 w1 Rogue Marksman#1: wait {}",
+   "r25 w1 Rogue Marksman#2: Omen: Seven Planks {}",
+   "r25 w1 Rogue Marksman#2: wait {}",
+   "r26 w1 Genin L10: Chakra Barrier {}",
+   "r26 w1 Genin L10: basicAttack {\"Rogue Shinobi#1\":-11.88}",
+   "r26 w1 Genin L10: wait {}",
+   "r26 w1 Rogue Shinobi#1: Eruption: Three-Plank Line {}",
+   "r26 w1 Rogue Marksman#1: Eruption: Seven Planks {}",
+   "r26 w1 Rogue Marksman#2: Eruption: Seven Planks {}",
+   "r27 w1 Genin L10: Shockwave Fist {\"Rogue Shinobi#1\":-24.9}",
+   "r27 w1 Genin L10: basicAttack {\"Rogue Shinobi#1\":-11.88}",
+   "r27 w1 Genin L10: wait {}",
+   "r27 w1 Rogue Shinobi#1: basicAttack {\"Genin L10\":-13.63}",
+   "r27 w1 Rogue Shinobi#1: wait {}",
+   "r27 w1 Rogue Marksman#1: basicAttack {\"Genin L10\":-13.63}",
+   "r27 w1 Rogue Marksman#1: wait {}",
+   "r27 w1 Rogue Marksman#2: basicAttack {\"Genin L10\":-13.63}",
+   "r27 w1 Rogue Marksman#2: wait {}",
+   "r28 w1 Genin L10: Liver Shot {\"Rogue Shinobi#1\":-23.76}",
+   "r28 w1 Genin L10: basicAttack {\"Rogue Shinobi#1\":-11.88}",
+   "r28 w1 Genin L10: wait {}",
+   "r28 w1 Rogue Shinobi#1: Omen: Three-Plank Line {}",
+   "r28 w1 Rogue Shinobi#1: wait {}",
+   "r28 w1 Rogue Marksman#1: Omen: Seven Planks {}",
+   "r28 w1 Rogue Marksman#1: wait {}",
+   "r28 w1 Rogue Marksman#2: Omen: Seven Planks {}",
+   "r28 w1 Rogue Marksman#2: wait {}",
+   "r29 w1 Genin L10: Searing Might {}",
+   "r29 w1 Genin L10: basicAttack {\"Rogue Shinobi#1\":-13.31}",
+   "r29 w1 Genin L10: wait {}",
+   "r29 w1 Rogue Shinobi#1: wait {}",
+   "r29 w1 Rogue Marksman#1: Eruption: Seven Planks {}",
+   "r29 w1 Rogue Marksman#2: Eruption: Seven Planks {}",
+   "r30 w1 Genin L10: basicAttack {\"Rogue Shinobi#1\":-13.31}",
+   "r30 w1 Genin L10: wait {}",
+   "r30 w1 Rogue Shinobi#1: basicAttack {\"Genin L10\":-12.32}",
+   "r30 w1 Rogue Shinobi#1: wait {}",
+   "r30 w1 Rogue Marksman#1: basicAttack {\"Genin L10\":-12.32}",
+   "r30 w1 Rogue Marksman#1: wait {}",
+   "r30 w1 Rogue Marksman#2: basicAttack {\"Genin L10\":-12.32}",
+   "r30 w1 Rogue Marksman#2: wait {}",
+   "r31 w1 Genin L10: Chakra Barrier {}",
+   "r31 w1 Genin L10: basicAttack {\"Rogue Shinobi#1\":-11.88}",
+   "r31 w1 Genin L10: wait {}",
+   "r31 w1 Rogue Shinobi#1: Omen: Three-Plank Line {}",
+   "r31 w1 Rogue Shinobi#1: wait {}",
+   "r31 w1 Rogue Marksman#1: Omen: Seven Planks {}",
+   "r31 w1 Rogue Marksman#1: wait {}",
+   "r31 w1 Rogue Marksman#2: Omen: Seven Planks {}",
+   "r31 w1 Rogue Marksman#2: wait {}",
+   "r32 w1 Genin L10: Shockwave Fist {\"Rogue Shinobi#1\":-24.9}",
+   "r32 w1 Genin L10: basicAttack {\"Rogue Shinobi#1\":-11.88}",
+   "r32 w1 Genin L10: meditate {}",
+   "r32 w1 Rogue Shinobi#1: Eruption: Three-Plank Line {}",
+   "r32 w1 Rogue Marksman#1: Eruption: Seven Planks {}",
+   "r32 w1 Rogue Marksman#2: Eruption: Seven Planks {}",
+   "r33 w1 Genin L10: Searing Might {}",
+   "r33 w1 Genin L10: Liver Shot {\"Rogue Shinobi#1\":-23.76}",
+   "r33 w1 Rogue Shinobi#1: basicAttack {\"Genin L10\":-13.63}",
+   "r33 w1 Rogue Shinobi#1: wait {}",
+   "r33 w1 Rogue Marksman#1: basicAttack {\"Genin L10\":-13.63}",
+   "r33 w1 Rogue Marksman#1: wait {}",
+   "r33 w1 Rogue Marksman#2: basicAttack {\"Genin L10\":-13.63}",
+   "r33 w1 Rogue Marksman#2: wait {}",
+   "r34 w1 Genin L10: basicAttack {\"Rogue Shinobi#1\":-13.31}",
+   "r34 w1 Genin L10: wait {}",
+   "r34 w1 Rogue Shinobi#1: Omen: Three-Plank Line {}",
+   "r34 w1 Rogue Shinobi#1: wait {}",
+   "r34 w1 Rogue Marksman#1: Omen: Seven Planks {}",
+   "r34 w1 Rogue Marksman#1: wait {}",
+   "r34 w1 Rogue Marksman#2: Omen: Seven Planks {}",
+   "r34 w1 Rogue Marksman#2: wait {}",
+   "r35 w1 Genin L10: basicAttack {\"Rogue Shinobi#1\":-13.31}",
+   "r35 w1 Genin L10: wait {}",
+   "r35 w1 Rogue Shinobi#1: Eruption: Three-Plank Line {}",
+   "r35 w1 Rogue Marksman#1: Eruption: Seven Planks {}",
+   "r35 w1 Rogue Marksman#2: Eruption: Seven Planks {}",
+   "r36 w1 Genin L10: Chakra Barrier {}",
+   "r36 w1 Genin L10: basicAttack {\"Rogue Shinobi#1\":-11.88}",
+   "r36 w1 Genin L10: wait {}",
+   "r36 w1 Rogue Shinobi#1: basicAttack {\"Genin L10\":-14.5}",
+   "r36 w1 Rogue Shinobi#1: wait {}",
+   "r36 w1 Rogue Marksman#1: basicAttack {\"Genin L10\":-14.5}",
+   "r36 w1 Rogue Marksman#1: wait {}",
+   "r36 w1 Rogue Marksman#2: basicAttack {\"Genin L10\":-14.5}",
+   "r36 w1 Rogue Marksman#2: wait {}",
+   "r37 w1 Genin L10: Searing Might {}",
+   "r37 w1 Genin L10: Shockwave Fist {\"Rogue Shinobi#1\":-9.17}",
+   "r37 w1 Rogue Marksman#1: Omen: Seven Planks {}",
+   "r37 w1 Rogue Marksman#1: wait {}",
+   "r37 w1 Rogue Marksman#2: Omen: Seven Planks {}",
+   "r37 w1 Rogue Marksman#2: wait {}",
+   "r38 w1 Genin L10: Liver Shot {\"Rogue Marksman#2\":-23.76}",
+   "r38 w1 Genin L10: basicAttack {\"Rogue Marksman#2\":-11.88}",
+   "r38 w1 Genin L10: wait {}",
+   "r38 w1 Rogue Marksman#1: Eruption: Seven Planks {}",
+   "r38 w1 Rogue Marksman#2: Eruption: Seven Planks {}",
+   "r39 w1 Genin L10: basicAttack {\"Rogue Marksman#2\":-13.31}",
+   "r39 w1 Genin L10: meditate {}",
+   "r39 w1 Genin L10: wait {}",
+   "r39 w1 Rogue Marksman#1: basicAttack {\"Genin L10\":-14.5}",
+   "r39 w1 Rogue Marksman#1: wait {}",
+   "r39 w1 Rogue Marksman#2: basicAttack {\"Genin L10\":-14.5}",
+   "r39 w1 Rogue Marksman#2: wait {}",
+   "r40 w1 Genin L10: basicAttack {\"Rogue Marksman#2\":-13.31}",
+   "r40 w1 Genin L10: wait {}",
+   "r40 w1 Rogue Marksman#1: Omen: Seven Planks {}",
+   "r40 w1 Rogue Marksman#1: wait {}",
+   "r40 w1 Rogue Marksman#2: Omen: Seven Planks {}",
+   "r40 w1 Rogue Marksman#2: wait {}",
+   "r41 w1 Genin L10: Searing Might {}",
+   "r41 w1 Genin L10: Chakra Barrier {}",
+   "r41 w1 Genin L10: basicAttack {\"Rogue Marksman#2\":-11.88}",
+   "r41 w1 Rogue Marksman#1: Eruption: Seven Planks {}",
+   "r41 w1 Rogue Marksman#2: Eruption: Seven Planks {}",
+   "r42 w1 Genin L10: Shockwave Fist {\"Rogue Marksman#2\":-24.9}",
+   "r42 w1 Genin L10: basicAttack {\"Rogue Marksman#2\":-11.88}",
+   "r42 w1 Genin L10: wait {}",
+   "r42 w1 Rogue Marksman#1: basicAttack {\"Genin L10\":-11.58}",
+   "r42 w1 Rogue Marksman#1: wait {}",
+   "r42 w1 Rogue Marksman#2: basicAttack {\"Genin L10\":-11.58}",
+   "r42 w1 Rogue Marksman#2: wait {}",
+   "r43 w1 Genin L10: Liver Shot {\"Rogue Marksman#2\":-23.76}",
+   "r43 w1 Genin L10: basicAttack {\"Rogue Marksman#2\":-11.88}",
+   "r43 w1 Genin L10: wait {}",
+   "r43 w1 Rogue Marksman#1: Omen: Seven Planks {}",
+   "r43 w1 Rogue Marksman#1: wait {}",
+   "r43 w1 Rogue Marksman#2: Omen: Seven Planks {}",
+   "r43 w1 Rogue Marksman#2: wait {}",
+   "r44 w1 Genin L10: basicAttack {\"Rogue Marksman#2\":-13.31}",
+   "r44 w1 Genin L10: wait {}",
+   "r44 w1 Rogue Marksman#1: Eruption: Seven Planks {}",
+   "r44 w1 Rogue Marksman#2: wait {}",
+   "r45 w1 Genin L10: Searing Might {}",
+   "r45 w1 Genin L10: basicAttack {\"Rogue Marksman#2\":-13.31}",
+   "r45 w1 Genin L10: wait {}",
+   "r45 w1 Rogue Marksman#1: basicAttack {\"Genin L10\":-8.18}"
+  ],
+  "L10 solo/Floor 3": [
+   "r1 w1 Genin L10: Searing Might {}",
+   "r1 w1 Genin L10: Chakra Barrier {}",
+   "r1 w1 Genin L10: move {}",
+   "r1 w1 Genin L10: move {}",
+   "r1 w1 Rogue Marksman#1: Omen: Seven Planks {}",
+   "r1 w1 Rogue Marksman#1: wait {}",
+   "r1 w1 Rogue Shinobi#1: move {}",
+   "r1 w1 Rogue Shinobi#1: move {}",
+   "r1 w1 Rogue Shinobi#1: move {}",
+   "r1 w1 Rogue Shinobi#1: move {}",
+   "r1 w1 Rogue Shinobi#1: move {}",
+   "r1 w1 Rogue Shinobi#1: Omen: Three-Plank Line {}",
+   "r1 w1 Rogue Shinobi#1: wait {}",
+   "r1 w1 Rogue Shinobi#2: move {}",
+   "r1 w1 Rogue Shinobi#2: Omen: Three-Plank Line {}",
+   "r1 w1 Rogue Shinobi#2: wait {}",
+   "r2 w1 Genin L10: move (dodge) {}",
+   "r2 w1 Genin L10: Shockwave Fist {\"Rogue Marksman#1\":-24.9}",
+   "r2 w1 Genin L10: basicAttack {\"Rogue Marksman#1\":-11.88}",
+   "r2 w1 Genin L10: wait {}",
+   "r2 w1 Rogue Marksman#1: Eruption: Seven Planks {}",
+   "r2 w1 Rogue Shinobi#1: Eruption: Three-Plank Line {}",
+   "r2 w1 Rogue Shinobi#2: Eruption: Three-Plank Line {}",
+   "r3 w1 Genin L10: Liver Shot {\"Rogue Marksman#1\":-23.76}",
+   "r3 w1 Genin L10: basicAttack {\"Rogue Marksman#1\":-11.88}",
+   "r3 w1 Genin L10: wait {}",
+   "r3 w1 Rogue Marksman#1: basicAttack {\"Genin L10\":-13.63}",
+   "r3 w1 Rogue Marksman#1: wait {}",
+   "r3 w1 Rogue Shinobi#1: move {}",
+   "r3 w1 Rogue Shinobi#1: move {}",
+   "r3 w1 Rogue Shinobi#1: move {}",
+   "r3 w1 Rogue Shinobi#1: basicAttack {\"Genin L10\":-13.63}",
+   "r3 w1 Rogue Shinobi#1: wait {}",
+   "r3 w1 Rogue Shinobi#2: move {}",
+   "r3 w1 Rogue Shinobi#2: move {}",
+   "r3 w1 Rogue Shinobi#2: move {}",
+   "r3 w1 Rogue Shinobi#2: basicAttack {\"Genin L10\":-13.63}",
+   "r3 w1 Rogue Shinobi#2: wait {}",
+   "r4 w1 Genin L10: basicAttack {\"Rogue Shinobi#2\":-11.88}",
+   "r4 w1 Genin L10: wait {}",
+   "r4 w1 Rogue Marksman#1: Omen: Seven Planks {}",
+   "r4 w1 Rogue Marksman#1: wait {}",
+   "r4 w1 Rogue Shinobi#1: Omen: Three-Plank Line {}",
+   "r4 w1 Rogue Shinobi#1: wait {}",
+   "r4 w1 Rogue Shinobi#2: Omen: Three-Plank Line {}",
+   "r4 w1 Rogue Shinobi#2: wait {}",
+   "r5 w1 Genin L10: Searing Might {}",
+   "r5 w1 Genin L10: basicAttack {\"Rogue Shinobi#2\":-11.88}",
+   "r5 w1 Genin L10: wait {}",
+   "r5 w1 Rogue Marksman#1: Eruption: Seven Planks {}",
+   "r5 w1 Rogue Shinobi#1: Eruption: Three-Plank Line {}",
+   "r5 w1 Rogue Shinobi#2: Eruption: Three-Plank Line {}",
+   "r6 w1 Genin L10: Chakra Barrier {}",
+   "r6 w1 Genin L10: basicAttack {\"Rogue Shinobi#2\":-11.88}",
+   "r6 w1 Genin L10: wait {}",
+   "r6 w1 Rogue Marksman#1: basicAttack {\"Genin L10\":-12.32}",
+   "r6 w1 Rogue Marksman#1: wait {}",
+   "r6 w1 Rogue Shinobi#1: basicAttack {\"Genin L10\":-12.32}",
+   "r6 w1 Rogue Shinobi#1: wait {}",
+   "r6 w1 Rogue Shinobi#2: basicAttack {\"Genin L10\":-12.32}",
+   "r6 w1 Rogue Shinobi#2: wait {}",
+   "r7 w1 Genin L10: Shockwave Fist {\"Rogue Shinobi#2\":-24.9}",
+   "r7 w1 Genin L10: basicAttack {\"Rogue Shinobi#2\":-11.88}",
+   "r7 w1 Genin L10: wait {}",
+   "r7 w1 Rogue Marksman#1: Omen: Seven Planks {}",
+   "r7 w1 Rogue Marksman#1: wait {}",
+   "r7 w1 Rogue Shinobi#1: Omen: Three-Plank Line {}",
+   "r7 w1 Rogue Shinobi#1: wait {}",
+   "r7 w1 Rogue Shinobi#2: Omen: Three-Plank Line {}",
+   "r7 w1 Rogue Shinobi#2: wait {}",
+   "r8 w1 Genin L10: Liver Shot {\"Rogue Shinobi#2\":-23.76}",
+   "r8 w1 Genin L10: basicAttack {\"Rogue Shinobi#2\":-11.88}",
+   "r8 w1 Genin L10: wait {}",
+   "r8 w1 Rogue Marksman#1: Eruption: Seven Planks {}",
+   "r8 w1 Rogue Shinobi#1: Eruption: Three-Plank Line {}",
+   "r8 w1 Rogue Shinobi#2: wait {}",
+   "r9 w1 Genin L10: Searing Might {}",
+   "r9 w1 Genin L10: basicAttack {\"Rogue Shinobi#2\":-13.31}",
+   "r9 w1 Genin L10: meditate {}",
+   "r9 w1 Genin L10: wait {}",
+   "r9 w1 Rogue Marksman#1: basicAttack {\"Genin L10\":-14.5}",
+   "r9 w1 Rogue Marksman#1: wait {}",
+   "r9 w1 Rogue Shinobi#1: basicAttack {\"Genin L10\":-14.5}",
+   "r9 w1 Rogue Shinobi#1: wait {}",
+   "r9 w1 Rogue Shinobi#2: basicAttack {\"Genin L10\":-14.5}",
+   "r9 w1 Rogue Shinobi#2: wait {}",
+   "r10 w1 Genin L10: basicAttack {\"Rogue Shinobi#2\":-13.31}",
+   "r10 w1 Genin L10: wait {}",
+   "r10 w1 Rogue Marksman#1: Omen: Seven Planks {}",
+   "r10 w1 Rogue Marksman#1: wait {}",
+   "r10 w1 Rogue Shinobi#1: Omen: Three-Plank Line {}",
+   "r10 w1 Rogue Shinobi#1: wait {}",
+   "r10 w1 Rogue Shinobi#2: Omen: Three-Plank Line {}",
+   "r10 w1 Rogue Shinobi#2: wait {}",
+   "r11 w1 Genin L10: Chakra Barrier {}",
+   "r11 w1 Genin L10: basicAttack {\"Rogue Shinobi#2\":-11.88}",
+   "r11 w1 Genin L10: wait {}",
+   "r11 w1 Rogue Marksman#1: Eruption: Seven Planks {}",
+   "r11 w1 Rogue Shinobi#1: Eruption: Three-Plank Line {}",
+   "r11 w1 Rogue Shinobi#2: Eruption: Three-Plank Line {}",
+   "r12 w1 Genin L10: Shockwave Fist {\"Rogue Shinobi#2\":-24.9}",
+   "r12 w1 Genin L10: basicAttack {\"Rogue Shinobi#2\":-11.88}",
+   "r12 w1 Genin L10: wait {}",
+   "r12 w1 Rogue Marksman#1: basicAttack {\"Genin L10\":-13.63}",
+   "r12 w1 Rogue Marksman#1: wait {}",
+   "r12 w1 Rogue Shinobi#1: basicAttack {\"Genin L10\":-13.63}",
+   "r12 w1 Rogue Shinobi#1: wait {}",
+   "r12 w1 Rogue Shinobi#2: basicAttack {\"Genin L10\":-13.63}",
+   "r12 w1 Rogue Shinobi#2: wait {}",
+   "r13 w1 Genin L10: Searing Might {}",
+   "r13 w1 Genin L10: Liver Shot {\"Rogue Shinobi#2\":-23.76}",
+   "r13 w1 Rogue Marksman#1: Omen: Seven Planks {}",
+   "r13 w1 Rogue Marksman#1: wait {}",
+   "r13 w1 Rogue Shinobi#1: Omen: Three-Plank Line {}",
+   "r13 w1 Rogue Shinobi#1: wait {}",
+   "r13 w1 Rogue Shinobi#2: Omen: Three-Plank Line {}",
+   "r13 w1 Rogue Shinobi#2: wait {}",
+   "r14 w1 Genin L10: basicAttack {\"Rogue Shinobi#2\":-13.31}",
+   "r14 w1 Genin L10: wait {}",
+   "r14 w1 Rogue Marksman#1: Eruption: Seven Planks {}",
+   "r14 w1 Rogue Shinobi#1: Eruption: Three-Plank Line {}",
+   "r14 w1 Rogue Shinobi#2: wait {}",
+   "r15 w1 Genin L10: basicAttack {\"Rogue Shinobi#2\":-13.31}",
+   "r15 w1 Genin L10: wait {}",
+   "r15 w1 Rogue Marksman#1: basicAttack {\"Genin L10\":-14.5}",
+   "r15 w1 Rogue Marksman#1: wait {}",
+   "r15 w1 Rogue Shinobi#1: basicAttack {\"Genin L10\":-14.5}",
+   "r15 w1 Rogue Shinobi#1: wait {}",
+   "r15 w1 Rogue Shinobi#2: basicAttack {\"Genin L10\":-14.5}",
+   "r15 w1 Rogue Shinobi#2: wait {}",
+   "r16 w1 Genin L10: Chakra Barrier {}",
+   "r16 w1 Genin L10: basicAttack {\"Rogue Shinobi#2\":-11.88}",
+   "r16 w1 Genin L10: wait {}",
+   "r16 w1 Rogue Marksman#1: Omen: Seven Planks {}",
+   "r16 w1 Rogue Marksman#1: wait {}",
+   "r16 w1 Rogue Shinobi#1: Omen: Three-Plank Line {}",
+   "r16 w1 Rogue Shinobi#1: wait {}",
+   "r16 w1 Rogue Shinobi#2: Omen: Three-Plank Line {}",
+   "r16 w1 Rogue Shinobi#2: wait {}",
+   "r17 w1 Genin L10: Searing Might {}",
+   "r17 w1 Genin L10: Shockwave Fist {\"Rogue Shinobi#2\":-24.9}",
+   "r17 w1 Rogue Marksman#1: Eruption: Seven Planks {}",
+   "r17 w1 Rogue Shinobi#1: Eruption: Three-Plank Line {}",
+   "r17 w1 Rogue Shinobi#2: Eruption: Three-Plank Line {}",
+   "r18 w1 Genin L10: Liver Shot {\"Rogue Shinobi#2\":-23.76}",
+   "r18 w1 Genin L10: basicAttack {\"Rogue Shinobi#2\":-11.88}",
+   "r18 w1 Genin L10: meditate {}",
+   "r18 w1 Rogue Marksman#1: basicAttack {\"Genin L10\":-11.58}",
+   "r18 w1 Rogue Marksman#1: wait {}",
+   "r18 w1 Rogue Shinobi#1: basicAttack {\"Genin L10\":-11.58}",
+   "r18 w1 Rogue Shinobi#1: wait {}",
+   "r18 w1 Rogue Shinobi#2: basicAttack {\"Genin L10\":-11.58}",
+   "r18 w1 Rogue Shinobi#2: wait {}",
+   "r19 w1 Genin L10: basicAttack {\"Rogue Shinobi#2\":-13.31}",
+   "r19 w1 Genin L10: wait {}",
+   "r19 w1 Rogue Marksman#1: Omen: Seven Planks {}",
+   "r19 w1 Rogue Marksman#1: wait {}",
+   "r19 w1 Rogue Shinobi#1: Omen: Three-Plank Line {}",
+   "r19 w1 Rogue Shinobi#1: wait {}",
+   "r19 w1 Rogue Shinobi#2: Omen: Three-Plank Line {}",
+   "r19 w1 Rogue Shinobi#2: wait {}",
+   "r20 w1 Genin L10: basicAttack {\"Rogue Shinobi#2\":-13.31}",
+   "r20 w1 Genin L10: wait {}",
+   "r20 w1 Rogue Marksman#1: Eruption: Seven Planks {}",
+   "r20 w1 Rogue Shinobi#1: Eruption: Three-Plank Line {}",
+   "r20 w1 Rogue Shinobi#2: Eruption: Three-Plank Line {}",
+   "r21 w1 Genin L10: Searing Might {}",
+   "r21 w1 Genin L10: Chakra Barrier {}",
+   "r21 w1 Genin L10: basicAttack {\"Rogue Shinobi#2\":-11.88}",
+   "r21 w1 Rogue Marksman#1: basicAttack {\"Genin L10\":-14.5}",
+   "r21 w1 Rogue Marksman#1: wait {}",
+   "r21 w1 Rogue Shinobi#1: basicAttack {\"Genin L10\":-14.5}",
+   "r21 w1 Rogue Shinobi#1: wait {}",
+   "r21 w1 Rogue Shinobi#2: basicAttack {\"Genin L10\":-14.5}",
+   "r21 w1 Rogue Shinobi#2: wait {}",
+   "r22 w1 Genin L10: Shockwave Fist {\"Rogue Shinobi#2\":-24.9}",
+   "r22 w1 Genin L10: basicAttack {\"Rogue Shinobi#2\":-11.88}",
+   "r22 w1 Genin L10: wait {}",
+   "r22 w1 Rogue Marksman#1: Omen: Seven Planks {}",
+   "r22 w1 Rogue Marksman#1: wait {}",
+   "r22 w1 Rogue Shinobi#1: Omen: Three-Plank Line {}",
+   "r22 w1 Rogue Shinobi#1: wait {}",
+   "r22 w1 Rogue Shinobi#2: Omen: Three-Plank Line {}",
+   "r22 w1 Rogue Shinobi#2: wait {}",
+   "r23 w1 Genin L10: Liver Shot {\"Rogue Shinobi#2\":-23.76}",
+   "r23 w1 Genin L10: basicAttack {\"Rogue Shinobi#2\":-11.88}",
+   "r23 w1 Genin L10: wait {}",
+   "r23 w1 Rogue Marksman#1: Eruption: Seven Planks {}",
+   "r23 w1 Rogue Shinobi#1: Eruption: Three-Plank Line {}",
+   "r23 w1 Rogue Shinobi#2: wait {}",
+   "r24 w1 Genin L10: basicAttack {\"Rogue Shinobi#2\":-13.31}",
+   "r24 w1 Genin L10: meditate {}",
+   "r24 w1 Genin L10: wait {}",
+   "r24 w1 Rogue Marksman#1: basicAttack {\"Genin L10\":-14.5}",
+   "r24 w1 Rogue Marksman#1: wait {}",
+   "r24 w1 Rogue Shinobi#1: basicAttack {\"Genin L10\":-14.5}",
+   "r24 w1 Rogue Shinobi#1: wait {}",
+   "r24 w1 Rogue Shinobi#2: basicAttack {\"Genin L10\":-14.5}",
+   "r24 w1 Rogue Shinobi#2: wait {}",
+   "r25 w1 Genin L10: Searing Might {}",
+   "r25 w1 Genin L10: basicAttack {\"Rogue Shinobi#2\":-13.31}",
+   "r25 w1 Genin L10: wait {}",
+   "r25 w1 Rogue Marksman#1: Omen: Seven Planks {}",
+   "r25 w1 Rogue Marksman#1: wait {}",
+   "r25 w1 Rogue Shinobi#1: Omen: Three-Plank Line {}",
+   "r25 w1 Rogue Shinobi#1: wait {}",
+   "r25 w1 Rogue Shinobi#2: Omen: Three-Plank Line {}",
+   "r25 w1 Rogue Shinobi#2: wait {}",
+   "r26 w1 Genin L10: Chakra Barrier {}",
+   "r26 w1 Genin L10: basicAttack {\"Rogue Shinobi#2\":-11.88}",
+   "r26 w1 Genin L10: wait {}",
+   "r26 w1 Rogue Marksman#1: Eruption: Seven Planks {}",
+   "r26 w1 Rogue Shinobi#1: Eruption: Three-Plank Line {}",
+   "r26 w1 Rogue Shinobi#2: Eruption: Three-Plank Line {}",
+   "r27 w1 Genin L10: Shockwave Fist {\"Rogue Shinobi#2\":-24.9}",
+   "r27 w1 Genin L10: basicAttack {\"Rogue Shinobi#2\":-11.88}",
+   "r27 w1 Genin L10: wait {}",
+   "r27 w1 Rogue Marksman#1: basicAttack {\"Genin L10\":-13.63}",
+   "r27 w1 Rogue Marksman#1: wait {}",
+   "r27 w1 Rogue Shinobi#1: basicAttack {\"Genin L10\":-13.63}",
+   "r27 w1 Rogue Shinobi#1: wait {}",
+   "r27 w1 Rogue Shinobi#2: basicAttack {\"Genin L10\":-13.63}",
+   "r27 w1 Rogue Shinobi#2: wait {}",
+   "r28 w1 Genin L10: Liver Shot {\"Rogue Shinobi#2\":-23.76}",
+   "r28 w1 Genin L10: basicAttack {\"Rogue Shinobi#2\":-11.88}",
+   "r28 w1 Genin L10: wait {}",
+   "r28 w1 Rogue Marksman#1: Omen: Seven Planks {}",
+   "r28 w1 Rogue Marksman#1: wait {}",
+   "r28 w1 Rogue Shinobi#1: Omen: Three-Plank Line {}",
+   "r28 w1 Rogue Shinobi#1: wait {}",
+   "r28 w1 Rogue Shinobi#2: Omen: Three-Plank Line {}",
+   "r28 w1 Rogue Shinobi#2: wait {}",
+   "r29 w1 Genin L10: Searing Might {}",
+   "r29 w1 Genin L10: basicAttack {\"Rogue Shinobi#2\":-13.31}",
+   "r29 w1 Genin L10: wait {}",
+   "r29 w1 Rogue Marksman#1: Eruption: Seven Planks {}",
+   "r29 w1 Rogue Shinobi#1: Eruption: Three-Plank Line {}",
+   "r29 w1 Rogue Shinobi#2: Eruption: Three-Plank Line {}",
+   "r30 w1 Genin L10: basicAttack {\"Rogue Shinobi#2\":-13.31}",
+   "r30 w1 Genin L10: wait {}",
+   "r30 w1 Rogue Marksman#1: basicAttack {\"Genin L10\":-12.32}",
+   "r30 w1 Rogue Marksman#1: wait {}",
+   "r30 w1 Rogue Shinobi#1: basicAttack {\"Genin L10\":-12.32}",
+   "r30 w1 Rogue Shinobi#1: wait {}",
+   "r30 w1 Rogue Shinobi#2: basicAttack {\"Genin L10\":-12.32}",
+   "r30 w1 Rogue Shinobi#2: wait {}",
+   "r31 w1 Genin L10: Chakra Barrier {}",
+   "r31 w1 Genin L10: basicAttack {\"Rogue Shinobi#2\":-11.88}",
+   "r31 w1 Genin L10: wait {}",
+   "r31 w1 Rogue Marksman#1: Omen: Seven Planks {}",
+   "r31 w1 Rogue Marksman#1: wait {}",
+   "r31 w1 Rogue Shinobi#1: Omen: Three-Plank Line {}",
+   "r31 w1 Rogue Shinobi#1: wait {}",
+   "r31 w1 Rogue Shinobi#2: Omen: Three-Plank Line {}",
+   "r31 w1 Rogue Shinobi#2: wait {}",
+   "r32 w1 Genin L10: Shockwave Fist {\"Rogue Shinobi#2\":-24.9}",
+   "r32 w1 Genin L10: basicAttack {\"Rogue Shinobi#2\":-11.88}",
+   "r32 w1 Genin L10: meditate {}",
+   "r32 w1 Rogue Marksman#1: Eruption: Seven Planks {}",
+   "r32 w1 Rogue Shinobi#1: Eruption: Three-Plank Line {}",
+   "r32 w1 Rogue Shinobi#2: Eruption: Three-Plank Line {}",
+   "r33 w1 Genin L10: Searing Might {}",
+   "r33 w1 Genin L10: Liver Shot {\"Rogue Shinobi#2\":-23.76}",
+   "r33 w1 Rogue Marksman#1: basicAttack {\"Genin L10\":-13.63}",
+   "r33 w1 Rogue Marksman#1: wait {}",
+   "r33 w1 Rogue Shinobi#1: basicAttack {\"Genin L10\":-13.63}",
+   "r33 w1 Rogue Shinobi#1: wait {}",
+   "r33 w1 Rogue Shinobi#2: basicAttack {\"Genin L10\":-13.63}",
+   "r33 w1 Rogue Shinobi#2: wait {}",
+   "r34 w1 Genin L10: basicAttack {\"Rogue Shinobi#2\":-13.31}",
+   "r34 w1 Genin L10: wait {}",
+   "r34 w1 Rogue Marksman#1: Omen: Seven Planks {}",
+   "r34 w1 Rogue Marksman#1: wait {}",
+   "r34 w1 Rogue Shinobi#1: Omen: Three-Plank Line {}",
+   "r34 w1 Rogue Shinobi#1: wait {}",
+   "r34 w1 Rogue Shinobi#2: Omen: Three-Plank Line {}",
+   "r34 w1 Rogue Shinobi#2: wait {}",
+   "r35 w1 Genin L10: basicAttack {\"Rogue Shinobi#2\":-13.31}",
+   "r35 w1 Genin L10: wait {}",
+   "r35 w1 Rogue Marksman#1: Eruption: Seven Planks {}",
+   "r35 w1 Rogue Shinobi#1: Eruption: Three-Plank Line {}",
+   "r35 w1 Rogue Shinobi#2: Eruption: Three-Plank Line {}",
+   "r36 w1 Genin L10: Chakra Barrier {}",
+   "r36 w1 Genin L10: basicAttack {\"Rogue Shinobi#2\":-11.88}",
+   "r36 w1 Genin L10: wait {}",
+   "r36 w1 Rogue Marksman#1: basicAttack {\"Genin L10\":-14.5}",
+   "r36 w1 Rogue Marksman#1: wait {}",
+   "r36 w1 Rogue Shinobi#1: basicAttack {\"Genin L10\":-14.5}",
+   "r36 w1 Rogue Shinobi#1: wait {}",
+   "r36 w1 Rogue Shinobi#2: basicAttack {\"Genin L10\":-14.5}",
+   "r36 w1 Rogue Shinobi#2: wait {}",
+   "r37 w1 Genin L10: Searing Might {}",
+   "r37 w1 Genin L10: Shockwave Fist {\"Rogue Shinobi#2\":-24.9}",
+   "r37 w1 Rogue Marksman#1: Omen: Seven Planks {}",
+   "r37 w1 Rogue Marksman#1: wait {}",
+   "r37 w1 Rogue Shinobi#1: Omen: Three-Plank Line {}",
+   "r37 w1 Rogue Shinobi#1: wait {}",
+   "r37 w1 Rogue Shinobi#2: Omen: Three-Plank Line {}",
+   "r37 w1 Rogue Shinobi#2: wait {}",
+   "r38 w1 Genin L10: Liver Shot {\"Rogue Shinobi#2\":-23.76}",
+   "r38 w1 Genin L10: basicAttack {\"Rogue Shinobi#2\":-11.88}",
+   "r38 w1 Genin L10: wait {}",
+   "r38 w1 Rogue Marksman#1: Eruption: Seven Planks {}",
+   "r38 w1 Rogue Shinobi#1: Eruption: Three-Plank Line {}",
+   "r38 w1 Rogue Shinobi#2: wait {}",
+   "r39 w1 Genin L10: basicAttack {\"Rogue Shinobi#2\":-13.31}",
+   "r39 w1 Genin L10: meditate {}",
+   "r39 w1 Genin L10: wait {}",
+   "r39 w1 Rogue Marksman#1: basicAttack {\"Genin L10\":-14.5}",
+   "r39 w1 Rogue Marksman#1: wait {}",
+   "r39 w1 Rogue Shinobi#1: basicAttack {\"Genin L10\":-14.5}",
+   "r39 w1 Rogue Shinobi#1: wait {}",
+   "r39 w1 Rogue Shinobi#2: basicAttack {\"Genin L10\":-14.5}",
+   "r39 w1 Rogue Shinobi#2: wait {}",
+   "r40 w1 Genin L10: basicAttack {\"Rogue Shinobi#2\":-10.6}",
+   "r40 w1 Genin L10: wait {}",
+   "r40 w1 Rogue Marksman#1: Omen: Seven Planks {}",
+   "r40 w1 Rogue Marksman#1: wait {}",
+   "r40 w1 Rogue Shinobi#1: Omen: Three-Plank Line {}",
+   "r40 w1 Rogue Shinobi#1: wait {}",
+   "r41 w1 Genin L10: Searing Might {}",
+   "r41 w1 Genin L10: Chakra Barrier {}",
+   "r41 w1 Genin L10: basicAttack {\"Rogue Shinobi#1\":-11.88}",
+   "r41 w1 Rogue Marksman#1: Eruption: Seven Planks {}",
+   "r41 w1 Rogue Shinobi#1: Eruption: Three-Plank Line {}",
+   "r42 w1 Genin L10: Shockwave Fist {\"Rogue Shinobi#1\":-24.9}",
+   "r42 w1 Genin L10: basicAttack {\"Rogue Shinobi#1\":-11.88}",
+   "r42 w1 Genin L10: wait {}",
+   "r42 w1 Rogue Marksman#1: basicAttack {\"Genin L10\":-11.58}",
+   "r42 w1 Rogue Marksman#1: wait {}",
+   "r42 w1 Rogue Shinobi#1: basicAttack {\"Genin L10\":-5.27}"
+  ],
+  "L10 solo/Floor 4": [
+   "r1 w1 Genin L10: Searing Might {}",
+   "r1 w1 Genin L10: Chakra Barrier {}",
+   "r1 w1 Genin L10: move {}",
+   "r1 w1 Genin L10: move {}",
+   "r1 w1 Rogue Shinobi#2: Omen: Three-Plank Line {}",
+   "r1 w1 Rogue Shinobi#2: wait {}",
+   "r1 w1 Rogue Squad Leader#1: Rogue Rally {}",
+   "r1 w1 Rogue Squad Leader#1: move {}",
+   "r1 w1 Rogue Squad Leader#1: basicAttack {\"Genin L10\":-20.42}",
+   "r1 w1 Rogue Squad Leader#1: wait {}",
+   "r1 w1 Rogue Shinobi#1: Omen: Three-Plank Line {}",
+   "r1 w1 Rogue Shinobi#1: wait {}",
+   "r2 w1 Genin L10: move (dodge) {}",
+   "r2 w1 Genin L10: Shockwave Fist {\"Rogue Shinobi#2\":-24.9}",
+   "r2 w1 Genin L10: basicAttack {\"Rogue Shinobi#2\":-11.88}",
+   "r2 w1 Genin L10: wait {}",
+   "r2 w1 Rogue Shinobi#2: Eruption: Three-Plank Line {}",
+   "r2 w1 Rogue Squad Leader#1: move {}",
+   "r2 w1 Rogue Squad Leader#1: basicAttack {\"Genin L10\":-19.58}",
+   "r2 w1 Rogue Squad Leader#1: wait {}",
+   "r2 w1 Rogue Shinobi#1: Eruption: Three-Plank Line {}",
+   "r3 w1 Genin L10: Liver Shot {\"Rogue Shinobi#2\":-23.76}",
+   "r3 w1 Genin L10: basicAttack {\"Rogue Shinobi#2\":-11.88}",
+   "r3 w1 Genin L10: wait {}",
+   "r3 w1 Rogue Shinobi#2: basicAttack {\"Genin L10\":-13.63}",
+   "r3 w1 Rogue Shinobi#2: wait {}",
+   "r3 w1 Rogue Squad Leader#1: basicAttack {\"Genin L10\":-23.03}",
+   "r3 w1 Rogue Squad Leader#1: wait {}",
+   "r3 w1 Rogue Shinobi#1: basicAttack {\"Genin L10\":-13.63}",
+   "r3 w1 Rogue Shinobi#1: wait {}",
+   "r4 w1 Genin L10: basicAttack {\"Rogue Shinobi#2\":-13.31}",
+   "r4 w1 Genin L10: wait {}",
+   "r4 w1 Rogue Shinobi#2: Omen: Three-Plank Line {}",
+   "r4 w1 Rogue Shinobi#2: wait {}",
+   "r4 w1 Rogue Squad Leader#1: basicAttack {\"Genin L10\":-20.42}",
+   "r4 w1 Rogue Squad Leader#1: wait {}",
+   "r4 w1 Rogue Shinobi#1: Omen: Three-Plank Line {}",
+   "r4 w1 Rogue Shinobi#1: wait {}",
+   "r5 w1 Genin L10: Searing Might {}",
+   "r5 w1 Genin L10: basicAttack {\"Rogue Shinobi#2\":-13.31}",
+   "r5 w1 Genin L10: wait {}",
+   "r5 w1 Rogue Shinobi#2: Eruption: Three-Plank Line {}",
+   "r5 w1 Rogue Squad Leader#1: Rogue Rally {}",
+   "r5 w1 Rogue Squad Leader#1: basicAttack {\"Genin L10\":-20.42}",
+   "r5 w1 Rogue Squad Leader#1: wait {}",
+   "r5 w1 Rogue Shinobi#1: Eruption: Three-Plank Line {}",
+   "r6 w1 Genin L10: Chakra Barrier {}",
+   "r6 w1 Genin L10: basicAttack {\"Rogue Shinobi#2\":-11.88}",
+   "r6 w1 Genin L10: wait {}",
+   "r6 w1 Rogue Shinobi#2: basicAttack {\"Genin L10\":-12.32}",
+   "r6 w1 Rogue Shinobi#2: wait {}",
+   "r6 w1 Rogue Squad Leader#1: basicAttack {\"Genin L10\":-20.83}",
+   "r6 w1 Rogue Squad Leader#1: wait {}",
+   "r6 w1 Rogue Shinobi#1: basicAttack {\"Genin L10\":-12.32}",
+   "r6 w1 Rogue Shinobi#1: wait {}",
+   "r7 w1 Genin L10: Shockwave Fist {\"Rogue Shinobi#2\":-24.9}",
+   "r7 w1 Genin L10: basicAttack {\"Rogue Shinobi#2\":-11.88}",
+   "r7 w1 Genin L10: wait {}",
+   "r7 w1 Rogue Shinobi#2: Omen: Three-Plank Line {}",
+   "r7 w1 Rogue Shinobi#2: wait {}",
+   "r7 w1 Rogue Squad Leader#1: basicAttack {\"Genin L10\":-23.03}",
+   "r7 w1 Rogue Squad Leader#1: wait {}",
+   "r7 w1 Rogue Shinobi#1: Omen: Three-Plank Line {}",
+   "r7 w1 Rogue Shinobi#1: wait {}",
+   "r8 w1 Genin L10: Liver Shot {\"Rogue Shinobi#2\":-23.76}",
+   "r8 w1 Genin L10: basicAttack {\"Rogue Shinobi#2\":-11.88}",
+   "r8 w1 Genin L10: wait {}",
+   "r8 w1 Rogue Shinobi#2: wait {}",
+   "r8 w1 Rogue Squad Leader#1: basicAttack {\"Genin L10\":-19.19}",
+   "r8 w1 Rogue Squad Leader#1: wait {}",
+   "r8 w1 Rogue Shinobi#1: Eruption: Three-Plank Line {}",
+   "r9 w1 Genin L10: Searing Might {}",
+   "r9 w1 Genin L10: basicAttack {\"Rogue Shinobi#2\":-13.31}",
+   "r9 w1 Genin L10: meditate {}",
+   "r9 w1 Genin L10: wait {}",
+   "r9 w1 Rogue Shinobi#2: basicAttack {\"Genin L10\":-14.5}",
+   "r9 w1 Rogue Shinobi#2: wait {}",
+   "r9 w1 Rogue Squad Leader#1: Rogue Rally {}",
+   "r9 w1 Rogue Squad Leader#1: basicAttack {\"Genin L10\":-20.42}",
+   "r9 w1 Rogue Squad Leader#1: wait {}",
+   "r9 w1 Rogue Shinobi#1: basicAttack {\"Genin L10\":-14.5}",
+   "r9 w1 Rogue Shinobi#1: wait {}",
+   "r10 w1 Genin L10: basicAttack {\"Rogue Shinobi#2\":-13.31}",
+   "r10 w1 Genin L10: wait {}",
+   "r10 w1 Rogue Shinobi#2: Omen: Three-Plank Line {}",
+   "r10 w1 Rogue Shinobi#2: wait {}",
+   "r10 w1 Rogue Squad Leader#1: basicAttack {\"Genin L10\":-20.83}",
+   "r10 w1 Rogue Squad Leader#1: wait {}",
+   "r10 w1 Rogue Shinobi#1: Omen: Three-Plank Line {}",
+   "r10 w1 Rogue Shinobi#1: wait {}",
+   "r11 w1 Genin L10: Chakra Barrier {}",
+   "r11 w1 Genin L10: basicAttack {\"Rogue Shinobi#2\":-11.88}",
+   "r11 w1 Genin L10: wait {}",
+   "r11 w1 Rogue Shinobi#2: Eruption: Three-Plank Line {}",
+   "r11 w1 Rogue Squad Leader#1: basicAttack {\"Genin L10\":-24.5}",
+   "r11 w1 Rogue Squad Leader#1: wait {}",
+   "r11 w1 Rogue Shinobi#1: Eruption: Three-Plank Line {}",
+   "r12 w1 Genin L10: Shockwave Fist {\"Rogue Shinobi#2\":-24.9}",
+   "r12 w1 Genin L10: basicAttack {\"Rogue Shinobi#2\":-11.88}",
+   "r12 w1 Genin L10: wait {}",
+   "r12 w1 Rogue Shinobi#2: basicAttack {\"Genin L10\":-13.63}",
+   "r12 w1 Rogue Shinobi#2: wait {}",
+   "r12 w1 Rogue Squad Leader#1: basicAttack {\"Genin L10\":-19.19}",
+   "r12 w1 Rogue Squad Leader#1: wait {}",
+   "r12 w1 Rogue Shinobi#1: basicAttack {\"Genin L10\":-13.63}",
+   "r12 w1 Rogue Shinobi#1: wait {}",
+   "r13 w1 Genin L10: Searing Might {}",
+   "r13 w1 Genin L10: Liver Shot {\"Rogue Shinobi#2\":-23.76}",
+   "r13 w1 Rogue Shinobi#2: Omen: Three-Plank Line {}",
+   "r13 w1 Rogue Shinobi#2: wait {}",
+   "r13 w1 Rogue Squad Leader#1: Rogue Rally {}",
+   "r13 w1 Rogue Squad Leader#1: basicAttack {\"Genin L10\":-19.19}",
+   "r13 w1 Rogue Squad Leader#1: wait {}",
+   "r13 w1 Rogue Shinobi#1: Omen: Three-Plank Line {}",
+   "r13 w1 Rogue Shinobi#1: wait {}",
+   "r14 w1 Genin L10: basicAttack {\"Rogue Shinobi#2\":-13.31}",
+   "r14 w1 Genin L10: wait {}",
+   "r14 w1 Rogue Shinobi#2: wait {}",
+   "r14 w1 Rogue Squad Leader#1: basicAttack {\"Genin L10\":-20.83}",
+   "r14 w1 Rogue Squad Leader#1: wait {}",
+   "r14 w1 Rogue Shinobi#1: Eruption: Three-Plank Line {}",
+   "r15 w1 Genin L10: basicAttack {\"Rogue Shinobi#2\":-13.31}",
+   "r15 w1 Genin L10: wait {}",
+   "r15 w1 Rogue Shinobi#2: basicAttack {\"Genin L10\":-14.5}",
+   "r15 w1 Rogue Shinobi#2: wait {}",
+   "r15 w1 Rogue Squad Leader#1: basicAttack {\"Genin L10\":-24.5}",
+   "r15 w1 Rogue Squad Leader#1: wait {}",
+   "r15 w1 Rogue Shinobi#1: basicAttack {\"Genin L10\":-14.5}",
+   "r15 w1 Rogue Shinobi#1: wait {}",
+   "r16 w1 Genin L10: Chakra Barrier {}",
+   "r16 w1 Genin L10: basicAttack {\"Rogue Shinobi#2\":-11.88}",
+   "r16 w1 Genin L10: wait {}",
+   "r16 w1 Rogue Shinobi#2: Omen: Three-Plank Line {}",
+   "r16 w1 Rogue Shinobi#2: wait {}",
+   "r16 w1 Rogue Squad Leader#1: basicAttack {\"Genin L10\":-20.42}",
+   "r16 w1 Rogue Squad Leader#1: wait {}",
+   "r16 w1 Rogue Shinobi#1: Omen: Three-Plank Line {}",
+   "r16 w1 Rogue Shinobi#1: wait {}",
+   "r17 w1 Genin L10: Searing Might {}",
+   "r17 w1 Genin L10: Shockwave Fist {\"Rogue Shinobi#2\":-24.9}",
+   "r17 w1 Rogue Shinobi#2: Eruption: Three-Plank Line {}",
+   "r17 w1 Rogue Squad Leader#1: Rogue Rally {}",
+   "r17 w1 Rogue Squad Leader#1: basicAttack {\"Genin L10\":-19.19}",
+   "r17 w1 Rogue Squad Leader#1: wait {}",
+   "r17 w1 Rogue Shinobi#1: Eruption: Three-Plank Line {}",
+   "r18 w1 Genin L10: Liver Shot {\"Rogue Shinobi#2\":-23.76}",
+   "r18 w1 Genin L10: basicAttack {\"Rogue Shinobi#2\":-11.88}",
+   "r18 w1 Genin L10: meditate {}",
+   "r18 w1 Rogue Shinobi#2: basicAttack {\"Genin L10\":-11.58}",
+   "r18 w1 Rogue Shinobi#2: wait {}",
+   "r18 w1 Rogue Squad Leader#1: basicAttack {\"Genin L10\":-19.58}",
+   "r18 w1 Rogue Squad Leader#1: wait {}",
+   "r18 w1 Rogue Shinobi#1: basicAttack {\"Genin L10\":-11.58}",
+   "r18 w1 Rogue Shinobi#1: wait {}",
+   "r19 w1 Genin L10: basicAttack {\"Rogue Shinobi#2\":-13.31}",
+   "r19 w1 Genin L10: wait {}",
+   "r19 w1 Rogue Shinobi#2: Omen: Three-Plank Line {}",
+   "r19 w1 Rogue Shinobi#2: wait {}",
+   "r19 w1 Rogue Squad Leader#1: basicAttack {\"Genin L10\":-14.14}"
+  ],
+  "L10 solo/Captain": [
+   "r1 w1 Genin L10: Searing Might {}",
+   "r1 w1 Genin L10: Chakra Barrier {}",
+   "r1 w1 Genin L10: move {}",
+   "r1 w1 Genin L10: move {}",
+   "r1 w1 Rogue Captain#1: Omen: Three-Plank Line {}",
+   "r1 w1 Rogue Captain#1: wait {}",
+   "r2 w1 Genin L10: Shockwave Fist {\"Rogue Captain#1\":-15.44}",
+   "r2 w1 Genin L10: move {}",
+   "r2 w1 Genin L10: move {}",
+   "r2 w1 Genin L10: basicAttack {\"Rogue Captain#1\":-7.37}",
+   "r2 w1 Rogue Captain#1: Rogue Cleave {}",
+   "r3 w1 Genin L10: Liver Shot {\"Rogue Captain#1\":-44.21}",
+   "r3 w1 Genin L10: basicAttack {\"Rogue Captain#1\":-22.11}",
+   "r3 w1 Genin L10: wait {}",
+   "r3 w1 Rogue Captain#1: Omen: Cracking Ring {}",
+   "r3 w1 Rogue Captain#1: wait {}",
+   "r4 w1 Genin L10: move (dodge) {}",
+   "r4 w1 Genin L10: move (dodge) {}",
+   "r4 w1 Genin L10: move {}",
+   "r4 w1 Genin L10: move (dodge) {}",
+   "r4 w1 Genin L10: move {}",
+   "r4 w1 Genin L10: move (dodge) {}",
+   "r4 w1 Genin L10: move {}",
+   "r4 w1 Genin L10: move (dodge) {}",
+   "r4 w1 Genin L10: move {}",
+   "r4 w1 Genin L10: move (dodge) {}",
+   "r4 w1 Rogue Captain#1: Rogue Sweep {}",
+   "r5 w1 Genin L10: Searing Might {}",
+   "r5 w1 Genin L10: move {}",
+   "r5 w1 Genin L10: move {}",
+   "r5 w1 Genin L10: basicAttack {\"Rogue Captain#1\":-8.25}",
+   "r5 w1 Genin L10: wait {}",
+   "r5 w1 Rogue Captain#1: Omen: Three-Plank Line {}",
+   "r5 w1 Rogue Captain#1: wait {}",
+   "r6 w1 Genin L10: Chakra Barrier {}",
+   "r6 w1 Genin L10: basicAttack {\"Rogue Captain#1\":-7.37}",
+   "r6 w1 Genin L10: wait {}",
+   "r6 w1 Rogue Captain#1: Rogue Cleave {}",
+   "r7 w1 Genin L10: Shockwave Fist {\"Rogue Captain#1\":-46.32}",
+   "r7 w1 Genin L10: basicAttack {\"Rogue Captain#1\":-22.11}",
+   "r7 w1 Genin L10: wait {}",
+   "r7 w1 Rogue Captain#1: Omen: Cracking Ring {}",
+   "r7 w1 Rogue Captain#1: wait {}",
+   "r8 w1 Genin L10: move (dodge) {}",
+   "r8 w1 Genin L10: move (dodge) {}",
+   "r8 w1 Genin L10: Liver Shot {\"Rogue Captain#1\":-14.74}",
+   "r8 w1 Genin L10: move {}",
+   "r8 w1 Genin L10: move (dodge) {}",
+   "r8 w1 Rogue Captain#1: Rogue Sweep {}",
+   "r9 w1 Genin L10: Searing Might {}",
+   "r9 w1 Genin L10: move {}",
+   "r9 w1 Genin L10: move {}",
+   "r9 w1 Genin L10: basicAttack {\"Rogue Captain#1\":-8.25}",
+   "r9 w1 Genin L10: wait {}",
+   "r9 w1 Rogue Captain#1: Omen: Three-Plank Line {}",
+   "r9 w1 Rogue Captain#1: wait {}",
+   "r10 w1 Genin L10: basicAttack {\"Rogue Captain#1\":-8.25}",
+   "r10 w1 Genin L10: wait {}",
+   "r10 w1 Rogue Captain#1: Rogue Cleave {}",
+   "r11 w1 Genin L10: Chakra Barrier {}",
+   "r11 w1 Genin L10: basicAttack {\"Rogue Captain#1\":-22.11}",
+   "r11 w1 Genin L10: meditate {}",
+   "r11 w1 Genin L10: wait {}",
+   "r11 w1 Rogue Captain#1: Omen: Cracking Ring {}",
+   "r11 w1 Rogue Captain#1: wait {}",
+   "r12 w1 Genin L10: move (dodge) {}",
+   "r12 w1 Genin L10: move (dodge) {}",
+   "r12 w1 Genin L10: Shockwave Fist {\"Rogue Captain#1\":-15.44}",
+   "r12 w1 Genin L10: move {}",
+   "r12 w1 Genin L10: move (dodge) {}",
+   "r12 w1 Rogue Captain#1: Rogue Sweep {}",
+   "r13 w1 Genin L10: Searing Might {}",
+   "r13 w1 Genin L10: Liver Shot {\"Rogue Captain#1\":-14.74}",
+   "r13 w1 Rogue Captain#1: Omen: Three-Plank Line {}",
+   "r13 w1 Rogue Captain#1: wait {}",
+   "r14 w1 Genin L10: move (dodge) {}",
+   "r14 w1 Genin L10: move {}",
+   "r14 w1 Genin L10: move (dodge) {}",
+   "r14 w1 Genin L10: basicAttack {\"Rogue Captain#1\":-8.25}",
+   "r14 w1 Genin L10: wait {}",
+   "r14 w1 Rogue Captain#1: Rogue Cleave {}",
+   "r15 w1 Genin L10: basicAttack {\"Rogue Captain#1\":-24.76}",
+   "r15 w1 Genin L10: wait {}",
+   "r15 w1 Rogue Captain#1: Omen: Cracking Ring {}",
+   "r15 w1 Rogue Captain#1: wait {}",
+   "r16 w1 Genin L10: move (dodge) {}",
+   "r16 w1 Genin L10: move (dodge) {}",
+   "r16 w1 Genin L10: Chakra Barrier {}",
+   "r16 w1 Genin L10: move {}",
+   "r16 w1 Genin L10: move (dodge) {}",
+   "r16 w1 Genin L10: move {}",
+   "r16 w1 Genin L10: move (dodge) {}",
+   "r16 w1 Rogue Captain#1: Rogue Sweep {}",
+   "r17 w1 Genin L10: Searing Might {}",
+   "r17 w1 Genin L10: Shockwave Fist {\"Rogue Captain#1\":-15.44}",
+   "r17 w1 Rogue Captain#1: Omen: Three-Plank Line {}",
+   "r17 w1 Rogue Captain#1: wait {}",
+   "r18 w1 Genin L10: move (dodge) {}",
+   "r18 w1 Genin L10: Liver Shot {\"Rogue Captain#1\":-14.74}",
+   "r18 w1 Genin L10: move {}",
+   "r18 w1 Genin L10: move (dodge) {}",
+   "r18 w1 Genin L10: wait {}",
+   "r18 w1 Rogue Captain#1: Rogue Cleave {}",
+   "r19 w1 Genin L10: basicAttack {\"Rogue Captain#1\":-24.76}",
+   "r19 w1 Genin L10: meditate {}",
+   "r19 w1 Genin L10: wait {}",
+   "r19 w1 Rogue Captain#1: Omen: Cracking Ring {}",
+   "r19 w1 Rogue Captain#1: wait {}",
+   "r20 w1 Genin L10: move (dodge) {}",
+   "r20 w1 Genin L10: move (dodge) {}",
+   "r20 w1 Genin L10: move {}",
+   "r20 w1 Genin L10: move (dodge) {}",
+   "r20 w1 Genin L10: move {}",
+   "r20 w1 Genin L10: move (dodge) {}",
+   "r20 w1 Genin L10: move {}",
+   "r20 w1 Genin L10: move (dodge) {}",
+   "r20 w1 Genin L10: move {}",
+   "r20 w1 Genin L10: move (dodge) {}",
+   "r20 w1 Rogue Captain#1: Rogue Sweep {}",
+   "r21 w1 Genin L10: Searing Might {}",
+   "r21 w1 Genin L10: Chakra Barrier {}",
+   "r21 w1 Genin L10: move {}",
+   "r21 w1 Genin L10: move {}",
+   "r21 w1 Rogue Captain#1: Omen: Three-Plank Line {}",
+   "r21 w1 Rogue Captain#1: wait {}",
+   "r22 w1 Genin L10: Shockwave Fist {\"Rogue Captain#1\":-15.44}",
+   "r22 w1 Genin L10: basicAttack {\"Rogue Captain#1\":-7.37}",
+   "r22 w1 Genin L10: wait {}",
+   "r22 w1 Rogue Captain#1: Rogue Cleave {}",
+   "r23 w1 Genin L10: Liver Shot {\"Rogue Captain#1\":-44.21}",
+   "r23 w1 Genin L10: basicAttack {\"Rogue Captain#1\":-22.11}",
+   "r23 w1 Genin L10: wait {}",
+   "r23 w1 Rogue Captain#1: Omen: Cracking Ring {}",
+   "r23 w1 Rogue Captain#1: wait {}",
+   "r24 w1 Genin L10: move (dodge) {}",
+   "r24 w1 Genin L10: move (dodge) {}",
+   "r24 w1 Genin L10: move {}",
+   "r24 w1 Genin L10: move (dodge) {}",
+   "r24 w1 Genin L10: move {}",
+   "r24 w1 Genin L10: move (dodge) {}",
+   "r24 w1 Genin L10: move {}",
+   "r24 w1 Genin L10: move (dodge) {}",
+   "r24 w1 Genin L10: move {}",
+   "r24 w1 Genin L10: move (dodge) {}",
+   "r24 w1 Rogue Captain#1: Rogue Sweep {}",
+   "r25 w1 Genin L10: Searing Might {}",
+   "r25 w1 Genin L10: move {}",
+   "r25 w1 Genin L10: move {}",
+   "r25 w1 Genin L10: basicAttack {\"Rogue Captain#1\":-8.25}",
+   "r25 w1 Genin L10: wait {}",
+   "r25 w1 Rogue Captain#1: Omen: Three-Plank Line {}",
+   "r25 w1 Rogue Captain#1: wait {}",
+   "r26 w1 Genin L10: Chakra Barrier {}",
+   "r26 w1 Genin L10: basicAttack {\"Rogue Captain#1\":-7.37}",
+   "r26 w1 Genin L10: wait {}",
+   "r26 w1 Rogue Captain#1: Rogue Cleave {}",
+   "r27 w1 Genin L10: Shockwave Fist {\"Rogue Captain#1\":-46.32}",
+   "r27 w1 Genin L10: basicAttack {\"Rogue Captain#1\":-22.11}",
+   "r27 w1 Genin L10: meditate {}",
+   "r27 w1 Rogue Captain#1: Omen: Cracking Ring {}",
+   "r27 w1 Rogue Captain#1: wait {}",
+   "r28 w1 Genin L10: move (dodge) {}",
+   "r28 w1 Genin L10: move (dodge) {}",
+   "r28 w1 Genin L10: Liver Shot {\"Rogue Captain#1\":-14.74}",
+   "r28 w1 Genin L10: move {}",
+   "r28 w1 Genin L10: move (dodge) {}",
+   "r28 w1 Rogue Captain#1: Rogue Sweep {}",
+   "r29 w1 Genin L10: Searing Might {}",
+   "r29 w1 Genin L10: move {}",
+   "r29 w1 Genin L10: move {}",
+   "r29 w1 Genin L10: basicAttack {\"Rogue Captain#1\":-8.25}",
+   "r29 w1 Genin L10: wait {}",
+   "r29 w1 Rogue Captain#1: Omen: Three-Plank Line {}",
+   "r29 w1 Rogue Captain#1: wait {}",
+   "r30 w1 Genin L10: basicAttack {\"Rogue Captain#1\":-8.25}",
+   "r30 w1 Genin L10: wait {}",
+   "r30 w1 Rogue Captain#1: Rogue Cleave {}",
+   "r31 w1 Genin L10: Chakra Barrier {}",
+   "r31 w1 Genin L10: basicAttack {\"Rogue Captain#1\":-22.11}",
+   "r31 w1 Genin L10: wait {}",
+   "r31 w1 Rogue Captain#1: Omen: Cracking Ring {}",
+   "r31 w1 Rogue Captain#1: wait {}",
+   "r32 w1 Genin L10: move (dodge) {}",
+   "r32 w1 Genin L10: move (dodge) {}",
+   "r32 w1 Genin L10: Shockwave Fist {\"Rogue Captain#1\":-15.44}",
+   "r32 w1 Genin L10: move {}",
+   "r32 w1 Genin L10: move (dodge) {}",
+   "r32 w1 Rogue Captain#1: Rogue Sweep {}",
+   "r33 w1 Genin L10: Searing Might {}",
+   "r33 w1 Genin L10: Liver Shot {\"Rogue Captain#1\":-14.74}",
+   "r33 w1 Rogue Captain#1: Omen: Three-Plank Line {}",
+   "r33 w1 Rogue Captain#1: wait {}",
+   "r34 w1 Genin L10: move (dodge) {}",
+   "r34 w1 Genin L10: move {}",
+   "r34 w1 Genin L10: move (dodge) {}",
+   "r34 w1 Genin L10: basicAttack {\"Rogue Captain#1\":-8.25}",
+   "r34 w1 Genin L10: meditate {}",
+   "r34 w1 Genin L10: wait {}",
+   "r34 w1 Rogue Captain#1: Rogue Cleave {}",
+   "r35 w1 Genin L10: basicAttack {\"Rogue Captain#1\":-24.76}",
+   "r35 w1 Genin L10: wait {}",
+   "r35 w1 Rogue Captain#1: Omen: Cracking Ring {}",
+   "r35 w1 Rogue Captain#1: wait {}",
+   "r36 w1 Genin L10: move (dodge) {}",
+   "r36 w1 Genin L10: move (dodge) {}",
+   "r36 w1 Genin L10: Chakra Barrier {}",
+   "r36 w1 Genin L10: move {}",
+   "r36 w1 Genin L10: move (dodge) {}",
+   "r36 w1 Genin L10: move {}",
+   "r36 w1 Genin L10: move (dodge) {}",
+   "r36 w1 Rogue Captain#1: Rogue Sweep {}",
+   "r37 w1 Genin L10: Searing Might {}",
+   "r37 w1 Genin L10: Shockwave Fist {\"Rogue Captain#1\":-15.44}",
+   "r37 w1 Rogue Captain#1: Omen: Three-Plank Line {}",
+   "r37 w1 Rogue Captain#1: wait {}",
+   "r38 w1 Genin L10: move (dodge) {}",
+   "r38 w1 Genin L10: Liver Shot {\"Rogue Captain#1\":-14.74}",
+   "r38 w1 Genin L10: move {}",
+   "r38 w1 Genin L10: move (dodge) {}",
+   "r38 w1 Genin L10: wait {}",
+   "r38 w1 Rogue Captain#1: Rogue Cleave {}",
+   "r39 w1 Genin L10: basicAttack {\"Rogue Captain#1\":-24.76}",
+   "r39 w1 Genin L10: wait {}",
+   "r39 w1 Rogue Captain#1: Omen: Cracking Ring {}",
+   "r39 w1 Rogue Captain#1: wait {}",
+   "r40 w1 Genin L10: move (dodge) {}",
+   "r40 w1 Genin L10: move (dodge) {}",
+   "r40 w1 Genin L10: move {}",
+   "r40 w1 Genin L10: move (dodge) {}",
+   "r40 w1 Genin L10: move {}",
+   "r40 w1 Genin L10: move (dodge) {}",
+   "r40 w1 Genin L10: move {}",
+   "r40 w1 Genin L10: move (dodge) {}",
+   "r40 w1 Genin L10: move {}",
+   "r40 w1 Genin L10: move (dodge) {}",
+   "r40 w1 Rogue Captain#1: Rogue Sweep {}",
+   "r41 w1 Genin L10: Searing Might {}",
+   "r41 w1 Genin L10: Chakra Barrier {}",
+   "r41 w1 Genin L10: move {}",
+   "r41 w1 Genin L10: move {}",
+   "r41 w1 Rogue Captain#1: Omen: Three-Plank Line {}",
+   "r41 w1 Rogue Captain#1: wait {}",
+   "r42 w1 Genin L10: Shockwave Fist {\"Rogue Captain#1\":-15.44}",
+   "r42 w1 Genin L10: basicAttack {\"Rogue Captain#1\":-7.37}",
+   "r42 w1 Genin L10: wait {}",
+   "r42 w1 Rogue Captain#1: Rogue Cleave {}",
+   "r43 w1 Genin L10: Liver Shot {\"Rogue Captain#1\":-44.21}",
+   "r43 w1 Genin L10: basicAttack {\"Rogue Captain#1\":-22.11}",
+   "r43 w1 Genin L10: meditate {}",
+   "r43 w1 Rogue Captain#1: Omen: Cracking Ring {}",
+   "r43 w1 Rogue Captain#1: wait {}",
+   "r44 w1 Genin L10: move (dodge) {}",
+   "r44 w1 Genin L10: move (dodge) {}",
+   "r44 w1 Genin L10: move {}",
+   "r44 w1 Genin L10: move (dodge) {}",
+   "r44 w1 Genin L10: move {}",
+   "r44 w1 Genin L10: move (dodge) {}",
+   "r44 w1 Genin L10: move {}",
+   "r44 w1 Genin L10: move (dodge) {}",
+   "r44 w1 Genin L10: move {}",
+   "r44 w1 Genin L10: move (dodge) {}",
+   "r44 w1 Rogue Captain#1: Rogue Sweep {}",
+   "r45 w1 Genin L10: Searing Might {}",
+   "r45 w1 Genin L10: move {}",
+   "r45 w1 Genin L10: move {}",
+   "r45 w1 Genin L10: basicAttack {\"Rogue Captain#1\":-8.25}",
+   "r45 w1 Genin L10: wait {}",
+   "r45 w1 Rogue Captain#1: Omen: Three-Plank Line {}",
+   "r45 w1 Rogue Captain#1: wait {}",
+   "r46 w1 Genin L10: Chakra Barrier {}",
+   "r46 w1 Genin L10: basicAttack {\"Rogue Captain#1\":-7.37}",
+   "r46 w1 Genin L10: wait {}",
+   "r46 w1 Rogue Captain#1: Rogue Cleave {}",
+   "r47 w1 Genin L10: Shockwave Fist {\"Rogue Captain#1\":-46.32}",
+   "r47 w1 Genin L10: basicAttack {\"Rogue Captain#1\":-22.11}",
+   "r47 w1 Genin L10: wait {}",
+   "r47 w1 Rogue Captain#1: Omen: Cracking Ring {}",
+   "r47 w1 Rogue Captain#1: wait {}",
+   "r48 w1 Genin L10: move (dodge) {}",
+   "r48 w1 Genin L10: move (dodge) {}",
+   "r48 w1 Genin L10: Liver Shot {\"Rogue Captain#1\":-14.74}",
+   "r48 w1 Genin L10: move {}",
+   "r48 w1 Genin L10: move (dodge) {}",
+   "r48 w1 Rogue Captain#1: Rogue Sweep {}",
+   "r49 w1 Genin L10: Searing Might {}",
+   "r49 w1 Genin L10: move {}",
+   "r49 w1 Genin L10: move {}",
+   "r49 w1 Genin L10: basicAttack {\"Rogue Captain#1\":-8.25}",
+   "r49 w1 Genin L10: wait {}",
+   "r49 w1 Rogue Captain#1: Omen: Three-Plank Line {}",
+   "r49 w1 Rogue Captain#1: wait {}",
+   "r50 w1 Genin L10: basicAttack {\"Rogue Captain#1\":-8.25}",
+   "r50 w1 Genin L10: wait {}",
+   "r50 w1 Rogue Captain#1: Rogue Cleave {}",
+   "r51 w1 Genin L10: Chakra Barrier {}",
+   "r51 w1 Genin L10: basicAttack {\"Rogue Captain#1\":-22.11}",
+   "r51 w1 Genin L10: meditate {}",
+   "r51 w1 Genin L10: wait {}",
+   "r51 w1 Rogue Captain#1: Omen: Cracking Ring {}",
+   "r51 w1 Rogue Captain#1: wait {}",
+   "r52 w1 Genin L10: move (dodge) {}",
+   "r52 w1 Genin L10: move (dodge) {}",
+   "r52 w1 Genin L10: Shockwave Fist {\"Rogue Captain#1\":-15.44}",
+   "r52 w1 Genin L10: move {}",
+   "r52 w1 Genin L10: move (dodge) {}",
+   "r52 w1 Rogue Captain#1: Rogue Sweep {}",
+   "r53 w1 Genin L10: Searing Might {}",
+   "r53 w1 Genin L10: Liver Shot {\"Rogue Captain#1\":-14.74}",
+   "r53 w1 Rogue Captain#1: Omen: Three-Plank Line {}",
+   "r53 w1 Rogue Captain#1: wait {}",
+   "r54 w1 Genin L10: move (dodge) {}",
+   "r54 w1 Genin L10: move {}",
+   "r54 w1 Genin L10: move (dodge) {}",
+   "r54 w1 Genin L10: basicAttack {\"Rogue Captain#1\":-8.25}",
+   "r54 w1 Genin L10: wait {}",
+   "r54 w1 Rogue Captain#1: Rogue Cleave {}",
+   "r55 w1 Genin L10: basicAttack {\"Rogue Captain#1\":-24.76}",
+   "r55 w1 Genin L10: wait {}",
+   "r55 w1 Rogue Captain#1: Omen: Cracking Ring {}",
+   "r55 w1 Rogue Captain#1: wait {}",
+   "r56 w1 Genin L10: move (dodge) {}",
+   "r56 w1 Genin L10: move (dodge) {}",
+   "r56 w1 Genin L10: Chakra Barrier {}",
+   "r56 w1 Genin L10: move {}",
+   "r56 w1 Genin L10: move (dodge) {}",
+   "r56 w1 Genin L10: move {}",
+   "r56 w1 Genin L10: move (dodge) {}",
+   "r56 w1 Rogue Captain#1: Rogue Sweep {}",
+   "r57 w1 Genin L10: Searing Might {}",
+   "r57 w1 Genin L10: Shockwave Fist {\"Rogue Captain#1\":-15.44}",
+   "r57 w1 Rogue Captain#1: Omen: Three-Plank Line {}",
+   "r57 w1 Rogue Captain#1: wait {}",
+   "r58 w1 Genin L10: move (dodge) {}",
+   "r58 w1 Genin L10: Liver Shot {\"Rogue Captain#1\":-14.74}",
+   "r58 w1 Genin L10: move {}",
+   "r58 w1 Genin L10: move (dodge) {}",
+   "r58 w1 Genin L10: wait {}",
+   "r58 w1 Rogue Captain#1: Rogue Cleave {}",
+   "r59 w1 Genin L10: basicAttack {\"Rogue Captain#1\":-24.76}",
+   "r59 w1 Genin L10: meditate {}",
+   "r59 w1 Genin L10: wait {}",
+   "r59 w1 Rogue Captain#1: Omen: Cracking Ring {}",
+   "r59 w1 Rogue Captain#1: wait {}",
+   "r60 w1 Genin L10: move (dodge) {}",
+   "r60 w1 Genin L10: move (dodge) {}",
+   "r60 w1 Genin L10: move {}",
+   "r60 w1 Genin L10: move (dodge) {}",
+   "r60 w1 Genin L10: move {}",
+   "r60 w1 Genin L10: move (dodge) {}",
+   "r60 w1 Genin L10: move {}",
+   "r60 w1 Genin L10: move (dodge) {}",
+   "r60 w1 Genin L10: move {}",
+   "r60 w1 Genin L10: move (dodge) {}",
+   "r60 w1 Rogue Captain#1: Rogue Sweep {}",
+   "r61 w1 Genin L10: Searing Might {}",
+   "r61 w1 Genin L10: Chakra Barrier {}",
+   "r61 w1 Genin L10: move {}",
+   "r61 w1 Genin L10: move {}",
+   "r61 w1 Rogue Captain#1: Omen: Three-Plank Line {}",
+   "r61 w1 Rogue Captain#1: wait {}",
+   "r62 w1 Genin L10: Shockwave Fist {\"Rogue Captain#1\":-15.44}",
+   "r62 w1 Genin L10: basicAttack {\"Rogue Captain#1\":-7.37}",
+   "r62 w1 Genin L10: wait {}",
+   "r62 w1 Rogue Captain#1: Rogue Cleave {}",
+   "r63 w1 Genin L10: Liver Shot {\"Rogue Captain#1\":-44.21}",
+   "r63 w1 Genin L10: basicAttack {\"Rogue Captain#1\":-22.11}",
+   "r63 w1 Genin L10: wait {}",
+   "r63 w1 Rogue Captain#1: Omen: Cracking Ring {}",
+   "r63 w1 Rogue Captain#1: wait {}",
+   "r64 w1 Genin L10: move (dodge) {}",
+   "r64 w1 Genin L10: move (dodge) {}",
+   "r64 w1 Genin L10: move {}",
+   "r64 w1 Genin L10: move (dodge) {}",
+   "r64 w1 Genin L10: move {}",
+   "r64 w1 Genin L10: move (dodge) {}",
+   "r64 w1 Genin L10: move {}",
+   "r64 w1 Genin L10: move (dodge) {}",
+   "r64 w1 Genin L10: move {}",
+   "r64 w1 Genin L10: move (dodge) {}",
+   "r64 w1 Rogue Captain#1: Rogue Sweep {}",
+   "r65 w1 Genin L10: Searing Might {}",
+   "r65 w1 Genin L10: move {}",
+   "r65 w1 Genin L10: move {}",
+   "r65 w1 Genin L10: basicAttack {\"Rogue Captain#1\":-8.25}",
+   "r65 w1 Genin L10: wait {}",
+   "r65 w1 Rogue Captain#1: Omen: Three-Plank Line {}",
+   "r65 w1 Rogue Captain#1: wait {}",
+   "r66 w1 Genin L10: Chakra Barrier {}",
+   "r66 w1 Genin L10: basicAttack {\"Rogue Captain#1\":-7.37}",
+   "r66 w1 Genin L10: wait {}",
+   "r66 w1 Rogue Captain#1: Rogue Cleave {}",
+   "r67 w1 Genin L10: Shockwave Fist {\"Rogue Captain#1\":-46.32}",
+   "r67 w1 Genin L10: basicAttack {\"Rogue Captain#1\":-22.11}",
+   "r67 w1 Genin L10: meditate {}",
+   "r67 w1 Rogue Captain#1: Omen: Cracking Ring {}",
+   "r67 w1 Rogue Captain#1: wait {}",
+   "r68 w1 Genin L10: move (dodge) {}",
+   "r68 w1 Genin L10: move (dodge) {}",
+   "r68 w1 Genin L10: Liver Shot {\"Rogue Captain#1\":-14.74}",
+   "r68 w1 Genin L10: move {}",
+   "r68 w1 Genin L10: move (dodge) {}",
+   "r68 w1 Rogue Captain#1: Rogue Sweep {}",
+   "r69 w1 Genin L10: Searing Might {}",
+   "r69 w1 Genin L10: move {}",
+   "r69 w1 Genin L10: move {}",
+   "r69 w1 Genin L10: basicAttack {\"Rogue Captain#1\":-8.25}",
+   "r69 w1 Genin L10: wait {}",
+   "r69 w1 Rogue Captain#1: Omen: Three-Plank Line {}",
+   "r69 w1 Rogue Captain#1: wait {}",
+   "r70 w1 Genin L10: basicAttack {\"Rogue Captain#1\":-8.25}",
+   "r70 w1 Genin L10: wait {}",
+   "r70 w1 Rogue Captain#1: Rogue Cleave {}",
+   "r71 w1 Genin L10: Chakra Barrier {}",
+   "r71 w1 Genin L10: basicAttack {\"Rogue Captain#1\":-22.11}",
+   "r71 w1 Genin L10: wait {}",
+   "r71 w1 Rogue Captain#1: Omen: Cracking Ring {}",
+   "r71 w1 Rogue Captain#1: wait {}",
+   "r72 w1 Genin L10: move (dodge) {}",
+   "r72 w1 Genin L10: move (dodge) {}",
+   "r72 w1 Genin L10: Shockwave Fist {\"Rogue Captain#1\":-15.44}",
+   "r72 w1 Genin L10: move {}",
+   "r72 w1 Genin L10: move (dodge) {}",
+   "r72 w1 Rogue Captain#1: Rogue Sweep {}",
+   "r73 w1 Genin L10: Searing Might {}",
+   "r73 w1 Genin L10: Liver Shot {\"Rogue Captain#1\":-14.74}",
+   "r73 w1 Rogue Captain#1: Omen: Three-Plank Line {}",
+   "r73 w1 Rogue Captain#1: wait {}",
+   "r74 w1 Genin L10: move (dodge) {}",
+   "r74 w1 Genin L10: move {}",
+   "r74 w1 Genin L10: move (dodge) {}",
+   "r74 w1 Genin L10: basicAttack {\"Rogue Captain#1\":-8.25}",
+   "r74 w1 Genin L10: wait {}",
+   "r74 w1 Rogue Captain#1: Rogue Cleave {}",
+   "r75 w1 Genin L10: basicAttack {\"Rogue Captain#1\":-24.76}",
+   "r75 w1 Genin L10: wait {}",
+   "r75 w1 Rogue Captain#1: Omen: Cracking Ring {}",
+   "r75 w1 Rogue Captain#1: wait {}",
+   "r76 w1 Genin L10: move (dodge) {}",
+   "r76 w1 Genin L10: move (dodge) {}",
+   "r76 w1 Genin L10: Chakra Barrier {}",
+   "r76 w1 Genin L10: move {}",
+   "r76 w1 Genin L10: move (dodge) {}",
+   "r76 w1 Genin L10: move {}",
+   "r76 w1 Genin L10: move (dodge) {}",
+   "r76 w1 Rogue Captain#1: Rogue Sweep {}",
+   "r77 w1 Genin L10: Searing Might {}",
+   "r77 w1 Genin L10: Shockwave Fist {\"Rogue Captain#1\":-15.44}",
+   "r77 w1 Rogue Captain#1: Omen: Three-Plank Line {}",
+   "r77 w1 Rogue Captain#1: wait {}",
+   "r78 w1 Genin L10: move (dodge) {}",
+   "r78 w1 Genin L10: Liver Shot {\"Rogue Captain#1\":-14.74}",
+   "r78 w1 Genin L10: move {}",
+   "r78 w1 Genin L10: move (dodge) {}",
+   "r78 w1 Genin L10: wait {}",
+   "r78 w1 Rogue Captain#1: Rogue Cleave {}",
+   "r79 w1 Genin L10: basicAttack {\"Rogue Captain#1\":-24.76}",
+   "r79 w1 Genin L10: meditate {}",
+   "r79 w1 Genin L10: wait {}",
+   "r79 w1 Rogue Captain#1: Omen: Cracking Ring {}",
+   "r79 w1 Rogue Captain#1: wait {}",
+   "r80 w1 Genin L10: move (dodge) {}",
+   "r80 w1 Genin L10: move (dodge) {}",
+   "r80 w1 Genin L10: move {}",
+   "r80 w1 Genin L10: move (dodge) {}",
+   "r80 w1 Genin L10: move {}",
+   "r80 w1 Genin L10: move (dodge) {}",
+   "r80 w1 Genin L10: move {}",
+   "r80 w1 Genin L10: move (dodge) {}",
+   "r80 w1 Genin L10: move {}",
+   "r80 w1 Genin L10: move (dodge) {}",
+   "r80 w1 Rogue Captain#1: Rogue Sweep {}",
+   "r81 w1 Genin L10: Searing Might {}",
+   "r81 w1 Genin L10: Chakra Barrier {}",
+   "r81 w1 Genin L10: move {}",
+   "r81 w1 Genin L10: move {}",
+   "r81 w1 Rogue Captain#1: Omen: Three-Plank Line {}",
+   "r81 w1 Rogue Captain#1: wait {}",
+   "r82 w1 Genin L10: Shockwave Fist {\"Rogue Captain#1\":-15.44}",
+   "r82 w1 Genin L10: basicAttack {\"Rogue Captain#1\":-7.37}",
+   "r82 w1 Genin L10: wait {}",
+   "r82 w1 Rogue Captain#1: Rogue Cleave {}",
+   "r83 w1 Genin L10: Liver Shot {\"Rogue Captain#1\":-44.21}",
+   "r83 w1 Genin L10: basicAttack {\"Rogue Captain#1\":-22.11}",
+   "r83 w1 Genin L10: meditate {}",
+   "r83 w1 Rogue Captain#1: Omen: Cracking Ring {}",
+   "r83 w1 Rogue Captain#1: wait {}",
+   "r84 w1 Genin L10: move (dodge) {}",
+   "r84 w1 Genin L10: move (dodge) {}",
+   "r84 w1 Genin L10: move {}",
+   "r84 w1 Genin L10: move (dodge) {}",
+   "r84 w1 Genin L10: move {}",
+   "r84 w1 Genin L10: move (dodge) {}",
+   "r84 w1 Genin L10: move {}",
+   "r84 w1 Genin L10: move (dodge) {}",
+   "r84 w1 Genin L10: move {}",
+   "r84 w1 Genin L10: move (dodge) {}",
+   "r84 w1 Rogue Captain#1: Rogue Sweep {}",
+   "r85 w1 Genin L10: Searing Might {}",
+   "r85 w1 Genin L10: move {}",
+   "r85 w1 Genin L10: move {}",
+   "r85 w1 Genin L10: basicAttack {\"Rogue Captain#1\":-8.25}",
+   "r85 w1 Genin L10: wait {}",
+   "r85 w1 Rogue Captain#1: Omen: Three-Plank Line {}",
+   "r85 w1 Rogue Captain#1: wait {}",
+   "r86 w1 Genin L10: Chakra Barrier {}",
+   "r86 w1 Genin L10: basicAttack {\"Rogue Captain#1\":-7.37}",
+   "r86 w1 Genin L10: wait {}",
+   "r86 w1 Rogue Captain#1: Rogue Cleave {}",
+   "r87 w1 Genin L10: Shockwave Fist {\"Rogue Captain#1\":-46.32}",
+   "r87 w1 Genin L10: basicAttack {\"Rogue Captain#1\":-22.11}",
+   "r87 w1 Genin L10: wait {}",
+   "r87 w1 Rogue Captain#1: Omen: Cracking Ring {}",
+   "r87 w1 Rogue Captain#1: wait {}",
+   "r88 w1 Genin L10: move (dodge) {}",
+   "r88 w1 Genin L10: move (dodge) {}",
+   "r88 w1 Genin L10: Liver Shot {\"Rogue Captain#1\":-14.74}",
+   "r88 w1 Genin L10: move {}",
+   "r88 w1 Genin L10: move (dodge) {}",
+   "r88 w1 Rogue Captain#1: Rogue Sweep {}",
+   "r89 w1 Genin L10: Searing Might {}",
+   "r89 w1 Genin L10: move {}",
+   "r89 w1 Genin L10: move {}",
+   "r89 w1 Genin L10: basicAttack {\"Rogue Captain#1\":-8.25}",
+   "r89 w1 Genin L10: wait {}",
+   "r89 w1 Rogue Captain#1: Omen: Three-Plank Line {}",
+   "r89 w1 Rogue Captain#1: wait {}",
+   "r90 w1 Genin L10: basicAttack {\"Rogue Captain#1\":-8.25}",
+   "r90 w1 Genin L10: wait {}",
+   "r90 w1 Rogue Captain#1: Rogue Cleave {}",
+   "r91 w1 Genin L10: Chakra Barrier {}",
+   "r91 w1 Genin L10: basicAttack {\"Rogue Captain#1\":-22.11}",
+   "r91 w1 Genin L10: wait {}",
+   "r91 w1 Rogue Captain#1: Rogue Reinforcements {}",
+   "r91 w1 Rogue Captain#1: Omen: Cracking Ring {}",
+   "r91 w1 Rogue Captain#1: wait {}",
+   "r91 w1 Rogue Shinobi Reinforcement (summon)#2: Omen: Three-Plank Line {}",
+   "r91 w1 Rogue Shinobi Reinforcement (summon)#2: wait {}",
+   "r92 w1 Genin L10: move (dodge) {}",
+   "r92 w1 Genin L10: move (dodge) {}",
+   "r92 w1 Genin L10: Shockwave Fist {\"Rogue Shinobi Reinforcement (summon)#2\":-20.88}",
+   "r92 w1 Genin L10: move {}",
+   "r92 w1 Genin L10: move (dodge) {}",
+   "r92 w1 Rogue Captain#1: Rogue Sweep {}",
+   "r92 w1 Rogue Shinobi Reinforcement (summon)#2: Eruption: Three-Plank Line {}",
+   "r93 w1 Genin L10: Searing Might {}",
+   "r93 w1 Genin L10: Liver Shot {\"Rogue Shinobi Reinforcement (summon)#2\":-19.93}",
+   "r93 w1 Rogue Captain#1: Omen: Three-Plank Line {}",
+   "r93 w1 Rogue Captain#1: wait {}",
+   "r93 w1 Rogue Shinobi Reinforcement (summon)#2: move {}",
+   "r93 w1 Rogue Shinobi Reinforcement (summon)#2: move {}",
+   "r93 w1 Rogue Shinobi Reinforcement (summon)#2: basicAttack {\"Genin L10\":-24.04}",
+   "r93 w1 Rogue Shinobi Reinforcement (summon)#2: wait {}",
+   "r94 w1 Genin L10: move (dodge) {}",
+   "r94 w1 Genin L10: basicAttack {\"Rogue Shinobi Reinforcement (summon)#2\":-11.16}",
+   "r94 w1 Genin L10: meditate {}",
+   "r94 w1 Genin L10: wait {}",
+   "r94 w1 Rogue Captain#1: Rogue Cleave {}",
+   "r94 w1 Rogue Shinobi Reinforcement (summon)#2: Omen: Three-Plank Line {}",
+   "r94 w1 Rogue Shinobi Reinforcement (summon)#2: wait {}",
+   "r95 w1 Genin L10: basicAttack {\"Rogue Shinobi Reinforcement (summon)#2\":-11.16}",
+   "r95 w1 Genin L10: wait {}",
+   "r95 w1 Rogue Captain#1: move {}",
+   "r95 w1 Rogue Captain#1: move {}",
+   "r95 w1 Rogue Captain#1: Omen: Cracking Ring {}",
+   "r95 w1 Rogue Captain#1: wait {}",
+   "r95 w1 Rogue Shinobi Reinforcement (summon)#2: Eruption: Three-Plank Line {}",
+   "r96 w1 Genin L10: move (dodge) {}",
+   "r96 w1 Genin L10: move (dodge) {}",
+   "r96 w1 Genin L10: Chakra Barrier {}",
+   "r96 w1 Genin L10: move {}",
+   "r96 w1 Genin L10: move (dodge) {}",
+   "r96 w1 Genin L10: move {}",
+   "r96 w1 Genin L10: move (dodge) {}",
+   "r96 w1 Rogue Captain#1: Rogue Sweep {}",
+   "r96 w1 Rogue Shinobi Reinforcement (summon)#2: move {}",
+   "r96 w1 Rogue Shinobi Reinforcement (summon)#2: basicAttack {\"Genin L10\":-25.58}",
+   "r96 w1 Rogue Shinobi Reinforcement (summon)#2: wait {}",
+   "r97 w1 Genin L10: Searing Might {}",
+   "r97 w1 Genin L10: Shockwave Fist {\"Rogue Shinobi Reinforcement (summon)#2\":-20.88}",
+   "r97 w1 Rogue Captain#1: Omen: Three-Plank Line {}",
+   "r97 w1 Rogue Captain#1: wait {}",
+   "r97 w1 Rogue Shinobi Reinforcement (summon)#2: Omen: Three-Plank Line {}",
+   "r97 w1 Rogue Shinobi Reinforcement (summon)#2: wait {}",
+   "r98 w1 Genin L10: Liver Shot {\"Rogue Shinobi Reinforcement (summon)#2\":-19.93}",
+   "r98 w1 Genin L10: basicAttack {\"Rogue Shinobi Reinforcement (summon)#2\":-9.97}",
+   "r98 w1 Genin L10: wait {}",
+   "r98 w1 Rogue Captain#1: Rogue Cleave {}",
+   "r98 w1 Rogue Shinobi Reinforcement (summon)#2: wait {}",
+   "r99 w1 Genin L10: basicAttack {\"Rogue Shinobi Reinforcement (summon)#2\":-11.16}",
+   "r99 w1 Genin L10: wait {}",
+   "r99 w1 Rogue Captain#1: move {}",
+   "r99 w1 Rogue Captain#1: move {}",
+   "r99 w1 Rogue Captain#1: Omen: Cracking Ring {}",
+   "r99 w1 Rogue Captain#1: wait {}",
+   "r99 w1 Rogue Shinobi Reinforcement (summon)#2: basicAttack {\"Genin L10\":-25.58}",
+   "r99 w1 Rogue Shinobi Reinforcement (summon)#2: wait {}",
+   "r100 w1 Genin L10: move (dodge) {}",
+   "r100 w1 Genin L10: move (dodge) {}",
+   "r100 w1 Genin L10: move {}",
+   "r100 w1 Genin L10: move (dodge) {}",
+   "r100 w1 Genin L10: move {}",
+   "r100 w1 Genin L10: move (dodge) {}",
+   "r100 w1 Genin L10: move {}",
+   "r100 w1 Genin L10: move (dodge) {}",
+   "r100 w1 Genin L10: move {}",
+   "r100 w1 Genin L10: move (dodge) {}",
+   "r100 w1 Rogue Captain#1: Rogue Sweep {}",
+   "r100 w1 Rogue Shinobi Reinforcement (summon)#2: Omen: Three-Plank Line {}",
+   "r100 w1 Rogue Shinobi Reinforcement (summon)#2: wait {}",
+   "r101 w1 Genin L10: Searing Might {}",
+   "r101 w1 Genin L10: Chakra Barrier {}",
+   "r101 w1 Genin L10: move {}",
+   "r101 w1 Genin L10: wait {}",
+   "r101 w1 Rogue Captain#1: Omen: Three-Plank Line {}",
+   "r101 w1 Rogue Captain#1: wait {}",
+   "r101 w1 Rogue Shinobi Reinforcement (summon)#2: Eruption: Three-Plank Line {}",
+   "r102 w1 Genin L10: Shockwave Fist {\"Rogue Shinobi Reinforcement (summon)#2\":-20.88}",
+   "r102 w1 Genin L10: basicAttack {\"Rogue Shinobi Reinforcement (summon)#2\":-9.97}",
+   "r102 w1 Genin L10: meditate {}",
+   "r102 w1 Rogue Captain#1: Rogue Cleave {}",
+   "r102 w1 Rogue Shinobi Reinforcement (summon)#2: basicAttack {\"Genin L10\":-20.44}",
+   "r102 w1 Rogue Shinobi Reinforcement (summon)#2: wait {}",
+   "r103 w1 Genin L10: Liver Shot {\"Rogue Shinobi Reinforcement (summon)#2\":-19.93}",
+   "r103 w1 Genin L10: basicAttack {\"Rogue Shinobi Reinforcement (summon)#2\":-9.97}",
+   "r103 w1 Genin L10: wait {}",
+   "r103 w1 Rogue Captain#1: move {}",
+   "r103 w1 Rogue Captain#1: Omen: Cracking Ring {}",
+   "r103 w1 Rogue Captain#1: wait {}",
+   "r103 w1 Rogue Shinobi Reinforcement (summon)#2: Omen: Three-Plank Line {}",
+   "r103 w1 Rogue Shinobi Reinforcement (summon)#2: wait {}",
+   "r104 w1 Genin L10: move (dodge) {}",
+   "r104 w1 Genin L10: move (dodge) {}",
+   "r104 w1 Genin L10: move {}",
+   "r104 w1 Genin L10: move (dodge) {}",
+   "r104 w1 Genin L10: move {}",
+   "r104 w1 Genin L10: move (dodge) {}",
+   "r104 w1 Genin L10: move {}",
+   "r104 w1 Genin L10: move (dodge) {}",
+   "r104 w1 Genin L10: move {}",
+   "r104 w1 Genin L10: move (dodge) {}",
+   "r104 w1 Rogue Captain#1: Rogue Sweep {}",
+   "r104 w1 Rogue Shinobi Reinforcement (summon)#2: wait {}",
+   "r105 w1 Genin L10: Searing Might {}",
+   "r105 w1 Genin L10: move {}",
+   "r105 w1 Genin L10: basicAttack {\"Rogue Shinobi Reinforcement (summon)#2\":-11.16}",
+   "r105 w1 Genin L10: wait {}",
+   "r105 w1 Rogue Captain#1: Omen: Three-Plank Line {}",
+   "r105 w1 Rogue Captain#1: wait {}",
+   "r105 w1 Rogue Shinobi Reinforcement (summon)#2: basicAttack {\"Genin L10\":-25.58}",
+   "r105 w1 Rogue Shinobi Reinforcement (summon)#2: wait {}",
+   "r106 w1 Genin L10: Chakra Barrier {}",
+   "r106 w1 Genin L10: basicAttack {\"Rogue Shinobi Reinforcement (summon)#2\":-9.97}",
+   "r106 w1 Genin L10: wait {}",
+   "r106 w1 Rogue Captain#1: Rogue Cleave {}",
+   "r106 w1 Rogue Shinobi Reinforcement (summon)#2: Omen: Three-Plank Line {}",
+   "r106 w1 Rogue Shinobi Reinforcement (summon)#2: wait {}",
+   "r107 w1 Genin L10: Shockwave Fist {\"Rogue Shinobi Reinforcement (summon)#2\":-20.88}",
+   "r107 w1 Genin L10: basicAttack {\"Rogue Shinobi Reinforcement (summon)#2\":-9.97}",
+   "r107 w1 Genin L10: meditate {}",
+   "r107 w1 Rogue Captain#1: move {}",
+   "r107 w1 Rogue Captain#1: Omen: Cracking Ring {}",
+   "r107 w1 Rogue Captain#1: wait {}",
+   "r107 w1 Rogue Shinobi Reinforcement (summon)#2: Eruption: Three-Plank Line {}",
+   "r108 w1 Genin L10: move (dodge) {}",
+   "r108 w1 Genin L10: move (dodge) {}",
+   "r108 w1 Genin L10: Liver Shot {\"Rogue Shinobi Reinforcement (summon)#2\":-19.93}",
+   "r108 w1 Genin L10: move {}",
+   "r108 w1 Genin L10: move (dodge) {}",
+   "r108 w1 Rogue Captain#1: Rogue Sweep {}",
+   "r108 w1 Rogue Shinobi Reinforcement (summon)#2: move {}",
+   "r108 w1 Rogue Shinobi Reinforcement (summon)#2: basicAttack {\"Genin L10\":-24.04}",
+   "r108 w1 Rogue Shinobi Reinforcement (summon)#2: wait {}",
+   "r109 w1 Genin L10: Searing Might {}",
+   "r109 w1 Genin L10: basicAttack {\"Rogue Shinobi Reinforcement (summon)#2\":-11.16}",
+   "r109 w1 Genin L10: wait {}",
+   "r109 w1 Rogue Captain#1: Omen: Three-Plank Line {}",
+   "r109 w1 Rogue Captain#1: wait {}",
+   "r109 w1 Rogue Shinobi Reinforcement (summon)#2: Omen: Three-Plank Line {}",
+   "r109 w1 Rogue Shinobi Reinforcement (summon)#2: wait {}",
+   "r110 w1 Genin L10: move (dodge) {}",
+   "r110 w1 Genin L10: basicAttack {\"Rogue Shinobi Reinforcement (summon)#2\":-11.16}",
+   "r110 w1 Genin L10: wait {}",
+   "r110 w1 Rogue Captain#1: Rogue Cleave {}",
+   "r110 w1 Rogue Shinobi Reinforcement (summon)#2: Eruption: Three-Plank Line {}",
+   "r111 w1 Genin L10: Chakra Barrier {}",
+   "r111 w1 Genin L10: basicAttack {\"Rogue Shinobi Reinforcement (summon)#2\":-9.97}",
+   "r111 w1 Genin L10: wait {}",
+   "r111 w1 Rogue Captain#1: move {}",
+   "r111 w1 Rogue Captain#1: Omen: Cracking Ring {}",
+   "r111 w1 Rogue Captain#1: wait {}",
+   "r111 w1 Rogue Shinobi Reinforcement (summon)#2: basicAttack {\"Genin L10\":-25.58}",
+   "r111 w1 Rogue Shinobi Reinforcement (summon)#2: wait {}",
+   "r112 w1 Genin L10: move (dodge) {}",
+   "r112 w1 Genin L10: move (dodge) {}",
+   "r112 w1 Genin L10: Shockwave Fist {\"Rogue Shinobi Reinforcement (summon)#2\":-20.88}",
+   "r112 w1 Genin L10: move {}",
+   "r112 w1 Genin L10: move (dodge) {}",
+   "r112 w1 Rogue Captain#1: Rogue Sweep {}",
+   "r112 w1 Rogue Shinobi Reinforcement (summon)#2: Omen: Three-Plank Line {}",
+   "r112 w1 Rogue Shinobi Reinforcement (summon)#2: wait {}",
+   "r113 w1 Genin L10: Searing Might {}",
+   "r113 w1 Genin L10: Liver Shot {\"Rogue Shinobi Reinforcement (summon)#2\":-19.93}",
+   "r113 w1 Rogue Captain#1: Omen: Three-Plank Line {}",
+   "r113 w1 Rogue Captain#1: wait {}",
+   "r113 w1 Rogue Shinobi Reinforcement (summon)#2: wait {}",
+   "r114 w1 Genin L10: move {}",
+   "r114 w1 Genin L10: basicAttack {\"Rogue Shinobi Reinforcement (summon)#2\":-11.16}",
+   "r114 w1 Genin L10: wait {}",
+   "r114 w1 Rogue Captain#1: Rogue Cleave {}",
+   "r114 w1 Rogue Shinobi Reinforcement (summon)#2: basicAttack {\"Genin L10\":-21.74}",
+   "r114 w1 Rogue Shinobi Reinforcement (summon)#2: wait {}",
+   "r115 w1 Genin L10: basicAttack {\"Rogue Shinobi Reinforcement (summon)#2\":-11.16}",
+   "r115 w1 Genin L10: wait {}",
+   "r115 w1 Rogue Captain#1: move {}",
+   "r115 w1 Rogue Captain#1: Omen: Cracking Ring {}",
+   "r115 w1 Rogue Captain#1: wait {}",
+   "r115 w1 Rogue Shinobi Reinforcement (summon)#2: Omen: Three-Plank Line {}",
+   "r115 w1 Rogue Shinobi Reinforcement (summon)#2: wait {}",
+   "r116 w1 Genin L10: move (dodge) {}",
+   "r116 w1 Genin L10: move (dodge) {}",
+   "r116 w1 Genin L10: Chakra Barrier {}",
+   "r116 w1 Genin L10: move {}",
+   "r116 w1 Genin L10: move (dodge) {}",
+   "r116 w1 Genin L10: move {}",
+   "r116 w1 Genin L10: move (dodge) {}",
+   "r116 w1 Rogue Captain#1: Rogue Sweep {}",
+   "r116 w1 Rogue Shinobi Reinforcement (summon)#2: Eruption: Three-Plank Line {}",
+   "r117 w1 Genin L10: Searing Might {}",
+   "r117 w1 Genin L10: Shockwave Fist {\"Rogue Shinobi Reinforcement (summon)#2\":-20.88}",
+   "r117 w1 Rogue Captain#1: Omen: Three-Plank Line {}",
+   "r117 w1 Rogue Captain#1: wait {}",
+   "r117 w1 Rogue Shinobi Reinforcement (summon)#2: move {}",
+   "r117 w1 Rogue Shinobi Reinforcement (summon)#2: basicAttack {\"Genin L10\":-24.04}",
+   "r117 w1 Rogue Shinobi Reinforcement (summon)#2: wait {}",
+   "r118 w1 Genin L10: Liver Shot {\"Rogue Shinobi Reinforcement (summon)#2\":-19.93}",
+   "r118 w1 Genin L10: basicAttack {\"Rogue Shinobi Reinforcement (summon)#2\":-9.97}",
+   "r118 w1 Genin L10: meditate {}",
+   "r118 w1 Rogue Captain#1: Rogue Cleave {}",
+   "r118 w1 Rogue Shinobi Reinforcement (summon)#2: Omen: Three-Plank Line {}",
+   "r118 w1 Rogue Shinobi Reinforcement (summon)#2: wait {}",
+   "r119 w1 Genin L10: basicAttack {\"Rogue Shinobi Reinforcement (summon)#2\":-11.16}",
+   "r119 w1 Genin L10: wait {}",
+   "r119 w1 Rogue Captain#1: move {}",
+   "r119 w1 Rogue Captain#1: move {}",
+   "r119 w1 Rogue Captain#1: Omen: Cracking Ring {}",
+   "r119 w1 Rogue Captain#1: wait {}",
+   "r119 w1 Rogue Shinobi Reinforcement (summon)#2: wait {}",
+   "r120 w1 Genin L10: move (dodge) {}",
+   "r120 w1 Genin L10: move (dodge) {}",
+   "r120 w1 Genin L10: move {}",
+   "r120 w1 Genin L10: move (dodge) {}",
+   "r120 w1 Genin L10: move {}",
+   "r120 w1 Genin L10: move (dodge) {}",
+   "r120 w1 Genin L10: move {}",
+   "r120 w1 Genin L10: move (dodge) {}",
+   "r120 w1 Genin L10: move {}",
+   "r120 w1 Genin L10: move (dodge) {}",
+   "r120 w1 Rogue Captain#1: Rogue Sweep {}",
+   "r120 w1 Rogue Shinobi Reinforcement (summon)#2: move {}",
+   "r120 w1 Rogue Shinobi Reinforcement (summon)#2: basicAttack {\"Genin L10\":-25.58}",
+   "r120 w1 Rogue Shinobi Reinforcement (summon)#2: wait {}"
+  ]
+ }
+}
