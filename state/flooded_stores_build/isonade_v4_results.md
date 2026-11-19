@@ -140,3 +140,40 @@ you to the floor; one more miss on top of that loses.
 
 A hidden build of the 17 new jutsu and the 20-rule list over the connector, then one hidden test on dauntless.
 Re-pinning the sim to the game's current `main` does not fit.
+
+## Live hidden test (2026-11-19 16:33-16:46Z, after jobs 651/652)
+
+One run of The Flooded Stores on dauntless (PvE kit, pet Little Horror). Crew fights 1-3 won at full HP (5, 3 and 5
+rounds). Pools carry over between the four fights: the run is an isolated pyramid, so food and shops are refused
+mid-run (dauntless entered Isonade at full HP, 3,734 chakra and 3,718 stamina of 5,050).
+
+**Isonade: lost in round 11, Isonade at 78% (15,751 of 20,200).** Sim target for a perfect read: 100% wins, median
+12 rounds. Log: /mnt/project-files/tnr/battle-logs/2026-11-19_isonade_v4_test_UxWYi_H4aAf1qk_crwkoB.json.
+
+Damage taken: Breaker 3,524 (one hit), Drowned Anchor 2,821 (two hits), Arm Lash 1,030, Harpoon Line 505, wounds 446.
+Damage dealt: 4,449 to Isonade's HP and 1,999 into its Barnacle Hide shields, in 11 rounds.
+
+What happened, round by round:
+- r1 Overflow (+35% x2 damage given), walk in. Isonade: Scour, then Drowned Anchor on everyone: 587 on dauntless,
+  13,635 on the pet (one hit; the pet was 5+ tiles away).
+- r2 Ember Blade 1,234, Ignition. Isonade: Shed (cleanses the Ember brand, 40% DR) and Silt Cloud (-50% given, 25% DR).
+- r3 Clear on Isonade (strips Shed, Silt and its rotation markers), Severed Pulse. Isonade: Barnacle Hide, Arm rises.
+  The rotation carried on after the Clear.
+- r4 Storm Fist 945 and a basic attack, all into the shield. Isonade: Tide Draws Back.
+- r5 Thunderbolt and basics on the Arm. Isonade: Swell Builds.
+- r6 Cleanse (both brands off) and Defensive Stance; Clear still on cooldown from r3. Isonade: Breaker 3,524, wound
+  211 per action for 2 rounds.
+- r7 Rebirth 2,874, Invigoration. Isonade: Harpoon Line 505.
+- r8 Basic Heal. Isonade: Barnacle Hide. r9 killed the Arm; Isonade raised it again the same turn, then Tide.
+- r10 Storm Fist into the shield, Ignition. Isonade: Swell. Neither Black Water fired (75% gate never reached).
+- r11 Clear and Cleanse both still on cooldown; Stance and Chakra Shield. Isonade: Scour (on the shield) then Drowned
+  Anchor 2,233 with both damage layers live. Defeated.
+
+Live vs sim:
+- Breaker with both brands cleansed and a Stance hit 3,524, above the sim's 2,700-3,030 for a Breaker that is
+  ignored outright. The sim's 1,140 needs Clear on the damage layers too, and Clear is one cooldown for two jobs.
+- Isonade's DR layers (Hide 40, Tide 40, Swell 30, Shed 40, Silt 25) cut dauntless's hits to about a fifth of what
+  the same moves did to the crew (Storm Fist 5,593 on the Quartermaster, 945 on Isonade).
+- Scour preempts Breaker when both qualify (r11). Drowned Anchor hits every enemy on the board and one-shots a pet.
+- Play errors on the tester's side: Clear spent on Shed/Silt in r3 left it down for both Breakers; Overflow in r1 and
+  Chakra Shield in r11 fed Scour.
