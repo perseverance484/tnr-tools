@@ -68,7 +68,7 @@ the Deep, so it sits between "reads every tell" and "skips Smoke".
 |---|---|
 | Base DR vs big hits | Single jutsu landed 637 to 1,842 through DR 70. Eclipse Drain lifesteal returned 35% of a hit: 423 on 1,210, 400 on 1,144, 149 on a hit the shield ate. Lifesteal alone could not outheal the fight. |
 | Absorb, not lifesteal, was the big sustain | Chakra Shield, Stormguard Aura and Ethereal Rebirth turned Isonade's hits into 293 to 1,234 HP each (1,234 off Tidal Bore). |
-| Scour at 100 | Fired round 2 at stored 108 (bloodline 20, pet 20, Eclipse 30, Thunderbolt 38) and stripped Eclipse's lifesteal and damage buffs. It did not fire on rounds 5, 10, 11 and 12 with 125 to 158 stored: the rotation move that turn spent Isonade's AP first. |
+| Scour at 100 | Fired round 2 at stored 108 (bloodline 20, pet 20, Eclipse 30, Thunderbolt 38) and stripped Eclipse's lifesteal and damage buffs. It did not fire on rounds 5, 10, 11 and 12 with 125 to 158 stored. Correction (v6): the cause was Scour's 10-round cooldown, not AP; Scour and Silt already sat ahead of the rotation (rules 6 and 7). |
 | Silt Cloud at 90 | Fired round 3 (bloodline 20 + Overflow 70 after the pet died) and round 13 (alongside Tidal Bore). |
 | Chakra Overflow | At level 25 it gives two 35s (70), not 50. With the pet alive Overflow alone puts dauntless at 110, so Scour, not Silt. |
 | Clear (Tide Draws Back) | Tide shows "+100% damage given for 1 round". Clear removed it and Silt's 40% DR; base DR 70 and stunprevent survived the Clear. |
@@ -81,5 +81,5 @@ the Deep, so it sits between "reads every tell" and "skips Smoke".
 
 Not tested: Smoke and the Deep pierce window (no smoke bomb or pierce jutsu in the PvE kit).
 
-Open for the director: Scour losing to the rotation (reaction rules sit below the rotation), the Deep being
+Open for the director: Scour's 10-round cooldown keeping it quiet (first written here as losing to the rotation; corrected in v6), the Deep being
 skippable when 35% falls inside the Swell chain, and whether the Arm should reach.

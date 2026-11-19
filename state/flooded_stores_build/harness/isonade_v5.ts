@@ -215,6 +215,10 @@ export const isoRules = (P: V4) => [
   R.jutsu(J4.bw1Land, "SELF", [C.has(MK.bw1)]),
   R.jutsu(J4.boreLand, "SELF", [C.has(MK.bore), C.has(MK.boreB)]),
   R.jutsu(J4.boreRise, "SELF", [C.has(MK.bore)]),
+  // v6 (deepFirst): The Deep's omen right after the set-piece lands, ahead of the reactions and the chain, so crossing
+  // 35% always calls it. Placed after the crash rule, so the crash can't fire the same turn (conditions see this turn's
+  // effects); at 70 AP nothing else (Silt 30, Hide 60) rides along on the omen turn, so the pierce window stays clean.
+  ...(P.deepFirst ? [R.jutsu(J4.bw2Mark, "SELF", [C.hb(P.deepAt)])] : []),
   // Reactions (no tell): strip a big damage stack (Eclipse Drain's lifesteal goes with it), or brace for it.
   // Scour/Silt reactions are optional (P.reactions). target_has_effect sums every effect of the type, gear and
   // bloodline passives included (a geared player carries ~80 damage given from round 1). The sim player has no gear
@@ -231,7 +235,7 @@ export const isoRules = (P: V4) => [
   // The Deep (Pierce).
   R.jutsu(J4.bw1Mark, "SELF", [C.hb(P.bw1At)]),
   R.jutsu(J4.boreMark, "SELF", [C.hb(P.boreAt)]),
-  R.jutsu(J4.bw2Mark, "SELF", [C.hb(P.deepAt)]),
+  ...(P.deepFirst ? [] : [R.jutsu(J4.bw2Mark, "SELF", [C.hb(P.deepAt)])]),
   R.jutsu(J4.hide, "SELF", []),
   R.jutsu(J4.harpoon, "SELF", []),
   R.jutsu(J4.arm, "EMPTY_GROUND_CLOSEST_TO_OPPONENT", [C.noSummon()]),
