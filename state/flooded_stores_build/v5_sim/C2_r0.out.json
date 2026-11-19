@@ -1,0 +1,1029 @@
+{
+ "generatedBy": "isonade_v5.ts",
+ "params": {
+  "name": "v5_C2_marks100_90_base60",
+  "poolsMultiplier": 2.5,
+  "statsMultiplier": 5.83,
+  "hideShield": 1500,
+  "hideRounds": 2,
+  "hideDr": 25,
+  "tideDr": 0,
+  "shedDr": 0,
+  "swellDr": 0,
+  "tideBuff": 200,
+  "brand": 30,
+  "breakerPower": 600,
+  "breakerWound": 6,
+  "breakerWindow": 1.5,
+  "harpoonPower": 35,
+  "bw1At": 75,
+  "bw2At": 40,
+  "bw1Power": 900,
+  "bw1Feed": 1.5,
+  "bw2Shield": 4000,
+  "bw2Power": 800,
+  "bw2Feed": 2,
+  "crates": [
+   [
+    6,
+    1
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    6,
+    9
+   ]
+  ],
+  "clearAbsorb": 60,
+  "clearShield": 100,
+  "clearIdg": 100,
+  "cleanseWound": 5,
+  "cleanseIdt": 40,
+  "smokeIdg": 90,
+  "reactCd": 10,
+  "braceDr": 40,
+  "braceRounds": 1,
+  "braceCd": 10,
+  "siltDdg": 0,
+  "braceHigh": true,
+  "anchorPower": 150,
+  "anchorWound": 4,
+  "bitePct": 30,
+  "armHp": 4000,
+  "armPower": 60,
+  "armRounds": 30,
+  "armCooldown": 5,
+  "lashPower": 45,
+  "churnAp": 10,
+  "beatAp": 60,
+  "reactAp": 60,
+  "sideAp": 30,
+  "deepAp": 70,
+  "baseDr": 70,
+  "brandBeat": 200,
+  "undertowPower": 450,
+  "reactions": true,
+  "gearIdg": 60,
+  "brandHealPrevent": 3,
+  "borePower": 900,
+  "boreAt": 55,
+  "deepDr": 80,
+  "deepAt": 35,
+  "lifesteal": true,
+  "playerDg": 120
+ },
+ "dmgConfig": "live (misc.getDmgConfig, 2026-10-28)",
+ "seeds": 12,
+ "reads": {
+  "0": {
+   "summary": {
+    "fights": 12,
+    "winPct": 0,
+    "rounds": {
+     "median": null,
+     "p10": null,
+     "p90": null
+    },
+    "hpLeftWin": {
+     "median": null,
+     "p10": null,
+     "p90": null
+    },
+    "minHpMedian": 0,
+    "bossHpLeftLossMedian": 68.8,
+    "bossMaxHp": 12625,
+    "playerMaxHp": 6250,
+    "breaker": {
+     "all": {
+      "n": 12,
+      "median": 2390
+     },
+     "clearedOrCleansed": {
+      "n": 0,
+      "median": 0
+     },
+     "unanswered": {
+      "n": 12,
+      "median": 2390
+     },
+     "byState": {
+      "Tide/noBrand/noStance": {
+       "n": 12,
+       "median": 2390
+      }
+     }
+    },
+    "deep": {
+     "n": 0,
+     "brokePct": 0,
+     "crashDmgMedian": 0
+    },
+    "boreDmgMedian": 0,
+    "borePerFight": 0,
+    "undertowDmgMedian": 2561,
+    "ownTurnHealPerFight": 16,
+    "bw1DmgMedian": 0,
+    "bw1PerFight": 0,
+    "bossActsPerFight": {
+     "churn": 6.8,
+     "wait": 4.5,
+     "Arm": 1.5,
+     "Hide": 1,
+     "Tide": 1,
+     "Breaker": 1,
+     "Harpoon": 1,
+     "Brand": 1,
+     "Undertow": 1,
+     "Silt": 0.8,
+     "Scour": 0.7,
+     "BW-I mark": 0.2
+    },
+    "playerAnswersPerFight": {
+     "Eclipse Drain": 1.2,
+     "Basic Heal": 1
+    },
+    "damageToPlayerPerFight": {
+     "Undertow": 2561,
+     "Breaker": 2390,
+     "Harpoon": 618,
+     "ticks on own turn (wounds)": 432,
+     "Grasping Arm": 265
+    },
+    "misreadsPerFight": 6.2
+   },
+   "fights": [
+    {
+     "seed": 1,
+     "read": 0,
+     "outcome": "lost",
+     "rounds": 8,
+     "playerHpPct": 0,
+     "bossHpPct": 67.4,
+     "minHpPct": 0,
+     "bossActs": {
+      "churn": 7,
+      "Scour": 1,
+      "Arm": 1,
+      "Silt": 1,
+      "Hide": 1,
+      "Tide": 1,
+      "wait": 5,
+      "Breaker": 1,
+      "Harpoon": 1,
+      "Brand": 1,
+      "Undertow": 1
+     },
+     "dmgBySource": {
+      "Grasping Arm": 273.30165174754393,
+      "Breaker": 2389.827627572832,
+      "ticks on own turn (wounds)": 408,
+      "Harpoon": 617.75,
+      "Undertow": 2561.120720679624
+     },
+     "breakers": [
+      {
+       "r": 4,
+       "dmg": 2389.827627572832,
+       "answered": [],
+       "tide": true,
+       "stance": false,
+       "brand": false
+      }
+     ],
+     "deep": [],
+     "bore": [],
+     "bw1": [],
+     "playerAnswers": {
+      "Eclipse Drain": 1,
+      "Basic Heal": 1
+     },
+     "misreads": 6,
+     "beatLog": [
+      "r1:Scour",
+      "r1:Arm",
+      "r2:Silt",
+      "r2:Hide",
+      "r3:Tide",
+      "r3:wait",
+      "r4:Breaker",
+      "r4:wait",
+      "r5:Harpoon",
+      "r5:wait",
+      "r6:Brand",
+      "r6:wait",
+      "r7:Undertow",
+      "r7:wait"
+     ],
+     "bossDmgTotal": 4110.21006267381,
+     "leech": 0,
+     "undertow": [
+      {
+       "r": 7,
+       "dmg": 2561.120720679624
+      }
+     ],
+     "bossMaxHp": 12625,
+     "playerMaxHp": 6250
+    },
+    {
+     "seed": 2,
+     "read": 0,
+     "outcome": "lost",
+     "rounds": 7,
+     "playerHpPct": 0,
+     "bossHpPct": 71.9,
+     "minHpPct": 0,
+     "bossActs": {
+      "churn": 6,
+      "Hide": 1,
+      "Arm": 2,
+      "Tide": 1,
+      "wait": 3,
+      "Breaker": 1,
+      "Silt": 1,
+      "Harpoon": 1,
+      "Brand": 1,
+      "Undertow": 1
+     },
+     "dmgBySource": {
+      "Breaker": 2389.827627572832,
+      "ticks on own turn (wounds)": 480.95717770908243,
+      "Harpoon": 617.75,
+      "Undertow": 2561.120720679624,
+      "Grasping Arm": 200.34447403846147
+     },
+     "breakers": [
+      {
+       "r": 3,
+       "dmg": 2389.827627572832,
+       "answered": [],
+       "tide": true,
+       "stance": false,
+       "brand": false
+      }
+     ],
+     "deep": [],
+     "bore": [],
+     "bw1": [],
+     "playerAnswers": {
+      "Eclipse Drain": 1,
+      "Basic Heal": 1
+     },
+     "misreads": 6,
+     "beatLog": [
+      "r1:Hide",
+      "r1:Arm",
+      "r2:Tide",
+      "r2:wait",
+      "r3:Breaker",
+      "r3:Silt",
+      "r4:Harpoon",
+      "r4:wait",
+      "r5:Brand",
+      "r5:wait",
+      "r6:Undertow",
+      "r6:Arm"
+     ],
+     "bossDmgTotal": 3548.3251164610174,
+     "leech": 0,
+     "undertow": [
+      {
+       "r": 6,
+       "dmg": 2561.120720679624
+      }
+     ],
+     "bossMaxHp": 12625,
+     "playerMaxHp": 6250
+    },
+    {
+     "seed": 3,
+     "read": 0,
+     "outcome": "lost",
+     "rounds": 7,
+     "playerHpPct": 0,
+     "bossHpPct": 71.9,
+     "minHpPct": 0,
+     "bossActs": {
+      "churn": 6,
+      "Hide": 1,
+      "Arm": 2,
+      "Tide": 1,
+      "wait": 3,
+      "Breaker": 1,
+      "Silt": 1,
+      "Harpoon": 1,
+      "Brand": 1,
+      "Undertow": 1
+     },
+     "dmgBySource": {
+      "Breaker": 2389.827627572832,
+      "ticks on own turn (wounds)": 480.95717770908243,
+      "Harpoon": 617.75,
+      "Undertow": 2561.120720679624,
+      "Grasping Arm": 200.34447403846147
+     },
+     "breakers": [
+      {
+       "r": 3,
+       "dmg": 2389.827627572832,
+       "answered": [],
+       "tide": true,
+       "stance": false,
+       "brand": false
+      }
+     ],
+     "deep": [],
+     "bore": [],
+     "bw1": [],
+     "playerAnswers": {
+      "Eclipse Drain": 1,
+      "Basic Heal": 1
+     },
+     "misreads": 6,
+     "beatLog": [
+      "r1:Hide",
+      "r1:Arm",
+      "r2:Tide",
+      "r2:wait",
+      "r3:Breaker",
+      "r3:Silt",
+      "r4:Harpoon",
+      "r4:wait",
+      "r5:Brand",
+      "r5:wait",
+      "r6:Undertow",
+      "r6:Arm"
+     ],
+     "bossDmgTotal": 3543.311835211016,
+     "leech": 0,
+     "undertow": [
+      {
+       "r": 6,
+       "dmg": 2561.120720679624
+      }
+     ],
+     "bossMaxHp": 12625,
+     "playerMaxHp": 6250
+    },
+    {
+     "seed": 4,
+     "read": 0,
+     "outcome": "lost",
+     "rounds": 9,
+     "playerHpPct": 0,
+     "bossHpPct": 40.6,
+     "minHpPct": 0,
+     "bossActs": {
+      "churn": 8,
+      "Scour": 1,
+      "Arm": 1,
+      "Silt": 1,
+      "Hide": 1,
+      "Tide": 1,
+      "wait": 6,
+      "Breaker": 1,
+      "Harpoon": 1,
+      "Brand": 1,
+      "Undertow": 1,
+      "BW-I mark": 1
+     },
+     "dmgBySource": {
+      "Grasping Arm": 69.17223701923103,
+      "Breaker": 2389.827627572832,
+      "ticks on own turn (wounds)": 612.1294147283129,
+      "Harpoon": 617.75,
+      "Undertow": 2561.120720679624
+     },
+     "breakers": [
+      {
+       "r": 4,
+       "dmg": 2389.827627572832,
+       "answered": [],
+       "tide": true,
+       "stance": false,
+       "brand": false
+      }
+     ],
+     "deep": [],
+     "bore": [],
+     "bw1": [],
+     "playerAnswers": {
+      "Eclipse Drain": 2,
+      "Basic Heal": 1
+     },
+     "misreads": 7,
+     "beatLog": [
+      "r1:Scour",
+      "r1:Arm",
+      "r2:Silt",
+      "r2:Hide",
+      "r3:Tide",
+      "r3:wait",
+      "r4:Breaker",
+      "r4:wait",
+      "r5:Harpoon",
+      "r5:wait",
+      "r6:Brand",
+      "r6:wait",
+      "r7:Undertow",
+      "r7:wait",
+      "r8:BW-I mark",
+      "r8:wait"
+     ],
+     "bossDmgTotal": 7501.125194259142,
+     "leech": 0,
+     "undertow": [
+      {
+       "r": 7,
+       "dmg": 2561.120720679624
+      }
+     ],
+     "bossMaxHp": 12625,
+     "playerMaxHp": 6250
+    },
+    {
+     "seed": 5,
+     "read": 0,
+     "outcome": "lost",
+     "rounds": 7,
+     "playerHpPct": 0,
+     "bossHpPct": 71.9,
+     "minHpPct": 0,
+     "bossActs": {
+      "churn": 6,
+      "Hide": 1,
+      "Arm": 2,
+      "Tide": 1,
+      "wait": 3,
+      "Breaker": 1,
+      "Silt": 1,
+      "Harpoon": 1,
+      "Brand": 1,
+      "Undertow": 1
+     },
+     "dmgBySource": {
+      "Breaker": 2389.827627572832,
+      "ticks on own turn (wounds)": 480.95717770908243,
+      "Harpoon": 617.75,
+      "Undertow": 2561.120720679624,
+      "Grasping Arm": 200.34447403846147
+     },
+     "breakers": [
+      {
+       "r": 3,
+       "dmg": 2389.827627572832,
+       "answered": [],
+       "tide": true,
+       "stance": false,
+       "brand": false
+      }
+     ],
+     "deep": [],
+     "bore": [],
+     "bw1": [],
+     "playerAnswers": {
+      "Eclipse Drain": 1,
+      "Basic Heal": 1
+     },
+     "misreads": 6,
+     "beatLog": [
+      "r1:Hide",
+      "r1:Arm",
+      "r2:Tide",
+      "r2:wait",
+      "r3:Breaker",
+      "r3:Silt",
+      "r4:Harpoon",
+      "r4:wait",
+      "r5:Brand",
+      "r5:wait",
+      "r6:Undertow",
+      "r6:Arm"
+     ],
+     "bossDmgTotal": 3543.311835211016,
+     "leech": 0,
+     "undertow": [
+      {
+       "r": 6,
+       "dmg": 2561.120720679624
+      }
+     ],
+     "bossMaxHp": 12625,
+     "playerMaxHp": 6250
+    },
+    {
+     "seed": 6,
+     "read": 0,
+     "outcome": "lost",
+     "rounds": 7,
+     "playerHpPct": 0,
+     "bossHpPct": 70.1,
+     "minHpPct": 0,
+     "bossActs": {
+      "churn": 6,
+      "Hide": 1,
+      "Arm": 2,
+      "Tide": 1,
+      "wait": 3,
+      "Breaker": 1,
+      "Silt": 1,
+      "Harpoon": 1,
+      "Brand": 1,
+      "Undertow": 1
+     },
+     "dmgBySource": {
+      "Breaker": 2389.827627572832,
+      "ticks on own turn (wounds)": 480.95717770908243,
+      "Harpoon": 617.75,
+      "Undertow": 2561.120720679624,
+      "Grasping Arm": 200.34447403846147
+     },
+     "breakers": [
+      {
+       "r": 3,
+       "dmg": 2389.827627572832,
+       "answered": [],
+       "tide": true,
+       "stance": false,
+       "brand": false
+      }
+     ],
+     "deep": [],
+     "bore": [],
+     "bw1": [],
+     "playerAnswers": {
+      "Eclipse Drain": 1,
+      "Basic Heal": 1
+     },
+     "misreads": 6,
+     "beatLog": [
+      "r1:Hide",
+      "r1:Arm",
+      "r2:Tide",
+      "r2:wait",
+      "r3:Breaker",
+      "r3:Silt",
+      "r4:Harpoon",
+      "r4:wait",
+      "r5:Brand",
+      "r5:wait",
+      "r6:Undertow",
+      "r6:Arm"
+     ],
+     "bossDmgTotal": 3775.698239807496,
+     "leech": 0,
+     "undertow": [
+      {
+       "r": 6,
+       "dmg": 2561.120720679624
+      }
+     ],
+     "bossMaxHp": 12625,
+     "playerMaxHp": 6250
+    },
+    {
+     "seed": 7,
+     "read": 0,
+     "outcome": "lost",
+     "rounds": 8,
+     "playerHpPct": 0,
+     "bossHpPct": 66.1,
+     "minHpPct": 0,
+     "bossActs": {
+      "churn": 7,
+      "Hide": 1,
+      "Arm": 2,
+      "Scour": 1,
+      "wait": 5,
+      "Tide": 1,
+      "Breaker": 1,
+      "Harpoon": 1,
+      "Brand": 1,
+      "Undertow": 1
+     },
+     "dmgBySource": {
+      "Breaker": 2389.827627572832,
+      "ticks on own turn (wounds)": 408,
+      "Harpoon": 617.75,
+      "Grasping Arm": 273.30165174754393,
+      "Undertow": 2561.120720679624
+     },
+     "breakers": [
+      {
+       "r": 4,
+       "dmg": 2389.827627572832,
+       "answered": [],
+       "tide": true,
+       "stance": false,
+       "brand": false
+      }
+     ],
+     "deep": [],
+     "bore": [],
+     "bw1": [],
+     "playerAnswers": {
+      "Eclipse Drain": 1,
+      "Basic Heal": 1
+     },
+     "misreads": 6,
+     "beatLog": [
+      "r1:Hide",
+      "r1:Arm",
+      "r2:Scour",
+      "r2:wait",
+      "r3:Tide",
+      "r3:wait",
+      "r4:Breaker",
+      "r4:wait",
+      "r5:Harpoon",
+      "r5:wait",
+      "r6:Brand",
+      "r6:Arm",
+      "r7:Undertow",
+      "r7:wait"
+     ],
+     "bossDmgTotal": 4278.5049202945975,
+     "leech": 0,
+     "undertow": [
+      {
+       "r": 7,
+       "dmg": 2561.120720679624
+      }
+     ],
+     "bossMaxHp": 12625,
+     "playerMaxHp": 6250
+    },
+    {
+     "seed": 8,
+     "read": 0,
+     "outcome": "lost",
+     "rounds": 8,
+     "playerHpPct": 0,
+     "bossHpPct": 66.1,
+     "minHpPct": 0,
+     "bossActs": {
+      "churn": 7,
+      "Hide": 1,
+      "Arm": 2,
+      "Scour": 1,
+      "wait": 5,
+      "Tide": 1,
+      "Breaker": 1,
+      "Harpoon": 1,
+      "Brand": 1,
+      "Undertow": 1
+     },
+     "dmgBySource": {
+      "Breaker": 2389.827627572832,
+      "ticks on own turn (wounds)": 408,
+      "Harpoon": 617.75,
+      "Grasping Arm": 273.30165174754393,
+      "Undertow": 2561.120720679624
+     },
+     "breakers": [
+      {
+       "r": 4,
+       "dmg": 2389.827627572832,
+       "answered": [],
+       "tide": true,
+       "stance": false,
+       "brand": false
+      }
+     ],
+     "deep": [],
+     "bore": [],
+     "bw1": [],
+     "playerAnswers": {
+      "Eclipse Drain": 1,
+      "Basic Heal": 1
+     },
+     "misreads": 6,
+     "beatLog": [
+      "r1:Hide",
+      "r1:Arm",
+      "r2:Scour",
+      "r2:wait",
+      "r3:Tide",
+      "r3:wait",
+      "r4:Breaker",
+      "r4:wait",
+      "r5:Harpoon",
+      "r5:wait",
+      "r6:Brand",
+      "r6:Arm",
+      "r7:Undertow",
+      "r7:wait"
+     ],
+     "bossDmgTotal": 4278.5049202945975,
+     "leech": 0,
+     "undertow": [
+      {
+       "r": 7,
+       "dmg": 2561.120720679624
+      }
+     ],
+     "bossMaxHp": 12625,
+     "playerMaxHp": 6250
+    },
+    {
+     "seed": 9,
+     "read": 0,
+     "outcome": "lost",
+     "rounds": 8,
+     "playerHpPct": 0,
+     "bossHpPct": 67.5,
+     "minHpPct": 0,
+     "bossActs": {
+      "churn": 7,
+      "Scour": 1,
+      "Arm": 1,
+      "Silt": 1,
+      "Hide": 1,
+      "Tide": 1,
+      "wait": 5,
+      "Breaker": 1,
+      "Harpoon": 1,
+      "Brand": 1,
+      "Undertow": 1
+     },
+     "dmgBySource": {
+      "Grasping Arm": 273.30165174754393,
+      "Breaker": 2389.827627572832,
+      "ticks on own turn (wounds)": 408,
+      "Harpoon": 617.75,
+      "Undertow": 2561.120720679624
+     },
+     "breakers": [
+      {
+       "r": 4,
+       "dmg": 2389.827627572832,
+       "answered": [],
+       "tide": true,
+       "stance": false,
+       "brand": false
+      }
+     ],
+     "deep": [],
+     "bore": [],
+     "bw1": [],
+     "playerAnswers": {
+      "Eclipse Drain": 1,
+      "Basic Heal": 1
+     },
+     "misreads": 6,
+     "beatLog": [
+      "r1:Scour",
+      "r1:Arm",
+      "r2:Silt",
+      "r2:Hide",
+      "r3:Tide",
+      "r3:wait",
+      "r4:Breaker",
+      "r4:wait",
+      "r5:Harpoon",
+      "r5:wait",
+      "r6:Brand",
+      "r6:wait",
+      "r7:Undertow",
+      "r7:wait"
+     ],
+     "bossDmgTotal": 4103.525687673809,
+     "leech": 0,
+     "undertow": [
+      {
+       "r": 7,
+       "dmg": 2561.120720679624
+      }
+     ],
+     "bossMaxHp": 12625,
+     "playerMaxHp": 6250
+    },
+    {
+     "seed": 10,
+     "read": 0,
+     "outcome": "lost",
+     "rounds": 8,
+     "playerHpPct": 0,
+     "bossHpPct": 70.7,
+     "minHpPct": 0,
+     "bossActs": {
+      "churn": 7,
+      "Scour": 1,
+      "Arm": 1,
+      "Silt": 1,
+      "Hide": 1,
+      "Tide": 1,
+      "wait": 5,
+      "Breaker": 1,
+      "Harpoon": 1,
+      "Brand": 1,
+      "Undertow": 1
+     },
+     "dmgBySource": {
+      "Grasping Arm": 573.3016517475439,
+      "Breaker": 2389.827627572832,
+      "ticks on own turn (wounds)": 204,
+      "Harpoon": 617.75,
+      "Undertow": 2561.120720679624
+     },
+     "breakers": [
+      {
+       "r": 4,
+       "dmg": 2389.827627572832,
+       "answered": [],
+       "tide": true,
+       "stance": false,
+       "brand": false
+      }
+     ],
+     "deep": [],
+     "bore": [],
+     "bw1": [],
+     "playerAnswers": {
+      "Eclipse Drain": 1,
+      "Basic Heal": 1
+     },
+     "misreads": 6,
+     "beatLog": [
+      "r1:Scour",
+      "r1:Arm",
+      "r2:Silt",
+      "r2:Hide",
+      "r3:Tide",
+      "r3:wait",
+      "r4:Breaker",
+      "r4:wait",
+      "r5:Harpoon",
+      "r5:wait",
+      "r6:Brand",
+      "r6:wait",
+      "r7:Undertow",
+      "r7:wait"
+     ],
+     "bossDmgTotal": 3694.915205053023,
+     "leech": 96,
+     "undertow": [
+      {
+       "r": 7,
+       "dmg": 2561.120720679624
+      }
+     ],
+     "bossMaxHp": 12625,
+     "playerMaxHp": 6250
+    },
+    {
+     "seed": 11,
+     "read": 0,
+     "outcome": "lost",
+     "rounds": 9,
+     "playerHpPct": 0,
+     "bossHpPct": 40.6,
+     "minHpPct": 0,
+     "bossActs": {
+      "churn": 8,
+      "Scour": 1,
+      "Arm": 1,
+      "Silt": 1,
+      "Hide": 1,
+      "Tide": 1,
+      "wait": 6,
+      "Breaker": 1,
+      "Harpoon": 1,
+      "Brand": 1,
+      "Undertow": 1,
+      "BW-I mark": 1
+     },
+     "dmgBySource": {
+      "Grasping Arm": 69.17223701923103,
+      "Breaker": 2389.827627572832,
+      "ticks on own turn (wounds)": 612.1294147283129,
+      "Harpoon": 617.75,
+      "Undertow": 2561.120720679624
+     },
+     "breakers": [
+      {
+       "r": 4,
+       "dmg": 2389.827627572832,
+       "answered": [],
+       "tide": true,
+       "stance": false,
+       "brand": false
+      }
+     ],
+     "deep": [],
+     "bore": [],
+     "bw1": [],
+     "playerAnswers": {
+      "Eclipse Drain": 2,
+      "Basic Heal": 1
+     },
+     "misreads": 7,
+     "beatLog": [
+      "r1:Scour",
+      "r1:Arm",
+      "r2:Silt",
+      "r2:Hide",
+      "r3:Tide",
+      "r3:wait",
+      "r4:Breaker",
+      "r4:wait",
+      "r5:Harpoon",
+      "r5:wait",
+      "r6:Brand",
+      "r6:wait",
+      "r7:Undertow",
+      "r7:wait",
+      "r8:BW-I mark",
+      "r8:wait"
+     ],
+     "bossDmgTotal": 7501.125194259142,
+     "leech": 0,
+     "undertow": [
+      {
+       "r": 7,
+       "dmg": 2561.120720679624
+      }
+     ],
+     "bossMaxHp": 12625,
+     "playerMaxHp": 6250
+    },
+    {
+     "seed": 12,
+     "read": 0,
+     "outcome": "lost",
+     "rounds": 8,
+     "playerHpPct": 0,
+     "bossHpPct": 70.7,
+     "minHpPct": 0,
+     "bossActs": {
+      "churn": 7,
+      "Scour": 1,
+      "Arm": 1,
+      "Silt": 1,
+      "Hide": 1,
+      "Tide": 1,
+      "wait": 5,
+      "Breaker": 1,
+      "Harpoon": 1,
+      "Brand": 1,
+      "Undertow": 1
+     },
+     "dmgBySource": {
+      "Grasping Arm": 573.3016517475439,
+      "Breaker": 2389.827627572832,
+      "ticks on own turn (wounds)": 204,
+      "Harpoon": 617.75,
+      "Undertow": 2561.120720679624
+     },
+     "breakers": [
+      {
+       "r": 4,
+       "dmg": 2389.827627572832,
+       "answered": [],
+       "tide": true,
+       "stance": false,
+       "brand": false
+      }
+     ],
+     "deep": [],
+     "bore": [],
+     "bw1": [],
+     "playerAnswers": {
+      "Eclipse Drain": 1,
+      "Basic Heal": 1
+     },
+     "misreads": 6,
+     "beatLog": [
+      "r1:Scour",
+      "r1:Arm",
+      "r2:Silt",
+      "r2:Hide",
+      "r3:Tide",
+      "r3:wait",
+      "r4:Breaker",
+      "r4:wait",
+      "r5:Harpoon",
+      "r5:wait",
+      "r6:Brand",
+      "r6:wait",
+      "r7:Undertow",
+      "r7:wait"
+     ],
+     "bossDmgTotal": 3694.915205053023,
+     "leech": 96,
+     "undertow": [
+      {
+       "r": 7,
+       "dmg": 2561.120720679624
+      }
+     ],
+     "bossMaxHp": 12625,
+     "playerMaxHp": 6250
+    }
+   ]
+  }
+ }
+}
