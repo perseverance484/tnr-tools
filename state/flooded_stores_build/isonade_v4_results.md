@@ -177,3 +177,34 @@ Live vs sim:
 - Scour preempts Breaker when both qualify (r11). Drowned Anchor hits every enemy on the board and one-shots a pet.
 - Play errors on the tester's side: Clear spent on Shed/Silt in r3 left it down for both Breakers; Overflow in r1 and
   Chakra Shield in r11 fed Scour.
+
+## Revision 4: DR retune (2026-11-19 17:06Z, the director)
+
+Asked by the director after the live test: "Yes, lower its damage reduction to one generic 25-30%/2 rounds, and one
+stronger one it uses in anticipation of a big hit at 40%/1 round".
+
+- Barnacle Hide keeps its 1,500 shield; its DR is the one generic layer, 25% for 2 rounds (picked from his range: the
+  sim's perfect-read win rate is 83% at 25 and 67% at 30, and dauntless took more live than the sim's player does).
+- DR removed from The Tide Draws Back, The Swell Builds and Shed.
+- Silt Cloud is the brace: 40% DR for 1 round, cast when the player's damage-given buffs reach 60. Its -50% damage
+  given on the player is dropped. Its rule moves from slot 17 (below Barnacle Hide, so it almost never fired) to slot 7,
+  above the Drowned Anchor follow-up. Still 20 rules. Cooldown stays 10 (4 changed nothing in the sim).
+- Hits unchanged (Breaker 400, Drowned Anchor 150, Harpoon 20, Arm Lash 45): the director gave no numbers for them.
+
+Sim (12 seeds per read, same player model as revision 3; files in `v4_retune/`):
+
+| Read | Rev 3 win % | Hide 30 win % | Hide 25 win % | Rounds (25) |
+|---|---|---|---|---|
+| 1 (answers every tell) | 100 | 67 | 83 | 11 |
+| 0.85 | 60 | 75 | 75 | 11 |
+| 0.7 | 45 | 75 | 75 | 11 |
+| 0 (ignores everything) | 0 | 17 | 33 | 9 |
+
+Losses now come late, with Isonade under 2% at a perfect read and 12-16% at weaker reads: the player runs dry on HP.
+
+Against today's live log:
+- Breaker in the live state (both damage layers on, brands cleansed, Stance) is 2,177 in the sim and 3,524 live:
+  dauntless takes about 1.6x what the sim's player takes. The sim's numbers above are optimistic for dauntless.
+- Re-scoring dauntless's live hits on Isonade under the new DR adds roughly 700-800 damage over the 11 rounds: the old
+  layers rarely stacked on a hit. The live loss was damage taken (Breaker 3,524, two Anchors 2,821) and three rounds
+  spent on the Grasping Arm, not DR. Cutting the hits is the bigger lever; that's the director's call.

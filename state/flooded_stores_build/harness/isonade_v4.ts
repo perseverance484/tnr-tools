@@ -74,6 +74,9 @@ export const V4_DEFAULTS = {
   cleanseIdt: 40, // Isonade's own increasedamagetaken total that draws a Cleanse
   smokeIdg: 60, // player's increasedamagegiven total that draws Smoke (when Clear is down)
   reactCd: 10,
+  // Silt Cloud: the brace before a big hit (director 2026-11-19 17:06Z: one stronger DR, 40% for 1 round, cast in
+  // anticipation of a big hit). siltDdg is the old -% damage given on the player; 0 drops it.
+  braceDr: 25, braceRounds: 2, braceCd: 10 as number | undefined, siltDdg: 50, braceHigh: false,
   anchorPower: 110,
   anchorWound: 4,
   // extras
@@ -170,8 +173,10 @@ export const buildRecords = (P: V4) => {
     target: "SELF", method: "SINGLE", range: 0, cooldown: P.reactCd, actionCostPerc: P.reactAp, effects: [T.cleanseSelf(), ...(P.shedDr ? [T.pct("decreasedamagetaken", P.shedDr, 2, { target: "SELF", ...statsAll, description: "Shed" })] : []), marker(MK.react, 1)] }));
   add(jutsu(J4.anchor, { name: "Drowned Anchor", description: "It swings the anchor chain it swallowed. Follows a Scour or a Shed.", battleDescription: "%user swings a drowned anchor into %target.", ...onPlayer,
     cooldown: 2, actionCostPerc: P.sideAp, effects: [hit(P.anchorPower), T.pct("wound", P.anchorWound, 2, { friendlyFire: "ENEMIES", description: "Anchor wound" })] }));
-  add(jutsu(J4.smoke, { name: "Silt Cloud", description: "It churns up silt: your damage next round is cut hard, and it takes less.", battleDescription: "%user thrashes. Silt clouds the hold.", ...onPlayer,
-    cooldown: P.reactCd, actionCostPerc: P.sideAp, effects: [T.pct("decreasedamagegiven", 50, 1, { friendlyFire: "ENEMIES", ...statsAll, description: "Silt Cloud" }), T.pct("decreasedamagetaken", 25, 2, { target: "SELF", ...statsAll, description: "Silt Cloud" })] }));
+  add(jutsu(J4.smoke, { name: "Silt Cloud", description: P.siltDdg ? "It churns up silt: your damage next round is cut hard, and it takes less." : "It churns up silt and braces: it takes far less damage next round.", battleDescription: "%user thrashes. Silt clouds the hold.", ...onPlayer,
+    cooldown: P.braceCd ?? P.reactCd, actionCostPerc: P.sideAp, effects: [
+      ...(P.siltDdg ? [T.pct("decreasedamagegiven", P.siltDdg, 1, { friendlyFire: "ENEMIES", ...statsAll, description: "Silt Cloud" })] : []),
+      T.pct("decreasedamagetaken", P.braceDr, P.braceRounds, { target: "SELF", ...statsAll, description: "Silt Cloud" })] }));
   add(jutsuRecord(J4.arm, {
     ...structuredClone(DONOR_SUMMON), id: J4.arm, name: "Grasping Arm", image: IMG, jutsuType: "AI", jutsuRank: "S", hidden: true, injectableInBattle: false, battleUsageType: "BOTH",
     requiredRank: "STUDENT", requiredLevel: 1, bloodlineId: null, villageId: null, chakraCost: 0, staminaCost: 0, healthCost: 0,
@@ -197,6 +202,7 @@ export const isoRules = (P: V4) => [
   ...((P as any).probe ? [] : [R.jutsu(J4.clear, "SELF", [C.tHas("absorb", P.clearAbsorb)])]),
   R.jutsu(J4.clear, "SELF", [C.tHas("shield", P.clearShield)]),
   R.jutsu(J4.clear, "SELF", [C.tHas("increasedamagegiven", P.clearIdg)]),
+  ...(P.braceHigh ? [R.jutsu(J4.smoke, "SELF", [C.tHas("increasedamagegiven", P.smokeIdg)])] : []),
   R.jutsu(J4.anchor, "SELF", [C.has(MK.react)]),
   // The rotation: each beat needs the marker the previous beat laid.
   R.jutsu(J4.harpoon, "SELF", [C.has(MK.harpoon)]),
@@ -212,7 +218,7 @@ export const isoRules = (P: V4) => [
   R.jutsu(J4.bw2Mark, "SELF", [C.hb(P.bw2At)]),
   R.jutsu(J4.hide, "SELF", []),
   // Extras with the last 30 AP.
-  R.jutsu(J4.smoke, "SELF", [C.tHas("increasedamagegiven", P.smokeIdg)]),
+  ...(P.braceHigh ? [] : [R.jutsu(J4.smoke, "SELF", [C.tHas("increasedamagegiven", P.smokeIdg)])]),
   R.jutsu(J4.arm, "EMPTY_GROUND_CLOSEST_TO_OPPONENT", [C.noSummon()]),
   R.end([]),
 ];
