@@ -6,9 +6,9 @@
   "statsMultiplier": 5.83,
   "hideShield": 1500,
   "hideRounds": 2,
-  "tideBuff": 100,
-  "brand": 50,
-  "breakerPower": 450,
+  "tideBuff": 50,
+  "brand": 30,
+  "breakerPower": 400,
   "breakerWound": 6,
   "breakerWindow": 1.5,
   "harpoonPower": 20,
@@ -16,7 +16,7 @@
   "bw2At": 40,
   "bw1Power": 600,
   "bw1Feed": 1.5,
-  "bw2Shield": 2500,
+  "bw2Shield": 1500,
   "bw2Power": 700,
   "bw2Feed": 2,
   "crates": [
@@ -121,7 +121,7 @@
     "iso-shed",
     "iso-drowned-anchor",
     "iso-silt-cloud",
-    "iso-bite-of-the-ship",
+    "iso-the-swell",
     "iso-grasping-arm-rises"
    ],
    "level": 100,
@@ -252,38 +252,6 @@
      "conditions": [
       {
        "type": "has_effect",
-       "effectType": "wound",
-       "threshold": 5,
-       "description": "Has effect"
-      }
-     ],
-     "action": {
-      "type": "use_specific_jutsu",
-      "jutsuId": "iso-shed",
-      "target": "SELF",
-      "description": "Select specific jutsu"
-     }
-    },
-    {
-     "conditions": [
-      {
-       "type": "has_effect",
-       "effectType": "increasedamagetaken",
-       "threshold": 40,
-       "description": "Has effect"
-      }
-     ],
-     "action": {
-      "type": "use_specific_jutsu",
-      "jutsuId": "iso-shed",
-      "target": "SELF",
-      "description": "Select specific jutsu"
-     }
-    },
-    {
-     "conditions": [
-      {
-       "type": "has_effect",
        "effectType": "decreasecooldown",
        "threshold": 1,
        "description": "Has effect"
@@ -316,7 +284,7 @@
      "conditions": [
       {
        "type": "has_effect",
-       "effectType": "fleeprevent",
+       "effectType": "increasecooldown",
        "threshold": 1,
        "description": "Has effect"
       }
@@ -332,7 +300,23 @@
      "conditions": [
       {
        "type": "has_effect",
-       "effectType": "increasecooldown",
+       "effectType": "healprevent",
+       "threshold": 1,
+       "description": "Has effect"
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "iso-the-swell",
+      "target": "SELF",
+      "description": "Select specific jutsu"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "has_effect",
+       "effectType": "fleeprevent",
        "threshold": 1,
        "description": "Has effect"
       }
@@ -340,6 +324,38 @@
      "action": {
       "type": "use_specific_jutsu",
       "jutsuId": "iso-tide-draws-back",
+      "target": "SELF",
+      "description": "Select specific jutsu"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "has_effect",
+       "effectType": "wound",
+       "threshold": 5,
+       "description": "Has effect"
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "iso-shed",
+      "target": "SELF",
+      "description": "Select specific jutsu"
+     }
+    },
+    {
+     "conditions": [
+      {
+       "type": "has_effect",
+       "effectType": "increasedamagetaken",
+       "threshold": 40,
+       "description": "Has effect"
+      }
+     ],
+     "action": {
+      "type": "use_specific_jutsu",
+      "jutsuId": "iso-shed",
       "target": "SELF",
       "description": "Select specific jutsu"
      }
@@ -396,21 +412,6 @@
      "action": {
       "type": "use_specific_jutsu",
       "jutsuId": "iso-silt-cloud",
-      "target": "SELF",
-      "description": "Select specific jutsu"
-     }
-    },
-    {
-     "conditions": [
-      {
-       "type": "health_below",
-       "value": 50,
-       "description": "Health below given percentage"
-      }
-     ],
-     "action": {
-      "type": "use_specific_jutsu",
-      "jutsuId": "iso-bite-of-the-ship",
       "target": "SELF",
       "description": "Select specific jutsu"
      }
@@ -603,14 +604,13 @@
      "appearSfx": "",
      "disappearSfx": "",
      "rounds": 2,
-     "power": 1,
+     "power": 100,
      "powerPerLevel": 0,
      "direction": "offence",
      "target": "SELF",
      "calculation": "static",
-     "type": "increasecooldown",
-     "description": "Isonade's rotation",
-     "actionsAffected": []
+     "type": "fleeprevent",
+     "description": "Isonade's rotation"
     }
    ],
    "target": "SELF",
@@ -672,8 +672,8 @@
      "disappearAnimation": "",
      "appearSfx": "",
      "disappearSfx": "",
-     "rounds": 1,
-     "power": 100,
+     "rounds": 2,
+     "power": 50,
      "powerPerLevel": 0,
      "direction": "offence",
      "target": "SELF",
@@ -688,8 +688,8 @@
      "disappearAnimation": "",
      "appearSfx": "",
      "disappearSfx": "",
-     "rounds": 1,
-     "power": 50,
+     "rounds": 2,
+     "power": 30,
      "powerPerLevel": 0,
      "direction": "offence",
      "target": "INHERIT",
@@ -711,7 +711,7 @@
      "direction": "offence",
      "target": "SELF",
      "calculation": "static",
-     "type": "fleeprevent",
+     "type": "healprevent",
      "description": "Isonade's rotation"
     }
    ],
@@ -727,6 +727,595 @@
    "statClassification": "None",
    "elementClassification": "None",
    "battleDescription": "The water pulls away from the shore. Brine burns into %target.",
+   "jutsuRank": "D",
+   "actionCostPerc": 60,
+   "staminaCost": 0.05,
+   "chakraCost": 0.05,
+   "staminaCostReducePerLvl": 0,
+   "chakraCostReducePerLvl": 0,
+   "healthCostReducePerLvl": 0,
+   "healthCost": 0,
+   "villageId": "",
+   "requiredPetSpeciesId": null,
+   "method": "COORDINATES",
+   "coordinateTargeting": {
+    "origin": "BATTLEFIELD",
+    "selection": "ALL",
+    "coordinates": [
+     {
+      "longitude": 0,
+      "latitude": 0
+     },
+     {
+      "longitude": 0,
+      "latitude": 1
+     },
+     {
+      "longitude": 0,
+      "latitude": 2
+     },
+     {
+      "longitude": 0,
+      "latitude": 3
+     },
+     {
+      "longitude": 0,
+      "latitude": 4
+     },
+     {
+      "longitude": 0,
+      "latitude": 5
+     },
+     {
+      "longitude": 0,
+      "latitude": 6
+     },
+     {
+      "longitude": 0,
+      "latitude": 7
+     },
+     {
+      "longitude": 0,
+      "latitude": 8
+     },
+     {
+      "longitude": 0,
+      "latitude": 9
+     },
+     {
+      "longitude": 1,
+      "latitude": 0
+     },
+     {
+      "longitude": 1,
+      "latitude": 1
+     },
+     {
+      "longitude": 1,
+      "latitude": 2
+     },
+     {
+      "longitude": 1,
+      "latitude": 3
+     },
+     {
+      "longitude": 1,
+      "latitude": 4
+     },
+     {
+      "longitude": 1,
+      "latitude": 5
+     },
+     {
+      "longitude": 1,
+      "latitude": 6
+     },
+     {
+      "longitude": 1,
+      "latitude": 7
+     },
+     {
+      "longitude": 1,
+      "latitude": 8
+     },
+     {
+      "longitude": 1,
+      "latitude": 9
+     },
+     {
+      "longitude": 2,
+      "latitude": 0
+     },
+     {
+      "longitude": 2,
+      "latitude": 1
+     },
+     {
+      "longitude": 2,
+      "latitude": 2
+     },
+     {
+      "longitude": 2,
+      "latitude": 3
+     },
+     {
+      "longitude": 2,
+      "latitude": 4
+     },
+     {
+      "longitude": 2,
+      "latitude": 5
+     },
+     {
+      "longitude": 2,
+      "latitude": 6
+     },
+     {
+      "longitude": 2,
+      "latitude": 7
+     },
+     {
+      "longitude": 2,
+      "latitude": 8
+     },
+     {
+      "longitude": 2,
+      "latitude": 9
+     },
+     {
+      "longitude": 3,
+      "latitude": 0
+     },
+     {
+      "longitude": 3,
+      "latitude": 1
+     },
+     {
+      "longitude": 3,
+      "latitude": 2
+     },
+     {
+      "longitude": 3,
+      "latitude": 3
+     },
+     {
+      "longitude": 3,
+      "latitude": 4
+     },
+     {
+      "longitude": 3,
+      "latitude": 5
+     },
+     {
+      "longitude": 3,
+      "latitude": 6
+     },
+     {
+      "longitude": 3,
+      "latitude": 7
+     },
+     {
+      "longitude": 3,
+      "latitude": 8
+     },
+     {
+      "longitude": 3,
+      "latitude": 9
+     },
+     {
+      "longitude": 4,
+      "latitude": 0
+     },
+     {
+      "longitude": 4,
+      "latitude": 1
+     },
+     {
+      "longitude": 4,
+      "latitude": 2
+     },
+     {
+      "longitude": 4,
+      "latitude": 3
+     },
+     {
+      "longitude": 4,
+      "latitude": 4
+     },
+     {
+      "longitude": 4,
+      "latitude": 5
+     },
+     {
+      "longitude": 4,
+      "latitude": 6
+     },
+     {
+      "longitude": 4,
+      "latitude": 7
+     },
+     {
+      "longitude": 4,
+      "latitude": 8
+     },
+     {
+      "longitude": 4,
+      "latitude": 9
+     },
+     {
+      "longitude": 5,
+      "latitude": 0
+     },
+     {
+      "longitude": 5,
+      "latitude": 1
+     },
+     {
+      "longitude": 5,
+      "latitude": 2
+     },
+     {
+      "longitude": 5,
+      "latitude": 3
+     },
+     {
+      "longitude": 5,
+      "latitude": 4
+     },
+     {
+      "longitude": 5,
+      "latitude": 5
+     },
+     {
+      "longitude": 5,
+      "latitude": 6
+     },
+     {
+      "longitude": 5,
+      "latitude": 7
+     },
+     {
+      "longitude": 5,
+      "latitude": 8
+     },
+     {
+      "longitude": 5,
+      "latitude": 9
+     },
+     {
+      "longitude": 6,
+      "latitude": 0
+     },
+     {
+      "longitude": 6,
+      "latitude": 1
+     },
+     {
+      "longitude": 6,
+      "latitude": 2
+     },
+     {
+      "longitude": 6,
+      "latitude": 3
+     },
+     {
+      "longitude": 6,
+      "latitude": 4
+     },
+     {
+      "longitude": 6,
+      "latitude": 5
+     },
+     {
+      "longitude": 6,
+      "latitude": 6
+     },
+     {
+      "longitude": 6,
+      "latitude": 7
+     },
+     {
+      "longitude": 6,
+      "latitude": 8
+     },
+     {
+      "longitude": 6,
+      "latitude": 9
+     },
+     {
+      "longitude": 7,
+      "latitude": 0
+     },
+     {
+      "longitude": 7,
+      "latitude": 1
+     },
+     {
+      "longitude": 7,
+      "latitude": 2
+     },
+     {
+      "longitude": 7,
+      "latitude": 3
+     },
+     {
+      "longitude": 7,
+      "latitude": 4
+     },
+     {
+      "longitude": 7,
+      "latitude": 5
+     },
+     {
+      "longitude": 7,
+      "latitude": 6
+     },
+     {
+      "longitude": 7,
+      "latitude": 7
+     },
+     {
+      "longitude": 7,
+      "latitude": 8
+     },
+     {
+      "longitude": 7,
+      "latitude": 9
+     },
+     {
+      "longitude": 8,
+      "latitude": 0
+     },
+     {
+      "longitude": 8,
+      "latitude": 1
+     },
+     {
+      "longitude": 8,
+      "latitude": 2
+     },
+     {
+      "longitude": 8,
+      "latitude": 3
+     },
+     {
+      "longitude": 8,
+      "latitude": 4
+     },
+     {
+      "longitude": 8,
+      "latitude": 5
+     },
+     {
+      "longitude": 8,
+      "latitude": 6
+     },
+     {
+      "longitude": 8,
+      "latitude": 7
+     },
+     {
+      "longitude": 8,
+      "latitude": 8
+     },
+     {
+      "longitude": 8,
+      "latitude": 9
+     },
+     {
+      "longitude": 9,
+      "latitude": 0
+     },
+     {
+      "longitude": 9,
+      "latitude": 1
+     },
+     {
+      "longitude": 9,
+      "latitude": 2
+     },
+     {
+      "longitude": 9,
+      "latitude": 3
+     },
+     {
+      "longitude": 9,
+      "latitude": 4
+     },
+     {
+      "longitude": 9,
+      "latitude": 5
+     },
+     {
+      "longitude": 9,
+      "latitude": 6
+     },
+     {
+      "longitude": 9,
+      "latitude": 7
+     },
+     {
+      "longitude": 9,
+      "latitude": 8
+     },
+     {
+      "longitude": 9,
+      "latitude": 9
+     },
+     {
+      "longitude": 10,
+      "latitude": 0
+     },
+     {
+      "longitude": 10,
+      "latitude": 1
+     },
+     {
+      "longitude": 10,
+      "latitude": 2
+     },
+     {
+      "longitude": 10,
+      "latitude": 3
+     },
+     {
+      "longitude": 10,
+      "latitude": 4
+     },
+     {
+      "longitude": 10,
+      "latitude": 5
+     },
+     {
+      "longitude": 10,
+      "latitude": 6
+     },
+     {
+      "longitude": 10,
+      "latitude": 7
+     },
+     {
+      "longitude": 10,
+      "latitude": 8
+     },
+     {
+      "longitude": 10,
+      "latitude": 9
+     },
+     {
+      "longitude": 11,
+      "latitude": 0
+     },
+     {
+      "longitude": 11,
+      "latitude": 1
+     },
+     {
+      "longitude": 11,
+      "latitude": 2
+     },
+     {
+      "longitude": 11,
+      "latitude": 3
+     },
+     {
+      "longitude": 11,
+      "latitude": 4
+     },
+     {
+      "longitude": 11,
+      "latitude": 5
+     },
+     {
+      "longitude": 11,
+      "latitude": 6
+     },
+     {
+      "longitude": 11,
+      "latitude": 7
+     },
+     {
+      "longitude": 11,
+      "latitude": 8
+     },
+     {
+      "longitude": 11,
+      "latitude": 9
+     }
+    ],
+    "randomCount": 1
+   },
+   "methodSize": null,
+   "hidden": true,
+   "injectableInBattle": false,
+   "battleUsageType": "BOTH",
+   "reskinParentJutsuId": null,
+   "bloodlineReskinId": null,
+   "parentJutsuId": null,
+   "requiredNinjutsuMastery": null,
+   "requiredGenjutsuMastery": null,
+   "requiredTaijutsuMastery": null,
+   "requiredBukijutsuMastery": null,
+   "requiredBloodlineMastery": null,
+   "requiredSageMastery": null,
+   "requiredStrength": null,
+   "requiredSpeed": null,
+   "requiredIntelligence": null,
+   "requiredWillpower": null,
+   "requiredSkillId": null,
+   "requiredBloodlineItemId": null
+  },
+  "iso-the-swell": {
+   "id": "iso-the-swell",
+   "name": "The Swell Builds",
+   "description": "The water stacks higher and the brand bites deeper. Its next hit is the big one.",
+   "createdAt": "2026-07-17T02:18:53.545Z",
+   "updatedAt": "2026-10-21T03:33:45.862Z",
+   "extraBaseCost": 0,
+   "effects": [
+    {
+     "staticAssetPath": "",
+     "staticAnimation": "",
+     "appearAnimation": "",
+     "disappearAnimation": "",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "rounds": 1,
+     "power": 50,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "SELF",
+     "calculation": "percentage",
+     "type": "increasedamagegiven",
+     "description": "The swell builds"
+    },
+    {
+     "staticAssetPath": "",
+     "staticAnimation": "",
+     "appearAnimation": "",
+     "disappearAnimation": "",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "rounds": 1,
+     "power": 30,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "INHERIT",
+     "friendlyFire": "ENEMIES",
+     "calculation": "percentage",
+     "type": "increasedamagetaken",
+     "description": "Brine Brand"
+    },
+    {
+     "staticAssetPath": "",
+     "staticAnimation": "",
+     "appearAnimation": "",
+     "disappearAnimation": "",
+     "appearSfx": "",
+     "disappearSfx": "",
+     "rounds": 2,
+     "power": 1,
+     "powerPerLevel": 0,
+     "direction": "offence",
+     "target": "SELF",
+     "calculation": "static",
+     "type": "increasecooldown",
+     "description": "Isonade's rotation",
+     "actionsAffected": []
+    }
+   ],
+   "target": "CHARACTER",
+   "range": 0,
+   "cooldown": 2,
+   "bloodlineId": "",
+   "requiredLevel": 1,
+   "requiredRank": "STUDENT",
+   "jutsuType": "AI",
+   "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+   "jutsuWeapon": "NONE",
+   "statClassification": "None",
+   "elementClassification": "None",
+   "battleDescription": "The sea rears up behind %user. The brand on %target burns deeper.",
    "jutsuRank": "D",
    "actionCostPerc": 60,
    "staminaCost": 0.05,
@@ -1261,7 +1850,7 @@
      "appearSfx": "",
      "disappearSfx": "",
      "rounds": 0,
-     "power": 450,
+     "power": 400,
      "powerPerLevel": 0,
      "direction": "offence",
      "target": "INHERIT",
@@ -3217,7 +3806,7 @@
      "calculation": "static",
      "type": "shield",
      "description": "The Deep",
-     "health": 2500
+     "health": 1500
     },
     {
      "staticAssetPath": "",
@@ -4533,7 +5122,7 @@
   "iso-shed": {
    "id": "iso-shed",
    "name": "Shed",
-   "description": "It sheds its outer skin and every debuff with it, then draws the tide back again.",
+   "description": "It sheds its outer skin and every debuff with it.",
    "createdAt": "2026-07-17T02:18:53.545Z",
    "updatedAt": "2026-10-21T03:33:45.862Z",
    "extraBaseCost": 0,
@@ -4568,23 +5157,6 @@
      "target": "SELF",
      "calculation": "static",
      "type": "decreasecooldown",
-     "description": "Isonade's rotation",
-     "actionsAffected": []
-    },
-    {
-     "staticAssetPath": "",
-     "staticAnimation": "",
-     "appearAnimation": "",
-     "disappearAnimation": "",
-     "appearSfx": "",
-     "disappearSfx": "",
-     "rounds": 2,
-     "power": 1,
-     "powerPerLevel": 0,
-     "direction": "offence",
-     "target": "SELF",
-     "calculation": "static",
-     "type": "increasecooldown",
      "description": "Isonade's rotation",
      "actionsAffected": []
     }
@@ -5798,75 +6370,6 @@
    "requiredSkillId": null,
    "requiredBloodlineItemId": null
   },
-  "iso-bite-of-the-ship": {
-   "id": "iso-bite-of-the-ship",
-   "name": "Bite of the Ship",
-   "description": "Once, at half health: it tears off a piece of the hull and hits harder for the rest of the fight. Clear it.",
-   "createdAt": "2026-07-17T02:18:53.545Z",
-   "updatedAt": "2026-10-21T03:33:45.862Z",
-   "extraBaseCost": 0,
-   "effects": [
-    {
-     "staticAssetPath": "",
-     "staticAnimation": "",
-     "appearAnimation": "anim_isonade_bite_v1",
-     "disappearAnimation": "",
-     "appearSfx": "",
-     "disappearSfx": "",
-     "rounds": 99,
-     "power": 30,
-     "powerPerLevel": 0,
-     "direction": "offence",
-     "target": "SELF",
-     "calculation": "percentage",
-     "type": "increasedamagegiven",
-     "description": "Bitten: hits harder"
-    }
-   ],
-   "target": "SELF",
-   "range": 0,
-   "cooldown": 99,
-   "bloodlineId": "",
-   "requiredLevel": 1,
-   "requiredRank": "STUDENT",
-   "jutsuType": "AI",
-   "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
-   "jutsuWeapon": "NONE",
-   "statClassification": "None",
-   "elementClassification": "None",
-   "battleDescription": "%user tears a piece out of the hull.",
-   "jutsuRank": "D",
-   "actionCostPerc": 30,
-   "staminaCost": 0.05,
-   "chakraCost": 0.05,
-   "staminaCostReducePerLvl": 0,
-   "chakraCostReducePerLvl": 0,
-   "healthCostReducePerLvl": 0,
-   "healthCost": 0,
-   "villageId": "",
-   "requiredPetSpeciesId": null,
-   "method": "SINGLE",
-   "coordinateTargeting": null,
-   "methodSize": null,
-   "hidden": true,
-   "injectableInBattle": false,
-   "battleUsageType": "BOTH",
-   "reskinParentJutsuId": null,
-   "bloodlineReskinId": null,
-   "parentJutsuId": null,
-   "requiredNinjutsuMastery": null,
-   "requiredGenjutsuMastery": null,
-   "requiredTaijutsuMastery": null,
-   "requiredBukijutsuMastery": null,
-   "requiredBloodlineMastery": null,
-   "requiredSageMastery": null,
-   "requiredStrength": null,
-   "requiredSpeed": null,
-   "requiredIntelligence": null,
-   "requiredWillpower": null,
-   "requiredSkillId": null,
-   "requiredBloodlineItemId": null
-  },
   "iso-grasping-arm-rises": {
    "actionCostPerc": 30,
    "battleDescription": "The deck bursts upward. A wet black arm rises out of it.",
@@ -6019,9 +6522,10 @@
   }
  },
  "markers": {
-  "tide": "increasecooldown",
-  "breaker": "fleeprevent",
+  "tide": "fleeprevent",
+  "breaker": "increasecooldown",
   "harpoon": "elementalseal",
+  "swell": "healprevent",
   "bw1": "seal",
   "bw2": "disarm",
   "react": "decreasecooldown"

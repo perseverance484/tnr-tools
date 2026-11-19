@@ -9,7 +9,47 @@ Offline sim only. Zero live requests, nothing built, no fight run. Files: `isona
 20 rules, validated), `isonade_v4_results.json` (summaries and every fight), `harness/isonade_v4.ts`,
 `harness/iso_cal.ts`. Engine pin 3314d122 with the live shared-cooldown table (Nov 18 capture) and live damage config.
 
-## The fight
+## Revision 2 (2026-11-19, after the director's two corrections)
+
+1. "It can see any tag using the conditional has_effect check." Re-read on today's game `main` (26391b51,
+   `libs/combat/ai_v2.ts` `reachesEffectPower`): has_effect / target_has_effect sum the stored power of every effect
+   of that type on the target and pass when the sum is at or above the threshold (0 to 100; 0 always passes). Decrease
+   damage taken and decrease damage given are stored with negative power the moment they are cast (`tags.ts`
+   `decreaseDamageTaken` / `decreaseDamageGiven` call `invertPower`, which rewrites `effect.power` in place; same on the
+   pin and on main). Tested in the sim: the player's Defensive Stance reads -15 on the boss's turn and a Scour rule on
+   target_has_effect decreasedamagetaken 20 never fires. So a DR or DDG stack can't be a trigger. Scour fires on what
+   the condition can read: absorb 60+ (DR kits such as Folding Screen Guard carry absorb), shield 100+, damage given
+   80+.
+2. "You can do multiple IDG/IDT buffs on the same jutsu or layer them across a combination of jutsu to create a burst
+   window." Confirmed: each tag gets its own effect, and in-battle percentage modifiers multiply one after another
+   (`damagePipeline.ts` `applyPercentageIncreases`, same pipeline in the pin's `process.ts`). The 100 cap is per tag,
+   not per stack. The burst is now two beats of layers: The Tide Draws Back (+50% damage given on itself for 2 rounds,
+   Brine Brand +30% damage taken on the player for 2 rounds) then The Swell Builds (another +50% and +30%, 1 round),
+   then Breaker (400 power) with all four live: x3.8. Bite is gone (it was the same idea, once).
+
+Other changes: Shed moved below the burst beats (its cleanse wiped the boss's own chain markers and ate the Breaker),
+so it now takes the Hide slot; the Deep's shield is 1,500 (2,500 and 2,000 held against an unplanned turn). 20 rules,
+17 new jutsu, spec validated.
+
+Counterplay to the burst: Clear its two damage layers, Cleanse the two brands, Defensive Stance, a smoke bomb on it.
+Scour then Drowned Anchor punishes a player who turtles behind absorb or shields during the build-up.
+
+## Revision 2 sim results (20 seeds each)
+
+| Read | Win % | Rounds (median) | HP left when won (median / p10) |
+|---|---|---|---|
+| 1 (answers every tell) | 100 | 12 | 45% / 45% |
+| 0.85 (misses ~1) | 95 | 12 | 46% / 24.6% |
+| 0.7 (misses ~2) | 90 | 12 | 44.7% / 22.5% |
+| 0 (ignores everything) | 40 | 9 | 4.5% / 2.3% |
+
+Breaker: about 3,030 ignored (48% of 6,250), about 1,140 with the layers Cleared and a Stance. Damage taken per fight
+at read 1: Breaker 1,144, Anchor 776, Arm 553, Harpoon 444, wounds 257. The Deep shows in about 60% of read-1 fights:
+a strong player often kills Isonade from 40% before its slot comes round.
+
+Revision 1 (below) is kept for the record.
+
+## Revision 1: The fight
 
 Boss 20,200 HP, level 100. The Grasping Arm stays as the one add.
 

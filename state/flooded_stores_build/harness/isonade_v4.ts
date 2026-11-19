@@ -47,9 +47,9 @@ export const V4_DEFAULTS = {
   // rotation
   hideShield: 2500, // Barnacle Hide: instant self shield
   hideRounds: 2,
-  tideBuff: 100, // The Tide Draws Back: one self damage-given buff, live next round. Tag power caps at 100 (validators/combat.ts), so +100% is the most one buff gives
-  brand: 50, // Brine Brand on the player: +% damage taken, live next round
-  breakerPower: 375,
+  tideBuff: 50, // each layer of the burst window: +% damage given on itself (Tide: 2 rounds, Swell: 1 round)
+  brand: 30, // each Brine Brand layer on the player: +% damage taken. In-battle % modifiers multiply (damagePipeline), so 2+2 layers compound
+  breakerPower: 400,
   breakerWound: 6, // % max HP per round, 2 rounds
   breakerWindow: 1.5, // self weakness the round after Breaker (damage taken multiplier)
   harpoonPower: 24, // pierce
@@ -88,13 +88,13 @@ export const ARM_ID = "iso-grasping-arm";
 export const J4 = {
   churn: "iso-it-rises", hide: "iso-barnacle-hide", tide: "iso-tide-draws-back", breaker: "iso-breaker", harpoon: "iso-harpoon-line",
   bw1Mark: "iso-black-water-mark", bw1Land: "iso-black-water", bw2Mark: "iso-the-deep", bw2Crash: "iso-the-deep-crash", bw2Surface: "iso-the-deep-surface",
-  clear: "iso-scour", cleanse: "iso-shed", smoke: "iso-silt-cloud", anchor: "iso-drowned-anchor", bite: "iso-bite-of-the-ship",
+  swell: "iso-the-swell", clear: "iso-scour", cleanse: "iso-shed", smoke: "iso-silt-cloud", anchor: "iso-drowned-anchor", bite: "iso-bite-of-the-ship",
   arm: "iso-grasping-arm-rises", lash: "iso-arm-lash",
 };
 /** Chain markers. Negative polarity (a player's Clear leaves them), no gameplay on this boss: it has no cooldown
  * actions listed, never flees, has no elements, heals or bloodline. */
 export const MK = {
-  tide: "increasecooldown", breaker: "fleeprevent", harpoon: "elementalseal", bw1: "seal", bw2: "disarm", // decreaseheal is stored negative (tags.ts decreaseHealGiven), so has_effect never sees it
+  tide: "fleeprevent", breaker: "increasecooldown", harpoon: "elementalseal", swell: "healprevent", bw1: "seal", bw2: "disarm", // decreaseheal is stored negative (tags.ts decreaseHealGiven), so has_effect never sees it
   react: "decreasecooldown", // positive on purpose: its own Cleanse must not strip it mid-turn
 };
 export const ANIM = { red: "tg_heavy", safe: "tg_safe", bodyWater: "anim_isonade_body_water_v1", hit: "anim_isonade_slam_v1", surge: "anim_isonade_surge_v1", eye: "anim_isonade_eye_v1", bite: "anim_isonade_bite_v1", armBurst: "anim_isonade_arm_burst_v1", armLash: "anim_isonade_arm_lash_v1" };
@@ -123,7 +123,14 @@ export const buildRecords = (P: V4) => {
   add(jutsu(J4.tide, { name: "The Tide Draws Back", description: "The water pulls away from the shore: it gathers itself and brands you. Its next hit is a big one.",
     battleDescription: "The water pulls away from the shore. Brine burns into %target.", ...onPlayer, cooldown: 2, actionCostPerc: P.beatAp,
     effects: [
-      T.pct("increasedamagegiven", P.tideBuff, 1, { target: "SELF", ...statsAll, description: "The tide gathers" }),
+      T.pct("increasedamagegiven", P.tideBuff, 2, { target: "SELF", ...statsAll, description: "The tide gathers" }),
+      T.pct("increasedamagetaken", P.brand, 2, { friendlyFire: "ENEMIES", ...statsAll, description: "Brine Brand" }),
+      marker(MK.swell),
+    ] }));
+  add(jutsu(J4.swell, { name: "The Swell Builds", description: "The water stacks higher and the brand bites deeper. Its next hit is the big one.",
+    battleDescription: "The sea rears up behind %user. The brand on %target burns deeper.", ...onPlayer, cooldown: 2, actionCostPerc: P.beatAp,
+    effects: [
+      T.pct("increasedamagegiven", P.tideBuff, 1, { target: "SELF", ...statsAll, description: "The swell builds" }),
       T.pct("increasedamagetaken", P.brand, 1, { friendlyFire: "ENEMIES", ...statsAll, description: "Brine Brand" }),
       marker(MK.breaker),
     ] }));
@@ -152,15 +159,12 @@ export const buildRecords = (P: V4) => {
   // --- reactions (no tell)
   add(jutsu(J4.clear, { name: "Scour", description: "The undertow tears your buffs away.", battleDescription: "The undertow tears through %target's guard.", ...onPlayer,
     cooldown: P.reactCd, actionCostPerc: P.reactAp, effects: [tag("clear", { power: 100, rounds: 0, friendlyFire: "ENEMIES" }), marker(MK.react, 1)] }));
-  add(jutsu(J4.cleanse, { name: "Shed", description: "It sheds its outer skin and every debuff with it, then draws the tide back again.", battleDescription: "%user sheds a skin of rotten barnacles.",
-    target: "SELF", method: "SINGLE", range: 0, cooldown: P.reactCd, actionCostPerc: P.reactAp, effects: [T.cleanseSelf(), marker(MK.react, 1), marker(MK.tide)] }));
+  add(jutsu(J4.cleanse, { name: "Shed", description: "It sheds its outer skin and every debuff with it.", battleDescription: "%user sheds a skin of rotten barnacles.",
+    target: "SELF", method: "SINGLE", range: 0, cooldown: P.reactCd, actionCostPerc: P.reactAp, effects: [T.cleanseSelf(), marker(MK.react, 1)] }));
   add(jutsu(J4.anchor, { name: "Drowned Anchor", description: "It swings the anchor chain it swallowed. Follows a Scour or a Shed.", battleDescription: "%user swings a drowned anchor into %target.", ...onPlayer,
     cooldown: 2, actionCostPerc: P.sideAp, effects: [hit(P.anchorPower), T.pct("wound", P.anchorWound, 2, { friendlyFire: "ENEMIES", description: "Anchor wound" })] }));
   add(jutsu(J4.smoke, { name: "Silt Cloud", description: "It churns up silt: your damage next round is cut hard, and it takes less.", battleDescription: "%user thrashes. Silt clouds the hold.", ...onPlayer,
     cooldown: P.reactCd, actionCostPerc: P.sideAp, effects: [T.pct("decreasedamagegiven", 50, 1, { friendlyFire: "ENEMIES", ...statsAll, description: "Silt Cloud" }), T.pct("decreasedamagetaken", 25, 2, { target: "SELF", ...statsAll, description: "Silt Cloud" })] }));
-  add(jutsu(J4.bite, { name: "Bite of the Ship", description: "Once, at half health: it tears off a piece of the hull and hits harder for the rest of the fight. Clear it.",
-    battleDescription: "%user tears a piece out of the hull.", target: "SELF", method: "SINGLE", range: 0, cooldown: 99, actionCostPerc: P.sideAp,
-    effects: [T.pct("increasedamagegiven", P.bitePct, 99, { target: "SELF", ...statsAll, appearAnimation: ANIM.bite, description: "Bitten: hits harder" })] }));
   add(jutsuRecord(J4.arm, {
     ...structuredClone(DONOR_SUMMON), id: J4.arm, name: "Grasping Arm", image: IMG, jutsuType: "AI", jutsuRank: "S", hidden: true, injectableInBattle: false, battleUsageType: "BOTH",
     requiredRank: "STUDENT", requiredLevel: 1, bloodlineId: null, villageId: null, chakraCost: 0, staminaCost: 0, healthCost: 0,
@@ -175,6 +179,7 @@ export const buildRecords = (P: V4) => {
 /** Rule order (P2: it acts after the player each round, so target_has_effect sees what the player cast this turn). */
 export const isoRules = (P: V4) => [
   R.jutsu(J4.churn, "SELF", []), // 10 AP; also prunes markers two rounds old before anything reads them
+  ...((P as any).probe ? [(P as any).probe.self ? R.jutsu(J4.clear, "SELF", [C.has((P as any).probe.type, (P as any).probe.th)]) : R.jutsu(J4.clear, "SELF", [C.tHas((P as any).probe.type, (P as any).probe.th)])] : []),
   // Set pieces can't be interrupted.
   R.jutsu(J4.bw2Crash, "SELF", [C.has(MK.bw2), C.has("shield", 1)]),
   R.jutsu(J4.bw2Surface, "SELF", [C.has(MK.bw2)]),
@@ -182,16 +187,18 @@ export const isoRules = (P: V4) => [
   // Reactions: 60 AP, then the Drowned Anchor with the rest. They take this turn's beat; the rotation waits a round.
   // decreasedamagetaken / decreasedamagegiven are stored negative once applied (process.ts), so no condition can see
   // a DR or DDG stack. Absorb, shields and damage-given are positive and visible.
-  R.jutsu(J4.clear, "SELF", [C.tHas("absorb", P.clearAbsorb)]),
+  ...((P as any).probe ? [] : [R.jutsu(J4.clear, "SELF", [C.tHas("absorb", P.clearAbsorb)])]),
   R.jutsu(J4.clear, "SELF", [C.tHas("shield", P.clearShield)]),
   R.jutsu(J4.clear, "SELF", [C.tHas("increasedamagegiven", P.clearIdg)]),
-  R.jutsu(J4.cleanse, "SELF", [C.has("wound", P.cleanseWound)]),
-  R.jutsu(J4.cleanse, "SELF", [C.has("increasedamagetaken", P.cleanseIdt)]),
   R.jutsu(J4.anchor, "SELF", [C.has(MK.react)]),
   // The rotation: each beat needs the marker the previous beat laid.
   R.jutsu(J4.harpoon, "SELF", [C.has(MK.harpoon)]),
   R.jutsu(J4.breaker, "SELF", [C.has(MK.breaker)]),
+  R.jutsu(J4.swell, "SELF", [C.has(MK.swell)]),
   R.jutsu(J4.tide, "SELF", [C.has(MK.tide)]),
+  // Shed sits below the burst: it takes the Hide slot (cleanse + Anchor), so its cleanse never wipes a live chain marker.
+  R.jutsu(J4.cleanse, "SELF", [C.has("wound", P.cleanseWound)]),
+  R.jutsu(J4.cleanse, "SELF", [C.has("increasedamagetaken", P.cleanseIdt)]),
   // The two Black Water set pieces: each fires once, the first free round (the Hide slot) after its health first drops
   // past the line. Below the beats, so a set piece never eats a Breaker; HP-gated, so a burst player still sees both.
   R.jutsu(J4.bw1Mark, "SELF", [C.hb(P.bw1At)]),
@@ -199,12 +206,11 @@ export const isoRules = (P: V4) => [
   R.jutsu(J4.hide, "SELF", []),
   // Extras with the last 30 AP.
   R.jutsu(J4.smoke, "SELF", [C.tHas("increasedamagegiven", P.smokeIdg)]),
-  R.jutsu(J4.bite, "SELF", [C.hb(50)]),
   R.jutsu(J4.arm, "EMPTY_GROUND_CLOSEST_TO_OPPONENT", [C.noSummon()]),
   R.end([]),
 ];
 export const armRules = () => [R.jutsu(J4.lash, "SELF", []), R.end([])];
-export const isoKit = () => [J4.churn, J4.hide, J4.tide, J4.breaker, J4.harpoon, J4.bw1Mark, J4.bw1Land, J4.bw2Mark, J4.bw2Crash, J4.bw2Surface, J4.clear, J4.cleanse, J4.anchor, J4.smoke, J4.bite, J4.arm];
+export const isoKit = () => [J4.churn, J4.hide, J4.tide, J4.breaker, J4.harpoon, J4.bw1Mark, J4.bw1Land, J4.bw2Mark, J4.bw2Crash, J4.bw2Surface, J4.clear, J4.cleanse, J4.anchor, J4.smoke, J4.swell, J4.arm];
 export const STUN_PREVENT = { type: "stunprevent", power: 100, rounds: 99, target: "INHERIT", appearSfx: "", direction: "offence", calculation: "percentage", description: "Prevents being stunned", disappearSfx: "", powerPerLevel: 0, appearAnimation: "", staticAnimation: "", staticAssetPath: "", disappearAnimation: "" };
 export const isoAiRecord = (P: V4) => ({
   ...IN.boss.data, username: "Isonade", poolsMultiplier: P.poolsMultiplier, statsMultiplier: P.statsMultiplier,
@@ -227,7 +233,7 @@ export const isoValidate = (P: V4) => {
 const BEAT_NAMES: Record<string, string> = {
   [J4.hide]: "Hide", [J4.tide]: "Tide", [J4.breaker]: "Breaker", [J4.harpoon]: "Harpoon", [J4.bw1Mark]: "BW-I mark", [J4.bw1Land]: "BW-I land",
   [J4.bw2Mark]: "Deep sink", [J4.bw2Crash]: "Deep crash", [J4.bw2Surface]: "Deep surface", [J4.clear]: "Scour", [J4.cleanse]: "Shed", [J4.anchor]: "Anchor",
-  [J4.smoke]: "Silt", [J4.bite]: "Bite", [J4.arm]: "Arm", [J4.churn]: "churn",
+  [J4.smoke]: "Silt", [J4.bite]: "Bite", [J4.swell]: "Swell", [J4.arm]: "Arm", [J4.churn]: "churn",
 };
 type Fight = {
   seed: number; read: number; outcome: string; rounds: number; playerHpPct: number; bossHpPct: number; minHpPct: number;
@@ -300,21 +306,23 @@ export const runFight = async (P: V4, seed: number, readP: number, trace = false
       if (safe.size && safe.has(key(here))) return null; // on a crate: fight from it (no moving off)
       // The Deep: everything into the shield, pierce first.
       if (fx(bossUid, MK.bw2).length && sum(fx(bossUid, "shield")) > 0 && reads("deep")) {
+        // Silt on me halves this turn's damage: Cleanse it first, or the shield holds.
+        if (Math.abs(sum(fx(puid, "decreasedamagegiven", true))) >= 50 && ready("cleanse") && tryAction("cleanse", here)) { answered.push("Cleanse"); return "Cleanse the Silt before the Deep"; }
         const pierce = availableUserActions(b, puid, true, true).find((x: any) => x.effects?.some((e: any) => e.type === "pierce") && actionPointsAfterAction(pu(), b, x).canAct && dist(here, bp) <= (x.range ?? 1));
         if (pierce && tryAction(pierce.id, bp)) return `pierce the Deep shield (${pierce.name})`;
         return null; // every AP into the shield this turn: no Stance, no Cleanse
       }
       // Its Tide buffs are live: Clear them before the Breaker (instant).
       const bossIdg = sum(fx(bossUid, "increasedamagegiven", true));
-      if (bossIdg >= P.tideBuff && ready("clear") && dist(here, bp) <= 4 && reads("clearTide")) { if (tryAction("clear", bp)) { answered.push("Clear"); return "Clear its Tide buffs"; } }
+      if (fx(bossUid, MK.breaker).length && bossIdg >= P.tideBuff && ready("clear") && dist(here, bp) <= 4 && reads("clearTide")) { if (tryAction("clear", bp)) { answered.push("Clear"); return "Clear its Tide buffs"; } }
       // Brand or Silt on me: Cleanse.
       const brand = sum(fx(puid, "increasedamagetaken", true));
       const silt = Math.abs(sum(fx(puid, "decreasedamagegiven", true)));
       // Save the Cleanse for the Brand; the Silt only when no Breaker is coming soon.
       const breakerSoon = fx(bossUid, MK.tide).length > 0 || fx(bossUid, MK.breaker).length > 0;
-      if ((brand >= P.brand || (silt >= 50 && !breakerSoon)) && ready("cleanse") && reads("cleanse")) { if (tryAction("cleanse", here)) { answered.push("Cleanse"); return brand ? "Cleanse the Brand" : "Cleanse the Silt"; } }
+      if (((brand >= P.brand && fx(bossUid, MK.breaker).length > 0) || brand >= 2 * P.brand || (silt >= 50 && !breakerSoon)) && ready("cleanse") && reads("cleanse")) { if (tryAction("cleanse", here)) { answered.push("Cleanse"); return brand ? "Cleanse the Brand" : "Cleanse the Silt"; } }
       // Defend a round ahead: Tide is due this round (Hide laid its marker), so Defensive Stance goes live for the Breaker.
-      const tideDue = fx(bossUid, MK.tide).length > 0 && fx(bossUid, MK.breaker).length === 0;
+      const tideDue = fx(bossUid, MK.swell).length > 0;
       const stanced = fx(puid, "decreasedamagetaken").length > 0;
       if (tideDue && !stanced && ready("defensiveStance") && reads("stance")) { if (tryAction("defensiveStance", here)) return "Defensive Stance ahead of the Breaker"; }
       // Low: heal.
@@ -336,6 +344,7 @@ export const runFight = async (P: V4, seed: number, readP: number, trace = false
       let actionId: string | undefined;
       let why: string | null = null;
       const bkState = { tide: sum(fx(bossUid, "increasedamagegiven", true)) > 0, stance: sum(fx(puid, "decreasedamagetaken", true)) < 0, brand: sum(fx(puid, "increasedamagetaken", true)) > 0 };
+      if (trace && !human && actor.userId === bossUid) f.trace!.push(`  probe pre-boss: player DR ${(b.usersEffects as any[]).filter((e) => e.targetId === puid && e.type === "decreasedamagetaken").map((e) => `${e.power}${e.castThisRound ? "*" : ""}${e.fromType ? "/" + e.fromType : ""}`).join(" ")} | boss DDG ${(b.usersEffects as any[]).filter((e) => e.targetId === bossUid && e.type === "decreasedamagegiven").map((e) => `${e.power}${e.castThisRound ? "*" : ""}`).join(" ")}`);
       if (human) why = smartStep();
       if (why) { actionId = why; f.playerAnswers[why.split(" (")[0]!] = (f.playerAnswers[why.split(" (")[0]!] ?? 0) + 1; }
       else {
