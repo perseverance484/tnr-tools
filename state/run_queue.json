@@ -835,6 +835,16 @@
    "waitsFor": [],
    "build": "python3 push/654_isonade_solo_test.gen.py",
    "note": "Director 2026-11-19 19:09Z: 'Just put Isonade on the quest, alone.' The Flooded Stores stays as built. Ran 2026-11-19 19:11Z over the connector: job 654-mwnxdx78, 1/1 VERIFIED, quest nzETMobtvoP_rZnTuIJLH (hidden). Results tnr_results_1795115503042.json."
+  },
+  {
+   "id": "655",
+   "manifest": "push/655_isonade_v5_windows.json",
+   "what": "Isonade v5 (hidden): base damage reduction on the AI, one clear window per answer (Clear, Cleanse, Smoke, crate, Pierce)",
+   "runner": "connector",
+   "status": "building",
+   "waitsFor": [],
+   "build": "python3 push/655_isonade_v5_windows.gen.py",
+   "note": "Director 2026-11-19 19:28Z: 'Strict.' plus base DR as an AI tag against lifesteal big hits; test Eclipse Drain on dauntless. Claimed by thread project-thread-hlg3nc."
   }
  ]
 }
