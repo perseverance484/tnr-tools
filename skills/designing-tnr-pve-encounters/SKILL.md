@@ -1,6 +1,6 @@
 ---
 name: designing-tnr-pve-encounters
-description: Designs PvE fights for The Ninja RPG (TNR) - dungeon floors and waves, bosses, mini-bosses, hunt and quest fights, dailies - so they are readable, fair and fun for every build, solo or in a party, within what the AI priority-list engine can actually do. Use this skill whenever the user asks for a new enemy, boss, wave, floor, dungeon, hunt fight or PvE encounter, asks why players lose to or dislike a fight, wants a fight tuned, harder or easier, or mentions telegraphs, marks, eruptions, safe tiles, stun, seal, one-hit KO, enrage, phases or win rates, even if they don't say "encounter design". It decides the fight's shape and budgets; designing-tnr-content turns it into a design sheet and building-tnr-content into records.
+description: Designs PvE fights for The Ninja RPG (TNR) - dungeon floors and waves, bosses, mini-bosses, hunt and quest fights, dailies - so they are readable, fair and fun for every build, solo or in a party, within what the AI priority-list engine can actually do. Use for designing, reviewing or tuning TNR PvE combat mechanics, including new enemies, bosses, waves, dungeon floors, hunt fights and dailies, why players lose to or dislike a fight, telegraphs, stun and one-hit-KO behavior, even if they don't say "encounter design". Mechanic keywords trigger this skill only in that PvE design context. Do not use for PvP strategy or balance, or for art/animation production without a requested combat-design change; route art to producing-tnr-art. It decides the fight's shape and budgets; designing-tnr-content turns it into a design sheet and building-tnr-content into records.
 ---
 
 # Designing TNR PvE encounters
@@ -11,8 +11,8 @@ shape, its budgets and its AI loop, then hands off. It never writes a manifest a
 
 Director's standing rules, which every encounter follows:
 - Fun first. Make the readable version before the hard one.
-- Losing ends a run. A wipe in a dungeon sends the party back to the tier's first floor, so a fight's cost is
-  every floor before it.
+- Losing ends a run. A wipe retries a mini-boss floor; elsewhere it returns to the tier's first floor. Budget the
+  cost of replaying that progress.
 - Fleeing is not intuitive gameplay. Never design a fight whose answer is to flee.
 - Boss attacks are telegraphed, every time, with consistent damage.
 
@@ -22,36 +22,47 @@ were true at that date; re-read the live shared-cooldown table and the current g
 ## 1. What the engine is (design around this, never against it)
 
 - **The AI is a priority list, not a script.** Up to 20 rules, read top to bottom on every action; the first
-  rule whose conditions pass and whose action can run fires. A rule that can't run (cooldown, AP, range) is
-  skipped silently. There is no memory, counter, "last action" or NOT. State lives only in effects the AI puts
-  on itself (markers).
-- **Conditions:** round below/above/exact, distance below/above (A* path length, gate = range + 1, range cap 5),
-  own HP below %, has effect, target has effect, no summon out.
+  rule whose conditions pass and whose action can run fires. Range guards are required: do not rely on an
+  out-of-range action falling through safely. There is no authorable counter, last-action condition or general
+  NOT condition. Use self-effect markers for this skill's loops. Rules can also inspect the documented
+  battle-state conditions; engine combos consult action history, but this skill excludes combo damage rules.
+- **Conditions:** round below/above/exact, distance below/above, own HP below %, has effect, target has effect,
+  no summon out. Distance comparisons use inclusive A* path length, including both endpoints. For SINGLE-target
+  attacks, use distance_lower_than = range + 1; ALL-method and SELF-target actions take no distance gate.
+  Ordinary action range caps at 5. A marker check is `has_effect` (or `target_has_effect`) with effectType:
+  <marker tag> and threshold >= 1; the threshold compares summed matching effect power, and with it omitted or
+  zero the condition is always true. Never omit it.
 - **Targets:** self, closest or random opponent, closest or random ally, barrier and empty-ground placements.
   No lowest-HP, healer or marked-player targeting.
-- **Turns:** 100 AP per combatant per turn. Duration tags (buffs, debuffs, prevents, stun, DR) switch on the
-  round after cast. Damage, heals, pierce, shields, Clear, Cleanse and ground effects are instant. A mark cast on
-  the boss's turn pays off on its next turn, so the player gets exactly one turn to answer.
-- **Shared cooldowns are per combatant** and live, staff-editable data (`misc.getSharedCooldowns`). Nov 2026:
-  stun, buffprevent, debuffprevent 4 rounds; pierce, clear, cleanse, seal, moveprevent, drain, poison, vamp,
-  summon, barrier and others 3 (drain read 4 live in the Isonade tests, so trust the live table over this list).
-  Three enemies can still chain one player.
-- **A stunned boss can't pay for a 100 AP set piece** and idles. Bosses that run set pieces must be stun-immune.
-- **Readability limits:** the AI's whole turn shows as one snapshot; decrease tags on characters are invisible;
-  no floating numbers; HP bars only on hover; the killing blow isn't animated. The battle log
-  (`battleDescription`) is the only voice channel.
-- **Dungeons:** parties of 3 (solo may bring 2 pets, which don't count as party members); 1-4 tiers of 5 floors;
-  up to 5 sequential waves of 10 AIs per floor; party healed after each floor; a wipe on a mini-boss floor
-  retries that floor, a wipe anywhere else returns to the tier's first floor; enemies don't scale to the party;
-  one-hour run; 3 idle rounds end it. A lapsed 60-second turn is played by the server AI.
-- **Players' answers:** move (10 AP a hex), Replacement (20 AP, 5 hexes, not while rooted), shields, heals,
-  Clear and Cleanse (60 AP, range 4, 10-round cooldown). Cleanse can't remove stun.
+- **Turns:** AP normally refills to 100 at the round change, before applicable reductions. Damage modifiers,
+  prevents, stun and other listed duration effects activate next round; multi-round healing is delayed too.
+  Instant damage/healing, pierce, shields, Clear, Cleanse, bloodline seal, potency and ground effects have the
+  immediate behavior documented in `state/player/combat_rules.md`. Design and verify the marker/payoff loop so
+  every player receives a usable turn between warning and payoff; marker duration alone does not establish this.
+- **Shared cooldowns are per combatant** and read live (`misc.getSharedCooldowns`). Recorded table
+  (`state/player/combat_rules.md`): stun, buffprevent, debuffprevent 4 rounds; pierce, clear, cleanse, seal,
+  moveprevent, drain, poison, vamp, summon, barrier and others 3. Read the current table before tuning. A shared
+  lock applies only when the used action's own cooldown is greater than zero. Three enemies can still chain one
+  player.
+- **Active stun that reduces available AP below 100 prevents a 100-AP set piece.** The AI falls through to later
+  rules; it does not necessarily idle. Require stun immunity for these set pieces as a design policy.
+- **Readability limits:** actions in an update replay in order; effects created by one action start together.
+  The final action plays before the result screen, so killing blows are animated. HP bars appear for selected or
+  hovered fighters. Decrease tags on characters are invisible, and there are no floating numbers
+  (`docs/design/COMBAT_ANIMATION_ENGINE.md`). The battle log (`battleDescription`) is the only voice channel.
+- **Dungeons** (`docs/design/SKYGLASS_DUNGEON_AND_TREASURE_HUNTS.md`): parties of 3 (solo entry and pet
+  eligibility must be verified against the current dungeon contract before using a solo budget); 1-4 tiers of 5
+  floors; up to 5 sequential waves of 10 AIs per floor; party healed after each floor; a wipe on a mini-boss
+  floor retries that floor, a wipe anywhere else returns to the tier's first floor; enemies don't scale to the
+  party; one-hour run; 3 idle rounds end it. A turn ends when its 60-second timer expires; leftover AP is lost.
+- **Players' answers:** move (10 AP a hex), Replacement (20 AP, up to 5 hexes, cooldown 2; verify
+  movement-prevent interaction before treating it as an answer), shields, heals, Clear and Cleanse (60 AP,
+  range 4, 10-round cooldown). Cleanse can't remove stun.
 
 ## 2. The twelve rules
 
-1. **Hurt, don't delete.** No move kills from full HP. A telegraphed big hit takes 30-50% of its target's HP.
-   No one-hit KO and no random KO roll in a dungeon or daily. If a fight must have a lethal move (a set-piece
-   finale the director has asked to be brutal), it is warned twice and can't combine with any movement effect.
+1. **Hurt, don't delete.** No single enemy action kills the intended target from full HP. Telegraphed big hits
+   target 30-50% HP. No one-hit KO effect or random KO roll in any encounter covered by this skill.
 2. **Every telegraph has an instant answer:** step out, Replacement, a shield, a heal, or killing the source.
    A DR buff is a bonus, never the only answer, because it switches on a round late.
 3. **Dodge out, not dodge in.** A hazard covers a third of the reachable board or less. Shapes are boss-centred
@@ -60,7 +71,7 @@ were true at that date; re-read the live shared-cooldown table and the current g
    never stun and seal on one player in the same turn, low or no damage on the control move. Seal comes from a
    source the player can kill or step away from. Solo budgets are half the party's.
 5. **Never switch off the player's tools.** Boss buffs are clearable. No clearprevent on a boss that stacks
-   DR. No heal-block in dungeons. Reflect or recoil only on a visible stance with a log line, never below 20% HP.
+   DR. No heal-block in encounters covered by this skill. Reflect or recoil only on a visible stance with a log line, never below 20% HP.
 6. **Every build gets a window.** After each big hit, a 1-round weakness window (weakness on SELF) for all
    damage generals. Damage-type weaknesses may add a bonus for one build, never a gate. Stun builds get adds or
    summons worth controlling.
@@ -92,7 +103,8 @@ were true at that date; re-read the live shared-cooldown table and the current g
 | Habit Breaker | If target carries a big buff: mark, then a strip next turn. If adjacent: mark a knockback ring. | Play around the tell. | Probe |
 | Phase Boss | Up to 3 phases by health_below + phase marker; each phase is one loop above; change prints a line and opens a window. | Read the new loop; first cycle is light. | Proven pieces |
 
-"Probe" archetypes must pass the combat sim before they go into a design sheet as settled.
+"Probe" archetypes remain unresolved until supported evidence exists (a combat sim run or a playtest) before
+they go into a design sheet as settled.
 
 ## 4. Workflow
 
@@ -103,23 +115,28 @@ were true at that date; re-read the live shared-cooldown table and the current g
    already taught.
 3. **Fill the budget sheet** (below). Any line over budget is redesigned, not argued.
 4. **Write the AI loop** in plain words, top rule first, then map each line to a rule:
-   - top: payoff of a pending mark (`has_effect <marker>`);
+   - top: payoff of a pending mark (`has_effect` with effectType: <marker tag> and threshold >= 1);
    - next: open the window after a payoff;
    - next: start a new mark;
-   - then: ordinary actions with correct distance gates and a move fallback;
-   - last: the named basic attack. No `use_highest_power_*`, `use_random_jutsu` or `use_combo_action` damage rules.
+   - then ordinary actions, ending with the named basic attack gated at distance_lower_than: 2; finally an
+     unconditional move_towards_opponent or end_turn fallback. No `use_highest_power_*`, `use_random_jutsu` or
+     `use_combo_action` damage rules.
    Markers use tags outside the shared-cooldown list (the Skyglass library uses increasecooldown with no actions,
    or increaserange). Aim for 12 rules or fewer.
 5. **Walk three players through it on paper:** a melee taijutsu player with no stun-prevent, a ranged ninjutsu
    or genjutsu caster, and a support or tank build. For each: what does a telegraph cost them, what is their
    instant answer, where is their window? If any of them has no answer or no window, redesign.
 6. **Check the solo case** if solo entry is possible: one player, every control move aimed at them.
-7. **Hand off.** designing-tnr-content writes the design sheet and takes it to the director's "freeze it";
-   nothing is built before that. Then tune with the combat sim, which loads the live shared-cooldown table,
-   solo and in a party, at the current game pin. building-tnr-content compiles records after the numbers sit
-   inside target. Where dauntless can't play the band (it is level 100, so genin and 30-80 content can't be
-   hand tested), the sim is the only check: say so in the hand-off. Live writes go through
-   shipping-tnr-content, with the director's go for that job.
+7. **Hand off.** Hand the encounter specification to designing-tnr-content for a checked design sheet, tuning
+   evidence and director approval. The director's approval of the frozen sheet ("freeze it") comes before
+   anything is built. Use the build skill's documented calculation checks, and the combat sim where it is
+   available (`simulating-tnr-combat`: its skill and harness are in pull request 128, not yet on main); identify
+   any simulation or playtest coverage that is unavailable. Where dauntless can't play the band (it is level
+   100, so genin and 30-80 content can't be hand tested), say so in the hand-off. Probe archetypes remain
+   unresolved until supported evidence exists. After approval, building-tnr-content constructs and validates
+   the manifest. Live execution follows its pipeline and `docs/workflows/OPERATING_MODEL.md` (the
+   `shipping-tnr-content` checklist is installed in claude.ai only), with the director's go for that job. Tuning
+   changes must be reflected in the approved sheet.
 
 ## 5. Budget sheet (copy per encounter)
 
@@ -134,7 +151,8 @@ Player tools blocked:  none (Clear works, heals work, no hidden reflect/recoil)
 Window after big hit:  ___ rounds, generals covered: all
 Rounds (median):       trash 2-4 / boss 12-15
 Boss stun-immune (if it runs 100 AP set pieces): yes
-Rules: ___ (aim <= 12)   Last rule: basic attack   Random/highest-power damage rules: none
+Rules: ___ (aim <= 12)   Last damage rule: named basic attack   Final rule: unconditional movement or end turn
+Marker checks set threshold >= 1: yes   Random/highest-power damage rules: none
 Markers outside shared-cooldown list: yes   Live cooldown table read on: ____
 Three-build walk-through done: melee / caster / support
 ```
@@ -157,7 +175,7 @@ answers are inferred.
 
 ## 7. Hard nos
 
-- One-hit KO or KO chance on a warned attack in a dungeon, daily or hunt.
+- One-hit KO or KO chance, whether warned or unwarned.
 - "Whole board except safe tiles" patterns.
 - Stun longer than 1 round; stun and seal together; chained control across a wave.
 - Pull, push or root into a pending mark.
