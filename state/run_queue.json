@@ -870,6 +870,18 @@
    ],
    "build": "python3 push/655_isonade_v5_windows.gen.py --bundle=harvests/inbox/tnr_results_1795128038693.json --bundle=harvests/inbox/tnr_results_1795128277556.json",
    "note": "Job 656-mwo548wa DONE, 11/11 verified, bundle tnr_results_1795128638571.json. Read-back: Isonade 18/18 equipped, poolsMultiplier 2.5 (HP 12,625), effects stunprevent + decreasedamagetaken 70 for 99 rounds; AI profile 20 rules, Scour at 100 and Silt Cloud at 90 on the player's increasedamagegiven. All hidden."
+  },
+  {
+   "id": "658",
+   "manifest": "push/658_isonade_v6_reactions.json",
+   "what": "Isonade v6 (hidden): The Deep's omen to rule 6; Scour and Silt Cloud cooldown placeholder; law 18",
+   "runner": "connector",
+   "status": "building",
+   "waitsFor": [
+    "656"
+   ],
+   "build": "python3 push/658_isonade_v6_reactions.gen.py --cd=N",
+   "thread": "Isonade (cmsg_01HemWcQ2jhMimRupeBNzcGR5Dz59Px25aKTDx96TrMaPb)"
   }
  ]
 }
