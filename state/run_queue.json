@@ -841,10 +841,22 @@
    "manifest": "push/655_isonade_v5_jutsu.json",
    "what": "Isonade v5 (hidden) creates: Brine Brand, Undertow, Swell Rises, Tidal Bore",
    "runner": "connector",
-   "status": "building",
+   "status": "done",
    "waitsFor": [],
    "build": "python3 push/655_isonade_v5_windows.gen.py",
-   "note": "Director 2026-11-19 19:28Z: 'Strict.' plus base DR as an AI tag against lifesteal big hits; test Eclipse Drain on dauntless. Claimed by thread project-thread-hlg3nc. Marks: director 2026-11-19 22:32Z picked Silt 90 / Scour 100."
+   "note": "Ran 2026-11-19 (job 655-mwo4u99d), INCOMPLETE: Brine Brand csR7tJYXd6rkQp2oGi7ai and Swell Rises 0eIhyLEPAN1KsSs7P3Kzd verified; Tidal Bore 5_izyS8vstAh6Yt9RPOwz confirmed (drift only: live strips statTypes, which left the combat tags on main at 19c959c0; formula damage always uses offence vs defence there); Undertow FAILED before any write: the name 'Isonade Undertow' is taken by an unused push/631 jutsu. Re-created as 'Isonade The Undertow' by 657. All hidden. Bundle harvests/inbox/tnr_results_1795128038693.json."
+  },
+  {
+   "id": "657",
+   "manifest": "push/657_isonade_v5_undertow.json",
+   "what": "Isonade v5 (hidden): create Isonade The Undertow (655's failed item)",
+   "runner": "connector",
+   "status": "building",
+   "waitsFor": [
+    "655"
+   ],
+   "build": "python3 push/655_isonade_v5_windows.gen.py --bundle=harvests/inbox/tnr_results_1795128038693.json",
+   "note": "Claimed by thread project-thread-hlg3nc."
   },
   {
    "id": "656",
@@ -853,9 +865,10 @@
    "runner": "connector",
    "status": "building",
    "waitsFor": [
-    "655"
+    "655",
+    "657"
    ],
-   "build": "python3 push/655_isonade_v5_windows.gen.py --bundle=<655 results>",
+   "build": "python3 push/655_isonade_v5_windows.gen.py --bundle=harvests/inbox/tnr_results_1795128038693.json --bundle=<657 results>",
    "note": "Needs 655's results bundle for literal ids. Claimed by thread project-thread-hlg3nc."
   }
  ]
