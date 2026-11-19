@@ -821,10 +821,10 @@
    "manifest": "push/653_isonade_v4_dr_retune.json",
    "what": "Isonade v4 DR retune (hidden): one generic DR layer (Barnacle Hide) and a 40%/1-round brace (Silt Cloud) before a big hit; law 18 on the 5 edited jutsu; Silt rule moved above the Anchor",
    "runner": "connector",
-   "status": "building",
+   "status": "done",
    "waitsFor": [],
-   "build": "python3 push/653_isonade_v4_dr_retune.gen.py",
-   "note": "Director 2026-11-19 17:06Z: 'Yes, lower its damage reduction to one generic 25-30%/2 rounds, and one stronger one it uses in anticipation of a big hit at 40%/1 round'."
+   "build": "python3 push/653_isonade_v4_dr_retune.gen.py --hide-dr=25",
+   "note": "Director 2026-11-19 17:06Z: 'Yes, lower its damage reduction to one generic 25-30%/2 rounds, and one stronger one it uses in anticipation of a big hit at 40%/1 round'. Ran 2026-11-19 via mcp_run (job 653-mwnt6ebx): 8 of 8 verified; kit 16/16 equipped, 20 rules, Silt at index 7 above the Anchor. Rollback: state/stolen_stores_captures/isonade_v4_live_2026-11-19. Bundle harvests/inbox/tnr_results_1795108564955.json."
   }
  ]
 }
