@@ -793,6 +793,28 @@
    "build": "python3 push/630_strip_recut.gen.py",
    "note": "Director: 'update your prompt appropriately to fix' (2026-11-17). Direct asset edits, ids unchanged (both suggestions stay valid). Prompt: state/prompt_strip_recut_630.md. Read back: image = new URL, frames/speed unchanged, hidden false. Strips uploaded to the director's UploadThing by a one-off workflow on claude/project-thread-un0ofw (sha-checked; state/recut_upload/uploaded.json). validate.py 0/0, plan 0 problems. Job 630-mwlimu0m 4/4 verified 2026-11-18 02:44 UTC; read back: image = new URL, hidden false; nAUh6EdgIUrPwLeyaeTPB 23 x 70, cMax_mQ9G8TGmWBB-DcVR 35 x 70, 92C_BYjulGUsL1y1X49Ee 29 x 70, A7JDFeATf0DL-Sdv_6ssF 40 x 80. Old uploads kept.",
    "result": "harvests/inbox/tnr_results_1794969847508.json"
+  },
+  {
+   "id": "651",
+   "manifest": "push/651_isonade_v4_jutsu.json",
+   "what": "Isonade v4: 14 new jutsu, hidden (names are placeholders)",
+   "runner": "connector",
+   "status": "done",
+   "waitsFor": [],
+   "build": "python3 push/651_isonade_v4.gen.py",
+   "note": "Ran 2026-11-19 via mcp_run on the director's go ('Yes, build it', 16:16Z): 14 created hidden, verified (server strips statTypes, adds animationScale 1). Bundle harvests/inbox/tnr_results_1795105596336.json."
+  },
+  {
+   "id": "652",
+   "manifest": "push/652_isonade_v4_kit.json",
+   "what": "Isonade v4: law 18, Arm Lash 45, Grasping Arm Rises 30 AP, 16-jutsu kit, pools x4, 20 rules (hidden)",
+   "runner": "connector",
+   "status": "done",
+   "waitsFor": [
+    "651"
+   ],
+   "build": "python3 push/651_isonade_v4.gen.py --bundle=harvests/inbox/tnr_results_1795105596336.json",
+   "note": "Ran 2026-11-19 via mcp_run (job 652-mwnrl5pm): 7 of 7 verified. Rollback: push/648 kit + state/stolen_stores_captures/isonade_live_2026-11-19 rules + pools x8.4. Bundle harvests/inbox/tnr_results_1795105902316.json."
   }
  ]
 }
