@@ -9,6 +9,30 @@ Offline sim only. Zero live requests, nothing built, no fight run. Files: `isona
 20 rules, validated), `isonade_v4_results.json` (summaries and every fight), `harness/isonade_v4.ts`,
 `harness/iso_cal.ts`. Engine pin 3314d122 with the live shared-cooldown table (Nov 18 capture) and live damage config.
 
+## Revision 3 (2026-11-19 16:11Z): its own DR, so misses lose fights
+
+Asked by the director: "So players still dont lose? The boss might need more DR". Isonade now layers its own damage
+reduction like a PvP player, all of it buffs the player's Clear can strip:
+
+- Barnacle Hide: shield plus 40% DR, 2 rounds.
+- The Tide Draws Back: 40% DR, 2 rounds, alongside its damage layer and the brand.
+- The Swell Builds: 30% DR, 1 round (covers the Breaker round).
+- Shed: 40% DR, 2 rounds, after its cleanse.
+
+The player's Clear now has two jobs (its DR or its burst) on one cooldown. Rules still 20; jutsu still 17.
+
+Proposed targets (perfect / one miss / two misses / ignores): wins 95-100% / about 60% / about 45% / 0-10%.
+
+| Read | Win % | Rounds (median) | HP left when won (median / p10) | Boss HP left when lost |
+|---|---|---|---|---|
+| 1 (answers every tell) | 100 | 12 | 45% / 14.5% | - |
+| 0.85 (misses ~1) | 60 | 12 | 49.5% / 14.5% | 31% |
+| 0.7 (misses ~2) | 45 | 12 | 49.5% / 1.6% | 30% |
+| 0 (ignores everything) | 0 | - | - | 45% |
+
+Damage taken per fight at read 1: Breaker 1,635, Anchor 776, Arm 725, Harpoon 444, wounds 293. A missed Breaker is
+about 2,700-3,030.
+
 ## Revision 2 (2026-11-19, after the director's two corrections)
 
 1. "It can see any tag using the conditional has_effect check." Re-read on today's game `main` (26391b51,

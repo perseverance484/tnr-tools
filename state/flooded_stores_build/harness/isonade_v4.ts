@@ -47,6 +47,10 @@ export const V4_DEFAULTS = {
   // rotation
   hideShield: 2500, // Barnacle Hide: instant self shield
   hideRounds: 2,
+  hideDr: 0, // Barnacle Hide: % damage taken reduction on itself, 2 rounds (a buff: the player's Clear removes it)
+  tideDr: 0, // The Tide Draws Back: % DR on itself, 2 rounds (Clearable)
+  shedDr: 0, // Shed: % DR on itself, 2 rounds (Clearable)
+  swellDr: 0, // The Swell Builds: another DR layer, 1 round (covers the Breaker round)
   tideBuff: 50, // each layer of the burst window: +% damage given on itself (Tide: 2 rounds, Swell: 1 round)
   brand: 30, // each Brine Brand layer on the player: +% damage taken. In-battle % modifiers multiply (damagePipeline), so 2+2 layers compound
   breakerPower: 400,
@@ -119,12 +123,14 @@ export const buildRecords = (P: V4) => {
   // --- the rotation
   add(jutsu(J4.hide, { name: "Barnacle Hide", description: "Barnacles close over its hide: a shield that soaks your hits.", battleDescription: "Barnacles grind shut over %user's hide.",
     target: "SELF", method: "SINGLE", range: 0, cooldown: 2, actionCostPerc: P.beatAp,
-    effects: [tag("shield", { power: 100, health: P.hideShield, rounds: P.hideRounds, target: "SELF", description: "Barnacle Hide" }), marker(MK.tide)] }));
+    effects: [tag("shield", { power: 100, health: P.hideShield, rounds: P.hideRounds, target: "SELF", description: "Barnacle Hide" }),
+      ...(P.hideDr ? [T.pct("decreasedamagetaken", P.hideDr, 2, { target: "SELF", ...statsAll, description: "Barnacle Hide" })] : []), marker(MK.tide)] }));
   add(jutsu(J4.tide, { name: "The Tide Draws Back", description: "The water pulls away from the shore: it gathers itself and brands you. Its next hit is a big one.",
     battleDescription: "The water pulls away from the shore. Brine burns into %target.", ...onPlayer, cooldown: 2, actionCostPerc: P.beatAp,
     effects: [
       T.pct("increasedamagegiven", P.tideBuff, 2, { target: "SELF", ...statsAll, description: "The tide gathers" }),
       T.pct("increasedamagetaken", P.brand, 2, { friendlyFire: "ENEMIES", ...statsAll, description: "Brine Brand" }),
+      ...(P.tideDr ? [T.pct("decreasedamagetaken", P.tideDr, 2, { target: "SELF", ...statsAll, description: "The tide gathers" })] : []),
       marker(MK.swell),
     ] }));
   add(jutsu(J4.swell, { name: "The Swell Builds", description: "The water stacks higher and the brand bites deeper. Its next hit is the big one.",
@@ -132,6 +138,7 @@ export const buildRecords = (P: V4) => {
     effects: [
       T.pct("increasedamagegiven", P.tideBuff, 1, { target: "SELF", ...statsAll, description: "The swell builds" }),
       T.pct("increasedamagetaken", P.brand, 1, { friendlyFire: "ENEMIES", ...statsAll, description: "Brine Brand" }),
+      ...(P.swellDr ? [T.pct("decreasedamagetaken", P.swellDr, 1, { target: "SELF", ...statsAll, description: "The swell builds" })] : []),
       marker(MK.breaker),
     ] }));
   add(jutsu(J4.breaker, { name: "Breaker", description: "The wave breaks over you. Then it hangs exposed for a round.", battleDescription: "The wave breaks over %target.", ...onPlayer,
@@ -160,7 +167,7 @@ export const buildRecords = (P: V4) => {
   add(jutsu(J4.clear, { name: "Scour", description: "The undertow tears your buffs away.", battleDescription: "The undertow tears through %target's guard.", ...onPlayer,
     cooldown: P.reactCd, actionCostPerc: P.reactAp, effects: [tag("clear", { power: 100, rounds: 0, friendlyFire: "ENEMIES" }), marker(MK.react, 1)] }));
   add(jutsu(J4.cleanse, { name: "Shed", description: "It sheds its outer skin and every debuff with it.", battleDescription: "%user sheds a skin of rotten barnacles.",
-    target: "SELF", method: "SINGLE", range: 0, cooldown: P.reactCd, actionCostPerc: P.reactAp, effects: [T.cleanseSelf(), marker(MK.react, 1)] }));
+    target: "SELF", method: "SINGLE", range: 0, cooldown: P.reactCd, actionCostPerc: P.reactAp, effects: [T.cleanseSelf(), ...(P.shedDr ? [T.pct("decreasedamagetaken", P.shedDr, 2, { target: "SELF", ...statsAll, description: "Shed" })] : []), marker(MK.react, 1)] }));
   add(jutsu(J4.anchor, { name: "Drowned Anchor", description: "It swings the anchor chain it swallowed. Follows a Scour or a Shed.", battleDescription: "%user swings a drowned anchor into %target.", ...onPlayer,
     cooldown: 2, actionCostPerc: P.sideAp, effects: [hit(P.anchorPower), T.pct("wound", P.anchorWound, 2, { friendlyFire: "ENEMIES", description: "Anchor wound" })] }));
   add(jutsu(J4.smoke, { name: "Silt Cloud", description: "It churns up silt: your damage next round is cut hard, and it takes less.", battleDescription: "%user thrashes. Silt clouds the hold.", ...onPlayer,
