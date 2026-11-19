@@ -133,3 +133,34 @@ because our early clips were inconsistent and one area jutsu (FCF v4) turned int
 
 Art direction, palette, scale, whether a stock clip is cleared, and acceptance. Never a balance change to get art onto
 the board: use the existing tag or a `visual` tag.
+
+## 7. Duelyst library (CC0)
+
+OpenDuelyst (a browser tactics game whose source and art were released CC0 1.0 in 2020) is our stock library:
+about 208 effect sheets and 696 animated units (idle, run, attack, hit, death, breathing, cast), bold pixel art.
+Timing is per animation from the source (mostly 80 ms; some 40 ms bursts, slower idles up to 1 s); a sequence with no
+source timing is marked `"msFrom": "default"` (80 ms). `scripts/duelyst_kit.py` reads it from a cache outside the repository (`$TNR_DUELYST`, default
+`~/.cache/tnr-duelyst`, pinned commit); the repository holds only `data/duelyst_catalog.json`.
+
+1. `duelyst_kit.py fetch` once per machine, then `catalog` only if the pin changes.
+2. **Find:** `find --kind fx --hue teal --shape tall`, `find --kind unit --action attack serpent`, or name terms;
+   `sheet ... --out c.gif` plays the matches side by side, each through once. A `sheet:prefix` name must be an
+   exact animation prefix (`find` prints them). Judge by eye: names lie (`spiritofthewild` is a wave of
+   foam that reads as a flock of gulls at board size; the director rejected it for Coral Maelstrom).
+3. **Fit:** build a per-jutsu script (precedent: `art/duelyst_fx/rengoku/build_rengoku.py`,
+   `art/duelyst_fx/thalmyr/build_reefward.py`) that imports the kit: anchor the art to the target's feet (Duelyst
+   sheets sit low in their frame), recolour (`tint` for a whole ramp, `hue_swap` for one part: the gold ring of
+   `fountainofyouth` became coral while the water stayed blue), trim or reorder frames, keep the source timing
+   unless the replay length matters (Rengoku's ring hold was cut to 1.6 s), and export whole-step NEAREST.
+   **Frame size x frames must stay at or under 4096 px**: art on a native host (the director's UploadThing) loads
+   full size, and phones draw a taller strip as a black box (Rengoku Rō's 300 px strips, 2026-11-17). `strip` and
+   `write_strip` refuse taller strips and print the largest size that fits.
+4. **Preview** on the real board at true scale before anything is uploaded; check a dark lead-in for loops that
+   start with the strike (section 4).
+5. **Provenance:** `licenseDetails` names "CC0 1.0 - OpenDuelyst (open-duelyst/duelyst), <sheet>, adapted for TNR".
+
+Area tags still follow the repetition rule: a Duelyst piece made for one unit, stamped on every tile of a spiral,
+turns into a field of identical clusters (FCF trial with `shadowcreep`). Hero pieces and per-target clips are where
+the library shines; area fields use tile-sized pieces (`explosionblue` geysers) or our own tessellating art.
+Units' body animations can become AI sprite sheets through the Sprite Studio library (`spriteAnimation.create`,
+no credits); that path needs its own sheet-layout check before use.
