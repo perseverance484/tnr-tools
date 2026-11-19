@@ -1,11 +1,10 @@
 {
- "holder": "player",
- "token": "ad4a14cf574143c08b7badc5229b75aa",
- "job": "hunt until 04:41Z (Brandon restart 02:58Z)",
- "instance": null,
- "ttlMinutes": 45,
- "claimedAt": "2026-11-19T02:59:24.689Z",
- "heartbeatAt": "2026-11-19T04:27:27.264Z",
- "expiresAt": "2026-11-19T05:12:27.264Z",
- "note": "One game writer per account at a time (RUL-2026-11-07-133). Written only by forge/tools/run_lock.mjs or Forge; do not hand-edit."
+ "holder": null,
+ "token": null,
+ "job": null,
+ "releasedBy": "player",
+ "releasedInstance": null,
+ "releasedJob": "hunt until 04:41Z (Brandon restart 02:58Z)",
+ "releasedAt": "2026-11-19T04:35:14.302Z",
+ "note": "Free. Claim with node forge/tools/run_lock.mjs claim --holder NAME --job TEXT (RUL-2026-11-07-133)."
 }
