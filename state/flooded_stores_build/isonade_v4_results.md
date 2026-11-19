@@ -208,3 +208,39 @@ Against today's live log:
 - Re-scoring dauntless's live hits on Isonade under the new DR adds roughly 700-800 damage over the 11 rounds: the old
   layers rarely stacked on a hit. The live loss was damage taken (Breaker 3,524, two Anchors 2,821) and three rounds
   spent on the Grasping Arm, not DR. Cutting the hits is the bigger lever; that's the director's call.
+
+## Revision 4 live hidden test (2026-11-19 17:17-17:25Z, push 653, Hide 25%)
+
+One hidden run on dauntless, PvE kit, full HP before every fight. Battle uHjSwGVSB409OFHehyWxA.
+Log: /mnt/project-files/tnr/battle-logs/2026-11-19_isonade_v4r4_test_uHjSwGVSB409OFHehyWxA.json.
+
+- Crew fights: won in 4, 3 and 5 rounds. Entered Isonade at full HP.
+- Isonade: **WON in round 12**, dauntless at 4,030 / 5,050 (80%). Lowest point 2,682 (53%) at the start of r8.
+- Sim at read 1 for this build: 83% wins, median 11 rounds. The live run sits inside that.
+
+Round by round:
+- r1 Thunderbolt. Isonade: Barnacle Hide (25% / 2 rounds, 1,500 shield), Arm rises, Arm Lash kills the pet.
+- r2 Storm Fist into the shield, Ignition. Isonade: Silt Cloud brace (40% / 1 round), Tide Draws Back.
+- r3 Ember Blade, Severed Pulse (shield gone). Isonade: Scour, then Drowned Anchor 1,145.
+- r4 Clear on Isonade (Tide's +50% off), Defensive Stance. Isonade: Swell Builds.
+- r5 Cleanse (both brands off), Invigoration. Isonade: Breaker 1,997 (660 absorbed back).
+- r6 Rebirth 2,707, Stormguard. Isonade: Harpoon Line 505.
+- r7 Dragon's Tomb, Eclipse Drain. Isonade: Shed (on the tomb's wound), Drowned Anchor 285.
+- r8 Thunderbolt, Stance. Isonade: Omen Black Water.
+- r9 walked to the crate at (6,1), Storm Fist 2,092. Black Water missed; Isonade surfaced (weak).
+- r10 Ember Blade 2,555, Severed Pulse. Isonade: Omen The Deep (1,500 shell).
+- r11 Thunderclap broke the shell, Stance. Isonade surfaced (weak).
+- r12 Stun Jab 6,301, kill.
+
+Damage taken: Breaker 1,997, Drowned Anchor 1,430 (two hits), Harpoon 505, wounds about 450, Arm Lash 0
+(it only ever hit the pet and its own side). Lifesteal and absorb gave back about 2,100.
+
+What changed from the 16:46Z loss: the boss's own DR no longer stacks, so the player's damage lands; Breaker hit
+1,997 instead of 3,524 because the Clear went on Tide in r4 instead of on Shed/Silt; the Arm cost no rounds.
+
+Findings for the director:
+- Silt Cloud fired in r2 with only Thunderbolt's displayed 38% damage given on the player, and Scour fired in r3 at
+  a displayed 38% + 35%. Both thresholds (60 and 80) read the stored power, which looks higher than the % the
+  battle log shows. A player cannot judge "stay under 60" from the log. Worth knowing before tuning those rules.
+- Silt did not fire again (cooldown), so the brace showed once.
+- Hits were not cut; that stays his call.
