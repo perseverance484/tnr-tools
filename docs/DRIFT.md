@@ -1,6 +1,6 @@
-# DRIFT.md - upstream contract drift (2026-11-18)
+# DRIFT.md - upstream contract drift (2026-11-19)
 
-Upstream: studie-tech/TheNinjaRPG@8268f6ae690ede09a39ba5de7abce08ed6464627
+Upstream: studie-tech/TheNinjaRPG@26391b5154cb672a4c1a7102adee9712721da4b4
 
 Signal only. Nothing below is adopted until the structural diff gate passes.
 
@@ -256,6 +256,8 @@ ADDITIONS
   const-member  AvailableEffectTypes  RedirectionTag
   const-member  AvailableEffectTypes  defence
   const-member  AvailableEffectTypes  offence
+  const-member  BALANCE_IDLE_ACTION_IDS  flee
+  const-member  BALANCE_IDLE_ACTION_IDS  wait
   const-member  BULK_SELL_WARN_RARITIES  EPIC
   const-member  BULK_SELL_WARN_RARITIES  LEGENDARY
   const-member  BULK_SELL_WARN_RARITIES  RARE
@@ -284,9 +286,7 @@ ADDITIONS
   const-member  HP_DAMAGE_KEYS  poison
   const-member  HP_DAMAGE_KEYS  residual
   const-member  HP_DAMAGE_KEYS  wound
-  const-member  INITIATIVE_PVP_STREAK_BONUSES  0.0025
-  const-member  INITIATIVE_PVP_STREAK_BONUSES  0.005
-  ... 138 more
+  ... 140 more
 
 BREAKING: 255 change(s) - DO NOT ADOPT (exit 1)
 ~~~
