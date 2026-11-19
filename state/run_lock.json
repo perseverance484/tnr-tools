@@ -1,11 +1,10 @@
 {
- "holder": "player",
- "job": "jutsu engine",
- "token": "d5123b0370f34f4fae4adf8118113c01",
- "instance": null,
- "ttlMinutes": 15,
- "claimedAt": "2026-11-19T01:22:04.407Z",
- "heartbeatAt": "2026-11-19T01:22:04.407Z",
- "expiresAt": "2026-11-19T01:37:04.407Z",
- "note": "One game writer per account at a time (RUL-2026-11-07-133). Written only by forge/tools/run_lock.mjs or Forge; do not hand-edit."
+ "holder": null,
+ "token": null,
+ "job": null,
+ "releasedBy": "player",
+ "releasedInstance": null,
+ "releasedJob": "jutsu engine",
+ "releasedAt": "2026-11-19T01:23:14.687Z",
+ "note": "Free. Claim with node forge/tools/run_lock.mjs claim --holder NAME --job TEXT (RUL-2026-11-07-133)."
 }
