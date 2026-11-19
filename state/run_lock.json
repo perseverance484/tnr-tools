@@ -1,10 +1,11 @@
 {
- "holder": null,
- "token": null,
- "job": null,
- "releasedBy": "claude",
- "releasedInstance": "/mnt/project-files/tnr/isonade_build/v4_state",
- "releasedJob": "Isonade v4 hidden build (push/651-652) + one hidden test",
- "releasedAt": "2026-11-19T16:26:37.011Z",
- "note": "Free. Claim with node forge/tools/run_lock.mjs claim --holder NAME --job TEXT (RUL-2026-11-07-133)."
+ "holder": "claude",
+ "job": "push/652 + Isonade v4 hidden test",
+ "token": "6f51b1c2bd944823914b545dd4e766cd",
+ "instance": null,
+ "ttlMinutes": 60,
+ "claimedAt": "2026-11-19T16:28:03.567Z",
+ "heartbeatAt": "2026-11-19T16:28:03.567Z",
+ "expiresAt": "2026-11-19T17:28:03.567Z",
+ "note": "One game writer per account at a time (RUL-2026-11-07-133). Written only by forge/tools/run_lock.mjs or Forge; do not hand-edit."
 }
