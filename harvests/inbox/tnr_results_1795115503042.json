@@ -1,0 +1,97 @@
+{
+ "builder": "forge-mcp",
+ "at": "2026-11-19T19:11:43.042Z",
+ "cfg": "forge",
+ "checks": null,
+ "state": "DONE",
+ "outcome": "success",
+ "postflight": {
+  "match": 1,
+  "diff": 0,
+  "unverified": 0,
+  "failed": 0,
+  "skipped": 0,
+  "unresolved": 0
+ },
+ "entries": [
+  {
+   "name": "Isonade Test",
+   "srcId": "is654_test",
+   "entity": "quest",
+   "slot": "create",
+   "op": "create",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 21,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "nzETMobtvoP_rZnTuIJLH"
+  }
+ ],
+ "captures": [],
+ "idmap": {
+  "is654_test": "nzETMobtvoP_rZnTuIJLH"
+ },
+ "journal": {
+  "v": 1,
+  "jobId": "654-mwnxdx78",
+  "manifestPath": "push/654_isonade_solo_test.json",
+  "manifestNumber": 654,
+  "manifestHash": "e4748d47",
+  "startedAt": "2026-11-19T19:10:43.797Z",
+  "updatedAt": "2026-11-19T19:11:43.031Z",
+  "state": "DONE",
+  "pause": null,
+  "items": [
+   {
+    "idx": 0,
+    "entity": "quest",
+    "op": "create",
+    "name": "Isonade Test",
+    "srcId": "is654_test",
+    "targetId": null,
+    "payloadHash": "c0160075",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "nzETMobtvoP_rZnTuIJLH",
+    "snapshotKey": "tnr_forge_snap_v1:654-mwnxdx78:quest",
+    "sentAt": "2026-11-19T19:11:27.373Z",
+    "createSentAt": "2026-11-19T19:10:51.114Z",
+    "confirmedAt": "2026-11-19T19:11:37.294Z",
+    "verifiedAt": "2026-11-19T19:11:43.030Z",
+    "error": null,
+    "attempt": 2,
+    "asserted": [
+     "name",
+     "description",
+     "successDescription",
+     "image",
+     "questType",
+     "questRank",
+     "retryDelay",
+     "attemptDelay",
+     "consecutiveObjectives",
+     "hidden",
+     "requiredLevel",
+     "maxLevel",
+     "maxAttempts",
+     "maxCompletes",
+     "prerequisiteQuestId",
+     "tierLevel",
+     "requiredVillage",
+     "requiredBloodlineId",
+     "startsAt",
+     "endsAt",
+     "content"
+    ],
+    "diffs": [],
+    "verify": "match"
+   }
+  ]
+ }
+}
