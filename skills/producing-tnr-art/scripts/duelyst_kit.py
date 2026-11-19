@@ -19,8 +19,8 @@ clockwise) and a `sourceColorRect` placing the trimmed pixels in `sourceSize`. O
 animations (units: idle, run, attack, hit, death, breathing, caststart, cast, castend...), named by frame prefix;
 `frameDelay` per animation comes from app/data/resources.js (a sequence with no entry there falls back to 80 ms,
 marked `"msFrom": "default"` in the catalogue). Pixel art: scale by whole steps with NEAREST
-(--nearest, or --size a multiple of the source) to keep it crisp. How to use it: references/combat_fx.md, section
-"Duelyst library (CC0)".
+(--nearest, or --size a multiple of the source) to keep it crisp. How to use it: references/duelyst.md; compose
+clips with fx_recipe.py.
 """
 import argparse
 import bisect
@@ -254,7 +254,7 @@ def place(frs, size_px, fit=1.0, dy=0.0, tint_rgb=None, swap=None, nearest=False
 
 
 WEBP_MAX = 16383   # WebP's dimension limit
-TEXTURE_MAX = 4096  # phones: a taller battle strip on a native host draws as a black box (combat_fx.md section 3)
+TEXTURE_MAX = 4096  # phones: a taller battle strip on a native host draws as a black box (combat_fx.md section 4)
 
 
 def strip_height_problem(size_px, n, allow_tall=False):

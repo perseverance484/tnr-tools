@@ -93,7 +93,7 @@ No clone means no state. Say so rather than working from memory.
 | Anything that pushes | skill `references/pipeline.md`, alongside the entity reference |
 | Bloodright structural SVG / tree layout | `docs/workflows/BLOODRIGHT_POSTERS.md#standard-structural-svg-input`; approved white SVG and mechanics in `docs/design/bloodright/examples/blood_enchanted_eyes_structural.*` |
 | Art, any asset (single entry point) | skill `producing-tnr-art` (SKILL.md routes by asset class); `chroma.py`, `artpreflight.py`, `shotlist.py`, `fx_board.py` |
-| Combat animations, ground tiles, battle FX | `skills/producing-tnr-art/references/combat_fx.md`; long-form engine analysis `docs/design/COMBAT_ANIMATION_ENGINE.md` |
+| Combat animations, ground tiles, battle FX | `skills/producing-tnr-art/references/combat_fx.md` (engine, house rules), `skills/producing-tnr-art/references/duelyst.md` (library-first build: `duelyst_kit.py`, `fx_recipe.py`); long-form engine analysis `docs/design/COMBAT_ANIMATION_ENGINE.md` |
 | Bloodline jutsu-icon **ZIP-first Art Studio** (not Bloodright tier-emblem reskins) | `docs/workflows/BLOODLINE_JUTSU_ICON_STUDIO.md` + `docs/workflows/JUTSU_ICON_SHOWCASE.md` specialised **under** `ISOLATED_ART_GENERATION.md` (P0 A–F); mobile starter `docs/design/jutsu_icon_studio/START_PROMPT.md`; current offline CLI `skills/producing-tnr-art/scripts/jutsu_studio.py` (P1, PR #66) |
 | Isolated image-generation conversations / persistent Art Studio | `docs/workflows/ISOLATED_ART_GENERATION.md`; collection registers under `docs/design/` |
 | Existing jutsu art: name → captured record → image URL | `scripts/jutsu_art.py verify`, then `lookup`/`image-url`; `docs/workflows/JUTSU_ART_LOOKUP.md` |

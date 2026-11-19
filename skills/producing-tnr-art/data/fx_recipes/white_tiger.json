@@ -1,0 +1,70 @@
+{
+ "name": "Fury of The White Tiger",
+ "slug": "white_tiger",
+ "jutsuId": "QXE9J0fnu1t-DAGTGbaCX",
+ "clips": [
+  {
+   "id": "gates",
+   "role": "caster",
+   "effect": "increasedamagegiven",
+   "scale": 3,
+   "ms": 70,
+   "layers": [
+    {
+     "sheet": "fx_f2_eightgates_teallotus",
+     "frames": "1-33",
+     "drop": [
+      14,
+      17,
+      20,
+      23
+     ],
+     "recolour": [
+      {
+       "op": "gradient",
+       "lo": 330,
+       "hi": 90,
+       "a": 200,
+       "b": -0.6,
+       "minSat": 0.12
+      }
+     ],
+     "anchor": {
+      "row": 160,
+      "at": "feet"
+     },
+     "factor": 1.3
+    }
+   ]
+  },
+  {
+   "id": "tiger",
+   "role": "target",
+   "effect": "damage",
+   "scale": 3,
+   "ms": 80,
+   "lead": 10,
+   "layers": [
+    {
+     "sheet": "fx_f2_saberspineseal",
+     "frames": "0-29",
+     "recolour": [
+      {
+       "op": "gradient",
+       "lo": 330,
+       "hi": 90,
+       "a": 200,
+       "b": -0.6,
+       "minSat": 0.12
+      }
+     ],
+     "anchor": {
+      "row": 97,
+      "at": "body"
+     },
+     "factor": 1.4
+    }
+   ]
+  }
+ ]
+}

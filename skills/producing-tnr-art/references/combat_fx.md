@@ -37,10 +37,18 @@ line citations, and the size rule below supersedes its fixed 2.5 (upstream `8bd6
   WebP, byte ceiling), not `artpreflight.py --type STATIC`: the spec's STATIC target is square circle-masked map-pin
   art and refuses a wide ground image on aspect.
 - Anything flat on the floor (ripples, rings, marks) is painted from straight above and squashed 2:1 by the script.
-- Clips draw over fighters, portraits and HP bars; ground images draw under them. Character clips sit best with their
-  visual centre about 15% above the frame centre.
+- Clips draw over fighters, portraits and HP bars; ground images draw under them.
+- **Where the fighter stands inside a clip** (game source `combatActors.ts`, `combatEffects.ts`): the clip square and
+  the ground image are centred on the hex centre; a fighter's feet are 0.1-0.15 tile heights above the hex's bottom
+  edge. In clip terms, with `h` the tile height: **feet 0.4 h below the clip centre, body centre about 0.4 h above
+  it, head about 1.2 h above it.** At scale 3 the clip spans 1.5 h above and below its centre, so art can rise at
+  most 1.9 h above the feet before the square crops it (FCF v6's pillar). A ring "on the feet" sits 0.4 h below the
+  centre, not at it (Rengoku Rō's first previews put the figure wrong and the ring had to move). `fx_recipe.py`
+  anchors layers with these names (`feet`, `body`, `top`) and its board preview draws stand-in fighters to match.
 
 ## 3. Design rules (house style)
+
+These hold however the clip is made; `references/duelyst.md` is how most clips are made now.
 
 From shipped 2D grid-tactics games, mainly OpenDuelyst (a browser tactics game whose whole effects library is CC0,
 `github.com/open-duelyst/duelyst`, `app/data/fx.js` and `app/resources/fx/`), and VFX timing practice. They exist
@@ -76,19 +84,39 @@ because our early clips were inconsistent and one area jutsu (FCF v4) turned int
    (section 5).
 8. **Clear the stock clip** on other tags of the same jutsu when it would play on every tile over the new art (an
    art-only change; the director decides).
+9. **One visual tag, one caster clip.** At most one `visual` tag per jutsu (RUL-2026-11-16-165), and one clip per
+   cast on the caster: two SELF tags with appears play on top of each other (White Tiger kept the gates on the buff
+   and cleared the afterburn's clip).
+10. **Buffs are cast-only** (RUL-2026-11-17-166): no lingering `staticAnimation` on a buff or self tag; "there's so
+    many buffs in TNR it would be a mess if they all stayed". Play the art once at cast and clear any stock loop.
+11. **Tell travel with timing, not movement.** A clip stays on its own hex, and every clip of one action starts at
+    the strike. A projectile or creature "flies" when the caster's clip ends in a launch and the target's clip opens
+    with blank lead frames that cover the flight (White Tiger's tiger waits 10 x 80 ms for the gates to open;
+    Phoenix Flame Strike's target strip waits 17 frames while the bird leaves the caster).
 
 ## 4. Delivery and sharpness
 
 - Sheets: **one vertical strip, one column, square frames**, top to bottom. `frames` 1-100, `speed` 1-100 ms/frame.
-  Keep strips at or under about 80 frames (mobile 4096 px texture limit). 1-2 px transparent margin top and bottom of
-  each frame (linear sampling bleeds between frames).
+  1-2 px transparent margin top and bottom of each frame helps where linear sampling bleeds between frames.
 - Lossless WebP, real transparency (normal alpha blending; a dark background shows as a box), under the
-  `ANIMATION` byte ceiling in `25x_DATA_art_spec.json`. Frames at least 128 px (content lists show 112).
-- **Battles fetch a 50 px-wide rendition with linear filtering** on Bunny-routed hosts (UploadThing, `utfs.io`,
-  `ui0arpl8sm.ufs.sh`): the whole strip is resized to 50 px wide, so detail finer than 1/50 of a frame is lost and
-  then upscaled (`processing.md` laws 79, 84). Other hosts load native. At scale 3 on desktop that is a large
-  upscale: design bold shapes and glow, not hairlines. Before trusting fine detail, upload one test strip hidden and
-  look at it in a real browser battle.
+  `ANIMATION` byte ceiling in `25x_DATA_art_spec.json`.
+- **The host decides what the battle loads** (`src/utils/image.ts`, `assets.ts`):
+
+| Host | Battle loads | Consequence |
+|---|---|---|
+| Bunny-routed (`utfs.io`, `ui0arpl8sm.ufs.sh`, the legacy Forge image-pack route) | the strip resized to **50 px wide**, linear filtering | detail finer than 1/50 of a frame is lost, then upscaled: bold shapes and glow, not hairlines (`processing.md` laws 79, 84) |
+| The director's own UploadThing (`bbenpyo9uu.ufs.sh`) and any other host | the strip **at native size** | sharp at any size, but see the height rule |
+
+- **Height rule: frame px x frames <= 4096.** A battle clip is one WebGL texture (one column) and combat effects have
+  no texture-size guard; phones cap textures at about 4096 px, so a taller native strip draws as a **black box**
+  (Rengoku Rō's 300 px strips, 6900 and 10500 px tall, on the review desk 2026-11-17; fixed by re-cutting to 178 and
+  116 px, push/630). Desktops allow 16384, so a desktop check does not catch it. `fx_recipe.py` and
+  `duelyst_kit.py strip` size every strip to fit and refuse one that does not; apply it to Bunny-hosted art too, in
+  case it is moved to a native host later.
+- Size from frame count: 4096 // frames (29 frames -> 140 px, 40 -> 102). A clip at scale 3 shows about 111 CSS px
+  tall at desktop 1x (37 px tiles), so 100-140 px source is enough; content lists show 112 px. Trim frames before
+  shrinking pixels when a clip runs long.
+- Before trusting fine detail, upload one test strip hidden and look at it in a real browser battle, on a phone.
 
 ## 5. Gotchas that cost a live fix
 
@@ -110,57 +138,29 @@ because our early clips were inconsistent and one area jutsu (FCF v4) turned int
 
 ## 6. Production pipeline
 
-1. **Plan against section 3** (hero vs applied piece, tessellation, timing) before briefing the art partner.
-2. **Read the record** (connector `jutsu.getAll {name}` / `jutsu.get` with `select` of the effect fields; `gameAsset.get`
-   for current clips). Note targeting, method, effects, current clips and whether an AI equips it.
-3. **Brief** in `docs/handoffs/<NAME>_ANIMATION_ART_REQUEST.md`: the record, where the art plays and why that tag
-   carries it, concept, palette from the icon, per-clip beats with frames x ms, scale, deliverables, checks, and the
-   live edit (art fields only). Give the director a copy-ready prompt for the art partner.
-4. **Painted sources, not finished strips.** Ask for key poses or layers on a 1254 px transparent canvas (hero pose,
-   ground image, overlays, flat-on floor layers). Generators cannot paint consistent frame sequences.
-5. **Assemble by script** under `art/jutsu_icons/<name>/animation/` (examples: `forbidden_chakra_fury/animation/
-   build_strips.py`, `chakra_overflow/animation/build_strip.py`, `art/mother_of_echoes_fx/`, Headless Rider
-   `art/halloween_headless_rider/fx/fxkit.py`). Animate one drawing on continuous curves; cross-fading separate
-   drawings makes shapes jump. Dissolve, never a grey fade.
-6. **Board preview, always**: `python3 scripts/fx_board.py board --appear A.webp --loop L.webp --end E.webp --ground
-   G.webp --scale 3 --out preview.gif` draws the real board (2:1 hexes, the spiral patch, every tile at once) with the
-   appear and loop composited on one clock, loop on top, as the engine does. A square tile preview lies about size: it
-   has cost one wrong scale already. Gate ground images with `fx_board.py ground-check G.webp`.
-7. **Live** (director go per job): Forge creates each asset hidden, a follow-up edit unhides them, then one full-record
-   `jutsu.update` changes only the art fields and `animationScale`; read back. Fresh filenames for corrections.
+1. **Read the record** (connector `jutsu.get` with `select` of the effect fields; `gameAsset.get` for current clips).
+   Note targeting, method, every effect tag and its current clips, the battle text, and whether an AI equips it. Save
+   the read under `state/<slug>/`.
+2. **Plan against section 3:** which tag carries the hero piece (caster or single target, scale 3), which carries
+   the applied piece (area tag, scale 2, tessellating), what is cleared (stock clips, buff loops), how the timing tells
+   the story across clips.
+3. **Build from the library first** (`references/duelyst.md`): `duelyst_kit.py find`/`sheet` to pick pieces by eye,
+   then a recipe for `fx_recipe.py build` (strips, board preview, lock file). A custom script that imports the kit is
+   for what a recipe cannot say (Phoenix Flame Strike's drawn birth frames, FCF v6's pillar over our own field).
+4. **Paint only when nothing fits** (ground images, tessellating area fields, a subject the library lacks). Brief in
+   `docs/handoffs/<NAME>_ANIMATION_ART_REQUEST.md` with a copy-ready prompt for the art partner; ask for key poses or
+   layers on a 1254 px transparent canvas, never frame sheets, and assemble by script under
+   `art/jutsu_icons/<name>/animation/` (examples: `forbidden_chakra_fury/animation/build_v5.py`,
+   `art/mother_of_echoes_fx/`). Animate one drawing on continuous curves; dissolve, never a grey fade.
+5. **Board preview, always**, at true scale with fighters where the engine puts them: `fx_recipe.py build` writes one;
+   for finished strips use `fx_board.py board --appear A.webp --loop L.webp --end E.webp --ground G.webp --scale 3`.
+   Show the director the preview (a Discord-ready GIF for staff review when asked) and wait for approval.
+6. **Upload job** (`building-tnr-content` push pattern, e.g. push/627-629): hidden asset creates from the lock file
+   (filename, frames, speed, `licenseDetails`), an unhide by literal id from the results bundle, then the jutsu edit:
+   art fields and `animationScale` only, the full effects array re-sent, as a suggestion ticket (category ANIMATION)
+   or a direct edit on the director's go. Law 18 when an AI equips it. Fresh filenames for corrections.
 
 ## 7. What the director decides
 
-Art direction, palette, scale, whether a stock clip is cleared, and acceptance. Never a balance change to get art onto
-the board: use the existing tag or a `visual` tag.
-
-## 7. Duelyst library (CC0)
-
-OpenDuelyst (a browser tactics game whose source and art were released CC0 1.0 in 2020) is our stock library:
-about 208 effect sheets and 696 animated units (idle, run, attack, hit, death, breathing, cast), bold pixel art.
-Timing is per animation from the source (mostly 80 ms; some 40 ms bursts, slower idles up to 1 s); a sequence with no
-source timing is marked `"msFrom": "default"` (80 ms). `scripts/duelyst_kit.py` reads it from a cache outside the repository (`$TNR_DUELYST`, default
-`~/.cache/tnr-duelyst`, pinned commit); the repository holds only `data/duelyst_catalog.json`.
-
-1. `duelyst_kit.py fetch` once per machine, then `catalog` only if the pin changes.
-2. **Find:** `find --kind fx --hue teal --shape tall`, `find --kind unit --action attack serpent`, or name terms;
-   `sheet ... --out c.gif` plays the matches side by side, each through once. A `sheet:prefix` name must be an
-   exact animation prefix (`find` prints them). Judge by eye: names lie (`spiritofthewild` is a wave of
-   foam that reads as a flock of gulls at board size; the director rejected it for Coral Maelstrom).
-3. **Fit:** build a per-jutsu script (precedent: `art/duelyst_fx/rengoku/build_rengoku.py`,
-   `art/duelyst_fx/thalmyr/build_reefward.py`) that imports the kit: anchor the art to the target's feet (Duelyst
-   sheets sit low in their frame), recolour (`tint` for a whole ramp, `hue_swap` for one part: the gold ring of
-   `fountainofyouth` became coral while the water stayed blue), trim or reorder frames, keep the source timing
-   unless the replay length matters (Rengoku's ring hold was cut to 1.6 s), and export whole-step NEAREST.
-   **Frame size x frames must stay at or under 4096 px**: art on a native host (the director's UploadThing) loads
-   full size, and phones draw a taller strip as a black box (Rengoku Rō's 300 px strips, 2026-11-17). `strip` and
-   `write_strip` refuse taller strips and print the largest size that fits.
-4. **Preview** on the real board at true scale before anything is uploaded; check a dark lead-in for loops that
-   start with the strike (section 4).
-5. **Provenance:** `licenseDetails` names "CC0 1.0 - OpenDuelyst (open-duelyst/duelyst), <sheet>, adapted for TNR".
-
-Area tags still follow the repetition rule: a Duelyst piece made for one unit, stamped on every tile of a spiral,
-turns into a field of identical clusters (FCF trial with `shadowcreep`). Hero pieces and per-target clips are where
-the library shines; area fields use tile-sized pieces (`explosionblue` geysers) or our own tessellating art.
-Units' body animations can become AI sprite sheets through the Sprite Studio library (`spriteAnimation.create`,
-no credits); that path needs its own sheet-layout check before use.
+Art direction (including which library piece and recolour), palette, scale, whether a stock clip is cleared, and
+acceptance. Never a balance change to get art onto the board: use the existing tag or the one `visual` tag.

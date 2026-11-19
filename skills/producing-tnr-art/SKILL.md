@@ -5,8 +5,10 @@ description: Makes and processes all art for The Ninja RPG (TNR) - item, jutsu a
 
 # Producing TNR art
 
-Art is generated outside (an image model or the director's art partner), processed here with Pillow, judged by eye
-against the game's real rendering, and uploaded hidden through Forge or the builder. No manifests or schema
+Still art is generated outside (an image model or the director's art partner), processed here with Pillow, judged
+by eye against the game's real rendering, and uploaded hidden through Forge or the builder. **Battle animations are
+composed here from the OpenDuelyst effects library (CC0)**: find a piece, write a recipe, build the strips and a
+real-board preview by script; painted art is the fallback when the library has nothing that fits. No manifests or schema
 validators on this side; the shared contract with content is the `@img` filename (`building-tnr-content` pipeline).
 
 ## Doctrine (rendered)
@@ -45,14 +47,17 @@ docs/DOCTRINE.md before building anything.
 |---|---|---|
 | Icons, avatars, scenes | `references/prompts.md` (scaffolds, house style, generator failures), `references/processing.md` (format, packaging, gameAsset write, scene wiring) | `rawqc.py`, `chroma.py`, `artpreflight.py`, `shotlist.py` |
 | Jutsu-icon families, studio sessions, art lookup, outside art requests | `references/studio.md` | `jutsu_studio.py`, `style_refs.py` |
-| Combat animations, ground tiles, battle FX | `references/combat_fx.md` (house design rules in section 3) | `fx_board.py`, a per-job `build_strips.py` |
+| Combat animations, battle FX | `references/combat_fx.md` (engine, geometry, house rules), then `references/duelyst.md` (library, recipes, worked examples) | `duelyst_kit.py`, `fx_recipe.py`, `fx_board.py` |
+| Ground tiles, painted FX (nothing in the library fits) | `references/combat_fx.md` sections 2 and 6 | `fx_board.py`, a per-job build script |
 
 ## How the game shows art (what makes this hard)
 
 - **Icons, avatars and backgrounds are stretched** to their box (no `object-fit`): a wrong ratio distorts.
   **Scene characters are width-scaled**: a wrong aspect makes them short, and tall art is clipped. The asset editor
   previews everything as a square avatar, so judge non-square art on a dark composite at the target aspect.
-- **Source above the delivered width is discarded by the CDN**; battle clips arrive as a 50 px-wide rendition.
+- **Source above the delivered width is discarded by the CDN.** Battle clips depend on the host: Bunny-routed hosts
+  shrink a strip to 50 px wide; the director's own UploadThing loads it native, and phones draw a strip taller than
+  4096 px as a black box (`combat_fx.md` section 4).
 - **Battle clips are squares sized from the tile's height** (`animationScale` 1-3) on a board squashed 2:1; every
   tile one action hits plays at once, and actions replay one after another. Preview on the real board
   (`fx_board.py board`), never on a square tile.
@@ -70,8 +75,8 @@ One asset at a time, QC between each; batches bake one prompt fault into every i
    resting on a surface.
 2. **Process:** `chroma.py in.png out.webp --target <T> [--frame full|bust] [--key magenta] --qc qc.png` (keys, crops,
    pads, exports per spec; refuses wrong extensions and undersized sources). `JUTSU_ICON` may keep a designed opaque
-   background: never key it. Animations: assemble strips by script from painted layers (`combat_fx.md` section 6;
-   design rules in section 3).
+   background: never key it. Animations: build from a recipe (`duelyst.md`); painted layers are assembled by script
+   only when the library has nothing that fits (`combat_fx.md` section 6).
 3. **QC on dark, mid and bright grounds** (spill and chewed edges hide on white); FX on the board preview.
 4. **Preflight:** `artpreflight.py out.webp [--manifest m.json] [--max-bytes N]`, zero errors, and say what you ran.
 5. **Record** slug, type, filename, pixels and bytes (the picker fallback reads the byte ledger).
@@ -81,8 +86,8 @@ One asset at a time, QC between each; batches bake one prompt fault into every i
 Short concrete prompts beat long ones; objects work, phenomena and amorphous chunks fail, and after three failed
 re-descriptions switch to reference-image prompting. Glow is rim light on edges only (auras and discs get keyed away)
 and leads the negatives. Enclosed spaces are explicitly the key colour. One subject per clean generation context:
-leftover context once turned an icon into a Forge screenshot. For animations, ask for painted layers or key poses,
-not frame sheets.
+leftover context once turned an icon into a Forge screenshot. Animations come from the library first; when one must
+be painted, ask for painted layers or key poses, not frame sheets.
 
 ## Scripts
 
@@ -94,7 +99,9 @@ not frame sheets.
 | `shotlist.py` | every asset a quest needs, generated from a `quests.get` capture with filenames and prompts |
 | `style_refs.py` | the approved reference pack: `select`, `list`, `verify --repo-root .` (provenance), `--selftest` |
 | `jutsu_studio.py` | ZIP-first jutsu-icon family studio: `doctor`, `intake`, `lock-check`, `attempts`, `compare`, `finalize`, `audit-gallery` |
-| `fx_board.py` | combat FX: `board` (real board GIF, appear and loop on one clock), `ground-box`, `ground-check` (ground image gate), `strip-info`, `--selftest` |
+| `duelyst_kit.py` | the Duelyst library: `fetch` (pinned cache outside the repo), `catalog`, `find`, `sheet` (contact GIF), `strip`, `--selftest` |
+| `fx_recipe.py` | battle animations from a JSON recipe: `build` (strips, board preview, `recipe.lock.json` for the upload job), `check`, `example`, `--selftest` (golden White Tiger) |
+| `fx_board.py` | combat FX from finished strips: `board` (real board GIF, appear and loop on one clock), `ground-box`, `ground-check` (ground image gate), `strip-info`, `--selftest` |
 
 ## Contracts
 
