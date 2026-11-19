@@ -31,6 +31,8 @@ import { loadJson, petFor, PLAYER_VARIANTS, playerQueryUser, playerRules } from 
 import { assembleFloor, mulberry32, seedEntropy, tickClock } from "./sim";
 import { AI_PROFILE_MAX_RULES } from "./rulecap";
 
+/** --skip clearTide,cleanse,stance,bw1,deep: answers this player never gives (one-miss ablations). */
+const SKIP = new Set((opt("skip") ?? "").split(",").filter(Boolean));
 const W = SIZE.width;
 const H = SIZE.height;
 const cellsWhere = (pred: (c: number, r: number) => boolean): Cell[] => {
@@ -296,7 +298,7 @@ export const runFight = async (P: V4, seed: number, readP: number, trace = false
     /** A reading player gets each situation right with probability readP (one roll per situation per round). */
     const reads = (sit: string) => {
       const k = `${b.round}:${sit}`;
-      if (!readMemo.has(k)) { const ok = readP >= 1 || readRand() < readP; readMemo.set(k, ok); if (!ok) f.misreads++; }
+      if (!readMemo.has(k)) { const ok = !SKIP.has(sit) && (readP >= 1 || readRand() < readP); readMemo.set(k, ok); if (!ok) f.misreads++; }
       return readMemo.get(k)!;
     };
     const free = (c: Cell) => !b.usersState.some((u) => u.longitude === c[0] && u.latitude === c[1] && stillInBattle(u, b.usersEffects));
