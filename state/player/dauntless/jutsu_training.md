@@ -63,7 +63,7 @@ rules win where this file differs). Plan and 14-day simulation: Claude artifact 
 2. Scaling damage/setup jutsu near the cap: Soul Laceration Mirage `GlgS3FVoQ6F8k3RAo_Uht` (19),
    Thunderbolt Fury `INuy-ITnPsH22eUoGQgwW` (18), Phantom Requiem `kbrQuf3nYNHoKEvusATTO` (18),
    Cyclone Palm Strike `pqCqPemRNk3ht-SFrjq5G` (18), Ethereal Nexus `iktsCP-RjIhlYlsTg-JTN` (10).
-Owned already at 25: Chakra Edge, Gust Armor (Wind potency), Limit Breaker (transfer 2026-11-16), Mental Fortress (transfer 2026-11-17), Divine Pulse (transfer 2026-11-18), Ryūsa Kōka (transfer 2026-11-18).
+Owned already at 25: Chakra Edge, Gust Armor (Wind potency), Limit Breaker (transfer 2026-11-16), Mental Fortress (transfer 2026-11-17), Divine Pulse (transfer 2026-11-18), Ryūsa Kōka (transfer 2026-11-18), Earth Armor (transfer 2026-11-19).
 3. Director (2026-11-16): "I want all Jonin level elemental and none jutsu trained next." Jonin-rank
    (requiredRank JONIN), non-bloodline, element None or one of mine (Lightning, Earth), at least one effect
    powerPerLevel > 0, not yet at 20 (found with `jutsu.getAll {rank:[JONIN], excludedJutsuTypes:[AI,PETS,BLOODLINE]}`).
@@ -382,3 +382,7 @@ very expensive (Cyclone Palm Strike level 19 quoted 1,949,575 ryo for one level;
 | 2026-11-19 01:23 | Eight Fist Style: Earthen Grasp, Ganpaken | 2 each (from 1) | 3,106 total | queued (4 waiting, ends ~03:00, ~98 min). Pocket 10.54M, no withdrawal. Intelligence and willpower both at the 400,000 cap, so 5,050 energy left unspent; asleep in 177 (read back) |
 | 2026-11-19 02:23 | Summoning: Lord Pengu (donor, NORMAL C) | 6 | 300 | queued behind the active Primate Assimilate 10 (donor, ends 02:40) and Eight Fist Style: Earthen Grasp, Ganpaken 2 (queue ended ~03:00, ~38 min); direct-only fill would have held ~58 min, under 70. Partway donor first. Primate still training level 10, so no drain this pass (drain next pass). No donor at 10+ (Pengu 5, Primate 9→10 training, Stone of the Withering 5 retired, Fist of 10,000 Volts 1, Iron Fist 1), so no transfers |
 | 2026-11-19 02:23 | Lightning Release: Thunder Edge | 2 (from 1) | 1,553 | queued (4 waiting, ends ~03:51, ~89 min). No level-1 C targets left; B level-1 targets next. Pocket 10.53M, no withdrawal. Intelligence and willpower both at the 400,000 cap, so 5,050 energy left unspent; asleep (read back) |
+| 2026-11-19 06:23 | Bank withdrawal | | +10,000,000 | pocket was 129,264, under 2M, so `bank.toPocket` 10M |
+| 2026-11-19 06:23 | Transfer Primate Assimilate -> Earth Armor, 5 levels (Earth Armor 20-25; Primate Assimilate 10-5) | | 0 | done ("Level transferred for 0 reputation points", reputation delta 0), read back in getRecentTransfers. One transfer per refill; Primate refill continues from 5. Passes 03:23-05:23 did not run (run lock held by the pilot hunt), so the queue had been empty since ~03:51 |
+| 2026-11-19 06:24 | Primate Assimilate (donor, NORMAL B) | 6 | 497 | started (queue was empty; ends 07:10). Partway donor, B first (best B targets at 20 vs best C at 19); direct-only fill would have held ~50 min, under 70 |
+| 2026-11-19 06:24 | Retribution, Thunderbolt Fusillade, Quaking Earth Strike, Eclipse Cyclone | 2 each (from 1) | 6,212 total | queued (4 waiting, ends ~07:50, ~86 min). Pocket 10.12M. Intelligence and willpower both at the 400,000 cap, so 5,050 energy left unspent; asleep in 177 (read back) |
