@@ -29,20 +29,29 @@ import os
 import re
 import sys
 
+SAFE_KEY = re.compile(r"[A-Za-z0-9_\-]+")
+
+
+def _key(x):
+    """One path segment from a record id: only [A-Za-z0-9_-], whole string, or refuse."""
+    if not isinstance(x, str) or not SAFE_KEY.fullmatch(x):
+        raise SystemExit(f"refusing unsafe record id {x!r}")
+    return x
+
+
 ROUTES = {
-    "profile.getAi": lambda i, d: f"ai/{i['userId']}.json",
-    "ai.getAiProfile": lambda i, d: f"profiles/{i['id']}.json",
-    "jutsu.get": lambda i, d: f"jutsu/{i['id']}.json",
-    "item.getUserItem": lambda i, d: f"user_items/{i['id']}.json",
-    "item.get": lambda i, d: f"items/{i['id']}.json",
-    "bloodline.get": lambda i, d: f"bloodlines/{i['id']}.json",
-    "pets.getPet": lambda i, d: f"pets/{i['petId']}.json",
-    "combat.getBattleEntries": lambda i, d: f"battles/{i['battleId']}.entries.json",
+    "profile.getAi": lambda i, d: f"ai/{_key(i.get('userId'))}.json",
+    "ai.getAiProfile": lambda i, d: f"profiles/{_key(i.get('id'))}.json",
+    "jutsu.get": lambda i, d: f"jutsu/{_key(i.get('id'))}.json",
+    "item.getUserItem": lambda i, d: f"user_items/{_key(i.get('id'))}.json",
+    "item.get": lambda i, d: f"items/{_key(i.get('id'))}.json",
+    "bloodline.get": lambda i, d: f"bloodlines/{_key(i.get('id'))}.json",
+    "pets.getPet": lambda i, d: f"pets/{_key(i.get('petId'))}.json",
+    "combat.getBattleEntries": lambda i, d: f"battles/{_key(i.get('battleId'))}.entries.json",
     "misc.getDmgConfig": lambda i, d: "runtime/dmg_config.json",
     "misc.getSharedCooldowns": lambda i, d: "runtime/shared_cooldowns.json",
 }
 PERSISTED = re.compile(r"Full output saved to: (\S+\.json)")
-SAFE_KEY = re.compile(r"^[A-Za-z0-9_\-]+$")
 
 
 def _text(content):
@@ -96,13 +105,19 @@ def collect(transcript):
                         continue
                     inp = call.get("input") or {}
                     rel = ROUTES[ep](inp, data)
-                    if not all(SAFE_KEY.match(p.replace(".entries", "").replace(".json", "")) for p in rel.split("/")):
-                        raise SystemExit(f"refusing unsafe output path {rel!r}")
                     src = {"endpoint": ep, "input": inp, "readAt": o.get("timestamp")}
                     out[rel] = {"_source": src, "data": data}
                     if ep == "item.getUserItem" and isinstance(data, dict) and isinstance(data.get("item"), dict):
-                        out[f"items/{data['item']['id']}.json"] = {"_source": {**src, "via": "item.getUserItem.item"}, "data": data["item"]}
+                        out[f"items/{_key(data['item'].get('id'))}.json"] = {"_source": {**src, "via": "item.getUserItem.item"}, "data": data["item"]}
     return out
+
+
+def _inside(root, rel):
+    """Resolve rel under root and refuse anything that lands outside it (symlinks included)."""
+    path = os.path.realpath(os.path.join(root, rel))
+    if os.path.commonpath([root, path]) != root or path == root:
+        raise SystemExit(f"refusing output path outside {root}: {rel!r}")
+    return path
 
 
 def main(argv):
@@ -113,8 +128,9 @@ def main(argv):
         for k in sorted(found):
             print(k, found[k]["_source"]["readAt"])
         return 0
+    root = os.path.realpath(argv[2])
     for rel, doc in sorted(found.items()):
-        path = os.path.join(argv[2], rel)
+        path = _inside(root, rel)
         os.makedirs(os.path.dirname(path), exist_ok=True)
         with open(path, "w") as f:
             json.dump(doc, f, indent=1, sort_keys=True)

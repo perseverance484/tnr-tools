@@ -76,6 +76,13 @@ export const loadLibrary = (dirs: string[]): Library => {
   return lib;
 };
 
+/**
+ * What the sim does NOT model for a player (the battle query's relations below are left empty): character skills,
+ * titles, raid buffs, cooking buffs, village / clan / faction relations, ANBU squad, loadouts, sage mode, quests and
+ * bounties. A rebuild of a real account is exact only when that account had none of these active in the fight.
+ */
+export const PLAYER_OMISSIONS = ["skills", "titles", "raidBuffs", "cookingJobs", "village and faction relations", "clan", "anbuSquad", "loadout", "sageMode"];
+
 /** Relations the combat query supplies alongside a userData row. */
 export const queryShell = (aiProfile: any) => ({
   aiProfile,
@@ -166,6 +173,8 @@ export type PlayerSpec = {
   pets?: string[];
 };
 
+const SPEC_KEYS = new Set(["name", "level", "rank", "stats", "statBudget", "pools", "masteries", "elements", "preferredGenerals", "bloodlineId", "jutsu", "items", "rules", "pets", "_doc"]);
+
 const COMBAT_STATS = ["offence", "defence", "strength", "intelligence", "willpower", "speed"] as const;
 
 const userJutsu = (userId: string, rec: any, level: number, idx: number) => ({
@@ -203,6 +212,9 @@ export const rotationRules = (kit: any[]) => {
 
 /** A player row built on a donor userData row (any live AI row: same table, same columns). */
 export const playerRow = (lib: Library, spec: PlayerSpec, idx: number, donor: any, userIdOverride?: string) => {
+  const unknown = Object.keys(spec).filter((k) => !SPEC_KEYS.has(k));
+  if (unknown.length)
+    throw new Error(`player ${spec.name}: unsupported spec field(s) ${unknown.join(", ")}; the sim does not model ${PLAYER_OMISSIONS.join(", ")}`);
   const userId = userIdOverride ?? `user_sim_p${idx + 1}`; // ai_v2 treats ids containing "user_" as players
   const s: any = {
     level: spec.level, experience: 0, statsMultiplier: 1, poolsMultiplier: 1,
@@ -240,7 +252,9 @@ export const playerRow = (lib: Library, spec: PlayerSpec, idx: number, donor: an
   const simPets = (spec.pets ?? []).map((id) => {
     const doc = lib.pets[id];
     if (!doc?.pet) throw new Error(`player ${spec.name}: pet ${id} not in the library (pets.getPet)`);
-    return { pet: { ...revive(structuredClone(doc.pet)), userId }, jutsus: revive(structuredClone(doc.abilities?.jutsus ?? [])), skills: [] };
+    // the pet's abilities as pets.getPet returned them; the engine picks what the pet may use (selectPetBattleAbilities)
+    const skills = revive(structuredClone(doc.abilities?.skills ?? [])).map((x: any) => ({ ...x, userId }));
+    return { pet: { ...revive(structuredClone(doc.pet)), userId }, jutsus: revive(structuredClone(doc.abilities?.jutsus ?? [])), skills };
   });
   const bloodline = spec.bloodlineId ? lib.bloodlines[spec.bloodlineId] : null;
   if (spec.bloodlineId && !bloodline) throw new Error(`player ${spec.name}: bloodline ${spec.bloodlineId} not in the library`);
@@ -267,10 +281,16 @@ export const playerRow = (lib: Library, spec: PlayerSpec, idx: number, donor: an
   };
 };
 
+/** Everything the sim used for a player, for the results file. */
 export const describeRow = (u: any) => ({
   name: u.username, level: u.level, rank: u.rank, hp: u.maxHealth, cp: u.maxChakra, sp: u.maxStamina,
-  offence: u.offence, defence: u.defence, generals: [u.strength, u.intelligence, u.willpower, u.speed],
-  jutsu: u.jutsus.map((j: any) => `${j.jutsu.name}@${j.level}`),
+  offence: u.offence, defence: u.defence, generals: { strength: u.strength, intelligence: u.intelligence, willpower: u.willpower, speed: u.speed },
+  masteries: { ninjutsu: u.ninjutsuMastery, genjutsu: u.genjutsuMastery, taijutsu: u.taijutsuMastery, bukijutsu: u.bukijutsuMastery, bloodline: u.bloodlineMastery, sage: u.sageMastery },
+  preferredGenerals: [u.preferredGeneral1, u.preferredGeneral2].filter(Boolean),
+  jutsu: u.jutsus.map((j: any) => `${j.jutsu.name} (${j.jutsu.jutsuRank ?? "?"}-rank) @${j.level}`),
   items: (u.items ?? []).map((i: any) => `${i.equipped}:${i.item.name}@${i.level}`),
+  pets: (u._simPets ?? []).map((p: any) => p.pet.name ?? p.pet.id),
   bloodline: u.bloodline?.name ?? null, elements: [u.primaryElement, u.secondaryElement].filter(Boolean),
+  rotation: (u.aiProfile?.rules ?? []).map((r: any) => r.action?.description ?? r.action?.type),
+  notModelled: PLAYER_OMISSIONS,
 });

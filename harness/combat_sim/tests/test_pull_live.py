@@ -73,6 +73,36 @@ class PullLiveTest(unittest.TestCase):
         with self.assertRaises(SystemExit):
             pull_live.collect(p)
 
+    def test_nested_item_id_traversal_refused(self):
+        # item.getUserItem's nested item record carries its own id; it must be checked like the call input
+        p = self.transcript([_use("a", "item.getUserItem", {"id": "U1"}),
+                             _result("a", json.dumps({"id": "U1", "item": {"id": "../../escaped"}}))])
+        with self.assertRaises(SystemExit):
+            pull_live.collect(p)
+
+    def test_nested_item_traversal_writes_nothing(self):
+        p = self.transcript([_use("a", "item.getUserItem", {"id": "U1"}),
+                             _result("a", json.dumps({"id": "U1", "item": {"id": "../../escaped"}}))])
+        base = tempfile.mkdtemp()
+        out = os.path.join(base, "a", "b")
+        os.makedirs(out)
+        r = subprocess.run([sys.executable, os.path.join(HERE, "..", "tools", "pull_live.py"), p, out], capture_output=True)
+        self.assertNotEqual(r.returncode, 0)
+        self.assertFalse(os.path.exists(os.path.join(base, "escaped.json")))
+        self.assertEqual(os.listdir(out), [])
+
+    def test_non_string_and_partial_ids_refused(self):
+        for bad in [{"id": 5}, {"id": "ok/../x"}, {"id": "J1\n"}, {}]:
+            p = self.transcript([_use("a", "jutsu.get", bad), _result("a", json.dumps({}))])
+            with self.assertRaises(SystemExit, msg=repr(bad)):
+                pull_live.collect(p)
+
+    def test_inside_refuses_escape(self):
+        root = os.path.realpath(tempfile.mkdtemp())
+        self.assertTrue(pull_live._inside(root, "jutsu/J1.json").startswith(root + os.sep))
+        with self.assertRaises(SystemExit):
+            pull_live._inside(root, "../escaped.json")
+
     def test_cli_writes_files(self):
         p = self.transcript([_use("a", "jutsu.get", {"id": "J1"}), _result("a", json.dumps({"id": "J1"}))])
         out = tempfile.mkdtemp()

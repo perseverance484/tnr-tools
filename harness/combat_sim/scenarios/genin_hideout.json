@@ -1,5 +1,13 @@
 {
  "_doc": "Genin Rogue Hideout (built hidden live, manifest 664): 4 floors of rogue shinobi waves and the Rogue Captain. Enemy AI, jutsu and profiles are live reads from 2026-11-18. Player builds are assumptions, stated here: the level's full stat budget spread evenly over the six combat stats (the engine's own player stat scale), level pools, masteries at the floor (10), no gear, no pets, a four-jutsu genin kit at jutsu level 5 (L10) or 8 (L15), fought by the default rotation in model.ts (self buffs when ready, attacks in range, close in, basic attack). A dungeon floor fully restores the party, so each floor is its own fight; a wipe sends the party back to the tier start.",
+ "_assumptions": [
+  "Builds are test inputs, not live players: the four saved genin jutsu from the live library (all D-rank), at level 5 for L10 and 8 for L15, Lightning primary element.",
+  "Stats: the level's player stat budget (scaleUserStats) spread evenly over the six combat stats; pools from calcHP/CP/SP for the level; every mastery 10; no preferred generals, bloodline, gear, items or pets.",
+  "Not modelled: skills, titles, raid buffs, cooking, village and faction relations, clan, ANBU squad, loadouts, sage mode (see builds[].notModelled).",
+  "Player policy: the default rotation (self buffs when ready, each attack jutsu when the closest enemy is in range, close in, basic attack, end turn), executed by the engine's AI selector; with dodge on, a player standing on an enemy telegraph steps to the nearest unmarked hex first.",
+  "Each floor and the Captain are separate fights with a full restore between them, 10 seeds each, capped at 120 rounds (stalled at the cap counts as not won).",
+  "Parties are three copies of the same build."
+ ],
  "library": ["data/live/2026-11-18"],
  "mode": "dungeon",
  "seeds": 10,
