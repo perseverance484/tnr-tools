@@ -1,7 +1,7 @@
 # Upstream PR draft: let area effects vary their clips per tile
 
 - Upstream: `studie-tech/TheNinjaRPG`, base `main` a69344979 (rebase again before opening).
-- Branch: `perseverance484/TheNinjaRPG` `feat/area-tile-variation`, head ffabfd233 (one commit, authored as
+- Branch: `perseverance484/TheNinjaRPG` `feat/area-tile-variation`, head 2511e336c (one commit, authored as
   perseverance484 with the Claude co-author line, like PR #2575).
 - Demo GIFs (drag them into the PR description on GitHub, where the placeholders are):
   `art/jutsu_icons/forbidden_chakra_fury/animation/v9/pr_fcf_side_by_side.gif` (main),
@@ -96,3 +96,5 @@ By making this pull request, I confirm that I have the right to waive copyright 
   the same action lost its arrival). Applied in ffabfd233: lasting character arrivals are collected during the
   action and spawned as visuals after consequences when the fighter fell or fled (test for survive/fall, confirmed
   to fail without the fix).
+- Review round 6 (independent agent on ffabfd233): PASS, one P3 (helper split a doc comment from its type).
+  Applied in 2511e336c. Ready for the director's review.
