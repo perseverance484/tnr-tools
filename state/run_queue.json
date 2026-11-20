@@ -967,13 +967,13 @@
    "manifest": "push/671_isonade_v11.json",
    "what": "Isonade v11 (hidden): new hidden jutsu The Hold Floods (from round 11), Barnacle cd 6, Harpoon cd 4, Scour/Silt cd 8, churn rule removed, payoffs above reactions, pools 2.1, Arm Lash power 20, Black Water omen visual 2 rounds, Brine Brand text",
    "runner": "connector",
-   "status": "building",
+   "status": "done",
    "waitsFor": [
     "670"
    ],
    "thread": "Isonade (cmsg_01HemWcQ2jhMimRupeBNzcGR5Dz59Px25aKTDx96TrMaPb)",
    "build": "python3 push/671_isonade_v11.gen.py",
-   "note": "Director's yes 2026-11-20 14:07Z to build v11 hidden and test at full HP. Proposal state/flooded_stores_build/isonade_v11_proposal.md."
+   "note": "Director's yes 2026-11-20 14:07Z to build v11 hidden and test at full HP. Proposal state/flooded_stores_build/isonade_v11_proposal.md. Stage 1 job 671-mwp2l23r DONE (The Hold Floods 73SVJWf61S_XeacwzNXbt hidden, bundle tnr_results_1795184690564.json). Stage 2 job 671-mwp2nynq DONE, 12/12 verified, bundle tnr_results_1795185186367.json. Read-back 2026-11-20: Isonade 19/19 jutsu equipped, Old Hull kept (CHEST), pools 2.1 = 10,605 HP, cooldowns Barnacle 6 / Harpoon 4 / Scour 8 / Silt 8 (sim used 10), Black Water omen visuals 2 rounds, Brine text reworded; Grasping Arm 1/1 equipped, Arm Lash power 20; 20 rules, churn rule gone, flood rule (round > 10) before end turn. Live test pending."
   }
  ]
 }
