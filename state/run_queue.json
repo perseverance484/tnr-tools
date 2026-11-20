@@ -793,6 +793,28 @@
    "build": "python3 push/630_strip_recut.gen.py",
    "note": "Director: 'update your prompt appropriately to fix' (2026-11-17). Direct asset edits, ids unchanged (both suggestions stay valid). Prompt: state/prompt_strip_recut_630.md. Read back: image = new URL, frames/speed unchanged, hidden false. Strips uploaded to the director's UploadThing by a one-off workflow on claude/project-thread-un0ofw (sha-checked; state/recut_upload/uploaded.json). validate.py 0/0, plan 0 problems. Job 630-mwlimu0m 4/4 verified 2026-11-18 02:44 UTC; read back: image = new URL, hidden false; nAUh6EdgIUrPwLeyaeTPB 23 x 70, cMax_mQ9G8TGmWBB-DcVR 35 x 70, 92C_BYjulGUsL1y1X49Ee 29 x 70, A7JDFeATf0DL-Sdv_6ssF 40 x 80. Old uploads kept.",
    "result": "harvests/inbox/tnr_results_1794969847508.json"
+  },
+  {
+   "runner": "connector",
+   "status": "building",
+   "waitsFor": [],
+   "thread": "Isonade style C animations (cmsg_01HemWcQ2jhMimRupeBNzcGR4hGU9jBxCWbMqPsQ5oH5BA)",
+   "id": "683",
+   "manifest": "(by hand) /mnt/project-files/tnr-animation/isonade_styleC/ship/assets.json",
+   "what": "Isonade style C: 266 animation assets created hidden (folder isonadestylec), strips on the director's UploadThing",
+   "build": "python3 /mnt/project-files/tnr-animation/isonade_styleC/ship/gen_ship.py assets",
+   "note": "Director 2026-11-20: 'All of it. Go' (packs A-C) and 'Yes' to wiring tonight. gameAsset.create takes no image over the connector, so create + hidden image update per asset; ledger srcId->id in ship/ledger.json, read back by gameAsset.getAll exactFolder."
+  },
+  {
+   "runner": "connector",
+   "status": "building",
+   "waitsFor": [],
+   "thread": "Isonade style C animations (cmsg_01HemWcQ2jhMimRupeBNzcGR4hGU9jBxCWbMqPsQ5oH5BA)",
+   "id": "684",
+   "manifest": "(by hand) /mnt/project-files/tnr-animation/isonade_styleC/ship/jutsu/*.json",
+   "what": "Isonade style C wiring: 17 Isonade jutsu art fields (9 board-wide moves as 26-28 visual tags) + 5 description fields, law 18 re-equip on Isonade, unhide the 266 assets",
+   "build": "python3 /mnt/project-files/tnr-animation/isonade_styleC/ship/gen_ship.py jutsu <live jutsu.getAll read>",
+   "note": "Window 22:15-23:10Z agreed with the Stolen Stores release (before its push/673). Mechanics untouched (generator diffs every non-art field against the live read)."
   }
  ]
 }
