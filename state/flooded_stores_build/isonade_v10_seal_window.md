@@ -73,3 +73,18 @@ Sim, v10 with the omen forced at round 6 (bw1At 100) to find the edge, 3 seeds e
 
 5 is the longest guard that never touches Black Water's own seal, and nothing earlier than round 6 lets a player
 seal take hold. No live change.
+
+## Live hidden test (2026-11-20 05:04Z, battle x6uPpWW1Hx5EOYSAkevQF, director: "Run it at full HP")
+
+dauntless at 5,050/5,050, PvE kit (Danse Macabre in for Dragon's Tomb, Night's Testament HAND_2). WON in round 15
+at 1,975 of 5,750 HP. Log: battle-logs/2026-11-20_isonade_v10_seal_window_test_x6uPpWW1Hx5EOYSAkevQF.json.
+
+- Black Water waited: Isonade first dropped under 75% in round 8, and the omen fired that same turn. Its self seal
+  landed ("bloodline is sealed for the next 2 rounds"), so the 5-round guard had run out and did not block it.
+- Seal window paid: 2,036 (R9) and 2,596 (R10), against 400-1,000 for normal hits.
+- Stun guard held: Stunning Jab in R2 and R15, "Isonade resisted being stunned" both times.
+- Not tested: a player seal in rounds 1-5. Danse Macabre no longer seals (its live record is damage plus
+  decreasedamagegiven; the catalog in harvest 1794368544997 is stale), and dauntless owns no other seal jutsu.
+- Other beats as designed: pet killed by Arm Lash in R1 (3,636), Breaker 2,349 after Clear stripped the Tide buff,
+  Brand cleansed in R7 so the Undertow did 185 + 500 shield, Floods missed (standing on a crate), Deep shield
+  pierced by Night's Testament. Rounds with no damage from dauntless: 2, 3, 7. About 830 damage a round.
