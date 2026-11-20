@@ -1,6 +1,6 @@
-# DRIFT.md - upstream contract drift (2026-11-19)
+# DRIFT.md - upstream contract drift (2026-11-20)
 
-Upstream: studie-tech/TheNinjaRPG@26391b5154cb672a4c1a7102adee9712721da4b4
+Upstream: studie-tech/TheNinjaRPG@2804286e7d8366d32980d4bd6a1de82a7b097a57
 
 Signal only. Nothing below is adopted until the structural diff gate passes.
 
@@ -275,6 +275,8 @@ ADDITIONS
   const-member  CRAFTING_SERVICES  DISIMBUE
   const-member  CRAFTING_SERVICES  IMBUE
   const-member  CRAFTING_SERVICES  REPAIR
+  const-member  ContentAuditFocuses  splash
+  const-member  ContentProposalEntityTypes  SPLASH
   const-member  FARM_SHOP_ENTRY_TYPES  EXTRACTOR
   const-member  FARM_SHOP_ENTRY_TYPES  FERTILIZER
   const-member  FARM_SHOP_ENTRY_TYPES  PLOT
@@ -284,9 +286,7 @@ ADDITIONS
   const-member  HP_DAMAGE_KEYS  damage
   const-member  HP_DAMAGE_KEYS  drain_hp
   const-member  HP_DAMAGE_KEYS  poison
-  const-member  HP_DAMAGE_KEYS  residual
-  const-member  HP_DAMAGE_KEYS  wound
-  ... 140 more
+  ... 142 more
 
 BREAKING: 255 change(s) - DO NOT ADOPT (exit 1)
 ~~~
