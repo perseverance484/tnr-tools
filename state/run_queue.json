@@ -909,6 +909,19 @@
    "thread": "Isonade (cmsg_01HemWcQ2jhMimRupeBNzcGR5Dz59Px25aKTDx96TrMaPb)",
    "build": "python3 push/666_isonade_v7_marker_key.gen.py",
    "note": "Job 666-mwo87xh5 DONE, 5/5 verified, bundle tnr_results_1795133743259.json. Read-back: Brine marks Isonade elementalseal 100 (2 rds); Undertow needs elementalseal 100; Harpoon needs weakness 100; 18/18 equipped. Hidden live test -WYvnaEBLbzyKj5Wi4-rU: 3 roots, none tripped the Undertow; Undertow fired once (R6). Live now, hidden."
+  },
+  {
+   "id": "667",
+   "manifest": "push/667_isonade_v8_inert_markers.json",
+   "what": "Isonade v8 inert markers (hidden): the six chain markers become tag types no player effect can put on Isonade (Undertow, Brine, Black Water Floods, Swell Rises and Tidal Bore, Breaker, Tide); law 18",
+   "runner": "connector",
+   "status": "building",
+   "waitsFor": [
+    "666"
+   ],
+   "thread": "Isonade (cmsg_01HemWcQ2jhMimRupeBNzcGR5Dz59Px25aKTDx96TrMaPb)",
+   "build": "python3 push/667_isonade_v8_inert_markers.gen.py",
+   "note": "Reserved. The director (2026-11-21 00:25Z relay): \"Key all five\"."
   }
  ]
 }
