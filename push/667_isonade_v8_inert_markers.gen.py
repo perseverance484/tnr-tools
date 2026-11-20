@@ -79,6 +79,9 @@ for jid, capfile, old, rounds, new, _, _ in CHAIN:
     e = rec["effects"][idx[0]]
     assert e["target"] == "SELF" and e["rounds"] == rounds and e["description"] == "Isonade's rotation", (capfile, e)
     tag = {"type": new, "power": 100, "calculation": "static", **{k: e[k] for k in KEEP if k in e}, **EXTRA[new]}
+    # The jutsu validator takes every one of these tag types only with direction "offence" (live refusal of the
+    # Swell Builds edit, 2026-11-20 00:39Z: the repair branch wanted "offence"; the old increasepoolcost was "defence").
+    tag["direction"] = "offence"
     data = {k: v for k, v in copy.deepcopy(rec).items() if k not in DROP}
     if jid == OMEN:
         # The omen keeps its self seal: it is what switches off Isonade's hull DR and stun guard for the Black Water
