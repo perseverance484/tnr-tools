@@ -1,0 +1,162 @@
+{
+ "builder": "connector-direct",
+ "at": "2026-11-20T16:43:30Z",
+ "state": "DONE",
+ "outcome": "success",
+ "note": "push/690 + push/691 run by hand over the TNR connector (mcp_run needs a session transcript this session could not supply). Every write read back with getAi / getPlacementsForAi / quests.get. Nothing unhidden or activated.",
+ "entries": [
+  {
+   "name": "Foraging Deckhand",
+   "entity": "ai",
+   "op": "clone+edit",
+   "id": "mm3C1bhpSuturfXR1hyPS",
+   "from": "MVy7rX2FW9mvGQJNXUKCH",
+   "verdict": "match",
+   "readBack": {
+    "username": "Foraging Deckhand",
+    "npcTitle": "Stocking the galley",
+    "level": 100,
+    "rank": "JONIN",
+    "maxHealth": 6565,
+    "poolsMultiplier": 1.3,
+    "jutsus": {
+     "8h3LmvAax1p4n3wFF7a6L": "equipped",
+     "nLvw_ZErVp9KqK58gUFvW": "equipped"
+    },
+    "items": {
+     "mW6_ZGtGcCSuXGPhn-H4o": 10
+    }
+   },
+   "detail": "cloneAi left both jutsu equipped:false; fixed by updateAi with jutsus [] then the same list (law 18 sequence), read back equipped:true x2"
+  },
+  {
+   "name": "Galley Mate",
+   "entity": "ai",
+   "op": "clone+edit",
+   "id": "Ys9d_kNoBoVaAsFfh6_DN",
+   "from": "veKt6fjJqqdDBRJyYiTOT",
+   "verdict": "match",
+   "readBack": {
+    "username": "Galley Mate",
+    "npcTitle": "Stocking the galley",
+    "level": 100,
+    "rank": "JONIN",
+    "maxHealth": 8080,
+    "poolsMultiplier": 1.6,
+    "jutsus": {
+     "I87F3AHWm29RMFAAWn9qE": "equipped",
+     "iGfNxD8GOz-aklC8Yf9VH": "equipped",
+     "qe-RJhLtIJZ9hmw3uXENY": "equipped",
+     "vKH6yqFcb3Ct2O1z_mOhA": "equipped"
+    },
+    "items": {
+     "mW6_ZGtGcCSuXGPhn-H4o": 30,
+     "FuQzaFNlpyOUGlO5BtjyX": 3
+    }
+   },
+   "detail": "same equip fix as the Deckhand"
+  },
+  {
+   "name": "Deckhand placement 1",
+   "entity": "overworldPlacement",
+   "op": "create",
+   "id": "N142XR4hbrfHaIEE7Z-BL",
+   "verdict": "match",
+   "readBack": {
+    "ai": "mm3C1bhpSuturfXR1hyPS",
+    "HOSTILE": true,
+    "sector": 210,
+    "tile": [
+     20,
+     5
+    ],
+    "wanderRadius": 2,
+    "isActive": false
+   }
+  },
+  {
+   "name": "Deckhand placement 2",
+   "entity": "overworldPlacement",
+   "op": "create",
+   "id": "v329QMIIE8NCr5ScXwQrj",
+   "verdict": "match",
+   "readBack": {
+    "ai": "mm3C1bhpSuturfXR1hyPS",
+    "HOSTILE": true,
+    "sector": 210,
+    "tile": [
+     22,
+     6
+    ],
+    "wanderRadius": 2,
+    "isActive": false
+   }
+  },
+  {
+   "name": "Deckhand placement 3",
+   "entity": "overworldPlacement",
+   "op": "create",
+   "id": "1hQvqkHGhNw-XhBRQxREv",
+   "verdict": "match",
+   "readBack": {
+    "ai": "mm3C1bhpSuturfXR1hyPS",
+    "HOSTILE": true,
+    "sector": 210,
+    "tile": [
+     24,
+     7
+    ],
+    "wanderRadius": 2,
+    "isActive": false
+   }
+  },
+  {
+   "name": "Mate placement",
+   "entity": "overworldPlacement",
+   "op": "create",
+   "id": "W8WZoQ1q7T8-5nnosdDPm",
+   "verdict": "match",
+   "readBack": {
+    "ai": "Ys9d_kNoBoVaAsFfh6_DN",
+    "HOSTILE": true,
+    "sector": 210,
+    "tile": [
+     13,
+     1
+    ],
+    "wanderRadius": 1,
+    "isActive": false
+   }
+  },
+  {
+   "name": "Short Rations",
+   "entity": "quest",
+   "op": "edit",
+   "id": "Gqbnq2LVtIVBlLYlAnam1",
+   "verdict": "match",
+   "before": "state/shore_crew/short_rations_before_691.json",
+   "readBack": {
+    "hidden": true,
+    "questType": "overworld",
+    "requiredLevel": 30,
+    "maxLevel": 100,
+    "objectives": [
+     "d_ask@goag",
+     "b1@N142",
+     "d_d2",
+     "b2@v329",
+     "d_d3",
+     "b3@1hQv",
+     "d_mate",
+     "b4@W8WZ",
+     "w_done (3 Wreck Salvage, 1000 exp)",
+     "f_lost"
+    ],
+    "givePools": 100,
+    "opponent_scaled_to_user": true,
+    "failObjectiveId": "f_lost"
+   },
+   "updatedAt": "2026-11-20T16:43:14.561Z"
+  }
+ ]
+}

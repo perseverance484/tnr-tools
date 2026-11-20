@@ -1,0 +1,10 @@
+{
+ "note": "Made 2026-11-20 16:41Z with overworldAi.upsertPlacement, all isActive false. Read back with getPlacementsForAi. The engine refuses spawnCount > 1 on a specific sector + specific tile ('Copies need a random sector or a random tile'), and a random tile on this map would snap copies onto the south ice floe, so the 3 Deckhands are 3 single placements on sand that is sand in both the live v4 map and the v8 draft. (14,2) sits in the shrine's clearance, so the Mate moved to (13,1).",
+ "deckhand": [
+  {"id": "N142XR4hbrfHaIEE7Z-BL", "tile": [20, 5], "wanderRadius": 2},
+  {"id": "v329QMIIE8NCr5ScXwQrj", "tile": [22, 6], "wanderRadius": 2},
+  {"id": "1hQvqkHGhNw-XhBRQxREv", "tile": [24, 7], "wanderRadius": 2}
+ ],
+ "mate": [{"id": "W8WZoQ1q7T8-5nnosdDPm", "tile": [13, 1], "wanderRadius": 1}],
+ "common": {"interactionType": "HOSTILE", "sectorType": "specific", "locationType": "specific", "sector": 210, "spawnCount": 1, "groupMin": 1, "groupMax": 1, "wildOnly": true, "mapScale": 100, "isActive": false}
+}
