@@ -38,6 +38,8 @@ done here or left to it.
    vLnK4, 5vyAK, PKF3L, Xba6L, quxGk) should stay hidden. If it says some should, drop those from 673 phase 100,
    regenerate and re-check before step 5. At 23:20Z check that its done message arrived and the lock is free; if not,
    wait for it rather than start.
+   The director approved packs A to C at 17:41Z. Hidden creates and hidden image updates run earlier, in lock-held
+   chunks between 19:30 and 21:45Z; wiring, law 18, its unhides and a test battle stay in 22:15 to 23:10Z.
 4. **Shore crew spawns on (00:00Z, before 673).** From the Roaming crew thread (relay 16:44Z). For each of the 4
    spawns `N142XR4hbrfHaIEE7Z-BL`, `v329QMIIE8NCr5ScXwQrj`, `1hQvqkHGhNw-XhBRQxREv`, `W8WZoQ1q7T8-5nnosdDPm`: read the
    placement in full, `overworldAi.upsertPlacement` with that record changed only at `isActive: true`, read it back.
