@@ -87,3 +87,46 @@ What this shows:
   fixes it in the sim.
 - **Not yet keyed:** Swell Rises, Brine, Breaker and Tide can also be set off by player debuffs. Their markers are
   reset-to-100 types, so they need elementalseal or seal tiers too. Not designed yet.
+
+## Correction: thresholds cap at 100
+
+Rule thresholds are capped at 0 to 100 (the generators assert it, as job 658 did). So A2 went live with Brine marking
+Isonade **elementalseal 100**, not 1000, and the Undertow reads `has_effect elementalseal 100`. Elementalseal is still
+a clean marker: it keeps its power, and it is inert on Isonade, whose jutsu are all "None" element. The Harpoon rule
+moved to `has_effect weakness 100`. Weakness also comes from Black Water Floods, Surfaces and the Breaker, so the
+Harpoon follows them too.
+
+## Both fixes built and tested live, hidden (2026-11-20)
+
+The director (00:00:58Z): "Test both and we'll use the better solution". dauntless, solo, pet Little Horror, PvE
+armour with the Elite Smoke Bomb and Night's Testament, full HP at the start of each fight.
+
+| | 665 Brand key (C) | 666 marker key (A2) |
+|---|---|---|
+| Job | 665-mwo7y4y7, 1/1 verified | 666-mwo87xh5, 5/5 verified; read back: marker on Brine, 18/18 equipped |
+| Battle | ZRyU4eKYpOyPoKZmzVmAF, lost round 9 | -WYvnaEBLbzyKj5Wi4-rU, lost round 18 |
+| Root outside the Brand window | Round 1: no Undertow | Rounds 1, 8 and 15: no Undertow any time |
+| Undertow | Round 6, 2,284 uncleansed; **again round 8, 899** | Round 6 only. After Cleanse: 342 + 800 shield |
+| Why | The Brand's heal block lasts 3 rounds, the Undertow's cooldown is 2, so it fires twice per Brand | The marker lasts 2 rounds; cooldown 2 stops a second cast |
+| Cleanse | Skips the Undertow (it reads the Brand) | Halves it (removes the +100%); it still fires |
+| Reads | The closest target only (may be the pet) | Isonade itself |
+
+Logs: `/mnt/project-files/tnr/battle-logs/2026-11-20_isonade_v7_brandkey_test_ZRyU4eKYpOyPoKZmzVmAF.json` and
+`2026-11-20_isonade_v7_markerkey_test_-WYvnaEBLbzyKj5Wi4-rU.json`.
+
+Other things the 666 fight showed:
+
+- The Harpoon followed the Breaker as planned (round 4, 884 pierce), then kept coming every other round with
+  Barnacle Hide in between. Brine (cooldown 99) fired once, so the Undertow fires once a fight.
+- Ignition cast in round 3 did not cut that round's Breaker (2,349): its DR lands next round.
+- The loss came at round 18: Black Water Floods for 2,643 with dauntless on 1,177 and not on a crate.
+
+**Pick for "Strict": the marker key (666).** It is the one live now, since 666 replaced the whole rule list. The
+Undertow always comes once, no root can trip it, and Cleanse halves it. Keeping 665 instead would need a new job.
+
+**Known gap:** one player jutsu applies elementalseal at power 80. Two casts stack to 160 and would pass the
+Undertow's 100 check. Not tested.
+
+**Still keyed on effects a player can put on Isonade (not changed, per the director):** Black Water Floods (seal,
+18 player jutsu), Swell Rises (increasepoolcost, 16), Brine (healprevent, 4), Breaker (increasecooldown, 1) and
+Tide Draws Back (fleeprevent, 1).

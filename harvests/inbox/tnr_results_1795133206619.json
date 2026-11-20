@@ -1,0 +1,74 @@
+{
+ "builder": "forge-mcp",
+ "at": "2026-11-20T00:06:46.619Z",
+ "cfg": "forge",
+ "checks": null,
+ "state": "DONE",
+ "outcome": "success",
+ "postflight": {
+  "match": 1,
+  "diff": 0,
+  "unverified": 0,
+  "failed": 0,
+  "skipped": 0,
+  "unresolved": 0
+ },
+ "entries": [
+  {
+   "name": "Isonade: Undertow keyed on the Brand's heal block on the player (20 rules)",
+   "srcId": null,
+   "entity": "aiProfile",
+   "slot": "edit",
+   "op": "update",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 1,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "K_lwNvMPJLMsn1sUGXqZm"
+  }
+ ],
+ "captures": [],
+ "idmap": {},
+ "journal": {
+  "v": 1,
+  "jobId": "665-mwo7y4y7",
+  "manifestPath": "push/665_isonade_v7_brand_key.json",
+  "manifestNumber": 665,
+  "manifestHash": "09c61e20",
+  "startedAt": "2026-11-20T00:06:23.120Z",
+  "updatedAt": "2026-11-20T00:06:46.616Z",
+  "state": "DONE",
+  "pause": null,
+  "items": [
+   {
+    "idx": 0,
+    "entity": "aiProfile",
+    "op": "update",
+    "name": "Isonade: Undertow keyed on the Brand's heal block on the player (20 rules)",
+    "srcId": null,
+    "targetId": "K_lwNvMPJLMsn1sUGXqZm",
+    "payloadHash": "25cc49c2",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "K_lwNvMPJLMsn1sUGXqZm",
+    "snapshotKey": null,
+    "sentAt": "2026-11-20T00:06:29.382Z",
+    "createSentAt": null,
+    "confirmedAt": "2026-11-20T00:06:42.522Z",
+    "verifiedAt": "2026-11-20T00:06:46.616Z",
+    "error": null,
+    "aiProfileId": "3xrmVKb3oAZDQ7YzpGh-S",
+    "attempt": 1,
+    "assertedRules": true,
+    "diffs": [],
+    "verify": "match"
+   }
+  ]
+ }
+}

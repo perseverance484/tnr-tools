@@ -889,23 +889,26 @@
    "manifest": "push/665_isonade_v7_brand_key.json",
    "what": "Isonade v7 Brand key (hidden): Undertow rule reads the Brand on the player, not Isonade's move-lock",
    "runner": "connector",
-   "status": "building",
+   "status": "done",
    "waitsFor": [
     "658"
    ],
    "thread": "Isonade (cmsg_01HemWcQ2jhMimRupeBNzcGR5Dz59Px25aKTDx96TrMaPb)",
-   "note": "660-664 are taken on the genin dungeon branch (claude/project-thread-g9d6ix); 659 skipped to stay clear."
+   "note": "660-664 are taken on the genin dungeon branch (claude/project-thread-g9d6ix); 659 skipped to stay clear. Job 665-mwo7y4y7 DONE, 1/1 verified, bundle tnr_results_1795133206619.json. Hidden live test ZRyU4eKYpOyPoKZmzVmAF: root safe, Undertow fired twice (R6, R8). Superseded by 666, which replaced the whole rule list.",
+   "build": "python3 push/665_isonade_v7_brand_key.gen.py"
   },
   {
    "id": "666",
    "manifest": "push/666_isonade_v7_marker_key.json",
    "what": "Isonade v7 marker key (hidden): Brine's self marker becomes elementalseal 100; Undertow and Harpoon rekeyed; law 18",
    "runner": "connector",
-   "status": "building",
+   "status": "done",
    "waitsFor": [
     "665"
    ],
-   "thread": "Isonade (cmsg_01HemWcQ2jhMimRupeBNzcGR5Dz59Px25aKTDx96TrMaPb)"
+   "thread": "Isonade (cmsg_01HemWcQ2jhMimRupeBNzcGR5Dz59Px25aKTDx96TrMaPb)",
+   "build": "python3 push/666_isonade_v7_marker_key.gen.py",
+   "note": "Job 666-mwo87xh5 DONE, 5/5 verified, bundle tnr_results_1795133743259.json. Read-back: Brine marks Isonade elementalseal 100 (2 rds); Undertow needs elementalseal 100; Harpoon needs weakness 100; 18/18 equipped. Hidden live test -WYvnaEBLbzyKj5Wi4-rU: 3 roots, none tripped the Undertow; Undertow fired once (R6). Live now, hidden."
   }
  ]
 }

@@ -102,7 +102,8 @@ export const V4_DEFAULTS = {
   playerDg: 120, // gear stand-in damage given %: reproduces dauntless's live 12-round v3 kill (iso_cal.ts)
   // v7 probe (director 2026-11-19 23:47Z: a player's move-prevent must not throw off the fight)
   undertowMark: 100, undertowThreshold: 1, // A: Brine Brand's own moveprevent power and the Undertow rule threshold
-  undertowKey: "moveprevent", harpoonThreshold: 1, undertowOnBrand: false, // A': key type (elementalseal keeps its power; prevent tags are reset to 100 on landing); C: key on the Brand itself
+  undertowKey: "moveprevent", harpoonThreshold: 1, undertowOnBrand: false, brandKeyThreshold: 100, brandKeyType: "increasedamagetaken", harpoonKey: "elementalseal", // live caps rule thresholds at 100
+ // A': key type (elementalseal keeps its power; prevent tags are reset to 100 on landing); C: key on the Brand itself
   undertowCd: 2, undertowLow: false, // B: Undertow cooldown, and its rule moved down to just above Barnacle Hide
   sealMark: 100, sealThreshold: 1, // the same key for Black Water I (its omen's seal marker)
 };
@@ -170,7 +171,7 @@ export const buildRecords = (P: V4) => {
   add(jutsu(J4.breaker, { name: "Breaker", description: "The wave breaks over you. Then it hangs exposed for a round.", battleDescription: "The wave breaks over %target.", ...onPlayer,
     cooldown: 2, actionCostPerc: P.beatAp,
     effects: [hit(P.breakerPower, { appearAnimation: ANIM.surge }), T.pct("wound", P.breakerWound, 2, { friendlyFire: "ENEMIES", description: "Breaker wound" }),
-      tag("weakness", { target: "SELF", rounds: 1, dmgModifier: P.breakerWindow, ...statsAll, power: 100, staticAnimation: ANIM.eye, description: "Spent: takes extra damage" }), marker(MK.harpoon)] }));
+      tag("weakness", { target: "SELF", rounds: 1, dmgModifier: P.breakerWindow, ...statsAll, power: 100, staticAnimation: ANIM.eye, description: "Spent: takes extra damage" }), ...(P.harpoonKey === MK.harpoon ? [marker(MK.harpoon)] : [])] }));
   add(jutsu(J4.harpoon, { name: "Harpoon Line", description: "It spits the old harpoon back through you. Goes through damage reduction and shields.", battleDescription: "%user spits a rusted harpoon through %target.",
     ...onPlayer, cooldown: 2, actionCostPerc: P.beatAp, effects: [T.pierce(P.harpoonPower, { ...statsAll }), marker(MK.brand)] }));
   // --- Black Water I: the crates
@@ -213,7 +214,7 @@ export const buildRecords = (P: V4) => {
 };
 
 /** Rule order (P2: it acts after the player each round, so target_has_effect sees what the player cast this turn). */
-const utCond = (P: V4) => P.undertowOnBrand ? [C.tHas("increasedamagetaken", P.brandBeat)] : [C.has(P.undertowKey, P.undertowThreshold)];
+const utCond = (P: V4) => P.undertowOnBrand ? [C.tHas(P.brandKeyType, P.brandKeyThreshold)] : [C.has(P.undertowKey, P.undertowThreshold)];
 export const isoRules = (P: V4) => [
   R.jutsu(J4.churn, "SELF", []), // 10 AP; also prunes markers two rounds old before anything reads them
   // Set pieces can't be interrupted.
@@ -235,7 +236,7 @@ export const isoRules = (P: V4) => [
   // The opening chain, once each: Hide, Tide (Clear), Breaker, Harpoon, Brine Brand (Cleanse), Undertow.
   ...(P.undertowLow ? [] : [R.jutsu(J4.undertow, "SELF", utCond(P))]),
   R.jutsu(J4.brandBeat, "SELF", [C.has(MK.brand)]),
-  R.jutsu(J4.harpoon, "SELF", [C.has(MK.harpoon, P.harpoonThreshold)]),
+  R.jutsu(J4.harpoon, "SELF", [C.has(P.harpoonKey, P.harpoonThreshold)]),
   R.jutsu(J4.breaker, "SELF", [C.has(MK.breaker)]),
   R.jutsu(J4.tide, "SELF", [C.has(MK.tide)]),
   // Then the set pieces in order, each once, the first free round after its health line: crates, Tidal Bore (Smoke),
