@@ -25,7 +25,7 @@ M = 0xFFFFFFFF
 def tile_variation(col, row, mirror, stagger, alternate):
     """Port of combatEffects.tileVariation (uint32 maths as JavaScript's Math.imul and >>>)."""
     imul = lambda a, b: (a * b) & M  # noqa: E731
-    h = (imul(col, 0x27D4EB2D) ^ imul(row, 0x165667B1)) & M
+    h = (imul((col + 0x632BE5AB) & M, 0x27D4EB2D) ^ imul((row + 0x85157AF5) & M, 0x165667B1)) & M
     h = imul(h ^ (h >> 15), 0x2C1B3C6D)
     h = (h ^ (h >> 12)) & M
     return (bool(mirror) and h & 1 == 1, math.floor((h >> 8) / 0x1000000 * stagger + 0.5),
