@@ -74,7 +74,8 @@ WEEK = [
      'dailies now, from level 30: beat 3 Looting Deckhands and a Quartermaster\'s Mate for 3 Wreck Salvage. '
      'She offers it one time in five. Find her in sector 210, by the Wrecks.</i>'),
     ("n_eat", "What's eating the stores?",
-     'She pokes the fire. "That crew don\'t eat. Whatever\'s down there came in from the sea."'),
+     'She pokes the fire. "That crew don\'t eat. Old men on this coast talk about a shark with a hook for a tail. '
+     'It takes men off boats. Seems it\'ll take biscuit too."'),  # story v2, the director 2026-11-20 15:39Z
 ]
 BOARD_LINE = "The tide's been busy."
 
