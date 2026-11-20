@@ -1023,7 +1023,7 @@
    ],
    "thread": "Isonade (cmsg_01HemWcQ2jhMimRupeBNzcGR5Dz59Px25aKTDx96TrMaPb)",
    "build": "python3 push/stolen_stores_golive.gen.py",
-   "note": "Waits for the director's go for the release sitting. Map publish separate. Regenerate 643/644/650 from fresh reads first. 2026-11-20 16:1xZ: regenerated with the director's page icons (image only changed)."
+   "note": "Waits for the director's go for the release sitting. Map publish separate. Regenerate 643/644/650 from fresh reads first. 2026-11-20 16:1xZ: regenerated with the director's page icons (image only changed). 16:3xZ: page rewards Tide Chart -> Chart of the Flooded Stores (81+ challenge 2, Shallows challenge 3), the director 16:19Z."
   },
   {
    "id": "674",
@@ -1040,10 +1040,20 @@
    "manifest": "push/675_stolen_stores_icons.json",
    "what": "HIDDEN: the director's icons onto the chart item, The Flooded Stores, Short Rations and the Shallows page (image only). 81+ page icon rides 643.",
    "runner": "connector",
-   "status": "building",
+   "status": "done",
    "thread": "Isonade (cmsg_01HemWcQ2jhMimRupeBNzcGR5Dz59Px25aKTDx96TrMaPb)",
    "build": "python3 push/stolen_stores_icons.gen.py",
-   "note": "Coordinator relay 2026-11-20 15:43Z and 15:58Z (the director's icons). 643 and 673 regenerated so release carries both page icons."
+   "note": "Coordinator relay 2026-11-20 15:43Z and 15:58Z (the director's icons). 643 and 673 regenerated so release carries both page icons. Job 675-mwp6790k DONE 4/4 verified (harvests/inbox/tnr_results_1795191817667.json)."
+  },
+  {
+   "id": "676",
+   "manifest": "push/676_stolen_stores_pages_stage.json",
+   "what": "HIDDEN: both Watch Log pages take tonight's release data now (81+ record off its old content and level 1+; Flooded Stores chart rewards; new icons), hidden until 643 in 673 unhides at 6 PM",
+   "runner": "connector",
+   "status": "building",
+   "thread": "Isonade (cmsg_01HemWcQ2jhMimRupeBNzcGR5Dz59Px25aKTDx96TrMaPb)",
+   "build": "python3 push/stolen_stores_pages.gen.py stage --from harvests/inbox/tnr_results_1795027885651.json",
+   "note": "Director 16:19Z: 81+ challenge 2 pays the Flooded Stores chart, 'Swap that one too' for Shallows challenge 3."
   }
  ]
 }

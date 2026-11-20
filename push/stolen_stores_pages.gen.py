@@ -60,6 +60,7 @@ DAILIES = ["5faJqlDvs8jXTv1zN8B8m", "5ZksRGBaMmzG49EtzugNX", "ejD1-13fEZupXUU8tf
 DECKHAND, MATE, ISONADE = "MVy7rX2FW9mvGQJNXUKCH", "veKt6fjJqqdDBRJyYiTOT", "K_lwNvMPJLMsn1sUGXqZm"
 I = {
     "tide_chart": ("H1s2IwtZ5JqgPEoJ55IVj", "a Tide Chart"),
+    "flooded_chart": ("FuQzaFNlpyOUGlO5BtjyX", "a Chart of the Flooded Stores"),  # the director, 2026-11-20 16:19Z
     "medicine_inro": ("ixEKlJ0MmDrX7JoMNJVhi", "a Medicine Inro"),
     "archive_chart_case": ("B48dTRsoLJGKBWIUbeUoG", "an Archive Chart Case"),
     "skyglass_coffer": ("THo7rfzP-S82_43aN8fs3", "a Skyglass Coffer"),
@@ -117,7 +118,7 @@ def page_high():
         entry("s3_rations", "complete_specific_quest",
               "Keep her crates on her sand, two tides running.",
               f"<b>Finish Short Rations 2 times.</b> {WHERE_SR}",
-              "tide_chart", "Two tides, and her crates are still on her sand.", **done(SHORT_RATIONS, value=2)),
+              "flooded_chart", "Two tides, and her crates are still on her sand.", **done(SHORT_RATIONS, value=2)),
         entry("s3_trade", "complete_specific_quest",
               "Trade her what the sea gave you for one of the crew's charts.",
               "<b>Trade with her for a deck chart once.</b> Her Deck Charts trade costs 4 Wreck Salvage, and any "
@@ -150,7 +151,7 @@ def page_low():
               "Trade her what the sea gave you for one of the crew's charts.",
               "<b>Trade with her for a deck chart once.</b> Her Deck Charts trade costs 4 Wreck Salvage, and any "
               "chart you pick counts.",
-              "tide_chart", "She hands the chart over still damp.", **done(DECK_TRADE)),
+              "flooded_chart", "She hands the chart over still damp.", **done(DECK_TRADE)),
         entry("s3s_rations", "complete_specific_quest",
               "Keep her crates on her sand for a tide.",
               f"<b>Finish Short Rations once.</b> {WHERE_SR}",
@@ -278,11 +279,22 @@ def main():
               "false so every order is open at once (RUL-2026-11-08-139). Still hidden, no window, for the staff "
               "test.", items)
         return
-    if mode == "release":
+    if mode in ("release", "stage"):
         hi = dict(data(HIGH, test=False), consecutiveObjectives=False, hidden=False, startsAt=FRIDAY_START,
                   endsAt=FRIDAY_END, image=ICON_RELEASE[HIGH["key"]])
         lo = dict(data(LOW, test=False), consecutiveObjectives=False, hidden=False, startsAt=FRIDAY_START,
                   endsAt=FRIDAY_END, image=ICON_RELEASE[LOW["key"]])
+        if mode == "stage":
+            hi["hidden"] = lo["hidden"] = True
+            write(676, "stolen_stores_pages_stage", "push/676, HIDDEN: both Watch Log pages take tonight's release data "
+                  "now, hidden (the 81+ record leaves its old Nov 8 content and level 1+ for the rebuilt 81+ page; "
+                  "both charts in challenge rewards are the Chart of the Flooded Stores, the director 2026-11-20 "
+                  "16:19Z). push/643 (in push/673) sends the same records with hidden false at 6 PM.",
+                  [{"entity": "quest", "slot": "edit", "targetId": LIVE_PAGE3, "phase": 1,
+                    "name": "The Watch Log: Stolen Stores: rebuilt 81+ page, staged hidden", "data": hi},
+                   {"entity": "quest", "slot": "edit", "targetId": ids["low"], "phase": 1,
+                    "name": "The Watch Log: Stolen Stores (Shallows): release data, staged hidden", "data": lo}])
+            return
         write(643, "stolen_stores_pages_release", "push/643, RELEASE ONLY (Friday Nov 20, with the director's go): "
               "the live page 3 record takes the tested 81+ page whole; the Shallows page is unhidden at levels 30 to "
               "80. Both open 00:00 UTC Saturday and close 00:00 UTC Tuesday. Needs The Flooded Stores, Short Rations "
