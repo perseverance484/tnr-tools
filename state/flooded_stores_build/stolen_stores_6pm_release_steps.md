@@ -61,9 +61,10 @@ done here or left to it.
 - 9 Isonade assets, Chart of the Flooded Stores, The Flooded Stores, Short Rations: hidden false.
 - Chart item, run and Short Rations show the director's new icons; both pages show theirs.
 - The Watch Log: Stolen Stores `AgGR962c3XNo6Pr0up2qT`: hidden false, level 81 to 100, starts 2026-11-21, ends
-  2026-11-24, challenge 2 pays the Chart of the Flooded Stores.
+  2026-11-24, challenge 1 counts a Quartermaster's Mate or the Galley Mate, challenge 2 pays the Chart of the Flooded
+  Stores.
 - The Watch Log: Stolen Stores (Shallows) `qOhvkP3aPCPH88wI7-IZW`: hidden false, level 30 to 80, same window,
-  challenge 3 pays the Chart of the Flooded Stores.
+  challenge 1 counts a Looting Deckhand or a Foraging Deckhand, challenge 3 pays the Chart of the Flooded Stores.
 - No other Watch Log page is unhidden: The Rotted Heading `V-i3ZcAqPu0hB3G9IEzGo`, the 81+ staff test
   `SuHxe9zqUvVlEqxEQp8Dd` and Her Invitation `I_cEOGSfFuahaJlR3FnWC` read hidden at 16:40Z today; check The Rotted
   Heading (Shallows) and "The Watch Log: First Page - copy" too.
