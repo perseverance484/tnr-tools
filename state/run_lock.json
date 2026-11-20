@@ -1,11 +1,10 @@
 {
- "holder": "claude",
- "job": "Isonade QA pass (hidden test fights)",
- "token": "d54e43ba509b47eb966b8e50948b3c5d",
- "instance": null,
- "ttlMinutes": 120,
- "claimedAt": "2026-11-20T06:04:36.903Z",
- "heartbeatAt": "2026-11-20T06:04:36.903Z",
- "expiresAt": "2026-11-20T08:04:36.903Z",
- "note": "One game writer per account at a time (RUL-2026-11-07-133). Written only by forge/tools/run_lock.mjs or Forge; do not hand-edit."
+ "holder": null,
+ "token": null,
+ "job": null,
+ "releasedBy": "claude",
+ "releasedInstance": null,
+ "releasedJob": "Isonade QA pass (hidden test fights)",
+ "releasedAt": "2026-11-20T06:29:48.288Z",
+ "note": "Free. Claim with node forge/tools/run_lock.mjs claim --holder NAME --job TEXT (RUL-2026-11-07-133)."
 }
