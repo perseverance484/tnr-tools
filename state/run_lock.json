@@ -1,10 +1,11 @@
 {
- "holder": null,
- "token": null,
- "job": null,
- "releasedBy": "claude",
- "releasedInstance": "/mnt/project-files/tnr/shore_crew_state",
- "releasedJob": "push/690 shore crew",
- "releasedAt": "2026-11-20T16:43:55.951Z",
- "note": "Free. Claim with node forge/tools/run_lock.mjs claim --holder NAME --job TEXT (RUL-2026-11-07-133)."
+ "holder": "claude",
+ "job": "push/697",
+ "token": "2b7b1e7b03464eee8472c46d66a45d11",
+ "instance": "/mnt/project-files/tnr/forge_state/697",
+ "ttlMinutes": 60,
+ "claimedAt": "2026-11-20T16:47:32.666Z",
+ "heartbeatAt": "2026-11-20T16:47:32.666Z",
+ "expiresAt": "2026-11-20T17:47:32.666Z",
+ "note": "One game writer per account at a time (RUL-2026-11-07-133). Written only by forge/tools/run_lock.mjs or Forge; do not hand-edit."
 }
