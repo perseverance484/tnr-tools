@@ -26,12 +26,13 @@ done here or left to it.
      anywhere but the fields 673 sets, stop and report; don't run.
    - Then `python3 push/stolen_stores_golive.gen.py` and `git diff --exit-code push/673_stolen_stores_golive_master.json`
      (expect no change).
-3. **Isonade style C animations, ONLY if the director approves rev b** (the main chat says either way). If approved:
+3. **Isonade style C animations, ONLY if the director approves packs A to C (rev d, e, f; they replace rev b)** (the main chat says either way). If approved:
    the animation thread's hidden uploads and wiring, with law 18 (remove, save, add back, count equipped) on any
    jutsu an AI equips, before 673, so 673's asset unhides land on the final list; or that thread confirms its assets
    need no unhide from 673. If not approved: skip; 673 ships the current 9 animations.
    Window agreed with the animation thread (session_01GL8iyjKuCXzCd1WzPQu76i) at 17:40Z: 22:15 to 23:10Z under the
-   run lock, only if the director approves rev b in words first. It writes new hidden strips, Isonade jutsu art fields,
+   run lock, only if the director approves packs A to C in words first. No approval by about 22:00Z means the
+   thread skips the window and tells me; 673 then ships the current 9. It writes new hidden strips, Isonade jutsu art fields,
    a law 18 re-equip on the Isonade AI, read-backs, its own unhides and one test battle, then releases the lock and
    messages back with the final asset ids per jutsu and whether any of 673's 9 assets (xKgBB, izjz7, BexP4, isRdj,
    vLnK4, 5vyAK, PKF3L, Xba6L, quxGk) should stay hidden. If it says some should, drop those from 673 phase 100,
