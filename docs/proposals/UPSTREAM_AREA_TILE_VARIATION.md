@@ -1,7 +1,7 @@
 # Upstream PR draft: let area effects vary their clips per tile
 
 - Upstream: `studie-tech/TheNinjaRPG`, base `main` a69344979 (rebase again before opening).
-- Branch: `perseverance484/TheNinjaRPG` `feat/area-tile-variation`, head ea28e4ccb (one commit, authored as
+- Branch: `perseverance484/TheNinjaRPG` `feat/area-tile-variation`, head 334f56cad (one commit, authored as
   perseverance484 with the Claude co-author line, like PR #2575).
 - Demo GIFs (drag them into the PR description on GitHub, where the placeholders are):
   `art/jutsu_icons/forbidden_chakra_fury/animation/v9/pr_fcf_side_by_side.gif` (main),
@@ -46,7 +46,7 @@ Ripple and stagger add up, and a tile waits at most 2 s (`MAX_TILE_DELAY_MS`). A
 - Applies to ground effects (one per tile). Effects on a character, and the appear and disappear visuals combat spawns for them, keep the artist's orientation and timing.
 - A ground effect that lands on an occupied tile shows its clips and sounds once, through the ground's own visual; the copy forwarded onto the fighter spawns no visual of its own.
 - The new settings at their defaults (`false`, `0`, `0`, `""`) change nothing: every tile plays the same clips at the same moment. The fields live in the effect JSON; there is no migration.
-- Two changes reach existing content. A one-shot visual that the next action removes plays to its end instead of being cut off. A ground effect on an occupied tile shows its appear visual once instead of twice, and a lasting one no longer plays a disappear clip and sound on the fighter each round.
+- Existing content sees two differences. A one-shot visual that the next action removes plays to its end. A ground effect on an occupied tile shows its appear visual once, and a lasting one plays no disappear clip or sound on the fighter each round.
 - An effect still in the battle but not shown, such as one on a fighter at 0 HP, keeps its clips for when it returns; an id that returns while its earlier clips are finishing starts fresh.
 - The appear and disappear visuals that combat spawns for a ground effect keep its mirror, stagger, ripple and caster tile, as they keep `animationScale`. Only appear visuals take the alternate clip.
 - Only ground effects a fighter places with an action record a caster tile; battle-start items and passive enemy-skill effects do not ripple. A ground effect's disappear visual ripples from where its caster stood when it was cast.
@@ -54,12 +54,12 @@ Ripple and stagger add up, and a tile waits at most 2 s (`MAX_TILE_DELAY_MS`). A
 - Effects already on the board when a battle loads show at once; only arriving effects are staggered. With reduced motion, staggered and rippling tiles start together.
 - Variation adds no delay to sounds; they keep their existing timing, including the queueing used while fighters move.
 - The alternate clip is preloaded with the battle's texture assets, has the asset picker and preview in the effect form like the other animations, can be cleared with "None" in the mass effect editor, counts as an animation in content review media and asset-usage lists, is checked by the invalid-asset warning, and is inherited by jutsu reskins like the other cosmetic fields. Mirror, stagger and ripple are presentation keys for content review, like `animationScale`.
-- Editors: in the effect form the alternate sits beside the appear animation and the other settings beside the animation scale; the mass effect editor shows them as selectable columns in the order chosen. Both editors share one rule for fields an out-of-battle tag never uses (`hiddenEffectFields`), which now also covers reskin-slot and jutsu-slot grants: the form hides those fields and the mass editor shows them as not applicable.
+- Editors: in the effect form the alternate sits beside the appear animation and the other settings beside the animation scale; the mass effect editor shows them as selectable columns in the order chosen. Both editors share one rule for fields an out-of-battle tag never uses (`hiddenEffectFields`), including reskin-slot and jutsu-slot grants: the form hides those fields and the mass editor shows them as not applicable.
 - The review battlefield preview and the jutsu animation filters work from the existing animation fields: the preview draws a single ground tile with the base clips, and the filters do not search the alternate.
 
 ## Validation
 
-- Tests cover the schema defaults and bounds, the tile hash (stable, about half the tiles, independent of rows, columns and a checkerboard), mirroring of both clips with unchanged fit, the stagger hold and finish time, the ripple delay by hex distance and its absence without a caster tile, the caster tile recorded on a cast's ground effects, effects present at battle load, reduced motion, the alternate clip and its appear-animation requirement (shared validation and the renderer guard), a departed effect's waiting clip playing to its end, character effects and their visuals, a ground hit on an occupied tile showing once, forwarded copies of a lasting ground effect spawning no disappear visual, moved effects, ground lifecycle visuals, texture-asset hints, review media paths, the invalid-asset warning, reskin inheritance, the effect form (field lists including out-of-battle tags, stagger and ripple drafts blocking Save, the alternate's picker trigger and preview query) and the mass editor (alternate choices, clearing with None, not-applicable cells on out-of-battle effects).
+- Tests cover the schema defaults and bounds, the tile hash (stable, about half the tiles, independent of rows, columns and a checkerboard), mirroring of both clips with unchanged fit, the stagger hold and finish time, the ripple delay by hex distance and its absence without a caster tile, the caster tile recorded on a cast's ground effects, effects present at battle load, reduced motion, the alternate clip and its appear-animation requirement (shared validation and the renderer guard), a departed effect's waiting clip playing to its end, a hidden effect keeping its clips until its fighter returns, an id returning while its clips finish (shown or on a downed fighter) starting fresh, character effects and their visuals, a ground hit on an occupied tile showing once, forwarded copies of a lasting ground effect spawning no disappear visual, moved effects, ground lifecycle visuals, texture-asset hints, review media paths, the invalid-asset warning, reskin inheritance, the effect form (field lists including out-of-battle tags, stagger and ripple drafts blocking Save, the alternate's picker trigger and preview query) and the mass editor (alternate choices, clearing with None, not-applicable cells on out-of-battle effects).
 - `make lint` passes with only warnings already on `main`, and TypeScript passes (`tsc --noEmit --singleThreaded`). The rendering, combat, content review, validator and layout suites pass apart from failures that also occur on `main` in the same environment; which of the overflow-toolbar, avatar, element-icon and renderer context-loss tests fail varies by environment. SQL-backed tests were skipped without a database.
 
 ## Breaking changes
@@ -83,3 +83,6 @@ By making this pull request, I confirm that I have the right to waive copyright 
 - Review round 3 (independent agent on 019323a36): changes requested. Applied in ea28e4ccb: effects hidden but
   still in the battle keep their loops; a returning id while its record finishes rebuilds fresh (tests for both,
   each confirmed to fail without its fix); description now lists the two behaviour changes for existing content.
+- Review round 4 (independent agent on ea28e4ccb): PASS with two P3s. Applied in 334f56cad: a returning id is
+  rebuilt in sync's first loop, so it also starts fresh when it returns on a downed fighter (new test, confirmed to
+  fail on ea28e4ccb); timeless wording and the validation list fixed. Ready for the director's review.
