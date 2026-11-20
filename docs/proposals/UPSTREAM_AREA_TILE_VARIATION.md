@@ -44,12 +44,12 @@ Ripple and stagger add up, and variation adds at most 2 s of delay to a tile (`M
 ## Behaviour
 
 - Applies to ground effects (one per tile). Effects on a character, and the appear and disappear visuals combat spawns for them, keep the artist's orientation and timing.
-- Combat spawns an appear visual for each arriving effect, as before, and the visual now names the effect it announces (`arrivalFor`). The renderer skips the arrival clip and sound of an announced effect, so a lasting effect's arrival plays once, through its visual. The visual stands alone, so the arrival still shows when its effect is removed or depleted in the same action or lands on a fighter who falls. An effect nothing announces plays its own arrival. On an occupied tile, the copy forwarded onto the fighter spawns no visual of its own.
+- Combat spawns an appear visual for each arriving effect, and the visual names the effect it announces (`arrivalFor`). The renderer skips the arrival clip and sound of an announced effect, so a lasting effect's arrival plays once, through its visual. The visual stands alone, so the arrival still shows when its effect is removed or depleted in the same action or lands on a fighter who falls. An effect nothing announces plays its own arrival. On an occupied tile, the copy forwarded onto the fighter spawns no visual of its own.
 - The new settings at their defaults (`false`, `0`, `0`, `""`) change nothing: every tile plays the same clips at the same moment. The fields live in the effect JSON; there is no migration.
-- Existing content sees three differences. A one-shot visual that the next action removes plays to its end. A lasting ground or character effect plays its appear clip and sound once, where the effect's own record used to play them a second time over combat's visual. A ground effect on an occupied tile shows its appear visual once, and a lasting one plays no disappear clip or sound on the fighter each round.
-- A departing effect that is finishing its clips no longer takes the pointer, so hover reaches a live effect on the same tile.
+- Existing content sees three differences. A one-shot visual that the next action removes plays to its end. A lasting ground or character effect plays its appear clip and sound once, through combat's visual. A ground effect on an occupied tile shows its appear visual once, and a lasting one plays no disappear clip or sound on the fighter each round.
+- A departing effect that is finishing its clips does not take the pointer, so hover reaches a live effect on the same tile.
 - An effect still in the battle but not shown, such as one on a fighter at 0 HP, keeps its clips for when it returns; an id that returns while its earlier clips are finishing starts fresh.
-- The appear and disappear visuals that combat spawns for a ground effect keep its mirror, stagger, ripple and caster tile, as they keep `animationScale`; a lasting ground effect's own arrival uses the same settings. Only appear clips take the alternate.
+- The appear and disappear visuals that combat spawns for a ground effect keep its mirror, stagger, ripple and caster tile, as they keep `animationScale`; a lasting ground effect's loops and static art use the same settings. Only appear clips take the alternate.
 - Only ground effects a fighter places with an action record a caster tile; battle-start items and passive enemy-skill effects do not ripple. A ground effect's disappear visual ripples from where its caster stood when it was cast.
 - A ground effect that moves takes its new tile's orientation; its clips keep their timing.
 - Effects already on the board when a battle loads show at once; only arriving effects are staggered. With reduced motion, staggered and rippling tiles start together.
@@ -104,3 +104,5 @@ By making this pull request, I confirm that I have the right to waive copyright 
   visuals for lasting effects" and the fallen-target fallback; combat spawns arrival visuals as main does, each
   linked to its effect (arrivalFor), and the renderer skips an announced effect's own arrival. Departing records
   skip hit testing. Cap described as added delay.
+- Review round 7 (independent agent on 88c6edd91): PASS, wording P3s in the body fixed (leftover clause, timeless
+  phrasing). No code change; ready for the director's review.
