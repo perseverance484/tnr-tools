@@ -1,0 +1,113 @@
+{
+ "name": "FCF v8",
+ "slug": "fcf_v8",
+ "clips": [
+  {
+   "id": "caster",
+   "role": "caster",
+   "effect": "visual (the one allowed tag)",
+   "scale": 3,
+   "ms": 80,
+   "layers": [
+    {
+     "sheet": "fx_f2_eightgates_purpleflame",
+     "frames": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30
+     ],
+     "anchor": {
+      "row": 169,
+      "at": "feet"
+     },
+     "factor": 1.5
+    },
+    {
+     "sheet": "fx_f4_shadownova",
+     "start": 8,
+     "anchor": {
+      "row": 98,
+      "at": "body"
+     },
+     "factor": 1.0
+    }
+   ]
+  },
+  {
+   "id": "field",
+   "role": "field",
+   "effect": "recoil",
+   "scale": 2,
+   "ms": 80,
+   "lead": 10,
+   "layers": [
+    {
+     "sheet": "fx_lightninghitgreen",
+     "recolour": [
+      {
+       "op": "tint",
+       "rgb": [
+        0.62,
+        0.32,
+        1.0
+       ]
+      }
+     ],
+     "anchor": {
+      "row": 44,
+      "at": "feet"
+     },
+     "factor": 1.5,
+     "start": 0
+    },
+    {
+     "sheet": "fx_chainlightning",
+     "frames": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+     ],
+     "recolour": [
+      {
+       "op": "tint",
+       "rgb": [
+        0.62,
+        0.32,
+        1.0
+       ]
+      }
+     ],
+     "anchor": {
+      "row": 24,
+      "at": "feet"
+     },
+     "factor": 0.75,
+     "start": 2
+    }
+   ],
+   "upscale": 2
+  }
+ ]
+}
