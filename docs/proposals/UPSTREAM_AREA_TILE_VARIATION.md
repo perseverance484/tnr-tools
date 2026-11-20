@@ -1,7 +1,7 @@
 # Upstream PR draft: let area effects vary their clips per tile
 
-- Upstream: `studie-tech/TheNinjaRPG`, base `main` f6619bd4c (rebase again before opening).
-- Branch: `perseverance484/TheNinjaRPG` `feat/area-tile-variation`, head 656e24ce0 (one commit, authored as
+- Upstream: `studie-tech/TheNinjaRPG`, base `main` a69344979 (rebase again before opening).
+- Branch: `perseverance484/TheNinjaRPG` `feat/area-tile-variation`, head 019323a36 (one commit, authored as
   perseverance484 with the Claude co-author line, like PR #2575).
 - Demo GIFs (drag them into the PR description on GitHub, where the placeholders are):
   `art/jutsu_icons/forbidden_chakra_fury/animation/v9/pr_fcf_side_by_side.gif` (main),
@@ -29,35 +29,36 @@ Body (copy from the next line to the end of the block):
 
 ## What
 
-An area jutsu places the same clips on every tile it covers, and every tile starts them together, so its art reads as one tile stamped across a grid. Four optional effect settings let each tile differ:
+An area jutsu's ground effects place the same clips on every tile they cover, and every tile starts them together, so the art reads as one tile stamped across a grid. Four optional effect settings let each tile's ground-effect clips differ:
 
 - **`animationMirror`** – the effect's clips are mirrored on about half of its tiles.
 - **`animationStagger`** (0–1000 ms) – each tile starts its clips up to this long after the effect appears.
 - **`animationRipple`** (0–300 ms per hex) – each tile starts this much later per hex between it and the fighter who cast it, so the clips spread outward from the caster. Ground effects record the caster's tile (`castFrom`) when they are placed.
-- **`animationAlternate`** (animation asset) – about half of the tiles play this clip in place of the appear animation, which it requires.
+- **`animationAlternate`** (animation asset) – about half of the tiles play this clip in place of the appear animation. Shared effect validation requires an appear animation whenever an alternate is set.
 
-Ripple and stagger add up, and a tile waits at most 2 s (`MAX_TILE_DELAY_MS`) so its clips play before the next action replaces them. Which tiles mirror, where each falls within the stagger and which play the alternate come from a hash of the tile's column and row (`tileVariation` in `combatEffects.ts`), so every client draws the same field and the choice does not follow rows, columns or a checkerboard. Frame timing within a clip is unchanged; a tile's delay only moves when its clips begin.
+Ripple and stagger add up, and a tile waits at most 2 s (`MAX_TILE_DELAY_MS`). A one-shot clip whose effect leaves the battle before the clip has finished, such as a visual replaced by the next action, still plays to its end and is then cleaned up; looping and static art leave with the effect. Which tiles mirror, where each falls within the stagger and which play the alternate come from a hash of the tile's column and row (`tileVariation` in `combatEffects.ts`), so every client draws the same field and the choice does not follow rows, columns or a checkerboard. Frame timing within a clip is unchanged; a tile's delay only moves when its clips begin.
 
 <!-- drag pr_fcf_side_by_side.gif here -->
-*Top: one field clip on every tile. Bottom: the same jutsu using ripple, stagger, mirroring and an alternate clip.*
+*Top: one field clip on every tile. Bottom: the same jutsu using ripple, stagger, mirroring and an alternate clip.* <!-- caption must match the GIF regenerated with ripple -->
 
 ## Behaviour
 
 - Applies to ground effects (one per tile). Effects on a character, and the appear and disappear visuals combat spawns for them, keep the artist's orientation and timing.
+- A ground effect that lands on an occupied tile shows its clips and sounds once, through the ground's own visual; the copy forwarded onto the fighter no longer spawns a second appear or disappear visual.
 - Defaults (`false`, `0`, `0`, `""`) leave every tile identical, so existing content draws the same. The fields live in the effect JSON; there is no migration.
 - The appear and disappear visuals that combat spawns for a ground effect keep its mirror, stagger, ripple and caster tile, as they keep `animationScale`. Only appear visuals take the alternate clip.
 - Only ground effects a fighter places with an action record a caster tile; battle-start items and passive enemy-skill effects do not ripple. A ground effect's disappear visual ripples from where its caster stood when it was cast.
 - A ground effect that moves takes its new tile's orientation; its clips keep their timing.
 - Effects already on the board when a battle loads show at once; only arriving effects are staggered. With reduced motion, staggered and rippling tiles start together.
-- Sounds play when the effect appears; only clips are delayed.
-- The alternate clip is preloaded with the battle's texture assets, previewed and picked in the effect form like the other animations, counts as an animation in content review media and asset-usage lists, is checked by the invalid-asset warning, and is inherited by jutsu reskins like the other cosmetic fields. Mirror, stagger and ripple are presentation keys for content review, like `animationScale`.
-- Editors: the alternate sits beside the appear animation and the other settings beside the animation scale, in the effect form and the mass effect editor. They are battle-only fields, hidden on out-of-battle tags.
+- Variation adds no delay to sounds; they keep their existing timing, including the queueing used while fighters move.
+- The alternate clip is preloaded with the battle's texture assets, has the asset picker and preview in the effect form like the other animations, can be cleared with "None" in the mass effect editor, counts as an animation in content review media and asset-usage lists, is checked by the invalid-asset warning, and is inherited by jutsu reskins like the other cosmetic fields. Mirror, stagger and ripple are presentation keys for content review, like `animationScale`.
+- Editors: in the effect form the alternate sits beside the appear animation and the other settings beside the animation scale; the mass effect editor shows them as selectable columns in the order chosen. Both editors share one rule for fields an out-of-battle tag never uses (`hiddenEffectFields`), which now also covers reskin-slot and jutsu-slot grants: the form hides those fields and the mass editor shows them as not applicable.
 - The review battlefield preview and the jutsu animation filters work from the existing animation fields: the preview draws a single ground tile with the base clips, and the filters do not search the alternate.
 
 ## Validation
 
-- Tests cover the schema defaults and bounds, the tile hash (stable, about half the tiles, independent of rows, columns and a checkerboard), mirroring of both clips with unchanged fit, the stagger hold and finish time, the ripple delay by hex distance and its absence without a caster tile, the caster tile recorded on a cast's ground effects, effects present at battle load, reduced motion, the alternate clip, character effects and their visuals, moved effects, ground lifecycle visuals, texture-asset hints, review media paths, the invalid-asset warning, reskin inheritance, and the effect form (field list, stagger and ripple drafts, alternate picker and preview) and mass editor.
-- `make lint` passes, and TypeScript passes (`tsc --noEmit --singleThreaded`). The rendering, combat, content review, validator and layout suites pass apart from failures that also occur on `main` in the same environment (renderer context loss, overflow toolbar and avatar suites).
+- Tests cover the schema defaults and bounds, the tile hash (stable, about half the tiles, independent of rows, columns and a checkerboard), mirroring of both clips with unchanged fit, the stagger hold and finish time, the ripple delay by hex distance and its absence without a caster tile, the caster tile recorded on a cast's ground effects, effects present at battle load, reduced motion, the alternate clip and its appear-animation requirement (shared validation and the renderer guard), a departed effect's waiting clip playing to its end, character effects and their visuals, a ground hit on an occupied tile showing once, forwarded copies of a lasting ground effect spawning no disappear visual, moved effects, ground lifecycle visuals, texture-asset hints, review media paths, the invalid-asset warning, reskin inheritance, the effect form (field lists including out-of-battle tags, stagger and ripple drafts blocking Save, the alternate's picker trigger and preview query) and the mass editor (alternate choices, clearing with None, not-applicable cells on out-of-battle effects).
+- `make lint` passes with only warnings already on `main`, and TypeScript passes (`tsc --noEmit --singleThreaded`). The rendering, combat, content review, validator and layout suites pass apart from failures that also occur on `main` in the same environment; which of the overflow-toolbar, avatar, element-icon and renderer context-loss tests fail varies by environment. SQL-backed tests were skipped without a database.
 
 ## Breaking changes
 
@@ -71,3 +72,9 @@ Pull requests do **not** get a Vercel preview automatically. A collaborator with
 
 By making this pull request, I confirm that I have the right to waive copyright and related rights to my contribution, and agree that all copyright and related rights in my contributions are waived, and I acknowledge that the Studie-Tech ApS organization has the copyright to use and modify my contribution for perpetuity.
 ```
+- Director's independent review (on 656e24ce0): changes requested, no P0/P1. Applied in 019323a36: forwarded ground
+  copies no longer spawn character visuals (occupied tile shows once; lasting effects spawn no per-round disappear
+  clip); departed effects finish their one-shot clips before cleanup; shared validation requires an appear
+  animation for an alternate and the renderer ignores an alternate without one; both editors share
+  `hiddenEffectFields` (now also reskin-slot and jutsu-slot grants; mass editor shows N/A); the mass editor can
+  clear the alternate with None; description corrected. The GIF must be regenerated with ripple before opening.
