@@ -1,4 +1,4 @@
-# Isonade v10: no seals for rounds 1-5, Omen: Black Water from round 6 (HIDDEN, job 670)
+# Isonade v10: no player seal takes hold before round 6, Omen: Black Water from round 6 (HIDDEN, job 670)
 
 The director (2026-11-20 01:07Z, relayed): "I want both to be true, below 75% and after round 5. My plan is to give
 Isonade Seal immunity for the first 5 rounds until Black Water is used for the first time. Seal Immunity drops and
@@ -9,8 +9,10 @@ through it".
 
 - **Record:** sealprevent 100 (static), 5 rounds, added beside stunprevent 100 and the 70% hull.
   - Record effects start the battle with their own rounds (combat.ts 4117-4136) and lose one round each time the
-    round advances (util.ts 3042-3049). So the guard is up in rounds 1-5 and gone from round 6.
-  - A player's seal checks sealprevent first (tags.ts seal(), preventCheck) and is cancelled.
+    round advances (util.ts 3042-3049), from the first advance 0 -> 1. So it reads 5 - r at round r.
+  - A player's seal checks sealprevent first (tags.ts seal(), preventCheck) and is cancelled. Seals cast in rounds
+    1-4 are cancelled. A seal cast in round 5 lands but only takes hold once resolved, at round 6
+    (isEffectEnabled skips isNew seals). So no player seal takes hold before round 6.
   - The guard is fromType bloodline, so Clear and Cleanse can't strip it (persistentEffectSourceTypes).
 - **Rule 15:** Omen: Black Water now needs `health_below 75` **and** `round_greater_than 5` (ai_v2.ts: round > 5).
   Its own self seal lands as before, because the guard has already run out.
@@ -58,3 +60,16 @@ or later, so the gate changes nothing there.
   - 18/18 jutsu equipped; Old Hull CHEST, drop 0.
   - Rule 15 reads health_below 75 + round_greater_than 5.
 - **Not tested live:** dauntless has no seal source, and the test needs full HP plus the director's go.
+
+## Timer check (2026-11-20 02:43Z relay: "Only if it doesnt collide with black water's first seal")
+
+Sim, v10 with the omen forced at round 6 (bw1At 100) to find the edge, 3 seeds each:
+
+| Guard rounds | Omen fires | Black Water self seal |
+|---|---|---|
+| 5 (live) | round 6 | lands, takes hold round 7 |
+| 6 | round 6 | cancelled by the guard (collides) |
+| 7 | round 6 | cancelled |
+
+5 is the longest guard that never touches Black Water's own seal, and nothing earlier than round 6 lets a player
+seal take hold. No live change.

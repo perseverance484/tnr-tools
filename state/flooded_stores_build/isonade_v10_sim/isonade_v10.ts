@@ -467,9 +467,12 @@ export const runFight = async (P: V4, seed: number, readP: number, trace = false
       if (isBoss && actionId === J4.brandBeat) (f as any).brandR = pre.actionRound;
       if (isBoss && actionId === J4.bw1Mark && (f as any).bw1MarkR === undefined) (f as any).bw1MarkR = pre.actionRound;
       { const live = (b.usersEffects as any[]).filter((e) => e.targetId === bossUid && e.type === "seal" && !e.isNew && (e.rounds ?? 1) > 0);
-        const r = b.round; const F = f as any; F.psR = F.psR ?? new Set(); F.ssR = F.ssR ?? new Set();
-        if (live.some((e) => e.creatorId === puid)) { F.psR.add(r); if (F.psFirst === undefined) F.psFirst = r; }
-        if (live.some((e) => e.creatorId === bossUid)) F.ssR.add(r); }
+        const r = b.round; const F = f as any; F.psR = F.psR ?? []; F.ssR = F.ssR ?? [];
+        if (live.some((e) => e.creatorId === puid)) { if (!F.psR.includes(r)) F.psR.push(r); if (F.psFirst === undefined) F.psFirst = r; }
+        if (live.some((e) => e.creatorId === bossUid) && !F.ssR.includes(r)) F.ssR.push(r);
+        const blocked = (b.usersEffects as any[]).filter((e) => e.targetId === bossUid && e.type === "seal" && (e.rounds ?? 1) === 0 && !F.seenBlocked?.includes(e.id));
+        for (const e of blocked) { F.seenBlocked = [...(F.seenBlocked ?? []), e.id]; F.blockedSeals = [...(F.blockedSeals ?? []), `${e.creatorId === bossUid ? "self" : "player"}@${e.createdRound}`]; }
+        if (live.some((e) => e.creatorId === bossUid) && F.selfSealFrom === undefined) F.selfSealFrom = r; }
       if (isBoss && actionId === J4.undertow) { const br = (f as any).brandR; const legit = br !== undefined && pre.actionRound - br <= 3 && !(f as any).brandUsed; if (legit) (f as any).brandUsed = true; (f as any).undertow = [...((f as any).undertow ?? []), { r: pre.actionRound, dmg: pLoss, legit }]; }
       if (isBoss && actionId === J4.bw1Land) { const mr = (f as any).bw1MarkR; (f as any).floods = [...((f as any).floods ?? []), { r: pre.actionRound, dmg: pLoss, legit: mr !== undefined && pre.actionRound - mr <= 2 }]; }
       if (isBoss && actionId === J4.bw2Mark) deepSeen = true;
@@ -530,9 +533,9 @@ const summarise = (fs: any[]) => {
     misreadsPerFight: r1(fs.reduce((s, f) => s + f.misreads, 0) / fs.length),
     harassPerFight: r1(fs.reduce((s, f) => s + ((f as any).harass ?? 0), 0) / fs.length),
     sealTriesPerFight: r1(fs.reduce((s, f) => s + ((f as any).sealTries ?? 0), 0) / fs.length),
-    playerSealedRoundsPerFight: r1(fs.reduce((s, f) => s + ((f as any).psR?.size ?? 0), 0) / fs.length),
+    playerSealedRoundsPerFight: r1(fs.reduce((s, f) => s + ((f as any).psR?.length ?? 0), 0) / fs.length),
     playerSealFirstRound: { median: median(fs.filter((f) => (f as any).psFirst !== undefined).map((f) => (f as any).psFirst)), min: Math.min(...fs.filter((f) => (f as any).psFirst !== undefined).map((f) => (f as any).psFirst)) },
-    selfSealedRoundsPerFight: r1(fs.reduce((s, f) => s + ((f as any).ssR?.size ?? 0), 0) / fs.length),
+    selfSealedRoundsPerFight: r1(fs.reduce((s, f) => s + ((f as any).ssR?.length ?? 0), 0) / fs.length),
     omenRound: { median: median(fs.filter((f) => (f as any).bw1MarkR !== undefined).map((f) => (f as any).bw1MarkR)), min: Math.min(...fs.filter((f) => (f as any).bw1MarkR !== undefined).map((f) => (f as any).bw1MarkR)), n: fs.filter((f) => (f as any).bw1MarkR !== undefined).length },
     stunTriesPerFight: r1(fs.reduce((s, f) => s + ((f as any).stunTries ?? 0), 0) / fs.length),
     stunsLandedPerFight: r1(fs.reduce((s, f) => s + ((f as any).stunsLanded ?? 0), 0) / fs.length),
