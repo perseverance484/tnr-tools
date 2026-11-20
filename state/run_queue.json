@@ -808,14 +808,15 @@
   },
   {
    "runner": "connector",
-   "status": "building",
+   "status": "done",
    "waitsFor": [],
    "thread": "Isonade style C animations (cmsg_01HemWcQ2jhMimRupeBNzcGR4hGU9jBxCWbMqPsQ5oH5BA)",
    "id": "684",
    "manifest": "(by hand) /mnt/project-files/tnr-animation/isonade_styleC/ship/jutsu/*.json",
    "what": "Isonade style C wiring: 17 Isonade jutsu art fields (9 board-wide moves as 26-28 visual tags) + 5 description fields, law 18 re-equip on Isonade, unhide the 266 assets",
    "build": "python3 /mnt/project-files/tnr-animation/isonade_styleC/ship/gen_ship.py jutsu <live jutsu.getAll read>",
-   "note": "Window 22:15-23:10Z agreed with the Stolen Stores release (before its push/673). Mechanics untouched (generator diffs every non-art field against the live read)."
+   "note": "Window 22:15-23:10Z agreed with the Stolen Stores release (before its push/673). Mechanics untouched (generator diffs every non-art field against the live read).",
+   "result": "state/isonade_c_upload/result_684.md"
   }
  ]
 }
