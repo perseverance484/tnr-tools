@@ -84,8 +84,9 @@ def hex_mids(cx, cy, hw, hh):
 FL, FX, F_MS, F_LEAD = 56, 3, 70, 12
 
 
-def field_frames():
-    rnd = random.Random(9)
+def field_frames(seed=9):
+    """seed picks the vein shapes; every seed meets the same edge midpoints, so variants join."""
+    rnd = random.Random(seed)
     pairs = hex_mids(FL / 2, FL / 2, FL / 2, FL / 4)
     out = [Image.new("RGBA", (FL, FL), (0, 0, 0, 0)) for _ in range(F_LEAD)]
     plan = [  # (grow, heat, which pairs lit, branches): all three strike, then two at a time, flickering
