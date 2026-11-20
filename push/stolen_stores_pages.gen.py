@@ -58,6 +58,9 @@ SHORT_RATIONS = "Gqbnq2LVtIVBlLYlAnam1"  # push/637 (hidden)
 DECK_TRADE = "zYhkIQeVGNUMljwev3-ud"  # The Salvager's Trade: Deck Charts (live)
 DAILIES = ["5faJqlDvs8jXTv1zN8B8m", "5ZksRGBaMmzG49EtzugNX", "ejD1-13fEZupXUU8tf8Au", "sbssALiuyJVTApe8ZpLvp"]
 DECKHAND, MATE, ISONADE = "MVy7rX2FW9mvGQJNXUKCH", "veKt6fjJqqdDBRJyYiTOT", "K_lwNvMPJLMsn1sUGXqZm"
+# Short Rations switched to the roaming shore crew (the director 2026-11-20 16:35Z, "Switch Short Rations"), so
+# challenge 1 on each page also counts that crew: a win against any id in the objective completes it.
+FORAGER, GALLEY_MATE = "mm3C1bhpSuturfXR1hyPS", "Ys9d_kNoBoVaAsFfh6_DN"  # Foraging Deckhand, Galley Mate
 I = {
     "tide_chart": ("H1s2IwtZ5JqgPEoJ55IVj", "a Tide Chart"),
     "flooded_chart": ("FuQzaFNlpyOUGlO5BtjyX", "a Chart of the Flooded Stores"),  # the director, 2026-11-20 16:19Z
@@ -93,11 +96,11 @@ def entry(oid, task, voice, plain, rew, success, **fields):
     return o
 
 
-def beat(ai):
+def beat(*ais):
     # The server defaults a defeat_opponents objective to sector 0 at (0,0), shown, which is a real tile where a
     # page holder walking onto it would be put in a fight. Sector 9999 does not exist (ids run 0..1943), so the
     # location never matches and never forces a fight; hideLocation keeps it off the Logbook and map.
-    return {"opponentAIs": [{"ids": [ai], "number": 1, "quantity": 1}], "completionOutcome": "Win",
+    return {"opponentAIs": [{"ids": list(ais), "number": 1, "quantity": 1}], "completionOutcome": "Win",
             "sectorType": "specific", "locationType": "specific", "sector": NOWHERE, "latitude": 0, "longitude": 0,
             "hideLocation": True, "opponent_scaled_to_user": True}
 
@@ -113,8 +116,10 @@ def page_high():
     return [
         entry("s3_mate", "defeat_opponents",
               "Take the list off one of the men still handing out rations.",
-              "<b>Beat a Quartermaster's Mate once.</b> They crew The Flooded Stores and Short Rations.",
-              "galley_stores", "His list falls open. Every line is the same ration, signed for twice.", **beat(MATE)),
+              "<b>Beat a Quartermaster's Mate or a Galley Mate once.</b> Quartermaster's Mates crew The Flooded Stores, "
+              "and a Galley Mate ends Short Rations.",
+              "galley_stores", "His list falls open. Every line is the same ration, signed for twice.",
+              **beat(MATE, GALLEY_MATE)),
         entry("s3_rations", "complete_specific_quest",
               "Keep her crates on her sand, two tides running.",
               f"<b>Finish Short Rations 2 times.</b> {WHERE_SR}",
@@ -139,8 +144,10 @@ def page_low():
     return [
         entry("s3s_crew", "defeat_opponents",
               "Run off one of the crew dragging her crates back to the hull.",
-              "<b>Beat a Looting Deckhand once.</b> They crew The Flooded Stores and Short Rations.",
-              "medicine_inro", "He drops the crate and walks back into the sea, still in step.", **beat(DECKHAND)),
+              "<b>Beat a Looting Deckhand or a Foraging Deckhand once.</b> Looting Deckhands crew The Flooded Stores, "
+              "and Foraging Deckhands crew Short Rations.",
+              "medicine_inro", "He drops the crate and walks back into the sea, still in step.",
+              **beat(DECKHAND, FORAGER)),
         entry("s3s_dailies", "complete_specific_quest",
               "Work the shore the way she does.",
               "<b>Finish any 3 of the Salvager's dailies.</b> Short Rations counts. Find her in sector 210, by the "
@@ -286,10 +293,12 @@ def main():
                   endsAt=FRIDAY_END, image=ICON_RELEASE[LOW["key"]])
         if mode == "stage":
             hi["hidden"] = lo["hidden"] = True
-            write(676, "stolen_stores_pages_stage", "push/676, HIDDEN: both Watch Log pages take tonight's release data "
+            # push/676 ran this 2026-11-20 16:32Z; push/697 re-stages it with challenge 1 counting the shore crew.
+            write(697, "stolen_stores_pages_stage_crew", "push/697 (was 676), HIDDEN: both Watch Log pages take tonight's release data "
                   "now, hidden (the 81+ record leaves its old Nov 8 content and level 1+ for the rebuilt 81+ page; "
                   "both charts in challenge rewards are the Chart of the Flooded Stores, the director 2026-11-20 "
-                  "16:19Z). push/643 (in push/673) sends the same records with hidden false at 6 PM.",
+                  "16:19Z; challenge 1 also counts the Galley Mate / Foraging Deckhand, Short Rations switched 16:35Z). "
+                  "push/643 (in push/673) sends the same records with hidden false at 6 PM.",
                   [{"entity": "quest", "slot": "edit", "targetId": LIVE_PAGE3, "phase": 1,
                     "name": "The Watch Log: Stolen Stores: rebuilt 81+ page, staged hidden", "data": hi},
                    {"entity": "quest", "slot": "edit", "targetId": ids["low"], "phase": 1,
