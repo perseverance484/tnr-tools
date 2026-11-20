@@ -883,6 +883,29 @@
    "build": "python3 push/658_isonade_v6_reactions.gen.py --cd=5",
    "thread": "Isonade (cmsg_01HemWcQ2jhMimRupeBNzcGR5Dz59Px25aKTDx96TrMaPb)",
    "note": "Job 658-mwo6kr0f DONE, 5/5 verified, bundle tnr_results_1795130995691.json. Read-back: Isonade 18/18 equipped; Scour and Silt Cloud cooldown 5 (placeholder, was 10); AI profile 20 rules with The Deep's omen at rule 6. All hidden."
+  },
+  {
+   "id": "665",
+   "manifest": "push/665_isonade_v7_brand_key.json",
+   "what": "Isonade v7 Brand key (hidden): Undertow rule reads the Brand on the player, not Isonade's move-lock",
+   "runner": "connector",
+   "status": "building",
+   "waitsFor": [
+    "658"
+   ],
+   "thread": "Isonade (cmsg_01HemWcQ2jhMimRupeBNzcGR5Dz59Px25aKTDx96TrMaPb)",
+   "note": "660-664 are taken on the genin dungeon branch (claude/project-thread-g9d6ix); 659 skipped to stay clear."
+  },
+  {
+   "id": "666",
+   "manifest": "push/666_isonade_v7_marker_key.json",
+   "what": "Isonade v7 marker key (hidden): Brine's self marker becomes elementalseal 100; Undertow and Harpoon rekeyed; law 18",
+   "runner": "connector",
+   "status": "building",
+   "waitsFor": [
+    "665"
+   ],
+   "thread": "Isonade (cmsg_01HemWcQ2jhMimRupeBNzcGR5Dz59Px25aKTDx96TrMaPb)"
   }
  ]
 }
