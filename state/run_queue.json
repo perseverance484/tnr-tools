@@ -796,14 +796,15 @@
   },
   {
    "runner": "connector",
-   "status": "building",
+   "status": "done",
    "waitsFor": [],
    "thread": "Isonade style C animations (cmsg_01HemWcQ2jhMimRupeBNzcGR4hGU9jBxCWbMqPsQ5oH5BA)",
    "id": "683",
    "manifest": "(by hand) /mnt/project-files/tnr-animation/isonade_styleC/ship/assets.json",
    "what": "Isonade style C: 266 animation assets created hidden (folder isonadestylec), strips on the director's UploadThing",
    "build": "python3 /mnt/project-files/tnr-animation/isonade_styleC/ship/gen_ship.py assets",
-   "note": "Director 2026-11-20: 'All of it. Go' (packs A-C) and 'Yes' to wiring tonight. gameAsset.create takes no image over the connector, so create + hidden image update per asset; ledger srcId->id in ship/ledger.json, read back by gameAsset.getAll exactFolder."
+   "note": "Director 2026-11-20: 'All of it. Go' (packs A-C) and 'Yes' to wiring tonight. gameAsset.create takes no image over the connector, so create + hidden image update per asset; ledger srcId->id in ship/ledger.json, read back by gameAsset.getAll exactFolder. Ran 2026-11-20 19:31-19:59Z under the run lock (slot agreed with the Stolen Stores release): 266 created + image-updated hidden, read back 266/266, 0 problems.",
+   "result": "state/isonade_c_upload/assets_683.json"
   },
   {
    "runner": "connector",
