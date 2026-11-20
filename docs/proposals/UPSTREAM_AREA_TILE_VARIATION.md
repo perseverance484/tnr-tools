@@ -1,8 +1,8 @@
 # Upstream PR draft: let area effects vary their clips per tile
 
 - Upstream: `studie-tech/TheNinjaRPG`, base `main` f6619bd4c (rebase again before opening).
-- Branch: `perseverance484/TheNinjaRPG` `feat/area-tile-variation` (head SHA in the handoff message; commits
-  authored as perseverance484 with the Claude co-author line, like PR #2575).
+- Branch: `perseverance484/TheNinjaRPG` `feat/area-tile-variation`, head 656e24ce0 (one commit, authored as
+  perseverance484 with the Claude co-author line, like PR #2575).
 - Demo GIFs (drag them into the PR description on GitHub, where the placeholders are):
   `art/jutsu_icons/forbidden_chakra_fury/animation/v9/pr_fcf_side_by_side.gif` (main),
   `pr_fcf_today_uniform.gif`, `pr_fcf_tile_variation.gif`. Built by `v9/tile_variation_demo.py` with the engine's
@@ -13,7 +13,8 @@
   snapshot's key lists, which are module-internal and untested upstream too; the description follows `AGENTS.md`.
 - Review round 1 (independent agent on 1fb401660): character visuals no longer vary, loops show at once at battle
   load, the alternate is previewed and sits beside the appear animation, tile (0,0) varies, the missing tests were
-  added, and the description's claims were corrected.
+  added, and the description's claims were corrected. Round 2 (80647dc26, with ripple): PASS with three P3s, all
+  applied in 656e24ce0 (2 s delay cap with a test, the caster-tile wording, the disappear-ripple clause).
 
 Title:
 
@@ -35,7 +36,7 @@ An area jutsu places the same clips on every tile it covers, and every tile star
 - **`animationRipple`** (0–300 ms per hex) – each tile starts this much later per hex between it and the fighter who cast it, so the clips spread outward from the caster. Ground effects record the caster's tile (`castFrom`) when they are placed.
 - **`animationAlternate`** (animation asset) – about half of the tiles play this clip in place of the appear animation, which it requires.
 
-Ripple and stagger add up. Which tiles mirror, where each falls within the stagger and which play the alternate come from a hash of the tile's column and row (`tileVariation` in `combatEffects.ts`), so every client draws the same field and the choice does not follow rows, columns or a checkerboard. Frame timing within a clip is unchanged; a tile's delay only moves when its clips begin.
+Ripple and stagger add up, and a tile waits at most 2 s (`MAX_TILE_DELAY_MS`) so its clips play before the next action replaces them. Which tiles mirror, where each falls within the stagger and which play the alternate come from a hash of the tile's column and row (`tileVariation` in `combatEffects.ts`), so every client draws the same field and the choice does not follow rows, columns or a checkerboard. Frame timing within a clip is unchanged; a tile's delay only moves when its clips begin.
 
 <!-- drag pr_fcf_side_by_side.gif here -->
 *Top: one field clip on every tile. Bottom: the same jutsu using ripple, stagger, mirroring and an alternate clip.*
@@ -45,7 +46,7 @@ Ripple and stagger add up. Which tiles mirror, where each falls within the stagg
 - Applies to ground effects (one per tile). Effects on a character, and the appear and disappear visuals combat spawns for them, keep the artist's orientation and timing.
 - Defaults (`false`, `0`, `0`, `""`) leave every tile identical, so existing content draws the same. The fields live in the effect JSON; there is no migration.
 - The appear and disappear visuals that combat spawns for a ground effect keep its mirror, stagger, ripple and caster tile, as they keep `animationScale`. Only appear visuals take the alternate clip.
-- Ground effects placed without a caster (battle-start items) have no caster tile and do not ripple.
+- Only ground effects a fighter places with an action record a caster tile; battle-start items and passive enemy-skill effects do not ripple. A ground effect's disappear visual ripples from where its caster stood when it was cast.
 - A ground effect that moves takes its new tile's orientation; its clips keep their timing.
 - Effects already on the board when a battle loads show at once; only arriving effects are staggered. With reduced motion, staggered and rippling tiles start together.
 - Sounds play when the effect appears; only clips are delayed.
