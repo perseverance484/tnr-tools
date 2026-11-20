@@ -991,13 +991,13 @@
    "manifest": "push/672_wreck_sighted_stolen_stores_textfix.json",
    "what": "Hidden text fix on both new Wreck Sighted copies: drop the roaming beach crew answer and rates (no placements exist, read 2026-11-20), Short Rations as one of her five dailies at 20% (push/639)",
    "runner": "connector",
-   "status": "ready",
+   "status": "done",
    "waitsFor": [
     "649"
    ],
    "thread": "Isonade (cmsg_01HemWcQ2jhMimRupeBNzcGR5Dz59Px25aKTDx96TrMaPb)",
    "build": "python3 push/wreck_sighted_stolen_stores.gen.py fix --from harvests/inbox/tnr_results_1795188256274.json",
-   "note": "Hidden records only, covered by 'Build everything needed hidden'."
+   "note": "Hidden records only, covered by 'Build everything needed hidden'. Job 672-mwp4x7ib DONE 2/2 verified (2026-11-20 ~16:20Z). Read back: both hidden, 48 nodes, no n_crew, no dangling links, n_week = Quartermaster / Short Rations / What's eating the stores / Back; t_work and t_odds list Short Rations 20%; w_done pays FuQza x1; grants 30-80 qOhvkP3a, 81+ AgGR962c. Bundle harvests/inbox/tnr_results_1795188838733.json."
   },
   {
    "id": "650",
