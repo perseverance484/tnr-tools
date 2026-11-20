@@ -1030,10 +1030,10 @@
    "manifest": "push/674_stolen_stores_story_v2.json",
    "what": "Stolen Stores story v2 (hidden): The Flooded Stores description, d_below, b4; Wreck Sighted n_eat x2; Grasping Arm Rises -> The Hook Tail Rises, Arm Lash -> Tail Lash, Grasping Arm -> Hook Tail (law 18)",
    "runner": "connector",
-   "status": "building",
+   "status": "done",
    "thread": "Isonade (cmsg_01HemWcQ2jhMimRupeBNzcGR5Dz59Px25aKTDx96TrMaPb)",
    "build": "python3 push/stolen_stores_story_v2.gen.py",
-   "note": "Director approved story v2 and said 'Build now' 2026-11-20 15:39Z. Text only; push/673 unaffected (partial unhides). validate law 4 error on Arm Lash is the known server strip of statTypes, same record as 671."
+   "note": "Director approved story v2 and said 'Build now' 2026-11-20 15:39Z. Text only; push/673 unaffected (partial unhides). validate law 4 error on Arm Lash is the known server strip of statTypes, same record as 671. Job 674-mwp5dium DONE 9/9 verified (2026-11-20 ~16:00Z). Read back: Isonade 19 jutsu all equipped, 6w0M back in its slot; Hook Tail (was Grasping Arm) has Tail Lash equipped; jutsu names The Hook Tail Rises and Tail Lash; The Flooded Stores hidden with new description, d_below, b4; both Wreck Sighted copies hidden with new n_eat, nothing else changed. Bundle harvests/inbox/tnr_results_1795190437554.json. Note: push/flooded_stores_run.gen.py and push/wreck_sighted_stolen_stores.gen.py still hold the v1 strings; regenerating their old pushes would revert this text."
   }
  ]
 }
