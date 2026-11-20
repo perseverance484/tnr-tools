@@ -7,12 +7,15 @@ today. Nothing here creates, deletes or edits anything not listed.
 
 Repo: perseverance484/tnr-tools, branch claude/project-thread-hlg3nc (head 6012696b or later). Connector: Tnr.
 
-## Order
+## Timing and order
 
-The existing routine "Weekly Skyglass release check" (trig_015Z6waXLdEXKM3JUJCJKT5C, 00:00 UTC Saturday) only
-reopens the two Wrecks, and its step 1 stops unless a Watch Log page is already unhidden with startsAt today. So the
-steps below run first, then that routine's Wreck reopen. Its prompt also says never to publish or edit a page; that
-line has to change for tonight, or these steps run as their own routine just before it.
+The main chat set this up (relay 16:36Z): a kickoff at 23:20Z (5:20 PM CT) starts this thread on this file. Steps 1
+to 3 run from then (reads, regeneration, hidden prep). Every player-visible write (steps 4 to 8) waits for 00:00Z
+and each gets its read-back before the next.
+
+"Weekly Skyglass release check" (trig_015Z6waXLdEXKM3JUJCJKT5C, 00:00Z) now waits up to about 45 minutes for an
+unhidden Watch Log page, and skips any Wreck already reopened with the right expiry and hidden false. So step 9 can be
+done here or left to it.
 
 1. **Pre-checks.** `node forge/tools/run_lock.mjs status`: the lock is free (the Isonade animation thread also needs
    it tonight; take turns). dauntless is not in a fight or quest (`profile.getUser` battleId null). Sleep it again
@@ -23,9 +26,10 @@ line has to change for tonight, or these steps run as their own routine just bef
      anywhere but the fields 673 sets, stop and report; don't run.
    - Then `python3 push/stolen_stores_golive.gen.py` and `git diff --exit-code push/673_stolen_stores_golive_master.json`
      (expect no change).
-3. **Isonade style C animations.** Whatever the animation thread hands over (re-equip under law 18 if a jutsu an AI
-   equips changes). Do it before 673 so 673's asset unhides land on the final asset list, or have that thread confirm
-   its assets need no unhide from 673.
+3. **Isonade style C animations, ONLY if the director approves rev b** (the main chat says either way). If approved:
+   the animation thread's hidden uploads and wiring, with law 18 (remove, save, add back, count equipped) on any
+   jutsu an AI equips, before 673, so 673's asset unhides land on the final list; or that thread confirms its assets
+   need no unhide from 673. If not approved: skip; 673 ships the current 9 animations.
 4. **Run 673** under the lock:
    ```
    node forge/tools/run_lock.mjs claim --holder claude --job "push/673" --wait
@@ -44,7 +48,8 @@ line has to change for tonight, or these steps run as their own routine just bef
    673 sends Short Rations `Gqbnq2LVtIVBlLYlAnam1` only `{hidden: false}`, so it cannot overwrite the rebuilt quest
    as long as the id stays the same. Both Watch Log pages and the Salvager pool point at that id. Keep the tin icon
    (`...0tzd8oDeiVIzM4ZECEIcLXcweuU7CfBRq2T3S1iWhVAz8Glb`) on it.
-8. **Wrecks.** The routine's own steps 1 to 5 (reopen both Wrecks to 00:00 UTC Tuesday).
+8. **Shore crew go-live.** Placements and steps as the shore-crew thread hands them over (folded in here when sent).
+9. **Wrecks.** Reopen both to 00:00 UTC Tuesday as the release-check routine does, or leave it to that routine.
 
 ## Read-backs (all must hold)
 
