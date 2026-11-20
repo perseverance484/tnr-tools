@@ -1,0 +1,586 @@
+{
+ "id": "CgmXwQ1PoWi0Y5h7lSEUj",
+ "name": "Isonade Harpoon Line",
+ "description": "It spits the old harpoon back through you. Goes through damage reduction and shields.",
+ "createdAt": "2026-11-19T16:21:25.685Z",
+ "updatedAt": "2026-11-20T00:38:22.465Z",
+ "extraBaseCost": 0,
+ "effects": [
+  {
+   "type": "pierce",
+   "power": 35,
+   "rounds": 0,
+   "target": "INHERIT",
+   "appearSfx": "",
+   "direction": "offence",
+   "calculation": "formula",
+   "description": "placeholder",
+   "dmgModifier": 2,
+   "disappearSfx": "",
+   "friendlyFire": "ENEMIES",
+   "generalTypes": [
+    "Highest",
+    "Strength",
+    "Intelligence",
+    "Willpower",
+    "Speed"
+   ],
+   "powerPerLevel": 0,
+   "animationScale": 1,
+   "appearAnimation": "dBatQkc1Ts2ask5ZN-A3p",
+   "staticAnimation": "",
+   "staticAssetPath": "",
+   "residualModifier": 0,
+   "disappearAnimation": "",
+   "allowBloodlineDamageDecrease": true,
+   "allowBloodlineDamageIncrease": true
+  },
+  {
+   "rank": "D",
+   "type": "marriageslotincrease",
+   "power": 100,
+   "rounds": 2,
+   "target": "SELF",
+   "appearSfx": "",
+   "direction": "offence",
+   "calculation": "static",
+   "description": "Isonade's rotation",
+   "disappearSfx": "",
+   "powerPerLevel": 0,
+   "animationScale": 1,
+   "appearAnimation": "",
+   "staticAnimation": "",
+   "staticAssetPath": "",
+   "disappearAnimation": ""
+  }
+ ],
+ "target": "CHARACTER",
+ "range": 0,
+ "cooldown": 2,
+ "bloodlineId": "",
+ "requiredLevel": 1,
+ "requiredRank": "STUDENT",
+ "jutsuType": "AI",
+ "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+ "jutsuWeapon": "NONE",
+ "statClassification": "None",
+ "elementClassification": "None",
+ "battleDescription": "%user spits a rusted harpoon through %target.",
+ "jutsuRank": "D",
+ "actionCostPerc": 60,
+ "staminaCost": 0.05,
+ "chakraCost": 0.05,
+ "staminaCostReducePerLvl": 0,
+ "chakraCostReducePerLvl": 0,
+ "healthCostReducePerLvl": 0,
+ "healthCost": 0,
+ "villageId": "",
+ "requiredPetSpeciesId": null,
+ "method": "COORDINATES",
+ "coordinateTargeting": {
+  "origin": "BATTLEFIELD",
+  "selection": "ALL",
+  "coordinates": [
+   {
+    "latitude": 0,
+    "longitude": 0
+   },
+   {
+    "latitude": 1,
+    "longitude": 0
+   },
+   {
+    "latitude": 2,
+    "longitude": 0
+   },
+   {
+    "latitude": 3,
+    "longitude": 0
+   },
+   {
+    "latitude": 4,
+    "longitude": 0
+   },
+   {
+    "latitude": 5,
+    "longitude": 0
+   },
+   {
+    "latitude": 6,
+    "longitude": 0
+   },
+   {
+    "latitude": 7,
+    "longitude": 0
+   },
+   {
+    "latitude": 8,
+    "longitude": 0
+   },
+   {
+    "latitude": 9,
+    "longitude": 0
+   },
+   {
+    "latitude": 0,
+    "longitude": 1
+   },
+   {
+    "latitude": 1,
+    "longitude": 1
+   },
+   {
+    "latitude": 2,
+    "longitude": 1
+   },
+   {
+    "latitude": 3,
+    "longitude": 1
+   },
+   {
+    "latitude": 4,
+    "longitude": 1
+   },
+   {
+    "latitude": 5,
+    "longitude": 1
+   },
+   {
+    "latitude": 6,
+    "longitude": 1
+   },
+   {
+    "latitude": 7,
+    "longitude": 1
+   },
+   {
+    "latitude": 8,
+    "longitude": 1
+   },
+   {
+    "latitude": 9,
+    "longitude": 1
+   },
+   {
+    "latitude": 0,
+    "longitude": 2
+   },
+   {
+    "latitude": 1,
+    "longitude": 2
+   },
+   {
+    "latitude": 2,
+    "longitude": 2
+   },
+   {
+    "latitude": 3,
+    "longitude": 2
+   },
+   {
+    "latitude": 4,
+    "longitude": 2
+   },
+   {
+    "latitude": 5,
+    "longitude": 2
+   },
+   {
+    "latitude": 6,
+    "longitude": 2
+   },
+   {
+    "latitude": 7,
+    "longitude": 2
+   },
+   {
+    "latitude": 8,
+    "longitude": 2
+   },
+   {
+    "latitude": 9,
+    "longitude": 2
+   },
+   {
+    "latitude": 0,
+    "longitude": 3
+   },
+   {
+    "latitude": 1,
+    "longitude": 3
+   },
+   {
+    "latitude": 2,
+    "longitude": 3
+   },
+   {
+    "latitude": 3,
+    "longitude": 3
+   },
+   {
+    "latitude": 4,
+    "longitude": 3
+   },
+   {
+    "latitude": 5,
+    "longitude": 3
+   },
+   {
+    "latitude": 6,
+    "longitude": 3
+   },
+   {
+    "latitude": 7,
+    "longitude": 3
+   },
+   {
+    "latitude": 8,
+    "longitude": 3
+   },
+   {
+    "latitude": 9,
+    "longitude": 3
+   },
+   {
+    "latitude": 0,
+    "longitude": 4
+   },
+   {
+    "latitude": 1,
+    "longitude": 4
+   },
+   {
+    "latitude": 2,
+    "longitude": 4
+   },
+   {
+    "latitude": 3,
+    "longitude": 4
+   },
+   {
+    "latitude": 4,
+    "longitude": 4
+   },
+   {
+    "latitude": 5,
+    "longitude": 4
+   },
+   {
+    "latitude": 6,
+    "longitude": 4
+   },
+   {
+    "latitude": 7,
+    "longitude": 4
+   },
+   {
+    "latitude": 8,
+    "longitude": 4
+   },
+   {
+    "latitude": 9,
+    "longitude": 4
+   },
+   {
+    "latitude": 0,
+    "longitude": 5
+   },
+   {
+    "latitude": 1,
+    "longitude": 5
+   },
+   {
+    "latitude": 2,
+    "longitude": 5
+   },
+   {
+    "latitude": 3,
+    "longitude": 5
+   },
+   {
+    "latitude": 4,
+    "longitude": 5
+   },
+   {
+    "latitude": 5,
+    "longitude": 5
+   },
+   {
+    "latitude": 6,
+    "longitude": 5
+   },
+   {
+    "latitude": 7,
+    "longitude": 5
+   },
+   {
+    "latitude": 8,
+    "longitude": 5
+   },
+   {
+    "latitude": 9,
+    "longitude": 5
+   },
+   {
+    "latitude": 0,
+    "longitude": 6
+   },
+   {
+    "latitude": 1,
+    "longitude": 6
+   },
+   {
+    "latitude": 2,
+    "longitude": 6
+   },
+   {
+    "latitude": 3,
+    "longitude": 6
+   },
+   {
+    "latitude": 4,
+    "longitude": 6
+   },
+   {
+    "latitude": 5,
+    "longitude": 6
+   },
+   {
+    "latitude": 6,
+    "longitude": 6
+   },
+   {
+    "latitude": 7,
+    "longitude": 6
+   },
+   {
+    "latitude": 8,
+    "longitude": 6
+   },
+   {
+    "latitude": 9,
+    "longitude": 6
+   },
+   {
+    "latitude": 0,
+    "longitude": 7
+   },
+   {
+    "latitude": 1,
+    "longitude": 7
+   },
+   {
+    "latitude": 2,
+    "longitude": 7
+   },
+   {
+    "latitude": 3,
+    "longitude": 7
+   },
+   {
+    "latitude": 4,
+    "longitude": 7
+   },
+   {
+    "latitude": 5,
+    "longitude": 7
+   },
+   {
+    "latitude": 6,
+    "longitude": 7
+   },
+   {
+    "latitude": 7,
+    "longitude": 7
+   },
+   {
+    "latitude": 8,
+    "longitude": 7
+   },
+   {
+    "latitude": 9,
+    "longitude": 7
+   },
+   {
+    "latitude": 0,
+    "longitude": 8
+   },
+   {
+    "latitude": 1,
+    "longitude": 8
+   },
+   {
+    "latitude": 2,
+    "longitude": 8
+   },
+   {
+    "latitude": 3,
+    "longitude": 8
+   },
+   {
+    "latitude": 4,
+    "longitude": 8
+   },
+   {
+    "latitude": 5,
+    "longitude": 8
+   },
+   {
+    "latitude": 6,
+    "longitude": 8
+   },
+   {
+    "latitude": 7,
+    "longitude": 8
+   },
+   {
+    "latitude": 8,
+    "longitude": 8
+   },
+   {
+    "latitude": 9,
+    "longitude": 8
+   },
+   {
+    "latitude": 0,
+    "longitude": 9
+   },
+   {
+    "latitude": 1,
+    "longitude": 9
+   },
+   {
+    "latitude": 2,
+    "longitude": 9
+   },
+   {
+    "latitude": 3,
+    "longitude": 9
+   },
+   {
+    "latitude": 4,
+    "longitude": 9
+   },
+   {
+    "latitude": 5,
+    "longitude": 9
+   },
+   {
+    "latitude": 6,
+    "longitude": 9
+   },
+   {
+    "latitude": 7,
+    "longitude": 9
+   },
+   {
+    "latitude": 8,
+    "longitude": 9
+   },
+   {
+    "latitude": 9,
+    "longitude": 9
+   },
+   {
+    "latitude": 0,
+    "longitude": 10
+   },
+   {
+    "latitude": 1,
+    "longitude": 10
+   },
+   {
+    "latitude": 2,
+    "longitude": 10
+   },
+   {
+    "latitude": 3,
+    "longitude": 10
+   },
+   {
+    "latitude": 4,
+    "longitude": 10
+   },
+   {
+    "latitude": 5,
+    "longitude": 10
+   },
+   {
+    "latitude": 6,
+    "longitude": 10
+   },
+   {
+    "latitude": 7,
+    "longitude": 10
+   },
+   {
+    "latitude": 8,
+    "longitude": 10
+   },
+   {
+    "latitude": 9,
+    "longitude": 10
+   },
+   {
+    "latitude": 0,
+    "longitude": 11
+   },
+   {
+    "latitude": 1,
+    "longitude": 11
+   },
+   {
+    "latitude": 2,
+    "longitude": 11
+   },
+   {
+    "latitude": 3,
+    "longitude": 11
+   },
+   {
+    "latitude": 4,
+    "longitude": 11
+   },
+   {
+    "latitude": 5,
+    "longitude": 11
+   },
+   {
+    "latitude": 6,
+    "longitude": 11
+   },
+   {
+    "latitude": 7,
+    "longitude": 11
+   },
+   {
+    "latitude": 8,
+    "longitude": 11
+   },
+   {
+    "latitude": 9,
+    "longitude": 11
+   }
+  ],
+  "randomCount": 1
+ },
+ "methodSize": null,
+ "hidden": true,
+ "injectableInBattle": false,
+ "battleUsageType": "BOTH",
+ "reskinParentJutsuId": null,
+ "bloodlineReskinId": null,
+ "parentJutsuId": null,
+ "requiredNinjutsuMastery": null,
+ "requiredGenjutsuMastery": null,
+ "requiredTaijutsuMastery": null,
+ "requiredBukijutsuMastery": null,
+ "requiredBloodlineMastery": null,
+ "requiredSageMastery": null,
+ "requiredStrength": null,
+ "requiredSpeed": null,
+ "requiredIntelligence": null,
+ "requiredWillpower": null,
+ "requiredSkillId": null,
+ "requiredBloodlineItemId": null
+}
