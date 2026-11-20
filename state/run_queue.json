@@ -1023,7 +1023,7 @@
    ],
    "thread": "Isonade (cmsg_01HemWcQ2jhMimRupeBNzcGR5Dz59Px25aKTDx96TrMaPb)",
    "build": "python3 push/stolen_stores_golive.gen.py",
-   "note": "Waits for the director's go for the release sitting. Map publish separate. Regenerate 643/644/650 from fresh reads first."
+   "note": "Waits for the director's go for the release sitting. Map publish separate. Regenerate 643/644/650 from fresh reads first. 2026-11-20 16:1xZ: regenerated with the director's page icons (image only changed)."
   },
   {
    "id": "674",
@@ -1034,6 +1034,16 @@
    "thread": "Isonade (cmsg_01HemWcQ2jhMimRupeBNzcGR5Dz59Px25aKTDx96TrMaPb)",
    "build": "python3 push/stolen_stores_story_v2.gen.py",
    "note": "Director approved story v2 and said 'Build now' 2026-11-20 15:39Z. Text only; push/673 unaffected (partial unhides). validate law 4 error on Arm Lash is the known server strip of statTypes, same record as 671. Job 674-mwp5dium DONE 9/9 verified (2026-11-20 ~16:00Z). Read back: Isonade 19 jutsu all equipped, 6w0M back in its slot; Hook Tail (was Grasping Arm) has Tail Lash equipped; jutsu names The Hook Tail Rises and Tail Lash; The Flooded Stores hidden with new description, d_below, b4; both Wreck Sighted copies hidden with new n_eat, nothing else changed. Bundle harvests/inbox/tnr_results_1795190437554.json. Note: push/flooded_stores_run.gen.py and push/wreck_sighted_stolen_stores.gen.py still hold the v1 strings; regenerating their old pushes would revert this text."
+  },
+  {
+   "id": "675",
+   "manifest": "push/675_stolen_stores_icons.json",
+   "what": "HIDDEN: the director's icons onto the chart item, The Flooded Stores, Short Rations and the Shallows page (image only). 81+ page icon rides 643.",
+   "runner": "connector",
+   "status": "building",
+   "thread": "Isonade (cmsg_01HemWcQ2jhMimRupeBNzcGR5Dz59Px25aKTDx96TrMaPb)",
+   "build": "python3 push/stolen_stores_icons.gen.py",
+   "note": "Coordinator relay 2026-11-20 15:43Z and 15:58Z (the director's icons). 643 and 673 regenerated so release carries both page icons."
   }
  ]
 }

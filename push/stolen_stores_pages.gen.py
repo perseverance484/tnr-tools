@@ -70,7 +70,11 @@ SALVAGE = "mW6_ZGtGcCSuXGPhn-H4o"
 TOKEN = "nzCW7A-_AuYMzBs2wClnM"
 SALVAGER = "Xugt7415D3-tepLfxpwM5"
 BG = "rX78pJPETsUL2JrsSvGHn"
-ICON_LIVE = "https://ui0arpl8sm.ufs.sh/f/4xb_93fgzp68t83owGoQQ.webp"
+ICON_LIVE = "https://ui0arpl8sm.ufs.sh/f/4xb_93fgzp68t83owGoQQ.webp"  # the shared placeholder push/641 and 642 sent
+# The director's own page icons (2026-11-20 15:58Z), uploaded hidden (state/isonade_upload/uploaded.json). push/675 sets
+# the Shallows icon now; the release (643, in 673) carries both, so the 6 PM run does not put the placeholder back.
+ICON_RELEASE = {"high": "https://bbenpyo9uu.ufs.sh/f/0tzd8oDeiVIzcskzL6UPdHh7Y96aCTrVbSFG1AXDBn25msqk",
+                "low": "https://bbenpyo9uu.ufs.sh/f/0tzd8oDeiVIzDNk0fAljZC3QEWRynJO7qVdTs6zchxtIAL0b"}
 FRIDAY_START, FRIDAY_END = "2026-11-21", "2026-11-24"  # 00:00 UTC Saturday (Friday 6 PM Central) to 00:00 UTC Tuesday
 
 WHERE_RUN = "Every player gets its chart from Wreck Sighted, and the Salvager's Deck Charts trade has more."
@@ -276,9 +280,9 @@ def main():
         return
     if mode == "release":
         hi = dict(data(HIGH, test=False), consecutiveObjectives=False, hidden=False, startsAt=FRIDAY_START,
-                  endsAt=FRIDAY_END)
+                  endsAt=FRIDAY_END, image=ICON_RELEASE[HIGH["key"]])
         lo = dict(data(LOW, test=False), consecutiveObjectives=False, hidden=False, startsAt=FRIDAY_START,
-                  endsAt=FRIDAY_END)
+                  endsAt=FRIDAY_END, image=ICON_RELEASE[LOW["key"]])
         write(643, "stolen_stores_pages_release", "push/643, RELEASE ONLY (Friday Nov 20, with the director's go): "
               "the live page 3 record takes the tested 81+ page whole; the Shallows page is unhidden at levels 30 to "
               "80. Both open 00:00 UTC Saturday and close 00:00 UTC Tuesday. Needs The Flooded Stores, Short Rations "
