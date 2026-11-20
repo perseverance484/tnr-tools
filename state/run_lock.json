@@ -1,10 +1,11 @@
 {
- "holder": null,
- "token": null,
- "job": null,
- "releasedBy": "claude",
- "releasedInstance": null,
- "releasedJob": "push/671",
- "releasedAt": "2026-11-20T14:33:06.842Z",
- "note": "Free. Claim with node forge/tools/run_lock.mjs claim --holder NAME --job TEXT (RUL-2026-11-07-133)."
+ "holder": "claude",
+ "job": "671 live test",
+ "token": "88550f2db4cc467a92dc6e49c67758bd",
+ "instance": null,
+ "ttlMinutes": 60,
+ "claimedAt": "2026-11-20T14:34:15.587Z",
+ "heartbeatAt": "2026-11-20T14:34:15.587Z",
+ "expiresAt": "2026-11-20T15:34:15.587Z",
+ "note": "One game writer per account at a time (RUL-2026-11-07-133). Written only by forge/tools/run_lock.mjs or Forge; do not hand-edit."
 }
