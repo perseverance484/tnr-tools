@@ -941,12 +941,13 @@
    "manifest": "push/669_isonade_hull_plating.json",
    "what": "Isonade stun guard on worn gear (hidden): new hidden ARMOR item with stunprevent 100, equipped on Isonade via the AI edit, so a seal cannot pause it",
    "runner": "connector",
-   "status": "building",
+   "status": "done",
    "waitsFor": [
     "668"
    ],
    "thread": "Isonade (cmsg_01HemWcQ2jhMimRupeBNzcGR5Dz59Px25aKTDx96TrMaPb)",
-   "build": "python3 push/669_isonade_hull_plating.gen.py"
+   "build": "python3 push/669_isonade_hull_plating.gen.py",
+   "note": "Job 669-mwo9wsjw DONE, 2/2 verified, bundle tnr_results_1795136537887.json. Item ZBfu0h3K6U1g45Q4gTOG7 \"Isonade's Old Hull\" (hidden ARMOR, stunprevent 100, 99 rds) equipped CHEST on Isonade, drop chance 0, durability 100; 18/18 jutsu equipped. Stays hidden (boss gear). Write-up state/flooded_stores_build/isonade_v9_stun_gear.md."
   }
  ]
 }
