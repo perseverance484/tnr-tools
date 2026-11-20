@@ -40,6 +40,12 @@ done here or left to it.
    wait for it rather than start.
    The director approved packs A to C at 17:41Z. Hidden creates and hidden image updates run earlier, in lock-held
    chunks between 19:30 and 21:45Z; wiring, law 18, its unhides and a test battle stay in 22:15 to 23:10Z.
+   DONE 22:37Z (push/683 + push/684, lock released 22:37:13Z): 17 jutsu wired, 266 assets in folder isonadestylec
+   unhidden, Isonade 19/19 equipped, Hook Tail Tail Lash 1/1. Independent check here: pre-wiring getAll (21:47Z) vs
+   684 read-back, every non-visual effect and every non-art field identical on all 17, so no mechanics change. Test
+   battle GIt5lGoJ8gg3W3LqmTFac lost R7 (Brine Brand R6 not cleansed, Undertow 2,996 R7; Harpoon 884 as in the v11
+   win). None of 673's 9 assets needs to stay hidden; 673 unchanged. dauntless read 22:40Z: asleep in 177, 5,050/5,050,
+   battleId null, Isonade Test not among open quests.
 4. **Shore crew spawns on (00:00Z, before 673).** From the Roaming crew thread (relay 16:44Z). For each of the 4
    spawns `N142XR4hbrfHaIEE7Z-BL`, `v329QMIIE8NCr5ScXwQrj`, `1hQvqkHGhNw-XhBRQxREv`, `W8WZoQ1q7T8-5nnosdDPm`: read the
    placement in full, `overworldAi.upsertPlacement` with that record changed only at `isActive: true`, read it back.
