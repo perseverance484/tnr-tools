@@ -922,6 +922,19 @@
    "thread": "Isonade (cmsg_01HemWcQ2jhMimRupeBNzcGR5Dz59Px25aKTDx96TrMaPb)",
    "build": "python3 push/667_isonade_v8_inert_markers.gen.py",
    "note": "Reserved. The director (2026-11-20 00:25Z relay): \"Key all five\"."
+  },
+  {
+   "id": "668",
+   "manifest": "push/668_isonade_v8_finish.json",
+   "what": "Isonade v8 finish (hidden): Swell Builds marker as repair (direction offence), live kit back on, chain rules; finishes 667 after its Swell edit was refused; law 18",
+   "runner": "connector",
+   "status": "building",
+   "waitsFor": [
+    "667"
+   ],
+   "thread": "Isonade (cmsg_01HemWcQ2jhMimRupeBNzcGR5Dz59Px25aKTDx96TrMaPb)",
+   "build": "python3 push/668_isonade_v8_finish.gen.py",
+   "note": "Reserved 2026-11-20. Same go as 667 (the director: \"Key all five\")."
   }
  ]
 }
