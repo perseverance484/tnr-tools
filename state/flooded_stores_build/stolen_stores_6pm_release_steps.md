@@ -10,7 +10,7 @@ Repo: perseverance484/tnr-tools, branch claude/project-thread-hlg3nc (head 60126
 ## Timing and order
 
 The main chat set this up (relay 16:36Z): a kickoff at 23:20Z (5:20 PM CT) starts this thread on this file. Steps 1
-to 3 run from then (reads, regeneration, hidden prep). Every player-visible write (steps 4 to 8) waits for 00:00Z
+to 3 run from then (reads, regeneration, hidden prep). Every player-visible write (steps 4 to 9) waits for 00:00Z
 and each gets its read-back before the next.
 
 "Weekly Skyglass release check" (trig_015Z6waXLdEXKM3JUJCJKT5C, 00:00Z) now waits up to about 45 minutes for an
@@ -30,7 +30,13 @@ done here or left to it.
    the animation thread's hidden uploads and wiring, with law 18 (remove, save, add back, count equipped) on any
    jutsu an AI equips, before 673, so 673's asset unhides land on the final list; or that thread confirms its assets
    need no unhide from 673. If not approved: skip; 673 ships the current 9 animations.
-4. **Run 673** under the lock:
+4. **Shore crew spawns on (00:00Z, before 673).** From the Roaming crew thread (relay 16:44Z). For each of the 4
+   spawns `N142XR4hbrfHaIEE7Z-BL`, `v329QMIIE8NCr5ScXwQrj`, `1hQvqkHGhNw-XhBRQxREv`, `W8WZoQ1q7T8-5nnosdDPm`: read the
+   placement in full, `overworldAi.upsertPlacement` with that record changed only at `isActive: true`, read it back.
+   All 4 active before Short Rations unhides (673 phase 200): once Short Rations is live the spawns can't be switched
+   off or changed while the quest uses them. Short Rations kept id `Gqbnq2LVtIVBlLYlAnam1`, so 643, 673 and both
+   pages need no change. The Galley Mate's Flooded Stores chart drop goes live with 673's chart item unhide.
+5. **Run 673** under the lock:
    ```
    node forge/tools/run_lock.mjs claim --holder claude --job "push/673" --wait
    node forge/tools/mcp_run.mjs run push/673_stolen_stores_golive_master.json --token <token> --state /mnt/project-files/tnr/forge_state/673 --transcript auto
@@ -39,16 +45,15 @@ done here or left to it.
    20 items: 9 Isonade assets, chart item, The Flooded Stores, Short Rations, Deck Charts pick, both Watch Log pages,
    new Wreck Sighted copies on, last weekend's off, the Fire's topics. Expect "Finished: all 20 items written and
    verified". Commit the bundle from harvests/inbox and set 673 done in state/run_queue.json.
-5. **Salvager pool.** `overworldAi.getPlacementsForAi` for the Salvager, compare to
+6. **Salvager pool.** `overworldAi.getPlacementsForAi` for the Salvager, compare to
    `push/639_salvager_pool_upsert.json` (only the pool may differ), then `overworldAi.upsertPlacement` with that file's
    `input`, then read it back. Pool sums to 100 or less.
-6. **Sector 210 map.** `worldMap.publishSectorMap {"id": "RJl-uOXFYoHlxcgkptJF3"}`. This replaces the live sector map.
-7. **Short Rations switch** (the director 16:35Z: "Switch Short Rations"). The shore-crew thread
+7. **Sector 210 map.** `worldMap.publishSectorMap {"id": "RJl-uOXFYoHlxcgkptJF3"}`. This replaces the live sector map.
+8. **Short Rations switch** (the director 16:35Z: "Switch Short Rations"). The shore-crew thread
    (cmsg_01HemWcQ2jhMimRupeBNzcGRP1ktJt8h1SP18BCWCQ6qe6) hands over the crew placements and the rebuilt Short Rations.
    673 sends Short Rations `Gqbnq2LVtIVBlLYlAnam1` only `{hidden: false}`, so it cannot overwrite the rebuilt quest
    as long as the id stays the same. Both Watch Log pages and the Salvager pool point at that id. Keep the tin icon
-   (`...0tzd8oDeiVIzM4ZECEIcLXcweuU7CfBRq2T3S1iWhVAz8Glb`) on it.
-8. **Shore crew go-live.** Placements and steps as the shore-crew thread hands them over (folded in here when sent).
+   (`...0tzd8oDeiVIzM4ZECEIcLXcweuU7CfBRq2T3S1iWhVAz8Glb`) on it. Done by steps 4 to 6.
 9. **Wrecks.** Reopen both to 00:00 UTC Tuesday as the release-check routine does, or leave it to that routine.
 
 ## Read-backs (all must hold)
@@ -66,7 +71,7 @@ done here or left to it.
 - Wreck Sighted: Stolen Stores copies `VRibCq0gip_otYBbWEX4J` and `tYNgqctjx_5KIKbbOyApH` hidden false; last weekend's
   `IZgCt17ReC_0vtUG-GNRl` and `-UjsbiBbaSyPtZ4zAH10A` hidden true.
 - Fire `lEg5pVXqA8lzJpIPrykNi`: "What's eating the stores?" carries the story v2 line (hook for a tail).
-- Salvager pool includes Short Rations; sector 210 shows the published map.
+- 4 shore crew spawns isActive true. Salvager pool includes Short Rations; sector 210 shows the published map.
 - Both Wrecks open until 00:00 UTC Tuesday.
 
 ## Stays hidden on purpose
@@ -77,3 +82,8 @@ Isonade's Old Hull, the AI-only jutsu, Isonade Test, the 81+ staff test page, th
 
 `push/flooded_stores_run.gen.py` and `push/wreck_sighted_stolen_stores.gen.py`'s copy text still hold the story v1
 run strings (the live records hold v2 from push/674). Regenerating either from scratch would put v1 back.
+
+## After the run
+
+Release the lock and tell the main chat: the Roaming crew thread then does one check fight on dauntless at full HP
+and puts the account to sleep.
