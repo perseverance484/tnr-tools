@@ -1,0 +1,116 @@
+{
+ "builder": "forge-mcp",
+ "at": "2026-11-20T01:12:38.269Z",
+ "cfg": "forge",
+ "checks": null,
+ "state": "DONE",
+ "outcome": "success",
+ "postflight": {
+  "match": 2,
+  "diff": 0,
+  "unverified": 0,
+  "failed": 0,
+  "skipped": 0,
+  "unresolved": 0
+ },
+ "entries": [
+  {
+   "name": "Isonade: record gains sealprevent 100 for 5 rounds (stun guard, hull 70, kit and Old Hull kept)",
+   "srcId": null,
+   "entity": "ai",
+   "slot": "edit",
+   "op": "update",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 1,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "K_lwNvMPJLMsn1sUGXqZm"
+  },
+  {
+   "name": "Isonade: Omen: Black Water also needs round > 5 (20 rules, rest unchanged)",
+   "srcId": null,
+   "entity": "aiProfile",
+   "slot": "edit",
+   "op": "update",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 1,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "K_lwNvMPJLMsn1sUGXqZm"
+  }
+ ],
+ "captures": [],
+ "idmap": {},
+ "journal": {
+  "v": 1,
+  "jobId": "670-mwoaabsv",
+  "manifestPath": "push/670_isonade_seal_window.json",
+  "manifestNumber": 670,
+  "manifestHash": "0c20b4ab",
+  "startedAt": "2026-11-20T01:11:51.104Z",
+  "updatedAt": "2026-11-20T01:12:38.265Z",
+  "state": "DONE",
+  "pause": null,
+  "items": [
+   {
+    "idx": 0,
+    "entity": "ai",
+    "op": "update",
+    "name": "Isonade: record gains sealprevent 100 for 5 rounds (stun guard, hull 70, kit and Old Hull kept)",
+    "srcId": null,
+    "targetId": "K_lwNvMPJLMsn1sUGXqZm",
+    "payloadHash": "61223fa0",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "K_lwNvMPJLMsn1sUGXqZm",
+    "snapshotKey": null,
+    "sentAt": "2026-11-20T01:11:55.252Z",
+    "createSentAt": null,
+    "confirmedAt": "2026-11-20T01:12:13.181Z",
+    "verifiedAt": "2026-11-20T01:12:16.748Z",
+    "error": null,
+    "attempt": 1,
+    "asserted": [
+     "effects"
+    ],
+    "diffs": [],
+    "verify": "match"
+   },
+   {
+    "idx": 1,
+    "entity": "aiProfile",
+    "op": "update",
+    "name": "Isonade: Omen: Black Water also needs round > 5 (20 rules, rest unchanged)",
+    "srcId": null,
+    "targetId": "K_lwNvMPJLMsn1sUGXqZm",
+    "payloadHash": "4aaf99e4",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "K_lwNvMPJLMsn1sUGXqZm",
+    "snapshotKey": null,
+    "sentAt": "2026-11-20T01:12:21.484Z",
+    "createSentAt": null,
+    "confirmedAt": "2026-11-20T01:12:34.554Z",
+    "verifiedAt": "2026-11-20T01:12:38.263Z",
+    "error": null,
+    "aiProfileId": "3xrmVKb3oAZDQ7YzpGh-S",
+    "attempt": 1,
+    "assertedRules": true,
+    "diffs": [],
+    "verify": "match"
+   }
+  ]
+ }
+}

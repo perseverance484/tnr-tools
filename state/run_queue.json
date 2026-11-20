@@ -954,13 +954,13 @@
    "manifest": "push/670_isonade_seal_window.json",
    "what": "Isonade (hidden): seal immunity for rounds 1-5 (record sealprevent 100, 5 rounds) and Omen: Black Water only after round 5 (rule 15 adds round_greater_than 5)",
    "runner": "connector",
-   "status": "building",
+   "status": "done",
    "waitsFor": [
     "669"
    ],
    "thread": "Isonade (cmsg_01HemWcQ2jhMimRupeBNzcGR5Dz59Px25aKTDx96TrMaPb)",
    "build": "python3 push/670_isonade_seal_window.gen.py",
-   "note": "Claimed 2026-11-20."
+   "note": "Job 670-mwoaabsv DONE, 2/2 verified, bundle tnr_results_1795137158269.json. Read-back 2026-11-20: record effects stunprevent 100/99, hull 70/99, sealprevent 100/5 static; 18/18 jutsu equipped; Old Hull kept (CHEST, drop 0); rule 15 = health_below 75 + round_greater_than 5. Write-up state/flooded_stores_build/isonade_v10_seal_window.md. Not tested live."
   }
  ]
 }
