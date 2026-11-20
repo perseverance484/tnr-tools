@@ -974,6 +974,56 @@
    "thread": "Isonade (cmsg_01HemWcQ2jhMimRupeBNzcGR5Dz59Px25aKTDx96TrMaPb)",
    "build": "python3 push/671_isonade_v11.gen.py",
    "note": "Director's yes 2026-11-20 14:07Z to build v11 hidden and test at full HP. Proposal state/flooded_stores_build/isonade_v11_proposal.md. Stage 1 job 671-mwp2l23r DONE (The Hold Floods 73SVJWf61S_XeacwzNXbt hidden, bundle tnr_results_1795184690564.json). Stage 2 job 671-mwp2nynq DONE, 12/12 verified, bundle tnr_results_1795185186367.json. Read-back 2026-11-20: Isonade 19/19 jutsu equipped, Old Hull kept (CHEST), pools 2.1 = 10,605 HP, cooldowns Barnacle 6 / Harpoon 4 / Scour 8 / Silt 8 (sim used 10), Black Water omen visuals 2 rounds, Brine text reworded; Grasping Arm 1/1 equipped, Arm Lash power 20; 20 rules, churn rule gone, flood rule (round > 10) before end turn. Live test pending."
+  },
+  {
+   "id": "649",
+   "manifest": "push/649_wreck_sighted_stolen_stores_create.json",
+   "what": "This weekend's two Wreck Sighted copies (hidden): 30-80 fills VRibCq0gip_otYBbWEX4J, 81+ created as tYNgqctjx_5KIKbbOyApH; both pay the Chart of the Flooded Stores and grant this weekend's page",
+   "runner": "connector",
+   "status": "done",
+   "waitsFor": [],
+   "thread": "Isonade (cmsg_01HemWcQ2jhMimRupeBNzcGR5Dz59Px25aKTDx96TrMaPb)",
+   "build": "python3 push/wreck_sighted_stolen_stores.gen.py create",
+   "note": "Director 2026-11-20 15:16Z: 'Build a master manifest you can run to fix that and build everything' (hidden). Job 649-mwp4jljo DONE 2/2 verified over the connector (full ~74 KB records sent verbatim, transcript answers). Read back: both hidden, event, once, 49 nodes, w_done pays FuQza x1, k_grant Shallows / page 3. Bundle harvests/inbox/tnr_results_1795188256274.json."
+  },
+  {
+   "id": "672",
+   "manifest": "push/672_wreck_sighted_stolen_stores_textfix.json",
+   "what": "Hidden text fix on both new Wreck Sighted copies: drop the roaming beach crew answer and rates (no placements exist, read 2026-11-20), Short Rations as one of her five dailies at 20% (push/639)",
+   "runner": "connector",
+   "status": "ready",
+   "waitsFor": [
+    "649"
+   ],
+   "thread": "Isonade (cmsg_01HemWcQ2jhMimRupeBNzcGR5Dz59Px25aKTDx96TrMaPb)",
+   "build": "python3 push/wreck_sighted_stolen_stores.gen.py fix --from harvests/inbox/tnr_results_1795188256274.json",
+   "note": "Hidden records only, covered by 'Build everything needed hidden'."
+  },
+  {
+   "id": "650",
+   "manifest": "push/650_wreck_sighted_stolen_stores_release.json",
+   "what": "RELEASE ONLY: unhide the new Wreck Sighted copies, hide last weekend's, Fire topics (same text fix as 672)",
+   "runner": "connector",
+   "status": "waiting",
+   "waitsFor": [
+    "672"
+   ],
+   "thread": "Isonade (cmsg_01HemWcQ2jhMimRupeBNzcGR5Dz59Px25aKTDx96TrMaPb)",
+   "build": "python3 push/wreck_sighted_stolen_stores.gen.py release --from harvests/inbox/tnr_results_1795188256274.json",
+   "note": "Folded into push/673. Re-read the Fire before the sitting."
+  },
+  {
+   "id": "673",
+   "manifest": "push/673_stolen_stores_golive_master.json",
+   "what": "RELEASE ONLY go-live master: chart item + 9 Isonade animations + The Flooded Stores + Short Rations unhidden, then 644, 643, 650; then push/639_salvager_pool_upsert.json as a direct call",
+   "runner": "connector",
+   "status": "waiting",
+   "waitsFor": [
+    "672"
+   ],
+   "thread": "Isonade (cmsg_01HemWcQ2jhMimRupeBNzcGR5Dz59Px25aKTDx96TrMaPb)",
+   "build": "python3 push/stolen_stores_golive.gen.py",
+   "note": "Waits for the director's go for the release sitting. Map publish separate. Regenerate 643/644/650 from fresh reads first."
   }
  ]
 }
