@@ -1,10 +1,11 @@
 {
- "holder": null,
- "token": null,
- "job": null,
- "releasedBy": "claude",
- "releasedInstance": null,
- "releasedJob": "isonade 665 test fight",
- "releasedAt": "2026-11-20T00:12:40.776Z",
- "note": "Free. Claim with node forge/tools/run_lock.mjs claim --holder NAME --job TEXT (RUL-2026-11-07-133)."
+ "holder": "claude",
+ "job": "push/666 isonade marker key",
+ "token": "cfea85395dd6425a993ad33fe8ec94d6",
+ "instance": null,
+ "ttlMinutes": 60,
+ "claimedAt": "2026-11-20T00:13:46.809Z",
+ "heartbeatAt": "2026-11-20T00:13:46.809Z",
+ "expiresAt": "2026-11-20T01:13:46.809Z",
+ "note": "One game writer per account at a time (RUL-2026-11-07-133). Written only by forge/tools/run_lock.mjs or Forge; do not hand-edit."
 }
