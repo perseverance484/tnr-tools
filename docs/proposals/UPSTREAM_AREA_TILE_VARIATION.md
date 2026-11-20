@@ -1,7 +1,7 @@
 # Upstream PR draft: let area effects vary their clips per tile
 
 - Upstream: `studie-tech/TheNinjaRPG`, base `main` a69344979 (rebase again before opening).
-- Branch: `perseverance484/TheNinjaRPG` `feat/area-tile-variation`, head 019323a36 (one commit, authored as
+- Branch: `perseverance484/TheNinjaRPG` `feat/area-tile-variation`, head ea28e4ccb (one commit, authored as
   perseverance484 with the Claude co-author line, like PR #2575).
 - Demo GIFs (drag them into the PR description on GitHub, where the placeholders are):
   `art/jutsu_icons/forbidden_chakra_fury/animation/v9/pr_fcf_side_by_side.gif` (main),
@@ -44,8 +44,10 @@ Ripple and stagger add up, and a tile waits at most 2 s (`MAX_TILE_DELAY_MS`). A
 ## Behaviour
 
 - Applies to ground effects (one per tile). Effects on a character, and the appear and disappear visuals combat spawns for them, keep the artist's orientation and timing.
-- A ground effect that lands on an occupied tile shows its clips and sounds once, through the ground's own visual; the copy forwarded onto the fighter no longer spawns a second appear or disappear visual.
-- Defaults (`false`, `0`, `0`, `""`) leave every tile identical, so existing content draws the same. The fields live in the effect JSON; there is no migration.
+- A ground effect that lands on an occupied tile shows its clips and sounds once, through the ground's own visual; the copy forwarded onto the fighter spawns no visual of its own.
+- The new settings at their defaults (`false`, `0`, `0`, `""`) change nothing: every tile plays the same clips at the same moment. The fields live in the effect JSON; there is no migration.
+- Two changes reach existing content. A one-shot visual that the next action removes plays to its end instead of being cut off. A ground effect on an occupied tile shows its appear visual once instead of twice, and a lasting one no longer plays a disappear clip and sound on the fighter each round.
+- An effect still in the battle but not shown, such as one on a fighter at 0 HP, keeps its clips for when it returns; an id that returns while its earlier clips are finishing starts fresh.
 - The appear and disappear visuals that combat spawns for a ground effect keep its mirror, stagger, ripple and caster tile, as they keep `animationScale`. Only appear visuals take the alternate clip.
 - Only ground effects a fighter places with an action record a caster tile; battle-start items and passive enemy-skill effects do not ripple. A ground effect's disappear visual ripples from where its caster stood when it was cast.
 - A ground effect that moves takes its new tile's orientation; its clips keep their timing.
@@ -78,3 +80,6 @@ By making this pull request, I confirm that I have the right to waive copyright 
   animation for an alternate and the renderer ignores an alternate without one; both editors share
   `hiddenEffectFields` (now also reskin-slot and jutsu-slot grants; mass editor shows N/A); the mass editor can
   clear the alternate with None; description corrected. The GIF must be regenerated with ripple before opening.
+- Review round 3 (independent agent on 019323a36): changes requested. Applied in ea28e4ccb: effects hidden but
+  still in the battle keep their loops; a returning id while its record finishes rebuilds fresh (tests for both,
+  each confirmed to fail without its fix); description now lists the two behaviour changes for existing content.
