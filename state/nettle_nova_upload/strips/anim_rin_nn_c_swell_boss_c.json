@@ -1,0 +1,34 @@
+{
+ "file": "anim_rin_nn_c_swell_boss_c.webp",
+ "frames": 20,
+ "speed": 70,
+ "size": [
+  168,
+  3360
+ ],
+ "frame_px": 168,
+ "bytes": 4782,
+ "duration_ms": 1400,
+ "animationScale": 3,
+ "slot": "Nettle Swell self marker (increaserange) on the boss: appearAnimation only",
+ "notes": "cast-only buff visual (rule 10): tendrils slam f0-2, chakra drawn up, shell swells, crackle at the peak",
+ "partial_alpha_px": 0,
+ "slot_preflight": {
+  "clip_side": "tile.height x 1 (EFFECT_ANIMATION_HEX_RATIO 1) x animationScale 3",
+  "phone_px": "about 66 CSS px on a 400 px board",
+  "desktop_px": "about 162 CSS px on a 1000 px board",
+  "carrier": "Nettle Swell self marker (increaserange) on the boss: appearAnimation only",
+  "draw_order": "over the fighters; every tile of one action starts at its strike",
+  "rows": "board rows count up from the bottom; QUEST boards are level-scaled (9x8 below L20 up to 12x10 at L40+)",
+  "source": "OpenDuelyst effect sheets, CC0 1.0, github.com/open-duelyst/duelyst @ df697549ca, recoloured and composited; rest drawn in code"
+ },
+ "gate": {
+  "square": true,
+  "frames_le_127": true,
+  "height_le_4096": true,
+  "bytes_le_ceiling": true,
+  "fresh_name": true,
+  "json_matches": true,
+  "scale_matches_slot": true
+ }
+}

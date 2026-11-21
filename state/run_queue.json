@@ -793,6 +793,17 @@
    "build": "python3 push/630_strip_recut.gen.py",
    "note": "Director: 'update your prompt appropriately to fix' (2026-11-17). Direct asset edits, ids unchanged (both suggestions stay valid). Prompt: state/prompt_strip_recut_630.md. Read back: image = new URL, frames/speed unchanged, hidden false. Strips uploaded to the director's UploadThing by a one-off workflow on claude/project-thread-un0ofw (sha-checked; state/recut_upload/uploaded.json). validate.py 0/0, plan 0 problems. Job 630-mwlimu0m 4/4 verified 2026-11-18 02:44 UTC; read back: image = new URL, hidden false; nAUh6EdgIUrPwLeyaeTPB 23 x 70, cMax_mQ9G8TGmWBB-DcVR 35 x 70, 92C_BYjulGUsL1y1X49Ee 29 x 70, A7JDFeATf0DL-Sdv_6ssF 40 x 80. Old uploads kept.",
    "result": "harvests/inbox/tnr_results_1794969847508.json"
+  },
+  {
+   "id": "698",
+   "manifest": "(by hand) /mnt/project-files/tnr/resort_in_need/ship/",
+   "what": "Resort in Need boss rework, Nettle Nova: 11 art files on the director's UploadThing, 11 assets hidden, 3 AI jutsu + 1 hidden stun-proof item, boss gets its own AI profile, kit, stats and DR; quest stays hidden",
+   "runner": "connector",
+   "status": "building",
+   "waitsFor": [],
+   "thread": "Resort in Need boss (cmsg_01HemWcQ2jhMimRupeBNzcGR23v2Pk64tnycubXP98G71y)",
+   "build": "python3 /mnt/project-files/tnr/resort_in_need/ship/gen_ship.py",
+   "note": "Director 2026-11-21 02:49Z: 'Yes, build it' (latest GIF: red warning tiles, one-picture burst, sealed aura, no residue). Numbers 631-697 are taken on other branches."
   }
  ]
 }
