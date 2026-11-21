@@ -1,0 +1,68 @@
+{
+ "builder": "connector-direct",
+ "at": "2026-11-21T00:42:28Z",
+ "cfg": "connector",
+ "checks": null,
+ "state": "DONE",
+ "outcome": "ok",
+ "_note": "The director's 'Fix the lines' (2026-11-21 00:37Z): n_rations now reads 'beat 3 Foraging Deckhands and their Galley Mate for 3 Wreck Salvage'. Lock held as claude. VRib first send dropped k_take's sceneCharacters by a transcription slip; the server diff showed it and the next send restored it, final read-back equal to the pre-edit read except n_rations.",
+ "entries": [
+  {
+   "name": "Wreck Sighted: Stolen Stores (Levels 30 to 80): n_rations line fix",
+   "srcId": null,
+   "entity": "quest",
+   "slot": "edit",
+   "op": "update",
+   "targetId": "VRibCq0gip_otYBbWEX4J",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "Full-record quests.update; server diff and full read-back: only content.objectives[n_rations].description changed; hidden false",
+   "verdict": "match",
+   "asserted": {
+    "ok": 1,
+    "fail": []
+   },
+   "diffs": []
+  },
+  {
+   "name": "Wreck Sighted: Stolen Stores (Level 81 and up): n_rations line fix",
+   "srcId": null,
+   "entity": "quest",
+   "slot": "edit",
+   "op": "update",
+   "targetId": "tYNgqctjx_5KIKbbOyApH",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "Full-record quests.update; server diff and full read-back: only content.objectives[n_rations].description changed; hidden false",
+   "verdict": "match",
+   "asserted": {
+    "ok": 1,
+    "fail": []
+   },
+   "diffs": []
+  },
+  {
+   "name": "At the Salvager's Fire: n_rations line fix",
+   "srcId": null,
+   "entity": "quest",
+   "slot": "edit",
+   "op": "update",
+   "targetId": "lEg5pVXqA8lzJpIPrykNi",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "Full-record quests.update; server diff and full read-back: only content.objectives[n_rations].description changed; hidden false",
+   "verdict": "match",
+   "asserted": {
+    "ok": 1,
+    "fail": []
+   },
+   "diffs": []
+  }
+ ],
+ "captures": [],
+ "idmap": {},
+ "journal": {}
+}

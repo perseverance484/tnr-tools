@@ -117,3 +117,8 @@ and puts the account to sleep.
   copies hidden, new copies live. Step 9 left to the release-check routine.
 - Stale text: the n_rations line on the Fire and both new Wreck Sighted copies still says "3 Looting Deckhands and a
   Quartermaster's Mate"; the rebuilt Short Rations uses Foraging Deckhands and the Galley Mate.
+- 00:4xZ the director's "Fix the lines": n_rations on the Fire and both new Wreck Sighted copies now reads "beat 3
+  Foraging Deckhands and their Galley Mate for 3 Wreck Salvage". Full-record edits under the lock; full read-backs
+  equal the pre-edit reads except that line; all three still live. Generator fixed and push/650 and push/673
+  regenerated (one-line diff each). push/649 and push/672 left as run. push/674 still copies the old line from its
+  captures; it must not be rerun (its captures are hidden-era). push/short_rations.gen.py DESC still names the old crew.

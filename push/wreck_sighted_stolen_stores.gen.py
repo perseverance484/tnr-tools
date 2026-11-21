@@ -71,7 +71,7 @@ WEEK = [
      'or go below.</i>'),
     ("n_rations", "Short Rations",
      '"Thin them out and I\'ll pay you. My crates, my sand."<br><br><i><b>Short Rations</b> is one of her '
-     'dailies now, from level 30: beat 3 Looting Deckhands and a Quartermaster\'s Mate for 3 Wreck Salvage. '
+     'dailies now, from level 30: beat 3 Foraging Deckhands and their Galley Mate for 3 Wreck Salvage. '
      'She offers it one time in five. Find her in sector 210, by the Wrecks.</i>'),
     ("n_eat", "What's eating the stores?",
      'She pokes the fire. "That crew don\'t eat. Old men on this coast talk about a shark with a hook for a tail. '
