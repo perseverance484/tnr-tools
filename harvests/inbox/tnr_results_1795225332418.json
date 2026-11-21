@@ -1,0 +1,243 @@
+{
+ "builder": "forge-mcp",
+ "at": "2026-11-21T01:42:12.418Z",
+ "cfg": "forge",
+ "checks": null,
+ "state": "DONE",
+ "outcome": "success",
+ "postflight": {
+  "match": 5,
+  "diff": 0,
+  "unverified": 0,
+  "failed": 0,
+  "skipped": 0,
+  "unresolved": 0
+ },
+ "entries": [
+  {
+   "name": "Frontline War Cache",
+   "srcId": null,
+   "entity": "item",
+   "slot": "edit",
+   "op": "update",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 1,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "DHVuX_BxUEDqcOaHZLRUc"
+  },
+  {
+   "name": "Bloodcore Cache",
+   "srcId": null,
+   "entity": "item",
+   "slot": "edit",
+   "op": "update",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 1,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "Fr4NDgv7talLrBh_uRAbR"
+  },
+  {
+   "name": "War Chest",
+   "srcId": null,
+   "entity": "item",
+   "slot": "edit",
+   "op": "update",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 1,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "mqrTLPZ4mM2wdLZ2b5vgp"
+  },
+  {
+   "name": "Conqueror's Stockpile",
+   "srcId": null,
+   "entity": "item",
+   "slot": "edit",
+   "op": "update",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 1,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "c4LmQmD_U_M1aJTYRFHXx"
+  },
+  {
+   "name": "Warlord's Hoard",
+   "srcId": null,
+   "entity": "item",
+   "slot": "edit",
+   "op": "update",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 1,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "vxpn02wvCP0nqJDCkHQ7d"
+  }
+ ],
+ "captures": [],
+ "idmap": {},
+ "journal": {
+  "v": 1,
+  "jobId": "m-mwpqq1yi",
+  "manifestPath": "push/rc335_B_unhide.json",
+  "manifestNumber": null,
+  "manifestHash": "f0e4ca61",
+  "startedAt": "2026-11-21T01:39:44.876Z",
+  "updatedAt": "2026-11-21T01:42:12.416Z",
+  "state": "DONE",
+  "pause": null,
+  "items": [
+   {
+    "idx": 0,
+    "entity": "item",
+    "op": "update",
+    "name": "Frontline War Cache",
+    "srcId": null,
+    "targetId": "DHVuX_BxUEDqcOaHZLRUc",
+    "payloadHash": "96c48e50",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "DHVuX_BxUEDqcOaHZLRUc",
+    "snapshotKey": null,
+    "sentAt": "2026-11-21T01:39:50.768Z",
+    "createSentAt": null,
+    "confirmedAt": "2026-11-21T01:40:33.059Z",
+    "verifiedAt": "2026-11-21T01:40:45.617Z",
+    "error": null,
+    "attempt": 1,
+    "asserted": [
+     "hidden"
+    ],
+    "diffs": [],
+    "verify": "match"
+   },
+   {
+    "idx": 1,
+    "entity": "item",
+    "op": "update",
+    "name": "Bloodcore Cache",
+    "srcId": null,
+    "targetId": "Fr4NDgv7talLrBh_uRAbR",
+    "payloadHash": "ef8f55c0",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "Fr4NDgv7talLrBh_uRAbR",
+    "snapshotKey": null,
+    "sentAt": "2026-11-21T01:40:52.058Z",
+    "createSentAt": null,
+    "confirmedAt": "2026-11-21T01:41:07.665Z",
+    "verifiedAt": "2026-11-21T01:41:14.050Z",
+    "error": null,
+    "attempt": 1,
+    "asserted": [
+     "hidden"
+    ],
+    "diffs": [],
+    "verify": "match"
+   },
+   {
+    "idx": 2,
+    "entity": "item",
+    "op": "update",
+    "name": "War Chest",
+    "srcId": null,
+    "targetId": "mqrTLPZ4mM2wdLZ2b5vgp",
+    "payloadHash": "ba0c8e03",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "mqrTLPZ4mM2wdLZ2b5vgp",
+    "snapshotKey": null,
+    "sentAt": "2026-11-21T01:41:15.611Z",
+    "createSentAt": null,
+    "confirmedAt": "2026-11-21T01:41:29.655Z",
+    "verifiedAt": "2026-11-21T01:41:31.297Z",
+    "error": null,
+    "attempt": 1,
+    "asserted": [
+     "hidden"
+    ],
+    "diffs": [],
+    "verify": "match"
+   },
+   {
+    "idx": 3,
+    "entity": "item",
+    "op": "update",
+    "name": "Conqueror's Stockpile",
+    "srcId": null,
+    "targetId": "c4LmQmD_U_M1aJTYRFHXx",
+    "payloadHash": "7cf915c7",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "c4LmQmD_U_M1aJTYRFHXx",
+    "snapshotKey": null,
+    "sentAt": "2026-11-21T01:41:33.430Z",
+    "createSentAt": null,
+    "confirmedAt": "2026-11-21T01:41:50.129Z",
+    "verifiedAt": "2026-11-21T01:41:51.755Z",
+    "error": null,
+    "attempt": 1,
+    "asserted": [
+     "hidden"
+    ],
+    "diffs": [],
+    "verify": "match"
+   },
+   {
+    "idx": 4,
+    "entity": "item",
+    "op": "update",
+    "name": "Warlord's Hoard",
+    "srcId": null,
+    "targetId": "vxpn02wvCP0nqJDCkHQ7d",
+    "payloadHash": "028d419d",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "vxpn02wvCP0nqJDCkHQ7d",
+    "snapshotKey": null,
+    "sentAt": "2026-11-21T01:41:53.881Z",
+    "createSentAt": null,
+    "confirmedAt": "2026-11-21T01:42:10.281Z",
+    "verifiedAt": "2026-11-21T01:42:12.414Z",
+    "error": null,
+    "attempt": 1,
+    "asserted": [
+     "hidden"
+    ],
+    "diffs": [],
+    "verify": "match"
+   }
+  ]
+ }
+}
