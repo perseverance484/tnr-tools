@@ -1017,13 +1017,14 @@
    "manifest": "push/673_stolen_stores_golive_master.json",
    "what": "RELEASE ONLY go-live master: chart item + 9 Isonade animations + The Flooded Stores + Short Rations unhidden, then 644, 643, 650; then push/639_salvager_pool_upsert.json as a direct call",
    "runner": "connector",
-   "status": "waiting",
+   "status": "done",
    "waitsFor": [
     "672"
    ],
    "thread": "Isonade (cmsg_01HemWcQ2jhMimRupeBNzcGR5Dz59Px25aKTDx96TrMaPb)",
    "build": "python3 push/stolen_stores_golive.gen.py",
-   "note": "Waits for the director's go for the release sitting. Map publish separate. Regenerate 643/644/650 from fresh reads first. 2026-11-20 16:1xZ: regenerated with the director's page icons (image only changed). 16:3xZ: page rewards Tide Chart -> Chart of the Flooded Stores (81+ challenge 2, Shallows challenge 3), the director 16:19Z. 2026-11-20 16:40Z: Fire topic n_eat set to the story v2 line (674 changed it only on the Wreck Sighted copies; 673 would have put v1 back on the live Fire)."
+   "note": "Waits for the director's go for the release sitting. Map publish separate. Regenerate 643/644/650 from fresh reads first. 2026-11-20 16:1xZ: regenerated with the director's page icons (image only changed). 16:3xZ: page rewards Tide Chart -> Chart of the Flooded Stores (81+ challenge 2, Shallows challenge 3), the director 16:19Z. 2026-11-20 16:40Z: Fire topic n_eat set to the story v2 line (674 changed it only on the Wreck Sighted copies; 673 would have put v1 back on the live Fire).",
+   "result": "2026-11-21 00:00-00:29Z, job 673-mwpn6qqg: 19 verified, 1 failed. Bundle harvests/inbox/tnr_results_1795220819200.json. Failed: The Flooded Stores unhide (server: quest needs main sceneCharacters or every objective's). Fixed by hand under a fresh lock: full-record quests.update with content.sceneCharacters ['1YXbXYW2wz3GETVMb6DT6'] (precedent push/383 chart runs) and hidden false; server diff showed only that. Deviation: items 15 to 19 (Wreck Sighted copies x4, the Fire) were sent with default-valued objective keys omitted and answered by hand-written answer files (exact server text); every server diff showed only the intended change, and the runner's own read-backs verified them. Then 639 Salvager pool upserted and read back (Short Rations 20, Beachcombing 20) and sector 210 map RJl-uOXFYoHlxcgkptJF3 published (PUBLISHED v8, 00:28:42Z)."
   },
   {
    "id": "674",

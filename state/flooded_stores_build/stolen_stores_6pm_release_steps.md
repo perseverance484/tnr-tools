@@ -104,3 +104,16 @@ run strings (the live records hold v2 from push/674). Regenerating either from s
 
 Release the lock and tell the main chat: the Roaming crew thread then does one check fight on dauntless at full HP
 and puts the account to sleep.
+
+## Run log (2026-11-21 UTC)
+
+- 00:0xZ step 4: all 4 shore crew spawns isActive true, read back.
+- Step 5, job 673-mwpn6qqg: 19 of 20 verified. The Flooded Stores unhide was refused (needs main sceneCharacters);
+  fixed by a full-record update setting content.sceneCharacters to `1YXbXYW2wz3GETVMb6DT6` (as every live chart run)
+  and hidden false, server diff exactly that. Bundle harvests/inbox/tnr_results_1795220819200.json.
+- Step 6: Salvager pool live and read back (Beachcombing 20, Warm Glass 30, Echoes Ashore 20, Short Rations 20, Tideline Count 10).
+- Step 7: sector 210 map v8 published 00:28:42Z.
+- Read-backs: Rotted Heading, Rotted Heading (Shallows), 81+ staff test and Her Invitation all hidden. Old Wreck Sighted
+  copies hidden, new copies live. Step 9 left to the release-check routine.
+- Stale text: the n_rations line on the Fire and both new Wreck Sighted copies still says "3 Looting Deckhands and a
+  Quartermaster's Mate"; the rebuilt Short Rations uses Foraging Deckhands and the Galley Mate.
