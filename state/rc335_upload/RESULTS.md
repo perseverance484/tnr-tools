@@ -16,3 +16,6 @@ Notes:
 - Job 1 (A) failed on a malformed answer file before any create; job 2 (A2) edited the blank shell left by the create into Frontline and created the other four. Its capture step paused on unresolved @item refs; every write was already verified by item.get.
 - Job B (unhide) finished DONE, 5 VERIFIED: harvests/inbox/tnr_results_1795225332418.json.
 - Run lock released (main 06d7c4c3).
+
+## Tradeable (2026-11-21 ~14:39Z)
+On the director's request, canBeTraded set true on all five caches (each update diff: canBeTraded only). Read back: all five canBeTraded true, still unhidden, icons unchanged. Silo not touched.
