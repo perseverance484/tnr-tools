@@ -1,6 +1,6 @@
-# DRIFT.md - upstream contract drift (2026-11-20)
+# DRIFT.md - upstream contract drift (2026-11-21)
 
-Upstream: studie-tech/TheNinjaRPG@2804286e7d8366d32980d4bd6a1de82a7b097a57
+Upstream: studie-tech/TheNinjaRPG@9582848286f91a7707b6f0c1aae9f48aac01804b
 
 Signal only. Nothing below is adopted until the structural diff gate passes.
 
@@ -106,6 +106,9 @@ ADDITIONS
   enum-member  AllTags.DecreaseStatTag.generalTypes  Speed
   enum-member  AllTags.DecreaseStatTag.generalTypes  Strength
   enum-member  AllTags.DecreaseStatTag.generalTypes  Willpower
+  enum-member  AllTags.DecreaseStatTag.groundStyle  DECAL
+  enum-member  AllTags.DecreaseStatTag.groundStyle  SURFACE
+  enum-member  AllTags.DecreaseStatTag.groundStyle  UPRIGHT
   enum-member  AllTags.DecreaseStatTag.target  COORDINATES
   enum-member  AllTags.DecreaseStatTag.target  INHERIT
   enum-member  AllTags.DecreaseStatTag.target  SELF
@@ -126,10 +129,7 @@ ADDITIONS
   enum-member  AllTags.IncreaseStatTag.elements  Light
   enum-member  AllTags.IncreaseStatTag.elements  Lightning
   enum-member  AllTags.IncreaseStatTag.elements  Magnet
-  enum-member  AllTags.IncreaseStatTag.elements  Metal
-  enum-member  AllTags.IncreaseStatTag.elements  None
-  enum-member  AllTags.IncreaseStatTag.elements  Sand
-  ... 201 more
+  ... 256 more
 
 BREAKING: 4494 change(s) - DO NOT ADOPT (exit 1)
 == 45d_DATA_entity_schemas ==
@@ -277,16 +277,16 @@ ADDITIONS
   const-member  CRAFTING_SERVICES  REPAIR
   const-member  ContentAuditFocuses  splash
   const-member  ContentProposalEntityTypes  SPLASH
+  const-member  DIAMOND_BLOODLINE_RANKS  A
+  const-member  DIAMOND_BLOODLINE_RANKS  B
+  const-member  DIAMOND_BLOODLINE_RANKS  C
+  const-member  DIAMOND_BLOODLINE_RANKS  D
   const-member  FARM_SHOP_ENTRY_TYPES  EXTRACTOR
   const-member  FARM_SHOP_ENTRY_TYPES  FERTILIZER
   const-member  FARM_SHOP_ENTRY_TYPES  PLOT
   const-member  FARM_SHOP_ENTRY_TYPES  SEED
-  const-member  GameAssetTypes  LPC
-  const-member  HP_DAMAGE_KEYS  afterburn
-  const-member  HP_DAMAGE_KEYS  damage
-  const-member  HP_DAMAGE_KEYS  drain_hp
-  const-member  HP_DAMAGE_KEYS  poison
-  ... 142 more
+  const-member  FederalStatuses  DIAMOND
+  ... 151 more
 
 BREAKING: 255 change(s) - DO NOT ADOPT (exit 1)
 ~~~
