@@ -1,11 +1,10 @@
 {
- "holder": "player",
- "token": "48cd9e53d1c743d692bbd43c53e4362c",
- "job": "pilot hunt",
- "instance": null,
- "ttlMinutes": 45,
- "claimedAt": "2026-11-21T18:58:36.382Z",
- "heartbeatAt": "2026-11-21T21:04:03.991Z",
- "expiresAt": "2026-11-21T21:49:03.991Z",
- "note": "One game writer per account at a time (RUL-2026-11-07-133). Written only by forge/tools/run_lock.mjs or Forge; do not hand-edit."
+ "holder": null,
+ "token": null,
+ "job": null,
+ "releasedBy": "player",
+ "releasedInstance": null,
+ "releasedJob": "pilot hunt",
+ "releasedAt": "2026-11-21T21:12:12.849Z",
+ "note": "Free. Claim with node forge/tools/run_lock.mjs claim --holder NAME --job TEXT (RUL-2026-11-07-133)."
 }
