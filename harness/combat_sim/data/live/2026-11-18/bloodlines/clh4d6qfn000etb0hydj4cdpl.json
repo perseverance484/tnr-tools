@@ -1,0 +1,77 @@
+{
+ "_source": {
+  "endpoint": "bloodline.get",
+  "input": {
+   "id": "clh4d6qfn000etb0hydj4cdpl"
+  },
+  "readAt": "2026-11-18T23:29:44.288Z"
+ },
+ "data": {
+  "createdAt": "2023-05-01T04:52:39.635Z",
+  "description": "<p dir=\"ltr\">Within the annals of Seichi, the lineage of Yaketsuku Netsu emerges from the shadows of antiquity, its origins shrouded in enigma. The inaugural carriers of this bloodline hailed from a clan renowned for their mastery of Genjutsu and the fire element. Fueled by an insatiable hunger for supremacy, they embarked on a quest to conquer every technique and art known to shinobi, delving into the realms of Ninjutsu, Bukijutsu, and Taijutsu. However, this relentless pursuit splintered the clan, fracturing them into practitioners of diverse disciplines. Today, only descendants of those Yaketsuku Netsu who dedicated themselves to the refinement of Bukijutsu endure. The original techniques of this lineage are deemed lost or forgotten, including those concerning the manipulation of the fire element.</p>\n<p><strong>&nbsp;</strong></p>\n<p dir=\"ltr\">In combat, the carriers of the Yaketsuku Netsu bloodline are renowned for their peerless expertise in Bukijutsu. Their ambition knows no bounds, propelling them to push the boundaries of their capabilities in the pursuit of victory. Gifted with a natural affinity for weaponry, they wield their chosen arms with grace and precision, striking fear into the hearts of their adversaries. Yet, behind their martial prowess lies an unyielding desire to reclaim the ancient arts of their lineage&mdash;a quest that propels them ever forward in search of forgotten secrets and untapped potential.</p>\n<p>&nbsp;</p>",
+  "difficulty": "Easy",
+  "effects": [
+   {
+    "appearAnimation": "",
+    "appearSfx": "",
+    "calculation": "percentage",
+    "description": "<p>Reflect damage taken</p>",
+    "direction": "offence",
+    "disappearAnimation": "",
+    "disappearSfx": "",
+    "elements": [],
+    "generalTypes": [],
+    "power": 5,
+    "powerPerLevel": 0,
+    "staticAnimation": "",
+    "staticAssetPath": "",
+    "target": "INHERIT",
+    "type": "reflect"
+   },
+   {
+    "appearAnimation": "",
+    "appearSfx": "",
+    "calculation": "percentage",
+    "description": "<p>Adjust damage taken of target</p>",
+    "direction": "offence",
+    "disappearAnimation": "",
+    "disappearSfx": "",
+    "elements": [],
+    "power": 20,
+    "powerPerLevel": 0.15,
+    "staticAnimation": "",
+    "staticAssetPath": "",
+    "target": "INHERIT",
+    "type": "increasedamagegiven"
+   },
+   {
+    "appearAnimation": "",
+    "appearSfx": "",
+    "calculation": "percentage",
+    "description": "<p>placeholder</p>",
+    "direction": "offence",
+    "disappearAnimation": "",
+    "disappearSfx": "",
+    "elements": [
+     "Wind"
+    ],
+    "power": 10,
+    "powerPerLevel": 0,
+    "staticAnimation": "",
+    "staticAssetPath": "",
+    "target": "INHERIT",
+    "type": "increasedamagetaken"
+   }
+  ],
+  "hidden": false,
+  "id": "clh4d6qfn000etb0hydj4cdpl",
+  "image": "https://utfs.io/f/Hzww9EQvYURJyY4prPukVH2MI5Lo4ehEfAXvZdcmtWqPg7rp",
+  "name": "Yaketsuku Netsu",
+  "rank": "B",
+  "regenIncrease": 100,
+  "statClassification": "Bukijutsu",
+  "traits": "Sustained DPS",
+  "updatedAt": "2023-06-06T12:46:17.350Z",
+  "villageId": null
+ }
+}

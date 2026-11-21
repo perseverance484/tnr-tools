@@ -1,0 +1,94 @@
+{
+ "_source": {
+  "endpoint": "ai.getAiProfile",
+  "input": {
+   "id": "V8dAp1VR6TQcI-14rpN9F"
+  },
+  "readAt": "2026-11-18T23:27:22.253Z"
+ },
+ "data": {
+  "id": "V8dAp1VR6TQcI-14rpN9F",
+  "includeDefaultRules": false,
+  "jutsuLoadoutId": null,
+  "rules": [
+   {
+    "action": {
+     "description": "payoff of the mark",
+     "jutsuId": "6YkuEE7zG_y-ocGPjc5gS",
+     "target": "SELF",
+     "type": "use_specific_jutsu"
+    },
+    "conditions": [
+     {
+      "description": "",
+      "effectType": "increaseheal",
+      "threshold": 1,
+      "type": "has_effect"
+     }
+    ]
+   },
+   {
+    "action": {
+     "description": "mark",
+     "jutsuId": "cJD-5e-7oZhQfvDfypyK-",
+     "target": "SELF",
+     "type": "use_specific_jutsu"
+    },
+    "conditions": [
+     {
+      "description": "",
+      "maxRange": 3,
+      "minRange": 1,
+      "type": "player_within_range"
+     }
+    ]
+   },
+   {
+    "action": {
+     "description": "hold still while the mark is up",
+     "type": "end_turn"
+    },
+    "conditions": [
+     {
+      "description": "",
+      "effectType": "increaseheal",
+      "threshold": 1,
+      "type": "has_effect"
+     }
+    ]
+   },
+   {
+    "action": {
+     "description": "close to splash range",
+     "target": "CLOSEST_OPPONENT",
+     "type": "move_towards_opponent"
+    },
+    "conditions": [
+     {
+      "description": "",
+      "target": "CLOSEST_OPPONENT",
+      "type": "distance_higher_than",
+      "value": 3
+     }
+    ]
+   },
+   {
+    "action": {
+     "description": "basic attack",
+     "jutsuId": "basicAttack",
+     "target": "CLOSEST_OPPONENT",
+     "type": "use_specific_jutsu"
+    },
+    "conditions": []
+   },
+   {
+    "action": {
+     "description": "unconditional tail (law 41)",
+     "type": "end_turn"
+    },
+    "conditions": []
+   }
+  ],
+  "userId": "BKOhuY1tTCbq4KhtxbUuN"
+ }
+}

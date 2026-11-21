@@ -1,0 +1,33 @@
+{
+ "_source": {
+  "endpoint": "ai.getAiProfile",
+  "input": {
+   "id": "AsLvknBA3b5xyKtK-SpFf"
+  },
+  "readAt": "2026-11-18T23:28:01.183Z"
+ },
+ "data": {
+  "id": "AsLvknBA3b5xyKtK-SpFf",
+  "includeDefaultRules": false,
+  "jutsuLoadoutId": null,
+  "rules": [
+   {
+    "action": {
+     "description": "Select specific jutsu",
+     "jutsuId": "QMXGlGM34xcBfDLWfJYoB",
+     "target": "SELF",
+     "type": "use_specific_jutsu"
+    },
+    "conditions": []
+   },
+   {
+    "action": {
+     "description": "End turn",
+     "type": "end_turn"
+    },
+    "conditions": []
+   }
+  ],
+  "userId": "lJAnVI4eBn5YjCgghqBji"
+ }
+}
