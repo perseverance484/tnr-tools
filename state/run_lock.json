@@ -1,11 +1,10 @@
 {
- "holder": "claude",
- "token": "bfa3fe07d29f4de08193e08d99580652",
- "job": "push/698 Nettle Nova (reads, then build)",
- "instance": null,
- "ttlMinutes": 60,
- "claimedAt": "2026-11-21T02:51:36.199Z",
- "heartbeatAt": "2026-11-21T03:01:25.717Z",
- "expiresAt": "2026-11-21T04:01:25.717Z",
- "note": "One game writer per account at a time (RUL-2026-11-07-133). Written only by forge/tools/run_lock.mjs or Forge; do not hand-edit."
+ "holder": null,
+ "token": null,
+ "job": null,
+ "releasedBy": "claude",
+ "releasedInstance": null,
+ "releasedJob": "push/698 Nettle Nova (reads, then build)",
+ "releasedAt": "2026-11-21T03:02:51.419Z",
+ "note": "Free. Claim with node forge/tools/run_lock.mjs claim --holder NAME --job TEXT (RUL-2026-11-07-133)."
 }
