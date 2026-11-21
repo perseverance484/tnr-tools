@@ -796,14 +796,15 @@
   },
   {
    "id": "698",
-   "manifest": "(by hand) /mnt/project-files/tnr/resort_in_need/ship/",
+   "manifest": "(by hand) state/nettle_nova_ship/",
    "what": "Resort in Need boss rework, Nettle Nova: 11 art files on the director's UploadThing, 11 assets hidden, 3 AI jutsu + 1 hidden stun-proof item, boss gets its own AI profile, kit, stats and DR; quest stays hidden",
    "runner": "connector",
-   "status": "building",
+   "status": "done",
    "waitsFor": [],
    "thread": "Resort in Need boss (cmsg_01HemWcQ2jhMimRupeBNzcGR23v2Pk64tnycubXP98G71y)",
-   "build": "python3 /mnt/project-files/tnr/resort_in_need/ship/gen_ship.py",
-   "note": "Director 2026-11-21 02:49Z: 'Yes, build it' (latest GIF: red warning tiles, one-picture burst, sealed aura, no residue). Numbers 631-697 are taken on other branches."
+   "build": "python3 state/nettle_nova_ship/gen_ship.py; gen_jutsu.py",
+   "note": "Director 2026-11-21 02:49Z: 'Yes, build it' (latest GIF: red warning tiles, one-picture burst, sealed aura, no residue). Numbers 631-697 are taken on other branches.",
+   "result": "state/nettle_nova_ship/results_698.json"
   }
  ]
 }
