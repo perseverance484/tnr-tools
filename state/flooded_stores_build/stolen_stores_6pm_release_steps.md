@@ -122,3 +122,8 @@ and puts the account to sleep.
   equal the pre-edit reads except that line; all three still live. Generator fixed and push/650 and push/673
   regenerated (one-line diff each). push/649 and push/672 left as run. push/674 still copies the old line from its
   captures; it must not be rerun (its captures are hidden-era). push/short_rations.gen.py DESC still names the old crew.
+- 01:31Z the director's "Fix it now" on the Short Rations Logbook (it showed Sector 0, [0, 0] and its link travelled to
+  sector 0): b1-b4 now carry sector 210 at their crew placement's home tile (b1 20,5; b2 22,6; b3 24,7; b4 13,1).
+  Full-record edit under the lock; server diff and full read-back show only those 12 fields changed; still live.
+  Placements read back at the same tiles. push/short_rations.gen.py still writes sector 0 for b1-b4; set real tiles
+  there before it is ever rerun.
