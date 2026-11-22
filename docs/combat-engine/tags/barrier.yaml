@@ -1,0 +1,29 @@
+tag: barrier
+schema: validators/combat.ts BarrierTag (line 595)
+exclusion_area: Soak damage
+in_game_text: Creates a barrier with level corresponding to power
+behavior: "A ground object on a tile with its own HP (its level is the power). A single-target hit that passes through it loses absorbPercentage of its damage to the barrier, and an AoE hits a barrier standing on its tile. It breaks at 0 HP. It also stops Redirection from landing on its tile. Clear can't touch it."
+polarity: neutral   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: []   # no prevent check in its handler
+copy_can_take: false
+mirror_can_pass: false
+potency_eligible: false
+immunity_can_cancel: false
+stage: S0 cast prep (path absorb) and S1 ground pass; no main-pass handler
+calculation: [static]   # default static
+own_fields:   # zod expressions resolved from the schema (helpers, spreads, extend); fields inherited unchanged from BaseAttributes/PowerAttributes are in engine.md section 6
+  direction: "type(\"defence\")"
+  curHealth: z.coerce.number().int().min(1).max(100000).prefault(100)
+  maxHealth: z.coerce.number().int().min(1).max(100000).prefault(100)
+  absorbPercentage: z.coerce.number().int().min(1).max(100).prefault(50)
+live_usage_2026_11_21: {jutsu: 10, pvp_legal: 9}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b5ebda9c319eb72e80670229b0b72ea9ac, paths under app/src
+  - libs/combat/tags.ts damageBarrier (line 1487)
+  - "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)"
+  - libs/combat/util.ts EFFECT_SORT_RANK rank 30 (line 1098)
+  - libs/combat/actions.ts (barrier path absorb)
+interactions:   # full list with notes in ../interactions.json
+  outgoing:
+    counters: [damage, redirection, pierce]
+  incoming:
+    overlaps: [shield]

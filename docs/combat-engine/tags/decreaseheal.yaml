@@ -1,0 +1,30 @@
+tag: decreaseheal
+schema: validators/combat.ts DecreaseHealGivenTag (line 438)
+exclusion_area: Healing
+in_game_text: Decrease how much target can heal others
+behavior: "Shrinks the HP healing the holder produces, the same way increaseheal grows it: Heal's HP part, Lifesteal, Vamp, the Curse payout and Absorb's HP part. Chakra and stamina healing are not changed. Debuffprevent blocks it."
+polarity: negative   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: [debuffprevent]
+prevent_check: "age-compared: blocks only effects created in a later round than the prevent"
+copy_can_take: false
+mirror_can_pass: true
+potency_eligible: false
+immunity_can_cancel: false
+stage: "S14 heal adjustments (own pass, after Diffuse deferral and delayed Absorb)"
+live_from: next round (waits while isNew/castThisRound)
+calculation: [static, percentage]   # default percentage
+own_fields:   # zod expressions resolved from the schema (helpers, spreads, extend); fields inherited unchanged from BaseAttributes/PowerAttributes are in engine.md section 6
+  calculation: "z.enum([\"static\", \"percentage\"]).prefault(\"percentage\")"   # from PercentageCalculation via HealModifierAttributes
+live_usage_2026_11_21: {jutsu: 15, pvp_legal: 11}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b5ebda9c319eb72e80670229b0b72ea9ac, paths under app/src
+  - libs/combat/tags.ts decreaseHealGiven (line 1084)
+  - libs/combat/process.ts first reference (line 1633)
+  - "libs/combat/process.ts applyEffects heal adjustment pass, after the post-damage readers (line 661)"
+  - "libs/combat/util.ts EFFECT_SORT_RANK rank 58 (line 1120, ...POST_PIERCE_TAGS entry at libs/combat/constants.ts line 276)"
+interactions:   # full list with notes in ../interactions.json
+  outgoing:
+    weakens: [heal, lifesteal, vamp, absorb, curse]
+  incoming:
+    prevents: [debuffprevent]
+    removes: [cleanse]
+    transfers: [mirror]

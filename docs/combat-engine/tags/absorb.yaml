@@ -1,0 +1,38 @@
+tag: absorb
+schema: validators/combat.ts AbsorbTag (line 359)
+exclusion_area: Soak damage
+in_game_text: "Absorb damage taken & convert to health, chakra or stamina"
+behavior: "A buff on the holder, live from the round after it lands. For each instant hit on the holder whose generals match (elements ignored; Pierce always matches), it takes power% of the immediate damage: the hit after the pipeline and the Parry split, before shields. It is read after Diffuse when the holder has Diffuse or the action has a Parry return. The hit itself is not reduced. The amount is rounded up, then split evenly across poolsAffected with no further rounding, and stacked Absorbs add. The HP share is scaled by the holder's increaseheal/decreaseheal, capped at 0.6 x the immediate damage (not rounded), and paid only if the holder is still alive. The CP/SP shares have no cap, ignore heal modifiers and pay even on a killing hit. Residual ticks don't feed it. A healprevent from an earlier round blocks it, and an unsettled Curse on the holder stops all of it."
+polarity: positive   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: [healprevent]
+prevent_check: "age-compared: blocks only effects created in a later round than the prevent"
+copy_can_take: true
+mirror_can_pass: false
+potency_eligible: true
+immunity_can_cancel: false
+stage: S10 post-damage readers; S13 instead when the action has Parry returns or the holder has Diffuse; paid in S15
+live_from: next round (waits while isNew/castThisRound)
+calculation: [percentage]   # default percentage
+own_fields:   # zod expressions resolved from the schema (helpers, spreads, extend); fields inherited unchanged from BaseAttributes/PowerAttributes are in engine.md section 6
+  direction: "type(\"defence\")"
+  target: "z.enum(BaseTagTargets).optional().prefault(\"SELF\")"
+  calculation: "z.enum([\"percentage\"]).prefault(\"percentage\")"
+  generalTypes: z.array(z.enum(GeneralTypes)).optional()   # from IncludeGeneralsAndElements
+  elements: z.array(z.enum(ElementNames)).optional()   # from IncludeGeneralsAndElements
+  poolsAffected: "z.array(z.enum(PoolTypes)).prefault([\"Health\"])"
+live_usage_2026_11_21: {jutsu: 45, pvp_legal: 38}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b5ebda9c319eb72e80670229b0b72ea9ac, paths under app/src
+  - libs/combat/tags.ts absorb (line 172)
+  - libs/combat/process.ts first reference (line 634)
+  - "libs/combat/process.ts applyEffects post-damage pass, after pierce (line 630)"
+  - libs/combat/process.ts applyEffects deferred Absorb when Parry returned damage or the target has Diffuse (line 654)
+  - "libs/combat/util.ts EFFECT_SORT_RANK rank 53 (line 1120, ...POST_PIERCE_TAGS entry at libs/combat/constants.ts line 271)"
+interactions:   # full list with notes in ../interactions.json
+  incoming:
+    boosts: [increasepotency, increaseheal]
+    disables: [curse]
+    feeds: [pierce, damage]
+    prevents: [healprevent]
+    removes: [clear]
+    transfers: [copy]
+    weakens: [decreasepotency, decreaseheal, diffuse]

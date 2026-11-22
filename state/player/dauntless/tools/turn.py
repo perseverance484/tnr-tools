@@ -105,26 +105,9 @@ def _combine(base, parts):
 
 def _pure_reply(sa, da, bases):
     """His pure-damage turn as arithmetic (same steps as shotplan.apply for a (base, []) spec, then run_turn):
-    returns (damage to me, damage to him). sa = his aggregates, da = mine, at his reply round."""
-    z = (0.0, 1.0, 1.0)
-    g = lambda d, k: d.get(k, z)
-    taken_self = g(sa, "wound")[0] + g(sa, "drain")[0] if bases else 0.0
-    dealt = 0.0
-    shield = g(da, "shield")[0]
-    for base in bases:
-        if not base:
-            continue
-        dmg = base * g(sa, "given")[1] * g(da, "taken")[1] * g(da, "dr")[2]
-        if shield:
-            dmg -= min(shield, dmg)
-            shield = 0.0
-        dmg = max(dmg, 0.0)
-        heal_cut = 1 - g(da, "healcut")[0]
-        dealt += dmg - dmg * min(0.9, g(da, "absorb")[0]) * heal_cut
-        taken_self -= dmg * g(sa, "lifesteal")[0] * (1 - g(sa, "healcut")[0])
-        taken_self += dmg * g(sa, "recoil_self")[0] + dmg * g(sa, "recoil")[0]
-        taken_self += dmg * g(da, "reflect")[0] + dmg * g(da, "parry")[0]
-    return dealt, taken_self
+    returns (damage to me, damage to him). sa = his aggregates, da = mine, at his reply round.
+    Kept as the dict-shaped entry point; the arithmetic lives once, in _reply_vec, with the engine caps."""
+    return _reply_vec(_vec(sa, da), bases)
 
 
 def _vec(sa, da):
@@ -149,16 +132,16 @@ def _reply_vec(v, bases):
         if not base:
             continue
         dmg = base * gm * tm * drp
-        parried = dmg * min(1.0, par)              # same order and caps as shotplan.apply
+        parried = dmg * min(CM.CAP_PARRY, par)     # same order and caps as shotplan.apply
         dmg -= parried
         if shield:
             dmg -= min(shield, dmg)
             shield = 0.0
         dmg = max(dmg, 0.0)
-        dealt += dmg - dmg * min(0.6, ab) * (1 - hc_d)
-        taken_self -= dmg * min(0.6, ls) * (1 - hc_s)
+        dealt += dmg - dmg * min(CM.CAP_ABSORB, ab) * (1 - hc_d)
+        taken_self -= dmg * min(CM.CAP_LEECH, ls) * (1 - hc_s)
         taken_self += dmg * rec
-        taken_self += parried + dmg * min(0.6, refl)
+        taken_self += parried + dmg * min(CM.CAP_REFLECT, refl)
     return dealt, taken_self
 
 
@@ -184,6 +167,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 
 import cd_plan  # noqa: E402
+import combat_map as CM  # noqa: E402  (engine caps and tag facts from docs/combat-engine)
 import shotplan  # noqa: E402
 import value_model  # noqa: E402
 import engine_bridge  # noqa: E402
@@ -283,7 +267,7 @@ def _mit(e, at, afb=None, cap=None):
                 aft += t[1]
     if afb is not None:
         aft = afb
-    return k * (1 + min(0.6, aft) - min(0.6, ab) * max(0.0, 1 - hc))
+    return k * (1 + min(CM.CAP_AFTERBURN, aft) - min(CM.CAP_ABSORB, ab) * max(0.0, 1 - hc))
 
 
 def _mult_by(side, kind, at, cap):

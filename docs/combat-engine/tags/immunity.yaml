@@ -1,0 +1,29 @@
+tag: immunity
+schema: validators/combat.ts ImmunityTag (line 975)
+exclusion_area: Protection
+in_game_text: Grants immunity against the specified prevent-type effect
+behavior: "While active, it cancels any new prevent-type status of one chosen kind (the blocks field) as it lands on the holder. It's positive, so Clear removes it."
+polarity: positive   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: []   # no prevent check in its handler
+copy_can_take: false
+mirror_can_pass: false
+potency_eligible: false
+immunity_can_cancel: false
+stage: S3 main pass (unranked)
+calculation: [static]   # default static
+own_fields:   # zod expressions resolved from the schema (helpers, spreads, extend); fields inherited unchanged from BaseAttributes/PowerAttributes are in engine.md section 6
+  rounds: z.coerce.number().int().min(1).max(20).prefault(2)
+  target: "z.enum(BaseTagTargets).optional().prefault(\"SELF\")"
+  calculation: "z.enum([\"static\"]).prefault(\"static\")"
+  blocks: "z.enum(PreventTagTypes).prefault(\"buffprevent\")"
+live_usage_2026_11_21: {jutsu: 0, pvp_legal: 0}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b5ebda9c319eb72e80670229b0b72ea9ac, paths under app/src
+  - libs/combat/tags.ts immunity (line 2199)
+  - libs/combat/process.ts first reference (line 1669)
+  - "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)"
+  - "libs/combat/util.ts EFFECT_SORT_RANK: no explicit rank, sorts last (line 1016)"
+interactions:   # full list with notes in ../interactions.json
+  outgoing:
+    counters: [buffprevent, clearprevent, cleanseprevent, debuffprevent, disarm, fleeprevent, healprevent, moveprevent, onehitkillprevent, robprevent, sealprevent, stunprevent, summonprevent]
+  incoming:
+    removes: [clear]

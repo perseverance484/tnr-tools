@@ -1,0 +1,26 @@
+tag: disarm
+schema: validators/combat.ts DisarmTag (line 735)
+exclusion_area: Deny actions
+in_game_text: Prevents using WEAPON items in battle and hides them
+behavior: "A prevent-type status. While active with rounds left (and not cast this round) it hides the holder's weapon items and every jutsu that needs a weapon. It is only an action gate; no handler checks it."
+polarity: negative   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: []   # no prevent check in its handler
+copy_can_take: false
+mirror_can_pass: true
+potency_eligible: false
+immunity_can_cancel: true
+stage: S3 main pass; action gate in availableUserActions
+live_from: action gate while active with rounds left and not cast this round
+calculation: [static]   # default static
+fields_note: simpleTag (BaseAttributes + PowerAttributes only)
+live_usage_2026_11_21: {jutsu: 0, pvp_legal: 0}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b5ebda9c319eb72e80670229b0b72ea9ac, paths under app/src
+  - libs/combat/tags.ts applyPreventTag (line 338)
+  - "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)"
+  - libs/combat/util.ts EFFECT_SORT_RANK rank 13 (line 1079)
+  - libs/combat/actions.ts availableUserActions (line 111)
+interactions:   # full list with notes in ../interactions.json
+  incoming:
+    counters: [immunity]
+    removes: [cleanse]
+    transfers: [mirror]

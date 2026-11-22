@@ -1,0 +1,26 @@
+tag: buffprevent
+schema: validators/combat.ts BuffPreventTag (line 608)
+exclusion_area: Protection
+in_game_text: Prevents buffing
+behavior: "A prevent-type status. It rolls power% once to land, then blocks with certainty every buff cast on the holder in a later round: stat, mastery, damage given up, damage taken down, heal up, range, cooldown down, potency up, max pools up, reflect, curse, siphon, time dilation, aggro, and the holder's own Copy. Buffs already on the holder stay. Parry, shield, absorb and lifesteal ignore it."
+polarity: negative   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: []   # no prevent check in its handler
+copy_can_take: false
+mirror_can_pass: false
+potency_eligible: false
+immunity_can_cancel: true
+stage: S3 main pass
+calculation: [static]   # default static
+fields_note: simpleTag (BaseAttributes + PowerAttributes only)
+live_usage_2026_11_21: {jutsu: 13, pvp_legal: 13}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b5ebda9c319eb72e80670229b0b72ea9ac, paths under app/src
+  - libs/combat/tags.ts applyPreventTag (line 338)
+  - "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)"
+  - libs/combat/util.ts EFFECT_SORT_RANK rank 1 (line 1067)
+interactions:   # full list with notes in ../interactions.json
+  outgoing:
+    overlaps: [clear]
+    prevents: [increasestat, increasemastery, increasedamagegiven, decreasedamagetaken, increaseheal, increaserange, decreasecooldown, increasepotency, increasemaxpools, reflect, curse, siphon, timedilation, increaseaggro, decreaseaggro, copy]
+  incoming:
+    counters: [immunity]
+    removes: [cleanse]

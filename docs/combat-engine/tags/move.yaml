@@ -1,0 +1,25 @@
+tag: move
+schema: validators/combat.ts MoveTag (line 780)
+exclusion_area: Position
+in_game_text: Move on the battlefield
+behavior: "Moves the caster to the chosen tile, which registers them with any ground effects there. Moveprevent blocks it."
+polarity: positive   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: [moveprevent]
+prevent_check: "any age, the mover's own moveprevent (tags.ts:2273); moveprevent also hides move actions"
+copy_can_take: false
+mirror_can_pass: false
+potency_eligible: false
+immunity_can_cancel: false
+stage: S1 ground pass
+calculation: [static]   # default static
+fields_note: simpleTag (BaseAttributes + PowerAttributes only)
+live_usage_2026_11_21: {jutsu: 80, pvp_legal: 77}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b5ebda9c319eb72e80670229b0b72ea9ac, paths under app/src
+  - libs/combat/tags.ts move (line 2264)
+  - "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)"
+  - libs/combat/util.ts EFFECT_SORT_RANK rank 64 (line 1127)
+interactions:   # full list with notes in ../interactions.json
+  incoming:
+    hides: [moveprevent]
+    prevents: [moveprevent]
+    removes: [clear]

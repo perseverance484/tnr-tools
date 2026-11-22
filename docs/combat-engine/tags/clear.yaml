@@ -1,0 +1,30 @@
+tag: clear
+schema: validators/combat.ts ClearTag (line 610)
+exclusion_area: Remove effects
+in_game_text: Clears all positive effects from the target
+behavior: "Rolls power% each tick until it lands. Then it removes every positive effect on the target, plus positive ground effects on their tile, except those from bloodline, sage mode, gear, skills or other pre-battle sources. Clear is itself negative, so Cleanse removes a pending Clear. Clearprevent blocks it."
+polarity: negative   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: [clearprevent]
+prevent_check: "any age: any active prevent blocks it, including a pending effect cast earlier, which then ends (tags.ts:1155)"
+copy_can_take: false
+mirror_can_pass: false
+potency_eligible: false
+immunity_can_cancel: false
+stage: S3 main pass
+applies: "on its casting action, then on the holder's first action of each later round (not again in the cast round; no-rounds versions: every holder action)"
+calculation: [static]   # default static
+fields_note: simpleTag (BaseAttributes + PowerAttributes only)
+live_usage_2026_11_21: {jutsu: 2, pvp_legal: 2}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b5ebda9c319eb72e80670229b0b72ea9ac, paths under app/src
+  - libs/combat/tags.ts clear (line 1149)
+  - libs/combat/process.ts first reference (line 1546)
+  - "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)"
+  - libs/combat/util.ts EFFECT_SORT_RANK rank 19 (line 1086)
+interactions:   # full list with notes in ../interactions.json
+  outgoing:
+    overlaps: [cleanse]
+    removes: [absorb, consume, curse, debuffprevent, decreaseaggro, decreasecooldown, decreasedamagetaken, decreasepoolcost, heal, immunity, increaseaggro, increasedamagegiven, increaseheal, increasemastery, increasemaxpools, increasepotency, increaserange, increasestat, lifesteal, move, onehitkillprevent, parry, reflect, robprevent, sealprevent, shield, siphon, stealth, stunprevent, summon, timedilation]
+  incoming:
+    overlaps: [buffprevent]
+    prevents: [clearprevent]
+    removes: [cleanse]

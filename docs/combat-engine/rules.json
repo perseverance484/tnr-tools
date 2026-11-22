@@ -1,0 +1,91 @@
+{
+ "pinned_game_commit": "29cd91b5ebda9c319eb72e80670229b0b72ea9ac",
+ "caps": {
+  "lifesteal_vamp": {
+   "value": 0.6,
+   "what": "Lifesteal plus vamp, shared: floor(cap x pre-shield immediate hit), vamp paid first",
+   "source": "libs/combat/constants.ts:80 DAMAGE_LEECH_CAP_RATIO"
+  },
+  "reflect": {
+   "value": 0.6,
+   "what": "Reflect, as a fraction of the pre-Diffuse hit, not rounded, applied after the shield soak",
+   "source": "libs/combat/constants.ts:86 REFLECT_CAP_RATIO"
+  },
+  "absorb": {
+   "value": 0.6,
+   "what": "Absorb HP share only, as a fraction of the immediate (post-Diffuse, pre-shield) hit; CP/SP shares uncapped",
+   "source": "libs/combat/constants.ts:89 ABSORB_CAP_RATIO"
+  },
+  "afterburn": {
+   "value": 0.6,
+   "what": "Stacked afterburn per hit, floor(cap x hit), applied when the readers run",
+   "source": "libs/combat/constants.ts:92 AFTERBURN_CAP_RATIO"
+  },
+  "shield_hp": {
+   "value": 100000,
+   "what": "Shield tag health ceiling, and the most new Consume/Siphon shield HP per fighter per action",
+   "source": "drizzle/constants.ts:2491 SHIELD_MAX_HEALTH"
+  },
+  "damage_reduction": {
+   "value": 0.9,
+   "what": "Reductions after the 50% system DR stop at this share: a hit never falls below 10% of its post-system-DR value",
+   "source": "drizzle/constants.ts:4576 DMG_REDUCTION_CAP"
+  },
+  "parry_pct": {
+   "value": 100,
+   "what": "Parry, summed, in percent",
+   "source": "drizzle/constants.ts:4578 PARRY_MAX_PERCENTAGE"
+  },
+  "diffuse_pct": {
+   "value": 99,
+   "what": "Diffuse, in percent",
+   "source": "drizzle/constants.ts:4579 DIFFUSE_MAX_PERCENTAGE"
+  },
+  "copy_held": {
+   "value": 4,
+   "what": "Copied tags held per caster",
+   "source": "drizzle/constants.ts:4610 COPY_MAX_TAGS"
+  },
+  "mirror_held": {
+   "value": 4,
+   "what": "Mirrored tags held per caster",
+   "source": "drizzle/constants.ts:4611 MIRROR_MAX_TAGS"
+  }
+ },
+ "base": {
+  "damage_increase_points": {
+   "value": 60,
+   "what": "Percentage points in the pre-battle increase pool",
+   "source": "drizzle/constants.ts:4577 OUT_OF_COMBAT_BASE_DAMAGE_INCREASE"
+  },
+  "damage_reduction_points": {
+   "value": 50,
+   "what": "Percentage points in the pre-battle DR pool",
+   "source": "drizzle/constants.ts:4583 OUT_OF_COMBAT_BASE_DAMAGE_REDUCTION"
+  }
+ },
+ "timing": {
+  "turn_seconds": {
+   "value": 60,
+   "what": "Seconds per turn",
+   "source": "libs/combat/constants.ts:62 COMBAT_SECONDS"
+  },
+  "diffuse_delay_rounds": {
+   "value": 3,
+   "what": "Default Diffuse delayRounds: debt repaid over the holder's next N acting rounds",
+   "source": "drizzle/constants.ts:4580 DIFFUSE_DEFAULT_DELAY_ROUNDS"
+  },
+  "temporal_ap_delta": {
+   "value": 10,
+   "what": "AP added or removed by timedilation / timecompression",
+   "source": "drizzle/constants.ts:4581 TEMPORAL_AP_DELTA"
+  }
+ },
+ "stacking": {
+  "same_tag_stacks": {
+   "value": true,
+   "what": "Same tag from the same caster on the same target stacks",
+   "source": "drizzle/constants.ts:2437 BATTLE_TAG_STACKING"
+  }
+ }
+}

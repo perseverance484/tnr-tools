@@ -1,0 +1,34 @@
+tag: heal
+schema: validators/combat.ts HealTag (line 683)
+exclusion_area: Healing
+in_game_text: Heals themselves or others
+behavior: "Restores power x 10 if static, or power% of the target's max pool if percentage, to each listed pool. With rounds 0 it heals on the casting action. With rounds > 0 it heals nothing then, and heals once per round on the holder's (target's) first action of each later round. A healprevent from an earlier round blocks it on landing, and it blocks all pools. The healer's increaseheal/decreaseheal scale only the HP part. Several heals reaching one target in one action don't stack: the largest per pool applies. HP is restored only if the target is still alive, up to the effective max. Clear removes a heal-over-time."
+polarity: positive   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: [healprevent]
+prevent_check: "age-compared: blocks only effects created in a later round than the prevent"
+copy_can_take: false
+mirror_can_pass: false
+potency_eligible: true
+immunity_can_cancel: false
+stage: "S3 main pass -> S14 heal adjustments -> S15 applied"
+live_from: "rounds 0: casting action; rounds > 0: holder's first action in the round after cast, then once per round"
+applies: "rounds 0: once, on cast; rounds > 0: nothing on cast, then once a round on the holder's first action"
+calculation: [static, percentage]   # default percentage
+own_fields:   # zod expressions resolved from the schema (helpers, spreads, extend); fields inherited unchanged from BaseAttributes/PowerAttributes are in engine.md section 6
+  rounds: z.coerce.number().int().min(0).max(100).prefault(0)
+  calculation: "z.enum([\"static\", \"percentage\"]).prefault(\"percentage\")"
+  poolsAffected: "z.array(z.enum(PoolTypes)).prefault([\"Health\"]).optional()"   # from PoolAttributes
+live_usage_2026_11_21: {jutsu: 23, pvp_legal: 23}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b5ebda9c319eb72e80670229b0b72ea9ac, paths under app/src
+  - libs/combat/tags.ts heal (line 1564)
+  - libs/combat/process.ts first reference (line 1536)
+  - "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)"
+  - libs/combat/util.ts EFFECT_SORT_RANK rank 38 (line 1106)
+interactions:   # full list with notes in ../interactions.json
+  outgoing:
+    overlaps: [curse]
+  incoming:
+    boosts: [increasepotency, increaseheal]
+    prevents: [healprevent]
+    removes: [clear]
+    weakens: [decreasepotency, decreaseheal]

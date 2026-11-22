@@ -1,0 +1,34 @@
+tag: increasepoolcost
+schema: validators/combat.ts IncreasePoolCostTag (line 453)
+exclusion_area: Deny actions
+in_game_text: Increase cost of taking actions
+behavior: "Raises the chakra or stamina cost of the holder's actions. No prevent check runs on it. It feeds Poison, which reads the pool spent."
+polarity: negative   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: []   # no prevent check in its handler
+copy_can_take: false
+mirror_can_pass: true
+potency_eligible: false
+immunity_can_cancel: false
+stage: S3 main pass
+live_from: "as soon as it is on the holder and enabled (no next-round wait; util.ts:1146-1150)"
+applies: "read whenever an action's cost is computed (util.ts:1136-1165); the handler only reports"
+calculation: [static, percentage]   # default percentage
+own_fields:   # zod expressions resolved from the schema (helpers, spreads, extend); fields inherited unchanged from BaseAttributes/PowerAttributes are in engine.md section 6
+  rounds: z.coerce.number().int().min(2).max(20).prefault(2)   # from PoolCostAttributes
+  direction: "type(\"defence\")"   # from PoolCostAttributes
+  calculation: "z.enum([\"static\", \"percentage\"]).prefault(\"percentage\")"   # from PercentageCalculation via PoolCostAttributes
+  poolsAffected: "z.array(z.enum(PoolTypes)).prefault([\"Health\"]).optional()"   # from PoolAttributes via PoolCostAttributes
+live_usage_2026_11_21: {jutsu: 10, pvp_legal: 10}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b5ebda9c319eb72e80670229b0b72ea9ac, paths under app/src
+  - libs/combat/tags.ts increasepoolcost (line 1649)
+  - libs/combat/process.ts first reference (line 1540)
+  - "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)"
+  - libs/combat/util.ts EFFECT_SORT_RANK rank 27 (line 1094)
+interactions:   # full list with notes in ../interactions.json
+  outgoing:
+    boosts: [poison]
+    counters: [decreasepoolcost]
+  incoming:
+    overlaps: [timecompression]
+    removes: [cleanse]
+    transfers: [mirror]

@@ -1,0 +1,40 @@
+tag: curse
+schema: validators/combat.ts CurseTag (line 794)
+exclusion_area: Damage later
+in_game_text: "Store half the percentage of enemy damage dealt and half of enemy damage received as healing. Increases the holder's damage by the configured Damage Bonus percentage while active. Heals once on natural expiration; removal discards stored healing. Uses actual HP damage and cannot revive. Healing increases and decreases apply at payout before the maximum-HP cap; stored healing is unchanged. While active, disables the holder's Lifesteal, Absorb, and Vamp conversions."
+behavior: "The holder stores half of power% of the damage they deal and take. While active it adds damageBonusPercent to their raw damage (not to pierce) and switches off their own Lifesteal, Absorb and Vamp. When it expires naturally, it heals the stored amount, with heal modifiers applied, up to max HP. Clear or any other removal throws the store away. Healprevent on the holder blocks the payout, and Seal blocks it for a bloodline Curse. Buffprevent stops it landing."
+polarity: positive   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: [buffprevent, healprevent]
+prevent_check: "buffprevent age-compared on landing; healprevent any age on the expiry payout (tags.ts:1664, 1690)"
+copy_can_take: false
+mirror_can_pass: false
+potency_eligible: true
+immunity_can_cancel: false
+stage: "S3 main pass (unranked, last); HP-loss stored in S4, S6 and S15; a new curse is marked ready in S16"
+calculation: [percentage]   # default percentage
+own_fields:   # zod expressions resolved from the schema (helpers, spreads, extend); fields inherited unchanged from BaseAttributes/PowerAttributes are in engine.md section 6
+  rounds: z.coerce.number().int().min(1).max(100).prefault(3)
+  calculation: "z.literal(\"percentage\").prefault(\"percentage\")"
+  damageBonusPercent: z.coerce.number().min(0).max(1000).prefault(0)
+live_usage_2026_11_21: {jutsu: 2, pvp_legal: 2}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b5ebda9c319eb72e80670229b0b72ea9ac, paths under app/src
+  - libs/combat/tags.ts curse (line 1657)
+  - libs/combat/process.ts first reference (line 668)
+  - "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)"
+  - "libs/combat/util.ts EFFECT_SORT_RANK: no explicit rank, sorts last (line 1016)"
+  - libs/combat/tags.ts settleCurse (line 1678)
+  - libs/combat/curse.ts getCurseDamageMultiplier (line 12; curse bonus)
+interactions:   # full list with notes in ../interactions.json
+  outgoing:
+    boosts: [damage]
+    disables: [lifesteal, absorb, vamp]
+    overlaps: [diffuse]
+  incoming:
+    boosts: [increasepotency, increaseheal]
+    bypasses: [pierce]
+    disables: [seal]
+    feeds: [damage, pierce]
+    overlaps: [heal]
+    prevents: [buffprevent, healprevent]
+    removes: [clear]
+    weakens: [decreasepotency, decreaseheal]

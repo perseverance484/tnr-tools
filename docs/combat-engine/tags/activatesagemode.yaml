@@ -1,0 +1,18 @@
+tag: activatesagemode
+schema: validators/combat.ts ActivateSageModeTag (line 910)
+exclusion_area: Sage mode
+in_game_text: Enter sage mode using your equipped sage mode definition
+behavior: "Enters the holder's equipped sage mode. Its buffs and exhaustion are persistent sources that Clear and Cleanse can't strip."
+polarity: neutral   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: []   # no prevent check in its handler
+copy_can_take: false
+mirror_can_pass: false
+potency_eligible: false
+immunity_can_cancel: false
+stage: S3 main pass
+calculation: [static]   # default static
+live_usage_2026_11_21: {jutsu: 0, pvp_legal: 0}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b5ebda9c319eb72e80670229b0b72ea9ac, paths under app/src
+  - libs/combat/process.ts first reference (line 1675)
+  - "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)"
+  - libs/combat/util.ts EFFECT_SORT_RANK rank 17 (line 1084)

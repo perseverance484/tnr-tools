@@ -1,0 +1,33 @@
+tag: wound
+schema: validators/combat.ts WoundTag (line 826)
+exclusion_area: Damage later
+in_game_text: Applies wound damage over multiple turns based on damage dealt
+behavior: "When cast, it records the damage its caster dealt to the target in that action (instant Pierce included). Each later round it deals power% of that recorded hit again. Ticking in its own consequence, that damage skips shields but not Final Stand; merged into another consequence from the same caster (a residual tick, drain or poison), it is soaked by shields like that host, and destroys them if the host is Pierce. It's mirror-eligible."
+polarity: negative   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: []   # no prevent check in its handler
+copy_can_take: false
+mirror_can_pass: true
+potency_eligible: false
+immunity_can_cancel: false
+stage: S10 post-damage readers; applied in S15
+applies: "on its casting action, then on the holder's first action of each later round (not again in the cast round; no-rounds versions: every holder action)"
+calculation: [percentage]   # default percentage
+own_fields:   # zod expressions resolved from the schema (helpers, spreads, extend); fields inherited unchanged from BaseAttributes/PowerAttributes are in engine.md section 6
+  rounds: z.coerce.number().int().min(1).max(20).prefault(1)
+  calculation: "z.enum([\"percentage\"]).prefault(\"percentage\")"
+  generalTypes: z.array(z.enum(GeneralTypes)).optional()   # from IncludeGeneralsAndElements
+  elements: z.array(z.enum(ElementNames)).optional()   # from IncludeGeneralsAndElements
+live_usage_2026_11_21: {jutsu: 56, pvp_legal: 47}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b5ebda9c319eb72e80670229b0b72ea9ac, paths under app/src
+  - libs/combat/tags.ts wound (line 1783)
+  - libs/combat/process.ts first reference (line 1590)
+  - "libs/combat/process.ts applyEffects post-damage pass, after pierce (line 630)"
+  - "libs/combat/util.ts EFFECT_SORT_RANK rank 57 (line 1120, ...POST_PIERCE_TAGS entry at libs/combat/constants.ts line 275)"
+interactions:   # full list with notes in ../interactions.json
+  outgoing:
+    bypasses: [shield]
+    overlaps: [drain]
+  incoming:
+    feeds: [damage, pierce]
+    removes: [cleanse]
+    transfers: [mirror]

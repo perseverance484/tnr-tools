@@ -1,0 +1,35 @@
+tag: consume
+schema: validators/combat.ts ConsumeTag (line 714)
+exclusion_area: Soak damage
+in_game_text: "While active, convert a percentage of all damage you deal into stacking temporary shields on yourself. Shares conversion and shield HP caps with Siphon. Not affected by heal modifiers."
+behavior: "A buff on the caster with no prevent check, live from its own casting action. With rounds 0 it converts only that action. Each action, every active Consume and Siphon on one fighter adds power/100 to one shared ratio. If the total is over 100%, each is scaled to its share of 100%. Consume credits the caster's non-recoil damage to other fighters: per packet, the pre-shield, post-Diffuse sum of damage, residual, wound, afterburn, drain and poison, plus Reflect after its cap and repaid Diffuse debt. All Consume on a fighter merges into one shield with the longest shieldRounds. After the action, if the fighter is alive, the new conversion shields are scaled down proportionally when they total over 100,000 HP, then each is rounded down. The damage itself is not reduced. Heal modifiers don't apply."
+polarity: positive   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: []   # no prevent check in its handler
+copy_can_take: false
+mirror_can_pass: false
+potency_eligible: true
+immunity_can_cancel: false
+stage: S5 register (casting action on); credited in S6 and S15; shield granted in S16
+live_from: its casting action (no next-round wait)
+calculation: [percentage]   # default percentage
+own_fields:   # zod expressions resolved from the schema (helpers, spreads, extend); fields inherited unchanged from BaseAttributes/PowerAttributes are in engine.md section 6
+  rounds: z.coerce.number().int().min(0).max(100).prefault(3)
+  target: "z.enum(BaseTagTargets).optional().prefault(\"SELF\")"
+  calculation: "z.enum([\"percentage\"]).prefault(\"percentage\")"
+  shieldRounds: z.coerce.number().int().min(1).max(100).prefault(3)
+live_usage_2026_11_21: {jutsu: 3, pvp_legal: 3}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b5ebda9c319eb72e80670229b0b72ea9ac, paths under app/src
+  - libs/combat/tags.ts registerShieldConversion (line 1980)
+  - libs/combat/process.ts first reference (line 1658)
+  - "libs/combat/process.ts applyEffects Consume/Siphon registration, after the main pass and before damage (line 473)"
+  - "libs/combat/util.ts EFFECT_SORT_RANK: no explicit rank, sorts last (line 1016)"
+interactions:   # full list with notes in ../interactions.json
+  outgoing:
+    feeds: [shield]
+    overlaps: [siphon]
+    shares: [siphon]
+  incoming:
+    boosts: [increasepotency]
+    feeds: [damage]
+    removes: [clear]
+    weakens: [decreasepotency]

@@ -1,0 +1,55 @@
+tag: noncombatconsumereward
+schema: validators/combat.ts NonCombatConsumeRewardTag (line 916)
+exclusion_area: Outside battle or cosmetic
+in_game_text: Gain various rewards from consumption outside of combat
+behavior: "Item use: grants rewards."
+polarity: neutral   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: []   # no prevent check in its handler
+copy_can_take: false
+mirror_can_pass: false
+potency_eligible: false
+immunity_can_cancel: false
+stage: outside combat
+calculation: [static]   # default static
+own_fields:   # zod expressions resolved from the schema (helpers, spreads, extend); fields inherited unchanged from BaseAttributes/PowerAttributes are in engine.md section 6
+  reward_mastery_stat: "z.enum([\"None\", ...MasteryNames]).optional()"   # from rewardFields
+  reward_mastery_rank: z.enum(MASTERY_RANKS).optional()   # from rewardFields
+  reward_ninjutsu_experience: z.coerce.number().min(0).optional()   # from rewardFields
+  reward_genjutsu_experience: z.coerce.number().min(0).optional()   # from rewardFields
+  reward_taijutsu_experience: z.coerce.number().min(0).optional()   # from rewardFields
+  reward_bukijutsu_experience: z.coerce.number().min(0).optional()   # from rewardFields
+  reward_bloodline_experience: z.coerce.number().min(0).optional()   # from rewardFields
+  reward_sage_stat_experience: z.coerce.number().min(0).optional()   # from rewardFields
+  reward_hunter_items: z.boolean().prefault(false)   # from rewardFields
+  reward_hunter_items_ids: "z.array(z.string()).prefault([])"   # from rewardFields
+  reward_gathering_items: z.boolean().prefault(false)   # from rewardFields
+  reward_gathering_items_ids: "z.array(z.string()).prefault([])"   # from rewardFields
+  reward_seichi_silver: z.coerce.number().prefault(0)   # from rewardFields
+  reward_money: z.coerce.number().prefault(0)   # from rewardFields
+  reward_clanpoints: z.coerce.number().prefault(0)   # from rewardFields
+  reward_anbupoints: z.coerce.number().prefault(0)   # from rewardFields
+  reward_exp: z.coerce.number().prefault(0)   # from rewardFields
+  reward_pet_experience: z.coerce.number().min(0).optional()   # from rewardFields
+  reward_tokens: z.coerce.number().prefault(0)   # from rewardFields
+  reward_prestige: z.coerce.number().prefault(0)   # from rewardFields
+  reward_reputation: z.coerce.number().prefault(0)   # from rewardFields
+  reward_skillpoints: z.coerce.number().prefault(0)   # from rewardFields
+  reward_rank: "z.enum(UserRanks).prefault(\"NONE\")"   # from rewardFields
+  reward_village_membership: "z.union([z.enum(STARTER_VILLAGES), z.enum(LEGACY_STARTER_VILLAGE_KEYS).transform((legacy) => LEGACY_STARTER_VILLAGE_MAP[legacy])]).prefault(\"NONE\")"   # from rewardFields
+  reward_items: idsWithNumberField   # from rewardFields
+  reward_jutsus: "z.array(z.string()).prefault([])"   # from rewardFields
+  reward_bloodlines: "z.array(z.string()).prefault([])"   # from rewardFields
+  reward_sage_modes: "z.array(z.string()).prefault([])"   # from rewardFields
+  reward_badges: "z.array(z.string()).prefault([])"   # from rewardFields
+  reward_titles: "z.array(z.string()).prefault([])"   # from rewardFields
+  reward_medical_experience: z.coerce.number().prefault(0)   # from rewardFields
+  reward_hunting_experience: z.coerce.number().prefault(0)   # from rewardFields
+  reward_crafting_experience: z.coerce.number().prefault(0)   # from rewardFields
+  reward_gathering_experience: z.coerce.number().prefault(0)   # from rewardFields
+  reward_sage_mastery_experience: z.coerce.number().prefault(0)   # from rewardFields
+  reward_war_damage: z.coerce.number().prefault(0)   # from rewardFields
+  reward_war_healing: z.coerce.number().prefault(0)   # from rewardFields
+  reward_pets: "z.array(z.string().min(1).max(191)).max(PET_MAX_CONSUME_PETS).prefault([])"
+  rewardMode: "z.enum([\"standard\", \"weightedCache\"]).optional()"
+  weightedCache: weightedCacheDraftSchema.optional()
+live_usage_2026_11_21: {jutsu: 0, pvp_legal: 0}

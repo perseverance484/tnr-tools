@@ -1,0 +1,35 @@
+tag: afterburn
+schema: validators/combat.ts AfterburnTag (line 871)
+exclusion_area: Damage later
+in_game_text: Take a percentage of incoming damage as afterburndamage
+behavior: "A debuff on the holder, live from the round after it lands, with no prevent check. For each instant non-Pierce hit the holder takes whose generals match (elements ignored), each Afterburn adds floor(hit x power/100), or floor(min(power, hit)) if static. The running total for that hit is clamped to floor(0.6 x hit), using the hit after the pipeline and Parry, before Diffuse. Diffuse can defer part of it. Otherwise it lands on the holder after Reflect and Recoil with no further cap, and neither shields nor Final Stand stop it. Afterburn from several hits in one action is summed, each hit under its own cap."
+polarity: negative   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: []   # no prevent check in its handler
+copy_can_take: false
+mirror_can_pass: true
+potency_eligible: true
+immunity_can_cancel: false
+stage: S10 post-damage readers; paid in S15
+live_from: next round (waits while isNew/castThisRound)
+calculation: [static, percentage]   # default percentage
+own_fields:   # zod expressions resolved from the schema (helpers, spreads, extend); fields inherited unchanged from BaseAttributes/PowerAttributes are in engine.md section 6
+  calculation: "z.enum([\"static\", \"percentage\"]).prefault(\"percentage\")"
+  generalTypes: z.array(z.enum(GeneralTypes)).optional()   # from IncludeGeneralsAndElements
+  elements: z.array(z.enum(ElementNames)).optional()   # from IncludeGeneralsAndElements
+live_usage_2026_11_21: {jutsu: 70, pvp_legal: 63}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b5ebda9c319eb72e80670229b0b72ea9ac, paths under app/src
+  - libs/combat/tags.ts afterburn (line 1888)
+  - libs/combat/process.ts first reference (line 1643)
+  - "libs/combat/process.ts applyEffects post-damage pass, after pierce (line 630)"
+  - "libs/combat/util.ts EFFECT_SORT_RANK rank 52 (line 1120, ...POST_PIERCE_TAGS entry at libs/combat/constants.ts line 270)"
+interactions:   # full list with notes in ../interactions.json
+  outgoing:
+    bypasses: [finalstand, shield]
+    overlaps: [increasedamagetaken]
+  incoming:
+    boosts: [increasepotency]
+    bypasses: [pierce]
+    feeds: [damage]
+    removes: [cleanse]
+    transfers: [mirror]
+    weakens: [decreasepotency]

@@ -1,0 +1,37 @@
+tag: decreasedamagetaken
+schema: validators/combat.ts DecreaseDamageTakenTag (line 396)
+exclusion_area: Damage scaling
+in_game_text: Decrease damage taken of target
+behavior: "Reduces Damage and Elemental Damage packets the holder takes. It doesn't touch Pierce, drain, poison, wound, afterburn or Diffuse repayment. It works from the round after it lands, and Buffprevent can block it. Each percentage effect multiplies by (1 - power%), clamped at 0, after all increases and the 50% system reduction. Percentages are percentage points, divided by 100 like increases. Pre-battle percentages sit in two pools: gear DR points join the 50 system points, before static values; keystone DR points are summed into a separate multiplier applied after static values, and skipped when DR is ignored (the Diffuse lethality test). Static values are subtracted after the ordinary percentage stage. Bloodline percentages apply last; Seal and the damage tag's allowBloodlineDamageDecrease opt-out can switch bloodline ones off. With elements set, it only affects packets that share an element, and packets without elements count as None. Damage never drops below 10% of the boosted hit after the system reduction."
+polarity: positive   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: [buffprevent]
+prevent_check: "age-compared: blocks only effects created in a later round than the prevent"
+copy_can_take: true
+mirror_can_pass: false
+potency_eligible: true
+immunity_can_cancel: false
+stage: S7 damage pipeline
+live_from: next round (waits while isNew/castThisRound)
+applies: "every damage packet the pipeline computes while it is live; it never reaches the main handler switch (constants.ts:246, process.ts:428), and a later loop only reports it (process.ts:536-597)"
+calculation: [static, percentage]   # default percentage
+own_fields:   # zod expressions resolved from the schema (helpers, spreads, extend); fields inherited unchanged from BaseAttributes/PowerAttributes are in engine.md section 6
+  calculation: "z.enum([\"static\", \"percentage\"]).prefault(\"percentage\")"   # from PercentageCalculation via DamageModifierAttributes
+  elements: z.array(z.enum(ElementNames)).optional()   # from DamageModifierAttributes
+live_usage_2026_11_21: {jutsu: 140, pvp_legal: 130}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b5ebda9c319eb72e80670229b0b72ea9ac, paths under app/src
+  - libs/combat/tags.ts decreaseDamageTaken (line 1007)
+  - libs/combat/process.ts first reference (line 1624)
+  - libs/combat/process.ts applyEffects damage modifier pipeline (line 525)
+  - libs/combat/util.ts EFFECT_SORT_RANK rank 45 (line 1114)
+  - libs/combat/damagePipeline.ts computeDamagePacket (line 501)
+interactions:   # full list with notes in ../interactions.json
+  outgoing:
+    weakens: [damage]
+  incoming:
+    boosts: [increasepotency]
+    bypasses: [pierce]
+    overlaps: [decreasedamagegiven]
+    prevents: [buffprevent]
+    removes: [clear]
+    transfers: [copy]
+    weakens: [decreasepotency]

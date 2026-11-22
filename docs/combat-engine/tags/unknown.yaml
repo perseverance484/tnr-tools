@@ -1,0 +1,14 @@
+tag: unknown
+schema: validators/combat.ts UnknownTag (line 1032)
+exclusion_area: Outside battle or cosmetic
+in_game_text: "An unknown tag - please report & change!"
+behavior: Placeholder for an unrecognised tag.
+polarity: neutral   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: []   # no prevent check in its handler
+copy_can_take: false
+mirror_can_pass: false
+potency_eligible: false
+immunity_can_cancel: false
+stage: outside combat
+calculation: [static]   # default static
+live_usage_2026_11_21: {jutsu: 0, pvp_legal: 0}

@@ -1,0 +1,26 @@
+tag: stunprevent
+schema: validators/combat.ts StunPreventTag (line 967)
+exclusion_area: Protection
+in_game_text: Prevents being stunned
+behavior: "A prevent-type status. It rolls power% once to land and then blocks stun with certainty, but only effects cast in a later round. Effects already on the holder stay. Immunity can cancel it."
+polarity: positive   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: []   # no prevent check in its handler
+copy_can_take: false
+mirror_can_pass: false
+potency_eligible: false
+immunity_can_cancel: true
+stage: S3 main pass
+calculation: [percentage]   # default percentage
+own_fields:   # zod expressions resolved from the schema (helpers, spreads, extend); fields inherited unchanged from BaseAttributes/PowerAttributes are in engine.md section 6
+  calculation: "z.enum([\"percentage\"]).prefault(\"percentage\")"
+live_usage_2026_11_21: {jutsu: 1, pvp_legal: 1}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b5ebda9c319eb72e80670229b0b72ea9ac, paths under app/src
+  - libs/combat/tags.ts applyPreventTag (line 338)
+  - "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)"
+  - libs/combat/util.ts EFFECT_SORT_RANK rank 11 (line 1077)
+interactions:   # full list with notes in ../interactions.json
+  outgoing:
+    prevents: [stun]
+  incoming:
+    counters: [immunity]
+    removes: [clear]

@@ -1,0 +1,16 @@
+tag: noncombatquest
+schema: validators/combat.ts NonCombatQuestTag (line 1094)
+exclusion_area: Outside battle or cosmetic
+in_game_text: Starts a Special quest when the item is consumed
+behavior: "Item use: starts a quest."
+polarity: neutral   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: []   # no prevent check in its handler
+copy_can_take: false
+mirror_can_pass: false
+potency_eligible: false
+immunity_can_cancel: false
+stage: outside combat
+calculation: [static]   # default static
+own_fields:   # zod expressions resolved from the schema (helpers, spreads, extend); fields inherited unchanged from BaseAttributes/PowerAttributes are in engine.md section 6
+  questId: "z.string().trim().min(1, \"Select a Special quest\").default(\"\")"
+live_usage_2026_11_21: {jutsu: 0, pvp_legal: 0}

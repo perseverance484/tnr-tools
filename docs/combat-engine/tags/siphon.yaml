@@ -1,0 +1,37 @@
+tag: siphon
+schema: validators/combat.ts SiphonTag (line 727)
+exclusion_area: Soak damage
+in_game_text: "While active, convert a percentage of damage you take after existing shields absorb it into stacking temporary shields. New shields are granted after damage resolves. Excludes self-inflicted damage and recoil. Shares conversion and shield HP caps with Consume. Can be cleared. Not affected by heal modifiers."
+behavior: "A buff on the holder, live from its casting action. A buffprevent from an earlier round blocks it. It credits HP the holder actually loses to other fighters in the action: after shields and Final Stand, limited to HP left, with recoil and self-damage excluded, plus Reflect taken and repaid Diffuse debt. The hit itself is not reduced. It shares the 100% conversion ratio (scaled when over) and the 100,000 HP new-shield cap (proportional, then rounded down) with Consume. Siphons with the same shieldRounds merge, and different ones make separate shields. Shields are granted after the action only if the holder is alive, and heal modifiers don't apply. Clear removes it."
+polarity: positive   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: [buffprevent]
+prevent_check: "age-compared: blocks only effects created in a later round than the prevent"
+copy_can_take: false
+mirror_can_pass: false
+potency_eligible: true
+immunity_can_cancel: false
+stage: S5 register (casting action on); credited in S6 and S15; shield granted in S16
+live_from: its casting action (no next-round wait)
+calculation: [percentage]   # default percentage
+own_fields:   # zod expressions resolved from the schema (helpers, spreads, extend); fields inherited unchanged from BaseAttributes/PowerAttributes are in engine.md section 6
+  rounds: z.coerce.number().int().min(1).max(100).prefault(3)
+  target: "z.enum(BaseTagTargets).optional().prefault(\"SELF\")"   # from ConsumeTag
+  calculation: "z.enum([\"percentage\"]).prefault(\"percentage\")"   # from ConsumeTag
+  shieldRounds: z.coerce.number().int().min(1).max(100).prefault(3)   # from ConsumeTag
+live_usage_2026_11_21: {jutsu: 1, pvp_legal: 1}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b5ebda9c319eb72e80670229b0b72ea9ac, paths under app/src
+  - libs/combat/tags.ts registerShieldConversion (line 1980)
+  - libs/combat/process.ts first reference (line 1658)
+  - "libs/combat/process.ts applyEffects Consume/Siphon registration, after the main pass and before damage (line 473)"
+  - "libs/combat/util.ts EFFECT_SORT_RANK: no explicit rank, sorts last (line 1016)"
+interactions:   # full list with notes in ../interactions.json
+  outgoing:
+    feeds: [shield]
+  incoming:
+    boosts: [increasepotency]
+    feeds: [damage]
+    overlaps: [consume]
+    prevents: [buffprevent]
+    removes: [clear]
+    shares: [consume]
+    weakens: [decreasepotency]

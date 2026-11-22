@@ -1,0 +1,4834 @@
+{
+ "pinned_game_commit": "29cd91b5ebda9c319eb72e80670229b0b72ea9ac",
+ "tags": {
+  "absorb": {
+   "tag": "absorb",
+   "schema": "validators/combat.ts AbsorbTag (line 359)",
+   "exclusion_area": "Soak damage",
+   "in_game_text": "Absorb damage taken & convert to health, chakra or stamina",
+   "behavior": "A buff on the holder, live from the round after it lands. For each instant hit on the holder whose generals match (elements ignored; Pierce always matches), it takes power% of the immediate damage: the hit after the pipeline and the Parry split, before shields. It is read after Diffuse when the holder has Diffuse or the action has a Parry return. The hit itself is not reduced. The amount is rounded up, then split evenly across poolsAffected with no further rounding, and stacked Absorbs add. The HP share is scaled by the holder's increaseheal/decreaseheal, capped at 0.6 x the immediate damage (not rounded), and paid only if the holder is still alive. The CP/SP shares have no cap, ignore heal modifiers and pay even on a killing hit. Residual ticks don't feed it. A healprevent from an earlier round blocks it, and an unsettled Curse on the holder stops all of it.",
+   "polarity": "positive",
+   "prevented_by": [
+    "healprevent"
+   ],
+   "prevent_check": "age-compared: blocks only effects created in a later round than the prevent",
+   "copy_can_take": true,
+   "mirror_can_pass": false,
+   "potency_eligible": true,
+   "immunity_can_cancel": false,
+   "stage": "S10 post-damage readers; S13 instead when the action has Parry returns or the holder has Diffuse; paid in S15",
+   "live_from": "next round (waits while isNew/castThisRound)",
+   "calculation": [
+    "percentage"
+   ],
+   "own_fields": {
+    "direction": "type(\"defence\")",
+    "target": "z.enum(BaseTagTargets).optional().prefault(\"SELF\")",
+    "calculation": "z.enum([\"percentage\"]).prefault(\"percentage\")",
+    "generalTypes": "z.array(z.enum(GeneralTypes)).optional()",
+    "elements": "z.array(z.enum(ElementNames)).optional()",
+    "poolsAffected": "z.array(z.enum(PoolTypes)).prefault([\"Health\"])"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 45,
+    "pvp_legal": 38
+   },
+   "source": [
+    "libs/combat/tags.ts absorb (line 172)",
+    "libs/combat/process.ts first reference (line 634)",
+    "libs/combat/process.ts applyEffects post-damage pass, after pierce (line 630)",
+    "libs/combat/process.ts applyEffects deferred Absorb when Parry returned damage or the target has Diffuse (line 654)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 53 (line 1120, ...POST_PIERCE_TAGS entry at libs/combat/constants.ts line 271)"
+   ],
+   "interactions": {
+    "incoming": {
+     "boosts": [
+      "increasepotency",
+      "increaseheal"
+     ],
+     "disables": [
+      "curse"
+     ],
+     "feeds": [
+      "pierce",
+      "damage"
+     ],
+     "prevents": [
+      "healprevent"
+     ],
+     "removes": [
+      "clear"
+     ],
+     "transfers": [
+      "copy"
+     ],
+     "weakens": [
+      "decreasepotency",
+      "decreaseheal",
+      "diffuse"
+     ]
+    }
+   }
+  },
+  "activatesagemode": {
+   "tag": "activatesagemode",
+   "schema": "validators/combat.ts ActivateSageModeTag (line 910)",
+   "exclusion_area": "Sage mode",
+   "in_game_text": "Enter sage mode using your equipped sage mode definition",
+   "behavior": "Enters the holder's equipped sage mode. Its buffs and exhaustion are persistent sources that Clear and Cleanse can't strip.",
+   "polarity": "neutral",
+   "prevented_by": [],
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "S3 main pass",
+   "calculation": [
+    "static"
+   ],
+   "live_usage_2026_11_21": {
+    "jutsu": 0,
+    "pvp_legal": 0
+   },
+   "source": [
+    "libs/combat/process.ts first reference (line 1675)",
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 17 (line 1084)"
+   ]
+  },
+  "afterburn": {
+   "tag": "afterburn",
+   "schema": "validators/combat.ts AfterburnTag (line 871)",
+   "exclusion_area": "Damage later",
+   "in_game_text": "Take a percentage of incoming damage as afterburndamage",
+   "behavior": "A debuff on the holder, live from the round after it lands, with no prevent check. For each instant non-Pierce hit the holder takes whose generals match (elements ignored), each Afterburn adds floor(hit x power/100), or floor(min(power, hit)) if static. The running total for that hit is clamped to floor(0.6 x hit), using the hit after the pipeline and Parry, before Diffuse. Diffuse can defer part of it. Otherwise it lands on the holder after Reflect and Recoil with no further cap, and neither shields nor Final Stand stop it. Afterburn from several hits in one action is summed, each hit under its own cap.",
+   "polarity": "negative",
+   "prevented_by": [],
+   "copy_can_take": false,
+   "mirror_can_pass": true,
+   "potency_eligible": true,
+   "immunity_can_cancel": false,
+   "stage": "S10 post-damage readers; paid in S15",
+   "live_from": "next round (waits while isNew/castThisRound)",
+   "calculation": [
+    "static",
+    "percentage"
+   ],
+   "own_fields": {
+    "calculation": "z.enum([\"static\", \"percentage\"]).prefault(\"percentage\")",
+    "generalTypes": "z.array(z.enum(GeneralTypes)).optional()",
+    "elements": "z.array(z.enum(ElementNames)).optional()"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 70,
+    "pvp_legal": 63
+   },
+   "source": [
+    "libs/combat/tags.ts afterburn (line 1888)",
+    "libs/combat/process.ts first reference (line 1643)",
+    "libs/combat/process.ts applyEffects post-damage pass, after pierce (line 630)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 52 (line 1120, ...POST_PIERCE_TAGS entry at libs/combat/constants.ts line 270)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "bypasses": [
+      "finalstand",
+      "shield"
+     ],
+     "overlaps": [
+      "increasedamagetaken"
+     ]
+    },
+    "incoming": {
+     "boosts": [
+      "increasepotency"
+     ],
+     "bypasses": [
+      "pierce"
+     ],
+     "feeds": [
+      "damage"
+     ],
+     "removes": [
+      "cleanse"
+     ],
+     "transfers": [
+      "mirror"
+     ],
+     "weakens": [
+      "decreasepotency"
+     ]
+    }
+   }
+  },
+  "barrier": {
+   "tag": "barrier",
+   "schema": "validators/combat.ts BarrierTag (line 595)",
+   "exclusion_area": "Soak damage",
+   "in_game_text": "Creates a barrier with level corresponding to power",
+   "behavior": "A ground object on a tile with its own HP (its level is the power). A single-target hit that passes through it loses absorbPercentage of its damage to the barrier, and an AoE hits a barrier standing on its tile. It breaks at 0 HP. It also stops Redirection from landing on its tile. Clear can't touch it.",
+   "polarity": "neutral",
+   "prevented_by": [],
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "S0 cast prep (path absorb) and S1 ground pass; no main-pass handler",
+   "calculation": [
+    "static"
+   ],
+   "own_fields": {
+    "direction": "type(\"defence\")",
+    "curHealth": "z.coerce.number().int().min(1).max(100000).prefault(100)",
+    "maxHealth": "z.coerce.number().int().min(1).max(100000).prefault(100)",
+    "absorbPercentage": "z.coerce.number().int().min(1).max(100).prefault(50)"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 10,
+    "pvp_legal": 9
+   },
+   "source": [
+    "libs/combat/tags.ts damageBarrier (line 1487)",
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 30 (line 1098)",
+    "libs/combat/actions.ts (barrier path absorb)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "counters": [
+      "damage",
+      "redirection",
+      "pierce"
+     ]
+    },
+    "incoming": {
+     "overlaps": [
+      "shield"
+     ]
+    }
+   }
+  },
+  "buffprevent": {
+   "tag": "buffprevent",
+   "schema": "validators/combat.ts BuffPreventTag (line 608)",
+   "exclusion_area": "Protection",
+   "in_game_text": "Prevents buffing",
+   "behavior": "A prevent-type status. It rolls power% once to land, then blocks with certainty every buff cast on the holder in a later round: stat, mastery, damage given up, damage taken down, heal up, range, cooldown down, potency up, max pools up, reflect, curse, siphon, time dilation, aggro, and the holder's own Copy. Buffs already on the holder stay. Parry, shield, absorb and lifesteal ignore it.",
+   "polarity": "negative",
+   "prevented_by": [],
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": false,
+   "immunity_can_cancel": true,
+   "stage": "S3 main pass",
+   "calculation": [
+    "static"
+   ],
+   "fields_note": "simpleTag (BaseAttributes + PowerAttributes only)",
+   "live_usage_2026_11_21": {
+    "jutsu": 13,
+    "pvp_legal": 13
+   },
+   "source": [
+    "libs/combat/tags.ts applyPreventTag (line 338)",
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 1 (line 1067)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "overlaps": [
+      "clear"
+     ],
+     "prevents": [
+      "increasestat",
+      "increasemastery",
+      "increasedamagegiven",
+      "decreasedamagetaken",
+      "increaseheal",
+      "increaserange",
+      "decreasecooldown",
+      "increasepotency",
+      "increasemaxpools",
+      "reflect",
+      "curse",
+      "siphon",
+      "timedilation",
+      "increaseaggro",
+      "decreaseaggro",
+      "copy"
+     ]
+    },
+    "incoming": {
+     "counters": [
+      "immunity"
+     ],
+     "removes": [
+      "cleanse"
+     ]
+    }
+   }
+  },
+  "cleanse": {
+   "tag": "cleanse",
+   "schema": "validators/combat.ts CleanseTag (line 617)",
+   "exclusion_area": "Remove effects",
+   "in_game_text": "Clears all negative effects from the target",
+   "behavior": "Rolls power% each tick until it lands. Then it removes every negative effect on the target, with the same persistent-source exceptions as Clear. Cleanseprevent blocks it.",
+   "polarity": "neutral",
+   "prevented_by": [
+    "cleanseprevent"
+   ],
+   "prevent_check": "any age: any active prevent blocks it, including a pending effect cast earlier, which then ends (tags.ts:1165)",
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "S3 main pass",
+   "applies": "on its casting action, then on the holder's first action of each later round (not again in the cast round; no-rounds versions: every holder action)",
+   "calculation": [
+    "static"
+   ],
+   "fields_note": "simpleTag (BaseAttributes + PowerAttributes only)",
+   "live_usage_2026_11_21": {
+    "jutsu": 4,
+    "pvp_legal": 2
+   },
+   "source": [
+    "libs/combat/tags.ts cleanse (line 1160)",
+    "libs/combat/process.ts first reference (line 1548)",
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 18 (line 1085)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "removes": [
+      "afterburn",
+      "buffprevent",
+      "clear",
+      "damage",
+      "decreasedamagegiven",
+      "decreaseheal",
+      "decreasemastery",
+      "decreasemaxpools",
+      "decreasepotency",
+      "decreasestat",
+      "disarm",
+      "drain",
+      "elementaldamage",
+      "elementalseal",
+      "flee",
+      "fleeprevent",
+      "healprevent",
+      "increasecooldown",
+      "increasedamagetaken",
+      "increasepoolcost",
+      "moveprevent",
+      "onehitkill",
+      "pierce",
+      "poison",
+      "recoil",
+      "redirection",
+      "rob",
+      "seal",
+      "stun",
+      "summonprevent",
+      "timecompression",
+      "weakness",
+      "wound"
+     ]
+    },
+    "incoming": {
+     "overlaps": [
+      "clear",
+      "debuffprevent"
+     ],
+     "prevents": [
+      "cleanseprevent"
+     ]
+    }
+   }
+  },
+  "cleanseprevent": {
+   "tag": "cleanseprevent",
+   "schema": "validators/combat.ts CleansePreventTag (line 622)",
+   "exclusion_area": "Protection",
+   "in_game_text": "Prevents cleansing",
+   "behavior": "A prevent-type status that rolls power% once to land. Once landed, it blocks every Cleanse resolving on the holder, whenever that Cleanse was cast. A multi-round Cleanse that was already pending is stopped on its next tick and ends. Neither Clear nor Cleanse removes it, but Immunity can cancel a new one.",
+   "polarity": "neutral",
+   "prevented_by": [],
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": false,
+   "immunity_can_cancel": true,
+   "stage": "S3 main pass",
+   "calculation": [
+    "static"
+   ],
+   "fields_note": "simpleTag (BaseAttributes + PowerAttributes only)",
+   "live_usage_2026_11_21": {
+    "jutsu": 2,
+    "pvp_legal": 2
+   },
+   "source": [
+    "libs/combat/tags.ts applyPreventTag (line 338)",
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 2 (line 1068)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "prevents": [
+      "cleanse"
+     ]
+    },
+    "incoming": {
+     "counters": [
+      "immunity"
+     ]
+    }
+   }
+  },
+  "clear": {
+   "tag": "clear",
+   "schema": "validators/combat.ts ClearTag (line 610)",
+   "exclusion_area": "Remove effects",
+   "in_game_text": "Clears all positive effects from the target",
+   "behavior": "Rolls power% each tick until it lands. Then it removes every positive effect on the target, plus positive ground effects on their tile, except those from bloodline, sage mode, gear, skills or other pre-battle sources. Clear is itself negative, so Cleanse removes a pending Clear. Clearprevent blocks it.",
+   "polarity": "negative",
+   "prevented_by": [
+    "clearprevent"
+   ],
+   "prevent_check": "any age: any active prevent blocks it, including a pending effect cast earlier, which then ends (tags.ts:1155)",
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "S3 main pass",
+   "applies": "on its casting action, then on the holder's first action of each later round (not again in the cast round; no-rounds versions: every holder action)",
+   "calculation": [
+    "static"
+   ],
+   "fields_note": "simpleTag (BaseAttributes + PowerAttributes only)",
+   "live_usage_2026_11_21": {
+    "jutsu": 2,
+    "pvp_legal": 2
+   },
+   "source": [
+    "libs/combat/tags.ts clear (line 1149)",
+    "libs/combat/process.ts first reference (line 1546)",
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 19 (line 1086)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "overlaps": [
+      "cleanse"
+     ],
+     "removes": [
+      "absorb",
+      "consume",
+      "curse",
+      "debuffprevent",
+      "decreaseaggro",
+      "decreasecooldown",
+      "decreasedamagetaken",
+      "decreasepoolcost",
+      "heal",
+      "immunity",
+      "increaseaggro",
+      "increasedamagegiven",
+      "increaseheal",
+      "increasemastery",
+      "increasemaxpools",
+      "increasepotency",
+      "increaserange",
+      "increasestat",
+      "lifesteal",
+      "move",
+      "onehitkillprevent",
+      "parry",
+      "reflect",
+      "robprevent",
+      "sealprevent",
+      "shield",
+      "siphon",
+      "stealth",
+      "stunprevent",
+      "summon",
+      "timedilation"
+     ]
+    },
+    "incoming": {
+     "overlaps": [
+      "buffprevent"
+     ],
+     "prevents": [
+      "clearprevent"
+     ],
+     "removes": [
+      "cleanse"
+     ]
+    }
+   }
+  },
+  "clearprevent": {
+   "tag": "clearprevent",
+   "schema": "validators/combat.ts ClearPreventTag (line 615)",
+   "exclusion_area": "Protection",
+   "in_game_text": "Prevents clearing",
+   "behavior": "A prevent-type status that rolls power% once to land. Once landed, it blocks every Clear resolving on the holder, whenever that Clear was cast. A multi-round Clear that was already pending is stopped on its next tick and ends. Neither Clear nor Cleanse removes it, but Immunity can cancel a new one.",
+   "polarity": "neutral",
+   "prevented_by": [],
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": false,
+   "immunity_can_cancel": true,
+   "stage": "S3 main pass",
+   "calculation": [
+    "static"
+   ],
+   "fields_note": "simpleTag (BaseAttributes + PowerAttributes only)",
+   "live_usage_2026_11_21": {
+    "jutsu": 9,
+    "pvp_legal": 9
+   },
+   "source": [
+    "libs/combat/tags.ts applyPreventTag (line 338)",
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 3 (line 1069)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "prevents": [
+      "clear"
+     ]
+    },
+    "incoming": {
+     "counters": [
+      "immunity"
+     ]
+    }
+   }
+  },
+  "clone": {
+   "tag": "clone",
+   "schema": "validators/combat.ts CloneTag (line 624)",
+   "exclusion_area": "Extra fighters",
+   "in_game_text": "Create a temporary clone to fight alongside you for a given number of rounds.",
+   "behavior": "Spawns an AI copy of the caster with stats × power%. The clone can't summon or clone, has no sage mode, and disappears when its rounds end.",
+   "polarity": "neutral",
+   "prevented_by": [],
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "S1 ground pass",
+   "calculation": [
+    "percentage"
+   ],
+   "own_fields": {
+    "rounds": "z.coerce.number().int().min(2).max(100).prefault(2)",
+    "calculation": "z.enum([\"percentage\"]).prefault(\"percentage\")"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 2,
+    "pvp_legal": 1
+   },
+   "source": [
+    "libs/combat/tags.ts clone (line 1225)",
+    "libs/combat/process.ts first reference (line 310)",
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 34 (line 1102)"
+   ],
+   "interactions": {
+    "incoming": {
+     "overlaps": [
+      "summon"
+     ]
+    }
+   }
+  },
+  "consume": {
+   "tag": "consume",
+   "schema": "validators/combat.ts ConsumeTag (line 714)",
+   "exclusion_area": "Soak damage",
+   "in_game_text": "While active, convert a percentage of all damage you deal into stacking temporary shields on yourself. Shares conversion and shield HP caps with Siphon. Not affected by heal modifiers.",
+   "behavior": "A buff on the caster with no prevent check, live from its own casting action. With rounds 0 it converts only that action. Each action, every active Consume and Siphon on one fighter adds power/100 to one shared ratio. If the total is over 100%, each is scaled to its share of 100%. Consume credits the caster's non-recoil damage to other fighters: per packet, the pre-shield, post-Diffuse sum of damage, residual, wound, afterburn, drain and poison, plus Reflect after its cap and repaid Diffuse debt. All Consume on a fighter merges into one shield with the longest shieldRounds. After the action, if the fighter is alive, the new conversion shields are scaled down proportionally when they total over 100,000 HP, then each is rounded down. The damage itself is not reduced. Heal modifiers don't apply.",
+   "polarity": "positive",
+   "prevented_by": [],
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": true,
+   "immunity_can_cancel": false,
+   "stage": "S5 register (casting action on); credited in S6 and S15; shield granted in S16",
+   "live_from": "its casting action (no next-round wait)",
+   "calculation": [
+    "percentage"
+   ],
+   "own_fields": {
+    "rounds": "z.coerce.number().int().min(0).max(100).prefault(3)",
+    "target": "z.enum(BaseTagTargets).optional().prefault(\"SELF\")",
+    "calculation": "z.enum([\"percentage\"]).prefault(\"percentage\")",
+    "shieldRounds": "z.coerce.number().int().min(1).max(100).prefault(3)"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 3,
+    "pvp_legal": 3
+   },
+   "source": [
+    "libs/combat/tags.ts registerShieldConversion (line 1980)",
+    "libs/combat/process.ts first reference (line 1658)",
+    "libs/combat/process.ts applyEffects Consume/Siphon registration, after the main pass and before damage (line 473)",
+    "libs/combat/util.ts EFFECT_SORT_RANK: no explicit rank, sorts last (line 1016)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "feeds": [
+      "shield"
+     ],
+     "overlaps": [
+      "siphon"
+     ],
+     "shares": [
+      "siphon"
+     ]
+    },
+    "incoming": {
+     "boosts": [
+      "increasepotency"
+     ],
+     "feeds": [
+      "damage"
+     ],
+     "removes": [
+      "clear"
+     ],
+     "weakens": [
+      "decreasepotency"
+     ]
+    }
+   }
+  },
+  "copy": {
+   "tag": "copy",
+   "schema": "validators/combat.ts CopyTag (line 654)",
+   "exclusion_area": "Take effects",
+   "in_game_text": "Copies some positive effects from the target to the user",
+   "behavior": "The caster's own buffprevent can block it. Otherwise it rolls power% once, in its casting action, to clone the target's best positive effects onto the caster for the copy's rounds; the target keeps theirs. It holds 4 at most at once, per caster. Order of preference: damage-given up or damage-taken down, then lifesteal, then absorb or reflect, then shield, then increaseheal, then increasestat. Passive and gear sources can't be copied. A miss copies nothing and does not set the Copy's rounds to 0 (tags.ts:462, 507-518).",
+   "polarity": "neutral",
+   "prevented_by": [
+    "buffprevent (on the caster)"
+   ],
+   "prevent_check": "age-compared, against the Copy caster's own buffprevent (tags.ts:456)",
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "S2 copy and mirror",
+   "calculation": [
+    "percentage"
+   ],
+   "own_fields": {
+    "rounds": "z.coerce.number().int().min(1).max(10).prefault(3)",
+    "calculation": "z.enum([\"percentage\"]).prefault(\"percentage\")"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 4,
+    "pvp_legal": 4
+   },
+   "source": [
+    "libs/combat/tags.ts copy (line 438)",
+    "libs/combat/process.ts first reference (line 1677)",
+    "libs/combat/process.ts applyEffects copy and mirror pass, after ground effects and before the main pass (line 417)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 60 (line 1121)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "overlaps": [
+      "mirror"
+     ],
+     "transfers": [
+      "increasedamagegiven",
+      "decreasedamagetaken",
+      "lifesteal",
+      "absorb",
+      "reflect",
+      "shield",
+      "increaseheal",
+      "increasestat"
+     ]
+    },
+    "incoming": {
+     "counters": [
+      "stealth"
+     ],
+     "prevents": [
+      "buffprevent"
+     ]
+    }
+   }
+  },
+  "curse": {
+   "tag": "curse",
+   "schema": "validators/combat.ts CurseTag (line 794)",
+   "exclusion_area": "Damage later",
+   "in_game_text": "Store half the percentage of enemy damage dealt and half of enemy damage received as healing. Increases the holder's damage by the configured Damage Bonus percentage while active. Heals once on natural expiration; removal discards stored healing. Uses actual HP damage and cannot revive. Healing increases and decreases apply at payout before the maximum-HP cap; stored healing is unchanged. While active, disables the holder's Lifesteal, Absorb, and Vamp conversions.",
+   "behavior": "The holder stores half of power% of the damage they deal and take. While active it adds damageBonusPercent to their raw damage (not to pierce) and switches off their own Lifesteal, Absorb and Vamp. When it expires naturally, it heals the stored amount, with heal modifiers applied, up to max HP. Clear or any other removal throws the store away. Healprevent on the holder blocks the payout, and Seal blocks it for a bloodline Curse. Buffprevent stops it landing.",
+   "polarity": "positive",
+   "prevented_by": [
+    "buffprevent",
+    "healprevent"
+   ],
+   "prevent_check": "buffprevent age-compared on landing; healprevent any age on the expiry payout (tags.ts:1664, 1690)",
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": true,
+   "immunity_can_cancel": false,
+   "stage": "S3 main pass (unranked, last); HP-loss stored in S4, S6 and S15; a new curse is marked ready in S16",
+   "calculation": [
+    "percentage"
+   ],
+   "own_fields": {
+    "rounds": "z.coerce.number().int().min(1).max(100).prefault(3)",
+    "calculation": "z.literal(\"percentage\").prefault(\"percentage\")",
+    "damageBonusPercent": "z.coerce.number().min(0).max(1000).prefault(0)"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 2,
+    "pvp_legal": 2
+   },
+   "source": [
+    "libs/combat/tags.ts curse (line 1657)",
+    "libs/combat/process.ts first reference (line 668)",
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)",
+    "libs/combat/util.ts EFFECT_SORT_RANK: no explicit rank, sorts last (line 1016)",
+    "libs/combat/tags.ts settleCurse (line 1678)",
+    "libs/combat/curse.ts getCurseDamageMultiplier (line 12; curse bonus)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "boosts": [
+      "damage"
+     ],
+     "disables": [
+      "lifesteal",
+      "absorb",
+      "vamp"
+     ],
+     "overlaps": [
+      "diffuse"
+     ]
+    },
+    "incoming": {
+     "boosts": [
+      "increasepotency",
+      "increaseheal"
+     ],
+     "bypasses": [
+      "pierce"
+     ],
+     "disables": [
+      "seal"
+     ],
+     "feeds": [
+      "damage",
+      "pierce"
+     ],
+     "overlaps": [
+      "heal"
+     ],
+     "prevents": [
+      "buffprevent",
+      "healprevent"
+     ],
+     "removes": [
+      "clear"
+     ],
+     "weakens": [
+      "decreasepotency",
+      "decreaseheal"
+     ]
+    }
+   }
+  },
+  "damage": {
+   "tag": "damage",
+   "schema": "validators/combat.ts DamageTag (line 635)",
+   "exclusion_area": "Damage now",
+   "in_game_text": "Deals damage to target",
+   "behavior": "Formula damage (the default) scales a baseline by power and by an attack-vs-defence advantage. The baseline is max HP at the attacker's level divided by base hits. Attack and defence are the square roots of the caster's Offence and the target's Defence plus double-weighted lower generals, with negatives treated as 0. The advantage is 1 when both sides are 0 and is otherwise clamped between 0.01 and 10. Static and percentage damage use effective power as a flat number, and percentage power is capped at 100. A non-zero dmgModifier, the highest-power matching Weakness and, on later-round ticks, a non-zero residualModifier multiply the number. An instant hit through a barrier loses the barrier's share. It then runs the damage pipeline: the attacker's Curse bonus, increases, the 50% system reduction and other reductions, a floor at 10% of the post-system hit, static modifiers, keystones, and finally bloodline modifiers, subject to Seal and the allowBloodline opt-outs. With rounds 0 it hits on cast. With rounds above 0 the casting action deals nothing; it then ticks as residual damage (x residualModifier, no barrier cut) once per round on the holder's first action of each later round. A round in which the holder doesn't act gives no tick.",
+   "polarity": "negative",
+   "prevented_by": [],
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": true,
+   "immunity_can_cancel": false,
+   "stage": "S3 main pass (raw written) -> S7 damage pipeline -> S15 mitigate and apply",
+   "live_from": "rounds 0: casting action; rounds > 0: holder's first action in the round after cast, then once per round",
+   "applies": "rounds 0: once, on cast; rounds > 0: nothing on cast, then once a round on the holder's first action",
+   "calculation": [
+    "formula",
+    "static",
+    "percentage"
+   ],
+   "own_fields": {
+    "calculation": "z.enum([\"formula\", \"static\", \"percentage\"]).prefault(\"formula\")",
+    "generalTypes": "z.array(z.enum(GeneralTypes)).optional()",
+    "elements": "z.array(z.enum(ElementNames)).optional()",
+    "residualModifier": "z.coerce.number().min(0).max(2).prefault(1).optional()",
+    "dmgModifier": "z.coerce.number().min(0).max(2).prefault(1).optional()",
+    "allowBloodlineDamageIncrease": "z.coerce.boolean().prefault(true)",
+    "allowBloodlineDamageDecrease": "z.coerce.boolean().prefault(true)"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 540,
+    "pvp_legal": 470
+   },
+   "source": [
+    "libs/combat/tags.ts damageUser (line 1435)",
+    "libs/combat/process.ts first reference (line 1515)",
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 36 (line 1104)",
+    "libs/combat/tags.ts damageCalc (line 1352)",
+    "libs/combat/damagePipeline.ts computeDamagePacket (line 501)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "feeds": [
+      "wound",
+      "lifesteal",
+      "vamp",
+      "consume",
+      "afterburn",
+      "recoil",
+      "curse",
+      "absorb",
+      "reflect",
+      "siphon"
+     ]
+    },
+    "incoming": {
+     "boosts": [
+      "increasepotency",
+      "increasedamagegiven",
+      "increasedamagetaken",
+      "weakness",
+      "increasestat",
+      "curse"
+     ],
+     "counters": [
+      "barrier",
+      "shield",
+      "diffuse",
+      "finalstand",
+      "parry",
+      "stealth"
+     ],
+     "feeds": [
+      "elementaldamage"
+     ],
+     "removes": [
+      "cleanse"
+     ],
+     "weakens": [
+      "decreasepotency",
+      "decreasedamagegiven",
+      "decreasedamagetaken",
+      "decreasestat"
+     ]
+    }
+   }
+  },
+  "debuffprevent": {
+   "tag": "debuffprevent",
+   "schema": "validators/combat.ts DebuffPreventTag (line 677)",
+   "exclusion_area": "Protection",
+   "in_game_text": "Prevents debuffing",
+   "behavior": "A prevent-type status. It rolls power% once to land, then blocks with certainty debuffs cast on the holder in a later round: stat down, mastery down, damage given down, damage taken up, heal down, cooldown up, potency down, max pools down, recoil, drain, poison, time compression, and Mirror. Damage, wound, afterburn, stun and pool cost go through.",
+   "polarity": "positive",
+   "prevented_by": [],
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": false,
+   "immunity_can_cancel": true,
+   "stage": "S3 main pass",
+   "calculation": [
+    "static"
+   ],
+   "fields_note": "simpleTag (BaseAttributes + PowerAttributes only)",
+   "live_usage_2026_11_21": {
+    "jutsu": 18,
+    "pvp_legal": 17
+   },
+   "source": [
+    "libs/combat/tags.ts applyPreventTag (line 338)",
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 4 (line 1070)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "overlaps": [
+      "cleanse"
+     ],
+     "prevents": [
+      "decreasestat",
+      "decreasemastery",
+      "decreasedamagegiven",
+      "increasedamagetaken",
+      "decreaseheal",
+      "increasecooldown",
+      "decreasepotency",
+      "decreasemaxpools",
+      "recoil",
+      "drain",
+      "poison",
+      "timecompression",
+      "mirror"
+     ]
+    },
+    "incoming": {
+     "counters": [
+      "immunity"
+     ],
+     "removes": [
+      "clear"
+     ]
+    }
+   }
+  },
+  "decreaseaggro": {
+   "tag": "decreaseaggro",
+   "schema": "validators/combat.ts DecreaseAggroTag (line 418)",
+   "exclusion_area": "Enemy AI focus (PvE)",
+   "in_game_text": "Decrease current enmity or damage-generated enmity. ENMITY applies once per round; GENERATION modifies each damage packet. Omit rounds for passive gear.",
+   "behavior": "PvE AI targeting, in two modes chosen by aggroMode (default GENERATION). ENMITY lowers the holder's current enmity when its handler runs: by power if static, or by power% of the current enmity, floored at 0. It runs on its casting action and then on the holder's first action of each later round, and even with no rounds it runs at most once a round (tags.ts:1622-1650, util.ts:858-876). GENERATION changes nothing when its handler runs, which only announces it. Instead, every time the holder removes an opponent's HP, the enmity credited is reduced by the summed percentage modifiers and then by the flat ones, floored at 0, while the effect is active (a bloodline one only while not sealed, aggro.ts:18-53). That can happen many times a round. Buffprevent blocks it, and Clear removes it.",
+   "polarity": "positive",
+   "prevented_by": [
+    "buffprevent"
+   ],
+   "prevent_check": "age-compared: blocks only effects created in a later round than the prevent",
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "S3 main pass",
+   "applies": "ENMITY mode: on its casting action, then on the holder's first action of each later round, even with no rounds (util.ts:858-876). GENERATION mode: its handler only announces it; the modifier is read every time the holder removes an opponent's HP while it is active (aggro.ts:18-53), so it can apply many times a round",
+   "calculation": [
+    "static",
+    "percentage"
+   ],
+   "own_fields": {
+    "target": "z.enum(BaseTagTargets).prefault(\"SELF\")",
+    "calculation": "z.enum([\"static\", \"percentage\"]).prefault(\"percentage\")",
+    "aggroMode": "z.enum([\"ENMITY\", \"GENERATION\"]).prefault(\"GENERATION\")"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 0,
+    "pvp_legal": 0
+   },
+   "source": [
+    "libs/combat/tags.ts adjustAggro (line 1622)",
+    "libs/combat/process.ts first reference (line 1556)",
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 21 (line 1088)"
+   ],
+   "interactions": {
+    "incoming": {
+     "prevents": [
+      "buffprevent"
+     ],
+     "removes": [
+      "clear"
+     ]
+    }
+   }
+  },
+  "decreasecookingtime": {
+   "tag": "decreasecookingtime",
+   "schema": "validators/combat.ts DecreaseCookingTime (line 217)",
+   "exclusion_area": "Outside battle or cosmetic",
+   "in_game_text": "Reduce duration by power percent (minimum one second) once per complete meal cooking job. Eligible bloodline, activated skill and usable worn gear bonuses stack up to ${MAX_ACTIVITY_REDUCTION_PERCENT}%; captured when submitted.",
+   "behavior": "Activity passive: shortens each meal cooking job.",
+   "polarity": "neutral",
+   "prevented_by": [],
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "outside combat",
+   "calculation": [
+    "percentage"
+   ],
+   "own_fields": {
+    "rounds": "BaseAttributes.rounds.refine((value): boolean => value === undefined, \"Activity bonuses have no combat duration\")",
+    "timeTracker": "BaseAttributes.timeTracker.refine((value): boolean => value === undefined, \"Activity bonuses have no combat timer\")",
+    "power": "z.coerce.number().min(0).max(MAX_ACTIVITY_REDUCTION_PERCENT).prefault(1)",
+    "powerPerLevel": "z.literal(0).prefault(0)",
+    "target": "z.literal(\"SELF\").prefault(\"SELF\")",
+    "friendlyFire": "z.literal(\"FRIENDLY\").optional()",
+    "calculation": "z.literal(\"percentage\").prefault(\"percentage\")"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 0,
+    "pvp_legal": 0
+   }
+  },
+  "decreasecooldown": {
+   "tag": "decreasecooldown",
+   "schema": "validators/combat.ts DecreaseCooldownTag (line 540)",
+   "exclusion_area": "Speed up actions",
+   "in_game_text": "Decrease cooldown of basic actions",
+   "behavior": "Lowers the cooldown of each listed basic action by power, never below the action's shared cooldown lock or 0. Per action only the lowest signed modifier applies, so the strongest decrease wins and every increasecooldown on that action is ignored rather than netted. Jutsu cooldowns are untouched. A buffprevent from an earlier round blocks it.",
+   "polarity": "positive",
+   "prevented_by": [
+    "buffprevent"
+   ],
+   "prevent_check": "age-compared: blocks only effects created in a later round than the prevent",
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "S3 main pass (unranked)",
+   "live_from": "as soon as it is on the holder (no next-round wait)",
+   "calculation": [
+    "static"
+   ],
+   "own_fields": {
+    "calculation": "z.enum([\"static\"]).prefault(\"static\")",
+    "actionsAffected": "z.array(z.enum(AdjustableBasicActions)).optional()"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 0,
+    "pvp_legal": 0
+   },
+   "source": [
+    "libs/combat/tags.ts decreaseCooldown (line 851)",
+    "libs/combat/process.ts first reference (line 1616)",
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)",
+    "libs/combat/util.ts EFFECT_SORT_RANK: no explicit rank, sorts last (line 1016)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "counters": [
+      "increasecooldown"
+     ]
+    },
+    "incoming": {
+     "prevents": [
+      "buffprevent"
+     ],
+     "removes": [
+      "clear"
+     ]
+    }
+   }
+  },
+  "decreasecraftingtime": {
+   "tag": "decreasecraftingtime",
+   "schema": "validators/combat.ts DecreaseCraftingTime (line 210)",
+   "exclusion_area": "Outside battle or cosmetic",
+   "in_game_text": "Reduce duration by power percent (minimum one second) once per non-meal crafting job, excluding imbuing. Eligible bloodline, activated skill and usable worn gear bonuses stack up to ${MAX_ACTIVITY_REDUCTION_PERCENT}%; captured when submitted.",
+   "behavior": "Activity passive: shortens crafting jobs.",
+   "polarity": "neutral",
+   "prevented_by": [],
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "outside combat",
+   "calculation": [
+    "percentage"
+   ],
+   "own_fields": {
+    "rounds": "BaseAttributes.rounds.refine((value): boolean => value === undefined, \"Activity bonuses have no combat duration\")",
+    "timeTracker": "BaseAttributes.timeTracker.refine((value): boolean => value === undefined, \"Activity bonuses have no combat timer\")",
+    "power": "z.coerce.number().min(0).max(MAX_ACTIVITY_REDUCTION_PERCENT).prefault(1)",
+    "powerPerLevel": "z.literal(0).prefault(0)",
+    "target": "z.literal(\"SELF\").prefault(\"SELF\")",
+    "friendlyFire": "z.literal(\"FRIENDLY\").optional()",
+    "calculation": "z.literal(\"percentage\").prefault(\"percentage\")"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 0,
+    "pvp_legal": 0
+   }
+  },
+  "decreasedamagegiven": {
+   "tag": "decreasedamagegiven",
+   "schema": "validators/combat.ts DecreaseDamageGivenTag (line 384)",
+   "exclusion_area": "Damage scaling",
+   "in_game_text": "Decrease damage given by target",
+   "behavior": "Percentage: a sequential damage-reduction multiplier on the holder's outgoing damage. Static: a flat subtraction after the percentage steps. Total reduction can't push a hit below 10% of its post-system-DR value. Debuffprevent blocks it.",
+   "polarity": "negative",
+   "prevented_by": [
+    "debuffprevent"
+   ],
+   "prevent_check": "age-compared: blocks only effects created in a later round than the prevent",
+   "copy_can_take": false,
+   "mirror_can_pass": true,
+   "potency_eligible": true,
+   "immunity_can_cancel": false,
+   "stage": "S7 damage pipeline",
+   "live_from": "next round (waits while isNew/castThisRound)",
+   "applies": "every damage packet the pipeline computes while it is live; it never reaches the main handler switch (constants.ts:246, process.ts:428), and a later loop only reports it (process.ts:536-597)",
+   "calculation": [
+    "static",
+    "percentage"
+   ],
+   "own_fields": {
+    "calculation": "z.enum([\"static\", \"percentage\"]).prefault(\"percentage\")",
+    "elements": "z.array(z.enum(ElementNames)).optional()"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 82,
+    "pvp_legal": 76
+   },
+   "source": [
+    "libs/combat/tags.ts decreaseDamageGiven (line 981)",
+    "libs/combat/process.ts first reference (line 1552)",
+    "libs/combat/process.ts applyEffects damage modifier pipeline (line 525)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 44 (line 1113)",
+    "libs/combat/damagePipeline.ts computeDamagePacket (line 501)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "overlaps": [
+      "decreasedamagetaken"
+     ],
+     "weakens": [
+      "damage"
+     ]
+    },
+    "incoming": {
+     "boosts": [
+      "increasepotency"
+     ],
+     "bypasses": [
+      "pierce"
+     ],
+     "prevents": [
+      "debuffprevent"
+     ],
+     "removes": [
+      "cleanse"
+     ],
+     "transfers": [
+      "mirror"
+     ],
+     "weakens": [
+      "decreasepotency"
+     ]
+    }
+   }
+  },
+  "decreasedamagetaken": {
+   "tag": "decreasedamagetaken",
+   "schema": "validators/combat.ts DecreaseDamageTakenTag (line 396)",
+   "exclusion_area": "Damage scaling",
+   "in_game_text": "Decrease damage taken of target",
+   "behavior": "Reduces Damage and Elemental Damage packets the holder takes. It doesn't touch Pierce, drain, poison, wound, afterburn or Diffuse repayment. It works from the round after it lands, and Buffprevent can block it. Each percentage effect multiplies by (1 - power%), clamped at 0, after all increases and the 50% system reduction. Percentages are percentage points, divided by 100 like increases. Pre-battle percentages sit in two pools: gear DR points join the 50 system points, before static values; keystone DR points are summed into a separate multiplier applied after static values, and skipped when DR is ignored (the Diffuse lethality test). Static values are subtracted after the ordinary percentage stage. Bloodline percentages apply last; Seal and the damage tag's allowBloodlineDamageDecrease opt-out can switch bloodline ones off. With elements set, it only affects packets that share an element, and packets without elements count as None. Damage never drops below 10% of the boosted hit after the system reduction.",
+   "polarity": "positive",
+   "prevented_by": [
+    "buffprevent"
+   ],
+   "prevent_check": "age-compared: blocks only effects created in a later round than the prevent",
+   "copy_can_take": true,
+   "mirror_can_pass": false,
+   "potency_eligible": true,
+   "immunity_can_cancel": false,
+   "stage": "S7 damage pipeline",
+   "live_from": "next round (waits while isNew/castThisRound)",
+   "applies": "every damage packet the pipeline computes while it is live; it never reaches the main handler switch (constants.ts:246, process.ts:428), and a later loop only reports it (process.ts:536-597)",
+   "calculation": [
+    "static",
+    "percentage"
+   ],
+   "own_fields": {
+    "calculation": "z.enum([\"static\", \"percentage\"]).prefault(\"percentage\")",
+    "elements": "z.array(z.enum(ElementNames)).optional()"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 140,
+    "pvp_legal": 130
+   },
+   "source": [
+    "libs/combat/tags.ts decreaseDamageTaken (line 1007)",
+    "libs/combat/process.ts first reference (line 1624)",
+    "libs/combat/process.ts applyEffects damage modifier pipeline (line 525)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 45 (line 1114)",
+    "libs/combat/damagePipeline.ts computeDamagePacket (line 501)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "weakens": [
+      "damage"
+     ]
+    },
+    "incoming": {
+     "boosts": [
+      "increasepotency"
+     ],
+     "bypasses": [
+      "pierce"
+     ],
+     "overlaps": [
+      "decreasedamagegiven"
+     ],
+     "prevents": [
+      "buffprevent"
+     ],
+     "removes": [
+      "clear"
+     ],
+     "transfers": [
+      "copy"
+     ],
+     "weakens": [
+      "decreasepotency"
+     ]
+    }
+   }
+  },
+  "decreasefarmingtime": {
+   "tag": "decreasefarmingtime",
+   "schema": "validators/combat.ts DecreaseFarmingTime (line 203)",
+   "exclusion_area": "Outside battle or cosmetic",
+   "in_game_text": "Reduce each planted crop duration by power percent, with a one-second minimum. Eligible bloodline, activated skill and usable worn gear bonuses stack up to ${MAX_ACTIVITY_REDUCTION_PERCENT}%; captured when planting.",
+   "behavior": "Activity passive: shortens crop growth.",
+   "polarity": "neutral",
+   "prevented_by": [],
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "outside combat",
+   "calculation": [
+    "percentage"
+   ],
+   "own_fields": {
+    "rounds": "BaseAttributes.rounds.refine((value): boolean => value === undefined, \"Activity bonuses have no combat duration\")",
+    "timeTracker": "BaseAttributes.timeTracker.refine((value): boolean => value === undefined, \"Activity bonuses have no combat timer\")",
+    "power": "z.coerce.number().min(0).max(MAX_ACTIVITY_REDUCTION_PERCENT).prefault(1)",
+    "powerPerLevel": "z.literal(0).prefault(0)",
+    "target": "z.literal(\"SELF\").prefault(\"SELF\")",
+    "friendlyFire": "z.literal(\"FRIENDLY\").optional()",
+    "calculation": "z.literal(\"percentage\").prefault(\"percentage\")"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 0,
+    "pvp_legal": 0
+   }
+  },
+  "decreasegatheringtime": {
+   "tag": "decreasegatheringtime",
+   "schema": "validators/combat.ts DecreaseGatheringTime (line 196)",
+   "exclusion_area": "Outside battle or cosmetic",
+   "in_game_text": "Reduce each gathering quest collection duration by power percent, with a one-second minimum. Eligible bloodline, activated skill and usable worn gear bonuses stack up to ${MAX_ACTIVITY_REDUCTION_PERCENT}%; captured when collection begins.",
+   "behavior": "Activity passive: shortens gathering collection.",
+   "polarity": "neutral",
+   "prevented_by": [],
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "outside combat",
+   "calculation": [
+    "percentage"
+   ],
+   "own_fields": {
+    "rounds": "BaseAttributes.rounds.refine((value): boolean => value === undefined, \"Activity bonuses have no combat duration\")",
+    "timeTracker": "BaseAttributes.timeTracker.refine((value): boolean => value === undefined, \"Activity bonuses have no combat timer\")",
+    "power": "z.coerce.number().min(0).max(MAX_ACTIVITY_REDUCTION_PERCENT).prefault(1)",
+    "powerPerLevel": "z.literal(0).prefault(0)",
+    "target": "z.literal(\"SELF\").prefault(\"SELF\")",
+    "friendlyFire": "z.literal(\"FRIENDLY\").optional()",
+    "calculation": "z.literal(\"percentage\").prefault(\"percentage\")"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 0,
+    "pvp_legal": 0
+   }
+  },
+  "decreaseheal": {
+   "tag": "decreaseheal",
+   "schema": "validators/combat.ts DecreaseHealGivenTag (line 438)",
+   "exclusion_area": "Healing",
+   "in_game_text": "Decrease how much target can heal others",
+   "behavior": "Shrinks the HP healing the holder produces, the same way increaseheal grows it: Heal's HP part, Lifesteal, Vamp, the Curse payout and Absorb's HP part. Chakra and stamina healing are not changed. Debuffprevent blocks it.",
+   "polarity": "negative",
+   "prevented_by": [
+    "debuffprevent"
+   ],
+   "prevent_check": "age-compared: blocks only effects created in a later round than the prevent",
+   "copy_can_take": false,
+   "mirror_can_pass": true,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "S14 heal adjustments (own pass, after Diffuse deferral and delayed Absorb)",
+   "live_from": "next round (waits while isNew/castThisRound)",
+   "calculation": [
+    "static",
+    "percentage"
+   ],
+   "own_fields": {
+    "calculation": "z.enum([\"static\", \"percentage\"]).prefault(\"percentage\")"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 15,
+    "pvp_legal": 11
+   },
+   "source": [
+    "libs/combat/tags.ts decreaseHealGiven (line 1084)",
+    "libs/combat/process.ts first reference (line 1633)",
+    "libs/combat/process.ts applyEffects heal adjustment pass, after the post-damage readers (line 661)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 58 (line 1120, ...POST_PIERCE_TAGS entry at libs/combat/constants.ts line 276)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "weakens": [
+      "heal",
+      "lifesteal",
+      "vamp",
+      "absorb",
+      "curse"
+     ]
+    },
+    "incoming": {
+     "prevents": [
+      "debuffprevent"
+     ],
+     "removes": [
+      "cleanse"
+     ],
+     "transfers": [
+      "mirror"
+     ]
+    }
+   }
+  },
+  "decreasemastery": {
+   "tag": "decreasemastery",
+   "schema": "validators/combat.ts DecreaseMasteryTag (line 590)",
+   "exclusion_area": "Damage scaling",
+   "in_game_text": "Decrease mastery of target",
+   "behavior": "Lowers the chosen jutsu-type masteries. Debuffprevent blocks it.",
+   "polarity": "negative",
+   "prevented_by": [
+    "debuffprevent"
+   ],
+   "prevent_check": "age-compared: blocks only effects created in a later round than the prevent",
+   "copy_can_take": false,
+   "mirror_can_pass": true,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "S3 main pass",
+   "live_from": "next round (waits while isNew/castThisRound)",
+   "calculation": [
+    "static",
+    "percentage"
+   ],
+   "own_fields": {
+    "calculation": "z.enum([\"static\", \"percentage\"]).prefault(\"percentage\")",
+    "masteryTypes": "z.array(z.enum(MasteryTypes)).prefault([\"Ninjutsu\"])"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 0,
+    "pvp_legal": 0
+   },
+   "source": [
+    "libs/combat/tags.ts decreaseMastery (line 897)",
+    "libs/combat/process.ts first reference (line 1608)",
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 26 (line 1093)"
+   ],
+   "interactions": {
+    "incoming": {
+     "prevents": [
+      "debuffprevent"
+     ],
+     "removes": [
+      "cleanse"
+     ],
+     "transfers": [
+      "mirror"
+     ]
+    }
+   }
+  },
+  "decreasemaxpools": {
+   "tag": "decreasemaxpools",
+   "schema": "validators/combat.ts DecreaseMaxPoolsTag (line 480)",
+   "exclusion_area": "Pools and money",
+   "in_game_text": "Decrease maximum and current pool values",
+   "behavior": "Lowers maximum and current pools. Debuffprevent blocks it.",
+   "polarity": "negative",
+   "prevented_by": [
+    "debuffprevent"
+   ],
+   "prevent_check": "age-compared: blocks only effects created in a later round than the prevent",
+   "copy_can_take": false,
+   "mirror_can_pass": true,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "S3 main pass (unranked)",
+   "calculation": [
+    "static",
+    "percentage"
+   ],
+   "own_fields": {
+    "target": "z.enum(BaseTagTargets).optional().prefault(\"SELF\")",
+    "calculation": "z.enum([\"static\", \"percentage\"]).prefault(\"static\")",
+    "poolsAffected": "z.array(z.enum(MaxPoolTypes)).prefault([\"Health\"])"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 0,
+    "pvp_legal": 0
+   },
+   "source": [
+    "libs/combat/tags.ts decreaseMaxPools (line 2133)",
+    "libs/combat/process.ts first reference (line 1612)",
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)",
+    "libs/combat/util.ts EFFECT_SORT_RANK: no explicit rank, sorts last (line 1016)"
+   ],
+   "interactions": {
+    "incoming": {
+     "prevents": [
+      "debuffprevent"
+     ],
+     "removes": [
+      "cleanse"
+     ],
+     "transfers": [
+      "mirror"
+     ]
+    }
+   }
+  },
+  "decreasepoolcost": {
+   "tag": "decreasepoolcost",
+   "schema": "validators/combat.ts DecreasePoolCostTag (line 459)",
+   "exclusion_area": "Speed up actions",
+   "in_game_text": "Decrease cost of taking actions",
+   "behavior": "Lowers the chakra or stamina cost of the holder's actions.",
+   "polarity": "positive",
+   "prevented_by": [],
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "S3 main pass",
+   "live_from": "as soon as it is on the holder and enabled (no next-round wait; util.ts:1146-1150)",
+   "applies": "read whenever an action's cost is computed (util.ts:1136-1165); the handler only reports",
+   "calculation": [
+    "static",
+    "percentage"
+   ],
+   "own_fields": {
+    "rounds": "z.coerce.number().int().min(2).max(20).prefault(2)",
+    "direction": "type(\"defence\")",
+    "calculation": "z.enum([\"static\", \"percentage\"]).prefault(\"percentage\")",
+    "poolsAffected": "z.array(z.enum(PoolTypes)).prefault([\"Health\"]).optional()"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 1,
+    "pvp_legal": 1
+   },
+   "source": [
+    "libs/combat/tags.ts decreasepoolcost (line 1653)",
+    "libs/combat/process.ts first reference (line 1542)",
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 24 (line 1091)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "weakens": [
+      "poison"
+     ]
+    },
+    "incoming": {
+     "counters": [
+      "increasepoolcost"
+     ],
+     "removes": [
+      "clear"
+     ]
+    }
+   }
+  },
+  "decreasepotency": {
+   "tag": "decreasepotency",
+   "schema": "validators/combat.ts DecreasePotencyTag (line 349)",
+   "exclusion_area": "Damage scaling",
+   "in_game_text": "Decrease the power of selected tags on the target's subsequent jutsu",
+   "behavior": "Mirror of increasepotency with negative flat and % terms. A debuffprevent from an earlier round blocks it on landing. It applies to the holder's jutsu cast on any later action, same round included, using the same formula and clamps. The 0 floor means stacked decreases can't make power negative. Ground copies follow the same tile, not-new and friendlyFire rules.",
+   "polarity": "negative",
+   "prevented_by": [
+    "debuffprevent"
+   ],
+   "prevent_check": "age-compared: blocks only effects created in a later round than the prevent",
+   "copy_can_take": false,
+   "mirror_can_pass": true,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "S0 cast prep (rewrites cast power); handler in S3 main pass",
+   "live_from": "holder's next jutsu cast after the casting action (same round possible); ground: the next cast from the tile after the placing action",
+   "calculation": [
+    "static",
+    "percentage"
+   ],
+   "own_fields": {
+    "rounds": "z.coerce.number().int().min(1).max(100).prefault(3)",
+    "calculation": "z.enum([\"static\", \"percentage\"]).prefault(\"static\")",
+    "affectedTag": "z.enum([\"none\", \"all\", ...PotencyTagTypes]).prefault(\"all\")",
+    "affectedElements": "z.array(z.enum(ElementNames)).prefault([])"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 2,
+    "pvp_legal": 2
+   },
+   "source": [
+    "libs/combat/tags.ts potency (line 800)",
+    "libs/combat/process.ts first reference (line 1628)",
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 23 (line 1090)",
+    "libs/combat/potency.ts resolvePotencyTags (line 71)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "weakens": [
+      "damage",
+      "increasedamagegiven",
+      "decreasedamagegiven",
+      "increasedamagetaken",
+      "decreasedamagetaken",
+      "afterburn",
+      "lifesteal",
+      "reflect",
+      "parry",
+      "curse",
+      "increaseheal",
+      "heal",
+      "vamp",
+      "absorb",
+      "consume",
+      "siphon",
+      "shield",
+      "pierce",
+      "drain",
+      "poison"
+     ]
+    },
+    "incoming": {
+     "prevents": [
+      "debuffprevent"
+     ],
+     "removes": [
+      "cleanse"
+     ],
+     "transfers": [
+      "mirror"
+     ]
+    }
+   }
+  },
+  "decreasestat": {
+   "tag": "decreasestat",
+   "schema": "validators/combat.ts DecreaseStatTag (line 568)",
+   "exclusion_area": "Damage scaling",
+   "in_game_text": "Decrease stats of target",
+   "behavior": "Lowers offence, defence or generals the same way as increasestat. Debuffprevent blocks it.",
+   "polarity": "negative",
+   "prevented_by": [
+    "debuffprevent"
+   ],
+   "prevent_check": "age-compared: blocks only effects created in a later round than the prevent",
+   "copy_can_take": false,
+   "mirror_can_pass": true,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "S3 main pass",
+   "live_from": "next round (waits while isNew/castThisRound)",
+   "calculation": [
+    "static",
+    "percentage"
+   ],
+   "own_fields": {
+    "direction": "z.enum([\"offence\", \"defence\", \"both\", \"none\"]).prefault(\"both\")",
+    "calculation": "z.enum([\"static\", \"percentage\"]).prefault(\"percentage\")",
+    "generalTypes": "z.array(z.enum(GeneralTypes)).optional()",
+    "elements": "z.array(z.enum(ElementNames)).optional()"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 23,
+    "pvp_legal": 18
+   },
+   "source": [
+    "libs/combat/tags.ts decreaseStats (line 862)",
+    "libs/combat/process.ts first reference (line 1620)",
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 25 (line 1092)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "weakens": [
+      "damage"
+     ]
+    },
+    "incoming": {
+     "prevents": [
+      "debuffprevent"
+     ],
+     "removes": [
+      "cleanse"
+     ],
+     "transfers": [
+      "mirror"
+     ]
+    }
+   }
+  },
+  "diffuse": {
+   "tag": "diffuse",
+   "schema": "validators/combat.ts DiffuseTag (line 836)",
+   "exclusion_area": "Damage later",
+   "in_game_text": "Defer a percentage of incoming damage over subsequent turns (non-lethal hits only: a hit that would kill before shields and damage reduction is not deferred). Damage reduction applies before deferral; shields and absorption apply to the immediate portion. Repayment survives expiry, bypasses defenses, and respects Final Stand. Cannot be cleansed, prevented, or copied.",
+   "behavior": "While active (rounds above 0 and not sealed, from the action it is cast), the holder defers part of the damage aimed at them in each action. Only their strongest Diffuse counts, at most 99%, using its delayRounds (1-20, default 3). It is all or nothing per action. All HP damage, reflect and recoil heading to the holder in that action are added up, and if the total reaches current HP (shields not counted), nothing is deferred. For that test, ordinary and residual damage are recomputed without the holder's damage reduction but with the 50% system reduction, all increases and any Parry split. Everything else (Pierce, wound, afterburn, drain, poison, reflect, recoil) counts as it stands. When the test passes, power% of each already-reduced packet becomes debt. The debt is repaid in equal parts on the holder's own actions over their next delayRounds acting rounds, at the start of the action. Repayment skips shields, damage reduction and Absorb, respects Final Stand, and continues after the effect ends. The immediate part goes through shields and Final Stand as ordinary damage. That includes Pierce, which shields then soak instead of breaking unless positive Reflect is still on that Pierce hit when mitigation runs (the attacker's own Diffuse deferring the Reflect moves it off the hit), and afterburn, drain and poison, which otherwise skip both. Absorb and Lifesteal only see the immediate part. It can't be cleansed, prevented or copied.",
+   "polarity": "neutral",
+   "prevented_by": [],
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "S3 main pass (handler text only); S6 repayment; S12 deferral",
+   "live_from": "its casting action (no next-round wait)",
+   "calculation": [
+    "percentage"
+   ],
+   "own_fields": {
+    "rounds": "z.coerce.number().int().min(1).max(100).prefault(3)",
+    "power": "z.coerce.number().gt(0).max(DIFFUSE_MAX_PERCENTAGE).prefault(25)",
+    "powerPerLevel": "z.coerce.number().min(0).max(1).prefault(0)",
+    "calculation": "z.enum([\"percentage\"]).prefault(\"percentage\")",
+    "delayRounds": "z.coerce.number().int().min(1).max(20).prefault(DIFFUSE_DEFAULT_DELAY_ROUNDS)"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 3,
+    "pvp_legal": 3
+   },
+   "source": [
+    "libs/combat/process.ts first reference (line 1698)",
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)",
+    "libs/combat/process.ts applyEffects Diffuse debt repayment, before the damage pipeline (line 480)",
+    "libs/combat/process.ts applyEffects Diffuse deferral, after the post-damage readers (line 643)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 33 (line 1101)",
+    "libs/combat/damagePipeline.ts applyDiffuseToConsequences (line 381)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "counters": [
+      "damage",
+      "pierce"
+     ],
+     "weakens": [
+      "absorb",
+      "lifesteal"
+     ]
+    },
+    "incoming": {
+     "counters": [
+      "finalstand"
+     ],
+     "overlaps": [
+      "curse",
+      "finalstand"
+     ]
+    }
+   }
+  },
+  "disarm": {
+   "tag": "disarm",
+   "schema": "validators/combat.ts DisarmTag (line 735)",
+   "exclusion_area": "Deny actions",
+   "in_game_text": "Prevents using WEAPON items in battle and hides them",
+   "behavior": "A prevent-type status. While active with rounds left (and not cast this round) it hides the holder's weapon items and every jutsu that needs a weapon. It is only an action gate; no handler checks it.",
+   "polarity": "negative",
+   "prevented_by": [],
+   "copy_can_take": false,
+   "mirror_can_pass": true,
+   "potency_eligible": false,
+   "immunity_can_cancel": true,
+   "stage": "S3 main pass; action gate in availableUserActions",
+   "live_from": "action gate while active with rounds left and not cast this round",
+   "calculation": [
+    "static"
+   ],
+   "fields_note": "simpleTag (BaseAttributes + PowerAttributes only)",
+   "live_usage_2026_11_21": {
+    "jutsu": 0,
+    "pvp_legal": 0
+   },
+   "source": [
+    "libs/combat/tags.ts applyPreventTag (line 338)",
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 13 (line 1079)",
+    "libs/combat/actions.ts availableUserActions (line 111)"
+   ],
+   "interactions": {
+    "incoming": {
+     "counters": [
+      "immunity"
+     ],
+     "removes": [
+      "cleanse"
+     ],
+     "transfers": [
+      "mirror"
+     ]
+    }
+   }
+  },
+  "drain": {
+   "tag": "drain",
+   "schema": "validators/combat.ts DrainTag (line 740)",
+   "exclusion_area": "Damage later",
+   "in_game_text": "Drain target's pools over time",
+   "behavior": "Each round it removes a flat amount, or power% of the max, from the chosen pools (HP, chakra, stamina). It writes its consequence in the main pass, despite its post-pierce sort rank, and the HP part skips shields and Final Stand except on the Diffuse path. Debuffprevent from an earlier round blocks it. When mirrored, its power is divided by the mirror's rounds.",
+   "polarity": "negative",
+   "prevented_by": [
+    "debuffprevent"
+   ],
+   "prevent_check": "age-compared: blocks only effects created in a later round than the prevent",
+   "copy_can_take": false,
+   "mirror_can_pass": true,
+   "potency_eligible": true,
+   "immunity_can_cancel": false,
+   "stage": "S3 main pass (writes the consequence despite its post-pierce rank); applied in S15",
+   "applies": "on its casting action, then on the holder's first action of each later round (not again in the cast round; no-rounds versions: every holder action)",
+   "calculation": [
+    "static",
+    "percentage"
+   ],
+   "own_fields": {
+    "rounds": "z.coerce.number().int().min(1).max(10).prefault(3)",
+    "calculation": "z.enum([\"static\", \"percentage\"]).prefault(\"percentage\")",
+    "poolsAffected": "z.array(z.enum(PoolTypes)).prefault([\"Chakra\", \"Stamina\", \"Health\"])"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 18,
+    "pvp_legal": 17
+   },
+   "source": [
+    "libs/combat/tags.ts drain (line 2032)",
+    "libs/combat/process.ts first reference (line 1544)",
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 50 (line 1120, ...POST_PIERCE_TAGS entry at libs/combat/constants.ts line 268)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "bypasses": [
+      "finalstand",
+      "shield"
+     ],
+     "overlaps": [
+      "poison"
+     ]
+    },
+    "incoming": {
+     "boosts": [
+      "increasepotency"
+     ],
+     "overlaps": [
+      "wound"
+     ],
+     "prevents": [
+      "debuffprevent"
+     ],
+     "removes": [
+      "cleanse"
+     ],
+     "transfers": [
+      "mirror"
+     ],
+     "weakens": [
+      "decreasepotency"
+     ]
+    }
+   }
+  },
+  "elementaldamage": {
+   "tag": "elementaldamage",
+   "schema": "validators/combat.ts ElementalDamageTag (line 649)",
+   "exclusion_area": "Damage now",
+   "in_game_text": "Deals damage using the caster's preferred basic element",
+   "behavior": "An authoring shortcut. On cast it becomes an ordinary damage tag with one element: the caster's saved preferred element, else their basic innate element, else Fire. It counts as elemental for Elemental Seal.",
+   "polarity": "negative",
+   "prevented_by": [],
+   "copy_can_take": false,
+   "mirror_can_pass": true,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "S0 cast prep (becomes damage)",
+   "calculation": [
+    "formula",
+    "static",
+    "percentage"
+   ],
+   "own_fields": {
+    "calculation": "z.enum([\"formula\", \"static\", \"percentage\"]).prefault(\"formula\")",
+    "generalTypes": "z.array(z.enum(GeneralTypes)).optional()",
+    "residualModifier": "z.coerce.number().min(0).max(2).prefault(1).optional()",
+    "dmgModifier": "z.coerce.number().min(0).max(2).prefault(1).optional()",
+    "allowBloodlineDamageIncrease": "z.coerce.boolean().prefault(true)",
+    "allowBloodlineDamageDecrease": "z.coerce.boolean().prefault(true)"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 0,
+    "pvp_legal": 0
+   },
+   "source": [
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects), as damage (line 453)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 36, as damage (line 1104)",
+    "libs/combat/elementalDamage.ts resolveElementalDamage (line 23)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "feeds": [
+      "damage"
+     ]
+    },
+    "incoming": {
+     "hides": [
+      "elementalseal"
+     ],
+     "removes": [
+      "cleanse"
+     ],
+     "transfers": [
+      "mirror"
+     ]
+    }
+   }
+  },
+  "elementalseal": {
+   "tag": "elementalseal",
+   "schema": "validators/combat.ts ElementalSealTag (line 962)",
+   "exclusion_area": "Deny actions",
+   "in_game_text": "Seals the target's ability to use all elemental ${ELEMENTAL_SEAL_AP_COST} AP jutsu",
+   "behavior": "Rolls power% to land. While active with rounds left (and not cast this round), the holder's jutsu with an authored AP cost of exactly 60 are hidden if they are elemental: elementClassification set and not None, any elementaldamage tag, or any tag with a non-None element. Items and basic actions are never hidden. The server enforces it. No prevent stops it.",
+   "polarity": "negative",
+   "prevented_by": [],
+   "copy_can_take": false,
+   "mirror_can_pass": true,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "S3 main pass; action gate in availableUserActions",
+   "live_from": "action gate while active with rounds left and not cast this round",
+   "calculation": [
+    "static"
+   ],
+   "fields_note": "simpleTag (BaseAttributes + PowerAttributes only)",
+   "live_usage_2026_11_21": {
+    "jutsu": 1,
+    "pvp_legal": 1
+   },
+   "source": [
+    "libs/combat/tags.ts elementalseal (line 2435)",
+    "libs/combat/process.ts first reference (line 1653)",
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 15 (line 1082)",
+    "libs/combat/actions.ts availableUserActions (line 111)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "hides": [
+      "elementaldamage"
+     ]
+    },
+    "incoming": {
+     "overlaps": [
+      "stealth"
+     ],
+     "removes": [
+      "cleanse"
+     ],
+     "transfers": [
+      "mirror"
+     ]
+    }
+   }
+  },
+  "finalstand": {
+   "tag": "finalstand",
+   "schema": "validators/combat.ts FinalStandTag (line 772)",
+   "exclusion_area": "Soak damage",
+   "in_game_text": "User cannot be reduced below 1 HP",
+   "behavior": "Rolls power% each time its handler runs, and the first failed roll sets its rounds to 0 and ends it (tags.ts:2238-2255). A finite one rolls on every other fighter's action once it is no longer new, and on the first tracked resolution of each round: its casting action in the cast round, whoever cast it, and its holder's first action in later rounds. It skips its holder's other actions that round, so when another fighter casts it on the holder, the holder gets no roll of its own until the next round (util.ts:856-876). One with no rounds rolls on every resolution, and a failed roll ends it for the fight. While active, each separate damage packet that would leave the holder below 1 HP is cut to leave exactly 1 HP. Each packet is checked against HP as it stood before the action's damage, so several packets that are each survivable can still kill together (two 60s on a 100-HP holder kill). It applies to direct, residual, Pierce, wound, parry return, reflect and recoil damage, to the immediate part of deferred damage and to Diffuse repayment. It does not apply to ordinary afterburn, drain, poison or One Hit Kill. A bloodline version needs to be active and unsealed, and re-arms for one round when it fires. Neither Clear nor Cleanse removes it.",
+   "polarity": "neutral",
+   "prevented_by": [],
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "S3 main pass (land roll); floors HP in S6 and S15",
+   "applies": "its roll: on every other fighter's action once it is no longer new, and on the first tracked resolution of each round, which is the casting action in the cast round (whoever cast it) and the holder's first action in later rounds; skipped on the holder's other actions that round (no-rounds versions: every resolution). Its 1-HP floor: every packet while rounds > 0",
+   "calculation": [
+    "static"
+   ],
+   "own_fields": {
+    "power": "z.coerce.number().min(0).max(100).prefault(100)",
+    "powerPerLevel": "z.coerce.number().min(0).max(1).prefault(0)"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 1,
+    "pvp_legal": 0
+   },
+   "source": [
+    "libs/combat/tags.ts finalStand (line 2238)",
+    "libs/combat/process.ts first reference (line 1696)",
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 32 (line 1100)",
+    "libs/combat/tags.ts applyFinalStandDamage (line 2209)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "counters": [
+      "damage",
+      "diffuse",
+      "pierce"
+     ],
+     "overlaps": [
+      "diffuse"
+     ]
+    },
+    "incoming": {
+     "bypasses": [
+      "onehitkill",
+      "afterburn",
+      "drain",
+      "poison"
+     ],
+     "disables": [
+      "seal"
+     ]
+    }
+   }
+  },
+  "flee": {
+   "tag": "flee",
+   "schema": "validators/combat.ts FleeTag (line 679)",
+   "exclusion_area": "Escape",
+   "in_game_text": "Flee the battle",
+   "behavior": "Rolls power% each tick to leave the battle. It's not allowed in dungeons. Fleeprevent blocks it.",
+   "polarity": "negative",
+   "prevented_by": [
+    "fleeprevent"
+   ],
+   "prevent_check": "any age: any active prevent blocks it, including a pending effect cast earlier, which then ends (tags.ts:1531)",
+   "copy_can_take": false,
+   "mirror_can_pass": true,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "S3 main pass",
+   "applies": "on its casting action, then on the holder's first action of each later round (not again in the cast round; no-rounds versions: every holder action)",
+   "calculation": [
+    "static"
+   ],
+   "fields_note": "simpleTag (BaseAttributes + PowerAttributes only)",
+   "live_usage_2026_11_21": {
+    "jutsu": 0,
+    "pvp_legal": 0
+   },
+   "source": [
+    "libs/combat/tags.ts flee (line 1526)",
+    "libs/combat/process.ts first reference (line 1538)",
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 37 (line 1105)"
+   ],
+   "interactions": {
+    "incoming": {
+     "feeds": [
+      "rob"
+     ],
+     "prevents": [
+      "fleeprevent"
+     ],
+     "removes": [
+      "cleanse"
+     ],
+     "transfers": [
+      "mirror"
+     ]
+    }
+   }
+  },
+  "fleeprevent": {
+   "tag": "fleeprevent",
+   "schema": "validators/combat.ts FleePreventTag (line 681)",
+   "exclusion_area": "Escape",
+   "in_game_text": "Prevents fleeing",
+   "behavior": "A prevent-type status that rolls power% once to land. While active, it blocks every Flee roll by the holder, including the per-round rolls of a Flee cast before it, and a blocked Flee ends. Immunity can cancel a new one.",
+   "polarity": "negative",
+   "prevented_by": [],
+   "copy_can_take": false,
+   "mirror_can_pass": true,
+   "potency_eligible": false,
+   "immunity_can_cancel": true,
+   "stage": "S3 main pass",
+   "calculation": [
+    "static"
+   ],
+   "fields_note": "simpleTag (BaseAttributes + PowerAttributes only)",
+   "live_usage_2026_11_21": {
+    "jutsu": 0,
+    "pvp_legal": 0
+   },
+   "source": [
+    "libs/combat/tags.ts applyPreventTag (line 338)",
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 5 (line 1071)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "prevents": [
+      "flee"
+     ]
+    },
+    "incoming": {
+     "counters": [
+      "immunity"
+     ],
+     "removes": [
+      "cleanse"
+     ],
+     "transfers": [
+      "mirror"
+     ]
+    }
+   }
+  },
+  "heal": {
+   "tag": "heal",
+   "schema": "validators/combat.ts HealTag (line 683)",
+   "exclusion_area": "Healing",
+   "in_game_text": "Heals themselves or others",
+   "behavior": "Restores power x 10 if static, or power% of the target's max pool if percentage, to each listed pool. With rounds 0 it heals on the casting action. With rounds > 0 it heals nothing then, and heals once per round on the holder's (target's) first action of each later round. A healprevent from an earlier round blocks it on landing, and it blocks all pools. The healer's increaseheal/decreaseheal scale only the HP part. Several heals reaching one target in one action don't stack: the largest per pool applies. HP is restored only if the target is still alive, up to the effective max. Clear removes a heal-over-time.",
+   "polarity": "positive",
+   "prevented_by": [
+    "healprevent"
+   ],
+   "prevent_check": "age-compared: blocks only effects created in a later round than the prevent",
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": true,
+   "immunity_can_cancel": false,
+   "stage": "S3 main pass -> S14 heal adjustments -> S15 applied",
+   "live_from": "rounds 0: casting action; rounds > 0: holder's first action in the round after cast, then once per round",
+   "applies": "rounds 0: once, on cast; rounds > 0: nothing on cast, then once a round on the holder's first action",
+   "calculation": [
+    "static",
+    "percentage"
+   ],
+   "own_fields": {
+    "rounds": "z.coerce.number().int().min(0).max(100).prefault(0)",
+    "calculation": "z.enum([\"static\", \"percentage\"]).prefault(\"percentage\")",
+    "poolsAffected": "z.array(z.enum(PoolTypes)).prefault([\"Health\"]).optional()"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 23,
+    "pvp_legal": 23
+   },
+   "source": [
+    "libs/combat/tags.ts heal (line 1564)",
+    "libs/combat/process.ts first reference (line 1536)",
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 38 (line 1106)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "overlaps": [
+      "curse"
+     ]
+    },
+    "incoming": {
+     "boosts": [
+      "increasepotency",
+      "increaseheal"
+     ],
+     "prevents": [
+      "healprevent"
+     ],
+     "removes": [
+      "clear"
+     ],
+     "weakens": [
+      "decreasepotency",
+      "decreaseheal"
+     ]
+    }
+   }
+  },
+  "healprevent": {
+   "tag": "healprevent",
+   "schema": "validators/combat.ts HealPreventTag (line 693)",
+   "exclusion_area": "Healing",
+   "in_game_text": "Prevents healing",
+   "behavior": "A prevent-type status that rolls power% once to land. It blocks Heal, Lifesteal and Absorb cast on the holder in a later round (all pools). Any active healprevent on a Vamp caster blocks that Vamp outright, with no roll or age check, and any active healprevent on a Curse holder at expiry blocks the payout and the stored healing is lost. Immunity can cancel a new one.",
+   "polarity": "negative",
+   "prevented_by": [],
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": false,
+   "immunity_can_cancel": true,
+   "stage": "S3 main pass",
+   "calculation": [
+    "static"
+   ],
+   "fields_note": "simpleTag (BaseAttributes + PowerAttributes only)",
+   "live_usage_2026_11_21": {
+    "jutsu": 2,
+    "pvp_legal": 2
+   },
+   "source": [
+    "libs/combat/tags.ts applyPreventTag (line 338)",
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 6 (line 1072)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "prevents": [
+      "heal",
+      "lifesteal",
+      "absorb",
+      "vamp",
+      "curse"
+     ]
+    },
+    "incoming": {
+     "counters": [
+      "immunity"
+     ],
+     "removes": [
+      "cleanse"
+     ]
+    }
+   }
+  },
+  "immunity": {
+   "tag": "immunity",
+   "schema": "validators/combat.ts ImmunityTag (line 975)",
+   "exclusion_area": "Protection",
+   "in_game_text": "Grants immunity against the specified prevent-type effect",
+   "behavior": "While active, it cancels any new prevent-type status of one chosen kind (the blocks field) as it lands on the holder. It's positive, so Clear removes it.",
+   "polarity": "positive",
+   "prevented_by": [],
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "S3 main pass (unranked)",
+   "calculation": [
+    "static"
+   ],
+   "own_fields": {
+    "rounds": "z.coerce.number().int().min(1).max(20).prefault(2)",
+    "target": "z.enum(BaseTagTargets).optional().prefault(\"SELF\")",
+    "calculation": "z.enum([\"static\"]).prefault(\"static\")",
+    "blocks": "z.enum(PreventTagTypes).prefault(\"buffprevent\")"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 0,
+    "pvp_legal": 0
+   },
+   "source": [
+    "libs/combat/tags.ts immunity (line 2199)",
+    "libs/combat/process.ts first reference (line 1669)",
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)",
+    "libs/combat/util.ts EFFECT_SORT_RANK: no explicit rank, sorts last (line 1016)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "counters": [
+      "buffprevent",
+      "clearprevent",
+      "cleanseprevent",
+      "debuffprevent",
+      "disarm",
+      "fleeprevent",
+      "healprevent",
+      "moveprevent",
+      "onehitkillprevent",
+      "robprevent",
+      "sealprevent",
+      "stunprevent",
+      "summonprevent"
+     ]
+    },
+    "incoming": {
+     "removes": [
+      "clear"
+     ]
+    }
+   }
+  },
+  "increaseaggro": {
+   "tag": "increaseaggro",
+   "schema": "validators/combat.ts IncreaseAggroTag (line 410)",
+   "exclusion_area": "Enemy AI focus (PvE)",
+   "in_game_text": "Increase current enmity or damage-generated enmity. ENMITY applies once per round; GENERATION modifies each damage packet. Omit rounds for passive gear.",
+   "behavior": "PvE AI targeting, in two modes chosen by aggroMode (default GENERATION). ENMITY changes the holder's current enmity when its handler runs: by power if static, or by power% of the current enmity, floored at 0. It runs on its casting action and then on the holder's first action of each later round, and even with no rounds it runs at most once a round (tags.ts:1622-1650, util.ts:858-876). GENERATION changes nothing when its handler runs, which only announces it. Instead, every time the holder removes an opponent's HP, the enmity credited is scaled by the summed percentage modifiers and then shifted by the flat ones, floored at 0, while the effect is active (a bloodline one only while not sealed, aggro.ts:18-53). That can happen many times a round. Buffprevent blocks it, and Clear removes it.",
+   "polarity": "positive",
+   "prevented_by": [
+    "buffprevent"
+   ],
+   "prevent_check": "age-compared: blocks only effects created in a later round than the prevent",
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "S3 main pass",
+   "applies": "ENMITY mode: on its casting action, then on the holder's first action of each later round, even with no rounds (util.ts:858-876). GENERATION mode: its handler only announces it; the modifier is read every time the holder removes an opponent's HP while it is active (aggro.ts:18-53), so it can apply many times a round",
+   "calculation": [
+    "static",
+    "percentage"
+   ],
+   "own_fields": {
+    "target": "z.enum(BaseTagTargets).prefault(\"SELF\")",
+    "calculation": "z.enum([\"static\", \"percentage\"]).prefault(\"percentage\")",
+    "aggroMode": "z.enum([\"ENMITY\", \"GENERATION\"]).prefault(\"GENERATION\")"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 0,
+    "pvp_legal": 0
+   },
+   "source": [
+    "libs/combat/tags.ts adjustAggro (line 1622)",
+    "libs/combat/process.ts first reference (line 1555)",
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 20 (line 1087)"
+   ],
+   "interactions": {
+    "incoming": {
+     "prevents": [
+      "buffprevent"
+     ],
+     "removes": [
+      "clear"
+     ]
+    }
+   }
+  },
+  "increasecooldown": {
+   "tag": "increasecooldown",
+   "schema": "validators/combat.ts IncreaseCooldownTag (line 535)",
+   "exclusion_area": "Deny actions",
+   "in_game_text": "Increase cooldown of basic actions",
+   "behavior": "Raises the cooldown of each listed basic action by power. Per action only the lowest signed modifier applies: any decreasecooldown on the holder overrides it completely, and among several increases only the smallest counts. The result is never below the action's shared cooldown lock. Jutsu cooldowns are untouched. A debuffprevent from an earlier round blocks it.",
+   "polarity": "negative",
+   "prevented_by": [
+    "debuffprevent"
+   ],
+   "prevent_check": "age-compared: blocks only effects created in a later round than the prevent",
+   "copy_can_take": false,
+   "mirror_can_pass": true,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "S3 main pass (unranked)",
+   "live_from": "as soon as it is on the holder (no next-round wait)",
+   "calculation": [
+    "static"
+   ],
+   "own_fields": {
+    "calculation": "z.enum([\"static\"]).prefault(\"static\")",
+    "actionsAffected": "z.array(z.enum(AdjustableBasicActions)).optional()"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 0,
+    "pvp_legal": 0
+   },
+   "source": [
+    "libs/combat/tags.ts increaseCooldown (line 839)",
+    "libs/combat/process.ts first reference (line 1614)",
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)",
+    "libs/combat/util.ts EFFECT_SORT_RANK: no explicit rank, sorts last (line 1016)"
+   ],
+   "interactions": {
+    "incoming": {
+     "counters": [
+      "decreasecooldown"
+     ],
+     "prevents": [
+      "debuffprevent"
+     ],
+     "removes": [
+      "cleanse"
+     ],
+     "transfers": [
+      "mirror"
+     ]
+    }
+   }
+  },
+  "increasedamagegiven": {
+   "tag": "increasedamagegiven",
+   "schema": "validators/combat.ts IncreaseDamageGivenTag (line 378)",
+   "exclusion_area": "Damage scaling",
+   "in_game_text": "Increase damage given by target",
+   "behavior": "Percentage: multiplies the holder's outgoing damage in the in-battle increase step (each one multiplies separately, so two +25% give ×1.5625). Static: adds a flat amount after the percentage steps. It's live from the round after it's cast. Elements can limit it. Buffprevent blocks it.",
+   "polarity": "positive",
+   "prevented_by": [
+    "buffprevent"
+   ],
+   "prevent_check": "age-compared: blocks only effects created in a later round than the prevent",
+   "copy_can_take": true,
+   "mirror_can_pass": false,
+   "potency_eligible": true,
+   "immunity_can_cancel": false,
+   "stage": "S7 damage pipeline",
+   "live_from": "next round (waits while isNew/castThisRound)",
+   "applies": "every damage packet the pipeline computes while it is live; it never reaches the main handler switch (constants.ts:246, process.ts:428), and a later loop only reports it (process.ts:536-597)",
+   "calculation": [
+    "static",
+    "percentage"
+   ],
+   "own_fields": {
+    "calculation": "z.enum([\"static\", \"percentage\"]).prefault(\"percentage\")",
+    "elements": "z.array(z.enum(ElementNames)).optional()"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 209,
+    "pvp_legal": 196
+   },
+   "source": [
+    "libs/combat/tags.ts increaseDamageGiven (line 972)",
+    "libs/combat/process.ts first reference (line 1550)",
+    "libs/combat/process.ts applyEffects damage modifier pipeline (line 525)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 46 (line 1115)",
+    "libs/combat/damagePipeline.ts computeDamagePacket (line 501)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "boosts": [
+      "damage"
+     ],
+     "overlaps": [
+      "increasedamagetaken"
+     ]
+    },
+    "incoming": {
+     "boosts": [
+      "increasepotency"
+     ],
+     "bypasses": [
+      "pierce"
+     ],
+     "prevents": [
+      "buffprevent"
+     ],
+     "removes": [
+      "clear"
+     ],
+     "transfers": [
+      "copy"
+     ],
+     "weakens": [
+      "decreasepotency"
+     ]
+    }
+   }
+  },
+  "increasedamagetaken": {
+   "tag": "increasedamagetaken",
+   "schema": "validators/combat.ts IncreaseDamageTakenTag (line 390)",
+   "exclusion_area": "Damage scaling",
+   "in_game_text": "Increase damage taken of target",
+   "behavior": "Multiplies damage the holder takes, in the same in-battle increase step as increasedamagegiven, with no cap. It's live from the round after it's cast. Debuffprevent blocks it.",
+   "polarity": "negative",
+   "prevented_by": [
+    "debuffprevent"
+   ],
+   "prevent_check": "age-compared: blocks only effects created in a later round than the prevent",
+   "copy_can_take": false,
+   "mirror_can_pass": true,
+   "potency_eligible": true,
+   "immunity_can_cancel": false,
+   "stage": "S7 damage pipeline",
+   "live_from": "next round (waits while isNew/castThisRound)",
+   "applies": "every damage packet the pipeline computes while it is live; it never reaches the main handler switch (constants.ts:246, process.ts:428), and a later loop only reports it (process.ts:536-597)",
+   "calculation": [
+    "static",
+    "percentage"
+   ],
+   "own_fields": {
+    "calculation": "z.enum([\"static\", \"percentage\"]).prefault(\"percentage\")",
+    "elements": "z.array(z.enum(ElementNames)).optional()"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 177,
+    "pvp_legal": 164
+   },
+   "source": [
+    "libs/combat/tags.ts increaseDamageTaken (line 998)",
+    "libs/combat/process.ts first reference (line 1622)",
+    "libs/combat/process.ts applyEffects damage modifier pipeline (line 525)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 47 (line 1116)",
+    "libs/combat/damagePipeline.ts computeDamagePacket (line 501)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "boosts": [
+      "damage"
+     ]
+    },
+    "incoming": {
+     "boosts": [
+      "increasepotency"
+     ],
+     "bypasses": [
+      "pierce"
+     ],
+     "overlaps": [
+      "afterburn",
+      "weakness",
+      "increasedamagegiven"
+     ],
+     "prevents": [
+      "debuffprevent"
+     ],
+     "removes": [
+      "cleanse"
+     ],
+     "transfers": [
+      "mirror"
+     ],
+     "weakens": [
+      "decreasepotency"
+     ]
+    }
+   }
+  },
+  "increasegatheringyield": {
+   "tag": "increasegatheringyield",
+   "schema": "validators/combat.ts IncreaseGatheringYield (line 234)",
+   "exclusion_area": "Outside battle or cosmetic",
+   "in_game_text": "Add units to each successfully dropped gathering material. Eligible bloodline, activated skill and usable worn gear bonuses stack up to +${MAX_GATHERING_BONUS_QUANTITY}; captured when collection begins. Drop chances are unchanged.",
+   "behavior": "Activity passive: extra units per gathering drop.",
+   "polarity": "neutral",
+   "prevented_by": [],
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "outside combat",
+   "calculation": [
+    "static"
+   ],
+   "own_fields": {
+    "rounds": "BaseAttributes.rounds.refine((value): boolean => value === undefined, \"Activity bonuses have no combat duration\")",
+    "timeTracker": "BaseAttributes.timeTracker.refine((value): boolean => value === undefined, \"Activity bonuses have no combat timer\")",
+    "power": "z.coerce.number().int().min(0).max(MAX_GATHERING_BONUS_QUANTITY).prefault(1)",
+    "powerPerLevel": "z.literal(0).prefault(0)",
+    "target": "z.literal(\"SELF\").prefault(\"SELF\")",
+    "friendlyFire": "z.literal(\"FRIENDLY\").optional()",
+    "calculation": "z.literal(\"static\").prefault(\"static\")"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 0,
+    "pvp_legal": 0
+   }
+  },
+  "increaseheal": {
+   "tag": "increaseheal",
+   "schema": "validators/combat.ts IncreaseHealGivenTag (line 432)",
+   "exclusion_area": "Healing",
+   "in_game_text": "Increase how much target can heal others",
+   "behavior": "Scales the HP healing the holder produces: Heal's HP part, Lifesteal, Vamp, the Curse payout, and Absorb's HP part on the holder. Chakra and stamina healing are not changed. It runs in its own pass after Diffuse deferral, unrounded. Buffprevent blocks it, and Copy can take it.",
+   "polarity": "positive",
+   "prevented_by": [
+    "buffprevent"
+   ],
+   "prevent_check": "age-compared: blocks only effects created in a later round than the prevent",
+   "copy_can_take": true,
+   "mirror_can_pass": false,
+   "potency_eligible": true,
+   "immunity_can_cancel": false,
+   "stage": "S14 heal adjustments (own pass, after Diffuse deferral and delayed Absorb)",
+   "live_from": "next round (waits while isNew/castThisRound)",
+   "calculation": [
+    "static",
+    "percentage"
+   ],
+   "own_fields": {
+    "calculation": "z.enum([\"static\", \"percentage\"]).prefault(\"percentage\")"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 7,
+    "pvp_legal": 6
+   },
+   "source": [
+    "libs/combat/tags.ts increaseHealGiven (line 1075)",
+    "libs/combat/process.ts first reference (line 1631)",
+    "libs/combat/process.ts applyEffects heal adjustment pass, after the post-damage readers (line 661)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 59 (line 1120, ...POST_PIERCE_TAGS entry at libs/combat/constants.ts line 277)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "boosts": [
+      "heal",
+      "lifesteal",
+      "vamp",
+      "absorb",
+      "curse"
+     ]
+    },
+    "incoming": {
+     "boosts": [
+      "increasepotency"
+     ],
+     "prevents": [
+      "buffprevent"
+     ],
+     "removes": [
+      "clear"
+     ],
+     "transfers": [
+      "copy"
+     ],
+     "weakens": [
+      "decreasepotency"
+     ]
+    }
+   }
+  },
+  "increasehuntingyield": {
+   "tag": "increasehuntingyield",
+   "schema": "validators/combat.ts IncreaseHuntingYield (line 224)",
+   "exclusion_area": "Outside battle or cosmetic",
+   "in_game_text": "Add units to each successfully dropped hunting material. Eligible bloodline, activated skill and usable worn gear bonuses stack up to +${MAX_HUNTING_BONUS_QUANTITY}; captured when battle begins. Drop chances are unchanged.",
+   "behavior": "Activity passive: extra units per hunting drop.",
+   "polarity": "neutral",
+   "prevented_by": [],
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "outside combat",
+   "calculation": [
+    "static"
+   ],
+   "own_fields": {
+    "rounds": "BaseAttributes.rounds.refine((value): boolean => value === undefined, \"Activity bonuses have no combat duration\")",
+    "timeTracker": "BaseAttributes.timeTracker.refine((value): boolean => value === undefined, \"Activity bonuses have no combat timer\")",
+    "power": "z.coerce.number().int().min(0).max(MAX_HUNTING_BONUS_QUANTITY).prefault(1)",
+    "powerPerLevel": "z.literal(0).prefault(0)",
+    "target": "z.literal(\"SELF\").prefault(\"SELF\")",
+    "friendlyFire": "z.literal(\"FRIENDLY\").optional()",
+    "calculation": "z.literal(\"static\").prefault(\"static\")"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 0,
+    "pvp_legal": 0
+   }
+  },
+  "increasejutsuslots": {
+   "tag": "increasejutsuslots",
+   "schema": "validators/combat.ts IncreaseJutsuSlots (line 1055)",
+   "exclusion_area": "Outside battle or cosmetic",
+   "in_game_text": "Permanently add extra jutsu slots on consumption. Shares the ${MAX_EXTRA_JUTSU_SLOTS}-slot limit with purchased slots; the item is not consumed if the grant would exceed it.",
+   "behavior": "Item use: permanently adds jutsu slots.",
+   "polarity": "neutral",
+   "prevented_by": [],
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "outside combat",
+   "calculation": [
+    "static"
+   ],
+   "own_fields": {
+    "rounds": "BaseAttributes.rounds.refine((value): boolean => value === undefined, \"Jutsu slot grants have no combat duration\")",
+    "power": "z.coerce.number().int().min(1).max(MAX_EXTRA_JUTSU_SLOTS).prefault(1)",
+    "powerPerLevel": "z.literal(0).prefault(0)",
+    "target": "z.literal(\"SELF\").prefault(\"SELF\")",
+    "friendlyFire": "z.literal(\"FRIENDLY\").optional()",
+    "calculation": "z.literal(\"static\").prefault(\"static\")"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 0,
+    "pvp_legal": 0
+   }
+  },
+  "increasemastery": {
+   "tag": "increasemastery",
+   "schema": "validators/combat.ts IncreaseMasteryTag (line 585)",
+   "exclusion_area": "Damage scaling",
+   "in_game_text": "Increase mastery of target",
+   "behavior": "Raises the holder's mastery values for the chosen jutsu types, from the round after cast. Buffprevent blocks it.",
+   "polarity": "positive",
+   "prevented_by": [
+    "buffprevent"
+   ],
+   "prevent_check": "age-compared: blocks only effects created in a later round than the prevent",
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "S3 main pass",
+   "live_from": "next round (waits while isNew/castThisRound)",
+   "calculation": [
+    "static",
+    "percentage"
+   ],
+   "own_fields": {
+    "calculation": "z.enum([\"static\", \"percentage\"]).prefault(\"percentage\")",
+    "masteryTypes": "z.array(z.enum(MasteryTypes)).prefault([\"Ninjutsu\"])"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 0,
+    "pvp_legal": 0
+   },
+   "source": [
+    "libs/combat/tags.ts increaseMastery (line 889)",
+    "libs/combat/process.ts first reference (line 1606)",
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 29 (line 1096)"
+   ],
+   "interactions": {
+    "incoming": {
+     "prevents": [
+      "buffprevent"
+     ],
+     "removes": [
+      "clear"
+     ]
+    }
+   }
+  },
+  "increasemaxpools": {
+   "tag": "increasemaxpools",
+   "schema": "validators/combat.ts IncreaseMaxPoolsTag (line 474)",
+   "exclusion_area": "Pools and money",
+   "in_game_text": "Increase maximum and current pool values",
+   "behavior": "Raises maximum and current HP, chakra or stamina. Buffprevent blocks it.",
+   "polarity": "positive",
+   "prevented_by": [
+    "buffprevent"
+   ],
+   "prevent_check": "age-compared: blocks only effects created in a later round than the prevent",
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "S3 main pass (unranked)",
+   "calculation": [
+    "static",
+    "percentage"
+   ],
+   "own_fields": {
+    "target": "z.enum(BaseTagTargets).optional().prefault(\"SELF\")",
+    "calculation": "z.enum([\"static\", \"percentage\"]).prefault(\"static\")",
+    "poolsAffected": "z.array(z.enum(MaxPoolTypes)).prefault([\"Health\"])"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 0,
+    "pvp_legal": 0
+   },
+   "source": [
+    "libs/combat/tags.ts increaseMaxPools (line 2126)",
+    "libs/combat/process.ts first reference (line 1610)",
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)",
+    "libs/combat/util.ts EFFECT_SORT_RANK: no explicit rank, sorts last (line 1016)"
+   ],
+   "interactions": {
+    "incoming": {
+     "prevents": [
+      "buffprevent"
+     ],
+     "removes": [
+      "clear"
+     ]
+    }
+   }
+  },
+  "increasepoolcost": {
+   "tag": "increasepoolcost",
+   "schema": "validators/combat.ts IncreasePoolCostTag (line 453)",
+   "exclusion_area": "Deny actions",
+   "in_game_text": "Increase cost of taking actions",
+   "behavior": "Raises the chakra or stamina cost of the holder's actions. No prevent check runs on it. It feeds Poison, which reads the pool spent.",
+   "polarity": "negative",
+   "prevented_by": [],
+   "copy_can_take": false,
+   "mirror_can_pass": true,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "S3 main pass",
+   "live_from": "as soon as it is on the holder and enabled (no next-round wait; util.ts:1146-1150)",
+   "applies": "read whenever an action's cost is computed (util.ts:1136-1165); the handler only reports",
+   "calculation": [
+    "static",
+    "percentage"
+   ],
+   "own_fields": {
+    "rounds": "z.coerce.number().int().min(2).max(20).prefault(2)",
+    "direction": "type(\"defence\")",
+    "calculation": "z.enum([\"static\", \"percentage\"]).prefault(\"percentage\")",
+    "poolsAffected": "z.array(z.enum(PoolTypes)).prefault([\"Health\"]).optional()"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 10,
+    "pvp_legal": 10
+   },
+   "source": [
+    "libs/combat/tags.ts increasepoolcost (line 1649)",
+    "libs/combat/process.ts first reference (line 1540)",
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 27 (line 1094)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "boosts": [
+      "poison"
+     ],
+     "counters": [
+      "decreasepoolcost"
+     ]
+    },
+    "incoming": {
+     "overlaps": [
+      "timecompression"
+     ],
+     "removes": [
+      "cleanse"
+     ],
+     "transfers": [
+      "mirror"
+     ]
+    }
+   }
+  },
+  "increasepotency": {
+   "tag": "increasepotency",
+   "schema": "validators/combat.ts IncreasePotencyTag (line 342)",
+   "exclusion_area": "Damage scaling",
+   "in_game_text": "Increase the power of selected tags on subsequent jutsu",
+   "behavior": "On the casting action its handler runs once; a buffprevent from an earlier round blocks it (rounds 0), and after that the handler only shows text. It changes power when the holder casts a jutsu (not a basic action or item) on any later action, later in the casting round included. Matching tags are affectedTag or 'all'; 'none' matches by element only. affectedElements match the tag's elements or the jutsu's elementClassification. A matching tag's power becomes max(0, base + sum of flat) x max(0, 1 + sum of %/100), with level scaling baked in at cast and percentage tags capped at 100. Potency on the ground applies to any fighter who casts from that tile, from the action after it was placed, if they pass its friendlyFire against its creator (default ALL). Bloodline potency is off under Seal.",
+   "polarity": "positive",
+   "prevented_by": [
+    "buffprevent"
+   ],
+   "prevent_check": "age-compared: blocks only effects created in a later round than the prevent",
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "S0 cast prep (rewrites cast power); handler in S3 main pass",
+   "live_from": "holder's next jutsu cast after the casting action (same round possible); ground: the next cast from the tile after the placing action",
+   "calculation": [
+    "static",
+    "percentage"
+   ],
+   "own_fields": {
+    "rounds": "z.coerce.number().int().min(1).max(100).prefault(3)",
+    "target": "z.enum(BaseTagTargets).prefault(\"SELF\")",
+    "calculation": "z.enum([\"static\", \"percentage\"]).prefault(\"static\")",
+    "affectedTag": "z.enum([\"none\", \"all\", ...PotencyTagTypes]).prefault(\"all\")",
+    "affectedElements": "z.array(z.enum(ElementNames)).prefault([])"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 11,
+    "pvp_legal": 11
+   },
+   "source": [
+    "libs/combat/tags.ts potency (line 800)",
+    "libs/combat/process.ts first reference (line 1627)",
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 22 (line 1089)",
+    "libs/combat/potency.ts resolvePotencyTags (line 71)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "boosts": [
+      "damage",
+      "increasedamagegiven",
+      "decreasedamagegiven",
+      "increasedamagetaken",
+      "decreasedamagetaken",
+      "afterburn",
+      "lifesteal",
+      "reflect",
+      "parry",
+      "curse",
+      "increaseheal",
+      "heal",
+      "vamp",
+      "absorb",
+      "consume",
+      "siphon",
+      "shield",
+      "pierce",
+      "drain",
+      "poison"
+     ]
+    },
+    "incoming": {
+     "prevents": [
+      "buffprevent"
+     ],
+     "removes": [
+      "clear"
+     ]
+    }
+   }
+  },
+  "increaserange": {
+   "tag": "increaserange",
+   "schema": "validators/combat.ts IncreaseRangeTag (line 530)",
+   "exclusion_area": "Speed up actions",
+   "in_game_text": "Increase range of basic actions",
+   "behavior": "Adds power to the range of each listed basic action whose base range is above 0. Range-0 actions are unaffected. Several range effects don't add up: each action takes the largest bonus. It is live as soon as it is on the holder (no next-round wait), and bloodline sources are off under Seal. A buffprevent from an earlier round blocks it.",
+   "polarity": "positive",
+   "prevented_by": [
+    "buffprevent"
+   ],
+   "prevent_check": "age-compared: blocks only effects created in a later round than the prevent",
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "S3 main pass (unranked)",
+   "live_from": "as soon as it is on the holder (no next-round wait)",
+   "calculation": [
+    "static"
+   ],
+   "own_fields": {
+    "calculation": "z.enum([\"static\"]).prefault(\"static\")",
+    "actionsAffected": "z.array(z.enum(AdjustableBasicActions)).optional()"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 0,
+    "pvp_legal": 0
+   },
+   "source": [
+    "libs/combat/tags.ts increaseRange (line 827)",
+    "libs/combat/process.ts first reference (line 1618)",
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)",
+    "libs/combat/util.ts EFFECT_SORT_RANK: no explicit rank, sorts last (line 1016)"
+   ],
+   "interactions": {
+    "incoming": {
+     "prevents": [
+      "buffprevent"
+     ],
+     "removes": [
+      "clear"
+     ]
+    }
+   }
+  },
+  "increaseregeneration": {
+   "tag": "increaseregeneration",
+   "schema": "validators/combat.ts IncreaseRegenerationTag (line 546)",
+   "exclusion_area": "Outside battle or cosmetic",
+   "in_game_text": "Increase out-of-combat regeneration",
+   "behavior": "Raises out-of-combat regeneration.",
+   "polarity": "neutral",
+   "prevented_by": [],
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "outside combat",
+   "calculation": [
+    "static",
+    "percentage"
+   ],
+   "own_fields": {
+    "calculation": "z.enum([\"static\", \"percentage\"]).prefault(\"percentage\")"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 0,
+    "pvp_legal": 0
+   }
+  },
+  "increasestat": {
+   "tag": "increasestat",
+   "schema": "validators/combat.ts IncreaseStatTag (line 562)",
+   "exclusion_area": "Damage scaling",
+   "in_game_text": "Increase stats of target",
+   "behavior": "Raises offence and/or defence (direction) and the chosen generals, flat or as a % of the base stat, from the round after cast. Those stats feed the damage formula's advantage term. Buffprevent blocks it.",
+   "polarity": "positive",
+   "prevented_by": [
+    "buffprevent"
+   ],
+   "prevent_check": "age-compared: blocks only effects created in a later round than the prevent",
+   "copy_can_take": true,
+   "mirror_can_pass": false,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "S3 main pass",
+   "live_from": "next round (waits while isNew/castThisRound)",
+   "calculation": [
+    "static",
+    "percentage"
+   ],
+   "own_fields": {
+    "direction": "z.enum([\"offence\", \"defence\", \"both\", \"none\"]).prefault(\"both\")",
+    "calculation": "z.enum([\"static\", \"percentage\"]).prefault(\"percentage\")",
+    "generalTypes": "z.array(z.enum(GeneralTypes)).optional()",
+    "elements": "z.array(z.enum(ElementNames)).optional()"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 17,
+    "pvp_legal": 11
+   },
+   "source": [
+    "libs/combat/tags.ts increaseStats (line 754)",
+    "libs/combat/process.ts first reference (line 1598)",
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 28 (line 1095)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "boosts": [
+      "damage"
+     ]
+    },
+    "incoming": {
+     "prevents": [
+      "buffprevent"
+     ],
+     "removes": [
+      "clear"
+     ],
+     "transfers": [
+      "copy"
+     ]
+    }
+   }
+  },
+  "injectjutsus": {
+   "tag": "injectjutsus",
+   "schema": "validators/combat.ts InjectJutsusTag (line 1076)",
+   "exclusion_area": "Speed up actions",
+   "in_game_text": "Temporarily adds selected jutsus to the user's action list",
+   "behavior": "Adds the listed jutsu to the holder's action list while it is active and enabled. Unlike the hiding gates it has no not-cast-this-round wait, so a grant that has resolved can expose its jutsu later in its own casting round (actions.ts:148-160). Neither Clear nor Cleanse can remove it.",
+   "polarity": "neutral",
+   "prevented_by": [],
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "S3 main pass",
+   "live_from": "as soon as it has resolved and is enabled: no next-round wait, so the jutsu can be used later in the casting round (actions.ts:148-160)",
+   "calculation": [
+    "static"
+   ],
+   "own_fields": {
+    "jutsuIds": "z.array(z.string()).prefault([])"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 19,
+    "pvp_legal": 19
+   },
+   "source": [
+    "libs/combat/tags.ts injectjutsus (line 627)",
+    "libs/combat/process.ts first reference (line 1673)",
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 16 (line 1083)",
+    "libs/combat/actions.ts availableUserActions (line 111)"
+   ]
+  },
+  "lifesteal": {
+   "tag": "lifesteal",
+   "schema": "validators/combat.ts LifeStealTag (line 695)",
+   "exclusion_area": "Healing",
+   "in_game_text": "Heal based on damage given",
+   "behavior": "A buff on the attacker, live from the round after it lands. For each instant hit the holder deals, Pierce included, it stores floor(hit x power/100), percentage only. The hit is taken after the pipeline and the Parry split, before Diffuse and shields. If lifesteal has generals, they must overlap the damage tag's generals ('Highest' expands), but Pierce always passes and elements are never checked. Diffuse scales the stored amount to the immediate part, and the attacker's heal modifiers scale it, unrounded. It pays min(stored, floor(0.6 x pre-shield immediate damage) - Vamp already paid). It pays only if the target is still alive after the whole packet (damage, reflect, recoil, afterburn), the attacker is alive and the attacker holds no unsettled Curse. Residual ticks don't feed it, and a healprevent from an earlier round blocks it. Copy can take it.",
+   "polarity": "positive",
+   "prevented_by": [
+    "healprevent"
+   ],
+   "prevent_check": "age-compared: blocks only effects created in a later round than the prevent",
+   "copy_can_take": true,
+   "mirror_can_pass": false,
+   "potency_eligible": true,
+   "immunity_can_cancel": false,
+   "stage": "S10 post-damage readers; paid in S15",
+   "live_from": "next round (waits while isNew/castThisRound)",
+   "calculation": [
+    "percentage"
+   ],
+   "own_fields": {
+    "calculation": "z.enum([\"percentage\"]).prefault(\"percentage\")",
+    "generalTypes": "z.array(z.enum(GeneralTypes)).optional()",
+    "elements": "z.array(z.enum(ElementNames)).optional()"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 40,
+    "pvp_legal": 38
+   },
+   "source": [
+    "libs/combat/tags.ts lifesteal (line 1927)",
+    "libs/combat/process.ts first reference (line 1645)",
+    "libs/combat/process.ts applyEffects post-damage pass, after pierce (line 630)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 49 (line 1120, ...POST_PIERCE_TAGS entry at libs/combat/constants.ts line 267)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "overlaps": [
+      "vamp"
+     ]
+    },
+    "incoming": {
+     "boosts": [
+      "increasepotency",
+      "increaseheal"
+     ],
+     "disables": [
+      "curse"
+     ],
+     "feeds": [
+      "damage",
+      "pierce"
+     ],
+     "prevents": [
+      "healprevent"
+     ],
+     "removes": [
+      "clear"
+     ],
+     "transfers": [
+      "copy"
+     ],
+     "weakens": [
+      "decreasepotency",
+      "decreaseheal",
+      "diffuse"
+     ]
+    }
+   }
+  },
+  "marriageslotincrease": {
+   "tag": "marriageslotincrease",
+   "schema": "validators/combat.ts IncreaseMarriageSlots (line 1038)",
+   "exclusion_area": "Outside battle or cosmetic",
+   "in_game_text": "Increases a users marriage slots",
+   "behavior": "Item use: adds marriage slots.",
+   "polarity": "neutral",
+   "prevented_by": [],
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "outside combat",
+   "calculation": [
+    "static"
+   ],
+   "own_fields": {
+    "power": "z.coerce.number().int().min(0).max(100).prefault(1)",
+    "rank": "z.enum(LetterRanks).prefault(\"D\")"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 0,
+    "pvp_legal": 0
+   }
+  },
+  "mirror": {
+   "tag": "mirror",
+   "schema": "validators/combat.ts MirrorTag (line 663)",
+   "exclusion_area": "Send it back",
+   "in_game_text": "Mirrors some negative effects from the user to the target",
+   "behavior": "Rolls power% once, in its casting action, to clone up to 4 of the caster's own active negative effects onto the target for the mirror's rounds. The caster keeps their copies. Order of preference: damage-taken up or damage-given down first, then afterburn, then poison or pool-cost, then wound, then anything else. Raw damage, pierce, clear, stun, time compression and four prevents are excluded, and so is anything from bloodline, gear or other passives. The target's debuffprevent blocks it. A miss passes nothing and does not set the Mirror's rounds to 0 (tags.ts:547, 621-626).",
+   "polarity": "neutral",
+   "prevented_by": [
+    "debuffprevent"
+   ],
+   "prevent_check": "age-compared: blocks only effects created in a later round than the prevent",
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "S2 copy and mirror",
+   "calculation": [
+    "percentage"
+   ],
+   "own_fields": {
+    "rounds": "z.coerce.number().int().min(1).max(10).prefault(3)",
+    "calculation": "z.enum([\"percentage\"]).prefault(\"percentage\")"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 4,
+    "pvp_legal": 4
+   },
+   "source": [
+    "libs/combat/tags.ts mirror (line 522)",
+    "libs/combat/process.ts first reference (line 1679)",
+    "libs/combat/process.ts applyEffects copy and mirror pass, after ground effects and before the main pass (line 417)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 61 (line 1122)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "transfers": [
+      "afterburn",
+      "decreasedamagegiven",
+      "decreaseheal",
+      "decreasemastery",
+      "decreasemaxpools",
+      "decreasepotency",
+      "decreasestat",
+      "disarm",
+      "drain",
+      "elementaldamage",
+      "elementalseal",
+      "flee",
+      "fleeprevent",
+      "increasecooldown",
+      "increasedamagetaken",
+      "increasepoolcost",
+      "onehitkill",
+      "poison",
+      "recoil",
+      "redirection",
+      "rob",
+      "seal",
+      "summonprevent",
+      "weakness",
+      "wound"
+     ]
+    },
+    "incoming": {
+     "overlaps": [
+      "copy"
+     ],
+     "prevents": [
+      "debuffprevent"
+     ]
+    }
+   }
+  },
+  "move": {
+   "tag": "move",
+   "schema": "validators/combat.ts MoveTag (line 780)",
+   "exclusion_area": "Position",
+   "in_game_text": "Move on the battlefield",
+   "behavior": "Moves the caster to the chosen tile, which registers them with any ground effects there. Moveprevent blocks it.",
+   "polarity": "positive",
+   "prevented_by": [
+    "moveprevent"
+   ],
+   "prevent_check": "any age, the mover's own moveprevent (tags.ts:2273); moveprevent also hides move actions",
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "S1 ground pass",
+   "calculation": [
+    "static"
+   ],
+   "fields_note": "simpleTag (BaseAttributes + PowerAttributes only)",
+   "live_usage_2026_11_21": {
+    "jutsu": 80,
+    "pvp_legal": 77
+   },
+   "source": [
+    "libs/combat/tags.ts move (line 2264)",
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 64 (line 1127)"
+   ],
+   "interactions": {
+    "incoming": {
+     "hides": [
+      "moveprevent"
+     ],
+     "prevents": [
+      "moveprevent"
+     ],
+     "removes": [
+      "clear"
+     ]
+    }
+   }
+  },
+  "moveprevent": {
+   "tag": "moveprevent",
+   "schema": "validators/combat.ts MovePreventTag (line 782)",
+   "exclusion_area": "Position",
+   "in_game_text": "Prevents movement of the target",
+   "behavior": "A prevent-type status that rolls power% once to land. While active with rounds left, it hides basic move, the replacement technique and every jutsu with a move tag (server-enforced). It also blocks any move ground effect the holder casts, whatever its age, and blocks Redirection cast on the holder in a later round. Immunity can cancel a new one.",
+   "polarity": "negative",
+   "prevented_by": [],
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": false,
+   "immunity_can_cancel": true,
+   "stage": "S3 main pass; action gate in availableUserActions",
+   "calculation": [
+    "static"
+   ],
+   "fields_note": "simpleTag (BaseAttributes + PowerAttributes only)",
+   "live_usage_2026_11_21": {
+    "jutsu": 9,
+    "pvp_legal": 6
+   },
+   "source": [
+    "libs/combat/tags.ts applyPreventTag (line 338)",
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 7 (line 1073)",
+    "libs/combat/actions.ts availableUserActions (line 111)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "hides": [
+      "move"
+     ],
+     "prevents": [
+      "move",
+      "redirection"
+     ]
+    },
+    "incoming": {
+     "counters": [
+      "immunity"
+     ],
+     "removes": [
+      "cleanse"
+     ]
+    }
+   }
+  },
+  "noncombatconsumereward": {
+   "tag": "noncombatconsumereward",
+   "schema": "validators/combat.ts NonCombatConsumeRewardTag (line 916)",
+   "exclusion_area": "Outside battle or cosmetic",
+   "in_game_text": "Gain various rewards from consumption outside of combat",
+   "behavior": "Item use: grants rewards.",
+   "polarity": "neutral",
+   "prevented_by": [],
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "outside combat",
+   "calculation": [
+    "static"
+   ],
+   "own_fields": {
+    "reward_mastery_stat": "z.enum([\"None\", ...MasteryNames]).optional()",
+    "reward_mastery_rank": "z.enum(MASTERY_RANKS).optional()",
+    "reward_ninjutsu_experience": "z.coerce.number().min(0).optional()",
+    "reward_genjutsu_experience": "z.coerce.number().min(0).optional()",
+    "reward_taijutsu_experience": "z.coerce.number().min(0).optional()",
+    "reward_bukijutsu_experience": "z.coerce.number().min(0).optional()",
+    "reward_bloodline_experience": "z.coerce.number().min(0).optional()",
+    "reward_sage_stat_experience": "z.coerce.number().min(0).optional()",
+    "reward_hunter_items": "z.boolean().prefault(false)",
+    "reward_hunter_items_ids": "z.array(z.string()).prefault([])",
+    "reward_gathering_items": "z.boolean().prefault(false)",
+    "reward_gathering_items_ids": "z.array(z.string()).prefault([])",
+    "reward_seichi_silver": "z.coerce.number().prefault(0)",
+    "reward_money": "z.coerce.number().prefault(0)",
+    "reward_clanpoints": "z.coerce.number().prefault(0)",
+    "reward_anbupoints": "z.coerce.number().prefault(0)",
+    "reward_exp": "z.coerce.number().prefault(0)",
+    "reward_pet_experience": "z.coerce.number().min(0).optional()",
+    "reward_tokens": "z.coerce.number().prefault(0)",
+    "reward_prestige": "z.coerce.number().prefault(0)",
+    "reward_reputation": "z.coerce.number().prefault(0)",
+    "reward_skillpoints": "z.coerce.number().prefault(0)",
+    "reward_rank": "z.enum(UserRanks).prefault(\"NONE\")",
+    "reward_village_membership": "z.union([z.enum(STARTER_VILLAGES), z.enum(LEGACY_STARTER_VILLAGE_KEYS).transform((legacy) => LEGACY_STARTER_VILLAGE_MAP[legacy])]).prefault(\"NONE\")",
+    "reward_items": "idsWithNumberField",
+    "reward_jutsus": "z.array(z.string()).prefault([])",
+    "reward_bloodlines": "z.array(z.string()).prefault([])",
+    "reward_sage_modes": "z.array(z.string()).prefault([])",
+    "reward_badges": "z.array(z.string()).prefault([])",
+    "reward_titles": "z.array(z.string()).prefault([])",
+    "reward_medical_experience": "z.coerce.number().prefault(0)",
+    "reward_hunting_experience": "z.coerce.number().prefault(0)",
+    "reward_crafting_experience": "z.coerce.number().prefault(0)",
+    "reward_gathering_experience": "z.coerce.number().prefault(0)",
+    "reward_sage_mastery_experience": "z.coerce.number().prefault(0)",
+    "reward_war_damage": "z.coerce.number().prefault(0)",
+    "reward_war_healing": "z.coerce.number().prefault(0)",
+    "reward_pets": "z.array(z.string().min(1).max(191)).max(PET_MAX_CONSUME_PETS).prefault([])",
+    "rewardMode": "z.enum([\"standard\", \"weightedCache\"]).optional()",
+    "weightedCache": "weightedCacheDraftSchema.optional()"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 0,
+    "pvp_legal": 0
+   }
+  },
+  "noncombatgainskill": {
+   "tag": "noncombatgainskill",
+   "schema": "validators/combat.ts NonCombatGainSkill (line 1083)",
+   "exclusion_area": "Outside battle or cosmetic",
+   "in_game_text": "Grants access to a special skill tree entry",
+   "behavior": "Item use: unlocks a skill tree entry.",
+   "polarity": "neutral",
+   "prevented_by": [],
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "outside combat",
+   "calculation": [
+    "static"
+   ],
+   "own_fields": {
+    "skillId": "z.string().prefault(\"\")"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 0,
+    "pvp_legal": 0
+   }
+  },
+  "noncombatincreasereskins": {
+   "tag": "noncombatincreasereskins",
+   "schema": "validators/combat.ts IncreaseReskinSlots (line 1046)",
+   "exclusion_area": "Outside battle or cosmetic",
+   "in_game_text": "Increases the number of allowed reskins",
+   "behavior": "Item use: adds reskin slots.",
+   "polarity": "neutral",
+   "prevented_by": [],
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "outside combat",
+   "calculation": [
+    "static"
+   ],
+   "own_fields": {
+    "power": "z.coerce.number().int().min(0).max(100).prefault(1)",
+    "rank": "z.enum(LetterRanks).prefault(\"D\")"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 0,
+    "pvp_legal": 0
+   }
+  },
+  "noncombatquest": {
+   "tag": "noncombatquest",
+   "schema": "validators/combat.ts NonCombatQuestTag (line 1094)",
+   "exclusion_area": "Outside battle or cosmetic",
+   "in_game_text": "Starts a Special quest when the item is consumed",
+   "behavior": "Item use: starts a quest.",
+   "polarity": "neutral",
+   "prevented_by": [],
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "outside combat",
+   "calculation": [
+    "static"
+   ],
+   "own_fields": {
+    "questId": "z.string().trim().min(1, \"Select a Special quest\").default(\"\")"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 0,
+    "pvp_legal": 0
+   }
+  },
+  "onehitkill": {
+   "tag": "onehitkill",
+   "schema": "validators/combat.ts OneHitKillTag (line 787)",
+   "exclusion_area": "Damage now",
+   "in_game_text": "Instantly kills the target",
+   "behavior": "Rolls power% to set the target's HP to 0 outright, directly in the main pass. It skips shields, damage reduction and Final Stand. Any active onehitkillprevent blocks it, including later ticks of an older multi-round One Hit Kill. The HP removed counts as damage dealt and is credited to Curse.",
+   "polarity": "negative",
+   "prevented_by": [
+    "onehitkillprevent"
+   ],
+   "prevent_check": "any age: any active prevent blocks it, including a pending effect cast earlier, which then ends (tags.ts:2317)",
+   "copy_can_take": false,
+   "mirror_can_pass": true,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "S3 main pass (sets HP to 0 directly); S4 credits Curse",
+   "applies": "on its casting action, then on the holder's first action of each later round (not again in the cast round; no-rounds versions: every holder action)",
+   "calculation": [
+    "static"
+   ],
+   "fields_note": "simpleTag (BaseAttributes + PowerAttributes only)",
+   "live_usage_2026_11_21": {
+    "jutsu": 1,
+    "pvp_legal": 1
+   },
+   "source": [
+    "libs/combat/tags.ts onehitkill (line 2311)",
+    "libs/combat/process.ts first reference (line 1559)",
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 39 (line 1107)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "bypasses": [
+      "finalstand",
+      "shield"
+     ]
+    },
+    "incoming": {
+     "prevents": [
+      "onehitkillprevent"
+     ],
+     "removes": [
+      "cleanse"
+     ],
+     "transfers": [
+      "mirror"
+     ]
+    }
+   }
+  },
+  "onehitkillprevent": {
+   "tag": "onehitkillprevent",
+   "schema": "validators/combat.ts OneHitKillPreventTag (line 789)",
+   "exclusion_area": "Protection",
+   "in_game_text": "Prevents instant kill effects",
+   "behavior": "A prevent-type status that rolls power% once to land. While active, it blocks every One Hit Kill roll on the holder, including later ticks of a multi-round One Hit Kill cast before it, and a blocked One Hit Kill ends. Clear removes it, and Immunity can cancel a new one.",
+   "polarity": "positive",
+   "prevented_by": [],
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": false,
+   "immunity_can_cancel": true,
+   "stage": "S3 main pass",
+   "calculation": [
+    "static"
+   ],
+   "fields_note": "simpleTag (BaseAttributes + PowerAttributes only)",
+   "live_usage_2026_11_21": {
+    "jutsu": 0,
+    "pvp_legal": 0
+   },
+   "source": [
+    "libs/combat/tags.ts applyPreventTag (line 338)",
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 8 (line 1074)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "prevents": [
+      "onehitkill"
+     ]
+    },
+    "incoming": {
+     "counters": [
+      "immunity"
+     ],
+     "removes": [
+      "clear"
+     ]
+    }
+   }
+  },
+  "parry": {
+   "tag": "parry",
+   "schema": "validators/combat.ts ParryTag (line 806)",
+   "exclusion_area": "Send it back",
+   "in_game_text": "Redirect a percentage of incoming direct damage to the attacker before shields and absorption. Pierce bypasses Parry. Stacks up to 100%. Returned damage cannot trigger Parry. Cannot be buff prevented. Can be cleared.",
+   "behavior": "Before shields and Absorb, redirects power% of incoming direct damage (damage tags only, not pierce) back to the attacker. Several parries stack up to 100%, and returned damage can't be parried again. Buffprevent can't stop it, but Clear removes it.",
+   "polarity": "positive",
+   "prevented_by": [],
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": true,
+   "immunity_can_cancel": false,
+   "stage": "S9 Parry split; S11 returns",
+   "live_from": "next round (waits while isNew/castThisRound)",
+   "calculation": [
+    "percentage"
+   ],
+   "own_fields": {
+    "calculation": "z.literal(\"percentage\").prefault(\"percentage\")",
+    "generalTypes": "z.array(z.enum(GeneralTypes)).optional()",
+    "elements": "z.array(z.enum(ElementNames)).optional()"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 3,
+    "pvp_legal": 3
+   },
+   "source": [
+    "libs/combat/tags.ts parry (line 1730)",
+    "libs/combat/process.ts first reference (line 631)",
+    "libs/combat/process.ts applyEffects Parry split, before the other post-damage readers (line 622)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 56 (line 1120, ...POST_PIERCE_TAGS entry at libs/combat/constants.ts line 274)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "counters": [
+      "damage"
+     ]
+    },
+    "incoming": {
+     "boosts": [
+      "increasepotency"
+     ],
+     "bypasses": [
+      "pierce"
+     ],
+     "overlaps": [
+      "reflect"
+     ],
+     "removes": [
+      "clear"
+     ],
+     "weakens": [
+      "decreasepotency"
+     ]
+    }
+   }
+  },
+  "pierce": {
+   "tag": "pierce",
+   "schema": "validators/combat.ts PierceTag (line 672)",
+   "exclusion_area": "Damage now",
+   "in_game_text": "Deals piercing damage to target",
+   "behavior": "Pierce computes its raw number the same way as Damage: formula, static or percentage, with dmgModifier, residualModifier, Weakness, and the barrier cut on instant hits. It resolves after the damage pipeline, so no Curse bonus, damage increase, damage reduction or damage floor applies. It reads the stats from before the action's main pass, so a stat change resolved in the same action doesn't reach it. It isn't soaked by shields. Instead it sets every enabled shield on the target to 0, and Final Stand still applies. If the target's Diffuse defers part of it, shields soak the immediate part like ordinary damage and are destroyed only if positive Reflect is still on that Pierce hit when mitigation runs (if the attacker's own Diffuse defers that Reflect, it moves to a separate hit and the shields avoid forced destruction, though they can still be spent soaking the hit). Parry, Recoil and Afterburn ignore Pierce. Lifesteal, Absorb, Reflect, Wound and Vamp read an instant Pierce hit, and Lifesteal, Absorb and Reflect skip their general filter for it. Curse stores HP lost to it. With rounds above 0 it deals nothing on cast and ticks on later rounds.",
+   "polarity": "negative",
+   "prevented_by": [],
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": true,
+   "immunity_can_cancel": false,
+   "stage": "S8 pierce (after the damage pipeline); applied in S15",
+   "live_from": "rounds 0: casting action; rounds > 0: holder's first action in the round after cast, then once per round",
+   "applies": "rounds 0: once, on cast; rounds > 0: nothing on cast, then once a round on the holder's first action",
+   "calculation": [
+    "formula",
+    "static",
+    "percentage"
+   ],
+   "own_fields": {
+    "calculation": "z.enum([\"formula\", \"static\", \"percentage\"]).prefault(\"formula\")",
+    "generalTypes": "z.array(z.enum(GeneralTypes)).optional()",
+    "elements": "z.array(z.enum(ElementNames)).optional()",
+    "residualModifier": "z.coerce.number().min(0).max(2).prefault(1).optional()",
+    "dmgModifier": "z.coerce.number().min(0).max(2).prefault(1).optional()",
+    "allowBloodlineDamageIncrease": "z.coerce.boolean().prefault(true)",
+    "allowBloodlineDamageDecrease": "z.coerce.boolean().prefault(true)"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 49,
+    "pvp_legal": 44
+   },
+   "source": [
+    "libs/combat/tags.ts damageUser (line 1435)",
+    "libs/combat/process.ts first reference (line 1525)",
+    "libs/combat/process.ts applyEffects pierce pass, after the damage pipeline (line 618)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 48 (line 1118)",
+    "libs/combat/process.ts mitigateConsequence (line 956; destroys shields)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "bypasses": [
+      "increasedamagegiven",
+      "increasedamagetaken",
+      "decreasedamagegiven",
+      "decreasedamagetaken",
+      "curse",
+      "shield",
+      "parry",
+      "recoil",
+      "afterburn"
+     ],
+     "feeds": [
+      "curse",
+      "lifesteal",
+      "absorb",
+      "reflect",
+      "wound",
+      "vamp"
+     ]
+    },
+    "incoming": {
+     "boosts": [
+      "increasepotency",
+      "weakness"
+     ],
+     "counters": [
+      "diffuse",
+      "finalstand",
+      "barrier"
+     ],
+     "removes": [
+      "cleanse"
+     ],
+     "weakens": [
+      "decreasepotency"
+     ]
+    }
+   }
+  },
+  "poison": {
+   "tag": "poison",
+   "schema": "validators/combat.ts PoisonTag (line 751)",
+   "exclusion_area": "Damage later",
+   "in_game_text": "Deal damage based on Chakra and Stamina lost",
+   "behavior": "Resolves in the main pass on every action. A debuffprevent from an earlier round blocks it (rounds 0); a newer one never does. In the casting round it only shows text. From the next round, every action the holder takes deals floor((CP cost + SP cost) x power/100) HP, with no once-per-round limit. The costs are that action's after pool-cost modifiers, each floored at 0, and HP cost is ignored. The damage is credited to the poison's caster and skips shields and Final Stand except on the Diffuse path.",
+   "polarity": "negative",
+   "prevented_by": [
+    "debuffprevent"
+   ],
+   "prevent_check": "age-compared: blocks only effects created in a later round than the prevent",
+   "copy_can_take": false,
+   "mirror_can_pass": true,
+   "potency_eligible": true,
+   "immunity_can_cancel": false,
+   "stage": "S3 main pass (writes the consequence despite its post-pierce rank); applied in S15",
+   "live_from": "holder's first action in the round after cast; then every holder action",
+   "applies": "on every action the holder takes, from the round after cast (no once-a-round limit)",
+   "calculation": [
+    "percentage"
+   ],
+   "own_fields": {
+    "rounds": "z.coerce.number().int().min(1).max(10).prefault(3)",
+    "calculation": "z.enum([\"percentage\"]).prefault(\"percentage\")",
+    "poolsAffected": "z.array(z.enum(PoolTypes)).prefault([\"Health\", \"Chakra\", \"Stamina\"])"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 7,
+    "pvp_legal": 7
+   },
+   "source": [
+    "libs/combat/tags.ts poison (line 2140)",
+    "libs/combat/process.ts first reference (line 1671)",
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 51 (line 1120, ...POST_PIERCE_TAGS entry at libs/combat/constants.ts line 269)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "bypasses": [
+      "finalstand",
+      "shield"
+     ]
+    },
+    "incoming": {
+     "boosts": [
+      "increasepotency",
+      "increasepoolcost"
+     ],
+     "overlaps": [
+      "drain"
+     ],
+     "prevents": [
+      "debuffprevent"
+     ],
+     "removes": [
+      "cleanse"
+     ],
+     "transfers": [
+      "mirror"
+     ],
+     "weakens": [
+      "decreasepotency",
+      "decreasepoolcost"
+     ]
+    }
+   }
+  },
+  "recoil": {
+   "tag": "recoil",
+   "schema": "validators/combat.ts RecoilTag (line 862)",
+   "exclusion_area": "Send it back",
+   "in_game_text": "Recoil damage given back to self",
+   "behavior": "A debuff on the attacker, live from the round after it lands. For each instant non-Pierce hit the holder deals, each Recoil sets (does not add) that hit's recoil to floor(hit x power/100), or floor(min(power, hit)) if static, times the generals match. The last Recoil in resolution order wins, and one whose generals don't match writes 0. There is no 60% or other cap. Quirk (likely a game bug): the amount is soaked by the shields of the player the holder hit, then the holder's Final Stand applies; it is applied after Reflect and summed across hits. A debuffprevent from an earlier round blocks it.",
+   "polarity": "negative",
+   "prevented_by": [
+    "debuffprevent"
+   ],
+   "prevent_check": "age-compared: blocks only effects created in a later round than the prevent",
+   "copy_can_take": false,
+   "mirror_can_pass": true,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "S10 post-damage readers; applied in S15",
+   "live_from": "next round (waits while isNew/castThisRound)",
+   "calculation": [
+    "static",
+    "percentage"
+   ],
+   "own_fields": {
+    "calculation": "z.enum([\"static\", \"percentage\"]).prefault(\"percentage\")",
+    "generalTypes": "z.array(z.enum(GeneralTypes)).optional()",
+    "elements": "z.array(z.enum(ElementNames)).optional()"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 32,
+    "pvp_legal": 30
+   },
+   "source": [
+    "libs/combat/tags.ts recoil (line 1853)",
+    "libs/combat/process.ts first reference (line 1641)",
+    "libs/combat/process.ts applyEffects post-damage pass, after pierce (line 630)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 54 (line 1120, ...POST_PIERCE_TAGS entry at libs/combat/constants.ts line 272)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "overlaps": [
+      "reflect"
+     ]
+    },
+    "incoming": {
+     "bypasses": [
+      "pierce"
+     ],
+     "counters": [
+      "shield"
+     ],
+     "feeds": [
+      "damage"
+     ],
+     "prevents": [
+      "debuffprevent"
+     ],
+     "removes": [
+      "cleanse"
+     ],
+     "transfers": [
+      "mirror"
+     ]
+    }
+   }
+  },
+  "redirection": {
+   "tag": "redirection",
+   "schema": "validators/combat.ts RedirectionTag (line 506)",
+   "exclusion_area": "Position",
+   "in_game_text": "Redirects the target towards or away from the user by power number of spaces",
+   "behavior": "Instant only (rounds 0). It pulls the target toward the caster, stopping next to them, or pushes it away, by power hexes along the line. The landing is clamped to the board. Only the landing tile is checked: if a player, the caster or a barrier (any ground object with HP) is there, the target steps back toward its start to the first open tile, or stays put. Players and barriers in between are crossed. A moveprevent from an earlier round blocks it.",
+   "polarity": "negative",
+   "prevented_by": [
+    "moveprevent"
+   ],
+   "prevent_check": "age-compared: blocks only effects created in a later round than the prevent (tags.ts:2561)",
+   "copy_can_take": false,
+   "mirror_can_pass": true,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "S3 main pass",
+   "calculation": [
+    "static"
+   ],
+   "own_fields": {
+    "rounds": "z.coerce.number().int().min(0).max(0).prefault(0)",
+    "direction": "z.enum([\"push\", \"pull\"]).prefault(\"pull\")",
+    "calculation": "z.enum([\"static\"]).prefault(\"static\")",
+    "generalTypes": "z.array(z.enum(GeneralTypes)).optional()",
+    "elements": "z.array(z.enum(ElementNames)).optional()"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 9,
+    "pvp_legal": 9
+   },
+   "source": [
+    "libs/combat/tags.ts redirection (line 2551)",
+    "libs/combat/process.ts first reference (line 1686)",
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 35 (line 1103)"
+   ],
+   "interactions": {
+    "incoming": {
+     "counters": [
+      "barrier"
+     ],
+     "prevents": [
+      "moveprevent"
+     ],
+     "removes": [
+      "cleanse"
+     ],
+     "transfers": [
+      "mirror"
+     ]
+    }
+   }
+  },
+  "reflect": {
+   "tag": "reflect",
+   "schema": "validators/combat.ts ReflectTag (line 817)",
+   "exclusion_area": "Send it back",
+   "in_game_text": "Reflect damage taken",
+   "behavior": "A buff on the defender, live from the round after it lands. For each instant hit the holder takes whose generals match (elements ignored; Pierce always matches), each Reflect adds floor(hit x power/100), or floor(min(power, hit)) if static. The hit is taken after the pipeline and Parry, before Diffuse. The holder still takes the full hit. Quirk (likely a game bug): the uncapped total is first soaked by the reflecting holder's own remaining shields (destroying them instead if the hit was Pierce), then the attacker's Final Stand applies. Then it is capped at 0.6 x the pre-Diffuse hit (not rounded) and dealt to the attacker, even if the defender died. If the attacker has Diffuse, Reflect is capped at 0.6 x hit before the split. The returned damage credits Curse, enmity and Consume/Siphon. A buffprevent from an earlier round blocks it, and Copy can take it.",
+   "polarity": "positive",
+   "prevented_by": [
+    "buffprevent"
+   ],
+   "prevent_check": "age-compared: blocks only effects created in a later round than the prevent",
+   "copy_can_take": true,
+   "mirror_can_pass": false,
+   "potency_eligible": true,
+   "immunity_can_cancel": false,
+   "stage": "S10 post-damage readers; applied in S15",
+   "live_from": "next round (waits while isNew/castThisRound)",
+   "calculation": [
+    "static",
+    "percentage"
+   ],
+   "own_fields": {
+    "calculation": "z.enum([\"static\", \"percentage\"]).prefault(\"percentage\")",
+    "generalTypes": "z.array(z.enum(GeneralTypes)).optional()",
+    "elements": "z.array(z.enum(ElementNames)).optional()"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 24,
+    "pvp_legal": 22
+   },
+   "source": [
+    "libs/combat/tags.ts reflect (line 1758)",
+    "libs/combat/process.ts first reference (line 1639)",
+    "libs/combat/process.ts applyEffects post-damage pass, after pierce (line 630)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 55 (line 1120, ...POST_PIERCE_TAGS entry at libs/combat/constants.ts line 273)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "overlaps": [
+      "parry"
+     ]
+    },
+    "incoming": {
+     "boosts": [
+      "increasepotency"
+     ],
+     "counters": [
+      "shield"
+     ],
+     "feeds": [
+      "pierce",
+      "damage"
+     ],
+     "overlaps": [
+      "recoil"
+     ],
+     "prevents": [
+      "buffprevent"
+     ],
+     "removes": [
+      "clear"
+     ],
+     "transfers": [
+      "copy"
+     ],
+     "weakens": [
+      "decreasepotency"
+     ]
+    }
+   }
+  },
+  "removebloodline": {
+   "tag": "removebloodline",
+   "schema": "validators/combat.ts RemoveBloodline (line 854)",
+   "exclusion_area": "Outside battle or cosmetic",
+   "in_game_text": "Remove bloodline",
+   "behavior": "Item use: removes bloodline.",
+   "polarity": "neutral",
+   "prevented_by": [],
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "outside combat",
+   "calculation": [
+    "percentage"
+   ],
+   "own_fields": {
+    "power": "z.coerce.number().int().min(0).max(100).prefault(1)",
+    "calculation": "z.enum([\"percentage\"]).prefault(\"percentage\")"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 0,
+    "pvp_legal": 0
+   }
+  },
+  "repair": {
+   "tag": "repair",
+   "schema": "validators/combat.ts RepairTag (line 944)",
+   "exclusion_area": "Outside battle or cosmetic",
+   "in_game_text": "Repair an item's durability by the power amount",
+   "behavior": "Item use: repairs durability.",
+   "polarity": "neutral",
+   "prevented_by": [],
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "outside combat",
+   "calculation": [
+    "static"
+   ],
+   "live_usage_2026_11_21": {
+    "jutsu": 0,
+    "pvp_legal": 0
+   }
+  },
+  "rob": {
+   "tag": "rob",
+   "schema": "validators/combat.ts RobTag (line 882)",
+   "exclusion_area": "Pools and money",
+   "in_game_text": "Robs money from the target",
+   "behavior": "Only works in 1v1 player combat. Robprevent can block it. Otherwise it rolls power% to steal robPercentage% of the target's pocket ryo. If the thief flees, they drop the stolen ryo; if the victim flees, they get it back.",
+   "polarity": "negative",
+   "prevented_by": [
+    "robprevent"
+   ],
+   "prevent_check": "any age: any active prevent blocks it, including a pending effect cast earlier, which then ends (tags.ts:2356)",
+   "copy_can_take": false,
+   "mirror_can_pass": true,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "S3 main pass",
+   "applies": "on its casting action, then on the holder's first action of each later round (not again in the cast round; no-rounds versions: every holder action)",
+   "calculation": [
+    "static"
+   ],
+   "own_fields": {
+    "generalTypes": "z.array(z.enum(GeneralTypes)).optional()",
+    "elements": "z.array(z.enum(ElementNames)).optional()",
+    "robPercentage": "z.coerce.number().int().min(0).max(100).prefault(1)"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 2,
+    "pvp_legal": 2
+   },
+   "source": [
+    "libs/combat/tags.ts rob (line 2336)",
+    "libs/combat/process.ts first reference (line 1578)",
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 40 (line 1108)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "feeds": [
+      "flee"
+     ]
+    },
+    "incoming": {
+     "prevents": [
+      "robprevent"
+     ],
+     "removes": [
+      "cleanse"
+     ],
+     "transfers": [
+      "mirror"
+     ]
+    }
+   }
+  },
+  "robprevent": {
+   "tag": "robprevent",
+   "schema": "validators/combat.ts RobPreventTag (line 880)",
+   "exclusion_area": "Protection",
+   "in_game_text": "Prevents robbing of the target",
+   "behavior": "A prevent-type status that rolls power% once to land. While active, it blocks every Rob attempt on the holder, including the per-round attempts of a Rob cast before it, and a blocked Rob ends. Rob only works on non-AI targets in COMBAT battles. Clear removes it, and Immunity can cancel a new one.",
+   "polarity": "positive",
+   "prevented_by": [],
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": false,
+   "immunity_can_cancel": true,
+   "stage": "S3 main pass",
+   "calculation": [
+    "static"
+   ],
+   "fields_note": "simpleTag (BaseAttributes + PowerAttributes only)",
+   "live_usage_2026_11_21": {
+    "jutsu": 0,
+    "pvp_legal": 0
+   },
+   "source": [
+    "libs/combat/tags.ts applyPreventTag (line 338)",
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 9 (line 1075)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "prevents": [
+      "rob"
+     ]
+    },
+    "incoming": {
+     "counters": [
+      "immunity"
+     ],
+     "removes": [
+      "clear"
+     ]
+    }
+   }
+  },
+  "rollbloodline": {
+   "tag": "rollbloodline",
+   "schema": "validators/combat.ts RollRandomBloodline (line 891)",
+   "exclusion_area": "Outside battle or cosmetic",
+   "in_game_text": "Receive a random bloodline",
+   "behavior": "Item use: random bloodline.",
+   "polarity": "neutral",
+   "prevented_by": [],
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "outside combat",
+   "calculation": [
+    "percentage"
+   ],
+   "own_fields": {
+    "power": "z.coerce.number().min(0).max(100).prefault(1)",
+    "calculation": "z.enum([\"percentage\"]).prefault(\"percentage\")",
+    "rank": "z.enum(LetterRanks).prefault(\"D\")"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 0,
+    "pvp_legal": 0
+   }
+  },
+  "rollsagemode": {
+   "tag": "rollsagemode",
+   "schema": "validators/combat.ts RollRandomSageMode (line 901)",
+   "exclusion_area": "Outside battle or cosmetic",
+   "in_game_text": "Receive a random sage mode",
+   "behavior": "Item use: random sage mode.",
+   "polarity": "neutral",
+   "prevented_by": [],
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "outside combat",
+   "calculation": [
+    "percentage"
+   ],
+   "own_fields": {
+    "power": "z.coerce.number().min(0).max(100).prefault(1)",
+    "calculation": "z.enum([\"percentage\"]).prefault(\"percentage\")"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 0,
+    "pvp_legal": 0
+   }
+  },
+  "seal": {
+   "tag": "seal",
+   "schema": "validators/combat.ts SealTag (line 955)",
+   "exclusion_area": "Deny actions",
+   "in_game_text": "Seals the target's bloodline effects",
+   "behavior": "Its handler runs on the casting action at the seal rank of the main pass: after damage, heal, onehitkill and rob, before stun and summon. Any active sealprevent on the holder rolls its power%, with no creation-round check; a landed one always blocks. Then the seal rolls power% to land. Once landed it counts as active at once, so the holder's bloodline effects resolved later in the same action are already off: Consume/Siphon registration, Diffuse, bloodline damage modifiers on this action's hits, Pierce, post-damage readers, heal modifiers and Final Stand. From the next action on, same round included, it also turns off bloodline potency, injected jutsu, range and cooldown. It re-runs once a round on the holder's first action, where an active sealprevent can still remove it.",
+   "polarity": "negative",
+   "prevented_by": [
+    "sealprevent"
+   ],
+   "prevent_check": "any age: any active prevent blocks it, including a pending effect cast earlier, which then ends; re-checked on each of the holder's turns (tags.ts:2402)",
+   "copy_can_take": false,
+   "mirror_can_pass": true,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "S3 main pass",
+   "live_from": "casting action, right after its land roll (holder's bloodline effects resolved later in that action); then every later action",
+   "applies": "on its casting action, then on the holder's first action of each later round (not again in the cast round; no-rounds versions: every holder action)",
+   "calculation": [
+    "static"
+   ],
+   "fields_note": "simpleTag (BaseAttributes + PowerAttributes only)",
+   "live_usage_2026_11_21": {
+    "jutsu": 8,
+    "pvp_legal": 8
+   },
+   "source": [
+    "libs/combat/tags.ts seal (line 2397)",
+    "libs/combat/process.ts first reference (line 1586)",
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 41 (line 1109)",
+    "libs/combat/util.ts isEffectEnabled (line 921) / sealCheck"
+   ],
+   "interactions": {
+    "outgoing": {
+     "disables": [
+      "finalstand",
+      "curse"
+     ]
+    },
+    "incoming": {
+     "prevents": [
+      "sealprevent"
+     ],
+     "removes": [
+      "cleanse"
+     ],
+     "transfers": [
+      "mirror"
+     ]
+    }
+   }
+  },
+  "sealprevent": {
+   "tag": "sealprevent",
+   "schema": "validators/combat.ts SealPreventTag (line 950)",
+   "exclusion_area": "Protection",
+   "in_game_text": "Prevents bloodline from being sealed",
+   "behavior": "A prevent-type status that rolls power% once to land. While active, it blocks any Seal on the holder regardless of when the Seal was cast. Seal re-checks on each of the holder's turns, so a Sealprevent that lands after a Seal ends that Seal at the holder's next turn. A bloodline-sourced Sealprevent is itself switched off while a Seal is active. Clear removes it, and Immunity can cancel a new one.",
+   "polarity": "positive",
+   "prevented_by": [],
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": false,
+   "immunity_can_cancel": true,
+   "stage": "S3 main pass",
+   "calculation": [
+    "static"
+   ],
+   "fields_note": "simpleTag (BaseAttributes + PowerAttributes only)",
+   "live_usage_2026_11_21": {
+    "jutsu": 0,
+    "pvp_legal": 0
+   },
+   "source": [
+    "libs/combat/tags.ts applyPreventTag (line 338)",
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 10 (line 1076)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "prevents": [
+      "seal"
+     ]
+    },
+    "incoming": {
+     "counters": [
+      "immunity"
+     ],
+     "removes": [
+      "clear"
+     ]
+    }
+   }
+  },
+  "shield": {
+   "tag": "shield",
+   "schema": "validators/combat.ts ShieldTag (line 762)",
+   "exclusion_area": "Soak damage",
+   "in_game_text": "Creates a temporary HP bar that lasts for a set amount of rounds",
+   "behavior": "Rolls power% to appear, then acts as a separate HP bar worth its health field (up to 100,000). Direct, residual and parry-return damage drain the holder's shields before HP, as does the immediate part of anything Diffuse deferred. Pierce isn't soaked: it sets every enabled shield on the target to 0. When the target's Diffuse deferred part of it, the immediate part is soaked instead, and the shields are still destroyed only if positive Reflect remains on that Pierce hit when mitigation runs. Afterburn, drain, poison, One Hit Kill and Diffuse repayment never touch shields. Wound skips them only when it arrives on its own rather than merged into another hit from the same caster. Quirk (likely a game bug): reflect and recoil damage are soaked by the shields of the other side of the original hit, not the shields of the player taking it. It's positive, so Clear removes it and Copy can take it.",
+   "polarity": "positive",
+   "prevented_by": [],
+   "copy_can_take": true,
+   "mirror_can_pass": false,
+   "potency_eligible": true,
+   "immunity_can_cancel": false,
+   "stage": "S3 main pass (land roll); soaks in S15",
+   "calculation": [
+    "static"
+   ],
+   "own_fields": {
+    "rounds": "z.coerce.number().int().min(1).max(100).prefault(3)",
+    "health": "z.coerce.number().int().min(1).max(SHIELD_MAX_HEALTH).prefault(100)"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 38,
+    "pvp_legal": 32
+   },
+   "source": [
+    "libs/combat/tags.ts shield (line 2173)",
+    "libs/combat/process.ts first reference (line 1667)",
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 31 (line 1099)",
+    "libs/combat/process.ts mitigateConsequence (line 956)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "counters": [
+      "damage",
+      "reflect",
+      "recoil"
+     ],
+     "overlaps": [
+      "barrier"
+     ]
+    },
+    "incoming": {
+     "boosts": [
+      "increasepotency"
+     ],
+     "bypasses": [
+      "pierce",
+      "onehitkill",
+      "wound",
+      "afterburn",
+      "drain",
+      "poison"
+     ],
+     "feeds": [
+      "siphon",
+      "consume"
+     ],
+     "removes": [
+      "clear"
+     ],
+     "transfers": [
+      "copy"
+     ],
+     "weakens": [
+      "decreasepotency"
+     ]
+    }
+   }
+  },
+  "siphon": {
+   "tag": "siphon",
+   "schema": "validators/combat.ts SiphonTag (line 727)",
+   "exclusion_area": "Soak damage",
+   "in_game_text": "While active, convert a percentage of damage you take after existing shields absorb it into stacking temporary shields. New shields are granted after damage resolves. Excludes self-inflicted damage and recoil. Shares conversion and shield HP caps with Consume. Can be cleared. Not affected by heal modifiers.",
+   "behavior": "A buff on the holder, live from its casting action. A buffprevent from an earlier round blocks it. It credits HP the holder actually loses to other fighters in the action: after shields and Final Stand, limited to HP left, with recoil and self-damage excluded, plus Reflect taken and repaid Diffuse debt. The hit itself is not reduced. It shares the 100% conversion ratio (scaled when over) and the 100,000 HP new-shield cap (proportional, then rounded down) with Consume. Siphons with the same shieldRounds merge, and different ones make separate shields. Shields are granted after the action only if the holder is alive, and heal modifiers don't apply. Clear removes it.",
+   "polarity": "positive",
+   "prevented_by": [
+    "buffprevent"
+   ],
+   "prevent_check": "age-compared: blocks only effects created in a later round than the prevent",
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": true,
+   "immunity_can_cancel": false,
+   "stage": "S5 register (casting action on); credited in S6 and S15; shield granted in S16",
+   "live_from": "its casting action (no next-round wait)",
+   "calculation": [
+    "percentage"
+   ],
+   "own_fields": {
+    "rounds": "z.coerce.number().int().min(1).max(100).prefault(3)",
+    "target": "z.enum(BaseTagTargets).optional().prefault(\"SELF\")",
+    "calculation": "z.enum([\"percentage\"]).prefault(\"percentage\")",
+    "shieldRounds": "z.coerce.number().int().min(1).max(100).prefault(3)"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 1,
+    "pvp_legal": 1
+   },
+   "source": [
+    "libs/combat/tags.ts registerShieldConversion (line 1980)",
+    "libs/combat/process.ts first reference (line 1658)",
+    "libs/combat/process.ts applyEffects Consume/Siphon registration, after the main pass and before damage (line 473)",
+    "libs/combat/util.ts EFFECT_SORT_RANK: no explicit rank, sorts last (line 1016)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "feeds": [
+      "shield"
+     ]
+    },
+    "incoming": {
+     "boosts": [
+      "increasepotency"
+     ],
+     "feeds": [
+      "damage"
+     ],
+     "overlaps": [
+      "consume"
+     ],
+     "prevents": [
+      "buffprevent"
+     ],
+     "removes": [
+      "clear"
+     ],
+     "shares": [
+      "consume"
+     ],
+     "weakens": [
+      "decreasepotency"
+     ]
+    }
+   }
+  },
+  "stealth": {
+   "tag": "stealth",
+   "schema": "validators/combat.ts StealthTag (line 957)",
+   "exclusion_area": "Deny actions",
+   "in_game_text": "Stealth the target, blocking all jutsu while allowing weapons and items",
+   "behavior": "Rolls power% to land. While it's active, other fighters' non-ground effects can't land on the holder, though ground effects still can. The holder can't use any jutsu or the basic attack, meditate, heal, clear, cleanse, stances or flee. They keep move, replacement, End Turn and items. It's positive, so Clear removes it.",
+   "polarity": "positive",
+   "prevented_by": [],
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "S3 main pass",
+   "calculation": [
+    "static"
+   ],
+   "fields_note": "simpleTag (BaseAttributes + PowerAttributes only)",
+   "live_usage_2026_11_21": {
+    "jutsu": 2,
+    "pvp_legal": 2
+   },
+   "source": [
+    "libs/combat/tags.ts stealth (line 2423)",
+    "libs/combat/process.ts first reference (line 1651)",
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 0 (line 1066)",
+    "libs/combat/actions.ts availableUserActions (line 111)",
+    "libs/combat/actions.ts (stealthed target skipped)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "counters": [
+      "damage",
+      "copy"
+     ],
+     "overlaps": [
+      "elementalseal"
+     ]
+    },
+    "incoming": {
+     "removes": [
+      "clear"
+     ]
+    }
+   }
+  },
+  "stun": {
+   "tag": "stun",
+   "schema": "validators/combat.ts StunTag (line 986)",
+   "exclusion_area": "Deny actions",
+   "in_game_text": "Stuns the target",
+   "behavior": "Stunprevent can block it (age-compared). Otherwise it rolls power% to land. From the round after it lands, the holder's available AP drops by apReduction, but never below 0. Only the strongest stun counts. That includes stun ground effects on the holder's tile that are from an earlier round and pass friendly-fire for them; that read makes no land roll.",
+   "polarity": "negative",
+   "prevented_by": [
+    "stunprevent"
+   ],
+   "prevent_check": "age-compared: blocks only effects created in a later round than the prevent",
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "S3 main pass (land roll); AP read outside applyEffects (turn.ts:159-182)",
+   "live_from": "AP cut from the round after it lands",
+   "applies": "on its casting action, then on the holder's first action of each later round (not again in the cast round; no-rounds versions: every holder action)",
+   "calculation": [
+    "static"
+   ],
+   "own_fields": {
+    "apReduction": "z.coerce.number().int().min(0).max(100).prefault(10)"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 44,
+    "pvp_legal": 41
+   },
+   "source": [
+    "libs/combat/tags.ts stun (line 2450)",
+    "libs/combat/process.ts first reference (line 1588)",
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 42 (line 1110)",
+    "libs/combat/turn.ts calcApReduction (line 160)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "overlaps": [
+      "timecompression"
+     ]
+    },
+    "incoming": {
+     "prevents": [
+      "stunprevent"
+     ],
+     "removes": [
+      "cleanse"
+     ]
+    }
+   }
+  },
+  "stunprevent": {
+   "tag": "stunprevent",
+   "schema": "validators/combat.ts StunPreventTag (line 967)",
+   "exclusion_area": "Protection",
+   "in_game_text": "Prevents being stunned",
+   "behavior": "A prevent-type status. It rolls power% once to land and then blocks stun with certainty, but only effects cast in a later round. Effects already on the holder stay. Immunity can cancel it.",
+   "polarity": "positive",
+   "prevented_by": [],
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": false,
+   "immunity_can_cancel": true,
+   "stage": "S3 main pass",
+   "calculation": [
+    "percentage"
+   ],
+   "own_fields": {
+    "calculation": "z.enum([\"percentage\"]).prefault(\"percentage\")"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 1,
+    "pvp_legal": 1
+   },
+   "source": [
+    "libs/combat/tags.ts applyPreventTag (line 338)",
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 11 (line 1077)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "prevents": [
+      "stun"
+     ]
+    },
+    "incoming": {
+     "counters": [
+      "immunity"
+     ],
+     "removes": [
+      "clear"
+     ]
+    }
+   }
+  },
+  "summon": {
+   "tag": "summon",
+   "schema": "validators/combat.ts SummonTag (line 996)",
+   "exclusion_area": "Extra fighters",
+   "in_game_text": "Summon an ally for a certain number of rounds. Its stats are scaled to same total as the summoner, modified by the power of the jutsu as a percentage.",
+   "behavior": "Spawns the chosen AI on the target tile, or on the nearest empty tile if that one is taken, with aiHp HP and stats scaled to power% of the summoner's total. It acts as a separate fighter. It copies the summoner's initiative and is inserted into the turn order right after the summoner and anyone tied with them. It can be player-piloted and leaves when its rounds end. Summonprevent hides summon jutsu.",
+   "polarity": "positive",
+   "prevented_by": [
+    "summonprevent"
+   ],
+   "prevent_check": "action gate only: summonprevent hides summon jutsu (actions.ts:231-237); no handler check",
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "S1 ground pass",
+   "calculation": [
+    "percentage"
+   ],
+   "own_fields": {
+    "rounds": "z.coerce.number().int().min(2).max(100).prefault(2)",
+    "calculation": "z.enum([\"percentage\"]).prefault(\"percentage\")",
+    "aiId": "z.string().prefault(\"\")",
+    "aiHp": "z.coerce.number().min(100).max(100000).prefault(100)",
+    "playerControlled": "z.boolean().prefault(false)"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 22,
+    "pvp_legal": 22
+   },
+   "source": [
+    "libs/combat/tags.ts summon (line 2666)",
+    "libs/combat/process.ts first reference (line 317)",
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 43 (line 1111)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "overlaps": [
+      "clone"
+     ]
+    },
+    "incoming": {
+     "hides": [
+      "summonprevent"
+     ],
+     "removes": [
+      "clear"
+     ]
+    }
+   }
+  },
+  "summonprevent": {
+   "tag": "summonprevent",
+   "schema": "validators/combat.ts SummonPreventTag (line 994)",
+   "exclusion_area": "Protection",
+   "in_game_text": "Prevents summoning",
+   "behavior": "A prevent-type status that rolls power% once to land. While it is active with rounds left (and not cast this round), jutsu with a summon tag are removed from the holder's action list, and the server enforces this. The summon handler never checks it, so summons already on the field stay, and items with a summon tag are not filtered. Cleanse removes it, Mirror can pass it, and Immunity can cancel a new one.",
+   "polarity": "negative",
+   "prevented_by": [],
+   "copy_can_take": false,
+   "mirror_can_pass": true,
+   "potency_eligible": false,
+   "immunity_can_cancel": true,
+   "stage": "S3 main pass; action gate in availableUserActions",
+   "live_from": "action gate while active with rounds left and not cast this round",
+   "calculation": [
+    "static"
+   ],
+   "fields_note": "simpleTag (BaseAttributes + PowerAttributes only)",
+   "live_usage_2026_11_21": {
+    "jutsu": 1,
+    "pvp_legal": 1
+   },
+   "source": [
+    "libs/combat/tags.ts applyPreventTag (line 338)",
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 12 (line 1078)",
+    "libs/combat/actions.ts availableUserActions (line 111)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "hides": [
+      "summon"
+     ]
+    },
+    "incoming": {
+     "counters": [
+      "immunity"
+     ],
+     "removes": [
+      "cleanse"
+     ],
+     "transfers": [
+      "mirror"
+     ]
+    }
+   }
+  },
+  "timecompression": {
+   "tag": "timecompression",
+   "schema": "validators/combat.ts TimeCompressionTag (line 494)",
+   "exclusion_area": "Deny actions",
+   "in_game_text": "Increases AP cost of actions by ${TEMPORAL_AP_DELTA}",
+   "behavior": "Makes the holder's actions cost 10 more AP (all jutsu, or only listed elements). Only one can be active at a time. Debuffprevent blocks it.",
+   "polarity": "negative",
+   "prevented_by": [
+    "debuffprevent"
+   ],
+   "prevent_check": "age-compared: blocks only effects created in a later round than the prevent",
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "S3 main pass",
+   "calculation": [
+    "static",
+    "percentage"
+   ],
+   "own_fields": {
+    "rounds": "z.coerce.number().int().min(1).max(20).prefault(1)",
+    "calculation": "z.enum([\"static\", \"percentage\"]).prefault(\"percentage\")",
+    "generalTypes": "z.array(z.enum(GeneralTypes)).optional()",
+    "elements": "z.array(z.enum(ElementNames)).optional()"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 4,
+    "pvp_legal": 4
+   },
+   "source": [
+    "libs/combat/tags.ts temporalShift (line 2499)",
+    "libs/combat/process.ts first reference (line 1682)",
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 62 (line 1124)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "counters": [
+      "timedilation"
+     ],
+     "overlaps": [
+      "increasepoolcost"
+     ]
+    },
+    "incoming": {
+     "overlaps": [
+      "stun"
+     ],
+     "prevents": [
+      "debuffprevent"
+     ],
+     "removes": [
+      "cleanse"
+     ]
+    }
+   }
+  },
+  "timedilation": {
+   "tag": "timedilation",
+   "schema": "validators/combat.ts TimeDilationTag (line 500)",
+   "exclusion_area": "Speed up actions",
+   "in_game_text": "Decreases AP cost of actions by ${TEMPORAL_AP_DELTA}",
+   "behavior": "Makes the holder's actions cost 10 less AP. Only one can be active at a time. Buffprevent blocks it.",
+   "polarity": "positive",
+   "prevented_by": [
+    "buffprevent"
+   ],
+   "prevent_check": "age-compared: blocks only effects created in a later round than the prevent",
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "S3 main pass",
+   "calculation": [
+    "static",
+    "percentage"
+   ],
+   "own_fields": {
+    "rounds": "z.coerce.number().int().min(1).max(20).prefault(1)",
+    "calculation": "z.enum([\"static\", \"percentage\"]).prefault(\"percentage\")",
+    "generalTypes": "z.array(z.enum(GeneralTypes)).optional()",
+    "elements": "z.array(z.enum(ElementNames)).optional()"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 10,
+    "pvp_legal": 9
+   },
+   "source": [
+    "libs/combat/tags.ts temporalShift (line 2499)",
+    "libs/combat/process.ts first reference (line 1683)",
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 63 (line 1125)"
+   ],
+   "interactions": {
+    "incoming": {
+     "counters": [
+      "timecompression"
+     ],
+     "prevents": [
+      "buffprevent"
+     ],
+     "removes": [
+      "clear"
+     ]
+    }
+   }
+  },
+  "unknown": {
+   "tag": "unknown",
+   "schema": "validators/combat.ts UnknownTag (line 1032)",
+   "exclusion_area": "Outside battle or cosmetic",
+   "in_game_text": "An unknown tag - please report & change!",
+   "behavior": "Placeholder for an unrecognised tag.",
+   "polarity": "neutral",
+   "prevented_by": [],
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "outside combat",
+   "calculation": [
+    "static"
+   ],
+   "live_usage_2026_11_21": {
+    "jutsu": 0,
+    "pvp_legal": 0
+   }
+  },
+  "unlockitemvariant": {
+   "tag": "unlockitemvariant",
+   "schema": "validators/combat.ts UnlockItemVariantTag (line 1101)",
+   "exclusion_area": "Outside battle or cosmetic",
+   "in_game_text": "Unlocks a token-locked item variant when used on an item",
+   "behavior": "Item use: unlocks an item variant.",
+   "polarity": "neutral",
+   "prevented_by": [],
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "outside combat",
+   "calculation": [
+    "static"
+   ],
+   "own_fields": {
+    "variantId": "z.string().trim().nullable().prefault(null)"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 0,
+    "pvp_legal": 0
+   }
+  },
+  "vamp": {
+   "tag": "vamp",
+   "schema": "validators/combat.ts VampTag (line 704)",
+   "exclusion_area": "Healing",
+   "in_game_text": "Instantly heal yourself based on a percentage of the damage dealt by this jutsu",
+   "behavior": "Lives on the casting jutsu and acts only on the action that casts it, in the post-damage pass. It adds power/100 to every instant damage packet the caster deals to others in that action. Pierce counts; residual ticks don't. The caster's heal modifiers scale that ratio. Heal = floor(sum of ratio x pre-shield immediate damage), capped at floor(0.6 x that damage) and paid before Lifesteal from the same budget. It pays even when the hit kills the target, but not if the caster is at 0 HP or holds an unsettled Curse. Any active healprevent on the caster blocks it outright, with no roll and no creation-round check.",
+   "polarity": "neutral",
+   "prevented_by": [
+    "healprevent"
+   ],
+   "prevent_check": "any age, the Vamp caster's own healprevent, read directly with no roll (tags.ts:1962-1965)",
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": true,
+   "immunity_can_cancel": false,
+   "stage": "S10 post-damage readers (unranked, last); casting action only; paid in S15",
+   "live_from": "its casting action only",
+   "calculation": [
+    "percentage"
+   ],
+   "own_fields": {
+    "calculation": "z.enum([\"percentage\"]).prefault(\"percentage\")"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 9,
+    "pvp_legal": 9
+   },
+   "source": [
+    "libs/combat/tags.ts vamp (line 1956)",
+    "libs/combat/process.ts first reference (line 1647)",
+    "libs/combat/process.ts applyEffects post-damage pass, after pierce (line 630)",
+    "libs/combat/util.ts EFFECT_SORT_RANK: no explicit rank, sorts last (line 1016)"
+   ],
+   "interactions": {
+    "incoming": {
+     "boosts": [
+      "increasepotency",
+      "increaseheal"
+     ],
+     "disables": [
+      "curse"
+     ],
+     "feeds": [
+      "damage",
+      "pierce"
+     ],
+     "overlaps": [
+      "lifesteal"
+     ],
+     "prevents": [
+      "healprevent"
+     ],
+     "weakens": [
+      "decreasepotency",
+      "decreaseheal"
+     ]
+    }
+   }
+  },
+  "visual": {
+   "tag": "visual",
+   "schema": "validators/combat.ts VisualTag (line 1014)",
+   "exclusion_area": "Outside battle or cosmetic",
+   "in_game_text": "A battlefield visual effect",
+   "behavior": "Cosmetic battlefield effect; no rules.",
+   "polarity": "neutral",
+   "prevented_by": [],
+   "copy_can_take": false,
+   "mirror_can_pass": false,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "S1 ground pass (cosmetic)",
+   "calculation": [
+    "static"
+   ],
+   "live_usage_2026_11_21": {
+    "jutsu": 52,
+    "pvp_legal": 47
+   },
+   "source": [
+    "libs/combat/process.ts first reference (line 305)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 65 (line 1128)"
+   ]
+  },
+  "weakness": {
+   "tag": "weakness",
+   "schema": "validators/combat.ts WeaknessTag (line 1020)",
+   "exclusion_area": "Damage now",
+   "in_game_text": "Extra raw damage from specific things",
+   "behavior": "Lands on a roll of power%. While active, damage or pierce from the listed jutsu, items, elements or general types has its raw damage multiplied by dmgModifier. Only the highest-power matching weakness counts, and a dmgModifier of 0 counts as 1. No prevent stops it.",
+   "polarity": "negative",
+   "prevented_by": [],
+   "copy_can_take": false,
+   "mirror_can_pass": true,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "S3 main pass",
+   "calculation": [
+    "static"
+   ],
+   "own_fields": {
+    "items": "z.array(z.string()).prefault([])",
+    "jutsus": "z.array(z.string()).prefault([])",
+    "elements": "z.array(z.enum(ElementNames)).prefault([])",
+    "generalTypes": "z.array(z.enum(GeneralTypes)).prefault([])",
+    "dmgModifier": "z.coerce.number().min(1).max(50).prefault(1).optional()"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 0,
+    "pvp_legal": 0
+   },
+   "source": [
+    "libs/combat/tags.ts weakness (line 2802)",
+    "libs/combat/process.ts first reference (line 1655)",
+    "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 14 (line 1080)",
+    "libs/combat/tags.ts calcDmgModifier (line 1405)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "boosts": [
+      "damage",
+      "pierce"
+     ],
+     "overlaps": [
+      "increasedamagetaken"
+     ]
+    },
+    "incoming": {
+     "removes": [
+      "cleanse"
+     ],
+     "transfers": [
+      "mirror"
+     ]
+    }
+   }
+  },
+  "wound": {
+   "tag": "wound",
+   "schema": "validators/combat.ts WoundTag (line 826)",
+   "exclusion_area": "Damage later",
+   "in_game_text": "Applies wound damage over multiple turns based on damage dealt",
+   "behavior": "When cast, it records the damage its caster dealt to the target in that action (instant Pierce included). Each later round it deals power% of that recorded hit again. Ticking in its own consequence, that damage skips shields but not Final Stand; merged into another consequence from the same caster (a residual tick, drain or poison), it is soaked by shields like that host, and destroys them if the host is Pierce. It's mirror-eligible.",
+   "polarity": "negative",
+   "prevented_by": [],
+   "copy_can_take": false,
+   "mirror_can_pass": true,
+   "potency_eligible": false,
+   "immunity_can_cancel": false,
+   "stage": "S10 post-damage readers; applied in S15",
+   "applies": "on its casting action, then on the holder's first action of each later round (not again in the cast round; no-rounds versions: every holder action)",
+   "calculation": [
+    "percentage"
+   ],
+   "own_fields": {
+    "rounds": "z.coerce.number().int().min(1).max(20).prefault(1)",
+    "calculation": "z.enum([\"percentage\"]).prefault(\"percentage\")",
+    "generalTypes": "z.array(z.enum(GeneralTypes)).optional()",
+    "elements": "z.array(z.enum(ElementNames)).optional()"
+   },
+   "live_usage_2026_11_21": {
+    "jutsu": 56,
+    "pvp_legal": 47
+   },
+   "source": [
+    "libs/combat/tags.ts wound (line 1783)",
+    "libs/combat/process.ts first reference (line 1590)",
+    "libs/combat/process.ts applyEffects post-damage pass, after pierce (line 630)",
+    "libs/combat/util.ts EFFECT_SORT_RANK rank 57 (line 1120, ...POST_PIERCE_TAGS entry at libs/combat/constants.ts line 275)"
+   ],
+   "interactions": {
+    "outgoing": {
+     "bypasses": [
+      "shield"
+     ],
+     "overlaps": [
+      "drain"
+     ]
+    },
+    "incoming": {
+     "feeds": [
+      "damage",
+      "pierce"
+     ],
+     "removes": [
+      "cleanse"
+     ],
+     "transfers": [
+      "mirror"
+     ]
+    }
+   }
+  }
+ }
+}

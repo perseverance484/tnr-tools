@@ -1,0 +1,22 @@
+tag: increasegatheringyield
+schema: validators/combat.ts IncreaseGatheringYield (line 234)
+exclusion_area: Outside battle or cosmetic
+in_game_text: "Add units to each successfully dropped gathering material. Eligible bloodline, activated skill and usable worn gear bonuses stack up to +${MAX_GATHERING_BONUS_QUANTITY}; captured when collection begins. Drop chances are unchanged."
+behavior: "Activity passive: extra units per gathering drop."
+polarity: neutral   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: []   # no prevent check in its handler
+copy_can_take: false
+mirror_can_pass: false
+potency_eligible: false
+immunity_can_cancel: false
+stage: outside combat
+calculation: [static]   # default static
+own_fields:   # zod expressions resolved from the schema (helpers, spreads, extend); fields inherited unchanged from BaseAttributes/PowerAttributes are in engine.md section 6
+  rounds: "BaseAttributes.rounds.refine((value): boolean => value === undefined, \"Activity bonuses have no combat duration\")"   # from ActivityBonusAttributes
+  timeTracker: "BaseAttributes.timeTracker.refine((value): boolean => value === undefined, \"Activity bonuses have no combat timer\")"   # from ActivityBonusAttributes
+  power: z.coerce.number().int().min(0).max(MAX_GATHERING_BONUS_QUANTITY).prefault(1)
+  powerPerLevel: z.literal(0).prefault(0)   # from ActivityBonusAttributes
+  target: "z.literal(\"SELF\").prefault(\"SELF\")"   # from ActivityBonusAttributes
+  friendlyFire: "z.literal(\"FRIENDLY\").optional()"   # from ActivityBonusAttributes
+  calculation: "z.literal(\"static\").prefault(\"static\")"
+live_usage_2026_11_21: {jutsu: 0, pvp_legal: 0}

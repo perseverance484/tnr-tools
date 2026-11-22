@@ -1,0 +1,33 @@
+tag: weakness
+schema: validators/combat.ts WeaknessTag (line 1020)
+exclusion_area: Damage now
+in_game_text: Extra raw damage from specific things
+behavior: "Lands on a roll of power%. While active, damage or pierce from the listed jutsu, items, elements or general types has its raw damage multiplied by dmgModifier. Only the highest-power matching weakness counts, and a dmgModifier of 0 counts as 1. No prevent stops it."
+polarity: negative   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: []   # no prevent check in its handler
+copy_can_take: false
+mirror_can_pass: true
+potency_eligible: false
+immunity_can_cancel: false
+stage: S3 main pass
+calculation: [static]   # default static
+own_fields:   # zod expressions resolved from the schema (helpers, spreads, extend); fields inherited unchanged from BaseAttributes/PowerAttributes are in engine.md section 6
+  items: "z.array(z.string()).prefault([])"
+  jutsus: "z.array(z.string()).prefault([])"
+  elements: "z.array(z.enum(ElementNames)).prefault([])"
+  generalTypes: "z.array(z.enum(GeneralTypes)).prefault([])"
+  dmgModifier: z.coerce.number().min(1).max(50).prefault(1).optional()
+live_usage_2026_11_21: {jutsu: 0, pvp_legal: 0}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b5ebda9c319eb72e80670229b0b72ea9ac, paths under app/src
+  - libs/combat/tags.ts weakness (line 2802)
+  - libs/combat/process.ts first reference (line 1655)
+  - "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)"
+  - libs/combat/util.ts EFFECT_SORT_RANK rank 14 (line 1080)
+  - libs/combat/tags.ts calcDmgModifier (line 1405)
+interactions:   # full list with notes in ../interactions.json
+  outgoing:
+    boosts: [damage, pierce]
+    overlaps: [increasedamagetaken]
+  incoming:
+    removes: [cleanse]
+    transfers: [mirror]

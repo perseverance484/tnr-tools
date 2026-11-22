@@ -1,0 +1,22 @@
+tag: decreasegatheringtime
+schema: validators/combat.ts DecreaseGatheringTime (line 196)
+exclusion_area: Outside battle or cosmetic
+in_game_text: "Reduce each gathering quest collection duration by power percent, with a one-second minimum. Eligible bloodline, activated skill and usable worn gear bonuses stack up to ${MAX_ACTIVITY_REDUCTION_PERCENT}%; captured when collection begins."
+behavior: "Activity passive: shortens gathering collection."
+polarity: neutral   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: []   # no prevent check in its handler
+copy_can_take: false
+mirror_can_pass: false
+potency_eligible: false
+immunity_can_cancel: false
+stage: outside combat
+calculation: [percentage]   # default percentage
+own_fields:   # zod expressions resolved from the schema (helpers, spreads, extend); fields inherited unchanged from BaseAttributes/PowerAttributes are in engine.md section 6
+  rounds: "BaseAttributes.rounds.refine((value): boolean => value === undefined, \"Activity bonuses have no combat duration\")"   # from ActivityBonusAttributes
+  timeTracker: "BaseAttributes.timeTracker.refine((value): boolean => value === undefined, \"Activity bonuses have no combat timer\")"   # from ActivityBonusAttributes
+  power: z.coerce.number().min(0).max(MAX_ACTIVITY_REDUCTION_PERCENT).prefault(1)   # from ActivityBonusAttributes
+  powerPerLevel: z.literal(0).prefault(0)   # from ActivityBonusAttributes
+  target: "z.literal(\"SELF\").prefault(\"SELF\")"   # from ActivityBonusAttributes
+  friendlyFire: "z.literal(\"FRIENDLY\").optional()"   # from ActivityBonusAttributes
+  calculation: "z.literal(\"percentage\").prefault(\"percentage\")"   # from ActivityBonusAttributes
+live_usage_2026_11_21: {jutsu: 0, pvp_legal: 0}

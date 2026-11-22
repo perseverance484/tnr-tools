@@ -1,0 +1,32 @@
+tag: increaseheal
+schema: validators/combat.ts IncreaseHealGivenTag (line 432)
+exclusion_area: Healing
+in_game_text: Increase how much target can heal others
+behavior: "Scales the HP healing the holder produces: Heal's HP part, Lifesteal, Vamp, the Curse payout, and Absorb's HP part on the holder. Chakra and stamina healing are not changed. It runs in its own pass after Diffuse deferral, unrounded. Buffprevent blocks it, and Copy can take it."
+polarity: positive   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: [buffprevent]
+prevent_check: "age-compared: blocks only effects created in a later round than the prevent"
+copy_can_take: true
+mirror_can_pass: false
+potency_eligible: true
+immunity_can_cancel: false
+stage: "S14 heal adjustments (own pass, after Diffuse deferral and delayed Absorb)"
+live_from: next round (waits while isNew/castThisRound)
+calculation: [static, percentage]   # default percentage
+own_fields:   # zod expressions resolved from the schema (helpers, spreads, extend); fields inherited unchanged from BaseAttributes/PowerAttributes are in engine.md section 6
+  calculation: "z.enum([\"static\", \"percentage\"]).prefault(\"percentage\")"   # from PercentageCalculation via HealModifierAttributes
+live_usage_2026_11_21: {jutsu: 7, pvp_legal: 6}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b5ebda9c319eb72e80670229b0b72ea9ac, paths under app/src
+  - libs/combat/tags.ts increaseHealGiven (line 1075)
+  - libs/combat/process.ts first reference (line 1631)
+  - "libs/combat/process.ts applyEffects heal adjustment pass, after the post-damage readers (line 661)"
+  - "libs/combat/util.ts EFFECT_SORT_RANK rank 59 (line 1120, ...POST_PIERCE_TAGS entry at libs/combat/constants.ts line 277)"
+interactions:   # full list with notes in ../interactions.json
+  outgoing:
+    boosts: [heal, lifesteal, vamp, absorb, curse]
+  incoming:
+    boosts: [increasepotency]
+    prevents: [buffprevent]
+    removes: [clear]
+    transfers: [copy]
+    weakens: [decreasepotency]

@@ -25,6 +25,7 @@ import json
 import os
 import re
 
+import combat_map as CM  # engine caps and tag facts from docs/combat-engine
 import policy
 from cd_plan import ACTIONS, LOADOUTS, load
 from enemy_model import PROFILES, _predict
@@ -305,7 +306,7 @@ def apply(src_side, dst_side, spec, r, actor_is_me):
             wmul = dmg / base
             # system DR already inside the calibrated base
             # engine order: parry splits the direct hit before shields (process.ts splitParriedDamage), cap 100%
-            parried = dmg * min(1.0, da.get("parry", _Z)[0])
+            parried = dmg * min(CM.CAP_PARRY, da.get("parry", _Z)[0])
             dmg -= parried
             sh = da.get("shield", _Z)[0]
             if sh:
@@ -323,12 +324,12 @@ def apply(src_side, dst_side, spec, r, actor_is_me):
         # (ABSORB_CAP_RATIO, DAMAGE_LEECH_CAP_RATIO). Director, 2026-11-11.
         heal_cut = 1 - da.get("healcut", _Z)[0]
         # afterburn: a share of the hit again (cap 60%, AFTERBURN_CAP_RATIO), not on pierce, not absorbed
-        burn = 0.0 if pierce else dmg * min(0.6, da.get("afterburn", _Z)[0])
-        to_tgt += dmg + burn - dmg * min(0.6, da.get("absorb", _Z)[0]) * heal_cut
-        to_self -= dmg * min(0.6, sa.get("lifesteal", _Z)[0]) * (1 - sa.get("healcut", _Z)[0])
+        burn = 0.0 if pierce else dmg * min(CM.CAP_AFTERBURN, da.get("afterburn", _Z)[0])
+        to_tgt += dmg + burn - dmg * min(CM.CAP_ABSORB, da.get("absorb", _Z)[0]) * heal_cut
+        to_self -= dmg * min(CM.CAP_LEECH, sa.get("lifesteal", _Z)[0]) * (1 - sa.get("healcut", _Z)[0])
         to_self += dmg * sa.get("recoil_self", _Z)[0]
         to_self += dmg * sa.get("recoil", _Z)[0]  # standing on recoil ground
-        to_self += parried + dmg * min(0.6, da.get("reflect", _Z)[0])
+        to_self += parried + dmg * min(CM.CAP_REFLECT, da.get("reflect", _Z)[0])
     for t in tags:
         who, kind, val, dur = t[0], t[1], t[2], t[3]
         instant = len(t) > 4 and t[4]

@@ -1,0 +1,40 @@
+tag: damage
+schema: validators/combat.ts DamageTag (line 635)
+exclusion_area: Damage now
+in_game_text: Deals damage to target
+behavior: "Formula damage (the default) scales a baseline by power and by an attack-vs-defence advantage. The baseline is max HP at the attacker's level divided by base hits. Attack and defence are the square roots of the caster's Offence and the target's Defence plus double-weighted lower generals, with negatives treated as 0. The advantage is 1 when both sides are 0 and is otherwise clamped between 0.01 and 10. Static and percentage damage use effective power as a flat number, and percentage power is capped at 100. A non-zero dmgModifier, the highest-power matching Weakness and, on later-round ticks, a non-zero residualModifier multiply the number. An instant hit through a barrier loses the barrier's share. It then runs the damage pipeline: the attacker's Curse bonus, increases, the 50% system reduction and other reductions, a floor at 10% of the post-system hit, static modifiers, keystones, and finally bloodline modifiers, subject to Seal and the allowBloodline opt-outs. With rounds 0 it hits on cast. With rounds above 0 the casting action deals nothing; it then ticks as residual damage (x residualModifier, no barrier cut) once per round on the holder's first action of each later round. A round in which the holder doesn't act gives no tick."
+polarity: negative   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: []   # no prevent check in its handler
+copy_can_take: false
+mirror_can_pass: false
+potency_eligible: true
+immunity_can_cancel: false
+stage: "S3 main pass (raw written) -> S7 damage pipeline -> S15 mitigate and apply"
+live_from: "rounds 0: casting action; rounds > 0: holder's first action in the round after cast, then once per round"
+applies: "rounds 0: once, on cast; rounds > 0: nothing on cast, then once a round on the holder's first action"
+calculation: [formula, static, percentage]   # default formula
+own_fields:   # zod expressions resolved from the schema (helpers, spreads, extend); fields inherited unchanged from BaseAttributes/PowerAttributes are in engine.md section 6
+  calculation: "z.enum([\"formula\", \"static\", \"percentage\"]).prefault(\"formula\")"
+  generalTypes: z.array(z.enum(GeneralTypes)).optional()   # from IncludeGeneralsAndElements
+  elements: z.array(z.enum(ElementNames)).optional()   # from IncludeGeneralsAndElements
+  residualModifier: z.coerce.number().min(0).max(2).prefault(1).optional()
+  dmgModifier: z.coerce.number().min(0).max(2).prefault(1).optional()
+  allowBloodlineDamageIncrease: z.coerce.boolean().prefault(true)
+  allowBloodlineDamageDecrease: z.coerce.boolean().prefault(true)
+live_usage_2026_11_21: {jutsu: 540, pvp_legal: 470}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b5ebda9c319eb72e80670229b0b72ea9ac, paths under app/src
+  - libs/combat/tags.ts damageUser (line 1435)
+  - libs/combat/process.ts first reference (line 1515)
+  - "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)"
+  - libs/combat/util.ts EFFECT_SORT_RANK rank 36 (line 1104)
+  - libs/combat/tags.ts damageCalc (line 1352)
+  - libs/combat/damagePipeline.ts computeDamagePacket (line 501)
+interactions:   # full list with notes in ../interactions.json
+  outgoing:
+    feeds: [wound, lifesteal, vamp, consume, afterburn, recoil, curse, absorb, reflect, siphon]
+  incoming:
+    boosts: [increasepotency, increasedamagegiven, increasedamagetaken, weakness, increasestat, curse]
+    counters: [barrier, shield, diffuse, finalstand, parry, stealth]
+    feeds: [elementaldamage]
+    removes: [cleanse]
+    weakens: [decreasepotency, decreasedamagegiven, decreasedamagetaken, decreasestat]

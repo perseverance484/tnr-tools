@@ -1,0 +1,32 @@
+tag: elementaldamage
+schema: validators/combat.ts ElementalDamageTag (line 649)
+exclusion_area: Damage now
+in_game_text: "Deals damage using the caster's preferred basic element"
+behavior: "An authoring shortcut. On cast it becomes an ordinary damage tag with one element: the caster's saved preferred element, else their basic innate element, else Fire. It counts as elemental for Elemental Seal."
+polarity: negative   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: []   # no prevent check in its handler
+copy_can_take: false
+mirror_can_pass: true
+potency_eligible: false
+immunity_can_cancel: false
+stage: S0 cast prep (becomes damage)
+calculation: [formula, static, percentage]   # default formula
+own_fields:   # zod expressions resolved from the schema (helpers, spreads, extend); fields inherited unchanged from BaseAttributes/PowerAttributes are in engine.md section 6
+  calculation: "z.enum([\"formula\", \"static\", \"percentage\"]).prefault(\"formula\")"   # from DamageTag
+  generalTypes: z.array(z.enum(GeneralTypes)).optional()   # from IncludeGeneralsAndElements via DamageTag
+  residualModifier: z.coerce.number().min(0).max(2).prefault(1).optional()   # from DamageTag
+  dmgModifier: z.coerce.number().min(0).max(2).prefault(1).optional()   # from DamageTag
+  allowBloodlineDamageIncrease: z.coerce.boolean().prefault(true)   # from DamageTag
+  allowBloodlineDamageDecrease: z.coerce.boolean().prefault(true)   # from DamageTag
+live_usage_2026_11_21: {jutsu: 0, pvp_legal: 0}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b5ebda9c319eb72e80670229b0b72ea9ac, paths under app/src
+  - "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects), as damage (line 453)"
+  - "libs/combat/util.ts EFFECT_SORT_RANK rank 36, as damage (line 1104)"
+  - libs/combat/elementalDamage.ts resolveElementalDamage (line 23)
+interactions:   # full list with notes in ../interactions.json
+  outgoing:
+    feeds: [damage]
+  incoming:
+    hides: [elementalseal]
+    removes: [cleanse]
+    transfers: [mirror]

@@ -1,0 +1,29 @@
+tag: elementalseal
+schema: validators/combat.ts ElementalSealTag (line 962)
+exclusion_area: Deny actions
+in_game_text: "Seals the target's ability to use all elemental ${ELEMENTAL_SEAL_AP_COST} AP jutsu"
+behavior: "Rolls power% to land. While active with rounds left (and not cast this round), the holder's jutsu with an authored AP cost of exactly 60 are hidden if they are elemental: elementClassification set and not None, any elementaldamage tag, or any tag with a non-None element. Items and basic actions are never hidden. The server enforces it. No prevent stops it."
+polarity: negative   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: []   # no prevent check in its handler
+copy_can_take: false
+mirror_can_pass: true
+potency_eligible: false
+immunity_can_cancel: false
+stage: S3 main pass; action gate in availableUserActions
+live_from: action gate while active with rounds left and not cast this round
+calculation: [static]   # default static
+fields_note: simpleTag (BaseAttributes + PowerAttributes only)
+live_usage_2026_11_21: {jutsu: 1, pvp_legal: 1}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b5ebda9c319eb72e80670229b0b72ea9ac, paths under app/src
+  - libs/combat/tags.ts elementalseal (line 2435)
+  - libs/combat/process.ts first reference (line 1653)
+  - "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)"
+  - libs/combat/util.ts EFFECT_SORT_RANK rank 15 (line 1082)
+  - libs/combat/actions.ts availableUserActions (line 111)
+interactions:   # full list with notes in ../interactions.json
+  outgoing:
+    hides: [elementaldamage]
+  incoming:
+    overlaps: [stealth]
+    removes: [cleanse]
+    transfers: [mirror]
