@@ -14,7 +14,7 @@ areas:
     owns: deals or takes damage over time, or stores damage or healing to land later
   - area: Damage scaling
     tags: [increasedamagegiven, decreasedamagegiven, increasedamagetaken, decreasedamagetaken, increasepotency, decreasepotency, increasestat, decreasestat, increasemastery, decreasemastery]
-    owns: raises, lowers, caps or flips how hard someone hits or gets hit
+    owns: raises or lowers how hard someone hits or gets hit, through percentage or flat damage given/taken modifiers, the stats and masteries the damage formula reads, or jutsu potency. These are the modifiers the engine implements; none caps a hit or flips damage into healing (reductions stop at 0 and at the 10% floor, engine.md 4).
   - area: Soak damage
     tags: [shield, barrier, absorb, siphon, consume, finalstand]
     owns: soaks incoming damage in a separate HP bar (shield, barrier), turns damage dealt or taken into shields or pools (siphon, consume, absorb), or stops a packet at 1 HP while active (finalstand). Percentage and flat damage reduction belong to Damage scaling.
@@ -64,7 +64,7 @@ areas:
 outside_battle_or_cosmetic: [increaseregeneration, decreasecookingtime, decreasecraftingtime, decreasefarmingtime, decreasegatheringtime, increasegatheringyield, increasehuntingyield, increasejutsuslots, marriageslotincrease, noncombatincreasereskins, noncombatconsumereward, noncombatgainskill, noncombatquest, repair, removebloodline, rollbloodline, rollsagemode, unlockitemvariant, unknown, visual]
 open_space:   # outcomes no existing tag owns
   - name: Duration
-    detail: lengthening or shortening effects already running. Today an effect runs out, is removed in full, or ends when a prevent blocks its next tick; no tag changes another effect's rounds. The one rounds reset in the engine is a bloodline Final Stand re-arming itself to 1 round when it fires (tags.ts:2238-2255), which is not a duration tool.
+    detail: adjusting the rounds of an effect that stays on, lengthening or shortening it. Ending an effect is owned elsewhere - Clear and Cleanse set the removed effects' rounds to 0 (tags.ts:1104-1127), Pierce zeros the shields it destroys (process.ts:1004-1016), and a blocked prevent check ends an effect - but no tag adjusts a surviving effect's rounds. The one rounds reset in the engine is a bloodline Final Stand re-arming itself to 1 round when it fires (tags.ts:2220-2221), which is not a duration tool.
   - name: Turn order
     detail: who acts first in a round. Initiative exists in the engine (cyclic order), but no tag changes it.
   - name: Information

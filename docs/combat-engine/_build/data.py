@@ -1,9 +1,22 @@
-import json,re
-raw=json.load(open('/tmp/map/tags_raw.json'))
+"""Rebuild the curated tag snapshot _build/data.json (area, polarity, copy/mirror eligibility, live usage counts).
+
+    python3 data.py TAGS_RAW_JSON USAGE_TABLE_MD [OUT_JSON]
+
+TAGS_RAW_JSON is extract.py's --legacy-raw output. USAGE_TABLE_MD is a markdown table with rows
+"| tag | jutsu count | pvp-legal count |" (the Nov 21 table lives in the project files, outside this repo).
+OUT_JSON defaults to _build/data.json, the committed snapshot kb.py reads. Only rerun this to change the curated
+fields or refresh usage counts; rerunning blanks the overlaps notes in OUT_JSON, which kb.py no longer reads.
+"""
+import json,os,re,sys
+if len(sys.argv) < 3:
+    sys.exit(__doc__)
+RAW, USAGE = sys.argv[1], sys.argv[2]
+OUT = sys.argv[3] if len(sys.argv) > 3 else os.path.join(os.path.dirname(os.path.abspath(__file__)), "data.json")
+raw=json.load(open(RAW))
 bytype={v['type']:(k,v) for k,v in raw.items()}
 # usage
 use={}
-for line in open('/mnt/project-files/tnr/design/jutsu_tag_usage_2026-11-21.md'):
+for line in open(USAGE):
     m=re.match(r'\| (\w+) \| (\d+) \| (\d+) \|',line)
     if m: use[m.group(1)]=(int(m.group(2)),int(m.group(3)))
 
@@ -254,7 +267,7 @@ for x in E:
     key=(x['s'],x['t'],x['k'])
     if key in seen: continue
     seen.add(key);E2.append(x)
-json.dump({"areas":[{"id":a,"name":n,"color":c} for a,n,c in AREAS],"nodes":nodes,"edges":E2},open('/tmp/map/data.json','w'))
+json.dump({"areas":[{"id":a,"name":n,"color":c} for a,n,c in AREAS],"nodes":nodes,"edges":E2},open(OUT,'w'))
 print(len(nodes),len(E2))
 from collections import Counter
 print(Counter(x['k'] for x in E2))
@@ -264,7 +277,7 @@ print(Counter(n['area'] for n in nodes))
 # --- overlaps (design judgement), added after the first build ---
 OV=[("reflect","parry"),("lifesteal","vamp"),("consume","siphon"),("shield","barrier"),("clear","cleanse"),("copy","mirror"),("stun","timecompression"),("timecompression","increasepoolcost"),("buffprevent","clear"),("debuffprevent","cleanse"),("afterburn","increasedamagetaken"),("weakness","increasedamagetaken"),("recoil","reflect"),("wound","drain"),("drain","poison"),("curse","diffuse"),("increasedamagegiven","increasedamagetaken"),("decreasedamagegiven","decreasedamagetaken"),("stealth","elementalseal"),("summon","clone"),("heal","curse"),("finalstand","diffuse")]
 # notes for each pair are in ../interactions.json (kind: overlaps)
-_d=json.load(open('/tmp/map/data.json'))
+_d=json.load(open(OUT))
 if not any(e['k']=='overlaps' for e in _d['edges']):
     _d['edges']+=[{"s":a,"t":b,"k":"overlaps","n":""} for a,b in OV]
-    json.dump(_d,open('/tmp/map/data.json','w'))
+    json.dump(_d,open(OUT,'w'))

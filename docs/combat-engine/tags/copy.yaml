@@ -2,7 +2,7 @@ tag: copy
 schema: validators/combat.ts CopyTag (line 654)
 exclusion_area: Take effects
 in_game_text: Copies some positive effects from the target to the user
-behavior: "The caster's own buffprevent can block it. Otherwise it rolls power% to clone the target's best positive effects onto the caster for the copy's rounds; the target keeps theirs. It holds 4 at most at once, per caster. Order of preference: damage-given up or damage-taken down, then lifesteal, then absorb or reflect, then shield, then increaseheal, then increasestat. Passive and gear sources can't be copied."
+behavior: "The caster's own buffprevent can block it. Otherwise it rolls power% once, in its casting action, to clone the target's best positive effects onto the caster for the copy's rounds; the target keeps theirs. It holds 4 at most at once, per caster. Order of preference: damage-given up or damage-taken down, then lifesteal, then absorb or reflect, then shield, then increaseheal, then increasestat. Passive and gear sources can't be copied. A miss copies nothing and does not set the Copy's rounds to 0 (tags.ts:462, 507-518)."
 polarity: neutral   # positive = Clear removes; negative = Cleanse removes; neutral = neither
 prevented_by: [buffprevent (on the caster)]
 prevent_check: "age-compared, against the Copy caster's own buffprevent (tags.ts:456)"

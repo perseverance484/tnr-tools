@@ -2,8 +2,13 @@
 """Write docs/combat-engine/rules.json: the engine's numeric combat constants (caps, base pools, timing), each read
 from the game source with its file and line, so tools load numbers instead of hardcoding them.
 
-    python3 rules.py /path/to/TheNinjaRPG [out.json]
+    python3 rules.py /path/to/TheNinjaRPG [out.json] [--revision SHORT_SHA]
+
+The game root must be a git checkout (its HEAD is recorded as pinned_game_commit). For an archive or any copy
+without git metadata, pass --revision with the commit it was taken from; with neither, the script exits 1 rather
+than write an empty commit. read_constants() is shared with combat_map.py --check --game.
 """
+import argparse
 import json
 import os
 import re
@@ -40,12 +45,9 @@ def value(raw):
     return float(raw) if "." in raw else int(raw)
 
 
-def main():
-    root, out = sys.argv[1], (sys.argv[2] if len(sys.argv) > 2 else
-                              os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "rules.json"))
-    commit = subprocess.run(["git", "-C", root, "rev-parse", "--short", "HEAD"], capture_output=True,
-                            text=True).stdout.strip()
-    res = {"pinned_game_commit": commit, "caps": {}, "base": {}, "timing": {}, "stacking": {}}
+def read_constants(root):
+    """{group: {key: {value, what, source}}} for every name in NAMES, read from the game source at root."""
+    res = {"caps": {}, "base": {}, "timing": {}, "stacking": {}}
     found = set()
     for rel in FILES:
         for i, line in enumerate(open(os.path.join(root, rel)), 1):
@@ -57,10 +59,37 @@ def main():
                 found.add(m.group(1))
     missing = set(NAMES) - found
     if missing:
-        sys.exit(f"not found in source: {sorted(missing)}")
-    json.dump(res, open(out, "w"), indent=1)
-    print(f"wrote {out}: {len(found)} constants @ {commit}")
+        raise ValueError(f"not found in source: {sorted(missing)}")
+    return res
+
+
+def git_head(root):
+    """Short HEAD of root, or "" when root is not a git checkout."""
+    r = subprocess.run(["git", "-C", root, "rev-parse", "--short", "HEAD"], capture_output=True, text=True)
+    return r.stdout.strip() if r.returncode == 0 else ""
+
+
+def main(argv):
+    ap = argparse.ArgumentParser(description="Write rules.json from the game source.")
+    ap.add_argument("game_root")
+    ap.add_argument("out", nargs="?", default=os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                                                         "rules.json"))
+    ap.add_argument("--revision", help="game commit to record when game_root has no git metadata")
+    a = ap.parse_args(argv)
+    head = git_head(a.game_root)
+    if head and a.revision and not head.startswith(a.revision[:len(head)]) and not a.revision.startswith(head):
+        sys.exit(f"--revision {a.revision} does not match the checkout's HEAD {head}")
+    commit = head or (a.revision or "").strip()
+    if not commit:
+        sys.exit(f"{a.game_root} is not a git checkout; pass --revision with the game commit it was taken from")
+    try:
+        res = read_constants(a.game_root)
+    except ValueError as e:
+        sys.exit(str(e))
+    res = {"pinned_game_commit": commit, **res}
+    json.dump(res, open(a.out, "w"), indent=1)
+    print(f"wrote {a.out}: {sum(len(v) for v in res.values() if isinstance(v, dict))} constants @ {commit}")
 
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1:])

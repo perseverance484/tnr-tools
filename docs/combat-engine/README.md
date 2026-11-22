@@ -22,9 +22,11 @@ Link counts: removes 64, prevents 43, transfers 33, boosts 32, weakens 31, count
 ## Who reads it
 
 - **PvP planner** (`state/player/dauntless/tools/`): `combat_map.py` loads `tags.json`, `interactions.json` and
-  `rules.json`. `planner2.py`, `turn.py` and `shotplan.py` take their absorb, reflect, lifesteal and afterburn caps
+  `rules.json`. `planner2.py`, `turn.py` and `shotplan.py` take their absorb, reflect, lifesteal, afterburn and parry caps
   from it. `python3 combat_map.py --check` and `tests/test_combat_map.py` fail when a planner table (Clear and Cleanse
-  sides, kind-to-tag names, hostile ground kinds, caps) drifts from the map. `python3 combat_map.py TAG` prints what
+  sides, kind-to-tag names, hostile ground kinds, cap literals) drifts from the map; only `--check --game PATH`
+  (and the test, when a checkout is at `TNR_GAME_SRC` or `/tmp/tnrgit/repo`) also checks `rules.json` against the
+  game source. `python3 combat_map.py TAG` prints what
   the engine does with a tag, for replay reviews and live reads.
 - **Skills**: designing-tnr-content (tag exclusions), tnr-pvp-combat, tnr-replay-analysis,
   designing-tnr-pve-encounters, building-tnr-content and simulating-tnr-combat read it for engine claims. The map
@@ -67,26 +69,29 @@ Link counts: removes 64, prevents 43, transfers 33, boosts 32, weakens 31, count
 
 ```bash
 export PYTHONDONTWRITEBYTECODE=1
-GAME=/tmp/tnrgit/repo          # studie-tech/TheNinjaRPG at the pinned commit
-mkdir -p /tmp/map
-python3 extract.py $GAME /tmp/map/tags_resolved.json --legacy-raw /tmp/map/tags_raw.json
+GAME=/tmp/tnrgit/repo          # a git checkout of studie-tech/TheNinjaRPG at the pinned commit
+OUT=$(mktemp -d)
+python3 extract.py $GAME $OUT/tags_resolved.json --legacy-raw $OUT/tags_raw.json
 python3 edges.py ../interactions.json                       # link edits from curation.py; idempotent
-python3 kb.py $GAME /tmp/map/data.json /tmp/kbout --extract /tmp/map/tags_resolved.json --interactions ../interactions.json
-diff -ru ../tags /tmp/kbout/tags                            # review, then copy tags/ and tags.json over
-python3 rules.py $GAME ../rules.json
-python3 ../../../state/player/dauntless/tools/combat_map.py --check
+python3 kb.py $GAME data.json $OUT/kb --extract $OUT/tags_resolved.json --interactions ../interactions.json
+diff -ru ../tags $OUT/kb/tags                               # review, then copy tags/ and tags.json over
+python3 rules.py $GAME ../rules.json                        # a copy without .git needs --revision SHA
+python3 ../../../state/player/dauntless/tools/combat_map.py --check --game $GAME
 ```
 
 - `extract.py` resolves every tag schema from `validators/combat.ts`: helpers, spreads (across imports),
   `.extend/.omit/.pick`, multi-line expressions. It exits 1 if anything is left unresolved.
-- `data.py` holds the original curated nodes (area, polarity, eligibility, usage) and writes `data.json`. It
-  reads `/tmp/map/tags_raw.json` and the Nov 21 usage table; rerunning it blanks the `overlaps` notes in
-  `data.json`, which kb.py no longer reads (links come from `interactions.json`).
+- `data.json` (committed here) is the curated input kb.py reads: each tag's exclusion area, polarity, copy and
+  mirror eligibility, fallback behavior text and its live usage counts from Nov 21. `data.py RAW USAGE [OUT]`
+  rebuilds it from extract.py's `--legacy-raw` output and a usage table (`| tag | jutsu | pvp-legal |` rows; the
+  Nov 21 table is in the project files, not this repo). Only rerun it to change those fields; it blanks the
+  `overlaps` notes in its output, which kb.py no longer reads.
 - `curation.py` is the hand-checked layer from the PR #129 review: stages, behavior text, live_from, applies,
   prevent_check, link edits and kind definitions. Change engine facts here, with a source line.
 - `kb.py` writes `tags/` and `tags.json`. Sort ranks are read only from the `EFFECT_SORT_RANK` map (following
   spreads), dispatch passes from `applyEffects`, and every extra citation is looked up at its definition.
-- `rules.py` reads the numeric constants into `rules.json`.
+- `rules.py` reads the numeric constants into `rules.json` and records the checkout's git HEAD. It exits 1 instead of writing an empty commit when the game root has no git metadata, unless `--revision SHA` names the commit the copy came from.
+- `combat_map.py --check` checks the planner against the map (polarity tables, tag names, hostile ground kinds, no numeric cap literals). With `--game PATH` (or `TNR_GAME_SRC`) it also re-reads every rules.json constant from that checkout, compares value, symbol and file:line, and checks HEAD against the pinned commit. Nothing re-reads tags.json, interactions.json or engine.md against the game; those are hand-checked in `curation.py`.
 
 When the game source moves past `29cd91b`, re-read the handlers cited in each file before trusting a line; line
 numbers will drift first.

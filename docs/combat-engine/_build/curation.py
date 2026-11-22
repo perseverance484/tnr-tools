@@ -100,6 +100,8 @@ LIVE = {
     "disarm": "action gate while active with rounds left and not cast this round",
     "elementalseal": "action gate while active with rounds left and not cast this round",
     "stun": "AP cut from the round after it lands",
+    "injectjutsus": ("as soon as it has resolved and is enabled: no next-round wait, so the jutsu can be used later in "
+                     "the casting round (actions.ts:148-160)"),
 }
 
 APPLIES = {
@@ -131,6 +133,9 @@ PREVENT_CHECK_DEFAULT = _AGE
 # Behavior text (replaces data.py's). Sources are in the verification notes and each tag's source list.
 # ---------------------------------------------------------------------------------------------------------
 BEHAVIOR = {
+    "copy": ("The caster's own buffprevent can block it. Otherwise it rolls power% once, in its casting action, to clone the target's best positive effects onto the caster for the copy's rounds; the target keeps theirs. It holds 4 at most at once, per caster. Order of preference: damage-given up or damage-taken down, then lifesteal, then absorb or reflect, then shield, then increaseheal, then increasestat. Passive and gear sources can't be copied. A miss copies nothing and does not set the Copy's rounds to 0 (tags.ts:462, 507-518)."),
+    "mirror": ("Rolls power% once, in its casting action, to clone up to 4 of the caster's own active negative effects onto the target for the mirror's rounds. The caster keeps their copies. Order of preference: damage-taken up or damage-given down first, then afterburn, then poison or pool-cost, then wound, then anything else. Raw damage, pierce, clear, stun, time compression and four prevents are excluded, and so is anything from bloodline, gear or other passives. The target's debuffprevent blocks it. A miss passes nothing and does not set the Mirror's rounds to 0 (tags.ts:547, 621-626)."),
+    "injectjutsus": ("Adds the listed jutsu to the holder's action list while it is active and enabled. Unlike the hiding gates it has no not-cast-this-round wait, so a grant that has resolved can expose its jutsu later in its own casting round (actions.ts:148-160). Neither Clear nor Cleanse can remove it."),
     "damage": (
         "Formula damage (the default) scales a baseline by power and by an attack-vs-defence advantage. The "
         "baseline is max HP at the attacker's level divided by base hits. Attack and defence are the square roots "
@@ -152,15 +157,18 @@ BEHAVIOR = {
         "before the action's main pass, so a stat change resolved in the same action doesn't reach it. It isn't "
         "soaked by shields. Instead it sets every enabled shield on the target to 0, and Final Stand still "
         "applies. If the target's Diffuse defers part of it, shields soak the immediate part like ordinary damage "
-        "and are not destroyed. Parry, Recoil and Afterburn ignore Pierce. Lifesteal, Absorb, Reflect, Wound and "
+        "and are destroyed only if positive Reflect is still on that Pierce hit when mitigation runs (if the "
+        "attacker's own Diffuse defers that Reflect, it moves to a separate hit and the shields survive). Parry, Recoil and Afterburn ignore Pierce. Lifesteal, Absorb, Reflect, Wound and "
         "Vamp read an instant Pierce hit, and Lifesteal, Absorb and Reflect skip their general filter for it. "
         "Curse stores HP lost to it. With rounds above 0 it deals nothing on cast and ticks on later rounds."),
     "decreasedamagetaken": (
         "Reduces Damage and Elemental Damage packets the holder takes. It doesn't touch Pierce, drain, poison, "
         "wound, afterburn or Diffuse repayment. It works from the round after it lands, and Buffprevent can block "
         "it. Each percentage effect multiplies by (1 - power%), clamped at 0, after all increases and the 50% "
-        "system reduction. Gear and keystone percentages are instead added to the 50 points, and keystone ones "
-        "apply later. Static values are subtracted after the ordinary percentage stage. Bloodline percentages "
+        "system reduction. Percentages are percentage points, divided by 100 like increases. Pre-battle percentages sit in two "
+        "pools: gear DR points join the 50 system points, before static values; keystone DR points are summed "
+        "into a separate multiplier applied after static values, and skipped when DR is ignored (the Diffuse "
+        "lethality test). Static values are subtracted after the ordinary percentage stage. Bloodline percentages "
         "apply last; Seal and the damage tag's allowBloodlineDamageDecrease opt-out can switch bloodline ones off. "
         "With elements set, it only affects packets that share an element, and packets without elements count as "
         "None. Damage never drops below 10% of the boosted hit after the system reduction."),
@@ -176,19 +184,22 @@ BEHAVIOR = {
         "actions over their next delayRounds acting rounds, at the start of the action. Repayment skips shields, "
         "damage reduction and Absorb, respects Final Stand, and continues after the effect ends. The immediate "
         "part goes through shields and Final Stand as ordinary damage. That includes Pierce, which shields then "
-        "soak instead of breaking, and afterburn, drain and poison, which otherwise skip both. Absorb and "
+        "soak instead of breaking unless positive Reflect is still on that Pierce hit when mitigation runs (the "
+        "attacker's own Diffuse deferring the Reflect moves it off the hit), and afterburn, drain and poison, which otherwise skip both. Absorb and "
         "Lifesteal only see the immediate part. It can't be cleansed, prevented or copied."),
     "shield": (
         "Rolls power% to appear, then acts as a separate HP bar worth its health field (up to 100,000). Direct, "
         "residual and parry-return damage drain the holder's shields before HP, as does the immediate part of "
-        "anything Diffuse deferred. Pierce isn't soaked: it sets every enabled shield on the target to 0, unless "
-        "Diffuse deferred part of it. Afterburn, drain, poison, One Hit Kill and Diffuse repayment never touch "
+        "anything Diffuse deferred. Pierce isn't soaked: it sets every enabled shield on the target to 0. When the "
+        "target's Diffuse deferred part of it, the immediate part is soaked instead, and the shields are still "
+        "destroyed only if positive Reflect remains on that Pierce hit when mitigation runs. Afterburn, drain, poison, One Hit Kill and Diffuse repayment never touch "
         "shields. Wound skips them only when it arrives on its own rather than merged into another hit from the "
         "same caster. Quirk (likely a game bug): reflect and recoil damage are soaked by the shields of the other "
         "side of the original hit, not the shields of the player taking it. It's positive, so Clear removes it "
         "and Copy can take it."),
     "finalstand": (
-        "Rolls power% to activate. While active, each separate damage packet that would leave the holder below 1 "
+        "Rolls power% every time it resolves, which is every action while it lasts, and the first failed roll "
+        "sets its rounds to 0 and ends it (tags.ts:2238-2255). While active, each separate damage packet that would leave the holder below 1 "
         "HP is cut to leave exactly 1 HP. Each packet is checked against HP as it stood before the action's "
         "damage, so several packets that are each survivable can still kill together (two 60s on a 100-HP holder "
         "kill). It applies to direct, residual, Pierce, wound, parry return, reflect and recoil damage, to the "
@@ -431,14 +442,18 @@ _UNLESS_DIFFUSE = "unless Diffuse deferred part of the hit (process.ts:1047-1053
 EDGE_OPS = [
     # H3 / H4: shields, Final Stand, Diffuse
     ("put", "pierce", "shield", "bypasses",
-     "not soaked; sets every enabled shield on the target to 0. Not when the target's Diffuse deferred part of it "
-     "that action: the immediate part is soaked and shields survive, unless Reflect rides the same packet "
-     "(process.ts:1004-1016, 1036-1040, 1054-1055)"),
+     "not soaked; sets every enabled shield on the target to 0. When the target's Diffuse deferred part of it, "
+     "the immediate part is soaked, and the shields are destroyed only if positive Reflect is still on the "
+     "original Pierce consequence when mitigation runs; the attacker's own Diffuse deferring that Reflect moves "
+     "it to a separate Reflect-typed consequence and clears it (process.ts:1004-1016, 1036-1040, 1054-1055; "
+     "damagePipeline.ts:460-474)"),
     ("put", "diffuse", "damage", "counters",
      "defers power% (<=99%, strongest Diffuse only) of the reduced hit; none if the action's combined incoming "
      "damage >= current HP"),
     ("put", "diffuse", "pierce", "counters",
-     "defers part of a non-lethal Pierce; the immediate part is soaked by shields instead of breaking them"),
+     "defers part of a non-lethal Pierce; the immediate part is soaked by shields instead of breaking them, "
+     "unless positive Reflect is still on the original Pierce consequence when mitigation runs (cleared if the "
+     "attacker's own Diffuse defers it) (process.ts:1036-1060, damagePipeline.ts:460-474)"),
     ("del", "diffuse", "absorb", "feeds"),
     ("put", "diffuse", "absorb", "weakens",
      "Absorb on a Diffuse holder resolves after deferral and converts only the immediate part; its 60% cap uses "

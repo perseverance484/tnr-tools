@@ -306,7 +306,7 @@ def apply(src_side, dst_side, spec, r, actor_is_me):
             wmul = dmg / base
             # system DR already inside the calibrated base
             # engine order: parry splits the direct hit before shields (process.ts splitParriedDamage), cap 100%
-            parried = dmg * min(1.0, da.get("parry", _Z)[0])
+            parried = dmg * min(CM.CAP_PARRY, da.get("parry", _Z)[0])
             dmg -= parried
             sh = da.get("shield", _Z)[0]
             if sh:

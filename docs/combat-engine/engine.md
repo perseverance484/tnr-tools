@@ -15,7 +15,7 @@ their mechanism.
 | R1 round start | Every fighter's AP refills to 100. `battle.round` advances. | `turn.ts:64` (`alignBattle` :25) |
 | R2 order | Turn ring = `usersState` order (sorted by initiative, highest first, at battle start), skipping fighters no longer in battle. The turn passes cyclically to the next fighter when the 60 s timer ends, the actor has no affordable action besides End Turn, or the actor left. In non-PvP battles the attacker acts first. A summon is its own actor: it copies its summoner's `initiative` and is inserted before the first fighter with lower initiative, so it acts after the summoner and anyone tied. No other combat tag reads or changes initiative. | `actions.ts:1697-1733` (`calcActiveUser`); `turn.ts:140-157`; `tags.ts:2755-2767`; `server/api/routers/combat.ts:3276-3280` |
 | R3 turn clock | 60 s per turn. | `constants.ts:62` |
-| R4 what you may use | `availableUserActions` filters. Stealth hides every jutsu and the basic attack, meditate, heal, clear, cleanse, both stances and flee; move, replacement, End Turn and items stay. Disarm hides weapons and weapon jutsu. Moveprevent hides move, replacement and move-tag jutsu. Summonprevent hides summon jutsu (items with a summon tag stay). Elementalseal hides jutsu with an authored 60 AP cost that are elemental. Injectjutsus adds jutsu. These gates need the effect active with rounds > 0 and not cast this round, and the server enforces them. Mastery, cooldown and battle-type gates also apply. End Turn shows only while available AP > 0. | `actions.ts:111-300` (stealth `:163-184`, `:230`; gates `:122-125`, `:231-266`); `util.ts:695-713`; `server/api/routers/combat.ts:756-759` |
+| R4 what you may use | `availableUserActions` filters. Stealth hides every jutsu and the basic attack, meditate, heal, clear, cleanse, both stances and flee; move, replacement, End Turn and items stay. Disarm hides weapons and weapon jutsu. Moveprevent hides move, replacement and move-tag jutsu. Summonprevent hides summon jutsu (items with a summon tag stay). Elementalseal hides jutsu with an authored 60 AP cost that are elemental. These hiding gates need the effect active with rounds > 0 and not cast this round, and the server enforces them. Injectjutsus adds jutsu without that wait: action selection reads only `isEffectEnabled` (active, not sealed), so a grant that has resolved can expose its jutsu later in its own casting round (`actions.ts:148-160`). Mastery, cooldown and battle-type gates also apply. End Turn shows only while available AP > 0. | `actions.ts:111-300` (stealth `:163-184`, `:230`; gates `:122-125`, `:231-266`); `util.ts:695-713`; `server/api/routers/combat.ts:756-759` |
 | R5 AP | Available AP = max(0, AP left − strongest stun `apReduction`). Only one stun counts, the strongest of two kinds: the holder's active, unsealed stun effects not cast this round, and active stun ground effects on the holder's tile not cast this round that pass `checkFriendlyFire` for the holder (this read makes no land roll). An action is allowed while available AP − its cost ≥ 0. Jutsu AP is ± 10 under timecompression/timedilation (`TEMPORAL_AP_DELTA`). | `actions.ts:1569-1597`, `turn.ts:159-182`, `util.ts:681-692`, `drizzle/constants.ts:4581` |
 | R6 each action | Cast → effects created (`isNew`, `castThisRound`) → `applyEffects` resolves **all live effects** (section 2). Runs after every action, not once a round. | `process.ts:357` |
 | R7 round end | For every user and ground effect not cast this round: `rounds = max(0, rounds-1)`; then `isNew=false`, `castThisRound=false`. Curses with 1 round left settle (pay stored heal) if an enemy is still in the fight. Ground effects expire. Masteries refresh. Sage exhaustion applies. | `turn.ts:58-121` |
@@ -53,8 +53,8 @@ Curse HP-loss storage happens at several points: instant kills (S4, `process.ts:
 
 - **Two apply groups** (`process.ts:1514` and `:1595`, `util.ts:848-876`). *Ticking* tags (damage and pierce residual, heal, drain, clear, cleanse, flee, rob, seal, stun, wound, onehitkill, pool cost, aggro) apply when new and then once a round, on the holder's first action of the round. *Always-apply* tags (stats, mastery, damage and heal modifiers, potency, absorb, reflect, parry, recoil, afterburn, lifesteal, vamp, prevents, shield, curse, copy, mirror, time shift, redirection, finalstand, **poison**) run on every action resolution. Poison therefore deals damage on every action its holder takes from the next round.
 - **When an effect starts to count** (each tag's `live_from`). Damage modifiers need `!isNew && startRound !== curRound` and no blocking prevent (`damagePipeline.ts:166-185`); stats, mastery, absorb, reflect, parry, recoil, afterburn, lifesteal and heal modifiers gate on `!isNew && !castThisRound`. Law 75. Exceptions: potency gates on `isNew` only, so it affects the holder's next jutsu cast, later in the same round included (`potency.ts:93`, `process.ts:1745`). Seal counts as active as soon as it lands, inside its own casting action (`util.ts:938-940`). Consume, Siphon and Diffuse work from their casting action. Range and cooldown modifiers count as soon as they are on the holder. `damage`, `heal`, `pierce` with rounds 0 are instant; with rounds > 0 the casting action does nothing and they tick from the holder's first action of the next round (`tags.ts:1447-1449`, `:1588-1591`).
-- **rounds**: 0 = instant. N = lasts N round changes after the cast round. Effects end early by removal, a blocked prevent check (`rounds = 0`, `tags.ts:2821-2826`) or a failed land roll. The only tag that resets its own rounds is a bloodline Final Stand, which re-arms to rounds 1 when it fires (`tags.ts:2238-2255`). No tag changes another effect's rounds.
-- **Land rolls.** Many tags roll `power%` once on landing and set `rounds = 0` on a miss: prevents, stun, seal, stealth, elementalseal, weakness, shield, finalstand, copy, mirror, timecompression, timedilation. Clear, cleanse and flee re-roll every tick until they hit.
+- **rounds**: 0 = instant. N = lasts N round changes after the cast round. Effects end early by removal (Clear and Cleanse set the removed effects' rounds to 0, `tags.ts:1104-1127`; Pierce zeros the shields it destroys, `process.ts:1004-1016`), a blocked prevent check (`rounds = 0`, `tags.ts:2821-2826`) or a failed land roll. The only tag that resets its own rounds is a bloodline Final Stand, which re-arms to rounds 1 when it fires (`tags.ts:2220-2221`). No tag lengthens, shortens or otherwise adjusts a surviving effect's rounds.
+- **Land rolls.** Many tags roll `power%` once on landing and set `rounds = 0` on a miss: prevents, stun, seal, stealth, elementalseal, weakness, shield, timecompression, timedilation. Three differ. Final Stand rolls every time its handler runs, which is every action resolution while it lasts, and sets `rounds = 0` the first time a roll fails (`tags.ts:2238-2255`). Copy and Mirror roll once, in their casting action, and a miss only reports failure without zeroing `rounds` (`tags.ts:462, 507-518, 547, 621-626`). Clear, cleanse and flee re-roll every tick until they hit.
 - **Prevents** (`tags.ts:2991 preventCheck`, `:338 applyPreventTag`). A prevent rolls power% to land. On success its power latches at 100 (`tags.ts:350-353`), so every later check blocks. It counts only while it is enabled and not cast this round (`util.ts:681`), a bloodline-sourced one is off while its holder is sealed, and preventCheck reads only the first matching one. Each tag's `prevent_check` says which of three kinds applies:
   - **Age-compared:** handlers that pass the checked effect block it only if it was created in a later round than the prevent. Effects already on the holder, or cast the same round, get through. This covers every buff and debuff (buffprevent, debuffprevent), Heal, Lifesteal and Absorb (healprevent), Stun, and Redirection (moveprevent).
   - **Any age:** Clear, Cleanse, Flee, Rob, Seal, One Hit Kill, Move and the Curse expiry payout pass no effect, so any active prevent blocks them, including a multi-round effect cast before it (`tags.ts:1155, 1165, 1531, 2356, 2402, 2317, 2273, 1690`). Ticking effects re-check on the holder's turn, so a Sealprevent that lands later ends an existing Seal. Move checks the mover's own moveprevent. Vamp is blocked if its caster has any active healprevent, with no roll (`tags.ts:1962`). A block sets the effect's `rounds` to 0.
@@ -93,28 +93,31 @@ raw *= 1 - barrierAbsorb  instant only (cast this round, rounds 0)              
 #            (none = "None"), else 0. Generals ignored.                                    # tags.ts:2928-2935
 # m counts only if active, not isNew, not cast this round, not blocked by its prevent        # damagePipeline.ts:166-185
 d  = raw * Π(1 + curse.damageBonusPercent/100)   attacker's unsettled, enabled Curses       # damagePipeline.ts:701-712, curse.ts:12-29
-d *= Π(1 + p*ratio)        stage-1 % increases: skill/village/ranked/elementalMastery       # damagePipeline.ts:560, 320
-d *= 1 + (60 + atkGearIncGiven + defGearIncTaken + Σ elemGearInc*ratio)/100                 # damagePipeline.ts:562-567
-d *= Π(1 + p*ratio)        in-battle % increases: increasedamagegiven (attacker), increasedamagetaken (defender)  # :569, 322
+# p = effective power in percentage points (25 = 25%); every % modifier divides by 100       # damagePipeline.ts:543-557
+d *= Π(1 + p/100*ratio)    stage-1 % increases: skill/village/ranked/elementalMastery       # damagePipeline.ts:560, 320
+d *= 1 + (60 + atkGearIncGiven + defGearIncTaken + Σ elemGearInc*ratio)/100   gear pool    # damagePipeline.ts:562-567
+d *= Π(1 + p/100*ratio)    in-battle % increases: increasedamagegiven (attacker), increasedamagetaken (defender)  # :569, 322
 B  = d                                                                                       # :571
-d *= max(0, 1 - (50 + defGearDR + atkGearDRgiven + Σ|elemGearDR|*ratio)/100)               # :573-581
-d *= Π max(0, 1 - |p|*ratio/100)   stage-1 % DR, then in-battle % DR (decreasedamagetaken defender, decreasedamagegiven attacker)  # :583-584
+d *= max(0, 1 - (50 + defGearDR + atkGearDRgiven + Σ|elemGearDR|*ratio)/100)   gear DR pool # :573-581
+d *= Π max(0, 1 - |p|/100*ratio)   stage-1 % DR, then in-battle % DR (decreasedamagetaken defender, decreasedamagegiven attacker)  # :583-584
 floor = B * max(0, 1 - 0.50) * (1 - 0.9)    # 5% of B = 10% of the post-system-DR hit       # :586-590, drizzle/constants.ts:4576,4583
 d = max(d, floor)                                                                            # :591
 d += Σ static increase*ratio                (bloodline: seal skips, opt-out respected)        # :593-602
 d  = max(floor, d - Σ |static DR|*ratio)    (bloodline: seal skips, opt-out respected)        # :604-613
-d *= 1 + keystoneIncPoints/100                                                               # :615-619
-d *= max(0, 1 - keystoneDrPoints/100); d = max(floor, d)                                      # :621-628
-d *= Π(1 + p*ratio)  bloodline % increases; d *= Π max(0, 1 - |p|*ratio/100) bloodline % DR   # :630-646 (seal skips, opt-outs)
+d *= 1 + (atkKeystoneIncGiven + defKeystoneIncTaken + Σ elemKeystoneInc*ratio)/100   keystone pool  # :615-619
+d *= max(0, 1 - (defKeystoneDR + atkKeystoneDRgiven + Σ|elemKeystoneDR|*ratio)/100); d = max(floor, d)  # :621-628 (DR part skipped in the Diffuse test)
+d *= Π(1 + p/100*ratio)  bloodline % increases; d *= Π max(0, 1 - |p|/100*ratio) bloodline % DR   # :630-646 (seal skips, opt-outs)
 d  = max(floor, d)                                                                           # :648
 ```
 
 Notes.
-- Unscoped percentage gear and keystone modifiers fold into the point sums at battle start and are added to the
-  60 / 50 base points, not multiplied (`damagePipeline.ts:83-136`). Element-scoped ones join the same sums per
-  packet, scaled by `ratio`. The stage-1 multiplicative list holds only skill, village, ranked and
+- Two point pools, both folded at battle start from unscoped percentage modifiers (`damagePipeline.ts:83-136`).
+  **Gear** points are added to the 60 increase / 50 DR base points and applied before static modifiers.
+  **Keystone** points are a separate pool, applied as one multiplier each way after static DR (`:615-628`), and
+  keystone DR is skipped when DR is ignored (the Diffuse lethality test). Element-scoped gear and keystone
+  modifiers join their own pool per packet, scaled by `ratio`. The stage-1 multiplicative list holds only skill, village, ranked and
   elementalMastery (`damagePipeline.ts:75-77, 320`).
-- Ordinary percentage DR runs **before** static DR. Keystone and bloodline percentage DR run after it.
+- Gear and ordinary percentage DR run **before** static DR. Keystone and bloodline percentage DR run after it.
 - Every percentage reduction multiplier is clamped at 0. The 10% floor is enforced after static DR, after
   keystones and after bloodline DR.
 - Bloodline opt-outs (`allowBloodlineDamageIncrease/Decrease` on the damage tag, kept through the elementaldamage
@@ -142,7 +145,7 @@ does the same. Mitigation also needs both the consequence's user and target pres
 | Reflect, not deferred | quirk: the **reflector's own** remaining shields soak it (destroyed instead on a Pierce hit) | yes, the attacker's | `process.ts:965-971, 1054-1055, 1196-1236` |
 | Recoil, not deferred | quirk: the shields of the **player the recoil holder hit**; never on Pierce hits | yes, the recoil holder's | `process.ts:965-971, 1057-1058, 1238-1246` |
 | Parry return | yes, the attacker's shields | yes | `process.ts:887-896, 1038-1039` |
-| Diffuse immediate part (any HP key, Pierce included) | yes, as ordinary damage (no Pierce destroy) | yes | `process.ts:1036-1053` |
+| Diffuse immediate part (any HP key, Pierce included) | yes, as ordinary damage; a deferred Pierce destroys the holder's shields only if positive Reflect is still on the original Pierce consequence when mitigation runs (if the attacker's own Diffuse defers that Reflect, it moves to a separate Reflect-typed consequence and the original field is cleared) | yes | `process.ts:1036-1060`; `damagePipeline.ts:460-474` |
 | Diffuse immediate part of reflect or recoil aimed at a Diffuse holder | yes, the recipient's own shields | yes | `damagePipeline.ts:460-474` |
 | Diffuse repayment | no | yes (bloodline Final Stand re-armed) | `diffuse.ts:111-119` |
 | One Hit Kill | no | no (HP set in the main pass) | `process.ts:455-467, 1559-1569` |
@@ -205,8 +208,11 @@ sealed; there is no next-round wait (`process.ts:509-515`, `util.ts:905-913`). O
   all increases, the Curse bonus, the floor and the Parry fraction (`damagePipeline.ts:427-449`). Everything else
   counts as it stands; reflect is first capped at 60%. The **deferred** amount comes from the normally modified
   packet: debt = current value × fraction (`damagePipeline.ts:454`; `diffuse.ts:62`).
-- **Pierce** can be deferred. Its immediate part is then soaked by shields as ordinary damage, not destroying
-  them (`process.ts:1036-1040`), unless Reflect rides the same packet (`process.ts:1054-1055`).
+- **Pierce** can be deferred. Its immediate part is then soaked by shields as ordinary damage (`process.ts:1036-1040`).
+  The shields are still destroyed if positive Reflect is left on the original Pierce consequence when mitigation
+  runs, because reflect is mitigated with the hit's own types (`process.ts:1054-1055`). If the attacker's own
+  Diffuse defers that Reflect, it moves to a separate Reflect-typed consequence and the original field is
+  cleared (`damagePipeline.ts:460-474`), so nothing is destroyed.
 - **The immediate part** goes through shields and Final Stand, including afterburn, drain and poison, which
   otherwise skip both (`process.ts:1047-1053`). Absorb and Lifesteal see only the immediate part.
 - **Repayment** is S6: the holder's next `delayRounds` acting rounds, `remaining/turnsLeft` each, through Final
@@ -219,8 +225,8 @@ Numbers are in `rules.json`, read from source by `_build/rules.py`.
 | Rule | Value | Source |
 |---|---|---|
 | Same tag, same caster, same target | stacks (`BATTLE_TAG_STACKING = true`) | `drizzle/constants.ts:2437`, `util.ts:962` |
-| % increases | multiply: Π(1+p) (law 9) | `damagePipeline.ts:560-569` |
-| % reductions | multiply: Π max(0, 1−p), floor 10% of the post-system hit (law 10) | `damagePipeline.ts:573-648`, `drizzle/constants.ts:4576` |
+| % increases | multiply: Π(1 + p/100), p in percentage points (law 9); gear and keystone points are summed into their own pools first | `damagePipeline.ts:560-569` |
+| % reductions | multiply: Π max(0, 1 − p/100), floor 10% of the post-system hit (law 10) | `damagePipeline.ts:573-648`, `drizzle/constants.ts:4576` |
 | Copy / Mirror | 4 held per caster; priority tiers; no passive or gear sources | `drizzle/constants.ts:4610-4690` |
 | Lifesteal + vamp | floor(0.6 × pre-shield immediate hit), shared, Vamp paid first | `constants.ts:80`, `process.ts:1107` |
 | Reflect | 0.6 × pre-Diffuse hit, not rounded, after the shield soak | `constants.ts:86`, `process.ts:1196-1200` |
@@ -251,9 +257,12 @@ Recorded so tools model what the engine does. Game code is read-only for us; rai
   and the recoil call are passed the attacker (`process.ts:965-971, 1043, 1054-1058`). So reflected damage is
   soaked by the reflector's own remaining shields, and recoil by the shields of the player the recoil holder hit.
   The `"reflect"` shield bypass at `process.ts:983` never fires, because `c.types` comes from the original hit.
-- **A deferred Pierce with Reflect still breaks shields.** When Reflect rides a Diffuse-deferred Pierce packet,
-  reflect mitigation runs with `c.types` containing `"pierce"`, which runs the destroy branch on the target's
-  shields after they soaked the immediate part (`process.ts:1004-1016, 1054-1055`).
+- **A deferred Pierce with Reflect still breaks shields.** When the defender's Diffuse defers a Pierce and
+  positive Reflect is still on that original consequence when mitigation runs, reflect mitigation runs with
+  `c.types` containing `"pierce"`, which runs the destroy branch on the defender's shields after they soaked the
+  immediate part (`process.ts:1004-1016, 1054-1055`). If the attacker's own Diffuse defers the Reflect, it is
+  moved to a separate Reflect-typed consequence and cleared from the original (`damagePipeline.ts:460-474`), and
+  the shields survive.
 - **A blocked Curse payout is lost** (may be intended). `settleCurse` zeroes `storedHealing` before the healprevent check
   (`tags.ts:1690`, called from `turn.ts:100`).
 - **Stale comment.** `constants.ts:251` says lifesteal matches "generals and elements"; the code checks generals

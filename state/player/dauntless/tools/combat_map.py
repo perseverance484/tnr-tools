@@ -10,15 +10,28 @@ critique tools load instead of hardcoding engine facts.
     CM.edges("absorb", "incoming")  # [(other tag, kind, note), ...]
 
 CLI:
-    python3 combat_map.py TAG            what the engine does with TAG, its timing and its links
-    python3 combat_map.py --check        the planner's hardcoded tables against the map (exit 1 on drift)
+    python3 combat_map.py TAG                        what the engine does with TAG, its timing and its links
+    python3 combat_map.py --check [--game PATH]      drift checks (exit 1 on any mismatch)
+
+What --check covers, and what it does not:
+  * Planner against the map (always): the planner's Clear/Cleanse polarity tables, its kind -> tag names, the
+    hostile ground kinds, and a scan of planner2.py, turn.py and shotplan.py for numeric cap literals beside
+    absorb / reflect / lifesteal / afterburn / parry terms (they must use combat_map.CAP_*).
+  * Map against the game (only with --game PATH, or TNR_GAME_SRC set): re-reads every constant in rules.json
+    from that game checkout and compares value, symbol and file:line, and checks the checkout's git HEAD against
+    the map's pinned commit (a copy without git metadata is compared but reported as revision-unverified).
+  * Not covered: tags.json, interactions.json and engine.md text are never re-read against the game; they are
+    hand-checked (docs/combat-engine/_build/curation.py). A passing --check without --game says nothing about
+    the game source at all.
 
 The map wins over a hardcoded guess. When the check fails, fix the planner table or, if the map is out of date
 with the game, regenerate the map (docs/combat-engine/README.md) and say which in the commit.
 Set TNR_COMBAT_MAP to another docs/combat-engine directory to read a different copy.
 """
+import importlib.util
 import json
 import os
+import re
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -152,12 +165,69 @@ def check_planner():
             bad.append(f"turn.HOSTILE_KINDS has {t}; the engine has it {polarity(t)}")
         elif t not in TAGS:
             bad.append(f"turn.HOSTILE_KINDS has {t}, which is not a combat tag")
-    # 4. the caps the planners use are the map's
+    # 4. the caps the planners use are the map's: no numeric literal in a min()/max() beside a capped term
     for mod in (P2, turn, shotplan):
-        src = open(mod.__file__).read()
-        if "min(0.6," in src:
-            bad.append(f"{os.path.basename(mod.__file__)} still hardcodes a 0.6 cap; use combat_map.CAP_*")
+        bad += cap_literals(mod.__file__)
     return bad
+
+
+_CAP_TERM = re.compile(r"absorb|reflect|lifesteal|leech|afterburn|parry|\b(?:PAR|ABS|PABS|REF|PREF|LS|PLS|AFB)\b"
+                       r"|\b(?:par|ab|refl|ls)\b")
+_NUM_IN_MIN = re.compile(r"\bmin\(\s*(?:\d+\.\d*|\.\d+|\d+)\s*,")
+
+
+def cap_literals(path):
+    """Lines of a planner file that cap an absorb/reflect/leech/afterburn/parry term with a number literal."""
+    out = []
+    for i, line in enumerate(open(path), 1):
+        code = line.split("#", 1)[0]
+        if _NUM_IN_MIN.search(code) and _CAP_TERM.search(code):
+            out.append(f"{os.path.basename(path)}:{i} caps with a literal; use combat_map.CAP_*: {code.strip()}")
+    return out
+
+
+def _rules_builder():
+    """docs/combat-engine/_build/rules.py, the same reader that wrote rules.json."""
+    path = os.path.join(MAP_DIR, "_build", "rules.py")
+    spec = importlib.util.spec_from_file_location("combat_engine_rules", path)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
+def check_source(game_root):
+    """rules.json against the game source at game_root. Returns (mismatches, notes)."""
+    bad, notes = [], []
+    if not _RULES:
+        return [f"rules.json not found at {MAP_DIR}"], notes
+    if not os.path.isdir(game_root):
+        return [f"game source not found at {game_root}"], notes
+    R = _rules_builder()
+    try:
+        live = R.read_constants(game_root)
+    except (OSError, ValueError) as e:
+        return [f"could not read the game constants: {e}"], notes
+    pinned = _RULES.get("pinned_game_commit") or ""
+    head = R.git_head(game_root)
+    if not head:
+        notes.append(f"{game_root} has no git metadata: values compared, but not that it is at {pinned}")
+    elif not (head.startswith(pinned) or pinned.startswith(head)):
+        bad.append(f"game checkout is at {head}; the map is pinned to {pinned} (regenerate the map or check out "
+                   f"{pinned})")
+    for grp, entries in live.items():
+        mine = _RULES.get(grp, {})
+        for key, e in entries.items():
+            m = mine.get(key)
+            if m is None:
+                bad.append(f"rules.json lacks {grp}.{key} ({e['source']})")
+                continue
+            if m["value"] != e["value"]:
+                bad.append(f"{grp}.{key}: rules.json {m['value']}, game {e['value']} ({e['source']})")
+            if m["source"] != e["source"]:
+                bad.append(f"{grp}.{key}: rules.json cites {m['source']}, game has it at {e['source']}")
+        for key in set(mine) - set(entries):
+            bad.append(f"rules.json has {grp}.{key}, which rules.py no longer reads from the game")
+    return bad, notes
 
 
 def describe(name):
@@ -183,10 +253,27 @@ def main(argv):
         print(__doc__)
         return 0
     if argv[0] == "--check":
+        game = os.environ.get("TNR_GAME_SRC")
+        if "--game" in argv:
+            i = argv.index("--game")
+            if i + 1 >= len(argv):
+                print("--game needs a path to a TheNinjaRPG checkout")
+                return 2
+            game = argv[i + 1]
         bad = check_planner()
         for b in bad:
             print("DRIFT  " + b)
-        print(f"combat map @ {GAME_COMMIT}: " + ("planner tables agree" if not bad else f"{len(bad)} mismatch(es)"))
+        print(f"planner vs map @ {GAME_COMMIT}: " + ("agree" if not bad else f"{len(bad)} mismatch(es)"))
+        if game:
+            sbad, notes = check_source(game)
+            for b in sbad:
+                print("DRIFT  " + b)
+            for n in notes:
+                print("NOTE   " + n)
+            print(f"rules.json vs game source at {game}: " + ("agree" if not sbad else f"{len(sbad)} mismatch(es)"))
+            bad += sbad
+        else:
+            print("game source: not checked (pass --game PATH or set TNR_GAME_SRC)")
         return 1 if bad else 0
     for name in argv:
         print(describe(name))

@@ -1482,7 +1482,7 @@
    "from": "pierce",
    "to": "shield",
    "kind": "bypasses",
-   "note": "not soaked; sets every enabled shield on the target to 0. Not when the target's Diffuse deferred part of it that action: the immediate part is soaked and shields survive, unless Reflect rides the same packet (process.ts:1004-1016, 1036-1040, 1054-1055)",
+   "note": "not soaked; sets every enabled shield on the target to 0. When the target's Diffuse deferred part of it, the immediate part is soaked, and the shields are destroyed only if positive Reflect is still on the original Pierce consequence when mitigation runs; the attacker's own Diffuse deferring that Reflect moves it to a separate Reflect-typed consequence and clears it (process.ts:1004-1016, 1036-1040, 1054-1055; damagePipeline.ts:460-474)",
    "evidence": "source-verified"
   },
   {
@@ -1958,7 +1958,7 @@
    "from": "diffuse",
    "to": "pierce",
    "kind": "counters",
-   "note": "defers part of a non-lethal Pierce; the immediate part is soaked by shields instead of breaking them",
+   "note": "defers part of a non-lethal Pierce; the immediate part is soaked by shields instead of breaking them, unless positive Reflect is still on the original Pierce consequence when mitigation runs (cleared if the attacker's own Diffuse defers it) (process.ts:1036-1060, damagePipeline.ts:460-474)",
    "evidence": "source-verified"
   },
   {

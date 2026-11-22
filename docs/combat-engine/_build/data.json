@@ -1,0 +1,3791 @@
+{
+    "areas": [
+        {
+            "id": "dmgnow",
+            "name": "Damage now",
+            "color": "#d1495b"
+        },
+        {
+            "id": "dmglater",
+            "name": "Damage later",
+            "color": "#e07a1f"
+        },
+        {
+            "id": "scaling",
+            "name": "Damage scaling",
+            "color": "#c9a227"
+        },
+        {
+            "id": "soak",
+            "name": "Soak",
+            "color": "#2a9d8f"
+        },
+        {
+            "id": "sendback",
+            "name": "Send back",
+            "color": "#8a5cc2"
+        },
+        {
+            "id": "heal",
+            "name": "Healing",
+            "color": "#3a9d4a"
+        },
+        {
+            "id": "remove",
+            "name": "Remove",
+            "color": "#5a6b7d"
+        },
+        {
+            "id": "take",
+            "name": "Take",
+            "color": "#b5487f"
+        },
+        {
+            "id": "protect",
+            "name": "Protection",
+            "color": "#2f6fbf"
+        },
+        {
+            "id": "deny",
+            "name": "Deny actions",
+            "color": "#a33b3b"
+        },
+        {
+            "id": "speed",
+            "name": "Speed up",
+            "color": "#1f9bb5"
+        },
+        {
+            "id": "position",
+            "name": "Position",
+            "color": "#7a7a2a"
+        },
+        {
+            "id": "fighters",
+            "name": "Extra fighters",
+            "color": "#6d4c9e"
+        },
+        {
+            "id": "pools",
+            "name": "Pools and money",
+            "color": "#8c6d3f"
+        },
+        {
+            "id": "escape",
+            "name": "Escape",
+            "color": "#4f7f6f"
+        },
+        {
+            "id": "aggro",
+            "name": "AI aggro",
+            "color": "#9b6b9e"
+        },
+        {
+            "id": "sage",
+            "name": "Sage",
+            "color": "#c2703d"
+        },
+        {
+            "id": "noncombat",
+            "name": "Non-combat",
+            "color": "#8d8d8d"
+        }
+    ],
+    "nodes": [
+        {
+            "id": "absorb",
+            "area": "soak",
+            "desc": "Absorb damage taken & convert to health, chakra or stamina",
+            "beh": "Converts power% (or a flat amount) of each hit the holder takes into HP, chakra or stamina, split across the chosen pools, capped at 60% of the hit. It reads the immediate part after Diffuse and is live from the round after cast. Healprevent blocks it, Curse disables it, and heal modifiers scale it.",
+            "fields": [
+                "poolsAffected",
+                "generalTypes",
+                "elements"
+            ],
+            "calc": "percentage",
+            "stage": "s9",
+            "pol": "positive",
+            "copy": true,
+            "mirror": false,
+            "potency": true,
+            "pb": [
+                "healprevent"
+            ],
+            "use": 45,
+            "pvp": 38,
+            "schema": "AbsorbTag",
+            "prevtype": false
+        },
+        {
+            "id": "activatesagemode",
+            "area": "sage",
+            "desc": "Enter sage mode using your equipped sage mode definition",
+            "beh": "Enters the holder's equipped sage mode. Its buffs and exhaustion are persistent sources that Clear and Cleanse can't strip.",
+            "fields": [],
+            "calc": null,
+            "stage": "s3",
+            "pol": "neutral",
+            "copy": false,
+            "mirror": false,
+            "potency": false,
+            "pb": [],
+            "use": 0,
+            "pvp": 0,
+            "schema": "ActivateSageModeTag",
+            "prevtype": false
+        },
+        {
+            "id": "afterburn",
+            "area": "dmglater",
+            "desc": "Take a percentage of incoming damage as afterburndamage",
+            "beh": "A debuff on the holder. Every direct hit they take once it's live adds power% of that hit as extra damage, capped at 60% of the hit. Pierce doesn't trigger it, and no prevent check runs on it.",
+            "fields": [
+                "generalTypes",
+                "elements"
+            ],
+            "calc": "static,percentage",
+            "stage": "s9",
+            "pol": "negative",
+            "copy": false,
+            "mirror": true,
+            "potency": true,
+            "pb": [],
+            "use": 70,
+            "pvp": 63,
+            "schema": "AfterburnTag",
+            "prevtype": false
+        },
+        {
+            "id": "barrier",
+            "area": "soak",
+            "desc": "Creates a barrier with level corresponding to power",
+            "beh": "A ground object on a tile with its own HP (its level is the power). A single-target hit that passes through it loses absorbPercentage of its damage to the barrier, and an AoE hits a barrier standing on its tile. It breaks at 0 HP. It also stops Redirection from landing on its tile. Clear can't touch it.",
+            "fields": [
+                "curHealth",
+                "maxHealth",
+                "absorbPercentage"
+            ],
+            "calc": null,
+            "stage": "s4",
+            "pol": "neutral",
+            "copy": false,
+            "mirror": false,
+            "potency": false,
+            "pb": [],
+            "use": 10,
+            "pvp": 9,
+            "schema": "BarrierTag",
+            "prevtype": false
+        },
+        {
+            "id": "buffprevent",
+            "area": "protect",
+            "desc": "Prevents buffing",
+            "beh": "A prevent-type status. It rolls power% once to land, then blocks with certainty every buff cast on the holder in a later round: stat, mastery, damage given up, damage taken down, heal up, range, cooldown down, potency up, max pools up, reflect, curse, siphon, time dilation, aggro, and the holder's own Copy. Buffs already on the holder stay. Parry, shield, absorb and lifesteal ignore it.",
+            "fields": [],
+            "calc": null,
+            "stage": "s2",
+            "pol": "negative",
+            "copy": false,
+            "mirror": false,
+            "potency": false,
+            "pb": [],
+            "use": 13,
+            "pvp": 13,
+            "schema": "BuffPreventTag",
+            "prevtype": true
+        },
+        {
+            "id": "cleanse",
+            "area": "remove",
+            "desc": "Clears all negative effects from the target",
+            "beh": "Rolls power% each tick until it lands. Then it removes every negative effect on the target, with the same persistent-source exceptions as Clear. Cleanseprevent blocks it.",
+            "fields": [],
+            "calc": null,
+            "stage": "s3",
+            "pol": "neutral",
+            "copy": false,
+            "mirror": false,
+            "potency": false,
+            "pb": [
+                "cleanseprevent"
+            ],
+            "use": 4,
+            "pvp": 2,
+            "schema": "CleanseTag",
+            "prevtype": false
+        },
+        {
+            "id": "cleanseprevent",
+            "area": "protect",
+            "desc": "Prevents cleansing",
+            "beh": "A prevent-type status. It rolls power% once to land and then blocks cleanse with certainty, but only effects cast in a later round. Effects already on the holder stay. Immunity can cancel it.",
+            "fields": [],
+            "calc": null,
+            "stage": "s2",
+            "pol": "neutral",
+            "copy": false,
+            "mirror": false,
+            "potency": false,
+            "pb": [],
+            "use": 2,
+            "pvp": 2,
+            "schema": "CleansePreventTag",
+            "prevtype": true
+        },
+        {
+            "id": "clear",
+            "area": "remove",
+            "desc": "Clears all positive effects from the target",
+            "beh": "Rolls power% each tick until it lands. Then it removes every positive effect on the target, plus positive ground effects on their tile, except those from bloodline, sage mode, gear, skills or other pre-battle sources. Clear is itself negative, so Cleanse removes a pending Clear. Clearprevent blocks it.",
+            "fields": [],
+            "calc": null,
+            "stage": "s3",
+            "pol": "negative",
+            "copy": false,
+            "mirror": false,
+            "potency": false,
+            "pb": [
+                "clearprevent"
+            ],
+            "use": 2,
+            "pvp": 2,
+            "schema": "ClearTag",
+            "prevtype": false
+        },
+        {
+            "id": "clearprevent",
+            "area": "protect",
+            "desc": "Prevents clearing",
+            "beh": "A prevent-type status. It rolls power% once to land and then blocks clear with certainty, but only effects cast in a later round. Effects already on the holder stay. Immunity can cancel it.",
+            "fields": [],
+            "calc": null,
+            "stage": "s2",
+            "pol": "neutral",
+            "copy": false,
+            "mirror": false,
+            "potency": false,
+            "pb": [],
+            "use": 9,
+            "pvp": 9,
+            "schema": "ClearPreventTag",
+            "prevtype": true
+        },
+        {
+            "id": "clone",
+            "area": "fighters",
+            "desc": "Create a temporary clone to fight alongside you for a given number of rounds.",
+            "beh": "Spawns an AI copy of the caster with stats \u00d7 power%. The clone can't summon or clone, has no sage mode, and disappears when its rounds end.",
+            "fields": [],
+            "calc": "percentage",
+            "stage": "s4",
+            "pol": "neutral",
+            "copy": false,
+            "mirror": false,
+            "potency": false,
+            "pb": [],
+            "use": 2,
+            "pvp": 1,
+            "schema": "CloneTag",
+            "prevtype": false
+        },
+        {
+            "id": "consume",
+            "area": "soak",
+            "desc": "While active, convert a percentage of all damage you deal into stacking temporary shields on yourself. Shares conversion and shield HP caps with Siphon. Not affected by heal modifiers.",
+            "beh": "While active, a percentage of all damage the caster deals becomes stacking temporary shields on themselves (shieldRounds long). It shares caps with Siphon, and no prevent check runs on it.",
+            "fields": [
+                "shieldRounds"
+            ],
+            "calc": "percentage",
+            "stage": "s10",
+            "pol": "positive",
+            "copy": false,
+            "mirror": false,
+            "potency": true,
+            "pb": [],
+            "use": 3,
+            "pvp": 3,
+            "schema": "ConsumeTag",
+            "prevtype": false
+        },
+        {
+            "id": "copy",
+            "area": "take",
+            "desc": "Copies some positive effects from the target to the user",
+            "beh": "The caster's own buffprevent can block it. Otherwise it rolls power% to clone the target's best positive effects onto the caster for the copy's rounds; the target keeps theirs. It holds 4 at most at once, per caster. Order of preference: damage-given up or damage-taken down, then lifesteal, then absorb or reflect, then shield, then increaseheal, then increasestat. Passive and gear sources can't be copied.",
+            "fields": [],
+            "calc": "percentage",
+            "stage": "s1",
+            "pol": "neutral",
+            "copy": false,
+            "mirror": false,
+            "potency": false,
+            "pb": [
+                "buffprevent (on the caster)"
+            ],
+            "use": 4,
+            "pvp": 4,
+            "schema": "CopyTag",
+            "prevtype": false
+        },
+        {
+            "id": "curse",
+            "area": "dmglater",
+            "desc": "Store half the percentage of enemy damage dealt and half of enemy damage received as healing. Increases the holder's damage by the configured Damage Bonus percentage while active. Heals once on natural expiration; removal discards stored healing. Uses actual HP damage and cannot revive. Healing increases and decreases apply at payout before the maximum-HP cap; stored healing is unchanged. While active, disables the holder's Lifesteal, Absorb, and Vamp conversions.",
+            "beh": "The holder stores half of power% of the damage they deal and take. While active it adds damageBonusPercent to their raw damage (not to pierce) and switches off their own Lifesteal, Absorb and Vamp. When it expires naturally, it heals the stored amount, with heal modifiers applied, up to max HP. Clear or any other removal throws the store away. Healprevent on the holder blocks the payout, and Seal blocks it for a bloodline Curse. Buffprevent stops it landing.",
+            "fields": [
+                "damageBonusPercent"
+            ],
+            "calc": "percentage",
+            "stage": "s10",
+            "pol": "positive",
+            "copy": false,
+            "mirror": false,
+            "potency": true,
+            "pb": [
+                "buffprevent",
+                "healprevent"
+            ],
+            "use": 2,
+            "pvp": 2,
+            "schema": "CurseTag",
+            "prevtype": false
+        },
+        {
+            "id": "damage",
+            "area": "dmgnow",
+            "desc": "Deals damage to target",
+            "beh": "Hits the target for a formula amount: a baseline (max HP at the attacker's level divided by the base-hits setting) scaled by power and by an attack-vs-defence advantage built from the square roots of offence and the chosen generals, clamped to a min and max. Weakness multiplies the raw number. It then runs the full damage pipeline. With rounds above 0 it repeats as residual damage on the target's turn each round, multiplied by residualModifier.",
+            "fields": [
+                "residualModifier",
+                "dmgModifier",
+                "allowBloodlineDamageIncrease",
+                "allowBloodlineDamageDecrease",
+                "generalTypes",
+                "elements"
+            ],
+            "calc": "formula,static,percentage",
+            "stage": "s4",
+            "pol": "negative",
+            "copy": false,
+            "mirror": false,
+            "potency": true,
+            "pb": [],
+            "use": 540,
+            "pvp": 470,
+            "schema": "DamageTag",
+            "prevtype": false
+        },
+        {
+            "id": "debuffprevent",
+            "area": "protect",
+            "desc": "Prevents debuffing",
+            "beh": "A prevent-type status. It rolls power% once to land, then blocks with certainty debuffs cast on the holder in a later round: stat down, mastery down, damage given down, damage taken up, heal down, cooldown up, potency down, max pools down, recoil, drain, poison, time compression, and Mirror. Damage, wound, afterburn, stun and pool cost go through.",
+            "fields": [],
+            "calc": null,
+            "stage": "s2",
+            "pol": "positive",
+            "copy": false,
+            "mirror": false,
+            "potency": false,
+            "pb": [],
+            "use": 18,
+            "pvp": 17,
+            "schema": "DebuffPreventTag",
+            "prevtype": true
+        },
+        {
+            "id": "decreaseaggro",
+            "area": "aggro",
+            "desc": "Decrease current enmity or damage-generated enmity. ENMITY applies once per round; GENERATION modifies each damage packet. Omit rounds for passive gear.",
+            "beh": "The reverse of increaseaggro. It's classed positive, so Clear removes it, and buffprevent blocks it.",
+            "fields": [
+                "aggroMode",
+                "calculation",
+                "target"
+            ],
+            "calc": null,
+            "stage": "s3",
+            "pol": "positive",
+            "copy": false,
+            "mirror": false,
+            "potency": false,
+            "pb": [
+                "buffprevent"
+            ],
+            "use": 0,
+            "pvp": 0,
+            "schema": "DecreaseAggroTag",
+            "prevtype": false
+        },
+        {
+            "id": "decreasecookingtime",
+            "area": "noncombat",
+            "desc": "Reduce duration by power percent (minimum one second) once per complete meal cooking job. Eligible bloodline, activated skill and usable worn gear bonuses stack up to ${MAX_ACTIVITY_REDUCTION_PERCENT}%; captured when submitted.",
+            "beh": "Activity passive: shortens each meal cooking job.",
+            "fields": [
+                "power (percent)"
+            ],
+            "calc": null,
+            "stage": "nc",
+            "pol": "neutral",
+            "copy": false,
+            "mirror": false,
+            "potency": false,
+            "pb": [],
+            "use": 0,
+            "pvp": 0,
+            "schema": "DecreaseCookingTime",
+            "prevtype": false
+        },
+        {
+            "id": "decreasecooldown",
+            "area": "speed",
+            "desc": "Decrease cooldown of basic actions",
+            "beh": "Shortens the cooldown of the listed basic actions. Buffprevent blocks it.",
+            "fields": [
+                "actionsAffected"
+            ],
+            "calc": null,
+            "stage": "s10",
+            "pol": "positive",
+            "copy": false,
+            "mirror": false,
+            "potency": false,
+            "pb": [
+                "buffprevent"
+            ],
+            "use": 0,
+            "pvp": 0,
+            "schema": "DecreaseCooldownTag",
+            "prevtype": false
+        },
+        {
+            "id": "decreasecraftingtime",
+            "area": "noncombat",
+            "desc": "Reduce duration by power percent (minimum one second) once per non-meal crafting job, excluding imbuing. Eligible bloodline, activated skill and usable worn gear bonuses stack up to ${MAX_ACTIVITY_REDUCTION_PERCENT}%; captured when submitted.",
+            "beh": "Activity passive: shortens crafting jobs.",
+            "fields": [
+                "power (percent)"
+            ],
+            "calc": null,
+            "stage": "nc",
+            "pol": "neutral",
+            "copy": false,
+            "mirror": false,
+            "potency": false,
+            "pb": [],
+            "use": 0,
+            "pvp": 0,
+            "schema": "DecreaseCraftingTime",
+            "prevtype": false
+        },
+        {
+            "id": "decreasedamagegiven",
+            "area": "scaling",
+            "desc": "Decrease damage given by target",
+            "beh": "Percentage: a sequential damage-reduction multiplier on the holder's outgoing damage. Static: a flat subtraction after the percentage steps. Total reduction can't push a hit below 10% of its post-system-DR value. Debuffprevent blocks it.",
+            "fields": [
+                "calculation",
+                "elements"
+            ],
+            "calc": "static,percentage",
+            "stage": "s7",
+            "pol": "negative",
+            "copy": false,
+            "mirror": true,
+            "potency": true,
+            "pb": [
+                "debuffprevent"
+            ],
+            "use": 82,
+            "pvp": 76,
+            "schema": "DecreaseDamageGivenTag",
+            "prevtype": false
+        },
+        {
+            "id": "decreasedamagetaken",
+            "area": "scaling",
+            "desc": "Decrease damage taken of target",
+            "beh": "Damage reduction on hits the holder takes. Static values apply before percentage ones; the 90% reduction cap applies. Buffprevent blocks it.",
+            "fields": [
+                "calculation",
+                "elements"
+            ],
+            "calc": "static,percentage",
+            "stage": "s7",
+            "pol": "positive",
+            "copy": true,
+            "mirror": false,
+            "potency": true,
+            "pb": [
+                "buffprevent"
+            ],
+            "use": 140,
+            "pvp": 130,
+            "schema": "DecreaseDamageTakenTag",
+            "prevtype": false
+        },
+        {
+            "id": "decreasefarmingtime",
+            "area": "noncombat",
+            "desc": "Reduce each planted crop duration by power percent, with a one-second minimum. Eligible bloodline, activated skill and usable worn gear bonuses stack up to ${MAX_ACTIVITY_REDUCTION_PERCENT}%; captured when planting.",
+            "beh": "Activity passive: shortens crop growth.",
+            "fields": [
+                "power (percent)"
+            ],
+            "calc": null,
+            "stage": "nc",
+            "pol": "neutral",
+            "copy": false,
+            "mirror": false,
+            "potency": false,
+            "pb": [],
+            "use": 0,
+            "pvp": 0,
+            "schema": "DecreaseFarmingTime",
+            "prevtype": false
+        },
+        {
+            "id": "decreasegatheringtime",
+            "area": "noncombat",
+            "desc": "Reduce each gathering quest collection duration by power percent, with a one-second minimum. Eligible bloodline, activated skill and usable worn gear bonuses stack up to ${MAX_ACTIVITY_REDUCTION_PERCENT}%; captured when collection begins.",
+            "beh": "Activity passive: shortens gathering collection.",
+            "fields": [
+                "power (percent)"
+            ],
+            "calc": null,
+            "stage": "nc",
+            "pol": "neutral",
+            "copy": false,
+            "mirror": false,
+            "potency": false,
+            "pb": [],
+            "use": 0,
+            "pvp": 0,
+            "schema": "DecreaseGatheringTime",
+            "prevtype": false
+        },
+        {
+            "id": "decreaseheal",
+            "area": "heal",
+            "desc": "Decrease how much target can heal others",
+            "beh": "Shrinks every heal the holder produces, the same way increaseheal grows it. Debuffprevent blocks it.",
+            "fields": [
+                "calculation"
+            ],
+            "calc": "static,percentage",
+            "stage": "s9",
+            "pol": "negative",
+            "copy": false,
+            "mirror": true,
+            "potency": false,
+            "pb": [
+                "debuffprevent"
+            ],
+            "use": 15,
+            "pvp": 11,
+            "schema": "DecreaseHealGivenTag",
+            "prevtype": false
+        },
+        {
+            "id": "decreasemastery",
+            "area": "scaling",
+            "desc": "Decrease mastery of target",
+            "beh": "Lowers the chosen jutsu-type masteries. Debuffprevent blocks it.",
+            "fields": [
+                "masteryTypes"
+            ],
+            "calc": null,
+            "stage": "s3",
+            "pol": "negative",
+            "copy": false,
+            "mirror": true,
+            "potency": false,
+            "pb": [
+                "debuffprevent"
+            ],
+            "use": 0,
+            "pvp": 0,
+            "schema": "DecreaseMasteryTag",
+            "prevtype": false
+        },
+        {
+            "id": "decreasemaxpools",
+            "area": "pools",
+            "desc": "Decrease maximum and current pool values",
+            "beh": "Lowers maximum and current pools. Debuffprevent blocks it.",
+            "fields": [
+                "poolsAffected",
+                "calculation"
+            ],
+            "calc": null,
+            "stage": "s10",
+            "pol": "negative",
+            "copy": false,
+            "mirror": true,
+            "potency": false,
+            "pb": [
+                "debuffprevent"
+            ],
+            "use": 0,
+            "pvp": 0,
+            "schema": "DecreaseMaxPoolsTag",
+            "prevtype": false
+        },
+        {
+            "id": "decreasepoolcost",
+            "area": "speed",
+            "desc": "Decrease cost of taking actions",
+            "beh": "Lowers the chakra or stamina cost of the holder's actions.",
+            "fields": [
+                "poolsAffected",
+                "calculation",
+                "rounds (2\u201320)"
+            ],
+            "calc": null,
+            "stage": "s3",
+            "pol": "positive",
+            "copy": false,
+            "mirror": false,
+            "potency": false,
+            "pb": [],
+            "use": 1,
+            "pvp": 1,
+            "schema": "DecreasePoolCostTag",
+            "prevtype": false
+        },
+        {
+            "id": "decreasepotency",
+            "area": "scaling",
+            "desc": "Decrease the power of selected tags on the target's subsequent jutsu",
+            "beh": "Lowers the power of the selected tags on the holder's later jutsu casts. It works the same way as increasepotency, and debuffprevent blocks it.",
+            "fields": [
+                "affectedTag",
+                "affectedElements",
+                "calculation",
+                "rounds (1\u2013100)"
+            ],
+            "calc": null,
+            "stage": "s3",
+            "pol": "negative",
+            "copy": false,
+            "mirror": true,
+            "potency": false,
+            "pb": [
+                "debuffprevent"
+            ],
+            "use": 2,
+            "pvp": 2,
+            "schema": "DecreasePotencyTag",
+            "prevtype": false
+        },
+        {
+            "id": "decreasestat",
+            "area": "scaling",
+            "desc": "Decrease stats of target",
+            "beh": "Lowers offence, defence or generals the same way as increasestat. Debuffprevent blocks it.",
+            "fields": [
+                "generalTypes",
+                "elements",
+                "calculation",
+                "direction"
+            ],
+            "calc": "static,percentage",
+            "stage": "s3",
+            "pol": "negative",
+            "copy": false,
+            "mirror": true,
+            "potency": false,
+            "pb": [
+                "debuffprevent"
+            ],
+            "use": 23,
+            "pvp": 18,
+            "schema": "DecreaseStatTag",
+            "prevtype": false
+        },
+        {
+            "id": "diffuse",
+            "area": "dmglater",
+            "desc": "Defer a percentage of incoming damage over subsequent turns (non-lethal hits only: a hit that would kill before shields and damage reduction is not deferred). Damage reduction applies before deferral; shields and absorption apply to the immediate portion. Repayment survives expiry, bypasses defenses, and respects Final Stand. Cannot be cleansed, prevented, or copied.",
+            "beh": "The holder defers power% (up to 99%) of each incoming non-lethal hit and repays it over the next delayRounds (default 3). Damage reduction applies first; shields and Absorb only see the immediate part. Repayment survives expiry, skips defences and respects Final Stand. It can't be cleansed, prevented or copied.",
+            "fields": [
+                "delayRounds"
+            ],
+            "calc": "percentage",
+            "stage": "s4",
+            "pol": "neutral",
+            "copy": false,
+            "mirror": false,
+            "potency": false,
+            "pb": [],
+            "use": 3,
+            "pvp": 3,
+            "schema": "DiffuseTag",
+            "prevtype": false
+        },
+        {
+            "id": "disarm",
+            "area": "deny",
+            "desc": "Prevents using WEAPON items in battle and hides them",
+            "beh": "A prevent-type status. While active it hides the holder's weapon items and every jutsu that needs a weapon.",
+            "fields": [],
+            "calc": null,
+            "stage": "s2",
+            "pol": "negative",
+            "copy": false,
+            "mirror": true,
+            "potency": false,
+            "pb": [],
+            "use": 0,
+            "pvp": 0,
+            "schema": "DisarmTag",
+            "prevtype": true
+        },
+        {
+            "id": "drain",
+            "area": "dmglater",
+            "desc": "Drain target's pools over time",
+            "beh": "Each round it removes a flat amount, or power% of the max, from the chosen pools (HP, chakra, stamina). Debuffprevent blocks it. When mirrored, its power is divided by the mirror's rounds.",
+            "fields": [
+                "poolsAffected"
+            ],
+            "calc": "static,percentage",
+            "stage": "s9",
+            "pol": "negative",
+            "copy": false,
+            "mirror": true,
+            "potency": true,
+            "pb": [
+                "debuffprevent"
+            ],
+            "use": 18,
+            "pvp": 17,
+            "schema": "DrainTag",
+            "prevtype": false
+        },
+        {
+            "id": "elementaldamage",
+            "area": "dmgnow",
+            "desc": "Deals damage using the caster's preferred basic element",
+            "beh": "An authoring shortcut. On cast it becomes an ordinary damage tag with one element: the caster's saved preferred element, else their basic innate element, else Fire. It counts as elemental for Elemental Seal.",
+            "fields": [
+                "generalTypes",
+                "elements",
+                "residualModifier",
+                "dmgModifier"
+            ],
+            "calc": null,
+            "stage": "s0",
+            "pol": "negative",
+            "copy": false,
+            "mirror": true,
+            "potency": false,
+            "pb": [],
+            "use": 0,
+            "pvp": 0,
+            "schema": "ElementalDamageTag",
+            "prevtype": false
+        },
+        {
+            "id": "elementalseal",
+            "area": "deny",
+            "desc": "Seals the target's ability to use all elemental ${ELEMENTAL_SEAL_AP_COST} AP jutsu",
+            "beh": "Rolls power% to land. While active, the holder's 60-AP elemental jutsu are hidden: jutsu classed elemental, carrying elementaldamage, or carrying any non-None element. No prevent stops it.",
+            "fields": [],
+            "calc": null,
+            "stage": "s3",
+            "pol": "negative",
+            "copy": false,
+            "mirror": true,
+            "potency": false,
+            "pb": [],
+            "use": 1,
+            "pvp": 1,
+            "schema": "ElementalSealTag",
+            "prevtype": false
+        },
+        {
+            "id": "finalstand",
+            "area": "soak",
+            "desc": "User cannot be reduced below 1 HP",
+            "beh": "Rolls power% to activate. While active, damage can't take the holder below 1 HP (One Hit Kill still can). A bloodline version re-arms itself. Neither Clear nor Cleanse can remove it.",
+            "fields": [],
+            "calc": null,
+            "stage": "s4",
+            "pol": "neutral",
+            "copy": false,
+            "mirror": false,
+            "potency": false,
+            "pb": [],
+            "use": 1,
+            "pvp": 0,
+            "schema": "FinalStandTag",
+            "prevtype": false
+        },
+        {
+            "id": "flee",
+            "area": "escape",
+            "desc": "Flee the battle",
+            "beh": "Rolls power% each tick to leave the battle. It's not allowed in dungeons. Fleeprevent blocks it.",
+            "fields": [],
+            "calc": null,
+            "stage": "s4",
+            "pol": "negative",
+            "copy": false,
+            "mirror": true,
+            "potency": false,
+            "pb": [
+                "fleeprevent"
+            ],
+            "use": 0,
+            "pvp": 0,
+            "schema": "FleeTag",
+            "prevtype": false
+        },
+        {
+            "id": "fleeprevent",
+            "area": "escape",
+            "desc": "Prevents fleeing",
+            "beh": "A prevent-type status that blocks Flee.",
+            "fields": [],
+            "calc": null,
+            "stage": "s2",
+            "pol": "negative",
+            "copy": false,
+            "mirror": true,
+            "potency": false,
+            "pb": [],
+            "use": 0,
+            "pvp": 0,
+            "schema": "FleePreventTag",
+            "prevtype": true
+        },
+        {
+            "id": "heal",
+            "area": "heal",
+            "desc": "Heals themselves or others",
+            "beh": "Restores HP, chakra or stamina each tick: power\u00d710 if static, or power% of the max pool if percentage. Healprevent blocks it. The healer's increaseheal and decreaseheal scale it. Clear removes a heal-over-time.",
+            "fields": [
+                "poolsAffected"
+            ],
+            "calc": "static,percentage",
+            "stage": "s4",
+            "pol": "positive",
+            "copy": false,
+            "mirror": false,
+            "potency": true,
+            "pb": [
+                "healprevent"
+            ],
+            "use": 23,
+            "pvp": 23,
+            "schema": "HealTag",
+            "prevtype": false
+        },
+        {
+            "id": "healprevent",
+            "area": "heal",
+            "desc": "Prevents healing",
+            "beh": "A prevent-type status. Once it lands, it blocks Heal, Lifesteal, Absorb, Vamp and the Curse payout on the holder.",
+            "fields": [],
+            "calc": null,
+            "stage": "s2",
+            "pol": "negative",
+            "copy": false,
+            "mirror": false,
+            "potency": false,
+            "pb": [],
+            "use": 2,
+            "pvp": 2,
+            "schema": "HealPreventTag",
+            "prevtype": true
+        },
+        {
+            "id": "immunity",
+            "area": "protect",
+            "desc": "Grants immunity against the specified prevent-type effect",
+            "beh": "While active, it cancels any new prevent-type status of one chosen kind (the blocks field) as it lands on the holder. It's positive, so Clear removes it.",
+            "fields": [
+                "blocks"
+            ],
+            "calc": "static",
+            "stage": "s10",
+            "pol": "positive",
+            "copy": false,
+            "mirror": false,
+            "potency": false,
+            "pb": [],
+            "use": 0,
+            "pvp": 0,
+            "schema": "ImmunityTag",
+            "prevtype": false
+        },
+        {
+            "id": "increaseaggro",
+            "area": "aggro",
+            "desc": "Increase current enmity or damage-generated enmity. ENMITY applies once per round; GENERATION modifies each damage packet. Omit rounds for passive gear.",
+            "beh": "AI targeting. ENMITY mode adds to current enmity once; GENERATION mode raises the enmity each hit generates. Buffprevent blocks it.",
+            "fields": [
+                "aggroMode",
+                "calculation",
+                "target"
+            ],
+            "calc": null,
+            "stage": "s3",
+            "pol": "positive",
+            "copy": false,
+            "mirror": false,
+            "potency": false,
+            "pb": [
+                "buffprevent"
+            ],
+            "use": 0,
+            "pvp": 0,
+            "schema": "IncreaseAggroTag",
+            "prevtype": false
+        },
+        {
+            "id": "increasecooldown",
+            "area": "deny",
+            "desc": "Increase cooldown of basic actions",
+            "beh": "Lengthens the cooldown of the listed basic actions. Debuffprevent blocks it.",
+            "fields": [
+                "actionsAffected"
+            ],
+            "calc": null,
+            "stage": "s10",
+            "pol": "negative",
+            "copy": false,
+            "mirror": true,
+            "potency": false,
+            "pb": [
+                "debuffprevent"
+            ],
+            "use": 0,
+            "pvp": 0,
+            "schema": "IncreaseCooldownTag",
+            "prevtype": false
+        },
+        {
+            "id": "increasedamagegiven",
+            "area": "scaling",
+            "desc": "Increase damage given by target",
+            "beh": "Percentage: multiplies the holder's outgoing damage in the in-battle increase step (each one multiplies separately, so two +25% give \u00d71.5625). Static: adds a flat amount after the percentage steps. It's live from the round after it's cast. Elements can limit it. Buffprevent blocks it.",
+            "fields": [
+                "calculation",
+                "elements"
+            ],
+            "calc": "static,percentage",
+            "stage": "s7",
+            "pol": "positive",
+            "copy": true,
+            "mirror": false,
+            "potency": true,
+            "pb": [
+                "buffprevent"
+            ],
+            "use": 209,
+            "pvp": 196,
+            "schema": "IncreaseDamageGivenTag",
+            "prevtype": false
+        },
+        {
+            "id": "increasedamagetaken",
+            "area": "scaling",
+            "desc": "Increase damage taken of target",
+            "beh": "Multiplies damage the holder takes, in the same in-battle increase step as increasedamagegiven, with no cap. It's live from the round after it's cast. Debuffprevent blocks it.",
+            "fields": [
+                "calculation",
+                "elements"
+            ],
+            "calc": "static,percentage",
+            "stage": "s7",
+            "pol": "negative",
+            "copy": false,
+            "mirror": true,
+            "potency": true,
+            "pb": [
+                "debuffprevent"
+            ],
+            "use": 177,
+            "pvp": 164,
+            "schema": "IncreaseDamageTakenTag",
+            "prevtype": false
+        },
+        {
+            "id": "increasegatheringyield",
+            "area": "noncombat",
+            "desc": "Add units to each successfully dropped gathering material. Eligible bloodline, activated skill and usable worn gear bonuses stack up to +${MAX_GATHERING_BONUS_QUANTITY}; captured when collection begins. Drop chances are unchanged.",
+            "beh": "Activity passive: extra units per gathering drop.",
+            "fields": [
+                "power (percent)"
+            ],
+            "calc": "static",
+            "stage": "nc",
+            "pol": "neutral",
+            "copy": false,
+            "mirror": false,
+            "potency": false,
+            "pb": [],
+            "use": 0,
+            "pvp": 0,
+            "schema": "IncreaseGatheringYield",
+            "prevtype": false
+        },
+        {
+            "id": "increaseheal",
+            "area": "heal",
+            "desc": "Increase how much target can heal others",
+            "beh": "Scales every heal the holder produces: Heal, Lifesteal, Vamp, Absorb and the Curse payout. Buffprevent blocks it, and Copy can take it.",
+            "fields": [
+                "calculation"
+            ],
+            "calc": "static,percentage",
+            "stage": "s9",
+            "pol": "positive",
+            "copy": true,
+            "mirror": false,
+            "potency": true,
+            "pb": [
+                "buffprevent"
+            ],
+            "use": 7,
+            "pvp": 6,
+            "schema": "IncreaseHealGivenTag",
+            "prevtype": false
+        },
+        {
+            "id": "increasehuntingyield",
+            "area": "noncombat",
+            "desc": "Add units to each successfully dropped hunting material. Eligible bloodline, activated skill and usable worn gear bonuses stack up to +${MAX_HUNTING_BONUS_QUANTITY}; captured when battle begins. Drop chances are unchanged.",
+            "beh": "Activity passive: extra units per hunting drop.",
+            "fields": [
+                "power (percent)"
+            ],
+            "calc": "static",
+            "stage": "nc",
+            "pol": "neutral",
+            "copy": false,
+            "mirror": false,
+            "potency": false,
+            "pb": [],
+            "use": 0,
+            "pvp": 0,
+            "schema": "IncreaseHuntingYield",
+            "prevtype": false
+        },
+        {
+            "id": "increasejutsuslots",
+            "area": "noncombat",
+            "desc": "Permanently add extra jutsu slots on consumption. Shares the ${MAX_EXTRA_JUTSU_SLOTS}-slot limit with purchased slots; the item is not consumed if the grant would exceed it.",
+            "beh": "Item use: permanently adds jutsu slots.",
+            "fields": [
+                "friendlyFire"
+            ],
+            "calc": "static",
+            "stage": "nc",
+            "pol": "neutral",
+            "copy": false,
+            "mirror": false,
+            "potency": false,
+            "pb": [],
+            "use": 0,
+            "pvp": 0,
+            "schema": "IncreaseJutsuSlots",
+            "prevtype": false
+        },
+        {
+            "id": "increasemastery",
+            "area": "scaling",
+            "desc": "Increase mastery of target",
+            "beh": "Raises the holder's mastery values for the chosen jutsu types, from the round after cast. Buffprevent blocks it.",
+            "fields": [
+                "masteryTypes"
+            ],
+            "calc": null,
+            "stage": "s3",
+            "pol": "positive",
+            "copy": false,
+            "mirror": false,
+            "potency": false,
+            "pb": [
+                "buffprevent"
+            ],
+            "use": 0,
+            "pvp": 0,
+            "schema": "IncreaseMasteryTag",
+            "prevtype": false
+        },
+        {
+            "id": "increasemaxpools",
+            "area": "pools",
+            "desc": "Increase maximum and current pool values",
+            "beh": "Raises maximum and current HP, chakra or stamina. Buffprevent blocks it.",
+            "fields": [
+                "poolsAffected",
+                "calculation"
+            ],
+            "calc": null,
+            "stage": "s10",
+            "pol": "positive",
+            "copy": false,
+            "mirror": false,
+            "potency": false,
+            "pb": [
+                "buffprevent"
+            ],
+            "use": 0,
+            "pvp": 0,
+            "schema": "IncreaseMaxPoolsTag",
+            "prevtype": false
+        },
+        {
+            "id": "increasepoolcost",
+            "area": "deny",
+            "desc": "Increase cost of taking actions",
+            "beh": "Raises the chakra or stamina cost of the holder's actions. No prevent check runs on it. It feeds Poison, which reads the pool spent.",
+            "fields": [
+                "poolsAffected",
+                "calculation",
+                "rounds (2\u201320)"
+            ],
+            "calc": null,
+            "stage": "s3",
+            "pol": "negative",
+            "copy": false,
+            "mirror": true,
+            "potency": false,
+            "pb": [],
+            "use": 10,
+            "pvp": 10,
+            "schema": "IncreasePoolCostTag",
+            "prevtype": false
+        },
+        {
+            "id": "increasepotency",
+            "area": "scaling",
+            "desc": "Increase the power of selected tags on subsequent jutsu",
+            "beh": "Raises the power of the selected tag type (or all 20 potency-eligible types) on the holder's later jutsu casts, flat or by percentage, optionally limited to elements. It's live from the round after it lands; potency set on the ground affects anyone casting from that tile. Buffprevent blocks it.",
+            "fields": [
+                "affectedTag",
+                "affectedElements",
+                "calculation",
+                "rounds (1\u2013100)"
+            ],
+            "calc": null,
+            "stage": "s3",
+            "pol": "positive",
+            "copy": false,
+            "mirror": false,
+            "potency": false,
+            "pb": [
+                "buffprevent"
+            ],
+            "use": 11,
+            "pvp": 11,
+            "schema": "IncreasePotencyTag",
+            "prevtype": false
+        },
+        {
+            "id": "increaserange",
+            "area": "speed",
+            "desc": "Increase range of basic actions",
+            "beh": "Adds range to the listed basic actions. Buffprevent blocks it.",
+            "fields": [
+                "actionsAffected"
+            ],
+            "calc": null,
+            "stage": "s10",
+            "pol": "positive",
+            "copy": false,
+            "mirror": false,
+            "potency": false,
+            "pb": [
+                "buffprevent"
+            ],
+            "use": 0,
+            "pvp": 0,
+            "schema": "IncreaseRangeTag",
+            "prevtype": false
+        },
+        {
+            "id": "increaseregeneration",
+            "area": "noncombat",
+            "desc": "Increase out-of-combat regeneration",
+            "beh": "Raises out-of-combat regeneration.",
+            "fields": [],
+            "calc": "static,percentage",
+            "stage": "nc",
+            "pol": "neutral",
+            "copy": false,
+            "mirror": false,
+            "potency": false,
+            "pb": [],
+            "use": 0,
+            "pvp": 0,
+            "schema": "IncreaseRegenerationTag",
+            "prevtype": false
+        },
+        {
+            "id": "increasestat",
+            "area": "scaling",
+            "desc": "Increase stats of target",
+            "beh": "Raises offence and/or defence (direction) and the chosen generals, flat or as a % of the base stat, from the round after cast. Those stats feed the damage formula's advantage term. Buffprevent blocks it.",
+            "fields": [
+                "generalTypes",
+                "elements",
+                "calculation",
+                "direction"
+            ],
+            "calc": null,
+            "stage": "s3",
+            "pol": "positive",
+            "copy": true,
+            "mirror": false,
+            "potency": false,
+            "pb": [
+                "buffprevent"
+            ],
+            "use": 17,
+            "pvp": 11,
+            "schema": "IncreaseStatTag",
+            "prevtype": false
+        },
+        {
+            "id": "injectjutsus",
+            "area": "speed",
+            "desc": "Temporarily adds selected jutsus to the user's action list",
+            "beh": "Temporarily adds the listed jutsu to the holder's action list while active. Neither Clear nor Cleanse can remove it.",
+            "fields": [
+                "jutsuIds"
+            ],
+            "calc": null,
+            "stage": "s3",
+            "pol": "neutral",
+            "copy": false,
+            "mirror": false,
+            "potency": false,
+            "pb": [],
+            "use": 19,
+            "pvp": 19,
+            "schema": "InjectJutsusTag",
+            "prevtype": false
+        },
+        {
+            "id": "lifesteal",
+            "area": "heal",
+            "desc": "Heal based on damage given",
+            "beh": "The holder heals power% of the damage they deal (matched by generals and elements). Lifesteal and Vamp share one cap: 60% of the hit, Vamp first. Healprevent blocks it, Curse disables it, and Copy can take it.",
+            "fields": [
+                "generalTypes",
+                "elements"
+            ],
+            "calc": "percentage",
+            "stage": "s9",
+            "pol": "positive",
+            "copy": true,
+            "mirror": false,
+            "potency": true,
+            "pb": [
+                "healprevent"
+            ],
+            "use": 40,
+            "pvp": 38,
+            "schema": "LifeStealTag",
+            "prevtype": false
+        },
+        {
+            "id": "marriageslotincrease",
+            "area": "noncombat",
+            "desc": "Increases a users marriage slots",
+            "beh": "Item use: adds marriage slots.",
+            "fields": [
+                "rank"
+            ],
+            "calc": null,
+            "stage": "nc",
+            "pol": "neutral",
+            "copy": false,
+            "mirror": false,
+            "potency": false,
+            "pb": [],
+            "use": 0,
+            "pvp": 0,
+            "schema": "IncreaseMarriageSlots",
+            "prevtype": false
+        },
+        {
+            "id": "mirror",
+            "area": "sendback",
+            "desc": "Mirrors some negative effects from the user to the target",
+            "beh": "Rolls power% to clone up to 4 of the caster's own active negative effects onto the target for the mirror's rounds. The caster keeps their copies. Order of preference: damage-taken up or damage-given down first, then afterburn, then poison or pool-cost, then wound, then anything else. Raw damage, pierce, clear, stun, time compression and four prevents are excluded, and so is anything from bloodline, gear or other passives. The target's debuffprevent blocks it.",
+            "fields": [],
+            "calc": "percentage",
+            "stage": "s1",
+            "pol": "neutral",
+            "copy": false,
+            "mirror": false,
+            "potency": false,
+            "pb": [
+                "debuffprevent"
+            ],
+            "use": 4,
+            "pvp": 4,
+            "schema": "MirrorTag",
+            "prevtype": false
+        },
+        {
+            "id": "move",
+            "area": "position",
+            "desc": "Move on the battlefield",
+            "beh": "Moves the caster to the chosen tile, which registers them with any ground effects there. Moveprevent blocks it.",
+            "fields": [],
+            "calc": null,
+            "stage": "s10",
+            "pol": "positive",
+            "copy": false,
+            "mirror": false,
+            "potency": false,
+            "pb": [
+                "moveprevent"
+            ],
+            "use": 80,
+            "pvp": 77,
+            "schema": "MoveTag",
+            "prevtype": false
+        },
+        {
+            "id": "moveprevent",
+            "area": "position",
+            "desc": "Prevents movement of the target",
+            "beh": "A prevent-type status. It hides basic move, the replacement technique and every jutsu with a move tag, and it blocks Redirection.",
+            "fields": [],
+            "calc": null,
+            "stage": "s2",
+            "pol": "negative",
+            "copy": false,
+            "mirror": false,
+            "potency": false,
+            "pb": [],
+            "use": 9,
+            "pvp": 6,
+            "schema": "MovePreventTag",
+            "prevtype": true
+        },
+        {
+            "id": "noncombatconsumereward",
+            "area": "noncombat",
+            "desc": "Gain various rewards from consumption outside of combat",
+            "beh": "Item use: grants rewards.",
+            "fields": [
+                "rewards"
+            ],
+            "calc": null,
+            "stage": "nc",
+            "pol": "neutral",
+            "copy": false,
+            "mirror": false,
+            "potency": false,
+            "pb": [],
+            "use": 0,
+            "pvp": 0,
+            "schema": "NonCombatConsumeRewardTag",
+            "prevtype": false
+        },
+        {
+            "id": "noncombatgainskill",
+            "area": "noncombat",
+            "desc": "Grants access to a special skill tree entry",
+            "beh": "Item use: unlocks a skill tree entry.",
+            "fields": [
+                "skillId"
+            ],
+            "calc": null,
+            "stage": "nc",
+            "pol": "neutral",
+            "copy": false,
+            "mirror": false,
+            "potency": false,
+            "pb": [],
+            "use": 0,
+            "pvp": 0,
+            "schema": "NonCombatGainSkill",
+            "prevtype": false
+        },
+        {
+            "id": "noncombatincreasereskins",
+            "area": "noncombat",
+            "desc": "Increases the number of allowed reskins",
+            "beh": "Item use: adds reskin slots.",
+            "fields": [
+                "rank"
+            ],
+            "calc": null,
+            "stage": "nc",
+            "pol": "neutral",
+            "copy": false,
+            "mirror": false,
+            "potency": false,
+            "pb": [],
+            "use": 0,
+            "pvp": 0,
+            "schema": "IncreaseReskinSlots",
+            "prevtype": false
+        },
+        {
+            "id": "noncombatquest",
+            "area": "noncombat",
+            "desc": "Starts a Special quest when the item is consumed",
+            "beh": "Item use: starts a quest.",
+            "fields": [
+                "questId"
+            ],
+            "calc": null,
+            "stage": "nc",
+            "pol": "neutral",
+            "copy": false,
+            "mirror": false,
+            "potency": false,
+            "pb": [],
+            "use": 0,
+            "pvp": 0,
+            "schema": "NonCombatQuestTag",
+            "prevtype": false
+        },
+        {
+            "id": "onehitkill",
+            "area": "dmgnow",
+            "desc": "Instantly kills the target",
+            "beh": "Rolls power% to set the target's HP to 0 outright. It skips shields, damage reduction and Final Stand. Onehitkillprevent blocks it. The HP removed counts as damage dealt.",
+            "fields": [],
+            "calc": null,
+            "stage": "s4",
+            "pol": "negative",
+            "copy": false,
+            "mirror": true,
+            "potency": false,
+            "pb": [
+                "onehitkillprevent"
+            ],
+            "use": 1,
+            "pvp": 1,
+            "schema": "OneHitKillTag",
+            "prevtype": false
+        },
+        {
+            "id": "onehitkillprevent",
+            "area": "protect",
+            "desc": "Prevents instant kill effects",
+            "beh": "A prevent-type status. It rolls power% once to land and then blocks onehitkill with certainty, but only effects cast in a later round. Effects already on the holder stay. Immunity can cancel it.",
+            "fields": [],
+            "calc": null,
+            "stage": "s2",
+            "pol": "positive",
+            "copy": false,
+            "mirror": false,
+            "potency": false,
+            "pb": [],
+            "use": 0,
+            "pvp": 0,
+            "schema": "OneHitKillPreventTag",
+            "prevtype": true
+        },
+        {
+            "id": "parry",
+            "area": "sendback",
+            "desc": "Redirect a percentage of incoming direct damage to the attacker before shields and absorption. Pierce bypasses Parry. Stacks up to 100%. Returned damage cannot trigger Parry. Cannot be buff prevented. Can be cleared.",
+            "beh": "Before shields and Absorb, redirects power% of incoming direct damage (damage tags only, not pierce) back to the attacker. Several parries stack up to 100%, and returned damage can't be parried again. Buffprevent can't stop it, but Clear removes it.",
+            "fields": [
+                "generalTypes",
+                "elements"
+            ],
+            "calc": "percentage",
+            "stage": "s9",
+            "pol": "positive",
+            "copy": false,
+            "mirror": false,
+            "potency": true,
+            "pb": [],
+            "use": 3,
+            "pvp": 3,
+            "schema": "ParryTag",
+            "prevtype": false
+        },
+        {
+            "id": "pierce",
+            "area": "dmgnow",
+            "desc": "Deals piercing damage to target",
+            "beh": "Same formula as damage, but resolved after the damage pipeline, so no damage increase, no damage reduction and no Curse bonus touches it. It destroys every shield on the target instead of being soaked, and Parry, Recoil and Afterburn ignore it. Lifesteal, Absorb and Reflect still read it.",
+            "fields": [
+                "generalTypes",
+                "elements",
+                "residualModifier",
+                "dmgModifier"
+            ],
+            "calc": null,
+            "stage": "s8",
+            "pol": "negative",
+            "copy": false,
+            "mirror": false,
+            "potency": true,
+            "pb": [],
+            "use": 49,
+            "pvp": 44,
+            "schema": "PierceTag",
+            "prevtype": false
+        },
+        {
+            "id": "poison",
+            "area": "dmglater",
+            "desc": "Deal damage based on Chakra and Stamina lost",
+            "beh": "When the poisoned player acts, they take power% of the chakra plus stamina that action cost as damage. Debuffprevent blocks it.",
+            "fields": [
+                "poolsAffected"
+            ],
+            "calc": "percentage",
+            "stage": "s9",
+            "pol": "negative",
+            "copy": false,
+            "mirror": true,
+            "potency": true,
+            "pb": [
+                "debuffprevent"
+            ],
+            "use": 7,
+            "pvp": 7,
+            "schema": "PoisonTag",
+            "prevtype": false
+        },
+        {
+            "id": "recoil",
+            "area": "sendback",
+            "desc": "Recoil damage given back to self",
+            "beh": "A debuff on the holder. Power% of the damage they deal comes back to them. Pierce damage is exempt. Debuffprevent blocks it.",
+            "fields": [
+                "generalTypes",
+                "elements"
+            ],
+            "calc": "static,percentage",
+            "stage": "s9",
+            "pol": "negative",
+            "copy": false,
+            "mirror": true,
+            "potency": false,
+            "pb": [
+                "debuffprevent"
+            ],
+            "use": 32,
+            "pvp": 30,
+            "schema": "RecoilTag",
+            "prevtype": false
+        },
+        {
+            "id": "redirection",
+            "area": "position",
+            "desc": "Redirects the target towards or away from the user by power number of spaces",
+            "beh": "Pulls the target toward the caster or pushes them away, by power hexes. It stops at the first open tile, before players or barriers. Moveprevent blocks it.",
+            "fields": [
+                "generalTypes",
+                "elements"
+            ],
+            "calc": "static",
+            "stage": "s4",
+            "pol": "negative",
+            "copy": false,
+            "mirror": true,
+            "potency": false,
+            "pb": [
+                "moveprevent"
+            ],
+            "use": 9,
+            "pvp": 9,
+            "schema": "RedirectionTag",
+            "prevtype": false
+        },
+        {
+            "id": "reflect",
+            "area": "sendback",
+            "desc": "Reflect damage taken",
+            "beh": "Returns power% of each hit the holder takes to the attacker, capped at 60% of the hit. Buffprevent blocks it, and Copy can take it.",
+            "fields": [
+                "generalTypes",
+                "elements"
+            ],
+            "calc": "static,percentage",
+            "stage": "s9",
+            "pol": "positive",
+            "copy": true,
+            "mirror": false,
+            "potency": true,
+            "pb": [
+                "buffprevent"
+            ],
+            "use": 24,
+            "pvp": 22,
+            "schema": "ReflectTag",
+            "prevtype": false
+        },
+        {
+            "id": "removebloodline",
+            "area": "noncombat",
+            "desc": "Remove bloodline",
+            "beh": "Item use: removes bloodline.",
+            "fields": [],
+            "calc": "percentage",
+            "stage": "nc",
+            "pol": "neutral",
+            "copy": false,
+            "mirror": false,
+            "potency": false,
+            "pb": [],
+            "use": 0,
+            "pvp": 0,
+            "schema": "RemoveBloodline",
+            "prevtype": false
+        },
+        {
+            "id": "repair",
+            "area": "noncombat",
+            "desc": "Repair an item's durability by the power amount",
+            "beh": "Item use: repairs durability.",
+            "fields": [],
+            "calc": null,
+            "stage": "nc",
+            "pol": "neutral",
+            "copy": false,
+            "mirror": false,
+            "potency": false,
+            "pb": [],
+            "use": 0,
+            "pvp": 0,
+            "schema": "RepairTag",
+            "prevtype": false
+        },
+        {
+            "id": "rob",
+            "area": "pools",
+            "desc": "Robs money from the target",
+            "beh": "Only works in 1v1 player combat. Robprevent can block it. Otherwise it rolls power% to steal robPercentage% of the target's pocket ryo. If the thief flees, they drop the stolen ryo; if the victim flees, they get it back.",
+            "fields": [
+                "robPercentage",
+                "generalTypes",
+                "elements"
+            ],
+            "calc": null,
+            "stage": "s4",
+            "pol": "negative",
+            "copy": false,
+            "mirror": true,
+            "potency": false,
+            "pb": [
+                "robprevent"
+            ],
+            "use": 2,
+            "pvp": 2,
+            "schema": "RobTag",
+            "prevtype": false
+        },
+        {
+            "id": "robprevent",
+            "area": "protect",
+            "desc": "Prevents robbing of the target",
+            "beh": "A prevent-type status. It rolls power% once to land and then blocks rob with certainty, but only effects cast in a later round. Effects already on the holder stay. Immunity can cancel it.",
+            "fields": [],
+            "calc": null,
+            "stage": "s2",
+            "pol": "positive",
+            "copy": false,
+            "mirror": false,
+            "potency": false,
+            "pb": [],
+            "use": 0,
+            "pvp": 0,
+            "schema": "RobPreventTag",
+            "prevtype": true
+        },
+        {
+            "id": "rollbloodline",
+            "area": "noncombat",
+            "desc": "Receive a random bloodline",
+            "beh": "Item use: random bloodline.",
+            "fields": [
+                "rank"
+            ],
+            "calc": "percentage",
+            "stage": "nc",
+            "pol": "neutral",
+            "copy": false,
+            "mirror": false,
+            "potency": false,
+            "pb": [],
+            "use": 0,
+            "pvp": 0,
+            "schema": "RollRandomBloodline",
+            "prevtype": false
+        },
+        {
+            "id": "rollsagemode",
+            "area": "noncombat",
+            "desc": "Receive a random sage mode",
+            "beh": "Item use: random sage mode.",
+            "fields": [],
+            "calc": "percentage",
+            "stage": "nc",
+            "pol": "neutral",
+            "copy": false,
+            "mirror": false,
+            "potency": false,
+            "pb": [],
+            "use": 0,
+            "pvp": 0,
+            "schema": "RollRandomSageMode",
+            "prevtype": false
+        },
+        {
+            "id": "seal",
+            "area": "deny",
+            "desc": "Seals the target's bloodline effects",
+            "beh": "Sealprevent can block it. Otherwise it rolls power% to land. From the following round it switches off all of the holder's bloodline effects, including bloodline damage modifiers, bloodline potency and bloodline-gated payouts.",
+            "fields": [],
+            "calc": null,
+            "stage": "s4",
+            "pol": "negative",
+            "copy": false,
+            "mirror": true,
+            "potency": false,
+            "pb": [
+                "sealprevent"
+            ],
+            "use": 8,
+            "pvp": 8,
+            "schema": "SealTag",
+            "prevtype": false
+        },
+        {
+            "id": "sealprevent",
+            "area": "protect",
+            "desc": "Prevents bloodline from being sealed",
+            "beh": "A prevent-type status. It rolls power% once to land and then blocks seal with certainty, but only effects cast in a later round. Effects already on the holder stay. Immunity can cancel it.",
+            "fields": [],
+            "calc": null,
+            "stage": "s2",
+            "pol": "positive",
+            "copy": false,
+            "mirror": false,
+            "potency": false,
+            "pb": [],
+            "use": 0,
+            "pvp": 0,
+            "schema": "SealPreventTag",
+            "prevtype": true
+        },
+        {
+            "id": "shield",
+            "area": "soak",
+            "desc": "Creates a temporary HP bar that lasts for a set amount of rounds",
+            "beh": "Rolls power% to appear, then becomes a separate HP bar worth its health field. Incoming damage drains shields before HP, except pierce (which destroys them), reflect and wound (which skip them). It's positive, so Clear removes it and Copy can take it.",
+            "fields": [
+                "health"
+            ],
+            "calc": null,
+            "stage": "s4",
+            "pol": "positive",
+            "copy": true,
+            "mirror": false,
+            "potency": true,
+            "pb": [],
+            "use": 38,
+            "pvp": 32,
+            "schema": "ShieldTag",
+            "prevtype": false
+        },
+        {
+            "id": "siphon",
+            "area": "soak",
+            "desc": "While active, convert a percentage of damage you take after existing shields absorb it into stacking temporary shields. New shields are granted after damage resolves. Excludes self-inflicted damage and recoil. Shares conversion and shield HP caps with Consume. Can be cleared. Not affected by heal modifiers.",
+            "beh": "While active, a percentage of damage the holder takes after their existing shields becomes new stacking temporary shields once the hit resolves. It excludes self-damage and recoil, shares conversion and shield-HP caps with Consume, and is unaffected by heal modifiers. Buffprevent blocks it, and Clear removes it.",
+            "fields": [],
+            "calc": null,
+            "stage": "s10",
+            "pol": "positive",
+            "copy": false,
+            "mirror": false,
+            "potency": true,
+            "pb": [
+                "buffprevent"
+            ],
+            "use": 1,
+            "pvp": 1,
+            "schema": "SiphonTag",
+            "prevtype": false
+        },
+        {
+            "id": "stealth",
+            "area": "deny",
+            "desc": "Stealth the target, blocking all jutsu while allowing weapons and items",
+            "beh": "Rolls power% to land. While active, other players' INHERIT-target effects can't land on the holder. The holder can't use any jutsu or the basic attack, heal, clear, cleanse, stances or flee; they keep move, replacement and items. It's positive, so Clear removes it.",
+            "fields": [],
+            "calc": null,
+            "stage": "s2",
+            "pol": "positive",
+            "copy": false,
+            "mirror": false,
+            "potency": false,
+            "pb": [],
+            "use": 2,
+            "pvp": 2,
+            "schema": "StealthTag",
+            "prevtype": false
+        },
+        {
+            "id": "stun",
+            "area": "deny",
+            "desc": "Stuns the target",
+            "beh": "Stunprevent can block it. Otherwise it rolls power% to land. While active, the holder has apReduction less AP to spend. Only the strongest stun counts, and that includes stun ground effects on their tile.",
+            "fields": [
+                "apReduction"
+            ],
+            "calc": null,
+            "stage": "s4",
+            "pol": "negative",
+            "copy": false,
+            "mirror": false,
+            "potency": false,
+            "pb": [
+                "stunprevent"
+            ],
+            "use": 44,
+            "pvp": 41,
+            "schema": "StunTag",
+            "prevtype": false
+        },
+        {
+            "id": "stunprevent",
+            "area": "protect",
+            "desc": "Prevents being stunned",
+            "beh": "A prevent-type status. It rolls power% once to land and then blocks stun with certainty, but only effects cast in a later round. Effects already on the holder stay. Immunity can cancel it.",
+            "fields": [],
+            "calc": "percentage",
+            "stage": "s2",
+            "pol": "positive",
+            "copy": false,
+            "mirror": false,
+            "potency": false,
+            "pb": [],
+            "use": 1,
+            "pvp": 1,
+            "schema": "StunPreventTag",
+            "prevtype": true
+        },
+        {
+            "id": "summon",
+            "area": "fighters",
+            "desc": "Summon an ally for a certain number of rounds. Its stats are scaled to same total as the summoner, modified by the power of the jutsu as a percentage.",
+            "beh": "Spawns the chosen AI on the target tile with aiHp HP and stats scaled to power% of the summoner's total. It acts in the summoner's initiative slot, can be player-piloted, and leaves when its rounds end. Summonprevent hides summon jutsu.",
+            "fields": [
+                "aiId",
+                "aiHp",
+                "playerControlled"
+            ],
+            "calc": "percentage",
+            "stage": "s4",
+            "pol": "positive",
+            "copy": false,
+            "mirror": false,
+            "potency": false,
+            "pb": [
+                "summonprevent"
+            ],
+            "use": 22,
+            "pvp": 22,
+            "schema": "SummonTag",
+            "prevtype": false
+        },
+        {
+            "id": "summonprevent",
+            "area": "protect",
+            "desc": "Prevents summoning",
+            "beh": "A prevent-type status. It rolls power% once to land and then blocks summon with certainty, but only effects cast in a later round. Effects already on the holder stay. Immunity can cancel it.",
+            "fields": [],
+            "calc": null,
+            "stage": "s2",
+            "pol": "negative",
+            "copy": false,
+            "mirror": true,
+            "potency": false,
+            "pb": [],
+            "use": 1,
+            "pvp": 1,
+            "schema": "SummonPreventTag",
+            "prevtype": true
+        },
+        {
+            "id": "timecompression",
+            "area": "deny",
+            "desc": "Increases AP cost of actions by ${TEMPORAL_AP_DELTA}",
+            "beh": "Makes the holder's actions cost 10 more AP (all jutsu, or only listed elements). Only one can be active at a time. Debuffprevent blocks it.",
+            "fields": [
+                "generalTypes",
+                "elements",
+                "calculation",
+                "rounds (1\u201320)"
+            ],
+            "calc": null,
+            "stage": "s10",
+            "pol": "negative",
+            "copy": false,
+            "mirror": false,
+            "potency": false,
+            "pb": [
+                "debuffprevent"
+            ],
+            "use": 4,
+            "pvp": 4,
+            "schema": "TimeCompressionTag",
+            "prevtype": false
+        },
+        {
+            "id": "timedilation",
+            "area": "speed",
+            "desc": "Decreases AP cost of actions by ${TEMPORAL_AP_DELTA}",
+            "beh": "Makes the holder's actions cost 10 less AP. Only one can be active at a time. Buffprevent blocks it.",
+            "fields": [
+                "generalTypes",
+                "elements",
+                "calculation",
+                "rounds (1\u201320)"
+            ],
+            "calc": null,
+            "stage": "s10",
+            "pol": "positive",
+            "copy": false,
+            "mirror": false,
+            "potency": false,
+            "pb": [
+                "buffprevent"
+            ],
+            "use": 10,
+            "pvp": 9,
+            "schema": "TimeDilationTag",
+            "prevtype": false
+        },
+        {
+            "id": "unknown",
+            "area": "noncombat",
+            "desc": "An unknown tag - please report & change!",
+            "beh": "Placeholder for an unrecognised tag.",
+            "fields": [],
+            "calc": null,
+            "stage": "nc",
+            "pol": "neutral",
+            "copy": false,
+            "mirror": false,
+            "potency": false,
+            "pb": [],
+            "use": 0,
+            "pvp": 0,
+            "schema": "UnknownTag",
+            "prevtype": false
+        },
+        {
+            "id": "unlockitemvariant",
+            "area": "noncombat",
+            "desc": "Unlocks a token-locked item variant when used on an item",
+            "beh": "Item use: unlocks an item variant.",
+            "fields": [
+                "variantId"
+            ],
+            "calc": null,
+            "stage": "nc",
+            "pol": "neutral",
+            "copy": false,
+            "mirror": false,
+            "potency": false,
+            "pb": [],
+            "use": 0,
+            "pvp": 0,
+            "schema": "UnlockItemVariantTag",
+            "prevtype": false
+        },
+        {
+            "id": "vamp",
+            "area": "heal",
+            "desc": "Instantly heal yourself based on a percentage of the damage dealt by this jutsu",
+            "beh": "Lives on the jutsu itself: the caster instantly heals power% of the damage that jutsu dealt. Healprevent on the caster blocks it, and Curse disables it.",
+            "fields": [],
+            "calc": "percentage",
+            "stage": "s10",
+            "pol": "neutral",
+            "copy": false,
+            "mirror": false,
+            "potency": true,
+            "pb": [
+                "healprevent"
+            ],
+            "use": 9,
+            "pvp": 9,
+            "schema": "VampTag",
+            "prevtype": false
+        },
+        {
+            "id": "visual",
+            "area": "noncombat",
+            "desc": "A battlefield visual effect",
+            "beh": "Cosmetic battlefield effect; no rules.",
+            "fields": [],
+            "calc": null,
+            "stage": "s10",
+            "pol": "neutral",
+            "copy": false,
+            "mirror": false,
+            "potency": false,
+            "pb": [],
+            "use": 52,
+            "pvp": 47,
+            "schema": "VisualTag",
+            "prevtype": false
+        },
+        {
+            "id": "weakness",
+            "area": "dmgnow",
+            "desc": "Extra raw damage from specific things",
+            "beh": "Lands on a roll of power%. While active, damage or pierce from the listed jutsu, items, elements or general types has its raw damage multiplied by dmgModifier. Only the biggest matching weakness counts. No prevent stops it.",
+            "fields": [
+                "items",
+                "jutsus",
+                "elements",
+                "generalTypes",
+                "dmgModifier"
+            ],
+            "calc": null,
+            "stage": "s2",
+            "pol": "negative",
+            "copy": false,
+            "mirror": true,
+            "potency": false,
+            "pb": [],
+            "use": 0,
+            "pvp": 0,
+            "schema": "WeaknessTag",
+            "prevtype": false
+        },
+        {
+            "id": "wound",
+            "area": "dmglater",
+            "desc": "Applies wound damage over multiple turns based on damage dealt",
+            "beh": "When cast, it records the damage its caster dealt to the target in that action. Each later round it deals power% of that recorded hit again; ticking on its own, that damage skips shields. It's mirror-eligible.",
+            "fields": [
+                "generalTypes",
+                "elements"
+            ],
+            "calc": "percentage",
+            "stage": "s9",
+            "pol": "negative",
+            "copy": false,
+            "mirror": true,
+            "potency": false,
+            "pb": [],
+            "use": 56,
+            "pvp": 47,
+            "schema": "WoundTag",
+            "prevtype": false
+        }
+    ],
+    "edges": [
+        {
+            "s": "buffprevent",
+            "t": "increasestat",
+            "k": "prevents",
+            "n": ""
+        },
+        {
+            "s": "buffprevent",
+            "t": "increasemastery",
+            "k": "prevents",
+            "n": ""
+        },
+        {
+            "s": "buffprevent",
+            "t": "increasedamagegiven",
+            "k": "prevents",
+            "n": ""
+        },
+        {
+            "s": "buffprevent",
+            "t": "decreasedamagetaken",
+            "k": "prevents",
+            "n": ""
+        },
+        {
+            "s": "buffprevent",
+            "t": "increaseheal",
+            "k": "prevents",
+            "n": ""
+        },
+        {
+            "s": "buffprevent",
+            "t": "increaserange",
+            "k": "prevents",
+            "n": ""
+        },
+        {
+            "s": "buffprevent",
+            "t": "decreasecooldown",
+            "k": "prevents",
+            "n": ""
+        },
+        {
+            "s": "buffprevent",
+            "t": "increasepotency",
+            "k": "prevents",
+            "n": ""
+        },
+        {
+            "s": "buffprevent",
+            "t": "increasemaxpools",
+            "k": "prevents",
+            "n": ""
+        },
+        {
+            "s": "buffprevent",
+            "t": "reflect",
+            "k": "prevents",
+            "n": ""
+        },
+        {
+            "s": "buffprevent",
+            "t": "curse",
+            "k": "prevents",
+            "n": ""
+        },
+        {
+            "s": "buffprevent",
+            "t": "siphon",
+            "k": "prevents",
+            "n": ""
+        },
+        {
+            "s": "buffprevent",
+            "t": "timedilation",
+            "k": "prevents",
+            "n": ""
+        },
+        {
+            "s": "buffprevent",
+            "t": "increaseaggro",
+            "k": "prevents",
+            "n": ""
+        },
+        {
+            "s": "buffprevent",
+            "t": "decreaseaggro",
+            "k": "prevents",
+            "n": ""
+        },
+        {
+            "s": "buffprevent",
+            "t": "copy",
+            "k": "prevents",
+            "n": ""
+        },
+        {
+            "s": "debuffprevent",
+            "t": "decreasestat",
+            "k": "prevents",
+            "n": ""
+        },
+        {
+            "s": "debuffprevent",
+            "t": "decreasemastery",
+            "k": "prevents",
+            "n": ""
+        },
+        {
+            "s": "debuffprevent",
+            "t": "decreasedamagegiven",
+            "k": "prevents",
+            "n": ""
+        },
+        {
+            "s": "debuffprevent",
+            "t": "increasedamagetaken",
+            "k": "prevents",
+            "n": ""
+        },
+        {
+            "s": "debuffprevent",
+            "t": "decreaseheal",
+            "k": "prevents",
+            "n": ""
+        },
+        {
+            "s": "debuffprevent",
+            "t": "increasecooldown",
+            "k": "prevents",
+            "n": ""
+        },
+        {
+            "s": "debuffprevent",
+            "t": "decreasepotency",
+            "k": "prevents",
+            "n": ""
+        },
+        {
+            "s": "debuffprevent",
+            "t": "decreasemaxpools",
+            "k": "prevents",
+            "n": ""
+        },
+        {
+            "s": "debuffprevent",
+            "t": "recoil",
+            "k": "prevents",
+            "n": ""
+        },
+        {
+            "s": "debuffprevent",
+            "t": "drain",
+            "k": "prevents",
+            "n": ""
+        },
+        {
+            "s": "debuffprevent",
+            "t": "poison",
+            "k": "prevents",
+            "n": ""
+        },
+        {
+            "s": "debuffprevent",
+            "t": "timecompression",
+            "k": "prevents",
+            "n": ""
+        },
+        {
+            "s": "debuffprevent",
+            "t": "mirror",
+            "k": "prevents",
+            "n": ""
+        },
+        {
+            "s": "healprevent",
+            "t": "heal",
+            "k": "prevents",
+            "n": ""
+        },
+        {
+            "s": "healprevent",
+            "t": "lifesteal",
+            "k": "prevents",
+            "n": ""
+        },
+        {
+            "s": "healprevent",
+            "t": "absorb",
+            "k": "prevents",
+            "n": ""
+        },
+        {
+            "s": "healprevent",
+            "t": "vamp",
+            "k": "prevents",
+            "n": ""
+        },
+        {
+            "s": "healprevent",
+            "t": "curse",
+            "k": "prevents",
+            "n": ""
+        },
+        {
+            "s": "clearprevent",
+            "t": "clear",
+            "k": "prevents",
+            "n": ""
+        },
+        {
+            "s": "cleanseprevent",
+            "t": "cleanse",
+            "k": "prevents",
+            "n": ""
+        },
+        {
+            "s": "stunprevent",
+            "t": "stun",
+            "k": "prevents",
+            "n": ""
+        },
+        {
+            "s": "sealprevent",
+            "t": "seal",
+            "k": "prevents",
+            "n": ""
+        },
+        {
+            "s": "summonprevent",
+            "t": "summon",
+            "k": "prevents",
+            "n": ""
+        },
+        {
+            "s": "onehitkillprevent",
+            "t": "onehitkill",
+            "k": "prevents",
+            "n": ""
+        },
+        {
+            "s": "robprevent",
+            "t": "rob",
+            "k": "prevents",
+            "n": ""
+        },
+        {
+            "s": "fleeprevent",
+            "t": "flee",
+            "k": "prevents",
+            "n": ""
+        },
+        {
+            "s": "moveprevent",
+            "t": "move",
+            "k": "prevents",
+            "n": ""
+        },
+        {
+            "s": "moveprevent",
+            "t": "redirection",
+            "k": "prevents",
+            "n": ""
+        },
+        {
+            "s": "immunity",
+            "t": "buffprevent",
+            "k": "counters",
+            "n": "cancels a new one of the chosen kind"
+        },
+        {
+            "s": "immunity",
+            "t": "clearprevent",
+            "k": "counters",
+            "n": "cancels a new one of the chosen kind"
+        },
+        {
+            "s": "immunity",
+            "t": "cleanseprevent",
+            "k": "counters",
+            "n": "cancels a new one of the chosen kind"
+        },
+        {
+            "s": "immunity",
+            "t": "debuffprevent",
+            "k": "counters",
+            "n": "cancels a new one of the chosen kind"
+        },
+        {
+            "s": "immunity",
+            "t": "disarm",
+            "k": "counters",
+            "n": "cancels a new one of the chosen kind"
+        },
+        {
+            "s": "immunity",
+            "t": "fleeprevent",
+            "k": "counters",
+            "n": "cancels a new one of the chosen kind"
+        },
+        {
+            "s": "immunity",
+            "t": "healprevent",
+            "k": "counters",
+            "n": "cancels a new one of the chosen kind"
+        },
+        {
+            "s": "immunity",
+            "t": "moveprevent",
+            "k": "counters",
+            "n": "cancels a new one of the chosen kind"
+        },
+        {
+            "s": "immunity",
+            "t": "onehitkillprevent",
+            "k": "counters",
+            "n": "cancels a new one of the chosen kind"
+        },
+        {
+            "s": "immunity",
+            "t": "robprevent",
+            "k": "counters",
+            "n": "cancels a new one of the chosen kind"
+        },
+        {
+            "s": "immunity",
+            "t": "sealprevent",
+            "k": "counters",
+            "n": "cancels a new one of the chosen kind"
+        },
+        {
+            "s": "immunity",
+            "t": "stunprevent",
+            "k": "counters",
+            "n": "cancels a new one of the chosen kind"
+        },
+        {
+            "s": "immunity",
+            "t": "summonprevent",
+            "k": "counters",
+            "n": "cancels a new one of the chosen kind"
+        },
+        {
+            "s": "clear",
+            "t": "absorb",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "clear",
+            "t": "consume",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "clear",
+            "t": "curse",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "clear",
+            "t": "debuffprevent",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "clear",
+            "t": "decreaseaggro",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "clear",
+            "t": "decreasecooldown",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "clear",
+            "t": "decreasedamagetaken",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "clear",
+            "t": "decreasepoolcost",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "clear",
+            "t": "heal",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "clear",
+            "t": "immunity",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "clear",
+            "t": "increaseaggro",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "clear",
+            "t": "increasedamagegiven",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "clear",
+            "t": "increaseheal",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "clear",
+            "t": "increasemastery",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "clear",
+            "t": "increasemaxpools",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "clear",
+            "t": "increasepotency",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "clear",
+            "t": "increaserange",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "clear",
+            "t": "increasestat",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "clear",
+            "t": "lifesteal",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "clear",
+            "t": "move",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "clear",
+            "t": "onehitkillprevent",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "clear",
+            "t": "parry",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "clear",
+            "t": "reflect",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "clear",
+            "t": "robprevent",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "clear",
+            "t": "sealprevent",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "clear",
+            "t": "shield",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "clear",
+            "t": "siphon",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "clear",
+            "t": "stealth",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "clear",
+            "t": "stunprevent",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "clear",
+            "t": "summon",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "clear",
+            "t": "timedilation",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "cleanse",
+            "t": "afterburn",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "cleanse",
+            "t": "buffprevent",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "cleanse",
+            "t": "clear",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "cleanse",
+            "t": "damage",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "cleanse",
+            "t": "decreasedamagegiven",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "cleanse",
+            "t": "decreaseheal",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "cleanse",
+            "t": "decreasemastery",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "cleanse",
+            "t": "decreasemaxpools",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "cleanse",
+            "t": "decreasepotency",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "cleanse",
+            "t": "decreasestat",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "cleanse",
+            "t": "disarm",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "cleanse",
+            "t": "drain",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "cleanse",
+            "t": "elementaldamage",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "cleanse",
+            "t": "elementalseal",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "cleanse",
+            "t": "flee",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "cleanse",
+            "t": "fleeprevent",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "cleanse",
+            "t": "healprevent",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "cleanse",
+            "t": "increasecooldown",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "cleanse",
+            "t": "increasedamagetaken",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "cleanse",
+            "t": "increasepoolcost",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "cleanse",
+            "t": "moveprevent",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "cleanse",
+            "t": "onehitkill",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "cleanse",
+            "t": "pierce",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "cleanse",
+            "t": "poison",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "cleanse",
+            "t": "recoil",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "cleanse",
+            "t": "redirection",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "cleanse",
+            "t": "rob",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "cleanse",
+            "t": "seal",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "cleanse",
+            "t": "stun",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "cleanse",
+            "t": "summonprevent",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "cleanse",
+            "t": "timecompression",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "cleanse",
+            "t": "weakness",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "cleanse",
+            "t": "wound",
+            "k": "removes",
+            "n": ""
+        },
+        {
+            "s": "copy",
+            "t": "increasedamagegiven",
+            "k": "transfers",
+            "n": "clones to caster"
+        },
+        {
+            "s": "copy",
+            "t": "decreasedamagetaken",
+            "k": "transfers",
+            "n": "clones to caster"
+        },
+        {
+            "s": "copy",
+            "t": "lifesteal",
+            "k": "transfers",
+            "n": "clones to caster"
+        },
+        {
+            "s": "copy",
+            "t": "absorb",
+            "k": "transfers",
+            "n": "clones to caster"
+        },
+        {
+            "s": "copy",
+            "t": "reflect",
+            "k": "transfers",
+            "n": "clones to caster"
+        },
+        {
+            "s": "copy",
+            "t": "shield",
+            "k": "transfers",
+            "n": "clones to caster"
+        },
+        {
+            "s": "copy",
+            "t": "increaseheal",
+            "k": "transfers",
+            "n": "clones to caster"
+        },
+        {
+            "s": "copy",
+            "t": "increasestat",
+            "k": "transfers",
+            "n": "clones to caster"
+        },
+        {
+            "s": "mirror",
+            "t": "afterburn",
+            "k": "transfers",
+            "n": "clones caster's own onto target"
+        },
+        {
+            "s": "mirror",
+            "t": "decreasedamagegiven",
+            "k": "transfers",
+            "n": "clones caster's own onto target"
+        },
+        {
+            "s": "mirror",
+            "t": "decreaseheal",
+            "k": "transfers",
+            "n": "clones caster's own onto target"
+        },
+        {
+            "s": "mirror",
+            "t": "decreasemastery",
+            "k": "transfers",
+            "n": "clones caster's own onto target"
+        },
+        {
+            "s": "mirror",
+            "t": "decreasemaxpools",
+            "k": "transfers",
+            "n": "clones caster's own onto target"
+        },
+        {
+            "s": "mirror",
+            "t": "decreasepotency",
+            "k": "transfers",
+            "n": "clones caster's own onto target"
+        },
+        {
+            "s": "mirror",
+            "t": "decreasestat",
+            "k": "transfers",
+            "n": "clones caster's own onto target"
+        },
+        {
+            "s": "mirror",
+            "t": "disarm",
+            "k": "transfers",
+            "n": "clones caster's own onto target"
+        },
+        {
+            "s": "mirror",
+            "t": "drain",
+            "k": "transfers",
+            "n": "clones caster's own onto target"
+        },
+        {
+            "s": "mirror",
+            "t": "elementaldamage",
+            "k": "transfers",
+            "n": "clones caster's own onto target"
+        },
+        {
+            "s": "mirror",
+            "t": "elementalseal",
+            "k": "transfers",
+            "n": "clones caster's own onto target"
+        },
+        {
+            "s": "mirror",
+            "t": "flee",
+            "k": "transfers",
+            "n": "clones caster's own onto target"
+        },
+        {
+            "s": "mirror",
+            "t": "fleeprevent",
+            "k": "transfers",
+            "n": "clones caster's own onto target"
+        },
+        {
+            "s": "mirror",
+            "t": "increasecooldown",
+            "k": "transfers",
+            "n": "clones caster's own onto target"
+        },
+        {
+            "s": "mirror",
+            "t": "increasedamagetaken",
+            "k": "transfers",
+            "n": "clones caster's own onto target"
+        },
+        {
+            "s": "mirror",
+            "t": "increasepoolcost",
+            "k": "transfers",
+            "n": "clones caster's own onto target"
+        },
+        {
+            "s": "mirror",
+            "t": "onehitkill",
+            "k": "transfers",
+            "n": "clones caster's own onto target"
+        },
+        {
+            "s": "mirror",
+            "t": "poison",
+            "k": "transfers",
+            "n": "clones caster's own onto target"
+        },
+        {
+            "s": "mirror",
+            "t": "recoil",
+            "k": "transfers",
+            "n": "clones caster's own onto target"
+        },
+        {
+            "s": "mirror",
+            "t": "redirection",
+            "k": "transfers",
+            "n": "clones caster's own onto target"
+        },
+        {
+            "s": "mirror",
+            "t": "rob",
+            "k": "transfers",
+            "n": "clones caster's own onto target"
+        },
+        {
+            "s": "mirror",
+            "t": "seal",
+            "k": "transfers",
+            "n": "clones caster's own onto target"
+        },
+        {
+            "s": "mirror",
+            "t": "summonprevent",
+            "k": "transfers",
+            "n": "clones caster's own onto target"
+        },
+        {
+            "s": "mirror",
+            "t": "weakness",
+            "k": "transfers",
+            "n": "clones caster's own onto target"
+        },
+        {
+            "s": "mirror",
+            "t": "wound",
+            "k": "transfers",
+            "n": "clones caster's own onto target"
+        },
+        {
+            "s": "increasepotency",
+            "t": "damage",
+            "k": "boosts",
+            "n": "raises its power on later casts"
+        },
+        {
+            "s": "decreasepotency",
+            "t": "damage",
+            "k": "weakens",
+            "n": "lowers its power on later casts"
+        },
+        {
+            "s": "increasepotency",
+            "t": "increasedamagegiven",
+            "k": "boosts",
+            "n": "raises its power on later casts"
+        },
+        {
+            "s": "decreasepotency",
+            "t": "increasedamagegiven",
+            "k": "weakens",
+            "n": "lowers its power on later casts"
+        },
+        {
+            "s": "increasepotency",
+            "t": "decreasedamagegiven",
+            "k": "boosts",
+            "n": "raises its power on later casts"
+        },
+        {
+            "s": "decreasepotency",
+            "t": "decreasedamagegiven",
+            "k": "weakens",
+            "n": "lowers its power on later casts"
+        },
+        {
+            "s": "increasepotency",
+            "t": "increasedamagetaken",
+            "k": "boosts",
+            "n": "raises its power on later casts"
+        },
+        {
+            "s": "decreasepotency",
+            "t": "increasedamagetaken",
+            "k": "weakens",
+            "n": "lowers its power on later casts"
+        },
+        {
+            "s": "increasepotency",
+            "t": "decreasedamagetaken",
+            "k": "boosts",
+            "n": "raises its power on later casts"
+        },
+        {
+            "s": "decreasepotency",
+            "t": "decreasedamagetaken",
+            "k": "weakens",
+            "n": "lowers its power on later casts"
+        },
+        {
+            "s": "increasepotency",
+            "t": "afterburn",
+            "k": "boosts",
+            "n": "raises its power on later casts"
+        },
+        {
+            "s": "decreasepotency",
+            "t": "afterburn",
+            "k": "weakens",
+            "n": "lowers its power on later casts"
+        },
+        {
+            "s": "increasepotency",
+            "t": "lifesteal",
+            "k": "boosts",
+            "n": "raises its power on later casts"
+        },
+        {
+            "s": "decreasepotency",
+            "t": "lifesteal",
+            "k": "weakens",
+            "n": "lowers its power on later casts"
+        },
+        {
+            "s": "increasepotency",
+            "t": "reflect",
+            "k": "boosts",
+            "n": "raises its power on later casts"
+        },
+        {
+            "s": "decreasepotency",
+            "t": "reflect",
+            "k": "weakens",
+            "n": "lowers its power on later casts"
+        },
+        {
+            "s": "increasepotency",
+            "t": "parry",
+            "k": "boosts",
+            "n": "raises its power on later casts"
+        },
+        {
+            "s": "decreasepotency",
+            "t": "parry",
+            "k": "weakens",
+            "n": "lowers its power on later casts"
+        },
+        {
+            "s": "increasepotency",
+            "t": "curse",
+            "k": "boosts",
+            "n": "raises its power on later casts"
+        },
+        {
+            "s": "decreasepotency",
+            "t": "curse",
+            "k": "weakens",
+            "n": "lowers its power on later casts"
+        },
+        {
+            "s": "increasepotency",
+            "t": "increaseheal",
+            "k": "boosts",
+            "n": "raises its power on later casts"
+        },
+        {
+            "s": "decreasepotency",
+            "t": "increaseheal",
+            "k": "weakens",
+            "n": "lowers its power on later casts"
+        },
+        {
+            "s": "increasepotency",
+            "t": "heal",
+            "k": "boosts",
+            "n": "raises its power on later casts"
+        },
+        {
+            "s": "decreasepotency",
+            "t": "heal",
+            "k": "weakens",
+            "n": "lowers its power on later casts"
+        },
+        {
+            "s": "increasepotency",
+            "t": "vamp",
+            "k": "boosts",
+            "n": "raises its power on later casts"
+        },
+        {
+            "s": "decreasepotency",
+            "t": "vamp",
+            "k": "weakens",
+            "n": "lowers its power on later casts"
+        },
+        {
+            "s": "increasepotency",
+            "t": "absorb",
+            "k": "boosts",
+            "n": "raises its power on later casts"
+        },
+        {
+            "s": "decreasepotency",
+            "t": "absorb",
+            "k": "weakens",
+            "n": "lowers its power on later casts"
+        },
+        {
+            "s": "increasepotency",
+            "t": "consume",
+            "k": "boosts",
+            "n": "raises its power on later casts"
+        },
+        {
+            "s": "decreasepotency",
+            "t": "consume",
+            "k": "weakens",
+            "n": "lowers its power on later casts"
+        },
+        {
+            "s": "increasepotency",
+            "t": "siphon",
+            "k": "boosts",
+            "n": "raises its power on later casts"
+        },
+        {
+            "s": "decreasepotency",
+            "t": "siphon",
+            "k": "weakens",
+            "n": "lowers its power on later casts"
+        },
+        {
+            "s": "increasepotency",
+            "t": "shield",
+            "k": "boosts",
+            "n": "raises its power on later casts"
+        },
+        {
+            "s": "decreasepotency",
+            "t": "shield",
+            "k": "weakens",
+            "n": "lowers its power on later casts"
+        },
+        {
+            "s": "increasepotency",
+            "t": "pierce",
+            "k": "boosts",
+            "n": "raises its power on later casts"
+        },
+        {
+            "s": "decreasepotency",
+            "t": "pierce",
+            "k": "weakens",
+            "n": "lowers its power on later casts"
+        },
+        {
+            "s": "increasepotency",
+            "t": "drain",
+            "k": "boosts",
+            "n": "raises its power on later casts"
+        },
+        {
+            "s": "decreasepotency",
+            "t": "drain",
+            "k": "weakens",
+            "n": "lowers its power on later casts"
+        },
+        {
+            "s": "increasepotency",
+            "t": "poison",
+            "k": "boosts",
+            "n": "raises its power on later casts"
+        },
+        {
+            "s": "decreasepotency",
+            "t": "poison",
+            "k": "weakens",
+            "n": "lowers its power on later casts"
+        },
+        {
+            "s": "increasedamagegiven",
+            "t": "damage",
+            "k": "boosts",
+            "n": "\u00d7 in-battle increase step"
+        },
+        {
+            "s": "increasedamagetaken",
+            "t": "damage",
+            "k": "boosts",
+            "n": "\u00d7 in-battle increase step"
+        },
+        {
+            "s": "decreasedamagegiven",
+            "t": "damage",
+            "k": "weakens",
+            "n": "sequential DR"
+        },
+        {
+            "s": "decreasedamagetaken",
+            "t": "damage",
+            "k": "weakens",
+            "n": "sequential DR"
+        },
+        {
+            "s": "weakness",
+            "t": "damage",
+            "k": "boosts",
+            "n": "raw \u00d7 dmgModifier"
+        },
+        {
+            "s": "weakness",
+            "t": "pierce",
+            "k": "boosts",
+            "n": "raw \u00d7 dmgModifier"
+        },
+        {
+            "s": "increasestat",
+            "t": "damage",
+            "k": "boosts",
+            "n": "advantage term"
+        },
+        {
+            "s": "decreasestat",
+            "t": "damage",
+            "k": "weakens",
+            "n": "advantage term"
+        },
+        {
+            "s": "curse",
+            "t": "damage",
+            "k": "boosts",
+            "n": "raw \u00d7 damage bonus"
+        },
+        {
+            "s": "barrier",
+            "t": "damage",
+            "k": "counters",
+            "n": "absorbs part of hits passing through"
+        },
+        {
+            "s": "pierce",
+            "t": "increasedamagegiven",
+            "k": "bypasses",
+            "n": "pierce skips the damage pipeline"
+        },
+        {
+            "s": "pierce",
+            "t": "increasedamagetaken",
+            "k": "bypasses",
+            "n": "pierce skips the damage pipeline"
+        },
+        {
+            "s": "pierce",
+            "t": "decreasedamagegiven",
+            "k": "bypasses",
+            "n": "pierce skips the damage pipeline"
+        },
+        {
+            "s": "pierce",
+            "t": "decreasedamagetaken",
+            "k": "bypasses",
+            "n": "pierce skips the damage pipeline"
+        },
+        {
+            "s": "pierce",
+            "t": "curse",
+            "k": "bypasses",
+            "n": "pierce skips the damage pipeline"
+        },
+        {
+            "s": "pierce",
+            "t": "shield",
+            "k": "bypasses",
+            "n": "destroys all shields"
+        },
+        {
+            "s": "pierce",
+            "t": "parry",
+            "k": "bypasses",
+            "n": "not triggered by pierce"
+        },
+        {
+            "s": "pierce",
+            "t": "recoil",
+            "k": "bypasses",
+            "n": "not triggered by pierce"
+        },
+        {
+            "s": "pierce",
+            "t": "afterburn",
+            "k": "bypasses",
+            "n": "not triggered by pierce"
+        },
+        {
+            "s": "onehitkill",
+            "t": "finalstand",
+            "k": "bypasses",
+            "n": "sets HP to 0 directly"
+        },
+        {
+            "s": "onehitkill",
+            "t": "shield",
+            "k": "bypasses",
+            "n": "sets HP to 0 directly"
+        },
+        {
+            "s": "wound",
+            "t": "shield",
+            "k": "bypasses",
+            "n": "wound damage skips shields"
+        },
+        {
+            "s": "shield",
+            "t": "damage",
+            "k": "counters",
+            "n": "soaks before HP"
+        },
+        {
+            "s": "absorb",
+            "t": "damage",
+            "k": "counters",
+            "n": "converts part to pools"
+        },
+        {
+            "s": "diffuse",
+            "t": "damage",
+            "k": "counters",
+            "n": "defers part"
+        },
+        {
+            "s": "finalstand",
+            "t": "damage",
+            "k": "counters",
+            "n": "floors HP at 1"
+        },
+        {
+            "s": "parry",
+            "t": "damage",
+            "k": "counters",
+            "n": "sends part back first"
+        },
+        {
+            "s": "reflect",
+            "t": "damage",
+            "k": "counters",
+            "n": "sends part back"
+        },
+        {
+            "s": "siphon",
+            "t": "damage",
+            "k": "counters",
+            "n": "turns part into shields"
+        },
+        {
+            "s": "damage",
+            "t": "wound",
+            "k": "feeds",
+            "n": "records the hit"
+        },
+        {
+            "s": "damage",
+            "t": "lifesteal",
+            "k": "feeds",
+            "n": "heals from damage dealt"
+        },
+        {
+            "s": "damage",
+            "t": "vamp",
+            "k": "feeds",
+            "n": "heals from this jutsu's damage"
+        },
+        {
+            "s": "damage",
+            "t": "consume",
+            "k": "feeds",
+            "n": "shields from damage dealt"
+        },
+        {
+            "s": "damage",
+            "t": "afterburn",
+            "k": "feeds",
+            "n": "adds % of hits taken"
+        },
+        {
+            "s": "damage",
+            "t": "recoil",
+            "k": "feeds",
+            "n": "returns % to dealer"
+        },
+        {
+            "s": "damage",
+            "t": "curse",
+            "k": "feeds",
+            "n": "stores half %"
+        },
+        {
+            "s": "increasepoolcost",
+            "t": "poison",
+            "k": "boosts",
+            "n": "bigger pool spend, bigger poison"
+        },
+        {
+            "s": "decreasepoolcost",
+            "t": "poison",
+            "k": "weakens",
+            "n": "smaller pool spend"
+        },
+        {
+            "s": "curse",
+            "t": "lifesteal",
+            "k": "disables",
+            "n": "off while Curse is on the holder"
+        },
+        {
+            "s": "curse",
+            "t": "absorb",
+            "k": "disables",
+            "n": "off while Curse is on the holder"
+        },
+        {
+            "s": "curse",
+            "t": "vamp",
+            "k": "disables",
+            "n": "off while Curse is on the holder"
+        },
+        {
+            "s": "increaseheal",
+            "t": "heal",
+            "k": "boosts",
+            "n": "scales the holder's healing"
+        },
+        {
+            "s": "decreaseheal",
+            "t": "heal",
+            "k": "weakens",
+            "n": "scales the holder's healing"
+        },
+        {
+            "s": "increaseheal",
+            "t": "lifesteal",
+            "k": "boosts",
+            "n": "scales the holder's healing"
+        },
+        {
+            "s": "decreaseheal",
+            "t": "lifesteal",
+            "k": "weakens",
+            "n": "scales the holder's healing"
+        },
+        {
+            "s": "increaseheal",
+            "t": "vamp",
+            "k": "boosts",
+            "n": "scales the holder's healing"
+        },
+        {
+            "s": "decreaseheal",
+            "t": "vamp",
+            "k": "weakens",
+            "n": "scales the holder's healing"
+        },
+        {
+            "s": "increaseheal",
+            "t": "absorb",
+            "k": "boosts",
+            "n": "scales the holder's healing"
+        },
+        {
+            "s": "decreaseheal",
+            "t": "absorb",
+            "k": "weakens",
+            "n": "scales the holder's healing"
+        },
+        {
+            "s": "increaseheal",
+            "t": "curse",
+            "k": "boosts",
+            "n": "scales the holder's healing"
+        },
+        {
+            "s": "decreaseheal",
+            "t": "curse",
+            "k": "weakens",
+            "n": "scales the holder's healing"
+        },
+        {
+            "s": "consume",
+            "t": "siphon",
+            "k": "shares",
+            "n": "shared conversion and shield caps"
+        },
+        {
+            "s": "siphon",
+            "t": "shield",
+            "k": "feeds",
+            "n": "makes temporary shields"
+        },
+        {
+            "s": "consume",
+            "t": "shield",
+            "k": "feeds",
+            "n": "makes temporary shields"
+        },
+        {
+            "s": "seal",
+            "t": "finalstand",
+            "k": "disables",
+            "n": "bloodline-sourced copies only"
+        },
+        {
+            "s": "seal",
+            "t": "curse",
+            "k": "disables",
+            "n": "blocks bloodline payout"
+        },
+        {
+            "s": "stealth",
+            "t": "damage",
+            "k": "counters",
+            "n": "can't be targeted by others"
+        },
+        {
+            "s": "stealth",
+            "t": "copy",
+            "k": "counters",
+            "n": "can't be targeted by others"
+        },
+        {
+            "s": "timecompression",
+            "t": "timedilation",
+            "k": "counters",
+            "n": "AP +10 vs \u221210"
+        },
+        {
+            "s": "increasepoolcost",
+            "t": "decreasepoolcost",
+            "k": "counters",
+            "n": "opposite pool cost"
+        },
+        {
+            "s": "increasecooldown",
+            "t": "decreasecooldown",
+            "k": "counters",
+            "n": "opposite cooldown"
+        },
+        {
+            "s": "barrier",
+            "t": "redirection",
+            "k": "counters",
+            "n": "blocks landing tile"
+        },
+        {
+            "s": "diffuse",
+            "t": "absorb",
+            "k": "feeds",
+            "n": "absorb reads immediate part"
+        },
+        {
+            "s": "elementalseal",
+            "t": "elementaldamage",
+            "k": "prevents",
+            "n": "hides 60-AP elemental jutsu"
+        },
+        {
+            "s": "elementaldamage",
+            "t": "damage",
+            "k": "feeds",
+            "n": "becomes a damage tag"
+        },
+        {
+            "s": "rob",
+            "t": "flee",
+            "k": "feeds",
+            "n": "fleeing drops/returns stolen ryo"
+        },
+        {
+            "s": "reflect",
+            "t": "parry",
+            "k": "overlaps",
+            "n": "both return part of an incoming hit; parry acts before shields, direct damage only, can't be buff prevented"
+        },
+        {
+            "s": "lifesteal",
+            "t": "vamp",
+            "k": "overlaps",
+            "n": "both heal from damage dealt; they share one 60% cap, vamp first"
+        },
+        {
+            "s": "consume",
+            "t": "siphon",
+            "k": "overlaps",
+            "n": "both turn damage into stacking shields; consume on damage dealt, siphon on damage taken; shared caps"
+        },
+        {
+            "s": "shield",
+            "t": "barrier",
+            "k": "overlaps",
+            "n": "both put HP between a hit and the target; shield on the player, barrier on a tile"
+        },
+        {
+            "s": "clear",
+            "t": "cleanse",
+            "k": "overlaps",
+            "n": "same engine (removeEffects), opposite polarity"
+        },
+        {
+            "s": "copy",
+            "t": "mirror",
+            "k": "overlaps",
+            "n": "same transfer engine, opposite polarity, 4-slot cap each"
+        },
+        {
+            "s": "stun",
+            "t": "timecompression",
+            "k": "overlaps",
+            "n": "both cut how much a player can do in a round through AP"
+        },
+        {
+            "s": "timecompression",
+            "t": "increasepoolcost",
+            "k": "overlaps",
+            "n": "both raise the cost of acting; AP versus chakra/stamina"
+        },
+        {
+            "s": "buffprevent",
+            "t": "clear",
+            "k": "overlaps",
+            "n": "both answer enemy buffs; prevent stops new ones, clear removes existing ones"
+        },
+        {
+            "s": "debuffprevent",
+            "t": "cleanse",
+            "k": "overlaps",
+            "n": "both answer debuffs; prevent stops new ones, cleanse removes existing ones"
+        },
+        {
+            "s": "afterburn",
+            "t": "increasedamagetaken",
+            "k": "overlaps",
+            "n": "both make the holder take more from each hit"
+        },
+        {
+            "s": "weakness",
+            "t": "increasedamagetaken",
+            "k": "overlaps",
+            "n": "both raise damage taken; weakness only from listed jutsu, items, elements or generals"
+        },
+        {
+            "s": "recoil",
+            "t": "reflect",
+            "k": "overlaps",
+            "n": "both send damage back to the dealer; recoil is a debuff on the dealer, reflect a buff on the defender"
+        },
+        {
+            "s": "wound",
+            "t": "drain",
+            "k": "overlaps",
+            "n": "both deal damage on later rounds"
+        },
+        {
+            "s": "drain",
+            "t": "poison",
+            "k": "overlaps",
+            "n": "both deal damage over time; poison scales with what the holder spends"
+        },
+        {
+            "s": "curse",
+            "t": "diffuse",
+            "k": "overlaps",
+            "n": "both bank damage now and settle it later"
+        },
+        {
+            "s": "increasedamagegiven",
+            "t": "increasedamagetaken",
+            "k": "overlaps",
+            "n": "same multiplier step, attacker side versus defender side"
+        },
+        {
+            "s": "decreasedamagegiven",
+            "t": "decreasedamagetaken",
+            "k": "overlaps",
+            "n": "same reduction step, attacker side versus defender side"
+        },
+        {
+            "s": "stealth",
+            "t": "elementalseal",
+            "k": "overlaps",
+            "n": "both lock the holder out of jutsu; stealth all, elemental seal only 60-AP elemental"
+        },
+        {
+            "s": "summon",
+            "t": "clone",
+            "k": "overlaps",
+            "n": "both add an AI body to the fight"
+        },
+        {
+            "s": "heal",
+            "t": "curse",
+            "k": "overlaps",
+            "n": "curse ends in a heal of its stored amount"
+        },
+        {
+            "s": "finalstand",
+            "t": "diffuse",
+            "k": "overlaps",
+            "n": "both keep a big hit from killing now; final stand floors HP, diffuse defers non-lethal hits"
+        }
+    ]
+}

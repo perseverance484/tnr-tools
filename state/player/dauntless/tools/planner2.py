@@ -370,7 +370,7 @@ def apply(src, dst, act, o, scale=1.0):
             if src.sc or dst.sc:
                 dmg *= src.scoped((GUP, GDN), o, els) * dst.scoped((TAKEN, DR), o, els)
             wmul = dmg / base
-            parried = dmg * min(1.0, da[PAR * H + o])
+            parried = dmg * min(CM.CAP_PARRY, da[PAR * H + o])
             dmg -= parried
         pre = max(dmg, 0.0)                               # pre-shield damage: the absorb / leech / reflect caps
         if not pierce:
@@ -607,7 +607,7 @@ class Planner:
         mine = []
         for k, (nonp, pier) in enumerate(self.my_seq(b)):
             o = min(1 + k, H - 1)
-            mult = m.given(o) * e.g(TAKEN, o) * e.g(DR, o) * (1 - min(1.0, e.g(PAR, o)))
+            mult = m.given(o) * e.g(TAKEN, o) * e.g(DR, o) * (1 - min(CM.CAP_PARRY, e.g(PAR, o)))
             hit = max(0.0, nonp * mult - e.g(SHD, o)) * (1 - min(CM.CAP_ABSORB, e.g(ABS, o) + e.g(PABS, o)) * (1 - e.g(HCUT, o)))
             mine.append(hit + pier + e.g(WND, o) + e.g(DRN, o))
         his = []
@@ -615,7 +615,7 @@ class Planner:
         for k, (nonp, pier) in enumerate(seq[his_first:his_first + CURVE_K]):
             o = min(self.hr + his_first + k, H - 1)
             stun = (100 - min(40, e.g(STUN, o))) / 100
-            mult = e.given(o) * m.g(TAKEN, o) * m.g(DR, o) * (1 - min(1.0, m.g(PAR, o)))
+            mult = e.given(o) * m.g(TAKEN, o) * m.g(DR, o) * (1 - min(CM.CAP_PARRY, m.g(PAR, o)))
             hit = max(0.0, nonp * mult * stun - m.g(SHD, o)) * (1 - min(CM.CAP_ABSORB, m.g(ABS, o) + m.g(PABS, o)) * (1 - m.g(HCUT, o)))
             his.append(hit + pier * stun + m.g(WND, o) + m.g(DRN, o))
         return mine, his
@@ -649,7 +649,7 @@ class Planner:
     def my_potential(self, b, m, e):
         """Best damage I can deal next turn (offset 1) with what is ready then, through the live multipliers."""
         o = 1
-        mult = m.given(o) * e.g(TAKEN, o) * e.g(DR, o) * (1 - min(1.0, e.g(PAR, o)))
+        mult = m.given(o) * e.g(TAKEN, o) * e.g(DR, o) * (1 - min(CM.CAP_PARRY, e.g(PAR, o)))
         ab = 1 - min(CM.CAP_ABSORB, e.g(ABS, o) + e.g(PABS, o)) * (1 - e.g(HCUT, o))
         locked = set(b)
         key = (frozenset(locked), round(mult, 3))
@@ -665,7 +665,7 @@ class Planner:
             self.pot_cache[key] = best
         hit, pier = best
         hit = max(0.0, hit - e.g(SHD, o))
-        reflected = hit * min(CM.CAP_REFLECT, e.g(REF, o) + e.g(PREF, o)) + (hit / max(1e-6, 1 - min(1.0, e.g(PAR, o))) - hit if e.g(PAR, o) else 0)
+        reflected = hit * min(CM.CAP_REFLECT, e.g(REF, o) + e.g(PREF, o)) + (hit / max(1e-6, 1 - min(CM.CAP_PARRY, e.g(PAR, o))) - hit if e.g(PAR, o) else 0)
         return (hit + pier) * ab + e.g(WND, o) + e.g(DRN, o), reflected
 
     def his_base(self, used):
@@ -685,7 +685,7 @@ class Planner:
         o = self.hn
         stun = (100 - min(40, e.g(STUN, o))) / 100
         hit = self.his_base(used) * e.given(o) * m.g(TAKEN, o) * m.g(DR, o) * stun
-        par = min(1.0, m.g(PAR, o))
+        par = min(CM.CAP_PARRY, m.g(PAR, o))
         parried = hit * par
         hit = max(0.0, hit - parried - m.g(SHD, o))
         reflected = parried + hit * min(CM.CAP_REFLECT, m.g(REF, o) + m.g(PREF, o))
