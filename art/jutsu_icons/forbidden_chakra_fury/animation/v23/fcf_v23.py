@@ -126,7 +126,8 @@ def whip(img, a, b, alpha, grow=1.0, flip=False):
     return r, ((a[0] + b[0]) / 2, (a[1] + b[1]) / 2)
 
 
-def main(seed=22):
+def main(seed=22, board=None, sink=None):
+    """board: frame factory (default the preview board); sink(t, frame) takes each frame instead of the files."""
     rnd = random.Random(seed)
     # --- v21's climax set, shifted to CLIMAX
     by_sec = {s: [] for s in range(8)}
@@ -174,7 +175,7 @@ def main(seed=22):
     frames, labels = [], []
     for t in range(0, 1350, STEP):
         w50 = (t // 50) * 50                       # which 50 ms window (lightning strobes hold per window)
-        fr = D.board()
+        fr = board() if board else D.board()
         beat = ""
         dim = 0
         if CLIMAX <= t < CLIMAX + 250:
@@ -283,8 +284,13 @@ def main(seed=22):
                 if 0 <= q <= 1:
                     place(fr, "smoke", seq_frame("smoke", q), (GROUND[0] + math.cos(a) * SEAL_R * 0.45,
                           GROUND[1] + math.sin(a) * SEAL_R * 0.22 - TH * 0.4 - 12 * q), TW * 1.25 / 250, alpha=0.32)
+        if sink:
+            sink(t, fr)
+            continue
         frames.append(fr.convert("RGB").resize((W // 2, H // 2), Image.LANCZOS))
         labels.append((t, beat))
+    if sink:
+        return
     frames[0].save(os.path.join(HERE, "fcf_v23_real.gif"), save_all=True, append_images=frames[1:], duration=STEP,
                    loop=0)
     big = [f.resize((f.width * 2, f.height * 2), Image.LANCZOS) for f in frames]

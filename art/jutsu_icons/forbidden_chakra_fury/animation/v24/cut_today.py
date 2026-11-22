@@ -173,7 +173,9 @@ def strip(frames, cell, path):
         s.alpha_composite(f, (0, i * cell))
     assert s.height <= 4096, (path, s.height)
     # 256-colour palette, still saved lossless: the glow keeps its look and the strip fits the byte ceiling
+    alpha = s.getchannel("A")                           # the palette would lift empty pixels off zero alpha
     s = s.quantize(256, method=Image.Quantize.FASTOCTREE).convert("RGBA")
+    s.putalpha(alpha)
     s.save(path, "WEBP", lossless=True, quality=100, method=6)
     print(os.path.basename(path), f"{cell}x{s.height}", len(frames), "frames", os.path.getsize(path), "bytes")
     return [s.crop((0, i * cell, cell, (i + 1) * cell)) for i in range(len(frames))]
