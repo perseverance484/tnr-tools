@@ -1,0 +1,26 @@
+tag: increasecooldown
+schema: validators/combat.ts IncreaseCooldownTag (line 535)
+exclusion_area: Deny actions
+in_game_text: Increase cooldown of basic actions
+behavior: Lengthens the cooldown of the listed basic actions. Debuffprevent blocks it.
+polarity: negative   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: [debuffprevent]
+copy_can_take: false
+mirror_can_pass: true
+potency_eligible: false
+immunity_can_cancel: false
+stage: A5 late main pass (unranked or last-ranked)
+calculation: [static]
+own_fields:   # zod expressions copied from the schema; base fields are in engine.md section 6
+  actionsAffected: array of AdjustableBasicActions (see basicActionTag)
+live_usage_2026_11_21: {jutsu: 0, pvp_legal: 0}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
+  - libs/combat/tags.ts increaseCooldown (line 839)
+  - libs/combat/process.ts first reference (line 1614)
+interactions:   # full list with notes in ../interactions.json
+  outgoing:
+    counters: [decreasecooldown]
+  incoming:
+    prevents: [debuffprevent]
+    removes: [cleanse]
+    transfers: [mirror]

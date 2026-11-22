@@ -1,0 +1,31 @@
+tag: increasestat
+schema: validators/combat.ts IncreaseStatTag (line 562)
+exclusion_area: Damage scaling
+in_game_text: Increase stats of target
+behavior: "Raises offence and/or defence (direction) and the chosen generals, flat or as a % of the base stat, from the round after cast. Those stats feed the damage formula's advantage term. Buffprevent blocks it."
+polarity: positive   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: [buffprevent]
+copy_can_take: true
+mirror_can_pass: false
+potency_eligible: false
+immunity_can_cancel: false
+stage: A3 pre-modifiers
+live_from: next round (waits while isNew/castThisRound)
+calculation: [static]
+own_fields:   # zod expressions copied from the schema; base fields are in engine.md section 6
+  generalTypes: z.array(z.enum(GeneralTypes)).optional()
+  elements: z.array(z.enum(ElementNames)).optional()
+  calculation: "z.enum([\"static\", \"percentage\"]).prefault(\"percentage\")"
+  direction: "z.enum([\"offence\", \"defence\", \"both\", \"none\"]).prefault(\"both\")"
+live_usage_2026_11_21: {jutsu: 17, pvp_legal: 11}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
+  - libs/combat/tags.ts increaseStats (line 754)
+  - libs/combat/process.ts first reference (line 1598)
+  - libs/combat/util.ts EFFECT_SORT_RANK (line 827)
+interactions:   # full list with notes in ../interactions.json
+  outgoing:
+    boosts: [damage]
+  incoming:
+    prevents: [buffprevent]
+    removes: [clear]
+    transfers: [copy]

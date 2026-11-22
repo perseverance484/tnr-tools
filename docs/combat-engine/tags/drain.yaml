@@ -1,0 +1,32 @@
+tag: drain
+schema: validators/combat.ts DrainTag (line 740)
+exclusion_area: Damage later
+in_game_text: "Drain target's pools over time"
+behavior: "Each round it removes a flat amount, or power% of the max, from the chosen pools (HP, chakra, stamina). Debuffprevent blocks it. When mirrored, its power is divided by the mirror's rounds."
+polarity: negative   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: [debuffprevent]
+copy_can_take: false
+mirror_can_pass: true
+potency_eligible: true
+immunity_can_cancel: false
+stage: A10 post-damage readers
+applies: on landing, then once a round when the holder acts
+calculation: [static,percentage]
+own_fields:   # zod expressions copied from the schema; base fields are in engine.md section 6
+  calculation: "z.enum([\"static\", \"percentage\"]).prefault(\"percentage\")"
+  rounds: z.coerce.number().int().min(1).max(10).prefault(3)
+  poolsAffected: "z.array(z.enum(PoolTypes)).prefault([\"Chakra\", \"Stamina\", \"Health\"])"
+live_usage_2026_11_21: {jutsu: 18, pvp_legal: 17}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
+  - libs/combat/tags.ts drain (line 2032)
+  - libs/combat/process.ts first reference (line 1544)
+interactions:   # full list with notes in ../interactions.json
+  outgoing:
+    overlaps: [poison]
+  incoming:
+    boosts: [increasepotency]
+    overlaps: [wound]
+    prevents: [debuffprevent]
+    removes: [cleanse]
+    transfers: [mirror]
+    weakens: [decreasepotency]

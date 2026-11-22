@@ -1,0 +1,21 @@
+tag: injectjutsus
+schema: validators/combat.ts InjectJutsusTag (line 1076)
+exclusion_area: Speed up actions
+in_game_text: "Temporarily adds selected jutsus to the user's action list"
+behavior: "Temporarily adds the listed jutsu to the holder's action list while active. Neither Clear nor Cleanse can remove it."
+polarity: neutral   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: []   # no prevent check in its handler
+copy_can_take: false
+mirror_can_pass: false
+potency_eligible: false
+immunity_can_cancel: false
+stage: A3 pre-modifiers
+calculation: [static]
+own_fields:   # zod expressions copied from the schema; base fields are in engine.md section 6
+  jutsuIds: "z.array(z.string()).prefault([])"
+live_usage_2026_11_21: {jutsu: 19, pvp_legal: 19}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
+  - libs/combat/tags.ts injectjutsus (line 627)
+  - libs/combat/process.ts first reference (line 1673)
+  - libs/combat/util.ts EFFECT_SORT_RANK (line 1083)
+  - libs/combat/actions.ts availableUserActions

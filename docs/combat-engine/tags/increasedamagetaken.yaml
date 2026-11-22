@@ -1,0 +1,34 @@
+tag: increasedamagetaken
+schema: validators/combat.ts IncreaseDamageTakenTag (line 390)
+exclusion_area: Damage scaling
+in_game_text: Increase damage taken of target
+behavior: "Multiplies damage the holder takes, in the same in-battle increase step as increasedamagegiven, with no cap. It's live from the round after it's cast. Debuffprevent blocks it."
+polarity: negative   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: [debuffprevent]
+copy_can_take: false
+mirror_can_pass: true
+potency_eligible: true
+immunity_can_cancel: false
+stage: A8 damage pipeline
+live_from: next round (waits while isNew/castThisRound)
+calculation: [static,percentage]
+own_fields:   # zod expressions copied from the schema; base fields are in engine.md section 6
+  calculation: "z.enum([\"static\", \"percentage\"]).prefault(\"percentage\")"
+  elements: z.array(z.enum(ElementNames)).optional()
+live_usage_2026_11_21: {jutsu: 177, pvp_legal: 164}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
+  - libs/combat/tags.ts increaseDamageTaken (line 998)
+  - libs/combat/process.ts first reference (line 1622)
+  - libs/combat/util.ts EFFECT_SORT_RANK (line 822)
+  - libs/combat/damagePipeline.ts computeDamagePacket
+interactions:   # full list with notes in ../interactions.json
+  outgoing:
+    boosts: [damage]
+  incoming:
+    boosts: [increasepotency]
+    bypasses: [pierce]
+    overlaps: [afterburn, weakness, increasedamagegiven]
+    prevents: [debuffprevent]
+    removes: [cleanse]
+    transfers: [mirror]
+    weakens: [decreasepotency]

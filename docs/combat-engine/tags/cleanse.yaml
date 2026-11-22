@@ -1,0 +1,26 @@
+tag: cleanse
+schema: validators/combat.ts CleanseTag (line 617)
+exclusion_area: Remove effects
+in_game_text: Clears all negative effects from the target
+behavior: "Rolls power% each tick until it lands. Then it removes every negative effect on the target, with the same persistent-source exceptions as Clear. Cleanseprevent blocks it."
+polarity: neutral   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: [cleanseprevent]
+copy_can_take: false
+mirror_can_pass: false
+potency_eligible: false
+immunity_can_cancel: false
+stage: A3 pre-modifiers
+applies: on landing, then once a round when the holder acts
+calculation: [static]
+fields_note: simpleTag (BaseAttributes + PowerAttributes only)
+live_usage_2026_11_21: {jutsu: 4, pvp_legal: 2}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
+  - libs/combat/tags.ts cleanse (line 1160)
+  - libs/combat/process.ts first reference (line 1548)
+  - libs/combat/util.ts EFFECT_SORT_RANK (line 1085)
+interactions:   # full list with notes in ../interactions.json
+  outgoing:
+    removes: [afterburn, buffprevent, clear, damage, decreasedamagegiven, decreaseheal, decreasemastery, decreasemaxpools, decreasepotency, decreasestat, disarm, drain, elementaldamage, elementalseal, flee, fleeprevent, healprevent, increasecooldown, increasedamagetaken, increasepoolcost, moveprevent, onehitkill, pierce, poison, recoil, redirection, rob, seal, stun, summonprevent, timecompression, weakness, wound]
+  incoming:
+    overlaps: [clear, debuffprevent]
+    prevents: [cleanseprevent]

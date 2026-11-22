@@ -1,0 +1,17 @@
+tag: removebloodline
+schema: validators/combat.ts RemoveBloodline (line 854)
+exclusion_area: Outside battle or cosmetic
+in_game_text: Remove bloodline
+behavior: "Item use: removes bloodline."
+polarity: neutral   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: []   # no prevent check in its handler
+copy_can_take: false
+mirror_can_pass: false
+potency_eligible: false
+immunity_can_cancel: false
+stage: outside combat
+calculation: [percentage]
+own_fields:   # zod expressions copied from the schema; base fields are in engine.md section 6
+  power: z.coerce.number().int().min(0).max(100).prefault(1)
+  calculation: "z.enum([\"percentage\"]).prefault(\"percentage\")"
+live_usage_2026_11_21: {jutsu: 0, pvp_legal: 0}

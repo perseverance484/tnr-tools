@@ -1,0 +1,39 @@
+tag: damage
+schema: validators/combat.ts DamageTag (line 635)
+exclusion_area: Damage now
+in_game_text: Deals damage to target
+behavior: "Hits the target for a formula amount: a baseline (max HP at the attacker's level divided by the base-hits setting) scaled by power and by an attack-vs-defence advantage built from the square roots of offence and the chosen generals, clamped to a min and max. Weakness multiplies the raw number. It then runs the full damage pipeline. With rounds above 0 it repeats as residual damage on the target's turn each round, multiplied by residualModifier."
+polarity: negative   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: []   # no prevent check in its handler
+copy_can_take: false
+mirror_can_pass: false
+potency_eligible: true
+immunity_can_cancel: false
+stage: A4 mid-modifiers
+live_from: on cast if rounds 0 (instant); residual ticks on later rounds
+applies: on landing, then once a round when the holder acts
+calculation: [formula,static,percentage]
+own_fields:   # zod expressions copied from the schema; base fields are in engine.md section 6
+  calculation: "z.enum([\"formula\", \"static\", \"percentage\"]).prefault(\"formula\")"
+  residualModifier: z.coerce.number().min(0).max(2).prefault(1).optional()
+  dmgModifier: z.coerce.number().min(0).max(2).prefault(1).optional()
+  allowBloodlineDamageIncrease: z.coerce.boolean().prefault(true)
+  allowBloodlineDamageDecrease: z.coerce.boolean().prefault(true)
+  generalTypes: z.array(z.enum(GeneralTypes)).optional()
+  elements: z.array(z.enum(ElementNames)).optional()
+live_usage_2026_11_21: {jutsu: 540, pvp_legal: 470}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
+  - libs/combat/tags.ts damageUser (line 1435)
+  - libs/combat/process.ts first reference (line 1515)
+  - libs/combat/util.ts EFFECT_SORT_RANK (line 1104)
+  - libs/combat/tags.ts damageCalc
+  - libs/combat/damagePipeline.ts computeDamagePacket
+interactions:   # full list with notes in ../interactions.json
+  outgoing:
+    feeds: [wound, lifesteal, vamp, consume, afterburn, recoil, curse]
+  incoming:
+    boosts: [increasepotency, increasedamagegiven, increasedamagetaken, weakness, increasestat, curse]
+    counters: [barrier, shield, absorb, diffuse, finalstand, parry, reflect, siphon, stealth]
+    feeds: [elementaldamage]
+    removes: [cleanse]
+    weakens: [decreasepotency, decreasedamagegiven, decreasedamagetaken, decreasestat]

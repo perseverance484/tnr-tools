@@ -1,0 +1,17 @@
+tag: visual
+schema: validators/combat.ts VisualTag (line 1014)
+exclusion_area: Outside battle or cosmetic
+in_game_text: A battlefield visual effect
+behavior: Cosmetic battlefield effect; no rules.
+polarity: neutral   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: []   # no prevent check in its handler
+copy_can_take: false
+mirror_can_pass: false
+potency_eligible: false
+immunity_can_cancel: false
+stage: A5 late main pass (unranked or last-ranked)
+calculation: [static]
+live_usage_2026_11_21: {jutsu: 52, pvp_legal: 47}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
+  - libs/combat/process.ts first reference (line 305)
+  - libs/combat/util.ts EFFECT_SORT_RANK (line 1128)

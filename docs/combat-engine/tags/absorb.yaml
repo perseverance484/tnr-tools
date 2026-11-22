@@ -1,0 +1,37 @@
+tag: absorb
+schema: validators/combat.ts AbsorbTag (line 359)
+exclusion_area: Soak damage
+in_game_text: "Absorb damage taken & convert to health, chakra or stamina"
+behavior: "Converts power% (or a flat amount) of each hit the holder takes into HP, chakra or stamina, split across the chosen pools, capped at 60% of the hit. It reads the immediate part after Diffuse and is live from the round after cast. Healprevent blocks it, Curse disables it, and heal modifiers scale it."
+polarity: positive   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: [healprevent]
+copy_can_take: true
+mirror_can_pass: false
+potency_eligible: true
+immunity_can_cancel: false
+stage: A10 post-damage readers
+live_from: next round (waits while isNew/castThisRound)
+calculation: [percentage]
+own_fields:   # zod expressions copied from the schema; base fields are in engine.md section 6
+  calculation: "z.enum([\"percentage\"]).prefault(\"percentage\")"
+  direction: "type(\"defence\")"
+  poolsAffected: "z.array(z.enum(PoolTypes)).prefault([\"Health\"])"
+  target: "z.enum(BaseTagTargets).optional().prefault(\"SELF\")"
+  generalTypes: z.array(z.enum(GeneralTypes)).optional()
+  elements: z.array(z.enum(ElementNames)).optional()
+live_usage_2026_11_21: {jutsu: 45, pvp_legal: 38}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
+  - libs/combat/tags.ts absorb (line 172)
+  - libs/combat/process.ts first reference (line 634)
+  - libs/combat/util.ts EFFECT_SORT_RANK (line 805)
+interactions:   # full list with notes in ../interactions.json
+  outgoing:
+    counters: [damage]
+  incoming:
+    boosts: [increasepotency, increaseheal]
+    disables: [curse]
+    feeds: [diffuse]
+    prevents: [healprevent]
+    removes: [clear]
+    transfers: [copy]
+    weakens: [decreasepotency, decreaseheal]

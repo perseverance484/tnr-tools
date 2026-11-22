@@ -1,0 +1,32 @@
+tag: heal
+schema: validators/combat.ts HealTag (line 683)
+exclusion_area: Healing
+in_game_text: Heals themselves or others
+behavior: "Restores HP, chakra or stamina each tick: power×10 if static, or power% of the max pool if percentage. Healprevent blocks it. The healer's increaseheal and decreaseheal scale it. Clear removes a heal-over-time."
+polarity: positive   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: [healprevent]
+copy_can_take: false
+mirror_can_pass: false
+potency_eligible: true
+immunity_can_cancel: false
+stage: A4 mid-modifiers
+live_from: on cast if rounds 0 (instant); residual ticks on later rounds
+applies: on landing, then once a round when the holder acts
+calculation: [static,percentage]
+own_fields:   # zod expressions copied from the schema; base fields are in engine.md section 6
+  rounds: z.coerce.number().int().min(0).max(100).prefault(0)
+  calculation: "z.enum([\"static\", \"percentage\"]).prefault(\"percentage\")"
+  poolsAffected: "z.array(z.enum(PoolTypes)).prefault([\"Health\"]).optional()"
+live_usage_2026_11_21: {jutsu: 23, pvp_legal: 23}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
+  - libs/combat/tags.ts heal (line 1564)
+  - libs/combat/process.ts first reference (line 1536)
+  - libs/combat/util.ts EFFECT_SORT_RANK (line 1106)
+interactions:   # full list with notes in ../interactions.json
+  outgoing:
+    overlaps: [curse]
+  incoming:
+    boosts: [increasepotency, increaseheal]
+    prevents: [healprevent]
+    removes: [clear]
+    weakens: [decreasepotency, decreaseheal]

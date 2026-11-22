@@ -1,0 +1,24 @@
+tag: disarm
+schema: validators/combat.ts DisarmTag (line 735)
+exclusion_area: Deny actions
+in_game_text: Prevents using WEAPON items in battle and hides them
+behavior: "A prevent-type status. While active it hides the holder's weapon items and every jutsu that needs a weapon."
+polarity: negative   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: []   # no prevent check in its handler
+copy_can_take: false
+mirror_can_pass: true
+potency_eligible: false
+immunity_can_cancel: true
+stage: A2 prevents
+calculation: [static]
+fields_note: simpleTag (BaseAttributes + PowerAttributes only)
+live_usage_2026_11_21: {jutsu: 0, pvp_legal: 0}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
+  - libs/combat/tags.ts applyPreventTag (line 338)
+  - libs/combat/util.ts EFFECT_SORT_RANK (line 843)
+  - libs/combat/actions.ts availableUserActions
+interactions:   # full list with notes in ../interactions.json
+  incoming:
+    counters: [immunity]
+    removes: [cleanse]
+    transfers: [mirror]

@@ -1,0 +1,23 @@
+tag: elementaldamage
+schema: validators/combat.ts ElementalDamageTag (line 649)
+exclusion_area: Damage now
+in_game_text: "Deals damage using the caster's preferred basic element"
+behavior: "An authoring shortcut. On cast it becomes an ordinary damage tag with one element: the caster's saved preferred element, else their basic innate element, else Fire. It counts as elemental for Elemental Seal."
+polarity: negative   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: []   # no prevent check in its handler
+copy_can_take: false
+mirror_can_pass: true
+potency_eligible: false
+immunity_can_cancel: false
+stage: A0 cast prep
+calculation: [static]
+live_usage_2026_11_21: {jutsu: 0, pvp_legal: 0}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
+  - libs/combat/elementalDamage.ts resolveElementalDamage
+interactions:   # full list with notes in ../interactions.json
+  outgoing:
+    feeds: [damage]
+  incoming:
+    prevents: [elementalseal]
+    removes: [cleanse]
+    transfers: [mirror]

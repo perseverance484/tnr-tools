@@ -1,0 +1,21 @@
+tag: increasejutsuslots
+schema: validators/combat.ts IncreaseJutsuSlots (line 1055)
+exclusion_area: Outside battle or cosmetic
+in_game_text: "Permanently add extra jutsu slots on consumption. Shares the ${MAX_EXTRA_JUTSU_SLOTS}-slot limit with purchased slots; the item is not consumed if the grant would exceed it."
+behavior: "Item use: permanently adds jutsu slots."
+polarity: neutral   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: []   # no prevent check in its handler
+copy_can_take: false
+mirror_can_pass: false
+potency_eligible: false
+immunity_can_cancel: false
+stage: outside combat
+calculation: [static]
+own_fields:   # zod expressions copied from the schema; base fields are in engine.md section 6
+  power: z.coerce.number().int().min(1).max(MAX_EXTRA_JUTSU_SLOTS).prefault(1)
+  powerPerLevel: z.literal(0).prefault(0)
+  calculation: "z.literal(\"static\").prefault(\"static\")"
+  target: "z.literal(\"SELF\").prefault(\"SELF\")"
+  friendlyFire: "z.literal(\"FRIENDLY\").optional()"
+  rounds: BaseAttributes.rounds.refine(
+live_usage_2026_11_21: {jutsu: 0, pvp_legal: 0}

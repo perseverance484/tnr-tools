@@ -1,0 +1,33 @@
+tag: consume
+schema: validators/combat.ts ConsumeTag (line 714)
+exclusion_area: Soak damage
+in_game_text: "While active, convert a percentage of all damage you deal into stacking temporary shields on yourself. Shares conversion and shield HP caps with Siphon. Not affected by heal modifiers."
+behavior: "While active, a percentage of all damage the caster deals becomes stacking temporary shields on themselves (shieldRounds long). It shares caps with Siphon, and no prevent check runs on it."
+polarity: positive   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: []   # no prevent check in its handler
+copy_can_take: false
+mirror_can_pass: false
+potency_eligible: true
+immunity_can_cancel: false
+stage: A5 late main pass (unranked or last-ranked)
+calculation: [percentage]
+own_fields:   # zod expressions copied from the schema; base fields are in engine.md section 6
+  calculation: "z.enum([\"percentage\"]).prefault(\"percentage\")"
+  rounds: z.coerce.number().int().min(0).max(100).prefault(3)
+  shieldRounds: z.coerce.number().int().min(1).max(100).prefault(3)
+  target: "z.enum(BaseTagTargets).optional().prefault(\"SELF\")"
+live_usage_2026_11_21: {jutsu: 3, pvp_legal: 3}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
+  - libs/combat/tags.ts registerShieldConversion (line 1980)
+  - libs/combat/process.ts first reference (line 1658)
+  - libs/combat/util.ts EFFECT_SORT_RANK (line 807)
+interactions:   # full list with notes in ../interactions.json
+  outgoing:
+    feeds: [shield]
+    overlaps: [siphon]
+    shares: [siphon]
+  incoming:
+    boosts: [increasepotency]
+    feeds: [damage]
+    removes: [clear]
+    weakens: [decreasepotency]

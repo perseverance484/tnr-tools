@@ -1,0 +1,79 @@
+# Exclusion list for new tag proposals (Brandon's rule, Nov 22 2026:
+# "Please analyze all pre-existing tags and create exclusions for them and their effects to avoid overlap").
+# A proposal is rejected if its core effect does what an area below already owns,
+# even with different numbers, a different trigger or a different target.
+# Changing WHEN or HOW MUCH doesn't make it new. It has to do something no row does.
+# Check a proposal against: this file, interactions.json (kind: overlaps), and each nearby tag's file in tags/.
+pinned_game_commit: 29cd91b
+areas:
+  - area: Damage now
+    tags: [damage, pierce, elementaldamage, onehitkill, weakness]
+    owns: deals damage, ignores defences, kills outright, or adds damage against something
+  - area: Damage later
+    tags: [wound, afterburn, poison, drain, diffuse, curse]
+    owns: deals or takes damage over time, or stores damage or healing to land later
+  - area: Damage scaling
+    tags: [increasedamagegiven, decreasedamagegiven, increasedamagetaken, decreasedamagetaken, increasepotency, decreasepotency, increasestat, decreasestat, increasemastery, decreasemastery]
+    owns: raises, lowers, caps or flips how hard someone hits or gets hit
+  - area: Soak damage
+    tags: [shield, barrier, absorb, siphon, consume, finalstand]
+    owns: blocks, soaks, caps or floors incoming damage, or turns damage into shields or health
+  - area: Send it back
+    tags: [reflect, parry, recoil, mirror]
+    owns: returns damage to the attacker, makes someone hurt themselves, or passes your debuffs to them
+  - area: Healing
+    tags: [heal, lifesteal, vamp, increaseheal, decreaseheal, healprevent]
+    owns: heals, heals off damage, or changes or blocks healing
+  - area: Remove effects
+    tags: [clear, cleanse]
+    owns: takes positive or negative effects off, in whole or in part
+  - area: Take effects
+    tags: [copy]
+    owns: moves or copies the enemy's buffs to you, now or later
+  - area: Protection
+    tags: [buffprevent, debuffprevent, clearprevent, cleanseprevent, stunprevent, sealprevent, summonprevent, onehitkillprevent, robprevent, immunity]
+    owns: stops an effect from landing, or protects an effect from removal
+  - area: Deny actions
+    tags: [stun, seal, elementalseal, stealth, disarm, timecompression, increasepoolcost, increasecooldown]
+    owns: takes AP away, raises costs, or locks jutsu, bloodlines, elements or weapons
+  - area: Speed up actions
+    tags: [timedilation, decreasepoolcost, decreasecooldown, injectjutsus, increaserange]
+    owns: lowers costs or cooldowns, adds actions, or extends reach
+  - area: Position
+    tags: [move, moveprevent, redirection]
+    owns: moves anyone, pulls or pushes, or stops or limits movement
+  - area: Extra fighters
+    tags: [summon, clone]
+    owns: adds a body to the fight
+  - area: Pools and money
+    tags: [increasemaxpools, decreasemaxpools, rob]
+    owns: changes max HP, chakra or stamina, or takes ryo
+  - area: Escape
+    tags: [flee, fleeprevent]
+    owns: leaves the fight or stops someone leaving
+  - area: Enemy AI focus (PvE)
+    tags: [increaseaggro, decreaseaggro]
+    owns: changes who AI enemies target
+  - area: Sage mode
+    tags: [activatesagemode]
+    owns: enters sage mode
+outside_battle_or_cosmetic: [increaseregeneration, decreasecookingtime, decreasecraftingtime, decreasefarmingtime, decreasegatheringtime, increasegatheringyield, increasehuntingyield, increasejutsuslots, marriageslotincrease, noncombatincreasereskins, noncombatconsumereward, noncombatgainskill, noncombatquest, repair, removebloodline, rollbloodline, rollsagemode, unlockitemvariant, unknown, visual]
+open_space:   # outcomes no existing tag owns
+  - name: Duration
+    detail: lengthening or shortening effects already running. Today an effect either runs out or is removed in full; no tag changes another effect's rounds.
+  - name: Turn order
+    detail: who acts first in a round. Initiative exists in the engine (cyclic order), but no tag changes it.
+  - name: Information
+    detail: hiding your own effects or revealing the enemy's loadout. Stealth locks the holder's jutsu and makes them untargetable; it hides nothing.
+  - name: Jutsu cooldown timing
+    detail: the cooldown tags only touch basic actions. Making a used jutsu ready sooner, or delaying an enemy's jutsu cooldown, is open. Locking a jutsu outright is Deny actions.
+  - name: Triggers on the enemy's choice
+    detail: no tag fires when the enemy does something specific. The trigger is open; whatever it does when it fires still has to pass this list.
+past_proposals:   # all Brandon-reviewed or re-tested Nov 21-22 2026
+  - {name: Bulwark, idea: caps each hit at a share of max HP, verdict: out, overlaps: [finalstand, decreasedamagetaken], area: Soak damage}
+  - {name: Fuse, idea: delayed blast, verdict: out, overlaps: [wound, curse], area: Damage later}
+  - {name: Strip, idea: remove newest buff, verdict: out, overlaps: [clear], area: Remove effects, why: a partial Clear}
+  - {name: Leash, idea: can't move far from caster, verdict: out, overlaps: [moveprevent], area: Position}
+  - {name: Dampen, idea: caps enemy boosts, verdict: out, overlaps: [decreasedamagegiven, buffprevent], why: "Brandon: basically buff prevent with extra steps and confusion"}
+  - {name: Hijack, idea: next enemy buff goes to you, verdict: out, overlaps: [copy], why: "Brandon: copy with extra steps. No likey"}
+  - {name: Prolong, idea: +1 round to effects you placed, verdict: passes the exclusion test (not proposed), area: open space / Duration}

@@ -1,0 +1,32 @@
+tag: recoil
+schema: validators/combat.ts RecoilTag (line 862)
+exclusion_area: Send it back
+in_game_text: Recoil damage given back to self
+behavior: "A debuff on the holder. Power% of the damage they deal comes back to them. Pierce damage is exempt. Debuffprevent blocks it."
+polarity: negative   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: [debuffprevent]
+copy_can_take: false
+mirror_can_pass: true
+potency_eligible: false
+immunity_can_cancel: false
+stage: A10 post-damage readers
+live_from: next round (waits while isNew/castThisRound)
+calculation: [static,percentage]
+own_fields:   # zod expressions copied from the schema; base fields are in engine.md section 6
+  calculation: "z.enum([\"static\", \"percentage\"]).prefault(\"percentage\")"
+  generalTypes: z.array(z.enum(GeneralTypes)).optional()
+  elements: z.array(z.enum(ElementNames)).optional()
+live_usage_2026_11_21: {jutsu: 32, pvp_legal: 30}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
+  - libs/combat/tags.ts recoil (line 1853)
+  - libs/combat/process.ts first reference (line 1641)
+  - libs/combat/util.ts EFFECT_SORT_RANK (line 834)
+interactions:   # full list with notes in ../interactions.json
+  outgoing:
+    overlaps: [reflect]
+  incoming:
+    bypasses: [pierce]
+    feeds: [damage]
+    prevents: [debuffprevent]
+    removes: [cleanse]
+    transfers: [mirror]

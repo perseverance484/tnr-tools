@@ -1,0 +1,25 @@
+tag: moveprevent
+schema: validators/combat.ts MovePreventTag (line 782)
+exclusion_area: Position
+in_game_text: Prevents movement of the target
+behavior: "A prevent-type status. It hides basic move, the replacement technique and every jutsu with a move tag, and it blocks Redirection."
+polarity: negative   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: []   # no prevent check in its handler
+copy_can_take: false
+mirror_can_pass: false
+potency_eligible: false
+immunity_can_cancel: true
+stage: A2 prevents
+calculation: [static]
+fields_note: simpleTag (BaseAttributes + PowerAttributes only)
+live_usage_2026_11_21: {jutsu: 9, pvp_legal: 6}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
+  - libs/combat/tags.ts applyPreventTag (line 338)
+  - libs/combat/util.ts EFFECT_SORT_RANK (line 831)
+  - libs/combat/actions.ts availableUserActions
+interactions:   # full list with notes in ../interactions.json
+  outgoing:
+    prevents: [move, redirection]
+  incoming:
+    counters: [immunity]
+    removes: [cleanse]

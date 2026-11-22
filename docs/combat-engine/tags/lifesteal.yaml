@@ -1,0 +1,34 @@
+tag: lifesteal
+schema: validators/combat.ts LifeStealTag (line 695)
+exclusion_area: Healing
+in_game_text: Heal based on damage given
+behavior: "The holder heals power% of the damage they deal (matched by generals and elements). Lifesteal and Vamp share one cap: 60% of the hit, Vamp first. Healprevent blocks it, Curse disables it, and Copy can take it."
+polarity: positive   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: [healprevent]
+copy_can_take: true
+mirror_can_pass: false
+potency_eligible: true
+immunity_can_cancel: false
+stage: A10 post-damage readers
+live_from: next round (waits while isNew/castThisRound)
+calculation: [percentage]
+own_fields:   # zod expressions copied from the schema; base fields are in engine.md section 6
+  calculation: "z.enum([\"percentage\"]).prefault(\"percentage\")"
+  generalTypes: z.array(z.enum(GeneralTypes)).optional()
+  elements: z.array(z.enum(ElementNames)).optional()
+live_usage_2026_11_21: {jutsu: 40, pvp_legal: 38}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
+  - libs/combat/tags.ts lifesteal (line 1927)
+  - libs/combat/process.ts first reference (line 1645)
+  - libs/combat/util.ts EFFECT_SORT_RANK (line 830)
+interactions:   # full list with notes in ../interactions.json
+  outgoing:
+    overlaps: [vamp]
+  incoming:
+    boosts: [increasepotency, increaseheal]
+    disables: [curse]
+    feeds: [damage]
+    prevents: [healprevent]
+    removes: [clear]
+    transfers: [copy]
+    weakens: [decreasepotency, decreaseheal]

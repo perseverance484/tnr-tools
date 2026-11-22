@@ -1,0 +1,26 @@
+tag: summonprevent
+schema: validators/combat.ts SummonPreventTag (line 994)
+exclusion_area: Protection
+in_game_text: Prevents summoning
+behavior: "A prevent-type status. It rolls power% once to land and then blocks summon with certainty, but only effects cast in a later round. Effects already on the holder stay. Immunity can cancel it."
+polarity: negative   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: []   # no prevent check in its handler
+copy_can_take: false
+mirror_can_pass: true
+potency_eligible: false
+immunity_can_cancel: true
+stage: A2 prevents
+calculation: [static]
+fields_note: simpleTag (BaseAttributes + PowerAttributes only)
+live_usage_2026_11_21: {jutsu: 1, pvp_legal: 1}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
+  - libs/combat/tags.ts applyPreventTag (line 338)
+  - libs/combat/util.ts EFFECT_SORT_RANK (line 842)
+  - libs/combat/actions.ts availableUserActions
+interactions:   # full list with notes in ../interactions.json
+  outgoing:
+    prevents: [summon]
+  incoming:
+    counters: [immunity]
+    removes: [cleanse]
+    transfers: [mirror]

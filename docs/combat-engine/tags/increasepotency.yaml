@@ -1,0 +1,32 @@
+tag: increasepotency
+schema: validators/combat.ts IncreasePotencyTag (line 342)
+exclusion_area: Damage scaling
+in_game_text: Increase the power of selected tags on subsequent jutsu
+behavior: "Raises the power of the selected tag type (or all 20 potency-eligible types) on the holder's later jutsu casts, flat or by percentage, optionally limited to elements. It's live from the round after it lands; potency set on the ground affects anyone casting from that tile. Buffprevent blocks it."
+polarity: positive   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: [buffprevent]
+copy_can_take: false
+mirror_can_pass: false
+potency_eligible: false
+immunity_can_cancel: false
+stage: A3 pre-modifiers
+live_from: next round (waits while isNew/castThisRound)
+calculation: [static]
+own_fields:   # zod expressions copied from the schema; base fields are in engine.md section 6
+  target: "z.enum(BaseTagTargets).prefault(\"SELF\")"
+  affectedTag: "z.enum([\"none\", \"all\", ...PotencyTagTypes]).prefault(\"all\")"
+  affectedElements: "z.array(z.enum(ElementNames)).prefault([])"
+  calculation: "z.enum([\"static\", \"percentage\"]).prefault(\"static\")"
+  rounds: z.coerce.number().int().min(1).max(100).prefault(3)
+live_usage_2026_11_21: {jutsu: 11, pvp_legal: 11}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
+  - libs/combat/tags.ts potency (line 800)
+  - libs/combat/process.ts first reference (line 1627)
+  - libs/combat/util.ts EFFECT_SORT_RANK (line 824)
+  - libs/combat/potency.ts resolvePotencyTags
+interactions:   # full list with notes in ../interactions.json
+  outgoing:
+    boosts: [damage, increasedamagegiven, decreasedamagegiven, increasedamagetaken, decreasedamagetaken, afterburn, lifesteal, reflect, parry, curse, increaseheal, heal, vamp, absorb, consume, siphon, shield, pierce, drain, poison]
+  incoming:
+    prevents: [buffprevent]
+    removes: [clear]

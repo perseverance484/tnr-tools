@@ -1,0 +1,28 @@
+tag: timedilation
+schema: validators/combat.ts TimeDilationTag (line 500)
+exclusion_area: Speed up actions
+in_game_text: "Decreases AP cost of actions by ${TEMPORAL_AP_DELTA}"
+behavior: "Makes the holder's actions cost 10 less AP. Only one can be active at a time. Buffprevent blocks it."
+polarity: positive   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: [buffprevent]
+copy_can_take: false
+mirror_can_pass: false
+potency_eligible: false
+immunity_can_cancel: false
+stage: A5 late main pass (unranked or last-ranked)
+calculation: [static]
+own_fields:   # zod expressions copied from the schema; base fields are in engine.md section 6
+  generalTypes: z.array(z.enum(GeneralTypes)).optional()
+  elements: z.array(z.enum(ElementNames)).optional()
+  calculation: "z.enum([\"static\", \"percentage\"]).prefault(\"percentage\")"
+  rounds: z.coerce.number().int().min(1).max(20).prefault(1)
+live_usage_2026_11_21: {jutsu: 10, pvp_legal: 9}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
+  - libs/combat/tags.ts temporalShift (line 2499)
+  - libs/combat/process.ts first reference (line 1683)
+  - libs/combat/util.ts EFFECT_SORT_RANK (line 1125)
+interactions:   # full list with notes in ../interactions.json
+  incoming:
+    counters: [timecompression]
+    prevents: [buffprevent]
+    removes: [clear]

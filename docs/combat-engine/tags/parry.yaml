@@ -1,0 +1,32 @@
+tag: parry
+schema: validators/combat.ts ParryTag (line 806)
+exclusion_area: Send it back
+in_game_text: "Redirect a percentage of incoming direct damage to the attacker before shields and absorption. Pierce bypasses Parry. Stacks up to 100%. Returned damage cannot trigger Parry. Cannot be buff prevented. Can be cleared."
+behavior: "Before shields and Absorb, redirects power% of incoming direct damage (damage tags only, not pierce) back to the attacker. Several parries stack up to 100%, and returned damage can't be parried again. Buffprevent can't stop it, but Clear removes it."
+polarity: positive   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: []   # no prevent check in its handler
+copy_can_take: false
+mirror_can_pass: false
+potency_eligible: true
+immunity_can_cancel: false
+stage: A10 post-damage readers
+live_from: next round (waits while isNew/castThisRound)
+calculation: [percentage]
+own_fields:   # zod expressions copied from the schema; base fields are in engine.md section 6
+  calculation: "z.literal(\"percentage\").prefault(\"percentage\")"
+  generalTypes: z.array(z.enum(GeneralTypes)).optional()
+  elements: z.array(z.enum(ElementNames)).optional()
+live_usage_2026_11_21: {jutsu: 3, pvp_legal: 3}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
+  - libs/combat/tags.ts parry (line 1730)
+  - libs/combat/process.ts first reference (line 631)
+  - libs/combat/util.ts EFFECT_SORT_RANK (line 836)
+interactions:   # full list with notes in ../interactions.json
+  outgoing:
+    counters: [damage]
+  incoming:
+    boosts: [increasepotency]
+    bypasses: [pierce]
+    overlaps: [reflect]
+    removes: [clear]
+    weakens: [decreasepotency]

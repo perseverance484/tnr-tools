@@ -1,0 +1,26 @@
+tag: flee
+schema: validators/combat.ts FleeTag (line 679)
+exclusion_area: Escape
+in_game_text: Flee the battle
+behavior: "Rolls power% each tick to leave the battle. It's not allowed in dungeons. Fleeprevent blocks it."
+polarity: negative   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: [fleeprevent]
+copy_can_take: false
+mirror_can_pass: true
+potency_eligible: false
+immunity_can_cancel: false
+stage: A4 mid-modifiers
+applies: on landing, then once a round when the holder acts
+calculation: [static]
+fields_note: simpleTag (BaseAttributes + PowerAttributes only)
+live_usage_2026_11_21: {jutsu: 0, pvp_legal: 0}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
+  - libs/combat/tags.ts flee (line 1526)
+  - libs/combat/process.ts first reference (line 1538)
+  - libs/combat/util.ts EFFECT_SORT_RANK (line 1105)
+interactions:   # full list with notes in ../interactions.json
+  incoming:
+    feeds: [rob]
+    prevents: [fleeprevent]
+    removes: [cleanse]
+    transfers: [mirror]

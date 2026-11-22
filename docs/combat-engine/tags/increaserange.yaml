@@ -1,0 +1,23 @@
+tag: increaserange
+schema: validators/combat.ts IncreaseRangeTag (line 530)
+exclusion_area: Speed up actions
+in_game_text: Increase range of basic actions
+behavior: Adds range to the listed basic actions. Buffprevent blocks it.
+polarity: positive   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: [buffprevent]
+copy_can_take: false
+mirror_can_pass: false
+potency_eligible: false
+immunity_can_cancel: false
+stage: A5 late main pass (unranked or last-ranked)
+calculation: [static]
+own_fields:   # zod expressions copied from the schema; base fields are in engine.md section 6
+  actionsAffected: array of AdjustableBasicActions (see basicActionTag)
+live_usage_2026_11_21: {jutsu: 0, pvp_legal: 0}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
+  - libs/combat/tags.ts increaseRange (line 827)
+  - libs/combat/process.ts first reference (line 1618)
+interactions:   # full list with notes in ../interactions.json
+  incoming:
+    prevents: [buffprevent]
+    removes: [clear]

@@ -1,0 +1,30 @@
+tag: summon
+schema: validators/combat.ts SummonTag (line 996)
+exclusion_area: Extra fighters
+in_game_text: "Summon an ally for a certain number of rounds. Its stats are scaled to same total as the summoner, modified by the power of the jutsu as a percentage."
+behavior: "Spawns the chosen AI on the target tile with aiHp HP and stats scaled to power% of the summoner's total. It acts in the summoner's initiative slot, can be player-piloted, and leaves when its rounds end. Summonprevent hides summon jutsu."
+polarity: positive   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: [summonprevent]
+copy_can_take: false
+mirror_can_pass: false
+potency_eligible: false
+immunity_can_cancel: false
+stage: A4 mid-modifiers
+calculation: [percentage]
+own_fields:   # zod expressions copied from the schema; base fields are in engine.md section 6
+  rounds: z.coerce.number().int().min(2).max(100).prefault(2)
+  aiId: "z.string().prefault(\"\")"
+  aiHp: z.coerce.number().min(100).max(100000).prefault(100)
+  playerControlled: z.boolean().prefault(false)
+  calculation: "z.enum([\"percentage\"]).prefault(\"percentage\")"
+live_usage_2026_11_21: {jutsu: 22, pvp_legal: 22}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
+  - libs/combat/tags.ts summon (line 2666)
+  - libs/combat/process.ts first reference (line 317)
+  - libs/combat/util.ts EFFECT_SORT_RANK (line 1111)
+interactions:   # full list with notes in ../interactions.json
+  outgoing:
+    overlaps: [clone]
+  incoming:
+    prevents: [summonprevent]
+    removes: [clear]

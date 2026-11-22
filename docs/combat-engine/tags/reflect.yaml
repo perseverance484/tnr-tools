@@ -1,0 +1,34 @@
+tag: reflect
+schema: validators/combat.ts ReflectTag (line 817)
+exclusion_area: Send it back
+in_game_text: Reflect damage taken
+behavior: "Returns power% of each hit the holder takes to the attacker, capped at 60% of the hit. Buffprevent blocks it, and Copy can take it."
+polarity: positive   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: [buffprevent]
+copy_can_take: true
+mirror_can_pass: false
+potency_eligible: true
+immunity_can_cancel: false
+stage: A10 post-damage readers
+live_from: next round (waits while isNew/castThisRound)
+calculation: [static,percentage]
+own_fields:   # zod expressions copied from the schema; base fields are in engine.md section 6
+  calculation: "z.enum([\"static\", \"percentage\"]).prefault(\"percentage\")"
+  generalTypes: z.array(z.enum(GeneralTypes)).optional()
+  elements: z.array(z.enum(ElementNames)).optional()
+live_usage_2026_11_21: {jutsu: 24, pvp_legal: 22}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
+  - libs/combat/tags.ts reflect (line 1758)
+  - libs/combat/process.ts first reference (line 1639)
+  - libs/combat/util.ts EFFECT_SORT_RANK (line 835)
+interactions:   # full list with notes in ../interactions.json
+  outgoing:
+    counters: [damage]
+    overlaps: [parry]
+  incoming:
+    boosts: [increasepotency]
+    overlaps: [recoil]
+    prevents: [buffprevent]
+    removes: [clear]
+    transfers: [copy]
+    weakens: [decreasepotency]

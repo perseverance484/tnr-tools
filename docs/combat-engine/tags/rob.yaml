@@ -1,0 +1,30 @@
+tag: rob
+schema: validators/combat.ts RobTag (line 882)
+exclusion_area: Pools and money
+in_game_text: Robs money from the target
+behavior: "Only works in 1v1 player combat. Robprevent can block it. Otherwise it rolls power% to steal robPercentage% of the target's pocket ryo. If the thief flees, they drop the stolen ryo; if the victim flees, they get it back."
+polarity: negative   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: [robprevent]
+copy_can_take: false
+mirror_can_pass: true
+potency_eligible: false
+immunity_can_cancel: false
+stage: A4 mid-modifiers
+applies: on landing, then once a round when the holder acts
+calculation: [static]
+own_fields:   # zod expressions copied from the schema; base fields are in engine.md section 6
+  robPercentage: z.coerce.number().int().min(0).max(100).prefault(1)
+  generalTypes: z.array(z.enum(GeneralTypes)).optional()
+  elements: z.array(z.enum(ElementNames)).optional()
+live_usage_2026_11_21: {jutsu: 2, pvp_legal: 2}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
+  - libs/combat/tags.ts rob (line 2336)
+  - libs/combat/process.ts first reference (line 1578)
+  - libs/combat/util.ts EFFECT_SORT_RANK (line 1108)
+interactions:   # full list with notes in ../interactions.json
+  outgoing:
+    feeds: [flee]
+  incoming:
+    prevents: [robprevent]
+    removes: [cleanse]
+    transfers: [mirror]

@@ -1,0 +1,32 @@
+tag: weakness
+schema: validators/combat.ts WeaknessTag (line 1020)
+exclusion_area: Damage now
+in_game_text: Extra raw damage from specific things
+behavior: "Lands on a roll of power%. While active, damage or pierce from the listed jutsu, items, elements or general types has its raw damage multiplied by dmgModifier. Only the biggest matching weakness counts. No prevent stops it."
+polarity: negative   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: []   # no prevent check in its handler
+copy_can_take: false
+mirror_can_pass: true
+potency_eligible: false
+immunity_can_cancel: false
+stage: A2 prevents
+calculation: [static]
+own_fields:   # zod expressions copied from the schema; base fields are in engine.md section 6
+  items: "z.array(z.string()).prefault([])"
+  jutsus: "z.array(z.string()).prefault([])"
+  elements: "z.array(z.enum(ElementNames)).prefault([])"
+  generalTypes: "z.array(z.enum(GeneralTypes)).prefault([])"
+  dmgModifier: z.coerce.number().min(1).max(50).prefault(1).optional()
+live_usage_2026_11_21: {jutsu: 0, pvp_legal: 0}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
+  - libs/combat/tags.ts weakness (line 2802)
+  - libs/combat/process.ts first reference (line 1655)
+  - libs/combat/util.ts EFFECT_SORT_RANK (line 844)
+  - libs/combat/tags.ts calcDmgModifier
+interactions:   # full list with notes in ../interactions.json
+  outgoing:
+    boosts: [damage, pierce]
+    overlaps: [increasedamagetaken]
+  incoming:
+    removes: [cleanse]
+    transfers: [mirror]

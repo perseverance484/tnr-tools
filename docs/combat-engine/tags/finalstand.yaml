@@ -1,0 +1,29 @@
+tag: finalstand
+schema: validators/combat.ts FinalStandTag (line 772)
+exclusion_area: Soak damage
+in_game_text: User cannot be reduced below 1 HP
+behavior: "Rolls power% to activate. While active, damage can't take the holder below 1 HP (One Hit Kill still can). A bloodline version re-arms itself. Neither Clear nor Cleanse can remove it."
+polarity: neutral   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: []   # no prevent check in its handler
+copy_can_take: false
+mirror_can_pass: false
+potency_eligible: false
+immunity_can_cancel: false
+stage: A4 mid-modifiers
+calculation: [static]
+own_fields:   # zod expressions copied from the schema; base fields are in engine.md section 6
+  power: z.coerce.number().min(0).max(100).prefault(100)
+  powerPerLevel: z.coerce.number().min(0).max(1).prefault(0)
+live_usage_2026_11_21: {jutsu: 1, pvp_legal: 0}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
+  - libs/combat/tags.ts finalStand (line 2238)
+  - libs/combat/process.ts first reference (line 1696)
+  - libs/combat/util.ts EFFECT_SORT_RANK (line 1100)
+  - libs/combat/tags.ts applyFinalStandDamage
+interactions:   # full list with notes in ../interactions.json
+  outgoing:
+    counters: [damage]
+    overlaps: [diffuse]
+  incoming:
+    bypasses: [onehitkill]
+    disables: [seal]

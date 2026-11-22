@@ -1,0 +1,22 @@
+tag: decreasefarmingtime
+schema: validators/combat.ts DecreaseFarmingTime (line 203)
+exclusion_area: Outside battle or cosmetic
+in_game_text: "Reduce each planted crop duration by power percent, with a one-second minimum. Eligible bloodline, activated skill and usable worn gear bonuses stack up to ${MAX_ACTIVITY_REDUCTION_PERCENT}%; captured when planting."
+behavior: "Activity passive: shortens crop growth."
+polarity: neutral   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: []   # no prevent check in its handler
+copy_can_take: false
+mirror_can_pass: false
+potency_eligible: false
+immunity_can_cancel: false
+stage: outside combat
+calculation: [static]
+own_fields:   # zod expressions copied from the schema; base fields are in engine.md section 6
+  power: z.coerce.number().min(0).max(MAX_ACTIVITY_REDUCTION_PERCENT).prefault(1)
+  powerPerLevel: z.literal(0).prefault(0)
+  calculation: "z.literal(\"percentage\").prefault(\"percentage\")"
+  target: "z.literal(\"SELF\").prefault(\"SELF\")"
+  friendlyFire: "z.literal(\"FRIENDLY\").optional()"
+  rounds: BaseAttributes.rounds.refine(
+  timeTracker: BaseAttributes.timeTracker.refine(
+live_usage_2026_11_21: {jutsu: 0, pvp_legal: 0}

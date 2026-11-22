@@ -1,0 +1,27 @@
+tag: decreaseaggro
+schema: validators/combat.ts DecreaseAggroTag (line 418)
+exclusion_area: Enemy AI focus (PvE)
+in_game_text: Decrease current enmity or damage-generated enmity. ENMITY applies once per round; GENERATION modifies each damage packet. Omit rounds for passive gear.
+behavior: "The reverse of increaseaggro. It's classed positive, so Clear removes it, and buffprevent blocks it."
+polarity: positive   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: [buffprevent]
+copy_can_take: false
+mirror_can_pass: false
+potency_eligible: false
+immunity_can_cancel: false
+stage: A3 pre-modifiers
+applies: on landing, then once a round when the holder acts
+calculation: [static]
+own_fields:   # zod expressions copied from the schema; base fields are in engine.md section 6
+  target: "z.enum(BaseTagTargets).prefault(\"SELF\")"
+  calculation: "z.enum([\"static\", \"percentage\"]).prefault(\"percentage\")"
+  aggroMode: "z.enum([\"ENMITY\", \"GENERATION\"]).prefault(\"GENERATION\")"
+live_usage_2026_11_21: {jutsu: 0, pvp_legal: 0}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
+  - libs/combat/tags.ts adjustAggro (line 1622)
+  - libs/combat/process.ts first reference (line 1556)
+  - libs/combat/util.ts EFFECT_SORT_RANK (line 1088)
+interactions:   # full list with notes in ../interactions.json
+  incoming:
+    prevents: [buffprevent]
+    removes: [clear]

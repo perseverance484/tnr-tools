@@ -1,0 +1,30 @@
+tag: decreasepoolcost
+schema: validators/combat.ts DecreasePoolCostTag (line 459)
+exclusion_area: Speed up actions
+in_game_text: Decrease cost of taking actions
+behavior: "Lowers the chakra or stamina cost of the holder's actions."
+polarity: positive   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: []   # no prevent check in its handler
+copy_can_take: false
+mirror_can_pass: false
+potency_eligible: false
+immunity_can_cancel: false
+stage: A3 pre-modifiers
+applies: on landing, then once a round when the holder acts
+calculation: [static]
+own_fields:   # zod expressions copied from the schema; base fields are in engine.md section 6
+  poolsAffected: "z.array(z.enum(PoolTypes)).prefault([\"Health\"]).optional()"
+  calculation: "z.enum([\"static\", \"percentage\"]).prefault(\"percentage\")"
+  rounds: z.coerce.number().int().min(2).max(20).prefault(2)
+  direction: "type(\"defence\")"
+live_usage_2026_11_21: {jutsu: 1, pvp_legal: 1}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
+  - libs/combat/tags.ts decreasepoolcost (line 1653)
+  - libs/combat/process.ts first reference (line 1542)
+  - libs/combat/util.ts EFFECT_SORT_RANK (line 817)
+interactions:   # full list with notes in ../interactions.json
+  outgoing:
+    weakens: [poison]
+  incoming:
+    counters: [increasepoolcost]
+    removes: [clear]

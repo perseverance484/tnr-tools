@@ -1,0 +1,25 @@
+tag: increasemaxpools
+schema: validators/combat.ts IncreaseMaxPoolsTag (line 474)
+exclusion_area: Pools and money
+in_game_text: Increase maximum and current pool values
+behavior: "Raises maximum and current HP, chakra or stamina. Buffprevent blocks it."
+polarity: positive   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: [buffprevent]
+copy_can_take: false
+mirror_can_pass: false
+potency_eligible: false
+immunity_can_cancel: false
+stage: A5 late main pass (unranked or last-ranked)
+calculation: [static]
+own_fields:   # zod expressions copied from the schema; base fields are in engine.md section 6
+  poolsAffected: "z.array(z.enum(MaxPoolTypes)).prefault([\"Health\"])"
+  calculation: "z.enum([\"static\", \"percentage\"]).prefault(\"static\")"
+  target: "z.enum(BaseTagTargets).optional().prefault(\"SELF\")"
+live_usage_2026_11_21: {jutsu: 0, pvp_legal: 0}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
+  - libs/combat/tags.ts increaseMaxPools (line 2126)
+  - libs/combat/process.ts first reference (line 1610)
+interactions:   # full list with notes in ../interactions.json
+  incoming:
+    prevents: [buffprevent]
+    removes: [clear]

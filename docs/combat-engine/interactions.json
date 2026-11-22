@@ -1,0 +1,1992 @@
+{
+ "pinned_game_commit": "29cd91b",
+ "kinds": {
+  "prevents": "source is a prevent-type status; once landed it blocks the target tag cast on the holder in a later round",
+  "removes": "source strips the target tag (Clear: all positive; Cleanse: all negative; persistent sources excepted)",
+  "transfers": "source clones the target tag between fighters (Copy: enemy positive to caster; Mirror: caster's negative to enemy)",
+  "boosts": "source raises the target tag's number (potency, damage multipliers, heal multipliers, stats, weakness, pool spend)",
+  "weakens": "source lowers the target tag's number",
+  "counters": "source reduces, soaks, cancels or blocks what the target tag does",
+  "bypasses": "source ignores or destroys the target tag's protection",
+  "feeds": "source produces the number the target tag reads (usually damage dealt or taken)",
+  "disables": "source switches the target tag off while active",
+  "shares": "source and target share a cap",
+  "overlaps": "design overlap: both tags own the same kind of outcome (used by the exclusion rule); not an engine interaction"
+ },
+ "edges": [
+  {
+   "from": "buffprevent",
+   "to": "increasestat",
+   "kind": "prevents",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "buffprevent",
+   "to": "increasemastery",
+   "kind": "prevents",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "buffprevent",
+   "to": "increasedamagegiven",
+   "kind": "prevents",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "buffprevent",
+   "to": "decreasedamagetaken",
+   "kind": "prevents",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "buffprevent",
+   "to": "increaseheal",
+   "kind": "prevents",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "buffprevent",
+   "to": "increaserange",
+   "kind": "prevents",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "buffprevent",
+   "to": "decreasecooldown",
+   "kind": "prevents",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "buffprevent",
+   "to": "increasepotency",
+   "kind": "prevents",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "buffprevent",
+   "to": "increasemaxpools",
+   "kind": "prevents",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "buffprevent",
+   "to": "reflect",
+   "kind": "prevents",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "buffprevent",
+   "to": "curse",
+   "kind": "prevents",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "buffprevent",
+   "to": "siphon",
+   "kind": "prevents",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "buffprevent",
+   "to": "timedilation",
+   "kind": "prevents",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "buffprevent",
+   "to": "increaseaggro",
+   "kind": "prevents",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "buffprevent",
+   "to": "decreaseaggro",
+   "kind": "prevents",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "buffprevent",
+   "to": "copy",
+   "kind": "prevents",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "debuffprevent",
+   "to": "decreasestat",
+   "kind": "prevents",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "debuffprevent",
+   "to": "decreasemastery",
+   "kind": "prevents",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "debuffprevent",
+   "to": "decreasedamagegiven",
+   "kind": "prevents",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "debuffprevent",
+   "to": "increasedamagetaken",
+   "kind": "prevents",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "debuffprevent",
+   "to": "decreaseheal",
+   "kind": "prevents",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "debuffprevent",
+   "to": "increasecooldown",
+   "kind": "prevents",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "debuffprevent",
+   "to": "decreasepotency",
+   "kind": "prevents",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "debuffprevent",
+   "to": "decreasemaxpools",
+   "kind": "prevents",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "debuffprevent",
+   "to": "recoil",
+   "kind": "prevents",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "debuffprevent",
+   "to": "drain",
+   "kind": "prevents",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "debuffprevent",
+   "to": "poison",
+   "kind": "prevents",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "debuffprevent",
+   "to": "timecompression",
+   "kind": "prevents",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "debuffprevent",
+   "to": "mirror",
+   "kind": "prevents",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "healprevent",
+   "to": "heal",
+   "kind": "prevents",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "healprevent",
+   "to": "lifesteal",
+   "kind": "prevents",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "healprevent",
+   "to": "absorb",
+   "kind": "prevents",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "healprevent",
+   "to": "vamp",
+   "kind": "prevents",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "healprevent",
+   "to": "curse",
+   "kind": "prevents",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "clearprevent",
+   "to": "clear",
+   "kind": "prevents",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "cleanseprevent",
+   "to": "cleanse",
+   "kind": "prevents",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "stunprevent",
+   "to": "stun",
+   "kind": "prevents",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "sealprevent",
+   "to": "seal",
+   "kind": "prevents",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "summonprevent",
+   "to": "summon",
+   "kind": "prevents",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "onehitkillprevent",
+   "to": "onehitkill",
+   "kind": "prevents",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "robprevent",
+   "to": "rob",
+   "kind": "prevents",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "fleeprevent",
+   "to": "flee",
+   "kind": "prevents",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "moveprevent",
+   "to": "move",
+   "kind": "prevents",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "moveprevent",
+   "to": "redirection",
+   "kind": "prevents",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "immunity",
+   "to": "buffprevent",
+   "kind": "counters",
+   "note": "cancels a new one of the chosen kind",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "immunity",
+   "to": "clearprevent",
+   "kind": "counters",
+   "note": "cancels a new one of the chosen kind",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "immunity",
+   "to": "cleanseprevent",
+   "kind": "counters",
+   "note": "cancels a new one of the chosen kind",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "immunity",
+   "to": "debuffprevent",
+   "kind": "counters",
+   "note": "cancels a new one of the chosen kind",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "immunity",
+   "to": "disarm",
+   "kind": "counters",
+   "note": "cancels a new one of the chosen kind",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "immunity",
+   "to": "fleeprevent",
+   "kind": "counters",
+   "note": "cancels a new one of the chosen kind",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "immunity",
+   "to": "healprevent",
+   "kind": "counters",
+   "note": "cancels a new one of the chosen kind",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "immunity",
+   "to": "moveprevent",
+   "kind": "counters",
+   "note": "cancels a new one of the chosen kind",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "immunity",
+   "to": "onehitkillprevent",
+   "kind": "counters",
+   "note": "cancels a new one of the chosen kind",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "immunity",
+   "to": "robprevent",
+   "kind": "counters",
+   "note": "cancels a new one of the chosen kind",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "immunity",
+   "to": "sealprevent",
+   "kind": "counters",
+   "note": "cancels a new one of the chosen kind",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "immunity",
+   "to": "stunprevent",
+   "kind": "counters",
+   "note": "cancels a new one of the chosen kind",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "immunity",
+   "to": "summonprevent",
+   "kind": "counters",
+   "note": "cancels a new one of the chosen kind",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "clear",
+   "to": "absorb",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "clear",
+   "to": "consume",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "clear",
+   "to": "curse",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "clear",
+   "to": "debuffprevent",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "clear",
+   "to": "decreaseaggro",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "clear",
+   "to": "decreasecooldown",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "clear",
+   "to": "decreasedamagetaken",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "clear",
+   "to": "decreasepoolcost",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "clear",
+   "to": "heal",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "clear",
+   "to": "immunity",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "clear",
+   "to": "increaseaggro",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "clear",
+   "to": "increasedamagegiven",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "clear",
+   "to": "increaseheal",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "clear",
+   "to": "increasemastery",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "clear",
+   "to": "increasemaxpools",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "clear",
+   "to": "increasepotency",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "clear",
+   "to": "increaserange",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "clear",
+   "to": "increasestat",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "clear",
+   "to": "lifesteal",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "clear",
+   "to": "move",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "clear",
+   "to": "onehitkillprevent",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "clear",
+   "to": "parry",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "clear",
+   "to": "reflect",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "clear",
+   "to": "robprevent",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "clear",
+   "to": "sealprevent",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "clear",
+   "to": "shield",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "clear",
+   "to": "siphon",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "clear",
+   "to": "stealth",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "clear",
+   "to": "stunprevent",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "clear",
+   "to": "summon",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "clear",
+   "to": "timedilation",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "cleanse",
+   "to": "afterburn",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "cleanse",
+   "to": "buffprevent",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "cleanse",
+   "to": "clear",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "cleanse",
+   "to": "damage",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "cleanse",
+   "to": "decreasedamagegiven",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "cleanse",
+   "to": "decreaseheal",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "cleanse",
+   "to": "decreasemastery",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "cleanse",
+   "to": "decreasemaxpools",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "cleanse",
+   "to": "decreasepotency",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "cleanse",
+   "to": "decreasestat",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "cleanse",
+   "to": "disarm",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "cleanse",
+   "to": "drain",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "cleanse",
+   "to": "elementaldamage",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "cleanse",
+   "to": "elementalseal",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "cleanse",
+   "to": "flee",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "cleanse",
+   "to": "fleeprevent",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "cleanse",
+   "to": "healprevent",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "cleanse",
+   "to": "increasecooldown",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "cleanse",
+   "to": "increasedamagetaken",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "cleanse",
+   "to": "increasepoolcost",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "cleanse",
+   "to": "moveprevent",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "cleanse",
+   "to": "onehitkill",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "cleanse",
+   "to": "pierce",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "cleanse",
+   "to": "poison",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "cleanse",
+   "to": "recoil",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "cleanse",
+   "to": "redirection",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "cleanse",
+   "to": "rob",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "cleanse",
+   "to": "seal",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "cleanse",
+   "to": "stun",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "cleanse",
+   "to": "summonprevent",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "cleanse",
+   "to": "timecompression",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "cleanse",
+   "to": "weakness",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "cleanse",
+   "to": "wound",
+   "kind": "removes",
+   "note": "",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "copy",
+   "to": "increasedamagegiven",
+   "kind": "transfers",
+   "note": "clones to caster",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "copy",
+   "to": "decreasedamagetaken",
+   "kind": "transfers",
+   "note": "clones to caster",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "copy",
+   "to": "lifesteal",
+   "kind": "transfers",
+   "note": "clones to caster",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "copy",
+   "to": "absorb",
+   "kind": "transfers",
+   "note": "clones to caster",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "copy",
+   "to": "reflect",
+   "kind": "transfers",
+   "note": "clones to caster",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "copy",
+   "to": "shield",
+   "kind": "transfers",
+   "note": "clones to caster",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "copy",
+   "to": "increaseheal",
+   "kind": "transfers",
+   "note": "clones to caster",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "copy",
+   "to": "increasestat",
+   "kind": "transfers",
+   "note": "clones to caster",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "mirror",
+   "to": "afterburn",
+   "kind": "transfers",
+   "note": "clones caster's own onto target",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "mirror",
+   "to": "decreasedamagegiven",
+   "kind": "transfers",
+   "note": "clones caster's own onto target",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "mirror",
+   "to": "decreaseheal",
+   "kind": "transfers",
+   "note": "clones caster's own onto target",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "mirror",
+   "to": "decreasemastery",
+   "kind": "transfers",
+   "note": "clones caster's own onto target",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "mirror",
+   "to": "decreasemaxpools",
+   "kind": "transfers",
+   "note": "clones caster's own onto target",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "mirror",
+   "to": "decreasepotency",
+   "kind": "transfers",
+   "note": "clones caster's own onto target",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "mirror",
+   "to": "decreasestat",
+   "kind": "transfers",
+   "note": "clones caster's own onto target",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "mirror",
+   "to": "disarm",
+   "kind": "transfers",
+   "note": "clones caster's own onto target",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "mirror",
+   "to": "drain",
+   "kind": "transfers",
+   "note": "clones caster's own onto target",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "mirror",
+   "to": "elementaldamage",
+   "kind": "transfers",
+   "note": "clones caster's own onto target",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "mirror",
+   "to": "elementalseal",
+   "kind": "transfers",
+   "note": "clones caster's own onto target",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "mirror",
+   "to": "flee",
+   "kind": "transfers",
+   "note": "clones caster's own onto target",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "mirror",
+   "to": "fleeprevent",
+   "kind": "transfers",
+   "note": "clones caster's own onto target",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "mirror",
+   "to": "increasecooldown",
+   "kind": "transfers",
+   "note": "clones caster's own onto target",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "mirror",
+   "to": "increasedamagetaken",
+   "kind": "transfers",
+   "note": "clones caster's own onto target",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "mirror",
+   "to": "increasepoolcost",
+   "kind": "transfers",
+   "note": "clones caster's own onto target",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "mirror",
+   "to": "onehitkill",
+   "kind": "transfers",
+   "note": "clones caster's own onto target",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "mirror",
+   "to": "poison",
+   "kind": "transfers",
+   "note": "clones caster's own onto target",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "mirror",
+   "to": "recoil",
+   "kind": "transfers",
+   "note": "clones caster's own onto target",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "mirror",
+   "to": "redirection",
+   "kind": "transfers",
+   "note": "clones caster's own onto target",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "mirror",
+   "to": "rob",
+   "kind": "transfers",
+   "note": "clones caster's own onto target",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "mirror",
+   "to": "seal",
+   "kind": "transfers",
+   "note": "clones caster's own onto target",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "mirror",
+   "to": "summonprevent",
+   "kind": "transfers",
+   "note": "clones caster's own onto target",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "mirror",
+   "to": "weakness",
+   "kind": "transfers",
+   "note": "clones caster's own onto target",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "mirror",
+   "to": "wound",
+   "kind": "transfers",
+   "note": "clones caster's own onto target",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "increasepotency",
+   "to": "damage",
+   "kind": "boosts",
+   "note": "raises its power on later casts",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "decreasepotency",
+   "to": "damage",
+   "kind": "weakens",
+   "note": "lowers its power on later casts",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "increasepotency",
+   "to": "increasedamagegiven",
+   "kind": "boosts",
+   "note": "raises its power on later casts",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "decreasepotency",
+   "to": "increasedamagegiven",
+   "kind": "weakens",
+   "note": "lowers its power on later casts",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "increasepotency",
+   "to": "decreasedamagegiven",
+   "kind": "boosts",
+   "note": "raises its power on later casts",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "decreasepotency",
+   "to": "decreasedamagegiven",
+   "kind": "weakens",
+   "note": "lowers its power on later casts",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "increasepotency",
+   "to": "increasedamagetaken",
+   "kind": "boosts",
+   "note": "raises its power on later casts",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "decreasepotency",
+   "to": "increasedamagetaken",
+   "kind": "weakens",
+   "note": "lowers its power on later casts",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "increasepotency",
+   "to": "decreasedamagetaken",
+   "kind": "boosts",
+   "note": "raises its power on later casts",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "decreasepotency",
+   "to": "decreasedamagetaken",
+   "kind": "weakens",
+   "note": "lowers its power on later casts",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "increasepotency",
+   "to": "afterburn",
+   "kind": "boosts",
+   "note": "raises its power on later casts",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "decreasepotency",
+   "to": "afterburn",
+   "kind": "weakens",
+   "note": "lowers its power on later casts",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "increasepotency",
+   "to": "lifesteal",
+   "kind": "boosts",
+   "note": "raises its power on later casts",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "decreasepotency",
+   "to": "lifesteal",
+   "kind": "weakens",
+   "note": "lowers its power on later casts",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "increasepotency",
+   "to": "reflect",
+   "kind": "boosts",
+   "note": "raises its power on later casts",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "decreasepotency",
+   "to": "reflect",
+   "kind": "weakens",
+   "note": "lowers its power on later casts",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "increasepotency",
+   "to": "parry",
+   "kind": "boosts",
+   "note": "raises its power on later casts",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "decreasepotency",
+   "to": "parry",
+   "kind": "weakens",
+   "note": "lowers its power on later casts",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "increasepotency",
+   "to": "curse",
+   "kind": "boosts",
+   "note": "raises its power on later casts",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "decreasepotency",
+   "to": "curse",
+   "kind": "weakens",
+   "note": "lowers its power on later casts",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "increasepotency",
+   "to": "increaseheal",
+   "kind": "boosts",
+   "note": "raises its power on later casts",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "decreasepotency",
+   "to": "increaseheal",
+   "kind": "weakens",
+   "note": "lowers its power on later casts",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "increasepotency",
+   "to": "heal",
+   "kind": "boosts",
+   "note": "raises its power on later casts",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "decreasepotency",
+   "to": "heal",
+   "kind": "weakens",
+   "note": "lowers its power on later casts",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "increasepotency",
+   "to": "vamp",
+   "kind": "boosts",
+   "note": "raises its power on later casts",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "decreasepotency",
+   "to": "vamp",
+   "kind": "weakens",
+   "note": "lowers its power on later casts",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "increasepotency",
+   "to": "absorb",
+   "kind": "boosts",
+   "note": "raises its power on later casts",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "decreasepotency",
+   "to": "absorb",
+   "kind": "weakens",
+   "note": "lowers its power on later casts",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "increasepotency",
+   "to": "consume",
+   "kind": "boosts",
+   "note": "raises its power on later casts",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "decreasepotency",
+   "to": "consume",
+   "kind": "weakens",
+   "note": "lowers its power on later casts",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "increasepotency",
+   "to": "siphon",
+   "kind": "boosts",
+   "note": "raises its power on later casts",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "decreasepotency",
+   "to": "siphon",
+   "kind": "weakens",
+   "note": "lowers its power on later casts",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "increasepotency",
+   "to": "shield",
+   "kind": "boosts",
+   "note": "raises its power on later casts",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "decreasepotency",
+   "to": "shield",
+   "kind": "weakens",
+   "note": "lowers its power on later casts",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "increasepotency",
+   "to": "pierce",
+   "kind": "boosts",
+   "note": "raises its power on later casts",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "decreasepotency",
+   "to": "pierce",
+   "kind": "weakens",
+   "note": "lowers its power on later casts",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "increasepotency",
+   "to": "drain",
+   "kind": "boosts",
+   "note": "raises its power on later casts",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "decreasepotency",
+   "to": "drain",
+   "kind": "weakens",
+   "note": "lowers its power on later casts",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "increasepotency",
+   "to": "poison",
+   "kind": "boosts",
+   "note": "raises its power on later casts",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "decreasepotency",
+   "to": "poison",
+   "kind": "weakens",
+   "note": "lowers its power on later casts",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "increasedamagegiven",
+   "to": "damage",
+   "kind": "boosts",
+   "note": "\u00d7 in-battle increase step",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "increasedamagetaken",
+   "to": "damage",
+   "kind": "boosts",
+   "note": "\u00d7 in-battle increase step",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "decreasedamagegiven",
+   "to": "damage",
+   "kind": "weakens",
+   "note": "sequential DR",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "decreasedamagetaken",
+   "to": "damage",
+   "kind": "weakens",
+   "note": "sequential DR",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "weakness",
+   "to": "damage",
+   "kind": "boosts",
+   "note": "raw \u00d7 dmgModifier",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "weakness",
+   "to": "pierce",
+   "kind": "boosts",
+   "note": "raw \u00d7 dmgModifier",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "increasestat",
+   "to": "damage",
+   "kind": "boosts",
+   "note": "advantage term",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "decreasestat",
+   "to": "damage",
+   "kind": "weakens",
+   "note": "advantage term",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "curse",
+   "to": "damage",
+   "kind": "boosts",
+   "note": "raw \u00d7 damage bonus",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "barrier",
+   "to": "damage",
+   "kind": "counters",
+   "note": "absorbs part of hits passing through",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "pierce",
+   "to": "increasedamagegiven",
+   "kind": "bypasses",
+   "note": "pierce skips the damage pipeline",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "pierce",
+   "to": "increasedamagetaken",
+   "kind": "bypasses",
+   "note": "pierce skips the damage pipeline",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "pierce",
+   "to": "decreasedamagegiven",
+   "kind": "bypasses",
+   "note": "pierce skips the damage pipeline",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "pierce",
+   "to": "decreasedamagetaken",
+   "kind": "bypasses",
+   "note": "pierce skips the damage pipeline",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "pierce",
+   "to": "curse",
+   "kind": "bypasses",
+   "note": "pierce skips the damage pipeline",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "pierce",
+   "to": "shield",
+   "kind": "bypasses",
+   "note": "destroys all shields",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "pierce",
+   "to": "parry",
+   "kind": "bypasses",
+   "note": "not triggered by pierce",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "pierce",
+   "to": "recoil",
+   "kind": "bypasses",
+   "note": "not triggered by pierce",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "pierce",
+   "to": "afterburn",
+   "kind": "bypasses",
+   "note": "not triggered by pierce",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "onehitkill",
+   "to": "finalstand",
+   "kind": "bypasses",
+   "note": "sets HP to 0 directly",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "onehitkill",
+   "to": "shield",
+   "kind": "bypasses",
+   "note": "sets HP to 0 directly",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "wound",
+   "to": "shield",
+   "kind": "bypasses",
+   "note": "wound damage skips shields",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "shield",
+   "to": "damage",
+   "kind": "counters",
+   "note": "soaks before HP",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "absorb",
+   "to": "damage",
+   "kind": "counters",
+   "note": "converts part to pools",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "diffuse",
+   "to": "damage",
+   "kind": "counters",
+   "note": "defers part",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "finalstand",
+   "to": "damage",
+   "kind": "counters",
+   "note": "floors HP at 1",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "parry",
+   "to": "damage",
+   "kind": "counters",
+   "note": "sends part back first",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "reflect",
+   "to": "damage",
+   "kind": "counters",
+   "note": "sends part back",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "siphon",
+   "to": "damage",
+   "kind": "counters",
+   "note": "turns part into shields",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "damage",
+   "to": "wound",
+   "kind": "feeds",
+   "note": "records the hit",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "damage",
+   "to": "lifesteal",
+   "kind": "feeds",
+   "note": "heals from damage dealt",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "damage",
+   "to": "vamp",
+   "kind": "feeds",
+   "note": "heals from this jutsu's damage",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "damage",
+   "to": "consume",
+   "kind": "feeds",
+   "note": "shields from damage dealt",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "damage",
+   "to": "afterburn",
+   "kind": "feeds",
+   "note": "adds % of hits taken",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "damage",
+   "to": "recoil",
+   "kind": "feeds",
+   "note": "returns % to dealer",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "damage",
+   "to": "curse",
+   "kind": "feeds",
+   "note": "stores half %",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "increasepoolcost",
+   "to": "poison",
+   "kind": "boosts",
+   "note": "bigger pool spend, bigger poison",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "decreasepoolcost",
+   "to": "poison",
+   "kind": "weakens",
+   "note": "smaller pool spend",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "curse",
+   "to": "lifesteal",
+   "kind": "disables",
+   "note": "off while Curse is on the holder",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "curse",
+   "to": "absorb",
+   "kind": "disables",
+   "note": "off while Curse is on the holder",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "curse",
+   "to": "vamp",
+   "kind": "disables",
+   "note": "off while Curse is on the holder",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "increaseheal",
+   "to": "heal",
+   "kind": "boosts",
+   "note": "scales the holder's healing",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "decreaseheal",
+   "to": "heal",
+   "kind": "weakens",
+   "note": "scales the holder's healing",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "increaseheal",
+   "to": "lifesteal",
+   "kind": "boosts",
+   "note": "scales the holder's healing",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "decreaseheal",
+   "to": "lifesteal",
+   "kind": "weakens",
+   "note": "scales the holder's healing",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "increaseheal",
+   "to": "vamp",
+   "kind": "boosts",
+   "note": "scales the holder's healing",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "decreaseheal",
+   "to": "vamp",
+   "kind": "weakens",
+   "note": "scales the holder's healing",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "increaseheal",
+   "to": "absorb",
+   "kind": "boosts",
+   "note": "scales the holder's healing",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "decreaseheal",
+   "to": "absorb",
+   "kind": "weakens",
+   "note": "scales the holder's healing",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "increaseheal",
+   "to": "curse",
+   "kind": "boosts",
+   "note": "scales the holder's healing",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "decreaseheal",
+   "to": "curse",
+   "kind": "weakens",
+   "note": "scales the holder's healing",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "consume",
+   "to": "siphon",
+   "kind": "shares",
+   "note": "shared conversion and shield caps",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "siphon",
+   "to": "shield",
+   "kind": "feeds",
+   "note": "makes temporary shields",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "consume",
+   "to": "shield",
+   "kind": "feeds",
+   "note": "makes temporary shields",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "seal",
+   "to": "finalstand",
+   "kind": "disables",
+   "note": "bloodline-sourced copies only",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "seal",
+   "to": "curse",
+   "kind": "disables",
+   "note": "blocks bloodline payout",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "stealth",
+   "to": "damage",
+   "kind": "counters",
+   "note": "can't be targeted by others",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "stealth",
+   "to": "copy",
+   "kind": "counters",
+   "note": "can't be targeted by others",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "timecompression",
+   "to": "timedilation",
+   "kind": "counters",
+   "note": "AP +10 vs \u221210",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "increasepoolcost",
+   "to": "decreasepoolcost",
+   "kind": "counters",
+   "note": "opposite pool cost",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "increasecooldown",
+   "to": "decreasecooldown",
+   "kind": "counters",
+   "note": "opposite cooldown",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "barrier",
+   "to": "redirection",
+   "kind": "counters",
+   "note": "blocks landing tile",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "diffuse",
+   "to": "absorb",
+   "kind": "feeds",
+   "note": "absorb reads immediate part",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "elementalseal",
+   "to": "elementaldamage",
+   "kind": "prevents",
+   "note": "hides 60-AP elemental jutsu",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "elementaldamage",
+   "to": "damage",
+   "kind": "feeds",
+   "note": "becomes a damage tag",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "rob",
+   "to": "flee",
+   "kind": "feeds",
+   "note": "fleeing drops/returns stolen ryo",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "reflect",
+   "to": "parry",
+   "kind": "overlaps",
+   "note": "both return part of an incoming hit; parry acts before shields, direct damage only, can't be buff prevented",
+   "evidence": "design-judgement"
+  },
+  {
+   "from": "lifesteal",
+   "to": "vamp",
+   "kind": "overlaps",
+   "note": "both heal from damage dealt; they share one 60% cap, vamp first",
+   "evidence": "design-judgement"
+  },
+  {
+   "from": "consume",
+   "to": "siphon",
+   "kind": "overlaps",
+   "note": "both turn damage into stacking shields; consume on damage dealt, siphon on damage taken; shared caps",
+   "evidence": "design-judgement"
+  },
+  {
+   "from": "shield",
+   "to": "barrier",
+   "kind": "overlaps",
+   "note": "both put HP between a hit and the target; shield on the player, barrier on a tile",
+   "evidence": "design-judgement"
+  },
+  {
+   "from": "clear",
+   "to": "cleanse",
+   "kind": "overlaps",
+   "note": "same engine (removeEffects), opposite polarity",
+   "evidence": "design-judgement"
+  },
+  {
+   "from": "copy",
+   "to": "mirror",
+   "kind": "overlaps",
+   "note": "same transfer engine, opposite polarity, 4-slot cap each",
+   "evidence": "design-judgement"
+  },
+  {
+   "from": "stun",
+   "to": "timecompression",
+   "kind": "overlaps",
+   "note": "both cut how much a player can do in a round through AP",
+   "evidence": "design-judgement"
+  },
+  {
+   "from": "timecompression",
+   "to": "increasepoolcost",
+   "kind": "overlaps",
+   "note": "both raise the cost of acting; AP versus chakra/stamina",
+   "evidence": "design-judgement"
+  },
+  {
+   "from": "buffprevent",
+   "to": "clear",
+   "kind": "overlaps",
+   "note": "both answer enemy buffs; prevent stops new ones, clear removes existing ones",
+   "evidence": "design-judgement"
+  },
+  {
+   "from": "debuffprevent",
+   "to": "cleanse",
+   "kind": "overlaps",
+   "note": "both answer debuffs; prevent stops new ones, cleanse removes existing ones",
+   "evidence": "design-judgement"
+  },
+  {
+   "from": "afterburn",
+   "to": "increasedamagetaken",
+   "kind": "overlaps",
+   "note": "both make the holder take more from each hit",
+   "evidence": "design-judgement"
+  },
+  {
+   "from": "weakness",
+   "to": "increasedamagetaken",
+   "kind": "overlaps",
+   "note": "both raise damage taken; weakness only from listed jutsu, items, elements or generals",
+   "evidence": "design-judgement"
+  },
+  {
+   "from": "recoil",
+   "to": "reflect",
+   "kind": "overlaps",
+   "note": "both send damage back to the dealer; recoil is a debuff on the dealer, reflect a buff on the defender",
+   "evidence": "design-judgement"
+  },
+  {
+   "from": "wound",
+   "to": "drain",
+   "kind": "overlaps",
+   "note": "both deal damage on later rounds",
+   "evidence": "design-judgement"
+  },
+  {
+   "from": "drain",
+   "to": "poison",
+   "kind": "overlaps",
+   "note": "both deal damage over time; poison scales with what the holder spends",
+   "evidence": "design-judgement"
+  },
+  {
+   "from": "curse",
+   "to": "diffuse",
+   "kind": "overlaps",
+   "note": "both bank damage now and settle it later",
+   "evidence": "design-judgement"
+  },
+  {
+   "from": "increasedamagegiven",
+   "to": "increasedamagetaken",
+   "kind": "overlaps",
+   "note": "same multiplier step, attacker side versus defender side",
+   "evidence": "design-judgement"
+  },
+  {
+   "from": "decreasedamagegiven",
+   "to": "decreasedamagetaken",
+   "kind": "overlaps",
+   "note": "same reduction step, attacker side versus defender side",
+   "evidence": "design-judgement"
+  },
+  {
+   "from": "stealth",
+   "to": "elementalseal",
+   "kind": "overlaps",
+   "note": "both lock the holder out of jutsu; stealth all, elemental seal only 60-AP elemental",
+   "evidence": "design-judgement"
+  },
+  {
+   "from": "summon",
+   "to": "clone",
+   "kind": "overlaps",
+   "note": "both add an AI body to the fight",
+   "evidence": "design-judgement"
+  },
+  {
+   "from": "heal",
+   "to": "curse",
+   "kind": "overlaps",
+   "note": "curse ends in a heal of its stored amount",
+   "evidence": "design-judgement"
+  },
+  {
+   "from": "finalstand",
+   "to": "diffuse",
+   "kind": "overlaps",
+   "note": "both keep a big hit from killing now; final stand floors HP, diffuse defers non-lethal hits",
+   "evidence": "design-judgement"
+  }
+ ]
+}

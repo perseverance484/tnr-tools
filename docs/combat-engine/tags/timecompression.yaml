@@ -1,0 +1,31 @@
+tag: timecompression
+schema: validators/combat.ts TimeCompressionTag (line 494)
+exclusion_area: Deny actions
+in_game_text: "Increases AP cost of actions by ${TEMPORAL_AP_DELTA}"
+behavior: "Makes the holder's actions cost 10 more AP (all jutsu, or only listed elements). Only one can be active at a time. Debuffprevent blocks it."
+polarity: negative   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: [debuffprevent]
+copy_can_take: false
+mirror_can_pass: false
+potency_eligible: false
+immunity_can_cancel: false
+stage: A5 late main pass (unranked or last-ranked)
+calculation: [static]
+own_fields:   # zod expressions copied from the schema; base fields are in engine.md section 6
+  generalTypes: z.array(z.enum(GeneralTypes)).optional()
+  elements: z.array(z.enum(ElementNames)).optional()
+  calculation: "z.enum([\"static\", \"percentage\"]).prefault(\"percentage\")"
+  rounds: z.coerce.number().int().min(1).max(20).prefault(1)
+live_usage_2026_11_21: {jutsu: 4, pvp_legal: 4}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
+  - libs/combat/tags.ts temporalShift (line 2499)
+  - libs/combat/process.ts first reference (line 1682)
+  - libs/combat/util.ts EFFECT_SORT_RANK (line 1124)
+interactions:   # full list with notes in ../interactions.json
+  outgoing:
+    counters: [timedilation]
+    overlaps: [increasepoolcost]
+  incoming:
+    overlaps: [stun]
+    prevents: [debuffprevent]
+    removes: [cleanse]

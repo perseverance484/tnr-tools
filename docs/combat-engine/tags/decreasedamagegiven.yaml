@@ -1,0 +1,34 @@
+tag: decreasedamagegiven
+schema: validators/combat.ts DecreaseDamageGivenTag (line 384)
+exclusion_area: Damage scaling
+in_game_text: Decrease damage given by target
+behavior: "Percentage: a sequential damage-reduction multiplier on the holder's outgoing damage. Static: a flat subtraction after the percentage steps. Total reduction can't push a hit below 10% of its post-system-DR value. Debuffprevent blocks it."
+polarity: negative   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: [debuffprevent]
+copy_can_take: false
+mirror_can_pass: true
+potency_eligible: true
+immunity_can_cancel: false
+stage: A8 damage pipeline
+live_from: next round (waits while isNew/castThisRound)
+calculation: [static,percentage]
+own_fields:   # zod expressions copied from the schema; base fields are in engine.md section 6
+  calculation: "z.enum([\"static\", \"percentage\"]).prefault(\"percentage\")"
+  elements: z.array(z.enum(ElementNames)).optional()
+live_usage_2026_11_21: {jutsu: 82, pvp_legal: 76}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
+  - libs/combat/tags.ts decreaseDamageGiven (line 981)
+  - libs/combat/process.ts first reference (line 1552)
+  - libs/combat/util.ts EFFECT_SORT_RANK (line 814)
+  - libs/combat/damagePipeline.ts computeDamagePacket
+interactions:   # full list with notes in ../interactions.json
+  outgoing:
+    overlaps: [decreasedamagetaken]
+    weakens: [damage]
+  incoming:
+    boosts: [increasepotency]
+    bypasses: [pierce]
+    prevents: [debuffprevent]
+    removes: [cleanse]
+    transfers: [mirror]
+    weakens: [decreasepotency]

@@ -1,0 +1,32 @@
+tag: decreasepotency
+schema: validators/combat.ts DecreasePotencyTag (line 349)
+exclusion_area: Damage scaling
+in_game_text: "Decrease the power of selected tags on the target's subsequent jutsu"
+behavior: "Lowers the power of the selected tags on the holder's later jutsu casts. It works the same way as increasepotency, and debuffprevent blocks it."
+polarity: negative   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: [debuffprevent]
+copy_can_take: false
+mirror_can_pass: true
+potency_eligible: false
+immunity_can_cancel: false
+stage: A3 pre-modifiers
+live_from: next round (waits while isNew/castThisRound)
+calculation: [static]
+own_fields:   # zod expressions copied from the schema; base fields are in engine.md section 6
+  affectedTag: "z.enum([\"none\", \"all\", ...PotencyTagTypes]).prefault(\"all\")"
+  affectedElements: "z.array(z.enum(ElementNames)).prefault([])"
+  calculation: "z.enum([\"static\", \"percentage\"]).prefault(\"static\")"
+  rounds: z.coerce.number().int().min(1).max(100).prefault(3)
+live_usage_2026_11_21: {jutsu: 2, pvp_legal: 2}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
+  - libs/combat/tags.ts potency (line 800)
+  - libs/combat/process.ts first reference (line 1628)
+  - libs/combat/util.ts EFFECT_SORT_RANK (line 825)
+  - libs/combat/potency.ts resolvePotencyTags
+interactions:   # full list with notes in ../interactions.json
+  outgoing:
+    weakens: [damage, increasedamagegiven, decreasedamagegiven, increasedamagetaken, decreasedamagetaken, afterburn, lifesteal, reflect, parry, curse, increaseheal, heal, vamp, absorb, consume, siphon, shield, pierce, drain, poison]
+  incoming:
+    prevents: [debuffprevent]
+    removes: [cleanse]
+    transfers: [mirror]

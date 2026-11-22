@@ -1,0 +1,27 @@
+tag: immunity
+schema: validators/combat.ts ImmunityTag (line 975)
+exclusion_area: Protection
+in_game_text: Grants immunity against the specified prevent-type effect
+behavior: "While active, it cancels any new prevent-type status of one chosen kind (the blocks field) as it lands on the holder. It's positive, so Clear removes it."
+polarity: positive   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: []   # no prevent check in its handler
+copy_can_take: false
+mirror_can_pass: false
+potency_eligible: false
+immunity_can_cancel: false
+stage: A5 late main pass (unranked or last-ranked)
+calculation: [static]
+own_fields:   # zod expressions copied from the schema; base fields are in engine.md section 6
+  target: "z.enum(BaseTagTargets).optional().prefault(\"SELF\")"
+  blocks: "z.enum(PreventTagTypes).prefault(\"buffprevent\")"
+  rounds: z.coerce.number().int().min(1).max(20).prefault(2)
+  calculation: "z.enum([\"static\"]).prefault(\"static\")"
+live_usage_2026_11_21: {jutsu: 0, pvp_legal: 0}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
+  - libs/combat/tags.ts immunity (line 2199)
+  - libs/combat/process.ts first reference (line 1669)
+interactions:   # full list with notes in ../interactions.json
+  outgoing:
+    counters: [buffprevent, clearprevent, cleanseprevent, debuffprevent, disarm, fleeprevent, healprevent, moveprevent, onehitkillprevent, robprevent, sealprevent, stunprevent, summonprevent]
+  incoming:
+    removes: [clear]

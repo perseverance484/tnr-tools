@@ -1,0 +1,30 @@
+tag: redirection
+schema: validators/combat.ts RedirectionTag (line 506)
+exclusion_area: Position
+in_game_text: Redirects the target towards or away from the user by power number of spaces
+behavior: "Pulls the target toward the caster or pushes them away, by power hexes. It stops at the first open tile, before players or barriers. Moveprevent blocks it."
+polarity: negative   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: [moveprevent]
+copy_can_take: false
+mirror_can_pass: true
+potency_eligible: false
+immunity_can_cancel: false
+stage: A4 mid-modifiers
+calculation: [static]
+own_fields:   # zod expressions copied from the schema; base fields are in engine.md section 6
+  rounds: z.coerce.number().int().min(0).max(0).prefault(0)
+  calculation: "z.enum([\"static\"]).prefault(\"static\")"
+  direction: "z.enum([\"push\", \"pull\"]).prefault(\"pull\")"
+  generalTypes: z.array(z.enum(GeneralTypes)).optional()
+  elements: z.array(z.enum(ElementNames)).optional()
+live_usage_2026_11_21: {jutsu: 9, pvp_legal: 9}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
+  - libs/combat/tags.ts redirection (line 2551)
+  - libs/combat/process.ts first reference (line 1686)
+  - libs/combat/util.ts EFFECT_SORT_RANK (line 1103)
+interactions:   # full list with notes in ../interactions.json
+  incoming:
+    counters: [barrier]
+    prevents: [moveprevent]
+    removes: [cleanse]
+    transfers: [mirror]

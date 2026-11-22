@@ -1,0 +1,31 @@
+tag: siphon
+schema: validators/combat.ts SiphonTag (line 727)
+exclusion_area: Soak damage
+in_game_text: "While active, convert a percentage of damage you take after existing shields absorb it into stacking temporary shields. New shields are granted after damage resolves. Excludes self-inflicted damage and recoil. Shares conversion and shield HP caps with Consume. Can be cleared. Not affected by heal modifiers."
+behavior: "While active, a percentage of damage the holder takes after their existing shields becomes new stacking temporary shields once the hit resolves. It excludes self-damage and recoil, shares conversion and shield-HP caps with Consume, and is unaffected by heal modifiers. Buffprevent blocks it, and Clear removes it."
+polarity: positive   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: [buffprevent]
+copy_can_take: false
+mirror_can_pass: false
+potency_eligible: true
+immunity_can_cancel: false
+stage: A5 late main pass (unranked or last-ranked)
+calculation: [static]
+own_fields:   # zod expressions copied from the schema; base fields are in engine.md section 6
+  rounds: z.coerce.number().int().min(1).max(100).prefault(3)
+live_usage_2026_11_21: {jutsu: 1, pvp_legal: 1}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
+  - libs/combat/tags.ts registerShieldConversion (line 1980)
+  - libs/combat/process.ts first reference (line 1658)
+  - libs/combat/util.ts EFFECT_SORT_RANK (line 808)
+interactions:   # full list with notes in ../interactions.json
+  outgoing:
+    counters: [damage]
+    feeds: [shield]
+  incoming:
+    boosts: [increasepotency]
+    overlaps: [consume]
+    prevents: [buffprevent]
+    removes: [clear]
+    shares: [consume]
+    weakens: [decreasepotency]

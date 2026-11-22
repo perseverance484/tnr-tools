@@ -1,0 +1,26 @@
+tag: decreasemastery
+schema: validators/combat.ts DecreaseMasteryTag (line 590)
+exclusion_area: Damage scaling
+in_game_text: Decrease mastery of target
+behavior: Lowers the chosen jutsu-type masteries. Debuffprevent blocks it.
+polarity: negative   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: [debuffprevent]
+copy_can_take: false
+mirror_can_pass: true
+potency_eligible: false
+immunity_can_cancel: false
+stage: A3 pre-modifiers
+live_from: next round (waits while isNew/castThisRound)
+calculation: [static]
+own_fields:   # zod expressions copied from the schema; base fields are in engine.md section 6
+  masteryTypes: array of MasteryTypes (see masteryModifierTag)
+live_usage_2026_11_21: {jutsu: 0, pvp_legal: 0}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
+  - libs/combat/tags.ts decreaseMastery (line 897)
+  - libs/combat/process.ts first reference (line 1608)
+  - libs/combat/util.ts EFFECT_SORT_RANK (line 829)
+interactions:   # full list with notes in ../interactions.json
+  incoming:
+    prevents: [debuffprevent]
+    removes: [cleanse]
+    transfers: [mirror]

@@ -1,0 +1,27 @@
+tag: onehitkill
+schema: validators/combat.ts OneHitKillTag (line 787)
+exclusion_area: Damage now
+in_game_text: Instantly kills the target
+behavior: "Rolls power% to set the target's HP to 0 outright. It skips shields, damage reduction and Final Stand. Onehitkillprevent blocks it. The HP removed counts as damage dealt."
+polarity: negative   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: [onehitkillprevent]
+copy_can_take: false
+mirror_can_pass: true
+potency_eligible: false
+immunity_can_cancel: false
+stage: A4 mid-modifiers
+applies: on landing, then once a round when the holder acts
+calculation: [static]
+fields_note: simpleTag (BaseAttributes + PowerAttributes only)
+live_usage_2026_11_21: {jutsu: 1, pvp_legal: 1}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
+  - libs/combat/tags.ts onehitkill (line 2311)
+  - libs/combat/process.ts first reference (line 1559)
+  - libs/combat/util.ts EFFECT_SORT_RANK (line 1107)
+interactions:   # full list with notes in ../interactions.json
+  outgoing:
+    bypasses: [finalstand, shield]
+  incoming:
+    prevents: [onehitkillprevent]
+    removes: [cleanse]
+    transfers: [mirror]

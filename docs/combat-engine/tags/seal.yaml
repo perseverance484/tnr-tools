@@ -1,0 +1,28 @@
+tag: seal
+schema: validators/combat.ts SealTag (line 955)
+exclusion_area: Deny actions
+in_game_text: "Seals the target's bloodline effects"
+behavior: "Sealprevent can block it. Otherwise it rolls power% to land. From the following round it switches off all of the holder's bloodline effects, including bloodline damage modifiers, bloodline potency and bloodline-gated payouts."
+polarity: negative   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: [sealprevent]
+copy_can_take: false
+mirror_can_pass: true
+potency_eligible: false
+immunity_can_cancel: false
+stage: A4 mid-modifiers
+applies: on landing, then once a round when the holder acts
+calculation: [static]
+fields_note: simpleTag (BaseAttributes + PowerAttributes only)
+live_usage_2026_11_21: {jutsu: 8, pvp_legal: 8}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
+  - libs/combat/tags.ts seal (line 2397)
+  - libs/combat/process.ts first reference (line 1586)
+  - libs/combat/util.ts EFFECT_SORT_RANK (line 1109)
+  - libs/combat/util.ts isEffectEnabled / sealCheck
+interactions:   # full list with notes in ../interactions.json
+  outgoing:
+    disables: [finalstand, curse]
+  incoming:
+    prevents: [sealprevent]
+    removes: [cleanse]
+    transfers: [mirror]

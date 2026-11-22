@@ -1,0 +1,27 @@
+tag: vamp
+schema: validators/combat.ts VampTag (line 704)
+exclusion_area: Healing
+in_game_text: Instantly heal yourself based on a percentage of the damage dealt by this jutsu
+behavior: "Lives on the jutsu itself: the caster instantly heals power% of the damage that jutsu dealt. Healprevent on the caster blocks it, and Curse disables it."
+polarity: neutral   # positive = Clear removes; negative = Cleanse removes; neutral = neither
+prevented_by: [healprevent]
+copy_can_take: false
+mirror_can_pass: false
+potency_eligible: true
+immunity_can_cancel: false
+stage: A5 late main pass (unranked or last-ranked)
+calculation: [percentage]
+own_fields:   # zod expressions copied from the schema; base fields are in engine.md section 6
+  calculation: "z.enum([\"percentage\"]).prefault(\"percentage\")"
+live_usage_2026_11_21: {jutsu: 9, pvp_legal: 9}
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
+  - libs/combat/tags.ts vamp (line 1956)
+  - libs/combat/process.ts first reference (line 1647)
+interactions:   # full list with notes in ../interactions.json
+  incoming:
+    boosts: [increasepotency, increaseheal]
+    disables: [curse]
+    feeds: [damage]
+    overlaps: [lifesteal]
+    prevents: [healprevent]
+    weakens: [decreasepotency, decreaseheal]
