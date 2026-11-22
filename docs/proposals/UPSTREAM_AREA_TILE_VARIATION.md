@@ -138,3 +138,4 @@ By making this pull request, I confirm that I have the right to waive copyright 
   rippled clip and captured a missing exit; preview gave a fighter's exit tile variation; a replay drew the previous
   cycle's clip) and a P3 (the alternate's texture size missing from the preload list). Applied in 4f391254e, each new
   test confirmed to fail without its fix.
+- Review round 11 (independent agent on 4f391254e): PASS, no findings. Ready for the director's review.
