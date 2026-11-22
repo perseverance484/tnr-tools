@@ -4,9 +4,9 @@
 - Branch: `perseverance484/TheNinjaRPG` `feat/area-tile-variation`, head 88c6edd91 (one commit, authored as
   perseverance484 with the Claude co-author line, like PR #2575).
 - Demo GIFs (drag them into the PR description on GitHub, where the placeholders are):
-  `art/jutsu_icons/forbidden_chakra_fury/animation/v9/pr_fcf_side_by_side.gif` (main),
-  `pr_fcf_today_uniform.gif`, `pr_fcf_tile_variation.gif`. Built by `v9/tile_variation_demo.py` with the engine's
-  own tile hash, ported to Python and checked equal on a 12 x 10 board.
+  `art/jutsu_icons/forbidden_chakra_fury/animation/v10/pr_fcf_compare.gif` (main), `pr_fcf_today.gif`,
+  `pr_fcf_varied.gif`. Built by `v10/board_v10.py` from the FCF v10 art (`v10/build_v10.py`) with the engine's tile
+  hash ported to Python; the same art both times.
 - Lessons applied from PR #2575 (the maintainer added a commit to cover data-model cases we missed): the places the
   comparable `animationScale` field reaches (commit 8bd670153) were followed, except the battlefield preview, left
   out on purpose and stated; behaviours have a test that fails when the code is removed, except the audit
@@ -38,8 +38,8 @@ An area jutsu's ground effects place the same clips on every tile they cover, an
 
 Ripple and stagger add up, and variation adds at most 2 s of delay to a tile (`MAX_TILE_DELAY_MS`); texture loading can hold a tile back further. A one-shot clip whose effect leaves the battle before the clip has finished, such as a visual replaced by the next action, still plays to its end and is then cleaned up, including when the effect leaves while its textures are loading; looping and static art leave with the effect. Which tiles mirror, where each falls within the stagger and which play the alternate come from a hash of the tile's column and row (`tileVariation` in `combatEffects.ts`), so every client draws the same field and the choice does not follow rows, columns or a checkerboard. Frame timing within a clip is unchanged; a tile's delay only moves when its clips begin.
 
-<!-- drag pr_fcf_side_by_side.gif here -->
-*Top: one field clip on every tile. Bottom: the same jutsu using ripple, stagger, mirroring and an alternate clip.* <!-- caption must match the GIF regenerated with ripple -->
+<!-- drag pr_fcf_compare.gif here -->
+*Top: the same art as the engine draws it without these settings: one clip on every tile, all at once. Bottom: mirroring, an alternate clip (sky strike or ground eruption), 120 ms stagger and a 90 ms per hex ripple out from the caster.*
 
 ## Behaviour
 
@@ -106,3 +106,4 @@ By making this pull request, I confirm that I have the right to waive copyright 
   skip hit testing. Cap described as added delay.
 - Review round 7 (independent agent on 88c6edd91): PASS, wording P3s in the body fixed (leftover clause, timeless
   phrasing). No code change; ready for the director's review.
+- 2026-11-21: demo GIFs regenerated from FCF v10 with ripple (v10/board_v10.py); caption matches.
