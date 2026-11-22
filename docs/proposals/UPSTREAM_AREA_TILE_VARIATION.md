@@ -124,3 +124,6 @@ By making this pull request, I confirm that I have the right to waive copyright 
   (independent agent on 2a70fe0a0): changes requested, two P2s (departing SURFACE clip hidden with its ground
   container; tile delay doubled up on projectile impacts) and two P3s (scale label, two relative phrases). Applied in
   75c7e506f with tests confirmed to fail without the fixes.
+- Review round 9 (independent agent on 75c7e506f): PASS, one P3 left as written (a projectile cast's own-tile impact
+  skips stagger and ripple though nothing flew; the description says "a cast with a projectile"). Ready for the
+  director's review.
