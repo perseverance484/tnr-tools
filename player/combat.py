@@ -50,7 +50,7 @@ PERM_KEYS = ("type", "targetId", "creatorId", "power", "powerPerLevel", "level",
              "statTypes", "generalTypes", "fromType", "timedBuffExpiresAt", "rounds", "createdRound")
 LIVE_KEYS = ("type", "targetId", "creatorId", "actionId", "power", "powerPerLevel", "level", "calculation", "direction",
              "elements", "fromType", "rounds", "createdRound", "castThisRound", "isNew", "poolsAffected",
-             "timedBuffExpiresAt", "statTypes", "generalTypes")
+             "timedBuffExpiresAt", "statTypes", "generalTypes", "instant", "fromGround")
 GROUND_KEYS = ("type", "creatorId", "longitude", "latitude", "curHealth", "maxHealth", "absorbPercentage", "power",
                "rounds", "createdRound")
 

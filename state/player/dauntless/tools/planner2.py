@@ -55,13 +55,20 @@ NK = 24
 # and it does not land while that side is debuff-immune (director 2026-11-11, 4qua R2).
 MULT = (GUP, GDN, TAKEN, DR, GGRD)
 COPY = -4
-POSK = (GUP, DR, ABS, LS, REF, PAR, SHD, DIMM, CIMM, NPOS, NSTK)
+POSK = (GUP, DR, ABS, LS, REF, PAR, SHD, DIMM, NPOS, NSTK)   # not CIMM: clearprevent is neutral (map)
 NEGK = (GDN, TAKEN, WND, DRN, RCL, HCUT, BBLK, STUN, AFB)
-HOSTILE = {TAKEN, WND, DRN, RCL, STUN, HCUT, AFB}
+# what Dr. Kim's / Seal's "cannot be debuffed" (debuffprevent) and Seal's buff block (buffprevent) stop, from the map's
+# "prevents" edges (2026-11-22 audit): wound, afterburn and stun go through debuffprevent (stun answers only to
+# stunprevent), and buffprevent does not stop absorb or lifesteal (healprevent does).
 KIND = {"taken": TAKEN, "dr": DR, "absorb": ABS, "lifesteal": LS, "reflect": REF, "parry": PAR, "shield": SHD,
         "debuffimmune": DIMM, "clearimmune": CIMM, "wound": WND, "drain": DRN, "recoil_self": RCL, "recoil": RCL,
         "healcut": HCUT, "buffblock": BBLK, "stun": STUN, "afterburn": AFB}
+_KI = dict(KIND, **{"given-": GDN, "given+": GUP})
+HOSTILE = {_KI[k] for k in CM.prevented_kinds("debuffprevent") if k in _KI} if CM.AVAILABLE else {TAKEN, DRN, RCL, HCUT, GDN}
+BUFF_BLOCKED = {_KI[k] for k in CM.prevented_kinds("buffprevent") if k in _KI} if CM.AVAILABLE else {GUP, DR, REF}
 CLEAR, CLEANSE, HEAL = -1, -2, -3
+KILL_MARGIN_HOT = float(os.environ.get("TNR_KILL_MARGIN_HOT", "0.25"))
+PIERCE_VS_SHIELD = 0.5   # his pierce odds into a shield on me while his pierce is ready (logs: 5 of 7)
 STANCES = ("defstance", "offstance")
 WFILE = os.path.join(HERE, "planner2_weights.json")
 # Hand-set (director 2026-11-11: "orient it in the most ideal way possible by editing weights by hand"). Units: HP.
@@ -118,6 +125,10 @@ class Side:
             f = (1 - v) if k == DR else (1 + v)
             for o in range(lo, hi + 1):
                 a[base + o] *= f
+        elif k == STUN:
+            # the largest live stun counts; stuns don't add up (engine turn.ts calcApReduction)
+            for o in range(lo, hi + 1):
+                a[base + o] = max(a[base + o], v)
         else:
             for o in range(lo, hi + 1):
                 a[base + o] += v
@@ -139,6 +150,13 @@ class Side:
         for k, v in self.pm:
             if k in kinds:
                 self.add(k, v, 0, H - 1)
+
+    def soak(self, used, o):
+        """A shield absorbs `used` at offset o: what is left keeps soaking later hits (process.ts calcAdjustedDamage
+        subtracts and keeps the remainder; 2026-11-22 audit: any hit used to wipe the whole shield)."""
+        a, base = self.a, SHD * H
+        for oo in range(max(o, 0), H):
+            a[base + oo] = max(0.0, a[base + oo] - used)
 
     def given0(self, o):
         return self.g(GUP, o) * self.g(GDN, o) * (self.g(GGRD, o) if not self.g(DIMM, o) else 1.0)
@@ -210,7 +228,10 @@ def from_engine(effects, R, in_base=("me",), max_hp=(5050.0, 5050.0), perm_in_ba
         left = 0 if perm else int(e.get("rounds") or 0)
         if not perm and left <= 0:
             continue
-        cast_now = bool(e.get("castThisRound"))
+        # an instant jutsu tag (game PR 2631, "for N rounds, starting this round") is live in its casting round and
+        # counts down from the next one (turn.ts: isInstantJutsuEffect); a stun's AP loss still waits a round
+        instant = e.get("instant") is True and e.get("fromType") == "jutsu" and not e.get("fromGround") and t != "stun"
+        cast_now = bool(e.get("castThisRound")) and not instant
         o1, o2 = (0, PERM) if perm else ((1, left) if cast_now else (0, left - 1))
         els = frozenset(x for x in (e.get("elements") or []) if x)
         k, v = None, None
@@ -259,7 +280,7 @@ def from_engine(effects, R, in_base=("me",), max_hp=(5050.0, 5050.0), perm_in_ba
         elif t == "buffprevent":
             k, v = BBLK, 1
         elif t == "stun":
-            k, v = STUN, 20
+            k, v = STUN, float(e.get("apReduction") or 20)    # the effect's own AP loss (20, 40, 60...)
         elif t == "decreaseheal":
             k, v = HCUT, abs(pct)
         if k is None or not v:
@@ -309,7 +330,7 @@ def from_shotplan(s, R):
         if shotplan.ground(t) and kind == "given":
             out.add(GGRD, v, first - R, last - R)
             continue
-        k = kind_of(kind, v)
+        k = DRN if kind == "dot" else kind_of(kind, v)    # damage over time ticks like a drain
         if k is None or last < R:
             continue
         add_tag(out, k, v, first - R, last - R)
@@ -352,6 +373,12 @@ def compile_spec(spec, actor_is_me, elements=None):
 SOURCE_EXACT = True
 
 
+# A barrier between me and him while my own turn is simulated: [hp left, absorb share, my Side] (engine
+# getBarriersBetween / damageBarrier: each hit through it loses the absorb share until its HP is spent). turn.py
+# had this and planner2 did not (2026-11-22 audit: Ashutosh R6, forecast 2,241 vs 1,201 real).
+MY_BARRIER = None
+
+
 def apply(src, dst, act, o, scale=1.0):
     """One action at offset o: damage then tags (shotplan.apply order and caps). Returns (to target, to actor)."""
     base, pierce, tags = act[0], act[1], act[2]
@@ -376,21 +403,24 @@ def apply(src, dst, act, o, scale=1.0):
         if not pierce:
             sh = da[SHD * H + o]
             if sh:
-                dmg -= min(sh, dmg)
-                dst.wipe((SHD,))
+                used = min(sh, dmg)
+                dmg -= used
+                dst.soak(used, o)
         dmg = max(dmg, 0.0)
+        if MY_BARRIER is not None and src is MY_BARRIER[2] and MY_BARRIER[0] > 0 and dmg > 0:
+            soak = min(dmg * MY_BARRIER[1], MY_BARRIER[0])
+            MY_BARRIER[0] -= soak
+            dmg -= soak
         basis = pre if SOURCE_EXACT else dmg
-        burn = 0.0 if pierce else dmg * min(CM.CAP_AFTERBURN, da[AFB * H + o])     # afterburn: not on pierce, not absorbed
-        to_t += dmg + burn - basis * min(CM.CAP_ABSORB, da[ABS * H + o] + da[PABS * H + o]) * (1 - da[HCUT * H + o])
-        to_s -= basis * min(CM.CAP_LEECH, sa[LS * H + o] + sa[PLS * H + o]) * (1 - sa[HCUT * H + o])
+        # afterburn reads the hit before shields, like absorb and leech (2026-11-22 audit); not on pierce
+        burn = 0.0 if pierce else basis * min(CM.CAP_AFTERBURN, da[AFB * H + o])
+        # heal cut applies before the 60% cap (tags.ts: the cut scales the converted amount, the cap clamps last)
+        to_t += dmg + burn - basis * min(CM.CAP_ABSORB, (da[ABS * H + o] + da[PABS * H + o]) * (1 - da[HCUT * H + o]))
+        to_s -= basis * min(CM.CAP_LEECH, (sa[LS * H + o] + sa[PLS * H + o]) * (1 - sa[HCUT * H + o]))
         back = parried + basis * min(CM.CAP_REFLECT, da[REF * H + o] + da[PREF * H + o])
         rec = 0.0 if (pierce and SOURCE_EXACT) else dmg * sa[RCL * H + o]      # recoil skips pierce (tags.ts)
-        if SOURCE_EXACT:
-            # reflect / parry / recoil come back as damage on the attacker through HIS damage-taken modifiers
-            # (process.ts calcAdjustedDamage(user, ...))
-            adj = sa[TAKEN * H + o] * sa[DR * H + o]
-            back *= adj
-            rec *= adj
+        # reflect / parry / recoil come back through the attacker's shields and Final Stand only, not his
+        # damage-taken modifiers (process.ts calcAdjustedDamage: shields, then applyFinalStandDamage)
         to_s += rec + back
     for on_src, k, v, o1, o2 in tags:
         side = src if on_src else dst
@@ -403,7 +433,7 @@ def apply(src, dst, act, o, scale=1.0):
             continue
         if k == HEAL:
             if on_src:
-                to_s -= v
+                to_s -= v * (1 - src.g(HCUT, o))      # Severed Pulse-style heal cuts shrink heals too
             continue
         if k == COPY:
             # Shadow Dance: he copies my positive effects onto himself (from next round): my damage-given stack and
@@ -416,11 +446,11 @@ def apply(src, dst, act, o, scale=1.0):
                         else:
                             src.a[kk * H + oo] += dst.a[kk * H + oo]
             continue
-        if not on_src and (v < 0 or k in HOSTILE) and dst.g(DIMM, o):
+        if not on_src and (k in HOSTILE or (k == GUP and v < 0)) and dst.g(DIMM, o):
             continue
         if k == WND and not on_src:
             v *= wmul
-        if on_src and v > 0 and k in (GUP, ABS, LS, DR, REF) and src.g(BBLK, o):
+        if on_src and v > 0 and k in BUFF_BLOCKED and src.g(BBLK, o):
             continue
         add_tag(side, k, v, o + o1, o + o2)
     return to_t, to_s
@@ -443,14 +473,24 @@ def run_turn(actor, other, acts, o, cap_a, cap_o, scale=1.0):
 
 
 # ------------------------------------------------------------------ legality
-def legal_bundles(st, R, ap, d0, loadout, me0, en0):
-    """Every bundle of ready actions with cost in [ap-20, ap], range checked after moves, no shared-lock pairs."""
+def legal_bundles(st, R, ap, d0, loadout, me0, en0, ap_full=None):
+    """Every bundle of ready actions with cost in [ap-20, ap], range checked after moves, no shared-lock pairs.
+    Stunned (ap < ap_full): AP is recomputed on every action as stored AP minus the live stun (engine actions.ts
+    actionPointsAfterAction), so Cleanse fired first takes the stun off and the rest of the turn has ap_full - 60:
+    a bundle with Cleanse may cost up to ap_full (Cleanse + a 40 on an 80-AP turn)."""
+    if ap_full and ap_full > ap and "cleanse" in loadout and "cleanse" in cd_plan.ACTIONS \
+            and cd_plan.ready_round(st, "cleanse") <= R:
+        base = legal_bundles(st, R, ap, d0, loadout, me0, en0)
+        seen = set(base)
+        more = [b for b in legal_bundles(st, R, ap_full, d0, loadout, me0, en0) if "cleanse" in b and b not in seen]
+        return base + more
     A = cd_plan.ACTIONS
     ready = [n for n in loadout if n in A and n in shotplan.MINE and cd_plan.ready_round(st, n) <= R]
     if not any(en0.g(k, 0) for k in (ABS, LS, REF, PAR, SHD, DR)) and en0.given(0) <= 1.0001 or en0.g(CIMM, 0):
         ready = [n for n in ready if n != "clear"]          # nothing clearable, or clear-immune
     if not (me0.g(TAKEN, 0) > 1.0001 or me0.g(GDN, 0) < 0.9999 or me0.g(WND, 0) or me0.g(DRN, 0) or me0.g(RCL, 0)
-            or me0.g(HCUT, 0) or me0.g(TAKEN, 1) > 1.0001 or me0.g(WND, 1) or me0.g(DRN, 1)):
+            or me0.g(HCUT, 0) or me0.g(TAKEN, 1) > 1.0001 or me0.g(WND, 1) or me0.g(DRN, 1) or me0.g(STUN, 0)
+            or me0.g(STUN, 1) or me0.g(AFB, 0) or me0.g(AFB, 1)):
         ready = [n for n in ready if n != "cleanse"]        # nothing to cleanse
     if d0 > 1:
         ready.append("step")
@@ -553,6 +593,7 @@ class Planner:
         self.me0, self.en0, self.R, self.ctx, self.cal = me0, en0, R, ctx, cal
         self.my_kit, self.his_kit, self.st, self.en_acted, self.caps = my_kit, his_kit, st, en_acted, caps
         self.base_turn = base_turn
+        self.ap_full = 100                             # AP with no stun (set from the battle by build)
         self.hr = 1 if en_acted else 0                 # his reply offset
         self.hn = 2 if en_acted else 1                 # his next turn offset (after my next turn)
         dmg = [(n, cd_plan.ACTIONS[n][0], my_kit[n]) for n in st["loadout"]
@@ -614,7 +655,7 @@ class Planner:
         seq = self.clockd.get("his_seq") or [(self.base_turn, 0.0)] * (CURVE_K + 1)
         for k, (nonp, pier) in enumerate(seq[his_first:his_first + CURVE_K]):
             o = min(self.hr + his_first + k, H - 1)
-            stun = (100 - min(40, e.g(STUN, o))) / 100
+            stun = (100 - min(100, e.g(STUN, o))) / 100
             mult = e.given(o) * m.g(TAKEN, o) * m.g(DR, o) * (1 - min(CM.CAP_PARRY, m.g(PAR, o)))
             hit = max(0.0, nonp * mult * stun - m.g(SHD, o)) * (1 - min(CM.CAP_ABSORB, m.g(ABS, o) + m.g(PABS, o)) * (1 - m.g(HCUT, o)))
             his.append(hit + pier * stun + m.g(WND, o) + m.g(DRN, o))
@@ -683,7 +724,7 @@ class Planner:
 
     def his_potential(self, m, e, used=()):
         o = self.hn
-        stun = (100 - min(40, e.g(STUN, o))) / 100
+        stun = (100 - min(100, e.g(STUN, o))) / 100
         hit = self.his_base(used) * e.given(o) * m.g(TAKEN, o) * m.g(DR, o) * stun
         par = min(CM.CAP_PARRY, m.g(PAR, o))
         parried = hit * par
@@ -729,9 +770,14 @@ class Planner:
         if "cleanse" in b:
             m0.wipe(NEGK)
         self.move_ground(m0, b)                         # off his ground, or onto it, by where the move lands
-        run_turn(m0, e0, acts, 0, cm, ce)
+        self.my_turn(m0, e0, b, acts, cm, ce)
+        blend = None
         if e0.hp <= 0:
-            return [(self.en0.hp - e0.hp) - (self.me0.hp - m0.hp)] + [0] * (NF - 1), value_model.KILL, self.en0.hp, [(1.0, ["-"])], 0.0
+            kf = [(self.en0.hp - e0.hp) - (self.me0.hp - m0.hp)] + [0] * (NF - 1)
+            p_k, e_live = self.kill_odds(b, self.en0.hp - e0.hp)
+            if p_k >= 1.0:
+                return kf, value_model.KILL, self.en0.hp, [(1.0, ["-"])], 0.0
+            e0.hp, blend = e_live, (p_k, kf)            # a close kill: he may live on what the forecast overshoots by
         feats = [0.0] * NF
         term = 0.0
         # damage to him is what my turn takes off him, before his reply: measured after the reply it counted his
@@ -744,7 +790,7 @@ class Planner:
         for w, names in opts:
             m, e = m0.copy(), e0.copy()
             real = names and names[0] in self.clockd.get("ids", ())
-            stun = 1.0 if real else (100 - min(40, e.g(STUN, self.hr))) / 100
+            stun = 1.0 if real else (100 - min(100, e.g(STUN, self.hr))) / 100
             run_turn(e, m, [self.his_kit[n] for n in names if n in self.his_kit], self.hr, ce, cm, stun)
             if m.hp <= 0 or e.hp <= 0:
                 t = value_model.KILL if e.hp <= 0 < m.hp else -value_model.DEATH
@@ -756,8 +802,44 @@ class Planner:
             outs.append((w, names, f))
             for i in range(NF):
                 feats[i] += w * f[i]
+        p_dead = min(1.0, dead - feats[7])
+        if blend:
+            p_k, kf = blend
+            feats = [p_k * a + (1 - p_k) * c for a, c in zip(kf, feats)]
+            term = p_k * value_model.KILL + (1 - p_k) * term
+            dmg, p_dead = self.en0.hp, (1 - p_k) * p_dead
         # the chance I am dead before my next turn: his reply now, or his next turn (feature 7, on the branches I live)
-        return feats, term, dmg, outs, min(1.0, dead - feats[7])
+        return feats, term, dmg, outs, p_dead
+
+    def my_turn(self, m0, e0, b, acts, cm, ce):
+        """My turn at offset 0, through any barrier between where the bundle leaves me and him."""
+        global MY_BARRIER
+        bar = None
+        if turn.BARRIERS and self.board is not None:
+            me_pos, en_pos = self.board[0], self.board[1]
+            bar = turn.barrier_between(self.landing(b) or me_pos, en_pos)
+        MY_BARRIER = [bar[0], bar[1], m0] if bar else None
+        # in the order the pilot fires it (turn.resolve_targets): Cleanse and moves first, Clear before damage
+        last = self.board is not None and turn.moves_last(list(b), self.board[3])
+        seq = sorted(b, key=lambda x: (last and x in ("phantom", "replace"),
+                                       turn.ORDER.index(x) if x in turn.ORDER else 50))
+        acts = [self.my_kit[x] for x in seq if x in self.my_kit]
+        try:
+            return run_turn(m0, e0, acts, 0, cm, ce)
+        finally:
+            MY_BARRIER = None
+
+    def kill_margin(self, b):
+        """Overkill a forecast kill needs before it counts as sure: KILL_MARGIN, or KILL_MARGIN_HOT when my live
+        +given is 1.6x or more or the bundle has an AoE hit (2026-11-22 audit: forecasts ran +18.7% hot at 1.6x+
+        and +118 on AoE; BKQ R2 read a 67-97% kill on Mamba that left him at 2,059)."""
+        hot = self.me0.given(0) >= 1.6 or any(x in turn.AOE for x in b)
+        return KILL_MARGIN_HOT if hot else turn.KILL_MARGIN
+
+    def kill_odds(self, b, dealt):
+        """(chance a forecast kill is real, his HP on the branch where he lives)."""
+        mg = self.kill_margin(b)
+        return turn.kill_chance(dealt, self.en0.hp, mg), max(1.0, self.en0.hp - dealt * (1 - mg))
 
     def his_score(self, hb, m0, e0, ho=None):
         """His line from his side on the board he faces: damage now, minus what bounces back, plus what it does to
@@ -785,13 +867,30 @@ class Planner:
         cands = self.clockd.get("cands")
         if not cands or self.ctx["afk"]:
             return his_options(self.cal, self.ctx, m0, e0, self.hr)
-        ap = 100 - (20 if e0.g(STUN, self.hr) else 0)
+        ap = 100 - min(100, e0.g(STUN, self.hr))
         scored = [(self.his_score(hb, m0, e0) + self.his_habit(hb), list(hb)) for hb, cost in cands if cost <= ap]
         out = hedge(clock.soft(scored), [list(hb) for hb, cost in cands if cost <= ap], self, m0, e0, self.hr)
+        if m0.g(SHD, self.hr) > 0:
+            out = self.pierce_floor(out, [(s, b) for s, b in scored])
         if not self.ctx["smoke_spent"] and not self.clockd.get("smoke_in_kit"):
             ps = value_model.smoothed(self.cal, "smoke")
             out = [(w * (1 - ps), b) for w, b in out] + [(ps, ["smoke", "light"])]
         return out
+
+    def pierce_floor(self, out, scored):
+        """A shield on me draws his pierce while it's ready: shields cast with his pierce ready were pierced 5 of 7
+        times in the logs (2026-11-22 audit; the softmax gave it 0.08-0.17). His pierce lines get PIERCE_VS_SHIELD."""
+        is_p = lambda b: any((self.his_kit.get(x) or (0, False))[1] for x in b)     # noqa: E731
+        wp = sum(w for w, b in out if is_p(b))
+        if wp >= PIERCE_VS_SHIELD:
+            return out
+        if wp <= 0:
+            best = max((sb for sb in scored if is_p(sb[1])), key=lambda sb: sb[0], default=None)
+            if best is None:
+                return out
+            return [(w * (1 - PIERCE_VS_SHIELD), b) for w, b in out] + [(PIERCE_VS_SHIELD, list(best[1]))]
+        k_p, k_o = PIERCE_VS_SHIELD / wp, (1 - PIERCE_VS_SHIELD) / max(1e-9, 1 - wp)
+        return [(w * (k_p if is_p(b) else k_o), b) for w, b in out]
 
     def replies_next(self, m0, e0, used, k=3):
         """His turn after my next one (offset hr + 1): his lines ready then (clock, cooldowns from what he just
@@ -824,14 +923,18 @@ class Planner:
         if "cleanse" in b:
             m0.wipe(NEGK)
         self.move_ground(m0, b)
-        run_turn(m0, e0, [self.my_kit[x] for x in b if x in self.my_kit], 0, cm, ce)
+        self.my_turn(m0, e0, b, [self.my_kit[x] for x in b if x in self.my_kit], cm, ce)
+        p_k = 0.0
         if e0.hp <= 0:
-            return value_model.KILL + self.en0.hp, None
+            p_k, e_live = self.kill_odds(b, self.en0.hp - e0.hp)
+            if p_k >= 1.0:
+                return value_model.KILL + self.en0.hp, None
+            e0.hp = e_live
         total, top_follow, top_w = 0.0, None, -1.0
         for w, names in self.replies(m0, e0):
             m, e = m0.copy(), e0.copy()
             real = names and names[0] in self.clockd.get("ids", ())
-            stun = 1.0 if real else (100 - min(40, e.g(STUN, self.hr))) / 100
+            stun = 1.0 if real else (100 - min(100, e.g(STUN, self.hr))) / 100
             run_turn(e, m, [self.his_kit[n] for n in names if n in self.his_kit], self.hr, ce, cm, stun)
             if m.hp <= 0 or e.hp <= 0 or m.hp <= m.g(WND, 1) + m.g(DRN, 1):
                 # a wound / drain tick at least my HP kills me before my next action: no follow-up, no setup payoff
@@ -839,7 +942,7 @@ class Planner:
                 total += w * ((-value_model.DEATH if dead else value_model.KILL) + self._trade(m, e))
                 continue
             best, best_fb = None, None
-            ap1 = 100 - min(40, m.g(STUN, 1))      # a stun from his reply costs me AP next turn
+            ap1 = 100 - min(100, m.g(STUN, 1))      # a stun from his reply costs me AP next turn
             for fb in follows:
                 if ap1 < 100 and sum(cd_plan.ACTIONS[x][0] for x in fb if x in cd_plan.ACTIONS) > ap1:
                     continue
@@ -866,6 +969,8 @@ class Planner:
             total += w * best
             if w > top_w:
                 top_w, top_follow = w, best_fb
+        if p_k:
+            total = p_k * (value_model.KILL + self.en0.hp) + (1 - p_k) * total
         return total, top_follow
 
     def _trade(self, m, e):
@@ -899,7 +1004,9 @@ class Planner:
         if any(x in ("stormblade", "nights") for x in b) and self.en0.g(ABS, 0) >= 0.2:
             guard -= self.en0.g(ABS, 0) * 631
         g, w = critique.live_guards(b, self.crit())      # the fight 2 critique (critique.py; TNR_CRITIQUE=1)
-        return rc, (ap - cost) / 20.0, guard + g, why + w
+        if "cleanse" in b and cost > ap:
+            ap = cost if cost <= self.ap_full else ap   # Cleanse fired first gives the stunned AP back
+        return rc, max(0.0, ap - cost) / 20.0, guard + g, why + w
 
     def landing(self, b):
         """The tile a bundle with a move ends on (turn.resolve_targets, as the shot is fired), or None."""
@@ -977,16 +1084,17 @@ def build(a):
     shotplan.MINE.setdefault("basicheal", (0, [("me", "heal", 600, 0, True)]))
     lines = [f"{r}|{t.strip()}" for r, u, _, ts in rows for t in (ts or [])]
     sme, sen = shotplan.rebuild(lines, ME_NAME, en["username"], me["curHealth"], en["curHealth"])
-    stun_lines = [(int(l.split("|")[0]), int(m.group(1)) if (m := re.search(r"\[-(\d+) AP\]", l)) else 20)
-                  for l in lines if "dauntless is stunned" in l]
-    stun = max([s for r0, s in stun_lines if r0 + 2 >= R and (r0 < R or en_acted)] or [0])
-    ap = min(int(me["actionPoints"]) if my_turn else 100, 100 - stun)
+    # a stun costs AP from the round after it is cast (the engine skips castThisRound effects), for its own rounds;
+    # the largest live one counts, and Cleanse removes it (2026-11-22 audit: 8 of 81 turns were planned at 80 AP
+    # with 100 to spend, because a stun cast earlier this round was counted)
+    stun = max([t[1] for t in sme.live("stun", R)] or [0])
+    ap_full = min(int(me["actionPoints"]) if my_turn else 100, 100)
+    ap = min(ap_full, 100 - stun)
     spent, pierce_last, avg = turn.enemy_resources(rows, en["userId"], R)
     cal = value_model.load_cal()
     value_model.calibrate_kit(cal)
     gm = (turn.engine_bridge.opponent_kit(en["userId"]) or {}).get("gearMods") or {}
     gear_dr = float(gm.get("drTakenFromGear", 15))
-    afk_acts = [x for r, u, x, _ in rows if u == en["userId"]]
     sm = [(r, m.group(1), int(m.group(2))) for r, u, _, ts in rows if u == en["userId"] for t in (ts or [])
           if (m := re.search(r"^\s*(\S+) was summoned for (\d+) rounds", t))]
     summon = False
@@ -999,7 +1107,7 @@ def build(a):
         "pierce_shown": pierce_last is not None,
         "clear_held": "clear" not in spent,
         "smoke_spent": "smoke" in spent,
-        "afk": bool(afk_acts) and sum(1 for x in afk_acts if x == "wait") * 2 >= len(afk_acts),
+        "afk": turn.is_afk(rows, en["userId"]),
         "summon": summon,
         "pierce_window": bool(sme.mult("given", R) < 0.6 or sen.live("shield", R)
                               or 1 - (50 - gear_dr) / 50 * turn._prod(1 - t[1] for t in sen.live("dr", R)) >= 0.55
@@ -1041,6 +1149,10 @@ def build(a):
     # gets his bloodline damage boost; his observed hits already include it
     prof = opp_profile.profile(en["userId"], rows)
     gmul = opp_profile.given_mult(prof)
+    if eng is None and gmul > 1.0:
+        for t in sen.tags:   # a seal on him from the log ("bloodline is sealed"): his bloodline boost is off then
+            if t[0] == "seal" and t[3] >= R:
+                add_tag(en0, GDN, round(1.0 / gmul - 1.0, 4), t[2] - R, t[3] - R)
     mine_prof = opp_profile.own_profile()
     # his gear, stats and masteries are not public: validate.py --write-scales measures them per opponent from the
     # logs (logged / predicted damage, shrunk toward 1 with few samples) -> "him" on his hits, "me" on mine
@@ -1071,6 +1183,7 @@ def build(a):
     # accurate opponent models")
     import opponents as OM
     model = OM.load().get(en["userId"])
+    clock.MAX_HP = float(en.get("maxHealth") or 5050)      # his percentage heals read his own max HP
     acts = clock.his_actions(en["userId"], rows)
     if model:
         macts = OM.acts_for(model)
@@ -1078,6 +1191,10 @@ def build(a):
     # no logged fight with him yet: an empty model still learns from this fight's turns as they come
     habit = OM.habit_fn(model or {"userId": en["userId"], "bundles": [], "rounds": {}, "trans": {}, "openings": [],
                                   "ids": {a: 1 for _, u, a, _ in rows if u == en["userId"] and a not in ("wait", "move")}})
+    if en.get("isAi"):
+        # an AI fighter (a village protector is an AI copy of a player, run by its AI rules, not by that player's
+        # habits): his lines are scored on the board alone (2026-11-22 audit)
+        habit = None
     his_turns = OM.turns_of(rows, en["userId"])
     clock_info, clockd = None, {}
     ctx["copier"] = bool(acts) and any(t[1] == "copy" for v in acts.values() for t in v[4][1])
@@ -1100,6 +1217,10 @@ def build(a):
     caps = (me.get("maxHealth", 5050), en.get("maxHealth", 5050))
     # his ground on the board (turn.set_ground): Phantom Step / Replacement land off it when a tile in reach allows
     turn.set_ground(battle, en["userId"])
+    turn.BARRIERS[:] = [(g["longitude"], g["latitude"], float(g.get("curHealth") or 0),
+                         float(g.get("absorbPercentage") or 0) / 100, g.get("creatorId"))
+                        for g in battle.get("battle.groundEffects") or []
+                        if g.get("type") == "barrier" and float(g.get("curHealth") or 0) > 0]
     g_here = turn.HIS_GIVEN.get(me_pos)
     if g_here and me0.g(GGRD, 0) == 1.0 and not me0.g(DIMM, 0):
         me0.add(GGRD, -g_here[0], 0, g_here[1])         # standing on it now: the log text may not have put it on me
@@ -1110,6 +1231,7 @@ def build(a):
                             max(his_kit_raw["turn"][0], avg or 0), ctx["afk"])
     print(f"kunai: {kwhy} -> cost {value_model.KUNAI_COST}")
     P = Planner(me0, en0, R, ctx, cal, my_kit, his_kit, st, en_acted, caps, his_kit_raw["turn"][0], clockd)
+    P.ap_full = ap_full
     # solution-library key: this position plus what his last turn did (solutions.py)
     try:
         import opponents as OM
@@ -1121,13 +1243,14 @@ def build(a):
         P.book_key = None
     # the critique guards' inputs (critique.py): his next turn is this round when I act first, else the next one
     his_turn = R + 1 if en_acted else R
-    P.board = (me_pos, en_pos, {(p["longitude"], p["latitude"]) for p in others}, d0)   # as the FIRE line resolves
+    P.board = (me_pos, en_pos, {(p["longitude"], p["latitude"]) for p in others} | {(x[0], x[1]) for x in turn.BARRIERS},
+               d0)   # as the FIRE line resolves (barrier tiles are taken, as in turn.py)
     P.crit_args = dict(R=R, en_acted=en_acted, ap=ap, my_hp=me["curHealth"], my_max=caps[0], me_pos=me_pos,
                        ground=battle.get("battle.groundEffects"), me_id=ME, rows=rows, en_id=en["userId"],
                        clear_safe=bool(sme.live("clearimmune", his_turn)), afk=ctx["afk"],
                        nuke_hit=max(his_kit_raw["burst"][0], critique.observed_peak(rows, en["userId"], ME_NAME)))
     info = dict(battle=battle, me=me, en=en, R=R, my_turn=my_turn, en_acted=en_acted, me_pos=me_pos, en_pos=en_pos,
-                d0=d0, ap=ap, stun=stun, others=others, st=st, sme=sme, sen=sen, prof=prof, gmul=gmul, clock=clock_info, rows=rows,
+                d0=d0, ap=ap, ap_full=ap_full, stun=stun, ap_surcharge=int(max([t[1] for t in sme.live("apcost", R)] or [0])), others=others, st=st, sme=sme, sen=sen, prof=prof, gmul=gmul, clock=clock_info, rows=rows,
                 engine_state=eng is not None, live_state=bool(live), fight_bases=bool(fb), opp_scale=(s_me, s_him))
     return P, info
 
@@ -1246,7 +1369,8 @@ def make_clock(acts, rows, en_id, R, en_acted, me0, en0, ctx, cal, his_kit, base
               "habit": habit, "his_prev": his_prev, "his_prev2": his_prev2, "his_fight": his_fight, "his_n": his_n,
               "hr_abs": hr_abs,
               "next_lines": [(frozenset(hb), sum(acts[x][4][0] for x in hb)) for hb in clock.bundles(acts, ready_next, 100)]}
-    tmp = Planner(me0, en0, R, ctx, cal, {}, his_kit, {"loadout": [], "used": []}, en_acted, (5050, 5050), base_turn, clockd)
+    tmp = Planner(me0, en0, R, ctx, cal, {}, his_kit, {"loadout": [], "used": []}, en_acted,
+                  (ctx.get("my_max", 5050), clock.MAX_HP), base_turn, clockd)
     sc = sorted(((tmp.his_score(hb, me0, en0) + tmp.his_habit(hb), hb, c) for hb, c in all_lines), key=lambda x: -x[0])
     keep = sc[:12]
     for pick in (next((x for x in sc if "clear" in x[1]), None),
@@ -1455,7 +1579,11 @@ def main():
     if banned:
         info["st"]["loadout"] = [n for n in info["st"]["loadout"] if n not in banned and turn.ACTION_ID.get(n) not in banned]
         print("banned this battle (refused by the game):", ", ".join(sorted(banned)))
-    bundles = legal_bundles(info["st"], R, info["ap"], info["d0"], info["st"]["loadout"], P.me0, P.en0)
+    bundles = legal_bundles(info["st"], R, info["ap"], info["d0"], info["st"]["loadout"], P.me0, P.en0, info.get("ap_full"))
+    if info.get("ap_surcharge"):
+        # time compression on me: every jutsu costs that much more this round (log "actions will cost N more AP")
+        lim = lambda b: info["ap_full"] if "cleanse" in b else info["ap"]
+        bundles = [b for b in bundles if cd_plan.bundle_cost(b, info["ap_surcharge"]) <= lim(b)]
     if not bundles:
         print("no legal bundle (check AP/cooldowns)"); return
     W = load_weights()
@@ -1467,7 +1595,7 @@ def main():
     if a.dump:
         json.dump({"bundles": [{"b": list(r[1]), "f": r[2], "term": r[3], "rc": r[4], "waste": r[5], "guard": r[6],
                                 "dmg": r[8]} for r in res]}, open(a.dump, "w"))
-    occupied = {(p["longitude"], p["latitude"]) for p in info["others"]}
+    occupied = {(p["longitude"], p["latitude"]) for p in info["others"]} | {(x[0], x[1]) for x in turn.BARRIERS}
     print(f"planner2: {len(bundles)} legal bundles in {time.time() - t0:.2f}s. TOP {a.top}:")
     for i, r in enumerate(res[:a.top], 1):
         seq, end = turn.resolve_targets(r[1], info["me_pos"], info["en_pos"], occupied)

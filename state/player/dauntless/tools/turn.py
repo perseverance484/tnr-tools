@@ -135,8 +135,9 @@ def _reply_vec(v, bases):
         parried = dmg * min(CM.CAP_PARRY, par)     # same order and caps as shotplan.apply
         dmg -= parried
         if shield:
-            dmg -= min(shield, dmg)
-            shield = 0.0
+            used = min(shield, dmg)
+            dmg -= used
+            shield -= used          # the rest keeps soaking (2026-11-22 audit)
         dmg = max(dmg, 0.0)
         dealt += dmg - dmg * min(CM.CAP_ABSORB, ab) * (1 - hc_d)
         taken_self -= dmg * min(CM.CAP_LEECH, ls) * (1 - hc_s)
@@ -300,6 +301,25 @@ def _off_val(m, e, R, at, base, m0=None, e0=None, p_clear=0.0):
     else:
         v0 = _mit(e, at, afb=0.0)
     return value_model.GAMMA * base * max(0.0, v1 - v0)
+
+
+KILL_MARGIN_HOT = float(os.environ.get("TNR_KILL_MARGIN_HOT", "0.25"))
+
+
+def is_afk(rows, en_id, need=2):
+    """He is AFK once he has idled (timed out, "wait") in at least `need` rounds and in at least half of the
+    actions he has taken. One idle opener is not enough (2026-11-22 audit, BKQ R1: one "wait" marked him AFK, the
+    planner predicted no reply and priced the kunai at 5,500; he then dealt 455)."""
+    acts = [(r, a) for r, u, a, _ in rows if u == en_id]
+    idle_rounds = {r for r, a in acts if a == "wait"}
+    return len(idle_rounds) >= need and sum(1 for _, a in acts if a == "wait") * 2 >= len(acts)
+
+
+def kill_margin(b, me_side, r):
+    """KILL_MARGIN, or KILL_MARGIN_HOT when my live +given is 1.6x or more or the bundle has an AoE hit (2026-11-22
+    audit: forecasts ran +18.7% hot at 1.6x+ and +118 on AoE; BKQ R2 read a 67-97% kill on Mamba at 4,517 that dealt
+    2,458)."""
+    return KILL_MARGIN_HOT if me_side.mult("given", r) >= 1.6 or any(x in AOE for x in b) else KILL_MARGIN
 
 
 def kill_chance(dealt, hp, margin):
@@ -641,7 +661,11 @@ def main():
     me0, en0 = shotplan.rebuild(lines, ME_NAME, en["username"], me["curHealth"], en["curHealth"])
     try:                              # Danse Macabre's seal switches his bloodline boost off at once
         import opp_profile
-        shotplan.set_seal_cut(opp_profile.given_mult(opp_profile.profile(en["userId"], rows)))
+        _gmul = opp_profile.given_mult(opp_profile.profile(en["userId"], rows))
+        shotplan.set_seal_cut(_gmul)
+        if _gmul and _gmul > 1.0:     # a seal on him from the log: his bloodline boost is off for those rounds
+            en0.tags += [["given", round(1.0 / _gmul - 1.0, 4), t[2], t[3]] for t in en0.tags
+                         if t[0] == "seal" and t[3] >= R]
     except Exception:  # noqa: BLE001
         shotplan.set_seal_cut(1.0)
     shotplan.off_ground(me0, rows, ME, MOVE_IDS)
@@ -652,11 +676,11 @@ def main():
     # getActiveTargetEffects) skips effects with castThisRound, so his stun earlier THIS round costs nothing now:
     # DDX R5 and Warlord40 R2 (2026-11-11) both had the full 100 AP after a same-round stun, and the planner's
     # 80 AP left 20 unspent (DDX R5: Phantom+kunai+Defensive Stance planned, Chakra Pill tacked on after).
-    stunned = any("dauntless is stunned" in l and R - 2 <= int(l.split("|")[0]) < R for l in lines) \
-        or bool(me0.live("stun", R))
-    # the stun's size is in the log ("stunned [-10 AP]"; arena 2026-11-11: a -10 stun was planned as -20, 10 AP lost)
-    stun_amt = max([int(m.group(1)) for l in lines if (m := re.search(r"dauntless is stunned \[-(\d+) AP\]", l))
-                    and R - 2 <= int(l.split("|")[0]) < R] or [20])
+    # the size comes from the log line ("stunned [-10 AP]"; arena 2026-11-11: a -10 stun was planned as -20), the
+    # largest live one counts, and Cleanse takes it off (shotplan.rebuild reads the stun line and the cleanse line;
+    # 2026-11-22 audit: Cleanse does remove stun, and a stun lasts its own rounds, not always 2)
+    stun_amt = int(max([t[1] for t in me0.live("stun", R)] or [0]))
+    stunned = stun_amt > 0
     ap_now = min(int(me["actionPoints"]) if my_turn else 100, 100 - stun_amt if stunned else 100)
     spent, pierce_last, avg = enemy_resources(rows, en["userId"], R)
     known = en["username"].lower() in shotplan.ENEMY
@@ -679,9 +703,7 @@ def main():
         "d0": d0,
         "line_blocked": barrier_between(me_pos, en_pos) is not None,
         "my_max": me.get("maxHealth", 5050),
-        "afk": (lambda t: len(t) >= 1 and sum(1 for a in t if a == "wait") * 2 >= len(t))(
-            [a for r, u, a, _ in rows if u == en["userId"] and (a == "wait" or a not in ("move",))]
-            and [a for r, u, a, _ in rows if u == en["userId"]]),
+        "afk": is_afk(rows, en["userId"]),
         # director 2026-11-11: pierce is best when his DR is at or near max (engine DMG_REDUCTION_CAP = 90%), not
         # into 30-45%. Window = his effective in-combat DR >= 55%, a live shield, me smoked, or a pierce kill.
         # his gear DR adds to the 50% system DR (engine pre-battle stage): effective DR vs a bare target =
@@ -690,7 +712,7 @@ def main():
                               or 1 - (50 - _his_gear_dr) / 50 * _prod(1 - t[1] for t in en0.live("dr", R)) >= 0.55
                               or en["curHealth"] <= 720),
         "en_absorb": en0.total("absorb", R),
-        "tick": me0.total("wound", R) + me0.total("drain", R),
+        "tick": me0.total("wound", R) + me0.total("drain", R) + me0.total("dot", R),
     }
     # the critique guards (critique.py): his next turn is this round when I act first, else the next one
     _his_turn = R + 1 if en_acted else R
@@ -721,6 +743,18 @@ def main():
 
     bundles = legal(st, R, ap_now, bool(en0.live("debuffimmune", R)),
                     set(), st["loadout"], d0)
+    if stunned and "cleanse" in st["loadout"] and cd_plan.ready_round(st, "cleanse") <= R:
+        # AP is recomputed on every action (stored AP minus the live stun), so Cleanse fired first gives the
+        # stunned AP back: a bundle with Cleanse may cost up to the unstunned AP (resolve_targets fires it first)
+        _ap_full = min(int(me["actionPoints"]) if my_turn else 100, 100)
+        _seen = set(bundles)
+        bundles = list(bundles) + [b for b in legal(st, R, _ap_full, bool(en0.live("debuffimmune", R)), set(),
+                                                    st["loadout"], d0) if "cleanse" in b and b not in _seen]
+    _surch = int(max([t[1] for t in me0.live("apcost", R)] or [0]))
+    if _surch:
+        # time compression on me: every jutsu costs that much more this round
+        _full = min(int(me["actionPoints"]) if my_turn else 100, 100)
+        bundles = [b for b in bundles if cd_plan.bundle_cost(b, _surch) <= (_full if "cleanse" in b else ap_now)]
     # engine replay (harness/pvp_turn/engine/replay_sim.ts): legality, AP and costs from the engine's own state
     # --fast (live-turn mode): the engine's legality list runs in a thread while python scores stage 1, and is
     # applied to the stage-1 list afterwards; the slower engine re-score of the shortlist is skipped
@@ -793,6 +827,11 @@ def main():
     cd_plan.ACTIONS.setdefault("stepback", (10, 0, None, "kite step"))
     shotplan.MINE.setdefault("stepback", (0, []))
     bundles = list(bundles) + extra
+    # simulate each bundle in the order it is fired (resolve_targets: Cleanse and moves first, Clear before damage),
+    # not in loadout order (2026-11-22 audit, 6QNv R5: Clear + Aetherion read 0 damage, 410 real)
+    bundles = [tuple(sorted(bb, key=lambda x, L=moves_last(bb, d0): (L and x in ("phantom", "replace"),
+                                                                     ORDER.index(x) if x in ORDER else 50)))
+               for bb in bundles]
     cal = value_model.load_cal()
     value_model.calibrate_kit(cal)
     ctx["smoke_spent"] = "smoke" in spent
@@ -849,6 +888,7 @@ def main():
     if cd_plan.ready_round(st, "clear") <= R and not ctx["afk"]:
         try:
             import clock
+            clock.MAX_HP = float(en.get("maxHealth") or 5050)
             hacts = clock.his_actions(en["userId"], rows)
         except Exception:  # noqa: BLE001
             hacts = None
@@ -923,10 +963,11 @@ def main():
         p_kill = 1.0
         if e.hp <= 0 < m.hp:
             dealt = en0.hp - e.hp
-            p_kill = kill_chance(dealt, en0.hp, KILL_MARGIN)
+            _mg = kill_margin(b, me0, R)
+            p_kill = kill_chance(dealt, en0.hp, _mg)
             if p_kill < 1.0:          # a close kill: he may live on what the forecast overshoots by
                 sc_kill = value_model.score(m, e, me["curHealth"], en["curHealth"])
-                e.hp = max(1.0, en0.hp - dealt * (1 - KILL_MARGIN))
+                e.hp = max(1.0, en0.hp - dealt * (1 - _mg))
                 log[0] = ("me", R, b, d, t, m.hp, e.hp)
         m._his = tuple(h)
         if e.hp > 0:
@@ -950,7 +991,7 @@ def main():
     def doomed(m, e):
         """Alive now, but next round's wound / drain tick is at least my HP: it lands before my first action
         (fight 2 vs DDXXD R9, 2026-11-16), so nothing I set up for that turn pays."""
-        return 0 < m.hp <= m.total("wound", R + 1) + m.total("drain", R + 1) and e.hp > 0
+        return 0 < m.hp <= m.total("wound", R + 1) + m.total("drain", R + 1) + m.total("dot", R + 1) and e.hp > 0
 
     def ply2(m, e, b, dend, kit):
         """My best follow-up next round (after cooldowns from b) and his expected reply to it."""
@@ -986,7 +1027,7 @@ def main():
                      or any(t[2] <= r1 and t[0] in _READ_SRC for t in m1.tags[nm:])
                      or any(t[2] <= r1 and t[0] in _READ_DST for t in e1.tags[ne:]))
             acts[x] = (d, s, m1.tags[nm:], e1.tags[ne:], inter)
-        tick = m.total("wound", r1) + m.total("drain", r1)
+        tick = m.total("wound", r1) + m.total("drain", r1) + m.total("dot", r1)
         on_ground = any(shotplan.ground(t) for t in m.tags)
         reply_cache = {}
         tagless = all(not (kit.get(x) or (0, []))[1] and len(kit.get(x) or (0, [])) == 2 for x in ("turn", "summon"))
@@ -1009,7 +1050,7 @@ def main():
                 cm, ce = _contrib(v[2], hr2), _contrib(v[3], hr2)
                 cvec[x] = _vec(ce, cm) if (cm or ce) else None
             reply_bases = {False: [kit["turn"][0]], True: [kit["turn"][0], (kit.get("summon") or (0, []))[0]]}
-        ap2 = 100 - min(40, int(m.total("stun", r1)))   # his stun in his reply costs me AP next round
+        ap2 = 100 - min(100, int(max([t[1] for t in m.live("stun", r1)] or [0])))   # his stun in his reply costs me AP next round
         for b2 in legal(st2, r1, ap2, bool(e.live("debuffimmune", r1)), blocked, st["loadout"], dend):
             if tagless and not any(x not in acts or acts[x][4] for x in b2):
                 dealt, taken = 0.0, tick if b2 else 0.0
@@ -1019,7 +1060,7 @@ def main():
                     taken += av[1]
                 mh = min(m.hp - taken, maxhp_me)
                 eh = e.hp - dealt
-                pk = kill_chance(dealt, e.hp, KILL_MARGIN) if eh <= 0 else 0.0
+                pk = kill_chance(dealt, e.hp, kill_margin(b2, m, r1)) if eh <= 0 else 0.0
                 if eh > 0:
                     alive = summon_on and not aoe_b and not any(x in AOE for x in b2)
                     tk = (alive,) + tuple(x for x in b2 if tagging[x])

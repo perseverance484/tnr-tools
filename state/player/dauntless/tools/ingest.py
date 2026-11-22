@@ -29,7 +29,7 @@ IDS = {"K0t6Z-Q4lau1jFt8Tkpot": "rebirth", "GiKpip6NxsC8QWlZi6l_R": "shrapnel", 
        "kxtK9kUTK4dRb-WPLo16I": "severed", "0nIgI7oNn-PSesn8T8kGl": "leech", "LRgY4b-lE1n2gi6_P8B_1": "resonance",
        "TtYPd-LcXKeK3sMuhq1TP": "smoke", "rsc2uO5QuffXzejfhwF_F": "panacea", "_8HEbybzN5QPX8vUG24Tk": "jewel",
        "tZTvqYWiAc_OrY64nDvIo": "pill", "6DnJn4x6LWWXtBu7UZybb": "kims", "osJq3k77YPGoFWgof12FQ": "nights",
-       "Z-JdppXvrSokRymXavpOw": "yuki", "RM9DjOswzqNTRWnd-FsdE": "disaster", "GMF1JZ0MChUHc7AtnKABw": "kunai", "PhP5ZEF5iVa97jcumJ15c": "aetherion", "P7dDcC102RhwBTTgA4HU_": "limitbreaker", "yVNeLzxHSFkNpTPnlm7yQ": "kunai", "basicAttack": "basic",
+       "Z-JdppXvrSokRymXavpOw": "yuki", "RM9DjOswzqNTRWnd-FsdE": "disaster", "GMF1JZ0MChUHc7AtnKABw": "kunai", "PhP5ZEF5iVa97jcumJ15c": "aetherion", "P7dDcC102RhwBTTgA4HU_": "limitbreaker", "yVNeLzxHSFkNpTPnlm7yQ": "kunai", "dY00WA51Mr7-uS6zbcS3r": "kunai", "basicAttack": "basic",
        "clear": "clear", "cleanse": "cleanse", "replacementTechnique": "replace", "defensiveStance": "defstance",
        "offensiveStance": "offstance", "move": "step", "basicHeal": "basicheal"}
 NUM = r"([\d.]+)"
@@ -42,6 +42,12 @@ def swing(txts, me, en):
         if m:
             dealt += float(m.group(1))
         m = re.match(rf"{me} takes {NUM}", t)
+        if m:
+            taken += float(m.group(1))
+        m = re.match(rf"{en} loses {NUM} HP to drain", t)       # drain HP counts (2026-11-22 audit: 26 lines missed)
+        if m:
+            dealt += float(m.group(1))
+        m = re.match(rf"{me} loses {NUM} HP to drain", t)
         if m:
             taken += float(m.group(1))
         m = re.match(rf"{en} (?:heals|vamps|absorbs|steals) {NUM}", t)

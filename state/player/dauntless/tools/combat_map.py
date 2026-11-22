@@ -12,6 +12,8 @@ critique tools load instead of hardcoding engine facts.
 CLI:
     python3 combat_map.py TAG                        what the engine does with TAG, its timing and its links
     python3 combat_map.py --check [--game PATH]      drift checks (exit 1 on any mismatch)
+    python3 combat_map.py --drift [PATH] [REF]       engine files changed in the game since the map's pin
+                                                     (default REF origin/main; exit 1 when any changed)
 
 What --check covers, and what it does not:
   * Planner against the map (always): the planner's Clear/Cleanse polarity tables, its kind -> tag names, the
@@ -126,6 +128,14 @@ def edges(name, direction="both", kind=None):
     return out
 
 
+def prevented_kinds(prevent_tag):
+    """Planner kinds whose engine tag the given prevent blocks (map "prevents" edges). debuffprevent is what Dr.
+    Kim's and Seal's "cannot be debuffed" are; buffprevent is Seal's buff block. 2026-11-22 audit: the planners had
+    wound, afterburn and stun under debuffprevent and absorb/lifesteal under buffprevent; the engine has neither."""
+    blocked = {t for t, k, _ in edges(prevent_tag, "outgoing", "prevents")}
+    return {kind for kind, tag in KIND_TAG.items() if tag in blocked}
+
+
 def kind_polarity(kind):
     """Polarity of a planner kind ("given+", "absorb", ...), or None for planner-only kinds."""
     t = KIND_TAG.get(kind)
@@ -150,13 +160,11 @@ def check_planner():
             continue
         want = "positive" if idx in P2.POSK else "negative"
         got = kind_polarity(kind)
-        # clearprevent is neutral in the engine; the planner lists it as positive but only ever reads it to block
-        # Clear, so neither side's removal of it is ever modelled. Accept that one.
-        if got != want and not (kind == "clearimmune" and got == "neutral"):
+        if got != want:
             bad.append(f"planner2 lists {kind} ({KIND_TAG[kind]}) as {want}; the engine has it {got}")
     for kind in shotplan.POSITIVE:
         got = kind_polarity(kind)
-        if got not in ("positive",) and not (kind == "clearimmune" and got == "neutral"):
+        if got not in ("positive",):
             bad.append(f"shotplan.POSITIVE has {kind} ({KIND_TAG.get(kind)}); the engine has it {got}")
     # 2. the planner's kind -> engine tag names (engine_bridge.TAGMAP) are real tags with the same meaning
     for kind, t in engine_bridge.TAGMAP.items():
@@ -170,7 +178,21 @@ def check_planner():
             bad.append(f"turn.HOSTILE_KINDS has {t}; the engine has it {polarity(t)}")
         elif t not in TAGS:
             bad.append(f"turn.HOSTILE_KINDS has {t}, which is not a combat tag")
-    # 4. every cap clamp in the planners is min(<term>, CM.CAP_<its kind>): no literal, other name or wrong constant
+    # 4. what debuff-immunity and buff-prevent stop in the sims is what the engine's prevents block
+    inv2 = {**{v: k for k, v in P2.KIND.items()}, P2.GDN: "given-", P2.GUP: "given+"}
+    for name, got, tag in (("planner2.HOSTILE", P2.HOSTILE, "debuffprevent"),
+                           ("planner2.BUFF_BLOCKED", P2.BUFF_BLOCKED, "buffprevent")):
+        want = prevented_kinds(tag)
+        have = {inv2.get(i) for i in got}
+        extra = sorted(k for k in have - want if k)
+        if extra:
+            bad.append(f"{name} blocks {extra} under {tag}; the engine's {tag} does not")
+    for name, got, tag in (("shotplan._DEBUFF_BLOCKED", shotplan._DEBUFF_BLOCKED, "debuffprevent"),
+                           ("shotplan._BUFF_BLOCKED", shotplan._BUFF_BLOCKED, "buffprevent")):
+        extra = sorted(k for k in got - prevented_kinds(tag) - {"given"})
+        if extra:
+            bad.append(f"{name} blocks {extra} under {tag}; the engine's {tag} does not")
+    # 5. every cap clamp in the planners is min(<term>, CM.CAP_<its kind>): no literal, other name or wrong constant
     for mod in (P2, turn, shotplan):
         bad += cap_clamps(mod.__file__)
     return bad
@@ -304,7 +326,49 @@ def describe(name):
     return "\n".join(lines)
 
 
+ENGINE_PATHS = ("app/src/libs/combat", "app/src/validators/combat.ts", "app/drizzle/constants.ts")
+
+
+def check_drift(game, ref="origin/main"):
+    """The engine files that changed in the game between the map's pin and `ref` (2026-11-22 audit: per-tag instant
+    activation and item fortification landed after the pin, and --check --game reads only the pinned objects, so
+    it could not see them). Returns (changed files, commits touching them, notes); fetch first for an up-to-date ref."""
+    import subprocess
+    def git(*a):
+        return subprocess.run(["git", "-C", game, *a], capture_output=True, text=True)
+    notes = []
+    if not GAME_COMMIT:
+        return [], [], ["map has no pinned commit"]
+    if git("rev-parse", "--verify", "--quiet", f"{ref}^{{commit}}").returncode != 0:
+        return [], [], [f"{ref} not in {game} (git fetch origin first)"]
+    if git("cat-file", "-e", f"{GAME_COMMIT}^{{commit}}").returncode != 0:
+        return [], [], [f"pinned commit {GAME_COMMIT[:9]} not in {game}"]
+    files = [f for f in git("diff", "--name-only", GAME_COMMIT, ref, "--", *ENGINE_PATHS).stdout.split() if f]
+    log = [l for l in git("log", "--oneline", "--no-merges", f"{GAME_COMMIT}..{ref}", "--", *ENGINE_PATHS
+                          ).stdout.splitlines() if l]
+    return files, log, notes
+
+
 def main(argv):
+    if argv and argv[0] == "--drift":
+        # python3 combat_map.py --drift [GAME_PATH] [REF]: exit 1 when the engine moved past the map's pin
+        game = argv[1] if len(argv) > 1 else os.environ.get("TNR_GAME_SRC")
+        ref = argv[2] if len(argv) > 2 else "origin/main"
+        if not game:
+            print("--drift needs a TheNinjaRPG checkout (argument or TNR_GAME_SRC)")
+            return 2
+        files, log, notes = check_drift(game, ref)
+        for n in notes:
+            print("NOTE   " + n)
+        if notes and not files:
+            return 2
+        for c in log:
+            print("COMMIT " + c)
+        for f in files:
+            print("CHANGED " + f)
+        print(f"engine files changed since the map's pin {GAME_COMMIT[:9]} -> {ref}: {len(files)}"
+              + (" (re-pin the map and the harness: docs/combat-engine/README.md)" if files else ""))
+        return 1 if files else 0
     if not argv or argv[0] in ("-h", "--help"):
         print(__doc__)
         return 0

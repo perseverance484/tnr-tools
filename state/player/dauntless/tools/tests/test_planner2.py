@@ -3,10 +3,27 @@ legal bundles, and after his reply for every option (python, no live calls). Run
 import json, os, random, sys
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, os.path.dirname(HERE))
 import exam, planner2 as p2, shotplan, value_model  # noqa: E402
-p2.SOURCE_EXACT = False      # compare the core shared with shotplan; the source-only details are checked by engine_fit
-p2._ENGINE_BASES = {}     # and the shared calibrated bases
-p2.ENGINE_STATE = False   # and the same state (the text rebuild shotplan shares; engine_check covers the engine state)
-p2._OPP_SCALES = {}      # and no per-opponent log scales (shotplan has none)
+import pytest  # noqa: E402
+
+_PARITY = dict(
+    SOURCE_EXACT=False,   # compare the core shared with shotplan; the source-only details are checked by engine_fit
+    _ENGINE_BASES={},     # and the shared calibrated bases
+    ENGINE_STATE=False,   # and the same state (the text rebuild shotplan shares; engine_check covers the engine state)
+    _OPP_SCALES={},       # and no per-opponent log scales (shotplan has none)
+)
+
+
+@pytest.fixture(autouse=True, scope="module")
+def _parity_mode():
+    """Set the parity switches for this module only and put them back after, so tests that run later in the same
+    session (test_integration's planner wiring check) see the real planner (2026-11-22: it failed in the full suite
+    and passed alone)."""
+    old = {k: getattr(p2, k) for k in _PARITY}
+    for k, v in _PARITY.items():
+        setattr(p2, k, v)
+    yield
+    for k, v in old.items():
+        setattr(p2, k, v)
 
 
 def states():
@@ -54,4 +71,6 @@ def test_parity():
 
 
 if __name__ == "__main__":
+    for _k, _v in _PARITY.items():
+        setattr(p2, _k, _v)
     test_parity()

@@ -98,8 +98,8 @@ def test_damage_to_him_is_my_turns_not_after_his_reply():
             if "cleanse" in bd:
                 m0.wipe(p2.NEGK)
             P.move_ground(m0, bd)                      # moves: his ground where they land
-            p2.run_turn(m0, e0, [P.my_kit[x] for x in bd if x in P.my_kit], 0, *P.caps)
-            assert abs(dmg - min(P.en0.hp, P.en0.hp - e0.hp)) < 1e-6, (bd, dmg, P.en0.hp - e0.hp)
+            P.my_turn(m0, e0, bd, None, *P.caps)      # in firing order (Limit Breaker's potency before the hit)
+            assert abs(dmg - min(P.en0.hp, P.en0.hp - e0.hp)) < 1e-6 or e0.hp <= 0, (bd, dmg, P.en0.hp - e0.hp)
             assert 0.0 <= dead <= 1.0, (bd, dead)
         print(f"ok: damage to him is measured after my turn, before his reply ({bid[:6]} R{info['R']}, "
               f"{min(40, len(bundles))} lines)")

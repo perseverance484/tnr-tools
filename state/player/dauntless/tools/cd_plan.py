@@ -55,6 +55,15 @@ ACTIONS = {
     "defstance": (20, 1, None, "-15% taken next round (filler)"),
     "offstance": (20, 1, None, "filler"),
 }
+# my jutsu (time compression / dilation lines scoped "[all jutsu]" change only these costs)
+JUTSU = {"rebirth", "shrapnel", "lotus", "fury", "ember", "danse", "stormblade", "resonance", "leech", "subaku",
+         "overflow", "thunders", "parry", "resist", "eclipse", "limitbreaker", "sealnull", "phantom", "shield", "severed"}
+
+def bundle_cost(b, surcharge=0):
+    """AP a bundle costs, with a per-jutsu surcharge (time compression: "+10 more AP [all jutsu]")."""
+    return sum(ACTIONS[x][0] + (surcharge if x in JUTSU else 0) for x in b if x in ACTIONS)
+
+
 # range to the enemy each action needs (hexes, from live jutsu/item data 2026-11-10). 0 = self/no target needed.
 # opponent jutsu 4; Yuki's 3; kunai/smoke/disaster/Night's/Aetherion/Clear 4; ground (Fury/Subaku) placed within 4.
 RANGE = {"basic": 1, "rebirth": 4, "shrapnel": 4, "lotus": 4, "fury": 4, "ember": 4, "danse": 4, "stormblade": 4,
