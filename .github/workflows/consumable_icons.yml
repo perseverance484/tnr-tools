@@ -1,0 +1,30 @@
+name: consumable-icons
+# Fetches consumable icons (the cloud workspace's proxy blocks the image hosts) and commits
+# the contact sheets back to the branch that pushed. Read-only toward the game.
+on:
+  push:
+    branches: ["claude/**"]
+    paths: ["art/consumables_upgrade/consumables.json", "art/consumables_upgrade/fetch_and_sheet.py", ".github/workflows/consumable_icons.yml"]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: consumable-icons-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  sheet:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - run: pip install pillow
+      - run: python3 art/consumables_upgrade/fetch_and_sheet.py
+      - name: Commit results
+        run: |
+          git config user.name "consumable-icons[bot]"
+          git config user.email "consumable-icons@users.noreply.github.com"
+          git add art/consumables_upgrade
+          git diff --cached --quiet && exit 0
+          git commit -m "art: consumable icon contact sheets [auto]"
+          git push origin HEAD:${GITHUB_REF_NAME}
