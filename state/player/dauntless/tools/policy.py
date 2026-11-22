@@ -38,7 +38,7 @@ import math
 import os
 import random
 
-from cd_plan import ACTIONS, LOADOUTS, MOVES, RANGE, load, ready_round, tags_of
+from cd_plan import ACTIONS, JUTSU, LOADOUTS, MOVES, RANGE, load, ready_round, tags_of
 from enemy_model import threat_features
 from state_rules import build_ctx
 
@@ -227,7 +227,9 @@ def legal_save():
         pass
 
 
-def legal(state, rnd, ap, immune, blocked, loadout, dist):
+def legal(state, rnd, ap, immune, blocked, loadout, dist, surcharge=0):
+    """surcharge: AP added to every jutsu this round (time compression), counted while the combos are built, so a
+    pair that only fills the turn with it (40 + 40 at +10 each) is kept and one it pushes over the AP is not."""
     names = [n for n in loadout if n in ACTIONS and (state is None or ready_round(state, n) <= rnd)]
     if immune:
         names = [n for n in names if n not in blocked]
@@ -235,20 +237,20 @@ def legal(state, rnd, ap, immune, blocked, loadout, dist):
     # question ~180 times per turn (speed pass, 2026-11-11). Callers get a fresh list.
     global _LEGAL_DIRTY
     _legal_load()
-    key = (tuple(names), ap, dist)
+    key = (tuple(names), ap, dist) + ((surcharge,) if surcharge else ())
     if key in _LEGAL_CACHE:
         return list(_LEGAL_CACHE[key])
-    out = _legal(names, ap, dist)
+    out = _legal(names, ap, dist, surcharge)
     _LEGAL_CACHE[key] = out
     _LEGAL_DIRTY = True
     return list(out)
 
 
-def _legal(names, ap, dist):
+def _legal(names, ap, dist, surcharge=0):
     out = []
     for k in (1, 2, 3, 4):
         for combo in itertools.combinations(names, k):
-            cost = sum(ACTIONS[c][0] for c in combo)
+            cost = sum(ACTIONS[c][0] + (surcharge if c in JUTSU else 0) for c in combo)
             if cost > ap:
                 continue
             tags = [t for c in combo for t in tags_of(c)]

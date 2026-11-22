@@ -214,9 +214,26 @@ HOSTILE_KINDS = {"decreasedamagegiven", "increasedamagetaken", "recoil", "stun",
                  "decreaseheal", "drain", "wound", "afterburn"}
 
 
-def barrier_between(a, b):
+def turn_bundles(st, R, ap_now, ap_full, stunned, immune, d0, surch=0):
+    """The legal bundles for my turn. surch: AP added to every jutsu this round (time compression), counted while
+    the bundles are built (policy.legal), so a pair that fills the turn only with it is kept and one it pushes over
+    the AP is not. Stunned: AP is recomputed on every action (stored AP minus the live stun), so Cleanse fired first
+    gives the stunned AP back, and a bundle with Cleanse may cost up to the unstunned AP (resolve_targets fires it
+    first). Only when Cleanse itself fits the stunned AP: under a 60 stun (40 left) it cannot be cast at all."""
+    bundles = legal(st, R, ap_now, immune, set(), st["loadout"], d0, surcharge=surch)
+    if stunned and ap_full > ap_now and "cleanse" in st["loadout"] and cd_plan.ready_round(st, "cleanse") <= R \
+            and cd_plan.bundle_cost(("cleanse",), surch) <= ap_now:
+        seen = set(bundles)
+        bundles = list(bundles) + [b for b in legal(st, R, ap_full, immune, set(), st["loadout"], d0, surcharge=surch)
+                                   if "cleanse" in b and b not in seen]
+    return bundles
+
+
+def barrier_between(a, b, ids=False):
     """[hp, absorb] of the barriers on a shortest path from a to b (the engine's getBarriersBetween walks one shortest
-    path; any shortest path counts here, the cautious read), or None for a clear line. My own barriers do not block."""
+    path; any shortest path counts here, the cautious read), or None for a clear line. My own barriers do not block.
+    ids: also return the tiles of the barriers hit, [hp, absorb, ((x, y), ...)], so a caller can keep one HP pool per
+    set of barriers."""
     hit = [x for x in BARRIERS if x[4] != ME and (x[0], x[1]) not in (a,) and dist(a, (x[0], x[1])) +
            dist((x[0], x[1]), b) == dist(a, b)]
     if not hit:
@@ -224,7 +241,8 @@ def barrier_between(a, b):
     keep = 1.0
     for x in hit:
         keep *= 1 - x[3]
-    return [sum(x[2] for x in hit), 1 - keep]
+    out = [sum(x[2] for x in hit), 1 - keep]
+    return out + [tuple(sorted((x[0], x[1]) for x in hit))] if ids else out
 
 
 def _guard(m, R, at=None):
@@ -741,20 +759,10 @@ def main():
         print("not my turn: poll again in <=15 s")
         return
 
-    bundles = legal(st, R, ap_now, bool(en0.live("debuffimmune", R)),
-                    set(), st["loadout"], d0)
-    if stunned and "cleanse" in st["loadout"] and cd_plan.ready_round(st, "cleanse") <= R:
-        # AP is recomputed on every action (stored AP minus the live stun), so Cleanse fired first gives the
-        # stunned AP back: a bundle with Cleanse may cost up to the unstunned AP (resolve_targets fires it first)
-        _ap_full = min(int(me["actionPoints"]) if my_turn else 100, 100)
-        _seen = set(bundles)
-        bundles = list(bundles) + [b for b in legal(st, R, _ap_full, bool(en0.live("debuffimmune", R)), set(),
-                                                    st["loadout"], d0) if "cleanse" in b and b not in _seen]
+    # time compression on me: every jutsu costs that much more this round (log "actions will cost N more AP")
     _surch = int(max([t[1] for t in me0.live("apcost", R)] or [0]))
-    if _surch:
-        # time compression on me: every jutsu costs that much more this round
-        _full = min(int(me["actionPoints"]) if my_turn else 100, 100)
-        bundles = [b for b in bundles if cd_plan.bundle_cost(b, _surch) <= (_full if "cleanse" in b else ap_now)]
+    _full = min(int(me["actionPoints"]) if my_turn else 100, 100)
+    bundles = turn_bundles(st, R, ap_now, _full, stunned, bool(en0.live("debuffimmune", R)), d0, _surch)
     # engine replay (harness/pvp_turn/engine/replay_sim.ts): legality, AP and costs from the engine's own state
     # --fast (live-turn mode): the engine's legality list runs in a thread while python scores stage 1, and is
     # applied to the stage-1 list afterwards; the slower engine re-score of the shortlist is skipped

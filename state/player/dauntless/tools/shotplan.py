@@ -132,6 +132,7 @@ ENEMY = {
 }
 # clearprevent (clearimmune) is neutral in the engine: neither Clear nor Cleanse removes it (2026-11-22 audit)
 POSITIVE = {"given+", "absorb", "lifesteal", "reflect", "parry", "dr", "shield", "debuffimmune"}
+NEUTRAL = {"clearimmune", "cleanseimmune"}   # kept by Clear (not positive) and by Cleanse (not negative)
 
 
 class Side:
@@ -186,6 +187,11 @@ def positive(t):
     return (k == "given" and v > 0) or k in POSITIVE - {"given+"}
 
 
+def negative(t):
+    """What Cleanse removes: everything that is neither positive nor neutral."""
+    return not positive(t) and t[0] not in NEUTRAL
+
+
 def rebuild(lines, me_name, en_name, my_hp, en_hp):
     me, en = Side(my_hp), Side(en_hp)
     pat = [("damage given", "given"), ("damage taken", "taken"), ("will absorb", "absorb"), ("will steal", "lifesteal"),
@@ -233,7 +239,7 @@ def rebuild(lines, me_name, en_name, my_hp, en_hp):
             who.tags = [x for x in who.tags if not positive(x) or ground(x)]
             continue
         if "cleared of all negative" in t:
-            who.tags = [x for x in who.tags if positive(x)]
+            who.tags = [x for x in who.tags if not negative(x)]
             continue
         # shields: the log says how big, what a hit left and when one breaks (2026-11-22 audit: 26 "destroyed" lines
         # were never read, so dead shields stayed up in the plan)
@@ -402,7 +408,7 @@ def apply(src_side, dst_side, spec, r, actor_is_me):
             continue
         if kind == "cleanse":
             if not side.live("cleanseimmune", r):
-                side.tags = [x for x in side.tags if positive(x) or ground(x) or x[0] == "cleanseimmune"]
+                side.tags = [x for x in side.tags if not negative(x) or ground(x)]
             continue
         if kind == "heal":
             if side is src_side:

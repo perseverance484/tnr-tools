@@ -473,16 +473,19 @@ def run_turn(actor, other, acts, o, cap_a, cap_o, scale=1.0):
 
 
 # ------------------------------------------------------------------ legality
-def legal_bundles(st, R, ap, d0, loadout, me0, en0, ap_full=None):
+def legal_bundles(st, R, ap, d0, loadout, me0, en0, ap_full=None, surcharge=0):
     """Every bundle of ready actions with cost in [ap-20, ap], range checked after moves, no shared-lock pairs.
     Stunned (ap < ap_full): AP is recomputed on every action as stored AP minus the live stun (engine actions.ts
     actionPointsAfterAction), so Cleanse fired first takes the stun off and the rest of the turn has ap_full - 60:
-    a bundle with Cleanse may cost up to ap_full (Cleanse + a 40 on an 80-AP turn)."""
+    a bundle with Cleanse may cost up to ap_full (Cleanse + a 40 on an 80-AP turn). Only when Cleanse itself fits
+    the stunned AP: under a 60 stun (40 left) it cannot be cast, so nothing is given back.
+    surcharge: AP added to every jutsu this round (time compression), counted while the bundles are built."""
     if ap_full and ap_full > ap and "cleanse" in loadout and "cleanse" in cd_plan.ACTIONS \
-            and cd_plan.ready_round(st, "cleanse") <= R:
-        base = legal_bundles(st, R, ap, d0, loadout, me0, en0)
+            and cd_plan.ready_round(st, "cleanse") <= R and cd_plan.bundle_cost(("cleanse",), surcharge) <= ap:
+        base = legal_bundles(st, R, ap, d0, loadout, me0, en0, surcharge=surcharge)
         seen = set(base)
-        more = [b for b in legal_bundles(st, R, ap_full, d0, loadout, me0, en0) if "cleanse" in b and b not in seen]
+        more = [b for b in legal_bundles(st, R, ap_full, d0, loadout, me0, en0, surcharge=surcharge)
+                if "cleanse" in b and b not in seen]
         return base + more
     A = cd_plan.ACTIONS
     ready = [n for n in loadout if n in A and n in shotplan.MINE and cd_plan.ready_round(st, n) <= R]
@@ -503,7 +506,7 @@ def legal_bundles(st, R, ap, d0, loadout, me0, en0, ap_full=None):
             out.append(tuple(chosen))
         for j in range(i, len(ready)):
             n = ready[j]
-            c = A[n][0]
+            c = A[n][0] + (surcharge if n in cd_plan.JUTSU else 0)
             if cost + c > ap or (tags[n] & locks):
                 continue
             if n == "step":
@@ -812,22 +815,48 @@ class Planner:
         return feats, term, dmg, outs, p_dead
 
     def my_turn(self, m0, e0, b, acts, cm, ce):
-        """My turn at offset 0, through any barrier between where the bundle leaves me and him."""
+        """My turn at offset 0, each hit through any barrier between the tile it is fired from and him. The pilot fires
+        in turn.resolve_targets' order: Cleanse and moves first, Clear before damage, except that a move is fired
+        last when the attack is already in range (moves_last). So a hit fired before the move goes from where I
+        stand, and one fired after it from where the move lands. Each set of barriers keeps one HP pool for the turn."""
         global MY_BARRIER
-        bar = None
-        if turn.BARRIERS and self.board is not None:
-            me_pos, en_pos = self.board[0], self.board[1]
-            bar = turn.barrier_between(self.landing(b) or me_pos, en_pos)
-        MY_BARRIER = [bar[0], bar[1], m0] if bar else None
-        # in the order the pilot fires it (turn.resolve_targets): Cleanse and moves first, Clear before damage
         last = self.board is not None and turn.moves_last(list(b), self.board[3])
         seq = sorted(b, key=lambda x: (last and x in ("phantom", "replace"),
                                        turn.ORDER.index(x) if x in turn.ORDER else 50))
-        acts = [self.my_kit[x] for x in seq if x in self.my_kit]
+        seq = [x for x in seq if x in self.my_kit]
+        if not (turn.BARRIERS and self.board is not None):
+            return run_turn(m0, e0, [self.my_kit[x] for x in seq], 0, cm, ce)
+        me_pos, en_pos = self.board[0], self.board[1]
+        land = self.landing(b) or me_pos
+        pools = {}
+
+        def line_from(tile):
+            bar = turn.barrier_between(tile, en_pos, ids=True)
+            if not bar:
+                return None
+            pool = pools.setdefault(bar[2], [bar[0], bar[1], m0])
+            return pool
+
+        dealt = taken = 0.0
+        if seq:
+            taken += m0.g(WND, 0) + m0.g(DRN, 0)   # the tick lands before the first action (run_turn)
+        if taken >= m0.hp:
+            m0.hp = min(cm, m0.hp - taken)
+            return 0.0, taken
+        at = me_pos
         try:
-            return run_turn(m0, e0, acts, 0, cm, ce)
+            for x in seq:
+                MY_BARRIER = line_from(at)
+                d, s = apply(m0, e0, self.my_kit[x], 0, 1.0)
+                dealt += d
+                taken += s
+                if x in ("phantom", "replace", "step"):
+                    at = land                       # later hits fire from the landing tile
         finally:
             MY_BARRIER = None
+        e0.hp = min(ce, e0.hp - dealt)
+        m0.hp = min(cm, m0.hp - taken)
+        return dealt, taken
 
     def kill_margin(self, b):
         """Overkill a forecast kill needs before it counts as sure: KILL_MARGIN, or KILL_MARGIN_HOT when my live
@@ -1579,7 +1608,8 @@ def main():
     if banned:
         info["st"]["loadout"] = [n for n in info["st"]["loadout"] if n not in banned and turn.ACTION_ID.get(n) not in banned]
         print("banned this battle (refused by the game):", ", ".join(sorted(banned)))
-    bundles = legal_bundles(info["st"], R, info["ap"], info["d0"], info["st"]["loadout"], P.me0, P.en0, info.get("ap_full"))
+    bundles = legal_bundles(info["st"], R, info["ap"], info["d0"], info["st"]["loadout"], P.me0, P.en0, info.get("ap_full"),
+                            surcharge=info.get("ap_surcharge") or 0)
     if info.get("ap_surcharge"):
         # time compression on me: every jutsu costs that much more this round (log "actions will cost N more AP")
         lim = lambda b: info["ap_full"] if "cleanse" in b else info["ap"]

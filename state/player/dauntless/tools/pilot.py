@@ -154,7 +154,7 @@ PERM_KEYS = ("type", "targetId", "creatorId", "power", "powerPerLevel", "level",
 
 LIVE_KEYS = ("type", "targetId", "creatorId", "actionId", "power", "powerPerLevel", "level", "calculation", "direction", "elements", "fromType",
              "rounds", "createdRound", "castThisRound", "isNew", "poolsAffected", "timedBuffExpiresAt", "statTypes",
-             "generalTypes", "instant", "fromGround")
+             "generalTypes", "instant", "fromGround", "apReduction")
 
 
 def live_effects(effects):
