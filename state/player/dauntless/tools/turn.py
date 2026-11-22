@@ -155,10 +155,10 @@ def _reply_vec(v, bases):
             dmg -= min(shield, dmg)
             shield = 0.0
         dmg = max(dmg, 0.0)
-        dealt += dmg - dmg * min(0.6, ab) * (1 - hc_d)
-        taken_self -= dmg * min(0.6, ls) * (1 - hc_s)
+        dealt += dmg - dmg * min(CM.CAP_ABSORB, ab) * (1 - hc_d)
+        taken_self -= dmg * min(CM.CAP_LEECH, ls) * (1 - hc_s)
         taken_self += dmg * rec
-        taken_self += parried + dmg * min(0.6, refl)
+        taken_self += parried + dmg * min(CM.CAP_REFLECT, refl)
     return dealt, taken_self
 
 
@@ -184,6 +184,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 
 import cd_plan  # noqa: E402
+import combat_map as CM  # noqa: E402  (engine caps and tag facts from docs/combat-engine)
 import shotplan  # noqa: E402
 import value_model  # noqa: E402
 import engine_bridge  # noqa: E402
@@ -283,7 +284,7 @@ def _mit(e, at, afb=None, cap=None):
                 aft += t[1]
     if afb is not None:
         aft = afb
-    return k * (1 + min(0.6, aft) - min(0.6, ab) * max(0.0, 1 - hc))
+    return k * (1 + min(CM.CAP_AFTERBURN, aft) - min(CM.CAP_ABSORB, ab) * max(0.0, 1 - hc))
 
 
 def _mult_by(side, kind, at, cap):

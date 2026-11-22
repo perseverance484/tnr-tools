@@ -37,6 +37,7 @@ import time
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import cd_plan  # noqa: E402
+import combat_map as CM  # noqa: E402  (engine caps and tag facts from docs/combat-engine)
 import shotplan  # noqa: E402
 import value_model  # noqa: E402
 import turn  # noqa: E402  (input parsing, targets, history helpers)
@@ -379,10 +380,10 @@ def apply(src, dst, act, o, scale=1.0):
                 dst.wipe((SHD,))
         dmg = max(dmg, 0.0)
         basis = pre if SOURCE_EXACT else dmg
-        burn = 0.0 if pierce else dmg * min(0.6, da[AFB * H + o])     # afterburn: not on pierce, not absorbed
-        to_t += dmg + burn - basis * min(0.6, da[ABS * H + o] + da[PABS * H + o]) * (1 - da[HCUT * H + o])
-        to_s -= basis * min(0.6, sa[LS * H + o] + sa[PLS * H + o]) * (1 - sa[HCUT * H + o])
-        back = parried + basis * min(0.6, da[REF * H + o] + da[PREF * H + o])
+        burn = 0.0 if pierce else dmg * min(CM.CAP_AFTERBURN, da[AFB * H + o])     # afterburn: not on pierce, not absorbed
+        to_t += dmg + burn - basis * min(CM.CAP_ABSORB, da[ABS * H + o] + da[PABS * H + o]) * (1 - da[HCUT * H + o])
+        to_s -= basis * min(CM.CAP_LEECH, sa[LS * H + o] + sa[PLS * H + o]) * (1 - sa[HCUT * H + o])
+        back = parried + basis * min(CM.CAP_REFLECT, da[REF * H + o] + da[PREF * H + o])
         rec = 0.0 if (pierce and SOURCE_EXACT) else dmg * sa[RCL * H + o]      # recoil skips pierce (tags.ts)
         if SOURCE_EXACT:
             # reflect / parry / recoil come back as damage on the attacker through HIS damage-taken modifiers
@@ -607,7 +608,7 @@ class Planner:
         for k, (nonp, pier) in enumerate(self.my_seq(b)):
             o = min(1 + k, H - 1)
             mult = m.given(o) * e.g(TAKEN, o) * e.g(DR, o) * (1 - min(1.0, e.g(PAR, o)))
-            hit = max(0.0, nonp * mult - e.g(SHD, o)) * (1 - min(0.6, e.g(ABS, o) + e.g(PABS, o)) * (1 - e.g(HCUT, o)))
+            hit = max(0.0, nonp * mult - e.g(SHD, o)) * (1 - min(CM.CAP_ABSORB, e.g(ABS, o) + e.g(PABS, o)) * (1 - e.g(HCUT, o)))
             mine.append(hit + pier + e.g(WND, o) + e.g(DRN, o))
         his = []
         seq = self.clockd.get("his_seq") or [(self.base_turn, 0.0)] * (CURVE_K + 1)
@@ -615,7 +616,7 @@ class Planner:
             o = min(self.hr + his_first + k, H - 1)
             stun = (100 - min(40, e.g(STUN, o))) / 100
             mult = e.given(o) * m.g(TAKEN, o) * m.g(DR, o) * (1 - min(1.0, m.g(PAR, o)))
-            hit = max(0.0, nonp * mult * stun - m.g(SHD, o)) * (1 - min(0.6, m.g(ABS, o) + m.g(PABS, o)) * (1 - m.g(HCUT, o)))
+            hit = max(0.0, nonp * mult * stun - m.g(SHD, o)) * (1 - min(CM.CAP_ABSORB, m.g(ABS, o) + m.g(PABS, o)) * (1 - m.g(HCUT, o)))
             his.append(hit + pier * stun + m.g(WND, o) + m.g(DRN, o))
         return mine, his
 
@@ -649,7 +650,7 @@ class Planner:
         """Best damage I can deal next turn (offset 1) with what is ready then, through the live multipliers."""
         o = 1
         mult = m.given(o) * e.g(TAKEN, o) * e.g(DR, o) * (1 - min(1.0, e.g(PAR, o)))
-        ab = 1 - min(0.6, e.g(ABS, o) + e.g(PABS, o)) * (1 - e.g(HCUT, o))
+        ab = 1 - min(CM.CAP_ABSORB, e.g(ABS, o) + e.g(PABS, o)) * (1 - e.g(HCUT, o))
         locked = set(b)
         key = (frozenset(locked), round(mult, 3))
         best = self.pot_cache.get(key)
@@ -664,7 +665,7 @@ class Planner:
             self.pot_cache[key] = best
         hit, pier = best
         hit = max(0.0, hit - e.g(SHD, o))
-        reflected = hit * min(0.6, e.g(REF, o) + e.g(PREF, o)) + (hit / max(1e-6, 1 - min(1.0, e.g(PAR, o))) - hit if e.g(PAR, o) else 0)
+        reflected = hit * min(CM.CAP_REFLECT, e.g(REF, o) + e.g(PREF, o)) + (hit / max(1e-6, 1 - min(1.0, e.g(PAR, o))) - hit if e.g(PAR, o) else 0)
         return (hit + pier) * ab + e.g(WND, o) + e.g(DRN, o), reflected
 
     def his_base(self, used):
@@ -687,8 +688,8 @@ class Planner:
         par = min(1.0, m.g(PAR, o))
         parried = hit * par
         hit = max(0.0, hit - parried - m.g(SHD, o))
-        reflected = parried + hit * min(0.6, m.g(REF, o) + m.g(PREF, o))
-        hit = hit * (1 - min(0.6, m.g(ABS, o) + m.g(PABS, o)) * (1 - m.g(HCUT, o)))
+        reflected = parried + hit * min(CM.CAP_REFLECT, m.g(REF, o) + m.g(PREF, o))
+        hit = hit * (1 - min(CM.CAP_ABSORB, m.g(ABS, o) + m.g(PABS, o)) * (1 - m.g(HCUT, o)))
         return hit + m.g(WND, 1) + m.g(DRN, 1), reflected
 
     def features(self, b, m, e, used=()):
@@ -711,10 +712,10 @@ class Planner:
         o2, h2 = 2, self.hn + 1
         # after his absorb heal, and my afterburn on him (added outside his absorb: an equal afterburn cancels it;
         # director 2026-11-11, Luka) -- the plain hit into his defences is the baseline
-        stick = 1 + min(0.6, e.g(AFB, o2)) - min(0.6, e.g(ABS, o2) + e.g(PABS, o2)) * (1 - e.g(HCUT, o2))
-        plain = e.g(DR, o2) * (1 - min(0.6, e.g(ABS, o2) + e.g(PABS, o2)) * (1 - e.g(HCUT, o2)))
+        stick = 1 + min(CM.CAP_AFTERBURN, e.g(AFB, o2)) - min(CM.CAP_ABSORB, e.g(ABS, o2) + e.g(PABS, o2)) * (1 - e.g(HCUT, o2))
+        plain = e.g(DR, o2) * (1 - min(CM.CAP_ABSORB, e.g(ABS, o2) + e.g(PABS, o2)) * (1 - e.g(HCUT, o2)))
         mine2 = value_model.BURST_BASE * (m.given(o2) * e.g(TAKEN, o2) * e.g(DR, o2) * stick - plain)
-        his2 = self.base_turn * (e.given(h2) * m.g(TAKEN, h2) * m.g(DR, h2) * (1 - min(0.6, m.g(ABS, h2))) - 1)
+        his2 = self.base_turn * (e.given(h2) * m.g(TAKEN, h2) * m.g(DR, h2) * (1 - min(CM.CAP_ABSORB, m.g(ABS, h2))) - 1)
         # my next-turn damage and 2-round setup only pay if I live to use them (fight 2 vs DDXXD R8, 2026-11-16:
         # Pill + Offensive Stance bought for a round 9 I did not live to see)
         live = 1.0 - p_die

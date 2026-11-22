@@ -15,8 +15,20 @@ source line and raise it rather than blending the two.
 | [tags.json](tags.json) | All 96 tag files in one object | Loading everything at once |
 | [interactions.json](interactions.json) | 11 link kinds and 282 directed links with notes | You need what touches what |
 | [exclusions.yaml](exclusions.yaml) | Exclusion areas, the overlap rule, open space, past proposals and verdicts | Before proposing any new tag |
+| [rules.json](rules.json) | 16 numeric engine constants (caps, base pools, timing, stacking), each with its source line | A tool or claim needs a number, not prose |
 
 Link counts: removes 64, prevents 45, transfers 33, boosts 32, weakens 29, counters 27, overlaps 22, bypasses 12, feeds 12, disables 5, shares 1.
+
+## Who reads it
+
+- **PvP planner** (`state/player/dauntless/tools/`): `combat_map.py` loads `tags.json`, `interactions.json` and
+  `rules.json`. `planner2.py`, `turn.py` and `shotplan.py` take their absorb, reflect, lifesteal and afterburn caps
+  from it. `python3 combat_map.py --check` and `tests/test_combat_map.py` fail when a planner table (Clear and Cleanse
+  sides, kind-to-tag names, hostile ground kinds, caps) drifts from the map. `python3 combat_map.py TAG` prints what
+  the engine does with a tag, for replay reviews and live reads.
+- **Skills**: designing-tnr-content (tag exclusions), tnr-pvp-combat, tnr-replay-analysis,
+  designing-tnr-pve-encounters, building-tnr-content and simulating-tnr-combat read it for engine claims. The map
+  wins over memory and over prose notes; where it disagrees with ENGINE_LAWS, re-read the cited line.
 
 ## Rules for new tag proposals
 
@@ -53,5 +65,7 @@ Link counts: removes 64, prevents 45, transfers 33, boosts 32, weakens 29, count
 
 `_build/` holds the two scripts as run (they expect the game clone at `/tmp/tnrgit/repo` and the Nov 21 tag
 usage table): `data.py` holds the hand-checked behavior text and links, `kb.py` parses `validators/combat.ts`,
-`tags.ts`, `process.ts` and `util.ts` for fields and line numbers and writes `tags/`. When the game source moves past `29cd91b`, re-read the handlers cited in each file before trusting a
+`tags.ts`, `process.ts` and `util.ts` for fields and line numbers and writes `tags/`, and
+`rules.py GAME_CLONE` reads the numeric constants into `rules.json`. After any regeneration run
+`python3 state/player/dauntless/tools/combat_map.py --check`. When the game source moves past `29cd91b`, re-read the handlers cited in each file before trusting a
 line; line numbers will drift first.

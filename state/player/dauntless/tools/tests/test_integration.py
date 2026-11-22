@@ -35,6 +35,9 @@ def test_planner():
     PL, il = P2.build(type("A", (), dict(file=os.path.join(HERE, "ziharkk_r2_live.txt"), enemy="ANBU Member",
                                          loadout="pvp1")))
     checks["planner state from the exact live effect list"] = il.get("live_state") is True
+    import combat_map
+    checks["engine caps and tag polarity from the combat engine map (docs/combat-engine)"] = \
+        combat_map.AVAILABLE and P2.CM is combat_map and not combat_map.check_planner()
     import pilot
     checks["pilot reads the live effect list before planning my turn"] = "reading the live state" in open(pilot.__file__).read()
     bad = [k for k, ok in checks.items() if not ok]
