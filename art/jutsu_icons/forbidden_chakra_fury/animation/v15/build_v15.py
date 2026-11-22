@@ -32,6 +32,7 @@ sys.path.insert(0, os.path.join(HERE, "..", "v13"))
 import build_v13 as V  # noqa: E402
 import build_v14 as V14  # noqa: E402
 import fxlight as L  # noqa: E402
+import ground_hd as G  # noqa: E402
 
 K = V.K
 N, SS = V.N, V.SS
@@ -51,7 +52,7 @@ def lash_frames(seed, big=True):
     rnd = random.Random(seed)
     W = N * SS
     start = (0, SC + rnd.choice((-1, 1)) * rnd.uniform(6, 16))
-    channel = L.jag(start, (SC, SC), 0.42, rnd, 6)
+    channel = G.angular(start, (SC, SC), rnd, 0.38, 0.07)    # sharp turns, not a wavy tail
     probes = []                                   # leader branches that never connect
     for _ in range(4 if big else 2):
         i = rnd.randrange(len(channel) // 5, len(channel) - 6)
@@ -63,8 +64,8 @@ def lash_frames(seed, big=True):
     for _ in range(3 if big else 2):
         a = rnd.uniform(-0.8, 0.8)
         ln = rnd.uniform(0.5, 0.95) * (N - SC)
-        forks.append(L.jag((SC, SC), (SC + math.cos(a) * ln, SC + math.sin(a) * ln * 0.75), 0.42, rnd, 5))
-    w = 4.4 if big else 3.0
+        forks.append(G.angular((SC, SC), (SC + math.cos(a) * ln, SC + math.sin(a) * ln * 0.75), rnd, 0.4, 0.07))
+    w = 5.0 if big else 3.6
     beats = [("leader", 0.35), ("leader", 0.62), ("leader", 0.86), ("stroke", 0), ("dark", 0), ("restrike", 0),
              ("dark", 1)]
     beats += [("restrike", 1), ("forks", 0)] if big else [("forks", 0), ("forks", 1)]
@@ -79,29 +80,23 @@ def lash_frames(seed, big=True):
             for i, pr in probes:
                 if i < n:
                     cv.tapered(pr[: max(2, int(len(pr) * min(1, (n - i) / 12)))], 0.9, 0.3, 110, 40)
-            tip = channel[max(0, n - 1)]
-            cv.blob(tip[0], tip[1], 3, 2.4, 200, 0.4, target="core")
         elif beat == "stroke":                   # the impact frame: the whole channel and its dead branches white-hot
-            cv.blob(SC, SC, 30, 15, 230)
-            cv.blob(SC, SC, 9, 5, 255, 0.25, target="core")
-            V.hd_bolt(cv, channel, r, w=w, val=255, branches=0)
+            cv.blob(SC, SC, 26, 6, 150)                          # flat flash on the ground, not a ball
+            V.hd_bolt(cv, channel, r, w=w, val=255, branches=4)
             for i, pr in probes:
                 cv.tapered(pr, w * 0.45, 0.3, 240, 120)
             L.sparks(V._Shim(cv), seed, (SC, SC), 1, n=12)
         elif beat == "dark":                     # the pause between strokes: an afterglow only
             cv.tapered(channel, 1.0, 1.0, 70 - 25 * k, 70 - 25 * k)
-            cv.blob(SC, SC, 14, 7, 90)
+            cv.blob(SC, SC, 14, 3.5, 70)
         elif beat == "restrike":                 # a dart leader down the same channel, no branches
-            cv.blob(SC, SC, 20 - 4 * k, 10 - 2 * k, 190 - 40 * k)
-            V.hd_bolt(cv, L.wobble(channel, r, 0.4), r, w=w * (0.8 - 0.15 * k), val=250 - 30 * k, branches=0,
-                      strand=False)
+            cv.blob(SC, SC, 18, 4.5, 120 - 30 * k)
+            V.hd_bolt(cv, L.wobble(channel, r, 0.4), r, w=w * (0.8 - 0.15 * k), val=250 - 30 * k, branches=2)
             L.sparks(V._Shim(cv), seed + 1 + k, (SC, SC), 1, n=6)
         elif beat == "forks":                    # the charge lashes on outward toward the next ring
             g = 0.45 + 0.3 * k
             for f in forks:
                 V.hd_bolt(cv, L.wobble(f, r, 0.5), r, w=2.4 - 0.4 * k, val=245 - 40 * k, branches=2, upto=min(1, g))
-                tip = f[max(0, int(len(f) * min(1, g)) - 1)]
-                cv.blob(tip[0], tip[1], 3.5, 2.6, 220 - 50 * k, 0.4, target="core")
             cv.tapered(channel, 1.2, 1.2, 90 - 30 * k, 90 - 30 * k)
         elif beat == "crawl":
             for j in range(3):
@@ -135,7 +130,7 @@ def caster_frames():
 
     def bolt_path(a):
         end = (SC + math.cos(a) * N * rnd.uniform(0.36, 0.44), feet[1] + math.sin(a) * N * rnd.uniform(0.16, 0.22))
-        return L.jag((body[0] + rnd.uniform(-3, 3), body[1] + rnd.uniform(0, 10)), end, 0.34, rnd, 6)
+        return G.angular((body[0] + rnd.uniform(-3, 3), body[1] + rnd.uniform(0, 10)), end, rnd, 0.36, 0.07)
     live = []                                    # [path, age]
     n = RELEASE + len(nova)
     out = []
@@ -181,13 +176,38 @@ def caster_frames():
     return out
 
 
+def floor_frames(seed):
+    """v14's floor with the crater cooling fast: it flashes open under the strike and is gone in about 0.4 s, so the
+    area does not fill with the same crater on every tile."""
+    from PIL import ImageChops as C, ImageDraw as D, ImageFilter as F
+    h = c = N / 2
+    W = N * SS
+    fill = Image.new("L", (W, W), 0)
+    D.Draw(fill).polygon([(x * SS, y * SS) for x, y in G.hex_pts(c, c, h * 0.96)], fill=255)
+    fill = fill.filter(F.GaussianBlur(3 * SS))
+    crater = V.Crater(seed, c, c, h * 0.62, count=5)
+    plan = [(0.6, 1.0, 0.16), (1.0, 0.9, 0.15), (1.0, 0.7, 0.14), (1.0, 0.5, 0.12), (1.0, 0.34, 0.1),
+            (1.0, 0.2, 0.08), (1.0, 0.1, 0.06), (1.0, 0.0, 0.05), (1.0, 0.0, 0.03), (1.0, 0.0, 0.015)]
+    out = []
+    for t, (grow, heat, glow) in enumerate(plan):
+        cv = V.Canvas()
+        tex = V.plasma(seed, t, W)
+        layer = C.multiply(fill.point(lambda v, g=glow: int(v * g)), tex.point(lambda v: 110 + v * 145 // 255))
+        cv.body = C.lighter(cv.body, layer)
+        cv.db = D.Draw(cv.body)
+        if heat > 0:
+            crater.draw(cv, grow, heat, plates=heat > 0.4, fade=heat)
+        out.append(cv.render(V.plasma(seed + 1, t, W), gains=(1.1, 1.6, 1.3), cap=0.92))
+    return out
+
+
 def clips():
     return {
         "caster": (caster_frames(), C_MS, 3),
         "storm_a": (lead(lash_frames(61, True), S_LEAD), S_MS, 3),
         "storm_b": (lead(lash_frames(83, False), S_LEAD), S_MS, 3),
-        "floor_a": (lead(V14.floor_frames(11), F_LEAD), F_MS, 2),
-        "floor_b": (lead(V14.floor_frames(29), F_LEAD), F_MS, 2),
+        "floor_a": (lead(floor_frames(11), F_LEAD), F_MS, 2),
+        "floor_b": (lead(floor_frames(29), F_LEAD), F_MS, 2),
     }
 
 
