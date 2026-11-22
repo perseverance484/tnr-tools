@@ -48,12 +48,33 @@ def kind(k):
     return [SPR[n] for n in sorted(SPR) if n.startswith(k + "_")]
 
 
+def centred(img):
+    """Pad so the alpha centroid sits at the image centre (decorations and glow make crops lopsided)."""
+    a = img.getchannel("A").resize((img.width // 4 or 1, img.height // 4 or 1))
+    tot = sx = sy = 0
+    px = a.load()
+    for y in range(a.height):
+        for x in range(a.width):
+            v = px[x, y]
+            tot += v
+            sx += v * x
+            sy += v * y
+    cx, cy = (sx / tot + 0.5) * 4, (sy / tot + 0.5) * 4
+    hw = int(max(cx, img.width - cx)) + 1
+    hh = int(max(cy, img.height - cy)) + 1
+    side = max(hw, hh)
+    out = Image.new("RGBA", (2 * side, 2 * side), (0, 0, 0, 0))
+    out.paste(img, (int(side - cx), int(side - cy)))
+    return out
+
+
 SEAL = kind("seal")
+SEAL[:4] = [centred(x) for x in SEAL[:4]]
 OUTER, RUNES, INNER, STAR = SEAL[0], SEAL[1], SEAL[2], SEAL[3]
 SPOKES = [img for img in SEAL[4:] if img.height > img.width * 1.4]   # the upright spokes, turned in code
 SHARDS, BOLTS, FORKS, SPARKS = kind("shard"), kind("bolt"), kind("fork"), kind("spark")
 FLAMES, SMOKE, MOTES, FLASH = kind("flame"), kind("smoke"), kind("mote"), kind("flash")
-RINGS, DEBRIS = kind("ring"), kind("debris")
+RINGS, DEBRIS = [centred(x) for x in kind("ring")], kind("debris")
 DOTS = MOTES[:16]
 
 _cache = {}
@@ -108,48 +129,48 @@ def main(seed=20):
     for k in range(18):
         a = k * 2 * math.pi / 18 + rnd.uniform(-0.1, 0.1)
         tongues.append((a, rnd.uniform(-380, -60), rnd.uniform(280, 520), rnd.choice(FLAMES), rnd.uniform(0.7, 1.3)))
-    # --- bolts: one per on-screen sector, then more, spread over the area
-    tiles = [k for k in M.AREA if BV.dist(k, M.CASTER) >= 3]
-    rnd.shuffle(tiles)
-    chosen = []
+    # --- bolts: two per on-screen sector (far and mid), launch order walks round the circle so every moment of
+    # the storm has bolts in different directions
+    by_sec = {sec: [] for sec in range(8)}
+    for k in M.AREA:
+        x, y = M.TILES[k]
+        a = math.atan2(y - SRC[1], x - SRC[0])
+        by_sec[int(((a + math.pi / 8) % (2 * math.pi)) // (math.pi / 4))].append(k)
+    far, mid = [], []
     for sec in range(8):
-        for k in tiles:
-            x, y = M.TILES[k]
-            a = math.atan2(y - SRC[1], x - SRC[0])
-            if int(((a + math.pi / 8) % (2 * math.pi)) // (math.pi / 4)) == sec and k not in chosen:
-                chosen.append(k)
-                break
-    for k in tiles:
-        if len(chosen) >= 14:
-            break
-        if k not in chosen:
-            chosen.append(k)
+        ks = sorted(by_sec[sec], key=lambda k: -BV.dist(k, M.CASTER))
+        if ks:
+            far.append(rnd.choice([k for k in ks if BV.dist(k, M.CASTER) == BV.dist(ks[0], M.CASTER)]))
+            mids = [k for k in ks if BV.dist(k, M.CASTER) == 2]
+            if mids:
+                mid.append(rnd.choice(mids))
+    order = [0, 4, 2, 6, 1, 5, 3, 7]
+    chosen = [far[i] for i in order if i < len(far)] + [mid[i] for i in order[::-1] if i < len(mid)]
     bolts = []
     for k in chosen:
         x, y = M.TILES[k]
         L = math.hypot(x - SRC[0], y - SRC[1]) * 1.08
         ang = math.degrees(math.atan2(y - SRC[1], x - SRC[0]))
         end = (SRC[0] + math.cos(math.radians(ang)) * L, SRC[1] + math.sin(math.radians(ang)) * L)
-        forks = [(rnd.uniform(0.35, 0.8), rnd.choice(FORKS), rnd.choice((-1, 1)) * rnd.uniform(25, 55), rnd.uniform(0.6, 1.0))
-                 for _ in range(2)]
+        forks = [(rnd.uniform(0.45, 0.8), rnd.choice(FORKS), rnd.choice((-1, 1)) * rnd.uniform(25, 50), rnd.uniform(0.5, 0.8))]
         sparks = [(rnd.uniform(0, 2 * math.pi), rnd.uniform(30, 70), rnd.choice(SPARKS), rnd.uniform(0, 360),
-                   rnd.uniform(0.25, 0.5)) for _ in range(7)]
+                   rnd.uniform(0.22, 0.4)) for _ in range(4)]
         debris = [(rnd.uniform(-1, 1) * 40, -rnd.uniform(60, 110), rnd.choice(DEBRIS), rnd.uniform(-400, 400),
-                   rnd.uniform(0.12, 0.22)) for _ in range(3)]
-        bolts.append(dict(launch=rnd.uniform(0, 260), img=rnd.choice(BOLTS), L=L, ang=ang, end=end,
+                   rnd.uniform(0.12, 0.2)) for _ in range(rnd.choice((0, 1, 2)))]
+        bolts.append(dict(launch=len(bolts) * 260 / max(1, len(chosen) - 1) + rnd.uniform(-12, 12), img=rnd.choice(BOLTS), L=L, ang=ang, end=end,
                           thick=TH * rnd.uniform(1.3, 1.8), flip=rnd.random() < 0.5, two=rnd.random() < 0.5,
                           forks=forks, sparks=sparks, debris=debris))
     # --- shards: the seal breaks into these, flying out from where they sat
     shards = []
-    for i, img in enumerate(SHARDS):
-        a = i * 2 * math.pi / len(SHARDS) + rnd.uniform(-0.2, 0.2)
+    for i, img in enumerate(SHARDS[:8]):
+        a = i * 2 * math.pi / 8 + rnd.uniform(-0.2, 0.2)
         r0 = seal_r * rnd.uniform(0.25, 0.8)
-        shards.append((a, r0, img, rnd.uniform(-360, 360), rnd.uniform(0.18, 0.3) * seal_r * 2 / 3))
+        shards.append((a, r0, img, rnd.uniform(-300, 300), rnd.uniform(0.28, 0.4) * seal_r * 2 / 3))
     # --- smoke and drifting motes afterwards
     smoke = []
-    for _ in range(16):
+    for _ in range(8):
         a = rnd.uniform(0, 2 * math.pi)
-        r0 = seal_r * rnd.uniform(0, 0.8)
+        r0 = seal_r * rnd.uniform(0.3, 0.9)
         smoke.append((GROUND[0] + math.cos(a) * r0, GROUND[1] + math.sin(a) * r0 * SQ, rnd.uniform(180, 520),
                       rnd.choice(SMOKE), rnd.uniform(-40, 40), rnd.uniform(0.8, 1.4)))
     for b in bolts:
@@ -228,12 +249,12 @@ def main(seed=20):
             put(fr, xform(FLASH[3], TW * (2.2 - 1.2 * u), t * 0.8, 1 - u), *SRC)
             put(fr, xform(FLASH[4], TW * 5 * (1 - 0.4 * u), 0, (1 - u) * 0.9), *SRC)
         if 0 <= t < 450:                              # shockwave rings on the ground
-            for img, delay, spd, a0 in ((RINGS[2], 0, 1.0, 0.95), (RINGS[0], 60, 1.25, 0.7)):
-                u = (t - delay) / 380
+            for img, delay, a0 in ((RINGS[0], 0, 0.85),):
+                u = (t - delay) / 300
                 if 0 <= u <= 1:
-                    put(fr, xform(img, TW * (1 + 8.5 * ease_out(u) * spd), t * 0.2, a0 * (1 - u), SQ), *GROUND)
+                    put(fr, xform(img, TW * (1 + 5.6 * ease_out(u)), 0, a0 * (1 - u) ** 1.5, SQ), *GROUND)
         for a, r0, img, spin, size in shards:          # the seal breaks
-            u = t / 650
+            u = t / 450
             if not 0 <= u <= 1:
                 continue
             r = r0 + seal_r * 1.6 * ease_out(u)
@@ -270,7 +291,7 @@ def main(seed=20):
                         py = SRC[1] + math.sin(math.radians(b["ang"])) * b["L"] * along
                         put(fr, xform(fimg, TW * 0.9 * sc, -(b["ang"] + off), 0.9 if beat == "land" else 0.6), px, py)
                 if beat == "land":
-                    put(fr, xform(FLASH[1], TW * 1.1, 0, 1.0), *b["end"])
+                    put(fr, xform(FLASH[2], TW * 0.45, b["ang"], 0.7), *b["end"])   # a small crisp glint, no ball
             ex, ey = b["end"]
             for a, spd, simg, rot, sc in b["sparks"]:   # spark burst at the strike
                 u = (ph - 50) / 300
@@ -287,11 +308,11 @@ def main(seed=20):
                         put(fr, xform(dimg, TW * sc, spin * s, min(1, (0.45 - s) * 6)), x, y)
         # ---------------------------------------------------------------- aftermath
         for x0, y0, t0, img, spin, sc in smoke:
-            e = env(t, t0, t0 + 700, 0.25, 0.55)
+            e = env(t, t0, t0 + 550, 0.25, 0.55)
             if e <= 0:
                 continue
-            u = (t - t0) / 700
-            spr = xform(img, TW * 0.9 * sc * (0.7 + 0.8 * u), spin * u, e * 0.75)
+            u = (t - t0) / 550
+            spr = xform(img, TW * 0.75 * sc * (0.7 + 0.7 * u), spin * u, e * 0.5)
             put(fr, spr, x0 + 10 * math.sin(u * 3 + x0), y0 - TH * 0.8 * u - spr.height * 0.3)
         for x0, y0, t0, img, sc in drift:
             e = env(t, t0, t0 + 600, 0.2, 0.5)
