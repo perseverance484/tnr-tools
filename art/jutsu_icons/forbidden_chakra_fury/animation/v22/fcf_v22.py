@@ -56,7 +56,7 @@ def whip(img, a, b, alpha, grow=1.0, flip=False):
     L = math.hypot(b[0] - a[0], b[1] - a[1])
     ang = math.degrees(math.atan2(b[1] - a[1], b[0] - a[0]))
     body = img.transpose(Image.FLIP_TOP_BOTTOM) if flip else img
-    body = body.resize((max(2, int(L)), max(2, int(L * body.height / body.width * 0.8))), Image.LANCZOS)
+    body = body.resize((max(2, int(L)), max(2, int(min(L * body.height / body.width * 0.8, TH * 0.9)))), Image.LANCZOS)
     if grow < 1:
         m = Image.new("L", body.size, 0)
         ImageDraw.Draw(m).rectangle((0, 0, int(body.width * grow), body.height), fill=255)
@@ -97,12 +97,12 @@ def main(seed=22):
           for i, k in enumerate(strag)]
     # --- fury beats: whips to one side, then the other (to mid/far tiles)
     def side(lo, hi, n):
-        ks = [k for k in M.AREA if BV.dist(k, M.CASTER) in (2, 3)
+        ks = [k for k in M.AREA if BV.dist(k, M.CASTER) >= 3 and k not in mains
               and lo <= math.degrees(math.atan2(M.TILES[k][1] - SRC[1], M.TILES[k][0] - SRC[0])) % 360 < hi]
         rnd.shuffle(ks)
         return ks[:n]
-    beat1 = [(400 + i * 25, end(k, 1.0), rnd.choice(WHIPS), rnd.random() < 0.5) for i, k in enumerate(side(290, 430, 3))]
-    beat2 = [(550 + i * 25, end(k, 1.0), rnd.choice(WHIPS), rnd.random() < 0.5) for i, k in enumerate(side(110, 250, 3))]
+    beat1 = [(400 + i * 25, end(k, 1.12), rnd.choice(WHIPS), rnd.random() < 0.5) for i, k in enumerate(side(290, 430, 3))]
+    beat2 = [(550 + i * 25, end(k, 1.12), rnd.choice(WHIPS), rnd.random() < 0.5) for i, k in enumerate(side(110, 250, 3))]
     whips = beat1 + beat2
     # --- tags round the user's tile, on the ground ellipse; front ones drawn after the fighter's feet line
     tag_r = TW * 0.95                      # wide enough that no tag stands on the fighter
@@ -110,12 +110,12 @@ def main(seed=22):
     ash = [(rnd.uniform(0, 360), rnd.choice(ASH), rnd.uniform(150, 320), rnd.uniform(-1, 1), rnd.uniform(0.6, 1.1))
            for _ in range(26)]
     cracks = [(i * 72 + rnd.uniform(-15, 15), CRACKS[i % len(CRACKS)]) for i in range(5)]
-    flames = [(i * 40 + rnd.uniform(-10, 10), rnd.choice(V.FLAMES), rnd.uniform(0.8, 1.2)) for i in range(9)]
+    flames = [(i * 30 + rnd.uniform(-8, 8), rnd.choice(V.FLAMES), rnd.uniform(0.9, 1.3)) for i in range(12)]
     smoke = [(i * 1.26, rnd.choice(V.SMOKE)) for i in range(5)]
     sparks = [(e, rnd.uniform(0, 2 * math.pi), rnd.choice(V.SPARKS)) for e, _, _, _ in mb for _ in range(2)]
     shards = [(i * math.pi / 4 + 0.3, D.SHARDS[i]) for i in range(8)]
     frames, labels = [], []
-    for t in range(0, 1450, STEP):
+    for t in range(0, 1350, STEP):
         fr = D.board()
         beat = ""
         dim = {CLIMAX: 0.55, CLIMAX + 50: 0.4, CLIMAX + 100: 0.4, CLIMAX + 150: 0.25, CLIMAX + 200: 0.12}.get(t, 0)
@@ -161,10 +161,11 @@ def main(seed=22):
                 put(fr, xform(V.FLASH[2], TW * 1.2, 0, 0.9), *SRC)
             for a, img, sc in flames:
                 e = min(1, (t - 300) / 100) * (1 if t < 900 else 1 - (t - 900) / 200)
-                x = GROUND[0] + math.cos(math.radians(a)) * TW * 0.42
-                y = GROUND[1] + math.sin(math.radians(a)) * TW * 0.42 * SQ
-                hgt = TH * 0.9 * sc * (0.8 + 0.25 * math.sin(t / 35 + a))
-                spr = xform(img, hgt * img.width / img.height, math.sin(t / 30 + a) * 6, 0.7 * e)
+                x = GROUND[0] + math.cos(math.radians(a)) * TW * 0.6
+                y = GROUND[1] + math.sin(math.radians(a)) * TW * 0.6 * SQ
+                front = math.sin(math.radians(a)) > 0.2          # in front of the fighter: keep them low
+                hgt = TH * (0.55 if front else 1.3) * sc * (0.8 + 0.25 * math.sin(t / 35 + a))
+                spr = xform(img, hgt * img.width / img.height, math.sin(t / 30 + a) * 6, 0.95 * e)
                 fr.alpha_composite(spr, (int(x - spr.width / 2), int(y - spr.height)))
         # ------------------------------------------------ fury beats 1 and 2: whips
         for t0, e, img, flip in whips:
@@ -217,7 +218,7 @@ def main(seed=22):
             beat = beat or "FADE-OUT"
             u = (t - CLIMAX - 200) / 450
             for a, img in smoke:
-                put(fr, xform(img, TW * (0.7 + 0.4 * u), 0, 0.35 * math.sin(math.pi * u)),
+                put(fr, xform(img, TW * (0.7 + 0.4 * u), 0, 0.2 * math.sin(math.pi * u)),
                     GROUND[0] + math.cos(a) * SEAL_R * 0.5, GROUND[1] + math.sin(a) * SEAL_R * 0.25 - 30 * u)
         frames.append(fr.convert("RGB").resize((W // 2, H // 2), Image.LANCZOS))
         labels.append((t, beat))
