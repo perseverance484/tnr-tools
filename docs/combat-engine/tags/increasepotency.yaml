@@ -2,28 +2,30 @@ tag: increasepotency
 schema: validators/combat.ts IncreasePotencyTag (line 342)
 exclusion_area: Damage scaling
 in_game_text: Increase the power of selected tags on subsequent jutsu
-behavior: "Raises the power of the selected tag type (or all 20 potency-eligible types) on the holder's later jutsu casts, flat or by percentage, optionally limited to elements. It's live from the round after it lands; potency set on the ground affects anyone casting from that tile. Buffprevent blocks it."
+behavior: "On the casting action its handler runs once; a buffprevent from an earlier round blocks it (rounds 0), and after that the handler only shows text. It changes power when the holder casts a jutsu (not a basic action or item) on any later action, later in the casting round included. Matching tags are affectedTag or 'all'; 'none' matches by element only. affectedElements match the tag's elements or the jutsu's elementClassification. A matching tag's power becomes max(0, base + sum of flat) x max(0, 1 + sum of %/100), with level scaling baked in at cast and percentage tags capped at 100. Potency on the ground applies to any fighter who casts from that tile, from the action after it was placed, if they pass its friendlyFire against its creator (default ALL). Bloodline potency is off under Seal."
 polarity: positive   # positive = Clear removes; negative = Cleanse removes; neutral = neither
 prevented_by: [buffprevent]
+prevent_check: "age-compared: blocks only effects created in a later round than the prevent"
 copy_can_take: false
 mirror_can_pass: false
 potency_eligible: false
 immunity_can_cancel: false
-stage: A3 pre-modifiers
-live_from: next round (waits while isNew/castThisRound)
-calculation: [static]
-own_fields:   # zod expressions copied from the schema; base fields are in engine.md section 6
+stage: S0 cast prep (rewrites cast power); handler in S3 main pass
+live_from: "holder's next jutsu cast after the casting action (same round possible); ground: the next cast from the tile after the placing action"
+calculation: [static, percentage]   # default static
+own_fields:   # zod expressions resolved from the schema (helpers, spreads, extend); fields inherited unchanged from BaseAttributes/PowerAttributes are in engine.md section 6
+  rounds: z.coerce.number().int().min(1).max(100).prefault(3)   # from PotencyAttributes
   target: "z.enum(BaseTagTargets).prefault(\"SELF\")"
-  affectedTag: "z.enum([\"none\", \"all\", ...PotencyTagTypes]).prefault(\"all\")"
-  affectedElements: "z.array(z.enum(ElementNames)).prefault([])"
-  calculation: "z.enum([\"static\", \"percentage\"]).prefault(\"static\")"
-  rounds: z.coerce.number().int().min(1).max(100).prefault(3)
+  calculation: "z.enum([\"static\", \"percentage\"]).prefault(\"static\")"   # from PotencyAttributes
+  affectedTag: "z.enum([\"none\", \"all\", ...PotencyTagTypes]).prefault(\"all\")"   # from PotencyAttributes
+  affectedElements: "z.array(z.enum(ElementNames)).prefault([])"   # from PotencyAttributes
 live_usage_2026_11_21: {jutsu: 11, pvp_legal: 11}
 source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
   - libs/combat/tags.ts potency (line 800)
   - libs/combat/process.ts first reference (line 1627)
-  - libs/combat/util.ts EFFECT_SORT_RANK (line 824)
-  - libs/combat/potency.ts resolvePotencyTags
+  - "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)"
+  - libs/combat/util.ts EFFECT_SORT_RANK rank 22 (line 1089)
+  - libs/combat/potency.ts resolvePotencyTags (line 71)
 interactions:   # full list with notes in ../interactions.json
   outgoing:
     boosts: [damage, increasedamagegiven, decreasedamagegiven, increasedamagetaken, decreasedamagetaken, afterburn, lifesteal, reflect, parry, curse, increaseheal, heal, vamp, absorb, consume, siphon, shield, pierce, drain, poison]

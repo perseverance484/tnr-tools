@@ -2,27 +2,38 @@ tag: pierce
 schema: validators/combat.ts PierceTag (line 672)
 exclusion_area: Damage now
 in_game_text: Deals piercing damage to target
-behavior: "Same formula as damage, but resolved after the damage pipeline, so no damage increase, no damage reduction and no Curse bonus touches it. It destroys every shield on the target instead of being soaked, and Parry, Recoil and Afterburn ignore it. Lifesteal, Absorb and Reflect still read it."
+behavior: "Pierce computes its raw number the same way as Damage: formula, static or percentage, with dmgModifier, residualModifier, Weakness, and the barrier cut on instant hits. It resolves after the damage pipeline, so no Curse bonus, damage increase, damage reduction or damage floor applies. It reads the stats from before the action's main pass, so a stat change resolved in the same action doesn't reach it. It isn't soaked by shields. Instead it sets every enabled shield on the target to 0, and Final Stand still applies. If the target's Diffuse defers part of it, shields soak the immediate part like ordinary damage and are not destroyed. Parry, Recoil and Afterburn ignore Pierce. Lifesteal, Absorb, Reflect, Wound and Vamp read an instant Pierce hit, and Lifesteal, Absorb and Reflect skip their general filter for it. Curse stores HP lost to it. With rounds above 0 it deals nothing on cast and ticks on later rounds."
 polarity: negative   # positive = Clear removes; negative = Cleanse removes; neutral = neither
 prevented_by: []   # no prevent check in its handler
 copy_can_take: false
 mirror_can_pass: false
 potency_eligible: true
 immunity_can_cancel: false
-stage: A9 pierce
-live_from: on cast if rounds 0 (instant); residual ticks on later rounds
-applies: on landing, then once a round when the holder acts
-calculation: [static]
+stage: S8 pierce (after the damage pipeline); applied in S15
+live_from: "rounds 0: casting action; rounds > 0: holder's first action in the round after cast, then once per round"
+applies: "rounds 0: once, on cast; rounds > 0: nothing on cast, then once a round on the holder's first action"
+calculation: [formula, static, percentage]   # default formula
+own_fields:   # zod expressions resolved from the schema (helpers, spreads, extend); fields inherited unchanged from BaseAttributes/PowerAttributes are in engine.md section 6
+  calculation: "z.enum([\"formula\", \"static\", \"percentage\"]).prefault(\"formula\")"   # from DamageTag
+  generalTypes: z.array(z.enum(GeneralTypes)).optional()   # from IncludeGeneralsAndElements via DamageTag
+  elements: z.array(z.enum(ElementNames)).optional()   # from IncludeGeneralsAndElements via DamageTag
+  residualModifier: z.coerce.number().min(0).max(2).prefault(1).optional()   # from DamageTag
+  dmgModifier: z.coerce.number().min(0).max(2).prefault(1).optional()   # from DamageTag
+  allowBloodlineDamageIncrease: z.coerce.boolean().prefault(true)   # from DamageTag
+  allowBloodlineDamageDecrease: z.coerce.boolean().prefault(true)   # from DamageTag
 live_usage_2026_11_21: {jutsu: 49, pvp_legal: 44}
 source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
   - libs/combat/tags.ts damageUser (line 1435)
   - libs/combat/process.ts first reference (line 1525)
-  - libs/combat/util.ts EFFECT_SORT_RANK (line 1118)
-  - libs/combat/process.ts mitigateConsequence (destroys shields)
+  - "libs/combat/process.ts applyEffects pierce pass, after the damage pipeline (line 618)"
+  - libs/combat/util.ts EFFECT_SORT_RANK rank 48 (line 1118)
+  - libs/combat/process.ts mitigateConsequence (line 956; destroys shields)
 interactions:   # full list with notes in ../interactions.json
   outgoing:
     bypasses: [increasedamagegiven, increasedamagetaken, decreasedamagegiven, decreasedamagetaken, curse, shield, parry, recoil, afterburn]
+    feeds: [curse, lifesteal, absorb, reflect, wound, vamp]
   incoming:
     boosts: [increasepotency, weakness]
+    counters: [diffuse, finalstand, barrier]
     removes: [cleanse]
     weakens: [decreasepotency]

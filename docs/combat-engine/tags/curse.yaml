@@ -5,23 +5,25 @@ in_game_text: "Store half the percentage of enemy damage dealt and half of enemy
 behavior: "The holder stores half of power% of the damage they deal and take. While active it adds damageBonusPercent to their raw damage (not to pierce) and switches off their own Lifesteal, Absorb and Vamp. When it expires naturally, it heals the stored amount, with heal modifiers applied, up to max HP. Clear or any other removal throws the store away. Healprevent on the holder blocks the payout, and Seal blocks it for a bloodline Curse. Buffprevent stops it landing."
 polarity: positive   # positive = Clear removes; negative = Cleanse removes; neutral = neither
 prevented_by: [buffprevent, healprevent]
+prevent_check: "buffprevent age-compared on landing; healprevent any age on the expiry payout (tags.ts:1664, 1690)"
 copy_can_take: false
 mirror_can_pass: false
 potency_eligible: true
 immunity_can_cancel: false
-stage: A5 late main pass (unranked or last-ranked)
-calculation: [percentage]
-own_fields:   # zod expressions copied from the schema; base fields are in engine.md section 6
+stage: "S3 main pass (unranked, last); HP-loss stored in S4, S6 and S15; a new curse is marked ready in S16"
+calculation: [percentage]   # default percentage
+own_fields:   # zod expressions resolved from the schema (helpers, spreads, extend); fields inherited unchanged from BaseAttributes/PowerAttributes are in engine.md section 6
+  rounds: z.coerce.number().int().min(1).max(100).prefault(3)
   calculation: "z.literal(\"percentage\").prefault(\"percentage\")"
   damageBonusPercent: z.coerce.number().min(0).max(1000).prefault(0)
-  rounds: z.coerce.number().int().min(1).max(100).prefault(3)
 live_usage_2026_11_21: {jutsu: 2, pvp_legal: 2}
 source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
   - libs/combat/tags.ts curse (line 1657)
   - libs/combat/process.ts first reference (line 668)
-  - libs/combat/util.ts EFFECT_SORT_RANK (line 837)
-  - libs/combat/tags.ts settleCurse
-  - libs/combat/damagePipeline.ts getCurseDamageMultiplier (curse bonus)
+  - "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)"
+  - "libs/combat/util.ts EFFECT_SORT_RANK: no explicit rank, sorts last (line 1016)"
+  - libs/combat/tags.ts settleCurse (line 1678)
+  - libs/combat/curse.ts getCurseDamageMultiplier (line 12; curse bonus)
 interactions:   # full list with notes in ../interactions.json
   outgoing:
     boosts: [damage]
@@ -31,7 +33,7 @@ interactions:   # full list with notes in ../interactions.json
     boosts: [increasepotency, increaseheal]
     bypasses: [pierce]
     disables: [seal]
-    feeds: [damage]
+    feeds: [damage, pierce]
     overlaps: [heal]
     prevents: [buffprevent, healprevent]
     removes: [clear]

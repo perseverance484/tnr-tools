@@ -17,7 +17,8 @@ areas:
     owns: raises, lowers, caps or flips how hard someone hits or gets hit
   - area: Soak damage
     tags: [shield, barrier, absorb, siphon, consume, finalstand]
-    owns: blocks, soaks, caps or floors incoming damage, or turns damage into shields or health
+    owns: soaks incoming damage in a separate HP bar (shield, barrier), turns damage dealt or taken into shields or pools (siphon, consume, absorb), or stops a packet at 1 HP while active (finalstand). Percentage and flat damage reduction belong to Damage scaling.
+    engine_note: finalstand is a conditional per-packet floor at 1 HP, not a per-hit ceiling; DR is multipliers, a flat subtraction and a 10% minimum-damage floor (engine.md 4, 4a). A generic per-hit damage cap is not implemented by any tag, but the director ruled it out as overlap (past_proposals Bulwark).
   - area: Send it back
     tags: [reflect, parry, recoil, mirror]
     owns: returns damage to the attacker, makes someone hurt themselves, or passes your debuffs to them
@@ -29,16 +30,19 @@ areas:
     owns: takes positive or negative effects off, in whole or in part
   - area: Take effects
     tags: [copy]
-    owns: moves or copies the enemy's buffs to you, now or later
+    owns: copies the enemy's positive effects to you (copy). Copy leaves the original on the enemy; no tag moves or steals a buff off them.
+    engine_note: moving a buff, or taking the enemy's next buff, is not implemented, but the director ruled a next-buff redirect out as overlap with copy (past_proposals Hijack).
   - area: Protection
     tags: [buffprevent, debuffprevent, clearprevent, cleanseprevent, stunprevent, sealprevent, summonprevent, onehitkillprevent, robprevent, immunity]
     owns: stops an effect from landing, or protects an effect from removal
   - area: Deny actions
     tags: [stun, seal, elementalseal, stealth, disarm, timecompression, increasepoolcost, increasecooldown]
-    owns: takes AP away, raises costs, or locks jutsu, bloodlines, elements or weapons
+    owns: takes AP away, raises costs, raises basic-action cooldowns, or locks jutsu, bloodlines, elements or weapons
+    engine_note: increasecooldown touches basic actions only (actions.ts:458-485).
   - area: Speed up actions
     tags: [timedilation, decreasepoolcost, decreasecooldown, injectjutsus, increaserange]
-    owns: lowers costs or cooldowns, adds actions, or extends reach
+    owns: lowers AP or pool costs (timedilation, decreasepoolcost), lowers basic-action cooldowns (decreasecooldown), adds jutsu (injectjutsus), or extends basic-action range (increaserange)
+    engine_note: decreasecooldown and increaserange touch basic actions only, never jutsu (actions.ts:434-488). Jutsu cooldown timing is open space below.
   - area: Position
     tags: [move, moveprevent, redirection]
     owns: moves anyone, pulls or pushes, or stops or limits movement
@@ -60,20 +64,20 @@ areas:
 outside_battle_or_cosmetic: [increaseregeneration, decreasecookingtime, decreasecraftingtime, decreasefarmingtime, decreasegatheringtime, increasegatheringyield, increasehuntingyield, increasejutsuslots, marriageslotincrease, noncombatincreasereskins, noncombatconsumereward, noncombatgainskill, noncombatquest, repair, removebloodline, rollbloodline, rollsagemode, unlockitemvariant, unknown, visual]
 open_space:   # outcomes no existing tag owns
   - name: Duration
-    detail: lengthening or shortening effects already running. Today an effect either runs out or is removed in full; no tag changes another effect's rounds.
+    detail: lengthening or shortening effects already running. Today an effect runs out, is removed in full, or ends when a prevent blocks its next tick; no tag changes another effect's rounds. The one rounds reset in the engine is a bloodline Final Stand re-arming itself to 1 round when it fires (tags.ts:2238-2255), which is not a duration tool.
   - name: Turn order
     detail: who acts first in a round. Initiative exists in the engine (cyclic order), but no tag changes it.
   - name: Information
-    detail: hiding your own effects or revealing the enemy's loadout. Stealth locks the holder's jutsu and makes them untargetable; it hides nothing.
+    detail: hiding your own effects or revealing the enemy's loadout. Stealth locks the holder's jutsu and stops other fighters' non-ground effects landing on them; it hides nothing.
   - name: Jutsu cooldown timing
     detail: the cooldown tags only touch basic actions. Making a used jutsu ready sooner, or delaying an enemy's jutsu cooldown, is open. Locking a jutsu outright is Deny actions.
   - name: Triggers on the enemy's choice
-    detail: no tag fires when the enemy does something specific. The trigger is open; whatever it does when it fires still has to pass this list.
-past_proposals:   # all director-reviewed or re-tested Nov 21-22 2026
-  - {name: Bulwark, idea: caps each hit at a share of max HP, verdict: out, overlaps: [finalstand, decreasedamagetaken], area: Soak damage}
+    detail: no tag fires on an enemy's specific choice of jutsu, target or action type. Two tags already react to enemy behaviour and own those triggers - poison (the holder spends chakra or stamina, tags.ts:2161-2169) and afterburn (the holder takes a direct hit, tags.ts:1888-1912) - as do the hit readers (reflect, recoil, absorb, lifesteal). A trigger on a specific choice is open; whatever it does when it fires still has to pass this list.
+past_proposals:   # all director-reviewed or re-tested Nov 21-22 2026. These verdicts are the director's design rulings; they stand even where an area's engine_note says the exact mechanic isn't implemented.
+  - {name: Bulwark, idea: caps each hit at a share of max HP, verdict: out, ruling: director, overlaps: [finalstand, decreasedamagetaken], area: Soak damage, note: "no tag caps a hit today; out by ruling, not by an existing mechanic"}
   - {name: Fuse, idea: delayed blast, verdict: out, overlaps: [wound, curse], area: Damage later}
   - {name: Strip, idea: remove newest buff, verdict: out, overlaps: [clear], area: Remove effects, why: a partial Clear}
   - {name: Leash, idea: can't move far from caster, verdict: out, overlaps: [moveprevent], area: Position}
-  - {name: Dampen, idea: caps enemy boosts, verdict: out, overlaps: [decreasedamagegiven, buffprevent], why: "Director: basically buff prevent with extra steps and confusion"}
-  - {name: Hijack, idea: next enemy buff goes to you, verdict: out, overlaps: [copy], why: "Director: copy with extra steps. No likey"}
+  - {name: Dampen, idea: caps enemy boosts, verdict: out, ruling: director, overlaps: [decreasedamagegiven, buffprevent], why: "Director: basically buff prevent with extra steps and confusion"}
+  - {name: Hijack, idea: next enemy buff goes to you, verdict: out, ruling: director, overlaps: [copy], why: "Director: copy with extra steps. No likey"}
   - {name: Prolong, idea: +1 round to effects you placed, verdict: passes the exclusion test (not proposed), area: open space / Duration}

@@ -10,13 +10,13 @@ mirror_can_pass: false
 potency_eligible: false
 immunity_can_cancel: false
 stage: outside combat
-calculation: [static]
-own_fields:   # zod expressions copied from the schema; base fields are in engine.md section 6
-  calculation: "z.literal(\"static\").prefault(\"static\")"
+calculation: [static]   # default static
+own_fields:   # zod expressions resolved from the schema (helpers, spreads, extend); fields inherited unchanged from BaseAttributes/PowerAttributes are in engine.md section 6
+  rounds: "BaseAttributes.rounds.refine((value): boolean => value === undefined, \"Activity bonuses have no combat duration\")"   # from ActivityBonusAttributes
+  timeTracker: "BaseAttributes.timeTracker.refine((value): boolean => value === undefined, \"Activity bonuses have no combat timer\")"   # from ActivityBonusAttributes
   power: z.coerce.number().int().min(0).max(MAX_HUNTING_BONUS_QUANTITY).prefault(1)
-  powerPerLevel: z.literal(0).prefault(0)
-  target: "z.literal(\"SELF\").prefault(\"SELF\")"
-  friendlyFire: "z.literal(\"FRIENDLY\").optional()"
-  rounds: BaseAttributes.rounds.refine(
-  timeTracker: BaseAttributes.timeTracker.refine(
+  powerPerLevel: z.literal(0).prefault(0)   # from ActivityBonusAttributes
+  target: "z.literal(\"SELF\").prefault(\"SELF\")"   # from ActivityBonusAttributes
+  friendlyFire: "z.literal(\"FRIENDLY\").optional()"   # from ActivityBonusAttributes
+  calculation: "z.literal(\"static\").prefault(\"static\")"
 live_usage_2026_11_21: {jutsu: 0, pvp_legal: 0}

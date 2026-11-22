@@ -2,20 +2,21 @@ tag: fleeprevent
 schema: validators/combat.ts FleePreventTag (line 681)
 exclusion_area: Escape
 in_game_text: Prevents fleeing
-behavior: A prevent-type status that blocks Flee.
+behavior: "A prevent-type status that rolls power% once to land. While active, it blocks every Flee roll by the holder, including the per-round rolls of a Flee cast before it, and a blocked Flee ends. Immunity can cancel a new one."
 polarity: negative   # positive = Clear removes; negative = Cleanse removes; neutral = neither
 prevented_by: []   # no prevent check in its handler
 copy_can_take: false
 mirror_can_pass: true
 potency_eligible: false
 immunity_can_cancel: true
-stage: A2 prevents
-calculation: [static]
+stage: S3 main pass
+calculation: [static]   # default static
 fields_note: simpleTag (BaseAttributes + PowerAttributes only)
 live_usage_2026_11_21: {jutsu: 0, pvp_legal: 0}
 source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
   - libs/combat/tags.ts applyPreventTag (line 338)
-  - libs/combat/util.ts EFFECT_SORT_RANK (line 819)
+  - "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)"
+  - libs/combat/util.ts EFFECT_SORT_RANK rank 5 (line 1071)
 interactions:   # full list with notes in ../interactions.json
   outgoing:
     prevents: [flee]

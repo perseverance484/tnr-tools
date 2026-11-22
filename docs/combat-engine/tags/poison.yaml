@@ -2,26 +2,31 @@ tag: poison
 schema: validators/combat.ts PoisonTag (line 751)
 exclusion_area: Damage later
 in_game_text: Deal damage based on Chakra and Stamina lost
-behavior: "When the poisoned player acts, they take power% of the chakra plus stamina that action cost as damage. Debuffprevent blocks it."
+behavior: "Resolves in the main pass on every action. A debuffprevent from an earlier round blocks it (rounds 0); a newer one never does. In the casting round it only shows text. From the next round, every action the holder takes deals floor((CP cost + SP cost) x power/100) HP, with no once-per-round limit. The costs are that action's after pool-cost modifiers, each floored at 0, and HP cost is ignored. The damage is credited to the poison's caster and skips shields and Final Stand except on the Diffuse path."
 polarity: negative   # positive = Clear removes; negative = Cleanse removes; neutral = neither
 prevented_by: [debuffprevent]
+prevent_check: "age-compared: blocks only effects created in a later round than the prevent"
 copy_can_take: false
 mirror_can_pass: true
 potency_eligible: true
 immunity_can_cancel: false
-stage: A10 post-damage readers
-applies: on landing, then once a round when the holder acts
-calculation: [percentage]
-own_fields:   # zod expressions copied from the schema; base fields are in engine.md section 6
-  calculation: "z.enum([\"percentage\"]).prefault(\"percentage\")"
+stage: S3 main pass (writes the consequence despite its post-pierce rank); applied in S15
+live_from: "holder's first action in the round after cast; then every holder action"
+applies: "on every action the holder takes, from the round after cast (no once-a-round limit)"
+calculation: [percentage]   # default percentage
+own_fields:   # zod expressions resolved from the schema (helpers, spreads, extend); fields inherited unchanged from BaseAttributes/PowerAttributes are in engine.md section 6
   rounds: z.coerce.number().int().min(1).max(10).prefault(3)
+  calculation: "z.enum([\"percentage\"]).prefault(\"percentage\")"
   poolsAffected: "z.array(z.enum(PoolTypes)).prefault([\"Health\", \"Chakra\", \"Stamina\"])"
 live_usage_2026_11_21: {jutsu: 7, pvp_legal: 7}
 source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
   - libs/combat/tags.ts poison (line 2140)
   - libs/combat/process.ts first reference (line 1671)
-  - libs/combat/util.ts EFFECT_SORT_RANK (line 833)
+  - "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)"
+  - "libs/combat/util.ts EFFECT_SORT_RANK rank 51 (line 1120, ...POST_PIERCE_TAGS entry at libs/combat/constants.ts line 269)"
 interactions:   # full list with notes in ../interactions.json
+  outgoing:
+    bypasses: [finalstand, shield]
   incoming:
     boosts: [increasepotency, increasepoolcost]
     overlaps: [drain]

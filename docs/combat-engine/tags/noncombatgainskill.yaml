@@ -10,7 +10,7 @@ mirror_can_pass: false
 potency_eligible: false
 immunity_can_cancel: false
 stage: outside combat
-calculation: [static]
-own_fields:   # zod expressions copied from the schema; base fields are in engine.md section 6
+calculation: [static]   # default static
+own_fields:   # zod expressions resolved from the schema (helpers, spreads, extend); fields inherited unchanged from BaseAttributes/PowerAttributes are in engine.md section 6
   skillId: "z.string().prefault(\"\")"
 live_usage_2026_11_21: {jutsu: 0, pvp_legal: 0}

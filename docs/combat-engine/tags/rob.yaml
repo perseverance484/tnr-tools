@@ -5,22 +5,24 @@ in_game_text: Robs money from the target
 behavior: "Only works in 1v1 player combat. Robprevent can block it. Otherwise it rolls power% to steal robPercentage% of the target's pocket ryo. If the thief flees, they drop the stolen ryo; if the victim flees, they get it back."
 polarity: negative   # positive = Clear removes; negative = Cleanse removes; neutral = neither
 prevented_by: [robprevent]
+prevent_check: "any age: any active prevent blocks it, including a pending effect cast earlier, which then ends (tags.ts:2356)"
 copy_can_take: false
 mirror_can_pass: true
 potency_eligible: false
 immunity_can_cancel: false
-stage: A4 mid-modifiers
-applies: on landing, then once a round when the holder acts
-calculation: [static]
-own_fields:   # zod expressions copied from the schema; base fields are in engine.md section 6
+stage: S3 main pass
+applies: "on landing, then once a round when the holder acts"
+calculation: [static]   # default static
+own_fields:   # zod expressions resolved from the schema (helpers, spreads, extend); fields inherited unchanged from BaseAttributes/PowerAttributes are in engine.md section 6
+  generalTypes: z.array(z.enum(GeneralTypes)).optional()   # from IncludeGeneralsAndElements
+  elements: z.array(z.enum(ElementNames)).optional()   # from IncludeGeneralsAndElements
   robPercentage: z.coerce.number().int().min(0).max(100).prefault(1)
-  generalTypes: z.array(z.enum(GeneralTypes)).optional()
-  elements: z.array(z.enum(ElementNames)).optional()
 live_usage_2026_11_21: {jutsu: 2, pvp_legal: 2}
 source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
   - libs/combat/tags.ts rob (line 2336)
   - libs/combat/process.ts first reference (line 1578)
-  - libs/combat/util.ts EFFECT_SORT_RANK (line 1108)
+  - "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)"
+  - libs/combat/util.ts EFFECT_SORT_RANK rank 40 (line 1108)
 interactions:   # full list with notes in ../interactions.json
   outgoing:
     feeds: [flee]

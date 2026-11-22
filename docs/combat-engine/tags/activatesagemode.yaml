@@ -9,9 +9,10 @@ copy_can_take: false
 mirror_can_pass: false
 potency_eligible: false
 immunity_can_cancel: false
-stage: A3 pre-modifiers
-calculation: [static]
+stage: S3 main pass
+calculation: [static]   # default static
 live_usage_2026_11_21: {jutsu: 0, pvp_legal: 0}
 source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
   - libs/combat/process.ts first reference (line 1675)
-  - libs/combat/util.ts EFFECT_SORT_RANK (line 1084)
+  - "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)"
+  - libs/combat/util.ts EFFECT_SORT_RANK rank 17 (line 1084)

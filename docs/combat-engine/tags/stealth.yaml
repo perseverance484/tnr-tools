@@ -2,22 +2,23 @@ tag: stealth
 schema: validators/combat.ts StealthTag (line 957)
 exclusion_area: Deny actions
 in_game_text: "Stealth the target, blocking all jutsu while allowing weapons and items"
-behavior: "Rolls power% to land. While active, other players' INHERIT-target effects can't land on the holder. The holder can't use any jutsu or the basic attack, heal, clear, cleanse, stances or flee; they keep move, replacement and items. It's positive, so Clear removes it."
+behavior: "Rolls power% to land. While it's active, other fighters' non-ground effects can't land on the holder, though ground effects still can. The holder can't use any jutsu or the basic attack, meditate, heal, clear, cleanse, stances or flee. They keep move, replacement, End Turn and items. It's positive, so Clear removes it."
 polarity: positive   # positive = Clear removes; negative = Cleanse removes; neutral = neither
 prevented_by: []   # no prevent check in its handler
 copy_can_take: false
 mirror_can_pass: false
 potency_eligible: false
 immunity_can_cancel: false
-stage: A2 prevents
-calculation: [static]
+stage: S3 main pass
+calculation: [static]   # default static
 fields_note: simpleTag (BaseAttributes + PowerAttributes only)
 live_usage_2026_11_21: {jutsu: 2, pvp_legal: 2}
 source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
   - libs/combat/tags.ts stealth (line 2423)
   - libs/combat/process.ts first reference (line 1651)
-  - libs/combat/util.ts EFFECT_SORT_RANK (line 841)
-  - libs/combat/actions.ts availableUserActions
+  - "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)"
+  - libs/combat/util.ts EFFECT_SORT_RANK rank 0 (line 1066)
+  - libs/combat/actions.ts availableUserActions (line 111)
   - libs/combat/actions.ts (stealthed target skipped)
 interactions:   # full list with notes in ../interactions.json
   outgoing:

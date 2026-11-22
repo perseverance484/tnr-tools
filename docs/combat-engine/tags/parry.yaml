@@ -9,18 +9,19 @@ copy_can_take: false
 mirror_can_pass: false
 potency_eligible: true
 immunity_can_cancel: false
-stage: A10 post-damage readers
+stage: S9 Parry split; S11 returns
 live_from: next round (waits while isNew/castThisRound)
-calculation: [percentage]
-own_fields:   # zod expressions copied from the schema; base fields are in engine.md section 6
+calculation: [percentage]   # default percentage
+own_fields:   # zod expressions resolved from the schema (helpers, spreads, extend); fields inherited unchanged from BaseAttributes/PowerAttributes are in engine.md section 6
   calculation: "z.literal(\"percentage\").prefault(\"percentage\")"
-  generalTypes: z.array(z.enum(GeneralTypes)).optional()
-  elements: z.array(z.enum(ElementNames)).optional()
+  generalTypes: z.array(z.enum(GeneralTypes)).optional()   # from IncludeGeneralsAndElements
+  elements: z.array(z.enum(ElementNames)).optional()   # from IncludeGeneralsAndElements
 live_usage_2026_11_21: {jutsu: 3, pvp_legal: 3}
 source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
   - libs/combat/tags.ts parry (line 1730)
   - libs/combat/process.ts first reference (line 631)
-  - libs/combat/util.ts EFFECT_SORT_RANK (line 836)
+  - "libs/combat/process.ts applyEffects Parry split, before the other post-damage readers (line 622)"
+  - "libs/combat/util.ts EFFECT_SORT_RANK rank 56 (line 1120, ...POST_PIERCE_TAGS entry at libs/combat/constants.ts line 274)"
 interactions:   # full list with notes in ../interactions.json
   outgoing:
     counters: [damage]

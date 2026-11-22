@@ -2,26 +2,30 @@ tag: vamp
 schema: validators/combat.ts VampTag (line 704)
 exclusion_area: Healing
 in_game_text: Instantly heal yourself based on a percentage of the damage dealt by this jutsu
-behavior: "Lives on the jutsu itself: the caster instantly heals power% of the damage that jutsu dealt. Healprevent on the caster blocks it, and Curse disables it."
+behavior: "Lives on the casting jutsu and acts only on the action that casts it, in the post-damage pass. It adds power/100 to every instant damage packet the caster deals to others in that action. Pierce counts; residual ticks don't. The caster's heal modifiers scale that ratio. Heal = floor(sum of ratio x pre-shield immediate damage), capped at floor(0.6 x that damage) and paid before Lifesteal from the same budget. It pays even when the hit kills the target, but not if the caster is at 0 HP or holds an unsettled Curse. Any active healprevent on the caster blocks it outright, with no roll and no creation-round check."
 polarity: neutral   # positive = Clear removes; negative = Cleanse removes; neutral = neither
 prevented_by: [healprevent]
+prevent_check: "any age, the Vamp caster's own healprevent, read directly with no roll (tags.ts:1962-1965)"
 copy_can_take: false
 mirror_can_pass: false
 potency_eligible: true
 immunity_can_cancel: false
-stage: A5 late main pass (unranked or last-ranked)
-calculation: [percentage]
-own_fields:   # zod expressions copied from the schema; base fields are in engine.md section 6
+stage: "S10 post-damage readers (unranked, last); casting action only; paid in S15"
+live_from: its casting action only
+calculation: [percentage]   # default percentage
+own_fields:   # zod expressions resolved from the schema (helpers, spreads, extend); fields inherited unchanged from BaseAttributes/PowerAttributes are in engine.md section 6
   calculation: "z.enum([\"percentage\"]).prefault(\"percentage\")"
 live_usage_2026_11_21: {jutsu: 9, pvp_legal: 9}
 source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
   - libs/combat/tags.ts vamp (line 1956)
   - libs/combat/process.ts first reference (line 1647)
+  - "libs/combat/process.ts applyEffects post-damage pass, after pierce (line 630)"
+  - "libs/combat/util.ts EFFECT_SORT_RANK: no explicit rank, sorts last (line 1016)"
 interactions:   # full list with notes in ../interactions.json
   incoming:
     boosts: [increasepotency, increaseheal]
     disables: [curse]
-    feeds: [damage]
+    feeds: [damage, pierce]
     overlaps: [lifesteal]
     prevents: [healprevent]
     weakens: [decreasepotency, decreaseheal]

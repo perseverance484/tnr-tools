@@ -1,7 +1,8 @@
 {
  "pinned_game_commit": "29cd91b",
  "kinds": {
-  "prevents": "source is a prevent-type status; once landed it blocks the target tag cast on the holder in a later round",
+  "prevents": "source is a prevent-type status; once landed it blocks the target tag on the holder: only effects cast in a later round where the handler passes the effect, any active one otherwise (see the note and the tag's prevent_check)",
+  "hides": "while active on the holder, the source removes actions that carry the target tag from the holder's action list (availableUserActions, server-enforced); effects already cast are untouched",
   "removes": "source strips the target tag (Clear: all positive; Cleanse: all negative; persistent sources excepted)",
   "transfers": "source clones the target tag between fighters (Copy: enemy positive to caster; Mirror: caster's negative to enemy)",
   "boosts": "source raises the target tag's number (potency, damage multipliers, heal multipliers, stats, weakness, pool spend)",
@@ -123,7 +124,7 @@
    "from": "buffprevent",
    "to": "copy",
    "kind": "prevents",
-   "note": "",
+   "note": "checks the Copy caster's buffprevent (tags.ts:456)",
    "evidence": "source-verified"
   },
   {
@@ -242,28 +243,28 @@
    "from": "healprevent",
    "to": "vamp",
    "kind": "prevents",
-   "note": "",
+   "note": "checks the Vamp caster's own healprevent, any age, no roll (tags.ts:1962)",
    "evidence": "source-verified"
   },
   {
    "from": "healprevent",
    "to": "curse",
    "kind": "prevents",
-   "note": "",
+   "note": "blocks only the expiry payout; any active healprevent at expiry; stored healing lost (tags.ts:1690)",
    "evidence": "source-verified"
   },
   {
    "from": "clearprevent",
    "to": "clear",
    "kind": "prevents",
-   "note": "",
+   "note": "any active clearprevent blocks, including a pending multi-round Clear cast earlier; ends it (tags.ts:1155)",
    "evidence": "source-verified"
   },
   {
    "from": "cleanseprevent",
    "to": "cleanse",
    "kind": "prevents",
-   "note": "",
+   "note": "any active cleanseprevent blocks, including a pending Cleanse cast earlier; ends it (tags.ts:1165)",
    "evidence": "source-verified"
   },
   {
@@ -277,42 +278,42 @@
    "from": "sealprevent",
    "to": "seal",
    "kind": "prevents",
-   "note": "",
+   "note": "any age; re-checked each holder turn, so a later non-bloodline Sealprevent ends an existing Seal (tags.ts:2402)",
    "evidence": "source-verified"
   },
   {
    "from": "summonprevent",
    "to": "summon",
-   "kind": "prevents",
-   "note": "",
+   "kind": "hides",
+   "note": "hides jutsu with a summon tag while rounds > 0; no handler check; items not filtered (actions.ts:231-237)",
    "evidence": "source-verified"
   },
   {
    "from": "onehitkillprevent",
    "to": "onehitkill",
    "kind": "prevents",
-   "note": "",
+   "note": "any age; blocks later ticks of an earlier One Hit Kill (tags.ts:2317)",
    "evidence": "source-verified"
   },
   {
    "from": "robprevent",
    "to": "rob",
    "kind": "prevents",
-   "note": "",
+   "note": "any age; blocks the per-round attempts of an earlier Rob and ends it (tags.ts:2356)",
    "evidence": "source-verified"
   },
   {
    "from": "fleeprevent",
    "to": "flee",
    "kind": "prevents",
-   "note": "",
+   "note": "any age; blocks the per-round rolls of an earlier Flee and ends it (tags.ts:1531)",
    "evidence": "source-verified"
   },
   {
    "from": "moveprevent",
    "to": "move",
    "kind": "prevents",
-   "note": "",
+   "note": "checks the move's caster, any age (tags.ts:2273); also hides move actions",
    "evidence": "source-verified"
   },
   {
@@ -1376,14 +1377,14 @@
    "from": "increasedamagegiven",
    "to": "damage",
    "kind": "boosts",
-   "note": "\u00d7 in-battle increase step",
+   "note": "× in-battle increase step",
    "evidence": "source-verified"
   },
   {
    "from": "increasedamagetaken",
    "to": "damage",
    "kind": "boosts",
-   "note": "\u00d7 in-battle increase step",
+   "note": "× in-battle increase step",
    "evidence": "source-verified"
   },
   {
@@ -1404,14 +1405,14 @@
    "from": "weakness",
    "to": "damage",
    "kind": "boosts",
-   "note": "raw \u00d7 dmgModifier",
+   "note": "raw × dmgModifier",
    "evidence": "source-verified"
   },
   {
    "from": "weakness",
    "to": "pierce",
    "kind": "boosts",
-   "note": "raw \u00d7 dmgModifier",
+   "note": "raw × dmgModifier",
    "evidence": "source-verified"
   },
   {
@@ -1432,14 +1433,14 @@
    "from": "curse",
    "to": "damage",
    "kind": "boosts",
-   "note": "raw \u00d7 damage bonus",
+   "note": "raw × damage bonus",
    "evidence": "source-verified"
   },
   {
    "from": "barrier",
    "to": "damage",
    "kind": "counters",
-   "note": "absorbs part of hits passing through",
+   "note": "instant damage (rounds 0) cast through barriers on the path is cut by barrierAbsorb; residual ticks are not (tags.ts:1448-1452)",
    "evidence": "source-verified"
   },
   {
@@ -1474,14 +1475,14 @@
    "from": "pierce",
    "to": "curse",
    "kind": "bypasses",
-   "note": "pierce skips the damage pipeline",
+   "note": "gets no Curse damage bonus (bonus applied in the damage pipeline, which Pierce skips)",
    "evidence": "source-verified"
   },
   {
    "from": "pierce",
    "to": "shield",
    "kind": "bypasses",
-   "note": "destroys all shields",
+   "note": "not soaked; sets every enabled shield on the target to 0. Not when the target's Diffuse deferred part of it that action: the immediate part is soaked and shields survive, unless Reflect rides the same packet (process.ts:1004-1016, 1036-1040, 1054-1055)",
    "evidence": "source-verified"
   },
   {
@@ -1523,35 +1524,28 @@
    "from": "wound",
    "to": "shield",
    "kind": "bypasses",
-   "note": "wound damage skips shields",
+   "note": "only when it gets its own consequence; merged into another consequence from the same caster, or Diffuse-deferred, it is soaked (tags.ts:1821-1841)",
    "evidence": "source-verified"
   },
   {
    "from": "shield",
    "to": "damage",
    "kind": "counters",
-   "note": "soaks before HP",
-   "evidence": "source-verified"
-  },
-  {
-   "from": "absorb",
-   "to": "damage",
-   "kind": "counters",
-   "note": "converts part to pools",
+   "note": "soaks direct, residual and parry-return damage before HP",
    "evidence": "source-verified"
   },
   {
    "from": "diffuse",
    "to": "damage",
    "kind": "counters",
-   "note": "defers part",
+   "note": "defers power% (<=99%, strongest Diffuse only) of the reduced hit; none if the action's combined incoming damage >= current HP",
    "evidence": "source-verified"
   },
   {
    "from": "finalstand",
    "to": "damage",
    "kind": "counters",
-   "note": "floors HP at 1",
+   "note": "floors each packet at 1 HP, checked against HP before the action's damage; packets that together exceed HP still kill (process.ts:677-683, 1018)",
    "evidence": "source-verified"
   },
   {
@@ -1559,20 +1553,6 @@
    "to": "damage",
    "kind": "counters",
    "note": "sends part back first",
-   "evidence": "source-verified"
-  },
-  {
-   "from": "reflect",
-   "to": "damage",
-   "kind": "counters",
-   "note": "sends part back",
-   "evidence": "source-verified"
-  },
-  {
-   "from": "siphon",
-   "to": "damage",
-   "kind": "counters",
-   "note": "turns part into shields",
    "evidence": "source-verified"
   },
   {
@@ -1663,14 +1643,14 @@
    "from": "increaseheal",
    "to": "heal",
    "kind": "boosts",
-   "note": "scales the holder's healing",
+   "note": "scales only the HP part of Heals the holder casts; CP/SP heals unchanged",
    "evidence": "source-verified"
   },
   {
    "from": "decreaseheal",
    "to": "heal",
    "kind": "weakens",
-   "note": "scales the holder's healing",
+   "note": "scales only the HP part of Heals the holder casts; CP/SP heals unchanged",
    "evidence": "source-verified"
   },
   {
@@ -1705,14 +1685,14 @@
    "from": "increaseheal",
    "to": "absorb",
    "kind": "boosts",
-   "note": "scales the holder's healing",
+   "note": "scales only Absorb's HP part; CP/SP parts unchanged",
    "evidence": "source-verified"
   },
   {
    "from": "decreaseheal",
    "to": "absorb",
    "kind": "weakens",
-   "note": "scales the holder's healing",
+   "note": "scales only Absorb's HP part; CP/SP parts unchanged",
    "evidence": "source-verified"
   },
   {
@@ -1782,7 +1762,7 @@
    "from": "timecompression",
    "to": "timedilation",
    "kind": "counters",
-   "note": "AP +10 vs \u221210",
+   "note": "AP +10 vs −10",
    "evidence": "source-verified"
   },
   {
@@ -1793,31 +1773,17 @@
    "evidence": "source-verified"
   },
   {
-   "from": "increasecooldown",
-   "to": "decreasecooldown",
-   "kind": "counters",
-   "note": "opposite cooldown",
-   "evidence": "source-verified"
-  },
-  {
    "from": "barrier",
    "to": "redirection",
    "kind": "counters",
-   "note": "blocks landing tile",
-   "evidence": "source-verified"
-  },
-  {
-   "from": "diffuse",
-   "to": "absorb",
-   "kind": "feeds",
-   "note": "absorb reads immediate part",
+   "note": "only a barrier on the computed landing tile matters: the target steps back toward its start to the first open tile; barriers between start and landing are crossed (tags.ts:2610-2636)",
    "evidence": "source-verified"
   },
   {
    "from": "elementalseal",
    "to": "elementaldamage",
-   "kind": "prevents",
-   "note": "hides 60-AP elemental jutsu",
+   "kind": "hides",
+   "note": "only jutsu with authored AP cost exactly 60; elementaldamage is one of three triggers (also non-None elementClassification or any non-None tag element); needs rounds > 0; items and basic actions unaffected (actions.ts:252-266)",
    "evidence": "source-verified"
   },
   {
@@ -1987,6 +1953,181 @@
    "kind": "overlaps",
    "note": "both keep a big hit from killing now; final stand floors HP, diffuse defers non-lethal hits",
    "evidence": "design-judgement"
+  },
+  {
+   "from": "diffuse",
+   "to": "pierce",
+   "kind": "counters",
+   "note": "defers part of a non-lethal Pierce; the immediate part is soaked by shields instead of breaking them",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "diffuse",
+   "to": "absorb",
+   "kind": "weakens",
+   "note": "Absorb on a Diffuse holder resolves after deferral and converts only the immediate part; its 60% cap uses the immediate part (process.ts:632-657, 1289-1290)",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "diffuse",
+   "to": "lifesteal",
+   "kind": "weakens",
+   "note": "lifesteal_hp scaled to the immediate part (damagePipeline.ts:481-483)",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "finalstand",
+   "to": "diffuse",
+   "kind": "counters",
+   "note": "repayment ticks can't take the holder below 1 HP (diffuse.ts:117)",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "finalstand",
+   "to": "pierce",
+   "kind": "counters",
+   "note": "floors HP at 1 against Pierce as well (process.ts:1018)",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "afterburn",
+   "to": "finalstand",
+   "kind": "bypasses",
+   "note": "unless Diffuse deferred part of the hit (process.ts:1047-1053)",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "drain",
+   "to": "finalstand",
+   "kind": "bypasses",
+   "note": "unless Diffuse deferred part of the hit (process.ts:1047-1053)",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "poison",
+   "to": "finalstand",
+   "kind": "bypasses",
+   "note": "unless Diffuse deferred part of the hit (process.ts:1047-1053)",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "afterburn",
+   "to": "shield",
+   "kind": "bypasses",
+   "note": "unless Diffuse deferred part of the hit (process.ts:1047-1053)",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "drain",
+   "to": "shield",
+   "kind": "bypasses",
+   "note": "unless Diffuse deferred part of the hit (process.ts:1047-1053)",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "poison",
+   "to": "shield",
+   "kind": "bypasses",
+   "note": "unless Diffuse deferred part of the hit (process.ts:1047-1053)",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "shield",
+   "to": "reflect",
+   "kind": "counters",
+   "note": "quirk, likely a game bug: reflected damage is soaked by the reflector's own remaining shields, not the attacker's (process.ts:965-971, 1054-1055)",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "shield",
+   "to": "recoil",
+   "kind": "counters",
+   "note": "quirk, likely a game bug: recoil is soaked by the shields of the player the recoil holder hit (process.ts:965-971, 1057-1058)",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "moveprevent",
+   "to": "move",
+   "kind": "hides",
+   "note": "hides basic move, the replacement technique and move-tag jutsu while rounds > 0 (actions.ts:169, 180, 246-251)",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "pierce",
+   "to": "curse",
+   "kind": "feeds",
+   "note": "HP lost to Pierce (instant or residual, after shields and Final Stand) is stored by a Curse on either fighter",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "pierce",
+   "to": "lifesteal",
+   "kind": "feeds",
+   "note": "instant Pierce only; read as a normal direct hit, always passes the generals filter, shares the 60% leech cap",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "pierce",
+   "to": "absorb",
+   "kind": "feeds",
+   "note": "instant Pierce only; the holder's Absorb converts it; generals filter ignored",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "pierce",
+   "to": "reflect",
+   "kind": "feeds",
+   "note": "instant Pierce only; generals filter ignored",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "pierce",
+   "to": "wound",
+   "kind": "feeds",
+   "note": "a Wound cast in the same action records instant Pierce damage from its caster to its target",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "pierce",
+   "to": "vamp",
+   "kind": "feeds",
+   "note": "instant Pierce from the Vamp jutsu counts as outgoing damage",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "barrier",
+   "to": "pierce",
+   "kind": "counters",
+   "note": "reduces instant Pierce by the barrier fraction on its path or tile, and Pierce damages the barrier; residual ticks are not reduced",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "damage",
+   "to": "absorb",
+   "kind": "feeds",
+   "note": "each direct hit the holder takes (from the round after Absorb lands) refills chosen pools by power%; HP part capped at 60% of the immediate hit and needs the holder alive; the hit is not reduced",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "damage",
+   "to": "reflect",
+   "kind": "feeds",
+   "note": "each direct hit the holder takes returns power% as separate damage to the attacker, capped at 60% of the pre-Diffuse hit; the holder still takes the full hit",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "damage",
+   "to": "siphon",
+   "kind": "feeds",
+   "note": "enemy-caused HP loss the holder takes (after shields and Final Stand; not recoil or self-damage) becomes shield credit granted after the action; the hit is not reduced",
+   "evidence": "source-verified"
+  },
+  {
+   "from": "decreasecooldown",
+   "to": "increasecooldown",
+   "kind": "counters",
+   "note": "per basic action the lowest signed modifier wins, so any decrease overrides every increase (no additive cancel); the result floors at the shared cooldown lock (actions.ts:458-485)",
+   "evidence": "source-verified"
   }
  ]
 }

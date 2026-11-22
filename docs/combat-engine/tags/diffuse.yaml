@@ -2,29 +2,34 @@ tag: diffuse
 schema: validators/combat.ts DiffuseTag (line 836)
 exclusion_area: Damage later
 in_game_text: "Defer a percentage of incoming damage over subsequent turns (non-lethal hits only: a hit that would kill before shields and damage reduction is not deferred). Damage reduction applies before deferral; shields and absorption apply to the immediate portion. Repayment survives expiry, bypasses defenses, and respects Final Stand. Cannot be cleansed, prevented, or copied."
-behavior: "The holder defers power% (up to 99%) of each incoming non-lethal hit and repays it over the next delayRounds (default 3). Damage reduction applies first; shields and Absorb only see the immediate part. Repayment survives expiry, skips defences and respects Final Stand. It can't be cleansed, prevented or copied."
+behavior: "While active (rounds above 0 and not sealed, from the action it is cast), the holder defers part of the damage aimed at them in each action. Only their strongest Diffuse counts, at most 99%, using its delayRounds (1-20, default 3). It is all or nothing per action. All HP damage, reflect and recoil heading to the holder in that action are added up, and if the total reaches current HP (shields not counted), nothing is deferred. For that test, ordinary and residual damage are recomputed without the holder's damage reduction but with the 50% system reduction, all increases and any Parry split. Everything else (Pierce, wound, afterburn, drain, poison, reflect, recoil) counts as it stands. When the test passes, power% of each already-reduced packet becomes debt. The debt is repaid in equal parts on the holder's own actions over their next delayRounds acting rounds, at the start of the action. Repayment skips shields, damage reduction and Absorb, respects Final Stand, and continues after the effect ends. The immediate part goes through shields and Final Stand as ordinary damage. That includes Pierce, which shields then soak instead of breaking, and afterburn, drain and poison, which otherwise skip both. Absorb and Lifesteal only see the immediate part. It can't be cleansed, prevented or copied."
 polarity: neutral   # positive = Clear removes; negative = Cleanse removes; neutral = neither
 prevented_by: []   # no prevent check in its handler
 copy_can_take: false
 mirror_can_pass: false
 potency_eligible: false
 immunity_can_cancel: false
-stage: A4 mid-modifiers
-calculation: [percentage]
-own_fields:   # zod expressions copied from the schema; base fields are in engine.md section 6
-  calculation: "z.enum([\"percentage\"]).prefault(\"percentage\")"
+stage: S3 main pass (handler text only); S6 repayment; S12 deferral
+live_from: its casting action (no next-round wait)
+calculation: [percentage]   # default percentage
+own_fields:   # zod expressions resolved from the schema (helpers, spreads, extend); fields inherited unchanged from BaseAttributes/PowerAttributes are in engine.md section 6
+  rounds: z.coerce.number().int().min(1).max(100).prefault(3)
   power: z.coerce.number().gt(0).max(DIFFUSE_MAX_PERCENTAGE).prefault(25)
   powerPerLevel: z.coerce.number().min(0).max(1).prefault(0)
-  rounds: z.coerce.number().int().min(1).max(100).prefault(3)
-  delayRounds: z.coerce
+  calculation: "z.enum([\"percentage\"]).prefault(\"percentage\")"
+  delayRounds: z.coerce.number().int().min(1).max(20).prefault(DIFFUSE_DEFAULT_DELAY_ROUNDS)
 live_usage_2026_11_21: {jutsu: 3, pvp_legal: 3}
 source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
   - libs/combat/process.ts first reference (line 1698)
-  - libs/combat/util.ts EFFECT_SORT_RANK (line 809)
-  - libs/combat/damagePipeline.ts applyDiffuseToConsequences
+  - "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)"
+  - "libs/combat/process.ts applyEffects Diffuse debt repayment, before the damage pipeline (line 480)"
+  - "libs/combat/process.ts applyEffects Diffuse deferral, after the post-damage readers (line 643)"
+  - libs/combat/util.ts EFFECT_SORT_RANK rank 33 (line 1101)
+  - libs/combat/damagePipeline.ts applyDiffuseToConsequences (line 381)
 interactions:   # full list with notes in ../interactions.json
   outgoing:
-    counters: [damage]
-    feeds: [absorb]
+    counters: [damage, pierce]
+    weakens: [absorb, lifesteal]
   incoming:
+    counters: [finalstand]
     overlaps: [curse, finalstand]

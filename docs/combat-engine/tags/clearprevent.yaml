@@ -2,20 +2,21 @@ tag: clearprevent
 schema: validators/combat.ts ClearPreventTag (line 615)
 exclusion_area: Protection
 in_game_text: Prevents clearing
-behavior: "A prevent-type status. It rolls power% once to land and then blocks clear with certainty, but only effects cast in a later round. Effects already on the holder stay. Immunity can cancel it."
+behavior: "A prevent-type status that rolls power% once to land. Once landed, it blocks every Clear resolving on the holder, whenever that Clear was cast. A multi-round Clear that was already pending is stopped on its next tick and ends. Neither Clear nor Cleanse removes it, but Immunity can cancel a new one."
 polarity: neutral   # positive = Clear removes; negative = Cleanse removes; neutral = neither
 prevented_by: []   # no prevent check in its handler
 copy_can_take: false
 mirror_can_pass: false
 potency_eligible: false
 immunity_can_cancel: true
-stage: A2 prevents
-calculation: [static]
+stage: S3 main pass
+calculation: [static]   # default static
 fields_note: simpleTag (BaseAttributes + PowerAttributes only)
 live_usage_2026_11_21: {jutsu: 9, pvp_legal: 9}
 source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
   - libs/combat/tags.ts applyPreventTag (line 338)
-  - libs/combat/util.ts EFFECT_SORT_RANK (line 812)
+  - "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)"
+  - libs/combat/util.ts EFFECT_SORT_RANK rank 3 (line 1069)
 interactions:   # full list with notes in ../interactions.json
   outgoing:
     prevents: [clear]

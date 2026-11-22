@@ -165,9 +165,12 @@ def describe(name):
     lines = [f"{name}  [{t['polarity']}; removed by {removed_by(name) or 'neither Clear nor Cleanse'}]",
              f"  {t['behavior']}",
              f"  stage: {t.get('stage')}   live from: {t.get('live_from') or 'see behavior'}",
+             f"  applies: {t['applies']}" if t.get("applies") else None,
              f"  prevented by: {', '.join(t.get('prevented_by') or []) or 'nothing'}"
-             f"   copy can take: {t.get('copy_can_take')}   mirror can pass: {t.get('mirror_can_pass')}",
+             + (f" ({t['prevent_check']})" if t.get("prevent_check") else "")
+             + f"   copy can take: {t.get('copy_can_take')}   mirror can pass: {t.get('mirror_can_pass')}",
              f"  source: {'; '.join(t.get('source', []))}"]
+    lines = [x for x in lines if x is not None]
     for direction in ("outgoing", "incoming"):
         for kind, others in sorted(t.get("interactions", {}).get(direction, {}).items()):
             arrow = "->" if direction == "outgoing" else "<-"

@@ -2,28 +2,29 @@ tag: finalstand
 schema: validators/combat.ts FinalStandTag (line 772)
 exclusion_area: Soak damage
 in_game_text: User cannot be reduced below 1 HP
-behavior: "Rolls power% to activate. While active, damage can't take the holder below 1 HP (One Hit Kill still can). A bloodline version re-arms itself. Neither Clear nor Cleanse can remove it."
+behavior: "Rolls power% to activate. While active, each separate damage packet that would leave the holder below 1 HP is cut to leave exactly 1 HP. Each packet is checked against HP as it stood before the action's damage, so several packets that are each survivable can still kill together (two 60s on a 100-HP holder kill). It applies to direct, residual, Pierce, wound, parry return, reflect and recoil damage, to the immediate part of deferred damage and to Diffuse repayment. It does not apply to ordinary afterburn, drain, poison or One Hit Kill. A bloodline version needs to be active and unsealed, and re-arms for one round when it fires. Neither Clear nor Cleanse removes it."
 polarity: neutral   # positive = Clear removes; negative = Cleanse removes; neutral = neither
 prevented_by: []   # no prevent check in its handler
 copy_can_take: false
 mirror_can_pass: false
 potency_eligible: false
 immunity_can_cancel: false
-stage: A4 mid-modifiers
-calculation: [static]
-own_fields:   # zod expressions copied from the schema; base fields are in engine.md section 6
+stage: S3 main pass (land roll); floors HP in S6 and S15
+calculation: [static]   # default static
+own_fields:   # zod expressions resolved from the schema (helpers, spreads, extend); fields inherited unchanged from BaseAttributes/PowerAttributes are in engine.md section 6
   power: z.coerce.number().min(0).max(100).prefault(100)
   powerPerLevel: z.coerce.number().min(0).max(1).prefault(0)
 live_usage_2026_11_21: {jutsu: 1, pvp_legal: 0}
 source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
   - libs/combat/tags.ts finalStand (line 2238)
   - libs/combat/process.ts first reference (line 1696)
-  - libs/combat/util.ts EFFECT_SORT_RANK (line 1100)
-  - libs/combat/tags.ts applyFinalStandDamage
+  - "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)"
+  - libs/combat/util.ts EFFECT_SORT_RANK rank 32 (line 1100)
+  - libs/combat/tags.ts applyFinalStandDamage (line 2209)
 interactions:   # full list with notes in ../interactions.json
   outgoing:
-    counters: [damage]
+    counters: [damage, diffuse, pierce]
     overlaps: [diffuse]
   incoming:
-    bypasses: [onehitkill]
+    bypasses: [onehitkill, afterburn, drain, poison]
     disables: [seal]

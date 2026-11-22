@@ -3,32 +3,32 @@
  "caps": {
   "lifesteal_vamp": {
    "value": 0.6,
-   "what": "Lifesteal plus vamp, shared, as a fraction of the hit",
+   "what": "Lifesteal plus vamp, shared: floor(cap x pre-shield immediate hit), vamp paid first",
    "source": "libs/combat/constants.ts:80 DAMAGE_LEECH_CAP_RATIO"
   },
   "reflect": {
    "value": 0.6,
-   "what": "Reflect, as a fraction of the pre-Diffuse hit",
+   "what": "Reflect, as a fraction of the pre-Diffuse hit, not rounded, applied after the shield soak",
    "source": "libs/combat/constants.ts:86 REFLECT_CAP_RATIO"
   },
   "absorb": {
    "value": 0.6,
-   "what": "Absorb, as a fraction of the pre-shield hit",
+   "what": "Absorb HP share only, as a fraction of the immediate (post-Diffuse, pre-shield) hit; CP/SP shares uncapped",
    "source": "libs/combat/constants.ts:89 ABSORB_CAP_RATIO"
   },
   "afterburn": {
    "value": 0.6,
-   "what": "Stacked afterburn, as a fraction of the hit",
+   "what": "Stacked afterburn per hit, floor(cap x hit), applied when the readers run",
    "source": "libs/combat/constants.ts:92 AFTERBURN_CAP_RATIO"
   },
   "shield_hp": {
    "value": 100000,
-   "what": "Shield HP ceiling",
+   "what": "Shield tag health ceiling, and the most new Consume/Siphon shield HP per fighter per action",
    "source": "drizzle/constants.ts:2491 SHIELD_MAX_HEALTH"
   },
   "damage_reduction": {
    "value": 0.9,
-   "what": "Max fraction damage reduction can remove (10% always lands)",
+   "what": "Reductions after the 50% system DR stop at this share: a hit never falls below 10% of its post-system-DR value",
    "source": "drizzle/constants.ts:4576 DMG_REDUCTION_CAP"
   },
   "parry_pct": {
@@ -72,7 +72,7 @@
   },
   "diffuse_delay_rounds": {
    "value": 3,
-   "what": "Rounds before diffused damage lands",
+   "what": "Default Diffuse delayRounds: debt repaid over the holder's next N acting rounds",
    "source": "drizzle/constants.ts:4580 DIFFUSE_DEFAULT_DELAY_ROUNDS"
   },
   "temporal_ap_delta": {

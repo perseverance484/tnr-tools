@@ -24,7 +24,13 @@ def test_known_engine_facts():
     assert CM.removed_by("absorb") == "clear" and CM.removed_by("wound") == "cleanse"
     assert CM.removed_by("clearprevent") is None
     assert "healprevent" in CM.prevented_by("lifesteal")
-    assert ("absorb", "counters", "") in [(a, k, "") for a, k, _ in CM.edges("damage", "incoming")]
+    # absorb reads the hit and refills pools; it doesn't reduce it (PR #129 review M2)
+    assert ("absorb", "feeds") in [(a, k) for a, k, _ in CM.edges("damage", "outgoing")]
+    assert ("absorb", "counters") not in [(a, k) for a, k, _ in CM.edges("damage", "incoming")]
+    # summonprevent and elementalseal are action gates, not handler prevents (H5, M3)
+    assert ("summon", "hides") in [(a, k) for a, k, _ in CM.edges("summonprevent", "outgoing")]
+    assert "any age" in CM.tag("clear")["prevent_check"]
+    assert CM.tag("vamp")["stage"].startswith("S10")
     print("ok: caps, polarity, prevents and links read as the source has them")
 
 

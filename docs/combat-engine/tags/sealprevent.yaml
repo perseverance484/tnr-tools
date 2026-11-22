@@ -2,20 +2,21 @@ tag: sealprevent
 schema: validators/combat.ts SealPreventTag (line 950)
 exclusion_area: Protection
 in_game_text: Prevents bloodline from being sealed
-behavior: "A prevent-type status. It rolls power% once to land and then blocks seal with certainty, but only effects cast in a later round. Effects already on the holder stay. Immunity can cancel it."
+behavior: "A prevent-type status that rolls power% once to land. While active, it blocks any Seal on the holder regardless of when the Seal was cast. Seal re-checks on each of the holder's turns, so a Sealprevent that lands after a Seal ends that Seal at the holder's next turn. A bloodline-sourced Sealprevent is itself switched off while a Seal is active. Clear removes it, and Immunity can cancel a new one."
 polarity: positive   # positive = Clear removes; negative = Cleanse removes; neutral = neither
 prevented_by: []   # no prevent check in its handler
 copy_can_take: false
 mirror_can_pass: false
 potency_eligible: false
 immunity_can_cancel: true
-stage: A2 prevents
-calculation: [static]
+stage: S3 main pass
+calculation: [static]   # default static
 fields_note: simpleTag (BaseAttributes + PowerAttributes only)
 live_usage_2026_11_21: {jutsu: 0, pvp_legal: 0}
 source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
   - libs/combat/tags.ts applyPreventTag (line 338)
-  - libs/combat/util.ts EFFECT_SORT_RANK (line 839)
+  - "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)"
+  - libs/combat/util.ts EFFECT_SORT_RANK rank 10 (line 1076)
 interactions:   # full list with notes in ../interactions.json
   outgoing:
     prevents: [seal]

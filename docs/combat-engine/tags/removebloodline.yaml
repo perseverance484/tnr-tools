@@ -10,8 +10,8 @@ mirror_can_pass: false
 potency_eligible: false
 immunity_can_cancel: false
 stage: outside combat
-calculation: [percentage]
-own_fields:   # zod expressions copied from the schema; base fields are in engine.md section 6
+calculation: [percentage]   # default percentage
+own_fields:   # zod expressions resolved from the schema (helpers, spreads, extend); fields inherited unchanged from BaseAttributes/PowerAttributes are in engine.md section 6
   power: z.coerce.number().int().min(0).max(100).prefault(1)
   calculation: "z.enum([\"percentage\"]).prefault(\"percentage\")"
 live_usage_2026_11_21: {jutsu: 0, pvp_legal: 0}

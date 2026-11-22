@@ -9,19 +9,20 @@ copy_can_take: false
 mirror_can_pass: false
 potency_eligible: false
 immunity_can_cancel: false
-stage: A3 pre-modifiers
-applies: on landing, then once a round when the holder acts
-calculation: [static]
-own_fields:   # zod expressions copied from the schema; base fields are in engine.md section 6
-  poolsAffected: "z.array(z.enum(PoolTypes)).prefault([\"Health\"]).optional()"
-  calculation: "z.enum([\"static\", \"percentage\"]).prefault(\"percentage\")"
-  rounds: z.coerce.number().int().min(2).max(20).prefault(2)
-  direction: "type(\"defence\")"
+stage: S3 main pass
+applies: "on landing, then once a round when the holder acts"
+calculation: [static, percentage]   # default percentage
+own_fields:   # zod expressions resolved from the schema (helpers, spreads, extend); fields inherited unchanged from BaseAttributes/PowerAttributes are in engine.md section 6
+  rounds: z.coerce.number().int().min(2).max(20).prefault(2)   # from PoolCostAttributes
+  direction: "type(\"defence\")"   # from PoolCostAttributes
+  calculation: "z.enum([\"static\", \"percentage\"]).prefault(\"percentage\")"   # from PercentageCalculation via PoolCostAttributes
+  poolsAffected: "z.array(z.enum(PoolTypes)).prefault([\"Health\"]).optional()"   # from PoolAttributes via PoolCostAttributes
 live_usage_2026_11_21: {jutsu: 1, pvp_legal: 1}
 source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
   - libs/combat/tags.ts decreasepoolcost (line 1653)
   - libs/combat/process.ts first reference (line 1542)
-  - libs/combat/util.ts EFFECT_SORT_RANK (line 817)
+  - "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)"
+  - libs/combat/util.ts EFFECT_SORT_RANK rank 24 (line 1091)
 interactions:   # full list with notes in ../interactions.json
   outgoing:
     weakens: [poison]

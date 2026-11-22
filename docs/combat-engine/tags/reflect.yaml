@@ -2,31 +2,34 @@ tag: reflect
 schema: validators/combat.ts ReflectTag (line 817)
 exclusion_area: Send it back
 in_game_text: Reflect damage taken
-behavior: "Returns power% of each hit the holder takes to the attacker, capped at 60% of the hit. Buffprevent blocks it, and Copy can take it."
+behavior: "A buff on the defender, live from the round after it lands. For each instant hit the holder takes whose generals match (elements ignored; Pierce always matches), each Reflect adds floor(hit x power/100), or floor(min(power, hit)) if static. The hit is taken after the pipeline and Parry, before Diffuse. The holder still takes the full hit. Quirk (likely a game bug): the uncapped total is first soaked by the reflecting holder's own remaining shields (destroying them instead if the hit was Pierce), then the attacker's Final Stand applies. Then it is capped at 0.6 x the pre-Diffuse hit (not rounded) and dealt to the attacker, even if the defender died. If the attacker has Diffuse, Reflect is capped at 0.6 x hit before the split. The returned damage credits Curse, enmity and Consume/Siphon. A buffprevent from an earlier round blocks it, and Copy can take it."
 polarity: positive   # positive = Clear removes; negative = Cleanse removes; neutral = neither
 prevented_by: [buffprevent]
+prevent_check: "age-compared: blocks only effects created in a later round than the prevent"
 copy_can_take: true
 mirror_can_pass: false
 potency_eligible: true
 immunity_can_cancel: false
-stage: A10 post-damage readers
+stage: S10 post-damage readers; applied in S15
 live_from: next round (waits while isNew/castThisRound)
-calculation: [static,percentage]
-own_fields:   # zod expressions copied from the schema; base fields are in engine.md section 6
+calculation: [static, percentage]   # default percentage
+own_fields:   # zod expressions resolved from the schema (helpers, spreads, extend); fields inherited unchanged from BaseAttributes/PowerAttributes are in engine.md section 6
   calculation: "z.enum([\"static\", \"percentage\"]).prefault(\"percentage\")"
-  generalTypes: z.array(z.enum(GeneralTypes)).optional()
-  elements: z.array(z.enum(ElementNames)).optional()
+  generalTypes: z.array(z.enum(GeneralTypes)).optional()   # from IncludeGeneralsAndElements
+  elements: z.array(z.enum(ElementNames)).optional()   # from IncludeGeneralsAndElements
 live_usage_2026_11_21: {jutsu: 24, pvp_legal: 22}
 source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
   - libs/combat/tags.ts reflect (line 1758)
   - libs/combat/process.ts first reference (line 1639)
-  - libs/combat/util.ts EFFECT_SORT_RANK (line 835)
+  - "libs/combat/process.ts applyEffects post-damage pass, after pierce (line 630)"
+  - "libs/combat/util.ts EFFECT_SORT_RANK rank 55 (line 1120, ...POST_PIERCE_TAGS entry at libs/combat/constants.ts line 273)"
 interactions:   # full list with notes in ../interactions.json
   outgoing:
-    counters: [damage]
     overlaps: [parry]
   incoming:
     boosts: [increasepotency]
+    counters: [shield]
+    feeds: [pierce, damage]
     overlaps: [recoil]
     prevents: [buffprevent]
     removes: [clear]

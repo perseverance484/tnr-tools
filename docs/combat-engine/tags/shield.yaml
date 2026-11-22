@@ -2,31 +2,32 @@ tag: shield
 schema: validators/combat.ts ShieldTag (line 762)
 exclusion_area: Soak damage
 in_game_text: Creates a temporary HP bar that lasts for a set amount of rounds
-behavior: "Rolls power% to appear, then becomes a separate HP bar worth its health field. Incoming damage drains shields before HP, except pierce (which destroys them), reflect and wound (which skip them). It's positive, so Clear removes it and Copy can take it."
+behavior: "Rolls power% to appear, then acts as a separate HP bar worth its health field (up to 100,000). Direct, residual and parry-return damage drain the holder's shields before HP, as does the immediate part of anything Diffuse deferred. Pierce isn't soaked: it sets every enabled shield on the target to 0, unless Diffuse deferred part of it. Afterburn, drain, poison, One Hit Kill and Diffuse repayment never touch shields. Wound skips them only when it arrives on its own rather than merged into another hit from the same caster. Quirk (likely a game bug): reflect and recoil damage are soaked by the shields of the other side of the original hit, not the shields of the player taking it. It's positive, so Clear removes it and Copy can take it."
 polarity: positive   # positive = Clear removes; negative = Cleanse removes; neutral = neither
 prevented_by: []   # no prevent check in its handler
 copy_can_take: true
 mirror_can_pass: false
 potency_eligible: true
 immunity_can_cancel: false
-stage: A4 mid-modifiers
-calculation: [static]
-own_fields:   # zod expressions copied from the schema; base fields are in engine.md section 6
+stage: S3 main pass (land roll); soaks in S15
+calculation: [static]   # default static
+own_fields:   # zod expressions resolved from the schema (helpers, spreads, extend); fields inherited unchanged from BaseAttributes/PowerAttributes are in engine.md section 6
   rounds: z.coerce.number().int().min(1).max(100).prefault(3)
   health: z.coerce.number().int().min(1).max(SHIELD_MAX_HEALTH).prefault(100)
 live_usage_2026_11_21: {jutsu: 38, pvp_legal: 32}
 source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
   - libs/combat/tags.ts shield (line 2173)
   - libs/combat/process.ts first reference (line 1667)
-  - libs/combat/util.ts EFFECT_SORT_RANK (line 845)
-  - libs/combat/process.ts mitigateConsequence
+  - "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)"
+  - libs/combat/util.ts EFFECT_SORT_RANK rank 31 (line 1099)
+  - libs/combat/process.ts mitigateConsequence (line 956)
 interactions:   # full list with notes in ../interactions.json
   outgoing:
-    counters: [damage]
+    counters: [damage, reflect, recoil]
     overlaps: [barrier]
   incoming:
     boosts: [increasepotency]
-    bypasses: [pierce, onehitkill, wound]
+    bypasses: [pierce, onehitkill, wound, afterburn, drain, poison]
     feeds: [siphon, consume]
     removes: [clear]
     transfers: [copy]

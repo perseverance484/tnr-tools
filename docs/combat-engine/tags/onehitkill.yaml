@@ -2,22 +2,24 @@ tag: onehitkill
 schema: validators/combat.ts OneHitKillTag (line 787)
 exclusion_area: Damage now
 in_game_text: Instantly kills the target
-behavior: "Rolls power% to set the target's HP to 0 outright. It skips shields, damage reduction and Final Stand. Onehitkillprevent blocks it. The HP removed counts as damage dealt."
+behavior: "Rolls power% to set the target's HP to 0 outright, directly in the main pass. It skips shields, damage reduction and Final Stand. Any active onehitkillprevent blocks it, including later ticks of an older multi-round One Hit Kill. The HP removed counts as damage dealt and is credited to Curse."
 polarity: negative   # positive = Clear removes; negative = Cleanse removes; neutral = neither
 prevented_by: [onehitkillprevent]
+prevent_check: "any age: any active prevent blocks it, including a pending effect cast earlier, which then ends (tags.ts:2317)"
 copy_can_take: false
 mirror_can_pass: true
 potency_eligible: false
 immunity_can_cancel: false
-stage: A4 mid-modifiers
-applies: on landing, then once a round when the holder acts
-calculation: [static]
+stage: S3 main pass (sets HP to 0 directly); S4 credits Curse
+applies: "on landing, then once a round when the holder acts"
+calculation: [static]   # default static
 fields_note: simpleTag (BaseAttributes + PowerAttributes only)
 live_usage_2026_11_21: {jutsu: 1, pvp_legal: 1}
 source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
   - libs/combat/tags.ts onehitkill (line 2311)
   - libs/combat/process.ts first reference (line 1559)
-  - libs/combat/util.ts EFFECT_SORT_RANK (line 1107)
+  - "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)"
+  - libs/combat/util.ts EFFECT_SORT_RANK rank 39 (line 1107)
 interactions:   # full list with notes in ../interactions.json
   outgoing:
     bypasses: [finalstand, shield]

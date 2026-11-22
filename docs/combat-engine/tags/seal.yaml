@@ -2,23 +2,26 @@ tag: seal
 schema: validators/combat.ts SealTag (line 955)
 exclusion_area: Deny actions
 in_game_text: "Seals the target's bloodline effects"
-behavior: "Sealprevent can block it. Otherwise it rolls power% to land. From the following round it switches off all of the holder's bloodline effects, including bloodline damage modifiers, bloodline potency and bloodline-gated payouts."
+behavior: "Its handler runs on the casting action at the seal rank of the main pass: after damage, heal, onehitkill and rob, before stun and summon. Any active sealprevent on the holder rolls its power%, with no creation-round check; a landed one always blocks. Then the seal rolls power% to land. Once landed it counts as active at once, so the holder's bloodline effects resolved later in the same action are already off: Consume/Siphon registration, Diffuse, bloodline damage modifiers on this action's hits, Pierce, post-damage readers, heal modifiers and Final Stand. From the next action on, same round included, it also turns off bloodline potency, injected jutsu, range and cooldown. It re-runs once a round on the holder's first action, where an active sealprevent can still remove it."
 polarity: negative   # positive = Clear removes; negative = Cleanse removes; neutral = neither
 prevented_by: [sealprevent]
+prevent_check: "any age: any active prevent blocks it, including a pending effect cast earlier, which then ends; re-checked on each of the holder's turns (tags.ts:2402)"
 copy_can_take: false
 mirror_can_pass: true
 potency_eligible: false
 immunity_can_cancel: false
-stage: A4 mid-modifiers
-applies: on landing, then once a round when the holder acts
-calculation: [static]
+stage: S3 main pass
+live_from: "casting action, right after its land roll (holder's bloodline effects resolved later in that action); then every later action"
+applies: "on landing, then once a round when the holder acts"
+calculation: [static]   # default static
 fields_note: simpleTag (BaseAttributes + PowerAttributes only)
 live_usage_2026_11_21: {jutsu: 8, pvp_legal: 8}
 source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
   - libs/combat/tags.ts seal (line 2397)
   - libs/combat/process.ts first reference (line 1586)
-  - libs/combat/util.ts EFFECT_SORT_RANK (line 1109)
-  - libs/combat/util.ts isEffectEnabled / sealCheck
+  - "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)"
+  - libs/combat/util.ts EFFECT_SORT_RANK rank 41 (line 1109)
+  - libs/combat/util.ts isEffectEnabled (line 921) / sealCheck
 interactions:   # full list with notes in ../interactions.json
   outgoing:
     disables: [finalstand, curse]

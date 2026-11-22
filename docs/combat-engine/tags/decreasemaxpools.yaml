@@ -5,20 +5,23 @@ in_game_text: Decrease maximum and current pool values
 behavior: Lowers maximum and current pools. Debuffprevent blocks it.
 polarity: negative   # positive = Clear removes; negative = Cleanse removes; neutral = neither
 prevented_by: [debuffprevent]
+prevent_check: "age-compared: blocks only effects created in a later round than the prevent"
 copy_can_take: false
 mirror_can_pass: true
 potency_eligible: false
 immunity_can_cancel: false
-stage: A5 late main pass (unranked or last-ranked)
-calculation: [static]
-own_fields:   # zod expressions copied from the schema; base fields are in engine.md section 6
-  poolsAffected: "z.array(z.enum(MaxPoolTypes)).prefault([\"Health\"])"
-  calculation: "z.enum([\"static\", \"percentage\"]).prefault(\"static\")"
-  target: "z.enum(BaseTagTargets).optional().prefault(\"SELF\")"
+stage: S3 main pass (unranked)
+calculation: [static, percentage]   # default static
+own_fields:   # zod expressions resolved from the schema (helpers, spreads, extend); fields inherited unchanged from BaseAttributes/PowerAttributes are in engine.md section 6
+  target: "z.enum(BaseTagTargets).optional().prefault(\"SELF\")"   # from MaxPoolsAttributes
+  calculation: "z.enum([\"static\", \"percentage\"]).prefault(\"static\")"   # from MaxPoolsAttributes
+  poolsAffected: "z.array(z.enum(MaxPoolTypes)).prefault([\"Health\"])"   # from MaxPoolsAttributes
 live_usage_2026_11_21: {jutsu: 0, pvp_legal: 0}
 source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
   - libs/combat/tags.ts decreaseMaxPools (line 2133)
   - libs/combat/process.ts first reference (line 1612)
+  - "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)"
+  - "libs/combat/util.ts EFFECT_SORT_RANK: no explicit rank, sorts last (line 1016)"
 interactions:   # full list with notes in ../interactions.json
   incoming:
     prevents: [debuffprevent]

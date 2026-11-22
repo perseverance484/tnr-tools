@@ -5,20 +5,22 @@ in_game_text: Copies some positive effects from the target to the user
 behavior: "The caster's own buffprevent can block it. Otherwise it rolls power% to clone the target's best positive effects onto the caster for the copy's rounds; the target keeps theirs. It holds 4 at most at once, per caster. Order of preference: damage-given up or damage-taken down, then lifesteal, then absorb or reflect, then shield, then increaseheal, then increasestat. Passive and gear sources can't be copied."
 polarity: neutral   # positive = Clear removes; negative = Cleanse removes; neutral = neither
 prevented_by: [buffprevent (on the caster)]
+prevent_check: "age-compared, against the Copy caster's own buffprevent (tags.ts:456)"
 copy_can_take: false
 mirror_can_pass: false
 potency_eligible: false
 immunity_can_cancel: false
-stage: A1 copy and mirror (run first)
-calculation: [percentage]
-own_fields:   # zod expressions copied from the schema; base fields are in engine.md section 6
-  calculation: "z.enum([\"percentage\"]).prefault(\"percentage\")"
+stage: S2 copy and mirror
+calculation: [percentage]   # default percentage
+own_fields:   # zod expressions resolved from the schema (helpers, spreads, extend); fields inherited unchanged from BaseAttributes/PowerAttributes are in engine.md section 6
   rounds: z.coerce.number().int().min(1).max(10).prefault(3)
+  calculation: "z.enum([\"percentage\"]).prefault(\"percentage\")"
 live_usage_2026_11_21: {jutsu: 4, pvp_legal: 4}
 source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
   - libs/combat/tags.ts copy (line 438)
   - libs/combat/process.ts first reference (line 1677)
-  - libs/combat/util.ts EFFECT_SORT_RANK (line 1121)
+  - "libs/combat/process.ts applyEffects copy and mirror pass, after ground effects and before the main pass (line 417)"
+  - libs/combat/util.ts EFFECT_SORT_RANK rank 60 (line 1121)
 interactions:   # full list with notes in ../interactions.json
   outgoing:
     overlaps: [mirror]

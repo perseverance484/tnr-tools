@@ -10,14 +10,14 @@ source line and raise it rather than blending the two.
 
 | File | Holds | Use it when |
 |---|---|---|
-| [engine.md](engine.md) | Round and turn flow, the A0-A12 stages inside one action, effect lifecycle, prevent rule, the full damage formula, stacking and caps, base fields | You need *when* or *in what order* something happens |
-| [tags/&lt;tag&gt;.yaml](tags/) | One file per tag: in-game text, real behavior, polarity, prevented_by, copy/mirror/potency/immunity eligibility, stage, live_from, own fields as zod expressions, live usage, source lines, interactions | You need what one tag really does |
+| [engine.md](engine.md) | Round and turn flow, the S0-S16 stages inside one action, effect lifecycle, the three kinds of prevent check, the full damage formula, per-packet mitigation, post-damage readers and caps, Diffuse, stacking, base fields, likely game bugs | You need *when* or *in what order* something happens |
+| [tags/&lt;tag&gt;.yaml](tags/) | One file per tag: in-game text, real behavior, polarity, prevented_by and prevent_check, copy/mirror/potency/immunity eligibility, stage (S0-S16), live_from, applies, own and inherited fields as resolved zod expressions, live usage, source lines (handler, dispatch pass, sort rank), interactions | You need what one tag really does |
 | [tags.json](tags.json) | All 96 tag files in one object | Loading everything at once |
-| [interactions.json](interactions.json) | 11 link kinds and 282 directed links with notes | You need what touches what |
+| [interactions.json](interactions.json) | 12 link kinds and 302 directed links with notes | You need what touches what |
 | [exclusions.yaml](exclusions.yaml) | Exclusion areas, the overlap rule, open space, past proposals and verdicts | Before proposing any new tag |
 | [rules.json](rules.json) | 16 numeric engine constants (caps, base pools, timing, stacking), each with its source line | A tool or claim needs a number, not prose |
 
-Link counts: removes 64, prevents 45, transfers 33, boosts 32, weakens 29, counters 27, overlaps 22, bypasses 12, feeds 12, disables 5, shares 1.
+Link counts: removes 64, prevents 43, transfers 33, boosts 32, weakens 31, counters 30, overlaps 22, feeds 20, bypasses 18, disables 5, hides 3, shares 1. `hides` is an action gate (the source removes actions carrying the target tag from the holder's list); `prevents` notes say whether the check is age-compared or any age.
 
 ## Who reads it
 
@@ -63,9 +63,30 @@ Link counts: removes 64, prevents 45, transfers 33, boosts 32, weakens 29, count
 
 ## Regenerating
 
-`_build/` holds the two scripts as run (they expect the game clone at `/tmp/tnrgit/repo` and the Nov 21 tag
-usage table): `data.py` holds the hand-checked behavior text and links, `kb.py` parses `validators/combat.ts`,
-`tags.ts`, `process.ts` and `util.ts` for fields and line numbers and writes `tags/`, and
-`rules.py GAME_CLONE` reads the numeric constants into `rules.json`. After any regeneration run
-`python3 state/player/dauntless/tools/combat_map.py --check`. When the game source moves past `29cd91b`, re-read the handlers cited in each file before trusting a
-line; line numbers will drift first.
+`_build/` holds the build. Run from `docs/combat-engine/_build` with the game clone at `GAME`:
+
+```bash
+export PYTHONDONTWRITEBYTECODE=1
+GAME=/tmp/tnrgit/repo          # studie-tech/TheNinjaRPG at the pinned commit
+mkdir -p /tmp/map
+python3 extract.py $GAME /tmp/map/tags_resolved.json --legacy-raw /tmp/map/tags_raw.json
+python3 edges.py ../interactions.json                       # link edits from curation.py; idempotent
+python3 kb.py $GAME /tmp/map/data.json /tmp/kbout --extract /tmp/map/tags_resolved.json --interactions ../interactions.json
+diff -ru ../tags /tmp/kbout/tags                            # review, then copy tags/ and tags.json over
+python3 rules.py $GAME ../rules.json
+python3 ../../../state/player/dauntless/tools/combat_map.py --check
+```
+
+- `extract.py` resolves every tag schema from `validators/combat.ts`: helpers, spreads (across imports),
+  `.extend/.omit/.pick`, multi-line expressions. It exits 1 if anything is left unresolved.
+- `data.py` holds the original curated nodes (area, polarity, eligibility, usage) and writes `data.json`. It
+  reads `/tmp/map/tags_raw.json` and the Nov 21 usage table; rerunning it blanks the `overlaps` notes in
+  `data.json`, which kb.py no longer reads (links come from `interactions.json`).
+- `curation.py` is the hand-checked layer from the PR #129 review: stages, behavior text, live_from, applies,
+  prevent_check, link edits and kind definitions. Change engine facts here, with a source line.
+- `kb.py` writes `tags/` and `tags.json`. Sort ranks are read only from the `EFFECT_SORT_RANK` map (following
+  spreads), dispatch passes from `applyEffects`, and every extra citation is looked up at its definition.
+- `rules.py` reads the numeric constants into `rules.json`.
+
+When the game source moves past `29cd91b`, re-read the handlers cited in each file before trusting a line; line
+numbers will drift first.
