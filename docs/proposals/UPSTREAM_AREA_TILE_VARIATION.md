@@ -142,3 +142,5 @@ By making this pull request, I confirm that I have the right to waive copyright 
 - Director's independent review (on 4f391254e): changes requested, two P2s (the preview ended before a delayed
   ground loop started; a projectile tag placing no tile removed the ripple from the capture schedule) and a P3 (capture
   tests that could pass without a sample). Applied in 9ab015eeb, the two P2 tests confirmed to fail without the fix.
+- Review round 12 (independent agent on 9ab015eeb): PASS; one optional P3 left (clipWindows repeats the tileVariation call
+  tileDelayMs makes, since it also needs that call's alternate choice). Ready for the director's review.
