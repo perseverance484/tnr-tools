@@ -1,12 +1,13 @@
-# Upstream PR draft: let area effects vary their clips per tile
+# Upstream PR draft: let area effects vary per tile, and let one visual cover the area
 
-- Upstream: `studie-tech/TheNinjaRPG`, base `main` a69344979 (rebase again before opening).
-- Branch: `perseverance484/TheNinjaRPG` `feat/area-tile-variation`, head 88c6edd91 (one commit, authored as
+- Upstream: `studie-tech/TheNinjaRPG`, base `main` 3176d8585 (rebase again before opening).
+- Branch: `perseverance484/TheNinjaRPG` `feat/area-tile-variation`, head 2a70fe0a0 (two commits, authored as
   perseverance484 with the Claude co-author line, like PR #2575).
-- Demo GIFs (drag them into the PR description on GitHub, where the placeholders are):
-  `art/jutsu_icons/forbidden_chakra_fury/animation/v10/pr_fcf_compare.gif` (main), `pr_fcf_today.gif`,
-  `pr_fcf_varied.gif`. Built by `v10/board_v10.py` from the FCF v10 art (`v10/build_v10.py`) with the engine's tile
-  hash ported to Python; the same art both times.
+- Demo (drag into the PR description on GitHub, where the placeholder is):
+  `art/jutsu_icons/forbidden_chakra_fury/animation/v24/pr_fcf_before_after.mp4` (or the `.gif` beside it, 6.8 MB).
+  Built by `v24/compare_pr.py` from FCF v23 cut two ways: `v24/cut_today.py` (a 3x caster clip and tile clips, 128 px
+  x 32-frame strips) and `v24/cut_full.py` (the whole move as one 14x visual on the user, a 7 x 7 grid sheet of 320 px
+  cells). Playback uses the engine's tile hash ported to Python (`v10/board_v10.py`).
 - Lessons applied from PR #2575 (the maintainer added a commit to cover data-model cases we missed): the places the
   comparable `animationScale` field reaches (commit 8bd670153) were followed, except the battlefield preview, left
   out on purpose and stated; behaviours have a test that fails when the code is removed, except the audit
@@ -19,7 +20,7 @@
 Title:
 
 ```
-Let area effects vary their clips per tile
+Let area effects vary per tile, and let one visual cover the area
 ```
 
 Body (copy from the next line to the end of the block):
@@ -29,7 +30,9 @@ Body (copy from the next line to the end of the block):
 
 ## What
 
-An area jutsu's ground effects place the same clips on every tile they cover, and every tile starts them together, so the art reads as one tile stamped across a grid. Four optional effect settings let each tile's ground-effect clips differ:
+An area jutsu's ground effects place the same clips on every tile they cover, and every tile starts them together, so the art reads as one tile stamped across a grid. Nothing can be drawn across the area as a whole either: a clip is at most three tile heights, and an effect sheet is a single column of frames, so a strip within the common 4096 px texture limit holds about 32 frames of 128 px.
+
+Four optional effect settings let each tile's ground-effect clips differ:
 
 - **`animationMirror`** – the effect's clips are mirrored on about half of its tiles.
 - **`animationStagger`** (0–1000 ms) – each tile starts its clips up to this long after the effect appears.
@@ -38,8 +41,13 @@ An area jutsu's ground effects place the same clips on every tile they cover, an
 
 Ripple and stagger add up, and variation adds at most 2 s of delay to a tile (`MAX_TILE_DELAY_MS`); texture loading can hold a tile back further. A one-shot clip whose effect leaves the battle before the clip has finished, such as a visual replaced by the next action, still plays to its end and is then cleaned up, including when the effect leaves while its textures are loading; looping and static art leave with the effect. Which tiles mirror, where each falls within the stagger and which play the alternate come from a hash of the tile's column and row (`tileVariation` in `combatEffects.ts`), so every client draws the same field and the choice does not follow rows, columns or a checkerboard. Frame timing within a clip is unchanged; a tile's delay only moves when its clips begin.
 
-<!-- drag pr_fcf_compare.gif here -->
-*Top: the same art as the engine draws it without these settings: one clip on every tile, all at once. Bottom: mirroring, an alternate clip (sky strike or ground eruption), 120 ms stagger and a 90 ms per hex ripple out from the caster.*
+Two further changes let one clip cover the whole area:
+
+- **A visual on the user can be up to 15x** (`animationScale`, `MAX_SELF_VISUAL_SCALE`). A `visual` tag with target `SELF` plays once, on the caster's tile, so it can be drawn as one picture of the whole move; a range-4 area needs about 13x. Every other tag, and a visual on any other target, keeps the 3x limit, since it repeats on every tile; validation names the field otherwise, for every effect list.
+- **Effect sheets can be grids.** A sheet of square frames may be a grid read row by row as well as a vertical strip. The layout is measured from the image (`sheetLayout`): a grid of N columns (at least three) is `ceil(frames / N) / N` times as tall as it is wide, and a sheet that fits no grid is read as a strip, as before. The content list preview reads grids the same way.
+
+<!-- drag pr_fcf_before_after.mp4 here -->
+*One move cut three ways, on one clock. Top: as `main` draws it, every tile playing the same clip at once beside a 3x clip on the caster. Middle: the same clips with mirroring, alternate clips, stagger and ripple. Bottom: the whole move as a single 14x visual on the caster, drawn from a 7 x 7 grid sheet of 320 px frames at 30 ms each.*
 
 ## Behaviour
 
@@ -56,11 +64,13 @@ Ripple and stagger add up, and variation adds at most 2 s of delay to a tile (`M
 - Variation adds no delay to sounds; they keep their existing timing, including the queueing used while fighters move.
 - The alternate clip is preloaded with the battle's texture assets, has the asset picker and preview in the effect form like the other animations, can be cleared with "None" in the mass effect editor, counts as an animation in content review media and asset-usage lists, is checked by the invalid-asset warning, and is inherited by jutsu reskins like the other cosmetic fields. Mirror, stagger and ripple are presentation keys for content review, like `animationScale`.
 - Editors: in the effect form the alternate sits beside the appear animation and the other settings beside the animation scale; the mass effect editor shows them as selectable columns in the order chosen. Both editors share one rule for fields a tag never uses (`hiddenEffectFields`): out-of-battle tags drop the battle fields, and activity bonuses and jutsu-slot grants keep only their power and description. The form hides those fields and the mass editor shows them as not applicable.
-- The review battlefield preview and the jutsu animation filters work from the existing animation fields: the preview draws a single ground tile with the base clips, and the filters do not search the alternate.
+- The review battlefield preview and the jutsu animation filters work from the existing animation fields: the preview draws the base clips without tile variation, and the filters do not search the alternate.
+- Existing sheets keep their layout: a strip measures as one column. Only a strip whose frames are at least nine times as wide as they are tall could read as a grid (N columns match frames about N² times as wide), which is why a grid needs three columns.
+- A grid sheet, like a strip, must fit the device's texture size and costs its full decoded area in texture memory (a 2240 px grid is about 20 MB).
 
 ## Validation
 
-- Tests cover the schema defaults and bounds, the tile hash (stable, about half the tiles, independent of rows, columns and a checkerboard), mirroring of both clips with unchanged fit, the stagger hold and finish time, the ripple delay by hex distance and its absence without a caster tile, the caster tile recorded on a cast's ground effects, effects present at battle load, reduced motion, the alternate clip and its appear-animation requirement (shared validation, quest starting effects, raid threshold create and update, and the renderer guard), a departed effect's waiting clip playing to its end, a one-shot clip whose effect leaves while its texture loads, a departing effect with no one-shot being dropped once loaded, a hidden effect keeping its clips until its fighter returns, an id returning while its clips finish (shown or on a downed fighter) starting fresh, character effects and their visuals, appear visuals linked to the effect they announce (lasting and instant, ground and character, a target that survives or falls), an announced effect playing one arrival clip and sound, the arrival surviving its effect's removal or zero power, an unannounced effect playing its own arrival, hover passing over a departing effect, a lasting and an instant ground effect on an occupied tile and a lasting debuff on a surviving fighter each playing one arrival clip and sound through combat processing and the renderer, a ground hit on an occupied tile showing once, forwarded copies of a lasting ground effect spawning no disappear visual, moved effects, ground lifecycle visuals, texture-asset hints, review media paths, the invalid-asset warning, reskin inheritance, the effect form (field lists including out-of-battle tags, stagger and ripple drafts blocking Save, the alternate's picker trigger and preview query) and the mass editor (alternate choices, clearing with None, not-applicable cells on out-of-battle effects and activity bonuses).
+- Tests cover the schema defaults and bounds, the tile hash (stable, about half the tiles, independent of rows, columns and a checkerboard), mirroring of both clips with unchanged fit, the stagger hold and finish time, the ripple delay by hex distance and its absence without a caster tile, the caster tile recorded on a cast's ground effects, effects present at battle load, reduced motion, the alternate clip and its appear-animation requirement (shared validation, quest starting effects, raid threshold create and update, and the renderer guard), a departed effect's waiting clip playing to its end, a one-shot clip whose effect leaves while its texture loads, a departing effect with no one-shot being dropped once loaded, a hidden effect keeping its clips until its fighter returns, an id returning while its clips finish (shown or on a downed fighter) starting fresh, character effects and their visuals, appear visuals linked to the effect they announce (lasting and instant, ground and character, a target that survives or falls), an announced effect playing one arrival clip and sound, the arrival surviving its effect's removal or zero power, an unannounced effect playing its own arrival, hover passing over a departing effect, a lasting and an instant ground effect on an occupied tile and a lasting debuff on a surviving fighter each playing one arrival clip and sound through combat processing and the renderer, a ground hit on an occupied tile showing once, forwarded copies of a lasting ground effect spawning no disappear visual, moved effects, ground lifecycle visuals, texture-asset hints, review media paths, the invalid-asset warning, reskin inheritance, the effect form (field lists including out-of-battle tags, stagger and ripple drafts blocking Save, the alternate's picker trigger and preview query) and the mass editor (alternate choices, clearing with None, not-applicable cells on out-of-battle effects and activity bonuses). They also cover a visual on the user above 3x (accepted for target `SELF` up to the cap, rejected on other targets, for other tags and on quest starting effects), the sheet layout (strips, grids, a rounded rendition, sheets that fit no grid, a strip of wide frames) and clip textures (a strip cut down the sheet, a grid cut row by row), and the review preview keeping a visual on the user at its size.
 - `make lint` passes with only warnings already on `main`, and TypeScript passes (`tsc --noEmit --singleThreaded`). The rendering, combat, content review, validator and layout suites pass apart from failures that also occur on `main` in the same environment; which of the overflow-toolbar, avatar, element-icon and renderer context-loss tests fail varies by environment. SQL-backed tests were skipped without a database.
 
 ## Breaking changes
