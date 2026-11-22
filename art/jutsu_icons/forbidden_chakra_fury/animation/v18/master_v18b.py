@@ -63,6 +63,27 @@ def main(seed=21):
         ang = k * 2 * math.pi / n + rnd.uniform(-0.18, 0.18)
         launch = rnd.uniform(0, 260)
         bolts.append((launch, bolt_tree(rnd, ang), rnd.random() < 0.5))
+    # coverage: every one of eight sectors round the user gets a bolt that ends far out in it
+    def end_of(segs):
+        main = [x for x in segs if x[2] == 0]
+        return main[-1][1] if main else SRC
+
+    def sector(p):
+        a = math.atan2(p[1] - SRC[1], p[0] - SRC[0])      # on screen, as the player sees the corners
+        return int(((a + math.pi / 8) % (2 * math.pi)) // (math.pi / 4))
+
+    def reach(p):
+        return math.hypot(p[0] - SRC[0], (p[1] - SRC[1]) / 0.62)
+    far = 0.6 * max(reach(end_of(b[1])) for b in bolts)
+    for sec in (7, 3, 1, 5, 0, 2, 4, 6):   # the diagonals first: top-right, bottom-left, ...
+        if any(sector(end_of(b[1])) == sec and reach(end_of(b[1])) >= far for b in bolts):
+            continue
+        for _ in range(40):                      # aim at the sector until a bolt makes it out
+            segs = bolt_tree(rnd, sec * math.pi / 4 + rnd.uniform(-0.25, 0.25))
+            e = end_of(segs)
+            if sector(e) == sec and reach(e) >= far:
+                bolts.append((rnd.uniform(40, 260), segs, rnd.random() < 0.5))
+                break
     first_land = min(b[0] for b in bolts) + 2 * STEP_MS * 2
     t_end = max(b[0] for b in bolts) + 520
     shots = []
