@@ -333,7 +333,9 @@ def _his_gear_mods(en_id):
     return (opponent_kit(en_id) or {}).get("gearMods")
 
 
-def _replay_request(rows, me_id, en_id, me, en, me_pos, en_pos, R, his_turn, cal):
+def _replay_request(rows, me_id, en_id, me, en, me_pos, en_pos, R, his_turn, cal, ap=None):
+    """ap: my live stored AP this turn. The replay starts me on it (replay_sim.ts setActive), not on a full 100, so a
+    turn already part spent is not given its spent AP back (PR 130 review 3)."""
     recs, prof = _records(), _profile()
     his_kit = _his_kit(rows, en_id, cal)
     log = [{"round": r, "actor": "me" if u == me_id else "him", "actionId": a}
@@ -341,6 +343,7 @@ def _replay_request(rows, me_id, en_id, me, en, me_pos, en_pos, R, his_turn, cal
     return {
         "round": R, "hisTurn": his_turn,
         "me": {"id": "me", "hp": me["curHealth"], "x": me_pos[0], "y": me_pos[1], "profile": prof,
+               **({"ap": int(ap)} if ap is not None else {}),
                "kit": [{"record": recs[a]["record"], "kind": "item" if a in ITEM_IDS else "jutsu",
                         "level": prof["jutsuLevels"].get(a, 25)} for a in MY_KIT_IDS if a in recs],
                **_side_mods(prof.get("bloodlineId"), GEAR_ME)},
@@ -385,9 +388,10 @@ def _run(req, timeout):
         os.unlink(f.name)
 
 
-def replay_list(rows, me_id, en_id, me, en, me_pos, en_pos, R, his_turn, cal, timeout=8):
-    """Engine state after replaying the log: {ap, available:[{id,name,cost}], replayIssues}."""
-    req = _replay_request(rows, me_id, en_id, me, en, me_pos, en_pos, R, his_turn, cal)
+def replay_list(rows, me_id, en_id, me, en, me_pos, en_pos, R, his_turn, cal, timeout=8, ap=None):
+    """Engine state after replaying the log: {ap, stun, available:[{id,name,cost}], replayIssues}. ap: my live
+    stored AP (the replay starts me on it)."""
+    req = _replay_request(rows, me_id, en_id, me, en, me_pos, en_pos, R, his_turn, cal, ap)
     req["mode"] = "list"
     return _run(req, timeout)
 
@@ -415,8 +419,8 @@ def his_probe(rows, en_id, action_ids, cal, timeout=60, perm=()):
 
 
 def replay_eval(rows, me_id, en_id, me, en, me_pos, en_pos, R, his_turn, cal, bundles_with_targets, timeout=10,
-                fresh=False):
-    req = _replay_request(rows, me_id, en_id, me, en, me_pos, en_pos, R, his_turn, cal)
+                fresh=False, ap=None):
+    req = _replay_request(rows, me_id, en_id, me, en, me_pos, en_pos, R, his_turn, cal, ap)
     if fresh:
         req["log"] = []                     # rows only name his kit and bloodline; nothing is replayed
     req["mode"] = "eval"

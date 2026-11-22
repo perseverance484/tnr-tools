@@ -214,6 +214,46 @@ HOSTILE_KINDS = {"decreasedamagegiven", "increasedamagetaken", "recoil", "stun",
                  "decreaseheal", "drain", "wound", "afterburn"}
 
 
+TEMPORAL_AP = 10   # drizzle/constants.ts TEMPORAL_AP_DELTA: time compression / dilation move a jutsu's AP by 10
+PERSISTENT_SOURCES = {"bloodline", "sageMode", "sageModeAfter"}   # Cleanse leaves these (PERSISTENT_EFFECT_SOURCE_TYPES)
+
+
+def live_ap_state(effects, me_id):
+    """What the engine's AP check reads right now, from the live effect list (battle.liveEffects, the pilot's exact
+    snapshot): {"stun", "surcharge", "kept", "blocked"}. stun: the largest apReduction of my active stuns (calcApReduction;
+    one cast this round costs nothing yet, as in planner2.from_live). surcharge: TEMPORAL_AP when time compression is
+    active on me (actions.ts getTemporalApDelta: one at a time, so never more than 10). kept: the part of it a Cleanse
+    leaves (a bloodline / sage source). blocked: an active cleanseprevent on me (tags.ts cleanse -> preventCheck; any
+    power counts, since a planned AP refund should not ride on a roll). The live list wins over the log rebuild when
+    there is one (PR 130 review 3: a 60 stun on the live list and none in the log was planned at 100 AP)."""
+    def active(e, instant_ok):
+        if e.get("targetId") != me_id:
+            return False
+        if e.get("rounds") is not None and int(e.get("rounds") or 0) <= 0:
+            return False
+        if e.get("castThisRound"):     # util.ts getActiveTargetEffects
+            return bool(instant_ok and e.get("instant") is True and e.get("fromType") == "jutsu"
+                        and not e.get("isNew") and not e.get("fromGround"))
+        return True
+    eff = [e for e in effects or [] if isinstance(e, dict)]
+    stun = max([int(e.get("apReduction") or 20) for e in eff if e.get("type") == "stun" and active(e, False)] or [0])
+    tc = [e for e in eff if e.get("type") == "timecompression" and active(e, True)]
+    return {"stun": stun, "surcharge": TEMPORAL_AP if tc else 0,
+            "kept": TEMPORAL_AP if any(e.get("fromType") in PERSISTENT_SOURCES for e in tc) else 0,
+            "blocked": any(e.get("type") == "cleanseprevent" and active(e, False) for e in eff)}
+
+
+def ap_state(battle, me0, R, me_id):
+    """(stun, surcharge, kept, blocked) for my turn: from the live snapshot when the battle carries one, else from the
+    log rebuild (me0, a shotplan.Side): its largest live stun, its time compression ("actions will cost N more AP",
+    lifted by Cleanse: the log names no bloodline source) and "cannot be cleansed"."""
+    if "battle.liveEffects" in battle:
+        x = live_ap_state(battle["battle.liveEffects"], me_id)
+        return x["stun"], x["surcharge"], x["kept"], x["blocked"]
+    return (int(max([t[1] for t in me0.live("stun", R)] or [0])), int(max([t[1] for t in me0.live("apcost", R)] or [0])),
+            0, bool(me0.live("cleanseimmune", R)))
+
+
 def spendable_ap(me, my_turn, stun):
     """(stored, spendable) AP for my turn: the engine gates every action on max(0, stored AP - the largest live stun)
     (actions.ts actionPointsAfterAction), stored capped at 100; off my turn the next turn starts at 100."""
@@ -238,17 +278,21 @@ def bundle_budget(b, ap_now, ap_full, refund):
     return ap_full if refund and "cleanse" in b else ap_now
 
 
-def engine_filter(eng, stun_amt, refund_for):
+def engine_filter(eng, stun_amt, refund_for, live_ap=None, surch=0, cleansed=None):
     """(ok, ap) from an engine replay: ok(bundle) is True when every action is on the engine's available list and
-    the bundle's engine costs fit its budget. The budget is the engine's spendable AP (stored minus stun), or, for a
-    bundle whose Cleanse gives the stun back (refund_for(bundle)), that plus the stun, once the Cleanse itself fits
-    the stunned AP (PR 130 review 2: 100 stored and a 20 stun let Cleanse + Overflow cost 100 against 80)."""
+    the bundle's engine costs fit its budget. The budget is the engine's spendable AP (stored minus stun), capped at
+    the live spendable AP (live_ap) since the replay may start me on a full 100 (PR 130 review 3: 90 left, the
+    replay's 100 let a 10-AP retreat through), or, for a bundle whose Cleanse gives the stun back (refund_for), that
+    plus the stun once the Cleanse itself fits the stunned AP. The engine prices every jutsu with the time
+    compression live now; a Cleanse in the bundle fires first and lifts it (cd_plan.surcharge_for), so those jutsu
+    are priced back down by surch - cleansed."""
     cost_by_id = {x["id"]: x["cost"] for x in eng["available"]}
-    ap_eng = eng["ap"]
+    ap_eng = eng["ap"] if live_ap is None else min(eng["ap"], live_ap)
     stun = int(eng.get("stun", stun_amt) or 0)
 
     def ok(bb):
         tot = 0
+        lift = surch - cd_plan.surcharge_for(bb, surch, cleansed)
         for x in bb:
             aid = ACTION_ID.get(x, x)
             if aid == "move":
@@ -256,7 +300,7 @@ def engine_filter(eng, stun_amt, refund_for):
                 continue
             if aid not in cost_by_id:
                 return False
-            tot += cost_by_id[aid]
+            tot += cost_by_id[aid] - (lift if x in cd_plan.JUTSU else 0)
         budget = ap_eng
         if stun and "cleanse" in bb and refund_for(bb) and cost_by_id.get(ACTION_ID.get("cleanse", "cleanse"), 999) <= ap_eng:
             budget = ap_eng + stun
@@ -272,29 +316,48 @@ def cleanse_first(side, r):
         side.tags = [x for x in side.tags if not shotplan.negative(x) or shotplan.ground(x)]
 
 
-def kite_back(bundles, ap_now, ap_full, refund, surch=0):
+def kite_back(bundles, ap_now, ap_full, refund, surch=0, cleansed=None):
     """Kite-back variants: one spare step moves me back out after ranged actions. A bundle is priced with the
     time-compression surcharge and against the AP it may spend (PR 130 review 2: at distance 5 with +10 on jutsu,
     rebirth + kunai + step costs exactly 100, and a base-cost read appended a stepback the turn cannot pay for)."""
     out = []
     for b in bundles:
-        cost = cd_plan.bundle_cost(b, surch)
+        cost = cd_plan.bundle_cost(b, surch, cleansed)
         if "step" in b and bundle_budget(b, ap_now, ap_full, refund) - cost >= 10 and "basic" not in b:
             out.append(tuple(b) + ("stepback",))
     return out
 
 
-def turn_bundles(st, R, ap_now, ap_full, stunned, immune, d0, surch=0, cleanse_blocked=False):
+def turn_bundles(st, R, ap_now, ap_full, stunned, immune, d0, surch=0, cleanse_blocked=False, kept=0):
     """The legal bundles for my turn. surch: AP added to every jutsu this round (time compression), counted while
     the bundles are built (policy.legal), so a pair that fills the turn only with it is kept and one it pushes over
     the AP is not. Stunned: a bundle with Cleanse may cost up to the unstunned stored AP (resolve_targets fires it
-    first) when cleanse_refund allows it (ready, affordable at the stunned AP, not blocked)."""
-    bundles = legal(st, R, ap_now, immune, set(), st["loadout"], d0, surcharge=surch)
+    first) when cleanse_refund allows it (ready, affordable at the stunned AP, not blocked). An unblocked Cleanse
+    also lifts the time compression for everything after it (cd_plan.surcharge_for; kept: the part it leaves)."""
+    cl = None if cleanse_blocked else kept
+    bundles = legal(st, R, ap_now, immune, set(), st["loadout"], d0, surcharge=surch, cleansed=cl)
     if stunned and cleanse_refund(st, R, ap_now, ap_full, surch, cleanse_blocked):
         seen = set(bundles)
-        bundles = list(bundles) + [b for b in legal(st, R, ap_full, immune, set(), st["loadout"], d0, surcharge=surch)
+        bundles = list(bundles) + [b for b in legal(st, R, ap_full, immune, set(), st["loadout"], d0, surcharge=surch,
+                                                    cleansed=cl)
                                    if "cleanse" in b and b not in seen]
     return bundles
+
+
+def next_bundles(st2, r1, ap2, m, e, blocked, dend):
+    """My bundles in the lookahead's next turn, under this turn's AP rules (PR 130 review 3 sweep): time compression
+    live then (m: my shotplan.Side after his reply), lifted by a Cleanse that is not blocked, and a Cleanse that fits
+    the stunned AP gives the stun back. ap2: 100 minus his stun."""
+    s2 = int(max([t[1] for t in m.live("apcost", r1)] or [0]))
+    cb2 = bool(m.live("cleanseimmune", r1))
+    imm2 = bool(e.live("debuffimmune", r1))
+    cl = None if cb2 else 0
+    out = legal(st2, r1, ap2, imm2, blocked, st2["loadout"], dend, surcharge=s2, cleansed=cl)
+    if ap2 < 100 and cleanse_refund(st2, r1, ap2, 100, s2, cb2):
+        seen = set(out)
+        out = list(out) + [x for x in legal(st2, r1, 100, imm2, blocked, st2["loadout"], dend, surcharge=s2,
+                                            cleansed=cl) if "cleanse" in x and x not in seen]
+    return out
 
 
 def barrier_between(a, b, ids=False):
@@ -765,7 +828,8 @@ def main():
     # the size comes from the log line ("stunned [-10 AP]"; arena 2026-11-11: a -10 stun was planned as -20), the
     # largest live one counts, and Cleanse takes it off (shotplan.rebuild reads the stun line and the cleanse line;
     # 2026-11-22 audit: Cleanse does remove stun, and a stun lasts its own rounds, not always 2)
-    stun_amt = int(max([t[1] for t in me0.live("stun", R)] or [0]))
+    # the live snapshot wins when the battle carries one (ap_state; PR 130 review 3)
+    stun_amt, _surch, _kept, _cl_blocked = ap_state(battle, me0, R, ME)
     stunned = stun_amt > 0
     # spendable AP is the STORED AP minus the live stun (actions.ts actionPointsAfterAction: max(0, actionPoints -
     # stun)), so a turn already part spent under a stun has less than 100 - stun (PR 130 review 2: 80 stored and a
@@ -831,18 +895,20 @@ def main():
         return
 
     # time compression on me: every jutsu costs that much more this round (log "actions will cost N more AP")
-    _surch = int(max([t[1] for t in me0.live("apcost", R)] or [0]))
+    # (from ap_state above: the live snapshot when there is one, else the log); a Cleanse lifts it (_cleansed)
+    _cleansed = None if _cl_blocked else _kept
     _full = ap_stored
-    _cl_blocked = bool(me0.live("cleanseimmune", R))
     _refund = stunned and cleanse_refund(st, R, ap_now, _full, _surch, _cl_blocked)
-    bundles = turn_bundles(st, R, ap_now, _full, stunned, bool(en0.live("debuffimmune", R)), d0, _surch, _cl_blocked)
+    bundles = turn_bundles(st, R, ap_now, _full, stunned, bool(en0.live("debuffimmune", R)), d0, _surch, _cl_blocked,
+                           _kept)
     # engine replay (harness/pvp_turn/engine/replay_sim.ts): legality, AP and costs from the engine's own state
     # --fast (live-turn mode): the engine's legality list runs in a thread while python scores stage 1, and is
     # applied to the stage-1 list afterwards; the slower engine re-score of the shortlist is skipped
     eng_box = {}
     def _eng_list():
         eng_box["eng"] = engine_bridge.replay_list(rows, ME, en["userId"], me, en, me_pos, en_pos, R,
-                                                   "next" if en_acted else "same", value_model.load_cal())
+                                                   "next" if en_acted else "same", value_model.load_cal(),
+                                                   ap=ap_stored)
     eng_thread = None
     if a.no_engine:
         eng = None
@@ -854,12 +920,15 @@ def main():
         _eng_list()
         eng = eng_box["eng"]
 
+    _ap_live = ap_now
+
     def make_eng_ok(eng):
-        return engine_filter(eng, stun_amt, lambda bb: _refund)
+        return engine_filter(eng, stun_amt, lambda bb: _refund, _ap_live, _surch, _cleansed)
     if eng:
         eng_ok, ap_eng = make_eng_ok(eng)
         bundles = [bb for bb in bundles if eng_ok(bb)]
-        _full = ap_eng + int(eng.get("stun", stun_amt)) if stunned else ap_eng
+        # never above the live amounts: the replay can start me on a full 100 (PR 130 review 3)
+        _full = min(ap_stored, ap_eng + int(eng.get("stun", stun_amt))) if stunned else ap_eng
         ap_now = ap_eng
         print(f"engine replay: AP {ap_eng}, {len(eng['available'])} actions available"
               + (f", replay issues {len(eng['replayIssues'])}" if eng.get("replayIssues") else ""))
@@ -876,7 +945,7 @@ def main():
     if not bundles:
         print("no legal bundle (check AP/cooldowns)"); return
     # kite-back variants: one spare step moves me back out after ranged actions
-    extra = kite_back(bundles, ap_now, _full, _refund, _surch)
+    extra = kite_back(bundles, ap_now, _full, _refund, _surch, _cleansed)
     cd_plan.ACTIONS.setdefault("stepback", (10, 0, None, "kite step"))
     shotplan.MINE.setdefault("stepback", (0, []))
     bundles = list(bundles) + extra
@@ -1104,7 +1173,7 @@ def main():
                 cvec[x] = _vec(ce, cm) if (cm or ce) else None
             reply_bases = {False: [kit["turn"][0]], True: [kit["turn"][0], (kit.get("summon") or (0, []))[0]]}
         ap2 = 100 - min(100, int(max([t[1] for t in m.live("stun", r1)] or [0])))   # his stun in his reply costs me AP next round
-        for b2 in legal(st2, r1, ap2, bool(e.live("debuffimmune", r1)), blocked, st["loadout"], dend):
+        for b2 in next_bundles(st2, r1, ap2, m, e, blocked, dend):
             if tagless and not any(x not in acts or acts[x][4] for x in b2):
                 dealt, taken = 0.0, tick if b2 else 0.0
                 for x in b2:
@@ -1323,7 +1392,7 @@ def main():
         en_q = dict(en, curHealth=en["curHealth"] + bump)
         res = engine_bridge.replay_eval(rows, ME, en["userId"], me, en_q, me_pos, en_pos, R,
                                         "next" if en_acted else "same", cal,
-                                        [[(n, aid, t) for n, aid, t in sq] for sq in seqs])
+                                        [[(n, aid, t) for n, aid, t in sq] for sq in seqs], ap=ap_stored)
         if res and res.get("results") and bump:
             for er in res["results"]:
                 for nm in ("afterMe", "typical", "best"):

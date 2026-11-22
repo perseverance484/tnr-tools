@@ -12,11 +12,17 @@ def _st():
     return {"used": [], "loadout": list(LOADOUT)}
 
 
-def _fixture(tmp_path, stored, lines):
-    """tests/mamba_r3.txt (round 3, my turn) with my stored AP set and his round-2 lines on me added."""
+def _fixture(tmp_path, stored, lines, live=None):
+    """tests/mamba_r3.txt (round 3, my turn) with my stored AP set and his round-2 lines on me added. live: extra
+    effects on the live snapshot; None drops the snapshot, so the planners read the log (the path these tests
+    check; with a snapshot the live list wins, tests/test_review_130_r3.py)."""
     rows = open(os.path.join(HERE, "mamba_r3.txt")).read().split("\n")
     b, e = json.loads(rows[0]), json.loads(rows[1])
     b["battle.usersState.*.actionPoints"] = [stored, 100]
+    if live is None:
+        b.pop("battle.liveEffects", None)
+    else:
+        b["battle.liveEffects"] = list(b.get("battle.liveEffects") or []) + live
     for k, v in (("*.battleRound", 2), ("*.userId", HIM), ("*.actionId", "x"), ("*.appliedEffects.*.txt", lines)):
         e[k].append(v)
     path = tmp_path / "state.txt"

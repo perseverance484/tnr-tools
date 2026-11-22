@@ -249,8 +249,10 @@ const prepare = async (): Promise<CompleteBattle> => {
     uu.curStamina = side.sp ?? uu.maxStamina ?? uu.curStamina;
   }
   meU.longitude = req.me.x; meU.latitude = req.me.y; himU.longitude = req.him.x; himU.latitude = req.him.y;
-  // whose turn: if he already acted this round (hisTurn === "next"), I act now and he replies next round
-  setActive(b, req.me.id);
+  // whose turn: if he already acted this round (hisTurn === "next"), I act now and he replies next round.
+  // I start on my live stored AP when the caller gives it, not a full 100, so AP already spent this turn stays
+  // spent (PR 130 review 3: 90 left, the replay's 100 let a 10-AP retreat through)
+  setActive(b, req.me.id, req.me.ap);
   return b;
 };
 

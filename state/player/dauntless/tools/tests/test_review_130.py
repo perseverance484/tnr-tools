@@ -39,11 +39,11 @@ def test_surcharge_keeps_the_pair_that_fills_the_turn():
     out = {tuple(sorted(b)) for b in turn.turn_bundles(_st(), 1, 100, 100, False, False, 2, surch=10)}
     assert tuple(sorted(("thunders", "overflow"))) in out
     assert tuple(sorted(("thunders", "overflow", "basic"))) not in out
-    assert all(cd_plan.bundle_cost(b, 10) <= 100 for b in out)
+    assert all(cd_plan.bundle_cost(b, 10, 0) <= 100 for b in out)   # a Cleanse lifts it (review 3)
     me, en = p2.Side(5050), p2.Side(5050)
     out2 = {tuple(sorted(b)) for b in p2.legal_bundles(_st(), 1, 100, 2, LOADOUT, me, en, surcharge=10)}
     assert tuple(sorted(("thunders", "overflow"))) in out2
-    assert all(cd_plan.bundle_cost(b, 10) <= 100 for b in out2)
+    assert all(cd_plan.bundle_cost(b, 10, 0) <= 100 for b in out2)
 
 
 # 3. The live capture keeps the stun's size

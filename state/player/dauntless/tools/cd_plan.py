@@ -59,9 +59,19 @@ ACTIONS = {
 JUTSU = {"rebirth", "shrapnel", "lotus", "fury", "ember", "danse", "stormblade", "resonance", "leech", "subaku",
          "overflow", "thunders", "parry", "resist", "eclipse", "limitbreaker", "sealnull", "phantom", "shield", "severed"}
 
-def bundle_cost(b, surcharge=0):
-    """AP a bundle costs, with a per-jutsu surcharge (time compression: "+10 more AP [all jutsu]")."""
-    return sum(ACTIONS[x][0] + (surcharge if x in JUTSU else 0) for x in b if x in ACTIONS)
+def surcharge_for(b, surcharge=0, cleansed=None):
+    """The per-jutsu surcharge a bundle pays. Time compression is a negative effect (validators/combat.ts), so a
+    Cleanse, which fires first (turn.resolve_targets), removes it and the actions after it cost their base AP
+    (PR 130 review 3: Cleanse + Overflow under +10 is 60 + 40, not 60 + 50). cleansed: the surcharge left after a
+    Cleanse (0, or what a bloodline / sage source keeps: those survive Cleanse); None when Cleanse is blocked."""
+    return cleansed if cleansed is not None and "cleanse" in b else surcharge
+
+
+def bundle_cost(b, surcharge=0, cleansed=None):
+    """AP a bundle costs, with a per-jutsu surcharge (time compression: "+10 more AP [all jutsu]"), lifted by a
+    Cleanse in the bundle (surcharge_for)."""
+    s = surcharge_for(b, surcharge, cleansed)
+    return sum(ACTIONS[x][0] + (s if x in JUTSU else 0) for x in b if x in ACTIONS)
 
 
 # range to the enemy each action needs (hexes, from live jutsu/item data 2026-11-10). 0 = self/no target needed.
