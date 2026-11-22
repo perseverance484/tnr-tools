@@ -24,7 +24,7 @@ Link counts: removes 64, prevents 45, transfers 33, boosts 32, weakens 29, count
    trigger or target. Changing *when* or *how much* doesn't make it new.
 2. Check `interactions.json` for `overlaps` links and the `tags/` files of the nearest tags.
 3. Check `past_proposals`: Bulwark, Fuse, Strip, Leash, Dampen and Hijack are out; Prolong passes.
-4. Don't propose a new tag until Brandon asks for one.
+4. Don't propose a new tag until the director asks for one.
 
 ## Tags by area
 

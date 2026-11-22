@@ -1,4 +1,4 @@
-# Exclusion list for new tag proposals (Brandon's rule, Nov 22 2026:
+# Exclusion list for new tag proposals (the director's rule, Nov 22 2026:
 # "Please analyze all pre-existing tags and create exclusions for them and their effects to avoid overlap").
 # A proposal is rejected if its core effect does what an area below already owns,
 # even with different numbers, a different trigger or a different target.
@@ -69,11 +69,11 @@ open_space:   # outcomes no existing tag owns
     detail: the cooldown tags only touch basic actions. Making a used jutsu ready sooner, or delaying an enemy's jutsu cooldown, is open. Locking a jutsu outright is Deny actions.
   - name: Triggers on the enemy's choice
     detail: no tag fires when the enemy does something specific. The trigger is open; whatever it does when it fires still has to pass this list.
-past_proposals:   # all Brandon-reviewed or re-tested Nov 21-22 2026
+past_proposals:   # all director-reviewed or re-tested Nov 21-22 2026
   - {name: Bulwark, idea: caps each hit at a share of max HP, verdict: out, overlaps: [finalstand, decreasedamagetaken], area: Soak damage}
   - {name: Fuse, idea: delayed blast, verdict: out, overlaps: [wound, curse], area: Damage later}
   - {name: Strip, idea: remove newest buff, verdict: out, overlaps: [clear], area: Remove effects, why: a partial Clear}
   - {name: Leash, idea: can't move far from caster, verdict: out, overlaps: [moveprevent], area: Position}
-  - {name: Dampen, idea: caps enemy boosts, verdict: out, overlaps: [decreasedamagegiven, buffprevent], why: "Brandon: basically buff prevent with extra steps and confusion"}
-  - {name: Hijack, idea: next enemy buff goes to you, verdict: out, overlaps: [copy], why: "Brandon: copy with extra steps. No likey"}
+  - {name: Dampen, idea: caps enemy boosts, verdict: out, overlaps: [decreasedamagegiven, buffprevent], why: "Director: basically buff prevent with extra steps and confusion"}
+  - {name: Hijack, idea: next enemy buff goes to you, verdict: out, overlaps: [copy], why: "Director: copy with extra steps. No likey"}
   - {name: Prolong, idea: +1 round to effects you placed, verdict: passes the exclusion test (not proposed), area: open space / Duration}
