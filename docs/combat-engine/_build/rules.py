@@ -5,7 +5,8 @@ from the game source with its file and line, so tools load numbers instead of ha
     python3 rules.py /path/to/TheNinjaRPG [out.json] [--revision FULL_SHA]
 
 In a git checkout the constants are read from the HEAD commit's objects, the full SHA is recorded as
-pinned_game_commit, and the script exits 1 if the two source files differ from HEAD. For an archive or any copy
+pinned_game_commit, and the script exits 1 if either of the two constants files it reads (FILES) differs from HEAD;
+edits elsewhere in the checkout don't affect its output and aren't checked. For an archive or any copy
 without git metadata, pass --revision with the full 40-character commit it was taken from; without it the script
 exits 1 rather than write an empty or ambiguous pin. read_constants() is shared with combat_map.py --check --game.
 """

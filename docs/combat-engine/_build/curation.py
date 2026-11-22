@@ -106,14 +106,24 @@ LIVE = {
                      "the casting round (actions.ts:148-160)"),
 }
 
+_AGGRO_AP = ("ENMITY mode: on its casting action, then on the holder's first action of each later round, even "
+             "with no rounds (util.ts:858-876). GENERATION mode: its handler only announces it; the modifier is read "
+             "every time the holder removes an opponent's HP while it is active (aggro.ts:18-53), so it can apply "
+             "many times a round")
+_DMGMOD_AP = ("every damage packet the pipeline computes while it is live; it never reaches the main handler switch "
+              "(constants.ts:246, process.ts:428), and a later loop only reports it (process.ts:536-597)")
 APPLIES = {
     "damage": "rounds 0: once, on cast; rounds > 0: nothing on cast, then once a round on the holder's first action",
     "pierce": "rounds 0: once, on cast; rounds > 0: nothing on cast, then once a round on the holder's first action",
     "heal": "rounds 0: once, on cast; rounds > 0: nothing on cast, then once a round on the holder's first action",
     "poison": "on every action the holder takes, from the round after cast (no once-a-round limit)",
-    "finalstand": ("its roll: on the casting action, every other fighter's action and the holder's first action of "
-                   "each round; skipped on the holder's later actions in a round (no-rounds versions: every "
-                   "resolution). Its 1-HP floor: every packet while rounds > 0"),
+    "finalstand": ("its roll: on every other fighter's action once it is no longer new, and on the first tracked "
+                   "resolution of each round, which is the casting action in the cast round (whoever cast it) and "
+                   "the holder's first action in later rounds; skipped on the holder's other actions that round "
+                   "(no-rounds versions: every resolution). Its 1-HP floor: every packet while rounds > 0"),
+    "increaseaggro": _AGGRO_AP, "decreaseaggro": _AGGRO_AP,
+    "increasedamagegiven": _DMGMOD_AP, "decreasedamagegiven": _DMGMOD_AP,
+    "increasedamagetaken": _DMGMOD_AP, "decreasedamagetaken": _DMGMOD_AP,
     "increasepoolcost": "read whenever an action's cost is computed (util.ts:1136-1165); the handler only reports",
     "decreasepoolcost": "read whenever an action's cost is computed (util.ts:1136-1165); the handler only reports",
 }
@@ -140,6 +150,24 @@ PREVENT_CHECK_DEFAULT = _AGE
 # Behavior text (replaces data.py's). Sources are in the verification notes and each tag's source list.
 # ---------------------------------------------------------------------------------------------------------
 BEHAVIOR = {
+    "increaseaggro": (
+        "PvE AI targeting, in two modes chosen by aggroMode (default GENERATION). ENMITY changes the holder's "
+        "current enmity when its handler runs: by power if static, or by power% of the current enmity, floored at "
+        "0. It runs on its casting action and then on the holder's first action of each later round, and even "
+        "with no rounds it runs at most once a round (tags.ts:1622-1650, util.ts:858-876). GENERATION changes "
+        "nothing when its handler runs, which only announces it. Instead, every time the holder removes an "
+        "opponent's HP, the enmity credited is scaled by the summed percentage modifiers and then shifted by the "
+        "flat ones, floored at 0, while the effect is active (a bloodline one only while not sealed, aggro.ts:18-53). That can happen many "
+        "times a round. Buffprevent blocks it, and Clear removes it."),
+    "decreaseaggro": (
+        "PvE AI targeting, in two modes chosen by aggroMode (default GENERATION). ENMITY lowers the holder's "
+        "current enmity when its handler runs: by power if static, or by power% of the current enmity, floored at "
+        "0. It runs on its casting action and then on the holder's first action of each later round, and even "
+        "with no rounds it runs at most once a round (tags.ts:1622-1650, util.ts:858-876). GENERATION changes "
+        "nothing when its handler runs, which only announces it. Instead, every time the holder removes an "
+        "opponent's HP, the enmity credited is reduced by the summed percentage modifiers and then by the flat "
+        "ones, floored at 0, while the effect is active (a bloodline one only while not sealed, aggro.ts:18-53). That can happen many times "
+        "a round. Buffprevent blocks it, and Clear removes it."),
     "copy": ("The caster's own buffprevent can block it. Otherwise it rolls power% once, in its casting action, to clone the target's best positive effects onto the caster for the copy's rounds; the target keeps theirs. It holds 4 at most at once, per caster. Order of preference: damage-given up or damage-taken down, then lifesteal, then absorb or reflect, then shield, then increaseheal, then increasestat. Passive and gear sources can't be copied. A miss copies nothing and does not set the Copy's rounds to 0 (tags.ts:462, 507-518)."),
     "mirror": ("Rolls power% once, in its casting action, to clone up to 4 of the caster's own active negative effects onto the target for the mirror's rounds. The caster keeps their copies. Order of preference: damage-taken up or damage-given down first, then afterburn, then poison or pool-cost, then wound, then anything else. Raw damage, pierce, clear, stun, time compression and four prevents are excluded, and so is anything from bloodline, gear or other passives. The target's debuffprevent blocks it. A miss passes nothing and does not set the Mirror's rounds to 0 (tags.ts:547, 621-626)."),
     "injectjutsus": ("Adds the listed jutsu to the holder's action list while it is active and enabled. Unlike the hiding gates it has no not-cast-this-round wait, so a grant that has resolved can expose its jutsu later in its own casting round (actions.ts:148-160). Neither Clear nor Cleanse can remove it."),
@@ -205,10 +233,13 @@ BEHAVIOR = {
         "side of the original hit, not the shields of the player taking it. It's positive, so Clear removes it "
         "and Copy can take it."),
     "finalstand": (
-        "Rolls power% on each eligible resolution and the first failed roll sets its rounds to 0 and ends it "
-        "(tags.ts:2238-2255). A finite one rolls on its casting action, on every other fighter's action and on its "
-        "holder's first action of each round, and skips its holder's later actions in a round (util.ts:856-876). "
-        "One with no rounds rolls on every resolution, and a failed roll ends it for the fight. While active, each separate damage packet that would leave the holder below 1 "
+        "Rolls power% each time its handler runs, and the first failed roll sets its rounds to 0 and ends it "
+        "(tags.ts:2238-2255). A finite one rolls on every other fighter's action once it is no longer new, and on "
+        "the first tracked resolution of each round: its casting action in the cast round, whoever cast it, and "
+        "its holder's first action in later rounds. It skips its holder's other actions that round, so when "
+        "another fighter casts it on the holder, the holder gets no roll of its own until the next round "
+        "(util.ts:856-876). One with no rounds rolls on every resolution, and a failed roll ends it for the fight. "
+        "While active, each separate damage packet that would leave the holder below 1 "
         "HP is cut to leave exactly 1 HP. Each packet is checked against HP as it stood before the action's "
         "damage, so several packets that are each survivable can still kill together (two 60s on a 100-HP holder "
         "kill). It applies to direct, residual, Pierce, wound, parry return, reflect and recoil damage, to the "

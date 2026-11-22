@@ -284,7 +284,7 @@
    "potency_eligible": false,
    "immunity_can_cancel": false,
    "stage": "S3 main pass",
-   "applies": "on landing, then once a round when the holder acts",
+   "applies": "on its casting action, then on the holder's first action of each later round (not again in the cast round; no-rounds versions: every holder action)",
    "calculation": [
     "static"
    ],
@@ -403,7 +403,7 @@
    "potency_eligible": false,
    "immunity_can_cancel": false,
    "stage": "S3 main pass",
-   "applies": "on landing, then once a round when the holder acts",
+   "applies": "on its casting action, then on the holder's first action of each later round (not again in the cast round; no-rounds versions: every holder action)",
    "calculation": [
     "static"
    ],
@@ -900,7 +900,7 @@
    "schema": "validators/combat.ts DecreaseAggroTag (line 418)",
    "exclusion_area": "Enemy AI focus (PvE)",
    "in_game_text": "Decrease current enmity or damage-generated enmity. ENMITY applies once per round; GENERATION modifies each damage packet. Omit rounds for passive gear.",
-   "behavior": "The reverse of increaseaggro. It's classed positive, so Clear removes it, and buffprevent blocks it.",
+   "behavior": "PvE AI targeting, in two modes chosen by aggroMode (default GENERATION). ENMITY lowers the holder's current enmity when its handler runs: by power if static, or by power% of the current enmity, floored at 0. It runs on its casting action and then on the holder's first action of each later round, and even with no rounds it runs at most once a round (tags.ts:1622-1650, util.ts:858-876). GENERATION changes nothing when its handler runs, which only announces it. Instead, every time the holder removes an opponent's HP, the enmity credited is reduced by the summed percentage modifiers and then by the flat ones, floored at 0, while the effect is active (a bloodline one only while not sealed, aggro.ts:18-53). That can happen many times a round. Buffprevent blocks it, and Clear removes it.",
    "polarity": "positive",
    "prevented_by": [
     "buffprevent"
@@ -911,7 +911,7 @@
    "potency_eligible": false,
    "immunity_can_cancel": false,
    "stage": "S3 main pass",
-   "applies": "on landing, then once a round when the holder acts",
+   "applies": "ENMITY mode: on its casting action, then on the holder's first action of each later round, even with no rounds (util.ts:858-876). GENERATION mode: its handler only announces it; the modifier is read every time the holder removes an opponent's HP while it is active (aggro.ts:18-53), so it can apply many times a round",
    "calculation": [
     "static",
     "percentage"
@@ -1069,6 +1069,7 @@
    "immunity_can_cancel": false,
    "stage": "S7 damage pipeline",
    "live_from": "next round (waits while isNew/castThisRound)",
+   "applies": "every damage packet the pipeline computes while it is live; it never reaches the main handler switch (constants.ts:246, process.ts:428), and a later loop only reports it (process.ts:536-597)",
    "calculation": [
     "static",
     "percentage"
@@ -1136,6 +1137,7 @@
    "immunity_can_cancel": false,
    "stage": "S7 damage pipeline",
    "live_from": "next round (waits while isNew/castThisRound)",
+   "applies": "every damage packet the pipeline computes while it is live; it never reaches the main handler switch (constants.ts:246, process.ts:428), and a later loop only reports it (process.ts:536-597)",
    "calculation": [
     "static",
     "percentage"
@@ -1700,7 +1702,7 @@
    "potency_eligible": true,
    "immunity_can_cancel": false,
    "stage": "S3 main pass (writes the consequence despite its post-pierce rank); applied in S15",
-   "applies": "on landing, then once a round when the holder acts",
+   "applies": "on its casting action, then on the holder's first action of each later round (not again in the cast round; no-rounds versions: every holder action)",
    "calculation": [
     "static",
     "percentage"
@@ -1859,7 +1861,7 @@
    "schema": "validators/combat.ts FinalStandTag (line 772)",
    "exclusion_area": "Soak damage",
    "in_game_text": "User cannot be reduced below 1 HP",
-   "behavior": "Rolls power% on each eligible resolution and the first failed roll sets its rounds to 0 and ends it (tags.ts:2238-2255). A finite one rolls on its casting action, on every other fighter's action and on its holder's first action of each round, and skips its holder's later actions in a round (util.ts:856-876). One with no rounds rolls on every resolution, and a failed roll ends it for the fight. While active, each separate damage packet that would leave the holder below 1 HP is cut to leave exactly 1 HP. Each packet is checked against HP as it stood before the action's damage, so several packets that are each survivable can still kill together (two 60s on a 100-HP holder kill). It applies to direct, residual, Pierce, wound, parry return, reflect and recoil damage, to the immediate part of deferred damage and to Diffuse repayment. It does not apply to ordinary afterburn, drain, poison or One Hit Kill. A bloodline version needs to be active and unsealed, and re-arms for one round when it fires. Neither Clear nor Cleanse removes it.",
+   "behavior": "Rolls power% each time its handler runs, and the first failed roll sets its rounds to 0 and ends it (tags.ts:2238-2255). A finite one rolls on every other fighter's action once it is no longer new, and on the first tracked resolution of each round: its casting action in the cast round, whoever cast it, and its holder's first action in later rounds. It skips its holder's other actions that round, so when another fighter casts it on the holder, the holder gets no roll of its own until the next round (util.ts:856-876). One with no rounds rolls on every resolution, and a failed roll ends it for the fight. While active, each separate damage packet that would leave the holder below 1 HP is cut to leave exactly 1 HP. Each packet is checked against HP as it stood before the action's damage, so several packets that are each survivable can still kill together (two 60s on a 100-HP holder kill). It applies to direct, residual, Pierce, wound, parry return, reflect and recoil damage, to the immediate part of deferred damage and to Diffuse repayment. It does not apply to ordinary afterburn, drain, poison or One Hit Kill. A bloodline version needs to be active and unsealed, and re-arms for one round when it fires. Neither Clear nor Cleanse removes it.",
    "polarity": "neutral",
    "prevented_by": [],
    "copy_can_take": false,
@@ -1867,7 +1869,7 @@
    "potency_eligible": false,
    "immunity_can_cancel": false,
    "stage": "S3 main pass (land roll); floors HP in S6 and S15",
-   "applies": "its roll: on the casting action, every other fighter's action and the holder's first action of each round; skipped on the holder's later actions in a round (no-rounds versions: every resolution). Its 1-HP floor: every packet while rounds > 0",
+   "applies": "its roll: on every other fighter's action once it is no longer new, and on the first tracked resolution of each round, which is the casting action in the cast round (whoever cast it) and the holder's first action in later rounds; skipped on the holder's other actions that round (no-rounds versions: every resolution). Its 1-HP floor: every packet while rounds > 0",
    "calculation": [
     "static"
    ],
@@ -1926,7 +1928,7 @@
    "potency_eligible": false,
    "immunity_can_cancel": false,
    "stage": "S3 main pass",
-   "applies": "on landing, then once a round when the holder acts",
+   "applies": "on its casting action, then on the holder's first action of each later round (not again in the cast round; no-rounds versions: every holder action)",
    "calculation": [
     "static"
    ],
@@ -2172,7 +2174,7 @@
    "schema": "validators/combat.ts IncreaseAggroTag (line 410)",
    "exclusion_area": "Enemy AI focus (PvE)",
    "in_game_text": "Increase current enmity or damage-generated enmity. ENMITY applies once per round; GENERATION modifies each damage packet. Omit rounds for passive gear.",
-   "behavior": "AI targeting. ENMITY mode adds to current enmity once; GENERATION mode raises the enmity each hit generates. Buffprevent blocks it.",
+   "behavior": "PvE AI targeting, in two modes chosen by aggroMode (default GENERATION). ENMITY changes the holder's current enmity when its handler runs: by power if static, or by power% of the current enmity, floored at 0. It runs on its casting action and then on the holder's first action of each later round, and even with no rounds it runs at most once a round (tags.ts:1622-1650, util.ts:858-876). GENERATION changes nothing when its handler runs, which only announces it. Instead, every time the holder removes an opponent's HP, the enmity credited is scaled by the summed percentage modifiers and then shifted by the flat ones, floored at 0, while the effect is active (a bloodline one only while not sealed, aggro.ts:18-53). That can happen many times a round. Buffprevent blocks it, and Clear removes it.",
    "polarity": "positive",
    "prevented_by": [
     "buffprevent"
@@ -2183,7 +2185,7 @@
    "potency_eligible": false,
    "immunity_can_cancel": false,
    "stage": "S3 main pass",
-   "applies": "on landing, then once a round when the holder acts",
+   "applies": "ENMITY mode: on its casting action, then on the holder's first action of each later round, even with no rounds (util.ts:858-876). GENERATION mode: its handler only announces it; the modifier is read every time the holder removes an opponent's HP while it is active (aggro.ts:18-53), so it can apply many times a round",
    "calculation": [
     "static",
     "percentage"
@@ -2282,6 +2284,7 @@
    "immunity_can_cancel": false,
    "stage": "S7 damage pipeline",
    "live_from": "next round (waits while isNew/castThisRound)",
+   "applies": "every damage packet the pipeline computes while it is live; it never reaches the main handler switch (constants.ts:246, process.ts:428), and a later loop only reports it (process.ts:536-597)",
    "calculation": [
     "static",
     "percentage"
@@ -2349,6 +2352,7 @@
    "immunity_can_cancel": false,
    "stage": "S7 damage pipeline",
    "live_from": "next round (waits while isNew/castThisRound)",
+   "applies": "every damage packet the pipeline computes while it is live; it never reaches the main handler switch (constants.ts:246, process.ts:428), and a later loop only reports it (process.ts:536-597)",
    "calculation": [
     "static",
     "percentage"
@@ -3344,7 +3348,7 @@
    "potency_eligible": false,
    "immunity_can_cancel": false,
    "stage": "S3 main pass (sets HP to 0 directly); S4 credits Curse",
-   "applies": "on landing, then once a round when the holder acts",
+   "applies": "on its casting action, then on the holder's first action of each later round (not again in the cast round; no-rounds versions: every holder action)",
    "calculation": [
     "static"
    ],
@@ -3876,7 +3880,7 @@
    "potency_eligible": false,
    "immunity_can_cancel": false,
    "stage": "S3 main pass",
-   "applies": "on landing, then once a round when the holder acts",
+   "applies": "on its casting action, then on the holder's first action of each later round (not again in the cast round; no-rounds versions: every holder action)",
    "calculation": [
     "static"
    ],
@@ -4024,7 +4028,7 @@
    "immunity_can_cancel": false,
    "stage": "S3 main pass",
    "live_from": "casting action, right after its land roll (holder's bloodline effects resolved later in that action); then every later action",
-   "applies": "on landing, then once a round when the holder acts",
+   "applies": "on its casting action, then on the holder's first action of each later round (not again in the cast round; no-rounds versions: every holder action)",
    "calculation": [
     "static"
    ],
@@ -4302,7 +4306,7 @@
    "immunity_can_cancel": false,
    "stage": "S3 main pass (land roll); AP read outside applyEffects (turn.ts:159-182)",
    "live_from": "AP cut from the round after it lands",
-   "applies": "on landing, then once a round when the holder acts",
+   "applies": "on its casting action, then on the holder's first action of each later round (not again in the cast round; no-rounds versions: every holder action)",
    "calculation": [
     "static"
    ],
@@ -4783,7 +4787,7 @@
    "potency_eligible": false,
    "immunity_can_cancel": false,
    "stage": "S10 post-damage readers; applied in S15",
-   "applies": "on landing, then once a round when the holder acts",
+   "applies": "on its casting action, then on the holder's first action of each later round (not again in the cast round; no-rounds versions: every holder action)",
    "calculation": [
     "percentage"
    ],

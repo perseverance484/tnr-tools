@@ -12,6 +12,7 @@ potency_eligible: true
 immunity_can_cancel: false
 stage: S7 damage pipeline
 live_from: next round (waits while isNew/castThisRound)
+applies: "every damage packet the pipeline computes while it is live; it never reaches the main handler switch (constants.ts:246, process.ts:428), and a later loop only reports it (process.ts:536-597)"
 calculation: [static, percentage]   # default percentage
 own_fields:   # zod expressions resolved from the schema (helpers, spreads, extend); fields inherited unchanged from BaseAttributes/PowerAttributes are in engine.md section 6
   calculation: "z.enum([\"static\", \"percentage\"]).prefault(\"percentage\")"   # from PercentageCalculation via DamageModifierAttributes

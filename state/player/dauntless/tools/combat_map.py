@@ -15,13 +15,14 @@ CLI:
 
 What --check covers, and what it does not:
   * Planner against the map (always): the planner's Clear/Cleanse polarity tables, its kind -> tag names, the
-    hostile ground kinds, and an ast scan of planner2.py, turn.py and shotplan.py for min() calls that cap an
-    absorb / reflect / lifesteal / afterburn / parry term with a number literal in any argument (they must use
-    combat_map.CAP_*).
+    hostile ground kinds, and an ast scan of planner2.py, turn.py and shotplan.py: every min() that clamps an
+    absorb / reflect / lifesteal / afterburn / parry term must clamp it with that kind's own combat_map.CAP_* and
+    nothing else, so a literal, a local name (wrong_cap = 0.91; min(par, wrong_cap)) or another kind's constant fails.
   * Map against the game (only with --game PATH, or TNR_GAME_SRC set): checks that rules.json, tags.json and
     interactions.json carry the same full 40-character pin, then re-reads every rules.json constant from that pinned
-    commit's git objects in the checkout (not its working tree) and compares value, symbol and file:line. A copy
-    without git metadata, or one missing the pinned commit, fails.
+    commit's git objects in the checkout and compares value, symbol and file:line. Working-tree edits can't supply
+    a verified value: they are ignored with a note, so a dirty checkout passes or fails on its pinned objects alone.
+    A copy without git metadata, or one missing the pinned commit, fails.
   * Not covered: tags.json, interactions.json and engine.md text are never re-read against the game; they are
     hand-checked (docs/combat-engine/_build/curation.py). A passing --check without --game says nothing about
     the game source at all.
@@ -169,36 +170,57 @@ def check_planner():
             bad.append(f"turn.HOSTILE_KINDS has {t}; the engine has it {polarity(t)}")
         elif t not in TAGS:
             bad.append(f"turn.HOSTILE_KINDS has {t}, which is not a combat tag")
-    # 4. the caps the planners use are the map's: no numeric literal in a min()/max() beside a capped term
+    # 4. every cap clamp in the planners is min(<term>, CM.CAP_<its kind>): no literal, other name or wrong constant
     for mod in (P2, turn, shotplan):
-        bad += cap_literals(mod.__file__)
+        bad += cap_clamps(mod.__file__)
     return bad
 
 
-_CAP_TERM = re.compile(r"absorb|reflect|lifesteal|leech|afterburn|parry|\b(?:PAR|ABS|PABS|REF|PREF|LS|PLS|AFB)\b"
-                       r"|\b(?:par|ab|refl|ls)\b")
+# Each capped term, by kind, and the combat_map constant that must clamp it.
+_CAP_KINDS = (
+    ("CAP_PARRY", re.compile(r"parry|\b(?:PAR|par)\b")),
+    ("CAP_ABSORB", re.compile(r"absorb|\b(?:ABS|PABS|ab)\b")),
+    ("CAP_REFLECT", re.compile(r"reflect|\b(?:REF|PREF|refl)\b")),
+    ("CAP_LEECH", re.compile(r"lifesteal|leech|\b(?:LS|PLS|ls)\b")),
+    ("CAP_AFTERBURN", re.compile(r"afterburn|\b(?:AFB)\b")),
+)
 
 
-def _is_number(node):
-    if isinstance(node, ast.UnaryOp) and isinstance(node.op, (ast.USub, ast.UAdd)):
-        node = node.operand
-    return isinstance(node, ast.Constant) and isinstance(node.value, (int, float)) and not isinstance(node.value, bool)
+def _cap_const(node):
+    """'CAP_X' when node is the attribute CM.CAP_X, else None."""
+    if (isinstance(node, ast.Attribute) and isinstance(node.value, ast.Name) and node.value.id == "CM"
+            and node.attr.startswith("CAP_")):
+        return node.attr
+    return None
 
 
-def cap_literals(path):
-    """min() calls in a planner file that cap an absorb/reflect/leech/afterburn/parry term with a number literal,
-    in any argument position and across lines (parsed with ast, so formatting doesn't hide one)."""
+def cap_clamps(path):
+    """min() calls in a planner file that clamp an absorb/reflect/leech/afterburn/parry term with anything but
+    that kind's combat_map constant: a number literal, a local name (wrong_cap = 0.91; min(par, wrong_cap)), an
+    expression, another kind's CM.CAP_*, or one min mixing kinds. Parsed with ast, so argument order and line
+    breaks don't hide one."""
     src = open(path).read()
     out = []
     for node in ast.walk(ast.parse(src, filename=path)):
         if not (isinstance(node, ast.Call) and isinstance(node.func, ast.Name) and node.func.id == "min"):
             continue
-        nums = [x for x in node.args if _is_number(x)]
-        terms = [ast.get_source_segment(src, x) or "" for x in node.args if not _is_number(x)]
-        if nums and any(_CAP_TERM.search(t) for t in terms):
+        consts = [c for c in (_cap_const(x) for x in node.args) if c]
+        terms = [ast.get_source_segment(src, x) or "" for x in node.args if not _cap_const(x)]
+        kinds = {name for name, rx in _CAP_KINDS for t in terms if rx.search(t)}
+        if not kinds:
+            continue
+        cap_args = [x for x in node.args if not _cap_const(x) and not any(rx.search(ast.get_source_segment(src, x) or "")
+                                                                          for _, rx in _CAP_KINDS)]
+        ok = (len(kinds) == 1 and consts == [next(iter(kinds))] and not cap_args and not node.keywords
+              and consts[0] in globals())
+        if not ok:
             seg = " ".join((ast.get_source_segment(src, node) or "").split())
-            out.append(f"{os.path.basename(path)}:{node.lineno} caps with a literal; use combat_map.CAP_*: {seg}")
+            want = " or ".join(sorted(f"CM.{k}" for k in kinds))
+            out.append(f"{os.path.basename(path)}:{node.lineno} must clamp with {want} alone: {seg}")
     return out
+
+
+cap_literals = cap_clamps   # earlier name, kept for callers
 
 
 # The reader is code, so it always comes from this tools checkout; TNR_COMBAT_MAP only chooses the data files.

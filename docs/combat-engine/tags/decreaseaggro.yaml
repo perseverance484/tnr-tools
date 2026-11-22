@@ -2,7 +2,7 @@ tag: decreaseaggro
 schema: validators/combat.ts DecreaseAggroTag (line 418)
 exclusion_area: Enemy AI focus (PvE)
 in_game_text: Decrease current enmity or damage-generated enmity. ENMITY applies once per round; GENERATION modifies each damage packet. Omit rounds for passive gear.
-behavior: "The reverse of increaseaggro. It's classed positive, so Clear removes it, and buffprevent blocks it."
+behavior: "PvE AI targeting, in two modes chosen by aggroMode (default GENERATION). ENMITY lowers the holder's current enmity when its handler runs: by power if static, or by power% of the current enmity, floored at 0. It runs on its casting action and then on the holder's first action of each later round, and even with no rounds it runs at most once a round (tags.ts:1622-1650, util.ts:858-876). GENERATION changes nothing when its handler runs, which only announces it. Instead, every time the holder removes an opponent's HP, the enmity credited is reduced by the summed percentage modifiers and then by the flat ones, floored at 0, while the effect is active (a bloodline one only while not sealed, aggro.ts:18-53). That can happen many times a round. Buffprevent blocks it, and Clear removes it."
 polarity: positive   # positive = Clear removes; negative = Cleanse removes; neutral = neither
 prevented_by: [buffprevent]
 prevent_check: "age-compared: blocks only effects created in a later round than the prevent"
@@ -11,7 +11,7 @@ mirror_can_pass: false
 potency_eligible: false
 immunity_can_cancel: false
 stage: S3 main pass
-applies: "on landing, then once a round when the holder acts"
+applies: "ENMITY mode: on its casting action, then on the holder's first action of each later round, even with no rounds (util.ts:858-876). GENERATION mode: its handler only announces it; the modifier is read every time the holder removes an opponent's HP while it is active (aggro.ts:18-53), so it can apply many times a round"
 calculation: [static, percentage]   # default percentage
 own_fields:   # zod expressions resolved from the schema (helpers, spreads, extend); fields inherited unchanged from BaseAttributes/PowerAttributes are in engine.md section 6
   target: "z.enum(BaseTagTargets).prefault(\"SELF\")"   # from AggroAttributes

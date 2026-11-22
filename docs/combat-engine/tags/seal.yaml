@@ -12,7 +12,7 @@ potency_eligible: false
 immunity_can_cancel: false
 stage: S3 main pass
 live_from: "casting action, right after its land roll (holder's bloodline effects resolved later in that action); then every later action"
-applies: "on landing, then once a round when the holder acts"
+applies: "on its casting action, then on the holder's first action of each later round (not again in the cast round; no-rounds versions: every holder action)"
 calculation: [static]   # default static
 fields_note: simpleTag (BaseAttributes + PowerAttributes only)
 live_usage_2026_11_21: {jutsu: 8, pvp_legal: 8}

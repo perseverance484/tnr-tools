@@ -11,7 +11,7 @@ mirror_can_pass: true
 potency_eligible: true
 immunity_can_cancel: false
 stage: S3 main pass (writes the consequence despite its post-pierce rank); applied in S15
-applies: "on landing, then once a round when the holder acts"
+applies: "on its casting action, then on the holder's first action of each later round (not again in the cast round; no-rounds versions: every holder action)"
 calculation: [static, percentage]   # default percentage
 own_fields:   # zod expressions resolved from the schema (helpers, spreads, extend); fields inherited unchanged from BaseAttributes/PowerAttributes are in engine.md section 6
   rounds: z.coerce.number().int().min(1).max(10).prefault(3)

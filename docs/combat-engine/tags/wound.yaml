@@ -10,7 +10,7 @@ mirror_can_pass: true
 potency_eligible: false
 immunity_can_cancel: false
 stage: S10 post-damage readers; applied in S15
-applies: "on landing, then once a round when the holder acts"
+applies: "on its casting action, then on the holder's first action of each later round (not again in the cast round; no-rounds versions: every holder action)"
 calculation: [percentage]   # default percentage
 own_fields:   # zod expressions resolved from the schema (helpers, spreads, extend); fields inherited unchanged from BaseAttributes/PowerAttributes are in engine.md section 6
   rounds: z.coerce.number().int().min(1).max(20).prefault(1)

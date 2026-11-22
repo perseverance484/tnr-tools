@@ -47,8 +47,8 @@ def test_planner_agrees():
 
 
 def test_cap_literal_scan():
-    # a numeric cap beside a capped term is drift in either argument and across lines; a CM.CAP_* name is not
-    # (PR #129 reviews 2 and 3, finding 4 / finding 2)
+    # a cap clamp must be min(<term>, CM.CAP_<its kind>): a literal in either position or across lines, a local name
+    # holding a number, another kind's constant or a mixed min is drift (PR #129 reviews 2, 3 and 4)
     with tempfile.TemporaryDirectory() as d:
         f = os.path.join(d, "planner_x.py")
         with open(f, "w") as fh:
@@ -56,12 +56,24 @@ def test_cap_literal_scan():
                      'b = dmg * min(1.0, da[PAR * H + o])\n'
                      'c = dmg * min(par, 0.91)\n'
                      'e = dmg * min(\n    g(da, "reflect")[0],\n    0.5,\n)\n'
+                     'wrong_cap = 0.91\n'
+                     'f = dmg * min(par, wrong_cap)\n'
+                     'h = dmg * min(CM.CAP_REFLECT, da[PAR * H + o])\n'
+                     'k = dmg * min(CM.CAP_PARRY, par + ab)\n'
+                     'm = dmg * min(CM.CAP_PARRY, par, 0.95)\n'
+                     'n = dmg * min(CM.CAP_NOPE, par)\n'
                      'ok1 = dmg * min(CM.CAP_ABSORB, g(da, "absorb")[0])\n'
-                     'ok2 = min(1.0, tot / 3)\n')
-        hits = CM.cap_literals(f)
+                     'ok2 = min(1.0, tot / 3)\n'
+                     'ok3 = max(1e-6, 1 - min(CM.CAP_PARRY, e.g(PAR, o)))\n'
+                     'ok4 = min(CM.CAP_LEECH, sa[LS * H + o] + sa[PLS * H + o])\n')
+        hits = CM.cap_clamps(f)
     lines = sorted(int(h.split(":")[1].split()[0]) for h in hits)
-    assert lines == [1, 2, 3, 4], hits
-    print("ok: cap literals beside absorb / reflect / parry terms are caught in either argument, multiline too")
+    assert lines == [1, 2, 3, 4, 9, 10, 11, 12, 13], hits
+    assert CM.cap_literals is CM.cap_clamps
+    # the shipped planners pass, and every clamp they use names an existing constant
+    for mod in ("planner2.py", "turn.py", "shotplan.py"):
+        assert CM.cap_clamps(os.path.join(os.path.dirname(HERE), mod)) == [], mod
+    print("ok: cap clamps must use their own CM.CAP_* constant; literals, local names and wrong constants are caught")
 
 
 GAME = os.environ.get("TNR_GAME_SRC") or "/tmp/tnrgit/repo"
@@ -125,7 +137,24 @@ def test_rules_match_game_source():
         open(path, "w").write(src.replace("export const ABSORB_CAP_RATIO = 0.6;", "export const ABSORB_CAP_RATIO = 0.91;"))
         r = _check(repo, _map_copy(os.path.join(d, "m2"), sha, absorb=0.91))
         assert r.returncode == 1 and "caps.absorb" in r.stdout and "differs" in r.stdout, r.stdout
-        # rules.py refuses to generate from that dirty tree
+        # the same dirty tree with the map left at the pinned 0.6 passes: edits are ignored with a note, not used
+        r = _check(repo, _map_copy(os.path.join(d, "m2b"), sha))
+        assert r.returncode == 0 and "ignored" in r.stdout, r.stdout + r.stderr
+        # rules.py refuses to generate from that dirty tree, since the edit is in a constants file it reads
+        r = subprocess.run([sys.executable, _RULES_PY, repo, os.path.join(d, "o.json")], capture_output=True, text=True)
+        assert r.returncode != 0 and "differ from HEAD" in r.stderr, r.stderr
+        # an edit outside those two files doesn't stop it (extract.py and kb.py are the ones that reject any app/ edit)
+        subprocess.run(["git", "-C", repo, "checkout", "-q", "--", _CONSTS[0]], check=True)
+        other = os.path.join(repo, "app", "src", "other.ts")
+        open(other, "w").write("export const X = 1;\n")
+        _git(repo, "add", "-A")
+        _git(repo, "commit", "-qm", "other file")
+        sha2 = _git(repo, "rev-parse", "HEAD").stdout.strip()
+        open(other, "w").write("export const X = 2;\n")
+        r = subprocess.run([sys.executable, _RULES_PY, repo, os.path.join(d, "o2.json")], capture_output=True, text=True)
+        assert r.returncode == 0 and json.load(open(os.path.join(d, "o2.json")))["pinned_game_commit"] == sha2, r.stderr
+        open(path, "w").write(src.replace("export const ABSORB_CAP_RATIO = 0.6;", "export const ABSORB_CAP_RATIO = 0.91;"))
+        # back on the dirty constants file for the cases below
         r = subprocess.run([sys.executable, _RULES_PY, repo, os.path.join(d, "o.json")], capture_output=True, text=True)
         assert r.returncode != 0 and "differ from HEAD" in r.stderr, r.stderr
         # 3. a missing pin fails
@@ -145,7 +174,8 @@ def test_rules_match_game_source():
         r = subprocess.run([sys.executable, _RULES_PY, copy, os.path.join(d, "o.json"), "--revision", pin],
                            capture_output=True, text=True)
         assert r.returncode == 0 and json.load(open(os.path.join(d, "o.json")))["pinned_game_commit"] == pin, r.stderr
-    print("ok: rules.json matches the pinned game objects; dirty trees, missing pins and unpinned copies fail")
+    print("ok: rules.json is checked against the pinned game objects only (working-tree edits are ignored, so they "
+          "can't supply a verified value); a wrong map, a missing pin and an unpinned copy fail")
 
 
 if __name__ == "__main__":

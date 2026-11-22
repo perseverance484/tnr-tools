@@ -12,7 +12,7 @@ potency_eligible: false
 immunity_can_cancel: false
 stage: "S3 main pass (land roll); AP read outside applyEffects (turn.ts:159-182)"
 live_from: AP cut from the round after it lands
-applies: "on landing, then once a round when the holder acts"
+applies: "on its casting action, then on the holder's first action of each later round (not again in the cast round; no-rounds versions: every holder action)"
 calculation: [static]   # default static
 own_fields:   # zod expressions resolved from the schema (helpers, spreads, extend); fields inherited unchanged from BaseAttributes/PowerAttributes are in engine.md section 6
   apReduction: z.coerce.number().int().min(0).max(100).prefault(10)

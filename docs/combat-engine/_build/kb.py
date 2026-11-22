@@ -351,7 +351,8 @@ def build(game_root, data, resolved, out_dir, interactions=None):
         if live:
             put("live_from", live)
         if t in TICK or t in CUR.APPLIES:
-            ap = CUR.APPLIES.get(t, "on landing, then once a round when the holder acts")
+            ap = CUR.APPLIES.get(t, "on its casting action, then on the holder's first action of each later round "
+                                   "(not again in the cast round; no-rounds versions: every holder action)")
             put("applies", ap, text=yq(ap))
         calc = r["calculation"]
         if not calc:

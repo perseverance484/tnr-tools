@@ -11,7 +11,7 @@ mirror_can_pass: true
 potency_eligible: false
 immunity_can_cancel: false
 stage: S3 main pass (sets HP to 0 directly); S4 credits Curse
-applies: "on landing, then once a round when the holder acts"
+applies: "on its casting action, then on the holder's first action of each later round (not again in the cast round; no-rounds versions: every holder action)"
 calculation: [static]   # default static
 fields_note: simpleTag (BaseAttributes + PowerAttributes only)
 live_usage_2026_11_21: {jutsu: 1, pvp_legal: 1}
