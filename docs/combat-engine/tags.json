@@ -1,5 +1,5 @@
 {
- "pinned_game_commit": "29cd91b",
+ "pinned_game_commit": "29cd91b5ebda9c319eb72e80670229b0b72ea9ac",
  "tags": {
   "absorb": {
    "tag": "absorb",
@@ -1414,7 +1414,8 @@
    "potency_eligible": false,
    "immunity_can_cancel": false,
    "stage": "S3 main pass",
-   "applies": "on landing, then once a round when the holder acts",
+   "live_from": "as soon as it is on the holder and enabled (no next-round wait; util.ts:1146-1150)",
+   "applies": "read whenever an action's cost is computed (util.ts:1136-1165); the handler only reports",
    "calculation": [
     "static",
     "percentage"
@@ -1858,7 +1859,7 @@
    "schema": "validators/combat.ts FinalStandTag (line 772)",
    "exclusion_area": "Soak damage",
    "in_game_text": "User cannot be reduced below 1 HP",
-   "behavior": "Rolls power% every time it resolves, which is every action while it lasts, and the first failed roll sets its rounds to 0 and ends it (tags.ts:2238-2255). While active, each separate damage packet that would leave the holder below 1 HP is cut to leave exactly 1 HP. Each packet is checked against HP as it stood before the action's damage, so several packets that are each survivable can still kill together (two 60s on a 100-HP holder kill). It applies to direct, residual, Pierce, wound, parry return, reflect and recoil damage, to the immediate part of deferred damage and to Diffuse repayment. It does not apply to ordinary afterburn, drain, poison or One Hit Kill. A bloodline version needs to be active and unsealed, and re-arms for one round when it fires. Neither Clear nor Cleanse removes it.",
+   "behavior": "Rolls power% on each eligible resolution and the first failed roll sets its rounds to 0 and ends it (tags.ts:2238-2255). A finite one rolls on its casting action, on every other fighter's action and on its holder's first action of each round, and skips its holder's later actions in a round (util.ts:856-876). One with no rounds rolls on every resolution, and a failed roll ends it for the fight. While active, each separate damage packet that would leave the holder below 1 HP is cut to leave exactly 1 HP. Each packet is checked against HP as it stood before the action's damage, so several packets that are each survivable can still kill together (two 60s on a 100-HP holder kill). It applies to direct, residual, Pierce, wound, parry return, reflect and recoil damage, to the immediate part of deferred damage and to Diffuse repayment. It does not apply to ordinary afterburn, drain, poison or One Hit Kill. A bloodline version needs to be active and unsealed, and re-arms for one round when it fires. Neither Clear nor Cleanse removes it.",
    "polarity": "neutral",
    "prevented_by": [],
    "copy_can_take": false,
@@ -1866,6 +1867,7 @@
    "potency_eligible": false,
    "immunity_can_cancel": false,
    "stage": "S3 main pass (land roll); floors HP in S6 and S15",
+   "applies": "its roll: on the casting action, every other fighter's action and the holder's first action of each round; skipped on the holder's later actions in a round (no-rounds versions: every resolution). Its 1-HP floor: every packet while rounds > 0",
    "calculation": [
     "static"
    ],
@@ -2656,7 +2658,8 @@
    "potency_eligible": false,
    "immunity_can_cancel": false,
    "stage": "S3 main pass",
-   "applies": "on landing, then once a round when the holder acts",
+   "live_from": "as soon as it is on the holder and enabled (no next-round wait; util.ts:1146-1150)",
+   "applies": "read whenever an action's cost is computed (util.ts:1136-1165); the handler only reports",
    "calculation": [
     "static",
     "percentage"
@@ -3480,7 +3483,7 @@
    "schema": "validators/combat.ts PierceTag (line 672)",
    "exclusion_area": "Damage now",
    "in_game_text": "Deals piercing damage to target",
-   "behavior": "Pierce computes its raw number the same way as Damage: formula, static or percentage, with dmgModifier, residualModifier, Weakness, and the barrier cut on instant hits. It resolves after the damage pipeline, so no Curse bonus, damage increase, damage reduction or damage floor applies. It reads the stats from before the action's main pass, so a stat change resolved in the same action doesn't reach it. It isn't soaked by shields. Instead it sets every enabled shield on the target to 0, and Final Stand still applies. If the target's Diffuse defers part of it, shields soak the immediate part like ordinary damage and are destroyed only if positive Reflect is still on that Pierce hit when mitigation runs (if the attacker's own Diffuse defers that Reflect, it moves to a separate hit and the shields survive). Parry, Recoil and Afterburn ignore Pierce. Lifesteal, Absorb, Reflect, Wound and Vamp read an instant Pierce hit, and Lifesteal, Absorb and Reflect skip their general filter for it. Curse stores HP lost to it. With rounds above 0 it deals nothing on cast and ticks on later rounds.",
+   "behavior": "Pierce computes its raw number the same way as Damage: formula, static or percentage, with dmgModifier, residualModifier, Weakness, and the barrier cut on instant hits. It resolves after the damage pipeline, so no Curse bonus, damage increase, damage reduction or damage floor applies. It reads the stats from before the action's main pass, so a stat change resolved in the same action doesn't reach it. It isn't soaked by shields. Instead it sets every enabled shield on the target to 0, and Final Stand still applies. If the target's Diffuse defers part of it, shields soak the immediate part like ordinary damage and are destroyed only if positive Reflect is still on that Pierce hit when mitigation runs (if the attacker's own Diffuse defers that Reflect, it moves to a separate hit and the shields avoid forced destruction, though they can still be spent soaking the hit). Parry, Recoil and Afterburn ignore Pierce. Lifesteal, Absorb, Reflect, Wound and Vamp read an instant Pierce hit, and Lifesteal, Absorb and Reflect skip their general filter for it. Curse stores HP lost to it. With rounds above 0 it deals nothing on cast and ticks on later rounds.",
    "polarity": "negative",
    "prevented_by": [],
    "copy_can_take": false,

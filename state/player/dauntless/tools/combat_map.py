@@ -15,19 +15,23 @@ CLI:
 
 What --check covers, and what it does not:
   * Planner against the map (always): the planner's Clear/Cleanse polarity tables, its kind -> tag names, the
-    hostile ground kinds, and a scan of planner2.py, turn.py and shotplan.py for numeric cap literals beside
-    absorb / reflect / lifesteal / afterburn / parry terms (they must use combat_map.CAP_*).
-  * Map against the game (only with --game PATH, or TNR_GAME_SRC set): re-reads every constant in rules.json
-    from that game checkout and compares value, symbol and file:line, and checks the checkout's git HEAD against
-    the map's pinned commit (a copy without git metadata is compared but reported as revision-unverified).
+    hostile ground kinds, and an ast scan of planner2.py, turn.py and shotplan.py for min() calls that cap an
+    absorb / reflect / lifesteal / afterburn / parry term with a number literal in any argument (they must use
+    combat_map.CAP_*).
+  * Map against the game (only with --game PATH, or TNR_GAME_SRC set): checks that rules.json, tags.json and
+    interactions.json carry the same full 40-character pin, then re-reads every rules.json constant from that pinned
+    commit's git objects in the checkout (not its working tree) and compares value, symbol and file:line. A copy
+    without git metadata, or one missing the pinned commit, fails.
   * Not covered: tags.json, interactions.json and engine.md text are never re-read against the game; they are
     hand-checked (docs/combat-engine/_build/curation.py). A passing --check without --game says nothing about
     the game source at all.
 
 The map wins over a hardcoded guess. When the check fails, fix the planner table or, if the map is out of date
 with the game, regenerate the map (docs/combat-engine/README.md) and say which in the commit.
-Set TNR_COMBAT_MAP to another docs/combat-engine directory to read a different copy.
+Set TNR_COMBAT_MAP to another directory holding tags.json, interactions.json and rules.json to read a different
+copy of the data; the reader code always comes from this checkout.
 """
+import ast
 import importlib.util
 import json
 import os
@@ -173,22 +177,38 @@ def check_planner():
 
 _CAP_TERM = re.compile(r"absorb|reflect|lifesteal|leech|afterburn|parry|\b(?:PAR|ABS|PABS|REF|PREF|LS|PLS|AFB)\b"
                        r"|\b(?:par|ab|refl|ls)\b")
-_NUM_IN_MIN = re.compile(r"\bmin\(\s*(?:\d+\.\d*|\.\d+|\d+)\s*,")
+
+
+def _is_number(node):
+    if isinstance(node, ast.UnaryOp) and isinstance(node.op, (ast.USub, ast.UAdd)):
+        node = node.operand
+    return isinstance(node, ast.Constant) and isinstance(node.value, (int, float)) and not isinstance(node.value, bool)
 
 
 def cap_literals(path):
-    """Lines of a planner file that cap an absorb/reflect/leech/afterburn/parry term with a number literal."""
+    """min() calls in a planner file that cap an absorb/reflect/leech/afterburn/parry term with a number literal,
+    in any argument position and across lines (parsed with ast, so formatting doesn't hide one)."""
+    src = open(path).read()
     out = []
-    for i, line in enumerate(open(path), 1):
-        code = line.split("#", 1)[0]
-        if _NUM_IN_MIN.search(code) and _CAP_TERM.search(code):
-            out.append(f"{os.path.basename(path)}:{i} caps with a literal; use combat_map.CAP_*: {code.strip()}")
+    for node in ast.walk(ast.parse(src, filename=path)):
+        if not (isinstance(node, ast.Call) and isinstance(node.func, ast.Name) and node.func.id == "min"):
+            continue
+        nums = [x for x in node.args if _is_number(x)]
+        terms = [ast.get_source_segment(src, x) or "" for x in node.args if not _is_number(x)]
+        if nums and any(_CAP_TERM.search(t) for t in terms):
+            seg = " ".join((ast.get_source_segment(src, node) or "").split())
+            out.append(f"{os.path.basename(path)}:{node.lineno} caps with a literal; use combat_map.CAP_*: {seg}")
     return out
 
 
+# The reader is code, so it always comes from this tools checkout; TNR_COMBAT_MAP only chooses the data files.
+_OWN_MAP_DIR = os.path.normpath(os.path.join(HERE, "..", "..", "..", "..", "docs", "combat-engine"))
+_HEX40 = re.compile(r"^[0-9a-f]{40}$")
+
+
 def _rules_builder():
-    """docs/combat-engine/_build/rules.py, the same reader that wrote rules.json."""
-    path = os.path.join(MAP_DIR, "_build", "rules.py")
+    """docs/combat-engine/_build/rules.py from this checkout, the same reader that wrote rules.json."""
+    path = os.path.join(_OWN_MAP_DIR, "_build", "rules.py")
     spec = importlib.util.spec_from_file_location("combat_engine_rules", path)
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
@@ -196,24 +216,38 @@ def _rules_builder():
 
 
 def check_source(game_root):
-    """rules.json against the game source at game_root. Returns (mismatches, notes)."""
+    """rules.json against the game source at game_root, read from the pinned commit's git objects (never the
+    working tree, so local edits can't pass as the pinned revision). Returns (mismatches, notes)."""
     bad, notes = [], []
     if not _RULES:
         return [f"rules.json not found at {MAP_DIR}"], notes
+    pin = _RULES.get("pinned_game_commit") or ""
+    if not _HEX40.match(pin):
+        return [f"rules.json pin {pin!r} is not a full 40-character commit"], notes
+    for name, data in (("tags.json", _TAGS), ("interactions.json", _EDGES)):
+        other = (data or {}).get("pinned_game_commit")
+        if other != pin:
+            bad.append(f"{name} is pinned to {other!r}, rules.json to {pin}: the map is not one bundle")
     if not os.path.isdir(game_root):
-        return [f"game source not found at {game_root}"], notes
+        return bad + [f"game source not found at {game_root}"], notes
     R = _rules_builder()
-    try:
-        live = R.read_constants(game_root)
-    except (OSError, ValueError) as e:
-        return [f"could not read the game constants: {e}"], notes
-    pinned = _RULES.get("pinned_game_commit") or ""
+    if not R.git_head(game_root):
+        return bad + [f"{game_root} is not a git checkout, so the pinned revision can't be verified; use a clone "
+                      f"that contains {pin}"], notes
+    commit = R.resolve_commit(game_root, pin)
+    if commit != pin:
+        return bad + [f"pinned commit {pin} is not in the history at {game_root}"], notes
     head = R.git_head(game_root)
-    if not head:
-        notes.append(f"{game_root} has no git metadata: values compared, but not that it is at {pinned}")
-    elif not (head.startswith(pinned) or pinned.startswith(head)):
-        bad.append(f"game checkout is at {head}; the map is pinned to {pinned} (regenerate the map or check out "
-                   f"{pinned})")
+    if head != pin:
+        notes.append(f"checkout HEAD is {head}; checked the pinned commit's files, not HEAD's")
+    changed = R.changed_files(game_root, pin)
+    if changed:
+        notes.append(f"working tree differs from {pin[:12]} in {', '.join(changed)}; ignored, the pinned objects "
+                     f"were checked")
+    try:
+        live = R.read_constants(game_root, pin)
+    except (OSError, ValueError) as e:
+        return bad + [f"could not read the game constants: {e}"], notes
     for grp, entries in live.items():
         mine = _RULES.get(grp, {})
         for key, e in entries.items():

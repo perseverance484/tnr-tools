@@ -17,7 +17,7 @@ calculation: [static]   # default static
 own_fields:   # zod expressions resolved from the schema (helpers, spreads, extend); fields inherited unchanged from BaseAttributes/PowerAttributes are in engine.md section 6
   apReduction: z.coerce.number().int().min(0).max(100).prefault(10)
 live_usage_2026_11_21: {jutsu: 44, pvp_legal: 41}
-source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b5ebda9c319eb72e80670229b0b72ea9ac, paths under app/src
   - libs/combat/tags.ts stun (line 2450)
   - libs/combat/process.ts first reference (line 1588)
   - "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)"

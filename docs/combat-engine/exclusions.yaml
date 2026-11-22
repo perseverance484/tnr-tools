@@ -4,7 +4,7 @@
 # even with different numbers, a different trigger or a different target.
 # Changing WHEN or HOW MUCH doesn't make it new. It has to do something no row does.
 # Check a proposal against: this file, interactions.json (kind: overlaps), and each nearby tag's file in tags/.
-pinned_game_commit: 29cd91b
+pinned_game_commit: 29cd91b5ebda9c319eb72e80670229b0b72ea9ac
 areas:
   - area: Damage now
     tags: [damage, pierce, elementaldamage, onehitkill, weakness]
@@ -14,7 +14,7 @@ areas:
     owns: deals or takes damage over time, or stores damage or healing to land later
   - area: Damage scaling
     tags: [increasedamagegiven, decreasedamagegiven, increasedamagetaken, decreasedamagetaken, increasepotency, decreasepotency, increasestat, decreasestat, increasemastery, decreasemastery]
-    owns: raises or lowers how hard someone hits or gets hit, through percentage or flat damage given/taken modifiers, the stats and masteries the damage formula reads, or jutsu potency. These are the modifiers the engine implements; none caps a hit or flips damage into healing (reductions stop at 0 and at the 10% floor, engine.md 4).
+    owns: raises or lowers how hard someone hits or gets hit, through percentage or flat damage given/taken modifiers, the stats the damage formula reads (offence, defence and the matching generals), or jutsu potency. It also holds the mastery tags, which change mastery values and so can open or close jutsu and items gated on mastery (actions.ts:242, 293); mastery is not a damage-formula input. These are the modifiers the engine implements; none caps a hit or flips damage into healing (reductions stop at 0 and at the 10% floor, engine.md 4).
   - area: Soak damage
     tags: [shield, barrier, absorb, siphon, consume, finalstand]
     owns: soaks incoming damage in a separate HP bar (shield, barrier), turns damage dealt or taken into shields or pools (siphon, consume, absorb), or stops a packet at 1 HP while active (finalstand). Percentage and flat damage reduction belong to Damage scaling.

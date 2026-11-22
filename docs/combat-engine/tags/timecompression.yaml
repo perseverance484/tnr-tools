@@ -18,7 +18,7 @@ own_fields:   # zod expressions resolved from the schema (helpers, spreads, exte
   generalTypes: z.array(z.enum(GeneralTypes)).optional()   # from IncludeGeneralsAndElements via TimeShiftAttributes
   elements: z.array(z.enum(ElementNames)).optional()   # from IncludeGeneralsAndElements via TimeShiftAttributes
 live_usage_2026_11_21: {jutsu: 4, pvp_legal: 4}
-source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b5ebda9c319eb72e80670229b0b72ea9ac, paths under app/src
   - libs/combat/tags.ts temporalShift (line 2499)
   - libs/combat/process.ts first reference (line 1682)
   - "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)"

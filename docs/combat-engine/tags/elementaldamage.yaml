@@ -19,7 +19,7 @@ own_fields:   # zod expressions resolved from the schema (helpers, spreads, exte
   allowBloodlineDamageIncrease: z.coerce.boolean().prefault(true)   # from DamageTag
   allowBloodlineDamageDecrease: z.coerce.boolean().prefault(true)   # from DamageTag
 live_usage_2026_11_21: {jutsu: 0, pvp_legal: 0}
-source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b5ebda9c319eb72e80670229b0b72ea9ac, paths under app/src
   - "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects), as damage (line 453)"
   - "libs/combat/util.ts EFFECT_SORT_RANK rank 36, as damage (line 1104)"
   - libs/combat/elementalDamage.ts resolveElementalDamage (line 23)

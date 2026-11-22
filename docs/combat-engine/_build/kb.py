@@ -285,7 +285,14 @@ def build(game_root, data, resolved, out_dir, interactions=None):
     ranks, unranked_line = g.sort_ranks()
     passes = g.dispatch()
     rtags = resolved["tags"]
-    commit = resolved.get("game_repo_head") or "unknown"
+    commit = resolved.get("game_repo_head") or ""
+    if not re.fullmatch(r"[0-9a-f]{40}", commit):
+        raise BuildError(f"extract output has no full game commit ({commit!r}); rerun extract.py")
+    head = X.git_head(game_root)
+    if head and head != commit:
+        raise BuildError(f"game checkout is at {head}, the extract output at {commit}")
+    if head and X.dirty_files(game_root):
+        raise BuildError("game checkout has local changes; build only from a clean checkout")
     warnings = []
     if interactions is not None:
         edges = [{"s": e["from"], "t": e["to"], "k": e["kind"]} for e in interactions["edges"]]

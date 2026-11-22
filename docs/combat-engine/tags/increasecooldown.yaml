@@ -17,7 +17,7 @@ own_fields:   # zod expressions resolved from the schema (helpers, spreads, exte
   calculation: "z.enum([\"static\"]).prefault(\"static\")"   # from basicActionTag
   actionsAffected: z.array(z.enum(AdjustableBasicActions)).optional()   # from basicActionTag
 live_usage_2026_11_21: {jutsu: 0, pvp_legal: 0}
-source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b5ebda9c319eb72e80670229b0b72ea9ac, paths under app/src
   - libs/combat/tags.ts increaseCooldown (line 839)
   - libs/combat/process.ts first reference (line 1614)
   - "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)"

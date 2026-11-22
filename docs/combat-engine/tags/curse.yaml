@@ -17,7 +17,7 @@ own_fields:   # zod expressions resolved from the schema (helpers, spreads, exte
   calculation: "z.literal(\"percentage\").prefault(\"percentage\")"
   damageBonusPercent: z.coerce.number().min(0).max(1000).prefault(0)
 live_usage_2026_11_21: {jutsu: 2, pvp_legal: 2}
-source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b5ebda9c319eb72e80670229b0b72ea9ac, paths under app/src
   - libs/combat/tags.ts curse (line 1657)
   - libs/combat/process.ts first reference (line 668)
   - "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)"

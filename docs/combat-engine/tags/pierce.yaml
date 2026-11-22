@@ -2,7 +2,7 @@ tag: pierce
 schema: validators/combat.ts PierceTag (line 672)
 exclusion_area: Damage now
 in_game_text: Deals piercing damage to target
-behavior: "Pierce computes its raw number the same way as Damage: formula, static or percentage, with dmgModifier, residualModifier, Weakness, and the barrier cut on instant hits. It resolves after the damage pipeline, so no Curse bonus, damage increase, damage reduction or damage floor applies. It reads the stats from before the action's main pass, so a stat change resolved in the same action doesn't reach it. It isn't soaked by shields. Instead it sets every enabled shield on the target to 0, and Final Stand still applies. If the target's Diffuse defers part of it, shields soak the immediate part like ordinary damage and are destroyed only if positive Reflect is still on that Pierce hit when mitigation runs (if the attacker's own Diffuse defers that Reflect, it moves to a separate hit and the shields survive). Parry, Recoil and Afterburn ignore Pierce. Lifesteal, Absorb, Reflect, Wound and Vamp read an instant Pierce hit, and Lifesteal, Absorb and Reflect skip their general filter for it. Curse stores HP lost to it. With rounds above 0 it deals nothing on cast and ticks on later rounds."
+behavior: "Pierce computes its raw number the same way as Damage: formula, static or percentage, with dmgModifier, residualModifier, Weakness, and the barrier cut on instant hits. It resolves after the damage pipeline, so no Curse bonus, damage increase, damage reduction or damage floor applies. It reads the stats from before the action's main pass, so a stat change resolved in the same action doesn't reach it. It isn't soaked by shields. Instead it sets every enabled shield on the target to 0, and Final Stand still applies. If the target's Diffuse defers part of it, shields soak the immediate part like ordinary damage and are destroyed only if positive Reflect is still on that Pierce hit when mitigation runs (if the attacker's own Diffuse defers that Reflect, it moves to a separate hit and the shields avoid forced destruction, though they can still be spent soaking the hit). Parry, Recoil and Afterburn ignore Pierce. Lifesteal, Absorb, Reflect, Wound and Vamp read an instant Pierce hit, and Lifesteal, Absorb and Reflect skip their general filter for it. Curse stores HP lost to it. With rounds above 0 it deals nothing on cast and ticks on later rounds."
 polarity: negative   # positive = Clear removes; negative = Cleanse removes; neutral = neither
 prevented_by: []   # no prevent check in its handler
 copy_can_take: false
@@ -22,7 +22,7 @@ own_fields:   # zod expressions resolved from the schema (helpers, spreads, exte
   allowBloodlineDamageIncrease: z.coerce.boolean().prefault(true)   # from DamageTag
   allowBloodlineDamageDecrease: z.coerce.boolean().prefault(true)   # from DamageTag
 live_usage_2026_11_21: {jutsu: 49, pvp_legal: 44}
-source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b5ebda9c319eb72e80670229b0b72ea9ac, paths under app/src
   - libs/combat/tags.ts damageUser (line 1435)
   - libs/combat/process.ts first reference (line 1525)
   - "libs/combat/process.ts applyEffects pierce pass, after the damage pipeline (line 618)"

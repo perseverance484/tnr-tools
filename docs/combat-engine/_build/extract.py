@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 """Resolve every tag schema in validators/combat.ts AllTags into its full field list.
 
-Usage: python3 extract.py GAME_REPO_ROOT OUT_JSON [--legacy-raw TAGS_RAW_JSON]
+Usage: python3 extract.py GAME_REPO_ROOT OUT_JSON [--legacy-raw TAGS_RAW_JSON] [--revision FULL_SHA]
+
+GAME_REPO_ROOT must be a clean git checkout (its full HEAD SHA is recorded), or a copy without git metadata with
+--revision naming the full commit it came from.
 
 GAME_REPO_ROOT is the TheNinjaRPG checkout (the directory holding app/). For each schema in
 the AllTags union this follows helper constructors (simpleTag, basicActionTag,
@@ -621,14 +624,38 @@ def literal_arg(expr):
 
 
 def git_head(root):
-    try:
-        return subprocess.run(["git", "-C", root, "rev-parse", "--short", "HEAD"], capture_output=True,
-                              text=True, check=True).stdout.strip()
-    except Exception:
-        return None
+    """Full HEAD SHA of the game checkout, or None when it has no git metadata."""
+    r = subprocess.run(["git", "-C", root, "rev-parse", "--verify", "HEAD^{commit}"], capture_output=True, text=True)
+    return r.stdout.strip() if r.returncode == 0 else None
 
 
-def extract(root):
+def dirty_files(root):
+    """Tracked files under app/ that differ from HEAD (the build reads the working tree)."""
+    r = subprocess.run(["git", "-C", root, "status", "--porcelain", "--untracked-files=no", "--", "app"],
+                       capture_output=True, text=True)
+    return [x[3:] for x in r.stdout.splitlines() if x.strip()]
+
+
+def pinned_revision(root, revision=None):
+    """The full commit the build is pinned to: HEAD of a clean checkout, or --revision (40 hex) for a copy without
+    git metadata. Raises ValueError otherwise, so generated files never carry a dirty or ambiguous pin."""
+    head = git_head(root)
+    if head:
+        if revision and not head.startswith(revision.lower()):
+            raise ValueError(f"--revision {revision} is not the checkout's HEAD {head}")
+        dirty = dirty_files(root)
+        if dirty:
+            raise ValueError(f"game checkout has local changes ({', '.join(dirty[:5])}); build only from a clean "
+                             f"checkout of the pinned commit")
+        return head
+    rev = (revision or "").strip().lower()
+    if not re.fullmatch(r"[0-9a-f]{40}", rev):
+        raise ValueError(f"{root} is not a git checkout; pass --revision with the full 40-character game commit")
+    return rev
+
+
+def extract(root, revision=None):
+    commit = pinned_revision(root, revision)
     r = Resolver(root)
     mod = r.module(COMBAT)
     s = mod.src
@@ -676,7 +703,7 @@ def extract(root):
     if len(tags) != len(names):
         r.unresolved.append(f"AllTags has {len(names)} schemas, resolved {len(tags)} types")
     return {
-        "game_repo_head": git_head(root),
+        "game_repo_head": commit,
         "schema_file": COMBAT,
         "all_tags_count": len(names),
         "tags": tags,
@@ -703,7 +730,11 @@ def legacy_raw(result):
 
 def main(argv):
     args = argv[1:]
-    legacy = None
+    legacy = revision = None
+    if "--revision" in args:
+        i = args.index("--revision")
+        revision = args[i + 1]
+        del args[i:i + 2]
     if "--legacy-raw" in args:
         i = args.index("--legacy-raw")
         legacy = args[i + 1]
@@ -712,7 +743,11 @@ def main(argv):
         print(__doc__.strip().split("\n\n")[1], file=sys.stderr)
         return 2
     root, out = args
-    result = extract(root)
+    try:
+        result = extract(root, revision)
+    except ValueError as e:
+        print(f"extract.py: {e}", file=sys.stderr)
+        return 1
     clean = dict(result)
     clean["tags"] = {k: {kk: vv for kk, vv in v.items() if not kk.startswith("_")}
                      for k, v in sorted(result["tags"].items())}

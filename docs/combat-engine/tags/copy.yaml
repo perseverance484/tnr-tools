@@ -16,7 +16,7 @@ own_fields:   # zod expressions resolved from the schema (helpers, spreads, exte
   rounds: z.coerce.number().int().min(1).max(10).prefault(3)
   calculation: "z.enum([\"percentage\"]).prefault(\"percentage\")"
 live_usage_2026_11_21: {jutsu: 4, pvp_legal: 4}
-source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b5ebda9c319eb72e80670229b0b72ea9ac, paths under app/src
   - libs/combat/tags.ts copy (line 438)
   - libs/combat/process.ts first reference (line 1677)
   - "libs/combat/process.ts applyEffects copy and mirror pass, after ground effects and before the main pass (line 417)"

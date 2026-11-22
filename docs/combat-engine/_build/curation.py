@@ -100,6 +100,8 @@ LIVE = {
     "disarm": "action gate while active with rounds left and not cast this round",
     "elementalseal": "action gate while active with rounds left and not cast this round",
     "stun": "AP cut from the round after it lands",
+    "increasepoolcost": "as soon as it is on the holder and enabled (no next-round wait; util.ts:1146-1150)",
+    "decreasepoolcost": "as soon as it is on the holder and enabled (no next-round wait; util.ts:1146-1150)",
     "injectjutsus": ("as soon as it has resolved and is enabled: no next-round wait, so the jutsu can be used later in "
                      "the casting round (actions.ts:148-160)"),
 }
@@ -109,6 +111,11 @@ APPLIES = {
     "pierce": "rounds 0: once, on cast; rounds > 0: nothing on cast, then once a round on the holder's first action",
     "heal": "rounds 0: once, on cast; rounds > 0: nothing on cast, then once a round on the holder's first action",
     "poison": "on every action the holder takes, from the round after cast (no once-a-round limit)",
+    "finalstand": ("its roll: on the casting action, every other fighter's action and the holder's first action of "
+                   "each round; skipped on the holder's later actions in a round (no-rounds versions: every "
+                   "resolution). Its 1-HP floor: every packet while rounds > 0"),
+    "increasepoolcost": "read whenever an action's cost is computed (util.ts:1136-1165); the handler only reports",
+    "decreasepoolcost": "read whenever an action's cost is computed (util.ts:1136-1165); the handler only reports",
 }
 
 # ---------------------------------------------------------------------------------------------------------
@@ -158,7 +165,7 @@ BEHAVIOR = {
         "soaked by shields. Instead it sets every enabled shield on the target to 0, and Final Stand still "
         "applies. If the target's Diffuse defers part of it, shields soak the immediate part like ordinary damage "
         "and are destroyed only if positive Reflect is still on that Pierce hit when mitigation runs (if the "
-        "attacker's own Diffuse defers that Reflect, it moves to a separate hit and the shields survive). Parry, Recoil and Afterburn ignore Pierce. Lifesteal, Absorb, Reflect, Wound and "
+        "attacker's own Diffuse defers that Reflect, it moves to a separate hit and the shields avoid forced destruction, though they can still be spent soaking the hit). Parry, Recoil and Afterburn ignore Pierce. Lifesteal, Absorb, Reflect, Wound and "
         "Vamp read an instant Pierce hit, and Lifesteal, Absorb and Reflect skip their general filter for it. "
         "Curse stores HP lost to it. With rounds above 0 it deals nothing on cast and ticks on later rounds."),
     "decreasedamagetaken": (
@@ -198,8 +205,10 @@ BEHAVIOR = {
         "side of the original hit, not the shields of the player taking it. It's positive, so Clear removes it "
         "and Copy can take it."),
     "finalstand": (
-        "Rolls power% every time it resolves, which is every action while it lasts, and the first failed roll "
-        "sets its rounds to 0 and ends it (tags.ts:2238-2255). While active, each separate damage packet that would leave the holder below 1 "
+        "Rolls power% on each eligible resolution and the first failed roll sets its rounds to 0 and ends it "
+        "(tags.ts:2238-2255). A finite one rolls on its casting action, on every other fighter's action and on its "
+        "holder's first action of each round, and skips its holder's later actions in a round (util.ts:856-876). "
+        "One with no rounds rolls on every resolution, and a failed roll ends it for the fight. While active, each separate damage packet that would leave the holder below 1 "
         "HP is cut to leave exactly 1 HP. Each packet is checked against HP as it stood before the action's "
         "damage, so several packets that are each survivable can still kill together (two 60s on a 100-HP holder "
         "kill). It applies to direct, residual, Pierce, wound, parry return, reflect and recoil damage, to the "

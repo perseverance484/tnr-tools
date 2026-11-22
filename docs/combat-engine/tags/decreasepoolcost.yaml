@@ -10,7 +10,8 @@ mirror_can_pass: false
 potency_eligible: false
 immunity_can_cancel: false
 stage: S3 main pass
-applies: "on landing, then once a round when the holder acts"
+live_from: "as soon as it is on the holder and enabled (no next-round wait; util.ts:1146-1150)"
+applies: "read whenever an action's cost is computed (util.ts:1136-1165); the handler only reports"
 calculation: [static, percentage]   # default percentage
 own_fields:   # zod expressions resolved from the schema (helpers, spreads, extend); fields inherited unchanged from BaseAttributes/PowerAttributes are in engine.md section 6
   rounds: z.coerce.number().int().min(2).max(20).prefault(2)   # from PoolCostAttributes
@@ -18,7 +19,7 @@ own_fields:   # zod expressions resolved from the schema (helpers, spreads, exte
   calculation: "z.enum([\"static\", \"percentage\"]).prefault(\"percentage\")"   # from PercentageCalculation via PoolCostAttributes
   poolsAffected: "z.array(z.enum(PoolTypes)).prefault([\"Health\"]).optional()"   # from PoolAttributes via PoolCostAttributes
 live_usage_2026_11_21: {jutsu: 1, pvp_legal: 1}
-source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b, paths under app/src
+source:   # game repo studie-tech/TheNinjaRPG @ 29cd91b5ebda9c319eb72e80670229b0b72ea9ac, paths under app/src
   - libs/combat/tags.ts decreasepoolcost (line 1653)
   - libs/combat/process.ts first reference (line 1542)
   - "libs/combat/process.ts applyEffects main pass (nonDamageModifierEffects, sorted by sortEffects) (line 453)"

@@ -2,11 +2,12 @@
 """Write docs/combat-engine/rules.json: the engine's numeric combat constants (caps, base pools, timing), each read
 from the game source with its file and line, so tools load numbers instead of hardcoding them.
 
-    python3 rules.py /path/to/TheNinjaRPG [out.json] [--revision SHORT_SHA]
+    python3 rules.py /path/to/TheNinjaRPG [out.json] [--revision FULL_SHA]
 
-The game root must be a git checkout (its HEAD is recorded as pinned_game_commit). For an archive or any copy
-without git metadata, pass --revision with the commit it was taken from; with neither, the script exits 1 rather
-than write an empty commit. read_constants() is shared with combat_map.py --check --game.
+In a git checkout the constants are read from the HEAD commit's objects, the full SHA is recorded as
+pinned_game_commit, and the script exits 1 if the two source files differ from HEAD. For an archive or any copy
+without git metadata, pass --revision with the full 40-character commit it was taken from; without it the script
+exits 1 rather than write an empty or ambiguous pin. read_constants() is shared with combat_map.py --check --game.
 """
 import argparse
 import json
@@ -45,12 +46,55 @@ def value(raw):
     return float(raw) if "." in raw else int(raw)
 
 
-def read_constants(root):
-    """{group: {key: {value, what, source}}} for every name in NAMES, read from the game source at root."""
+HEX40 = re.compile(r"^[0-9a-f]{40}$")
+
+
+def _git(root, *args):
+    return subprocess.run(["git", "-C", root, *args], capture_output=True, text=True)
+
+
+def git_head(root):
+    """Full HEAD SHA of root, or "" when root is not a git checkout."""
+    r = _git(root, "rev-parse", "--verify", "HEAD^{commit}")
+    return r.stdout.strip() if r.returncode == 0 else ""
+
+
+def resolve_commit(root, rev):
+    """Full SHA of rev in root's git history, or "" when it isn't there."""
+    if not rev:
+        return ""
+    r = _git(root, "rev-parse", "--verify", "--quiet", f"{rev}^{{commit}}")
+    return r.stdout.strip() if r.returncode == 0 else ""
+
+
+def changed_files(root, commit):
+    """FILES whose working copy differs from commit (empty for a clean tree)."""
+    out = []
+    for rel in FILES:
+        path = os.path.join(root, rel)
+        want = _git(root, "show", f"{commit}:{rel}").stdout
+        have = open(path).read() if os.path.exists(path) else None
+        if have != want:
+            out.append(rel)
+    return out
+
+
+def _lines(root, rel, commit):
+    if commit:
+        r = _git(root, "show", f"{commit}:{rel}")
+        if r.returncode != 0:
+            raise ValueError(f"{rel} not in commit {commit}: {r.stderr.strip()}")
+        return r.stdout.splitlines(keepends=True)
+    return open(os.path.join(root, rel)).readlines()
+
+
+def read_constants(root, commit=None):
+    """{group: {key: {value, what, source}}} for every name in NAMES. With commit, read from that git object, not
+    the working tree, so local edits can't stand in for the pinned revision."""
     res = {"caps": {}, "base": {}, "timing": {}, "stacking": {}}
     found = set()
     for rel in FILES:
-        for i, line in enumerate(open(os.path.join(root, rel)), 1):
+        for i, line in enumerate(_lines(root, rel, commit), 1):
             m = re.match(r"export const (\w+) = ([\w.]+);", line)
             if m and m.group(1) in NAMES:
                 grp, key, what = NAMES[m.group(1)]
@@ -63,27 +107,28 @@ def read_constants(root):
     return res
 
 
-def git_head(root):
-    """Short HEAD of root, or "" when root is not a git checkout."""
-    r = subprocess.run(["git", "-C", root, "rev-parse", "--short", "HEAD"], capture_output=True, text=True)
-    return r.stdout.strip() if r.returncode == 0 else ""
-
-
 def main(argv):
     ap = argparse.ArgumentParser(description="Write rules.json from the game source.")
     ap.add_argument("game_root")
     ap.add_argument("out", nargs="?", default=os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
                                                          "rules.json"))
-    ap.add_argument("--revision", help="game commit to record when game_root has no git metadata")
+    ap.add_argument("--revision", help="full 40-character game commit; required when game_root has no git metadata")
     a = ap.parse_args(argv)
     head = git_head(a.game_root)
-    if head and a.revision and not head.startswith(a.revision[:len(head)]) and not a.revision.startswith(head):
-        sys.exit(f"--revision {a.revision} does not match the checkout's HEAD {head}")
-    commit = head or (a.revision or "").strip()
-    if not commit:
-        sys.exit(f"{a.game_root} is not a git checkout; pass --revision with the game commit it was taken from")
+    if head:
+        commit = head
+        if a.revision and resolve_commit(a.game_root, a.revision) != head:
+            sys.exit(f"--revision {a.revision} is not the checkout's HEAD {head}")
+        changed = changed_files(a.game_root, commit)
+        if changed:
+            sys.exit(f"{', '.join(changed)} differ from HEAD {head}; commit or discard the changes first")
+    else:
+        commit = (a.revision or "").strip().lower()
+        if not HEX40.match(commit):
+            sys.exit(f"{a.game_root} is not a git checkout; pass --revision with the full 40-character game commit "
+                     f"it was taken from")
     try:
-        res = read_constants(a.game_root)
+        res = read_constants(a.game_root, commit if head else None)
     except ValueError as e:
         sys.exit(str(e))
     res = {"pinned_game_commit": commit, **res}

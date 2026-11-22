@@ -69,13 +69,13 @@ Link counts: removes 64, prevents 43, transfers 33, boosts 32, weakens 31, count
 
 ```bash
 export PYTHONDONTWRITEBYTECODE=1
-GAME=/tmp/tnrgit/repo          # a git checkout of studie-tech/TheNinjaRPG at the pinned commit
+GAME=/tmp/tnrgit/repo          # a clean git checkout of studie-tech/TheNinjaRPG at the pinned commit
 OUT=$(mktemp -d)
 python3 extract.py $GAME $OUT/tags_resolved.json --legacy-raw $OUT/tags_raw.json
 python3 edges.py ../interactions.json                       # link edits from curation.py; idempotent
 python3 kb.py $GAME data.json $OUT/kb --extract $OUT/tags_resolved.json --interactions ../interactions.json
 diff -ru ../tags $OUT/kb/tags                               # review, then copy tags/ and tags.json over
-python3 rules.py $GAME ../rules.json                        # a copy without .git needs --revision SHA
+python3 rules.py $GAME ../rules.json                        # a copy without .git needs --revision FULL_SHA
 python3 ../../../state/player/dauntless/tools/combat_map.py --check --game $GAME
 ```
 
@@ -90,8 +90,8 @@ python3 ../../../state/player/dauntless/tools/combat_map.py --check --game $GAME
   prevent_check, link edits and kind definitions. Change engine facts here, with a source line.
 - `kb.py` writes `tags/` and `tags.json`. Sort ranks are read only from the `EFFECT_SORT_RANK` map (following
   spreads), dispatch passes from `applyEffects`, and every extra citation is looked up at its definition.
-- `rules.py` reads the numeric constants into `rules.json` and records the checkout's git HEAD. It exits 1 instead of writing an empty commit when the game root has no git metadata, unless `--revision SHA` names the commit the copy came from.
-- `combat_map.py --check` checks the planner against the map (polarity tables, tag names, hostile ground kinds, no numeric cap literals). With `--game PATH` (or `TNR_GAME_SRC`) it also re-reads every rules.json constant from that checkout, compares value, symbol and file:line, and checks HEAD against the pinned commit. Nothing re-reads tags.json, interactions.json or engine.md against the game; those are hand-checked in `curation.py`.
+- Pins are the full 40-character SHA everywhere (`tags.json`, `tags/*.yaml`, `interactions.json`, `rules.json`, `exclusions.yaml`), so output doesn't depend on git's abbreviation setting. `extract.py`, `kb.py` and `rules.py` exit 1 on a checkout with local changes, and on a copy without git metadata unless `--revision FULL_SHA` (extract.py, rules.py; kb.py takes the pin from the extract output) names its commit. `rules.py` reads the constants from HEAD's git objects. Run in order, the steps above reproduce the committed files byte for byte.
+- `combat_map.py --check` checks the planner against the map (polarity tables, tag names, hostile ground kinds, no numeric cap literals). With `--game PATH` (or `TNR_GAME_SRC`) it also requires one full pin across `rules.json`, `tags.json` and `interactions.json`, then re-reads every rules.json constant from that pinned commit's git objects (never the working tree) and compares value, symbol and file:line; a copy without git metadata fails. `TNR_COMBAT_MAP` swaps only the data files; the reader code comes from this checkout. Nothing re-reads tags.json, interactions.json or engine.md against the game; those are hand-checked in `curation.py`.
 
 When the game source moves past `29cd91b`, re-read the handlers cited in each file before trusting a line; line
 numbers will drift first.
