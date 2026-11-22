@@ -30,7 +30,7 @@ import dress_v21 as D  # noqa: E402
 V, M, BV = D.V, D.M, D.BV
 W, H, TW, TH, SRC, GROUND = D.W, D.H, D.TW, D.TH, D.SRC, D.GROUND
 SQ, xform, put, SEC, SEAL_R = D.SQ, D.xform, D.put, D.SEC, D.SEAL_R
-STEP = 50
+STEP = int(os.environ.get("FCF_STEP", "20"))   # ms per frame; the engine takes 1-100, the display caps it
 K2 = {}
 for f in sorted(glob.glob(os.path.join(HERE, "sprites", "*.png"))):
     K2.setdefault(os.path.basename(f).split("_")[0], []).append(Image.open(f).convert("RGBA"))
@@ -116,9 +116,12 @@ def main(seed=22):
     shards = [(i * math.pi / 4 + 0.3, D.SHARDS[i]) for i in range(8)]
     frames, labels = [], []
     for t in range(0, 1350, STEP):
+        w50 = (t // 50) * 50                       # which 50 ms window (lightning strobes hold per window)
         fr = D.board()
         beat = ""
-        dim = {CLIMAX: 0.55, CLIMAX + 50: 0.4, CLIMAX + 100: 0.4, CLIMAX + 150: 0.25, CLIMAX + 200: 0.12}.get(t, 0)
+        dim = 0
+        if CLIMAX <= t < CLIMAX + 250:
+            dim = 0.55 * (1 - V.ease_out((t - CLIMAX) / 250)) + 0.12 * ((t - CLIMAX) / 250 < 1)
         if 0 < t < CLIMAX:
             dim = max(dim, 0.18 * min(1, t / 300))       # the area hushes while the seal breaks
         if dim:
@@ -156,9 +159,9 @@ def main(seed=22):
                 put(fr, xform(img, TW * 0.16 * sc, u * 300 * drift, 0.9 * (1 - u)), x, y)
         # ------------------------------------------------ eruption: chakra flames at the feet
         if 300 <= t < 1100:
-            if t == 300:
+            if 300 <= t < 360:
                 beat = "ERUPTION"
-                put(fr, xform(V.FLASH[2], TW * 1.2, 0, 0.9), *SRC)
+                put(fr, xform(V.FLASH[2], TW * (1.2 + (t - 300) / 200), 0, 0.9 * (1 - (t - 300) / 60)), *SRC)
             for a, img, sc in flames:
                 e = min(1, (t - 300) / 100) * (1 if t < 900 else 1 - (t - 900) / 200)
                 x = GROUND[0] + math.cos(math.radians(a)) * TW * 0.6
@@ -171,22 +174,22 @@ def main(seed=22):
         for t0, e, img, flip in whips:
             ph = t - t0
             if 0 <= ph < 250:
-                if ph < 25:
+                if ph < STEP:
                     beat = beat or ("FURY 1" if t0 < 550 else "FURY 2")
-                grow = 0.55 if ph < 50 else 1.0
-                alpha = 1.0 if ph < 100 else (0.5 if ph < 150 else 0.2)
+                grow = V.ease_out(min(1, ph / 70))
+                alpha = 1.0 if ph < 90 else max(0.0, 1 - (ph - 90) / 160) ** 1.5
                 spr, c = whip(img, SRC, e, alpha, grow, flip)
                 put(fr, spr, *c)
                 if 50 <= ph < 150:
                     put(fr, xform(BURSTS[(t0 // 25) % len(BURSTS)], TW * 0.8, rnd.uniform(0, 360) if False else 0,
-                                  0.95 if ph < 100 else 0.5), *e)
+                                  0.95 * (1 - (ph - 50) / 100) ** 0.7), *e)
         # ------------------------------------------------ fury beat 3: the climax (v21)
-        if t == CLIMAX:
+        if CLIMAX <= t < CLIMAX + 50:
             beat = "CLIMAX"
             for e, img, flip, th in mb:
-                s, c = D.bolt_sprite(img, SRC, e, th * 1.15, 1.0, flip)
+                s, c = D.bolt_sprite(img, SRC, e, th * 1.15, 1.0 - (t - CLIMAX) / 150, flip)
                 put(fr, s, *c)
-            put(fr, xform(V.FLASH[3], TW * 1.7, 0, 0.92), *SRC)
+            put(fr, xform(V.FLASH[3], TW * (1.7 + (t - CLIMAX) / 80), 0, 0.92 * (1 - (t - CLIMAX) / 70)), *SRC)
         if CLIMAX <= t < CLIMAX + 400:
             u = (t - CLIMAX) / 400
             for a, img in shards:
@@ -195,7 +198,8 @@ def main(seed=22):
                     GROUND[0] + math.cos(a) * rr, GROUND[1] + math.sin(a) * rr * SQ - TH * 0.6 * math.sin(math.pi * u))
         if CLIMAX + 50 <= t < CLIMAX + 200:
             beat = beat or "FLICKER"
-            k, w = {CLIMAX + 50: (0.45, 0.8), CLIMAX + 100: (1.0, 1.0), CLIMAX + 150: (0.18, 0.7)}[t]
+            k, w = {CLIMAX + 50: (0.45, 0.8), CLIMAX + 100: (1.0, 1.0), CLIMAX + 150: (0.18, 0.7)}[w50]
+            k *= 1 - (t - w50) / 120             # each restrike decays inside its window
             for e, img, flip, th in mb:
                 s, c = D.bolt_sprite(img, SRC, e, th * w, k, flip)
                 put(fr, s, *c)
@@ -204,10 +208,11 @@ def main(seed=22):
             put(fr, xform(D.RING, TW * (2 + 9.4 * u), 0, SEC * (1 - u * 0.8), SQ), *GROUND)
         for t0, e, img, flip, th in sb:
             ph = t - t0
-            if ph in (0, 50):
-                s, c = D.bolt_sprite(img, SRC, e, th * (1 if ph == 0 else 0.8), 1.0 if ph == 0 else 0.4, flip)
+            if 0 <= ph < 100:
+                k = 1.0 - ph / 140 if ph < 50 else 0.4 * (1 - (ph - 50) / 60)
+                s, c = D.bolt_sprite(img, SRC, e, th * (1 if ph < 50 else 0.8), k, flip)
                 put(fr, s, *c)
-                if ph == 0:
+                if ph < STEP:
                     beat = beat or "STRAGGLERS"
         if CLIMAX < t < CLIMAX + 350:
             u = (t - CLIMAX) / 350
@@ -226,6 +231,19 @@ def main(seed=22):
                    loop=0)
     big = [f.resize((f.width * 2, f.height * 2), Image.LANCZOS) for f in frames]
     big[0].save(os.path.join(HERE, "fcf_v22_2x.gif"), save_all=True, append_images=big[1:], duration=STEP, loop=0)
+    import subprocess
+    tmp = os.path.join(HERE, "_mp4")
+    os.makedirs(tmp, exist_ok=True)
+    for i, f in enumerate(big):
+        f.save(os.path.join(tmp, f"{i:03d}.png"))
+    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-framerate", str(1000 / STEP), "-i", os.path.join(tmp, "%03d.png"),
+                    "-vf", "loop=2:size=%d" % len(big), "-c:v", "libx264", "-pix_fmt", "yuv420p", "-crf", "16",
+                    os.path.join(HERE, "fcf_v22_2x.mp4")], check=True)
+    for f in glob.glob(os.path.join(tmp, "*.png")):
+        os.remove(f)
+    os.rmdir(tmp)
+    keep = [i for i, (t, _) in enumerate(labels) if t % 50 == 0]      # the sheet stays at 50 ms steps
+    big, labels = [big[i] for i in keep], [labels[i] for i in keep]
     cols = 4
     fw, fh = big[0].size
     sheet = Image.new("RGB", (fw * cols, (fh + 14) * ((len(big) + cols - 1) // cols)), (12, 12, 12))
