@@ -1,7 +1,7 @@
 # Upstream PR draft: let area effects vary per tile, and let one visual cover the area
 
 - Upstream: `studie-tech/TheNinjaRPG`, base `main` 3176d8585 (rebase again before opening).
-- Branch: `perseverance484/TheNinjaRPG` `feat/area-tile-variation`, head 736679f66 (two commits, authored as
+- Branch: `perseverance484/TheNinjaRPG` `feat/area-tile-variation`, head a90774150 (two commits, authored as
   perseverance484 with the Claude co-author line, like PR #2575).
 - Demo (drag into the PR description on GitHub, where the placeholder is):
   `art/jutsu_icons/forbidden_chakra_fury/animation/v24/pr_fcf_before_after.mp4` (or the `.gif` beside it, 6.8 MB).
@@ -9,8 +9,7 @@
   x 32-frame strips) and `v24/cut_full.py` (the whole move as one 14x visual on the user, a 7 x 7 grid sheet of 320 px
   cells). Playback uses the engine's tile hash ported to Python (`v10/board_v10.py`).
 - Lessons applied from PR #2575 (the maintainer added a commit to cover data-model cases we missed): the places the
-  comparable `animationScale` field reaches (commit 8bd670153) were followed, except the battlefield preview, left
-  out on purpose and stated; behaviours have a test that fails when the code is removed, except the audit
+  comparable `animationScale` field reaches (commit 8bd670153) were followed, the battlefield preview included; behaviours have a test that fails when the code is removed, except the audit
   snapshot's key lists, which are module-internal and untested upstream too; the description follows `AGENTS.md`.
 - Review round 1 (independent agent on 1fb401660): character visuals no longer vary, loops show at once at battle
   load, the alternate is previewed and sits beside the appear animation, tile (0,0) varies, the missing tests were
@@ -60,7 +59,7 @@ Two further changes let one clip cover the whole area:
 - The appear and disappear visuals that combat spawns for a ground effect keep its mirror, stagger, ripple and caster tile, as they keep `animationScale`; a lasting ground effect's loops and static art use the same settings. Only appear clips take the alternate.
 - Only ground effects a fighter places with an action record a caster tile; battle-start items and passive enemy-skill effects do not ripple. A ground effect's disappear visual ripples from where its caster stood when it was cast.
 - A ground effect that moves takes its new tile's orientation; its clips keep their timing.
-- When any effect of a cast has a projectile, none of that cast's impact clips add stagger or ripple (they still mirror and alternate): impacts land when the flights do, and the flights already spread by distance. Flights are neither mirrored nor delayed.
+- When any effect of a cast has a projectile, none of that cast's impact clips add stagger or ripple (they still mirror and alternate): impacts land when the flights do, and the flights already spread by distance. Flights are neither mirrored nor delayed, and the cast's disappear visuals keep their variation.
 - A departing effect's ground art (decal or static image) hides at once; a SURFACE-style clip keeps playing on the ground layer until it finishes.
 - Effects already on the board when a battle loads show at once; only arriving effects are staggered. With reduced motion, staggered and rippling tiles start together.
 - Variation adds no delay to sounds; they keep their existing timing, including the queueing used while fighters move.
@@ -132,3 +131,6 @@ By making this pull request, I confirm that I have the right to waive copyright 
   per cast; announcements lasting one snapshot; first-within-tolerance grid choice; preview dropping the variation
   settings) and four P3s (ContentImage grid test, raid router scale test, SURFACE decal assertion, upload form text),
   plus wording. Applied in 736679f66, each new test confirmed to fail without its fix.
+- Review round 10 (independent agent on 736679f66): PASS with P3s. Applied in a90774150: a disappear visual of a
+  projectile cast keeps its variation (test confirmed to fail without the fix); the ContentImage test restores
+  `Image` in a finally; the stale preview note fixed. The caster's-own-tile P3 stays as written.
