@@ -473,22 +473,33 @@ def run_turn(actor, other, acts, o, cap_a, cap_o, scale=1.0):
 
 
 # ------------------------------------------------------------------ legality
-def legal_bundles(st, R, ap, d0, loadout, me0, en0, ap_full=None, surcharge=0):
+def cleanse_refund(st, R, ap, ap_full, loadout, surcharge=0, blocked=False):
+    """Cleanse fired first gives the stun's AP back (turn.cleanse_refund): stunned, ready, affordable at the stunned
+    AP, and not blocked by "cannot be cleansed" (a blocked Cleanse leaves the stun on)."""
+    return bool(ap_full and ap_full > ap and "cleanse" in loadout and "cleanse" in cd_plan.ACTIONS
+                and cd_plan.ready_round(st, "cleanse") <= R and cd_plan.bundle_cost(("cleanse",), surcharge) <= ap
+                and not blocked)
+
+
+def legal_bundles(st, R, ap, d0, loadout, me0, en0, ap_full=None, surcharge=0, cleanse_blocked=False):
     """Every bundle of ready actions with cost in [ap-20, ap], range checked after moves, no shared-lock pairs.
     Stunned (ap < ap_full): AP is recomputed on every action as stored AP minus the live stun (engine actions.ts
     actionPointsAfterAction), so Cleanse fired first takes the stun off and the rest of the turn has ap_full - 60:
     a bundle with Cleanse may cost up to ap_full (Cleanse + a 40 on an 80-AP turn). Only when Cleanse itself fits
     the stunned AP: under a 60 stun (40 left) it cannot be cast, so nothing is given back.
-    surcharge: AP added to every jutsu this round (time compression), counted while the bundles are built."""
-    if ap_full and ap_full > ap and "cleanse" in loadout and "cleanse" in cd_plan.ACTIONS \
-            and cd_plan.ready_round(st, "cleanse") <= R and cd_plan.bundle_cost(("cleanse",), surcharge) <= ap:
+    surcharge: AP added to every jutsu this round (time compression), counted while the bundles are built.
+    cleanse_blocked: "cannot be cleansed" is live on me this round. Cleanse would remove nothing and give no AP back
+    (PR 130 review 2: Cleanse + Overflow was offered on an 80-AP turn), so it is left out altogether, which keeps the
+    AP rule and the simulated removal the same."""
+    if cleanse_refund(st, R, ap, ap_full, loadout, surcharge, cleanse_blocked):
         base = legal_bundles(st, R, ap, d0, loadout, me0, en0, surcharge=surcharge)
         seen = set(base)
         more = [b for b in legal_bundles(st, R, ap_full, d0, loadout, me0, en0, surcharge=surcharge)
                 if "cleanse" in b and b not in seen]
         return base + more
     A = cd_plan.ACTIONS
-    ready = [n for n in loadout if n in A and n in shotplan.MINE and cd_plan.ready_round(st, n) <= R]
+    ready = [n for n in loadout if n in A and n in shotplan.MINE and cd_plan.ready_round(st, n) <= R
+             and not (n == "cleanse" and cleanse_blocked)]
     if not any(en0.g(k, 0) for k in (ABS, LS, REF, PAR, SHD, DR)) and en0.given(0) <= 1.0001 or en0.g(CIMM, 0):
         ready = [n for n in ready if n != "clear"]          # nothing clearable, or clear-immune
     if not (me0.g(TAKEN, 0) > 1.0001 or me0.g(GDN, 0) < 0.9999 or me0.g(WND, 0) or me0.g(DRN, 0) or me0.g(RCL, 0)
@@ -597,6 +608,7 @@ class Planner:
         self.my_kit, self.his_kit, self.st, self.en_acted, self.caps = my_kit, his_kit, st, en_acted, caps
         self.base_turn = base_turn
         self.ap_full = 100                             # AP with no stun (set from the battle by build)
+        self.cleanse_refund = False                    # a Cleanse this turn gives the stunned AP back (build)
         self.hr = 1 if en_acted else 0                 # his reply offset
         self.hn = 2 if en_acted else 1                 # his next turn offset (after my next turn)
         dmg = [(n, cd_plan.ACTIONS[n][0], my_kit[n]) for n in st["loadout"]
@@ -1033,7 +1045,7 @@ class Planner:
         if any(x in ("stormblade", "nights") for x in b) and self.en0.g(ABS, 0) >= 0.2:
             guard -= self.en0.g(ABS, 0) * 631
         g, w = critique.live_guards(b, self.crit())      # the fight 2 critique (critique.py; TNR_CRITIQUE=1)
-        if "cleanse" in b and cost > ap:
+        if "cleanse" in b and cost > ap and self.cleanse_refund:
             ap = cost if cost <= self.ap_full else ap   # Cleanse fired first gives the stunned AP back
         return rc, max(0.0, ap - cost) / 20.0, guard + g, why + w
 
@@ -1117,8 +1129,10 @@ def build(a):
     # the largest live one counts, and Cleanse removes it (2026-11-22 audit: 8 of 81 turns were planned at 80 AP
     # with 100 to spend, because a stun cast earlier this round was counted)
     stun = max([t[1] for t in sme.live("stun", R)] or [0])
+    # spendable AP is the STORED AP minus the live stun (actions.ts actionPointsAfterAction), so a turn part spent
+    # under a stun has less than 100 - stun (PR 130 review 2: 80 stored and a 40 stun leave 40, not 60)
     ap_full = min(int(me["actionPoints"]) if my_turn else 100, 100)
-    ap = min(ap_full, 100 - stun)
+    ap = max(0, int(ap_full - stun))
     spent, pierce_last, avg = turn.enemy_resources(rows, en["userId"], R)
     cal = value_model.load_cal()
     value_model.calibrate_kit(cal)
@@ -1261,6 +1275,9 @@ def build(a):
     print(f"kunai: {kwhy} -> cost {value_model.KUNAI_COST}")
     P = Planner(me0, en0, R, ctx, cal, my_kit, his_kit, st, en_acted, caps, his_kit_raw["turn"][0], clockd)
     P.ap_full = ap_full
+    _surch = int(max([t[1] for t in sme.live("apcost", R)] or [0]))
+    cleanse_blocked = bool(sme.live("cleanseimmune", R))
+    P.cleanse_refund = cleanse_refund(st, R, ap, ap_full, st["loadout"], _surch, cleanse_blocked)
     # solution-library key: this position plus what his last turn did (solutions.py)
     try:
         import opponents as OM
@@ -1279,7 +1296,7 @@ def build(a):
                        clear_safe=bool(sme.live("clearimmune", his_turn)), afk=ctx["afk"],
                        nuke_hit=max(his_kit_raw["burst"][0], critique.observed_peak(rows, en["userId"], ME_NAME)))
     info = dict(battle=battle, me=me, en=en, R=R, my_turn=my_turn, en_acted=en_acted, me_pos=me_pos, en_pos=en_pos,
-                d0=d0, ap=ap, ap_full=ap_full, stun=stun, ap_surcharge=int(max([t[1] for t in sme.live("apcost", R)] or [0])), others=others, st=st, sme=sme, sen=sen, prof=prof, gmul=gmul, clock=clock_info, rows=rows,
+                d0=d0, ap=ap, ap_full=ap_full, stun=stun, ap_surcharge=_surch, cleanse_blocked=cleanse_blocked, others=others, st=st, sme=sme, sen=sen, prof=prof, gmul=gmul, clock=clock_info, rows=rows,
                 engine_state=eng is not None, live_state=bool(live), fight_bases=bool(fb), opp_scale=(s_me, s_him))
     return P, info
 
@@ -1609,10 +1626,10 @@ def main():
         info["st"]["loadout"] = [n for n in info["st"]["loadout"] if n not in banned and turn.ACTION_ID.get(n) not in banned]
         print("banned this battle (refused by the game):", ", ".join(sorted(banned)))
     bundles = legal_bundles(info["st"], R, info["ap"], info["d0"], info["st"]["loadout"], P.me0, P.en0, info.get("ap_full"),
-                            surcharge=info.get("ap_surcharge") or 0)
+                            surcharge=info.get("ap_surcharge") or 0, cleanse_blocked=info.get("cleanse_blocked", False))
     if info.get("ap_surcharge"):
         # time compression on me: every jutsu costs that much more this round (log "actions will cost N more AP")
-        lim = lambda b: info["ap_full"] if "cleanse" in b else info["ap"]
+        lim = lambda b: info["ap_full"] if "cleanse" in b and P.cleanse_refund else info["ap"]
         bundles = [b for b in bundles if cd_plan.bundle_cost(b, info["ap_surcharge"]) <= lim(b)]
     if not bundles:
         print("no legal bundle (check AP/cooldowns)"); return

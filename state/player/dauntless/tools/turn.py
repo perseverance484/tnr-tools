@@ -214,15 +214,83 @@ HOSTILE_KINDS = {"decreasedamagegiven", "increasedamagetaken", "recoil", "stun",
                  "decreaseheal", "drain", "wound", "afterburn"}
 
 
-def turn_bundles(st, R, ap_now, ap_full, stunned, immune, d0, surch=0):
+def spendable_ap(me, my_turn, stun):
+    """(stored, spendable) AP for my turn: the engine gates every action on max(0, stored AP - the largest live stun)
+    (actions.ts actionPointsAfterAction), stored capped at 100; off my turn the next turn starts at 100."""
+    stored = min(int(me["actionPoints"]) if my_turn else 100, 100)
+    return stored, max(0, stored - int(stun))
+
+
+def cleanse_refund(st, R, ap_now, ap_full, surch=0, blocked=False):
+    """True when Cleanse fired first gives the stun's AP back this turn. The engine recomputes AP on every action as
+    stored AP minus the live stun (actions.ts actionPointsAfterAction), so a Cleanse that lands takes the stun off and
+    the rest of the turn has ap_full - its cost. Only when: stunned (ap_full > ap_now), Cleanse is in the loadout and
+    ready, it fits the stunned AP (under a 60 stun, 40 left, it cannot be cast), and nothing blocks it ("cannot be
+    cleansed": tags.ts cleanse -> preventCheck("cleanseprevent"); a blocked Cleanse leaves the stun on, so the
+    stunned AP stays the budget). The same check gates what the simulator lets Cleanse remove."""
+    return (ap_full > ap_now and "cleanse" in st["loadout"] and cd_plan.ready_round(st, "cleanse") <= R
+            and cd_plan.bundle_cost(("cleanse",), surch) <= ap_now and not blocked)
+
+
+def bundle_budget(b, ap_now, ap_full, refund):
+    """The AP a bundle may spend: the unstunned stored AP when it carries a Cleanse that gives the stun back, else
+    the stunned AP."""
+    return ap_full if refund and "cleanse" in b else ap_now
+
+
+def engine_filter(eng, stun_amt, refund_for):
+    """(ok, ap) from an engine replay: ok(bundle) is True when every action is on the engine's available list and
+    the bundle's engine costs fit its budget. The budget is the engine's spendable AP (stored minus stun), or, for a
+    bundle whose Cleanse gives the stun back (refund_for(bundle)), that plus the stun, once the Cleanse itself fits
+    the stunned AP (PR 130 review 2: 100 stored and a 20 stun let Cleanse + Overflow cost 100 against 80)."""
+    cost_by_id = {x["id"]: x["cost"] for x in eng["available"]}
+    ap_eng = eng["ap"]
+    stun = int(eng.get("stun", stun_amt) or 0)
+
+    def ok(bb):
+        tot = 0
+        for x in bb:
+            aid = ACTION_ID.get(x, x)
+            if aid == "move":
+                tot += 10
+                continue
+            if aid not in cost_by_id:
+                return False
+            tot += cost_by_id[aid]
+        budget = ap_eng
+        if stun and "cleanse" in bb and refund_for(bb) and cost_by_id.get(ACTION_ID.get("cleanse", "cleanse"), 999) <= ap_eng:
+            budget = ap_eng + stun
+        return tot <= budget
+    return ok, ap_eng
+
+
+def cleanse_first(side, r):
+    """A Cleanse fired first, resolved as shotplan.apply resolves it: a blocked Cleanse ("cannot be cleansed" live
+    at r) removes nothing, and otherwise ground effects and neutral tags (Clear immunity) stay (PR 130 review 2: the
+    turn simulation stripped Clear immunity before shotplan.apply could keep it)."""
+    if not side.live("cleanseimmune", r):
+        side.tags = [x for x in side.tags if not shotplan.negative(x) or shotplan.ground(x)]
+
+
+def kite_back(bundles, ap_now, ap_full, refund, surch=0):
+    """Kite-back variants: one spare step moves me back out after ranged actions. A bundle is priced with the
+    time-compression surcharge and against the AP it may spend (PR 130 review 2: at distance 5 with +10 on jutsu,
+    rebirth + kunai + step costs exactly 100, and a base-cost read appended a stepback the turn cannot pay for)."""
+    out = []
+    for b in bundles:
+        cost = cd_plan.bundle_cost(b, surch)
+        if "step" in b and bundle_budget(b, ap_now, ap_full, refund) - cost >= 10 and "basic" not in b:
+            out.append(tuple(b) + ("stepback",))
+    return out
+
+
+def turn_bundles(st, R, ap_now, ap_full, stunned, immune, d0, surch=0, cleanse_blocked=False):
     """The legal bundles for my turn. surch: AP added to every jutsu this round (time compression), counted while
     the bundles are built (policy.legal), so a pair that fills the turn only with it is kept and one it pushes over
-    the AP is not. Stunned: AP is recomputed on every action (stored AP minus the live stun), so Cleanse fired first
-    gives the stunned AP back, and a bundle with Cleanse may cost up to the unstunned AP (resolve_targets fires it
-    first). Only when Cleanse itself fits the stunned AP: under a 60 stun (40 left) it cannot be cast at all."""
+    the AP is not. Stunned: a bundle with Cleanse may cost up to the unstunned stored AP (resolve_targets fires it
+    first) when cleanse_refund allows it (ready, affordable at the stunned AP, not blocked)."""
     bundles = legal(st, R, ap_now, immune, set(), st["loadout"], d0, surcharge=surch)
-    if stunned and ap_full > ap_now and "cleanse" in st["loadout"] and cd_plan.ready_round(st, "cleanse") <= R \
-            and cd_plan.bundle_cost(("cleanse",), surch) <= ap_now:
+    if stunned and cleanse_refund(st, R, ap_now, ap_full, surch, cleanse_blocked):
         seen = set(bundles)
         bundles = list(bundles) + [b for b in legal(st, R, ap_full, immune, set(), st["loadout"], d0, surcharge=surch)
                                    if "cleanse" in b and b not in seen]
@@ -699,7 +767,10 @@ def main():
     # 2026-11-22 audit: Cleanse does remove stun, and a stun lasts its own rounds, not always 2)
     stun_amt = int(max([t[1] for t in me0.live("stun", R)] or [0]))
     stunned = stun_amt > 0
-    ap_now = min(int(me["actionPoints"]) if my_turn else 100, 100 - stun_amt if stunned else 100)
+    # spendable AP is the STORED AP minus the live stun (actions.ts actionPointsAfterAction: max(0, actionPoints -
+    # stun)), so a turn already part spent under a stun has less than 100 - stun (PR 130 review 2: 80 stored and a
+    # 40 stun leave 40, not 60)
+    ap_stored, ap_now = spendable_ap(me, my_turn, stun_amt)
     spent, pierce_last, avg = enemy_resources(rows, en["userId"], R)
     known = en["username"].lower() in shotplan.ENEMY
     ekit = shotplan.ENEMY.get(en["username"].lower()) or generic_enemy(avg)
@@ -761,8 +832,10 @@ def main():
 
     # time compression on me: every jutsu costs that much more this round (log "actions will cost N more AP")
     _surch = int(max([t[1] for t in me0.live("apcost", R)] or [0]))
-    _full = min(int(me["actionPoints"]) if my_turn else 100, 100)
-    bundles = turn_bundles(st, R, ap_now, _full, stunned, bool(en0.live("debuffimmune", R)), d0, _surch)
+    _full = ap_stored
+    _cl_blocked = bool(me0.live("cleanseimmune", R))
+    _refund = stunned and cleanse_refund(st, R, ap_now, _full, _surch, _cl_blocked)
+    bundles = turn_bundles(st, R, ap_now, _full, stunned, bool(en0.live("debuffimmune", R)), d0, _surch, _cl_blocked)
     # engine replay (harness/pvp_turn/engine/replay_sim.ts): legality, AP and costs from the engine's own state
     # --fast (live-turn mode): the engine's legality list runs in a thread while python scores stage 1, and is
     # applied to the stage-1 list afterwards; the slower engine re-score of the shortlist is skipped
@@ -782,35 +855,11 @@ def main():
         eng = eng_box["eng"]
 
     def make_eng_ok(eng):
-        cost_by_id = {x["id"]: x["cost"] for x in eng["available"]}
-        ap_eng = eng["ap"]
-        def eng_ok(bb):
-            tot = 0
-            for x in bb:
-                aid = ACTION_ID.get(x, x)
-                if aid == "move":
-                    tot += 10
-                    continue
-                if aid not in cost_by_id:
-                    return False
-                tot += cost_by_id[aid]
-            return tot <= ap_eng
-        return eng_ok, ap_eng
+        return engine_filter(eng, stun_amt, lambda bb: _refund)
     if eng:
-        cost_by_id = {x["id"]: x["cost"] for x in eng["available"]}
-        ap_eng = eng["ap"]
-        def eng_ok(bb):
-            tot = 0
-            for x in bb:
-                aid = ACTION_ID.get(x, x)
-                if aid == "move":
-                    tot += 10
-                    continue
-                if aid not in cost_by_id:
-                    return False
-                tot += cost_by_id[aid]
-            return tot <= ap_eng
+        eng_ok, ap_eng = make_eng_ok(eng)
         bundles = [bb for bb in bundles if eng_ok(bb)]
+        _full = ap_eng + int(eng.get("stun", stun_amt)) if stunned else ap_eng
         ap_now = ap_eng
         print(f"engine replay: AP {ap_eng}, {len(eng['available'])} actions available"
               + (f", replay issues {len(eng['replayIssues'])}" if eng.get("replayIssues") else ""))
@@ -827,11 +876,7 @@ def main():
     if not bundles:
         print("no legal bundle (check AP/cooldowns)"); return
     # kite-back variants: one spare step moves me back out after ranged actions
-    extra = []
-    for b in bundles:
-        cost = sum(cd_plan.ACTIONS[x][0] for x in b if x in cd_plan.ACTIONS)
-        if "step" in b and ap_now - cost >= 10 and "basic" not in b:
-            extra.append(tuple(b) + ("stepback",))
+    extra = kite_back(bundles, ap_now, _full, _refund, _surch)
     cd_plan.ACTIONS.setdefault("stepback", (10, 0, None, "kite step"))
     shotplan.MINE.setdefault("stepback", (0, []))
     bundles = list(bundles) + extra
@@ -949,8 +994,8 @@ def main():
 
     def ply1(b, h, kit):
         m, e = value_model.copy_side(me0), value_model.copy_side(en0)
-        if "cleanse" in b:  # Cleanse fired first removes wound/drain before they tick (ground effects stay)
-            m.tags = [x for x in m.tags if shotplan.positive(x) or shotplan.ground(x)]
+        if "cleanse" in b:  # Cleanse fired first removes wound/drain before they tick
+            cleanse_first(m, R)
         # moving off his ground ends its -damage given: before my hits when the move fires first (gap close), after
         # them when it fires last (disengage), and only if the landing tile is off his floor
         mv = any(x in GROUND_EXIT for x in b)
@@ -1102,7 +1147,7 @@ def main():
             if any(x not in acts or acts[x][4] for x in b2) or (on_ground and any(x in GROUND_EXIT for x in b2)):
                 m2, e2 = value_model.copy_side(m), value_model.copy_side(e)
                 if "cleanse" in b2:
-                    m2.tags = [x for x in m2.tags if shotplan.positive(x) or shotplan.ground(x)]
+                    cleanse_first(m2, r1)
                 if any(x in GROUND_EXIT for x in b2):
                     m2.tags = [x for x in m2.tags if not shotplan.ground(x)]
                 shotplan.run_turn(m2, e2, list(b2), shotplan.MINE, r1, True)

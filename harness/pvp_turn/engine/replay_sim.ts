@@ -300,7 +300,9 @@ const replyBundles = (b: CompleteBattle) => {
 const main = async () => {
   const base = await S.withSeed(7, prepare);
   const res: any = { round: base.round,
-    ap: Math.max(0, userOf(base, req.me.id).actionPoints - calcApReduction(base as never, userOf(base, req.me.id).userId)), available: available(base, req.me.id),
+    ap: Math.max(0, userOf(base, req.me.id).actionPoints - calcApReduction(base as never, userOf(base, req.me.id).userId)),
+    // the live stun on its own, so a caller can give a Cleanse bundle the stunned AP back (turn.py engine_filter)
+    stun: calcApReduction(base as never, userOf(base, req.me.id).userId), available: available(base, req.me.id),
     replayIssues: issues, ...(req.trace ? { trace } : {}) };
   if (req.mode === "state") {
     // assembled battle state for a live cross-check (tools/live_crosscheck.py): what the engine gave each side
