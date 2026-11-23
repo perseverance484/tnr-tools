@@ -45,7 +45,7 @@ ACTIONS = {
     "kunai": (20, 4, None, "Bloodthorn Kunai (thrown, wound) - Ikazuchi ran out 2026-11-10"),
     "disaster": (20, 5, "poison", "+20% taken + poison"),
     "nights": (40, 6, "pierce", "pierce 631 + 200 heal, buff-prevent immunity"),
-    "aetherion": (40, 6, None, "elemental dmg + target taken"),
+    "aetherion": (40, 6, None, "elemental dmg + my given + his afterburn"),
     "yuki": (40, 7, "drain", "drain 200 x2 + -25% given"),
     "clear": (60, 10, "clear", "strip their positives"),
     "cleanse": (60, 10, "cleanse", "strip my negatives (not stun)"),

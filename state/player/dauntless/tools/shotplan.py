@@ -67,7 +67,9 @@ MINE = {
     "resonance": (450, [("en", "stun", 20, 2)]),
     "leech": (0, [("en", "drain", 300, 2), ("me", "absorb", 0.21, 2)]),
     "yuki": (0, [("en", "drain", 200, 2), ("en", "given", -0.25, 2)]),
-    "aetherion": (350, [("en", "taken", 0.20, 2)]),
+    # Aetherion as the 2026-11-19 logs show it: +10% damage given on me and 15% afterburn on him, 2 rounds each
+    # (it was +20% taken on 2026-11-10 and 20% afterburn on 2026-11-16; kit/log_corrections.json)
+    "aetherion": (350, [("me", "given", 0.10, 2), ("en", "afterburn", 0.15, 2)]),
     "kunai": (280, [("en", "wound", 30, 2)]),
     "basic": (150, []),
     "subaku": (0, [("en", "given", -0.25, 1, True), ("me", "given", 0.30, 2)]),

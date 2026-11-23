@@ -1,0 +1,13 @@
+{
+ "_doc": "Effects of records that the game changed after their newest connector read, as the newest fight logs show them. Applied by tools/build_catalog.py only while seenAt is newer than the record's updatedAt, so a later connector read replaces it. Effects listed here replace the record's effect list; fields not given are kept from the old effect of the same type.",
+ "PhP5ZEF5iVa97jcumJ15c": {
+  "name": "Aetherion",
+  "seenAt": "2026-11-19T00:00:00.000Z",
+  "logs": "dauntless casts 2026-11-19 vs Ashutosh: fights TWk9fIUn8Tp5pi3MDjGcz, DH-MakWrViRNcG77ccKKL, UaZK7a-c8xWE2G6ju3gAH. Earlier casts: target +20% taken (2026-11-10), target 20% afterburn (2026-11-16)",
+  "effects": [
+   {"type": "elementaldamage", "power": 30, "rounds": 0, "target": "INHERIT"},
+   {"type": "increasedamagegiven", "power": 10, "powerPerLevel": 0, "rounds": 2, "target": "SELF", "direction": "offence", "calculation": "percentage"},
+   {"type": "afterburn", "power": 15, "powerPerLevel": 0, "rounds": 2, "target": "INHERIT", "direction": "offence", "calculation": "percentage"}
+  ]
+ }
+}
