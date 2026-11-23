@@ -90,6 +90,10 @@ CAP_REFLECT = rule("caps", "reflect")
 CAP_LEECH = rule("caps", "lifesteal_vamp")       # lifesteal and vamp share it
 CAP_AFTERBURN = rule("caps", "afterburn")
 CAP_PARRY = rule("caps", "parry_pct") / 100.0
+# Percentage DR multiplies, but no stack takes a hit below 5% of the boosted hit before the built-in 50% system DR,
+# i.e. 10% of the post-system-DR hit the planners use as base (rulebook MA-05, director 2026-11-21; engine checked
+# Nov 21). Four 50% DR layers on a 1,000 hit leave 100, not 62.
+DR_FLOOR = 0.10
 DR_CAP = rule("caps", "damage_reduction")        # reductions never take more than this share of a hit
 
 

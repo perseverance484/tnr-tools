@@ -582,6 +582,23 @@ def enemy_resources(rows, en_id, rnd):
     return spent, pierce_last, dmg
 
 
+PIERCE_CD_DEFAULT = 3     # when the pierce he used is not in the catalog
+
+
+def pierce_cooldown(rows, en_id):
+    """Cooldown of the pierce he used last, from its record (rulebook MA-11: ZN66 Verdict, cooldown 7, used R2 and
+    back R9; a flat 3 hid the R3-R8 shield window). PIERCE_CD_DEFAULT when that action has no record."""
+    last = None
+    for r, u, a, t in rows:
+        if u != en_id:
+            continue
+        rec = engine_bridge._records().get(a, {}).get("record") or {}
+        if any(e.get("type") == "pierce" for e in rec.get("effects", [])) or "pierced" in " ".join(t or []):
+            if last is None or r >= last[0]:
+                last = (r, int(rec.get("cooldown") or 0) or PIERCE_CD_DEFAULT)
+    return last[1] if last else PIERCE_CD_DEFAULT
+
+
 # ---------------------------------------------------------------- planning
 def generic_enemy(avg):
     base = max(500.0, avg or 900.0) / 2  # two hits per turn
@@ -845,7 +862,7 @@ def main():
                       if t[2] <= r <= t[3])
 
     ctx = {
-        "pierce_ready": pierce_last is None or R - pierce_last >= 3,
+        "pierce_ready": pierce_last is None or R - pierce_last >= pierce_cooldown(rows, en["userId"]),
         "clear_held": "clear" not in spent,
         "me_immune_now": bool(me0.live("debuffimmune", R)),
         "me_debuffed": any(t[2] <= R + 1 and t[3] >= R and (t[0] in ("taken", "wound", "drain", "recoil_self")

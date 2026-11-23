@@ -393,9 +393,13 @@ def apply(src, dst, act, o, scale=1.0):
             dmg = base
             dst.wipe((SHD,))
         else:
-            dmg = base * src.given0(o) * da[TAKEN * H + o] * da[DR * H + o]
+            boosted = base * src.given0(o) * da[TAKEN * H + o]
+            drm = da[DR * H + o]
             if src.sc or dst.sc:
-                dmg *= src.scoped((GUP, GDN), o, els) * dst.scoped((TAKEN, DR), o, els)
+                boosted *= src.scoped((GUP, GDN), o, els) * dst.scoped((TAKEN,), o, els)
+                drm *= dst.scoped((DR,), o, els)
+            # DR floor (rulebook MA-05): stacked DR never takes the hit below CM.DR_FLOOR of the boosted hit
+            dmg = boosted * max(drm, CM.DR_FLOOR)
             wmul = dmg / base
             parried = dmg * min(CM.CAP_PARRY, da[PAR * H + o])
             dmg -= parried
@@ -1162,7 +1166,7 @@ def build(a):
         names = {p["username"].strip(): p["curHealth"] for p in others}
         summon = (names.get(sname, 0) > 0) and r0 + n - 1 >= R
     ctx = {
-        "pierce_ready": pierce_last is None or R - pierce_last >= 3 or summon,
+        "pierce_ready": pierce_last is None or R - pierce_last >= turn.pierce_cooldown(rows, en["userId"]) or summon,
         "pierce_shown": pierce_last is not None,
         "clear_held": "clear" not in spent,
         "smoke_spent": "smoke" in spent,

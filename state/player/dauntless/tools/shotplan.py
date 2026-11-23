@@ -301,6 +301,10 @@ def rebuild(lines, me_name, en_name, my_hp, en_hp):
                 who.tags.append(["afterburn", v, first, last])
             elif "will recoil" in t:
                 who.tags.append(["recoil_self", v, first, last])
+            elif "cannot be buffed" in t:
+                # buff prevent ("dauntless cannot be buffed for the next 2 rounds", Black Sun, iVp5 R2): the planner
+                # missed it and cast buffs into it (rulebook BP-03)
+                who.tags.append(["buffblock", 1, first, last])
             elif "cannot be cleansed" in t:
                 who.tags.append(["cleanseimmune", 1, first, last])
             elif "immunity to buff prevention" in t:
@@ -359,7 +363,7 @@ def apply(src_side, dst_side, spec, r, actor_is_me):
             dst_side.tags = [t for t in dst_side.tags if t[0] != "shield"]
         else:
             dmg = base * sa.get("given", _Z)[1] * da.get("taken", _Z)[1]
-            dmg *= da.get("dr", _Z)[2]
+            dmg *= max(da.get("dr", _Z)[2], CM.DR_FLOOR)     # DR floor (rulebook MA-05; planner2.apply)
             wmul = dmg / base
             # system DR already inside the calibrated base
             # engine order: parry splits the direct hit before shields (process.ts splitParriedDamage), cap 100%
