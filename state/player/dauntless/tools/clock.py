@@ -25,7 +25,11 @@ K_DMG, K_PIERCE = 13.3, 12.6      # HP per power point (my calibrated kit / reco
 # validate.py 2026-11-11: against 175 logged opponent turns, damage compiled from their records came out 24% low
 # (median logged/predicted 1.24, IQR 1.07-1.72) while my own kit was on the mark (median 1.00). Opponents' records
 # are scaled by this so the simulator stops under-rating them (the reason it was more optimistic than live play).
-HIS_CAL = 1.24
+# Refit 2026-11-23 with the same validate.py turns (139 of his turns in the saved logs): at 1.24 his damage now runs
+# high (bias +25%, median |err| 21%, 48% within 20%); 1.05 is best (median |err| 12%, 60% within 20%, bias +7%).
+# The compile has gained elemental damage and level scaling since the first fit, which took up most of the gap.
+HIS_CAL = 1.05
+MAX_HP = 5050  # fallback when the battle has not been read yet; set from the battle by callers
 BASICS = {"clear": (60, 10, ["clear"]), "cleanse": (60, 10, ["cleanse"]), "basicAttack": (20, 1, []),
           "basicHeal": (60, 5, []),
           "defensiveStance": (20, 1, []), "offensiveStance": (20, 1, []),
@@ -52,6 +56,7 @@ def compile_record(rec, level=25):
         who = "en" if on_self else "me"
         n = int(e.get("rounds") or 0)
         pct = p / 100.0
+        n0 = len(tags)
         if t in ("damage", "elementaldamage"):
             base += p * K_DMG * HIS_CAL
         elif t == "pierce":
@@ -79,9 +84,11 @@ def compile_record(rec, level=25):
         elif t == "drain":
             tags.append((who, "drain", p, n))
         elif t == "shield":
-            tags.append((who, "shield", p, max(n, 1), True))
+            # shield HP is the effect's own health field (engine tags.ts shield), not its power
+            tags.append((who, "shield", float(e.get("health") or p), max(n, 1), True))
         elif t == "stun":
-            tags.append(("me", "stun", 20, max(n, 1), True))
+            # the AP loss is the effect's apReduction (largest live stun counts) and, like any tag, goes live next round
+            tags.append(("me", "stun", float(e.get("apReduction") or 20), max(n, 1)))
         elif t == "clearprevent":
             tags.append((who, "clearimmune", 1, n))
         elif t == "debuffprevent":
@@ -95,7 +102,10 @@ def compile_record(rec, level=25):
         elif t == "copy":
             tags.append(("en", "copy", pct, max(n, 1)))
         elif t == "heal":
-            tags.append(("en", "heal", p if e.get("calculation") == "static" else pct * 5050, 0, True))
+            tags.append(("en", "heal", p * 10 if e.get("calculation") == "static" else pct * MAX_HP, 0, True))
+        if e.get("instant") is True and t != "stun":
+            # per-tag instant activation (game PR 2631): live in the casting round for its rounds
+            tags[n0:] = [tg[:4] + (True,) if len(tg) == 4 else tg for tg in tags[n0:]]
     locks = {e.get("type") for e in rec.get("effects", [])} & set(cd_plan.LOCKS)
     spec = (base, tags, "pierce") if pierce else (base, tags)
     return int(rec.get("actionCostPerc") or 60), int(rec.get("cooldown") or 0), locks, spec

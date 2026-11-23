@@ -7,7 +7,8 @@ the newest copy of each id wins (updatedAt, then capture time). Curated entries 
 refreshes in kit/live_overrides.json are laid on top when they are at least as new. Then every kit/live_jutsu_*.jsonl
 patch (connector reads of the engine fields: effects, target, range, cooldown, method, AP cost, weapon, usage type,
 jutsu type, bloodline) replaces those fields when its updatedAt is newer; cosmetic effect keys (sfx, animations,
-description) are carried over from the old copy of the same effect type, else "". No live calls.
+description) are carried over from the old copy of the same effect type, else "". Last, kit/log_corrections.json
+replaces the effects of a record that newer fight logs show was changed after its newest read. No live calls.
 
 Hidden records are left out (director 2026-11-11, RUL-2026-11-11-149: "Do not use hidden records, treat them like
 they are actually hidden"): a jutsu, item or bloodline whose newest copy says hidden never reaches the catalog,
@@ -111,6 +112,25 @@ def build(repo=None, kit=None):
             rec = {**old, **{k: v for k, v in patch.items() if k != "effects"}, "effects": fx}
             out[patch["id"]] = {"record": rec, "kind": "jutsu", "updatedAt": patch["updatedAt"],
                                 "source": os.path.relpath(pp, REPO) + " (connector read)"}
+    # fight-log corrections: a record whose logged effects changed after its newest read (the game changed it and no
+    # connector read caught it). Each entry gives the effects as the newest logs show them and the date of those
+    # logs; it only applies when that date is newer than the record's updatedAt, so a later connector read wins.
+    lc = os.path.join(KIT, "log_corrections.json")
+    if os.path.exists(lc):
+        for i, fix in json.load(open(lc)).items():
+            cur = out.get(i)
+            if i.startswith("_") or cur is None or fix["seenAt"] <= (cur["updatedAt"] or ""):
+                continue
+            old_fx = list(cur["record"].get("effects", []))
+            fx = []
+            for e in fix["effects"]:
+                prev = next((o for o in old_fx if o.get("type") == e["type"]), None)
+                if prev is not None:
+                    old_fx.remove(prev)
+                fx.append({**(prev or {}), **e})
+            cur["record"] = {**cur["record"], "effects": fx}
+            cur["updatedAt"] = fix["seenAt"]
+            cur["source"] += " + log_corrections.json (" + fix["logs"] + ")"
     for pp in sorted(glob.glob(os.path.join(KIT, "live_bloodlines_*.jsonl"))):
         for line in open(pp):
             if line.strip():

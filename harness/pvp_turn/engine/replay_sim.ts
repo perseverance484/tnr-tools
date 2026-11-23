@@ -249,8 +249,10 @@ const prepare = async (): Promise<CompleteBattle> => {
     uu.curStamina = side.sp ?? uu.maxStamina ?? uu.curStamina;
   }
   meU.longitude = req.me.x; meU.latitude = req.me.y; himU.longitude = req.him.x; himU.latitude = req.him.y;
-  // whose turn: if he already acted this round (hisTurn === "next"), I act now and he replies next round
-  setActive(b, req.me.id);
+  // whose turn: if he already acted this round (hisTurn === "next"), I act now and he replies next round.
+  // I start on my live stored AP when the caller gives it, not a full 100, so AP already spent this turn stays
+  // spent (PR 130 review 3: 90 left, the replay's 100 let a 10-AP retreat through)
+  setActive(b, req.me.id, req.me.ap);
   return b;
 };
 
@@ -300,7 +302,9 @@ const replyBundles = (b: CompleteBattle) => {
 const main = async () => {
   const base = await S.withSeed(7, prepare);
   const res: any = { round: base.round,
-    ap: Math.max(0, userOf(base, req.me.id).actionPoints - calcApReduction(base as never, userOf(base, req.me.id).userId)), available: available(base, req.me.id),
+    ap: Math.max(0, userOf(base, req.me.id).actionPoints - calcApReduction(base as never, userOf(base, req.me.id).userId)),
+    // the live stun on its own, so a caller can give a Cleanse bundle the stunned AP back (turn.py engine_filter)
+    stun: calcApReduction(base as never, userOf(base, req.me.id).userId), available: available(base, req.me.id),
     replayIssues: issues, ...(req.trace ? { trace } : {}) };
   if (req.mode === "state") {
     // assembled battle state for a live cross-check (tools/live_crosscheck.py): what the engine gave each side

@@ -12,6 +12,7 @@ import tempfile
 HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FIX = os.path.join(os.path.dirname(os.path.abspath(__file__)), "angelsaber_r3.txt")
 BID = "TESTPILOT"
+os.environ["TNR_PILOT_ENGINE_REPORT"] = "0"     # the once-a-day engine-off push is tested on its own below
 
 
 def fake_transcript(path, battle, entries):
@@ -328,3 +329,21 @@ if __name__ == "__main__":
     os.makedirs(os.path.dirname(good), exist_ok=True)
     shutil.copy(os.path.join(HERE, "pilot.py"), good)
     print("ok: saved as the last good pilot")
+
+
+def test_engine_report():
+    import importlib
+    sys.path.insert(0, HERE)
+    pilot = importlib.import_module("pilot")
+    old = os.environ.pop("TNR_PILOT_ENGINE_REPORT", None)
+    try:
+        st = {}
+        first = pilot.engine_report(st)
+        assert pilot.engine_report(st) is None            # once a day
+        import engine_bridge
+        on = engine_bridge.engine_app() and os.path.exists(os.path.join(engine_bridge.HARNESS, "kit", "catalog.json"))
+        assert (first is None) == bool(on), first
+        assert first is None or "engine OFF" in first["push"]
+    finally:
+        if old is not None:
+            os.environ["TNR_PILOT_ENGINE_REPORT"] = old

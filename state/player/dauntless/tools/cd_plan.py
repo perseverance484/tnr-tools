@@ -45,7 +45,7 @@ ACTIONS = {
     "kunai": (20, 4, None, "Bloodthorn Kunai (thrown, wound) - Ikazuchi ran out 2026-11-10"),
     "disaster": (20, 5, "poison", "+20% taken + poison"),
     "nights": (40, 6, "pierce", "pierce 631 + 200 heal, buff-prevent immunity"),
-    "aetherion": (40, 6, None, "elemental dmg + target taken"),
+    "aetherion": (40, 6, None, "elemental dmg + my given + his afterburn"),
     "yuki": (40, 7, "drain", "drain 200 x2 + -25% given"),
     "clear": (60, 10, "clear", "strip their positives"),
     "cleanse": (60, 10, "cleanse", "strip my negatives (not stun)"),
@@ -55,6 +55,25 @@ ACTIONS = {
     "defstance": (20, 1, None, "-15% taken next round (filler)"),
     "offstance": (20, 1, None, "filler"),
 }
+# my jutsu (time compression / dilation lines scoped "[all jutsu]" change only these costs)
+JUTSU = {"rebirth", "shrapnel", "lotus", "fury", "ember", "danse", "stormblade", "resonance", "leech", "subaku",
+         "overflow", "thunders", "parry", "resist", "eclipse", "limitbreaker", "sealnull", "phantom", "shield", "severed"}
+
+def surcharge_for(b, surcharge=0, cleansed=None):
+    """The per-jutsu surcharge a bundle pays. Time compression is a negative effect (validators/combat.ts), so a
+    Cleanse, which fires first (turn.resolve_targets), removes it and the actions after it cost their base AP
+    (PR 130 review 3: Cleanse + Overflow under +10 is 60 + 40, not 60 + 50). cleansed: the surcharge left after a
+    Cleanse (0, or what a bloodline / sage source keeps: those survive Cleanse); None when Cleanse is blocked."""
+    return cleansed if cleansed is not None and "cleanse" in b else surcharge
+
+
+def bundle_cost(b, surcharge=0, cleansed=None):
+    """AP a bundle costs, with a per-jutsu surcharge (time compression: "+10 more AP [all jutsu]"), lifted by a
+    Cleanse in the bundle (surcharge_for)."""
+    s = surcharge_for(b, surcharge, cleansed)
+    return sum(ACTIONS[x][0] + (s if x in JUTSU else 0) for x in b if x in ACTIONS)
+
+
 # range to the enemy each action needs (hexes, from live jutsu/item data 2026-11-10). 0 = self/no target needed.
 # opponent jutsu 4; Yuki's 3; kunai/smoke/disaster/Night's/Aetherion/Clear 4; ground (Fury/Subaku) placed within 4.
 RANGE = {"basic": 1, "rebirth": 4, "shrapnel": 4, "lotus": 4, "fury": 4, "ember": 4, "danse": 4, "stormblade": 4,

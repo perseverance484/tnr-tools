@@ -217,7 +217,7 @@ def guards(bundle, c):
 
     # 3. The burst round: the turn after a setup (a damage buff of mine cast last round, live now) that throws a
     #    big hit (a 60 AP damage jutsu, or two damage jutsu). Limit Breaker (+10 potency now, +30% given) or
-    #    Aetherion (+20% taken) pumps it. With 100 AP and a 60 AP hit only one of the two fits, so the guard asks
+    #    Aetherion (+10% given on me, 15% afterburn on him) pumps it. With 100 AP and a 60 AP hit only one of the two fits, so the guard asks
     #    for one of them when one is ready and fits in place of what is not damage.
     dmg = [x for x in b if x in DAMAGE]
     if c.get("setup_live", True) and (any(_cost(x) >= 60 for x in dmg) or len(dmg) >= 2):

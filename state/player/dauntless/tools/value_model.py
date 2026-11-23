@@ -147,8 +147,12 @@ def enemy_options(cal, ctx, me_side, r, afk):
     # hazard left the burst at 0.22 and the planner raced ember+thunders into an 1854 hit). From BURST_SEEN up, the
     # burst is an absolute hazard like his Clear, capped at BURST_SEEN_CAP.
     seen = g >= BURST_SEEN and not blocked
-    opts.append((min(BURST_SEEN_CAP if seen else 0.6, BURST_P * g ** 3) * (0.35 if blocked else 1.0),
-                 ["burst"] + (["seen"] if seen else [])))  # his 85th-percentile turn: 15% of active turns by definition
+    # with his stack live, the burst IS his ordinary turn times that stack: the planner multiplies every option by
+    # his live +given, so his 85th-percentile turn (whose tail is where his buffs were) counted them twice
+    # (2026-11-22 audit: taken forecast +901 too high at 2.6x+, 2,038 vs 1,136; HtDu R9 2,550 vs 930)
+    opts.append(((min(BURST_SEEN_CAP, BURST_P * g ** 3) if seen else min(0.6, BURST_P * max(g, 1.0)))
+                 * (0.35 if blocked else 1.0),
+                 ["turn", "seen"] if seen else ["burst"]))  # his 85th-percentile turn: 15% of active turns by definition
     rest = max(0.05, 1.0 - sum(w for w, _ in opts))
     opts.append((rest, ["turn"]))
     if ctx.get("summon"):  # a live summon acts on its own cooldowns (and can pierce: Jade broke my shield R5)

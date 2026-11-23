@@ -5,7 +5,8 @@ future combinations").
 
 Model (engine timing rules from combat_rules.md):
   - a tag cast in round N is live from round N+1 for its duration; instant effects (damage, pierce, shield, Clear,
-    Cleanse, stun AP loss, seal, Subaku's -given, Fury's recoil ground) apply at once.
+    Cleanse, seal, Subaku's -given, Fury's recoil ground) apply at once. A stun's AP loss
+    is a tag like any other: live next round (the largest live one counts), and Cleanse removes it.
   - damage = base x prod(1 + attacker +given) x prod(1 + target +taken) x prod(1 - target DR) [x 0.3 smoked];
     pierce = flat (no boosts, no DR, breaks shields); drains = flat per round on the victim's action, not absorbed.
     Target absorb heals back that share; attacker lifesteal heals its share; recoil ground returns 40% to the hitter.
@@ -63,10 +64,12 @@ MINE = {
     "danse": (420, [("en", "seal", 1, 2, True)]),
     "stormblade": (707, [("me", "reflect", 0.35, 2)], "pierce"),
     "nights": (631, [], "pierce"),                      # no heal: the record is pierce + 2-round immunity (engine 2026-11-11)
-    "resonance": (450, [("en", "stun", 20, 2, True)]),
+    "resonance": (450, [("en", "stun", 20, 2)]),
     "leech": (0, [("en", "drain", 300, 2), ("me", "absorb", 0.21, 2)]),
     "yuki": (0, [("en", "drain", 200, 2), ("en", "given", -0.25, 2)]),
-    "aetherion": (350, [("en", "taken", 0.20, 2)]),
+    # Aetherion as the 2026-11-19 logs show it: +10% damage given on me and 15% afterburn on him, 2 rounds each
+    # (it was +20% taken on 2026-11-10 and 20% afterburn on 2026-11-16; kit/log_corrections.json)
+    "aetherion": (350, [("me", "given", 0.10, 2), ("en", "afterburn", 0.15, 2)]),
     "kunai": (280, [("en", "wound", 30, 2)]),
     "basic": (150, []),
     "subaku": (0, [("en", "given", -0.25, 1, True), ("me", "given", 0.30, 2)]),
@@ -119,7 +122,7 @@ ENEMY = {
         "vacuum": (0, [("me", "given", -0.334, 2), ("me", "taken", 0.334, 2)]),
         "afterburnme": (0, [("me", "taken", 0.15, 2)]),
         "eternaldark": (0, [("me", "given", -0.30, 2), ("en", "dr", 0.30, 2)]),
-        "echo": (0, [("me", "stun", 20, 2, True), ("me", "recoil_self", 0.35, 2)]),
+        "echo": (0, [("me", "stun", 20, 2), ("me", "recoil_self", 0.35, 2)]),
         "panacea": (0, [("en", "dr", 0.25, 2)]),
         "smoke": (0, [("me", "given", -0.70, 1), ("en", "given", -0.70, 1), ("en", "dr", 0.25, 2)]),
         "clear": (0, [("me", "clear", 1, 0, True)]),
@@ -129,7 +132,9 @@ ENEMY = {
         "replace": (0, []), "healitem": (0, [("en", "heal", 700, 0, True)]),
     },
 }
-POSITIVE = {"given+", "absorb", "lifesteal", "reflect", "parry", "dr", "shield", "debuffimmune", "clearimmune"}
+# clearprevent (clearimmune) is neutral in the engine: neither Clear nor Cleanse removes it (2026-11-22 audit)
+POSITIVE = {"given+", "absorb", "lifesteal", "reflect", "parry", "dr", "shield", "debuffimmune"}
+NEUTRAL = {"clearimmune", "cleanseimmune"}   # kept by Clear (not positive) and by Cleanse (not negative)
 
 
 class Side:
@@ -151,6 +156,7 @@ class Side:
 
 
 GROUND_DR = float(os.environ.get("TNR_GROUND_DR", "0.20"))
+DOT_TICK = float(os.environ.get("TNR_DOT_TICK", "350"))   # his damage-over-time tick when the log gives no size
 
 
 def ground(t):
@@ -181,6 +187,11 @@ def off_ground(side, rows, me_id, move_ids):
 def positive(t):
     k, v = t[0], t[1]
     return (k == "given" and v > 0) or k in POSITIVE - {"given+"}
+
+
+def negative(t):
+    """What Cleanse removes: everything that is neither positive nor neutral."""
+    return not positive(t) and t[0] not in NEUTRAL
 
 
 def rebuild(lines, me_name, en_name, my_hp, en_hp):
@@ -230,37 +241,85 @@ def rebuild(lines, me_name, en_name, my_hp, en_hp):
             who.tags = [x for x in who.tags if not positive(x) or ground(x)]
             continue
         if "cleared of all negative" in t:
-            who.tags = [x for x in who.tags if positive(x)]
+            who.tags = [x for x in who.tags if not negative(x)]
             continue
-        n = int(m.group(1)) if (m := re.search(r"next (\d+) rounds?", t)) else 1
+        # shields: the log says how big, what a hit left and when one breaks (2026-11-22 audit: 26 "destroyed" lines
+        # were never read, so dead shields stayed up in the plan)
+        if (m := re.search(r"consumes ([\d.]+) damage as a shield for (\d+) rounds?", t)):
+            who.tags.append(["shield", float(m.group(1)), r, r + int(m.group(2)) - 1])
+            continue
+        if "shield was pierced and destroyed" in t or "shield was destroyed" in t or \
+                re.search(r"shield absorbs [\d.]+ damage and is destroyed", t):
+            who.tags = [x for x in who.tags if x[0] != "shield"]
+            continue
+        if (m := re.search(r"shield absorbs [\d.]+ damage\. ([\d.]+) remaining", t)):
+            live_sh = [x for x in who.tags if x[0] == "shield" and x[3] >= r]
+            for x in live_sh[:-1]:
+                who.tags.remove(x)
+            if live_sh:
+                live_sh[-1][1] = float(m.group(1))
+            continue
+        if "bloodline is sealed" in t:
+            # a bloodline seal is instant (damagePipeline.ts sealCheck): the sealed side's bloodline is off now
+            # (bloodline-sourced effects, its passives and damage boost, go off; bloodline jutsu stay usable,
+            # engine.md R4 lists no seal gate)
+            n_s = int(m.group(1)) if (m := re.search(r"next (\d+) rounds?", t)) else 1
+            who.tags.append(["seal", 1, r, r + n_s - 1])
+            continue
+        # per-tag instant activation (game PR 2631, 2026-11-22): "for N rounds, starting this round" is live in the
+        # round it is cast; everything else ("for the next N rounds") from the next round
+        if (m := re.search(r"for (\d+) rounds?, starting this round", t)):
+            n, first = int(m.group(1)), r
+        else:
+            n, first = (int(m.group(1)) if (m := re.search(r"next (\d+) rounds?", t)) else 1), r + 1
+        last = first + n - 1
         v = float(m.group(1)) / 100 if (m := re.search(r"([\d.]+)%", t)) else 0
         for key, kind in pat:
             if key in t:
                 if kind in ("given", "taken"):
                     if "decreased" in t:
                         kind, v = ("given", -v) if kind == "given" else ("dr", v)
-                who.tags.append([kind, v, r + 1, r + n])
+                who.tags.append([kind, v, first, last])
                 break
         else:
             if "cannot be debuffed" in t:
-                who.tags.append(["debuffimmune", 1, r + 1, r + n])
+                who.tags.append(["debuffimmune", 1, first, last])
                 if "cannot be cleared" in t:
-                    who.tags.append(["clearimmune", 1, r + 1, r + n])
+                    who.tags.append(["clearimmune", 1, first, last])
             elif "cannot be cleared" in t:
                 # clear-prevent (Dr. Kim's, ANBU Member R3 2026-11-11: "cannot be cleared for the next 1 rounds" made my
                 # R4 Clear fail with "resists being cleared"); the planner did not read it and wasted Clear
-                who.tags.append(["clearimmune", 1, r + 1, r + n])
+                who.tags.append(["clearimmune", 1, first, last])
             elif "wound damage for" in t:
-                who.tags.append(["wound", float(re.search(r"take ([\d.]+) wound", t).group(1)), r + 1, r + n])
+                who.tags.append(["wound", float(re.search(r"take ([\d.]+) wound", t).group(1)), first, last])
             elif "will be drained" in t:
-                who.tags.append(["drain", float(re.search(r"drained ([\d.]+)", t).group(1)), r + 1, r + n])
+                who.tags.append(["drain", float(re.search(r"drained ([\d.]+)", t).group(1)), first, last])
             elif "of damage received as afterburn" in t:
                 # "X will take N% of damage received as afterburn": every non-pierce hit on X adds N% of it again,
                 # outside his absorb (engine process.ts: afterburn and absorb are both shares of the same hit, so
                 # afterburn >= absorb cancels the absorb; director 2026-11-11, Luka)
-                who.tags.append(["afterburn", v, r + 1, r + n])
+                who.tags.append(["afterburn", v, first, last])
             elif "will recoil" in t:
-                who.tags.append(["recoil_self", v, r + 1, r + n])
+                who.tags.append(["recoil_self", v, first, last])
+            elif "cannot be buffed" in t:
+                # buff prevent ("dauntless cannot be buffed for the next 2 rounds", Black Sun, iVp5 R2): the planner
+                # missed it and cast buffs into it (rulebook BP-03)
+                who.tags.append(["buffblock", 1, first, last])
+            elif "cannot be cleansed" in t:
+                who.tags.append(["cleanseimmune", 1, first, last])
+            elif "immunity to buff prevention" in t:
+                who.tags.append(["bbimmune", 1, first, last])
+            elif "immunity to debuff prevention" in t:
+                who.tags.append(["dpimmune", 1, first, last])
+            elif (m := re.search(r"time compression, actions will cost (\d+) more AP", t)):
+                who.tags.append(["apcost", float(m.group(1)), first, last])
+            elif "will take damage for the next" in t or "will take damage for" in t:
+                # damage over time: the line names no size; DOT_TICK is the measured tick (9j3D, ~350 a round)
+                who.tags.append(["dot", DOT_TICK, first, last])
+            elif "is stunned [-" in t:
+                # "X is stunned [-20 AP] for the next N rounds": the AP loss starts next round (castThisRound is
+                # skipped) and Cleanse removes it; the size is the record's apReduction
+                who.tags.append(["stun", float(re.search(r"\[-(\d+) AP\]", t).group(1)), first, last])
             elif "shield with" in t:
                 who.tags.append(["shield", float(re.search(r"with ([\d.]+)", t).group(1)), r, r + n - 1])
     return me, en
@@ -281,6 +340,8 @@ def _agg(side, r):
 
 
 _Z = (0.0, 1.0, 1.0)
+_DEBUFF_BLOCKED = (CM.prevented_kinds("debuffprevent") - {"given-", "given+"}) if CM.AVAILABLE else {"taken", "drain", "recoil", "recoil_self", "healcut"}
+_BUFF_BLOCKED = ((CM.prevented_kinds("buffprevent") - {"given+", "given-"}) | {"given"}) if CM.AVAILABLE else {"given", "dr", "reflect"}
 # A barrier between me and him while my turn is simulated: [hp left, absorb share] (engine getBarriersBetween /
 # damageBarrier: each hit through it loses the absorb share, which the barrier takes, until its HP is spent). Set by
 # turn.py around my own turn only; None = clear line. Director 2026-11-11, Ashutosh R6: planner 2241, log 1201.
@@ -302,7 +363,7 @@ def apply(src_side, dst_side, spec, r, actor_is_me):
             dst_side.tags = [t for t in dst_side.tags if t[0] != "shield"]
         else:
             dmg = base * sa.get("given", _Z)[1] * da.get("taken", _Z)[1]
-            dmg *= da.get("dr", _Z)[2]
+            dmg *= max(da.get("dr", _Z)[2], CM.DR_FLOOR)     # DR floor (rulebook MA-05; planner2.apply)
             wmul = dmg / base
             # system DR already inside the calibrated base
             # engine order: parry splits the direct hit before shields (process.ts splitParriedDamage), cap 100%
@@ -312,7 +373,14 @@ def apply(src_side, dst_side, spec, r, actor_is_me):
             if sh:
                 used = min(sh, dmg)
                 dmg -= used
-                dst_side.tags = [t for t in dst_side.tags if t[0] != "shield"]
+                # what is left keeps soaking (process.ts calcAdjustedDamage; 2026-11-22 audit)
+                left = used
+                for t in dst_side.tags:
+                    if t[0] == "shield" and t[2] <= r <= t[3] and left > 0:
+                        take = min(t[1], left)
+                        t[1] -= take
+                        left -= take
+                dst_side.tags = [t for t in dst_side.tags if t[0] != "shield" or t[1] > 0]
         dmg = max(dmg, 0.0)
         if actor_is_me and MY_BARRIER and MY_BARRIER[0] > 0 and dmg > 0:
             soak = min(dmg * MY_BARRIER[1], MY_BARRIER[0])
@@ -345,16 +413,22 @@ def apply(src_side, dst_side, spec, r, actor_is_me):
                 side.tags = [x for x in side.tags if not positive(x)]
             continue
         if kind == "cleanse":
-            side.tags = [x for x in side.tags if positive(x) or ground(x)]
+            if not side.live("cleanseimmune", r):
+                side.tags = [x for x in side.tags if not negative(x) or ground(x)]
             continue
         if kind == "heal":
             if side is src_side:
                 to_self -= val
             continue
-        hostile = side is dst_side and (val < 0 or kind in ("taken", "afterburn", "wound", "drain", "recoil_self", "stun", "healcut", "seal"))
+        # what debuffprevent / buffprevent stop comes from the map (2026-11-22 audit: wound, afterburn and stun go
+        # through Dr. Kim's; buff-prevent does not stop absorb or lifesteal)
+        hostile = side is dst_side and ((val < 0 and kind == "given") or kind in _DEBUFF_BLOCKED or kind == "seal")
         if hostile and side.live("debuffimmune", r):
             continue
-        if side is src_side and src_side.live("buffblock", r) and kind in ("given", "absorb", "lifesteal", "dr", "reflect") and val > 0:
+        if (kind == "buffblock" and side.live("bbimmune", r)) or (kind == "debuffimmune" and side is dst_side
+                                                                  and side.live("dpimmune", r)):
+            continue        # "immunity to buff / debuff prevention" (Night's Testament and some items)
+        if side is src_side and src_side.live("buffblock", r) and kind in _BUFF_BLOCKED and val > 0:
             continue
         first, last = (r, r + max(dur, 1) - 1) if instant else (r + 1, r + dur)
         side.tags.append([kind, val, first, last])
@@ -364,7 +438,7 @@ def apply(src_side, dst_side, spec, r, actor_is_me):
 def run_turn(actor, other, acts, kit, r, actor_is_me):
     dealt = taken = 0.0
     if acts:  # wound + drain tick on the first action of the turn
-        taken += actor.total("wound", r) + actor.total("drain", r)
+        taken += actor.total("wound", r) + actor.total("drain", r) + actor.total("dot", r)
         if taken >= actor.hp:
             # the tick lands BEFORE the first action (fight 2 vs DDXXD R9, 2026-11-16: 303 wound at 264 HP killed me
             # before I acted; netted against that turn's lifesteal, the lookahead had me living and killing him)
@@ -416,7 +490,7 @@ def main():
     st = load(a.battle)
     me0, en0 = rebuild(lines, "dauntless", a.enemy, a.my_hp, a.en_hp)
     R = a.round
-    ap_now = a.ap - (20 if me0.live("stun", R) else 0)
+    ap_now = a.ap - min(40, int(max([t[1] for t in me0.live("stun", R)] or [0])))
     bundles = policy.legal(st, R, ap_now, bool(en0.live("debuffimmune", R)), set(), st["loadout"], a.dist)
     his_now = enemy_options(opp, a.battle, R) if opp in PROFILES else [["basic"]]
     his_next = enemy_options(opp, a.battle, R + 1) if opp in PROFILES else [["basic"]]

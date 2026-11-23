@@ -154,7 +154,7 @@ PERM_KEYS = ("type", "targetId", "creatorId", "power", "powerPerLevel", "level",
 
 LIVE_KEYS = ("type", "targetId", "creatorId", "actionId", "power", "powerPerLevel", "level", "calculation", "direction", "elements", "fromType",
              "rounds", "createdRound", "castThisRound", "isNew", "poolsAffected", "timedBuffExpiresAt", "statTypes",
-             "generalTypes")
+             "generalTypes", "instant", "fromGround", "apReduction")
 
 
 def live_effects(effects):
@@ -955,6 +955,27 @@ def budget(st, batch, urgent=False):
     return out
 
 # ---------------------------------------------------------------- tick
+def engine_report(st):
+    """Once a day: tell the director when the offline engine harness is off on this machine (2026-11-22 audit: the
+    engine app pointer and the catalog are local and gitignored, so a fresh checkout plays on the python fallback,
+    with no exact re-score near a kill and no replayed state). Returns a push, or None."""
+    day = dt.date.today().isoformat()
+    if st.get("engine_reported") == day or os.environ.get("TNR_PILOT_ENGINE_REPORT") == "0":
+        return None
+    st["engine_reported"] = day
+    try:
+        import engine_bridge
+        app = engine_bridge.engine_app()
+        cat = os.path.exists(os.path.join(engine_bridge.HARNESS, "kit", "catalog.json"))
+    except Exception:  # noqa: BLE001  (the report must never stop the pilot)
+        app, cat = None, False
+    if app and cat:
+        return None
+    miss = ", ".join(x for x, ok in (("engine app", app), ("catalog", cat)) if not ok)
+    return push(f"TNR pilot: engine OFF on this machine ({miss} missing). Fights run on the python fallback: no "
+                f"exact re-score near a kill. Setup: harness/pvp_turn README.")
+
+
 def tick():
     st = load_state()
     if len(sys.argv) > 2 and sys.argv[1] == "--mode":
@@ -1007,6 +1028,9 @@ def tick():
     else:
         st["last_batch"] = batch
     urgent = any(k in head for k in ("MY TURN", "BATTLE START", "BATTLE OVER", "acting on the last read"))
+    note = engine_report(st)
+    if note:
+        batch = [note] + batch
     batch = budget(st, batch, urgent=urgent)
     st["last_tick"] = started
     save(STATE, st)
