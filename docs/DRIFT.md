@@ -1,6 +1,6 @@
-# DRIFT.md - upstream contract drift (2026-11-21)
+# DRIFT.md - upstream contract drift (2026-11-23)
 
-Upstream: studie-tech/TheNinjaRPG@9582848286f91a7707b6f0c1aae9f48aac01804b
+Upstream: studie-tech/TheNinjaRPG@52c63b7b3050ab5d6ba35c3ffac154bcfc797a7d
 
 Signal only. Nothing below is adopted until the structural diff gate passes.
 
@@ -71,65 +71,65 @@ REMOVALS
 ADDITIONS
   enum-member  AllObjectives.tag_usage_win.tagType  curse
   enum-member  AllObjectives.tag_usage_win.tagType  parry
-  enum-member  AllTags.DecreaseStatTag.calculation  percentage
-  enum-member  AllTags.DecreaseStatTag.calculation  static
-  enum-member  AllTags.DecreaseStatTag.direction  both
-  enum-member  AllTags.DecreaseStatTag.direction  defence
-  enum-member  AllTags.DecreaseStatTag.direction  none
-  enum-member  AllTags.DecreaseStatTag.direction  offence
-  enum-member  AllTags.DecreaseStatTag.elements  Boil
-  enum-member  AllTags.DecreaseStatTag.elements  Crystal
-  enum-member  AllTags.DecreaseStatTag.elements  Dust
-  enum-member  AllTags.DecreaseStatTag.elements  Earth
-  enum-member  AllTags.DecreaseStatTag.elements  Explosion
-  enum-member  AllTags.DecreaseStatTag.elements  Fire
-  enum-member  AllTags.DecreaseStatTag.elements  Ice
-  enum-member  AllTags.DecreaseStatTag.elements  Lava
-  enum-member  AllTags.DecreaseStatTag.elements  Light
-  enum-member  AllTags.DecreaseStatTag.elements  Lightning
-  enum-member  AllTags.DecreaseStatTag.elements  Magnet
-  enum-member  AllTags.DecreaseStatTag.elements  Metal
-  enum-member  AllTags.DecreaseStatTag.elements  None
-  enum-member  AllTags.DecreaseStatTag.elements  Sand
-  enum-member  AllTags.DecreaseStatTag.elements  Scorch
-  enum-member  AllTags.DecreaseStatTag.elements  Shadow
-  enum-member  AllTags.DecreaseStatTag.elements  Storm
-  enum-member  AllTags.DecreaseStatTag.elements  Water
-  enum-member  AllTags.DecreaseStatTag.elements  Wind
-  enum-member  AllTags.DecreaseStatTag.elements  Wood
-  enum-member  AllTags.DecreaseStatTag.elements  Yin-Yang
-  enum-member  AllTags.DecreaseStatTag.friendlyFire  ALL
-  enum-member  AllTags.DecreaseStatTag.friendlyFire  ENEMIES
-  enum-member  AllTags.DecreaseStatTag.friendlyFire  FRIENDLY
-  enum-member  AllTags.DecreaseStatTag.generalTypes  Highest
-  enum-member  AllTags.DecreaseStatTag.generalTypes  Intelligence
-  enum-member  AllTags.DecreaseStatTag.generalTypes  Speed
-  enum-member  AllTags.DecreaseStatTag.generalTypes  Strength
-  enum-member  AllTags.DecreaseStatTag.generalTypes  Willpower
-  enum-member  AllTags.DecreaseStatTag.groundStyle  DECAL
-  enum-member  AllTags.DecreaseStatTag.groundStyle  SURFACE
-  enum-member  AllTags.DecreaseStatTag.groundStyle  UPRIGHT
-  enum-member  AllTags.DecreaseStatTag.target  COORDINATES
-  enum-member  AllTags.DecreaseStatTag.target  INHERIT
-  enum-member  AllTags.DecreaseStatTag.target  SELF
-  enum-member  AllTags.IncreaseStatTag.calculation  percentage
-  enum-member  AllTags.IncreaseStatTag.calculation  static
-  enum-member  AllTags.IncreaseStatTag.direction  both
-  enum-member  AllTags.IncreaseStatTag.direction  defence
-  enum-member  AllTags.IncreaseStatTag.direction  none
-  enum-member  AllTags.IncreaseStatTag.direction  offence
-  enum-member  AllTags.IncreaseStatTag.elements  Boil
-  enum-member  AllTags.IncreaseStatTag.elements  Crystal
-  enum-member  AllTags.IncreaseStatTag.elements  Dust
-  enum-member  AllTags.IncreaseStatTag.elements  Earth
-  enum-member  AllTags.IncreaseStatTag.elements  Explosion
-  enum-member  AllTags.IncreaseStatTag.elements  Fire
-  enum-member  AllTags.IncreaseStatTag.elements  Ice
-  enum-member  AllTags.IncreaseStatTag.elements  Lava
-  enum-member  AllTags.IncreaseStatTag.elements  Light
-  enum-member  AllTags.IncreaseStatTag.elements  Lightning
-  enum-member  AllTags.IncreaseStatTag.elements  Magnet
-  ... 256 more
+  enum-member  AllObjectives.win_card_duel.reward_mastery_rank  ADEPT
+  enum-member  AllObjectives.win_card_duel.reward_mastery_rank  LEGENDARY
+  enum-member  AllObjectives.win_card_duel.reward_mastery_rank  MASTER
+  enum-member  AllObjectives.win_card_duel.reward_mastery_rank  NONE
+  enum-member  AllObjectives.win_card_duel.reward_mastery_rank  NOVICE
+  enum-member  AllObjectives.win_card_duel.reward_mastery_stat  None
+  enum-member  AllObjectives.win_card_duel.reward_rank  CHUNIN
+  enum-member  AllObjectives.win_card_duel.reward_rank  ELDER
+  enum-member  AllObjectives.win_card_duel.reward_rank  ELITE JONIN
+  enum-member  AllObjectives.win_card_duel.reward_rank  GENIN
+  enum-member  AllObjectives.win_card_duel.reward_rank  JONIN
+  enum-member  AllObjectives.win_card_duel.reward_rank  NONE
+  enum-member  AllObjectives.win_card_duel.reward_rank  STUDENT
+  enum-member  AllObjectives.win_card_duel.reward_village_membership  AKASUMI
+  enum-member  AllObjectives.win_card_duel.reward_village_membership  AKIKAZE
+  enum-member  AllObjectives.win_card_duel.reward_village_membership  HYORIN
+  enum-member  AllObjectives.win_card_duel.reward_village_membership  NONE
+  enum-member  AllObjectives.win_card_duel.reward_village_membership  SHIROHANA
+  enum-member  AllObjectives.win_card_duel.reward_village_membership  TSUKIMORI
+  enum-member  AllObjectives.win_card_duel.tier  ANY
+  enum-member  AllObjectives.win_chakra_storm.locationType  random
+  enum-member  AllObjectives.win_chakra_storm.locationType  specific
+  enum-member  AllObjectives.win_chakra_storm.reward_mastery_rank  ADEPT
+  enum-member  AllObjectives.win_chakra_storm.reward_mastery_rank  LEGENDARY
+  enum-member  AllObjectives.win_chakra_storm.reward_mastery_rank  MASTER
+  enum-member  AllObjectives.win_chakra_storm.reward_mastery_rank  NONE
+  enum-member  AllObjectives.win_chakra_storm.reward_mastery_rank  NOVICE
+  enum-member  AllObjectives.win_chakra_storm.reward_mastery_stat  None
+  enum-member  AllObjectives.win_chakra_storm.reward_rank  CHUNIN
+  enum-member  AllObjectives.win_chakra_storm.reward_rank  ELDER
+  enum-member  AllObjectives.win_chakra_storm.reward_rank  ELITE JONIN
+  enum-member  AllObjectives.win_chakra_storm.reward_rank  GENIN
+  enum-member  AllObjectives.win_chakra_storm.reward_rank  JONIN
+  enum-member  AllObjectives.win_chakra_storm.reward_rank  NONE
+  enum-member  AllObjectives.win_chakra_storm.reward_rank  STUDENT
+  enum-member  AllObjectives.win_chakra_storm.reward_village_membership  AKASUMI
+  enum-member  AllObjectives.win_chakra_storm.reward_village_membership  AKIKAZE
+  enum-member  AllObjectives.win_chakra_storm.reward_village_membership  HYORIN
+  enum-member  AllObjectives.win_chakra_storm.reward_village_membership  NONE
+  enum-member  AllObjectives.win_chakra_storm.reward_village_membership  SHIROHANA
+  enum-member  AllObjectives.win_chakra_storm.reward_village_membership  TSUKIMORI
+  enum-member  AllObjectives.win_chakra_storm.sectorType  current_sector
+  enum-member  AllObjectives.win_chakra_storm.sectorType  enemy_village
+  enum-member  AllObjectives.win_chakra_storm.sectorType  from_list
+  enum-member  AllObjectives.win_chakra_storm.sectorType  random
+  enum-member  AllObjectives.win_chakra_storm.sectorType  specific
+  enum-member  AllObjectives.win_chakra_storm.sectorType  user_village
+  enum-member  AllObjectives.win_chakra_storm.stage  akasumi
+  enum-member  AllObjectives.win_chakra_storm.stage  akikaze
+  enum-member  AllObjectives.win_chakra_storm.stage  horizon
+  enum-member  AllObjectives.win_chakra_storm.stage  hyorin
+  enum-member  AllObjectives.win_chakra_storm.stage  mei
+  enum-member  AllObjectives.win_kessen_challenge.locationType  random
+  enum-member  AllObjectives.win_kessen_challenge.locationType  specific
+  enum-member  AllObjectives.win_kessen_challenge.reward_mastery_rank  ADEPT
+  enum-member  AllObjectives.win_kessen_challenge.reward_mastery_rank  LEGENDARY
+  enum-member  AllObjectives.win_kessen_challenge.reward_mastery_rank  MASTER
+  enum-member  AllObjectives.win_kessen_challenge.reward_mastery_rank  NONE
+  ... 646 more
 
 BREAKING: 4494 change(s) - DO NOT ADOPT (exit 1)
 == 45d_DATA_entity_schemas ==
@@ -148,10 +148,16 @@ CHANGES
   type-changed  quest  petTaskMinutes  preprocess -> ref
 ADDITIONS
   field  gameAsset  lpcConfig
+  field  item  canBeEnhanced
+  field  item  cardData
   field  item  craftingOutputQuantity
   field  item  lpcColor
+  field  item  lpcMaterialColors
   field  item  lpcProfile
+  field  item  villageId
+  field  item  warehouseItem
   field  itemVariant  lpcColor
+  field  itemVariant  lpcMaterialColors
   field  itemVariant  lpcProfile
   field  petSpecies  potentialMax
   field  petSpecies  potentialMin
@@ -258,6 +264,9 @@ ADDITIONS
   const-member  AvailableEffectTypes  offence
   const-member  BALANCE_IDLE_ACTION_IDS  flee
   const-member  BALANCE_IDLE_ACTION_IDS  wait
+  const-member  BANDIT_RANKS  BANDIT CHIEF
+  const-member  BANDIT_RANKS  HIGHWAYMAN
+  const-member  BANDIT_RANKS  MARAUDER
   const-member  BULK_SELL_WARN_RARITIES  EPIC
   const-member  BULK_SELL_WARN_RARITIES  LEGENDARY
   const-member  BULK_SELL_WARN_RARITIES  RARE
@@ -266,27 +275,24 @@ ADDITIONS
   const-member  BattleOutcomes  Fled
   const-member  BattleOutcomes  Lost
   const-member  BattleOutcomes  Won
+  const-member  BattleTypes  CARAVAN
   const-member  BossFightBattleTypes  ARENA
   const-member  BossFightBattleTypes  HUNTING
   const-member  BossFightBattleTypes  OVERWORLD
   const-member  BossFightBattleTypes  QUEST
   const-member  BossFightBattleTypes  RANDOM_ENCOUNTER
-  const-member  CRAFTING_SERVICES  CRAFT
-  const-member  CRAFTING_SERVICES  DISIMBUE
-  const-member  CRAFTING_SERVICES  IMBUE
-  const-member  CRAFTING_SERVICES  REPAIR
-  const-member  ContentAuditFocuses  splash
-  const-member  ContentProposalEntityTypes  SPLASH
-  const-member  DIAMOND_BLOODLINE_RANKS  A
-  const-member  DIAMOND_BLOODLINE_RANKS  B
-  const-member  DIAMOND_BLOODLINE_RANKS  C
-  const-member  DIAMOND_BLOODLINE_RANKS  D
-  const-member  FARM_SHOP_ENTRY_TYPES  EXTRACTOR
-  const-member  FARM_SHOP_ENTRY_TYPES  FERTILIZER
-  const-member  FARM_SHOP_ENTRY_TYPES  PLOT
-  const-member  FARM_SHOP_ENTRY_TYPES  SEED
-  const-member  FederalStatuses  DIAMOND
-  ... 151 more
+  const-member  CARAVAN_DISCOVERY_KINDS  LOCATION
+  const-member  CARAVAN_DISCOVERY_KINDS  ROUTE
+  const-member  CARAVAN_ENCOUNTER_STATUSES  FIGHTING
+  const-member  CARAVAN_ENCOUNTER_STATUSES  PENDING
+  const-member  CARAVAN_ENCOUNTER_STATUSES  RESOLVED
+  const-member  CARAVAN_ENCOUNTER_STATUSES  STARTING
+  const-member  CARAVAN_ENCOUNTER_TYPES  AMBUSH
+  const-member  CARAVAN_ENCOUNTER_TYPES  INTERCEPTION
+  const-member  CARAVAN_ENCOUNTER_TYPES  INTERVENTION
+  const-member  CARAVAN_ENCOUNTER_TYPES  MARKER_ASSAULT
+  const-member  CARAVAN_OPERATION_STATUSES  ACTIVE
+  ... 251 more
 
 BREAKING: 255 change(s) - DO NOT ADOPT (exit 1)
 ~~~
