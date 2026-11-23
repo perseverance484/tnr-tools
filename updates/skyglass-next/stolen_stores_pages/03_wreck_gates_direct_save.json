@@ -1,0 +1,43 @@
+{
+ "_note": "Wreck gates re-pointed to the new copies. NOT a Forge file: Forge refuses dungeon edits (its pinned dungeon contract lacks maxPlayers). Send as coop.dungeon.save {id, content} built from a fresh coop.dungeon.getAll with tnr/release_nov13/direct/dsplit.py, or set the two fields in the dungeon editor. Run any time after the Wrecks close (Mon Nov 16 6 PM CT) and the new copies exist, before the Friday reopen. requirements = live object read 2026-11-13 23:45Z with only prerequisiteQuestId changed.",
+ "items": [
+  {
+   "entity": "dungeon",
+   "slot": "edit",
+   "targetId": "j4QEUtjbK_lbOYUPVoidk",
+   "phase": 1,
+   "name": "Faded Skyglass Wreck: needs the Stolen Stores 30-80 Wreck Sighted",
+   "data": {
+    "requirements": {
+     "retryDelay": "daily",
+     "maxAttempts": null,
+     "attemptDelay": "none",
+     "maxCompletes": 100,
+     "requiredItemId": null,
+     "requiredItemQuantity": 1,
+     "requiredLevel": 30,
+     "prerequisiteQuestId": "PLACEHOLDERcloneWSLOW0"
+    }
+   }
+  },
+  {
+   "entity": "dungeon",
+   "slot": "edit",
+   "targetId": "RHqzYdY4EAQA9HwsBKWDS",
+   "phase": 1,
+   "name": "Skyglass Wreck: needs the Stolen Stores 81+ Wreck Sighted",
+   "data": {
+    "requirements": {
+     "retryDelay": "daily",
+     "maxAttempts": null,
+     "attemptDelay": "none",
+     "maxCompletes": 100,
+     "requiredItemId": null,
+     "requiredItemQuantity": 1,
+     "requiredLevel": 81,
+     "prerequisiteQuestId": "PLACEHOLDERcloneWSHIGH"
+    }
+   }
+  }
+ ]
+}
