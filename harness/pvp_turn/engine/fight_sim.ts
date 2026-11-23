@@ -130,6 +130,8 @@ const main = async () => {
         id: `passive-${++n}`, creatorId: u.userId, targetId: u.userId, level: 1, isNew: false, castThisRound: false,
         createdRound: 0, longitude: u.longitude, latitude: u.latitude, actionId: "passive", fromType: "jutsu" } as never));
     }
+    // optional HP pool override (both sides), so a long rotation can play out without a kill
+    for (const side of [req.me, req.him]) if (side.hp) { const u = userOf(b, side.id); u.maxHealth = side.hp; u.curHealth = side.hp; }
     b.round = 1;
     out.start = { me: { hp: userOf(b, req.me.id).curHealth, fx: fx(b, req.me.id) }, him: { hp: userOf(b, req.him.id).curHealth, fx: fx(b, req.him.id) } };
     for (const [ri, rnd] of (req.script as any[]).entries()) {
