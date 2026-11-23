@@ -1,6 +1,6 @@
-# DRIFT.md - upstream contract drift (2026-11-22)
+# DRIFT.md - upstream contract drift (2026-11-23)
 
-Upstream: studie-tech/TheNinjaRPG@1f0b5c263b778c70e2a8baa3bad449078e684b0a
+Upstream: studie-tech/TheNinjaRPG@52c63b7b3050ab5d6ba35c3ffac154bcfc797a7d
 
 Signal only. Nothing below is adopted until the structural diff gate passes.
 
@@ -71,6 +71,26 @@ REMOVALS
 ADDITIONS
   enum-member  AllObjectives.tag_usage_win.tagType  curse
   enum-member  AllObjectives.tag_usage_win.tagType  parry
+  enum-member  AllObjectives.win_card_duel.reward_mastery_rank  ADEPT
+  enum-member  AllObjectives.win_card_duel.reward_mastery_rank  LEGENDARY
+  enum-member  AllObjectives.win_card_duel.reward_mastery_rank  MASTER
+  enum-member  AllObjectives.win_card_duel.reward_mastery_rank  NONE
+  enum-member  AllObjectives.win_card_duel.reward_mastery_rank  NOVICE
+  enum-member  AllObjectives.win_card_duel.reward_mastery_stat  None
+  enum-member  AllObjectives.win_card_duel.reward_rank  CHUNIN
+  enum-member  AllObjectives.win_card_duel.reward_rank  ELDER
+  enum-member  AllObjectives.win_card_duel.reward_rank  ELITE JONIN
+  enum-member  AllObjectives.win_card_duel.reward_rank  GENIN
+  enum-member  AllObjectives.win_card_duel.reward_rank  JONIN
+  enum-member  AllObjectives.win_card_duel.reward_rank  NONE
+  enum-member  AllObjectives.win_card_duel.reward_rank  STUDENT
+  enum-member  AllObjectives.win_card_duel.reward_village_membership  AKASUMI
+  enum-member  AllObjectives.win_card_duel.reward_village_membership  AKIKAZE
+  enum-member  AllObjectives.win_card_duel.reward_village_membership  HYORIN
+  enum-member  AllObjectives.win_card_duel.reward_village_membership  NONE
+  enum-member  AllObjectives.win_card_duel.reward_village_membership  SHIROHANA
+  enum-member  AllObjectives.win_card_duel.reward_village_membership  TSUKIMORI
+  enum-member  AllObjectives.win_card_duel.tier  ANY
   enum-member  AllObjectives.win_chakra_storm.locationType  random
   enum-member  AllObjectives.win_chakra_storm.locationType  specific
   enum-member  AllObjectives.win_chakra_storm.reward_mastery_rank  ADEPT
@@ -103,33 +123,13 @@ ADDITIONS
   enum-member  AllObjectives.win_chakra_storm.stage  horizon
   enum-member  AllObjectives.win_chakra_storm.stage  hyorin
   enum-member  AllObjectives.win_chakra_storm.stage  mei
-  enum-member  AllObjectives.win_tower_defense.locationType  random
-  enum-member  AllObjectives.win_tower_defense.locationType  specific
-  enum-member  AllObjectives.win_tower_defense.reward_mastery_rank  ADEPT
-  enum-member  AllObjectives.win_tower_defense.reward_mastery_rank  LEGENDARY
-  enum-member  AllObjectives.win_tower_defense.reward_mastery_rank  MASTER
-  enum-member  AllObjectives.win_tower_defense.reward_mastery_rank  NONE
-  enum-member  AllObjectives.win_tower_defense.reward_mastery_rank  NOVICE
-  enum-member  AllObjectives.win_tower_defense.reward_mastery_stat  None
-  enum-member  AllObjectives.win_tower_defense.reward_rank  CHUNIN
-  enum-member  AllObjectives.win_tower_defense.reward_rank  ELDER
-  enum-member  AllObjectives.win_tower_defense.reward_rank  ELITE JONIN
-  enum-member  AllObjectives.win_tower_defense.reward_rank  GENIN
-  enum-member  AllObjectives.win_tower_defense.reward_rank  JONIN
-  enum-member  AllObjectives.win_tower_defense.reward_rank  NONE
-  enum-member  AllObjectives.win_tower_defense.reward_rank  STUDENT
-  enum-member  AllObjectives.win_tower_defense.reward_village_membership  AKASUMI
-  enum-member  AllObjectives.win_tower_defense.reward_village_membership  AKIKAZE
-  enum-member  AllObjectives.win_tower_defense.reward_village_membership  HYORIN
-  enum-member  AllObjectives.win_tower_defense.reward_village_membership  NONE
-  enum-member  AllObjectives.win_tower_defense.reward_village_membership  SHIROHANA
-  enum-member  AllObjectives.win_tower_defense.reward_village_membership  TSUKIMORI
-  enum-member  AllObjectives.win_tower_defense.sectorType  current_sector
-  enum-member  AllObjectives.win_tower_defense.sectorType  enemy_village
-  enum-member  AllObjectives.win_tower_defense.sectorType  from_list
-  enum-member  AllObjectives.win_tower_defense.sectorType  random
-  enum-member  AllObjectives.win_tower_defense.sectorType  specific
-  ... 468 more
+  enum-member  AllObjectives.win_kessen_challenge.locationType  random
+  enum-member  AllObjectives.win_kessen_challenge.locationType  specific
+  enum-member  AllObjectives.win_kessen_challenge.reward_mastery_rank  ADEPT
+  enum-member  AllObjectives.win_kessen_challenge.reward_mastery_rank  LEGENDARY
+  enum-member  AllObjectives.win_kessen_challenge.reward_mastery_rank  MASTER
+  enum-member  AllObjectives.win_kessen_challenge.reward_mastery_rank  NONE
+  ... 646 more
 
 BREAKING: 4494 change(s) - DO NOT ADOPT (exit 1)
 == 45d_DATA_entity_schemas ==
@@ -149,12 +149,15 @@ CHANGES
 ADDITIONS
   field  gameAsset  lpcConfig
   field  item  canBeEnhanced
+  field  item  cardData
   field  item  craftingOutputQuantity
   field  item  lpcColor
+  field  item  lpcMaterialColors
   field  item  lpcProfile
   field  item  villageId
   field  item  warehouseItem
   field  itemVariant  lpcColor
+  field  itemVariant  lpcMaterialColors
   field  itemVariant  lpcProfile
   field  petSpecies  potentialMax
   field  petSpecies  potentialMin
@@ -289,7 +292,7 @@ ADDITIONS
   const-member  CARAVAN_ENCOUNTER_TYPES  INTERVENTION
   const-member  CARAVAN_ENCOUNTER_TYPES  MARKER_ASSAULT
   const-member  CARAVAN_OPERATION_STATUSES  ACTIVE
-  ... 228 more
+  ... 251 more
 
 BREAKING: 255 change(s) - DO NOT ADOPT (exit 1)
 ~~~
