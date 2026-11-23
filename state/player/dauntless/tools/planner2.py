@@ -1156,7 +1156,7 @@ def build(a):
     spent, pierce_last, avg = turn.enemy_resources(rows, en["userId"], R)
     cal = value_model.load_cal()
     value_model.calibrate_kit(cal)
-    gm = (turn.engine_bridge.opponent_kit(en["userId"]) or {}).get("gearMods") or {}
+    gm = turn.engine_bridge._his_gear_mods(en["userId"]) or {}
     gear_dr = float(gm.get("drTakenFromGear", 15))
     sm = [(r, m.group(1), int(m.group(2))) for r, u, _, ts in rows if u == en["userId"] for t in (ts or [])
           if (m := re.search(r"^\s*(\S+) was summoned for (\d+) rounds", t))]

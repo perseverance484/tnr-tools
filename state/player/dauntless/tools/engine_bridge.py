@@ -47,6 +47,10 @@ GEAR_ME = [("r_TVeNlBCnggXhNTtMliQ", "HEAD"), ("SPyb1Df6im2zc8IONIc9_", "CHEST")
            ("H1yz5-aKshav3uQyE4biC", "KEYSTONE")]
 GEAR_ENDGAME = [g for g in GEAR_ME if g[1] != "KEYSTONE"]
 GEAR_MODEL = os.environ.get("TNR_GEAR_MODEL", "1") != "0"   # 0 = old fitted +33% passive instead of gear/bloodline
+# Both players wear Kaeruun's armor with Fortify III (Brandon, 2026-11-23: "it can be assumed both players have kaeruuns
+# armor with fortify 3 imbue as anything else is less than ideal"). The per-opponent gear totals fit_gear.py measured
+# from logs (kit/opponents/<id>.json "gearMods") no longer override that; TNR_FITTED_GEAR=1 brings them back for study.
+FITTED_GEAR = os.environ.get("TNR_FITTED_GEAR") == "1"
 
 
 def _gear(pairs):
@@ -311,7 +315,7 @@ def _his_gear(en_id):
     """His worn gear: kit/opponents/<id>.json "gear" ("endgame" | "none" | [[id, slot], ...]) when known, else the
     director's endgame assumption. TNR_HIS_GEAR overrides (tests). Gear DR adds to the 50% system DR (damagePipeline
     drPoints), so the Kaeruun chest + Fortify III alone cut incoming formula damage to 0.7x: get it right."""
-    g = os.environ.get("TNR_HIS_GEAR") or (opponent_kit(en_id) or {}).get("gear", "endgame")
+    g = os.environ.get("TNR_HIS_GEAR") or ((opponent_kit(en_id) or {}).get("gear", "endgame") if FITTED_GEAR else "endgame")
     if g == "none":
         return []
     if g == "endgame":
@@ -328,7 +332,7 @@ def _side_mods(bl_id, gear):
 
 def _his_gear_mods(en_id):
     """Gear totals measured from this opponent's logged hits (fit_gear.py), stored with his kit."""
-    if os.environ.get("TNR_HIS_GEAR_MODS_OFF"):
+    if os.environ.get("TNR_HIS_GEAR_MODS_OFF") or not FITTED_GEAR:
         return None
     return (opponent_kit(en_id) or {}).get("gearMods")
 

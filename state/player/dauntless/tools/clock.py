@@ -42,6 +42,23 @@ def _pw(e, level):
     return (e.get("power") or 0) + (e.get("powerPerLevel") or 0) * level
 
 
+# Rolls that can miss: stun, seal and the prevent tags land when Math.random() < power / 100, with power =
+# power + powerPerLevel x level capped at 100 (engine tags.ts stun / seal / applyPreventTag, power.ts getEffectPower).
+# At level 25 the usual stuns and seals reach 100 and never miss (Brandon, 2026-11-23: "Stuns and seals dont miss when
+# the jutsu is level 25"). A few stay under 100 even at 25 (catalog 2026-11-23: Dragon's Fang 60, Old One's Slumber
+# 32.5, Titanic Stalemate 62.5 / seal 44.5, Shocking Hammer Fist seal 33.8, Mind Trick 90; weapons Masamune 55 and
+# Whispering Dawnblade 70), so the chance comes from the record at the caster's level, never a flat guess.
+ROLL_TYPES = {"stun", "seal", "elementalseal", "shield"}   # shield rolls too (tags.ts shield); 51 of 52 hit 100 at 25
+
+
+def land_chance(e, level=25):
+    """Chance (0-1) that a stun / seal / shield / prevent effect lands when cast at this level; 1 for every other effect."""
+    t = e.get("type") or ""
+    if t not in ROLL_TYPES and not t.endswith("prevent"):
+        return 1.0
+    return max(0.0, min(100.0, _pw(e, level))) / 100.0
+
+
 def compile_record(rec, level=25):
     """Catalog record -> (ap, cooldown, lock tags, spec) with spec in shotplan form, perspective: "en" = him (the
     caster), "me" = me (his target)."""
@@ -87,8 +104,9 @@ def compile_record(rec, level=25):
             # shield HP is the effect's own health field (engine tags.ts shield), not its power
             tags.append((who, "shield", float(e.get("health") or p), max(n, 1), True))
         elif t == "stun":
-            # the AP loss is the effect's apReduction (largest live stun counts) and, like any tag, goes live next round
-            tags.append(("me", "stun", float(e.get("apReduction") or 20), max(n, 1)))
+            # the AP loss is the effect's apReduction (largest live stun counts) and, like any tag, goes live next round.
+            # A stun that can miss (land_chance < 1, see above) is forecast at its expected AP loss; at 100% it is whole.
+            tags.append(("me", "stun", float(e.get("apReduction") or 20) * land_chance(e, level), max(n, 1)))
         elif t == "clearprevent":
             tags.append((who, "clearimmune", 1, n))
         elif t == "debuffprevent":
