@@ -163,6 +163,7 @@ const main = async () => {
           step.pos = { me: [userOf(b, req.me.id).longitude, userOf(b, req.me.id).latitude], him: [userOf(b, req.him.id).longitude, userOf(b, req.him.id).latitude] };
           step.lines = lines;
           step.fxMe = fx(b, req.me.id); step.fxHim = fx(b, req.him.id);
+          step.barriers = ((b as any).groundEffects ?? []).filter((g: any) => g.type === "barrier").map((g: any) => [g.longitude, g.latitude, Math.round(g.curHealth)]);
           if (st.available) step.available = availableUserActions(b as never, userOf(b, cid).userId, true, true).map((a: any) => `${a.name}:${getActionPointCost(userOf(b, cid).userId, b as never, a)}`);
           R.steps.push(step);
           if (req.keepAlive) for (const x of b.usersState) x.curHealth = x.maxHealth;
