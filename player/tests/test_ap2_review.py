@@ -244,7 +244,7 @@ class H2OneAllowanceForABatch(unittest.TestCase):
     def rig(self, left, pocket=200_000):
         """An upkeep rig with `left` ryo of the day's allowance not yet spent."""
         r = Rig(upkeep=True)
-        r.world["control"]["activities"] = {"training": False, "equipment": False, "bank": False}
+        r.world["control"]["activities"] = {"errands": False, "dailies": False, "training": False, "equipment": False, "bank": False}
         self.me = user(money=pocket, bank=900_000_000)
         r.tick(self.me)
         r.world["records"]["spend"] = {"day": utc_day(r.t), "ryo": C.DAILY_CAP - left}

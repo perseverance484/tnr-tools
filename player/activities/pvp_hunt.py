@@ -70,6 +70,16 @@ def circuit_of(world):
         [x for x in C.CIRCUIT if x not in C.NO_SECTORS]
 
 
+def threats(world, rows):
+    """The name of someone in a scan who beat me inside the lost-to window and is awake, or None (the snipe
+    after a loss: with stealth down the hunt does not stay in his sector)."""
+    lost = world["opponents"]["lost_to"]
+    for r in rows:
+        if lost.get(r.get("userId"), 0) > world.now and r.get("status") in (None, "AWAKE"):
+            return r.get("username") or r.get("userId")
+    return None
+
+
 def stealth(world):
     """{on, until, ready_at}: what is known of my stealth."""
     return world["map"].setdefault("stealth", {"on": False, "until": 0, "ready_at": 0})
@@ -158,6 +168,13 @@ class PvpHunt(Activity):
         refused = own.pop("refused", None)
         here = scan is not None and scan["sector"] == sector
         if here:
+            threat = threats(world, scan["rows"])
+            if threat and not stealth_up(world) and circuit:
+                nxt = circuit[(circuit.index(sector) + 1) % len(circuit)] if sector in circuit else circuit[0]
+                world.event("finding", f"left sector {sector}: {threat} beat me and is here awake, my stealth down",
+                            about="threat")
+                return plan(K.go(nxt), "world", head + f": leaving, {threat} beat me and is here (stealth down), "
+                            f"next sector {nxt}")
             target, why = pick_target(world, scan["rows"], me_pos, self.gates.dna_path)
             world["map"]["last_scan"] = why
             if target:

@@ -196,7 +196,7 @@ class Brain:
         weights = {**C.goals()["weights"], **ctl["goal_weights"]}
         blocked, acts = w.own("brain").setdefault("blocked", {}), []
         for a in self.reg.activities.values():
-            if (not ctl["activities"].get(a.name, True) or blocked.get(a.name, 0) > w.now
+            if (not ctl["activities"].get(a.name, not getattr(a, "starts_off", False)) or blocked.get(a.name, 0) > w.now
                     or getattr(a, "rides", False) or (a.priority != "battle" and ctl["paused"])):
                 continue
             try:

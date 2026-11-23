@@ -48,7 +48,8 @@ TEMPLATE = {
         # reads only; "live" plays. A brain starts in shadow: going live is the director's word, in control.json.
         # kill: stop at once, in a fight too. pvp_turns: off (his rule, "Dont play at all"): in a fight against a
         # person the player only watches; on: it plays his turns. circuit: the hunt's sectors, when he names them.
-        "run": RUN_DEFAULT, "kill": False, "pvp_turns": False, "circuit": None},
+        "run": RUN_DEFAULT, "kill": False, "pvp_turns": False, "circuit": None,
+        "quest_done": False},
     "character": {},            # the last profile read, plus read_at
     "inventory": {},            # AP2
     "training": {},             # AP2

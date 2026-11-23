@@ -133,7 +133,7 @@ class Session:
         """After the fight, with every upkeep activity on: a worn item repaired, a short one bought at the price
         the real catalog gives, the PvP 1 loadouts, the training queue, the pocket banked."""
         rig, tick = self.rig, self.tick
-        rig.world["control"]["activities"] = {"harvest": False}
+        rig.world["control"]["activities"] = {"harvest": False, "errands": False, "dailies": False}   # (their turn is next)
         rich = dict(money=30_000_000, bank=900_000_000)
         rows = {"kims": ("u1", KIMS, 6, "ITEM_1", False, 100), "panacea": ("u3", PANACEA, 2, "ITEM_3", False, 100),
                 "kunai": ("u5", KUNAI, 30, "THROWN", False, 10)}           # the kunai: 10 of 100, close to broken
@@ -157,6 +157,30 @@ class Session:
         assert any(t.startswith("training: queued: ") for t in said), said
         twice = [t for t in said if t.split(": ")[0] == (t.split(": ") + [""])[1]]
         assert not twice, f"an activity's note repeats its name: {twice}"
+        self.daily()
+
+    def daily(self):
+        """The day's jobs, switched on at home: the streak and the interest read and claimed, a medical run
+        started and held for the model until it hands the run back, then an errand."""
+        rig, tick = self.rig, self.tick
+        rig.world["control"]["activities"] = {"harvest": False, "missions": True}
+        home = dict(sector=C.HOME_SECTOR, pos=(10, 10), dailyErrands=0)
+        tick(user(**home))                                                 # dailies: the reads
+        tick(res("activityStreak.getUserStreaks", {"streaks": [{"configId": "c1", "canClaim": True}]}),
+             res("bank.getPendingInterest", {"amount": 500}), user(**home))   # dailies: the claims
+        out = tick(res("activityStreak.claimStreakDay", {"success": True},
+                       {"configId": "c1", "payCatchUp": False, "reset": False}),
+                   res("bank.claimInterest", {"success": True}, {}), user(**home))   # errands: one errand
+        start = next(s["input"] for s in out["steps"] if s.get("call") == "quests.startRandom")
+        assert start["type"] == "errand", start
+        out = tick(res("quests.startRandom", {"success": True, "message": "You started Hyorin's Broken Gate"}, start),
+                   user(**dict(home, dailyErrands=40)))                    # missions: a medical run (errands ahead)
+        start = next(s["input"] for s in out["steps"] if s.get("call") == "quests.startRandom")
+        assert start["type"] == "medical", start
+        tick(res("quests.startRandom", {"success": True, "message": "started"}, start),
+             res("quests.getUserQuests", {"quests": []}, {"userId": C.ME}), user(**dict(home, dailyErrands=40)))
+        rig.world["control"]["quest_done"] = True                          # held, then the model hands it back
+        tick(user(**dict(home, dailyErrands=40)), dt=130)
 
     def marks(self):
         """What the stand-in scripts wrote down, by tool."""

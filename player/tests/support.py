@@ -129,6 +129,7 @@ class StubCombat(Combat):
 
 
 UPKEEP = ("restock", "repair", "training", "equipment", "bank")
+DAILY = ("errands", "dailies")  # the daily jobs, off for every test written before them
 
 
 def my_items(*rows):
@@ -155,7 +156,7 @@ def and_bare(settings):
 class Rig:
     """A brain in a temporary folder with a clock the test moves."""
 
-    def __init__(self, mode="hunt", combat=None, upkeep=False, bare=True, stealth=True, pvp_turns=True, run="live"):
+    def __init__(self, mode="hunt", combat=None, upkeep=False, bare=True, stealth=True, pvp_turns=True, run="live", daily=False):
         """upkeep: leave the AP2 upkeep activities switched on. The tests written before them ask for a hunt, a
         fight or a relay and nothing else, so for those they are off, the way the director switches one off.
         bare: the director has said a relay without hooks may play (RUL-2026-11-14-161: by itself the brain
@@ -163,6 +164,8 @@ class Rig:
         otherwise: in control.json, where `brain next` looks, and in the world model as already applied.
         stealth: the tests written before the hunt kept stealth up start with it up for good, so their batches
         are the ones they were written for; the stealth tests ask for stealth=False.
+        daily: leave errands and dailies switched on (the tests of those ask for it; every test written before them,
+        upkeep ones too, plays without them).
         pvp_turns, run: the tests written before the hands-off rule and the dry-run switch drive the brain as it
         played then (it acts in a fight against a person, and its calls go out). The live default is the other
         way round (pvp_turns off, run shadow); the tests of those ask for it."""
@@ -174,7 +177,7 @@ class Rig:
         with open(self.dna, "w", encoding="utf8") as f:
             f.write(DNA)
         self.combat, self.upkeep = combat or StubCombat(os.path.join(self.dir, "fights")), upkeep
-        self.bare, self.stealth, self.pvp_turns, self.run = bare, stealth, pvp_turns, run
+        self.bare, self.stealth, self.pvp_turns, self.run, self.daily = bare, stealth, pvp_turns, run, daily
         self.brain = self.new_brain()
         self.world["control"]["mode"] = mode
 
@@ -189,6 +192,9 @@ class Rig:
                 self.brain.world["map"]["stealth"] = {"on": False, "until": 0, "ready_at": 0}
         if not self.upkeep:                         # off, unless the world model on disk already says otherwise
             for name in UPKEEP:
+                self.brain.world["control"]["activities"].setdefault(name, False)
+        if not self.daily:
+            for name in DAILY:
                 self.brain.world["control"]["activities"].setdefault(name, False)
         return self.brain
 

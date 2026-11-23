@@ -71,6 +71,8 @@ SETTINGS = {
     "circuit": _rule(lambda v: v is None or (isinstance(v, list) and v and all(
         isinstance(x, int) and not isinstance(x, bool) and x > 0 and x not in C.NO_SECTORS for x in v)),
         "must be a list of sector numbers, never 210"),
+    # the model hands a quest run back (missions): true ends the wait, and the brain sets it back to false
+    "quest_done": _rule(lambda v: isinstance(v, bool), "must be true or false"),
     "answers": _rule(lambda v: _map(v, lambda k: True, lambda a: a in ("yes", "no")),
                      "must map decision ids to yes or no"),
 }

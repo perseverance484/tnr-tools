@@ -41,6 +41,7 @@ class Activity:
     goal = None                # the key of player/goals.json "weights" its value is multiplied by, if any
     reads = ()                 # endpoints whose results it folds into the model
     rides = False              # never chosen on its own: its calls ride another activity's quiet world batch
+    starts_off = False         # off until the director switches it on in control.json "activities"
     combat = budget = gates = None     # bound by the brain
 
     def available(self, world):

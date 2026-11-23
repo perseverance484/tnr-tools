@@ -221,6 +221,35 @@ class Stealth(unittest.TestCase):
         self.assertIn("stealth.activateStealth", calls(out))
 
 
+class Threat(unittest.TestCase):
+    """The snipe after a loss: someone who beat me is in the sector, awake, and my stealth is down."""
+    WINNER = ("user_winner", "Winner", 11, 11, "AWAKE", 100, "y", None, None)
+
+    def rig(self, stealth):
+        rig = Rig(stealth=stealth)
+        rig.world["opponents"]["lost_to"]["user_winner"] = 1e12
+        rig.tick(user())
+        return rig
+
+    def test_with_stealth_down_the_hunt_leaves_his_sector(self):
+        rig = self.rig(False)
+        out = rig.tick(user(), scan([self.WINNER, PREY]))
+        self.assertIn("travel.startGlobalMove", calls(out))
+        self.assertNotIn("combat.attackUser", calls(out))
+        self.assertIn("Winner beat me", out["note"])
+        self.assertEqual([e["about"] for e in rig.events("finding")], ["threat"])
+
+    def test_with_stealth_up_it_stays_and_hunts(self):
+        rig = self.rig(True)
+        out = rig.tick(user(), scan([self.WINNER, PREY]))
+        self.assertNotIn("travel.startGlobalMove", calls(out))
+
+    def test_asleep_or_in_a_fight_he_is_no_threat(self):
+        rig = self.rig(False)
+        rig.tick(user(), scan([self.WINNER[:4] + ("BATTLE",) + self.WINNER[5:]]))
+        self.assertFalse(rig.events("finding"))
+
+
 class AfterEveryFight(unittest.TestCase):
     def end(self, rig, sector=1538):
         rig.tick(user(sector=sector))

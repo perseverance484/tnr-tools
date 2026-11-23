@@ -359,7 +359,8 @@
   "stealth.activateStealth": {
    "kind": "action",
    "activity": [
-    "pvp_hunt"
+    "pvp_hunt",
+    "errands"
    ],
    "phase": "AP1",
    "status": "documented",
@@ -1042,7 +1043,8 @@
   "bank.getPendingInterest": {
    "kind": "read",
    "activity": [
-    "bank"
+    "bank",
+    "dailies"
    ],
    "phase": "AP2",
    "status": "proposed",
@@ -1053,7 +1055,8 @@
   "bank.claimInterest": {
    "kind": "action",
    "activity": [
-    "bank"
+    "bank",
+    "dailies"
    ],
    "phase": "AP2",
    "status": "proposed",

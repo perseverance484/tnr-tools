@@ -38,7 +38,7 @@ def rich(**more):
 class Upkeep(unittest.TestCase):
     def rig(self):
         rig = Rig(upkeep=True)
-        rig.world["control"]["activities"] = {"training": False, "equipment": False, "bank": False}
+        rig.world["control"]["activities"] = {"errands": False, "dailies": False, "training": False, "equipment": False, "bank": False}
         return rig
 
     def passes(self, rig, *results, **tick):
@@ -95,7 +95,7 @@ class Restock(Upkeep):
 
     def test_a_pocket_that_cannot_pay_for_one_asks_the_bank_and_buys_when_it_has(self):
         rig = self.rig()
-        rig.world["control"]["activities"] = {"training": False, "equipment": False}   # the bank is on
+        rig.world["control"]["activities"] = {"errands": False, "dailies": False, "training": False, "equipment": False}   # the bank is on
         poor = user(money=30_000, bank=900_000_000)
         rig.tick(poor)
         out = rig.tick(stock(**{PANACEA: (0, "ITEM_3", False, None)}), poor)
@@ -276,7 +276,7 @@ def jutsu(levels, active=()):
 class Training(Upkeep):
     def rig(self):
         rig = Rig(upkeep=True)
-        rig.world["control"]["activities"] = {"restock": False, "equipment": False, "bank": False}
+        rig.world["control"]["activities"] = {"errands": False, "dailies": False, "restock": False, "equipment": False, "bank": False}
         return rig
 
     def trained(self, out):
@@ -323,7 +323,7 @@ class Training(Upkeep):
 
     def test_a_fill_waits_for_the_bank_to_fill_the_pocket_and_the_rest_goes_back(self):
         rig = self.rig()
-        rig.world["control"]["activities"] = {"restock": False, "equipment": False}   # the bank is on
+        rig.world["control"]["activities"] = {"errands": False, "dailies": False, "restock": False, "equipment": False}   # the bank is on
         road = dict(money=150_000, bank=900_000_000)                        # what is carried on the road
         self.assertEqual(self.passes(rig, user(**road))[0], "jutsu.getTrainingQueue")
         out = rig.tick(queue(), jutsu({T[0]: 3}), user(**road))
@@ -433,7 +433,7 @@ class Equipment(Upkeep):
 
     def rig(self, mode="guard"):
         rig = Rig(mode=mode, upkeep=True)
-        rig.world["control"]["activities"] = {"training": False, "bank": False}
+        rig.world["control"]["activities"] = {"errands": False, "dailies": False, "training": False, "bank": False}
         return rig
 
     def test_what_is_equipped_is_written_where_the_planners_look(self):
@@ -506,7 +506,7 @@ class Bank(Upkeep):
 
     def rig(self):
         rig = Rig(mode="guard", upkeep=True)
-        rig.world["control"]["activities"] = {"restock": False, "training": False, "equipment": False}
+        rig.world["control"]["activities"] = {"errands": False, "dailies": False, "restock": False, "training": False, "equipment": False}
         return rig
 
     def move(self, pocket, bank_, training_for=0, purchase=None, later=0):
@@ -570,7 +570,7 @@ class Bank(Upkeep):
 class SessionEnd(Upkeep):
     def test_the_energy_is_trained_and_pvp_1_selected_before_the_character_sleeps(self):
         rig = Rig(upkeep=True)
-        rig.world["control"]["activities"] = {"restock": False, "bank": False}
+        rig.world["control"]["activities"] = {"errands": False, "dailies": False, "restock": False, "bank": False}
         rig.world["control"]["end_session"] = True
         rig.world.own("training")["next"] = rig.t + 99999
         home = dict(sector=C.HOME_SECTOR, intelligence=1, willpower=2)
