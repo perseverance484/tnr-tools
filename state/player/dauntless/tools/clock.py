@@ -25,7 +25,10 @@ K_DMG, K_PIERCE = 13.3, 12.6      # HP per power point (my calibrated kit / reco
 # validate.py 2026-11-11: against 175 logged opponent turns, damage compiled from their records came out 24% low
 # (median logged/predicted 1.24, IQR 1.07-1.72) while my own kit was on the mark (median 1.00). Opponents' records
 # are scaled by this so the simulator stops under-rating them (the reason it was more optimistic than live play).
-HIS_CAL = 1.24
+# Refit 2026-11-23 with the same validate.py turns (139 of his turns in the saved logs): at 1.24 his damage now runs
+# high (bias +25%, median |err| 21%, 48% within 20%); 1.05 is best (median |err| 12%, 60% within 20%, bias +7%).
+# The compile has gained elemental damage and level scaling since the first fit, which took up most of the gap.
+HIS_CAL = 1.05
 MAX_HP = 5050  # fallback when the battle has not been read yet; set from the battle by callers
 BASICS = {"clear": (60, 10, ["clear"]), "cleanse": (60, 10, ["cleanse"]), "basicAttack": (20, 1, []),
           "basicHeal": (60, 5, []),
