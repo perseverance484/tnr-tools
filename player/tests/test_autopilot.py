@@ -129,6 +129,25 @@ class HandsOff(unittest.TestCase):
         self.assertNotIn("combat.performAction", [s.get("call") for s in p.steps])
 
 
+class TheDirectorsList(unittest.TestCase):
+    """The account's own do-not-attack list (state/player/dauntless/do_not_attack.md), as the brain reads it."""
+
+    def test_the_names_he_gave_are_never_attacked(self):
+        never, snipe = gates.do_not_attack(C.DO_NOT_ATTACK, 1_795_510_800.0)
+        for name in ("phrosfire", "keoshi", "jazu", "indrauchiha", "angelsaber"):
+            self.assertIn(name, never)
+        self.assertIn("angelsaber", snipe)
+
+    def test_phrosfire_in_the_sector_is_passed_over(self):
+        rig = Rig()
+        with open(C.DO_NOT_ATTACK, encoding="utf8") as src, open(rig.dna, "w", encoding="utf8") as dst:
+            dst.write(src.read())
+        phros = ("user_phros", "Phrosfire", 13, 14, "AWAKE", 100, "y", None, None)
+        out = rig.tick(user(), scan([phros]))
+        self.assertNotIn("combat.attackUser", calls(out))
+        self.assertIn("combat.attackUser", calls(rig.tick(user(), scan([PREY]), dt=10)))
+
+
 class Targets(unittest.TestCase):
     def rated(self, rig, ratings):
         with open(os.path.join(rig.dir, "rater.json"), "w", encoding="utf8") as f:

@@ -17,6 +17,7 @@ Check this list before every `combat.attackUser`, `travel.robPlayer` or bounty.
 | Jazu | — | Director: do not attack (hunt thread) | 2026-11-14 |
 | Keoshi | — | Director: do not attack (project memory) | by 2026-11-23 |
 | IndraUchiha | — | Director: do not attack (project memory) | by 2026-11-23 |
+| Phrosfire | — | Director: "Put Phrosfire on the do not attack list" | 2026-11-23 |
 
 ## Do not snipe (no third-party jumps after their fights)
 | Player | Village | Why | Added |
