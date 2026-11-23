@@ -100,6 +100,8 @@ class RamenAfterEveryFight(unittest.TestCase):
         out = rig.tick(user(curChakra=79))
         self.assertNotIn("village.buyFood", rig.calls(out))            # 79% and no fight: nothing (floor is 50%)
         self.assertEqual(self.end_fight(rig), [])                       # full HP: no potion in the closing batch
+        out = rig.tick(user(curChakra=79))                              # first off the tile it ended on (autopilot)
+        self.assertEqual((out["activity"], rig.calls(out)), ("recovery", ["travel.moveInSector", "profile.getUser"]))
         out = rig.tick(user(curChakra=79))
         self.assertEqual((out["activity"], rig.calls(out)), ("recovery", ["village.buyFood", "profile.getUser"]))
         self.assertEqual(out["steps"][0]["input"], {"ramen": "large"})
@@ -109,6 +111,7 @@ class RamenAfterEveryFight(unittest.TestCase):
     def test_no_ramen_when_the_pools_are_full_enough(self):
         rig = Rig()
         self.end_fight(rig)
+        rig.tick(user(curStamina=96))                                   # off the tile first (autopilot)
         out = rig.tick(user(curStamina=96))
         self.assertNotIn("village.buyFood", rig.calls(out))
         self.assertNotIn("ramen_due", rig.world.own("recovery"))

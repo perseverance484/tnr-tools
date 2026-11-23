@@ -157,6 +157,14 @@ def _turn(live, token, n, sleep):
     return f"call {n - 1} of the batch " + ("has not been answered" if end == "open" else "was not made")
 
 
+def killed(live):
+    """The director's kill switch (live/control.json "kill": true), read at the call itself: once it is set, no
+    line of any batch goes out, whatever the brain has printed (tnr-autopilot: kill is immediate)."""
+    doc = relay.read(os.path.join(live, "control.json"))
+    return "the director has killed the player (control.json kill)" if isinstance(doc, dict) and doc.get("kill") \
+        is True else None
+
+
 def release(live, inp, sleep=time.sleep):
     """-> (the real call's input for the connector's tool, None), or (None, why the call is refused)."""
     line = _stand_in(inp)
@@ -172,7 +180,7 @@ def release(live, inp, sleep=time.sleep):
         sleep(wait)
     with lock(live):                                              # the waits are over: is it all still so?
         state = holding(live)
-        why = why or _whose(state, inp, token) or _over(live, state, token)
+        why = why or killed(live) or _whose(state, inp, token) or _over(live, state, token)
         relay.write(on_record(live, token, f"{n}.json"),
                     {"use": use, "refused": why} if why else {"use": use, "call": [step["call"], step["input"]]})
     if why:

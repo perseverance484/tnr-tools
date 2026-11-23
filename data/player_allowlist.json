@@ -336,11 +336,12 @@
    "kind": "action",
    "activity": [
     "pvp_hunt",
-    "errands"
+    "errands",
+    "recovery"
    ],
    "phase": "AP1",
    "status": "in_use",
-   "prerequisites": "awake in that sector; villageId is required",
+   "prerequisites": "awake in that sector; villageId is required (recovery: one step off the tile a fight ended on, against snipes; director: \"I usually move it by hand and heal to avoid snipes after fights. You may take over when this occurs.\")",
    "cooldown": "none known",
    "evidence": "pilot.py c_move"
   },

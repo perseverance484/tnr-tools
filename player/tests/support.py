@@ -155,12 +155,17 @@ def and_bare(settings):
 class Rig:
     """A brain in a temporary folder with a clock the test moves."""
 
-    def __init__(self, mode="hunt", combat=None, upkeep=False, bare=True):
+    def __init__(self, mode="hunt", combat=None, upkeep=False, bare=True, stealth=True, pvp_turns=True, run="live"):
         """upkeep: leave the AP2 upkeep activities switched on. The tests written before them ask for a hunt, a
         fight or a relay and nothing else, so for those they are off, the way the director switches one off.
         bare: the director has said a relay without hooks may play (RUL-2026-11-14-161: by itself the brain
         turns one away). Most of the suite hands batches to such a relay, so here it is on unless a test asks
-        otherwise: in control.json, where `brain next` looks, and in the world model as already applied."""
+        otherwise: in control.json, where `brain next` looks, and in the world model as already applied.
+        stealth: the tests written before the hunt kept stealth up start with it up for good, so their batches
+        are the ones they were written for; the stealth tests ask for stealth=False.
+        pvp_turns, run: the tests written before the hands-off rule and the dry-run switch drive the brain as it
+        played then (it acts in a fight against a person, and its calls go out). The live default is the other
+        way round (pvp_turns off, run shadow); the tests of those ask for it."""
         self.dir = tempfile.mkdtemp(prefix="player-test-")
         if bare:
             globals()["bare"](self.dir)
@@ -169,7 +174,7 @@ class Rig:
         with open(self.dna, "w", encoding="utf8") as f:
             f.write(DNA)
         self.combat, self.upkeep = combat or StubCombat(os.path.join(self.dir, "fights")), upkeep
-        self.bare = bare
+        self.bare, self.stealth, self.pvp_turns, self.run = bare, stealth, pvp_turns, run
         self.brain = self.new_brain()
         self.world["control"]["mode"] = mode
 
@@ -177,6 +182,11 @@ class Rig:
         """A brain started fresh on the same folder: what a restart does."""
         self.brain = Brain(self.dir, clock=lambda: self.t, combat=self.combat, gates=Gates(dna_path=self.dna))
         self.brain.world["control"]["relay_without_hooks"] = self.bare
+        if not getattr(self, "seeded", False):      # once: a restart keeps what the world model on disk says
+            self.seeded = True
+            self.brain.world["control"].update(pvp_turns=self.pvp_turns, run=self.run)
+            if not self.stealth:
+                self.brain.world["map"]["stealth"] = {"on": False, "until": 0, "ready_at": 0}
         if not self.upkeep:                         # off, unless the world model on disk already says otherwise
             for name in UPKEEP:
                 self.brain.world["control"]["activities"].setdefault(name, False)

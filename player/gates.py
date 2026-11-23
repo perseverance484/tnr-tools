@@ -14,6 +14,7 @@ for another way to do the same thing. An ask-first call becomes a pending decisi
 import collections
 import datetime as dt
 import json
+import os
 import re
 
 from . import config as C
@@ -142,10 +143,42 @@ def g_fair_target(step, world, gates):
         return refuse("fair_target", "this player beat me in the last hours")
     if world["opponents"]["skip"].get(uid, 0) > world.now:
         return refuse("fair_target", "the game refused this target a moment ago")
-    if t.get("level") is not None and t["level"] < C.MIN_LEVEL:
-        return refuse("fair_target", "the target is too low a level to farm")
+    if t.get("level") is not None and not level_ok(t["level"], uid, world):
+        return refuse("fair_target", "the target is under level 100 and not rated 60% or better")
     if t.get("villageId") and t["villageId"] == C.HOME_VILLAGE:
         return refuse("fair_target", "the target is in my village")
+    return None
+
+
+def rated(world):
+    """{userId: my chance against him}, from live/rater.json, written by the rater from public records only.
+    A hidden record gets no rating, so it is skipped (director: 85-99 public with 60%+; hidden, skip)."""
+    try:
+        with open(os.path.join(world.live, "rater.json"), encoding="utf8") as f:
+            doc = json.load(f)
+    except (OSError, ValueError, AttributeError, TypeError):
+        return {}
+    return {k: v for k, v in doc.items() if isinstance(v, (int, float)) and not isinstance(v, bool)} \
+        if isinstance(doc, dict) else {}
+
+
+def level_ok(level, uid, world, ratings=None):
+    """Director: "Level 100s only". The one exception: level 85-99 with a public record the rater puts at 60% or
+    more for me."""
+    level = level or 0
+    if level >= C.MIN_LEVEL:
+        return True
+    lo, hi = C.RATED_LEVELS
+    return lo <= level <= hi and (rated(world) if ratings is None else ratings).get(uid, 0) >= C.RATED_MIN
+
+
+def full_for_a_fight(world):
+    """None when I may start a fight, else why not (director: "Never send me into battle missing hp")."""
+    pools = world.pools()
+    if pools["hp"] < C.FULL_HP:
+        return f"HP at {pools['hp']:.1%}"
+    if pools["cpsp"] < C.FULL_POOLS:
+        return f"chakra or stamina at {pools['cpsp']:.0%}"
     return None
 
 
@@ -245,8 +278,19 @@ class Gates:
         entry = self.endpoints.get(name)
         if entry is None:
             return refuse("allowlist", f"{name} is not on the allowlist")
-        return self._fixed(step, entry, activity) or self._ending(step, world) or self._road(step, world, activity) \
+        return self._fixed(step, entry, activity) or self._ending(step, world) or self._full(step, world) or self._road(step, world, activity) \
             or self._gated(step, entry, world) or self._asked(step, entry, world) or ALLOW
+
+    @staticmethod
+    def _full(step, world):
+        """No fight is started short of full health, chakra or stamina. The hunt does not plan one (pvp_hunt);
+        this is the second lock, at the call."""
+        if step["call"] == "combat.attackUser":
+            short = full_for_a_fight(world)
+            if short:
+                return refuse("full_pools", f"no attack with {short}: the director's rule is never into a fight "
+                                            f"missing HP")
+        return None
 
     @staticmethod
     def _ending(step, world):

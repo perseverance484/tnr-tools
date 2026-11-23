@@ -36,7 +36,11 @@ ME = "user_37qazcrgUPldBPI65bb25DQiCjz"
 ME_NAME = "dauntless"
 HOME_VILLAGE = "9FZf8b9E7tZJZTaChmhHB"
 HOME_SECTOR = 177
-CIRCUIT = [1538, 1490, 1335, 99]        # Shirohana, Tsukimori, Akasumi, Risen: where active enemies gather
+CIRCUIT = [1538, 1490, 724, 1335, 99]   # Shirohana, Tsukimori, Akikaze (the enemy villages, village.getAlliances
+                                        # 2026-11-14), then Akasumi and Risen (neutral, hunted before). Director:
+                                        # "rotate villages". The order and the list are his to confirm; control.json
+                                        # "circuit" overrides it. Sector 210 is never on it (NO_SECTORS).
+NO_SECTORS = (210,)                     # director 2026-11-14: "No going to 210 or attacking people doing the event"
 ME_CARD = {"level": 100, "username": "dauntless",
            "avatar": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJ2ZSxgqnMXlcRpYmJ5do0zKw4Qx6PVEtBa9b8",
            "avatarLight": "https://ui0arpl8sm.ufs.sh/f/Hzww9EQvYURJEJNnVieLfKL5D7TAFe29bymSaPCIQ846MdzG"}
@@ -44,15 +48,23 @@ FULL_POTION = "IRfg2NFKKYe0ynroXI7qZ"   # user item: HP to full out of combat (r
 MAX_HP = 5050.0
 
 # ---------------------------------------------------------------- play (from pilot.py; director rulings cited there)
-HEAL_BELOW = 0.95        # fights start at full health
+HEAL_BELOW = 0.95        # a Full Potion under this; the hunt attacks only at FULL_HP
 POOLS_BELOW = 0.5        # chakra / stamina floor before ramen
 POOLS_AFTER_FIGHT = 0.95 # after a fight, a large ramen when chakra or stamina is under this (director 2026-11-16:
                          # "Repair, heal and large ramen after every fight"; "The brain can use Ramen, sure.")
 HEAL_RETRY = 600         # s a heal that changed nothing is not tried again
-MIN_LEVEL = 90           # targets under this are not farmed
+MIN_LEVEL = 100          # director: "Level 100s only"
+RATED_LEVELS = (85, 99)  # the one exception: a level 85-99 target with a public record that the rater gives me
+RATED_MIN = 0.60         # 60% or more against (live/rater.json, {userId: win chance}); no rating, no attack
+FULL_HP = 0.999          # director: "Never send me into battle missing hp": no attack under this, and none with
+FULL_POOLS = 0.95        # chakra or stamina under this. Under HEAL_BELOW a Full Potion; between it and FULL_HP
+                         # the gap (at most ~250 HP) is left to regeneration (~240 HP a minute awake): the hunt
+                         # scans meanwhile and attacks once the profile reads full
 LOST_TO_HOURS = 6        # a player who just beat me is not attacked again for this long
 SKIP_FOR = {"bracket": 6 * 3600, "village": 24 * 3600, "immune": 120, "move": 60, "other": 600}
 SENSORY_EVERY = 31       # s; the game's cooldown is 30
+STEALTH_FOR = 20 * 60    # s a stealth lasts (hunt thread 2026-11-14: "duration 20m")
+STEALTH_COOLDOWN = 65.0  # s after stealth breaks before it can be cast again ("cooldown ~1m after break")
 HUNT_WAIT = 8.0          # s before a hunt scan: about 6 scans a minute
 WATCH_WAIT = 7.0         # s between guard reads: inside the 15 s lobby before an attack lands
 TRAVEL_RETRY = 3.0       # s between tries to finish a trip that has not landed
@@ -66,7 +78,9 @@ FIRE_BY = 20.0           # s from turn start by which the actions are out
 LAST_GOOD_READ_AT = 12.0  # s from turn start after which a missing exact read is not waited for
 BEST_LINE_AT = 15.0      # s from turn start at which the planner is cut off and the best line so far is fired
 LATE_TURN = TURN_LIMIT - 20.0   # a turn that lands later than this is a finding
-HANDOFF_WAIT = 40.0      # s of each of my turns left to the director in director mode
+HANDOFF_WAIT = 40.0      # s of each of my turns left to the director in director mode (only with pvp_turns on;
+                         # with it off, the default, the player never acts in a fight against a person: "Dont play
+                         # at all")
 KIT_TRIES = 3            # tries to read an opponent's kit in a fight
 ENTRIES_START = 200      # log lines read when a battle starts
 ENTRIES_POLL = 8         # log lines read on each poll

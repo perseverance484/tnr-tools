@@ -16,6 +16,7 @@ from . import config as C
 from . import relay
 
 MODES = ("hunt", "guard")                 # farm and rest arrive with AP3 and AP2
+RUNS = ("off", "shadow", "read_only", "live")   # tnr-autopilot: off, the dry run, reads only, play
 ALWAYS_ON = ("battle", "recovery", "travel", "watch", "session")   # switching these off loses turns or the character
 
 
@@ -63,6 +64,13 @@ SETTINGS = {
                           "must map known goals to numbers of 0 or more"),
     "spend_caps": _rule(lambda v: _map(v, lambda k: k in ("daily", "reserve"), _number), "must be {daily, reserve} in ryo"),
     "do_not_attack": _names,
+    "run": _rule(lambda v: v in RUNS, "must be off, shadow, read_only or live"),
+    "kill": _rule(lambda v: isinstance(v, bool), "must be true or false"),
+    "stop": _rule(lambda v: isinstance(v, bool), "must be true or false"),       # the same as end_session
+    "pvp_turns": _rule(lambda v: isinstance(v, bool), "must be true or false"),
+    "circuit": _rule(lambda v: v is None or (isinstance(v, list) and v and all(
+        isinstance(x, int) and not isinstance(x, bool) and x > 0 and x not in C.NO_SECTORS for x in v)),
+        "must be a list of sector numbers, never 210"),
     "answers": _rule(lambda v: _map(v, lambda k: True, lambda a: a in ("yes", "no")),
                      "must map decision ids to yes or no"),
 }
@@ -88,6 +96,10 @@ def apply_control(world, activities):
             world.event("error", f"setting refused: {key}: {why}", about="control")
         elif key == "answers":
             _answers(world, value)
+        elif key == "stop":                       # "stop" is the graceful end: the session's end, after any fight
+            if value and not cur.get("end_session"):
+                world.event("setting_changed", "stop: the session ends once out of any fight", setting="end_session")
+            cur["end_session"] = bool(value) or cur.get("end_session", False)
         elif cur.get(key) != value:
             world.event("setting_changed", f"{key}: {cur.get(key)!r} -> {value!r}", setting=key)
             cur[key] = value
@@ -137,6 +149,8 @@ def write_status(world, budget, activity, why, queue, lock=None):
         "schema": 1, "at": iso(now), "account": C.ACCOUNT,
         "mode": world["control"]["mode"], "paused": world["control"]["paused"],
         "director_mode": world["control"]["director_mode"], "control_version": world["control"]["version"],
+        "run": world["control"].get("run"), "kill": world["control"].get("kill"),
+        "pvp_turns": world["control"].get("pvp_turns"),
         "activity": {"name": activity, "why": why},
         "queue": [{"name": n, "why": w, "eta_s": e} for n, w, e in queue[:5]],
         "character": {"status": me.get("status"), "hp": me.get("curHealth"), "max_hp": me.get("maxHealth"),

@@ -29,16 +29,26 @@ connector's error text."""
 RATE_LIMITED = "rate_limited"
 
 EVENT_KINDS = ("fight_start", "fight_end", "activity_done", "training_finished", "item", "repair", "error", "stall",
-               "decision_raised", "decision_answered", "setting_changed", "finding")
+               "decision_raised", "decision_answered", "setting_changed", "finding", "ping")
 """The lines of live/events.jsonl (brief AP7 section 1). "finding" is the one kind the brief does not list by
-name: a refused call, a late or missed turn, a suspected bug (the console's Decisions tab shows recent findings)."""
+name: a refused call, a late or missed turn, a suspected bug (the console's Decisions tab shows recent findings).
+"ping" is the one line the director wants unasked: the account is in a fight against a person (director: "Dont
+ping me unless the account being piloted is in a fight")."""
+
+RUN_DEFAULT = "shadow"     # a brain starts in the dry run: going live is the director's word in control.json
 
 TEMPLATE = {
     "version": 1,
     "control": {                # the director's settings as last applied from live/control.json (player/console.py)
         "version": 0, "paused": False, "mode": "guard", "director_mode": False, "activities": {},
         "goal_weights": {}, "spend_caps": {}, "do_not_attack": [], "end_session": False,
-        "relay_without_hooks": False},
+        "relay_without_hooks": False,
+        # the autopilot's switches (tnr-autopilot DESIGN.md section 6). run: "off" stops the relay; "shadow"
+        # decides and writes each batch to live/shadow.jsonl with no call sent (the dry run); "read_only" sends
+        # reads only; "live" plays. A brain starts in shadow: going live is the director's word, in control.json.
+        # kill: stop at once, in a fight too. pvp_turns: off (his rule, "Dont play at all"): in a fight against a
+        # person the player only watches; on: it plays his turns. circuit: the hunt's sectors, when he names them.
+        "run": RUN_DEFAULT, "kill": False, "pvp_turns": False, "circuit": None},
     "character": {},            # the last profile read, plus read_at
     "inventory": {},            # AP2
     "training": {},             # AP2

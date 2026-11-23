@@ -8,7 +8,7 @@ import sys
 import time
 import unittest
 
-from player import brain, config as C, relay
+from player import brain, config as C, console, relay
 from player.tests.support import Rig, user
 
 
@@ -278,6 +278,7 @@ class Client(unittest.TestCase):
 
     def test_the_resident_process_answers_and_only_one_brain_runs(self):
         transcript(self.t, [])
+        console.set_control(self.rig.dir, run="live")   # a process of its own starts in the dry run: the word to play
         env = dict(os.environ, PYTHONPATH=C.ROOT)
         proc = subprocess.Popen([sys.executable, "-m", "player.brain", "run"], cwd=C.ROOT, env=env)
         try:

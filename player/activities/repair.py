@@ -1,5 +1,7 @@
-"""Repair: only what is close to broken (design 4.3; director 2026-11-11: worn is fine, broken is not). Ported
-from the pilot's restock.py.
+"""Repair: after every fight, and between fights whatever is close to broken (design 4.3; director 2026-11-11:
+worn is fine, broken is not; director 2026-11-16: "Repair, heal and large ramen after every fight"). Ported from
+the pilot's restock.py. The repair after a fight is owed from its end (recovery.after_fight) and goes out once,
+whatever the last items read says: that read is from before the fight.
 
 An equipped item under BELOW of its durability when new is repaired, with everything else that is worn: first
 with Repair Kits (item.useRepairAll), then with ryo (item.repairAll, which needs the Crafting occupation).
@@ -36,7 +38,7 @@ class Repair(Activity):
 
     def available(self, world):
         return (world.status() == "AWAKE" and not world.in_battle() and not world["inventory"].get("stale")
-                and bool(self._way(world)) and bool(self.worn(world)))
+                and bool(self._way(world)) and (bool(world.own(self.name).get("after_fight")) or bool(self.worn(world))))
 
     def value(self, world):
         return 8.0
@@ -45,8 +47,11 @@ class Repair(Activity):
         (endpoint, kits, how), worn = self._way(world), self.worn(world)
         own = world.own(self.name)
         own.setdefault("tried", {})[endpoint] = world.now
-        own["doing"] = f"{', '.join(worn)} with {how}"
-        return plan([K.repair(kits), K.items()], "world", f"repair with {how}: {', '.join(worn)}")
+        what = ", ".join(worn) or "after the fight"
+        if own.pop("after_fight", None):
+            what = what if worn else "after the fight"
+        own["doing"] = f"{what} with {how}"
+        return plan([K.repair(kits), K.items()], "world", f"repair with {how}: {what}")
 
     def on_result(self, world, results):
         own = world.own(self.name)

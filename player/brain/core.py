@@ -229,6 +229,11 @@ class Brain:
 
     def _decide(self, limited):
         w = self.world
+        ctl = w["control"]
+        if ctl.get("kill"):                       # immediate, in a fight too: nothing more is sent
+            return self._idle(stop="killed by the director")
+        if ctl.get("run") == "off":
+            return self._idle(stop="run is off")
         stop = self._stop()
         if stop:
             return self._idle(stop=stop)
@@ -327,11 +332,33 @@ class Brain:
                             steps += extra.steps
                 except Exception as err:  # noqa: BLE001  (a rider never costs the batch it rides on)
                     self._set_aside(rider, f"its plan failed ({err!r})")
+        steps = self._dry(act, p, steps)
         for s in steps:
             if "call" in s:
                 self.gates.sent(s, w)
         self.gates.reserve(steps, w, self.ask.get("id"))
         return steps
+
+    def _dry(self, act, p, steps):
+        """The dry run (control run): in "shadow" no call goes out, in "read_only" only reads do. What is held
+        back is written to live/shadow.jsonl with the activity and its note, after the gates passed it, so the
+        file is what the player would have sent. "live" and "off" send what the gates passed (off never gets
+        here)."""
+        run = self.world["control"].get("run", "live")
+        if run not in ("shadow", "read_only"):
+            return steps
+        kind = lambda s: (self.gates.endpoints.get(s["call"]) or {}).get("kind")      # noqa: E731
+        held = [s for s in steps if "call" in s and (run == "shadow" or kind(s) != "read")]
+        if not held:
+            return steps
+        row = {"at": self.world.now, "run": run, "activity": act.name, "note": p.note,
+               "held": [{"call": s["call"], "input": s["input"]} for s in held]}
+        try:
+            with open(os.path.join(self.world.live, "shadow.jsonl"), "a", encoding="utf8") as f:
+                f.write(json.dumps(row, default=str) + "\n")
+        except OSError as err:
+            self.world.event("error", f"the dry run's file could not be written: {err!r}"[:300], about="crash")
+        return [s for s in steps if not any(s is h for h in held)]
 
     def _record(self, out):
         """Book-keeping after a decision: the relay's state, the console's files, the world model on disk."""

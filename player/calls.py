@@ -64,6 +64,10 @@ def sensory(sec):
     return call("stealth.useSensory", {"sector": sec}, ["success", "message"])
 
 
+def stealth_on():
+    return call("stealth.activateStealth", {}, ["success", "message"])
+
+
 def trip(sec):
     """A trip: start it, try to finish it, and read where I am. A trip that has not landed is finished later."""
     return [call("travel.startGlobalMove", {"sector": sec}, ["success", "message", "data.travelFinishAt"]),

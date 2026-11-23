@@ -290,6 +290,8 @@ class Battle(Activity):
         if b and (not mine or turn.get("round") != b["battle.round"]):
             self._turn_over(world, state)                         # a turn of mine that this read shows is over
             turn = {}
+        if mine and not state.get("all_ai") and not world["control"].get("pvp_turns"):
+            mine = False                     # not known to be a fight with AI only: his, read it and never act
         if mine and not turn.get("accepted"):
             turn = B.turn_open(state, b["battle.round"], world.now, state.get("unseen"))
             steps, how = self._stand_in(world, state, b, turn)
@@ -366,12 +368,30 @@ class Battle(Activity):
         if len(ai) != len(users):
             ai = []                                               # not one flag per fighter: treat them as players
         poll = self._poll(state, users[foes[0]], bool(ai and ai[foes[0]]))
+        state["all_ai"] = bool(ai) and all(ai[i] for i in foes)
+        if not state["all_ai"] and not world["control"].get("pvp_turns"):
+            return self._hands_off(world, state, poll, head)
         me_xy = (battle["battle.usersState.*.longitude"][me_i], battle["battle.usersState.*.latitude"][me_i])
         active = battle["battle.activeUserId"]
         if active != C.ME:
             return self._not_my_turn(world, state, battle, poll, head, me_xy,
                                      bool(active in users and ai and ai[users.index(active)]))
         return self._mine(world, state, battle, poll, head, me_xy, hp[foes[0]], from_last_read)
+
+    def _hands_off(self, world, state, poll, head):
+        """A fight against a person, with pvp_turns off (the default; director: "Dont play at all", "I do all the
+        fighting, pilot just looks for fights"): no action of any kind goes in, not even a wait. The fight is
+        watched, so its end is seen at once and recovery's closing batch (the potion first) goes out; the
+        director is pinged once (director: "Dont ping me unless the account being piloted is in a fight").
+        A fight whose foes are all AI (a mission, a protector) is played as before. Without one AI flag per
+        fighter, the foe is taken to be a person."""
+        state["hands_off"] = True
+        if not state.get("pinged"):
+            state["pinged"] = True
+            world.event("ping", f"in a fight with {state.get('enemy') or 'a player'}: yours to play, hands off",
+                        battle=state["bid"], opponent=state.get("enemy"))
+        return plan(poll, "battle", head + " | hands off: the director's fight",
+                    hold=self.budget.poll_hold(1, C.POLL_GAP_MAX))
 
     def _not_my_turn(self, world, state, battle, poll, head, me_xy, ai_turn):
         bid, v = state["bid"], battle["battle.version"]

@@ -15,7 +15,7 @@ import time
 import unittest
 from unittest import mock
 
-from player import brain, config as C, relay
+from player import brain, config as C, console, relay
 from player.tests.support import res
 from player.tests import support
 from player.tests.test_relay import token_of
@@ -59,6 +59,7 @@ class TheCommandLine(unittest.TestCase):
         self.assertEqual(json.loads(self.says("stopped")[1])["still_held"], [])
 
     def test_the_resident_process_answers_a_relay_and_is_the_only_one(self):
+        console.set_control(self.live, run="live")     # a process of its own starts in the dry run: the word to play
         home = subprocess.Popen(self.command + ["run"], cwd=C.ROOT, env=self.env, stdout=subprocess.DEVNULL,
                                 stderr=subprocess.PIPE, text=True)
         self.addCleanup(home.stderr.close)

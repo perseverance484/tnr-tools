@@ -4,7 +4,8 @@
 - While hunting: under 95% HP a Full Potion; chakra or stamina under 50%, ramen (which refills those two only).
   A heal that changed nothing is not tried again for 10 minutes: a guard against a loop, not a fix.
 - At the end of a fight: the Full Potion goes in the same batch as the fight's last read (after_fight), because a
-  wounded winner is a third party's target within seconds.
+  wounded winner is a third party's target within seconds. Then, as soon as the profile shows me out of the
+  fight and awake, two tiles off the tile it ended on (not at home); and a repair is owed (repair.py).
 - After every fight, a large ramen when chakra or stamina is under POOLS_AFTER_FIGHT, on the first tick awake in hunt
   mode (director 2026-11-16: "Repair, heal and large ramen after every fight"; "The brain can use Ramen, sure.").
   Jutsu spend those pools; the next fight is not started on what the last one left.
@@ -21,15 +22,23 @@ USES = {"item.consume": "Full Potion", "village.buyFood": "ramen"}
 class Recovery(Activity):
     name = "recovery"
     priority = "safety"
-    reads = ("profile.getUser", "item.consume", "village.buyFood")
+    reads = ("profile.getUser", "item.consume", "village.buyFood")      # (travel.moveInSector: after_fight only)
 
     def _need(self, world):
         """"hospital", "hp", "cpsp" or None."""
         if world.status() == "HOSPITALIZED":
             return "hospital"
-        if world.status() != "AWAKE" or world["control"]["mode"] != "hunt":
+        own = world.own(self.name)
+        if world.status() != "AWAKE":
+            own.pop("step_off", None)                             # asleep, in a fight or travelling: nothing to step off
             return None
-        own, pools = world.own(self.name), world.pools()
+        if own.get("step_off") and not self._off_the_tile(world):
+            own.pop("step_off", None)                             # at home, or no tile known: nothing to do
+        if own.get("step_off"):
+            return "step_off"
+        if world["control"]["mode"] != "hunt":
+            return None
+        pools = world.pools()
         broken = {k for k, t in own.get("broken", {}).items() if t > world.now}
         if pools["hp"] < C.HEAL_BELOW and "hp" not in broken:
             return "hp"
@@ -76,6 +85,9 @@ class Recovery(Activity):
         need, own = self._need(world), world.own(self.name)
         if need == "hospital":
             return plan([K.hospital(), K.user()], "recovery", "HOSPITALIZED: healing")
+        if need == "step_off":
+            own.pop("step_off", None)
+            return plan(self._off_the_tile(world) + [K.user()], "recovery", "off the tile the fight ended on")
         own["healing"] = [need, world.pools()[need]]
         if need == "hp":
             own.setdefault("why", {})["item.consume"] = f"HP at {world.pools()['hp']:.0%}"
@@ -94,7 +106,24 @@ class Recovery(Activity):
         end = world["records"].pop("fight_end", None) or {}
         if end:
             world.own(self.name)["ramen_due"] = True              # chakra and stamina, once the fight's reads are in
+            if world["control"]["activities"].get("repair", True):
+                world.own("repair")["after_fight"] = True         # and a repair (director: "after every fight")
+        steps = []
         if end.get("result") != "lost" and 0 < end.get("hp", 0) < C.HEAL_BELOW * end.get("max", C.MAX_HP):
             world.own(self.name).setdefault("why", {})["item.consume"] = f"end of fight at {end['hp']:.0f} HP"
-            return [self._potion(world)]
-        return []
+            steps.append(self._potion(world))
+        if end and end.get("result") != "lost" and end.get("hp", 0) > 0:
+            world.own(self.name)["step_off"] = True               # off the tile, as soon as the profile is read
+        return steps
+
+    @staticmethod
+    def _off_the_tile(world):
+        """One step off the tile the fight ended on, behind the potion: a third party jumps the winner where he
+        stands (director: "I usually move it by hand and heal to avoid snipes after fights. You may take over when
+        this occurs."). Not at home, where the session sleeps instead, and not without a known tile."""
+        me, (x, y) = world.me, world.position()
+        sec = me.get("sector")
+        if sec is None or sec == C.HOME_SECTOR or not all(isinstance(v, (int, float)) for v in (x, y)):
+            return []
+        dest = (x + 2 if x < 12 else x - 2, y)
+        return [K.move((x, y), dest, sec)]
