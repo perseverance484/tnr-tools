@@ -1,10 +1,11 @@
 {
- "holder": null,
- "token": null,
- "job": null,
- "releasedBy": "player",
- "releasedInstance": "/home/user/tnr-tools/state/player/dauntless/live",
- "releasedJob": "play session",
- "releasedAt": "2026-11-24T02:17:08.409Z",
- "note": "Free. Claim with node forge/tools/run_lock.mjs claim --holder NAME --job TEXT (RUL-2026-11-07-133)."
+ "holder": "player",
+ "job": "jutsu engine",
+ "token": "9f5534dfe6ac48e99a41d7fb2ffc1430",
+ "instance": null,
+ "ttlMinutes": 15,
+ "claimedAt": "2026-11-24T02:21:46.009Z",
+ "heartbeatAt": "2026-11-24T02:21:46.009Z",
+ "expiresAt": "2026-11-24T02:36:46.009Z",
+ "note": "One game writer per account at a time (RUL-2026-11-07-133). Written only by forge/tools/run_lock.mjs or Forge; do not hand-edit."
 }
