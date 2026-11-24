@@ -1,11 +1,10 @@
 {
- "holder": "player",
- "token": "574c8e4788b54b469d92bd28a3da720e",
- "job": "hunt mode: find fights, ping director",
- "instance": null,
- "ttlMinutes": 45,
- "claimedAt": "2026-11-23T15:57:05.032Z",
- "heartbeatAt": "2026-11-24T00:22:50.910Z",
- "expiresAt": "2026-11-24T01:07:50.910Z",
- "note": "One game writer per account at a time (RUL-2026-11-07-133). Written only by forge/tools/run_lock.mjs or Forge; do not hand-edit."
+ "holder": null,
+ "token": null,
+ "job": null,
+ "releasedBy": "player",
+ "releasedInstance": null,
+ "releasedJob": "hunt mode: find fights, ping director",
+ "releasedAt": "2026-11-24T00:29:19.803Z",
+ "note": "Free. Claim with node forge/tools/run_lock.mjs claim --holder NAME --job TEXT (RUL-2026-11-07-133)."
 }
