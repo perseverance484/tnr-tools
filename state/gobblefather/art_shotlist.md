@@ -197,3 +197,21 @@ open square pixel-art golden signet ring set with a black feather wrapped around
 
 Negative: no asset sheet, no grid, no circular medal frame unless asked, no labels, no title text, no UI caption, no multiple icons, no franchise insignia
 ```
+
+## 20. Item: Golden Feathered Ring (accessory)
+`gobblefather_item_golden_feathered_ring.png` · ICON
+
+```
+open square pixel-art heavy gold ring set with a single black feather curled around a golden ear of corn icon, crisp pixel lineart, flat cel shading, limited palette, soft even lighting, dark background, strong readable silhouette, no frame, no text
+
+Negative: no asset sheet, no grid, no circular medal frame unless asked, no labels, no title text, no UI caption, no multiple icons, no franchise insignia
+```
+
+## 21. Item: Gobblefather's Cane (weapon reskin)
+`gobblefather_item_cane_skin.png` · ICON
+
+```
+open square pixel-art ceremonial black lacquered walking cane topped with a golden turkey head, held diagonally icon, crisp pixel lineart, flat cel shading, limited palette, soft even lighting, dark background, strong readable silhouette, no frame, no text
+
+Negative: no asset sheet, no grid, no circular medal frame unless asked, no labels, no title text, no UI caption, no multiple icons, no franchise insignia
+```

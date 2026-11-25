@@ -12,7 +12,7 @@
  "items": [
   {
    "entity": "jutsu",
-   "slot": "create",
+   "slot": "edit",
    "name": "Drumstick Release: Concrete Clobber",
    "srcId": "gf622_j_clobber",
    "data": {
@@ -38,7 +38,7 @@
     "staminaCostReducePerLvl": 0,
     "battleUsageType": "PVE",
     "elementClassification": "None",
-    "statClassification": "Highest",
+    "statClassification": "None",
     "effects": [
      {
       "staticAssetPath": "",
@@ -58,13 +58,11 @@
       "dmgModifier": 1,
       "allowBloodlineDamageIncrease": true,
       "allowBloodlineDamageDecrease": true,
-      "statTypes": [
-       "Highest"
-      ],
       "generalTypes": [
        "Highest"
       ],
-      "elements": []
+      "elements": [],
+      "animationScale": 1
      },
      {
       "staticAssetPath": "",
@@ -81,7 +79,8 @@
       "type": "stun",
       "description": "Stuns the target",
       "apReduction": 20,
-      "rounds": 1
+      "rounds": 1,
+      "animationScale": 1
      }
     ],
     "hidden": true,
@@ -100,7 +99,8 @@
     "requiredNinjutsuMastery": null,
     "requiredSageMastery": null,
     "requiredTaijutsuMastery": null
-   }
+   },
+   "targetId": "Xiv4MSyDT2fy56Rs4LBpr"
   },
   {
    "entity": "jutsu",
@@ -130,7 +130,7 @@
     "staminaCostReducePerLvl": 0,
     "battleUsageType": "PVE",
     "elementClassification": "None",
-    "statClassification": "Highest",
+    "statClassification": "None",
     "effects": [
      {
       "staticAssetPath": "",
@@ -150,13 +150,11 @@
       "dmgModifier": 1,
       "allowBloodlineDamageIncrease": true,
       "allowBloodlineDamageDecrease": true,
-      "statTypes": [
-       "Highest"
-      ],
       "generalTypes": [
        "Highest"
       ],
-      "elements": []
+      "elements": [],
+      "animationScale": 1
      },
      {
       "staticAssetPath": "",
@@ -172,7 +170,8 @@
       "calculation": "percentage",
       "type": "afterburn",
       "description": "Take a percentage of incoming damage as afterburndamage",
-      "rounds": 2
+      "rounds": 2,
+      "animationScale": 1
      }
     ],
     "hidden": true,
@@ -221,7 +220,7 @@
     "staminaCostReducePerLvl": 0,
     "battleUsageType": "PVE",
     "elementClassification": "None",
-    "statClassification": "Highest",
+    "statClassification": "None",
     "effects": [
      {
       "staticAssetPath": "",
@@ -237,7 +236,8 @@
       "calculation": "percentage",
       "type": "increasedamagegiven",
       "description": "Increase damage given by target",
-      "rounds": 3
+      "rounds": 3,
+      "animationScale": 1
      }
     ],
     "hidden": true,
@@ -286,7 +286,7 @@
     "staminaCostReducePerLvl": 0,
     "battleUsageType": "PVE",
     "elementClassification": "None",
-    "statClassification": "Highest",
+    "statClassification": "None",
     "effects": [
      {
       "staticAssetPath": "",
@@ -302,7 +302,8 @@
       "calculation": "percentage",
       "type": "decreasedamagetaken",
       "description": "Decrease damage taken of target",
-      "rounds": 2
+      "rounds": 2,
+      "animationScale": 1
      }
     ],
     "hidden": true,
@@ -351,7 +352,7 @@
     "staminaCostReducePerLvl": 0,
     "battleUsageType": "PVE",
     "elementClassification": "None",
-    "statClassification": "Highest",
+    "statClassification": "None",
     "effects": [
      {
       "staticAssetPath": "",
@@ -367,7 +368,8 @@
       "calculation": "percentage",
       "type": "reflect",
       "description": "Reflect damage taken",
-      "rounds": 2
+      "rounds": 2,
+      "animationScale": 1
      }
     ],
     "hidden": true,
@@ -416,7 +418,7 @@
     "staminaCostReducePerLvl": 0,
     "battleUsageType": "PVE",
     "elementClassification": "None",
-    "statClassification": "Highest",
+    "statClassification": "None",
     "effects": [
      {
       "staticAssetPath": "",
@@ -436,13 +438,11 @@
       "dmgModifier": 1,
       "allowBloodlineDamageIncrease": true,
       "allowBloodlineDamageDecrease": true,
-      "statTypes": [
-       "Highest"
-      ],
       "generalTypes": [
        "Highest"
       ],
-      "elements": []
+      "elements": [],
+      "animationScale": 1
      },
      {
       "staticAssetPath": "",
@@ -459,7 +459,8 @@
       "type": "stun",
       "description": "Stuns the target",
       "apReduction": 20,
-      "rounds": 1
+      "rounds": 1,
+      "animationScale": 1
      }
     ],
     "hidden": true,
@@ -508,7 +509,7 @@
     "staminaCostReducePerLvl": 0,
     "battleUsageType": "PVE",
     "elementClassification": "None",
-    "statClassification": "Highest",
+    "statClassification": "None",
     "effects": [
      {
       "staticAssetPath": "",
@@ -528,13 +529,11 @@
       "dmgModifier": 1,
       "allowBloodlineDamageIncrease": true,
       "allowBloodlineDamageDecrease": true,
-      "statTypes": [
-       "Highest"
-      ],
       "generalTypes": [
        "Highest"
       ],
-      "elements": []
+      "elements": [],
+      "animationScale": 1
      },
      {
       "staticAssetPath": "",
@@ -553,7 +552,8 @@
        "Chakra"
       ],
       "type": "drain",
-      "description": "Drain target's pools over time"
+      "description": "Drain target's pools over time",
+      "animationScale": 1
      },
      {
       "staticAssetPath": "",
@@ -572,7 +572,8 @@
       "poolsAffected": [
        "Health"
       ],
-      "rounds": 2
+      "rounds": 2,
+      "animationScale": 1
      }
     ],
     "hidden": true,
@@ -621,7 +622,7 @@
     "staminaCostReducePerLvl": 0,
     "battleUsageType": "PVE",
     "elementClassification": "None",
-    "statClassification": "Highest",
+    "statClassification": "None",
     "effects": [
      {
       "staticAssetPath": "",
@@ -641,13 +642,11 @@
       "dmgModifier": 1,
       "allowBloodlineDamageIncrease": true,
       "allowBloodlineDamageDecrease": true,
-      "statTypes": [
-       "Highest"
-      ],
       "generalTypes": [
        "Highest"
       ],
-      "elements": []
+      "elements": [],
+      "animationScale": 1
      },
      {
       "staticAssetPath": "",
@@ -663,7 +662,8 @@
       "calculation": "percentage",
       "type": "increasedamagetaken",
       "description": "Increase damage taken of target",
-      "rounds": 4
+      "rounds": 4,
+      "animationScale": 1
      }
     ],
     "hidden": true,
@@ -712,7 +712,7 @@
     "staminaCostReducePerLvl": 0,
     "battleUsageType": "PVE",
     "elementClassification": "None",
-    "statClassification": "Highest",
+    "statClassification": "None",
     "effects": [
      {
       "staticAssetPath": "",
@@ -732,13 +732,11 @@
       "dmgModifier": 1,
       "allowBloodlineDamageIncrease": true,
       "allowBloodlineDamageDecrease": true,
-      "statTypes": [
-       "Highest"
-      ],
       "generalTypes": [
        "Highest"
       ],
-      "elements": []
+      "elements": [],
+      "animationScale": 1
      }
     ],
     "hidden": true,
@@ -787,7 +785,7 @@
     "staminaCostReducePerLvl": 0,
     "battleUsageType": "PVE",
     "elementClassification": "None",
-    "statClassification": "Highest",
+    "statClassification": "None",
     "effects": [
      {
       "staticAssetPath": "",
@@ -807,13 +805,11 @@
       "dmgModifier": 1,
       "allowBloodlineDamageIncrease": true,
       "allowBloodlineDamageDecrease": true,
-      "statTypes": [
-       "Highest"
-      ],
       "generalTypes": [
        "Highest"
       ],
-      "elements": []
+      "elements": [],
+      "animationScale": 1
      },
      {
       "staticAssetPath": "",
@@ -829,7 +825,8 @@
       "calculation": "percentage",
       "type": "afterburn",
       "description": "Take a percentage of incoming damage as afterburndamage",
-      "rounds": 2
+      "rounds": 2,
+      "animationScale": 1
      }
     ],
     "hidden": true,
@@ -878,7 +875,7 @@
     "staminaCostReducePerLvl": 0,
     "battleUsageType": "PVE",
     "elementClassification": "None",
-    "statClassification": "Highest",
+    "statClassification": "None",
     "effects": [
      {
       "staticAssetPath": "",
@@ -898,13 +895,11 @@
       "dmgModifier": 1,
       "allowBloodlineDamageIncrease": true,
       "allowBloodlineDamageDecrease": true,
-      "statTypes": [
-       "Highest"
-      ],
       "generalTypes": [
        "Highest"
       ],
-      "elements": []
+      "elements": [],
+      "animationScale": 1
      }
     ],
     "hidden": true,
@@ -953,7 +948,7 @@
     "staminaCostReducePerLvl": 0,
     "battleUsageType": "PVE",
     "elementClassification": "None",
-    "statClassification": "Highest",
+    "statClassification": "None",
     "effects": [
      {
       "staticAssetPath": "",
@@ -969,7 +964,8 @@
       "calculation": "percentage",
       "type": "decreasedamagetaken",
       "description": "Decrease damage taken of target",
-      "rounds": 99
+      "rounds": 99,
+      "animationScale": 1
      },
      {
       "staticAssetPath": "",
@@ -985,7 +981,8 @@
       "calculation": "percentage",
       "type": "reflect",
       "description": "Reflect damage taken",
-      "rounds": 99
+      "rounds": 99,
+      "animationScale": 1
      }
     ],
     "hidden": true,

@@ -42,6 +42,10 @@ SHOTS = [
   "thin anthropomorphic turkey clerk in a dark robe with an abacus and a brush, casting a glowing debt mark sigil, teal accent"),
  ("ICON", None, "gobblefather_badge_family_business", "Badge: Family Business",
   "golden signet ring set with a black feather wrapped around a golden ear of corn"),
+ ("ICON", None, "gobblefather_item_golden_feathered_ring", "Item: Golden Feathered Ring (accessory)",
+  "heavy gold ring set with a single black feather curled around a golden ear of corn"),
+ ("ICON", None, "gobblefather_item_cane_skin", "Item: Gobblefather's Cane (weapon reskin)",
+  "ceremonial black lacquered walking cane topped with a golden turkey head, held diagonally"),
 ]
 out = ["# The Gobblefather: art shot list", "",
        "One image per fresh session. Deliver each file under the name shown; I process (key, crop, export webp), QC and wire it.",

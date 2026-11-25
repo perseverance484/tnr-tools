@@ -1,0 +1,15 @@
+{
+ "manifest": "push/623_gobblefather_ai_quest.json",
+ "ruling": "RUL-2026-10-25-009",
+ "reason": "validate.py law 14 / L05 demands preferredStat on an AI create; the game's AI schema no longer has preferredStat (removed upstream) and Forge refuses the key as unknown",
+ "sha256": "80cddc291aa78857315bf1218cfa5bb93b39e4cca4b00c4b321841adf8a01625",
+ "accepted": [
+  "ERROR  [ai:Feathered Enforcer]: law 14: AI create missing required field 'preferredStat' (builder lint L05 rejects this)",
+  "ERROR  [ai:Corn Collector]: law 14: AI create missing required field 'preferredStat' (builder lint L05 rejects this)",
+  "ERROR  [ai:Feathered Accountant]: law 14: AI create missing required field 'preferredStat' (builder lint L05 rejects this)",
+  "ERROR  [ai:Tony Drumstick]: law 14: AI create missing required field 'preferredStat' (builder lint L05 rejects this)",
+  "ERROR  [ai:Vinny Drumstick]: law 14: AI create missing required field 'preferredStat' (builder lint L05 rejects this)",
+  "ERROR  [ai:Don Giblet]: law 14: AI create missing required field 'preferredStat' (builder lint L05 rejects this)",
+  "ERROR  [ai:The Gobblefather]: law 14: AI create missing required field 'preferredStat' (builder lint L05 rejects this)"
+ ]
+}

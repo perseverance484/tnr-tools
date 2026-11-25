@@ -1,0 +1,1350 @@
+{
+ "builder": "forge-mcp",
+ "at": "2026-11-25T18:26:30.552Z",
+ "cfg": "forge",
+ "checks": null,
+ "state": "INCOMPLETE",
+ "outcome": "unverified",
+ "postflight": {
+  "match": 1,
+  "diff": 7,
+  "unverified": 0,
+  "failed": 0,
+  "skipped": 0,
+  "unresolved": 7
+ },
+ "entries": [
+  {
+   "name": "Feathered Enforcer",
+   "srcId": "gf622_ai_enforcer",
+   "entity": "ai",
+   "slot": "create",
+   "op": "create",
+   "state": "ok",
+   "forgeState": "CONFIRMED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "drift",
+   "asserted": {
+    "ok": 22,
+    "fail": [
+     {
+      "k": "strength",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 118718.33"
+      ]
+     },
+     {
+      "k": "intelligence",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 118718.33"
+      ]
+     },
+     {
+      "k": "willpower",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 118718.33"
+      ]
+     },
+     {
+      "k": "speed",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 118718.33"
+      ]
+     },
+     {
+      "k": "offence",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 118718.33"
+      ]
+     },
+     {
+      "k": "defence",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 118718.33"
+      ]
+     }
+    ]
+   },
+   "diffs": [
+    {
+     "key": "strength",
+     "sent": 100,
+     "live": 118718.33
+    },
+    {
+     "key": "intelligence",
+     "sent": 100,
+     "live": 118718.33
+    },
+    {
+     "key": "willpower",
+     "sent": 100,
+     "live": 118718.33
+    },
+    {
+     "key": "speed",
+     "sent": 100,
+     "live": 118718.33
+    },
+    {
+     "key": "offence",
+     "sent": 100,
+     "live": 118718.33
+    },
+    {
+     "key": "defence",
+     "sent": 100,
+     "live": 118718.33
+    }
+   ],
+   "id": "a9kRi7XLrMumWKuJf5jmp"
+  },
+  {
+   "name": "Corn Collector",
+   "srcId": "gf622_ai_collector",
+   "entity": "ai",
+   "slot": "create",
+   "op": "create",
+   "state": "ok",
+   "forgeState": "CONFIRMED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "drift",
+   "asserted": {
+    "ok": 22,
+    "fail": [
+     {
+      "k": "strength",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 118718.33"
+      ]
+     },
+     {
+      "k": "intelligence",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 118718.33"
+      ]
+     },
+     {
+      "k": "willpower",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 118718.33"
+      ]
+     },
+     {
+      "k": "speed",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 118718.33"
+      ]
+     },
+     {
+      "k": "offence",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 118718.33"
+      ]
+     },
+     {
+      "k": "defence",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 118718.33"
+      ]
+     }
+    ]
+   },
+   "diffs": [
+    {
+     "key": "strength",
+     "sent": 100,
+     "live": 118718.33
+    },
+    {
+     "key": "intelligence",
+     "sent": 100,
+     "live": 118718.33
+    },
+    {
+     "key": "willpower",
+     "sent": 100,
+     "live": 118718.33
+    },
+    {
+     "key": "speed",
+     "sent": 100,
+     "live": 118718.33
+    },
+    {
+     "key": "offence",
+     "sent": 100,
+     "live": 118718.33
+    },
+    {
+     "key": "defence",
+     "sent": 100,
+     "live": 118718.33
+    }
+   ],
+   "id": "Top0jA3EnHBOgiLYBwq4Y"
+  },
+  {
+   "name": "Feathered Accountant",
+   "srcId": "gf622_ai_accountant",
+   "entity": "ai",
+   "slot": "create",
+   "op": "create",
+   "state": "ok",
+   "forgeState": "CONFIRMED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "drift",
+   "asserted": {
+    "ok": 22,
+    "fail": [
+     {
+      "k": "strength",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 118718.33"
+      ]
+     },
+     {
+      "k": "intelligence",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 118718.33"
+      ]
+     },
+     {
+      "k": "willpower",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 118718.33"
+      ]
+     },
+     {
+      "k": "speed",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 118718.33"
+      ]
+     },
+     {
+      "k": "offence",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 118718.33"
+      ]
+     },
+     {
+      "k": "defence",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 118718.33"
+      ]
+     }
+    ]
+   },
+   "diffs": [
+    {
+     "key": "strength",
+     "sent": 100,
+     "live": 118718.33
+    },
+    {
+     "key": "intelligence",
+     "sent": 100,
+     "live": 118718.33
+    },
+    {
+     "key": "willpower",
+     "sent": 100,
+     "live": 118718.33
+    },
+    {
+     "key": "speed",
+     "sent": 100,
+     "live": 118718.33
+    },
+    {
+     "key": "offence",
+     "sent": 100,
+     "live": 118718.33
+    },
+    {
+     "key": "defence",
+     "sent": 100,
+     "live": 118718.33
+    }
+   ],
+   "id": "lhmZ6K62JU1hxkn7aqqQT"
+  },
+  {
+   "name": "Tony Drumstick",
+   "srcId": "gf622_ai_tony",
+   "entity": "ai",
+   "slot": "create",
+   "op": "create",
+   "state": "ok",
+   "forgeState": "CONFIRMED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "drift",
+   "asserted": {
+    "ok": 22,
+    "fail": [
+     {
+      "k": "strength",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 356154.99"
+      ]
+     },
+     {
+      "k": "intelligence",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 356154.99"
+      ]
+     },
+     {
+      "k": "willpower",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 356154.99"
+      ]
+     },
+     {
+      "k": "speed",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 356154.99"
+      ]
+     },
+     {
+      "k": "offence",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 356154.99"
+      ]
+     },
+     {
+      "k": "defence",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 356154.99"
+      ]
+     }
+    ]
+   },
+   "diffs": [
+    {
+     "key": "strength",
+     "sent": 100,
+     "live": 356154.99
+    },
+    {
+     "key": "intelligence",
+     "sent": 100,
+     "live": 356154.99
+    },
+    {
+     "key": "willpower",
+     "sent": 100,
+     "live": 356154.99
+    },
+    {
+     "key": "speed",
+     "sent": 100,
+     "live": 356154.99
+    },
+    {
+     "key": "offence",
+     "sent": 100,
+     "live": 356154.99
+    },
+    {
+     "key": "defence",
+     "sent": 100,
+     "live": 356154.99
+    }
+   ],
+   "id": "lnclpAtgZnorHcnTBSJK0"
+  },
+  {
+   "name": "Vinny Drumstick",
+   "srcId": "gf622_ai_vinny",
+   "entity": "ai",
+   "slot": "create",
+   "op": "create",
+   "state": "ok",
+   "forgeState": "CONFIRMED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "drift",
+   "asserted": {
+    "ok": 22,
+    "fail": [
+     {
+      "k": "strength",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 356154.99"
+      ]
+     },
+     {
+      "k": "intelligence",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 356154.99"
+      ]
+     },
+     {
+      "k": "willpower",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 356154.99"
+      ]
+     },
+     {
+      "k": "speed",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 356154.99"
+      ]
+     },
+     {
+      "k": "offence",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 356154.99"
+      ]
+     },
+     {
+      "k": "defence",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 356154.99"
+      ]
+     }
+    ]
+   },
+   "diffs": [
+    {
+     "key": "strength",
+     "sent": 100,
+     "live": 356154.99
+    },
+    {
+     "key": "intelligence",
+     "sent": 100,
+     "live": 356154.99
+    },
+    {
+     "key": "willpower",
+     "sent": 100,
+     "live": 356154.99
+    },
+    {
+     "key": "speed",
+     "sent": 100,
+     "live": 356154.99
+    },
+    {
+     "key": "offence",
+     "sent": 100,
+     "live": 356154.99
+    },
+    {
+     "key": "defence",
+     "sent": 100,
+     "live": 356154.99
+    }
+   ],
+   "id": "Z3qFXS6MuRweTBVZ2UvnV"
+  },
+  {
+   "name": "Don Giblet",
+   "srcId": "gf622_ai_giblet",
+   "entity": "ai",
+   "slot": "create",
+   "op": "create",
+   "state": "ok",
+   "forgeState": "CONFIRMED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "drift",
+   "asserted": {
+    "ok": 22,
+    "fail": [
+     {
+      "k": "strength",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 356154.99"
+      ]
+     },
+     {
+      "k": "intelligence",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 356154.99"
+      ]
+     },
+     {
+      "k": "willpower",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 356154.99"
+      ]
+     },
+     {
+      "k": "speed",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 356154.99"
+      ]
+     },
+     {
+      "k": "offence",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 356154.99"
+      ]
+     },
+     {
+      "k": "defence",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 356154.99"
+      ]
+     }
+    ]
+   },
+   "diffs": [
+    {
+     "key": "strength",
+     "sent": 100,
+     "live": 356154.99
+    },
+    {
+     "key": "intelligence",
+     "sent": 100,
+     "live": 356154.99
+    },
+    {
+     "key": "willpower",
+     "sent": 100,
+     "live": 356154.99
+    },
+    {
+     "key": "speed",
+     "sent": 100,
+     "live": 356154.99
+    },
+    {
+     "key": "offence",
+     "sent": 100,
+     "live": 356154.99
+    },
+    {
+     "key": "defence",
+     "sent": 100,
+     "live": 356154.99
+    }
+   ],
+   "id": "FWHBYtSrHszv8G0cRwUKy"
+  },
+  {
+   "name": "The Gobblefather",
+   "srcId": "gf622_ai_gobblefather",
+   "entity": "ai",
+   "slot": "create",
+   "op": "create",
+   "state": "ok",
+   "forgeState": "CONFIRMED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "drift",
+   "asserted": {
+    "ok": 22,
+    "fail": [
+     {
+      "k": "strength",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 356154.99"
+      ]
+     },
+     {
+      "k": "intelligence",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 356154.99"
+      ]
+     },
+     {
+      "k": "willpower",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 356154.99"
+      ]
+     },
+     {
+      "k": "speed",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 356154.99"
+      ]
+     },
+     {
+      "k": "offence",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 356154.99"
+      ]
+     },
+     {
+      "k": "defence",
+      "c": "mismatch",
+      "d": [
+       "sent 100  live 356154.99"
+      ]
+     }
+    ]
+   },
+   "diffs": [
+    {
+     "key": "strength",
+     "sent": 100,
+     "live": 356154.99
+    },
+    {
+     "key": "intelligence",
+     "sent": 100,
+     "live": 356154.99
+    },
+    {
+     "key": "willpower",
+     "sent": 100,
+     "live": 356154.99
+    },
+    {
+     "key": "speed",
+     "sent": 100,
+     "live": 356154.99
+    },
+    {
+     "key": "offence",
+     "sent": 100,
+     "live": 356154.99
+    },
+    {
+     "key": "defence",
+     "sent": 100,
+     "live": 356154.99
+    }
+   ],
+   "id": "dTN0I8f8sfBep45hc7F4G"
+  },
+  {
+   "name": "The Gobblefather",
+   "srcId": "gf622_quest",
+   "entity": "quest",
+   "slot": "edit",
+   "op": "update",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 23,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "goJkx-CPJSYvJO71s6CpE"
+  }
+ ],
+ "captures": [],
+ "idmap": {
+  "gf622_j_clobber": "Xiv4MSyDT2fy56Rs4LBpr",
+  "gf622_j_barrage": "wlHq-naZSPHTQfx8fJK9V",
+  "gf622_j_family_business": "0oEnb7dKvwPwte0nIU3Pj",
+  "gf622_j_wing_guard": "O01G8frAlRC_sJvggollZ",
+  "gf622_j_counter": "X_Y-VW8eOw6LB-zrP1iZm",
+  "gf622_j_beatdown": "XqDXmnF1iwAGoo3xmEHVv",
+  "gf622_j_feather_tax": "rHCyIsqExTYQVgdmw_X3R",
+  "gf622_j_interest": "5vHOTxBXThWnvQiXaihcd",
+  "gf622_j_collection_day": "K8Atx3h1KXEukkNGvN17R",
+  "gf622_j_drumsticks": "isBBnS99pv4CmRnUjYTGA",
+  "gf622_j_final_feast": "cpPFpXVNZywgmWbVggYq2",
+  "gf622_j_omerta": "F-b2NkVCxMlUG6u4ziogy",
+  "gf622_quest": "goJkx-CPJSYvJO71s6CpE",
+  "gf622_ai_enforcer": "a9kRi7XLrMumWKuJf5jmp",
+  "gf622_ai_collector": "Top0jA3EnHBOgiLYBwq4Y",
+  "gf622_ai_accountant": "lhmZ6K62JU1hxkn7aqqQT",
+  "gf622_ai_tony": "lnclpAtgZnorHcnTBSJK0",
+  "gf622_ai_vinny": "Z3qFXS6MuRweTBVZ2UvnV",
+  "gf622_ai_giblet": "FWHBYtSrHszv8G0cRwUKy",
+  "gf622_ai_gobblefather": "dTN0I8f8sfBep45hc7F4G"
+ },
+ "journal": {
+  "v": 1,
+  "jobId": "623-mwwfo8zj",
+  "manifestPath": "push/623_gobblefather_ai_quest.json",
+  "manifestNumber": 623,
+  "manifestHash": "9725343e",
+  "startedAt": "2026-11-25T18:04:48.153Z",
+  "updatedAt": "2026-11-25T18:26:30.550Z",
+  "state": "INCOMPLETE",
+  "pause": null,
+  "items": [
+   {
+    "idx": 0,
+    "entity": "ai",
+    "op": "create",
+    "name": "Feathered Enforcer",
+    "srcId": "gf622_ai_enforcer",
+    "targetId": null,
+    "payloadHash": "674834d0",
+    "state": "CONFIRMED",
+    "phase": "verify",
+    "entityId": "a9kRi7XLrMumWKuJf5jmp",
+    "snapshotKey": "tnr_forge_snap_v1:623-mwwfo8zj:ai",
+    "sentAt": "2026-11-25T18:08:02.555Z",
+    "createSentAt": "2026-11-25T18:04:59.198Z",
+    "confirmedAt": "2026-11-25T18:08:11.572Z",
+    "verifiedAt": null,
+    "error": null,
+    "attempt": 4,
+    "asserted": [
+     "username",
+     "level",
+     "rank",
+     "regeneration",
+     "poolsMultiplier",
+     "statsMultiplier",
+     "isSummon",
+     "hidden",
+     "primaryElement",
+     "secondaryElement",
+     "jutsus",
+     "rules",
+     "includeDefaultRules",
+     "strength",
+     "intelligence",
+     "willpower",
+     "speed",
+     "ninjutsuMastery",
+     "genjutsuMastery",
+     "taijutsuMastery",
+     "bukijutsuMastery",
+     "bloodlineMastery",
+     "sageMastery",
+     "offence",
+     "defence",
+     "preferredGeneral1",
+     "preferredGeneral2",
+     "gender"
+    ],
+    "aiProfileId": "A8PEzn-1zJZCxJL5gCLGl",
+    "assertedRules": true,
+    "diffs": [
+     {
+      "key": "strength",
+      "sent": 100,
+      "live": 118718.33
+     },
+     {
+      "key": "intelligence",
+      "sent": 100,
+      "live": 118718.33
+     },
+     {
+      "key": "willpower",
+      "sent": 100,
+      "live": 118718.33
+     },
+     {
+      "key": "speed",
+      "sent": 100,
+      "live": 118718.33
+     },
+     {
+      "key": "offence",
+      "sent": 100,
+      "live": 118718.33
+     },
+     {
+      "key": "defence",
+      "sent": 100,
+      "live": 118718.33
+     }
+    ],
+    "verify": "drift"
+   },
+   {
+    "idx": 1,
+    "entity": "ai",
+    "op": "create",
+    "name": "Corn Collector",
+    "srcId": "gf622_ai_collector",
+    "targetId": null,
+    "payloadHash": "d21324e7",
+    "state": "CONFIRMED",
+    "phase": "verify",
+    "entityId": "Top0jA3EnHBOgiLYBwq4Y",
+    "snapshotKey": "tnr_forge_snap_v1:623-mwwfo8zj:ai",
+    "sentAt": "2026-11-25T18:10:15.822Z",
+    "createSentAt": "2026-11-25T18:08:25.608Z",
+    "confirmedAt": "2026-11-25T18:10:22.837Z",
+    "verifiedAt": null,
+    "error": null,
+    "attempt": 4,
+    "asserted": [
+     "username",
+     "level",
+     "rank",
+     "regeneration",
+     "poolsMultiplier",
+     "statsMultiplier",
+     "isSummon",
+     "hidden",
+     "primaryElement",
+     "secondaryElement",
+     "jutsus",
+     "rules",
+     "includeDefaultRules",
+     "strength",
+     "intelligence",
+     "willpower",
+     "speed",
+     "ninjutsuMastery",
+     "genjutsuMastery",
+     "taijutsuMastery",
+     "bukijutsuMastery",
+     "bloodlineMastery",
+     "sageMastery",
+     "offence",
+     "defence",
+     "preferredGeneral1",
+     "preferredGeneral2",
+     "gender"
+    ],
+    "aiProfileId": "YinccG9AGPRMWvH7SNyFP",
+    "assertedRules": true,
+    "diffs": [
+     {
+      "key": "strength",
+      "sent": 100,
+      "live": 118718.33
+     },
+     {
+      "key": "intelligence",
+      "sent": 100,
+      "live": 118718.33
+     },
+     {
+      "key": "willpower",
+      "sent": 100,
+      "live": 118718.33
+     },
+     {
+      "key": "speed",
+      "sent": 100,
+      "live": 118718.33
+     },
+     {
+      "key": "offence",
+      "sent": 100,
+      "live": 118718.33
+     },
+     {
+      "key": "defence",
+      "sent": 100,
+      "live": 118718.33
+     }
+    ],
+    "verify": "drift"
+   },
+   {
+    "idx": 2,
+    "entity": "ai",
+    "op": "create",
+    "name": "Feathered Accountant",
+    "srcId": "gf622_ai_accountant",
+    "targetId": null,
+    "payloadHash": "f8ad445f",
+    "state": "CONFIRMED",
+    "phase": "verify",
+    "entityId": "lhmZ6K62JU1hxkn7aqqQT",
+    "snapshotKey": "tnr_forge_snap_v1:623-mwwfo8zj:ai",
+    "sentAt": "2026-11-25T18:12:06.069Z",
+    "createSentAt": "2026-11-25T18:10:34.368Z",
+    "confirmedAt": "2026-11-25T18:12:13.084Z",
+    "verifiedAt": null,
+    "error": null,
+    "attempt": 4,
+    "asserted": [
+     "username",
+     "level",
+     "rank",
+     "regeneration",
+     "poolsMultiplier",
+     "statsMultiplier",
+     "isSummon",
+     "hidden",
+     "primaryElement",
+     "secondaryElement",
+     "jutsus",
+     "rules",
+     "includeDefaultRules",
+     "strength",
+     "intelligence",
+     "willpower",
+     "speed",
+     "ninjutsuMastery",
+     "genjutsuMastery",
+     "taijutsuMastery",
+     "bukijutsuMastery",
+     "bloodlineMastery",
+     "sageMastery",
+     "offence",
+     "defence",
+     "preferredGeneral1",
+     "preferredGeneral2",
+     "gender"
+    ],
+    "aiProfileId": "NziiHHXQzPSyNhdYO2FgV",
+    "assertedRules": true,
+    "diffs": [
+     {
+      "key": "strength",
+      "sent": 100,
+      "live": 118718.33
+     },
+     {
+      "key": "intelligence",
+      "sent": 100,
+      "live": 118718.33
+     },
+     {
+      "key": "willpower",
+      "sent": 100,
+      "live": 118718.33
+     },
+     {
+      "key": "speed",
+      "sent": 100,
+      "live": 118718.33
+     },
+     {
+      "key": "offence",
+      "sent": 100,
+      "live": 118718.33
+     },
+     {
+      "key": "defence",
+      "sent": 100,
+      "live": 118718.33
+     }
+    ],
+    "verify": "drift"
+   },
+   {
+    "idx": 3,
+    "entity": "ai",
+    "op": "create",
+    "name": "Tony Drumstick",
+    "srcId": "gf622_ai_tony",
+    "targetId": null,
+    "payloadHash": "53350c8c",
+    "state": "CONFIRMED",
+    "phase": "verify",
+    "entityId": "lnclpAtgZnorHcnTBSJK0",
+    "snapshotKey": "tnr_forge_snap_v1:623-mwwfo8zj:ai",
+    "sentAt": "2026-11-25T18:13:57.797Z",
+    "createSentAt": "2026-11-25T18:12:24.613Z",
+    "confirmedAt": "2026-11-25T18:14:06.315Z",
+    "verifiedAt": null,
+    "error": null,
+    "attempt": 4,
+    "asserted": [
+     "username",
+     "level",
+     "rank",
+     "regeneration",
+     "poolsMultiplier",
+     "statsMultiplier",
+     "isSummon",
+     "hidden",
+     "primaryElement",
+     "secondaryElement",
+     "jutsus",
+     "rules",
+     "includeDefaultRules",
+     "strength",
+     "intelligence",
+     "willpower",
+     "speed",
+     "ninjutsuMastery",
+     "genjutsuMastery",
+     "taijutsuMastery",
+     "bukijutsuMastery",
+     "bloodlineMastery",
+     "sageMastery",
+     "offence",
+     "defence",
+     "preferredGeneral1",
+     "preferredGeneral2",
+     "gender"
+    ],
+    "aiProfileId": "6UDr7GhuLey43VAidUlE0",
+    "assertedRules": true,
+    "diffs": [
+     {
+      "key": "strength",
+      "sent": 100,
+      "live": 356154.99
+     },
+     {
+      "key": "intelligence",
+      "sent": 100,
+      "live": 356154.99
+     },
+     {
+      "key": "willpower",
+      "sent": 100,
+      "live": 356154.99
+     },
+     {
+      "key": "speed",
+      "sent": 100,
+      "live": 356154.99
+     },
+     {
+      "key": "offence",
+      "sent": 100,
+      "live": 356154.99
+     },
+     {
+      "key": "defence",
+      "sent": 100,
+      "live": 356154.99
+     }
+    ],
+    "verify": "drift"
+   },
+   {
+    "idx": 4,
+    "entity": "ai",
+    "op": "create",
+    "name": "Vinny Drumstick",
+    "srcId": "gf622_ai_vinny",
+    "targetId": null,
+    "payloadHash": "eafb7edb",
+    "state": "CONFIRMED",
+    "phase": "verify",
+    "entityId": "Z3qFXS6MuRweTBVZ2UvnV",
+    "snapshotKey": "tnr_forge_snap_v1:623-mwwfo8zj:ai",
+    "sentAt": "2026-11-25T18:15:43.519Z",
+    "createSentAt": "2026-11-25T18:14:18.845Z",
+    "confirmedAt": "2026-11-25T18:15:51.537Z",
+    "verifiedAt": null,
+    "error": null,
+    "attempt": 4,
+    "asserted": [
+     "username",
+     "level",
+     "rank",
+     "regeneration",
+     "poolsMultiplier",
+     "statsMultiplier",
+     "isSummon",
+     "hidden",
+     "primaryElement",
+     "secondaryElement",
+     "jutsus",
+     "rules",
+     "includeDefaultRules",
+     "strength",
+     "intelligence",
+     "willpower",
+     "speed",
+     "ninjutsuMastery",
+     "genjutsuMastery",
+     "taijutsuMastery",
+     "bukijutsuMastery",
+     "bloodlineMastery",
+     "sageMastery",
+     "offence",
+     "defence",
+     "preferredGeneral1",
+     "preferredGeneral2",
+     "gender"
+    ],
+    "aiProfileId": "6kbcrRi8_6F7wFUqTcUNy",
+    "assertedRules": true,
+    "diffs": [
+     {
+      "key": "strength",
+      "sent": 100,
+      "live": 356154.99
+     },
+     {
+      "key": "intelligence",
+      "sent": 100,
+      "live": 356154.99
+     },
+     {
+      "key": "willpower",
+      "sent": 100,
+      "live": 356154.99
+     },
+     {
+      "key": "speed",
+      "sent": 100,
+      "live": 356154.99
+     },
+     {
+      "key": "offence",
+      "sent": 100,
+      "live": 356154.99
+     },
+     {
+      "key": "defence",
+      "sent": 100,
+      "live": 356154.99
+     }
+    ],
+    "verify": "drift"
+   },
+   {
+    "idx": 5,
+    "entity": "ai",
+    "op": "create",
+    "name": "Don Giblet",
+    "srcId": "gf622_ai_giblet",
+    "targetId": null,
+    "payloadHash": "3b0105e0",
+    "state": "CONFIRMED",
+    "phase": "verify",
+    "entityId": "FWHBYtSrHszv8G0cRwUKy",
+    "snapshotKey": "tnr_forge_snap_v1:623-mwwfo8zj:ai",
+    "sentAt": "2026-11-25T18:17:43.274Z",
+    "createSentAt": "2026-11-25T18:16:04.571Z",
+    "confirmedAt": "2026-11-25T18:17:53.296Z",
+    "verifiedAt": null,
+    "error": null,
+    "attempt": 4,
+    "asserted": [
+     "username",
+     "level",
+     "rank",
+     "regeneration",
+     "poolsMultiplier",
+     "statsMultiplier",
+     "isSummon",
+     "hidden",
+     "primaryElement",
+     "secondaryElement",
+     "jutsus",
+     "rules",
+     "includeDefaultRules",
+     "strength",
+     "intelligence",
+     "willpower",
+     "speed",
+     "ninjutsuMastery",
+     "genjutsuMastery",
+     "taijutsuMastery",
+     "bukijutsuMastery",
+     "bloodlineMastery",
+     "sageMastery",
+     "offence",
+     "defence",
+     "preferredGeneral1",
+     "preferredGeneral2",
+     "gender"
+    ],
+    "aiProfileId": "Pojb14KqprhC5AYmiOD-n",
+    "assertedRules": true,
+    "diffs": [
+     {
+      "key": "strength",
+      "sent": 100,
+      "live": 356154.99
+     },
+     {
+      "key": "intelligence",
+      "sent": 100,
+      "live": 356154.99
+     },
+     {
+      "key": "willpower",
+      "sent": 100,
+      "live": 356154.99
+     },
+     {
+      "key": "speed",
+      "sent": 100,
+      "live": 356154.99
+     },
+     {
+      "key": "offence",
+      "sent": 100,
+      "live": 356154.99
+     },
+     {
+      "key": "defence",
+      "sent": 100,
+      "live": 356154.99
+     }
+    ],
+    "verify": "drift"
+   },
+   {
+    "idx": 6,
+    "entity": "ai",
+    "op": "create",
+    "name": "The Gobblefather",
+    "srcId": "gf622_ai_gobblefather",
+    "targetId": null,
+    "payloadHash": "35202b4c",
+    "state": "CONFIRMED",
+    "phase": "verify",
+    "entityId": "dTN0I8f8sfBep45hc7F4G",
+    "snapshotKey": "tnr_forge_snap_v1:623-mwwfo8zj:ai",
+    "sentAt": "2026-11-25T18:19:59.830Z",
+    "createSentAt": "2026-11-25T18:18:06.828Z",
+    "confirmedAt": "2026-11-25T18:20:10.353Z",
+    "verifiedAt": null,
+    "error": null,
+    "attempt": 4,
+    "asserted": [
+     "username",
+     "level",
+     "rank",
+     "regeneration",
+     "poolsMultiplier",
+     "statsMultiplier",
+     "isSummon",
+     "hidden",
+     "primaryElement",
+     "secondaryElement",
+     "jutsus",
+     "rules",
+     "includeDefaultRules",
+     "strength",
+     "intelligence",
+     "willpower",
+     "speed",
+     "ninjutsuMastery",
+     "genjutsuMastery",
+     "taijutsuMastery",
+     "bukijutsuMastery",
+     "bloodlineMastery",
+     "sageMastery",
+     "offence",
+     "defence",
+     "preferredGeneral1",
+     "preferredGeneral2",
+     "gender"
+    ],
+    "aiProfileId": "a_xS1oQbx1lqg2dS8eqDk",
+    "assertedRules": true,
+    "diffs": [
+     {
+      "key": "strength",
+      "sent": 100,
+      "live": 356154.99
+     },
+     {
+      "key": "intelligence",
+      "sent": 100,
+      "live": 356154.99
+     },
+     {
+      "key": "willpower",
+      "sent": 100,
+      "live": 356154.99
+     },
+     {
+      "key": "speed",
+      "sent": 100,
+      "live": 356154.99
+     },
+     {
+      "key": "offence",
+      "sent": 100,
+      "live": 356154.99
+     },
+     {
+      "key": "defence",
+      "sent": 100,
+      "live": 356154.99
+     }
+    ],
+    "verify": "drift"
+   },
+   {
+    "idx": 7,
+    "entity": "quest",
+    "op": "update",
+    "name": "The Gobblefather",
+    "srcId": "gf622_quest",
+    "targetId": "goJkx-CPJSYvJO71s6CpE",
+    "payloadHash": "468c4071",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "goJkx-CPJSYvJO71s6CpE",
+    "snapshotKey": null,
+    "sentAt": "2026-11-25T18:21:57.565Z",
+    "createSentAt": null,
+    "confirmedAt": "2026-11-25T18:26:02.495Z",
+    "verifiedAt": "2026-11-25T18:26:30.549Z",
+    "error": null,
+    "attempt": 1,
+    "asserted": [
+     "name",
+     "questType",
+     "questRank",
+     "requiredLevel",
+     "consecutiveObjectives",
+     "hidden",
+     "description",
+     "successDescription",
+     "startsAt",
+     "endsAt",
+     "maxAttempts",
+     "maxCompletes",
+     "tierLevel",
+     "petTaskMinutes",
+     "requiredBloodlineMastery",
+     "requiredBukijutsuMastery",
+     "requiredGenjutsuMastery",
+     "requiredNinjutsuMastery",
+     "requiredSageMastery",
+     "requiredTaijutsuMastery",
+     "content",
+     "publicLocations",
+     "teamEnabled"
+    ],
+    "diffs": [],
+    "verify": "match"
+   }
+  ]
+ }
+}
