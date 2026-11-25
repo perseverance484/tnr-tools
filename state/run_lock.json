@@ -1,11 +1,10 @@
 {
- "holder": "claude",
- "token": "d1c4f8f7a206456a9bed06d41674a87a",
- "job": "push/622+623 gobblefather",
- "instance": "/home/claude/gf_state",
- "ttlMinutes": 60,
- "claimedAt": "2026-11-25T17:51:37.716Z",
- "heartbeatAt": "2026-11-25T18:19:40.178Z",
- "expiresAt": "2026-11-25T19:19:40.178Z",
- "note": "One game writer per account at a time (RUL-2026-11-07-133). Written only by forge/tools/run_lock.mjs or Forge; do not hand-edit."
+ "holder": null,
+ "token": null,
+ "job": null,
+ "releasedBy": "claude",
+ "releasedInstance": "/home/claude/gf_state",
+ "releasedJob": "push/622+623 gobblefather",
+ "releasedAt": "2026-11-25T18:26:31.137Z",
+ "note": "Free. Claim with node forge/tools/run_lock.mjs claim --holder NAME --job TEXT (RUL-2026-11-07-133)."
 }
