@@ -6,7 +6,7 @@ Builds push/622_gobblefather_jutsu.json and push/623_gobblefather_ai_quest.json,
 Thanksgiving 2026 event "The Gobblefather" (staff sheet:
 state/gobblefather/event_sheet.txt).
 
-    jutsu  15 boss signatures (AI-only, hidden)
+    jutsu  12 boss signatures (AI-only, hidden)
     ai     7  enemies (3 supports from the shared pool, 4 bosses)
     quest  1  The Gobblefather (questType event, 3 boss fights + 1 guard fight)
 
@@ -47,6 +47,7 @@ DEFAULT_ICON = ("https://uploadthing.b-cdn.net/f/"
                 "630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp")
 STATS4 = ["Ninjutsu", "Genjutsu", "Taijutsu", "Bukijutsu"]
 
+START, END = "2026-11-26", "2026-12-03"  # RUL: Thanksgiving + one week
 ENEMY_LEVEL = 75          # PLACEHOLDER: sheet quest level
 SCALED_TO_USER = True     # PLACEHOLDER: same setting as One Perfect Crop
 
@@ -54,7 +55,7 @@ PLACEHOLDERS = [
     "Enemy level 75 on every AI, opponent_scaled_to_user true on every fight",
     "Pools/stats multipliers: supports 1/1, bosses 2/3 (role default), Gobblefather pools 3",
     "Every jutsu power, duration and cooldown (listed per jutsu in the summary)",
-    "Quest gates: requiredLevel 75, questRank S (from the sheet); maxAttempts/maxCompletes and dates unset",
+    "Quest gates: requiredLevel 75, questRank S (from the sheet)",
     "Quest rewards from the sheet: 18,000 exp, 15,000 ryo, 600 prestige, 500 tokens, 600 clan points",
     "Lost guard/boss fights 1-3 retry from the dialog before the fight; only the Gobblefather loss fails the quest",
 ]
@@ -135,11 +136,6 @@ def build_jutsu(f):
         O, ONE, 3, 7, 60, "S",
         [fx(f, "damage", 75), fx(f, "stun", 100, 1, apReduction=20)])
     # Don Giblet
-    add("avalanche", "Corn Release: Golden Avalanche",
-        "Hardened kernels pour from the Golden Silo's rafters in a roaring golden tide.",
-        "%user tips the ledger shut. A golden avalanche of kernels buries the room.",
-        O, ALL, 5, 5, 60, "A",
-        [fx(f, "damage", 45), fx(f, "decreasestat", 15, 2)])
     add("feather_tax", "Feather Tax: Mandatory Collection",
         "A sealing technique that draws chakra out of the debtor and banks it as protection.",
         "%user adjusts his spectacles. \"Your chakra has been repossessed.\"",
@@ -157,20 +153,9 @@ def build_jutsu(f):
         O, ONE, 5, 6, 60, "S",
         [fx(f, "damage", 80)])
     # The Gobblefather
-    add("offer", "An Offer You Cannot Refuse",
-        "An Intimidation Seal. The target hits softer and pays more for every move.",
-        "%user leans forward in his chair. \"I'm going to make you an offer you cannot refuse.\"",
-        O, ONE, 5, 5, 60, "S",
-        [fx(f, "damage", 30), fx(f, "decreasedamagegiven", 20, 3),
-         fx(f, "increasepoolcost", 25, 3, poolsAffected=["Chakra", "Stamina"])])
-    add("gravy", "Gravy Release: Drowning Debt",
-        "A scalding wave of gravy floods the hall and drags at every step.",
-        "%user slams the table. \"NOW IT'S PERSONAL!\" Scalding gravy floods the Grand Feast Hall.",
-        O, ALL, 5, 5, 60, "A",
-        [fx(f, "damage", 45), fx(f, "moveprevent", 100, 1)])
     add("drumsticks", "Thanksgiving Massacre: Flying Drumsticks",
         "Chakra-forged drumsticks rain down from the chandeliers.",
-        "%user raises one wing. Enormous chakra drumsticks rain down on %target.",
+        "%user slams the banquet table in half. \"NOW IT'S PERSONAL!\" Enormous chakra drumsticks rain down on %target.",
         O, ONE, 5, 4, 60, "S",
         [fx(f, "damage", 60), fx(f, "afterburn", 15, 2)])
     add("final_feast", "The Final Feast",
@@ -272,25 +257,25 @@ def build_ai_entries(f, pool, J):
              pool_rule(f, pool, "S41"),
          ])
     boss("Don Giblet", "giblet",
-         ["interest", "collection_day", "feather_tax", "avalanche"],
-         ["S34"], "Genjutsu", ("Intelligence", "Willpower"), [
+         ["interest", "collection_day", "feather_tax"],
+         ["S34", "S28"], "Genjutsu", ("Intelligence", "Willpower"), [
              pool_rule(f, pool, "S34", H(50)),                      # Emergency Audit
              gate_rule(f, J["collection_day"], f.condition(
                  "target_has_effect", effectType="increasedamagetaken",
                  threshold=15, target="CLOSEST_OPPONENT")),
              gate_rule(f, J["interest"]),
              gate_rule(f, J["feather_tax"]),
-             gate_rule(f, J["avalanche"]),
+             pool_rule(f, pool, "S28"),                             # Golden Avalanche (slow)
          ])
     boss("The Gobblefather", "gobblefather",
-         ["offer", "gravy", "drumsticks", "final_feast", "omerta"],
-         ["B23", "S42"], "Ninjutsu", ("Strength", "Willpower"), [
+         ["drumsticks", "final_feast", "omerta"],
+         ["B23", "A3", "S27", "S42"], "Ninjutsu", ("Strength", "Willpower"), [
              gate_rule(f, J["omerta"], H(35)),                      # phase 3
              gate_rule(f, J["final_feast"], H(35)),
              gate_rule(f, J["drumsticks"], H(70)),                  # phase 2
-             gate_rule(f, J["gravy"], H(70)),
+             pool_rule(f, pool, "A3", H(70)),                       # Gravy Release (area)
              pool_rule(f, pool, "B23"),                             # Family Protection
-             gate_rule(f, J["offer"]),                              # phase 1
+             pool_rule(f, pool, "S27"),                             # An Offer (weaken), phase 1
              pool_rule(f, pool, "S42"),
          ], pools=3)
     return out
@@ -428,6 +413,15 @@ def build_objectives(f):
 
 
 def build_quest(f, objectives):
+    q = _quest(f, objectives)
+    # RUL: unlimited tries. Upstream QUEST_LIMIT_UNLIMITED is -1 and the live quests.update schema
+    # takes minimum -1 (connector read 2026-11-25); the pinned 45d still says min 0, so the
+    # factory cannot construct it. Set after construction; the pin needs a re-extract (Lane A).
+    q["data"]["maxAttempts"] = -1
+    return q
+
+
+def _quest(f, objectives):
     return f.entry("quest", "create", name="The Gobblefather", srcId=f"{P}_quest", data={
         "name": "The Gobblefather",
         "questType": "event",
@@ -437,8 +431,9 @@ def build_quest(f, objectives):
         "hidden": True,
         "description": QUEST_DESC,
         "successDescription": QUEST_SUCCESS,
-        "startsAt": None,
-        "endsAt": None,
+        "startsAt": START, "endsAt": END,
+        "maxAttempts": 100,  # overwritten to -1 below
+        "maxCompletes": 1,
         "tierLevel": None,
         "petTaskMinutes": None,
         **{f"required{m}Mastery": None for m in ("Bloodline", "Bukijutsu", "Genjutsu",
@@ -529,7 +524,7 @@ def main():
     if not args:
         man = f.manifest(list(J.values()))
         write(OUT_J, {
-            "_note": "push/622: The Gobblefather (Thanksgiving 2026) step 1 of 2, 15 AI jutsu, HIDDEN. "
+            "_note": "push/622: The Gobblefather (Thanksgiving 2026) step 1 of 2, 12 AI jutsu, HIDDEN. "
                      "Keep the results bundle: push/623 (AI + quest) is built from it with --ids. "
                      "Generated by push/622_gobblefather_core.gen.py; do not hand-edit.",
             "_placeholders": PLACEHOLDERS, "dedupNames": True, "items": man["items"]})
