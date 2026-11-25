@@ -1,11 +1,10 @@
 {
- "holder": "player",
- "token": "d9b12dab7fb045658225c410bf5d9f85",
- "job": "war-hunt",
- "instance": null,
- "ttlMinutes": 45,
- "claimedAt": "2026-11-25T16:24:45.174Z",
- "heartbeatAt": "2026-11-25T17:15:47.573Z",
- "expiresAt": "2026-11-25T18:00:47.573Z",
- "note": "One game writer per account at a time (RUL-2026-11-07-133). Written only by forge/tools/run_lock.mjs or Forge; do not hand-edit."
+ "holder": null,
+ "token": null,
+ "job": null,
+ "releasedBy": "player",
+ "releasedInstance": null,
+ "releasedJob": "war-hunt",
+ "releasedAt": "2026-11-25T17:47:00.185Z",
+ "note": "Free. Claim with node forge/tools/run_lock.mjs claim --holder NAME --job TEXT (RUL-2026-11-07-133)."
 }
