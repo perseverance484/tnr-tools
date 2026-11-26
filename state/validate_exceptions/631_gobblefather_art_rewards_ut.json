@@ -1,0 +1,19 @@
+{
+ "manifest": "push/631_gobblefather_art_rewards_ut.json",
+ "ruling": "Accepted by RUL-2026-10-31-085: build-order diagnostics (validator bug).",
+ "reason": "validate.py renames every asset entry to 'gameAsset' before its build-order lint, whose table is keyed 'asset', so the 11 assets rank 9 and every item/variant/ai/quest after them is flagged. The order here is the law-17 order (badge, assets, items + variant, ai, quest); the quest references the assets by @scene and the items and badge by @item/@badge, so it must run last. check_manifest.mjs: 0 pre-send problems. Validator bug, Lane A, not fixed here. The _ut copy (UploadThing URLs in place of @img) gives the same validate.py output as push/631, including the two 45d contract-pin errors for badge and itemVariant that push/631 also shows (pinned contracts need a re-extract; state/gobblefather/build_notes.md).",
+ "sha256": "22831c46b9e7f84e78c7693c5b26f850199e6af2f85228441ecfa42614d4c819",
+ "accepted": [
+  "ERROR  manifest: build order: item appears after a later phase",
+  "ERROR  manifest: build order: item appears after a later phase",
+  "ERROR  manifest: build order: itemVariant appears after a later phase",
+  "ERROR  manifest: build order: ai appears after a later phase",
+  "ERROR  manifest: build order: ai appears after a later phase",
+  "ERROR  manifest: build order: ai appears after a later phase",
+  "ERROR  manifest: build order: ai appears after a later phase",
+  "ERROR  manifest: build order: ai appears after a later phase",
+  "ERROR  manifest: build order: ai appears after a later phase",
+  "ERROR  manifest: build order: ai appears after a later phase",
+  "ERROR  manifest: build order: quest appears after a later phase"
+ ]
+}
