@@ -1,0 +1,19 @@
+{
+ "manifest": "push/631_gobblefather_art_rewards.json",
+ "ruling": "Accepted by RUL-2026-10-31-085: build-order diagnostics (validator bug).",
+ "reason": "validate.py renames every asset entry to 'gameAsset' before its build-order lint, whose table is keyed 'asset', so the 11 assets rank 9 and every item/variant/ai/quest after them is flagged. The order here is the law-17 order (badge, assets, items + variant, ai, quest); the quest references the assets by @scene and the items and badge by @item/@badge, so it must run last. check_manifest.mjs: 0 pre-send problems. Validator bug, Lane A, not fixed here.",
+ "sha256": "5de87920f1c59b952a4446d54134bb95294bd7cf329b68602b713d2274e195b1",
+ "accepted": [
+  "ERROR  manifest: build order: item appears after a later phase",
+  "ERROR  manifest: build order: item appears after a later phase",
+  "ERROR  manifest: build order: itemVariant appears after a later phase",
+  "ERROR  manifest: build order: ai appears after a later phase",
+  "ERROR  manifest: build order: ai appears after a later phase",
+  "ERROR  manifest: build order: ai appears after a later phase",
+  "ERROR  manifest: build order: ai appears after a later phase",
+  "ERROR  manifest: build order: ai appears after a later phase",
+  "ERROR  manifest: build order: ai appears after a later phase",
+  "ERROR  manifest: build order: ai appears after a later phase",
+  "ERROR  manifest: build order: quest appears after a later phase"
+ ]
+}
