@@ -7,6 +7,7 @@ Order for the release sitting (director's go covers this list only): 1 fixes, 2 
 ## 1. Before unhiding (open items)
 
 - [x] Rewards (planner item 21): job 631 set the manifest's rewards (10,000 exp, 70,000 ryo, 480 prestige, 500 tokens, 500 clan points, badge Family Business, Golden Feathered Ring, Gobblefather's Cane Token). Read back 2026-11-26.
+- [ ] **Staff test copy (director 2026-11-26 19:47Z):** rewards removed from `goJkx-CPJSYvJO71s6CpE` and maxCompletes set to 100 (the cap) so staff can repeat it; read back 19:49:48Z, still hidden. After testing the director clones it, adds the rewards above back on the clone, and deletes this original. A clone copies `hidden` as-is, and deleting needs his yes per record.
 - [x] Badge 'Family Business': built by 631 with art and in the quest's `reward_badges`. Public since create.
 - [x] Golden Feathered Ring and the Cane reskin: built by 631 (ring and token hidden; Night's Testament variant public). Token bound to the variant 2026-11-26 19:45Z, read back.
 - [x] Art: 631 set the 6 backgrounds, 5 characters, 7 AI avatars, badge, ring, token and variant images, and scenes on all 30 quest objectives.
