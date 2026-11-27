@@ -1,0 +1,115 @@
+{
+ "job": "gobblefather-golive",
+ "source": "connector, direct calls (director go 2026-11-27 10:16 CT: 'Clone it, add rewards, unhide and delete the original')",
+ "at": "2026-11-27T16:25:00Z",
+ "lock": "claude, token 687d023b...",
+ "readbacks_before": {
+  "push631": "ran 2026-11-26 ~19:30-19:50 UTC in Forge; no bundle committed. Live: 11 assets (hidden), 7 AI avatars set, all AI jutsu equipped (4/4/5/7/3/3/3), badge 0qF6CfituLAheGNJp4P_2, ring nTr00p6uwLbooR3P67QJ-, token 132NSx2JBdxbjxLrQODBS (variantId already bound to ZW5O_kCG13JL7W2MhPQaU), variant ZW5O_kCG13JL7W2MhPQaU order 3 on Night's Testament, quest goJkx scenes set but content.reward EMPTY."
+ },
+ "writes": [
+  {
+   "call": "item.update",
+   "id": "nTr00p6uwLbooR3P67QJ-",
+   "change": "hidden false",
+   "result": "Updated hidden:false"
+  },
+  {
+   "call": "item.update",
+   "id": "132NSx2JBdxbjxLrQODBS",
+   "change": "hidden false",
+   "result": "Updated hidden:false"
+  },
+  {
+   "call": "gameAsset.update",
+   "id": "tsDS2q_XZolIDF8gVDOd9",
+   "change": "hidden false",
+   "result": "Updated hidden:false"
+  },
+  {
+   "call": "gameAsset.update",
+   "id": "AF1fe4ZPIPJs03hYee4qI",
+   "change": "hidden false",
+   "result": "Updated hidden:false"
+  },
+  {
+   "call": "gameAsset.update",
+   "id": "YiHgjQfpvYB1u92ewe0E2",
+   "change": "hidden false",
+   "result": "Updated hidden:false"
+  },
+  {
+   "call": "gameAsset.update",
+   "id": "O_O-nrQoeqL2K3NVUjK1N",
+   "change": "hidden false",
+   "result": "Updated hidden:false"
+  },
+  {
+   "call": "gameAsset.update",
+   "id": "VAntl36ryFerTNCk597Gk",
+   "change": "hidden false",
+   "result": "Updated hidden:false"
+  },
+  {
+   "call": "gameAsset.update",
+   "id": "DvB3VyXs7KsYhxu9BwqZx",
+   "change": "hidden false",
+   "result": "Updated hidden:false"
+  },
+  {
+   "call": "gameAsset.update",
+   "id": "rSjJ-L5g3EAli_ZPcjFGk",
+   "change": "hidden false",
+   "result": "Updated hidden:false"
+  },
+  {
+   "call": "gameAsset.update",
+   "id": "Vgzh21LlGrXVSXH16Q1VY",
+   "change": "hidden false",
+   "result": "Updated hidden:false"
+  },
+  {
+   "call": "gameAsset.update",
+   "id": "Fm2kvTLoc_tMlp7-imYFJ",
+   "change": "hidden false",
+   "result": "Updated hidden:false"
+  },
+  {
+   "call": "gameAsset.update",
+   "id": "Tn0zgI-ZxprgkMKknwwhB",
+   "change": "hidden false",
+   "result": "Updated hidden:false"
+  },
+  {
+   "call": "gameAsset.update",
+   "id": "shiZO2nmjzdLAP77NjuGq",
+   "change": "hidden false",
+   "result": "Updated hidden:false"
+  },
+  {
+   "call": "quests.clone",
+   "id": "goJkx-CPJSYvJO71s6CpE",
+   "result": "a0HxwG_yOapsv0g_oFvYD"
+  },
+  {
+   "call": "quests.update",
+   "id": "a0HxwG_yOapsv0g_oFvYD",
+   "change": "full record: name 'The Gobblefather', maxCompletes 1, reward Single Major Event (10000 exp, 70000 ryo, 500 tokens, 480 prestige, 500 clan points) + badge + ring + cane token, content.sceneCharacters [Goah] (unhide rule: main sceneCharacters or every node), hidden false",
+   "result": "Updated name, maxCompletes, reward, hidden:false"
+  },
+  {
+   "call": "quests.delete",
+   "id": "goJkx-CPJSYvJO71s6CpE",
+   "change": "director per-record yes",
+   "result": "Quest deleted"
+  }
+ ],
+ "readbacks_after": {
+  "quest a0HxwG_yOapsv0g_oFvYD": "hidden false, event, S, lvl 75, maxAttempts -1, maxCompletes 1, 26 Nov-3 Dec, rewards as written, 30 nodes; listed by quests.allianceBuilding",
+  "ring": "hidden false",
+  "token": "hidden false, variantId ZW5O_kCG13JL7W2MhPQaU",
+  "assets": "11/11 hidden false"
+ },
+ "left_hidden": {
+  "jutsu (12) and AI (7)": "stay hidden by choice: source (TheNinjaRPG@6f8b58f) filters hidden jutsu only from a player's own lobby loadout (combat.ts ~1295); AI battle loading has no hidden filter. Unhiding a jutsu is a jutsu.update on an equipped jutsu (law 18 re-equip risk) for no player benefit."
+ }
+}

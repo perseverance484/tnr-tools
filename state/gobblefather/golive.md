@@ -44,3 +44,7 @@ Unhide in that order: the 12 jutsu, then the 7 AI, then the quest. The quest `st
 - [ ] Each jutsu `hidden:false`; each AI `hidden:false` and still `equipped:true` on every jutsu (law 18 check).
 - [ ] Quest: hidden false, questType event, maxAttempts -1, maxCompletes 1, requiredLevel 75.
 - [ ] One test fight per stage on the director's say-so.
+
+## Done 2026-11-27
+
+Live quest: `a0HxwG_yOapsv0g_oFvYD` (clone; original `goJkx-CPJSYvJO71s6CpE` deleted). Rewards: Single Major Event package + Family Business badge + Golden Feathered Ring + Gobblefather's Cane Token. Ring, token and the 11 scene assets unhidden. The 12 boss jutsu and 7 AI stay hidden on purpose (they fight hidden; unhiding equipped jutsu risks law 18). Record: `harvests/inbox/tnr_results_gobblefather_golive_20261127.json`.

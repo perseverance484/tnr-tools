@@ -795,11 +795,11 @@
    "manifest": "push/631_gobblefather_art_rewards.zip",
    "what": "The Gobblefather step 3: 11 scene assets, 7 AI avatars, badge Family Business, Golden Feathered Ring, Gobblefather's Cane token + Night's Testament variant, quest scenes and rewards (Single Major Event package)",
    "runner": "browser",
-   "status": "ready",
+   "status": "done",
    "waitsFor": [],
    "build": "python3 push/631_gobblefather_art_rewards.gen.py",
-   "note": "Director go 2026-11-26 12:55 CT ('All approved'). Runs in browser Forge (image uploads). Gates 2026-11-26: validate.py --strict 11 build-order diagnostics, all ledgered (state/validate_exceptions/631, RUL-2026-10-31-085 validator bug); check_manifest.mjs 0 pre-send problems. Visible on run: the badge (public /manual/badge) and the Night's Testament variant (owners see 'Need Gobblefather's Cane Token'). After the run: read back every AI's equipped jutsu (law 18 risk on the AI edits), then a connector token edit binding unlockitemvariant.variantId to the new variant id.",
-   "result": null
+   "note": "Director go 2026-11-26 12:55 CT ('All approved'). Runs in browser Forge (image uploads). Gates 2026-11-26: validate.py --strict 11 build-order diagnostics, all ledgered (state/validate_exceptions/631, RUL-2026-10-31-085 validator bug); check_manifest.mjs 0 pre-send problems. Visible on run: the badge (public /manual/badge) and the Night's Testament variant (owners see 'Need Gobblefather's Cane Token'). After the run: read back every AI's equipped jutsu (law 18 risk on the AI edits), then a connector token edit binding unlockitemvariant.variantId to the new variant id. Ran in Forge 2026-11-26 (bundle not committed); quest reward block came back empty. Go-live 2026-11-27 over the connector: quest cloned to a0HxwG_yOapsv0g_oFvYD with the rewards, unhidden; ring, token and 11 assets unhidden; original goJkx deleted (director yes). AI and their jutsu left hidden (fight fine hidden; see bundle).",
+   "result": "harvests/inbox/tnr_results_gobblefather_golive_20261127.json"
   }
  ]
 }
