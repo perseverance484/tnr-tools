@@ -45,3 +45,9 @@ renamed_classes = [{ from = "FightWatcher2", to = "FightWatcher3" }]
 [[migrations]]
 tag = "v4"
 new_sqlite_classes = ["FightWatcher4"]
+
+# v5: delete the old class, whose instance still ran the pre-swap code (and would send a
+# second alert per fight).
+[[migrations]]
+tag = "v5"
+deleted_classes = ["FightWatcher3"]

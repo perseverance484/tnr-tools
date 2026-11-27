@@ -478,9 +478,6 @@ export class FightWatcher4 {
   }
 }
 
-// Kept only until the FightWatcher3 class is deleted by a migration.
-export class FightWatcher3 extends FightWatcher4 {}
-
 /** Call the watcher, retrying once if it reset itself for a newer deploy. */
 async function callWatcher(env, path, init = {}) {
   const headers = { "x-deploy-id": env.DEPLOY_ID || "0" };
