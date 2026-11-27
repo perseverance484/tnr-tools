@@ -11,9 +11,10 @@ crons = ["* * * * *"]
 # The watched account's public user id (its live channel name) and display name.
 WATCH_USER_ID = "user_37qazcrgUPldBPI65bb25DQiCjz"
 WATCH_NAME = "dauntless"
-ALERT_OWN_FIGHTS = "false"
-# Lobby jutsu swap for fights someone else starts: P1 set when dauntless moves first, P2 when
-# second. Runs only after the owner signs the Worker in to the game at /auth/start.
+# Alert (and swap) on fights the account starts too, not only on fights it is attacked in.
+ALERT_OWN_FIGHTS = "true"
+# Lobby jutsu swap for every alerted fight (attacked or own): P1 set when dauntless moves
+# first, P2 when second. Runs only after the owner signs the Worker in to the game at /auth/start.
 SWAP_ENABLED = "true"
 P1_LOADOUT_ID = "soXekhNjk7qihu-Rsok-6"
 P2_LOADOUT_ID = "ZVfObjuW5xO462WiR5UMQ"

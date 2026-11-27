@@ -2,11 +2,12 @@
 //
 // Listens on the account's own live channel on the game's Soketi (Pusher protocol) server,
 // the same public channel the game's web page subscribes to. When the server announces a
-// battle where the account is the defender, it sends a max-priority ntfy notification.
+// battle the account is in (attacked, or started by it when ALERT_OWN_FIGHTS = "true"), it
+// sends a max-priority ntfy notification.
 //
 // The alert itself makes no game API calls. The optional lobby swap (src/swap.js) is off
 // until SWAP_ENABLED = "true" and the owner has signed the Worker in to the game; it only
-// changes the jutsu set in the 15-second lobby of a fight someone else started.
+// changes the jutsu set in the 15-second lobby of a fight it alerted on.
 
 import { GameSession } from "./swap.js";
 
@@ -89,6 +90,11 @@ export function classify(data, alertOwnFights) {
   }
   if (data.isDefender) return "attacked";
   return alertOwnFights ? "own" : null;
+}
+
+/** The lobby swap runs on every fight the alert goes out for: attacked or started by us. */
+export function swapsFor(kind) {
+  return kind === "attacked" || kind === "own";
 }
 
 export class FightWatcher4 {
@@ -374,7 +380,7 @@ export class FightWatcher4 {
     await this.saveMeta();
     // The alert goes out first; the swap runs alongside it, never ahead of it.
     const alert = this.notify(kind);
-    const swap = kind === "attacked" ? this.swap(msg.data.battleId) : null;
+    const swap = swapsFor(kind) ? this.swap(msg.data.battleId) : null;
     await alert;
     if (swap) await swap;
   }
@@ -409,9 +415,9 @@ export class FightWatcher4 {
       },
       own: {
         title: `${name} started a fight`,
-        body: "Open the game to take your turn.",
-        priority: "4",
-        tags: "crossed_swords",
+        body: "A fight just started. Open the game now.",
+        priority: "5",
+        tags: "rotating_light,crossed_swords",
         click: `${origin}/combat`,
       },
       test: {

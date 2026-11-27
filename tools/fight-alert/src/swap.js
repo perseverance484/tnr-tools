@@ -1,4 +1,4 @@
-// Pre-battle jutsu swap for a fight someone else started.
+// Pre-battle jutsu swap for a fight the account is in (attacked, or started by it).
 //
 // Off unless SWAP_ENABLED = "true" and the owner has signed the Worker in through /auth/start.
 // Per fight it makes two game calls through the game's own MCP endpoint, and nothing else:

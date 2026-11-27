@@ -5,7 +5,7 @@ name: fight-alert-deploy
 on:
   workflow_dispatch:
   push:
-    branches: [claude/project-thread-kinzit]
+    branches: [claude/project-thread-kinzit, claude/project-thread-u81n7u]
     paths:
       - "tools/fight-alert/**"
       - ".github/workflows/fight-alert-deploy.yml"

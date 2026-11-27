@@ -174,3 +174,49 @@ test("sign-in registers its scopes and asks only for what was granted", async ()
   assert.equal(url.searchParams.get("client_id"), "new");
   assert.equal(url.searchParams.get("scope"), "openid profile email offline_access");
 });
+
+test("own fights alert and run the lobby swap; defended fights still do", async () => {
+  const { FightWatcher4, swapsFor } = await import("../src/index.js");
+  assert.equal(swapsFor("attacked"), true);
+  assert.equal(swapsFor("own"), true);
+  assert.equal(swapsFor("test"), false);
+  const env = { WATCH_USER_ID: "me", WATCH_NAME: "dauntless", ALERT_OWN_FIGHTS: "true" };
+  const storage = memStorage();
+  const w = new FightWatcher4({ storage }, env);
+  const order = [];
+  w.notify = async (kind) => {
+    order.push(`notify:${kind}`);
+    return { ok: true };
+  };
+  w.swap = async (battleId) => {
+    order.push(`swap:${battleId}`);
+  };
+  await w.loadMeta();
+  w.sockets.set(1, { ws: { send() {} }, subscribed: true, openedAt: Date.now() });
+  const frame = (battleId, isDefender) =>
+    JSON.stringify({ event: "event", channel: "me", data: JSON.stringify({ type: "battle", battleId, isDefender }) });
+  await w.onMessage(1, frame("own1", false));
+  await w.onMessage(1, frame("own1", false)); // same fight again: no second alert or swap
+  await w.onMessage(1, frame("def1", true));
+  assert.deepEqual(order, ["notify:own", "swap:own1", "notify:attacked", "swap:def1"]);
+  assert.equal(w.meta.lastEvent.kind, "attacked");
+});
+
+test("own fights are ignored when ALERT_OWN_FIGHTS is off", async () => {
+  const { FightWatcher4 } = await import("../src/index.js");
+  const w = new FightWatcher4({ storage: memStorage() }, { WATCH_USER_ID: "me", ALERT_OWN_FIGHTS: "false" });
+  const order = [];
+  w.notify = async (kind) => order.push(kind);
+  w.swap = async () => order.push("swap");
+  await w.loadMeta();
+  w.sockets.set(1, { ws: { send() {} }, subscribed: true, openedAt: Date.now() });
+  await w.onMessage(1, JSON.stringify({ event: "event", channel: "me", data: JSON.stringify({ type: "battle", battleId: "x", isDefender: false }) }));
+  assert.deepEqual(order, []);
+});
+
+test("wrangler.toml turns own-fight alerts on", async () => {
+  const { readFile } = await import("node:fs/promises");
+  const toml = await readFile(new URL("../wrangler.toml", import.meta.url), "utf8");
+  assert.match(toml, /^ALERT_OWN_FIGHTS = "true"$/m);
+  assert.match(toml, /^SWAP_ENABLED = "true"$/m);
+});

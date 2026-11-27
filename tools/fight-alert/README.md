@@ -1,7 +1,7 @@
 # Fight alert
 
 Sends a loud phone notification (ntfy) within a few seconds of a fight starting on a TNR
-account, when someone else started it.
+account: fights it is attacked in and fights it starts.
 
 ## How it works
 
@@ -10,11 +10,12 @@ account, when someone else started it.
   the account's user id. The game's web page subscribes to the same channel.
 - When the game creates a battle it sends `{type: "battle", battleId, isDefender}` on that
   channel (`app/src/server/api/routers/combat.ts` in studie-tech/TheNinjaRPG). With
-  `isDefender: true` the Worker posts a priority-5 message to `ntfy.sh/<NTFY_TOPIC>`.
+  `isDefender: true` ("under attack") or `false` ("started a fight") the Worker posts a
+  priority-5 message to `ntfy.sh/<NTFY_TOPIC>`.
 - The alert makes no game API calls. The Pusher app key is the public one the game
   page ships; the Worker finds it in the site's scripts (or set `PUSHER_KEY`).
-- One alert per battle id (last 50 remembered). Fights the account starts are not alerted
-  unless `ALERT_OWN_FIGHTS = "true"`.
+- One alert per battle id (last 50 remembered). Fights the account starts are alerted
+  while `ALERT_OWN_FIGHTS = "true"` (on in `wrangler.toml`).
 - An outbound socket keeps a Durable Object alive for up to 15 minutes, so the socket is
   replaced every 14 minutes (the new one subscribes before the old one closes). A 1-minute
   alarm and a 1-minute cron reconnect after drops, deploys or evictions.
@@ -23,7 +24,7 @@ account, when someone else started it.
 
 ## Lobby jutsu swap
 
-For a fight someone else starts, the Worker can load the right jutsu set during the
+For every fight it alerts on (attacked or own), the Worker can load the right jutsu set during the
 15-second lobby: the P1 set when the account moves first, the P2 set when it moves second.
 
 - Per fight: the alert goes out first, then `combat.getBattle` (turn order and when round 1
