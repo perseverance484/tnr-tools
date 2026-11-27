@@ -1,0 +1,2397 @@
+{
+ "invocation": {
+  "script": "replay.ts",
+  "args": [
+   "--scenario",
+   "scenarios/isonade_replay.json",
+   "--out",
+   "results/isonade_replay.json",
+   "--expect-exact",
+   "11"
+  ]
+ },
+ "harnessCode": "597e14a0af73aa756956818ad2b0885edca1ce76a6e658336a86cc0ec4177971",
+ "summary": {
+  "battleId": "MUH-bMM1A-0_o-CkIehGg",
+  "enginePin": "3f1eda3149b1d04f6fb5270ba3b8558b9294bd87",
+  "seeds": 20,
+  "expected": {
+   "_doc": "The logged result: the director won in round 12 (the last log entry is round 12's killing blow).",
+   "outcome": "Won",
+   "round": 12
+  },
+  "exactSeeds": 11,
+  "exactSeedList": [
+   1,
+   4,
+   9,
+   10,
+   11,
+   12,
+   13,
+   14,
+   15,
+   17,
+   20
+  ],
+  "predicate": "history identical entry by entry (round, actor 1:1, actionId, description, every effect line, damage to the cent), every player action consumed and accepted, no unforced idle turn, expected settlement and round",
+  "settlements": {
+   "Won": 11,
+   "Lost": 9
+  },
+  "firstDivergenceFields": {
+   "actionId": 9
+  }
+ },
+ "perSeed": [
+  {
+   "seed": 1,
+   "opening": {
+    "Little Horror": "C4",
+    "dauntless": "D4",
+    "Isonade#1": "I2"
+   },
+   "initiativeOrder": [
+    "Little Horror",
+    "dauntless",
+    "Isonade#1"
+   ],
+   "exact": true,
+   "checks": {
+    "historyIdentical": true,
+    "allPlayerActionsConsumed": true,
+    "noRefusedActions": true,
+    "noUnforcedIdleTurns": true,
+    "outcome": true,
+    "round": true
+   },
+   "settlement": "Won",
+   "rounds": 12,
+   "historyEntries": {
+    "log": 87,
+    "sim": 87
+   },
+   "mismatches": 0,
+   "firstDivergence": null,
+   "unconsumedPlayerActions": 0,
+   "refused": [],
+   "unforcedIdles": 0
+  },
+  {
+   "seed": 2,
+   "opening": {
+    "dauntless": "D4",
+    "Little Horror": "C4",
+    "Isonade#1": "I2"
+   },
+   "initiativeOrder": [
+    "dauntless",
+    "Little Horror",
+    "Isonade#1"
+   ],
+   "exact": false,
+   "checks": {
+    "historyIdentical": false,
+    "allPlayerActionsConsumed": false,
+    "noRefusedActions": false,
+    "noUnforcedIdleTurns": false,
+    "outcome": false,
+    "round": false
+   },
+   "settlement": "Lost",
+   "rounds": 7,
+   "historyEntries": {
+    "log": 87,
+    "sim": 38
+   },
+   "mismatches": 190,
+   "firstDivergence": {
+    "index": 3,
+    "field": "actionId",
+    "log": "Kaebmb1nzNi3sMadz0W12",
+    "sim": "move"
+   },
+   "unconsumedPlayerActions": 34,
+   "refused": [
+    "r3 basicAttack at I2: Action Basic Attack no longer possible for dauntless"
+   ],
+   "unforcedIdles": 3
+  },
+  {
+   "seed": 3,
+   "opening": {
+    "dauntless": "D4",
+    "Little Horror": "C4",
+    "Isonade#1": "I2"
+   },
+   "initiativeOrder": [
+    "dauntless",
+    "Little Horror",
+    "Isonade#1"
+   ],
+   "exact": false,
+   "checks": {
+    "historyIdentical": false,
+    "allPlayerActionsConsumed": false,
+    "noRefusedActions": false,
+    "noUnforcedIdleTurns": false,
+    "outcome": false,
+    "round": false
+   },
+   "settlement": "Lost",
+   "rounds": 7,
+   "historyEntries": {
+    "log": 87,
+    "sim": 38
+   },
+   "mismatches": 190,
+   "firstDivergence": {
+    "index": 3,
+    "field": "actionId",
+    "log": "Kaebmb1nzNi3sMadz0W12",
+    "sim": "move"
+   },
+   "unconsumedPlayerActions": 34,
+   "refused": [
+    "r3 basicAttack at I2: Action Basic Attack no longer possible for dauntless"
+   ],
+   "unforcedIdles": 3
+  },
+  {
+   "seed": 4,
+   "opening": {
+    "dauntless": "D4",
+    "Isonade#1": "I2",
+    "Little Horror": "C4"
+   },
+   "initiativeOrder": [
+    "dauntless",
+    "Isonade#1",
+    "Little Horror"
+   ],
+   "exact": true,
+   "checks": {
+    "historyIdentical": true,
+    "allPlayerActionsConsumed": true,
+    "noRefusedActions": true,
+    "noUnforcedIdleTurns": true,
+    "outcome": true,
+    "round": true
+   },
+   "settlement": "Won",
+   "rounds": 12,
+   "historyEntries": {
+    "log": 87,
+    "sim": 87
+   },
+   "mismatches": 0,
+   "firstDivergence": null,
+   "unconsumedPlayerActions": 0,
+   "refused": [],
+   "unforcedIdles": 0
+  },
+  {
+   "seed": 5,
+   "opening": {
+    "Isonade#1": "I2",
+    "dauntless": "D4",
+    "Little Horror": "C4"
+   },
+   "initiativeOrder": [
+    "Isonade#1",
+    "dauntless",
+    "Little Horror"
+   ],
+   "exact": false,
+   "checks": {
+    "historyIdentical": false,
+    "allPlayerActionsConsumed": false,
+    "noRefusedActions": false,
+    "noUnforcedIdleTurns": false,
+    "outcome": false,
+    "round": false
+   },
+   "settlement": "Lost",
+   "rounds": 7,
+   "historyEntries": {
+    "log": 87,
+    "sim": 38
+   },
+   "mismatches": 190,
+   "firstDivergence": {
+    "index": 3,
+    "field": "actionId",
+    "log": "Kaebmb1nzNi3sMadz0W12",
+    "sim": "move"
+   },
+   "unconsumedPlayerActions": 34,
+   "refused": [
+    "r3 basicAttack at I2: Action Basic Attack no longer possible for dauntless"
+   ],
+   "unforcedIdles": 3
+  },
+  {
+   "seed": 6,
+   "opening": {
+    "dauntless": "D4",
+    "Little Horror": "C4",
+    "Isonade#1": "I2"
+   },
+   "initiativeOrder": [
+    "dauntless",
+    "Little Horror",
+    "Isonade#1"
+   ],
+   "exact": false,
+   "checks": {
+    "historyIdentical": false,
+    "allPlayerActionsConsumed": false,
+    "noRefusedActions": false,
+    "noUnforcedIdleTurns": false,
+    "outcome": false,
+    "round": false
+   },
+   "settlement": "Lost",
+   "rounds": 7,
+   "historyEntries": {
+    "log": 87,
+    "sim": 38
+   },
+   "mismatches": 190,
+   "firstDivergence": {
+    "index": 3,
+    "field": "actionId",
+    "log": "Kaebmb1nzNi3sMadz0W12",
+    "sim": "move"
+   },
+   "unconsumedPlayerActions": 34,
+   "refused": [
+    "r3 basicAttack at I2: Action Basic Attack no longer possible for dauntless"
+   ],
+   "unforcedIdles": 3
+  },
+  {
+   "seed": 7,
+   "opening": {
+    "Little Horror": "C4",
+    "Isonade#1": "I2",
+    "dauntless": "D4"
+   },
+   "initiativeOrder": [
+    "Little Horror",
+    "Isonade#1",
+    "dauntless"
+   ],
+   "exact": false,
+   "checks": {
+    "historyIdentical": false,
+    "allPlayerActionsConsumed": false,
+    "noRefusedActions": false,
+    "noUnforcedIdleTurns": false,
+    "outcome": false,
+    "round": false
+   },
+   "settlement": "Lost",
+   "rounds": 7,
+   "historyEntries": {
+    "log": 87,
+    "sim": 38
+   },
+   "mismatches": 190,
+   "firstDivergence": {
+    "index": 3,
+    "field": "actionId",
+    "log": "Kaebmb1nzNi3sMadz0W12",
+    "sim": "move"
+   },
+   "unconsumedPlayerActions": 34,
+   "refused": [
+    "r3 basicAttack at I2: Action Basic Attack no longer possible for dauntless"
+   ],
+   "unforcedIdles": 3
+  },
+  {
+   "seed": 8,
+   "opening": {
+    "Little Horror": "C4",
+    "Isonade#1": "I2",
+    "dauntless": "D4"
+   },
+   "initiativeOrder": [
+    "Little Horror",
+    "Isonade#1",
+    "dauntless"
+   ],
+   "exact": false,
+   "checks": {
+    "historyIdentical": false,
+    "allPlayerActionsConsumed": false,
+    "noRefusedActions": false,
+    "noUnforcedIdleTurns": false,
+    "outcome": false,
+    "round": false
+   },
+   "settlement": "Lost",
+   "rounds": 7,
+   "historyEntries": {
+    "log": 87,
+    "sim": 38
+   },
+   "mismatches": 190,
+   "firstDivergence": {
+    "index": 3,
+    "field": "actionId",
+    "log": "Kaebmb1nzNi3sMadz0W12",
+    "sim": "move"
+   },
+   "unconsumedPlayerActions": 34,
+   "refused": [
+    "r3 basicAttack at I2: Action Basic Attack no longer possible for dauntless"
+   ],
+   "unforcedIdles": 3
+  },
+  {
+   "seed": 9,
+   "opening": {
+    "Isonade#1": "I2",
+    "Little Horror": "C4",
+    "dauntless": "D4"
+   },
+   "initiativeOrder": [
+    "Isonade#1",
+    "Little Horror",
+    "dauntless"
+   ],
+   "exact": true,
+   "checks": {
+    "historyIdentical": true,
+    "allPlayerActionsConsumed": true,
+    "noRefusedActions": true,
+    "noUnforcedIdleTurns": true,
+    "outcome": true,
+    "round": true
+   },
+   "settlement": "Won",
+   "rounds": 12,
+   "historyEntries": {
+    "log": 87,
+    "sim": 87
+   },
+   "mismatches": 0,
+   "firstDivergence": null,
+   "unconsumedPlayerActions": 0,
+   "refused": [],
+   "unforcedIdles": 0
+  },
+  {
+   "seed": 10,
+   "opening": {
+    "Isonade#1": "I2",
+    "Little Horror": "C4",
+    "dauntless": "D4"
+   },
+   "initiativeOrder": [
+    "Isonade#1",
+    "Little Horror",
+    "dauntless"
+   ],
+   "exact": true,
+   "checks": {
+    "historyIdentical": true,
+    "allPlayerActionsConsumed": true,
+    "noRefusedActions": true,
+    "noUnforcedIdleTurns": true,
+    "outcome": true,
+    "round": true
+   },
+   "settlement": "Won",
+   "rounds": 12,
+   "historyEntries": {
+    "log": 87,
+    "sim": 87
+   },
+   "mismatches": 0,
+   "firstDivergence": null,
+   "unconsumedPlayerActions": 0,
+   "refused": [],
+   "unforcedIdles": 0
+  },
+  {
+   "seed": 11,
+   "opening": {
+    "Little Horror": "C4",
+    "dauntless": "D4",
+    "Isonade#1": "I2"
+   },
+   "initiativeOrder": [
+    "Little Horror",
+    "dauntless",
+    "Isonade#1"
+   ],
+   "exact": true,
+   "checks": {
+    "historyIdentical": true,
+    "allPlayerActionsConsumed": true,
+    "noRefusedActions": true,
+    "noUnforcedIdleTurns": true,
+    "outcome": true,
+    "round": true
+   },
+   "settlement": "Won",
+   "rounds": 12,
+   "historyEntries": {
+    "log": 87,
+    "sim": 87
+   },
+   "mismatches": 0,
+   "firstDivergence": null,
+   "unconsumedPlayerActions": 0,
+   "refused": [],
+   "unforcedIdles": 0
+  },
+  {
+   "seed": 12,
+   "opening": {
+    "Little Horror": "C4",
+    "dauntless": "D4",
+    "Isonade#1": "I2"
+   },
+   "initiativeOrder": [
+    "Little Horror",
+    "dauntless",
+    "Isonade#1"
+   ],
+   "exact": true,
+   "checks": {
+    "historyIdentical": true,
+    "allPlayerActionsConsumed": true,
+    "noRefusedActions": true,
+    "noUnforcedIdleTurns": true,
+    "outcome": true,
+    "round": true
+   },
+   "settlement": "Won",
+   "rounds": 12,
+   "historyEntries": {
+    "log": 87,
+    "sim": 87
+   },
+   "mismatches": 0,
+   "firstDivergence": null,
+   "unconsumedPlayerActions": 0,
+   "refused": [],
+   "unforcedIdles": 0
+  },
+  {
+   "seed": 13,
+   "opening": {
+    "dauntless": "D4",
+    "Isonade#1": "I2",
+    "Little Horror": "C4"
+   },
+   "initiativeOrder": [
+    "dauntless",
+    "Isonade#1",
+    "Little Horror"
+   ],
+   "exact": true,
+   "checks": {
+    "historyIdentical": true,
+    "allPlayerActionsConsumed": true,
+    "noRefusedActions": true,
+    "noUnforcedIdleTurns": true,
+    "outcome": true,
+    "round": true
+   },
+   "settlement": "Won",
+   "rounds": 12,
+   "historyEntries": {
+    "log": 87,
+    "sim": 87
+   },
+   "mismatches": 0,
+   "firstDivergence": null,
+   "unconsumedPlayerActions": 0,
+   "refused": [],
+   "unforcedIdles": 0
+  },
+  {
+   "seed": 14,
+   "opening": {
+    "dauntless": "D4",
+    "Isonade#1": "I2",
+    "Little Horror": "C4"
+   },
+   "initiativeOrder": [
+    "dauntless",
+    "Isonade#1",
+    "Little Horror"
+   ],
+   "exact": true,
+   "checks": {
+    "historyIdentical": true,
+    "allPlayerActionsConsumed": true,
+    "noRefusedActions": true,
+    "noUnforcedIdleTurns": true,
+    "outcome": true,
+    "round": true
+   },
+   "settlement": "Won",
+   "rounds": 12,
+   "historyEntries": {
+    "log": 87,
+    "sim": 87
+   },
+   "mismatches": 0,
+   "firstDivergence": null,
+   "unconsumedPlayerActions": 0,
+   "refused": [],
+   "unforcedIdles": 0
+  },
+  {
+   "seed": 15,
+   "opening": {
+    "Isonade#1": "I2",
+    "Little Horror": "C4",
+    "dauntless": "D4"
+   },
+   "initiativeOrder": [
+    "Isonade#1",
+    "Little Horror",
+    "dauntless"
+   ],
+   "exact": true,
+   "checks": {
+    "historyIdentical": true,
+    "allPlayerActionsConsumed": true,
+    "noRefusedActions": true,
+    "noUnforcedIdleTurns": true,
+    "outcome": true,
+    "round": true
+   },
+   "settlement": "Won",
+   "rounds": 12,
+   "historyEntries": {
+    "log": 87,
+    "sim": 87
+   },
+   "mismatches": 0,
+   "firstDivergence": null,
+   "unconsumedPlayerActions": 0,
+   "refused": [],
+   "unforcedIdles": 0
+  },
+  {
+   "seed": 16,
+   "opening": {
+    "dauntless": "D4",
+    "Little Horror": "C4",
+    "Isonade#1": "I2"
+   },
+   "initiativeOrder": [
+    "dauntless",
+    "Little Horror",
+    "Isonade#1"
+   ],
+   "exact": false,
+   "checks": {
+    "historyIdentical": false,
+    "allPlayerActionsConsumed": false,
+    "noRefusedActions": false,
+    "noUnforcedIdleTurns": false,
+    "outcome": false,
+    "round": false
+   },
+   "settlement": "Lost",
+   "rounds": 7,
+   "historyEntries": {
+    "log": 87,
+    "sim": 38
+   },
+   "mismatches": 190,
+   "firstDivergence": {
+    "index": 3,
+    "field": "actionId",
+    "log": "Kaebmb1nzNi3sMadz0W12",
+    "sim": "move"
+   },
+   "unconsumedPlayerActions": 34,
+   "refused": [
+    "r3 basicAttack at I2: Action Basic Attack no longer possible for dauntless"
+   ],
+   "unforcedIdles": 3
+  },
+  {
+   "seed": 17,
+   "opening": {
+    "dauntless": "D4",
+    "Isonade#1": "I2",
+    "Little Horror": "C4"
+   },
+   "initiativeOrder": [
+    "dauntless",
+    "Isonade#1",
+    "Little Horror"
+   ],
+   "exact": true,
+   "checks": {
+    "historyIdentical": true,
+    "allPlayerActionsConsumed": true,
+    "noRefusedActions": true,
+    "noUnforcedIdleTurns": true,
+    "outcome": true,
+    "round": true
+   },
+   "settlement": "Won",
+   "rounds": 12,
+   "historyEntries": {
+    "log": 87,
+    "sim": 87
+   },
+   "mismatches": 0,
+   "firstDivergence": null,
+   "unconsumedPlayerActions": 0,
+   "refused": [],
+   "unforcedIdles": 0
+  },
+  {
+   "seed": 18,
+   "opening": {
+    "Isonade#1": "I2",
+    "dauntless": "D4",
+    "Little Horror": "C4"
+   },
+   "initiativeOrder": [
+    "Isonade#1",
+    "dauntless",
+    "Little Horror"
+   ],
+   "exact": false,
+   "checks": {
+    "historyIdentical": false,
+    "allPlayerActionsConsumed": false,
+    "noRefusedActions": false,
+    "noUnforcedIdleTurns": false,
+    "outcome": false,
+    "round": false
+   },
+   "settlement": "Lost",
+   "rounds": 7,
+   "historyEntries": {
+    "log": 87,
+    "sim": 38
+   },
+   "mismatches": 190,
+   "firstDivergence": {
+    "index": 3,
+    "field": "actionId",
+    "log": "Kaebmb1nzNi3sMadz0W12",
+    "sim": "move"
+   },
+   "unconsumedPlayerActions": 34,
+   "refused": [
+    "r3 basicAttack at I2: Action Basic Attack no longer possible for dauntless"
+   ],
+   "unforcedIdles": 3
+  },
+  {
+   "seed": 19,
+   "opening": {
+    "Little Horror": "C4",
+    "Isonade#1": "I2",
+    "dauntless": "D4"
+   },
+   "initiativeOrder": [
+    "Little Horror",
+    "Isonade#1",
+    "dauntless"
+   ],
+   "exact": false,
+   "checks": {
+    "historyIdentical": false,
+    "allPlayerActionsConsumed": false,
+    "noRefusedActions": false,
+    "noUnforcedIdleTurns": false,
+    "outcome": false,
+    "round": false
+   },
+   "settlement": "Lost",
+   "rounds": 7,
+   "historyEntries": {
+    "log": 87,
+    "sim": 38
+   },
+   "mismatches": 190,
+   "firstDivergence": {
+    "index": 3,
+    "field": "actionId",
+    "log": "Kaebmb1nzNi3sMadz0W12",
+    "sim": "move"
+   },
+   "unconsumedPlayerActions": 34,
+   "refused": [
+    "r3 basicAttack at I2: Action Basic Attack no longer possible for dauntless"
+   ],
+   "unforcedIdles": 3
+  },
+  {
+   "seed": 20,
+   "opening": {
+    "dauntless": "D4",
+    "Isonade#1": "I2",
+    "Little Horror": "C4"
+   },
+   "initiativeOrder": [
+    "dauntless",
+    "Isonade#1",
+    "Little Horror"
+   ],
+   "exact": true,
+   "checks": {
+    "historyIdentical": true,
+    "allPlayerActionsConsumed": true,
+    "noRefusedActions": true,
+    "noUnforcedIdleTurns": true,
+    "outcome": true,
+    "round": true
+   },
+   "settlement": "Won",
+   "rounds": 12,
+   "historyEntries": {
+    "log": 87,
+    "sim": 87
+   },
+   "mismatches": 0,
+   "firstDivergence": null,
+   "unconsumedPlayerActions": 0,
+   "refused": [],
+   "unforcedIdles": 0
+  }
+ ],
+ "exampleExactRun": {
+  "seed": 1,
+  "steps": [
+   {
+    "round": 1,
+    "wave": 1,
+    "actor": "dauntless",
+    "aiId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "human": true,
+    "actionId": "move",
+    "action": "move",
+    "at": "E4",
+    "description": "Move: dauntless moves on the battlefield on <b>E4</b>",
+    "texts": [],
+    "actionTexts": [],
+    "hp": {},
+    "forced": true
+   },
+   {
+    "round": 1,
+    "wave": 1,
+    "actor": "dauntless",
+    "aiId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "human": true,
+    "actionId": "INuy-ITnPsH22eUoGQgwW",
+    "action": "Thunderbolt Fury",
+    "at": "I2",
+    "description": "Thunderbolt Fury: dauntless unleashes a storm of thunderbolts upon Isonade, surging with electric power as their strength grows. on <b>I2</b>",
+    "texts": [
+     "dauntless damage given [all damage] is increased by up to 38% for the next 2 rounds",
+     "Isonade takes 1326.68 damage"
+    ],
+    "actionTexts": [
+     "dauntless damage given [all damage] is increased by up to 38% for the next 2 rounds",
+     "Isonade takes 1326.68 damage"
+    ],
+    "hp": {
+     "Isonade#1": -1326.68
+    },
+    "forced": true
+   },
+   {
+    "round": 1,
+    "wave": 1,
+    "actor": "dauntless",
+    "aiId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "human": true,
+    "actionId": "wait",
+    "action": "wait",
+    "at": "E4",
+    "description": "End Turn: dauntless stands and does nothing on <b>E4</b>",
+    "texts": [],
+    "actionTexts": [],
+    "hp": {},
+    "forced": true
+   },
+   {
+    "round": 1,
+    "wave": 1,
+    "actor": "Isonade#1",
+    "aiId": "K_lwNvMPJLMsn1sUGXqZm",
+    "userId": "Ao6_YuqrNkY33J6CWTeoX",
+    "human": false,
+    "actionId": "Kaebmb1nzNi3sMadz0W12",
+    "action": "It Rises",
+    "at": null,
+    "description": "It Rises: Black water churns around Isonade. on <b>I2</b>",
+    "texts": [],
+    "actionTexts": [],
+    "hp": {}
+   },
+   {
+    "round": 1,
+    "wave": 1,
+    "actor": "Isonade#1",
+    "aiId": "K_lwNvMPJLMsn1sUGXqZm",
+    "userId": "Ao6_YuqrNkY33J6CWTeoX",
+    "human": false,
+    "actionId": "6w0MWbsSIB2j02MADv1nK",
+    "action": "Grasping Arm Rises",
+    "at": null,
+    "description": "Grasping Arm Rises: The deck bursts upward. A wet black arm rises out of it. on <b>F3</b>",
+    "texts": [
+     "Grasping Arm was summoned for 30 rounds!"
+    ],
+    "actionTexts": [
+     "Grasping Arm was summoned for 30 rounds!"
+    ],
+    "hp": {}
+   },
+   {
+    "round": 1,
+    "wave": 1,
+    "actor": "Isonade#1",
+    "aiId": "K_lwNvMPJLMsn1sUGXqZm",
+    "userId": "Ao6_YuqrNkY33J6CWTeoX",
+    "human": false,
+    "actionId": "hcqL90RPenl24EY73YJr4",
+    "action": "Isonade Undertow",
+    "at": null,
+    "description": "Isonade Undertow: The water pulls hard toward Isonade. on <b>I2</b>",
+    "texts": [
+     "Little Horror is pulled towards Isonade by 3 spaces",
+     "dauntless is pulled towards Isonade by 3 spaces",
+     "Little Horror takes 2727.00 damage",
+     "dauntless takes 137.20 damage",
+     "Isonade takes 6.00 reflect damage",
+     "dauntless absorbs 46.20 damage and converts it to health"
+    ],
+    "actionTexts": [
+     "Little Horror is pulled towards Isonade by 3 spaces",
+     "dauntless is pulled towards Isonade by 3 spaces",
+     "Little Horror takes 2727.00 damage",
+     "dauntless takes 137.20 damage",
+     "Isonade takes 6.00 reflect damage",
+     "dauntless absorbs 46.20 damage and converts it to health"
+    ],
+    "hp": {
+     "Little Horror": -1400,
+     "dauntless": -91,
+     "Isonade#1": -6
+    }
+   },
+   {
+    "round": 1,
+    "wave": 1,
+    "actor": "Isonade#1",
+    "aiId": "K_lwNvMPJLMsn1sUGXqZm",
+    "userId": "Ao6_YuqrNkY33J6CWTeoX",
+    "human": false,
+    "actionId": "wait",
+    "action": "wait",
+    "at": null,
+    "description": "End Turn: Isonade stands and does nothing on <b>I2</b>",
+    "texts": [],
+    "actionTexts": [],
+    "hp": {}
+   },
+   {
+    "round": 1,
+    "wave": 1,
+    "actor": "Grasping Arm (summon)#2",
+    "aiId": "Ao6_YuqrNkY33J6CWTeoX",
+    "userId": "ZMJn5kjGlBTdEPedQX1qJ",
+    "human": false,
+    "actionId": "QMXGlGM34xcBfDLWfJYoB",
+    "action": "Arm Lash",
+    "at": null,
+    "description": "Arm Lash: The arm lashes across the planks. on <b>F3</b>.  It is now dauntless's turn.",
+    "texts": [],
+    "actionTexts": [],
+    "hp": {}
+   },
+   {
+    "round": 2,
+    "wave": 1,
+    "actor": "dauntless",
+    "aiId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "human": true,
+    "actionId": "TmpS6t8NiLZws6SxzPEnN",
+    "action": "Chakra Ignition Strike",
+    "at": "I2",
+    "description": "Chakra Ignition Strike: dauntless's aura flares with dense chakra that crashes over Isonade and shatters their guard, while dauntless's own body hardens behind it. on <b>I2</b>",
+    "texts": [
+     "dauntless damage taken [all damage] is decreased by up to 40% for the next 2 rounds",
+     "Isonade damage taken [all damage] is increased by up to 40% for the next 2 rounds"
+    ],
+    "actionTexts": [
+     "dauntless damage taken [all damage] is decreased by up to 40% for the next 2 rounds",
+     "Isonade damage taken [all damage] is increased by up to 40% for the next 2 rounds"
+    ],
+    "hp": {},
+    "forced": true
+   },
+   {
+    "round": 2,
+    "wave": 1,
+    "actor": "dauntless",
+    "aiId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "human": true,
+    "actionId": "j2H5lwEkOq4HwxgMR9a4j",
+    "action": "Storm Fist",
+    "at": "I2",
+    "description": "Storm Fist: Lightning spirals up dauntless's arm as they drive a crackling punch into Isonade, leaving them sparking with residual charge. on <b>I2</b>",
+    "texts": [
+     "Isonade will take 32.8% of damage received as afterburn for the next 2 rounds",
+     "Isonade takes 1609.41 damage"
+    ],
+    "actionTexts": [
+     "Isonade will take 32.8% of damage received as afterburn for the next 2 rounds",
+     "Isonade takes 1609.41 damage"
+    ],
+    "hp": {
+     "Isonade#1": -1609.41
+    },
+    "forced": true
+   },
+   {
+    "round": 2,
+    "wave": 1,
+    "actor": "Isonade#1",
+    "aiId": "K_lwNvMPJLMsn1sUGXqZm",
+    "userId": "Ao6_YuqrNkY33J6CWTeoX",
+    "human": false,
+    "actionId": "Kaebmb1nzNi3sMadz0W12",
+    "action": "It Rises",
+    "at": null,
+    "description": "It Rises: Black water churns around Isonade. on <b>I2</b>",
+    "texts": [],
+    "actionTexts": [],
+    "hp": {}
+   },
+   {
+    "round": 2,
+    "wave": 1,
+    "actor": "Isonade#1",
+    "aiId": "K_lwNvMPJLMsn1sUGXqZm",
+    "userId": "Ao6_YuqrNkY33J6CWTeoX",
+    "human": false,
+    "actionId": "SbfiGJPGdjVmLZcAWQrKl",
+    "action": "Isonade Omen: Slam I",
+    "at": null,
+    "description": "Isonade Omen: Slam I: Two great arms rise out of the water. on <b>I2</b>",
+    "texts": [
+     "Isonade basic action cooldown is increased by 1 for the next 1 rounds"
+    ],
+    "actionTexts": [
+     "Isonade basic action cooldown is increased by 1 for the next 1 rounds"
+    ],
+    "hp": {}
+   },
+   {
+    "round": 2,
+    "wave": 1,
+    "actor": "Isonade#1",
+    "aiId": "K_lwNvMPJLMsn1sUGXqZm",
+    "userId": "Ao6_YuqrNkY33J6CWTeoX",
+    "human": false,
+    "actionId": "wait",
+    "action": "wait",
+    "at": null,
+    "description": "End Turn: Isonade stands and does nothing on <b>I2</b>",
+    "texts": [],
+    "actionTexts": [],
+    "hp": {}
+   },
+   {
+    "round": 2,
+    "wave": 1,
+    "actor": "Grasping Arm (summon)#2",
+    "aiId": "Ao6_YuqrNkY33J6CWTeoX",
+    "userId": "ZMJn5kjGlBTdEPedQX1qJ",
+    "human": false,
+    "actionId": "QMXGlGM34xcBfDLWfJYoB",
+    "action": "Arm Lash",
+    "at": null,
+    "description": "Arm Lash: The arm lashes across the planks. on <b>F3</b>.  It is now dauntless's turn.",
+    "texts": [],
+    "actionTexts": [],
+    "hp": {}
+   },
+   {
+    "round": 3,
+    "wave": 1,
+    "actor": "dauntless",
+    "aiId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "human": true,
+    "actionId": "cag1bMTspiRzPhpZuROge",
+    "action": "Thunderclap Strike",
+    "at": "I2",
+    "description": "Thunderclap Strike: Thunder booms as dauntless drives a lightning-charged fist into Isonade, the energy crackling back through dauntless's body. on <b>I2</b>",
+    "texts": [
+     "dauntless Offence is increased by 50% [offence] for the next 2 rounds",
+     "Isonade takes 2026.67 damage",
+     "Isonade takes 664.00 afterburn damage"
+    ],
+    "actionTexts": [
+     "dauntless Offence is increased by 50% [offence] for the next 2 rounds",
+     "Isonade takes 2026.67 damage",
+     "Isonade takes 664.00 afterburn damage"
+    ],
+    "hp": {
+     "Isonade#1": -2690.67
+    },
+    "forced": true
+   },
+   {
+    "round": 3,
+    "wave": 1,
+    "actor": "dauntless",
+    "aiId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "human": true,
+    "actionId": "basicAttack",
+    "action": "basicAttack",
+    "at": "I2",
+    "description": "Basic Attack: dauntless perform a basic physical strike against Isonade on <b>I2</b>",
+    "texts": [
+     "Isonade takes 894.12 damage",
+     "Isonade takes 293.00 afterburn damage"
+    ],
+    "actionTexts": [
+     "Isonade takes 894.12 damage",
+     "Isonade takes 293.00 afterburn damage"
+    ],
+    "hp": {
+     "Isonade#1": -1187.12
+    },
+    "forced": true
+   },
+   {
+    "round": 3,
+    "wave": 1,
+    "actor": "dauntless",
+    "aiId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "human": true,
+    "actionId": "wait",
+    "action": "wait",
+    "at": "H2",
+    "description": "End Turn: dauntless stands and does nothing on <b>H2</b>",
+    "texts": [],
+    "actionTexts": [],
+    "hp": {},
+    "forced": true
+   },
+   {
+    "round": 3,
+    "wave": 1,
+    "actor": "Isonade#1",
+    "aiId": "K_lwNvMPJLMsn1sUGXqZm",
+    "userId": "Ao6_YuqrNkY33J6CWTeoX",
+    "human": false,
+    "actionId": "Kaebmb1nzNi3sMadz0W12",
+    "action": "It Rises",
+    "at": null,
+    "description": "It Rises: Black water churns around Isonade. on <b>I2</b>",
+    "texts": [],
+    "actionTexts": [],
+    "hp": {}
+   },
+   {
+    "round": 3,
+    "wave": 1,
+    "actor": "Isonade#1",
+    "aiId": "K_lwNvMPJLMsn1sUGXqZm",
+    "userId": "Ao6_YuqrNkY33J6CWTeoX",
+    "human": false,
+    "actionId": "5tqEkTPERX3lkyon_LOKp",
+    "action": "Isonade Slam I",
+    "at": null,
+    "description": "Isonade Slam I: The arms crash down. Brine wells up through the boards. on <b>I2</b>",
+    "texts": [
+     "Isonade marked the ground with damage for the next 3 rounds",
+     "Isonade cannot be robbed for the next 1 rounds"
+    ],
+    "actionTexts": [
+     "Isonade marked the ground with damage for the next 3 rounds",
+     "Isonade cannot be robbed for the next 1 rounds"
+    ],
+    "hp": {}
+   },
+   {
+    "round": 3,
+    "wave": 1,
+    "actor": "Isonade#1",
+    "aiId": "K_lwNvMPJLMsn1sUGXqZm",
+    "userId": "Ao6_YuqrNkY33J6CWTeoX",
+    "human": false,
+    "actionId": "wait",
+    "action": "wait",
+    "at": null,
+    "description": "End Turn: Isonade stands and does nothing on <b>I2</b>",
+    "texts": [],
+    "actionTexts": [],
+    "hp": {}
+   },
+   {
+    "round": 3,
+    "wave": 1,
+    "actor": "Grasping Arm (summon)#2",
+    "aiId": "Ao6_YuqrNkY33J6CWTeoX",
+    "userId": "ZMJn5kjGlBTdEPedQX1qJ",
+    "human": false,
+    "actionId": "QMXGlGM34xcBfDLWfJYoB",
+    "action": "Arm Lash",
+    "at": null,
+    "description": "Arm Lash: The arm lashes across the planks. on <b>F3</b>.  It is now dauntless's turn.",
+    "texts": [],
+    "actionTexts": [],
+    "hp": {}
+   },
+   {
+    "round": 4,
+    "wave": 1,
+    "actor": "dauntless",
+    "aiId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "human": true,
+    "actionId": "move",
+    "action": "move",
+    "at": "I3",
+    "description": "Move: dauntless moves on the battlefield on <b>I3</b>",
+    "texts": [],
+    "actionTexts": [],
+    "hp": {},
+    "forced": true
+   },
+   {
+    "round": 4,
+    "wave": 1,
+    "actor": "dauntless",
+    "aiId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "human": true,
+    "actionId": "Wy7EBGd7gpP96hyumb0Lz",
+    "action": "Forgotten Ember Blade",
+    "at": "I2",
+    "description": "Forgotten Ember Blade: dauntless's eyes burn with an intense focus as they channel their chakra into their weapon, flames crackling to life along the blade. With a powerful shout, they swing their weapon in a wide arc, unleashing a torrent of fiery energy towards Isonade. The ground beneath the slash ignites, and Isonade is engulfed in a blazing inferno, their form outlined by the searing flames. The heat is overwhelming, and the sheer force of the attack leaves Isonade reeling, their defenses crumbling under the relentless assault. The air is thick with the scent of smoke and ash, a testament to the destructive might of the Yaketsuku Netsu bloodline. on <b>I2</b>",
+    "texts": [
+     "dauntless damage given [all damage] is increased by up to 35% for the next 2 rounds",
+     "Isonade damage taken [all damage] is increased by up to 35% for the next 2 rounds",
+     "Isonade takes 1949.27 damage",
+     "Isonade takes 639.00 afterburn damage"
+    ],
+    "actionTexts": [
+     "dauntless damage given [all damage] is increased by up to 35% for the next 2 rounds",
+     "Isonade damage taken [all damage] is increased by up to 35% for the next 2 rounds",
+     "Isonade takes 1949.27 damage",
+     "Isonade takes 639.00 afterburn damage"
+    ],
+    "hp": {
+     "Isonade#1": -2588.27
+    },
+    "forced": true
+   },
+   {
+    "round": 4,
+    "wave": 1,
+    "actor": "dauntless",
+    "aiId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "human": true,
+    "actionId": "basicAttack",
+    "action": "basicAttack",
+    "at": "I2",
+    "description": "Basic Attack: dauntless perform a basic physical strike against Isonade on <b>I2</b>",
+    "texts": [
+     "Isonade takes 730.98 damage",
+     "Isonade takes 239.00 afterburn damage"
+    ],
+    "actionTexts": [
+     "Isonade takes 730.98 damage",
+     "Isonade takes 239.00 afterburn damage"
+    ],
+    "hp": {
+     "Isonade#1": -969.98
+    },
+    "forced": true
+   },
+   {
+    "round": 4,
+    "wave": 1,
+    "actor": "dauntless",
+    "aiId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "human": true,
+    "actionId": "wait",
+    "action": "wait",
+    "at": "I3",
+    "description": "End Turn: dauntless stands and does nothing on <b>I3</b>",
+    "texts": [],
+    "actionTexts": [],
+    "hp": {},
+    "forced": true
+   },
+   {
+    "round": 4,
+    "wave": 1,
+    "actor": "Isonade#1",
+    "aiId": "K_lwNvMPJLMsn1sUGXqZm",
+    "userId": "Ao6_YuqrNkY33J6CWTeoX",
+    "human": false,
+    "actionId": "Kaebmb1nzNi3sMadz0W12",
+    "action": "It Rises",
+    "at": null,
+    "description": "It Rises: Black water churns around Isonade. on <b>I2</b>",
+    "texts": [],
+    "actionTexts": [],
+    "hp": {}
+   },
+   {
+    "round": 4,
+    "wave": 1,
+    "actor": "Isonade#1",
+    "aiId": "K_lwNvMPJLMsn1sUGXqZm",
+    "userId": "Ao6_YuqrNkY33J6CWTeoX",
+    "human": false,
+    "actionId": "SWTtkWhjBsHKAu-OI-CQj",
+    "action": "Isonade Omen: Slam II",
+    "at": null,
+    "description": "Isonade Omen: Slam II: The arms rise again, further along the hold. on <b>I2</b>",
+    "texts": [
+     "Isonade basic action cooldown is reduced by 1 for the next 1 rounds"
+    ],
+    "actionTexts": [
+     "Isonade basic action cooldown is reduced by 1 for the next 1 rounds"
+    ],
+    "hp": {}
+   },
+   {
+    "round": 4,
+    "wave": 1,
+    "actor": "Isonade#1",
+    "aiId": "K_lwNvMPJLMsn1sUGXqZm",
+    "userId": "Ao6_YuqrNkY33J6CWTeoX",
+    "human": false,
+    "actionId": "wait",
+    "action": "wait",
+    "at": null,
+    "description": "End Turn: Isonade stands and does nothing on <b>I2</b>",
+    "texts": [],
+    "actionTexts": [],
+    "hp": {}
+   },
+   {
+    "round": 4,
+    "wave": 1,
+    "actor": "Grasping Arm (summon)#2",
+    "aiId": "Ao6_YuqrNkY33J6CWTeoX",
+    "userId": "ZMJn5kjGlBTdEPedQX1qJ",
+    "human": false,
+    "actionId": "QMXGlGM34xcBfDLWfJYoB",
+    "action": "Arm Lash",
+    "at": null,
+    "description": "Arm Lash: The arm lashes across the planks. on <b>F3</b>.  It is now dauntless's turn.",
+    "texts": [],
+    "actionTexts": [],
+    "hp": {}
+   },
+   {
+    "round": 5,
+    "wave": 1,
+    "actor": "dauntless",
+    "aiId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "human": true,
+    "actionId": "9-ppS_Bqy76W5I73hSk7B",
+    "action": "Earth Release: Dragon's Tomb",
+    "at": "I2",
+    "description": "Earth Release: Dragon's Tomb: dauntless calls a great earthen dragon up from the ground, and it coils over Isonade in a crushing tomb of rock. on <b>I2</b>",
+    "texts": [
+     "Isonade cannot move for the next 1 rounds",
+     "Isonade will take 1015.00 wound damage for the next 2 rounds",
+     "Isonade takes 2537.53 damage",
+     "dauntless takes 914.68 damage",
+     "Isonade takes 45.00 reflect damage",
+     "dauntless absorbs 302.50 damage and converts it to health"
+    ],
+    "actionTexts": [
+     "Isonade cannot move for the next 1 rounds",
+     "Isonade will take 1015.00 wound damage for the next 2 rounds",
+     "Isonade takes 2537.53 damage",
+     "dauntless takes 914.68 damage",
+     "Isonade takes 45.00 reflect damage",
+     "dauntless absorbs 302.50 damage and converts it to health"
+    ],
+    "hp": {
+     "dauntless": -612.18,
+     "Isonade#1": -2582.53
+    },
+    "forced": true
+   },
+   {
+    "round": 5,
+    "wave": 1,
+    "actor": "dauntless",
+    "aiId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "human": true,
+    "actionId": "kxtK9kUTK4dRb-WPLo16I",
+    "action": "Severed Pulse",
+    "at": "I2",
+    "description": "Severed Pulse: dauntless releases a cutting wave of chakra that severs the natural flow of recovery within Isonade. The disruption corrodes regenerative functions and breaks down their guard, amplifying the effect of incoming non-elemental attacks. on <b>I2</b>",
+    "texts": [
+     "Isonade damage taken [None damage] is increased by up to 30% for the next 2 rounds",
+     "Isonade healing ability is decreased by 50% for the next 2 rounds"
+    ],
+    "actionTexts": [
+     "Isonade damage taken [None damage] is increased by up to 30% for the next 2 rounds",
+     "Isonade healing ability is decreased by 50% for the next 2 rounds"
+    ],
+    "hp": {},
+    "forced": true
+   },
+   {
+    "round": 5,
+    "wave": 1,
+    "actor": "Isonade#1",
+    "aiId": "K_lwNvMPJLMsn1sUGXqZm",
+    "userId": "Ao6_YuqrNkY33J6CWTeoX",
+    "human": false,
+    "actionId": "Kaebmb1nzNi3sMadz0W12",
+    "action": "It Rises",
+    "at": null,
+    "description": "It Rises: Black water churns around Isonade. on <b>I2</b>",
+    "texts": [],
+    "actionTexts": [],
+    "hp": {}
+   },
+   {
+    "round": 5,
+    "wave": 1,
+    "actor": "Isonade#1",
+    "aiId": "K_lwNvMPJLMsn1sUGXqZm",
+    "userId": "Ao6_YuqrNkY33J6CWTeoX",
+    "human": false,
+    "actionId": "8cKI86O81cXAMaFS9qqOo",
+    "action": "Isonade Slam II",
+    "at": null,
+    "description": "Isonade Slam II: The arms crash down. Brine wells up through the boards. on <b>I2</b>",
+    "texts": [
+     "Isonade marked the ground with damage for the next 3 rounds",
+     "Isonade cannot use weapons for the next 1 rounds"
+    ],
+    "actionTexts": [
+     "Isonade marked the ground with damage for the next 3 rounds",
+     "Isonade cannot use weapons for the next 1 rounds"
+    ],
+    "hp": {}
+   },
+   {
+    "round": 5,
+    "wave": 1,
+    "actor": "Isonade#1",
+    "aiId": "K_lwNvMPJLMsn1sUGXqZm",
+    "userId": "Ao6_YuqrNkY33J6CWTeoX",
+    "human": false,
+    "actionId": "wait",
+    "action": "wait",
+    "at": null,
+    "description": "End Turn: Isonade stands and does nothing on <b>I2</b>",
+    "texts": [],
+    "actionTexts": [],
+    "hp": {}
+   },
+   {
+    "round": 5,
+    "wave": 1,
+    "actor": "Grasping Arm (summon)#2",
+    "aiId": "Ao6_YuqrNkY33J6CWTeoX",
+    "userId": "ZMJn5kjGlBTdEPedQX1qJ",
+    "human": false,
+    "actionId": "QMXGlGM34xcBfDLWfJYoB",
+    "action": "Arm Lash",
+    "at": null,
+    "description": "Arm Lash: The arm lashes across the planks. on <b>F3</b>.  It is now dauntless's turn.",
+    "texts": [],
+    "actionTexts": [],
+    "hp": {}
+   },
+   {
+    "round": 6,
+    "wave": 1,
+    "actor": "dauntless",
+    "aiId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "human": true,
+    "actionId": "VT7oxj_fObWuQa3Rq_BbI",
+    "action": "Stunning Jab",
+    "at": "I2",
+    "description": "Stunning Jab: dauntless surges forward and snaps a precise jab into Isonade, the impact ringing through their whole body. on <b>I2</b>",
+    "texts": [
+     "Isonade resisted being stunned",
+     "Isonade takes 2792.36 damage",
+     "dauntless takes 914.68 damage",
+     "Isonade takes 45.00 reflect damage"
+    ],
+    "actionTexts": [
+     "Isonade resisted being stunned",
+     "Isonade takes 2792.36 damage",
+     "dauntless takes 914.68 damage",
+     "Isonade takes 45.00 reflect damage"
+    ],
+    "hp": {
+     "dauntless": -914.68,
+     "Isonade#1": -2837.36
+    },
+    "forced": true
+   },
+   {
+    "round": 6,
+    "wave": 1,
+    "actor": "dauntless",
+    "aiId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "human": true,
+    "actionId": "basicAttack",
+    "action": "basicAttack",
+    "at": "I2",
+    "description": "Basic Attack: dauntless perform a basic physical strike against Isonade on <b>I2</b>",
+    "texts": [
+     "Isonade takes 1096.48 damage"
+    ],
+    "actionTexts": [
+     "Isonade takes 1096.48 damage"
+    ],
+    "hp": {
+     "Isonade#1": -1096.48
+    },
+    "forced": true
+   },
+   {
+    "round": 6,
+    "wave": 1,
+    "actor": "dauntless",
+    "aiId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "human": true,
+    "actionId": "wait",
+    "action": "wait",
+    "at": "I3",
+    "description": "End Turn: dauntless stands and does nothing on <b>I3</b>",
+    "texts": [],
+    "actionTexts": [],
+    "hp": {},
+    "forced": true
+   },
+   {
+    "round": 6,
+    "wave": 1,
+    "actor": "Isonade#1",
+    "aiId": "K_lwNvMPJLMsn1sUGXqZm",
+    "userId": "Ao6_YuqrNkY33J6CWTeoX",
+    "human": false,
+    "actionId": "Kaebmb1nzNi3sMadz0W12",
+    "action": "It Rises",
+    "at": null,
+    "description": "It Rises: Black water churns around Isonade. on <b>I2</b>",
+    "texts": [
+     "Isonade takes 1015.00 wound damage"
+    ],
+    "actionTexts": [
+     "Isonade takes 1015.00 wound damage"
+    ],
+    "hp": {
+     "Isonade#1": -1015
+    }
+   },
+   {
+    "round": 6,
+    "wave": 1,
+    "actor": "Isonade#1",
+    "aiId": "K_lwNvMPJLMsn1sUGXqZm",
+    "userId": "Ao6_YuqrNkY33J6CWTeoX",
+    "human": false,
+    "actionId": "yFClnbV7Yr4WpvmcrDEMi",
+    "action": "Isonade Omen: Black Water I",
+    "at": null,
+    "description": "Isonade Omen: Black Water I: The water goes still and black. Only the floating crates stay pale. on <b>I2</b>",
+    "texts": [
+     "Isonade cannot flee for the next 1 rounds"
+    ],
+    "actionTexts": [
+     "Isonade cannot flee for the next 1 rounds"
+    ],
+    "hp": {}
+   },
+   {
+    "round": 6,
+    "wave": 1,
+    "actor": "Isonade#1",
+    "aiId": "K_lwNvMPJLMsn1sUGXqZm",
+    "userId": "Ao6_YuqrNkY33J6CWTeoX",
+    "human": false,
+    "actionId": "wait",
+    "action": "wait",
+    "at": null,
+    "description": "End Turn: Isonade stands and does nothing on <b>I2</b>",
+    "texts": [],
+    "actionTexts": [],
+    "hp": {}
+   },
+   {
+    "round": 6,
+    "wave": 1,
+    "actor": "Grasping Arm (summon)#2",
+    "aiId": "Ao6_YuqrNkY33J6CWTeoX",
+    "userId": "ZMJn5kjGlBTdEPedQX1qJ",
+    "human": false,
+    "actionId": "QMXGlGM34xcBfDLWfJYoB",
+    "action": "Arm Lash",
+    "at": null,
+    "description": "Arm Lash: The arm lashes across the planks. on <b>F3</b>.  It is now dauntless's turn.",
+    "texts": [],
+    "actionTexts": [],
+    "hp": {}
+   },
+   {
+    "round": 7,
+    "wave": 1,
+    "actor": "dauntless",
+    "aiId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "human": true,
+    "actionId": "basicAttack",
+    "action": "basicAttack",
+    "at": "I2",
+    "description": "Basic Attack: dauntless perform a basic physical strike against Isonade on <b>I2</b>",
+    "texts": [
+     "Isonade takes 601.63 damage"
+    ],
+    "actionTexts": [
+     "Isonade takes 601.63 damage"
+    ],
+    "hp": {
+     "Isonade#1": -601.63
+    },
+    "forced": true
+   },
+   {
+    "round": 7,
+    "wave": 1,
+    "actor": "dauntless",
+    "aiId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "human": true,
+    "actionId": "move",
+    "action": "move",
+    "at": "H2",
+    "description": "Move: dauntless moves on the battlefield on <b>H2</b>",
+    "texts": [],
+    "actionTexts": [],
+    "hp": {},
+    "forced": true
+   },
+   {
+    "round": 7,
+    "wave": 1,
+    "actor": "dauntless",
+    "aiId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "human": true,
+    "actionId": "move",
+    "action": "move",
+    "at": "G2",
+    "description": "Move: dauntless moves on the battlefield on <b>G2</b>",
+    "texts": [],
+    "actionTexts": [],
+    "hp": {},
+    "forced": true
+   },
+   {
+    "round": 7,
+    "wave": 1,
+    "actor": "dauntless",
+    "aiId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "human": true,
+    "actionId": "J2KOpNHk5LJthnzb27H1h",
+    "action": "Stormguard Aura",
+    "at": "G2",
+    "description": "Stormguard Aura: dauntless creates a shimmering Stormguard Aura of crackling electricity, dispersing incoming attacks while enhancing their resilience, allowing them to endure prolonged combat with unwavering strength. on <b>G2</b>",
+    "texts": [
+     "dauntless shield with 800.00 HP for the next 2 rounds",
+     "dauntless damage taken [all damage] is decreased by up to 35.2% for the next 2 rounds"
+    ],
+    "actionTexts": [
+     "dauntless shield with 800.00 HP for the next 2 rounds",
+     "dauntless damage taken [all damage] is decreased by up to 35.2% for the next 2 rounds"
+    ],
+    "hp": {},
+    "forced": true
+   },
+   {
+    "round": 7,
+    "wave": 1,
+    "actor": "dauntless",
+    "aiId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "human": true,
+    "actionId": "wait",
+    "action": "wait",
+    "at": "G2",
+    "description": "End Turn: dauntless stands and does nothing on <b>G2</b>",
+    "texts": [],
+    "actionTexts": [],
+    "hp": {},
+    "forced": true
+   },
+   {
+    "round": 7,
+    "wave": 1,
+    "actor": "Isonade#1",
+    "aiId": "K_lwNvMPJLMsn1sUGXqZm",
+    "userId": "Ao6_YuqrNkY33J6CWTeoX",
+    "human": false,
+    "actionId": "Kaebmb1nzNi3sMadz0W12",
+    "action": "It Rises",
+    "at": null,
+    "description": "It Rises: Black water churns around Isonade. on <b>I2</b>",
+    "texts": [
+     "Isonade takes 1015.00 wound damage"
+    ],
+    "actionTexts": [
+     "Isonade takes 1015.00 wound damage"
+    ],
+    "hp": {
+     "Isonade#1": -1015
+    }
+   },
+   {
+    "round": 7,
+    "wave": 1,
+    "actor": "Isonade#1",
+    "aiId": "K_lwNvMPJLMsn1sUGXqZm",
+    "userId": "Ao6_YuqrNkY33J6CWTeoX",
+    "human": false,
+    "actionId": "VCaNcj9kGc8kaFk6rQdpR",
+    "action": "Isonade Black Water",
+    "at": null,
+    "description": "Isonade Black Water: Black water rises to head height and crashes down. Isonade surfaces to feed, its great eye open. on <b>I2</b>",
+    "texts": [
+     "Isonade weaknesses applied for the next 1 rounds"
+    ],
+    "actionTexts": [
+     "Isonade weaknesses applied for the next 1 rounds"
+    ],
+    "hp": {}
+   },
+   {
+    "round": 7,
+    "wave": 1,
+    "actor": "Isonade#1",
+    "aiId": "K_lwNvMPJLMsn1sUGXqZm",
+    "userId": "Ao6_YuqrNkY33J6CWTeoX",
+    "human": false,
+    "actionId": "wait",
+    "action": "wait",
+    "at": null,
+    "description": "End Turn: Isonade stands and does nothing on <b>I2</b>",
+    "texts": [],
+    "actionTexts": [],
+    "hp": {}
+   },
+   {
+    "round": 7,
+    "wave": 1,
+    "actor": "Grasping Arm (summon)#2",
+    "aiId": "Ao6_YuqrNkY33J6CWTeoX",
+    "userId": "ZMJn5kjGlBTdEPedQX1qJ",
+    "human": false,
+    "actionId": "QMXGlGM34xcBfDLWfJYoB",
+    "action": "Arm Lash",
+    "at": null,
+    "description": "Arm Lash: The arm lashes across the planks. on <b>F3</b>.  It is now dauntless's turn.",
+    "texts": [],
+    "actionTexts": [],
+    "hp": {}
+   },
+   {
+    "round": 8,
+    "wave": 1,
+    "actor": "dauntless",
+    "aiId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "human": true,
+    "actionId": "j2H5lwEkOq4HwxgMR9a4j",
+    "action": "Storm Fist",
+    "at": "I2",
+    "description": "Storm Fist: Lightning spirals up dauntless's arm as they drive a crackling punch into Isonade, leaving them sparking with residual charge. on <b>I2</b>",
+    "texts": [
+     "Isonade will take 32.8% of damage received as afterburn for the next 2 rounds",
+     "Isonade takes 3498.73 damage"
+    ],
+    "actionTexts": [
+     "Isonade will take 32.8% of damage received as afterburn for the next 2 rounds",
+     "Isonade takes 3498.73 damage"
+    ],
+    "hp": {
+     "Isonade#1": -3498.73
+    },
+    "forced": true
+   },
+   {
+    "round": 8,
+    "wave": 1,
+    "actor": "dauntless",
+    "aiId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "human": true,
+    "actionId": "move",
+    "action": "move",
+    "at": "H2",
+    "description": "Move: dauntless moves on the battlefield on <b>H2</b>",
+    "texts": [],
+    "actionTexts": [],
+    "hp": {},
+    "forced": true
+   },
+   {
+    "round": 8,
+    "wave": 1,
+    "actor": "dauntless",
+    "aiId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "human": true,
+    "actionId": "basicAttack",
+    "action": "basicAttack",
+    "at": "I2",
+    "description": "Basic Attack: dauntless perform a basic physical strike against Isonade on <b>I2</b>",
+    "texts": [
+     "Isonade takes 1388.38 damage"
+    ],
+    "actionTexts": [
+     "Isonade takes 1388.38 damage"
+    ],
+    "hp": {
+     "Isonade#1": -1388.38
+    },
+    "forced": true
+   },
+   {
+    "round": 8,
+    "wave": 1,
+    "actor": "dauntless",
+    "aiId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "human": true,
+    "actionId": "wait",
+    "action": "wait",
+    "at": "H2",
+    "description": "End Turn: dauntless stands and does nothing on <b>H2</b>",
+    "texts": [],
+    "actionTexts": [],
+    "hp": {},
+    "forced": true
+   },
+   {
+    "round": 8,
+    "wave": 1,
+    "actor": "Isonade#1",
+    "aiId": "K_lwNvMPJLMsn1sUGXqZm",
+    "userId": "Ao6_YuqrNkY33J6CWTeoX",
+    "human": false,
+    "actionId": "Kaebmb1nzNi3sMadz0W12",
+    "action": "It Rises",
+    "at": null,
+    "description": "It Rises: Black water churns around Isonade. on <b>I2</b>",
+    "texts": [],
+    "actionTexts": [],
+    "hp": {}
+   },
+   {
+    "round": 8,
+    "wave": 1,
+    "actor": "Isonade#1",
+    "aiId": "K_lwNvMPJLMsn1sUGXqZm",
+    "userId": "Ao6_YuqrNkY33J6CWTeoX",
+    "human": false,
+    "actionId": "9QsiAey2OR8hB3UTNhRGh",
+    "action": "Bite of the Ship",
+    "at": null,
+    "description": "Bite of the Ship: Isonade tears a piece out of the hull. Planks rip inward and vanish into the water. on <b>I2</b>",
+    "texts": [
+     "Isonade will be sealed from using elemental 60 AP jutsu for the next 100 rounds"
+    ],
+    "actionTexts": [
+     "Isonade will be sealed from using elemental 60 AP jutsu for the next 100 rounds"
+    ],
+    "hp": {}
+   },
+   {
+    "round": 8,
+    "wave": 1,
+    "actor": "Isonade#1",
+    "aiId": "K_lwNvMPJLMsn1sUGXqZm",
+    "userId": "Ao6_YuqrNkY33J6CWTeoX",
+    "human": false,
+    "actionId": "EMD7BPKzoOhGB-aOb_Rf2",
+    "action": "Isonade Omen: Black Water II",
+    "at": null,
+    "description": "Isonade Omen: Black Water II: The hold darkens again. The crates bob on black water. on <b>I2</b>",
+    "texts": [
+     "Isonade cannot flee for the next 1 rounds"
+    ],
+    "actionTexts": [
+     "Isonade cannot flee for the next 1 rounds"
+    ],
+    "hp": {}
+   },
+   {
+    "round": 8,
+    "wave": 1,
+    "actor": "Isonade#1",
+    "aiId": "K_lwNvMPJLMsn1sUGXqZm",
+    "userId": "Ao6_YuqrNkY33J6CWTeoX",
+    "human": false,
+    "actionId": "wait",
+    "action": "wait",
+    "at": null,
+    "description": "End Turn: Isonade stands and does nothing on <b>I2</b>",
+    "texts": [],
+    "actionTexts": [],
+    "hp": {}
+   },
+   {
+    "round": 8,
+    "wave": 1,
+    "actor": "Grasping Arm (summon)#2",
+    "aiId": "Ao6_YuqrNkY33J6CWTeoX",
+    "userId": "ZMJn5kjGlBTdEPedQX1qJ",
+    "human": false,
+    "actionId": "QMXGlGM34xcBfDLWfJYoB",
+    "action": "Arm Lash",
+    "at": null,
+    "description": "Arm Lash: The arm lashes across the planks. on <b>F3</b>.  It is now dauntless's turn.",
+    "texts": [],
+    "actionTexts": [],
+    "hp": {}
+   },
+   {
+    "round": 9,
+    "wave": 1,
+    "actor": "dauntless",
+    "aiId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "human": true,
+    "actionId": "cag1bMTspiRzPhpZuROge",
+    "action": "Thunderclap Strike",
+    "at": "I2",
+    "description": "Thunderclap Strike: Thunder booms as dauntless drives a lightning-charged fist into Isonade, the energy crackling back through dauntless's body. on <b>I2</b>",
+    "texts": [
+     "dauntless Offence is increased by 50% [offence] for the next 2 rounds",
+     "Isonade takes 1049.00 damage",
+     "Isonade takes 344.00 afterburn damage"
+    ],
+    "actionTexts": [
+     "dauntless Offence is increased by 50% [offence] for the next 2 rounds",
+     "Isonade takes 1049.00 damage",
+     "Isonade takes 344.00 afterburn damage"
+    ],
+    "hp": {
+     "Isonade#1": -1393
+    },
+    "forced": true
+   },
+   {
+    "round": 9,
+    "wave": 1,
+    "actor": "dauntless",
+    "aiId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "human": true,
+    "actionId": "basicAttack",
+    "action": "basicAttack",
+    "at": "I2",
+    "description": "Basic Attack: dauntless perform a basic physical strike against Isonade on <b>I2</b>",
+    "texts": [
+     "Isonade takes 462.79 damage",
+     "Isonade takes 151.00 afterburn damage"
+    ],
+    "actionTexts": [
+     "Isonade takes 462.79 damage",
+     "Isonade takes 151.00 afterburn damage"
+    ],
+    "hp": {
+     "Isonade#1": -613.79
+    },
+    "forced": true
+   },
+   {
+    "round": 9,
+    "wave": 1,
+    "actor": "dauntless",
+    "aiId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "human": true,
+    "actionId": "move",
+    "action": "move",
+    "at": "G2",
+    "description": "Move: dauntless moves on the battlefield on <b>G2</b>",
+    "texts": [],
+    "actionTexts": [],
+    "hp": {},
+    "forced": true
+   },
+   {
+    "round": 9,
+    "wave": 1,
+    "actor": "dauntless",
+    "aiId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "human": true,
+    "actionId": "wait",
+    "action": "wait",
+    "at": "G2",
+    "description": "End Turn: dauntless stands and does nothing on <b>G2</b>",
+    "texts": [],
+    "actionTexts": [],
+    "hp": {},
+    "forced": true
+   },
+   {
+    "round": 9,
+    "wave": 1,
+    "actor": "Isonade#1",
+    "aiId": "K_lwNvMPJLMsn1sUGXqZm",
+    "userId": "Ao6_YuqrNkY33J6CWTeoX",
+    "human": false,
+    "actionId": "Kaebmb1nzNi3sMadz0W12",
+    "action": "It Rises",
+    "at": null,
+    "description": "It Rises: Black water churns around Isonade. on <b>I2</b>",
+    "texts": [],
+    "actionTexts": [],
+    "hp": {}
+   },
+   {
+    "round": 9,
+    "wave": 1,
+    "actor": "Isonade#1",
+    "aiId": "K_lwNvMPJLMsn1sUGXqZm",
+    "userId": "Ao6_YuqrNkY33J6CWTeoX",
+    "human": false,
+    "actionId": "VCaNcj9kGc8kaFk6rQdpR",
+    "action": "Isonade Black Water",
+    "at": null,
+    "description": "Isonade Black Water: Black water rises to head height and crashes down. Isonade surfaces to feed, its great eye open. on <b>I2</b>",
+    "texts": [
+     "Isonade weaknesses applied for the next 1 rounds"
+    ],
+    "actionTexts": [
+     "Isonade weaknesses applied for the next 1 rounds"
+    ],
+    "hp": {}
+   },
+   {
+    "round": 9,
+    "wave": 1,
+    "actor": "Isonade#1",
+    "aiId": "K_lwNvMPJLMsn1sUGXqZm",
+    "userId": "Ao6_YuqrNkY33J6CWTeoX",
+    "human": false,
+    "actionId": "wait",
+    "action": "wait",
+    "at": null,
+    "description": "End Turn: Isonade stands and does nothing on <b>I2</b>",
+    "texts": [],
+    "actionTexts": [],
+    "hp": {}
+   },
+   {
+    "round": 9,
+    "wave": 1,
+    "actor": "Grasping Arm (summon)#2",
+    "aiId": "Ao6_YuqrNkY33J6CWTeoX",
+    "userId": "ZMJn5kjGlBTdEPedQX1qJ",
+    "human": false,
+    "actionId": "QMXGlGM34xcBfDLWfJYoB",
+    "action": "Arm Lash",
+    "at": null,
+    "description": "Arm Lash: The arm lashes across the planks. on <b>F3</b>.  It is now dauntless's turn.",
+    "texts": [],
+    "actionTexts": [],
+    "hp": {}
+   },
+   {
+    "round": 10,
+    "wave": 1,
+    "actor": "dauntless",
+    "aiId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "human": true,
+    "actionId": "move",
+    "action": "move",
+    "at": "H2",
+    "description": "Move: dauntless moves on the battlefield on <b>H2</b>",
+    "texts": [],
+    "actionTexts": [],
+    "hp": {},
+    "forced": true
+   },
+   {
+    "round": 10,
+    "wave": 1,
+    "actor": "dauntless",
+    "aiId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "human": true,
+    "actionId": "TmpS6t8NiLZws6SxzPEnN",
+    "action": "Chakra Ignition Strike",
+    "at": "I2",
+    "description": "Chakra Ignition Strike: dauntless's aura flares with dense chakra that crashes over Isonade and shatters their guard, while dauntless's own body hardens behind it. on <b>I2</b>",
+    "texts": [
+     "dauntless damage taken [all damage] is decreased by up to 40% for the next 2 rounds",
+     "Isonade damage taken [all damage] is increased by up to 40% for the next 2 rounds"
+    ],
+    "actionTexts": [
+     "dauntless damage taken [all damage] is decreased by up to 40% for the next 2 rounds",
+     "Isonade damage taken [all damage] is increased by up to 40% for the next 2 rounds"
+    ],
+    "hp": {},
+    "forced": true
+   },
+   {
+    "round": 10,
+    "wave": 1,
+    "actor": "dauntless",
+    "aiId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "human": true,
+    "actionId": "basicAttack",
+    "action": "basicAttack",
+    "at": "I2",
+    "description": "Basic Attack: dauntless perform a basic physical strike against Isonade on <b>I2</b>",
+    "texts": [
+     "Isonade takes 1566.38 damage",
+     "Isonade takes 513.00 afterburn damage"
+    ],
+    "actionTexts": [
+     "Isonade takes 1566.38 damage",
+     "Isonade takes 513.00 afterburn damage"
+    ],
+    "hp": {
+     "Isonade#1": -2079.38
+    },
+    "forced": true
+   },
+   {
+    "round": 10,
+    "wave": 1,
+    "actor": "dauntless",
+    "aiId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "human": true,
+    "actionId": "wait",
+    "action": "wait",
+    "at": "H2",
+    "description": "End Turn: dauntless stands and does nothing on <b>H2</b>",
+    "texts": [],
+    "actionTexts": [],
+    "hp": {},
+    "forced": true
+   },
+   {
+    "round": 10,
+    "wave": 1,
+    "actor": "Isonade#1",
+    "aiId": "K_lwNvMPJLMsn1sUGXqZm",
+    "userId": "Ao6_YuqrNkY33J6CWTeoX",
+    "human": false,
+    "actionId": "Kaebmb1nzNi3sMadz0W12",
+    "action": "It Rises",
+    "at": null,
+    "description": "It Rises: Black water churns around Isonade. on <b>I2</b>",
+    "texts": [],
+    "actionTexts": [],
+    "hp": {}
+   },
+   {
+    "round": 10,
+    "wave": 1,
+    "actor": "Isonade#1",
+    "aiId": "K_lwNvMPJLMsn1sUGXqZm",
+    "userId": "Ao6_YuqrNkY33J6CWTeoX",
+    "human": false,
+    "actionId": "nngO-MnDwNRUEDdrPw6sI",
+    "action": "Isonade Omen: Black Water III",
+    "at": null,
+    "description": "Isonade Omen: Black Water III: Everything goes black but the crates. on <b>I2</b>",
+    "texts": [
+     "Isonade cannot flee for the next 1 rounds"
+    ],
+    "actionTexts": [
+     "Isonade cannot flee for the next 1 rounds"
+    ],
+    "hp": {}
+   },
+   {
+    "round": 10,
+    "wave": 1,
+    "actor": "Isonade#1",
+    "aiId": "K_lwNvMPJLMsn1sUGXqZm",
+    "userId": "Ao6_YuqrNkY33J6CWTeoX",
+    "human": false,
+    "actionId": "wait",
+    "action": "wait",
+    "at": null,
+    "description": "End Turn: Isonade stands and does nothing on <b>I2</b>",
+    "texts": [],
+    "actionTexts": [],
+    "hp": {}
+   },
+   {
+    "round": 10,
+    "wave": 1,
+    "actor": "Grasping Arm (summon)#2",
+    "aiId": "Ao6_YuqrNkY33J6CWTeoX",
+    "userId": "ZMJn5kjGlBTdEPedQX1qJ",
+    "human": false,
+    "actionId": "QMXGlGM34xcBfDLWfJYoB",
+    "action": "Arm Lash",
+    "at": null,
+    "description": "Arm Lash: The arm lashes across the planks. on <b>F3</b>.  It is now dauntless's turn.",
+    "texts": [],
+    "actionTexts": [],
+    "hp": {}
+   },
+   {
+    "round": 11,
+    "wave": 1,
+    "actor": "dauntless",
+    "aiId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "human": true,
+    "actionId": "Wy7EBGd7gpP96hyumb0Lz",
+    "action": "Forgotten Ember Blade",
+    "at": "I2",
+    "description": "Forgotten Ember Blade: dauntless's eyes burn with an intense focus as they channel their chakra into their weapon, flames crackling to life along the blade. With a powerful shout, they swing their weapon in a wide arc, unleashing a torrent of fiery energy towards Isonade. The ground beneath the slash ignites, and Isonade is engulfed in a blazing inferno, their form outlined by the searing flames. The heat is overwhelming, and the sheer force of the attack leaves Isonade reeling, their defenses crumbling under the relentless assault. The air is thick with the scent of smoke and ash, a testament to the destructive might of the Yaketsuku Netsu bloodline. on <b>I2</b>",
+    "texts": [
+     "dauntless damage given [all damage] is increased by up to 35% for the next 2 rounds",
+     "Isonade damage taken [all damage] is increased by up to 35% for the next 2 rounds",
+     "Isonade takes 1949.27 damage"
+    ],
+    "actionTexts": [
+     "dauntless damage given [all damage] is increased by up to 35% for the next 2 rounds",
+     "Isonade damage taken [all damage] is increased by up to 35% for the next 2 rounds",
+     "Isonade takes 1949.27 damage"
+    ],
+    "hp": {
+     "Isonade#1": -1949.27
+    },
+    "forced": true
+   },
+   {
+    "round": 11,
+    "wave": 1,
+    "actor": "dauntless",
+    "aiId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "human": true,
+    "actionId": "basicAttack",
+    "action": "basicAttack",
+    "at": "I2",
+    "description": "Basic Attack: dauntless perform a basic physical strike against Isonade on <b>I2</b>",
+    "texts": [
+     "Isonade takes 730.98 damage"
+    ],
+    "actionTexts": [
+     "Isonade takes 730.98 damage"
+    ],
+    "hp": {
+     "Isonade#1": -730.98
+    },
+    "forced": true
+   },
+   {
+    "round": 11,
+    "wave": 1,
+    "actor": "dauntless",
+    "aiId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "human": true,
+    "actionId": "move",
+    "action": "move",
+    "at": "G2",
+    "description": "Move: dauntless moves on the battlefield on <b>G2</b>",
+    "texts": [],
+    "actionTexts": [],
+    "hp": {},
+    "forced": true
+   },
+   {
+    "round": 11,
+    "wave": 1,
+    "actor": "dauntless",
+    "aiId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "human": true,
+    "actionId": "wait",
+    "action": "wait",
+    "at": "G2",
+    "description": "End Turn: dauntless stands and does nothing on <b>G2</b>",
+    "texts": [],
+    "actionTexts": [],
+    "hp": {},
+    "forced": true
+   },
+   {
+    "round": 11,
+    "wave": 1,
+    "actor": "Isonade#1",
+    "aiId": "K_lwNvMPJLMsn1sUGXqZm",
+    "userId": "Ao6_YuqrNkY33J6CWTeoX",
+    "human": false,
+    "actionId": "Kaebmb1nzNi3sMadz0W12",
+    "action": "It Rises",
+    "at": null,
+    "description": "It Rises: Black water churns around Isonade. on <b>I2</b>",
+    "texts": [],
+    "actionTexts": [],
+    "hp": {}
+   },
+   {
+    "round": 11,
+    "wave": 1,
+    "actor": "Isonade#1",
+    "aiId": "K_lwNvMPJLMsn1sUGXqZm",
+    "userId": "Ao6_YuqrNkY33J6CWTeoX",
+    "human": false,
+    "actionId": "VCaNcj9kGc8kaFk6rQdpR",
+    "action": "Isonade Black Water",
+    "at": null,
+    "description": "Isonade Black Water: Black water rises to head height and crashes down. Isonade surfaces to feed, its great eye open. on <b>I2</b>",
+    "texts": [
+     "Isonade weaknesses applied for the next 1 rounds"
+    ],
+    "actionTexts": [
+     "Isonade weaknesses applied for the next 1 rounds"
+    ],
+    "hp": {}
+   },
+   {
+    "round": 11,
+    "wave": 1,
+    "actor": "Isonade#1",
+    "aiId": "K_lwNvMPJLMsn1sUGXqZm",
+    "userId": "Ao6_YuqrNkY33J6CWTeoX",
+    "human": false,
+    "actionId": "wait",
+    "action": "wait",
+    "at": null,
+    "description": "End Turn: Isonade stands and does nothing on <b>I2</b>",
+    "texts": [],
+    "actionTexts": [],
+    "hp": {}
+   },
+   {
+    "round": 11,
+    "wave": 1,
+    "actor": "Grasping Arm (summon)#2",
+    "aiId": "Ao6_YuqrNkY33J6CWTeoX",
+    "userId": "ZMJn5kjGlBTdEPedQX1qJ",
+    "human": false,
+    "actionId": "QMXGlGM34xcBfDLWfJYoB",
+    "action": "Arm Lash",
+    "at": null,
+    "description": "Arm Lash: The arm lashes across the planks. on <b>F3</b>.  It is now dauntless's turn.",
+    "texts": [],
+    "actionTexts": [],
+    "hp": {}
+   },
+   {
+    "round": 12,
+    "wave": 1,
+    "actor": "dauntless",
+    "aiId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "human": true,
+    "actionId": "move",
+    "action": "move",
+    "at": "H2",
+    "description": "Move: dauntless moves on the battlefield on <b>H2</b>",
+    "texts": [],
+    "actionTexts": [],
+    "hp": {},
+    "forced": true
+   },
+   {
+    "round": 12,
+    "wave": 1,
+    "actor": "dauntless",
+    "aiId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "human": true,
+    "actionId": "9-ppS_Bqy76W5I73hSk7B",
+    "action": "Earth Release: Dragon's Tomb",
+    "at": "I2",
+    "description": "Earth Release: Dragon's Tomb: dauntless calls a great earthen dragon up from the ground, and it coils over Isonade in a crushing tomb of rock. on <b>I2</b>",
+    "texts": [
+     "Isonade cannot move for the next 1 rounds",
+     "Isonade will take 3778.00 wound damage for the next 2 rounds",
+     "Isonade takes 9446.56 damage"
+    ],
+    "actionTexts": [
+     "Isonade cannot move for the next 1 rounds",
+     "Isonade will take 3778.00 wound damage for the next 2 rounds",
+     "Isonade takes 9446.56 damage"
+    ],
+    "hp": {
+     "Isonade#1": -9446.56
+    },
+    "forced": true
+   },
+   {
+    "round": 12,
+    "wave": 1,
+    "actor": "dauntless",
+    "aiId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "userId": "user_37qazcrgUPldBPI65bb25DQiCjz",
+    "human": true,
+    "actionId": "basicAttack",
+    "action": "basicAttack",
+    "at": "I2",
+    "description": "Basic Attack: dauntless perform a basic physical strike against Isonade on <b>I2</b>",
+    "texts": [
+     "Isonade takes 3542.46 damage",
+     "Grasping Arm vanishes without its summoner!"
+    ],
+    "actionTexts": [
+     "Isonade takes 3542.46 damage"
+    ],
+    "hp": {
+     "Isonade#1": -1793.81
+    },
+    "forced": true
+   }
+  ]
+ }
+}

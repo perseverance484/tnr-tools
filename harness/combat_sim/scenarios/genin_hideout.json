@@ -1,0 +1,35 @@
+{
+ "_doc": "Genin Rogue Hideout (built hidden live, manifest 664): 4 floors of rogue shinobi waves and the Rogue Captain. Enemy AI, jutsu and profiles are live reads from 2026-11-18. Player builds are assumptions, stated here: the level's full stat budget spread evenly over the six combat stats (the engine's own player stat scale), level pools, masteries at the floor (10), no gear, no pets, a four-jutsu genin kit at jutsu level 5 (L10) or 8 (L15), fought by the default rotation in model.ts (self buffs when ready, attacks in range, close in, basic attack). A dungeon floor fully restores the party, so each floor is its own fight; a wipe sends the party back to the tier start.",
+ "_assumptions": [
+  "Builds are test inputs, not live players: the four saved genin jutsu from the live library (all D-rank), at level 5 for L10 and 8 for L15, Lightning primary element.",
+  "Stats: the level's player stat budget (scaleUserStats) spread evenly over the six combat stats; pools from calcHP/CP/SP for the level; every mastery 10; no preferred generals, bloodline, gear, items or pets.",
+  "Not modelled: skills, titles, raid buffs, cooking, village and faction relations, clan, ANBU squad, loadouts, sage mode (see builds[].notModelled).",
+  "Player policy: the default rotation (self buffs when ready, each attack jutsu when the closest enemy is in range, close in, basic attack, end turn), executed by the engine's AI selector; with dodge on, a player standing on an enemy telegraph steps to the nearest unmarked hex first.",
+  "Each floor and the Captain are separate fights with a full restore between them, 10 seeds each, capped at 120 rounds (stalled at the cap counts as not won).",
+  "Parties are three copies of the same build."
+ ],
+ "library": ["data/live/2026-11-18"],
+ "mode": "dungeon",
+ "seeds": 10,
+ "maxRounds": 120,
+ "fights": [
+  { "name": "Floor 1", "waves": [ { "aiIds": ["pz4azy5M6ZYJiwURtKZjp","pz4azy5M6ZYJiwURtKZjp","pz4azy5M6ZYJiwURtKZjp"], "delayRounds": 0 }, { "aiIds": ["pz4azy5M6ZYJiwURtKZjp","pz4azy5M6ZYJiwURtKZjp","BKOhuY1tTCbq4KhtxbUuN"], "delayRounds": 0 } ] },
+  { "name": "Floor 2", "waves": [ { "aiIds": ["BKOhuY1tTCbq4KhtxbUuN","BKOhuY1tTCbq4KhtxbUuN","pz4azy5M6ZYJiwURtKZjp"], "delayRounds": 0 }, { "aiIds": ["8XeldBr2bzcySv2opeHQQ","pz4azy5M6ZYJiwURtKZjp","pz4azy5M6ZYJiwURtKZjp"], "delayRounds": 0 } ] },
+  { "name": "Floor 3", "waves": [ { "aiIds": ["pz4azy5M6ZYJiwURtKZjp","pz4azy5M6ZYJiwURtKZjp","BKOhuY1tTCbq4KhtxbUuN"], "delayRounds": 0 }, { "aiIds": ["BKOhuY1tTCbq4KhtxbUuN","BKOhuY1tTCbq4KhtxbUuN","pz4azy5M6ZYJiwURtKZjp"], "delayRounds": 0 }, { "aiIds": ["8XeldBr2bzcySv2opeHQQ","BKOhuY1tTCbq4KhtxbUuN"], "delayRounds": 0 } ] },
+  { "name": "Floor 4", "waves": [ { "aiIds": ["8XeldBr2bzcySv2opeHQQ","pz4azy5M6ZYJiwURtKZjp","pz4azy5M6ZYJiwURtKZjp"], "delayRounds": 0 }, { "aiIds": ["8XeldBr2bzcySv2opeHQQ","BKOhuY1tTCbq4KhtxbUuN","BKOhuY1tTCbq4KhtxbUuN"], "delayRounds": 0 }, { "aiIds": ["pz4azy5M6ZYJiwURtKZjp","pz4azy5M6ZYJiwURtKZjp","pz4azy5M6ZYJiwURtKZjp"], "delayRounds": 0 } ] },
+  { "name": "Captain", "waves": [ { "aiIds": ["87lDmGM8szRjL6_8m2GjK"], "delayRounds": 0 } ] }
+ ],
+ "players": {
+  "genin10": { "name": "Genin L10", "level": 10, "rank": "GENIN", "elements": ["Lightning"],
+   "jutsu": [ {"id":"EOMOSOVn3za-UddIC2hY9","level":5}, {"id":"xHZPm6r4dq9YhpsohKmtl","level":5}, {"id":"clh4d6q1j0008tb0hzthddb6m","level":5}, {"id":"9HwIfXZzkgenkpywlEuET","level":5} ] },
+  "genin15": { "name": "Genin L15", "level": 15, "rank": "GENIN", "elements": ["Lightning"],
+   "jutsu": [ {"id":"EOMOSOVn3za-UddIC2hY9","level":8}, {"id":"xHZPm6r4dq9YhpsohKmtl","level":8}, {"id":"clh4d6q1j0008tb0hzthddb6m","level":8}, {"id":"9HwIfXZzkgenkpywlEuET","level":8} ] }
+ },
+ "variants": [
+  { "name": "L10 solo", "party": ["genin10"], "policy": { "dodge": true } },
+  { "name": "L15 solo", "party": ["genin15"], "policy": { "dodge": true } },
+  { "name": "L10 party of 3", "party": ["genin10","genin10","genin10"], "policy": { "dodge": true } },
+  { "name": "L15 party of 3", "party": ["genin15","genin15","genin15"], "policy": { "dodge": true } },
+  { "name": "L15 solo, no dodging", "party": ["genin15"], "policy": { "dodge": false } }
+ ]
+}
