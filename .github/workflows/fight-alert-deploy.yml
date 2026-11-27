@@ -1,5 +1,6 @@
 name: fight-alert-deploy
-# Deploys tools/fight-alert to the owner's Cloudflare account and sends one test alert.
+# Deploys tools/fight-alert to the owner's Cloudflare account and checks it is connected.
+# It sends no test alert; the owner asked for real fights only (use /test?key=... by hand).
 # Needs repository secrets CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID and NTFY_TOPIC.
 on:
   workflow_dispatch:
@@ -58,11 +59,10 @@ jobs:
           command: deploy --var DEPLOY_ID:${{ env.DEPLOY_ID }}
         env:
           NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
-      - name: Wake it and send a test alert
+      - name: Check the new version is running and connected
         if: env.HAS_SECRETS == 'true'
         env:
           URL: ${{ steps.deploy.outputs.deployment-url }}
-          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
         run: |
           echo "Worker: $URL"
           sleep 30
@@ -72,9 +72,5 @@ jobs:
             echo "$STATUS" | grep -q "\"deployId\":\"$DEPLOY_ID\"" && echo "$STATUS" | grep -q '"connected":true' && break
             sleep 10
           done
-          RESULT=$(curl -sS "$URL/test?key=$NTFY_TOPIC")
-          echo "Test alert result: $RESULT"
-          FINAL=$(curl -fsS "$URL/status")
-          echo "$FINAL"
-          echo "$FINAL" | grep -q "\"deployId\":\"$DEPLOY_ID\""
-          echo "$RESULT" | grep -q '"ok":true'
+          echo "$STATUS" | grep -q "\"deployId\":\"$DEPLOY_ID\""
+          echo "$STATUS" | grep -q '"connected":true'

@@ -22,7 +22,7 @@ P2_LOADOUT_ID = "ZVfObjuW5xO462WiR5UMQ"
 
 [[durable_objects.bindings]]
 name = "WATCHER"
-class_name = "FightWatcher3"
+class_name = "FightWatcher4"
 
 [[migrations]]
 tag = "v1"
@@ -39,3 +39,11 @@ renamed_classes = [{ from = "FightWatcher", to = "FightWatcher2" }]
 [[migrations]]
 tag = "v3"
 renamed_classes = [{ from = "FightWatcher2", to = "FightWatcher3" }]
+
+# v4: the rename in v3 kept the old instance (and its code) running. A new class with the
+# old one deleted leaves nothing of the pre-swap code behind. The watcher keeps no state
+# that matters (recent battle ids, the found key).
+[[migrations]]
+tag = "v4"
+new_sqlite_classes = ["FightWatcher4"]
+deleted_classes = ["FightWatcher3"]

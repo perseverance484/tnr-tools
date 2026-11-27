@@ -52,7 +52,7 @@ Cost: one always-on Durable Object is about 10,800 GB-s a day, inside the free p
    the account id. The account needs a workers.dev subdomain.
 3. Add repository secrets `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID` and `NTFY_TOPIC`.
 4. Run the `fight-alert-deploy` workflow. It runs the tests, deploys, waits for the Worker to
-   connect and sends one test alert.
+   connect. It sends no test alert; open `/test?key=<NTFY_TOPIC>` for one.
 
 ## Local test
 
