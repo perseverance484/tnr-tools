@@ -1,0 +1,24 @@
+name = "tnr-fight-alert"
+main = "src/index.js"
+compatibility_date = "2026-11-01"
+workers_dev = true
+
+# Wake the watcher every minute so it reconnects after a deploy or an eviction.
+[triggers]
+crons = ["* * * * *"]
+
+[vars]
+# The watched account's public user id (its live channel name) and display name.
+WATCH_USER_ID = "user_37qazcrgUPldBPI65bb25DQiCjz"
+WATCH_NAME = "dauntless"
+ALERT_OWN_FIGHTS = "false"
+# NTFY_TOPIC is a secret, set with `wrangler secret put NTFY_TOPIC` (the deploy workflow does it).
+# Optional overrides: PUSHER_KEY, GAME_ORIGIN, SOKETI_URL, NTFY_URL.
+
+[[durable_objects.bindings]]
+name = "WATCHER"
+class_name = "FightWatcher"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["FightWatcher"]
