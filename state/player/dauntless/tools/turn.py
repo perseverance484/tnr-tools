@@ -836,7 +836,7 @@ def main():
         shotplan.set_seal_cut(1.0)
     shotplan.off_ground(me0, rows, ME, MOVE_IDS)
     shotplan.off_ground(en0, rows, en["userId"], MOVE_IDS)
-    _gm = (engine_bridge.opponent_kit(en["userId"]) or {}).get("gearMods") or {}
+    _gm = engine_bridge._his_gear_mods(en["userId"]) or {}
     _his_gear_dr = float(_gm.get("drTakenFromGear", 15))   # measured, else the endgame assumption (Kaeruun + Fortify III)
     # a stun costs AP in the 2 rounds AFTER the one it was cast in. The engine (turn.ts calcApReduction ->
     # getActiveTargetEffects) skips effects with castThisRound, so his stun earlier THIS round costs nothing now:
@@ -949,9 +949,9 @@ def main():
         ap_now = ap_eng
         print(f"engine replay: AP {ap_eng}, {len(eng['available'])} actions available"
               + (f", replay issues {len(eng['replayIssues'])}" if eng.get("replayIssues") else ""))
-    gm = (engine_bridge.opponent_kit(en["userId"]) or {}).get("gearMods")
+    gm = engine_bridge._his_gear_mods(en["userId"])
     print("his gear: " + (f"MEASURED given +{gm['incDamageGivenFromGear']:g}, DR {gm['drTakenFromGear']:g} (fit_gear.py)" if gm
-                          else "endgame assumption (run fit_gear.py on his turn once hits exist both ways)"))
+                          else "Kaeruun armor + Fortify III (both players, the director 2026-11-23)"))
     src = engine_bridge.his_kit_source(en["userId"])
     print("his kit: " + ("REAL (saved before the fight, opponent_kit.py)" if src == "real"
                          else "ESTIMATED: no pre-fight kit saved, unseen moves use the calibrated stand-in"))
