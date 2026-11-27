@@ -79,8 +79,15 @@ export class GameSession {
   async start(workerOrigin) {
     const meta = await this.metadata();
     const redirectUri = `${workerOrigin}/auth/callback`;
+    const supported = meta.scopes_supported || [];
+    const scope = ["openid", "profile", "email", "offline_access"]
+      .filter((s) => !supported.length || supported.includes(s))
+      .join(" ");
     let client = await this.storage.get("oauth_client");
-    if (!client || client.redirect_uri !== redirectUri) {
+    // The scope has to be in the registration: the game's sign-in (Clerk) gives a client
+    // that registers without one only its default scopes, and refuses anything more with
+    // invalid_scope.
+    if (!client || client.redirect_uri !== redirectUri || client.scope !== scope) {
       if (!meta.registration_endpoint) throw new Error("game sign-in has no client registration");
       const res = await this.fetch(meta.registration_endpoint, {
         method: "POST",
@@ -91,20 +98,18 @@ export class GameSession {
           grant_types: ["authorization_code", "refresh_token"],
           response_types: ["code"],
           token_endpoint_auth_method: "none",
+          scope,
         }),
       });
       if (!res.ok) throw new Error(`client registration ${res.status}: ${await res.text()}`);
       const reg = await res.json();
-      client = { client_id: reg.client_id, redirect_uri: redirectUri };
+      // Ask only for what the registration was granted, in case it trimmed the list.
+      client = { client_id: reg.client_id, redirect_uri: redirectUri, scope, granted: reg.scope || scope };
       await this.storage.put("oauth_client", client);
     }
     const verifier = randomString(48);
     const state = randomString(24);
     await this.storage.put("oauth_pending", { verifier, state, at: Date.now() });
-    const supported = meta.scopes_supported || [];
-    const scope = ["openid", "profile", "email", "offline_access"]
-      .filter((s) => !supported.length || supported.includes(s))
-      .join(" ");
     const url = new URL(meta.authorization_endpoint);
     url.searchParams.set("response_type", "code");
     url.searchParams.set("client_id", client.client_id);
@@ -112,7 +117,8 @@ export class GameSession {
     url.searchParams.set("state", state);
     url.searchParams.set("code_challenge", await sha256(verifier));
     url.searchParams.set("code_challenge_method", "S256");
-    if (scope) url.searchParams.set("scope", scope);
+    const ask = client.granted || scope;
+    if (ask) url.searchParams.set("scope", ask);
     return url.toString();
   }
 
@@ -139,6 +145,11 @@ export class GameSession {
       throw new Error(`signed in as ${me["userData.username"] || "another account"}, not the watched account`);
     }
     return me["userData.username"];
+  }
+
+  /** Forget the registered client so the next sign-in registers a fresh one. */
+  async resetClient() {
+    await this.storage.delete("oauth_client");
   }
 
   async signOut() {

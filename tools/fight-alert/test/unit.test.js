@@ -151,3 +151,26 @@ test("an expired access token is refreshed once and the new refresh token kept",
   assert.equal(refreshes, 1);
   assert.equal((await storage.get("oauth")).refresh_token, "r2");
 });
+
+test("sign-in registers its scopes and asks only for what was granted", async () => {
+  const storage = memStorage();
+  // An older client registered without scopes must be replaced.
+  await storage.put("oauth_client", { client_id: "old", redirect_uri: "https://w/auth/callback" });
+  let registered;
+  const fakeFetch = async (url, init) => {
+    if (url.endsWith("/.well-known/oauth-authorization-server")) {
+      return Response.json({
+        authorization_endpoint: "https://g/authorize",
+        registration_endpoint: "https://g/register",
+        scopes_supported: ["openid", "profile", "email", "offline_access", "public_metadata"],
+      });
+    }
+    registered = JSON.parse(init.body);
+    return Response.json({ client_id: "new", scope: "openid profile email offline_access" });
+  };
+  const s = new GameSession(storage, { GAME_ORIGIN: "https://g" }, fakeFetch);
+  const url = new URL(await s.start("https://w"));
+  assert.equal(registered.scope, "openid profile email offline_access");
+  assert.equal(url.searchParams.get("client_id"), "new");
+  assert.equal(url.searchParams.get("scope"), "openid profile email offline_access");
+});

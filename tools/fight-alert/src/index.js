@@ -180,7 +180,12 @@ export class FightWatcher4 {
     }
     if (url.pathname === "/auth/callback") {
       const error = url.searchParams.get("error");
-      if (error) return page(`The game sign-in was not approved (${error}).`, 400);
+      if (error) {
+        // A refused request usually means the registered client is wrong for the game's
+        // sign-in; register a fresh one next time.
+        if (error !== "access_denied") await this.game.resetClient();
+        return page(`The game sign-in was not approved (${error}).`, 400);
+      }
       try {
         const name = await this.game.finish(url.searchParams.get("code"), url.searchParams.get("state"));
         this.meta.swapAccount = name;

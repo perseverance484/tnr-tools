@@ -65,6 +65,9 @@ jobs:
           URL: ${{ steps.deploy.outputs.deployment-url }}
         run: |
           echo "Worker: $URL"
+          echo "Game sign-in metadata (public):"
+          curl -fsS https://www.theninja-rpg.com/.well-known/oauth-authorization-server | head -c 3000 || true
+          echo
           sleep 30
           for i in 1 2 3 4 5 6; do
             STATUS=$(curl -fsS "$URL/status" || true)
