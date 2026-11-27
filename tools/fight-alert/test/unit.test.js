@@ -220,3 +220,50 @@ test("wrangler.toml turns own-fight alerts on", async () => {
   assert.match(toml, /^ALERT_OWN_FIGHTS = "true"$/m);
   assert.match(toml, /^SWAP_ENABLED = "true"$/m);
 });
+
+test("fight alerts and swap notes retry ntfy refusals for up to 15 seconds", async () => {
+  const { FightWatcher4, retryWaits } = await import("../src/index.js");
+  for (const kind of ["attacked", "own", "swapped", "swapFailed"]) {
+    const w = retryWaits(kind);
+    assert.equal(w[0], 0);
+    assert.equal(w.reduce((a, b) => a + b, 0), 15000);
+  }
+  assert.ok(retryWaits("online").length <= 3);
+
+  const realFetch = globalThis.fetch;
+  const realTimeout = globalThis.setTimeout;
+  const waited = [];
+  globalThis.setTimeout = (fn, ms) => {
+    waited.push(ms);
+    return realTimeout(fn, 0);
+  };
+  try {
+    // Refused 5 times, then accepted: the alert still goes out.
+    let n = 0;
+    globalThis.fetch = async () => new Response("", { status: ++n <= 5 ? 429 : 200 });
+    const w = new FightWatcher4({ storage: memStorage() }, { WATCH_USER_ID: "me", NTFY_TOPIC: "t" });
+    await w.loadMeta();
+    assert.deepEqual(await w.notify("own"), { ok: true });
+    assert.equal(n, 6);
+    assert.equal(w.meta.alerts, 1);
+
+    // Refused every time: it stops after the 15-second budget and records why.
+    n = 0;
+    waited.length = 0;
+    globalThis.fetch = async () => (n++, new Response("", { status: 429 }));
+    const r = await w.notify("attacked");
+    assert.equal(r.ok, false);
+    assert.equal(n, retryWaits("attacked").length);
+    assert.equal(waited.reduce((a, b) => a + b, 0), 15000);
+    assert.match(r.error, /ntfy 429; gave up after 8 tries/);
+
+    // A non-retryable refusal stops at once.
+    n = 0;
+    globalThis.fetch = async () => (n++, new Response("", { status: 403 }));
+    assert.equal((await w.notify("attacked")).ok, false);
+    assert.equal(n, 1);
+  } finally {
+    globalThis.fetch = realFetch;
+    globalThis.setTimeout = realTimeout;
+  }
+});

@@ -92,6 +92,17 @@ export function classify(data, alertOwnFights) {
   return alertOwnFights ? "own" : null;
 }
 
+// ntfy.sh refuses with 429 when the shared Cloudflare address is over its limit. Fight alerts
+// and swap notes keep retrying for up to 15 seconds in total (the lobby is 15 seconds), so a
+// short burst of refusals no longer drops the alert. Status notices try three times.
+const FIGHT_RETRY_WAITS = [0, 500, 1000, 1500, 2000, 2500, 3000, 4500]; // sums to 15 s
+const OTHER_RETRY_WAITS = [0, 1000, 3000];
+
+/** Waits before each ntfy try, in ms. */
+export function retryWaits(kind) {
+  return ["attacked", "own", "swapped", "swapFailed"].includes(kind) ? FIGHT_RETRY_WAITS : OTHER_RETRY_WAITS;
+}
+
 /** The lobby swap runs on every fight the alert goes out for: attacked or started by us. */
 export function swapsFor(kind) {
   return kind === "attacked" || kind === "own";
@@ -459,8 +470,9 @@ export class FightWatcher4 {
     // ntfy account moves the limit to the account.
     if (this.env.NTFY_TOKEN) headers.Authorization = `Bearer ${this.env.NTFY_TOKEN}`;
     let lastErr = null;
-    for (const wait of [0, 1000, 3000]) {
-      if (wait) await new Promise((r) => setTimeout(r, wait));
+    const waits = retryWaits(kind);
+    for (let i = 0; i < waits.length; i++) {
+      if (waits[i]) await new Promise((r) => setTimeout(r, waits[i]));
       try {
         const res = await fetch(`${cfg(this.env, "NTFY_URL")}/${this.env.NTFY_TOPIC}`, {
           method: "POST",
@@ -482,6 +494,7 @@ export class FightWatcher4 {
         lastErr = err.message;
       }
     }
+    if (waits.length > 1) lastErr = `${lastErr}; gave up after ${waits.length} tries`;
     this.meta.lastError = `notify: ${lastErr}`;
     this.meta.lastNotify = { kind, ok: false, error: lastErr, at: new Date().toISOString() };
     await this.saveMeta();

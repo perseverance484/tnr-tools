@@ -14,6 +14,8 @@ account: fights it is attacked in and fights it starts.
   priority-5 message to `ntfy.sh/<NTFY_TOPIC>`.
 - The alert makes no game API calls. The Pusher app key is the public one the game
   page ships; the Worker finds it in the site's scripts (or set `PUSHER_KEY`).
+- When ntfy refuses a fight alert or swap note as too many requests (429) or a server error, it
+  keeps retrying for up to 15 seconds in total. Other notices try three times.
 - One alert per battle id (last 50 remembered). Fights the account starts are alerted
   while `ALERT_OWN_FIGHTS = "true"` (on in `wrangler.toml`).
 - An outbound socket keeps a Durable Object alive for up to 15 minutes, so the socket is
