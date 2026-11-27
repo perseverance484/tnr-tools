@@ -87,7 +87,7 @@ export function classify(data, alertOwnFights) {
   return alertOwnFights ? "own" : null;
 }
 
-export class FightWatcher {
+export class FightWatcher2 {
   constructor(state, env) {
     this.state = state;
     this.env = env;

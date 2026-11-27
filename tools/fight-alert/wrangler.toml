@@ -17,8 +17,15 @@ ALERT_OWN_FIGHTS = "false"
 
 [[durable_objects.bindings]]
 name = "WATCHER"
-class_name = "FightWatcher"
+class_name = "FightWatcher2"
 
 [[migrations]]
 tag = "v1"
 new_sqlite_classes = ["FightWatcher"]
+
+# v2 replaces the class so a deploy restarts the watcher on the new code (an open outbound
+# socket kept the old instance running after the first redeploy).
+[[migrations]]
+tag = "v2"
+deleted_classes = ["FightWatcher"]
+new_sqlite_classes = ["FightWatcher2"]
