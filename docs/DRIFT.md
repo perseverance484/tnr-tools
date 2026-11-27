@@ -1,6 +1,6 @@
-# DRIFT.md - upstream contract drift (2026-11-24)
+# DRIFT.md - upstream contract drift (2026-11-27)
 
-Upstream: studie-tech/TheNinjaRPG@24cd6366e88466eca427cd633cd747d46edb8a51
+Upstream: studie-tech/TheNinjaRPG@6f8b58f4d8090f577b723304daa867f5094d50a1
 
 Signal only. Nothing below is adopted until the structural diff gate passes.
 
@@ -230,7 +230,7 @@ REMOVALS
   const-member  AvailableEffectTypes  onehitkillprevent
   const-member  AvailableEffectTypes  pierce
   const-member  AvailableEffectTypes  poison
-  ... 195 more
+  ... 197 more
 ADDITIONS
   const-member  ABANDONABLE_QUEST_TYPES  battlepyramid
   const-member  ABANDONABLE_QUEST_TYPES  crime
@@ -246,6 +246,7 @@ ADDITIONS
   const-member  ABANDONABLE_QUEST_TYPES  special
   const-member  ABANDONABLE_QUEST_TYPES  story
   const-member  ABANDONABLE_QUEST_TYPES  war
+  const-member  ACTIVE_VOTING_SITES  topRankinGames
   const-member  ActiveBanStates  BAN_ACTIVATED
   const-member  ActiveBanStates  BAN_ESCALATED
   const-member  ActiveSilenceStates  SILENCE_ACTIVATED
@@ -291,8 +292,7 @@ ADDITIONS
   const-member  CARAVAN_ENCOUNTER_TYPES  INTERCEPTION
   const-member  CARAVAN_ENCOUNTER_TYPES  INTERVENTION
   const-member  CARAVAN_ENCOUNTER_TYPES  MARKER_ASSAULT
-  const-member  CARAVAN_OPERATION_STATUSES  ACTIVE
-  ... 251 more
+  ... 252 more
 
-BREAKING: 255 change(s) - DO NOT ADOPT (exit 1)
+BREAKING: 257 change(s) - DO NOT ADOPT (exit 1)
 ~~~
