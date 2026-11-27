@@ -91,7 +91,7 @@ export function classify(data, alertOwnFights) {
   return alertOwnFights ? "own" : null;
 }
 
-export class FightWatcher2 {
+export class FightWatcher3 {
   constructor(state, env) {
     this.state = state;
     this.env = env;
@@ -134,6 +134,14 @@ export class FightWatcher2 {
   }
 
   async fetch(request) {
+    // A deploy does not replace an instance that holds an open outbound socket. Each deploy
+    // carries a higher DEPLOY_ID; when a newer Worker calls, this instance resets itself so
+    // the next call starts the new code (and picks up new secrets).
+    const incoming = Number(request.headers.get("x-deploy-id") || 0);
+    if (incoming > Number(this.env.DEPLOY_ID || 0) && typeof this.state.abort === "function") {
+      for (const [id] of this.sockets) this.drop(id);
+      this.state.abort("newer deploy");
+    }
     const url = new URL(request.url);
     await this.loadMeta();
     if (url.pathname === "/ensure") {
@@ -145,6 +153,7 @@ export class FightWatcher2 {
       const m = this.meta;
       return Response.json({
         watching: this.env.WATCH_NAME || "account",
+        deployId: this.env.DEPLOY_ID || null,
         connected: this.healthy(),
         sockets: this.sockets.size,
         lastSubscribedAt: m.lastSubscribedAt ? new Date(m.lastSubscribedAt).toISOString() : null,
@@ -469,7 +478,21 @@ export class FightWatcher2 {
   }
 }
 
-const watcher = (env) => env.WATCHER.get(env.WATCHER.idFromName("main"));
+/** Call the watcher, retrying once if it reset itself for a newer deploy. */
+async function callWatcher(env, path, init = {}) {
+  const headers = { "x-deploy-id": env.DEPLOY_ID || "0" };
+  for (let attempt = 0; ; attempt++) {
+    try {
+      return await env.WATCHER.get(env.WATCHER.idFromName("main")).fetch(`https://do${path}`, {
+        ...init,
+        headers,
+      });
+    } catch (err) {
+      if (attempt >= 2) throw err;
+      await new Promise((r) => setTimeout(r, 500));
+    }
+  }
+}
 
 function page(text, status = 200) {
   const safe = text.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
@@ -483,28 +506,27 @@ function page(text, status = 200) {
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
-    if (url.pathname === "/status") return watcher(env).fetch("https://do/status");
+    if (url.pathname === "/status") return callWatcher(env, "/status");
     if (url.pathname === "/test") {
       // The topic doubles as the test secret: only someone who already receives the
       // alerts can trigger a test one.
       if (url.searchParams.get("key") !== env.NTFY_TOPIC) {
         return new Response("Forbidden", { status: 403 });
       }
-      return watcher(env).fetch("https://do/test");
+      return callWatcher(env, "/test");
     }
     if (url.pathname === "/auth/start" || url.pathname === "/auth/signout") {
       // Same gate as /test: only someone who already has the topic can start or end a sign-in.
       if (url.searchParams.get("key") !== env.NTFY_TOPIC) {
         return new Response("Forbidden", { status: 403 });
       }
-      const target = new URL(`https://do${url.pathname}`);
-      target.searchParams.set("origin", url.origin);
+      const origin = encodeURIComponent(url.origin);
       // Hand the redirect to the browser instead of following it here.
-      return watcher(env).fetch(target.toString(), { redirect: "manual" });
+      return callWatcher(env, `${url.pathname}?origin=${origin}`, { redirect: "manual" });
     }
     if (url.pathname === "/auth/callback") {
       // Protected by the one-time state value the sign-in started with.
-      return watcher(env).fetch(`https://do/auth/callback${url.search}`);
+      return callWatcher(env, `/auth/callback${url.search}`);
     }
     if (url.pathname === "/") {
       return new Response("Fight alert is running. See /status.", {
@@ -514,6 +536,6 @@ export default {
     return new Response("Not found", { status: 404 });
   },
   async scheduled(_event, env) {
-    await watcher(env).fetch("https://do/ensure");
+    await callWatcher(env, "/ensure");
   },
 };

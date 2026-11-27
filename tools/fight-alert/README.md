@@ -37,7 +37,7 @@ For a fight someone else starts, the Worker can load the right jutsu set during 
   account. `/auth/signout?key=<NTFY_TOPIC>` forgets it.
 - Two game requests per fight count toward the game's 30-a-minute MCP limit for the account.
 
-Endpoints: `/status` (connection state, last event), `/test?key=<NTFY_TOPIC>` (sends a
+Endpoints: `/status` (connection state, last event, swap state, deploy id), `/test?key=<NTFY_TOPIC>` (sends a
 sample alert).
 
 Cost: one always-on Durable Object is about 10,800 GB-s a day, inside the free plan's

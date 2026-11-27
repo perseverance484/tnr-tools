@@ -31,17 +31,7 @@ jobs:
           node-version: 22
       - run: npm ci
       - run: npm test
-      - name: Deploy
-        id: deploy
-        if: env.HAS_SECRETS == 'true'
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          workingDirectory: tools/fight-alert
-          secrets: NTFY_TOPIC
-        env:
-          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+      # Before the deploy, so the new version carries it.
       - name: Optional ntfy access token
         if: env.HAS_SECRETS == 'true'
         env:
@@ -54,6 +44,20 @@ jobs:
           else
             echo "No NTFY_TOKEN secret; sending to ntfy.sh anonymously."
           fi
+      - name: Deploy id
+        run: echo "DEPLOY_ID=$(( ${{ github.run_number }} * 100 + ${{ github.run_attempt }} ))" >> "$GITHUB_ENV"
+      - name: Deploy
+        id: deploy
+        if: env.HAS_SECRETS == 'true'
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: tools/fight-alert
+          secrets: NTFY_TOPIC
+          command: deploy --var DEPLOY_ID:${{ env.DEPLOY_ID }}
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
       - name: Wake it and send a test alert
         if: env.HAS_SECRETS == 'true'
         env:
@@ -65,10 +69,12 @@ jobs:
           for i in 1 2 3 4 5 6; do
             STATUS=$(curl -fsS "$URL/status" || true)
             echo "$STATUS"
-            echo "$STATUS" | grep -q '"connected":true' && break
+            echo "$STATUS" | grep -q "\"deployId\":\"$DEPLOY_ID\"" && echo "$STATUS" | grep -q '"connected":true' && break
             sleep 10
           done
           RESULT=$(curl -sS "$URL/test?key=$NTFY_TOPIC")
           echo "Test alert result: $RESULT"
-          curl -fsS "$URL/status"
+          FINAL=$(curl -fsS "$URL/status")
+          echo "$FINAL"
+          echo "$FINAL" | grep -q "\"deployId\":\"$DEPLOY_ID\""
           echo "$RESULT" | grep -q '"ok":true'

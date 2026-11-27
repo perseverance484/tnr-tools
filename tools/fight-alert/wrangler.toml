@@ -22,7 +22,7 @@ P2_LOADOUT_ID = "ZVfObjuW5xO462WiR5UMQ"
 
 [[durable_objects.bindings]]
 name = "WATCHER"
-class_name = "FightWatcher2"
+class_name = "FightWatcher3"
 
 [[migrations]]
 tag = "v1"
@@ -33,3 +33,9 @@ new_sqlite_classes = ["FightWatcher"]
 [[migrations]]
 tag = "v2"
 renamed_classes = [{ from = "FightWatcher", to = "FightWatcher2" }]
+
+# v3: one more replacement to retire the instance still running the pre-swap code. From
+# here on a deploy resets the watcher itself (DEPLOY_ID, see src/index.js).
+[[migrations]]
+tag = "v3"
+renamed_classes = [{ from = "FightWatcher2", to = "FightWatcher3" }]
