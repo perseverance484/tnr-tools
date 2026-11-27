@@ -144,11 +144,12 @@ export class FightWatcher {
         lastAlert: m.lastAlert,
         alertsSent: m.alerts,
         lastError: m.lastError,
+        lastNotify: m.lastNotify || null,
       });
     }
     if (url.pathname === "/test") {
-      await this.notify("test");
-      return Response.json({ ok: true, sent: "test alert" });
+      const result = await this.notify("test");
+      return Response.json(result, { status: result.ok ? 200 : 502 });
     }
     return new Response("Not found", { status: 404 });
   }
@@ -353,22 +354,37 @@ export class FightWatcher {
     const msg = messages[kind];
     const headers = { Title: msg.title, Priority: msg.priority, Tags: msg.tags };
     if (msg.click) headers.Click = msg.click;
-    try {
-      const res = await fetch(`${cfg(this.env, "NTFY_URL")}/${this.env.NTFY_TOPIC}`, {
-        method: "POST",
-        headers,
-        body: msg.body,
-      });
-      if (!res.ok) throw new Error(`ntfy ${res.status}`);
-      if (kind === "attacked" || kind === "own") {
-        this.meta.alerts += 1;
-        this.meta.lastAlert = new Date().toISOString();
-        await this.saveMeta();
+    // ntfy.sh limits anonymous senders per IP, and Workers share IPs. A token from a free
+    // ntfy account moves the limit to the account.
+    if (this.env.NTFY_TOKEN) headers.Authorization = `Bearer ${this.env.NTFY_TOKEN}`;
+    let lastErr = null;
+    for (const wait of [0, 1000, 3000]) {
+      if (wait) await new Promise((r) => setTimeout(r, wait));
+      try {
+        const res = await fetch(`${cfg(this.env, "NTFY_URL")}/${this.env.NTFY_TOPIC}`, {
+          method: "POST",
+          headers,
+          body: msg.body,
+        });
+        if (res.ok) {
+          if (kind === "attacked" || kind === "own") {
+            this.meta.alerts += 1;
+            this.meta.lastAlert = new Date().toISOString();
+          }
+          this.meta.lastNotify = { kind, ok: true, at: new Date().toISOString() };
+          await this.saveMeta();
+          return { ok: true };
+        }
+        lastErr = `ntfy ${res.status}`;
+        if (res.status !== 429 && res.status < 500) break;
+      } catch (err) {
+        lastErr = err.message;
       }
-    } catch (err) {
-      this.meta.lastError = `notify: ${err.message}`;
-      await this.saveMeta();
     }
+    this.meta.lastError = `notify: ${lastErr}`;
+    this.meta.lastNotify = { kind, ok: false, error: lastErr, at: new Date().toISOString() };
+    await this.saveMeta();
+    return { ok: false, error: lastErr };
   }
 }
 

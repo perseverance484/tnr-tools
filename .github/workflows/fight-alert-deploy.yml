@@ -56,4 +56,7 @@ jobs:
             echo "$STATUS" | grep -q '"connected":true' && break
             sleep 10
           done
-          curl -fsS "$URL/test?key=$NTFY_TOPIC" > /dev/null && echo "Test alert sent"
+          RESULT=$(curl -sS "$URL/test?key=$NTFY_TOPIC")
+          echo "Test alert result: $RESULT"
+          curl -fsS "$URL/status"
+          echo "$RESULT" | grep -q '"ok":true'
