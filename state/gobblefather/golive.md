@@ -68,3 +68,14 @@ Unhide in that order: the 12 jutsu, then the 7 AI, then the quest. The quest `st
 - [ ] Each jutsu `hidden:false`; each AI `hidden:false` and still `equipped:true` on every jutsu (law 18 check). Last read 2026-11-26 after 631: 29 of 29 equipped.
 - [ ] Quest: hidden false, questType event, maxAttempts -1, maxCompletes 1, requiredLevel 75.
 - [ ] One test fight per stage on the director's say-so.
+
+## Live status (read 2026-11-27 20:3xZ, read-only)
+
+The quest is live, published outside this list. The original `goJkx-CPJSYvJO71s6CpE` is deleted. Two live clones, both event, S rank, 2026-11-26 to 2026-12-03, one completion, full rewards (10,000 exp, 70,000 ryo, 480 prestige, 500 tokens, 500 clan points, badge, ring, cane token), no bloodline or village lock:
+
+| Quest | Live id | Levels | Created |
+|---|---|---|---|
+| The Gobblefather | `a0HxwG_yOapsv0g_oFvYD` | 30 to 100 | 2026-11-27 16:19Z |
+| The Gobblefather (Genin) | `baWIzLpcJPnoTdPqjfVzn` | 1 to 29 | 2026-11-27 16:49Z |
+
+Both set Goah as the quest's main scene character, so the 12 steps with no character of their own show Goah. Quest card image is still the default. The record does not show who published them.
