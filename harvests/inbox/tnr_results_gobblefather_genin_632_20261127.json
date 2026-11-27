@@ -1,0 +1,38 @@
+{
+  "job": "632",
+  "what": "Gobblefather genin version",
+  "source": "connector, direct calls (director go 2026-11-27 10:46 CT; adds choice 'Drop the adds'; boost added 10:50 CT '+40%/40% inc dmg given/decreased dmg taken')",
+  "at": "2026-11-27T16:58:00Z",
+  "lock": "claude, token e28ded5f...",
+  "finding": "All 4 battles in the live quest already had opponent_scaled_to_user true (scaleUserStats scales pools, stats and masteries to the player's level), so the clone was made easier by dropping adds plus a starting boost.",
+  "writes": [
+    {
+      "call": "quests.clone",
+      "id": "a0HxwG_yOapsv0g_oFvYD",
+      "result": "baWIzLpcJPnoTdPqjfVzn (cloned visible as 'The Gobblefather - copy', level 75, for ~3 min before the update)"
+    },
+    {
+      "call": "quests.update",
+      "id": "baWIzLpcJPnoTdPqjfVzn",
+      "change": "name 'The Gobblefather (Genin)', requiredLevel 1, maxLevel 29; b8 Enforcer x1 + Collector x1 (was x2 each); b10 Don Giblet only (Accountants x2 removed); b13 Gobblefather only (Enforcers x2 removed)"
+    },
+    {
+      "call": "quests.update",
+      "id": "baWIzLpcJPnoTdPqjfVzn",
+      "change": "applyBuffs on b6/b8/b10/b13: increasedamagegiven 40% + decreasedamagetaken 40%, rounds 99, 'Harvest Blessing'"
+    },
+    {
+      "call": "quests.update",
+      "id": "a0HxwG_yOapsv0g_oFvYD",
+      "change": "requiredLevel 75 -> 30; server diff confirmed only requiredLevel changed"
+    }
+  ],
+  "readback": {
+    "baWIzLpcJPnoTdPqjfVzn": "hidden false, event, level 1-29, maxCompletes 1, opponents and buffs as written, rewards same as main (package + badge + ring + cane token)",
+    "a0HxwG_yOapsv0g_oFvYD": "hidden false, level 30-100, opponents unchanged"
+  },
+  "open": [
+    "Genin version carries the same rewards as the main quest (director's call)",
+    "A player who finishes the genin version at 29 can level to 30 and also do the main quest"
+  ]
+}

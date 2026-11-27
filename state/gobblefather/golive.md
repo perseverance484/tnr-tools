@@ -48,3 +48,7 @@ Unhide in that order: the 12 jutsu, then the 7 AI, then the quest. The quest `st
 ## Done 2026-11-27
 
 Live quest: `a0HxwG_yOapsv0g_oFvYD` (clone; original `goJkx-CPJSYvJO71s6CpE` deleted). Rewards: Single Major Event package + Family Business badge + Golden Feathered Ring + Gobblefather's Cane Token. Ring, token and the 11 scene assets unhidden. The 12 boss jutsu and 7 AI stay hidden on purpose (they fight hidden; unhiding equipped jutsu risks law 18). Record: `harvests/inbox/tnr_results_gobblefather_golive_20261127.json`.
+
+## Genin version, 2026-11-27 (job 632)
+
+`baWIzLpcJPnoTdPqjfVzn` The Gobblefather (Genin): live, levels 1-29, adds dropped (guard fight 1+1), +40% damage given / 40% damage taken reduction in every fight. Main quest `a0HxwG_yOapsv0g_oFvYD` now level 30+. Same rewards on both.
