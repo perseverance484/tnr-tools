@@ -4,7 +4,11 @@
 // the same public channel the game's web page subscribes to. When the server announces a
 // battle where the account is the defender, it sends a max-priority ntfy notification.
 //
-// Read-only: it makes no game API calls, holds no game credential and never acts in game.
+// The alert itself makes no game API calls. The optional lobby swap (src/swap.js) is off
+// until SWAP_ENABLED = "true" and the owner has signed the Worker in to the game; it only
+// changes the jutsu set in the 15-second lobby of a fight someone else started.
+
+import { GameSession } from "./swap.js";
 
 const DEFAULTS = {
   GAME_ORIGIN: "https://www.theninja-rpg.com",
@@ -95,6 +99,11 @@ export class FightWatcher2 {
     this.nextSocketId = 1;
     this.connecting = false;
     this.meta = null;
+    this.game = new GameSession(state.storage, env);
+  }
+
+  swapOn() {
+    return this.env.SWAP_ENABLED === "true" && !!this.env.P1_LOADOUT_ID && !!this.env.P2_LOADOUT_ID;
   }
 
   async loadMeta() {
@@ -145,7 +154,38 @@ export class FightWatcher2 {
         alertsSent: m.alerts,
         lastError: m.lastError,
         lastNotify: m.lastNotify || null,
+        swap: {
+          enabled: this.swapOn(),
+          signedIn: await this.game.signedIn(),
+          account: m.swapAccount || null,
+          last: m.lastSwap || null,
+        },
       });
+    }
+    if (url.pathname === "/auth/start") {
+      try {
+        return Response.redirect(await this.game.start(url.searchParams.get("origin")), 302);
+      } catch (err) {
+        return page(`Could not start the game sign-in: ${err.message}`, 502);
+      }
+    }
+    if (url.pathname === "/auth/callback") {
+      const error = url.searchParams.get("error");
+      if (error) return page(`The game sign-in was not approved (${error}).`, 400);
+      try {
+        const name = await this.game.finish(url.searchParams.get("code"), url.searchParams.get("state"));
+        this.meta.swapAccount = name;
+        await this.saveMeta();
+        return page(`Signed in as ${name}. The lobby jutsu swap is ${this.swapOn() ? "on" : "off"}.`);
+      } catch (err) {
+        return page(`Sign-in failed: ${err.message}`, 400);
+      }
+    }
+    if (url.pathname === "/auth/signout") {
+      await this.game.signOut();
+      this.meta.swapAccount = null;
+      await this.saveMeta();
+      return page("Signed out. The lobby jutsu swap will not run until you sign in again.");
     }
     if (url.pathname === "/test") {
       const result = await this.notify("test");
@@ -172,6 +212,14 @@ export class FightWatcher2 {
         m.offlineNotified = true;
         await this.saveMeta();
         await this.notify("offline");
+      }
+    }
+    if (this.swapOn()) {
+      try {
+        await this.game.keepFresh();
+      } catch (err) {
+        m.lastError = `game sign-in: ${err.message}`;
+        await this.saveMeta();
       }
     }
     await this.state.storage.setAlarm(Date.now() + WATCHDOG_MS);
@@ -310,10 +358,31 @@ export class FightWatcher2 {
     if (m.seen.length > SEEN_MAX) m.seen.splice(0, m.seen.length - SEEN_MAX);
     m.lastEvent = { kind, battleId: msg.data.battleId, at: new Date().toISOString() };
     await this.saveMeta();
-    await this.notify(kind);
+    // The alert goes out first; the swap runs alongside it, never ahead of it.
+    const alert = this.notify(kind);
+    const swap = kind === "attacked" ? this.swap(msg.data.battleId) : null;
+    await alert;
+    if (swap) await swap;
   }
 
-  async notify(kind) {
+  async swap(battleId) {
+    if (!this.swapOn() || !(await this.game.signedIn())) return;
+    const started = Date.now();
+    let result;
+    try {
+      result = await this.game.swapForBattle(battleId);
+    } catch (err) {
+      result = { swapped: false, reason: err.message };
+    }
+    this.meta.lastSwap = { battleId, ...result, ms: Date.now() - started, at: new Date().toISOString() };
+    await this.saveMeta();
+    const set = result.set === "P1" ? "PvP 1 (you move first)" : "PvP 2 (you move second)";
+    await this.notify(result.swapped ? "swapped" : "swapFailed", {
+      body: result.swapped ? `Loaded ${set}.` : `Jutsu set not changed: ${result.reason}. Check it in the lobby.`,
+    });
+  }
+
+  async notify(kind, extra = {}) {
     const name = this.env.WATCH_NAME || "Your ninja";
     const origin = cfg(this.env, "GAME_ORIGIN");
     const messages = {
@@ -350,8 +419,20 @@ export class FightWatcher2 {
         priority: "2",
         tags: "white_check_mark",
       },
+      swapped: {
+        title: "Jutsu set loaded",
+        priority: "3",
+        tags: "scroll",
+        click: `${origin}/combat`,
+      },
+      swapFailed: {
+        title: "Jutsu swap failed",
+        priority: "4",
+        tags: "warning",
+        click: `${origin}/combat`,
+      },
     };
-    const msg = messages[kind];
+    const msg = { ...messages[kind], ...extra };
     const headers = { Title: msg.title, Priority: msg.priority, Tags: msg.tags };
     if (msg.click) headers.Click = msg.click;
     // ntfy.sh limits anonymous senders per IP, and Workers share IPs. A token from a free
@@ -390,6 +471,15 @@ export class FightWatcher2 {
 
 const watcher = (env) => env.WATCHER.get(env.WATCHER.idFromName("main"));
 
+function page(text, status = 200) {
+  const safe = text.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+  return new Response(
+    `<!doctype html><meta name="viewport" content="width=device-width"><title>Fight alert</title>` +
+      `<p style="font:18px system-ui;margin:2em">${safe}</p>`,
+    { status, headers: { "content-type": "text/html; charset=utf-8" } },
+  );
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -401,6 +491,20 @@ export default {
         return new Response("Forbidden", { status: 403 });
       }
       return watcher(env).fetch("https://do/test");
+    }
+    if (url.pathname === "/auth/start" || url.pathname === "/auth/signout") {
+      // Same gate as /test: only someone who already has the topic can start or end a sign-in.
+      if (url.searchParams.get("key") !== env.NTFY_TOPIC) {
+        return new Response("Forbidden", { status: 403 });
+      }
+      const target = new URL(`https://do${url.pathname}`);
+      target.searchParams.set("origin", url.origin);
+      // Hand the redirect to the browser instead of following it here.
+      return watcher(env).fetch(target.toString(), { redirect: "manual" });
+    }
+    if (url.pathname === "/auth/callback") {
+      // Protected by the one-time state value the sign-in started with.
+      return watcher(env).fetch(`https://do/auth/callback${url.search}`);
     }
     if (url.pathname === "/") {
       return new Response("Fight alert is running. See /status.", {

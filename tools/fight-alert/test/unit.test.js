@@ -44,3 +44,110 @@ test("discoverKeys falls back when nothing is found", async () => {
   }));
   assert.deepEqual(keys, ["tnr_soketi_key"]);
 });
+
+import { chooseLoadout, parseRpcBody, toolOutput, GameSession } from "../src/swap.js";
+
+const env = { WATCH_USER_ID: "me", P1_LOADOUT_ID: "p1", P2_LOADOUT_ID: "p2" };
+
+test("chooseLoadout picks P1 when moving first and P2 when second, only in the lobby", () => {
+  const now = Date.parse("2026-11-27T12:00:00Z");
+  const lobby = new Date(now + 10000).toISOString();
+  assert.equal(chooseLoadout({ activeUserId: "me", roundStartAt: lobby, battleType: "COMBAT" }, "me", env, now), "p1");
+  assert.equal(chooseLoadout({ activeUserId: "them", roundStartAt: lobby, battleType: "COMBAT" }, "me", env, now), "p2");
+  // Round 1 has started (or is about to): never swap.
+  assert.equal(chooseLoadout({ activeUserId: "me", roundStartAt: new Date(now - 1).toISOString(), battleType: "COMBAT" }, "me", env, now), null);
+  assert.equal(chooseLoadout({ activeUserId: "me", roundStartAt: new Date(now + 200).toISOString(), battleType: "COMBAT" }, "me", env, now), null);
+  // Not a PvP fight, or no battle.
+  assert.equal(chooseLoadout({ activeUserId: "me", roundStartAt: lobby, battleType: "SPARRING" }, "me", env, now), null);
+  assert.equal(chooseLoadout(null, "me", env, now), null);
+});
+
+test("parseRpcBody reads plain JSON and SSE bodies", () => {
+  const rpc = { jsonrpc: "2.0", id: 1, result: { content: [{ type: "text", text: "{\"a\":1}" }] } };
+  assert.deepEqual(parseRpcBody(JSON.stringify(rpc)), rpc);
+  assert.deepEqual(parseRpcBody(`event: message\ndata: ${JSON.stringify(rpc)}\n\n`), rpc);
+  assert.throws(() => parseRpcBody("data: nope"));
+});
+
+test("toolOutput returns the endpoint JSON and surfaces errors", () => {
+  assert.deepEqual(toolOutput({ result: { content: [{ type: "text", text: "{\"x\":2}" }] } }), { x: 2 });
+  assert.throws(() => toolOutput({ error: { code: -32600, message: "bad" } }), /bad/);
+  assert.throws(() => toolOutput({ result: { content: [{ type: "text", text: "Unauthorized" }] } }), /Unauthorized/);
+});
+
+function memStorage() {
+  const m = new Map();
+  return {
+    get: async (k) => m.get(k),
+    put: async (k, v) => void m.set(k, v),
+    delete: async (k) => void m.delete(k),
+  };
+}
+
+test("swapForBattle reads turn order then sends only the jutsu loadout", async () => {
+  const calls = [];
+  const storage = memStorage();
+  await storage.put("oauth", { access_token: "t", refresh_token: "r", expires_at: Date.now() + 3600e3 });
+  const fakeFetch = async (_url, init) => {
+    const body = JSON.parse(init.body);
+    const { endpointName, input } = body.params.arguments;
+    calls.push({ endpointName, input, auth: init.headers.authorization });
+    const out = endpointName === "combat.getBattle"
+      ? { "battle.activeUserId": "them", "battle.roundStartAt": new Date(Date.now() + 12000).toISOString(), "battle.battleType": "COMBAT" }
+      : { success: true, message: "ok" };
+    return new Response(JSON.stringify({ jsonrpc: "2.0", id: 1, result: { content: [{ type: "text", text: JSON.stringify(out) }] } }));
+  };
+  const s = new GameSession(storage, { ...env, MCP_URL: "https://game/api/mcp" }, fakeFetch);
+  const r = await s.swapForBattle("b1");
+  assert.deepEqual(r, { swapped: true, set: "P2", reason: undefined });
+  assert.deepEqual(calls.map((c) => c.endpointName), ["combat.getBattle", "combat.updateCombatLoadout"]);
+  assert.deepEqual(calls[1].input, { battleId: "b1", jutsuLoadoutId: "p2" });
+  assert.equal(calls[0].auth, "Bearer t");
+});
+
+test("swapForBattle makes no change once round 1 has started", async () => {
+  const calls = [];
+  const storage = memStorage();
+  await storage.put("oauth", { access_token: "t", refresh_token: "r", expires_at: Date.now() + 3600e3 });
+  const fakeFetch = async (_url, init) => {
+    calls.push(JSON.parse(init.body).params.arguments.endpointName);
+    const out = { "battle.activeUserId": "me", "battle.roundStartAt": new Date(Date.now() - 1000).toISOString(), "battle.battleType": "COMBAT" };
+    return new Response(JSON.stringify({ result: { content: [{ type: "text", text: JSON.stringify(out) }] } }));
+  };
+  const r = await new GameSession(storage, { ...env, MCP_URL: "https://g" }, fakeFetch).swapForBattle("b1");
+  assert.equal(r.swapped, false);
+  assert.deepEqual(calls, ["combat.getBattle"]);
+});
+
+test("sign-in is refused and forgotten when it is not the watched account", async () => {
+  const storage = memStorage();
+  await storage.put("oauth_pending", { verifier: "v", state: "s", at: Date.now() });
+  await storage.put("oauth_client", { client_id: "c", redirect_uri: "https://w/auth/callback" });
+  const fakeFetch = async (url) => {
+    if (url.endsWith("/.well-known/oauth-authorization-server")) return Response.json({ token_endpoint: "https://g/token" });
+    if (url === "https://g/token") return Response.json({ access_token: "a", refresh_token: "r", expires_in: 3600 });
+    const out = { "userData.userId": "someone_else", "userData.username": "other" };
+    return Response.json({ result: { content: [{ type: "text", text: JSON.stringify(out) }] } });
+  };
+  const s = new GameSession(storage, { ...env, GAME_ORIGIN: "https://g", MCP_URL: "https://g/api/mcp" }, fakeFetch);
+  await assert.rejects(s.finish("code", "s"), /not the watched account/);
+  assert.equal(await s.signedIn(), false);
+});
+
+test("an expired access token is refreshed once and the new refresh token kept", async () => {
+  const storage = memStorage();
+  await storage.put("oauth", { access_token: "old", refresh_token: "r1", expires_at: Date.now() - 1 });
+  await storage.put("oauth_client", { client_id: "c" });
+  let refreshes = 0;
+  const fakeFetch = async (url) => {
+    if (url.endsWith("/.well-known/oauth-authorization-server")) return Response.json({ token_endpoint: "https://g/token" });
+    refreshes += 1;
+    return Response.json({ access_token: "new", refresh_token: "r2", expires_in: 3600 });
+  };
+  const s = new GameSession(storage, { GAME_ORIGIN: "https://g" }, fakeFetch);
+  const [a, b] = await Promise.all([s.accessToken(), s.accessToken()]);
+  assert.equal(a, "new");
+  assert.equal(b, "new");
+  assert.equal(refreshes, 1);
+  assert.equal((await storage.get("oauth")).refresh_token, "r2");
+});

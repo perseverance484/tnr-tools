@@ -12,8 +12,13 @@ crons = ["* * * * *"]
 WATCH_USER_ID = "user_37qazcrgUPldBPI65bb25DQiCjz"
 WATCH_NAME = "dauntless"
 ALERT_OWN_FIGHTS = "false"
+# Lobby jutsu swap for fights someone else starts: P1 set when dauntless moves first, P2 when
+# second. Runs only after the owner signs the Worker in to the game at /auth/start.
+SWAP_ENABLED = "true"
+P1_LOADOUT_ID = "soXekhNjk7qihu-Rsok-6"
+P2_LOADOUT_ID = "ZVfObjuW5xO462WiR5UMQ"
 # NTFY_TOPIC is a secret, set with `wrangler secret put NTFY_TOPIC` (the deploy workflow does it).
-# Optional overrides: PUSHER_KEY, GAME_ORIGIN, SOKETI_URL, NTFY_URL.
+# Optional overrides: PUSHER_KEY, GAME_ORIGIN, SOKETI_URL, NTFY_URL, MCP_URL.
 
 [[durable_objects.bindings]]
 name = "WATCHER"
