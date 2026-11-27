@@ -951,7 +951,7 @@ def main():
               + (f", replay issues {len(eng['replayIssues'])}" if eng.get("replayIssues") else ""))
     gm = engine_bridge._his_gear_mods(en["userId"])
     print("his gear: " + (f"MEASURED given +{gm['incDamageGivenFromGear']:g}, DR {gm['drTakenFromGear']:g} (fit_gear.py)" if gm
-                          else "Kaeruun armor + Fortify III (both players, Brandon 2026-11-23)"))
+                          else "Kaeruun armor + Fortify III (both players, the director 2026-11-23)"))
     src = engine_bridge.his_kit_source(en["userId"])
     print("his kit: " + ("REAL (saved before the fight, opponent_kit.py)" if src == "real"
                          else "ESTIMATED: no pre-fight kit saved, unseen moves use the calibrated stand-in"))

@@ -44,7 +44,7 @@ def _pw(e, level):
 
 # Rolls that can miss: stun, seal and the prevent tags land when Math.random() < power / 100, with power =
 # power + powerPerLevel x level capped at 100 (engine tags.ts stun / seal / applyPreventTag, power.ts getEffectPower).
-# At level 25 the usual stuns and seals reach 100 and never miss (Brandon, 2026-11-23: "Stuns and seals dont miss when
+# At level 25 the usual stuns and seals reach 100 and never miss (the director, 2026-11-23: "Stuns and seals dont miss when
 # the jutsu is level 25"). A few stay under 100 even at 25 (catalog 2026-11-23: Dragon's Fang 60, Old One's Slumber
 # 32.5, Titanic Stalemate 62.5 / seal 44.5, Shocking Hammer Fist seal 33.8, Mind Trick 90; weapons Masamune 55 and
 # Whispering Dawnblade 70), so the chance comes from the record at the caster's level, never a flat guess.
