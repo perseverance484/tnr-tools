@@ -27,5 +27,4 @@ new_sqlite_classes = ["FightWatcher"]
 # socket kept the old instance running after the first redeploy).
 [[migrations]]
 tag = "v2"
-deleted_classes = ["FightWatcher"]
-new_sqlite_classes = ["FightWatcher2"]
+renamed_classes = [{ from = "FightWatcher", to = "FightWatcher2" }]
