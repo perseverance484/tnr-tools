@@ -1,0 +1,13 @@
+name: fight-alert-status
+# Read-only: prints the fight alert's /status. Changes nothing and sends no alert.
+on:
+  workflow_dispatch:
+  push:
+    branches: [claude/project-thread-kinzit]
+    paths:
+      - ".github/workflows/fight-alert-status.yml"
+jobs:
+  status:
+    runs-on: ubuntu-latest
+    steps:
+      - run: curl -fsS https://tnr-fight-alert.perseverance484.workers.dev/status
