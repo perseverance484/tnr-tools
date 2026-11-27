@@ -1,0 +1,1520 @@
+{
+ "audits": [
+  {
+   "area": "Git branches and hygiene",
+   "summary": "The remote has 455 branch heads (confirmed with git ls-remote): 185 are merged and 270 are not. The branch list itself is not the main problem. The cost is that durable records live only on unmerged branches, so main is not the full record. Six classes of record are missing from main. (1) Results from jobs that ran on the live game. main's state/run_queue.json stops at job 632, but claude/project-thread-* branches hold the manifests, results bundles and queue rows for jobs 640-698, plus a results bundle for live quest deletes on 2026-11-07. (2) About 66 director ruling entries, 12 of which reuse an id that main has given to a different ruling. (3) 112 review files from 73 chatgpt/review-* branches. main has the matching *_HANDOFF.md files but not the review verdicts. (4) A Forge bug fix: the @jutsu reference fix in AI rules is still missing from main's runner. (5) The Duelyst redesign of the art skill. (6) The 58 MB Skyglass/Mother of Echoes sim harness. Push numbers and ruling ids are handed out on separate branches, so they already collide. The 2026-11-08 prune record lists 152 deleted branches, and all 152 still exist. delete_branch_on_merge is false. Every branch was force-updated in the 2026-11-09 history rewrite, so ancestry checks are reliable; 200 of the 270 unmerged branches were last touched before that date. Classification: 17 are already on main (A), 215 are superseded or abandoned (B; 70 of those are review-only branches to harvest first), and 38 are live work that needs an owner decision (C). The per-branch table is in notes/branches.md. Recommended order: harvest the live-run records and rulings to main first, then the review files. Next, bulk-delete the merged branches and the class A and duplicate-chain branches, and tag-archive the rest of class B. Finally, adopt a lifecycle rule (records and reviews land on main, numbers are reserved on main, auto-delete on merge, a TTL report) so the build-up does not return.",
+   "findings": [
+    {
+     "id": "BR-01",
+     "title": "Results of live-game jobs 640-698 (and the 2026-11-07 deletes) exist only on unmerged session branches",
+     "evidence": "main's state/run_queue.json has no rows after 632 (it ends ...630,631,632). main has run-lock claim commits for these jobs (e.g. 'c1b8f6d1e run-lock: claim by claude (push/684 Isonade style C wiring)', 'fda9b94d9 ... push/698 Nettle Nova', 'aa4b0861e ... genin dungeon reads + build (push/660-664)'), but the outputs only exist on branches. claude/project-thread-g9d6ix ('Genin dungeon: hidden live build (manifests 660-664) and results bundles') has 5 harvests/inbox files and 5 push manifests missing from main; e.g. harvests/inbox/tnr_results_1795042700128.json returns 'missing' on origin/main. Others: hlg3nc (40 harvest bundles, about 46 manifests), 9c4sh9 ('push/684 ran ... 266 assets unhidden'), gcsyem (698 Nettle Nova read-backs), 6ojemy (690/691), bxzz52 (640/641), ua0lgy (rc335), bkn9aw (Gobblefather UT, 2026-11-27), ccr-8d5810e2-036hwx (push/627 14/14 VERIFIED). claude/quest-cleanup-2026-11-07 holds the only results bundle for live quest DELETES (harvests/inbox/tnr_results_1794032564463.json is missing on main). docs/workflows/OPERATING_MODEL.md s2 says 'After the run the runner commits the results bundle, updates state/run_queue.json'. CLAUDE.md s6 requires a results bundle in harvests/inbox. Full list: docs/reviews/REPO_REVIEW_2026-11-27/evidence/live_unlanded.tsv",
+     "recommendation": "Fable should make one Lane B harvest commit to main. It brings over only the harvests/inbox bundles, the state/<job>_upload|ship result notes, and the push manifests that ran, from the 12 branches listed. Manifests whose numbers collide get renamed by appending the branch's number as a suffix, or move to archive/spent-manifests/. Rebuild run_queue.json rows for 640-698 from those bundles. Do not merge the branches as a whole. Then automate: add a CI check (or a run-lock release step) that refuses 'run-lock: release' on main when the released job has no results bundle on main.",
+     "action": "fix",
+     "risk": "high",
+     "effort": "M",
+     "payoff": "Restores the audit trail for content that is already live, including deletes. Stops agents re-running or misreading jobs because main does not show them done. Removes the most dangerous kind of stranded state.",
+     "director_decision": ""
+    },
+    {
+     "id": "BR-02",
+     "title": "Push numbers and ruling ids are assigned on branches and already collide",
+     "evidence": "Push numbers: hlg3nc uses 631_flooded_stores_stage1 and 632_flooded_stores_stage2, but main's 631 is gobblefather_art_rewards and main's 632 is Gobblefather genin. hlg3nc and bxzz52 both use 640/641. ccr-8d5810e2 uses 627, but main's 627 is white_tiger_animations. duet/moe-uploadthing uses 509-512, but main's 509 is skyglass_thread_create. state/active-context.md:17 already notes 'its push numbers 509/511/512 collide with different jobs on main'. Ruling ids: chatgpt/ap6-simplification-clarification adds RUL-2026-11-12-153 (AP6 simplification), but main's 153 is 'AI player: 200,000 ryo...'. chatgpt/premium-seichi-item-icon-overhaul-v10 adds RUL-2026-11-03-111, but main's 111 is 'The Silence rides in Sayo's shadow'. chatgpt/aura-of-despair-art-lock and chatgpt/hellfire-harvest-art-approval both add RUL-2026-10-26-009, and the ids clash with each other. fable/ai-player-ap4 adds RUL-2026-11-17-166, which collides with main. 12 of 66 stranded ruling entries reuse a main id.",
+     "recommendation": "Reserve numbers on main before use, as a one-line commit. main already does this for jobs ('run_queue: reserve 632'). Make it mandatory, and give rulings the same treatment through scripts/rulings_index.py (a 'reserve' subcommand, or rule that the id comes from a main-only commit). Add a CI check on main that fails on a duplicate push/NNN prefix with different stems, and on a duplicate RUL id.",
+     "action": "automate",
+     "risk": "medium",
+     "effort": "S",
+     "payoff": "Prevents ambiguous job and ruling references across parallel threads. Makes branch harvests mechanical instead of hand-renumbered.",
+     "director_decision": ""
+    },
+    {
+     "id": "BR-03",
+     "title": "About 66 director ruling entries exist only on unmerged branches, and main cites at least one of them",
+     "evidence": "Comparing ruling headings (id plus title prefix) on unmerged branches against origin/main docs/rulings/*.md gives 66 distinct entries missing from main, 12 of them reusing a main id (docs/reviews/REPO_REVIEW_2026-11-27/evidence/stranded_rulings_dedup.md). Examples: Silent Bastion RUL-2026-10-16-001..013 (chatgpt/review-silent-bastion-authoring-*); Potency Chakra Mandala RUL-2026-09-29-001..003; Ghost Ship/Skyglass art RUL-2026-10-01-001..008; Living Lineages RUL-2026-10-20-002..006; early-game levelling spine RUL-2026-11-04-116 (fable/early-game-sim); AP4-before-AP3 RUL-2026-11-17-166; battle art one visual tag RUL-2026-11-16-165 (fable/art-skill-duelyst). Dangling reference: main docs/rulings/2026-10.md:2211 reads 'Supersedes: ... (RUL-2026-10-16-010)', but that entry exists only on branches. Caveat: this is a title-prefix match, so a ruling reworded on main would show up as a false positive.",
+     "recommendation": "Produce a one-page reconciliation list (id, title, branch, collides?). The director then marks each entry: still in force, superseded, or never adopted. Entries still in force get appended to docs/rulings/<month>.md under fresh ids (keeping the old branch id as 'formerly'), then run scripts/rulings_index.py.",
+     "action": "decide",
+     "risk": "high",
+     "effort": "M",
+     "payoff": "The rulings ledger becomes complete. Agents stop missing in-force direction on art, AI player, and Silent Bastion, and main stops citing entries it does not contain.",
+     "director_decision": "For each of the 66 branch-only ruling entries in notes/stranded_rulings_dedup.md: is it still in force (land it on main under a new id), superseded, or never adopted (drop it)? Can Fable pre-sort them so that you only confirm?"
+    },
+    {
+     "id": "BR-04",
+     "title": "Review verdicts live only on 73 review branches while the matching handoffs are on main",
+     "evidence": "main has docs/reviews/AI_PLAYER_AP1_HANDOFF.md, ..._REREVIEW2..13_HANDOFF.md, etc., but none of the *_REVIEW.md verdicts that chatgpt/review-ai-player-ap1-* add (e.g. docs/reviews/AI_PLAYER_AP1_REREVIEW10_REVIEW.md: path absent, blob absent from main history). Across 73 review branches, 112 docs/reviews paths (about 4.8 MB including evidence scripts) are not in main history (docs/reviews/REPO_REVIEW_2026-11-27/evidence/review_docs_unlanded.txt). docs/DEVELOPMENT_WORKFLOW.md:190: 'When durable review evidence is useful, use a chatgpt/review-* branch and docs/reviews/'. It says nothing about the review reaching main, and s17 then says to delete completed branches, which would destroy the only copy.",
+     "recommendation": "Harvest all 112 files to main in one docs-only commit, at their original paths, with a short index of branch to frozen SHA. Then delete the 70 review-only branches. Going forward, review files land on main: a chatgpt/review-* branch that touches only docs/reviews/** merges by fast path (no Lane A cycle) and is auto-deleted. The frozen implementation SHA named in the file remains the audit target. This answers the director's 'separate branch for them' idea: a branch is fine as the transport, but main should be the store.",
+     "action": "fix",
+     "risk": "low",
+     "effort": "S",
+     "payoff": "Removes 70 branches. Keeps the independent-review record searchable next to its handoffs. Makes s17 cleanup safe.",
+     "director_decision": ""
+    },
+    {
+     "id": "BR-05",
+     "title": "The 2026-11-08 prune was recorded but never executed, and nothing deletes merged branches",
+     "evidence": "docs/reviews/BRANCH_PRUNE_2026-11-08.md lists 152 branches as 'Deleted', and all 152 still resolve as origin refs (scripted check: 152/152 'still'). branches.tsv shows 185 merged branches still on the remote, 184 of them idle since before 2026-11-24. `gh api repos/perseverance484/tnr-tools` returns delete_branch_on_merge:false. fable/branch-prune (the record itself) is also still an unmerged branch head, although its file is on main. The SHAs in the prune record are pre-rewrite ids (the rewrite was 2026-11-09, RUL-2026-11-09-144), so its restore commands no longer match current heads. I could not establish why the deletion did not run; a missing push/delete permission is plausible but unverified.",
+     "recommendation": "Turn on delete_branch_on_merge in GitHub settings. Run a fresh prune of the 185 merged branches from a current list, plus the 17 class-A and 52 contained-in-another-branch heads (notes/branches.md, notes/contained.tsv). Record it with current SHAs and replace the stale 2026-11-08 record. Keep builder-app per CLAUDE.md s4. The deletion needs a session with push/delete rights.",
+     "action": "delete",
+     "risk": "low",
+     "effort": "S",
+     "payoff": "455 heads drop to roughly 200 immediately, with no loss: every deleted head is an ancestor of main or of another kept branch.",
+     "director_decision": ""
+    },
+    {
+     "id": "BR-06",
+     "title": "Mother of Echoes / Skyglass sim chain: 10 branches collapse to 3 tips, and 58 MB of harness has never reached main",
+     "evidence": "Scripted ancestry check: fable/mother-of-echoes-sim (115 ahead, last 2026-11-06) contains skyglass-wreck-sim, -haul-sim, -final-sim, -haul-fit, -kite-sim, crowned-captain-sim, skyglass-charts-sim, skyglass-hunts-sim, and mother-of-echoes-act3. Not contained: skyglass-rule-cap (1 unique commit), skyglass-economy-model (independent, 19 files). The tip's harness/skyglass_wreck_sim has 734 files and 58.2 MB (git ls-tree -l). main has 0 files under harness/skyglass_wreck_sim. Mother of Echoes shipped on main without it ('c4995398d 597: Mother of Echoes release step', 616-618).",
+     "recommendation": "Delete the 9 contained branches now. For the 3 tips, choose between: (a) land only the REPORT*.md files and data/baseline inputs as a doc record, and tag-archive the harness as archive/fable/mother-of-echoes-sim; or (b) tag-archive all 3. Option (a) is recommended, because the large-files guard and repo size argue against merging 58 MB, and a newer harness/combat_sim (PR #128) is being built for the same job.",
+     "action": "decide",
+     "risk": "low",
+     "effort": "S",
+     "payoff": "Removes 9 to 12 branch heads. Keeps the tuning evidence behind a live boss without adding 58 MB to main.",
+     "director_decision": "Mother of Echoes is live. Should its sim reports be kept on main as a doc record, with the 58 MB harness archived as a tag, or should all three sim branches (mother-of-echoes-sim, skyglass-rule-cap, skyglass-economy-model) just be archived as tags?"
+    },
+    {
+     "id": "BR-07",
+     "title": "duet/moe-uploadthing and duet/forge-mcp-fixes hold a Forge fix that main lacks",
+     "evidence": "duet/forge-mcp-fixes commit 936a6e9a: 'runner/_rules and reconciler resolve refs in rules before send ... (push/527, run as 509, item 653 sent \"@jutsu:...\" literally and was refused). Regression test added.' It also adds mcp_run resend/skip. main's forge/src/runner/runner.mjs:868-870 still reads `const rules = planned.data.rules ?? [];` (unresolved), and `git grep resend origin/main -- forge/tools/` returns nothing. git cherry marks all 3 Forge commits '+' (not on main). duet/moe-uploadthing (55 ahead, 2026-11-16) has 956 files already landed and 227 not (state/moe_upload/*, the workflow, and the same Forge changes), and uses push numbers 509-512 that collide with main. state/active-context.md lists 'decide how Duet's duet/moe-uploadthing work lands on main' as a director item. I did not verify whether the ISO-timestamp and persisted-output fixes are on main in another form (transcript.mjs on main does handle persisted-output).",
+     "recommendation": "Fable should rebase duet/forge-mcp-fixes onto main as a Lane A branch (the rules ref fix plus its regression test, then rebuild forge_bundle.js) and send it to ChatGPT for review. Harvest the moe-uploadthing upload records (state/moe_upload results) into main with renamed job numbers, as in BR-01. Then delete both duet branches.",
+     "action": "decide",
+     "risk": "medium",
+     "effort": "M",
+     "payoff": "Closes a real runner defect: AI rules carrying @jutsu refs are refused live. Clears the MoE item from active-context.",
+     "director_decision": "Should Duet's MoE branch be reconciled as described (the Forge fix goes through Lane A review, the upload records are harvested under new job numbers, the branch is deleted), or does Duet own landing it?"
+    },
+    {
+     "id": "BR-08",
+     "title": "AI player branches: AP4 and run-2 follow-up are live work; light-polls is superseded; live-session logs are stranded",
+     "evidence": "fable/ai-player-ap4 (18 ahead, 2026-11-17, 39 unlanded files: the move atlas, harness/pvp_turn, and RUL-2026-11-17-166, which collides with main). fable/ai-player-run2-followup has 5 commits not in AP4; its planner part landed as '#125 Planner: one copy of each rule, with AP run 2's fixes'. fable/ai-player-light-polls is superseded by main 'AI player: the light reads are dropped ... (RUL-2026-11-14-158)'. Session logs and opponent kits exist only on branches: duet/ai-player-ap1-live (4), duet/ai-player-ap1-live2 (125), fable/pilot-planner-fixes (66), claude/ap-live-run-dauntless-goqgbz (43), and claude/project-thread-0vuxzt (28 player/ files, incl. the Phrosfire do-not-attack allowlist dated 2026-11-23).",
+     "recommendation": "Delete light-polls. The owner of the AI player line (Fable, under the director) decides whether AP4 continues: if yes, rebase and hand off; if no, archive as a tag. Harvest the session logs and kits into state/player/ in one commit, then delete those branches. Treat the 0vuxzt allowlist change as urgent, because it is a director instruction about who not to attack.",
+     "action": "decide",
+     "risk": "medium",
+     "effort": "M",
+     "payoff": "The AI player's do-not-attack list and fight history become complete on main, and 7 branches are cleared.",
+     "director_decision": "Is AP4 (the move atlas, with 'AP4 before AP3' as RUL-2026-11-17-166) still the next AI player step, or is it parked? Should the 2026-11-23 Phrosfire do-not-attack entry on claude/project-thread-0vuxzt land on main now?"
+    },
+    {
+     "id": "BR-09",
+     "title": "Skill work stranded on branches: the Duelyst art-skill redesign, designing-tnr-content P2, and the repo copy of designing-tnr-pve-encounters",
+     "evidence": "fable/art-skill-duelyst (12 ahead, 2026-11-19) contains fable/duelyst-kit and fable/combat-fx-design-rules ('Art skill redesign: battle animations library-first (Duelyst) with fx_recipe.py ...'). It has 16 unlanded files, none under skills/producing-tnr-art on main, and the installed synced skill has no duelyst files either. fable/skill-overhaul-p2 ('P2: libraries (rule patterns, loadouts, archetypes)') has 0 skills/designing-tnr-content/data/libraries files on main. claude/project-thread-bqrptw carries skills/designing-tnr-pve-encounters, and main has 0 files for that skill even though it is installed as a synced skill.",
+     "recommendation": "Coordinate with the skills auditor. Each of the three needs a land-or-drop decision before the skill refresh, otherwise the refresh is built on a base that is missing them. The Duelyst redesign embeds art-direction rules (RUL-2026-11-16-165, which exists only on the branch), so it needs director sign-off.",
+     "action": "decide",
+     "risk": "medium",
+     "effort": "M",
+     "payoff": "The skill update starts from a complete repo source. Two redesigns that are already done are not lost or rebuilt.",
+     "director_decision": "Should the Duelyst library-first battle-animation redesign of producing-tnr-art (with its rule of at most one visual tag per jutsu) be adopted into the repo skill?"
+    },
+    {
+     "id": "BR-10",
+     "title": "About 72 abandoned ChatGPT planning and art-studio branches from Sep-Oct carry unique design docs; 16 Bloodright branches stack into one tip",
+     "evidence": "Classified B 'abandoned/superseded' (72 rows in notes/branches.md). The largest group is a linear chain: chatgpt/itojinsei-blackwire-finalization-20261018 (216 ahead) contains 16 Bloodright/BBE art-studio branches (wave02-wave06, factory, sizepass, midnight-alloy, pale-blue, tier-studio, icon-studio, ethereal-monarch QC). It has 66 docs/design/bloodright/* files absent from main, while main has 110 other files in that directory. Others include godstorm-art-recovery/source-art-pack (28 files each), potency-chakra-mandala-design, ghost-ship-skyglass-art-20261001, living-lineages-kitsune-workdesk, and crystal-essence/bakuhatsu jutsu art studios. These also carry stranded rulings (see BR-03).",
+     "recommendation": "Keep no long-lived branches for these. Create an archive tag on each chain tip (about 10 tags cover the 72), delete all the branches, and list the tags in docs/reviews/BRANCH_ARCHIVE.md. Any doc that ChatGPT or the director still wants as reference moves to docs/design/ on main in a single harvest.",
+     "action": "archive",
+     "risk": "low",
+     "effort": "S",
+     "payoff": "About 72 branch heads are removed. The design history stays reachable through tags for later art sessions.",
+     "director_decision": ""
+    },
+    {
+     "id": "BR-11",
+     "title": "Temp/CI scaffolding and other pre-rewrite debris can be deleted outright",
+     "evidence": "11 temp/CI branches each change only .github/workflows or .tmp (e.g. chatgpt/opc-art-final-validation{,2,3}-20260927, opc-render-final, opc-scene-finalize-gen{,2}, forge-quest-studio-source-push-temp{,2}, forge-next-planning-workspace-temp{,2}). fable/rewrite-probe ('probe b', 0 file diff). perseverance484-patch-1 has no merge base ('Add files via upload', 2026-06-30). ccr-9a2d53da-6kh6du has a 0-file diff ('Merge main into ...'). 6 more pre-November branches hold manifests whose numbers main has reused (godstorm-two-pyramid-plan 48-53, opc-scene-finalize 54, crafting-recipe-census 99, ai-jutsu-reequip 80, content-146-frost-warden-direct 146/147, elementaldamage census 132). 200 of the 270 unmerged branches predate the 2026-11-09 rewrite, so the SHAs cited in their reviews and handoffs are old ids that need docs/reviews/HISTORY_REWRITE_2026-11-09_commit_map.txt.",
+     "recommendation": "Delete the 11 temp/CI branches, the probe, the patch-1 upload, and the empty ccr merge. For the 6 old-manifest branches, create an archive tag, then delete.",
+     "action": "delete",
+     "risk": "low",
+     "effort": "S",
+     "payoff": "About 20 branch heads removed with nothing to harvest.",
+     "director_decision": ""
+    },
+    {
+     "id": "BR-12",
+     "title": "Session-named branches have become the default home for Lane B content, so content stays off main",
+     "evidence": "19 unmerged claude/project-thread-* branches, all dated 2026-11-18 to 2026-11-27, are where content threads did their live work (BR-01), built workflows (.github/workflows/*_upload.yml on 8 branches, e.g. isonade_upload.yml, nettle_nova_upload.yml, rc335_upload.yml), and built tools (tools/fight-alert on kinzit). These names do not follow DEVELOPMENT_WORKFLOW s3 (fable/*, chatgpt/*, coord/*). 9c4sh9's commit message says 'upload ... (workflow, task branch only)', meaning the upload workflows were deliberately kept off main. Only 3 have open PRs (#123, #126, #128; gh api pulls?state=open).",
+     "recommendation": "Adopt the lifecycle rule in notes/branches.md, 'Proposed standing branch-lifecycle rule'. Its rules: (1) allowed prefixes; session-named branches are throwaway and must merge or die within 7 days. (2) Records (results bundles, run_queue rows, manifests that ran, rulings) never live only on a branch. (3) Review files land on main by fast path. (4) delete_branch_on_merge on. (5) A scheduled read-only workflow reports merged, review branches older than 14 days, and other branches idle more than 30 days, with an owner action for each. (6) 'archive/<branch>' tags for unique evidence. The one-off UploadThing workflows can live on a dedicated long-lived 'ops/uploads' branch, or as a single parametrised workflow on main, instead of one per thread. That matches the director's 'separate branch for them' suggestion.",
+     "action": "automate",
+     "risk": "low",
+     "effort": "M",
+     "payoff": "Prevents a repeat of 455 heads and of stranded live records. Branch triage moves out of design sessions and into a weekly automated report.",
+     "director_decision": "Do you approve the branch-lifecycle rule (records and reviews land on main; push/ruling numbers reserved on main; auto-delete on merge; 7/14/30-day TTL report; archive tags), with one-off upload workflows consolidated on main or on a single 'ops/uploads' branch?"
+    },
+    {
+     "id": "BR-13",
+     "title": "Three open PRs and a few recent branches need a merge-or-close call",
+     "evidence": "Open PRs (gh api pulls?state=open): #123 fable/ci-repair-20261114 ('CI repair: re-point pre-rewrite commit ids, Skyglass preview under 5 MB, real name out of push notes', 2026-11-14); #126 claude/skyglass-update-6b5pk3 (2026-11-17); #128 claude/project-thread-f2r8sb ('Combat sim harness', 2026-11-19, 75 files). Also: claude/project-thread-kinzit (tools/fight-alert, 2026-11-27), fuqtpo (140 art/consumables_upgrade files), fable/early-game-sim (RUL-2026-11-04-116, which exists only on the branch), and chatgpt/premium-seichi-item-icon-overhaul-v10 (benchmark ruling, which collides with main's 111).",
+     "recommendation": "Review and merge or close #123 first, since it touches no-real-name guard text tied to RUL-2026-11-09-144. Route #128 through ChatGPT review. Close #126, or merge it if the Skyglass-next update folder is still the plan. The others follow the lifecycle TTL.",
+     "action": "decide",
+     "risk": "medium",
+     "effort": "S",
+     "payoff": "Clears the active queue so new sessions start from a clear main, with no hidden in-flight changes.",
+     "director_decision": "Is the Skyglass-next update folder in PR #126, and the early-game levelling spine on fable/early-game-sim, still planned work, or should they be closed?"
+    }
+   ],
+   "gates_run": [
+    {
+     "command": "git ls-remote --heads origin | wc -l",
+     "exit": "0",
+     "result": "455 remote heads (matches the census)"
+    },
+    {
+     "command": "gh api repos/perseverance484/tnr-tools --jq '{delete_branch_on_merge,...}'",
+     "exit": "0",
+     "result": "delete_branch_on_merge:false, allow_auto_merge:false"
+    },
+    {
+     "command": "gh api 'repos/perseverance484/tnr-tools/pulls?state=open'",
+     "exit": "0",
+     "result": "3 open PRs: #128, #126, #123"
+    },
+    {
+     "command": "per-branch merge-base..tip diff, with each blob checked against `git rev-list --objects origin/main` (scratchpad br2.py/br3.py)",
+     "exit": "0",
+     "result": "270 unmerged branches: 17 with every blob already in main history; the rest have unlanded files (notes/br3.tsv)"
+    },
+    {
+     "command": "git branch -r --contains for each unmerged tip",
+     "exit": "0",
+     "result": "52 unmerged branches are contained in another unmerged branch (notes/contained.tsv)"
+    },
+    {
+     "command": "check of the 152 prune-record branches with git rev-parse origin/<b>",
+     "exit": "0",
+     "result": "152/152 still exist"
+    },
+    {
+     "command": "ruling-heading diff, unmerged branches vs origin/main docs/rulings",
+     "exit": "0",
+     "result": "66 distinct branch-only entries, 12 colliding ids (notes/stranded_rulings_dedup.md)"
+    }
+   ],
+   "notes_file": "docs/reviews/REPO_REVIEW_2026-11-27/evidence/branches.md"
+  },
+  {
+   "area": "Lane A code & CI (forge, player, harness, root builder files, guide-studio, scripts, tools, ops, .github)",
+   "summary": "The local code is healthier than CI shows. Everything I could run locally passed: player 675/675 tests, the dauntless planner suite 46/46 in pytest, all 9 scripts/test_*.py files (183 tests), the forge import, boundary, release-pin and budget checks, and the doctrine, packs, rulings and no-real-name gates. Forge CI on main, though, has been red for every run since the 2026-11-09 history rewrite. The forge tests hard-code commit SHAs from before the rewrite (art blobs at 10fb257, imagePack a84807a), and because `npm test` fails first, the bundle-reproducibility, fixtures and budget steps have not run on main for 18 days. A green fix already exists (PR #123, fable/ci-repair-20261114). It has been open since 11-14 and now has merge conflicts with main in two files. The biggest maintenance cost is noise on main: run-lock heartbeats (50-67 commits a day), hourly jutsu-engine log commits, daily sentinel drift commits, and three CI workflows that run on every one of those pushes. Bot workflows also commit onto fable/* and chatgpt/* branches, which breaks the one-writer rule for branches. The sentinel has recorded upstream contract drift every day for a month (removals included) and none of it has been adopted. One governance gap stands out: Forge source on an unmerged, red-CI branch (claude/project-thread-bxzz52, livePatch zeroInstantResidual) was used for live jobs 640/641 on 11-18, and main has no record of it. The validate.py --parity TypeError still reproduces, and every current Forge bundle triggers it, because Forge always writes checks:null. Lower-value cleanup: an unused relay.yml, five Ghost Ship harness copies, a stalled guide-studio, job-specific readback scripts, and 11k lines of planner/pilot code sitting under state/. Top moves, in order: rebase and merge PR #123; move operational state (lock, jutsu log, fights) to a dedicated branch; restrict bot commits to main; add one test workflow for the suites that never run in CI.",
+   "findings": [
+    {
+     "id": "LA-01",
+     "title": "Forge CI red on main since the 2026-11-09 history rewrite; the repair PR #123 is green but unmerged",
+     "evidence": "GitHub Actions forge.yml on main: last success run 42724600295 (2026-11-09 23:57); every main run since failed (42739036770, 43470930000, 43483892886, 43490189244, 43529060388, 43544114757). Log of run 44384747222: 'blob for art/godstorm/... at 10fb25704dff could not be read' (presentation.golden/adversarial tests) and 'imagePack ref a84807a is not on any pushed branch' (test/runner.test.mjs:363, push/122_bloodright_collection_a.json). Because npm test fails first, the 'Verify checked bundle', fixtures and budget steps have not run on main since 11-09. PR #123 (fable/ci-repair-20261114 @d551bf131, 'ci repair 1/2: re-point pre-rewrite commit ids') passed forge CI (runs 43556294948/43556319045) and has been open since 2026-11-14. `git merge-tree` against origin/main now shows conflicts in .github/large-files-allowlist.txt and push/608_moe_etching_rehost.json. state/active-context.md still blames the budget/bundle-rebuild issue, which is out of date (RUL-2026-11-08-136 settled it).",
+     "recommendation": "Fable rebases fable/ci-repair-20261114 onto current main (resolve the two conflicts by repository authority), reruns the forge suite, and hands off the new exact SHA for a short review, then merge. After merging, confirm one green forge run on main that includes the bundle-diff step. Update active-context's CI line at the next session_close.",
+     "action": "fix",
+     "risk": "low",
+     "effort": "S",
+     "payoff": "Restores the only gate that proves forge_bundle.js is reproducible and within budget; every Forge PR stops carrying '16 failing tests are the same as main' caveats."
+    },
+    {
+     "id": "LA-02",
+     "title": "Forge tests depend on Lane B content and pinned commit history, which is what broke with the rewrite",
+     "evidence": "runner.test.mjs:363 'staged manifests parse, plan and pass Forge pre-send validation' iterates push/*.json manifests and resolves their imagePack commits; presentation golden tests read art blobs at a pinned commit. forge.yml needs fetch-depth: 0 on a 1.5 GB repo for these guards (comment in forge.yml). forge.yml paths do not include push/** or art/**, so a manifest or art change that breaks these tests is only caught on the next forge/** change.",
+     "recommendation": "In the PR #123 follow-up, separate the content-compatibility checks from the Forge unit suite. Keep pure Forge tests on committed fixtures under forge/test/fixtures. Move the 'all staged manifests pass pre-send' check to its own job that also triggers on push/** and art/**, and resolve art by content hash in the working tree, not by commit id. Then forge.yml can drop fetch-depth: 0.",
+     "action": "fix",
+     "risk": "medium",
+     "effort": "M",
+     "payoff": "Prevents a repeat of 18 red days after any future rewrite or content move; faster forge CI (no full-history clone)."
+    },
+    {
+     "id": "LA-03",
+     "title": "Run-lock and play-session state commits flood main and trigger 3 CI runs each",
+     "evidence": "Census: 1316 'run-lock' commits on main since 11-08. Per day since 11-20: runlock 8/67/48/59/64/52/61/53 vs other commits 11/38/58/20/14/18/24/21. 126 'player: jutsu engine' commits since 11-20, all touching only state/player/dauntless/jutsu_training.md. player/keep.py pushes fight files to main. The last 60 Actions runs on main are all scrub/large-files/no-real-name triggered by 'run-lock: heartbeat by player' etc. forge/tools/run_lock.mjs already reads RUN_LOCK_BRANCH (default main), but forge/src/github.mjs hard-codes branch:'main' for the browser lock read, and player/runlock.py renews every 900 s (RENEW_EVERY).",
+     "recommendation": "Move operational state (state/run_lock.json, jutsu_training.md, the player fights folder) to a dedicated branch such as `ops-state`, as the director suggested ('a separate branch for them'). That is a Lane A change across forge/tools/run_lock.mjs (env already exists), forge/src/github.mjs (lock ref) plus a Forge release, player/keep.py (KEEP_BRANCH exists) and the jutsu engine writer. As an immediate stopgap, add `paths-ignore: [state/run_lock.json]` to large-files.yml. The director should decide whether scrub/no-real-name may also skip lock-only pushes, since the lock's job text is free text.",
+     "action": "decide",
+     "director_decision": "May run-lock heartbeats, the hourly jutsu-engine log and kept fight files move off main to a dedicated ops-state branch (requires a Forge release because the browser reads the lock from main)?",
+     "risk": "medium",
+     "effort": "M",
+     "payoff": "Removes about 60-70% of main's commits and about 180 CI runs/day; main history becomes readable for content and code review; fewer rebase races for agents."
+    },
+    {
+     "id": "LA-04",
+     "title": "Bot workflows commit onto fable/*, chatgpt/* and duet/* branches, breaking the one-writer rule",
+     "evidence": ".github/scripts/commit_generated.py pushes to GITHUB_REF_NAME. skillpack.yml and answers.yml trigger on push to any branch (no branches filter). Bot commits found on non-main branches: 22 on duet/moe-uploadthing; 6 each on chatgpt/forge-quest-studio-* (5 branches), chatgpt/premium-seichi-item-icon-overhaul-v10 and claude/quest-studio-*; 5 on fable/art-skill-duelyst; 3 on fable/duelyst-kit (full list in notes). CLAUDE.md section 1: 'Do not modify an active chatgpt/* branch'; section 4: 'One writer owns each active Lane A branch'.",
+     "recommendation": "Add `branches: [main]` to the push trigger of skillpack.yml and answers.yml, or keep the check steps on all branches and gate only the commit step with `if: github.ref == 'refs/heads/main'`. On feature branches, CI should fail when dist/ or root copies are stale rather than rewriting the branch.",
+     "action": "fix",
+     "risk": "low",
+     "effort": "S",
+     "payoff": "Frozen review SHAs stop moving under reviewers; no surprise rebases for Fable/ChatGPT/Duet branches."
+    },
+    {
+     "id": "LA-05",
+     "title": "Forge code from an unmerged red-CI branch ran live jobs 640/641; main has no record",
+     "evidence": "origin/claude/project-thread-bxzz52: bf06a284f 'forge: livePatch zeroInstantResidual; draft jobs 640/641' (forge/src/runner/livepatch.mjs +42, runner.mjs) and 75e7681d3 'harvest: results bundles for jobs 640/641 (residual modifier fix, run live)'. Bundle tnr_results_1795031980477.json builder 'forge-mcp', at 2026-11-18T19:59:40Z. forge/tools/mcp_run.mjs imports ../src/main.mjs directly, so it runs unreviewed source, not the reviewed bundle. Forge CI on that branch: failure (run 44384747222). forge_bundle.js on the branch has 0 occurrences of zeroInstantResidual. grep of docs/rulings/2026-11.md and state/run_queue.json on main: no 640/641 row or ruling. Whether the director gave a go could not be verified.",
+     "recommendation": "Land the record of jobs 640/641 on main now: the harvest bundles plus a run_queue row. Put the livePatch change through Lane A review and merge so the live state matches reviewed code. Add a guard to mcp_run.mjs that refuses a live write when HEAD is not on origin/main or when forge/src differs from the source of the checked bundle, unless an explicit override names the director's go.",
+     "action": "decide",
+     "director_decision": "Did you authorize jobs 640/641 (residual modifier zeroing, 48 jutsu) on 2026-11-18? Should the zeroInstantResidual livePatch go through review and merge, and should mcp_run refuse live writes from unmerged Forge source in future?",
+     "risk": "high",
+     "effort": "M",
+     "payoff": "Closes a path where live game records change on unreviewed code with no record on main; harvest/verification history becomes complete."
+    },
+    {
+     "id": "LA-06",
+     "title": "validate.py --parity crashes on every current Forge bundle (carried since 2026-10-13)",
+     "evidence": "skills/building-tnr-content/scripts/validate.py:215 `theirs = set(json.load(open(path)).get(\"checks\", []))`. forge/src/core/results.mjs:74 always writes `checks: null`. The 40 newest harvests/inbox bundles: 37 have checks:null, 3 have no key. Reproduced: `python3 scripts/validate.py --parity <newest inbox bundle>` gives 'TypeError: NoneType object is not iterable'. Only the legacy builder_bundle.js (v4.32, frozen since 2026-09-03) emits a checks inventory.",
+     "recommendation": "Make parity treat a missing or null inventory as a clear 'no inventory: bundle from Forge, parity not applicable' note, not a crash. Then decide what parity means post-Builder: either have Forge emit its preflight check ids into results.checks (small bundle cost; budget is at 99.5%) or retire --parity together with the Builder (J_MIGRATION G-10).",
+     "action": "fix",
+     "risk": "low",
+     "effort": "S",
+     "payoff": "Removes a red line carried in every handoff for 6 weeks; parity either becomes meaningful for Forge or is formally retired."
+    },
+    {
+     "id": "LA-07",
+     "title": "Schema sentinel commits drift to main every day and nothing has been adopted for 29 days",
+     "evidence": "git log: 'sentinel: upstream contract drift @<sha> [auto]' on 25 days between 2026-10-27 and 2026-11-27. Generated contracts are still at TheNinjaRPG@3314d122 (45c _provenance 'extracted 2026-10-29'), and forge check_boundaries pins 3314d122. docs/DRIFT.md (2026-11-27) lists 45c REMOVALS (e.g. AllTags.absorb.calculation 'percentage', absorb.elements Boil/Crystal), 45e REMOVALS, and 45d CHANGES. Removals mean the validator and Forge may accept values the game now rejects.",
+     "recommendation": "(a) Change regen_schemas.yml to update one pinned GitHub issue, or commit only when the drift body changes and not on every upstream SHA, so main stops getting a daily bot commit. (b) Schedule a Lane A contract adoption pass (schema_diff gate, structural review of the removals, Forge re-pin, bundle rebuild). Doing it soon keeps the diff small.",
+     "action": "automate",
+     "risk": "medium",
+     "effort": "M",
+     "payoff": "About 30 fewer bot commits/month on main; validator/Forge stop drifting from live enum sets; removals caught before a push fails live."
+    },
+    {
+     "id": "LA-08",
+     "title": "Roughly 900 passing tests run in no CI workflow",
+     "evidence": "Local runs: player/tests 675 OK (scratch copy; skips only for missing history), state/player/dauntless/tools/tests 46 passed (pytest), scripts/test_*.py 183 OK across 9 files. No workflow in .github/workflows invokes any of them; the only Python CI gates are skillpack selftests, rulings, large-files and no-real-name. guide-studio's `npm run gate` and harness selftests are also uncovered.",
+     "recommendation": "Add one `tests.yml` on pull_request and on push to main, path-filtered to player/**, state/player/**/tools/**, scripts/**, docs/combat-engine/**, harness/pvp_turn/**. It should run the player unittest discovery, the dauntless pytest suite and each scripts/test_*.py. All are socket-free and finish in under 1 minute (player 32 s, pytest 11 s, scripts about 6 s). Use paths-ignore for state/run_lock.json.",
+     "action": "automate",
+     "risk": "low",
+     "effort": "S",
+     "payoff": "Regressions in the AI pilot, planners and skill scripts get caught at PR time instead of mid play session; reviewers get a green check instead of rerunning suites by hand."
+    },
+    {
+     "id": "LA-09",
+     "title": "Forge bundle is at 99.5% raw / 99.0% gzip of a budget raised five times in ~10 days",
+     "evidence": "node forge/tools/check_bundle_budget.mjs: 'raw 487360 / 490000 (99.5%)  gzip 117767 / 119000 (99.0%)'. git log of check_bundle_budget.mjs: raises on 10-29 (x2), 10-31, 11-07 (RUL-2026-11-07-134, 482,000/117,000), 11-08 (RUL-2026-11-08-136, 490,000/119,000). The file's own header records that a reviewer objected to repeated step raises and prescribed a size pass. Pending Forge work (zeroInstantResidual, about 42 src lines) has not been built into a bundle yet.",
+     "recommendation": "Before the next Forge feature merge, have Fable run a size pass like the 'Presentation Studio P0' one recorded in the file's header (candidates: embedded contract JSON compaction, retired Builder-compat paths, dead exports). Bring the measured numbers to the director with any raise request, not a raise alone.",
+     "action": "decide",
+     "director_decision": "For the next Forge feature: approve a measured size pass first, or continue stepping the budget (currently 490,000 / 119,000)?",
+     "risk": "low",
+     "effort": "M",
+     "payoff": "Stops the ratchet from becoming a rubber stamp; keeps userscript load time and parse cost bounded on the phone."
+    },
+    {
+     "id": "LA-10",
+     "title": "relay.yml is dead and could push to main without any gate",
+     "evidence": ".github/workflows/relay.yml: workflow_dispatch merges any relay/* branch into main and pushes, with no test step. GitHub Actions: total_count 0 runs ever. No relay/* branches exist; no 'relay: merge' commits in history since 2026-08-01; last edit 2026-09-08.",
+     "recommendation": "Delete .github/workflows/relay.yml in a small Lane A cleanup commit. player/relay.py is unrelated and stays.",
+     "action": "delete",
+     "risk": "low",
+     "effort": "S",
+     "payoff": "Removes an unused, ungated write path to main."
+    },
+    {
+     "id": "LA-11",
+     "title": "Five Ghost Ship harness copies are event-specific history in the active harness/ tree",
+     "evidence": "harness/ghost_ship_{consume,final,legacy_baseline,release_dryrun,stage2}: 97 files, about 1.8 MB, last touched 2026-10-11/12. ghost_ship_final/README describes itself as a 'versioned successor' that 'refuses to write into either historical harness'. Only harness/pvp_turn is used by live code (state/player/dauntless/tools/engine_bridge.py reads harness/pvp_turn/kit/records.json). The new general combat sim (harness/combat_sim, PR #128) supersedes event-specific sims.",
+     "recommendation": "Move the five ghost_ship_* folders to archive/harness/ (or a long-lived archive branch, per the director's branch suggestion), keeping their READMEs. Leave harness/pvp_turn in place.",
+     "action": "archive",
+     "risk": "low",
+     "effort": "S",
+     "payoff": "harness/ shows only live tooling; agents stop reading obsolete sims as current."
+    },
+    {
+     "id": "LA-12",
+     "title": "The simulating-tnr-combat skill points at harness/combat_sim, which exists only on unmerged PR #128",
+     "evidence": "Installed skill simulating-tnr-combat/SKILL.md line 8: 'The harness lives in harness/combat_sim/'. `git ls-tree origin/main` has no harness/combat_sim; it exists on origin/claude/project-thread-f2r8sb (PR #128, open since 2026-11-18). skillpack commit 9ee1fe49 message: 'sim named with where it lives (PR 128)'.",
+     "recommendation": "Review and merge PR #128 through Lane A, or change the skill to tell the agent to check out that branch until it merges. As it stands, the skill fails on a main checkout.",
+     "action": "merge",
+     "risk": "medium",
+     "effort": "M",
+     "payoff": "Offline fight sims, which are the main tool for balance questions in design sessions, work from main without manual branch hunting."
+    },
+    {
+     "id": "LA-13",
+     "title": "11k lines of executable planner/pilot code live under state/, alongside a partial port in player/",
+     "evidence": "state/player/dauntless/tools: 41 .py files, 11,382 lines (planner2.py 1678, turn.py 1479, pilot.py 1043, engine_bridge.py 433), plus its own tests (46 pytest). player/config.py: 'ported from the pilot (state/player/dauntless/tools/pilot.py)'. Parallel implementations: tools/restock.py vs player/activities/restock.py, and tools/harvest.py vs player/activities/harvest.py (and skills/.../harvest.py, a different purpose). pilot.py still edited 2026-11-22; player/tests/test_ap_test_fixes.py:84 still scans pilot.py. CLAUDE.md treats state/ as coordination state.",
+     "recommendation": "Treat the planners as code. Move state/player/dauntless/tools/*.py and its tests into player/pvp/ (or tools/pvp/), keeping fights and logs in state/. Have the director confirm whether pilot.py and its restock/harvest are retired now that the brain owns those activities, then delete the duplicates.",
+     "action": "decide",
+     "director_decision": "Is the old pilot (state/player/dauntless/tools/pilot.py, its restock.py and harvest.py) retired in favour of the player brain, so the duplicates can be removed and the planners moved into player/?",
+     "risk": "medium",
+     "effort": "M",
+     "payoff": "One implementation per activity; code gets CI and normal review paths; state/ shrinks back to state."
+    },
+    {
+     "id": "LA-14",
+     "title": "guide-studio has been stalled since 2026-09-13 awaiting re-review; not routed, no CI",
+     "evidence": "guide-studio/: 160 tracked files, 3.4 MB, last commit 044142142 (2026-09-13). README: 'This is an independent-review candidate, not a deployed service... The corrections await narrow independent re-review.' It has a Cloudflare wrangler.jsonc and D1 approval flow. Not referenced in docs/00_INDEX.md, state/active-context.md or state/status.json; no workflow runs its `npm run gate`.",
+     "recommendation": "Director chooses: resume (assign the re-review, add a CI job for npm run gate) or park it on a dedicated archive branch and remove it from main. Publishing a player-facing guide service is a director-owned decision.",
+     "action": "decide",
+     "director_decision": "Guide Studio: resume its re-review and deployment track, or park it on an archive branch off main?",
+     "risk": "low",
+     "effort": "S",
+     "payoff": "3.4 MB and 160 files of unrouted code leave main, or the project becomes active with a gate."
+    },
+    {
+     "id": "LA-15",
+     "title": "Job-specific read-back scripts in scripts/ should become one general before/after verifier",
+     "evidence": "scripts/ai_pool_reequip_readback.py ('read-backs of the AI pool battle-line pass (push/162-177)', 0 references) and scripts/bloodright_classification_readback.py ('push/109-110 before-image') both implement the law-18 unequip/edit/re-equip before-image comparison for one job each. bloodright_classification_readback.py notes 'Forge verifies only the keys a manifest asserts, so this checks the rest'. CLAUDE.md section 6 requires law-18 unequip/edit/re-equip for every such live write.",
+     "recommendation": "Archive the two job-specific scripts with their spent manifests (archive/spent-manifests/). Build one `scripts/readback_diff.py` that takes a before-image capture and the results bundles of a law-18 sequence and checks every non-asserted field and the kit rows. Call it from the shipping skill so each law-18 job gets full verification without a new script.",
+     "action": "automate",
+     "risk": "low",
+     "effort": "M",
+     "payoff": "Removes per-job verifier writing from every law-18 batch; full-record verification becomes routine rather than bespoke."
+    },
+    {
+     "id": "LA-16",
+     "title": "Small CI and tooling hygiene items",
+     "evidence": "(1) Every workflow uses actions/checkout@v4 / setup-node@v4; run log warns 'Node.js 20 is deprecated... forced to run on Node.js 24'. (2) selfcheck.py with its default `--generated .` fails ('45d_DATA_entity_schemas.json not found in /home/user/tnr-tools') but passes with `--generated data` (0 errors). (3) ops/ contains one file, ops/ap_model_session/run2/LOSS_ANALYSIS.md, cited by a ruling. (4) Root 32b/45c/45g copies are byte-identical to skills/building-tnr-content/data (cmp), still read by forge/src/runner/pool.mjs at build and by builder_bundle.js at load, so keep them until Builder retirement (J_MIGRATION §J.6 step 3).",
+     "recommendation": "Bump the action versions when next editing the workflows. Change selfcheck.py's default --generated to its own ../data. Move the single ops/ analysis to docs/reviews/ or state/player/ and update the ruling's path citation. Keep the root contract copies and their skillpack sync.",
+     "action": "fix",
+     "risk": "low",
+     "effort": "S",
+     "payoff": "Removes a deprecation warning and a misleading selfcheck failure, and drops one near-empty top-level directory."
+    }
+   ],
+   "gates_run": [
+    {
+     "command": "node forge/tools/check_imports.mjs",
+     "exit": "0",
+     "result": "57 modules, 0 violations"
+    },
+    {
+     "command": "node forge/tools/check_boundaries.mjs",
+     "exit": "0",
+     "result": "0 violations; contract pin 3314d122"
+    },
+    {
+     "command": "node forge/tools/check_bundle_budget.mjs",
+     "exit": "0",
+     "result": "raw 487360/490000 (99.5%), gzip 117767/119000 (99.0%)"
+    },
+    {
+     "command": "node -e checkReleasePin (forge.yml inline)",
+     "exit": "0",
+     "result": "release pin clean"
+    },
+    {
+     "command": "forge npm test / npm run build",
+     "exit": "not run",
+     "result": "no node_modules; npm ci would write into the repo and needs network. Bundle freshness not verified locally; forge/ unchanged on main since 88211d1 (11-14)"
+    },
+    {
+     "command": "python3 -m unittest discover -s player/tests -t . (scratch copy)",
+     "exit": "0",
+     "result": "Ran 675, OK (skipped=36: pinned review SHAs absent in the scratch copy)"
+    },
+    {
+     "command": "pytest -q state/player/dauntless/tools/tests (scratch copy)",
+     "exit": "0",
+     "result": "46 passed"
+    },
+    {
+     "command": "python3 combat_map.py --check (scratch copy)",
+     "exit": "0",
+     "result": "planner vs map @29cd91b5: agree"
+    },
+    {
+     "command": "python3 scripts/test_*.py (9 files)",
+     "exit": "0",
+     "result": "183 tests, all OK"
+    },
+    {
+     "command": "doctrinemap.py; render_doctrine.py --check; build_packs.py --check; catalog_sync.py --selftest; design.py --selftest",
+     "exit": "0",
+     "result": "all clean (design 94 passed)"
+    },
+    {
+     "command": "scripts/rulings_index.py --check; check_large_files.py; check_no_real_name.py --selftest",
+     "exit": "0",
+     "result": "340 rulings current; 0 disallowed large files; 18 selftests passed"
+    },
+    {
+     "command": "lawmap.py --check",
+     "exit": "0",
+     "result": "0 errors, 5 warnings"
+    },
+    {
+     "command": "selfcheck.py (default) / --generated data",
+     "exit": "1 / 0",
+     "result": "default fails to find 45d at repo root; passes with --generated data"
+    },
+    {
+     "command": "validate.py --parity harvests/inbox/<newest>.json",
+     "exit": "nonzero",
+     "result": "TypeError: 'NoneType' object is not iterable (validate.py:215)"
+    },
+    {
+     "command": "mcp__github__actions_list forge.yml / skillpack / regen_schemas / relay; get_job_logs run 44384747222",
+     "exit": "n/a",
+     "result": "forge red on main since 11-09; skillpack/sentinel green; relay never run"
+    }
+   ],
+   "notes_file": "docs/reviews/REPO_REVIEW_2026-11-27/evidence/lane_a_code_ci.md"
+  },
+  {
+   "area": "Lane B content, state & orientation (state/, run_queue, digest/active-context, workstreams, push/, harvests/, answers/, archive/)",
+   "summary": "The orientation layer is broken in a structural way, not only out of date. The main problem is that live content work moved onto branches that never merge. Since about 11-16, live jobs have run from unmerged claude/project-thread-* branches: Stolen Stores/Isonade (hlg3nc, +101 commits, 40 bundles), the genin dungeon, Nettle Nova, rc335 and the residual-modifier fix. Run-lock claims on main name roughly 30 job numbers that have no manifest on main, and push numbers 627/631/632/640/641 collide. So main's run_queue, harvests and answers do not describe the live game. run_queue.json itself is about 45% wrong among its 21 non-done rows. 469-test, 510, 538, 545, 548, 549, 550, 593 and 597 all ran (results bundles prove it). There are duplicate ids (596, 597). One commit (4914fcb0) said \"549/550 done\" but its queue edit was lost. About 40 jobs that ran have no row at all. active-context/digest (11-08) is wrong in at least 10 places. For example it says Mother of Echoes is still hidden, but 597 released it on 11-14 (DONE success). The mechanism is the root cause: the digest is written by hand and session_open even edits it. It has gone stale twice, about 3 weeks each time. The time-sensitive item is the Watch Log Fourth Page (job 520). Its precondition has been met since 11-14, the schedule still says unpublished, and the weekly release is tonight (Fri 11-27, 6 PM CT). The director has to decide. Other findings: answers/ has been frozen since 08-30 data, so validate.py's name-collision lint is blind to all Skyglass, MoE and Gobblefather names. One Perfect Crop's workstream has said BLOCKED for two months after its launch manifest actually ran. push/ holds 214 manifests that ran fine, against its own README rule. state/ holds about 60 spent event and brief files. The top moves are: (1) a Lane B rule that live-content branches land on main, with push numbers reserved on main; (2) a run_queue validator plus reconciliation; (3) generate active-context from the queue, bundles, branches, CI and rulings instead of writing it by hand; (4) a staged archive pass using the map in the notes. Moving run-lock churn off main would also help: it is 57% of commits on main, and each one fires 3 CI workflows.",
+   "findings": [
+    {
+     "id": "LB-01",
+     "title": "Live content jobs run from unmerged project-thread branches; main does not reflect the live game",
+     "evidence": "Run-lock claims on main since 11-14 name job numbers with no manifest on main: 335 638 640 641 645 649 651-658 660 664-676 683 684 690 697 698 (comm of lock_nums.txt vs main_nums.txt). Results bundles that exist only on branches: claude/project-thread-hlg3nc 40 (+101 commits; '673 go-live done', Stolen Stores 6 PM release 11-20 23:55Z), g9d6ix 5 (genin dungeon 660-664, 660/664 INCOMPLETE), bxzz52 2 (640/641 residual fix LIVE plus a forge src change, CI failure run 44384747222), 6ojemy 1 (690/691), kbi6r8 4, bkn9aw 1, ccr-8d5810e2 1, ua0lgy 1 (rc335), gcsyem ('698 Nettle Nova ... queue row done' on its branch only), duet/moe-uploadthing 4. docs/workflows/OPERATING_MODEL.md says nothing about which branch Lane B results land on. Full list: docs/reviews/REPO_REVIEW_2026-11-27/evidence/lane_b_state.md section 2.",
+     "recommendation": "Add one rule to OPERATING_MODEL.md section 1 (Lane B): any job that wrote the live game commits its manifest, results bundle and run_queue row to main in the same session (fast-forward or a merge of the content-only paths push/, harvests/inbox/, state/<job>/, run_queue.json). Project-thread branches are scratch only. Then run a one-time reconciliation that cherry-picks the content-only paths (bundles, manifests, state notes) from the branches above onto main and leaves their code/forge changes for Lane A review. Do bxzz52's forge change as Lane A.",
+     "action": "fix",
+     "director_decision": "Should all live-content branches land on main as part of each job (proposed default), and may Claude bring the existing ~55 branch-only bundles and manifests onto main now, leaving code changes for review?",
+     "risk": "medium",
+     "effort": "M",
+     "payoff": "Removes the largest source of orientation error: main becomes the record of what is live. Without it, every later automation (queue, digest, answers) reads an incomplete record.",
+     "verdict": "CONFIRMED"
+    },
+    {
+     "id": "LB-02",
+     "title": "Push numbers collide across branches; reservations exist only on main",
+     "evidence": "627: main push/627_white_tiger_* vs ccr-8d5810e2 627_skyglass_charts_event_items.json. 631: main 631_gobblefather_art_rewards vs hlg3nc 631_flooded_stores_stage1 vs f0jjus 631_weapon_effect_targets. 632: main Gobblefather genin vs hlg3nc 632_flooded_stores_stage2. 640/641: bxzz52 residual_modifier_fix vs hlg3nc 640_flooded_stores_isonade_fixed/641_stolen_stores_pages_create. The main log shows a reservation convention ('run_queue: reserve 631', 'reserve 632', 11-26/11-27) that branch sessions do not see. The duet 509/511/512 collision has been known since 11-08. Bundles key on journal.manifestNumber.",
+     "recommendation": "Make reservation atomic on main. Add a 'reserve' subcommand (in forge/tools/run_lock.mjs or a small scripts/run_queue.py) that appends a stub row to run_queue.json on main and pushes it with a retry loop, the same pattern the run lock already uses. Generators refuse a number that has no reserved row. Renumber the existing collisions on the branch side with suffixes (for example 631h, 640r) when they land.",
+     "action": "automate",
+     "director_decision": "",
+     "risk": "low",
+     "effort": "S",
+     "payoff": "Bundle-to-job mapping stays unambiguous, so harvest verify and queue reconciliation can be automated.",
+     "verdict": "CONFIRMED"
+    },
+    {
+     "id": "LB-03",
+     "title": "run_queue.json: 9 waiting/ready rows already ran, duplicate ids, a lost status update, ~40 jobs with no row",
+     "evidence": "Results bundles (harvests/inbox journal.manifestPath): 593 DONE success 76/76 (tnr_results_1794601792898, 11-13); 597 DONE success 16/16 (tnr_results_1794615376220, 11-14 00:16Z) but the row says waiting; 549 DONE (tnr_results_1794259600259, 11-09). Commit 4914fcb0 '549/550 done ... live, verified' changed only the trailing newline of run_queue.json, so the status edit was lost. 538/545/548/510 were carried inside push/609 and push/611 (11-13/14; 611 _note: '545 salvage ladder ... the Fire unhidden ... both Wreck Sighted copies'). 620 ran 11-17 INCOMPLETE (tnr_results_1794936625194) while the row says it waits on approval. Ids 596 and 597 each appear twice for different jobs. Jobs 599-619, 533-535 and others ran with no row. No code validates the queue: git grep run_queue finds only push/skyglass_journal.gen.py. Row table: lane_b_state.md section 1.",
+     "recommendation": "(a) Add scripts/run_queue_check.py and run it in CI and session_open. It checks: unique ids; status in {ready, waiting, parked, done, superseded, retired}; a manifest path exists; a 'done' row cites a bundle; and it flags any non-done row whose manifest has a DONE/success bundle, or whose waitsFor are all done. (b) Reconcile once from bundles (mark 469-test, 549, 550, 593, 597 done; 510, 538, 545, 548 done-by-609/611; 620 incomplete; renumber the second 596/597). (c) Move done rows older than 14 days to state/run_queue_done.jsonl so the live board stays short.",
+     "action": "fix",
+     "director_decision": "",
+     "risk": "low",
+     "effort": "S",
+     "payoff": "The job board becomes trustworthy, and the check catches lost updates like 4914fcb0 mechanically.",
+     "verdict": "CONFIRMED"
+    },
+    {
+     "id": "LB-04",
+     "title": "Watch Log Fourth Page (job 520) is due tonight and still unpublished, although its precondition was met on 11-14",
+     "evidence": "state/skyglass_schedule.json: friday 2026-11-27 page 4 'Her Invitation' questId I_cEOGSfFuahaJlR3FnWC published:false; note: 'Publish with push/520 only once The Mother of Echoes is live; until then the weekend does not release.' Mother of Echoes was released by 597 (DONE success 11-14). scripts/skyglass_weekly.py release stops when published is false ('is scheduled ... but is not created and published'). No commit or bundle on any ref after 11-14 matches 520, 'Her Invitation' or 'page 4'. I could not run skyglass_weekly.py: the sandbox classifier denied it. The stop behaviour is read from the source.",
+     "recommendation": "Bring the director a go card for 520 today, before 00:00Z 11-28. If go: run 520, then set page 4 published=true from the bundle so the weekly routine releases the Wrecks with it. If no: record a skip so the routine's stop is expected.",
+     "action": "decide",
+     "director_decision": "Publish the Fourth Page 'Her Invitation' (push/520) for tonight's Friday 6 PM CT release, or skip this weekend?",
+     "risk": "medium",
+     "effort": "S",
+     "payoff": "Avoids a silently missed weekly release of a live event.",
+     "verdict": "CONFIRMED"
+    },
+    {
+     "id": "LB-05",
+     "title": "active-context/digest: hand-written and stale twice; generate it from sources instead",
+     "evidence": "state/digest.json generated 2026-11-08 (main@05982ffa). Wrong today: MoE 'stays HIDDEN' (released 11-14); duet/moe-uploadthing reconcile (moot); budget raise pending (RUL-2026-11-08-136 raised it to 490k); 'history rewrite not proposed' (RUL-2026-11-09-144 rewrite done); 509/511 runs pending (done/retired); review of fable/state-refresh (landed via 2146828e2). Missing: AI player line, Gobblefather live 11-27, Rengoku/White Tiger 11-18, all branch work. The previous digest was archived as stale after 10-17 -> 11-08. session_open.py writes digest.json (token_ledger) on every open, so the tree is dirty from step one. Full list: lane_b_state.md section 6.",
+     "recommendation": "Add scripts/state_board.py, a pure function of committed sources plus optional gh reads, that renders active-context.md and status.json: (1) queue: non-done rows grouped by owner and waitsFor, plus run_queue_check failures; (2) bundles: last 14 days of journal manifestNumber/state/outcome, flagging INCOMPLETE/failed with no later repair; (3) branches: unmerged refs active in the last 14 days with +ahead and the push/ and harvests/ files they add (catches LB-01); (4) CI: latest conclusion per workflow on main (gh api, optional); (5) rulings: the last 10 headings plus a duplicate-id check; (6) schedules: skyglass_schedule.json next action. Keep the human input to one small file (state/notes.md: state line, decisions pending) with an age stamp, and the board shows 'notes N days old'. Run it from a GitHub Action on pushes touching state/, push/, harvests/ or docs/rulings (the same commit_generated.py pattern as answers.yml) and from session_open, which stops writing digest.json. Retire digest.json as an input.",
+     "action": "automate",
+     "director_decision": "",
+     "risk": "low",
+     "effort": "M",
+     "payoff": "Orientation cannot drift for weeks. Design sessions open on true state instead of a 3-week-old claim, which saves the reconciliation pass each time (this audit is the third).",
+     "verdict": "CONFIRMED"
+    },
+    {
+     "id": "LB-06",
+     "title": "answers/ name layer frozen at 2026-08-30 data; validate.py name-collision lint is blind to new content",
+     "evidence": "answers/INDEX.md source stamps are 'seed catalog (pre-answers)' and asset 2026-08-24; hot.json newest source_bundle tnr_results_1788065642059 (2026-08-30). git log answers: last '[auto]' regen 2026-10-23. .github/scripts/build_answers.py reads only getAllNames captures (CAPTURE_ENTITY), which connector-era runs do not produce. grep -c for Gobblefather, Mother of Echoes or Skyglass in names_quest/ai/item: 0. skills/building-tnr-content/scripts/validate.py _answers_names() feeds the name-collision lints r49/r66. Mounted instructions say 'Names dedup against answers/'.",
+     "recommendation": "Extend build_answers.py to also fold created records from results bundles (entries with op create plus idmap ids and names, hidden flag from the entry) as a third source after seed and captures. This is offline and needs no live read. Optionally queue a read-only names capture job under the run lock to re-baseline the seed (a live read, which needs a go).",
+     "action": "fix",
+     "director_decision": "",
+     "risk": "low",
+     "effort": "S",
+     "payoff": "Name dedup works again for about 3 months of new content (Skyglass, MoE, Gobblefather), with no new live load.",
+     "verdict": "CONFIRMED"
+    },
+    {
+     "id": "LB-07",
+     "title": "Move run-lock and fight-log churn off main",
+     "evidence": "Of 2309 commits on main since 11-08: 1316 'run-lock:' (state/run_lock.json), 348 'player', 81 'dauntless' (census.md). gh run list -b main: the last 15 runs are scrub/large-files/no-real-name, each triggered by a run-lock claim/release commit, so about 3 CI runs per lock event. run_lock.json says 'Written only by forge/tools/run_lock.mjs or Forge; do not hand-edit'. The user said a separate branch is acceptable 'if it works and makes things easier to maintain'.",
+     "recommendation": "Lane A change (fable branch with review). Point run_lock.mjs and Forge's lock read at a dedicated ref (for example branch ops/run-lock that holds only run_lock.json) using the same optimistic push/retry. Move fight logs under state/player/ to a player/logs branch, or batch them into one commit per session. Exclude the lock ref from the scrub/large-files/no-real-name triggers. Keep a read-only mirror path for the browser loader if Forge fetches the lock from raw main (check forge/src before changing).",
+     "action": "fix",
+     "director_decision": "",
+     "risk": "medium",
+     "effort": "M",
+     "payoff": "main history about 70% smaller in commit count, ~3900 fewer CI runs per fortnight, and readable git log for content work.",
+     "verdict": "PLAUSIBLE"
+    },
+    {
+     "id": "LB-08",
+     "title": "One Perfect Crop workstream says BLOCKED for 2 months after its launch manifest ran",
+     "evidence": "state/workstreams/one_perfect_crop/roadmap.json launch.finalization BLOCKED: 'Waiting for the director to execute the reviewed b080825c launch-final manifest'. Bundles: tnr_results_1790603583693 (2026-09-28, push/54_one_perfect_crop_launch_final.json, DONE failed 3 match / 2 failed) and tnr_results_1790698507551 (2026-09-29, push/55_..._asset_repair.json, DONE success 2/2). No OPC commits after 10-14. state/workstreams/INDEX.md is the only workstream and still shows ACTIVE.",
+     "recommendation": "Close the roadmap task from the two bundles (record the evidence, re-render with content_workstream.py), then put the remaining step, the publish decision, to the director. After that, archive state/one_perfect_crop_* (9 files), plan_one_perfect_crop_finish.md and prompt_one_perfect_crop.md to archive/state/one_perfect_crop/.",
+     "action": "decide",
+     "director_decision": "One Perfect Crop's launch-final ran 2026-09-28/29 and is (per the last read-back) hidden. Publish it, keep it hidden, or retire it?",
+     "risk": "low",
+     "effort": "S",
+     "payoff": "Clears a two-month stale workstream and one of the director's unanswered decisions.",
+     "verdict": "CONFIRMED"
+    },
+    {
+     "id": "LB-09",
+     "title": "state/ archive map: ~60 spent entries, with code-coupled exceptions",
+     "evidence": "state_entries.tsv (docs/reviews/REPO_REVIEW_2026-11-27/evidence/state_entries.tsv): 140 entries with last-touch, size and ref counts. 0-1 refs and dated 08-30/31: tenth_name_* x6, prose_pass_* x2, thread_init_*, wiring_*, bg_wiring_*, push16_misroute, prompt_report_clerk, prompt_three_rounds_survivor. Done event state: moe_upload (3.1MB), moe_scale, moe_etch_colours, rengoku*/white_tiger*/recut_upload (jobs 624-630 done 11-18), headless_rider* (Halloween), skyglass_thread_boards_v2/v3. Coupled: 37 ghost_ship_* files are read by harness/ghost_ship_{consume,final,stage2,legacy_baseline,release_dryrun} tools/fixtures and push/344,358,361-366 (git grep).",
+     "recommendation": "Stage 1, no code refs: move to archive/state/<event-or-date>/ (aug-2026-misc, mother_of_echoes, animations-624-630, headless_rider, skyglass-nov13-release) with a git mv and a one-line archive/state/INDEX.md entry each. Stage 2: move ghost_ship_* only together with harness/ghost_ship_* (or leave both). Move schema_adoption_ledger_*.json to docs/reviews/schema_adoption/ and update the 1-2 doc refs each. Move completed Lane A prompt_*.md briefs to archive/briefs/ only after confirming the task is closed (CLAUDE.md treats an active brief as the build contract). Keep Skyglass build/design state while the event runs weekly. Map: lane_b_state.md section 3.",
+     "action": "archive",
+     "director_decision": "",
+     "risk": "low",
+     "effort": "M",
+     "payoff": "state/ drops from 140 to ~60 entries, so the board and active files are findable. No behaviour change if the coupled files are excluded.",
+     "verdict": "CONFIRMED"
+    },
+    {
+     "id": "LB-10",
+     "title": "push/ holds 214 run manifests against its own 'active only' rule (pickers list them)",
+     "evidence": "push/README.md: 'Keep only manifests that are currently intended for operator use ... Builder pickers list .json and .zip files from push/, so finished or superseded manifests must be archived after use.' ls push: 464 files (328 json, 131 py). Matching push json against results bundles' journal.manifestPath: 214 RAN-ok, 33 RAN-incomplete (most repaired later, for example 614->615, 609->612), 74 no bundle match, 8 queue-active (docs/reviews/REPO_REVIEW_2026-11-27/evidence/push_spent.tsv). Real manifests that forge/harness code references: 00_forge_readonly_smoke, 02_one_perfect_crop_asset_probe, 03_tnr_art_style_reference_capture, 47_one_perfect_crop_core_manifest, 74_*, 90_ghost_ship_skyglass_release, 101_* (git grep in forge/harness/scripts). Precedent: archive/spent-manifests/push-2026-09-09 and push-2026-09-19.",
+     "recommendation": "Move RAN-ok manifests (and the incomplete ones superseded by a later successful repair) to archive/spent-manifests/push-2026-11/, excluding the code-referenced list. Move one-off *.gen.py for spent jobs alongside; keep recurring generators (skyglass_wreck_window, skyglass_journal, salvager_*, larry_bind, mother_of_echoes for reference) in push/ or push/gen/. Automate it after this: when run_queue_check sees a done row with a success bundle older than 7 days, it proposes the git mv.",
+     "action": "archive",
+     "director_decision": "",
+     "risk": "low",
+     "effort": "S",
+     "payoff": "The Forge picker and humans see about 30 live files instead of 464, so a spent manifest is less likely to be picked and re-run by mistake.",
+     "verdict": "CONFIRMED"
+    },
+    {
+     "id": "LB-11",
+     "title": "harvests/inbox: no processed/pending ledger; do not move files, index them",
+     "evidence": "548 bundles, 143MB (2026-10: 355 bundles / 109MB). No processed marker; harvest.py has verify/diff but no ledger. Bundle paths are referenced from forge/src (budget/reader.mjs, core/facts.mjs, runner/*.mjs), forge/test, harness fixtures, 62 push files and 45 state files (git grep 'harvests/inbox/tnr_results_'). Bundles with outcome failed/INCOMPLETE in Nov: 593 (one run, rerun ok), 609, 611 (repaired by 612), 614 (repaired by 615), 620 (unresolved), 623 (then went live 11-27). docs/COMPACTION_RUNBOOK.md: size reduction is a manual, director-approved history squash.",
+     "recommendation": "Keep paths stable. Generate harvests/LEDGER.json (inside state_board.py or harvest.py ledger): per bundle, its job number, manifest, at, state, outcome, branch of origin, and 'repaired_by' when a later bundle for a follow-up job succeeds. Pending means a failed/INCOMPLETE bundle with no repaired_by. Leave the history squash as a separate director decision under the runbook.",
+     "action": "automate",
+     "director_decision": "",
+     "risk": "low",
+     "effort": "S",
+     "payoff": "Answers 'what still needs verification' in one read, with no file moves that would break forge tests.",
+     "verdict": "CONFIRMED"
+    },
+    {
+     "id": "LB-12",
+     "title": "Forge CI on main red since 11-13; repair PR #123 open and green since 11-14",
+     "evidence": "gh run list -w forge.yml -b main: last 4 runs (11-13 18:34Z to 11-14 02:03Z) all failure. PR #123 fable/ci-repair-20261114 ('CI repair: re-point pre-rewrite commit ids, Skyglass preview under 5 MB, real name out of push notes') runs success (43556319045). The digest still describes the older 11-08 budget redness, which RUL-2026-11-08-136 resolved.",
+     "recommendation": "Put PR #123 through the independent review loop and merge it. Then make forge CI conclusion on main a line on the generated board (LB-05) so redness is visible at session open.",
+     "action": "fix",
+     "director_decision": "",
+     "risk": "low",
+     "effort": "S",
+     "payoff": "Restores the Forge gate that Lane B browser jobs rely on; two weeks of red CI hides new regressions.",
+     "verdict": "CONFIRMED"
+    },
+    {
+     "id": "LB-13",
+     "title": "Ruling ids collide (139, 148, 149 used twice)",
+     "evidence": "docs/rulings/2026-11.md headings: RUL-2026-11-08-139 and RUL-2026-11-09-139; RUL-2026-11-11-148 and RUL-2026-11-13-148; RUL-2026-11-11-149 and RUL-2026-11-13-149. Sequence numbers are global but were allocated in parallel sessions (same failure mode as push numbers).",
+     "recommendation": "Make scripts/rulings_index.py fail on a duplicate trailing sequence number (rulings.yml already runs it), and allocate the next number from the index at write time. Disambiguate the three existing pairs with a, b suffixes, keeping the dated id unchanged so citations still resolve.",
+     "action": "fix",
+     "director_decision": "",
+     "risk": "low",
+     "effort": "S",
+     "payoff": "Citations to RUL ids stay unambiguous for the law and doctrine owners.",
+     "verdict": "CONFIRMED"
+    },
+    {
+     "id": "LB-14",
+     "title": "Weekly Skyglass routines (515 Wreck reopen, 595 Lantern re-issue, Wednesday hides) have no last-run record",
+     "evidence": "run_queue 515 and 595 are 'waiting' as standing recurring jobs with no run history. No commit, run-lock claim or bundle on any ref matches a Wreck window, Lantern or hide action between 11-14 and 11-27 (git log --all grep 'lantern|wreck window|reopen|expiresAt' is empty). The 11-20 6 PM release on branch hlg3nc was Stolen Stores (673). The scheduler that runs these lives outside the repo (not verifiable here).",
+     "recommendation": "Give recurring jobs their own row type ('recurring': cron, last_run, last_bundle) and require the routine to commit its bundle plus last_run to main. Do one live read (with a go) to establish whether the 11-20 Wreck reopen and the Lantern copy happened.",
+     "action": "fix",
+     "director_decision": "",
+     "risk": "medium",
+     "effort": "S",
+     "payoff": "A missed weekly release becomes visible on the board instead of being discovered by players.",
+     "verdict": "PLAUSIBLE"
+    },
+    {
+     "id": "LB-15",
+     "title": "Stale branches tied to Lane B state: duet/moe-uploadthing and the spent state/bundle branches",
+     "evidence": "branches.tsv: duet/moe-uploadthing +55/-2421 (last commit github-actions 11-16, 'moe upload: results [skip ci]', 4 bundles only there); fable/state-refresh +1 (its content landed on main as 2146828e2); fable/forge-bundle-rebuild +2/-2335 (superseded by Forge 0.12.6/0.12.7 releases on main). MoE shipped from main 11-14.",
+     "recommendation": "Bring duet/moe-uploadthing's 4 results bundles onto main under LB-01, then archive the three branches (tag archive/<name>, then delete per the branch-prune process another auditor owns).",
+     "action": "archive",
+     "director_decision": "",
+     "risk": "low",
+     "effort": "S",
+     "payoff": "Removes three open items from the stale digest's owner lists that are no longer real.",
+     "verdict": "CONFIRMED"
+    }
+   ],
+   "gates_run": [
+    {
+     "command": "python3 (parse state/run_queue.json; list non-done rows and ids)",
+     "exit": "0",
+     "result": "75 jobs; 21 non-done; duplicate ids 596 and 597"
+    },
+    {
+     "command": "python3 (scan harvests/inbox/*.json journal.manifestPath/state/outcome)",
+     "exit": "0",
+     "result": "548 bundles; 593/597/549 DONE success; 620 and 623 INCOMPLETE; month sizes 08 18MB, 09 4MB, 10 109MB, 11 18MB"
+    },
+    {
+     "command": "git diff --name-only --diff-filter=A main...origin/<branch> -- push/ harvests/inbox (unmerged branches active since 11-08)",
+     "exit": "0",
+     "result": "~55 branch-only bundles; push-number collisions 627/631/632/640/641"
+    },
+    {
+     "command": "git log main --since=2026-11-14 run-lock claims vs main push/ numbers (comm)",
+     "exit": "0",
+     "result": "~30 claimed job numbers with no manifest on main"
+    },
+    {
+     "command": "git show 4914fcb0 -- state/run_queue.json",
+     "exit": "0",
+     "result": "commit '549/550 done' changed only the trailing newline (status edit lost)"
+    },
+    {
+     "command": "gh run list -R perseverance484/tnr-tools -w forge.yml -b main -L 4",
+     "exit": "0",
+     "result": "4/4 failure (11-13..11-14); PR #123 branch runs success"
+    },
+    {
+     "command": "gh api repos/perseverance484/tnr-tools/pulls?state=open",
+     "exit": "0",
+     "result": "open PRs #128, #126, #123"
+    },
+    {
+     "command": "python3 scripts/skyglass_weekly.py release --date 2026-11-27",
+     "exit": "denied",
+     "result": "Not run (sandbox classifier denied). The stop behaviour was read from the source instead."
+    },
+    {
+     "command": "grep -c Gobblefather|Mother of Echoes|Skyglass answers/names_{quest,ai,item}.json",
+     "exit": "1",
+     "result": "0 matches in each"
+    }
+   ],
+   "notes_file": "docs/reviews/REPO_REVIEW_2026-11-27/evidence/lane_b_state.md (also current_state_draft.md, state_entries.tsv, push_spent.tsv in the same folder)"
+  },
+  {
+   "area": "DOCS & AUTHORITY",
+   "summary": "I checked main@f0b5f0f read-only. The mechanical layer is healthy. doctrinemap (0 errors, 0 warnings), render_doctrine --check, build_packs --check and rulings_index --check all exit 0. lawmap exits 0 with 0 errors but carries the same 5 warnings (laws 16d, 18, 37, 61, 69) that the 2026-08-30 plan already called \"known\", so they have been ignored for three months. The authority prose has drifted from that layer. CHATGPT.md section 9 and DEVELOPMENT_WORKFLOW section 13 still say the user is the only live-game writer, which contradicts RUL-2026-11-06-132 and CLAUDE.md section 6. 00_INDEX.md tells sessions to clone with the PAT, which CLAUDE.md section 5 has dropped as a credential path, and it gives two script paths that do not exist (scripts/lawmap.py, scripts/session_open.py). 00_INDEX.md also has no routes for the busiest current work: the AI player and PvP, docs/combat-engine, the shipping and simulation skills, and DRIFT.md. The rulings ledger (340 entries) passes its check while holding 3 duplicate IDs, a non-enum or missing status on 3 entries, and 56 rows marked \"superseded by\" that still read ACTIVE. Partial and full supersession look the same, and one law change (RUL-2026-10-26-008, law 18 extended to items) has waited a month to reach ENGINE_LAWS. 10_LAWS_core.md restates engine laws and has been frozen since 2026-08-30. HANDOFF_INVENTORY.md and PLAN_2026-08-30 are spent planning documents. The 186-entry docs/reviews and docs/handoffs pile has no retention rule: 115 entries are cited by nothing current, and 33 Lane A handoffs are filed in docs/reviews and point at 73 unmerged chatgpt/review-* branches. Top moves, in order: (1) fix the contradictory live-boundary text so it cites the canonical owners, (2) make the README the single start-here map and fix the 00_INDEX routes, (3) harden rulings_index --check so it catches the ledger defects, (4) adopt a retention policy that moves spent handoffs and reviews to an archive tree or branch, (5) do the law 18 reconciliation and fold 10_LAWS_core into a citing index. Per-file lists are in docs/reviews/REPO_REVIEW_2026-11-27/evidence/docs_authority.md and docs_refs.tsv in the same folder.",
+   "notes_file": "docs/reviews/REPO_REVIEW_2026-11-27/evidence/docs_authority.md",
+   "gates_run": [
+    {
+     "command": "python3 skills/building-tnr-content/scripts/doctrinemap.py",
+     "exit": "0",
+     "result": "21 assertion(s), 18 referenced, 17 surface(s) scanned; 0 error(s), 0 warning(s)"
+    },
+    {
+     "command": "python3 skills/building-tnr-content/scripts/render_doctrine.py --check",
+     "exit": "0",
+     "result": "all projections current (mounted_instructions.txt, 3 SKILL.md, pipeline.md)"
+    },
+    {
+     "command": "python3 skills/building-tnr-content/scripts/build_packs.py --check",
+     "exit": "0",
+     "result": "all packs and TOCs current"
+    },
+    {
+     "command": "python3 skills/building-tnr-content/scripts/lawmap.py .",
+     "exit": "0",
+     "result": "93 laws, 93 matrix rows, 82 citations across 44 files; 0 errors, 5 warnings (16d, 37, 69 validate with no citation; 18, 61 knowledge but cited)"
+    },
+    {
+     "command": "python3 scripts/rulings_index.py --check",
+     "exit": "0",
+     "result": "340 rulings; index current (does not catch the duplicate IDs or bad statuses, see DA-04)"
+    }
+   ],
+   "findings": [
+    {
+     "id": "DA-01",
+     "title": "Live-game boundary is restated in conflicting versions (CHATGPT.md section 9, DEVELOPMENT_WORKFLOW section 13 vs RUL-132 / CLAUDE.md section 6)",
+     "evidence": "CHATGPT.md:150 (last commit 2026-09-11) says 'Never make a live-game write; the user owns all game pushes.' docs/DEVELOPMENT_WORKFLOW.md:281 (last commit 2026-09-07) says 'The user remains the live-game actor.' The canonical text, docs/DOCTRINE.md D-user-pushes (2026-11-09), says agents run the job over the TNR connector after gates pass and the director says go (RUL-2026-11-06-132), and it points at CLAUDE.md section 6 and OPERATING_MODEL.md. CLAUDE.md section 6 (2026-11-11) also authorises play (RUL-2026-11-11-147). doctrinemap scans only docs/*.md, the template and the SKILL.md files, so it never sees CHATGPT.md, and it does not detect restated text anywhere.",
+     "recommendation": "Replace the bodies of CHATGPT.md section 9 and DEVELOPMENT_WORKFLOW section 13 with short pointers to [[D-user-pushes]], CLAUDE.md section 6 and docs/workflows/OPERATING_MODEL.md, keeping only the reviewer-specific lines (zero-live tasks, do not run game source). Optionally add CHATGPT.md and CLAUDE.md to doctrinemap's scanned surfaces so the [[D-id]] references get checked. Lane A docs change.",
+     "action": "fix",
+     "risk": "medium",
+     "effort": "S",
+     "payoff": "Removes a direct authority contradiction on the highest-stakes rule. A ChatGPT reviewer currently gets an outdated boundary and could flag correct connector runs as violations."
+    },
+    {
+     "id": "DA-02",
+     "title": "No single start-here map: README is stale and 00_INDEX has wrong paths, a retired PAT step and missing routes",
+     "evidence": "README.md says 'Generated 2026-08-28', describes 'both Claude skills' (repo has 3, 9 TNR skills are installed) and lists docs/ as only ENGINE_LAWS. In docs/00_INDEX.md: line 68 says 'Clone with the PAT', but CLAUDE.md section 5 says the pasted tnr-container PAT is not an approved long-term path. Line 70 names scripts/session_open.py and the routing table names scripts/lawmap.py; neither exists (the real ones are skills/building-tnr-content/scripts/). The index never mentions docs/combat-engine (updated 2026-11-22), player/ (348 'player' commits since 11-08), state/prompt_playing_tnr.md, the shipping-tnr-content or simulating-tnr-combat skills, DRIFT.md, DEVELOPMENT_WORKFLOW.md or RULINGS.md. Separate start routines exist in CLAUDE.md section 2 (7 steps), CHATGPT.md section 2 (8 steps), 00_INDEX 'Session start' (3 steps), mounted_instructions SESSION RITUAL and docs/agents/PROJECT_INSTRUCTIONS.md.",
+     "recommendation": "Make README.md the one start-here page, kept to one screen. It should have (a) a 'who are you' table: Claude Code -> CLAUDE.md, ChatGPT -> CHATGPT.md, claude.ai project -> state/mounted_instructions.txt, director -> state/active-context.md; (b) a single 4-step orientation everyone shares: verify SHA, run session_open.py, read 00_INDEX routing, read the board; (c) a map of top-level dirs. Fix 00_INDEX paths, replace the PAT step with 'authenticate per CLAUDE.md section 5 / project instructions', and add routing rows for combat-engine, AI player/PvP, shipping, sim, DRIFT.md, Lane A workflow and rulings. Have the CLAUDE.md and CHATGPT.md start lists point at the shared steps instead of restating them.",
+     "action": "fix",
+     "risk": "low",
+     "effort": "M",
+     "payoff": "New sessions spend less time getting oriented, stop following dead paths, and reach the current workstreams through the router instead of memory."
+    },
+    {
+     "id": "DA-03",
+     "title": "The PAT credential path in the mounted instructions conflicts with CLAUDE.md section 5",
+     "evidence": "docs/mounted_instructions.tmpl, rendered to state/mounted_instructions.txt lines 20-28: 'PAT (tnr-container; contents RW on tnr-tools only): <<<INSERT ...>>>', 'Clone to /home/claude/tnr-tools with the PAT'. CLAUDE.md section 5: 'The old pasted tnr-container PAT is not an approved long-term credential path.' The claude.ai project container may have no native GitHub auth, so the template may still be the only working route there. I could not verify that.",
+     "recommendation": "The director picks the claude.ai-project credential path. Then either keep the PAT block and add a scoped exception to CLAUDE.md section 5 ('the claude.ai project container is the one PAT user until X'), or switch the template to the approved path. Edit the template, re-render with render_doctrine.py --write, then run --check.",
+     "action": "decide",
+     "risk": "medium",
+     "effort": "S",
+     "payoff": "Ends a standing contradiction about credentials and makes clear which route is sanctioned."
+    },
+    {
+     "id": "DA-04",
+     "title": "rulings_index --check passes over duplicate IDs, statuses outside the enum and ambiguous supersession",
+     "evidence": "rulings_index.py --check reports '340 rulings; index current' (exit 0). docs/rulings/2026-10.md has duplicate IDs: RUL-2026-10-25-002 (lines 2549/2563), RUL-2026-10-26-001 (2806/2842), RUL-2026-10-26-002 (2822/2862). Index statuses: ACTIVE 330, SUPERSEDED 7, plus SHELVED (RUL-2026-10-21-006), SUSPENDED (RUL-2026-10-24-001) and '?' (RUL-2026-11-26-169, no Status line); the declared enum is ACTIVE/SUPERSEDED/DEFERRED. 56 rows read '(superseded by ...)' but stay ACTIVE: partial supersession, e.g. 168 replaced only in items 21/24/25 by 169, looks the same as full. RUL-2026-11-14-159 is indexed as 'superseded by 161, 162' although both say 'Supersedes: none (it changes ... point 5/7)'. Format drift in 2026-11.md: 25 of 82 entries use 'Decided by' and have no Domain.",
+     "recommendation": "Extend rulings_index.py --check to fail on: duplicate IDs, Status outside an expanded enum (add SHELVED/SUSPENDED if the director wants them), and missing Domain/Status/Canonical destination. Render partial supersession as 'amended by' and keep 'superseded by' for full supersession. Changing an ID would break citations, so list the 3 duplicates as aliases (e.g. a -b suffix) in the index rather than renumbering the entries. Add the missing fields to the 26 November entries as appended corrections, not rewrites.",
+     "action": "automate",
+     "risk": "low",
+     "effort": "S",
+     "payoff": "References to the 340 rulings become unambiguous, and design sessions can trust 'ACTIVE' without opening every entry. CI then catches ledger defects instead of letting them accumulate."
+    },
+    {
+     "id": "DA-05",
+     "title": "No generated 'rules in force' view: a design session must wade through a 340-entry ledger",
+     "evidence": "docs/RULINGS.md index runs to 388 lines. Month files total 556K (docs/rulings/2026-10.md has 240 entries). Most rulings name docs/design (236 mentions) or push/ (137) as their canonical destination, not a stable owner. Every Oct and Sep entry has a Domain field (258); November has 57 of 82.",
+     "recommendation": "Add a mode to rulings_index.py that writes docs/rulings/BY_DOMAIN.md: ACTIVE, non-superseded rulings grouped by Domain (e.g. Skyglass, art direction, AI player, Forge), one line each with ID and canonical destination. Link it from 00_INDEX's routing table so a design session reads only its domain. This depends on DA-04 so the Domain field is reliable.",
+     "action": "automate",
+     "risk": "low",
+     "effort": "M",
+     "payoff": "Design sessions start from the dozen rulings that bind their domain, not the whole ledger. This directly serves the goal of focusing those sessions on creative input."
+    },
+    {
+     "id": "DA-06",
+     "title": "Law reconciliation backlog: law 18 item extension pending a month; 5 lawmap warnings unchanged since August",
+     "evidence": "RUL-2026-10-26-008: 'Status: ACTIVE (observation; law text reconciliation pending)'; destination 'docs/ENGINE_LAWS.md law 18 (pending reconciliation)'. ENGINE_LAWS.md:49 law 18 still covers only equipped jutsu; the file was last changed 2026-10-24. CLAUDE.md section 6 cites 'law 18 unequip/edit/re-equip' for connector writes. lawmap warns about 16d/37/69 (validate class, no citation) and 18/61 (knowledge class, but cited). PLAN_2026-08-30 line 6 already recorded '5 known warnings'. state/status.json rulings_open still carries the laws 19/23/37 provenance item from RUL-2026-09-08-004.",
+     "recommendation": "Run a scoped law pass under the RUL-2026-09-08-004 sequence. Amend law 18 to cover AI-held items (behaviour-proven evidence: push/264, push/268), reclassify 18 and 61 in 12b_LAWS_coverage.md to match the code, and either annotate the enforcing sites for 16d/37/69 or reclassify them. Leave 19/23/37 provenance as its own item. Lane A.",
+     "action": "fix",
+     "risk": "medium",
+     "effort": "M",
+     "payoff": "The text of record stops trailing a write-safety rule agents rely on for every AI item edit, and lawmap returns to 0 warnings, so a new warning becomes visible."
+    },
+    {
+     "id": "DA-07",
+     "title": "10_LAWS_core.md is a second, frozen restatement of engine laws",
+     "evidence": "docs/10_LAWS_core.md was last committed 2026-08-30. Its banner says the '89-law phrasing predates' the current 93. Sections 2-4 restate laws 9-13, 28, 29, 57-59, 61, 75 and 76 in prose (e.g. the AP/turn text duplicates ENGINE_LAWS 61/76), and section 2 duplicates DOCTRINE D-push-echo. It is referenced from 00_INDEX (2 places), ENGINE_LAWS:5, mounted tmpl:11 and FABLE_REVIEW:28. CLAUDE.md section 7 says 'Laws cite; they do not proliferate.'",
+     "recommendation": "Replace the body with a cluster index: each cross-cutting theme gets a one-line pointer to law numbers or D-ids, and the duplicated bodies go. Alternatively, move the 'storage is not intent' teaching into DOCTRINE as a D-id and delete the file, updating the 5 referrers and re-rendering mounted. Before deleting anything, diff the prose against ENGINE_LAWS for content found only here.",
+     "action": "merge",
+     "risk": "low",
+     "effort": "S",
+     "payoff": "One law text instead of two, so there is nothing left to drift; mounted and index get shorter."
+    },
+    {
+     "id": "DA-08",
+     "title": "Archive spent root docs: HANDOFF_INVENTORY.md, PLAN_2026-08-30; refresh BUILDER_APP_NOTES header",
+     "evidence": "docs/HANDOFF_INVENTORY.md (2026-09-08) is self-labelled 'Status: DRAFT, uncommitted' and is the ChatGPT-takeover brief; nothing references it but itself. docs/PLAN_2026-08-30_stack_optimization.md (2026-08-30) is referenced only by HANDOFF_INVENTORY. docs/PLAN_2026-09-03_builder_app.md is referenced by forge_next, BUILDER_APP_NOTES and state/prompt_builder_app_build.md. docs/BUILDER_APP_NOTES.md is live (updated with Forge 0.12.x, 2026-11-08) and cited by forge/src/runner/validate.mjs and takeover.mjs, but its header names claude/builder-app-production-readiness-kelsib, which is unmerged and 4757 commits behind in branches.tsv. There is no docs/archive/; the root archive/ already holds the stack-optimization research brief and report.",
+     "recommendation": "Use git mv to move HANDOFF_INVENTORY.md and PLAN_2026-08-30 into archive/ with a STALE banner, as the README convention says. Move PLAN_2026-09-03 too, leaving a one-line redirect stub so its 3 referrers resolve, or update them. Keep BUILDER_APP_NOTES in place (code cites it) and rewrite only its header to drop the dead branch. List per-file dispositions in the notes file.",
+     "action": "archive",
+     "risk": "low",
+     "effort": "S",
+     "payoff": "docs/ root holds only living authority, so readers stop treating drafts and finished plans as current."
+    },
+    {
+     "id": "DA-09",
+     "title": "Retention policy needed for docs/reviews and docs/handoffs (186 entries, 115 unreferenced)",
+     "evidence": "docs/reviews has 85 entries (7.5M) and docs/handoffs 101 (1.7M). I counted references from state, skills, 00_INDEX, workflows, docs/design, docs/rulings, scripts, .github, push/README, forge and player: 54 reviews and 61 handoffs are referenced by none of them. 33 AI_PLAYER_* files (580K) in docs/reviews are Fable Lane A handoffs, not reviews. Each points at a ChatGPT review left on an unmerged branch ('evidence; not merged'); 73 of 76 chatgpt/review-* branches are unmerged. handoffs holds 24 *_ART_REQUEST and 37 *_PROMPT(S) one-shot session prompts. DEVELOPMENT_WORKFLOW.md:94/190 and FABLE_REVIEW:189 say where reviews go but give no retention rule. HISTORY_REWRITE_2026-11-09_commit_map.txt (380K) maps every pre-rewrite SHA cited in docs.",
+     "recommendation": "Adopt a written rule in DEVELOPMENT_WORKFLOW section 17. (1) Once a workstream closes (merged to main and its rulings recorded), move its handoff and review chain to docs/archive/<workstream>/ in one commit, keeping the final accepted review and the final handoff in place or summarising them in a single CLOSEOUT.md. (2) Before deleting any chatgpt/review-* branch, harvest its durable review into docs/archive, or push all of them to one long-lived 'reviews-archive' branch or tag set; this matches the director's 'separate branch' idea and keeps main light. (3) Expire one-shot art requests and session prompts to docs/archive/handoffs/ once their run is recorded. (4) Keep forever: HISTORY_REWRITE_2026-11-09 and its commit map. A small script can propose moves using the reference scan in docs_refs.tsv. Moving files is a repository change; delete nothing until the director approves the policy.",
+     "action": "decide",
+     "director_decision": "Approve a retention policy for reviews and handoffs: archive closed-workstream chains to docs/archive/<workstream>/ on main, or collect them on a separate reviews-archive branch or tags, and approve harvesting the 73 unmerged chatgpt/review-* branches into that archive before any branch cleanup?",
+     "risk": "low",
+     "effort": "M",
+     "payoff": "Live docs/reviews and docs/handoffs drop to about 70 relevant entries, review evidence stops depending on 73 dangling branches, and branch cleanup gets unblocked."
+    },
+    {
+     "id": "DA-10",
+     "title": "Six TNR skills live only outside the repo, and the three repo skills have drifted both ways from their installed copies",
+     "evidence": "Repo skills/ holds building, designing and producing-art. The installed synced set adds shipping-tnr-content, simulating-tnr-combat, tnr-pvp-combat, tnr-replay-analysis, designing-tnr-pve-encounters and tnr-jutsu-engine; grep finds no SKILL.md for any of them in the repo. diff -rq repo vs installed: building-tnr-content 38 differences, designing 4, producing-tnr-art 3. The installed building SKILL.md carries doctrine stamp @17d6a71 against repo @b614200, and has a docs/combat-engine/tags routing paragraph missing from the repo; the repo has EVENT_SHEET routing missing from the install. The 00_INDEX precedence row says the repo wins over a skill install, and render_doctrine only projects doctrine into the 3 repo skills.",
+     "recommendation": "Import the six installed-only skills into repo skills/ (the director's item 5 allows it), add them to the skillpack workflow and dist/, and add the ones that need doctrine (shipping especially, for D-hidden-true and D-user-pushes) to render_doctrine's SKILLS map. Reconcile the 3 drifted skills: merge the installed-only edits back into the repo, then reinstall from dist/. Coordinate with the skills auditor, who likely owns the details.",
+     "action": "fix",
+     "risk": "medium",
+     "effort": "M",
+     "payoff": "Every skill is versioned and reviewable, doctrine projection covers the shipping path, and the precedence row 'repo is canon' becomes true."
+    },
+    {
+     "id": "DA-11",
+     "title": "Upstream contract drift reported every day for weeks with no adoption or triage note",
+     "evidence": "docs/DRIFT.md is written by .github/workflows/regen_schemas.yml and has sentinel commits on 63 distinct days (the latest at 6f8b58f4, 2026-11-27). The current file lists 139 enum, field and variant lines, including removal of every AllTags.absorb.elements member and absorb.calculation 'percentage'. The 45c contract was last re-pinned 2026-10-29 (forge 0.12.0, TheNinjaRPG@331...). 00_INDEX does not route DRIFT.md. I did not verify whether the absorb removals are a real upstream refactor or an extractor blind spot.",
+     "recommendation": "Route DRIFT.md from 00_INDEX ('upstream drift signal; triage before trusting 45c for changed tags'). Run the documented gate (schema_extract --ctors, then schema_diff --invariants and diff) against the current upstream, and record the triage in a dated review: adopt, or explain each removal (spread or extractor blind spot). Consider having the sentinel open or refresh a single tracking issue instead of committing daily. Data/contract auditors likely own the gate itself.",
+     "action": "fix",
+     "risk": "medium",
+     "effort": "M",
+     "payoff": "Validators and factory stop running on a month-old contract without anyone knowing, and the absorb-tag removal gets explained before content relies on it."
+    },
+    {
+     "id": "DA-12",
+     "title": "forge_next program docs are frozen at 2026-09-17 under a 'CURRENT ROUTER' banner while their program is shelved",
+     "evidence": "docs/forge_next/README.md says 'Status: CURRENT ROUTER...' dated 2026-09-17, with 'Phase 1 — READY / FROZEN'. Directory last commit 2026-09-17, 776K. The RULINGS index shows RUL-2026-09-20-004 (Phase 1 first) superseded by RUL-2026-10-21-006, whose status is SHELVED. Since RUL-2026-11-06-132, delivery runs over the TNR connector, with browser Forge kept for image uploads (D-user-pushes).",
+     "recommendation": "The director decides whether Forge Next is cancelled, shelved or still planned. Then change the README status banner to DORMANT or SHELVED with the ruling ID, or move the directory under docs/archive/forge_next/. The history/ subfolder and planning docs keep their value as evidence either way.",
+     "action": "decide",
+     "director_decision": "Is the Forge Next program (Phase 1, Quest Studio integration) still planned, shelved indefinitely, or cancelled now that connector delivery replaced most browser-Forge runs?",
+     "risk": "low",
+     "effort": "S",
+     "payoff": "Stops agents treating a dormant 776K plan as the current Forge roadmap."
+    },
+    {
+     "id": "DA-13",
+     "title": "Keep the core authority stack as is: the doctrine projection system works",
+     "evidence": "Five gates are green (see gates_run). DOCTRINE.md holds 21 D-ids, all rendered or referenced, and mounted_instructions.txt and the 3 SKILL.md files are byte-current with their sources. RULINGS.md's index/month-file split, from 2026-11-08, is enforced by CI. EVENT_SHEET.md/.docx is a live staff canvas referenced by both content skills and built by build_event_sheet_docx.js. docs/agents/* (ChatGPT roles) and docs/workflows/* are routed by CHATGPT.md and 00_INDEX.",
+     "recommendation": "Do not restructure DOCTRINE/ENGINE_LAWS/RULINGS, the projection scripts or EVENT_SHEET. Spend cleanup effort on the routing and retention issues above, and keep new rules flowing through the existing owner-then-render path.",
+     "action": "keep",
+     "risk": "low",
+     "effort": "S",
+     "payoff": "Avoids churn in the one part of the docs layer that is already mechanically guarded."
+    }
+   ]
+  },
+  {
+   "area": "Assets and repo size (art/, docs/design, harvests/inbox, skills/producing-tnr-art, push/, archive/, .gitignore, large-file guard)",
+   "summary": "The checkout tracks 1,234 MB across 7,956 files. The .git pack is 1.39 GiB, and GitHub reports the repo as 1.40 GB and PUBLIC. Images are most of it: PNG 618 MB, GIF 288 MB, WebP 78 MB, MP4 20 MB. By role, 469 MB is raw or unkeyed source art, 369 MB is preview GIFs/MP4s, boards and review stills, 60 MB is superseded version folders (vNN, seq, sprites), and only about 40 MB is final exports. 142 MB is harvest JSON. A reference scan of every tracked text file found that push manifests, forge and run_queue cite about 69 MB of local assets, almost all under /exports/, and none of the bulky working material. That makes the accepted plan safe: keep finals in git, and move about 911 MB (1,164 files) of previews, raws, superseded versions and the skill's raw-only files to external storage behind a checked-in sha256 manifest. The one carve-out is 18.5 MB of raws that bakuhatsu's approved.json validates byte-for-byte. Moving files does not shrink .git without a history rewrite, which is ruled out. So the payoff is a smaller checkout, a stop to future growth, and cheap clones with partial-clone filters. The current guard is the real gap. It only blocks files over 5 MB (17 files, all allowlisted), while 456 MB sits in 2-5 MB files that passed it. It should drop to 1 MiB, cap art images at the spec's 512 KiB upload cap, deny the offload paths outright, and cap how much a single push can add. The art skill still tells agents to copy raws into art/.../raws/, so the bloat comes back unless the skill changes too. The installed skill also points at a reference pack that exists only on an unmerged branch. For storage, GitHub Releases needs no new credential and works with the gh REST setup in this session. R2 is the choice if the director wants working material kept private, because the repo is public. Harvest bundles should stay in git: they are text, packed under compression (all of inbox gzips from 142 MB to 19 MB), and cited as evidence. The per-directory size table and the per-file move list are at docs/reviews/REPO_REVIEW_2026-11-27/evidence/assets.md and docs/reviews/REPO_REVIEW_2026-11-27/evidence/assets_movelist.tsv.",
+   "findings": [
+    {
+     "id": "ASSET-01",
+     "title": "Large-file guard lets almost all of the bulk through (5 MB threshold, no path or aggregate rules)",
+     "evidence": "scripts/check_large_files.py sets LIMIT = 5*1024*1024. .github/large-files-allowlist.txt has 17 grandfathered files. `python3 scripts/check_large_files.py` -> '17 file(s) over the limit, 0 not allowed', exit 0. Tracked files over 2 MB: 113 files / 456 MB. Over 1 MB: 384 / 851 MB. Over 512 KB: 548 files. Typical raws are 1-3 MB PNGs (e.g. art/skyglass_event_icons/raw/raw_icon_chart_*.png at 2.2-2.3 MB), so the guard never fires on them. The game's own cap is skills/producing-tnr-art/data/25x_DATA_art_spec.json .upload.hard_cap_bytes = 524288 (working ceiling 460800). Only 3 tracked exports exceed 512 KiB: anim_fcf_burst_v4.webp 885 KB, anim_fcf_burst_v3.webp 696 KB, and bakuhatsu_jutsu_showcase_bakuhatsu.png 1.19 MB, which is a showcase sheet rather than an upload.",
+     "recommendation": "Tighten check_large_files.py (Lane A, fable/* branch). (1) Lower the default for new files to 1 MiB. (2) Cap png/webp/jpg/gif under art/ at 512 KiB, the spec's hard_cap_bytes, read from the spec rather than hard-coded. (3) Cap .gif/.mp4/.zip anywhere at 512 KiB. (4) Deny any new tracked file under the offload globs regardless of size: art/**/raw/, art/**/raws/, art/**/candidates/, art/**/previews/, docs/design/**/*.gif and docs/design/**/*.mp4. (5) Fail any push or PR that adds more than 20 MiB of new blob bytes (diff base...head plus cat-file -s). (6) Re-grandfather with --write once, after the offload, and add owner and expiry columns to the allowlist. Keep 'adding to allowlist = director decision'. The large-files.yml workflow needs fetch-depth: 0 or the PR base for the aggregate rule.",
+     "action": "fix",
+     "risk": "low",
+     "effort": "S",
+     "payoff": "Stops the main growth path (raws and previews at 1-5 MB each). Without it, any offload refills within weeks."
+    },
+    {
+     "id": "ASSET-02",
+     "title": "Offload docs/design preview GIFs/MP4s and review stills (M1): 281 MB, 226 files",
+     "evidence": "Role classifier (scratchpad/classify.py) applied to docs/design: 240 MB preview plus 40 MB unclassified review/discord/showcase stills, against 12.8 MB of text. Largest: docs/design/celestial_dew_animation has 9 x v*_over_avatar.gif totalling 125.8 MB (v5 20.6 MB). docs/design/ethereal_rebirth_animation has 17 GIFs, 55 MB. docs/design/icon_overhaul is 46.9 MB (review 14.6, discord 11.6, src 8.1). docs/design/skyglass_boss_fx is 18.2 MB. 14 of the 17 allowlisted >5 MB files are here or in art previews. Reference scan (scratchpad/refs.txt): M1 files are linked from docs only (196 MB), unreferenced (48 MB), or named as outputs of their own folder's preview.py (37 MB). No push/*.json, forge/*.mjs or state/run_queue.json cites any of them. push/README.md is the only push/ file that links them. 20 docs/design .md files and 42 docs/handoffs .md files link moved basenames. One ruling cites moved files: docs/rulings/2026-10.md:2132 (round1_grid_density.png, round1_hd_test.png).",
+     "recommendation": "Move M1 out of git with the manifest and fetch tool (ASSET-06). Leave the .md files and their links in place, and add a line to each affected PROJECT.md: 'previews offloaded; run scripts/assets.py fetch docs/design/<dir>'. For files a ruling or approval cites (the docs/rulings/2026-10.md:2132 pair, and any sha recorded in approved.json/showcase manifests), keep the manifest sha256 so the evidence stays verifiable. The per-file list is category M1 in docs/reviews/REPO_REVIEW_2026-11-27/evidence/assets_movelist.tsv.",
+     "action": "archive",
+     "risk": "low",
+     "effort": "M",
+     "payoff": "Checkout -281 MB (23%). Removes 14 of 17 allowlisted >5 MB files."
+    },
+    {
+     "id": "ASSET-03",
+     "title": "Offload art raw/unkeyed sources and rejected candidates (M2): 432 MB, 353 files",
+     "evidence": "assets_movelist.tsv category M2, largest dirs: art/item_icons/event_scrolls/raws 24.4 MB, art/jutsu_icons/scroll_jutsu/raws 20.2, tenryuseigan/raws 18.7, forbidden_chakra_fury/animation raws 18.2, crownhold/scenes/raw 14.7, crownhold/avatars/raw 13.5, chakra_overflow/candidates 11.2, art/skyglass_event_icons/raw 67.7 total, art/mother_of_echoes/raw 39.6, art/skyglass_boss_fx/raw 38.3, art/skyglass_variant_skins/raw 22.5. References: 202 MB doc-only, 177 MB unreferenced, 52.7 MB named by per-folder build scripts, which are their inputs for rebuilds. Push manifests reference 1,641 local paths, and none sit under raw/ or raws/ (1,243 under /exports/). jutsu_studio.py already treats raws as hash-addressed (raw_sha256, superseded_raw_sha256).",
+     "recommendation": "Move M2 behind the manifest. Keep art/style_refs/ in git (K5, 3.3 MB): skills/producing-tnr-art/data/style_refs.json and forge tests use it, and 8 of its webps are cited by push manifests. Also keep the raws pinned by approved.json (ASSET-07). Per-folder build scripts keep working after `scripts/assets.py fetch art/<dir>`. Add a one-line guard to those scripts: if a raw is missing, print the fetch command.",
+     "action": "archive",
+     "risk": "medium",
+     "effort": "M",
+     "payoff": "Checkout -432 MB (35%), the biggest single category. Raws stay hash-verifiable for provenance and rebuilds."
+    },
+    {
+     "id": "ASSET-04",
+     "title": "Offload art preview GIFs/boards and superseded version folders (M3+M4): 183 MB, 578 files",
+     "evidence": "M3 (art previews outside exports/ and final/): 124.6 MB / 69 files, e.g. art/halloween_headless_rider/fx/previews 32.9 MB (hellfire_loop_board.gif 21.4 MB, allowlisted), art/skyglass_thread/preview.png 5.7 MB, and forbidden_chakra_fury/animation/v*/preview_*_board.gif and master_*.gif at 2-4.7 MB each. M4 (vNN/seq/keys/sprites/kit): 58.7 MB / 509 files, mostly art/jutsu_icons/forbidden_chakra_fury/animation/v20/sprites (142 files), v22/sprites (46) and v23/seq (201), plus v9 through v24. The shipped FCF strips live in animation/exports and final, which are kept. 471 of the 509 M4 files (34 MB) are referenced nowhere. M3 code references are the version build scripts naming their own outputs, e.g. v24/compare_pr.py -> pr_fcf_before_after.gif.",
+     "recommendation": "Move M3 and M4 behind the manifest. Keep everything under exports/ and final/ (the classifier already excludes those; duelyst_fx/*/final webps cited by push manifests stay). For forbidden_chakra_fury, also consider whether superseded build scripts v5 through v23 need to stay in git, since they are small text. Keeping them is fine.",
+     "action": "archive",
+     "risk": "low",
+     "effort": "S",
+     "payoff": "Checkout -183 MB. Removes about 500 noise files from art/jutsu_icons."
+    },
+    {
+     "id": "ASSET-05",
+     "title": "Skill raw-only images (M5, 14.4 MB) are already excluded from the skill ZIP and can move too",
+     "evidence": ".github/scripts/pack_skills.py:18 ARCHIVE_ONLY_DIRS = {('data','rank_icons'),('data','frames')}, and line 32 skips *_raw.png. The 7 files are skills/producing-tnr-art/data/rank_icons/icon_rank_[A-D]_raw.png (2.4-2.8 MB each) and data/frames/raws/icon_plate_lacquer_*_raw.png (1.3-1.6 MB). Outside push/ and the old reports/code_audit_2026-09-02.json audit, only state/art_backlog.md and a provenance note mention them. The keyed finals (icon_rank_A.png 505 KB etc.) are about 4 MB and stay.",
+     "recommendation": "Move the 7 *_raw.png files to the offload store with the M2 batch. Keep the keyed rank icons and frames in git.",
+     "action": "archive",
+     "risk": "low",
+     "effort": "S",
+     "payoff": "Skill dir 19 MB -> about 5 MB. Makes the skill source tree match what actually ships."
+    },
+    {
+     "id": "ASSET-06",
+     "title": "Build the offload manifest and fetch/check tool before moving anything",
+     "evidence": "No external-asset mechanism exists today. Grep for R2, cloudflare, uploadthing and releases/download in scripts/, skills/ and forge/ finds only design docs. jutsu_studio.py already enforces sha256 on raw bytes (lines 1225-1245, 1445, 1965), so hash-addressed provenance is an established pattern. Image formats barely compress, and 1,164 files would mean many tiny fetches.",
+     "recommendation": "Add scripts/assets.py and assets/offloaded.jsonl, one sorted line per file: {\"path\",\"sha256\",\"bytes\",\"category\":\"M1..M5\",\"store\":\"gh-release:<tag>\" or \"r2:<bucket>\",\"pack\":\"<tar name>\",\"added\"}. Subcommands: `offload <glob>` hashes files, builds an uncompressed tar per (category, top dir) (about 60 packs), uploads it, appends lines and runs git rm --cached. `fetch <glob|dir>` downloads, verifies each sha256 and restores paths. `check` (CI, socket-free) requires the manifest to be sorted and unique, no manifest path to be tracked, and every path to fall under a .gitignore glob. Add the offload globs to .gitignore so fetched files cannot be re-committed. Add an offline selftest. Run the offload as one Lane A PR per category so each can be reviewed against the move list. Before deleting anything from the tree, verify every pack's sha256 against the manifest and against a re-download.",
+     "action": "automate",
+     "risk": "medium",
+     "effort": "M",
+     "payoff": "Makes the 911 MB move reversible and verifiable. A fetch becomes one command for any design session that needs old previews or raws."
+    },
+    {
+     "id": "ASSET-07",
+     "title": "Keep raws that approved.json validates byte-for-byte (K1, 18.5 MB), or teach the validator to fetch",
+     "evidence": "skills/producing-tnr-art/scripts/jutsu_studio.py:1237-1243: 'raw_path = root / raw_rel; if not raw_path.is_file(): errs.append(... raw file not found ...)', then a sha256 compare. art/jutsu_icons/bakuhatsu/approved.json (schema tnr.jutsu-studio.approved/1, family ACCEPTED 2026-10-20) and art/jutsu_icons/ethereal_rebirth/candidates/round1/snap_ethereal_rebirth_r1a.json pin raw files (scratchpad/pinned_raws.txt: raws/raw_bakuhatsu_*.jpg|png and ethereal_rebirth r1a). Moving them would make the studio validator fail on accepted families.",
+     "recommendation": "Exclude K1 from the first offload, which the move list already does. Later, optionally make jutsu_studio.py call `assets.py fetch` for a missing raw_file whose sha256 is in the manifest, then move K1 too. The 'what counts as approved evidence' rule is unchanged.",
+     "action": "keep",
+     "risk": "low",
+     "effort": "S",
+     "payoff": "Avoids breaking validation of director-accepted icon families."
+    },
+    {
+     "id": "ASSET-08",
+     "title": "The art skill still sends raws into the repo, and the installed skill cites a reference pack that exists only on an unmerged branch",
+     "evidence": "skills/producing-tnr-art/references/studio.md:65: '...then copy the sources into the repo's `art/.../raws/`.' The installed claude.ai-synced producing-tnr-art SKILL.md (214 lines, against 110 in the repo) says at line 54 that the Shisui standard is 'kept in the tnr-tools repo at `art/consumables_upgrade/refs/shisui/`'. That path is absent on main (`ls art/consumables_upgrade` -> No such file). It exists only on origin/claude/project-thread-fuqtpo (b1915f40b, 2026-11-22, 3 commits ahead of main), whose art/consumables_upgrade adds 202 files / 29 MB (icons 187, refs/shisui 9). Those blobs are 25 MB of the 85 MB found only on non-main branches.",
+     "recommendation": "(a) Update the art skill and docs/workflows/ART_PRODUCTION.md / ISOLATED_ART_GENERATION.md: raws, candidates and previews go to the ignored offload paths and are registered with `assets.py offload`. Only exports/final and approval evidence named by sha are committed. Make the change in whichever copy of the skill becomes canonical: the repo and installed copies have diverged (the skills auditor covers the sync). (b) Land the 9 Shisui reference files the installed skill depends on (refs are standard references, small enough under the new guard if each is <=1 MiB; check sizes). Offload the 187 working icons rather than merging them wholesale. Whether that branch's icons are final shipped assets is the director's call.",
+     "action": "fix",
+     "risk": "low",
+     "effort": "S",
+     "payoff": "Stops the art workflow from re-bloating the repo. Fixes a skill instruction that points at a missing path on main."
+    },
+    {
+     "id": "ASSET-09",
+     "title": "Storage backend for the offload: GitHub Releases now, R2 only if working material should be private",
+     "evidence": "`gh api repos/perseverance484/tnr-tools` -> {\"private\":false,\"visibility\":\"public\",\"size\":1400949}. The repo has one existing release (stage2-apply, no assets). gh REST works in this session (GraphQL returns 403). The Cloudflare MCP server describes itself as DEPRECATED, and its tools only create, list and get buckets. There is no object put, so R2 uploads would need an API token via request_credential plus rclone or wrangler. UploadThing hosts the live game images (push manifests cite ui0arpl8sm.ufs.sh 1,256x, bbenpyo9uu.ufs.sh 936x, uploadthing.b-cdn.net 431x). The free tier is about 2 GB, not verified in-session.",
+     "recommendation": "Use GitHub Releases for v1: one tag per offload batch (assets-YYYY-MM-<category>), with tar packs as release assets (2 GiB per asset). That needs no new credential and gives the same ACL and provenance as the repo, and assets are immutable once uploaded. Do not use UploadThing for working raws, to keep production CDN storage separate from scratch material. Note that Releases on a public repo are public, which matches today's exposure since these files are public in git now. If the director wants raws and previews private, use a private R2 bucket with a scoped token (10 GB free, zero egress). The manifest's `store` field allows either.",
+     "action": "decide",
+     "risk": "low",
+     "effort": "S",
+     "payoff": "Picks a zero-credential path today and keeps an upgrade to private storage open.",
+     "director_decision": "Should offloaded working art (raws, candidates, previews; about 911 MB) stay publicly readable, matching today's public repo (use GitHub Releases), or become private (use a private Cloudflare R2 bucket, which needs you to create an API token)?"
+    },
+    {
+     "id": "ASSET-10",
+     "title": "Moving files will not shrink .git or GitHub's 1.4 GB; use partial clones for agent sessions",
+     "evidence": "`git count-objects -vH`: size-pack 1.39 GiB. Reachable blobs total 1,369 MB on disk, of which 998 MB are in HEAD and 372 MB are history-only (docs/design 172, dist/*.zip 46, art/jutsu_icons 41, art/consumables_upgrade 25, state/moe_upload 23). Blobs reachable only from non-main branches: 85 MB. The clone is shallow from 2026-08-01, so these are lower bounds. No history rewrite is the accepted policy (the 2026-11-09 rewrite in RUL-2026-11-09-144 was for the real name only).",
+     "recommendation": "Set expectations: the offload cuts the working tree from about 1.23 GB to about 0.32 GB and stops growth. Pack size stays put. For new agent and cloud clones, document `git clone --filter=blob:limit=1m` (GitHub supports partial clone), optionally with sparse-checkout excluding harvests/inbox, so historical GIFs and raws are never downloaded. The 85 MB of branch-only blobs only leaves GitHub if those branches are deleted and GitHub runs gc. That is the branch auditor's decision, not this one.",
+     "action": "fix",
+     "risk": "low",
+     "effort": "S",
+     "payoff": "Clone and download size for future sessions drops by roughly 1 GB without a rewrite. Prevents a false expectation that the offload frees GitHub quota."
+    },
+    {
+     "id": "ASSET-11",
+     "title": "harvests/inbox (142 MB): keep in git; it is evidence, text, and compresses about 7x in the pack",
+     "evidence": "549 files: 510 tnr_results_<ms>.json plus 39 others. By month: 2026-08 30 files / 17.3 MB, 2026-09 25 / 3.8, 2026-10 319 / 100.5, 2026-11 136 / 16.8. The largest is tnr_results_1791233210169.json at 6.3 MB (allowlisted), and its bulk is repeated quest capture text (.captures[].data.content.objectives[].description 339 KB). gzip -9 takes it from 6.35 MB to 0.49 MB, and the whole inbox tars and gzips to 19.3 MB. 79 state/docs files and skills/producing-tnr-art/data/style_refs.json (19 refs) cite harvests/inbox paths. Harvest commits continue (2 on 2026-11-27).",
+     "recommendation": "Do not offload harvests: they are Lane B evidence cited by path, and their pack cost is small. If checkout size matters for a given session, use sparse-checkout to exclude harvests/inbox. Optionally, a builder-side follow-up could deduplicate repeated capture payloads in results bundles, but that is a builder change with its own review and is not needed for size. Keep harvest JSON outside the new 512 KiB image cap, but inside the 1 MiB default with an allowlist exemption glob for harvests/inbox/*.json, or bundles will start failing the guard.",
+     "action": "keep",
+     "risk": "low",
+     "effort": "S",
+     "payoff": "Avoids breaking about 100 evidence references for little real saving. Gives the guard a correct exemption."
+    },
+    {
+     "id": "ASSET-12",
+     "title": "Skillpack CI commits binary dist/*.zip on every skill change (189 versions in history)",
+     "evidence": ".github/workflows/skillpack.yml 'Commit generated files' runs commit_generated.py on \"dist/*\". The history holds 189 dist/ blobs totalling 46 MB, mostly an old unbounded producing-tnr-art.zip (41 MB history-only). The current zips total 670 KB (pack_skills.py MAX_ZIP_BYTES = 2 MiB). 12 dist commits since 2026-11-01. Docs cite dist/*.zip as the install source (docs/design/jutsu_icon_studio/START_PROMPT.md:54).",
+     "recommendation": "Low priority. Either keep as is (about 0.6 MB per rebuild is now modest), or publish the zips as assets of a rolling 'skillpack' GitHub Release instead of committing them. That needs updating the docs that reference dist/*.zip, and coordinating with the skills auditor's repo-vs-claude.ai sync recommendation.",
+     "action": "decide",
+     "risk": "low",
+     "effort": "S",
+     "payoff": "Removes a steady binary-history drip and an auto-commit source of main churn.",
+     "director_decision": "Should the skill ZIPs keep being committed to dist/ on main, or be published only as a GitHub Release asset?"
+    }
+   ],
+   "gates_run": [
+    {
+     "command": "python3 scripts/check_large_files.py",
+     "exit": "0",
+     "result": "17 file(s) over the limit, 0 not allowed"
+    },
+    {
+     "command": "git count-objects -vH",
+     "exit": "0",
+     "result": "size-pack 1.39 GiB, in-pack 67798"
+    },
+    {
+     "command": "git rev-list --objects --all | git cat-file --batch-check (blob sizes vs HEAD and vs origin/main)",
+     "exit": "0",
+     "result": "1,369 MB reachable blobs; 998 MB in HEAD; 372 MB history-only; 85 MB only on non-main branches"
+    },
+    {
+     "command": "gh api repos/perseverance484/tnr-tools --jq '{private,visibility,size}'",
+     "exit": "0",
+     "result": "public, size 1400949 KB"
+    }
+   ],
+   "notes_file": "docs/reviews/REPO_REVIEW_2026-11-27/evidence/assets.md"
+  },
+  {
+   "area": "Skills & automation",
+   "summary": "The TNR skills now exist in three copies that have drifted apart in different directions, and no single copy is correct. The repo skills/ tree and dist/*.zip match each other exactly (last rebuild c8843583f, 2026-11-16). The claude.ai-installed copies were edited on 2026-11-22 and carry newer director rulings: the Shisui consumable-icon standard, the design freeze stage, the split-out pve-encounters skill, and the combat-engine map pointers. They are also missing repo scripts and data, and the building skill's doctrine block is pinned to the 2026-08-30 DOCTRINE blob. Six TNR skills exist only on claude.ai. simulating-tnr-combat points at harness/combat_sim/, which exists only on unmerged PR #128 (0 conflicts, open since 2026-11-19). The skill overhaul stopped after P1: P2 (libraries plus ai/ai_line compile) has sat unreviewed on fable/skill-overhaul-p2 since 2026-11-10, its only merge conflict is a generated zip, and main's design.py compile is a stub that always refuses. So the design-to-build pipe the creative-first flow needs is not connected. On the automation side, 57% of main commits since 2026-11-08 are run-lock writes and another 306 are jutsu-engine state writes. state/run_queue.json is hand-edited in 67 commits by no tool. The read-first digest is refreshed by hand about every three weeks. Go cards are hand-formatted. Top moves, in order: (1) make the repo the single source for all 9 TNR skills, merging installed-only text in first, and add a drift check. (2) Merge PR #128 and land P2 so the design -> sim -> compile chain works. (3) Build one batched decision card and a go-card generator. (4) Automate the post-run closeout and the state refresh. (5) Move lock and player churn off main, and make skillpack build only on main.",
+   "notes_file": "docs/reviews/REPO_REVIEW_2026-11-27/evidence/skills-automation.md",
+   "gates_run": [
+    {
+     "command": "python3 skills/building-tnr-content/scripts/render_doctrine.py --check",
+     "exit": "0",
+     "result": "all projections current"
+    },
+    {
+     "command": "python3 skills/building-tnr-content/scripts/doctrinemap.py",
+     "exit": "0",
+     "result": "clean"
+    },
+    {
+     "command": "python3 skills/building-tnr-content/scripts/build_packs.py --check",
+     "exit": "0",
+     "result": "all packs and TOCs current"
+    },
+    {
+     "command": "python3 skills/designing-tnr-content/scripts/design.py --selftest",
+     "exit": "0",
+     "result": "pass"
+    },
+    {
+     "command": "python3 scripts/rulings_index.py --check",
+     "exit": "0",
+     "result": "340 rulings; index current"
+    },
+    {
+     "command": "diff -rq <unzipped dist/*.zip> skills/<name>",
+     "exit": "0 diffs (besides __pycache__)",
+     "result": "dist matches repo skills exactly"
+    },
+    {
+     "command": "diff -rq INST/<skill> skills/<skill> (3 overlapping)",
+     "result": "both directions differ; see notes section 1"
+    },
+    {
+     "command": "git merge-tree --write-tree origin/main origin/{fable/skill-overhaul-p2, fable/art-skill-duelyst, claude/project-thread-f2r8sb}",
+     "result": "p2: 1 conflict (dist/building-tnr-content.zip); duelyst: 1 conflict (docs/RULINGS.md generated index); PR128: 0"
+    },
+    {
+     "command": "gh api repos/perseverance484/tnr-tools/pulls?state=open",
+     "exit": "0",
+     "result": "open PRs: #128 combat_sim, #126 skyglass, #123 CI repair"
+    }
+   ],
+   "findings": [
+    {
+     "id": "SA-01",
+     "title": "Three-way skill drift: installed claude.ai skills and the repo skills/ have each moved on without the other",
+     "evidence": "Installed manifest.json shows building and designing updated 2026-11-22T05:58Z and art 2026-11-22T19:57Z. dist/*.zip, last rebuilt 2026-11-16, matches skills/ exactly. Installed building SKILL.md has a doctrine stamp @17d6a71, which is the docs/DOCTRINE.md blob from bcd3b30ff (2026-08-30). The repo stamp @b614200 is the current blob (2026-11-09), so the installed copy lacks D-user-pushes and D-no-franchise. The installed copy is missing data/45h_DATA_lints.json and the scripts catalog_checks.py, variant_checks.py, pet_checks.py, dungeon_bridge.py, bloodright_bridge.py and build_event_sheet_docx.js, and 25+ files differ. Only installed: the 'Consumable icons: the Shisui standard' section in producing-tnr-art (director rulings 2026-11-22; grep Shisui over skills/ docs/ state/ finds nothing; art/consumables_upgrade/refs/shisui/ is absent), the UploadThing/connector upload path, the designing stage 3F Freeze, and the combat-engine map pointers. A third art version sits on origin/fable/art-skill-duelyst (12 commits, Duelyst library-first, unmerged); the installed copy has 0 Duelyst mentions. Details are in section 1 of the notes file.",
+     "recommendation": "Do one reconciliation commit on a fable/skills-single-source branch. Copy the installed-only text into skills/ first: the Shisui section, the freeze stage, the combat-engine pointers and the UploadThing path. Commit the Shisui reference images under art/consumables_upgrade/refs/shisui/ if the director still has them. Re-render the doctrine blocks (render_doctrine.py --write). Merge or rebase fable/art-skill-duelyst on top so the art skill has one version. After that, the repo is the only place skills are edited.",
+     "action": "merge",
+     "risk": "medium",
+     "effort": "M",
+     "payoff": "Removes the risk of building against 3-month-old doctrine and older contracts (the installed copy lacks the 45h lints). Director rulings from 2026-11-22 stop living only in a claude.ai copy with no version history.",
+     "director_decision": "The Shisui standard and the 2026-11-22 freeze rules exist only in the claude.ai copies. Confirm they should be adopted verbatim into the repo, and supply the nine Shisui reference images if they should be versioned."
+    },
+    {
+     "id": "SA-02",
+     "title": "Six TNR skills exist only on claude.ai; bring them into skills/ with the same packaging",
+     "evidence": "The installed-only TNR skills are designing-tnr-pve-encounters, shipping-tnr-content, simulating-tnr-combat, tnr-jutsu-engine, tnr-pvp-combat and tnr-replay-analysis. Each is a single SKILL.md (110-453 lines) whose scripts are repo paths: forge/tools/mcp_run.mjs, run_lock.mjs, check_manifest.mjs, state/player/dauntless/tools/*.py, docs/combat-engine/*, data/player_allowlist.json. All of these exist on main except harness/combat_sim (see SA-03). tnr-replay-analysis also writes to /mnt/project-files/tnr/<opp>_review/REVIEW.md, a claude.ai project mount rather than a repo path. pack_skills.py already packs every directory under skills/. beo-event-package (Hilton BEO whiteboards) is not TNR.",
+     "recommendation": "Layout: skills/<name>/SKILL.md (+references/, scripts/, data/) for all 9 TNR skills. The player/PvP skills keep calling the scripts under state/player/<account>/tools rather than copying them, so there is one copy of the code. Replace the /mnt/project-files path with a repo path (state/player/<account>/fights/<opp>_review/) or make it explicitly optional. Keep beo-event-package out of the repo. Add a skills/README.md table listing each skill, its owner docs, and the repo scripts it calls. As a separate later change, add a symlink or loader so Claude Code sessions in the repo load skills/ natively (.claude/skills).",
+     "action": "merge",
+     "risk": "low",
+     "effort": "S",
+     "payoff": "All TNR skills get versioning, review, CI gates and diff history. Edits on claude.ai stop silently forking behaviour.",
+     "director_decision": ""
+    },
+    {
+     "id": "SA-03",
+     "title": "simulating-tnr-combat points at a harness that exists only on unmerged PR #128",
+     "evidence": "The installed simulating-tnr-combat SKILL.md says 'The harness lives in harness/combat_sim/' and runs harness/combat_sim/run.sh selftest.ts, a replay gate on scenarios/isonade_replay.json, and tools/pull_live.py and merge_results.py. On main, harness/ holds only ghost_ship_* and pvp_turn. The paths exist only on origin/claude/project-thread-f2r8sb (3 commits, +40,430 lines, 75 files). gh api pulls/128 returns state open, title 'Combat sim harness: run TNR fights offline on the live game code', last updated 2026-11-19. git merge-tree reports 0 conflicts with main. Engine execution was authorized by RUL-2026-11-09-137 decision 1.",
+     "recommendation": "Finish the independent review of PR #128 at its head SHA aef8bf056, which already includes the 'apply the PR 128 review' commit, then merge it. Until it merges, the simulate step of the design flow cannot run from main.",
+     "action": "merge",
+     "risk": "low",
+     "effort": "S",
+     "payoff": "Unblocks the sim step of every design session and the P4 simulator phase, with no merge conflicts.",
+     "director_decision": ""
+    },
+    {
+     "id": "SA-04",
+     "title": "The skill overhaul stalled after P1: P2 has been unreviewed for 17 days and main's design.py compile always refuses",
+     "evidence": "state/prompt_skill_overhaul.md section 8 lists phases P0-P6. P0 (docs/handoffs/skill_overhaul/INVENTORY.md) and P1 (776278878..13d2c2b29, 2026-11-09) are on main. origin/fable/skill-overhaul-p2 is 3 ahead: fa4624aa5 (laws 90/91), 7de246ee9 (libraries rule_pattern/loadout/archetype, library.py, compile for ai/ai_line, 3 worked examples) and 0ad5f7617 (skillpack auto). It touches 22 files (+1671) and its last commit is 2026-11-10. No P2 handoff or review record exists under docs/reviews or docs/handoffs. merge-tree shows the only conflict is dist/building-tnr-content.zip. On main, cmd_compile prints 'compile refused' and returns 3 every time. P3-P6 have no branches. The brief predates the 2026-11-22 freeze and pve-encounters split and the Duelyst art redesign.",
+     "recommendation": "Rebase P2 onto main, dropping the auto dist commit and letting CI rebuild. Write the missing IMPLEMENTATION_HANDOFF and freeze the SHA for ChatGPT review. Before starting P3, amend section 4 of the brief so the architecture shows the skills that now exist: pve-encounters owns fight shape, simulating owns the harness, shipping owns delivery, and the art skill follows the Duelyst redesign rather than a separate animating-tnr-combat skill if that is still the plan.",
+     "action": "fix",
+     "risk": "low",
+     "effort": "M",
+     "payoff": "Connects design sheet -> manifest for AI enemies, the most common content kind, which is the step the creative-first flow depends on.",
+     "director_decision": "Brief section 11 decision 4 created a separate animating-tnr-combat skill. Since then the Duelyst work put battle animation inside producing-tnr-art. Should the separate animation skill (P5) be kept or dropped?"
+    },
+    {
+     "id": "SA-05",
+     "title": "Packaging and sync direction: the repo builds the zips, CI checks for drift, and claude.ai is a downstream copy",
+     "evidence": "skillpack.yml runs on push to any branch touching skills/** and auto-commits dist/*.zip plus 3 root JSON copies. There are 122 'skillpack: rebuild' commits across all refs against 96 on main, so about 26 are noise on feature branches. The only P2 merge conflict is the generated dist zip. README.md says dist/ holds installable zips but documents no step for uploading them to claude.ai. pack_skills.py is deterministic (fixed ZIP_TIME, sorted) with a 2 MiB cap. The installed skillIds (skill_01VchDaS9G7EykSeFBa9EyQ7 and others) carry the 'plugin' source.",
+     "recommendation": "(a) skillpack.yml: on non-main branches, run only the check steps plus a pack-to-tmp size check, and commit dist/ only on main. Better still, publish the zips as a workflow artifact or release asset and untrack dist/ so it can never conflict. (b) Add .github/scripts/skill_drift.py, which compares an exported claude.ai skill folder (the synced directory, when a session has it) against skills/ and prints which side is newer per file; run it at session_open in Claude Code sessions. (c) Sync direction: repo -> zip -> claude.ai upload, which stays a manual director step because no API is verified. Write it in skills/README.md as a 3-line ritual: install from dist/<name>.zip after the skillpack run on main and never edit on claude.ai. Any claude.ai edit is copied back into the repo first. (d) Apply the existing 2 MiB cap to all 9 skills.",
+     "action": "automate",
+     "risk": "low",
+     "effort": "S",
+     "payoff": "Ends dist merge conflicts and branch noise commits, and catches drift mechanically instead of by audit.",
+     "director_decision": "Can claude.ai skill installs be uploaded only from the repo zips, with no direct edits in claude.ai, so the repo stays the single source?"
+    },
+    {
+     "id": "SA-06",
+     "title": "Batch every director question into one decision card per design (design.py decisions)",
+     "evidence": "design.py on main already finds AWAITING_RULING/AUTHOR slots (find_slots) and renders a 'GO? D-x' card per open decision in explain (line ~712; selftest asserts 'explain renders the design doc and a go card per open decision'). That gives one card per decision, not one batch. DIRECTOR_DECISIONS.md section 6 defines the compact Decision/Why/Evidence/Options/Recommendation/Can-defer format. The brief's section 11 decisions 2-3 leave clear-rate targets and reward gaps as open slots. There is no tool that merges sheet slots, sim gaps and publish/rarity questions into one card.",
+     "recommendation": "Add `design.py decisions <sheet> [--sim results.json]`. It emits one numbered card that collects every open slot, every open_decision, each sim metric against target (or 'no target ruled'), and the reward, rarity and publish questions, each in section 6 format with options. The director answers '1A 2B 3: 4500' in one message. `design.py answer` writes the choices into the sheet and drafts the ruling entries (see SA-10). It lives in designing-tnr-content.",
+     "action": "automate",
+     "risk": "low",
+     "effort": "M",
+     "payoff": "Estimated 60-120 director minutes a week saved by replacing scattered single-question round trips with one review per design. This is the core of the creative-first session.",
+     "director_decision": ""
+    },
+    {
+     "id": "SA-07",
+     "title": "Generate go cards from the manifest and gate exits instead of writing them by hand",
+     "evidence": "OPERATING_MODEL.md section 2 defines the go card format (What changes, counts per record kind, Visible to players, Gates: validate --strict / check_manifest / ledger exits, Runner, Chain, Needs you). grep over *.py and *.mjs finds no go-card generator outside design.py's decision cards. Every job on state/run_queue.json (75 rows, 3 ready, 12 waiting) needs one.",
+     "recommendation": "Add `forge/tools/gocard.mjs push/NNN` (or a python twin in the shipping skill). It counts records by kind and op from the manifest, flags whether anything becomes visible (unhide/hidden=false), runs validate.py --strict and check_manifest.mjs and puts in their real exits, reads the run_queue row for the chain and blockers, and prints the card. The 'Needs you' line is pulled from the design sheet's open slots. It lives in shipping-tnr-content.",
+     "action": "automate",
+     "risk": "low",
+     "effort": "S",
+     "payoff": "Estimated 30-60 director minutes a week saved. Cards become uniform and their gate exits cannot be misreported.",
+     "director_decision": ""
+    },
+    {
+     "id": "SA-08",
+     "title": "Chain the post-run closeout (bundle, verify, run_queue row, one-line outcome)",
+     "evidence": "OPERATING_MODEL.md section 2 says that after a run 'the runner commits the results bundle, updates state/run_queue.json, and replies with the outcome in one line'. mcp_run.mjs writes bundles only to harvests/inbox (line 72). harvest.py has `verify results_bundle.json` (exit 1 on FAIL/UNVERIFIED). No code writes state/run_queue.json (grep finds 0 writers), and it was hand-edited in 67 commits since 2026-11-08. There were 16 'results:' and 9 'harvest:' commits in the same window.",
+     "recommendation": "Add `forge/tools/closeout.mjs --bundle <path> --job NNN` (or a --closeout flag on mcp_run). It runs harvest.py verify, marks the run_queue row done or failed with the bundle path and verdict, writes the commit (bundle plus queue row), and prints the one-line outcome. A run_queue schema lint also goes into CI. It lives in shipping-tnr-content.",
+     "action": "automate",
+     "risk": "medium",
+     "effort": "M",
+     "payoff": "Estimated 30-45 minutes a week saved. The queue state stops depending on hand edits, which are the source of stale-board drift.",
+     "director_decision": ""
+    },
+    {
+     "id": "SA-09",
+     "title": "The read-first state digest goes stale for weeks; regenerate it on a schedule",
+     "evidence": "state/active-context.md, status.json and digest.json were last changed 2026-11-09, in a commit titled 'refresh the read-first digest (stale since 2026-10-17)'. That is two manual refreshes about 3 weeks apart, and the current copy is 18 days old. state/run_queue.json was updated today (2026-11-27, job 632). session_close.py only projects digest.json, which is itself hand-edited.",
+     "recommendation": "Add scripts/state_refresh.py to build digest.json from run_queue.json (ready, waiting, parked), open PRs (REST), the last 5 rulings (rulings index), sentinel drift, and the newest results bundles. It then calls session_close.py to project active-context/status. Run it in a daily scheduled workflow, alongside the existing regen_schemas cron, that commits only when content changes. Keep a hand-written 'focus' field that the director or agent sets.",
+     "action": "automate",
+     "risk": "low",
+     "effort": "S",
+     "payoff": "Estimated 20-30 minutes a week saved for the director and every agent session, and sessions stop orienting on stale state.",
+     "director_decision": ""
+    },
+    {
+     "id": "SA-10",
+     "title": "Rulings entry and implementation handoff are hand-assembled; add generators",
+     "evidence": "35 commits touched docs/rulings/ and 79 touched docs/reviews or docs/handoffs since 2026-11-08. Rulings sequence numbers were reused across dates (127, 136, 137, 138, 139, 148 and 149 each appear twice). 165 is taken on the unmerged duelyst branch and skipped on main, which is why that branch conflicts in the generated docs/RULINGS.md. rulings_index.py --check passes because full ids differ by date. IMPLEMENTATION_HANDOFF.md section 2 lists mechanical fields (base and head SHA, changed files, gates and exits).",
+     "recommendation": "(a) `rulings_index.py new --title ... --date ...` allocates the next sequence number from main plus open branches and writes a stub. --check warns on reused sequence numbers. (b) `scripts/handoff.py --base X --head Y --gates gates.txt` fills the mechanical handoff fields (diffstat, generated artifacts touched, gate commands and exits), leaving debt and open decisions for the agent to write.",
+     "action": "automate",
+     "risk": "low",
+     "effort": "S",
+     "payoff": "Fewer id collisions and generated-index conflicts, and faster Lane A handoffs. Mostly agent time, about 10 director minutes a week.",
+     "director_decision": ""
+    },
+    {
+     "id": "SA-11",
+     "title": "Run-lock and jutsu-engine churn is 70% of main's history; move it to a dedicated branch",
+     "evidence": "Since 2026-11-08, about 1316 of 2309 main commits are 'run-lock: claim/heartbeat/release'. Another 306 commits ('player: jutsu engine' 178, 'jutsu training refill' 117) all touch state/player/dauntless/jutsu_training.md. forge/tools/run_lock.mjs already reads RUN_LOCK_BRANCH (default main). player/runlock.py, player/tests/test_runlock.py, the browser Forge core.mjs contents-API CAS and docs/workflows/FORGE_MCP_RUNNER.md hard-code main. RUL-2026-11-07-133 places the lock on main.",
+     "recommendation": "Move state/run_lock.json and the automated player state to a dedicated `ops` branch, which is the separate branch the director suggested. Steps: set the RUN_LOCK_BRANCH default to ops; add a ref parameter to the core.mjs contents-API reads and writes and to player/runlock.py; update the skills that cite 'lock on main' (shipping, jutsu-engine, pvp). This is Lane A work with its own audited plan per CLAUDE.md section 4. The lock is a mutation path for live state, so it needs the full test suite (player/tests/test_runlock.py, forge tests).",
+     "action": "decide",
+     "risk": "medium",
+     "effort": "M",
+     "payoff": "main history becomes readable (about 1600 fewer commits per 3 weeks), branch divergence counts become meaningful, and rebases stop racing lock writes.",
+     "director_decision": "RUL-2026-11-07-133 puts the run lock on main. Should it be amended so the lock and the hourly jutsu-engine state live on a dedicated 'ops' branch?"
+    },
+    {
+     "id": "SA-12",
+     "title": "Creative-first design session: which skill or tool owns each step",
+     "evidence": "Pieces that exist on main: design.py new/check/explain (designing-tnr-content), factory/mission/enemy + validate --strict (building-tnr-content), check_manifest.mjs and mcp_run.mjs (shipping), and the installed pve-encounters and simulating skill text. Missing: compile (stub, SA-04), the harness (SA-03), the batched decision card (SA-06), go-card generation (SA-07) and closeout (SA-08). The repo has no .claude/settings.json or hooks (only .claude/agents/tnr-relay.md). Full flow diagram is in section 7 of the notes file.",
+     "recommendation": "Flow: (1) The director gives a one-paragraph idea -> designing-tnr-content runs `design.py new --kind K` and auto-fills the brief and hard-limit checklist, and offers 2-3 concepts (the only creative stop). (2) The design sheet runs through design.py check with the P2 libraries, then the freeze card. (3) For bosses and fights, designing-tnr-pve-encounters sets the shape and budget. (4) simulating-tnr-combat runs harness/combat_sim and reports measured rates. (5) `design.py compile` produces the manifest via building-tnr-content, which runs validate --strict and check_manifest. (6) producing-tnr-art takes the art slots. (7) `design.py decisions` emits ONE decision card combining design, sim, reward, rarity and publish questions. (8) The director answers in one message; `design.py answer` fills the sheet and drafts rulings; recompile. (9) shipping-tnr-content `gocard` -> 'go' -> mcp_run -> closeout. Hooks in the repo's .claude/settings.json: a SessionStart hook runs session_open.py and the skill drift check; a Stop hook runs session_close.py and the run_queue lint. A PreToolUse guard on TNR connector write procedures refuses without a held run-lock token, which reinforces the CLAUDE.md section 6 gates. The guard settings themselves are a director/config decision and should not be added by an agent unasked.",
+     "action": "automate",
+     "risk": "low",
+     "effort": "L",
+     "payoff": "Leaves the director 2-3 touchpoints per piece of content (idea and concept pick, one decision card, go) instead of many scattered ones. Everything mechanical runs through skills and tools.",
+     "director_decision": "Approve the three-touchpoint session shape (concept pick, one decision card, go). Also approve adding repo-level Claude Code hooks (SessionStart drift check, Stop closeout, PreToolUse run-lock guard on connector writes)."
+    }
+   ]
+  },
+  {
+   "area": "Run lock and player telemetry off main",
+   "summary": "Since 2026-11-08, 1316 of the 2309 commits on origin/main touch only state/run_lock.json. About 300 more (\"player: jutsu engine\" and \"jutsu training refill\") rewrite only state/player/dauntless/jutsu_training.md, and more come from fight logs pushed by player/keep.py and from dauntless session/playbook commits. Over the last 8 days that is 85-90% of the 70-106 commits per day. The packed size is small (state/player 1.4 MB, run_lock.json 0.1 MB). The real costs are a history nobody can read, every main push competing with lock heartbeats, and three CI workflows with no branch or path filter running on every lock push. The lock code is easy to move. forge/tools/run_lock.mjs already reads RUN_LOCK_BRANCH, and player/keep.py already reads KEEP_BRANCH. The safety check (a write only succeeds against the version just read: a fast-forward push from the CLI, a blob-sha-checked contents-API PUT from the browser) works the same on any branch. Only the browser Forge has main hard-coded (forge/src/github.mjs GH.branch, used by readExact/writeExact). No raw.githubusercontent or release_pin reader touches the lock or the telemetry. I recommend option (a), but as two dedicated branches: ops/run-lock (only the lock file, so only real lock writers compete) and ops/player-log (append-only telemetry). Option (b), a ref outside branches, would force the browser onto the 4-call Git Data API, it is unverified that GitHub accepts such refs, and the director could not see it in the UI. Option (c), Issues/Gist, has no conditional write, so it loses the lock's safety. Cutover must be fail-closed: claim the main lock to block everyone, create ops/run-lock, merge the code, then leave a permanent 'held by moved' tombstone on main so old bundles and checkouts refuse instead of claiming. Never delete the main file, because old code reads a missing file as a free lock. RUL-2026-11-07-133 says in so many words that the lock is on main, so the director has to approve amending that ruling.",
+   "findings": [
+    {
+     "id": "RL-01",
+     "title": "Move the run lock to a dedicated branch ops/run-lock (recommended: option a)",
+     "evidence": "git log origin/main --since=2026-11-08 -- state/run_lock.json | wc -l = 1316 of 2309. Last 8 days: 11-21 105 commits/67 run-lock, 11-24 78/64, 11-27 74/53. forge/tools/run_lock.mjs:29-31 already has RUN_LOCK_REPO / RUN_LOCK_REMOTE / RUN_LOCK_BRANCH (default 'main'). Each write is one commit built in a private index and pushed as a plain fast-forward with 4 retries (lines 41-74). mcp_run.mjs:46 and player/runlock.py:45-74 both go through this tool, so one default change moves every CLI runner (Claude, player brain, jutsu engine, pvp, shipping skill). Options compared: (b) a ref outside refs/heads (e.g. refs/tnr/lock): the CLI push might work (not verified that GitHub accepts it), but the browser cannot write it with the contents API and would need blob+tree+commit+PATCH ref force=false (4 calls, a bigger bundle; not verified that the refs API accepts custom namespaces), and the GitHub UI does not show it. (c) Issues/Gist: the API has no conditional write, so two claimers could both win; this breaks the RUL-133 safety. An external store with conditional writes (D1/Durable Object) adds infrastructure and a second browser credential. Rejected.",
+     "recommendation": "Adopt option (a). Branch ops/run-lock is created as an orphan holding only state/run_lock.json. Code changes: run_lock.mjs BRANCH default becomes 'ops/run-lock'; if the branch is missing, the tool refuses (fail closed) instead of creating it. The browser Forge gets a lockBranch (RL-03). Tests keep using RUN_LOCK_REPO plus a branch override. Docs updated (RL-08). The safety check is unchanged: the CLI's fast-forward push on a branch with only lock commits is a check on the lock file itself, and the browser's blob-sha PUT works the same on any branch. Lane A work on a fable/* branch with ChatGPT review, since this is a mutation path that guards the live game.",
+     "action": "fix",
+     "risk": "medium",
+     "effort": "M",
+     "payoff": "About 57% of main's commits since 11-08 leave main, so main's log is readable again. Lock heartbeats no longer compete with real work pushes (and the reverse), which removes a latent lost-lease and stopped-sends risk. Roughly 3 CI runs per lock write stop (RL-07).",
+     "director_decision": "Approve moving the run lock from main to a dedicated branch named ops/run-lock (RUL-2026-11-07-133 item 2 currently says 'state/run_lock.json on main'), recorded as a new ruling that amends 133?"
+    },
+    {
+     "id": "RL-02",
+     "title": "Keep the lock and the telemetry on separate branches; a shared ops branch would bring back the contention",
+     "evidence": "run_lock.mjs attempt() (lines 64-74): any push to the target branch between fetch and push makes the lock write fail its fast-forward check and retry, with at most 4 attempts, then 'could not push the lock'. player/runlock.py _renew(): if a heartbeat push fails, the lease simply runs out ('the push failed: the lease runs out by itself'), and sends stop at STOP_MARGIN. keep.py (lines 79-92) uses the same fast-forward push. If fight logs and the hourly jutsu log share a branch with the lock, every telemetry push competes with heartbeats. I found no recorded contention failure (grep for 'could not push the lock after' / 'non-fast-forward' in state/, docs/, player/ came back empty), so this is a design risk, not an observed incident.",
+     "recommendation": "Use two branches: ops/run-lock (written only by run_lock.mjs and the Forge lockStore) and ops/player-log (keep.py, the jutsu engine log, session logs). The only commits on the lock branch then come from real lock writers.",
+     "action": "fix",
+     "risk": "low",
+     "effort": "S",
+     "payoff": "The lock's renewal path only competes with other lock writers, so a heartbeat cannot fail because of an unrelated push.",
+     "director_decision": ""
+    },
+    {
+     "id": "RL-03",
+     "title": "Browser Forge has main hard-coded for the lock; needs a lockBranch, a bundle rebuild and a userscript reload",
+     "evidence": "forge/src/github.mjs:7 GH = {branch: 'main', ...}. readExact (line 80) calls gh._url(path), which defaults ref to cfg.branch. writeExact (line 91) sends body.branch = gh.cfg.branch. forge/src/core/core.mjs:70-73 lockStore uses readExact/writeExact(LOCK_PATH). _url(path, ref) already accepts a ref, so the change is small. The bundle budget is checked (RUL-2026-11-07-134, forge/tools/check_bundle_budget.mjs). release_pin.yml re-pins on a forge_bundle.js push to main. Duet runs browser Forge for image jobs (RUL-2026-11-07-135). The results-bundle PUT to harvests/inbox (Github.put) must stay on main because answers.yml triggers on harvests/**.",
+     "recommendation": "Add GH.lockBranch = 'ops/run-lock'. readExact/writeExact get a branch argument, used only by core.mjs lockStore. Github.put and list keep main. Extend forge/test/github.cors.test.mjs and core tests to assert the lock calls use ?ref=ops/run-lock and body.branch=ops/run-lock, and that harvest PUTs still target main. Rebuild the bundle, run the budget check, let release_pin pin it, and ask the director/Duet to reload the userscript before step 5 of RL-04.",
+     "action": "fix",
+     "risk": "medium",
+     "effort": "S",
+     "payoff": "The browser runner joins the same lock as the CLI runners. Without this, the move would split the lock in two and allow two writers on the account at once.",
+     "director_decision": ""
+    },
+    {
+     "id": "RL-04",
+     "title": "Cutover must be fail-closed: tombstone main's lock, never delete it",
+     "evidence": "forge/src/runner/runlock.mjs parseLock: 'Missing or empty text is a free lock'. So if main's file were deleted, any old checkout or cached old bundle would claim on main while new code claims on ops: two writers, a mutation overrun, and the 1% money/bank fine in RUL-133. lockState() treats any token with a future expiresAt as held, and claimDecision refuses ('held by <holder> (<job>)'). parseLock places no upper bound on expiresAt. checkTtl caps tool claims at 240 min, so the tombstone needs a one-off checked commit (same commitLock path). Today's main lock (state/run_lock.json) is held by player, 'dauntless war pilot', until 2026-11-27T21:22Z, so the cutover must wait for a free lock.",
+     "recommendation": "Order: (1) wait for the lock to be free, then `run_lock.mjs claim --holder migration --job 'move lock to ops/run-lock' --ttl 240` on main, which proves it is free and blocks every old client. (2) Create orphan ops/run-lock whose run_lock.json is a release body (releasedAt=now, so the 65 s quiet period still applies). (3) Merge the RL-01/03 PR; release_pin re-pins; director reloads. (4) Use the migration token to replace main's lock with a permanent tombstone {holder:'moved', job:'run lock moved to ops/run-lock (RUL-...)', token, expiresAt:'2099-...'}. Old code then refuses with a readable reason. Rollback: revert the PR (or RUN_LOCK_BRANCH=main) and release the tombstone with its token, which is visible in the file. Ship this sequence as a scripted step (e.g. forge/tools/run_lock.mjs migrate) tested against local bare repos, like runlock.test.mjs, rather than as hand steps.",
+     "action": "fix",
+     "risk": "high",
+     "effort": "M",
+     "payoff": "There is no window in which two runners can each believe they hold the lock, and rollback is one revert plus one release.",
+     "director_decision": "Schedule the cutover window: all runners (player brain, jutsu engine schedule, Duet, browser Forge) idle for about 15 minutes while the lock moves; director go for that window."
+    },
+    {
+     "id": "RL-05",
+     "title": "Fight logs: point keep.py at ops/player-log and decouple 'where fights are read' from 'rehearsal'",
+     "evidence": "player/keep.py:24-26 has KEEP_BRANCH (default main) and only accepts paths under state/player/<acct>/fights/ (line 46). combat.py:360-361 spawns `python -m player.keep BID` when C.keeps_fights(). player/config.py fights_dir() honours TNR_PLAYER_FIGHTS, but keeps_fights() returns False whenever TNR_PLAYER_FIGHTS or TNR_PLAYER_LIVE is set, because it treats that as a rehearsal. So redirecting the fights folder to an ops worktree would silently stop keeping fights. 79 files in fights/ (1.4 MB). .gitignore already excludes state/player/*/live/ and fights/live/.",
+     "recommendation": "Change KEEP_BRANCH to default 'ops/player-log'. Add a separate TNR_PLAYER_REHEARSAL (or TNR_PLAYER_KEEP=0, which already exists) as the only rehearsal signal, and keep the fights path override out of that decision. After migration, add state/player/*/fights/ (except a README) to main's .gitignore so local writes cannot leak onto main. Update player/tests (test_runlock.py, test_hook_relay.py, the keep tests) to use a bare-repo branch named ops/player-log.",
+     "action": "fix",
+     "risk": "low",
+     "effort": "S",
+     "payoff": "Fight logs still outlive the container (finding F8 from AP test 2026-11-16) without adding a commit to main for each fight.",
+     "director_decision": ""
+    },
+    {
+     "id": "RL-06",
+     "title": "Split jutsu_training.md: director-edited rules and targets stay on main, the hourly log moves to ops/player-log",
+     "evidence": "The 295 commits from 'player: jutsu engine' (178) and 'jutsu training refill' (117) each touch only state/player/dauntless/jutsu_training.md (590 lines, 184 KB; headings: Rules l.8, Director l.24, Limits l.33, Donor jutsu l.43, Training targets l.59, Cost l.146, Queue log l.150, so about 440 lines are log). The engine is the claude.ai-synced skill tnr-jutsu-engine (not in the repo). SKILL.md:16 claims the lock with --ttl 15; SKILL.md:52 says 'Commit \"player: jutsu engine\", push to main'. That makes 3 main commits per hourly pass: claim, log, release.",
+     "recommendation": "Keep jutsu_training.md on main as the curated rules/targets/refusals file. Move the Queue log and the running 'Owned already at 25' / 'Donor jutsu' lists to ops/player-log as state/player/dauntless/jutsu_log.md. Give the engine a small committed helper (e.g. `python3 -m player.oplog append jutsu_log.md ROW`) that reuses keep.py's private-index push to ops/player-log, so the skill no longer hand-commits. Move the skill text into the repo (the user's answer 5 allows it) and change line 52 to use the helper. Main then gets 0 commits per hourly pass instead of 3 (the lock writes go to ops/run-lock).",
+     "action": "automate",
+     "risk": "low",
+     "effort": "M",
+     "payoff": "About 300 main commits per 3 weeks removed. Director edits to targets no longer get buried under hourly diffs of the same file. The engine's commit becomes deterministic code instead of agent prose.",
+     "director_decision": ""
+    },
+    {
+     "id": "RL-07",
+     "title": "Three unfiltered push workflows run on every lock/telemetry push; filter them for ops/*",
+     "evidence": ".github/workflows/scrub.yml `on: [push]`, large-files.yml and no-real-name.yml `on: [push, pull_request]`, none with a branch or path filter. no-real-name checks out with fetch-depth 0 + filter blob:none on every run. 1316 lock pushes x 3 is about 3.9k runs since 11-08 (estimated from commit counts; Actions history not queried). Moving to new branches does not stop these runs: push events fire on any branch.",
+     "recommendation": "For ops/run-lock: add `branches-ignore: ['ops/run-lock']` to large-files and no-real-name. Keep scrub (a cheap grep) on it, since --job text is free-form agent input. For ops/player-log: keep all three privacy/size gates, because fight logs and session notes are agent-written prose. Do not add any workflow that commits to ops/*.",
+     "action": "fix",
+     "risk": "low",
+     "effort": "S",
+     "payoff": "Thousands of trivial CI runs stop, so the Actions list shows real signal again; privacy gates still cover telemetry.",
+     "director_decision": ""
+    },
+    {
+     "id": "RL-08",
+     "title": "'Lock is on main' is written into the ruling, three workflow docs, three synced skills and several prompts",
+     "evidence": "RUL-2026-11-07-133 item 2: 'The lock is state/run_lock.json on main'. docs/workflows/FORGE_MCP_RUNNER.md:34-42 (canonical destination), OPERATING_MODEL.md:18, player/OPERATOR.md:75-94 ('push to main ... one commit a write'), player/runlock.py docstring line 3, forge/src/runner/runlock.mjs header line 6, run_lock.mjs header lines 2 and 15. Synced skills: shipping-tnr-content SKILL.md:64-66, tnr-pvp-combat SKILL.md:15, tnr-jutsu-engine SKILL.md:16,52. Also state/prompt_skyglass_e2e_run.md, prompt_rengoku_624_626.md, prompt_white_tiger_627_629.md, prompt_strip_recut_630.md, prompt_skyglass_handtest_20261113.md.",
+     "recommendation": "Per CLAUDE.md section 7, change the canonical owner once: a new ruling amending 133 plus FORGE_MCP_RUNNER.md 'The run lock'. Elsewhere, replace 'on main' with a pointer ('see FORGE_MCP_RUNNER.md, The run lock') instead of restating the branch. The skills call the CLI and never name the branch, so they only need their 'push to main' lines fixed. Leave historical prompts and reviews as they are; they are records. Teach `run_lock.mjs status` to print the branch it read from so agents can check it.",
+     "action": "fix",
+     "risk": "low",
+     "effort": "S",
+     "payoff": "There is one place to change if the lock ever moves again; agents cannot follow stale 'main' prose into a split lock.",
+     "director_decision": ""
+    },
+    {
+     "id": "RL-09",
+     "title": "Readers of moved telemetry need a one-command local view of ops/player-log",
+     "evidence": "tnr-replay-analysis SKILL.md:19,32 and tnr-pvp-combat SKILL.md:444-451 read and write fights/, sessions/ and the playbook relative to a main checkout. state/player/dauntless/tools/* use ../fights paths. No raw.githubusercontent reader of state/player was found (grep over *.js/*.mjs/*.py/*.yml), so no hosted reader breaks; only local tooling does.",
+     "recommendation": "Add a committed helper (e.g. `python3 scripts/ops_view.py`) that runs `git fetch origin ops/player-log` and `git worktree add .ops/player-log origin/ops/player-log` (.ops/ gitignored on main), and a TNR_OPS_DIR that player/config.py and the dauntless tools use to read past fights. New fights are still written locally first, then pushed by keep.py. Update the two skills to call the helper.",
+     "action": "automate",
+     "risk": "low",
+     "effort": "S",
+     "payoff": "Replay and pilot work can still see every fight after the move without anyone learning branch commands.",
+     "director_decision": ""
+    },
+    {
+     "id": "RL-10",
+     "title": "What stays on main versus what moves (state/player inventory)",
+     "evidence": "Commit-path census of 'dauntless'/'pilot' commits: sessions/2026-11-10.md 31, tools/policy_weights.json 24, pvp_playbook.md 24, tools/train_log.jsonl 19, tools/pilot.py 16 (+21 from pilot commits), policy.py 15, turn.py 12, rules_config.json 10. Sizes: fights 1.4M, tools 1.3M, jutsu_training.md 184K, sessions 76K, pvp_playbook 48K. Full list in notes file.",
+     "recommendation": "Move: state/run_lock.json (to ops/run-lock); fights/**, sessions/*.md, tools/train_log.jsonl, target_cooldowns.md (24 h ephemeral), and the jutsu Queue log (to ops/player-log). Stay on main: player/** code and tests, state/player/<acct>/tools/*.py and tests, PILOT.md, pvp_playbook.md, pvp_rotations.md, combat_rules.md, do_not_attack.md (a safety list; keep it versioned on the baseline), hunt_roster.md, ryo_plan.md, medical_answers.md, the jutsu rules/targets, tools/policy_weights.json (read by policy.py at runtime; low churn), state/run_queue.json, harvests/inbox results. Leave existing history on main; do not rewrite.",
+     "action": "decide",
+     "risk": "low",
+     "effort": "S",
+     "payoff": "Only what the brain or director curates stays versioned with the code. Notes file: docs/reviews/REPO_REVIEW_2026-11-27/evidence/runlock-telemetry.md",
+     "director_decision": "Confirm the split: should pvp_playbook.md and do_not_attack.md stay on main (curated, gated edits), while session logs, fight logs, target cooldowns and the jutsu queue log move to ops/player-log?"
+    },
+    {
+     "id": "RL-11",
+     "title": "Ops branches need protection from branch pruning and history-rewrite tooling",
+     "evidence": "Census: docs/reviews/BRANCH_PRUNE_2026-11-08.md lists deletions that were never executed, and other auditors are proposing bulk prunes. A history rewrite happened on 2026-11-09 (RUL-2026-11-09-144). CLAUDE.md section 4 defines only fable/*, chatgpt/* and grandfathered prefixes. A deleted or reset ops/run-lock would make the new CLI refuse (fail closed, per RL-01), which is safe but would stall every runner.",
+     "recommendation": "Register the ops/* prefix in docs/DEVELOPMENT_WORKFLOW.md: machine-written, never reviewed or merged into main, excluded from prune lists and rewrites, never force-pushed except a director-approved squash. If branch protection is added, allow direct pushes from the token the CLI and browser use. Branch-protection settings were not verified (no API call made).",
+     "action": "fix",
+     "risk": "medium",
+     "effort": "S",
+     "payoff": "Cleanup work cannot accidentally break the lock.",
+     "director_decision": ""
+    },
+    {
+     "id": "RL-12",
+     "title": "Keep the lock core as is; it moves without redesign",
+     "evidence": "forge/src/runner/runlock.mjs is pure (no git, no fetch). It has a per-claim token, a 65 s quiet period, a 60 s stop margin and a Lease. The CLI wraps it with a private-index fast-forward push; the browser wraps it with blob-sha PUT (409/422 means conflict). Tests exist: forge/test/runlock.test.mjs (spawns the tool with RUN_LOCK_REPO on local repos) and player/tests/test_runlock.py. Note: claim tokens are committed in the file (e.g. current token 999dc4bb...). They protect against accidental collisions between cooperating runners, not against a hostile writer. That is unchanged by the move and acceptable for a single-account workflow.",
+     "recommendation": "Do not redesign the lock. Change only the branch and the tooling around it (RL-01..04). Add one test per wrapper that asserts the configured branch is used and that a missing branch is refused.",
+     "action": "keep",
+     "risk": "low",
+     "effort": "S",
+     "payoff": "The move stays a narrow Lane A change that is easy to review.",
+     "director_decision": ""
+    }
+   ],
+   "gates_run": [
+    {
+     "command": "git log origin/main --since=2026-11-08 --format=%H -- state/run_lock.json | wc -l ; git log origin/main --since=2026-11-08 --format=%H | wc -l",
+     "exit": "0",
+     "result": "1316 / 2309"
+    },
+    {
+     "command": "git log origin/main --since=2026-11-08 --format=%s | (normalise digits) | sort | uniq -c",
+     "exit": "0",
+     "result": "release by player 353, heartbeat by player 246, claim by player (jutsu engine) 179, player: jutsu engine 178, player: jutsu training refill 117, ..."
+    },
+    {
+     "command": "per-pattern git show --name-only census for 'player: jutsu engine', 'dauntless', 'pilot', 'fight log'",
+     "exit": "0",
+     "result": "jutsu commits touch only jutsu_training.md; dauntless commits touch sessions, policy_weights, playbook, train_log, tools code"
+    },
+    {
+     "command": "git rev-list --objects origin/main -- <path> | git cat-file --batch-check (sizes)",
+     "exit": "0",
+     "result": "jutsu_training.md 314 blobs 25.6MB raw/0.1MB packed; run_lock.json 1390 blobs/0.1MB; state/player 996 blobs 40.2MB raw/1.4MB packed"
+    },
+    {
+     "command": "grep raw.githubusercontent|api.github.com/repos over *.js,*.mjs,*.py,*.yml,*.json",
+     "exit": "0",
+     "result": "No reader of run_lock.json or state/player via raw URLs; only forge/src/github.mjs (contents API) touches the lock from a browser"
+    },
+    {
+     "command": "grep -rn 'could not push the lock after|non-fast-forward' state docs player",
+     "exit": "1",
+     "result": "no recorded contention incidents"
+    }
+   ],
+   "notes_file": "docs/reviews/REPO_REVIEW_2026-11-27/evidence/runlock-telemetry.md"
+  }
+ ],
+ "critic": {
+  "verdicts": [
+   {
+    "id": "BR-01",
+    "verdict": "confirmed",
+    "reason": "Confirmed. main's run_queue ends at 632 (75 rows). tnr_results_1795042700128.json (g9d6ix), _1794032564463.json (quest-cleanup-2026-11-07, the deletes bundle) and _1795031980477.json (bxzz52) all exist on their branches and are missing from origin/main. Doing it as a harvest commit rather than whole-branch merges is right. Three caveats. (a) A push that touches harvests/** triggers answers.yml (contents:write), which commits a regenerate to main, and large-files.yml (5 MB cap). None of the sampled branch bundles are over 3 MB, but check them all. (b) Push numbers collide (627/631/632/640/641), so renaming collided manifests is required, not optional. (c) The no-real-name and scrub gates will run on the harvest commit, so pre-run scripts/check_no_real_name.py locally."
+   },
+   {
+    "id": "BR-03",
+    "verdict": "confirmed",
+    "reason": "The dangling reference is verified: origin/main docs/rulings/2026-10.md:2211 cites RUL-2026-10-16-010, and that id appears nowhere else in main's rulings. The proposed decide flow (pre-sort, then fresh ids with 'formerly') fits CLAUDE.md s10. The title-prefix caveat stands, so Fable's pre-sort should also diff the bodies."
+   },
+   {
+    "id": "BR-05",
+    "verdict": "confirmed",
+    "reason": "Confirmed with gh api: delete_branch_on_merge is false and the repo is public. The open PR heads (#123 fable/ci-repair-20261114, #126 claude/skyglass-update-6b5pk3, #128 claude/project-thread-f2r8sb) are class C, so the merged/A sets do not include them. One trap: origin/builder-app IS an ancestor of main, so a scripted 'delete all merged' sweep would remove it. The CLAUDE.md s4 grandfather exclusion has to be in the script, not only in the prose. A branch that is 'contained in another branch' may be deleted only after its container has been tagged or confirmed kept. BR-10 and BR-11 delete some containers, so run the tag step before any delete in the combined plan."
+   },
+   {
+    "id": "BR-10",
+    "verdict": "needs-change",
+    "reason": "The chain tip is confirmed: itojinsei-blackwire-finalization-20261018 is 216 commits ahead. Tagging tips and then deleting is safe only if every one of the 72 rows is contained in a tagged tip. The plan says 'about 10 tags cover the 72', but no check enumerates that. Require a scripted proof (for each deleted branch, `git merge-base --is-ancestor` against some archive tag) before deleting. Also say whether the tags are pushed to the public remote, which they would be."
+   },
+   {
+    "id": "BR-11",
+    "verdict": "needs-change",
+    "reason": "The evidence is partly wrong. chatgpt/forge-quest-studio-source-push-temp{,2} change 47 files (+15,354 lines: 23 docs/design files, dist, state/prompt_forge_quest_studio_foundation.md), and forge-next-planning-workspace-temp{,2} change 21 files of docs/design and state. They are not '.github/workflows or .tmp only'. Their content is contained in chatgpt/forge-quest-studio-final-fix, forge-quest-studio-foundation and forge-next-planning, and the temp pairs contain each other. They can be deleted only after those containers are tagged or kept. Confirmed as safe: opc-art-final-validation-20260927 (one workflow file) and fable/rewrite-probe (empty diff)."
+   },
+   {
+    "id": "LA-05",
+    "verdict": "confirmed",
+    "reason": "origin/main..bxzz52 is exactly bf06a284f (livePatch zeroInstantResidual) and 75e7681d3 (harvest 640/641). zeroInstantResidual is in forge/src/runner/livepatch.mjs on the branch and nowhere in forge on main. mcp_run.mjs line 36 imports ../src/main.mjs, so it runs unreviewed source. Whether the director gave a go cannot be verified, so this correctly stays a director decision."
+   },
+   {
+    "id": "LA-10",
+    "verdict": "confirmed",
+    "reason": "relay.yml is workflow_dispatch-only with contents:write, has no test step, and nothing in code or workflows invokes it. docs/DEVELOPMENT_WORKFLOW.md:64 lists 'release/pin/relay workflows' and should be updated in the same commit, along with the historical handoff mentions (leave those). player/relay.py and .claude/agents/tnr-relay.md are unrelated and must stay."
+   },
+   {
+    "id": "LA-11",
+    "verdict": "needs-change",
+    "reason": "The harness/ghost_ship_* paths are cited by docs/rulings/2026-10.md (rulings are historical and should not be rewritten), by about 12 docs/handoffs and docs/reviews files, by the generator fields in state/ghost_ship_legacy_jutsu_baseline_push86.json and consumer_audit.json, and by the notes in push/86, 91 and 92. Moving the folders breaks every one of those citations, and LB-09 stage 2 couples 37 state/ghost_ship_* files to them. Either leave a redirect README at harness/ghost_ship_*/ (or a harness/ARCHIVED.md map), or move them together with the state files in one commit and accept the broken historical links. Do not do LA-11 independently of LB-09."
+   },
+   {
+    "id": "LA-12",
+    "verdict": "confirmed",
+    "reason": "origin/main has no harness/combat_sim, and PR #128 (head claude/project-thread-f2r8sb) is open. Merging must go through Lane A independent review of the exact head SHA (CLAUDE.md s11-12), not a straight merge. Engine execution is authorized by RUL-2026-11-09-137 per the auditor (not re-verified)."
+   },
+   {
+    "id": "LB-09",
+    "verdict": "needs-change",
+    "reason": "The 'no code refs' claim is wrong for several entries. state/skyglass_thread_boards_v2.json and v3.json are read by json.load in push/skyglass_visuals.py:19-20 (and the Skyglass event still runs weekly). The state/moe_etch* names appear in push/mother_of_echoes.gen.py and 605/607 generators, which LB-10 wants to keep as recurring. rengoku/white_tiger/recut_upload are referenced by push/624-630 gen.py files. state/schema_adoption_ledger_3314d122.json is the ledger for the CURRENT contract pin, cited by docs/BUILDER_APP_NOTES.md:945, which forge code cites. It is also the --check target of scripts/schema_adoption_ledger.py, so moving it is a contract-provenance change, not a doc tidy. The truly unreferenced Aug-2026 files (tenth_name_*, prose_pass_*, thread_init_*, wiring_*, bg_wiring_*, push16_misroute, prompt_report_clerk, prompt_three_rounds_survivor) are safe. Before any git mv, re-run the reference scan over push/*.py and scripts/*.py, not only forge/harness."
+   },
+   {
+    "id": "LB-10",
+    "verdict": "needs-change",
+    "reason": "The exclusion list (00, 02, 03, 47, 74, 90, 101) is far from complete. A scan of the 214 RAN-ok names against code and state found many more live references. push/skyglass_final_art2.gen.py:268 does jload('push/342_skyglass_library.json'). Other skyglass_*.gen.py generators read 344, 356-372 and 383-420. scripts/jutsu_art.py names 66-73 (not only 74). scripts/skyglass_check.py uses 319. About 30 state/validate_exceptions/*.json ledgers are keyed by their 'manifest': 'push/NNN...' path. state/run_queue.json cites 509-630. Moving these breaks recurring generators and validate exception lookup. The manifests are also in conflict with LA-11/LB-09: push/344 and 358-366 are coupled to the ghost_ship harness. Rework the list as 'RAN-ok AND no reference from any .py/.mjs/.json outside harvests', and either update the validate_exceptions paths in the same commit or exclude those entries."
+   },
+   {
+    "id": "LB-15",
+    "verdict": "confirmed",
+    "reason": "Low risk if the 4 duet/moe-uploadthing bundles land first. Note that push/skyglass_thread.gen.py:236 and push/hullbound_mender.gen.py:260 point readers at 'state/moe_upload on the duet/moe-uploadthing branch' (uploaded.json srcIds). Before archiving the branch, harvest state/moe_upload/uploaded.json to main (or tag it) and update those comments, or the UploadThing URL map becomes reachable only through a tag."
+   },
+   {
+    "id": "DA-07",
+    "verdict": "needs-change",
+    "reason": "There are more referrers than the 5 listed: skills/building-tnr-content/12b_LAWS_coverage.md:197, docs/HANDOFF_INVENTORY.md, archive/RESEARCH_BRIEF, and the generated state/mounted_instructions.txt. The skill reference means build_packs.py --check and skillpack must be re-run, and mounted must be re-rendered (not hand-edited). The direction itself (a citing index) is right per CLAUDE.md s7."
+   },
+   {
+    "id": "DA-08",
+    "verdict": "confirmed",
+    "reason": "Verified: HANDOFF_INVENTORY.md and PLAN_2026-08-30 are referenced only by HANDOFF_INVENTORY itself. PLAN_2026-09-03 has 4 referrers, not 3: BUILDER_APP_NOTES, forge_next/A_ARCHITECTURE_MAP, forge_next/H_RISK_REGISTER, and state/prompt_builder_app_build.md. That last one is an implementation brief, and CLAUDE.md treats briefs as build contracts, so keep a redirect stub."
+   },
+   {
+    "id": "ASSET-02",
+    "verdict": "confirmed",
+    "reason": "No push/*.json, forge, state/*.json or skills data path matches any M1 path (exact and basename scans). Remaining touchpoints are .github/large-files-allowlist.txt (22 moved entries, which must be pruned or the allowlist goes stale) and push/README.md (10 links). Keeping the sha256 for the ruling-cited pair is right."
+   },
+   {
+    "id": "ASSET-03",
+    "verdict": "needs-change",
+    "reason": "Three problems. (1) state/skyglass_art/ build_art_batch.py, ic01_07_intake.py and profession_chests_intake.py read art/skyglass_event_icons/raw/* directly, and the Skyglass event still has weekly updates, so offloading those raws breaks an active pipeline unless a fetch step is added to those scripts or those raws are kept until the event closes. (2) Seven per-folder SHA256SUMS files hash M-category files: art/crownhold (14), two_tails_armor (14), village_bloodline_scrolls (6), jutsu_icons/starter (6), subaku_palace/refs (4), jutsu_icons/overhaul, and ghost_ship_skyglass/structure. Running sha256sum -c will fail after the move, so update the SUMS files or have the manifest carry them forward. (3) The repo is public, so a GitHub Releases store is equally public. That is fine, but it is a director choice per the R2 note."
+   },
+   {
+    "id": "ASSET-04",
+    "verdict": "needs-change",
+    "reason": "The classifier marks finals outside exports/ and final/ as M3 previews. Example: art/crownhold/avatar_crownhold_calibration_duelist.webp (and 2 other crownhold rows) are delivered avatars, named as 'deliver' in state/skyglass_art/items.json:239 and hashed in art/crownhold/SHA256SUMS. Before moving, re-classify any image that is a 'deliver' target, a SHA256SUMS entry, or a top-level folder webp of upload size."
+   },
+   {
+    "id": "ASSET-05",
+    "verdict": "confirmed",
+    "reason": "pack_skills.py already excludes *_raw.png and the rank_icons/frames archive dirs. No code references found beyond notes. Low risk."
+   },
+   {
+    "id": "SA-01",
+    "verdict": "confirmed",
+    "reason": "Shisui is absent from skills/ and art/ on main. The only 'Shisui' hits are an opponent name in rulings/harvests, which confirms the standard lives only in the installed copy. The reconciliation needs the director's decision as stated. Adopted text must pass the no-real-name and scrub gates (an installed beo-event-package skill on the same account contains workplace details, so keep the reconciliation strictly to the TNR skills)."
+   },
+   {
+    "id": "SA-02",
+    "verdict": "confirmed",
+    "reason": "Correct to exclude beo-event-package (non-TNR, personal workplace content, public repo). The six skills' repo script paths exist on main except harness/combat_sim. Ordering dependency: RL-04's cutover changes the lock branch, and tnr-jutsu-engine, tnr-pvp-combat and shipping-tnr-content are the installed skills that drive lock writers. Land SA-02 first so the RL cutover can update one versioned copy."
+   },
+   {
+    "id": "SA-03",
+    "verdict": "confirmed",
+    "reason": "This duplicates LA-12; same verdict. Merge through Lane A review of the exact head SHA."
+   },
+   {
+    "id": "RL-04",
+    "verdict": "needs-change",
+    "reason": "parseLock's 'Missing or empty text is a free lock' is verified (runlock.mjs:32-34), so tombstoning rather than deleting is essential. Gaps: (1) checkTtl is enforced in run_lock.mjs:84 and runlock.mjs:104/112, so a 2099 tombstone needs a dedicated migrate path with its own tests (as proposed). Make it impossible to invoke outside migration. (2) Lock writers live outside the repo: the hourly jutsu engine and PvP pilot run from installed claude.ai skills and scheduled tasks, and Duet/UploadThing sessions also run there. A stale installed skill that sets RUN_LOCK_BRANCH or uses an old checkout would hit the tombstone. That fails closed but blocks play. Update the installed skills (or land SA-02) before the window. (3) player/keep.py's KEEP_BRANCH, player/runlock.py docstrings, forge/src/github.mjs GH.branch, and the forge tests (github.cors.test.mjs, compose.mjs) all assume main and must change in the same PR. (4) Amending RUL-2026-11-07-133 is a prerequisite director ruling. The live lock is currently held by player until 21:22Z today."
+   }
+  ],
+  "conflicts": [
+   "LB-10 vs recurring generators and validate exceptions: LB-10 archives RAN-ok manifests that push/skyglass_*.gen.py generators load (e.g. jload push/342_skyglass_library.json) and that about 30 state/validate_exceptions/*.json ledgers key by path. Generators LB-10 itself says to keep would break.",
+   "LB-10 vs LA-11/LB-09 stage 2: push/344 and 358-366 are listed as coupled to harness/ghost_ship_* and state/ghost_ship_*, but they are also in LB-10's RAN-ok archive set. Decide one Ghost Ship disposition and move all three together or none.",
+   "LB-09 vs active Skyglass production: LB-09 archives state/skyglass_thread_boards_v2/v3 as 'skyglass-nov13-release', but push/skyglass_visuals.py reads both, and LB-09 also says to keep Skyglass state while the event runs.",
+   "LB-09 vs contract provenance: moving state/schema_adoption_ledger_3314d122.json (the current pin's ledger, cited by BUILDER_APP_NOTES, which forge code cites, and the default --check target pattern) is not an archive move.",
+   "ASSET-03/04 vs state/skyglass_art pipeline: the Skyglass intake and build scripts read art/skyglass_event_icons/raw/*, and items.json delivers art/crownhold/*.webp that the classifier marks M3.",
+   "ASSET-02/03/04 vs per-folder SHA256SUMS files and .github/large-files-allowlist.txt: moved files stay listed in 7 SUMS files and 22 allowlist lines unless they are updated in the same commit.",
+   "BR-05/BR-11 vs BR-10 ordering: many 'contained' or 'temp' branches are safe to delete only because a container branch exists, and BR-10 deletes containers after tagging. Every tag must be pushed before any delete, and the safety proof must run against tags, not branches.",
+   "BR-05 vs CLAUDE.md s4: builder-app is merged into main, so a blanket merged-branch sweep would delete the grandfathered branch unless it is explicitly excluded.",
+   "LB-15 vs push generators: push/skyglass_thread.gen.py and push/hullbound_mender.gen.py name state/moe_upload/uploaded.json on duet/moe-uploadthing as their URL source. Harvest that file before archiving the branch.",
+   "RL-04 vs SA-02 ordering: the lock writers (jutsu engine, PvP pilot, shipping) run from installed claude.ai skills that are not yet versioned. Cut over the lock branch only after those skills are single-sourced or updated, or scheduled runs will hit the tombstone.",
+   "BR-01 harvest vs answers.yml/large-files/no-real-name/scrub: a single large harvests/** push to main triggers an answers regenerate commit by the bot plus the three unfiltered gates. Pre-run the gates locally. LB's claim that answers have been 'frozen since 08-30' conflicts with main's last 'answers: regenerate [auto]' (2026-10-23) and answers.yml runs succeeding today. The real defect may be that the build no-ops, not that it never runs."
+  ],
+  "gaps": [
+   {
+    "title": "Public repo carries other players' identities in harvest bundles and PvP logs",
+    "evidence": "gh api reports the repo as public. 93 harvests/inbox bundles contain 'username' fields: besides 'dauntless', names like 'Pale Fang', 'Winter Crow' and 'Conquest' recur (some may be AI names). docs/rulings/2026-11.md:1901 names PvP opponents ('Shisui', 'Selaphiel'). The PvP fight logs under state/player/dauntless/fights and the tnr-replay-analysis outputs record other players by name. CLAUDE.md s6 bars other players' data via the connector. No auditor assessed privacy exposure of what is already committed.",
+    "recommendation": "Director decision: either accept public opponent usernames or make the repo private, or move fight logs and bundles to the private store. At minimum, add opponent-name redaction to player/keep.py and to the harvest step going forward."
+   },
+   {
+    "title": "scrub.yml privacy gate is weaker than it looks",
+    "evidence": ".github/workflows/scrub.yml runs on push only (not pull_request), greps only the working tree (not history or commit messages), and depends on the SCRUB_STRINGS secret. It is one of the three unfiltered workflows firing on every lock heartbeat.",
+    "recommendation": "Add pull_request and a commit-message scan, as no-real-name.yml has. When moving lock churn off main, keep the privacy gates on the ops branches too, so they are not exempted."
+   },
+   {
+    "title": "00_INDEX script paths point at the skill copies",
+    "evidence": "scripts/lawmap.py and scripts/session_open.py do not exist. The real files are skills/building-tnr-content/scripts/lawmap.py and session_open.py. CLAUDE.md s8 also names 'lawmap.py' and 'doctrinemap.py' without paths.",
+    "recommendation": "Fix the routes in 00_INDEX (DA covered the missing paths, but not that the files exist under skills/). Give the full paths in CLAUDE.md s8 so the gate commands are copy-runnable."
+   },
+   {
+    "title": "CHATGPT.md live-boundary line also contradicts the current lane model",
+    "evidence": "CHATGPT.md:152 says 'Never make a live-game write; the user owns all game pushes.' DEVELOPMENT_WORKFLOW.md:33 says 'the user remains the only live-game actor'. Both contradict RUL-2026-11-06-132/147 and CLAUDE.md s6. DA flagged section 9, but the fix must also cover the AI player relay (.claude/agents/tnr-relay.md) and Duet lanes, which neither doc describes.",
+    "recommendation": "Rewrite both to cite CLAUDE.md s6 and the rulings rather than restating them. Add a short lane table: Fable, ChatGPT, Duet, Astra, AI pilot/relay."
+   },
+   {
+    "title": ".claude/agents/tnr-relay.md is unaudited",
+    "evidence": "It has a haiku model, tools Bash plus mcp__Tnr__callEndpoint, omitClaudeMd:true, and PreToolUse hooks (python3 -m player.hook) set to onFailure:block. Last changed 2026-11-14. No area summary covered it. It is the only agent definition with a live-write tool, and it skips CLAUDE.md.",
+    "recommendation": "Add a Lane A test that the hook blocks the CLAUDE.md never-list endpoints (payments, accountDeletion, reports, deletes) independently of the brain. Document the agent in CLAUDE.md s6."
+   },
+   {
+    "title": "Astra and guide-studio lane not assessed",
+    "evidence": "guide-studio (160 files, last commit 2026-09-13) has a wrangler.jsonc with REPLACE placeholders (no secrets committed). A branch astra/guide-studio-staging-handoff exists. Lane A only called it 'stalled'. No owner or disposition was proposed, and no one checked whether its tests run anywhere in CI.",
+    "recommendation": "Director decision: archive guide-studio (tag plus remove from main) or name an owner. If kept, add its tests to the proposed single test workflow."
+   },
+   {
+    "title": "Validate-exception ledgers and generator-to-manifest coupling not mapped",
+    "evidence": "About 30 state/validate_exceptions/*.json files and several push/*.gen.py generators reference prior manifests by path. These are a hidden dependency graph that blocks the push/ and state/ archives.",
+    "recommendation": "Before any archive pass, generate a reference graph (manifest to generators, exceptions, scripts, run_queue) and gate git mv on it. Make this part of the proposed run_queue_check tool."
+   },
+   {
+    "title": "Per-folder SHA256SUMS provenance files not considered by the asset plan",
+    "evidence": "art/crownhold, two_tails_armor, village_bloodline_scrolls, jutsu_icons/starter, jutsu_icons/overhaul, subaku_palace/refs and ghost_ship_skyglass/structure each have a SHA256SUMS listing raws that are slated for offload.",
+    "recommendation": "Have scripts/assets.py import the existing SUMS files into the offload manifest, then rewrite them or mark them as offloaded so verification still passes."
+   },
+   {
+    "title": "Ordering of the whole program",
+    "evidence": "Several recommendations depend on each other: harvest before deleting branches, tags before deletes, SA-02 before RL-04, the reference graph before the LB-09/LB-10/LA-11 moves, and PR #123 before any CI-gated change can be trusted.",
+    "recommendation": "Publish one sequenced plan: (1) PR #123 and the BR-01/BR-03 harvests; (2) tags, then the branch prune; (3) skills single-source; (4) lock cutover; (5) archive passes gated on the reference graph; (6) asset offload."
+   }
+  ]
+ }
+}
