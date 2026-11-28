@@ -1,0 +1,32 @@
+{
+ "file": "anim_iso_d_bw_omen_spread_d_s013.webp",
+ "frames": 16,
+ "speed": 45,
+ "size": [
+  168,
+  2688
+ ],
+ "frame_px": 168,
+ "bytes": 11464,
+ "duration_ms": 720,
+ "animationScale": 3,
+ "engine_hex_ratio": 1,
+ "partial_alpha_px": 0,
+ "slot_preflight": {
+  "clip_side": "tile.height x 1 (EFFECT_ANIMATION_HEX_RATIO 1) x animationScale 3: three tile heights square",
+  "phone_px": "about 65 CSS px (130 device px at 2x DPR) on a 400 px board",
+  "desktop_px": "about 162 CSS px on a 1000 px board",
+  "draw_order": "over the fighters; every slice of one cast starts together",
+  "appear_stack": "visual tags draw once per tile",
+  "rows": "12 columns (longitude 0-11) x 10 rows (latitude 0-9); row 0 at the bottom; odd columns half a row higher",
+  "carrier": "zero-impact visual tags, target COORDINATES, power 2, rounds 1, one per slice with its tiles",
+  "source": "OpenDuelyst effect sheets, CC0 1.0, github.com/open-duelyst/duelyst @ df697549ca, recoloured and composited"
+ },
+ "move": "Omen: Black Water",
+ "tiles": [
+  {
+   "longitude": 5,
+   "latitude": 3
+  }
+ ]
+}

@@ -1,0 +1,12 @@
+lookahead: ember+overflow +4568 then rebirth+aetherion | ember+aetherion +3251 then rebirth+kunai+basic | ember+nights +3203 then rebirth+aetherion (0.3s)
+Traceback (most recent call last):
+  File "/home/user/tnr-tools/state/player/dauntless/tools/postmortem.py", line 231, in <module>
+    main()
+    ~~~~^^
+  File "/home/user/tnr-tools/state/player/dauntless/tools/postmortem.py", line 227, in main
+    report(review(a.bid, a.alts))
+           ~~~~~~^^^^^^^^^^^^^^^
+  File "/home/user/tnr-tools/state/player/dauntless/tools/postmortem.py", line 169, in review
+    "swing_played": score[0], "best_alt": ([played] + alts)[best_i], "swing_best": score[best_i],
+                    ~~~~~^^^
+IndexError: list index out of range

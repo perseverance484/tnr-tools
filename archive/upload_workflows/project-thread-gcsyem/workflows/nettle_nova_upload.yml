@@ -1,0 +1,45 @@
+name: nettle-nova-uploadthing
+# One-off: upload the 12 Nettle Nova strips and ground image (Resort in Need boss) to the director's own UploadThing app
+# (the director 2026-11-21: "Yes, build it"). Runs only on this task branch; results are committed back to it.
+on:
+  push:
+    branches: [claude/project-thread-gcsyem]
+    paths: ["state/nettle_nova_upload/upload_list.json", "state/nettle_nova_upload/run.txt", ".github/scripts/ut_upload.mjs", ".github/workflows/nettle_nova_upload.yml"]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency: { group: nettle-nova-uploadthing, cancel-in-progress: false }
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with: { lfs: false }
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - name: Gate (runs only when state/nettle_nova_upload/run.txt says go)
+        id: gate
+        run: grep -qx "go" state/nettle_nova_upload/run.txt && echo "go=1" >> "$GITHUB_OUTPUT" || echo "run.txt is not go; nothing uploaded"
+      - if: steps.gate.outputs.go == '1'
+        run: npm install --no-save --no-package-lock uploadthing@7
+        working-directory: /tmp
+      - name: Upload
+        if: steps.gate.outputs.go == '1'
+        env:
+          UPLOADTHING_TOKEN: ${{ secrets.UPLOADTHING_TOKEN }}
+          NODE_PATH: /tmp/node_modules
+          UT_LIST: state/nettle_nova_upload/upload_list.json
+          UT_OUT: state/nettle_nova_upload/uploaded.json
+        run: |
+          ln -s /tmp/node_modules node_modules
+          node .github/scripts/ut_upload.mjs
+      - name: Commit results
+        if: always() && steps.gate.outputs.go == '1'
+        run: |
+          rm -f node_modules
+          git config user.name "github-actions[bot]"
+          git config user.email "41898729+github-actions[bot]@users.noreply.github.com"
+          git add state/nettle_nova_upload/uploaded.json 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "nettle nova upload: results [skip ci]"
+          git push origin HEAD:claude/project-thread-gcsyem || true

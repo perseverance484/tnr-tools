@@ -1,0 +1,436 @@
+{
+ "_note": "Job 640/641 scope: player-obtainable PvP jutsu whose only damage is an instant hit (rounds 0) but carry a nonzero residualModifier, so the game's residual equip cap counts them. Scanned live 2026-11-18 (report /mnt/project-files/tnr/residual_scan_2026-11-18/). AI kits read live 2026-11-18 with profile.getAi; every other jutsu here had no AI user in jutsu.getJutsuRelations.",
+ "jutsu": [
+  {
+   "id": "R8XSX-dWuVBe1YIpsD1PM",
+   "name": "Godstorm Mantle: Raijin's Cage",
+   "type": "BLOODLINE",
+   "rank": "B",
+   "residualModifier": 1,
+   "effects": "damage(0) stun(2)"
+  },
+  {
+   "id": "qe40i5VoewLPvjJfTI4Vi",
+   "name": "Mizukumi",
+   "type": "NORMAL",
+   "rank": "C",
+   "residualModifier": 1,
+   "effects": "damage(0) absorb(2) move(0)"
+  },
+  {
+   "id": "egtCp5UC5pRwxz7egJm7J",
+   "name": "Particle Cannon",
+   "type": "BLOODLINE",
+   "rank": "A",
+   "residualModifier": 1,
+   "effects": "damage(0) wound(2)"
+  },
+  {
+   "id": "65FicNSOQQ-otNFZIoacT",
+   "name": "Aqua Dragon Barrage",
+   "type": "NORMAL",
+   "rank": "C",
+   "residualModifier": 1,
+   "effects": "damage(0) heal(1) visual(0)"
+  },
+  {
+   "id": "dKeYkS3A9dB_eRPoBuFUJ",
+   "name": "Crimson Tides",
+   "type": "NORMAL",
+   "rank": "C",
+   "residualModifier": 1,
+   "effects": "damage(0) lifesteal(2)"
+  },
+  {
+   "id": "AZSGf7Qqu2ZLSRXnYX4TD",
+   "name": "Voltara Blitz",
+   "type": "BLOODLINE",
+   "rank": "D",
+   "residualModifier": 1,
+   "effects": "move decreasedamagetaken(2) pierce(0)"
+  },
+  {
+   "id": "pgw1adcEFdu-RryCx4pqf",
+   "name": "Black Coffin",
+   "type": "EVENT",
+   "rank": "A",
+   "residualModifier": 1,
+   "effects": "damage(0) increasedamagetaken(2) afterburn(2)"
+  },
+  {
+   "id": "IKv0cRCVTFpFCCEbAbuA7",
+   "name": "Ethereal Particle Storm",
+   "type": "BLOODLINE",
+   "rank": "B",
+   "residualModifier": 1,
+   "effects": "damage(0) decreasedamagegiven(2)"
+  },
+  {
+   "id": "G6MRbppaDZ2a5Wr0GIjH8",
+   "name": "Stormblade Arc",
+   "type": "NORMAL",
+   "rank": "C",
+   "residualModifier": 1,
+   "effects": "pierce(0) reflect(2)"
+  },
+  {
+   "id": "UeSsPxrjc-0yuh3Ia_Tea",
+   "name": "Volt Fang",
+   "type": "NORMAL",
+   "rank": "C",
+   "residualModifier": 1,
+   "effects": "damage(0) increasedamagegiven(2)"
+  },
+  {
+   "id": "0amTsGDinGJSYQfqDIs4_",
+   "name": "Suijin Gir",
+   "type": "NORMAL",
+   "rank": "C",
+   "residualModifier": 1,
+   "effects": "damage(0) increasedamagetaken(2)"
+  },
+  {
+   "id": "VJTgXcLzcsH_UyHjR_uh3",
+   "name": "Vacuum Palm",
+   "type": "NORMAL",
+   "rank": "C",
+   "residualModifier": 1,
+   "effects": "pierce(0) increasedamagetaken(2)"
+  },
+  {
+   "id": "UwWqo_4Igdue7-unPXwne",
+   "name": "Static Flicker",
+   "type": "NORMAL",
+   "rank": "C",
+   "residualModifier": 1,
+   "effects": "pierce(0) move afterburn(2)"
+  },
+  {
+   "id": "tWfDB2Xh5YuoK3mQm0xoH",
+   "name": "Dancing Wind",
+   "type": "NORMAL",
+   "rank": "C",
+   "residualModifier": 1,
+   "effects": "damage(0) increasedamagetaken(2)"
+  },
+  {
+   "id": "dbIM3tJ3YVjd5C8z1PtWa",
+   "name": "Aqua Fang",
+   "type": "NORMAL",
+   "rank": "C",
+   "residualModifier": 1,
+   "effects": "damage(0) increasedamagegiven(2)"
+  },
+  {
+   "id": "7cAGPnf455jrmdvt_kmQC",
+   "name": "Aqua Fang Strike",
+   "type": "NORMAL",
+   "rank": "C",
+   "residualModifier": 1,
+   "effects": "damage(0) absorb(2)"
+  },
+  {
+   "id": "7_Mxzow6OAyK8UF9-HXgn",
+   "name": "Bolt of Terror",
+   "type": "NORMAL",
+   "rank": "C",
+   "residualModifier": 1,
+   "effects": "reflect(2) pierce(0)"
+  },
+  {
+   "id": "41ZvXLK7xw_Y2ePKdsCSB",
+   "name": "Thunderbolt Spear",
+   "type": "NORMAL",
+   "rank": "C",
+   "residualModifier": 1,
+   "effects": "pierce(0) reflect(2)"
+  },
+  {
+   "id": "BfVKLSctKLv92HXky3TQ8",
+   "name": "Retrocausal Blast",
+   "type": "BLOODLINE",
+   "rank": "D",
+   "residualModifier": 1,
+   "effects": "damage(0) afterburn(2) timecompression(1)"
+  },
+  {
+   "id": "OQqC5LhjVMFMmI_zoR9S7",
+   "name": "Equilibrium Guard Strike",
+   "type": "BLOODLINE",
+   "rank": "A",
+   "residualModifier": 1,
+   "effects": "damage(0) increasedamagetaken(2)"
+  },
+  {
+   "id": "-gP5jnkT_Z-7Js6YNDBST",
+   "name": "Fractured Desire",
+   "type": "BLOODLINE",
+   "rank": "B",
+   "residualModifier": 1,
+   "effects": "damage(0) increasedamagetaken(2)"
+  },
+  {
+   "id": "d5Uj9MHmF0oSPvQs1ij3z",
+   "name": "Dragon's Fang",
+   "type": "BLOODLINE",
+   "rank": "B",
+   "residualModifier": 1,
+   "effects": "stun(1) pierce(0)"
+  },
+  {
+   "id": "ofoNlx4RYDbvYhPH17jHS",
+   "name": "Godflare Construct",
+   "type": "BLOODLINE",
+   "rank": "A",
+   "residualModifier": 2,
+   "effects": "damage(0) wound(2)"
+  },
+  {
+   "id": "ohlJeeZdmv7Q8GA64HS7i",
+   "name": "Chakra Cannon",
+   "type": "BLOODLINE",
+   "rank": "A",
+   "residualModifier": 1,
+   "effects": "pierce(0) decreasedamagegiven(2)"
+  },
+  {
+   "id": "-P_CWkZ5t10sbDQjap4cp",
+   "name": "Singularity II",
+   "type": "BLOODLINE",
+   "rank": "B",
+   "residualModifier": 1,
+   "effects": "pierce(0) decreasedamagetaken(2)"
+  },
+  {
+   "id": "rBcwIiHjKOF07Yoq4wVqU",
+   "name": "Gale Force Blast",
+   "type": "NORMAL",
+   "rank": "C",
+   "residualModifier": 1,
+   "effects": "pierce(0) increasedamagetaken(2)"
+  },
+  {
+   "id": "SDOtQeRgYBrZl16YjHDd4",
+   "name": "Tempest of Shadows",
+   "type": "NORMAL",
+   "rank": "C",
+   "residualModifier": 1,
+   "effects": "pierce(0) increasedamagetaken(2)"
+  },
+  {
+   "id": "ajehm6KDqv-glvYE4WFp6",
+   "name": "Stone Skipping",
+   "type": "NORMAL",
+   "rank": "D",
+   "residualModifier": 1,
+   "effects": "damage(0) increasedamagetaken(2)"
+  },
+  {
+   "id": "jkWkH36d6apM11qyt-Zn4",
+   "name": "Dreamshell",
+   "type": "NORMAL",
+   "rank": "C",
+   "residualModifier": 1,
+   "effects": "damage(0) decreasedamagetaken(2)"
+  },
+  {
+   "id": "aw1UJ7irh5D63g9nNNsJo",
+   "name": "Widow's bite",
+   "type": "SPECIAL",
+   "rank": "D",
+   "residualModifier": 1,
+   "effects": "damage(0)"
+  },
+  {
+   "id": "J6HTCnlUw84zOyaf9xxmD",
+   "name": "Shadow Pierce",
+   "type": "BLOODLINE",
+   "rank": "B",
+   "residualModifier": 1,
+   "effects": "pierce(0) wound(2)"
+  },
+  {
+   "id": "vo_McUgKOINMwUv3CbCie",
+   "name": "Silent Rift",
+   "type": "BLOODLINE",
+   "rank": "A",
+   "residualModifier": 1,
+   "effects": "damage(0) increasedamagegiven(2) move(0)"
+  },
+  {
+   "id": "qVO2qvGMSDpP_XFqiLDWy",
+   "name": "Houkyu Dance",
+   "type": "BLOODLINE",
+   "rank": "A",
+   "residualModifier": 1,
+   "effects": "damage(0) move(0) increasedamagegiven(2)"
+  },
+  {
+   "id": "l4YdKON9YRCmnhfe8i2FY",
+   "name": "Hypnotic Annihilation (NS- SR Pierce)",
+   "type": "BLOODLINE",
+   "rank": "B",
+   "residualModifier": 1,
+   "effects": "pierce(0) move increasestat(2)"
+  },
+  {
+   "id": "AXo72gqY5FkxIm7FLV0GA",
+   "name": "Godstorm Mantle: Heavenbreaker Verdict",
+   "type": "BLOODLINE",
+   "rank": "A",
+   "residualModifier": 1,
+   "effects": "pierce(0) wound(2)"
+  },
+  {
+   "id": "4CgdVL-I4jxz2rMWxIqZc",
+   "name": "Midnight Verdict",
+   "type": "BLOODLINE",
+   "rank": "A",
+   "residualModifier": 1,
+   "effects": "pierce(0) stun(2)"
+  },
+  {
+   "id": "6SYtNqK72_yN73e6ZE-dP",
+   "name": "Void Monarch's Decree",
+   "type": "BLOODLINE",
+   "rank": "B",
+   "residualModifier": 1,
+   "effects": "damage(0) wound(2) healprevent(2) increasedamagetaken(2)"
+  },
+  {
+   "id": "I0sG1nxNj6PnTLjFpy09v",
+   "name": "Supernova Collapse",
+   "type": "BLOODLINE",
+   "rank": "C",
+   "residualModifier": 1,
+   "effects": "damage(0) poison(2) vamp recoil"
+  },
+  {
+   "id": "XLrUa_lnAbiYPBwNjTufc",
+   "name": "Lightning Release",
+   "type": "BLOODLINE",
+   "rank": "B",
+   "residualModifier": 1,
+   "effects": "damage(0) stun(2) injectjutsus(2) afterburn(2)"
+  },
+  {
+   "id": "g_a4qc7eTbyIViIOCD9xm",
+   "name": "Waifu Hunter's Spear",
+   "type": "BLOODLINE",
+   "rank": "A",
+   "residualModifier": 1,
+   "effects": "pierce(0) increasedamagetaken(2)"
+  },
+  {
+   "id": "p0DZmKJtks03WiDHWjuLZ",
+   "name": "Zero Hour Protocol",
+   "type": "BLOODLINE",
+   "rank": "A",
+   "residualModifier": 1,
+   "effects": "pierce(0) decreasedamagetaken(2)"
+  },
+  {
+   "id": "i2pullnHGfJTDZ-gdJsDW",
+   "name": "Promethean Core",
+   "type": "BLOODLINE",
+   "rank": "A",
+   "residualModifier": 1,
+   "effects": "damage(0) reflect(2)"
+  },
+  {
+   "id": "6L10p21REruuWRdqMJot2",
+   "name": "Hypnotic Prism",
+   "type": "BLOODLINE",
+   "rank": "A",
+   "residualModifier": 1,
+   "effects": "damage(0) decreasedamagegiven(2) increasedamagegiven(2)"
+  },
+  {
+   "id": "C1S_SGYNao5gc85A7t-OF",
+   "name": "FBA",
+   "type": "SPECIAL",
+   "rank": "D",
+   "residualModifier": 1,
+   "effects": "damage(0) drain(1)"
+  },
+  {
+   "id": "-7YQ7RQLKMwGWRFiok37M",
+   "name": "Killer Instinct",
+   "type": "BLOODLINE",
+   "rank": "D",
+   "residualModifier": 1,
+   "effects": "increasedamagetaken(2) damage(0)"
+  },
+  {
+   "id": "88kkR_eQVrvadeILsNBKB",
+   "name": "S Command Pierce",
+   "type": "BLOODLINE",
+   "rank": "D",
+   "residualModifier": 1,
+   "effects": "pierce(0) decreasedamagetaken(2)"
+  },
+  {
+   "id": "tiWKegQz8XZ7aIhQ1Cd_k",
+   "name": "Project Trinity",
+   "type": "BLOODLINE",
+   "rank": "A",
+   "residualModifier": 1,
+   "effects": "damage(0) seal(2) increasedamagetaken(2)"
+  },
+  {
+   "id": "9QfsU1lMov3aJRp7ZNjxu",
+   "name": "Ninja Art: Kaleidoscope",
+   "type": "BLOODLINE",
+   "rank": "A",
+   "residualModifier": 1,
+   "effects": "damage(0) mirror(2)"
+  }
+ ],
+ "not_changed": {
+  "gqhcTWKVfGJALKQJSWn-6": "Unknown5",
+  "C4W8C8spK002Ue7-PXdPW": "Final Phantasm",
+  "-hPEn06u71n40X-u-4mX3": "Unknown3"
+ },
+ "not_changed_why": "damage or pierce with no rounds set: ticks every round forever with no first hit, so the modifier is live in combat. Flagged for the director, not touched.",
+ "ai_kits": {
+  "Zap3M6sNddUf3G5YXAzqA": {
+   "name": "Drakar of the Maw's Flame",
+   "jutsus": [
+    "d5Uj9MHmF0oSPvQs1ij3z",
+    "fr6xjb6uhXD7KNhKiU1g5",
+    "ldiaB07FFdTtWja7W2nnN",
+    "pnUW_m7QwO6gHOh6G4nvz",
+    "Vg18mHXFm7ORraFId-lt4"
+   ]
+  },
+  "XtlMPnlkDit5NBZPAgBf7": {
+   "name": "Tyrant Guard",
+   "jutsus": [
+    "AJNmwnlzhqiHzdE84_m9k",
+    "e2eC-x4UXc5m6QexNbx8w",
+    "fAKcf34Vlt_-utDdDdjxH",
+    "hC9VSNjIFOJYP37PnvvH0",
+    "jkWkH36d6apM11qyt-Zn4",
+    "ntGBMLX_UAwPgGw0vytDU",
+    "V34OBxnSDj6PfxT4Y3fhx",
+    "V9Kc147t3v6PoBVjZKUzd",
+    "zCmYLVL4JYzfhjPXHi9rH"
+   ]
+  },
+  "UB_KzUHB9AAYZge8W1AKD": {
+   "name": "Tyrant King",
+   "jutsus": [
+    "AJNmwnlzhqiHzdE84_m9k",
+    "e2eC-x4UXc5m6QexNbx8w",
+    "fAKcf34Vlt_-utDdDdjxH",
+    "hC9VSNjIFOJYP37PnvvH0",
+    "jkWkH36d6apM11qyt-Zn4",
+    "ntGBMLX_UAwPgGw0vytDU",
+    "V34OBxnSDj6PfxT4Y3fhx",
+    "V9Kc147t3v6PoBVjZKUzd",
+    "zCmYLVL4JYzfhjPXHi9rH"
+   ]
+  }
+ },
+ "kits_read": "2026-11-18"
+}

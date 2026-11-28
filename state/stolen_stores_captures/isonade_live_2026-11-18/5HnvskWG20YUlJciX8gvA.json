@@ -1,0 +1,370 @@
+{
+ "id": "5HnvskWG20YUlJciX8gvA",
+ "name": "Isonade Slam I, Bitten",
+ "description": "After the bite: the arms slam and rise again at once (the next rows go red), and the brine lasts 4 rounds.",
+ "createdAt": "2026-11-18T18:09:58.295Z",
+ "updatedAt": "2026-11-18T18:10:12.766Z",
+ "extraBaseCost": 0,
+ "effects": [
+  {
+   "type": "damage",
+   "power": 140,
+   "rounds": 0,
+   "target": "INHERIT",
+   "appearSfx": "",
+   "direction": "offence",
+   "calculation": "formula",
+   "description": "Deals damage to target",
+   "dmgModifier": 1,
+   "disappearSfx": "",
+   "friendlyFire": "ENEMIES",
+   "powerPerLevel": 0,
+   "animationScale": 1,
+   "appearAnimation": "izjz7PL-zMiOpIjInnV2w",
+   "staticAnimation": "",
+   "staticAssetPath": "",
+   "residualModifier": 1,
+   "disappearAnimation": "",
+   "allowBloodlineDamageDecrease": true,
+   "allowBloodlineDamageIncrease": true
+  },
+  {
+   "type": "drain",
+   "power": 8,
+   "rounds": 4,
+   "target": "INHERIT",
+   "appearSfx": "",
+   "direction": "offence",
+   "calculation": "percentage",
+   "description": "Brine pool: drains health with every action begun on it",
+   "disappearSfx": "",
+   "friendlyFire": "ENEMIES",
+   "poolsAffected": [
+    "Health"
+   ],
+   "powerPerLevel": 0,
+   "animationScale": 1,
+   "appearAnimation": "",
+   "staticAnimation": "",
+   "staticAssetPath": "",
+   "disappearAnimation": ""
+  },
+  {
+   "type": "visual",
+   "power": 2,
+   "rounds": 4,
+   "target": "INHERIT",
+   "appearSfx": "",
+   "direction": "offence",
+   "calculation": "static",
+   "description": "A battlefield visual effect",
+   "disappearSfx": "",
+   "powerPerLevel": 0,
+   "animationScale": 1,
+   "appearAnimation": "bJy2IjRKmAVYEoXUYmXv5",
+   "staticAnimation": "BexP4ZKBGwv4gjE3yGYLM",
+   "staticAssetPath": "",
+   "disappearAnimation": "k8J4ic-KEz9ewEq1gAszr"
+  },
+  {
+   "type": "visual",
+   "power": 2,
+   "rounds": 1,
+   "target": "COORDINATES",
+   "appearSfx": "",
+   "direction": "offence",
+   "calculation": "static",
+   "description": "A battlefield visual effect",
+   "disappearSfx": "",
+   "powerPerLevel": 0,
+   "animationScale": 1,
+   "appearAnimation": "bJy2IjRKmAVYEoXUYmXv5",
+   "staticAnimation": "dL1vh_PNbZQ9m6nYwGnFa",
+   "staticAssetPath": "dGCN9ZaoyXwDK9E3ZuWgU",
+   "disappearAnimation": "k8J4ic-KEz9ewEq1gAszr",
+   "coordinateTargeting": {
+    "origin": "BATTLEFIELD",
+    "selection": "ALL",
+    "coordinates": [
+     {
+      "latitude": 3,
+      "longitude": 0
+     },
+     {
+      "latitude": 7,
+      "longitude": 0
+     },
+     {
+      "latitude": 3,
+      "longitude": 1
+     },
+     {
+      "latitude": 7,
+      "longitude": 1
+     },
+     {
+      "latitude": 3,
+      "longitude": 2
+     },
+     {
+      "latitude": 7,
+      "longitude": 2
+     },
+     {
+      "latitude": 3,
+      "longitude": 3
+     },
+     {
+      "latitude": 7,
+      "longitude": 3
+     },
+     {
+      "latitude": 3,
+      "longitude": 4
+     },
+     {
+      "latitude": 7,
+      "longitude": 4
+     },
+     {
+      "latitude": 3,
+      "longitude": 5
+     },
+     {
+      "latitude": 7,
+      "longitude": 5
+     },
+     {
+      "latitude": 3,
+      "longitude": 6
+     },
+     {
+      "latitude": 7,
+      "longitude": 6
+     },
+     {
+      "latitude": 3,
+      "longitude": 7
+     },
+     {
+      "latitude": 7,
+      "longitude": 7
+     },
+     {
+      "latitude": 3,
+      "longitude": 8
+     },
+     {
+      "latitude": 7,
+      "longitude": 8
+     },
+     {
+      "latitude": 3,
+      "longitude": 9
+     },
+     {
+      "latitude": 7,
+      "longitude": 9
+     },
+     {
+      "latitude": 3,
+      "longitude": 10
+     },
+     {
+      "latitude": 7,
+      "longitude": 10
+     },
+     {
+      "latitude": 3,
+      "longitude": 11
+     },
+     {
+      "latitude": 7,
+      "longitude": 11
+     }
+    ],
+    "randomCount": 1
+   }
+  },
+  {
+   "type": "decreasecooldown",
+   "power": 1,
+   "rounds": 1,
+   "target": "SELF",
+   "appearSfx": "",
+   "direction": "offence",
+   "calculation": "static",
+   "description": "Primed: the set piece lands next turn",
+   "disappearSfx": "",
+   "powerPerLevel": 0,
+   "animationScale": 1,
+   "actionsAffected": [],
+   "appearAnimation": "",
+   "staticAnimation": "",
+   "staticAssetPath": "",
+   "disappearAnimation": ""
+  },
+  {
+   "type": "increaseheal",
+   "power": 1,
+   "rounds": 1,
+   "target": "SELF",
+   "appearSfx": "",
+   "direction": "offence",
+   "calculation": "percentage",
+   "description": "Primed: the set piece lands next turn",
+   "disappearSfx": "",
+   "powerPerLevel": 0,
+   "animationScale": 1,
+   "appearAnimation": "",
+   "staticAnimation": "",
+   "staticAssetPath": "",
+   "disappearAnimation": ""
+  }
+ ],
+ "target": "GROUND",
+ "range": 0,
+ "cooldown": 0,
+ "bloodlineId": "",
+ "requiredLevel": 1,
+ "requiredRank": "STUDENT",
+ "jutsuType": "AI",
+ "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+ "jutsuWeapon": "NONE",
+ "statClassification": "None",
+ "elementClassification": "None",
+ "battleDescription": "The arms crash down and rise again at once, dripping rot.",
+ "jutsuRank": "D",
+ "actionCostPerc": 50,
+ "staminaCost": 0.05,
+ "chakraCost": 0.05,
+ "staminaCostReducePerLvl": 0,
+ "chakraCostReducePerLvl": 0,
+ "healthCostReducePerLvl": 0,
+ "healthCost": 0,
+ "villageId": "",
+ "requiredPetSpeciesId": null,
+ "method": "COORDINATES",
+ "coordinateTargeting": {
+  "origin": "BATTLEFIELD",
+  "selection": "ALL",
+  "coordinates": [
+   {
+    "latitude": 2,
+    "longitude": 0
+   },
+   {
+    "latitude": 6,
+    "longitude": 0
+   },
+   {
+    "latitude": 2,
+    "longitude": 1
+   },
+   {
+    "latitude": 6,
+    "longitude": 1
+   },
+   {
+    "latitude": 2,
+    "longitude": 2
+   },
+   {
+    "latitude": 6,
+    "longitude": 2
+   },
+   {
+    "latitude": 2,
+    "longitude": 3
+   },
+   {
+    "latitude": 6,
+    "longitude": 3
+   },
+   {
+    "latitude": 2,
+    "longitude": 4
+   },
+   {
+    "latitude": 6,
+    "longitude": 4
+   },
+   {
+    "latitude": 2,
+    "longitude": 5
+   },
+   {
+    "latitude": 6,
+    "longitude": 5
+   },
+   {
+    "latitude": 2,
+    "longitude": 6
+   },
+   {
+    "latitude": 6,
+    "longitude": 6
+   },
+   {
+    "latitude": 2,
+    "longitude": 7
+   },
+   {
+    "latitude": 6,
+    "longitude": 7
+   },
+   {
+    "latitude": 2,
+    "longitude": 8
+   },
+   {
+    "latitude": 6,
+    "longitude": 8
+   },
+   {
+    "latitude": 2,
+    "longitude": 9
+   },
+   {
+    "latitude": 6,
+    "longitude": 9
+   },
+   {
+    "latitude": 2,
+    "longitude": 10
+   },
+   {
+    "latitude": 6,
+    "longitude": 10
+   },
+   {
+    "latitude": 2,
+    "longitude": 11
+   },
+   {
+    "latitude": 6,
+    "longitude": 11
+   }
+  ],
+  "randomCount": 1
+ },
+ "methodSize": null,
+ "hidden": true,
+ "injectableInBattle": false,
+ "battleUsageType": "BOTH",
+ "reskinParentJutsuId": null,
+ "bloodlineReskinId": null,
+ "parentJutsuId": null,
+ "requiredNinjutsuMastery": null,
+ "requiredGenjutsuMastery": null,
+ "requiredTaijutsuMastery": null,
+ "requiredBukijutsuMastery": null,
+ "requiredBloodlineMastery": null,
+ "requiredSageMastery": null,
+ "requiredStrength": null,
+ "requiredSpeed": null,
+ "requiredIntelligence": null,
+ "requiredWillpower": null,
+ "requiredSkillId": null,
+ "requiredBloodlineItemId": null
+}

@@ -1,0 +1,193 @@
+{
+ "builder": "build_isonade_anims.py",
+ "speed_unit": "ms per frame (gameAsset.speed)",
+ "limits": {
+  "max_height_px": 4096,
+  "max_bytes_exclusive": 460800
+ },
+ "strips": {
+  "body_water": {
+   "file": "anim_isonade_body_water_v1.webp",
+   "frames": 32,
+   "frame_px": 128,
+   "height_px": 4096,
+   "bytes": 89468,
+   "slot": "staticAnimation",
+   "loops": true,
+   "speed_ms": 50,
+   "duration_ms": 1600,
+   "animation_scale": 3,
+   "use": "Body water ground effect on the 6 hexes round Isonade, from round 1, all fight",
+   "bytes_encoded": 83700
+  },
+  "slam": {
+   "file": "anim_isonade_slam_v1.webp",
+   "frames": 14,
+   "frame_px": 128,
+   "height_px": 1792,
+   "bytes": 33850,
+   "slot": "appearAnimation",
+   "loops": false,
+   "speed_ms": 50,
+   "duration_ms": 700,
+   "animation_scale": 3,
+   "use": "Slam damage effect on each hex marked red the turn before",
+   "bytes_encoded": 28082
+  },
+  "brine": {
+   "file": "anim_isonade_brine_v1.webp",
+   "frames": 24,
+   "frame_px": 128,
+   "height_px": 3072,
+   "bytes": 45356,
+   "slot": "staticAnimation",
+   "loops": true,
+   "speed_ms": 50,
+   "duration_ms": 1200,
+   "animation_scale": 3,
+   "use": "Brine pool lingering ground effect (3 rounds), created by the Slam",
+   "bytes_encoded": 39588
+  },
+  "arm_burst": {
+   "file": "anim_isonade_arm_burst_v1.webp",
+   "frames": 16,
+   "frame_px": 128,
+   "height_px": 2048,
+   "bytes": 32494,
+   "slot": "appearAnimation",
+   "loops": false,
+   "speed_ms": 50,
+   "duration_ms": 800,
+   "animation_scale": 3,
+   "use": "Summon flourish where a Grasping Arm appears",
+   "bytes_encoded": 26726
+  },
+  "arm_lash": {
+   "file": "anim_isonade_arm_lash_v1.webp",
+   "frames": 10,
+   "frame_px": 128,
+   "height_px": 1280,
+   "bytes": 25162,
+   "slot": "appearAnimation",
+   "loops": false,
+   "speed_ms": 50,
+   "duration_ms": 500,
+   "animation_scale": 3,
+   "use": "Grasping Arm's attack damage effect on the hexes round its own hex",
+   "bytes_encoded": 19394
+  },
+  "surge": {
+   "file": "anim_isonade_surge_v1.webp",
+   "frames": 24,
+   "frame_px": 128,
+   "height_px": 3072,
+   "bytes": 60372,
+   "slot": "appearAnimation",
+   "loops": false,
+   "speed_ms": 50,
+   "duration_ms": 1200,
+   "animation_scale": 3,
+   "use": "Black Water damage effect on every hex but the safe crates, the turn after the room goes red",
+   "bytes_encoded": 54604
+  },
+  "eye": {
+   "file": "anim_isonade_eye_v1.webp",
+   "frames": 16,
+   "frame_px": 128,
+   "height_px": 2048,
+   "bytes": 48950,
+   "slot": "staticAnimation",
+   "loops": true,
+   "speed_ms": 50,
+   "duration_ms": 800,
+   "animation_scale": 3,
+   "use": "Open eye: buff/visual on Isonade's own hex for the 1-round punish window",
+   "bytes_encoded": 43182
+  },
+  "bite": {
+   "file": "anim_isonade_bite_v1.webp",
+   "frames": 20,
+   "frame_px": 128,
+   "height_px": 2560,
+   "bytes": 61030,
+   "slot": "appearAnimation",
+   "loops": false,
+   "speed_ms": 50,
+   "duration_ms": 1000,
+   "animation_scale": 3,
+   "use": "Bite of the Ship at half health (appear of the same effect that carries the rot drip)",
+   "bytes_encoded": 55262
+  },
+  "rot_drip": {
+   "file": "anim_isonade_rot_drip_v1.webp",
+   "frames": 24,
+   "frame_px": 128,
+   "height_px": 3072,
+   "bytes": 26708,
+   "slot": "staticAnimation",
+   "loops": true,
+   "speed_ms": 50,
+   "duration_ms": 1200,
+   "animation_scale": 3,
+   "use": "Rot drip aura on Isonade for the rest of the fight (static of the Bite effect)",
+   "bytes_encoded": 20940
+  }
+ },
+ "previews": [
+  {
+   "file": "previews/isonade_body_water_v1.gif",
+   "frames": 96,
+   "bytes": 3387725
+  },
+  {
+   "file": "previews/isonade_slam_v1.gif",
+   "frames": 22,
+   "bytes": 981958
+  },
+  {
+   "file": "previews/isonade_brine_v1.gif",
+   "frames": 72,
+   "bytes": 2720995
+  },
+  {
+   "file": "previews/isonade_arm_burst_v1.gif",
+   "frames": 26,
+   "bytes": 1088397
+  },
+  {
+   "file": "previews/isonade_arm_lash_v1.gif",
+   "frames": 20,
+   "bytes": 943479
+  },
+  {
+   "file": "previews/isonade_surge_v1.gif",
+   "frames": 34,
+   "bytes": 2594126
+  },
+  {
+   "file": "previews/isonade_eye_v1.gif",
+   "frames": 64,
+   "bytes": 2307676
+  },
+  {
+   "file": "previews/isonade_bite_v1.gif",
+   "frames": 68,
+   "bytes": 2449704
+  },
+  {
+   "file": "previews/isonade_seq_slam_v1.gif",
+   "frames": 94,
+   "bytes": 4392674
+  },
+  {
+   "file": "previews/isonade_seq_slam_brine_after_v1.gif",
+   "frames": 94,
+   "bytes": 4414368
+  },
+  {
+   "file": "previews/isonade_seq_black_water_v1.gif",
+   "frames": 66,
+   "bytes": 4025241
+  }
+ ]
+}

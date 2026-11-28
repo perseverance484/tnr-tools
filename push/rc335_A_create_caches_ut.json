@@ -1,0 +1,1457 @@
+{
+ "_note": "Sector 335 Resource Caches: create 5 caches HIDDEN, icons on UploadThing (URL-based, connector run). Hidden items show nowhere. Go-live is B (unhide) then C (silo save).",
+ "dedupNames": true,
+ "items": [
+  {
+   "name": "Frontline War Cache",
+   "entity": "item",
+   "slot": "create",
+   "srcId": "rc335_frontline",
+   "data": {
+    "name": "Frontline War Cache",
+    "description": "<i>Spoils from the front, bearing the blood emblem. Open to claim battlefield consumables and Bloodthorn Kunai.</i><br><br><b>Always:</b> Bloodthorn Kunai \u00d75<br>1\u20133 rolls. <b>Each roll:</b><br><span style=\"color:#9ca3af\">\u25c6</span> <b>Common 50%</b> \u00b7 Chakra Pill II \u00d710, Stamina Pill II \u00d710, Venom Cask \u00d710 or Elite Smoke Bomb \u00d75 <i>(12.5% each)</i><br><span style=\"color:#3b82f6\">\u25c6</span> <b>Rare 30%</b> \u00b7 Small Health Pill \u00d75, Dr. Kim's Poison Potion \u00d75, Saki \u00d75, Dr. Kim Disaster Potion \u00d710 or Dr. Kim's Miracle Potion \u00d710 <i>(6% each)</i><br><span style=\"color:#a855f7\">\u25c6</span> <b>Epic 15%</b> \u00b7 Bash\u014dsen \u00d75, Infernum \u00d75, Senbon Needles \u00d75, Pill Pack \u00d73 or Chakra Disrupting Needles \u00d720 <i>(3% each)</i><br><span style=\"color:#f59e0b\">\u25c6</span> <b>Legendary 5%</b> \u00b7 Mona's Mermaid Song \u00d72",
+    "image": "https://bbenpyo9uu.ufs.sh/f/0tzd8oDeiVIzPagTEdLO23pR7lfVXK58YSMqjdWDakGBhJAT",
+    "battleDescription": "Treasure chest",
+    "itemType": "CONSUMABLE",
+    "rarity": "COMMON",
+    "slot": "NONE",
+    "target": "SELF",
+    "method": "SINGLE",
+    "weaponType": "NONE",
+    "destroyOnUse": true,
+    "preventBattleUsage": true,
+    "actionCostPerc": 60,
+    "stackSize": 999,
+    "canStack": true,
+    "cooldown": 0,
+    "range": 0,
+    "maxEquips": 1,
+    "maxImbueNumber": 1,
+    "maxDurability": 100,
+    "chakraCost": 0,
+    "healthCost": 0,
+    "staminaCost": 0,
+    "chakraCostReducePerLvl": 0,
+    "healthCostReducePerLvl": 0,
+    "staminaCostReducePerLvl": 0,
+    "cost": 1,
+    "repsCost": 0,
+    "seichiSilverCost": 0,
+    "inShop": false,
+    "isEventItem": false,
+    "canBeTraded": false,
+    "canBeCrafted": false,
+    "canBeImbued": false,
+    "canBeHunted": false,
+    "canBeGathered": false,
+    "requiredLevel": 1,
+    "battleUsageType": "BOTH",
+    "hidden": true,
+    "expireFromStoreAt": null,
+    "bloodlineId": null,
+    "crystalTargetTypes": null,
+    "craftingRequirements": [],
+    "effects": [
+     {
+      "type": "noncombatconsumereward",
+      "power": 1,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "reward_exp": 0,
+      "calculation": "static",
+      "description": "Frontline War Cache: Bloodthorn Kunai x5 every opening",
+      "reward_pets": [],
+      "reward_rank": "NONE",
+      "disappearSfx": "",
+      "reward_items": [
+       {
+        "ids": [
+         "yVNeLzxHSFkNpTPnlm7yQ"
+        ],
+        "number": 100,
+        "quantity": 5
+       }
+      ],
+      "reward_money": 0,
+      "powerPerLevel": 0,
+      "reward_badges": [],
+      "reward_jutsus": [],
+      "reward_titles": [],
+      "reward_tokens": 0,
+      "appearAnimation": "",
+      "reward_prestige": 0,
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "reward_anbupoints": 0,
+      "reward_bloodlines": [],
+      "reward_clanpoints": 0,
+      "reward_reputation": 0,
+      "reward_sage_modes": [],
+      "reward_war_damage": 0,
+      "disappearAnimation": "",
+      "reward_skillpoints": 0,
+      "reward_war_healing": 0,
+      "reward_hunter_items": false,
+      "reward_seichi_silver": 0,
+      "reward_gathering_items": false,
+      "reward_hunter_items_ids": [],
+      "reward_hunting_experience": 0,
+      "reward_medical_experience": 0,
+      "reward_village_membership": "NONE",
+      "reward_crafting_experience": 0,
+      "reward_gathering_items_ids": [],
+      "reward_gathering_experience": 0,
+      "reward_sage_mastery_experience": 0
+     },
+     {
+      "type": "noncombatconsumereward",
+      "power": 1,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "reward_exp": 0,
+      "calculation": "static",
+      "description": "Frontline War Cache: 1-3 rolls",
+      "reward_pets": [],
+      "reward_rank": "NONE",
+      "disappearSfx": "",
+      "reward_items": [],
+      "reward_money": 0,
+      "powerPerLevel": 0,
+      "reward_badges": [],
+      "reward_jutsus": [],
+      "reward_titles": [],
+      "reward_tokens": 0,
+      "appearAnimation": "",
+      "reward_prestige": 0,
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "reward_anbupoints": 0,
+      "reward_bloodlines": [],
+      "reward_clanpoints": 0,
+      "reward_reputation": 0,
+      "reward_sage_modes": [],
+      "reward_war_damage": 0,
+      "disappearAnimation": "",
+      "reward_skillpoints": 0,
+      "reward_war_healing": 0,
+      "reward_hunter_items": false,
+      "reward_seichi_silver": 0,
+      "reward_gathering_items": false,
+      "reward_hunter_items_ids": [],
+      "reward_hunting_experience": 0,
+      "reward_medical_experience": 0,
+      "reward_village_membership": "NONE",
+      "reward_crafting_experience": 0,
+      "reward_gathering_items_ids": [],
+      "reward_gathering_experience": 0,
+      "reward_sage_mastery_experience": 0,
+      "rewardMode": "weightedCache",
+      "weightedCache": {
+       "version": 1,
+       "displayName": "Frontline War Cache",
+       "rolls": [
+        {
+         "count": 1,
+         "probability": 3334
+        },
+        {
+         "count": 2,
+         "probability": 3333
+        },
+        {
+         "count": 3,
+         "probability": 3333
+        }
+       ],
+       "tiers": [
+        {
+         "name": "Common",
+         "probability": 5000,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "nThwqBAKNrl1_4UTL-D_m",
+             "quantity": 10
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "CbUq--UpWnawD_7Xk_GCV",
+             "quantity": 10
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "_5152PR1inHUEZUBjiaHJ",
+             "quantity": 10
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "TtYPd-LcXKeK3sMuhq1TP",
+             "quantity": 5
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Rare",
+         "probability": 3000,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "XmFscRje4vUzUorOI5plt",
+             "quantity": 5
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "FCqGTz3jEFEJoGCeagx1P",
+             "quantity": 5
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "Tok8MLoFVcLmJ1ITw4mZ0",
+             "quantity": 5
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "RM9DjOswzqNTRWnd-FsdE",
+             "quantity": 10
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "6DnJn4x6LWWXtBu7UZybb",
+             "quantity": 10
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Epic",
+         "probability": 1500,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "Ll0tEiDfhbAveShhmdKjl",
+             "quantity": 5
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "0BeRbkWe4fkBJcUfvTlbk",
+             "quantity": 5
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "R_xTf5Fy8EDcrJrRCwAcf",
+             "quantity": 5
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "XX8TLmUNJtqeiGM1T99tD",
+             "quantity": 3
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "nK5tVwfev0Z5-Vjq4n1lD",
+             "quantity": 20
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Legendary",
+         "probability": 500,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "ZHHFba1VW9JrDXdWrbtrv",
+             "quantity": 2
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     }
+    ]
+   }
+  },
+  {
+   "name": "Bloodcore Cache",
+   "entity": "item",
+   "slot": "create",
+   "srcId": "rc335_bloodcore",
+   "data": {
+    "name": "Bloodcore Cache",
+    "description": "<i>Cut from the Resource Node in the War Torn sector: Bloodcore Ore, Bloodflower and the Bloodthorn Kunai forged from them.</i><br><br>1\u20133 rolls. <b>Each roll:</b><br><span style=\"color:#9ca3af\">\u25c6</span> <b>Common 55%</b> \u00b7 Bloodthorn Kunai \u00d75, Bloodcore Ore \u00d725 or Bloodflower \u00d725 <i>(18.3% each)</i><br><span style=\"color:#3b82f6\">\u25c6</span> <b>Rare 25%</b> \u00b7 Bloodthorn Kunai \u00d715 or Bloodcore Ore \u00d720 + Bloodflower \u00d720 + Iron Ore \u00d720 <i>(12.5% each)</i><br><span style=\"color:#a855f7\">\u25c6</span> <b>Epic 14%</b> \u00b7 Bloodthorn Kunai \u00d725 or Bloodcore Ore \u00d775 + Bloodflower \u00d775 <i>(7% each)</i><br><span style=\"color:#f59e0b\">\u25c6</span> <b>Legendary 6%</b> \u00b7 Bloodthorn Kunai \u00d745",
+    "image": "https://bbenpyo9uu.ufs.sh/f/0tzd8oDeiVIzcZXHQb5UPdHh7Y96aCTrVbSFG1AXDBn25msq",
+    "battleDescription": "Treasure chest",
+    "itemType": "CONSUMABLE",
+    "rarity": "RARE",
+    "slot": "NONE",
+    "target": "SELF",
+    "method": "SINGLE",
+    "weaponType": "NONE",
+    "destroyOnUse": true,
+    "preventBattleUsage": true,
+    "actionCostPerc": 60,
+    "stackSize": 999,
+    "canStack": true,
+    "cooldown": 0,
+    "range": 0,
+    "maxEquips": 1,
+    "maxImbueNumber": 1,
+    "maxDurability": 100,
+    "chakraCost": 0,
+    "healthCost": 0,
+    "staminaCost": 0,
+    "chakraCostReducePerLvl": 0,
+    "healthCostReducePerLvl": 0,
+    "staminaCostReducePerLvl": 0,
+    "cost": 1,
+    "repsCost": 0,
+    "seichiSilverCost": 0,
+    "inShop": false,
+    "isEventItem": false,
+    "canBeTraded": false,
+    "canBeCrafted": false,
+    "canBeImbued": false,
+    "canBeHunted": false,
+    "canBeGathered": false,
+    "requiredLevel": 1,
+    "battleUsageType": "BOTH",
+    "hidden": true,
+    "expireFromStoreAt": null,
+    "bloodlineId": null,
+    "crystalTargetTypes": null,
+    "craftingRequirements": [],
+    "effects": [
+     {
+      "type": "noncombatconsumereward",
+      "power": 1,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "reward_exp": 0,
+      "calculation": "static",
+      "description": "Bloodcore Cache: 1-3 rolls",
+      "reward_pets": [],
+      "reward_rank": "NONE",
+      "disappearSfx": "",
+      "reward_items": [],
+      "reward_money": 0,
+      "powerPerLevel": 0,
+      "reward_badges": [],
+      "reward_jutsus": [],
+      "reward_titles": [],
+      "reward_tokens": 0,
+      "appearAnimation": "",
+      "reward_prestige": 0,
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "reward_anbupoints": 0,
+      "reward_bloodlines": [],
+      "reward_clanpoints": 0,
+      "reward_reputation": 0,
+      "reward_sage_modes": [],
+      "reward_war_damage": 0,
+      "disappearAnimation": "",
+      "reward_skillpoints": 0,
+      "reward_war_healing": 0,
+      "reward_hunter_items": false,
+      "reward_seichi_silver": 0,
+      "reward_gathering_items": false,
+      "reward_hunter_items_ids": [],
+      "reward_hunting_experience": 0,
+      "reward_medical_experience": 0,
+      "reward_village_membership": "NONE",
+      "reward_crafting_experience": 0,
+      "reward_gathering_items_ids": [],
+      "reward_gathering_experience": 0,
+      "reward_sage_mastery_experience": 0,
+      "rewardMode": "weightedCache",
+      "weightedCache": {
+       "version": 1,
+       "displayName": "Bloodcore Cache",
+       "rolls": [
+        {
+         "count": 1,
+         "probability": 3334
+        },
+        {
+         "count": 2,
+         "probability": 3333
+        },
+        {
+         "count": 3,
+         "probability": 3333
+        }
+       ],
+       "tiers": [
+        {
+         "name": "Common",
+         "probability": 5500,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "yVNeLzxHSFkNpTPnlm7yQ",
+             "quantity": 5
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "WgXIvANXaffar1zCYcEKf",
+             "quantity": 25
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "vLDpr5763sdRfokpBFHMf",
+             "quantity": 25
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Rare",
+         "probability": 2500,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "yVNeLzxHSFkNpTPnlm7yQ",
+             "quantity": 15
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "WgXIvANXaffar1zCYcEKf",
+             "quantity": 20
+            },
+            {
+             "itemId": "vLDpr5763sdRfokpBFHMf",
+             "quantity": 20
+            },
+            {
+             "itemId": "Re5nm3c6JjZgC9IalLreH",
+             "quantity": 20
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Epic",
+         "probability": 1400,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "yVNeLzxHSFkNpTPnlm7yQ",
+             "quantity": 25
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "WgXIvANXaffar1zCYcEKf",
+             "quantity": 75
+            },
+            {
+             "itemId": "vLDpr5763sdRfokpBFHMf",
+             "quantity": 75
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Legendary",
+         "probability": 600,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "yVNeLzxHSFkNpTPnlm7yQ",
+             "quantity": 45
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     }
+    ]
+   }
+  },
+  {
+   "name": "War Chest",
+   "entity": "item",
+   "slot": "create",
+   "srcId": "rc335_warchest",
+   "data": {
+    "name": "War Chest",
+    "description": "<i>Spoils of Sector 335: gold and treasure taken from the front.</i><br><br>1\u20133 rolls. <b>Each roll:</b><br><span style=\"color:#9ca3af\">\u25c6</span> <b>Common 45%</b> \u00b7 Imperial Gold \u00d715<br><span style=\"color:#3b82f6\">\u25c6</span> <b>Rare 35%</b> \u00b7 Rare Jewels \u00d725<br><span style=\"color:#a855f7\">\u25c6</span> <b>Epic 15%</b> \u00b7 Imperial Gold \u00d730<br><span style=\"color:#f59e0b\">\u25c6</span> <b>Legendary 5%</b> \u00b7 Unobtanium \u00d715",
+    "image": "https://bbenpyo9uu.ufs.sh/f/0tzd8oDeiVIzYYqpW72GHZw2YIqSyaCdpTEFhxRcj56gLfio",
+    "battleDescription": "Treasure chest",
+    "itemType": "CONSUMABLE",
+    "rarity": "EPIC",
+    "slot": "NONE",
+    "target": "SELF",
+    "method": "SINGLE",
+    "weaponType": "NONE",
+    "destroyOnUse": true,
+    "preventBattleUsage": true,
+    "actionCostPerc": 60,
+    "stackSize": 999,
+    "canStack": true,
+    "cooldown": 0,
+    "range": 0,
+    "maxEquips": 1,
+    "maxImbueNumber": 1,
+    "maxDurability": 100,
+    "chakraCost": 0,
+    "healthCost": 0,
+    "staminaCost": 0,
+    "chakraCostReducePerLvl": 0,
+    "healthCostReducePerLvl": 0,
+    "staminaCostReducePerLvl": 0,
+    "cost": 1,
+    "repsCost": 0,
+    "seichiSilverCost": 0,
+    "inShop": false,
+    "isEventItem": false,
+    "canBeTraded": false,
+    "canBeCrafted": false,
+    "canBeImbued": false,
+    "canBeHunted": false,
+    "canBeGathered": false,
+    "requiredLevel": 1,
+    "battleUsageType": "BOTH",
+    "hidden": true,
+    "expireFromStoreAt": null,
+    "bloodlineId": null,
+    "crystalTargetTypes": null,
+    "craftingRequirements": [],
+    "effects": [
+     {
+      "type": "noncombatconsumereward",
+      "power": 1,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "reward_exp": 0,
+      "calculation": "static",
+      "description": "War Chest: 1-3 rolls",
+      "reward_pets": [],
+      "reward_rank": "NONE",
+      "disappearSfx": "",
+      "reward_items": [],
+      "reward_money": 0,
+      "powerPerLevel": 0,
+      "reward_badges": [],
+      "reward_jutsus": [],
+      "reward_titles": [],
+      "reward_tokens": 0,
+      "appearAnimation": "",
+      "reward_prestige": 0,
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "reward_anbupoints": 0,
+      "reward_bloodlines": [],
+      "reward_clanpoints": 0,
+      "reward_reputation": 0,
+      "reward_sage_modes": [],
+      "reward_war_damage": 0,
+      "disappearAnimation": "",
+      "reward_skillpoints": 0,
+      "reward_war_healing": 0,
+      "reward_hunter_items": false,
+      "reward_seichi_silver": 0,
+      "reward_gathering_items": false,
+      "reward_hunter_items_ids": [],
+      "reward_hunting_experience": 0,
+      "reward_medical_experience": 0,
+      "reward_village_membership": "NONE",
+      "reward_crafting_experience": 0,
+      "reward_gathering_items_ids": [],
+      "reward_gathering_experience": 0,
+      "reward_sage_mastery_experience": 0,
+      "rewardMode": "weightedCache",
+      "weightedCache": {
+       "version": 1,
+       "displayName": "War Chest",
+       "rolls": [
+        {
+         "count": 1,
+         "probability": 3334
+        },
+        {
+         "count": 2,
+         "probability": 3333
+        },
+        {
+         "count": 3,
+         "probability": 3333
+        }
+       ],
+       "tiers": [
+        {
+         "name": "Common",
+         "probability": 4500,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "FEaV0h7on2ZHy_ST5fSOs",
+             "quantity": 15
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Rare",
+         "probability": 3500,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "05hx4hI0I4L2vAME8CcZu",
+             "quantity": 25
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Epic",
+         "probability": 1500,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "FEaV0h7on2ZHy_ST5fSOs",
+             "quantity": 30
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Legendary",
+         "probability": 500,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "kIMZ4G6oLjytXXj0tBD7f",
+             "quantity": 15
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     }
+    ]
+   }
+  },
+  {
+   "name": "Conqueror's Stockpile",
+   "entity": "item",
+   "slot": "create",
+   "srcId": "rc335_stockpile",
+   "data": {
+    "name": "Conqueror's Stockpile",
+    "description": "<i>Legendary crafting materials taken from every front.</i><br><br>1\u20133 rolls. <b>Each roll:</b><br><span style=\"color:#9ca3af\">\u25c6</span> <b>Common 45%</b> \u00b7 \u00d740 of Mithril Ore, Orichalcum Ore, Bloodcore Ore, Bloodflower, Phoenix Ash Bloom, Tempest Heart, Voidshade Petal, Lunaris Bloom, Fujin's Breath or Heart of Kuraokami <i>(4.5% each)</i><br><span style=\"color:#3b82f6\">\u25c6</span> <b>Rare 30%</b> \u00b7 \u00d780 of the same <i>(3% each)</i><br><span style=\"color:#a855f7\">\u25c6</span> <b>Epic 18%</b> \u00b7 \u00d7100 of Parchment Core, Shard of Willful Steel, Cracked Auditory Core, Thread Core or Mask Core <i>(3.6% each)</i><br><span style=\"color:#f59e0b\">\u25c6</span> <b>Legendary 7%</b> \u00b7 Heart of Kaeruun \u00d715",
+    "image": "https://bbenpyo9uu.ufs.sh/f/0tzd8oDeiVIzbbc87C5r8tOa4n9eIYHqAV2MFXPU0gko1mGd",
+    "battleDescription": "Treasure chest",
+    "itemType": "CONSUMABLE",
+    "rarity": "LEGENDARY",
+    "slot": "NONE",
+    "target": "SELF",
+    "method": "SINGLE",
+    "weaponType": "NONE",
+    "destroyOnUse": true,
+    "preventBattleUsage": true,
+    "actionCostPerc": 60,
+    "stackSize": 999,
+    "canStack": true,
+    "cooldown": 0,
+    "range": 0,
+    "maxEquips": 1,
+    "maxImbueNumber": 1,
+    "maxDurability": 100,
+    "chakraCost": 0,
+    "healthCost": 0,
+    "staminaCost": 0,
+    "chakraCostReducePerLvl": 0,
+    "healthCostReducePerLvl": 0,
+    "staminaCostReducePerLvl": 0,
+    "cost": 1,
+    "repsCost": 0,
+    "seichiSilverCost": 0,
+    "inShop": false,
+    "isEventItem": false,
+    "canBeTraded": false,
+    "canBeCrafted": false,
+    "canBeImbued": false,
+    "canBeHunted": false,
+    "canBeGathered": false,
+    "requiredLevel": 1,
+    "battleUsageType": "BOTH",
+    "hidden": true,
+    "expireFromStoreAt": null,
+    "bloodlineId": null,
+    "crystalTargetTypes": null,
+    "craftingRequirements": [],
+    "effects": [
+     {
+      "type": "noncombatconsumereward",
+      "power": 1,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "reward_exp": 0,
+      "calculation": "static",
+      "description": "Conqueror's Stockpile: 1-3 rolls",
+      "reward_pets": [],
+      "reward_rank": "NONE",
+      "disappearSfx": "",
+      "reward_items": [],
+      "reward_money": 0,
+      "powerPerLevel": 0,
+      "reward_badges": [],
+      "reward_jutsus": [],
+      "reward_titles": [],
+      "reward_tokens": 0,
+      "appearAnimation": "",
+      "reward_prestige": 0,
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "reward_anbupoints": 0,
+      "reward_bloodlines": [],
+      "reward_clanpoints": 0,
+      "reward_reputation": 0,
+      "reward_sage_modes": [],
+      "reward_war_damage": 0,
+      "disappearAnimation": "",
+      "reward_skillpoints": 0,
+      "reward_war_healing": 0,
+      "reward_hunter_items": false,
+      "reward_seichi_silver": 0,
+      "reward_gathering_items": false,
+      "reward_hunter_items_ids": [],
+      "reward_hunting_experience": 0,
+      "reward_medical_experience": 0,
+      "reward_village_membership": "NONE",
+      "reward_crafting_experience": 0,
+      "reward_gathering_items_ids": [],
+      "reward_gathering_experience": 0,
+      "reward_sage_mastery_experience": 0,
+      "rewardMode": "weightedCache",
+      "weightedCache": {
+       "version": 1,
+       "displayName": "Conqueror's Stockpile",
+       "rolls": [
+        {
+         "count": 1,
+         "probability": 3334
+        },
+        {
+         "count": 2,
+         "probability": 3333
+        },
+        {
+         "count": 3,
+         "probability": 3333
+        }
+       ],
+       "tiers": [
+        {
+         "name": "Common",
+         "probability": 4500,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "NpOHJoLl2ZdfoGGl530C2",
+             "quantity": 40
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "-6C6OtiodwTNgFq_XqwR-",
+             "quantity": 40
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "WgXIvANXaffar1zCYcEKf",
+             "quantity": 40
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "vLDpr5763sdRfokpBFHMf",
+             "quantity": 40
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "cR-xWQX8EatrB18C9PaiQ",
+             "quantity": 40
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "40XfVLwXWNof8i55IuDu1",
+             "quantity": 40
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "SqFyiWVXmokGIm7FO2114",
+             "quantity": 40
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "dRTqiMxkL5mYmIokiWyJP",
+             "quantity": 40
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "GI7O1Ze9DnuOw0-WcazsN",
+             "quantity": 40
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "jfkGS8dgO5C0x-WBYcML9",
+             "quantity": 40
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Rare",
+         "probability": 3000,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "NpOHJoLl2ZdfoGGl530C2",
+             "quantity": 80
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "-6C6OtiodwTNgFq_XqwR-",
+             "quantity": 80
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "WgXIvANXaffar1zCYcEKf",
+             "quantity": 80
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "vLDpr5763sdRfokpBFHMf",
+             "quantity": 80
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "cR-xWQX8EatrB18C9PaiQ",
+             "quantity": 80
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "40XfVLwXWNof8i55IuDu1",
+             "quantity": 80
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "SqFyiWVXmokGIm7FO2114",
+             "quantity": 80
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "dRTqiMxkL5mYmIokiWyJP",
+             "quantity": 80
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "GI7O1Ze9DnuOw0-WcazsN",
+             "quantity": 80
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "jfkGS8dgO5C0x-WBYcML9",
+             "quantity": 80
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Epic",
+         "probability": 1800,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "yWVnPn1NVG9fq_a2UrRXp",
+             "quantity": 100
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "ZCMizjlADoeT1WuGcckeZ",
+             "quantity": 100
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "1PpHMQYQ2EAzL0vueQb9E",
+             "quantity": 100
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "2u-e6gb1E8NoKEVOmHeAs",
+             "quantity": 100
+            }
+           ]
+          },
+          {
+           "items": [
+            {
+             "itemId": "ThsuhY54LknDlcNKLTEQA",
+             "quantity": 100
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "name": "Legendary",
+         "probability": 700,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "tikHLti1CoDpFmJlGHK9A",
+             "quantity": 15
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     }
+    ]
+   }
+  },
+  {
+   "name": "Warlord's Hoard",
+   "entity": "item",
+   "slot": "create",
+   "srcId": "rc335_hoard",
+   "data": {
+    "name": "Warlord's Hoard",
+    "description": "<i>The richest spoils of Sector 335. Opens into every other Resource Cache.</i><br><br><b>Contains</b> <i>(even odds)</i><b>:</b><br><span style=\"color:#9ca3af\">\u25c6</span> Frontline War Cache \u00d71\u20134<br><span style=\"color:#3b82f6\">\u25c6</span> Bloodcore Cache \u00d71\u20133<br><span style=\"color:#a855f7\">\u25c6</span> War Chest \u00d71\u20132<br><span style=\"color:#f59e0b\">\u25c6</span> Conqueror's Stockpile \u00d71",
+    "image": "https://bbenpyo9uu.ufs.sh/f/0tzd8oDeiVIzGPFKDgj9EeMrVS2zw5TCB37dJOK1myokpsUa",
+    "battleDescription": "Treasure chest",
+    "itemType": "CONSUMABLE",
+    "rarity": "LEGENDARY",
+    "slot": "NONE",
+    "target": "SELF",
+    "method": "SINGLE",
+    "weaponType": "NONE",
+    "destroyOnUse": true,
+    "preventBattleUsage": true,
+    "actionCostPerc": 60,
+    "stackSize": 999,
+    "canStack": true,
+    "cooldown": 0,
+    "range": 0,
+    "maxEquips": 1,
+    "maxImbueNumber": 1,
+    "maxDurability": 100,
+    "chakraCost": 0,
+    "healthCost": 0,
+    "staminaCost": 0,
+    "chakraCostReducePerLvl": 0,
+    "healthCostReducePerLvl": 0,
+    "staminaCostReducePerLvl": 0,
+    "cost": 1,
+    "repsCost": 0,
+    "seichiSilverCost": 0,
+    "inShop": false,
+    "isEventItem": false,
+    "canBeTraded": false,
+    "canBeCrafted": false,
+    "canBeImbued": false,
+    "canBeHunted": false,
+    "canBeGathered": false,
+    "requiredLevel": 1,
+    "battleUsageType": "BOTH",
+    "hidden": true,
+    "expireFromStoreAt": null,
+    "bloodlineId": null,
+    "crystalTargetTypes": null,
+    "craftingRequirements": [],
+    "effects": [
+     {
+      "type": "noncombatconsumereward",
+      "power": 1,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "reward_exp": 0,
+      "calculation": "static",
+      "description": "Warlord's Hoard: Frontline War Cache x1-4",
+      "reward_pets": [],
+      "reward_rank": "NONE",
+      "disappearSfx": "",
+      "reward_items": [],
+      "reward_money": 0,
+      "powerPerLevel": 0,
+      "reward_badges": [],
+      "reward_jutsus": [],
+      "reward_titles": [],
+      "reward_tokens": 0,
+      "appearAnimation": "",
+      "reward_prestige": 0,
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "reward_anbupoints": 0,
+      "reward_bloodlines": [],
+      "reward_clanpoints": 0,
+      "reward_reputation": 0,
+      "reward_sage_modes": [],
+      "reward_war_damage": 0,
+      "disappearAnimation": "",
+      "reward_skillpoints": 0,
+      "reward_war_healing": 0,
+      "reward_hunter_items": false,
+      "reward_seichi_silver": 0,
+      "reward_gathering_items": false,
+      "reward_hunter_items_ids": [],
+      "reward_hunting_experience": 0,
+      "reward_medical_experience": 0,
+      "reward_village_membership": "NONE",
+      "reward_crafting_experience": 0,
+      "reward_gathering_items_ids": [],
+      "reward_gathering_experience": 0,
+      "reward_sage_mastery_experience": 0,
+      "rewardMode": "weightedCache",
+      "weightedCache": {
+       "version": 1,
+       "displayName": "Frontline War Cache",
+       "rolls": [
+        {
+         "count": 1,
+         "probability": 2500
+        },
+        {
+         "count": 2,
+         "probability": 2500
+        },
+        {
+         "count": 3,
+         "probability": 2500
+        },
+        {
+         "count": 4,
+         "probability": 2500
+        }
+       ],
+       "tiers": [
+        {
+         "name": "Frontline War Cache",
+         "probability": 10000,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "@item:rc335_frontline",
+             "quantity": 1
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     },
+     {
+      "type": "noncombatconsumereward",
+      "power": 1,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "reward_exp": 0,
+      "calculation": "static",
+      "description": "Warlord's Hoard: Bloodcore Cache x1-3",
+      "reward_pets": [],
+      "reward_rank": "NONE",
+      "disappearSfx": "",
+      "reward_items": [],
+      "reward_money": 0,
+      "powerPerLevel": 0,
+      "reward_badges": [],
+      "reward_jutsus": [],
+      "reward_titles": [],
+      "reward_tokens": 0,
+      "appearAnimation": "",
+      "reward_prestige": 0,
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "reward_anbupoints": 0,
+      "reward_bloodlines": [],
+      "reward_clanpoints": 0,
+      "reward_reputation": 0,
+      "reward_sage_modes": [],
+      "reward_war_damage": 0,
+      "disappearAnimation": "",
+      "reward_skillpoints": 0,
+      "reward_war_healing": 0,
+      "reward_hunter_items": false,
+      "reward_seichi_silver": 0,
+      "reward_gathering_items": false,
+      "reward_hunter_items_ids": [],
+      "reward_hunting_experience": 0,
+      "reward_medical_experience": 0,
+      "reward_village_membership": "NONE",
+      "reward_crafting_experience": 0,
+      "reward_gathering_items_ids": [],
+      "reward_gathering_experience": 0,
+      "reward_sage_mastery_experience": 0,
+      "rewardMode": "weightedCache",
+      "weightedCache": {
+       "version": 1,
+       "displayName": "Bloodcore Cache",
+       "rolls": [
+        {
+         "count": 1,
+         "probability": 3334
+        },
+        {
+         "count": 2,
+         "probability": 3333
+        },
+        {
+         "count": 3,
+         "probability": 3333
+        }
+       ],
+       "tiers": [
+        {
+         "name": "Bloodcore Cache",
+         "probability": 10000,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "@item:rc335_bloodcore",
+             "quantity": 1
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     },
+     {
+      "type": "noncombatconsumereward",
+      "power": 1,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "reward_exp": 0,
+      "calculation": "static",
+      "description": "Warlord's Hoard: War Chest x1-2",
+      "reward_pets": [],
+      "reward_rank": "NONE",
+      "disappearSfx": "",
+      "reward_items": [],
+      "reward_money": 0,
+      "powerPerLevel": 0,
+      "reward_badges": [],
+      "reward_jutsus": [],
+      "reward_titles": [],
+      "reward_tokens": 0,
+      "appearAnimation": "",
+      "reward_prestige": 0,
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "reward_anbupoints": 0,
+      "reward_bloodlines": [],
+      "reward_clanpoints": 0,
+      "reward_reputation": 0,
+      "reward_sage_modes": [],
+      "reward_war_damage": 0,
+      "disappearAnimation": "",
+      "reward_skillpoints": 0,
+      "reward_war_healing": 0,
+      "reward_hunter_items": false,
+      "reward_seichi_silver": 0,
+      "reward_gathering_items": false,
+      "reward_hunter_items_ids": [],
+      "reward_hunting_experience": 0,
+      "reward_medical_experience": 0,
+      "reward_village_membership": "NONE",
+      "reward_crafting_experience": 0,
+      "reward_gathering_items_ids": [],
+      "reward_gathering_experience": 0,
+      "reward_sage_mastery_experience": 0,
+      "rewardMode": "weightedCache",
+      "weightedCache": {
+       "version": 1,
+       "displayName": "War Chest",
+       "rolls": [
+        {
+         "count": 1,
+         "probability": 5000
+        },
+        {
+         "count": 2,
+         "probability": 5000
+        }
+       ],
+       "tiers": [
+        {
+         "name": "War Chest",
+         "probability": 10000,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "@item:rc335_warchest",
+             "quantity": 1
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     },
+     {
+      "type": "noncombatconsumereward",
+      "power": 1,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "reward_exp": 0,
+      "calculation": "static",
+      "description": "Warlord's Hoard: Conqueror's Stockpile x1",
+      "reward_pets": [],
+      "reward_rank": "NONE",
+      "disappearSfx": "",
+      "reward_items": [],
+      "reward_money": 0,
+      "powerPerLevel": 0,
+      "reward_badges": [],
+      "reward_jutsus": [],
+      "reward_titles": [],
+      "reward_tokens": 0,
+      "appearAnimation": "",
+      "reward_prestige": 0,
+      "staticAnimation": "",
+      "staticAssetPath": "",
+      "reward_anbupoints": 0,
+      "reward_bloodlines": [],
+      "reward_clanpoints": 0,
+      "reward_reputation": 0,
+      "reward_sage_modes": [],
+      "reward_war_damage": 0,
+      "disappearAnimation": "",
+      "reward_skillpoints": 0,
+      "reward_war_healing": 0,
+      "reward_hunter_items": false,
+      "reward_seichi_silver": 0,
+      "reward_gathering_items": false,
+      "reward_hunter_items_ids": [],
+      "reward_hunting_experience": 0,
+      "reward_medical_experience": 0,
+      "reward_village_membership": "NONE",
+      "reward_crafting_experience": 0,
+      "reward_gathering_items_ids": [],
+      "reward_gathering_experience": 0,
+      "reward_sage_mastery_experience": 0,
+      "rewardMode": "weightedCache",
+      "weightedCache": {
+       "version": 1,
+       "displayName": "Conqueror's Stockpile",
+       "rolls": [
+        {
+         "count": 1,
+         "probability": 10000
+        }
+       ],
+       "tiers": [
+        {
+         "name": "Conqueror's Stockpile",
+         "probability": 10000,
+         "entries": [
+          {
+           "items": [
+            {
+             "itemId": "@item:rc335_stockpile",
+             "quantity": 1
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     }
+    ]
+   }
+  }
+ ],
+ "capture": {
+  "after": [
+   {
+    "proc": "item.getItemWithCraftingRequirements",
+    "input": {
+     "id": "@item:rc335_frontline"
+    }
+   },
+   {
+    "proc": "item.getItemWithCraftingRequirements",
+    "input": {
+     "id": "@item:rc335_bloodcore"
+    }
+   },
+   {
+    "proc": "item.getItemWithCraftingRequirements",
+    "input": {
+     "id": "@item:rc335_warchest"
+    }
+   },
+   {
+    "proc": "item.getItemWithCraftingRequirements",
+    "input": {
+     "id": "@item:rc335_stockpile"
+    }
+   },
+   {
+    "proc": "item.getItemWithCraftingRequirements",
+    "input": {
+     "id": "@item:rc335_hoard"
+    }
+   }
+  ]
+ }
+}

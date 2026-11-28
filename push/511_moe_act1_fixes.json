@@ -1,0 +1,456 @@
+{
+ "_note": "push/511: Mother of Echoes act-1 QA fixes (2026-11-08, director asked: 'Fix the 4 bugs too'). (1) An Absence summon text no longer shows the raw %target token (summons land on empty ground, so the engine never fills it). (2) Nothing Moves and its Stillness ring skipped the 6 hexes next to the Silence, so a player standing adjacent was never hit; the ring is now the full radius-3 area minus her own hex. (3) An Absence now lasts 5 rounds (was 3) so The Absence Opens debuffs outlive their caster (the engine drops a summon's effects when it leaves); cooldown 3 -> 5 keeps one Absence at a time. (4) Refraction Breaks was a misread of the battle log (the line names the clicked tile), no change. Law 18: the Silence and Sayo are unequipped, the jutsu edited, then re-equipped with their 509 kits by literal id. Hand-built from push/509 items 660/661/680/681/707/708 and the live An Absence record.",
+ "dedupNames": true,
+ "items": [
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "targetId": "fJLcH1mpB1XHHGtNWwvzD",
+   "name": "Sayo, Mother of Echoes: moe jutsu off (law 18)",
+   "phase": 10,
+   "data": {
+    "items": [
+     {
+      "ids": [
+       "h-V9uiuxbL7lAWkO6nZWt"
+      ],
+      "number": 0
+     }
+    ],
+    "jutsus": []
+   }
+  },
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "targetId": "IhNR-W1FElTsrWw1KfuQ9",
+   "name": "The Silence: moe jutsu off (law 18)",
+   "phase": 10,
+   "data": {
+    "items": [
+     {
+      "ids": [
+       "h-V9uiuxbL7lAWkO6nZWt"
+      ],
+      "number": 0
+     }
+    ],
+    "jutsus": []
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "targetId": "A8c_3evIw6fOfnmKIkTgb",
+   "name": "Stillness: ring includes adjacent hexes",
+   "phase": 20,
+   "data": {
+    "coordinateTargeting": {
+     "origin": "CASTER",
+     "selection": "ALL",
+     "coordinates": [
+      {
+       "longitude": -1,
+       "latitude": -3
+      },
+      {
+       "longitude": 0,
+       "latitude": -3
+      },
+      {
+       "longitude": 1,
+       "latitude": -3
+      },
+      {
+       "longitude": -3,
+       "latitude": -2
+      },
+      {
+       "longitude": -2,
+       "latitude": -2
+      },
+      {
+       "longitude": -1,
+       "latitude": -2
+      },
+      {
+       "longitude": 0,
+       "latitude": -2
+      },
+      {
+       "longitude": 1,
+       "latitude": -2
+      },
+      {
+       "longitude": 2,
+       "latitude": -2
+      },
+      {
+       "longitude": 3,
+       "latitude": -2
+      },
+      {
+       "longitude": -3,
+       "latitude": -1
+      },
+      {
+       "longitude": -2,
+       "latitude": -1
+      },
+      {
+       "longitude": 2,
+       "latitude": -1
+      },
+      {
+       "longitude": 3,
+       "latitude": -1
+      },
+      {
+       "longitude": -3,
+       "latitude": 0
+      },
+      {
+       "longitude": -2,
+       "latitude": 0
+      },
+      {
+       "longitude": 2,
+       "latitude": 0
+      },
+      {
+       "longitude": 3,
+       "latitude": 0
+      },
+      {
+       "longitude": -3,
+       "latitude": 1
+      },
+      {
+       "longitude": -2,
+       "latitude": 1
+      },
+      {
+       "longitude": -1,
+       "latitude": 1
+      },
+      {
+       "longitude": 1,
+       "latitude": 1
+      },
+      {
+       "longitude": 2,
+       "latitude": 1
+      },
+      {
+       "longitude": 3,
+       "latitude": 1
+      },
+      {
+       "longitude": -2,
+       "latitude": 2
+      },
+      {
+       "longitude": -1,
+       "latitude": 2
+      },
+      {
+       "longitude": 0,
+       "latitude": 2
+      },
+      {
+       "longitude": 1,
+       "latitude": 2
+      },
+      {
+       "longitude": 2,
+       "latitude": 2
+      },
+      {
+       "longitude": 0,
+       "latitude": 3
+      },
+      {
+       "longitude": -1,
+       "latitude": -1
+      },
+      {
+       "longitude": 0,
+       "latitude": -1
+      },
+      {
+       "longitude": 1,
+       "latitude": -1
+      },
+      {
+       "longitude": -1,
+       "latitude": 0
+      },
+      {
+       "longitude": 1,
+       "latitude": 0
+      },
+      {
+       "longitude": 0,
+       "latitude": 1
+      }
+     ],
+     "randomCount": 1
+    },
+    "injectableInBattle": false
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "targetId": "scGyJW-F0Mqga4FXnj4Jf",
+   "name": "Nothing Moves: ring includes adjacent hexes",
+   "phase": 20,
+   "data": {
+    "coordinateTargeting": {
+     "origin": "CASTER",
+     "selection": "ALL",
+     "coordinates": [
+      {
+       "longitude": -1,
+       "latitude": -3
+      },
+      {
+       "longitude": 0,
+       "latitude": -3
+      },
+      {
+       "longitude": 1,
+       "latitude": -3
+      },
+      {
+       "longitude": -3,
+       "latitude": -2
+      },
+      {
+       "longitude": -2,
+       "latitude": -2
+      },
+      {
+       "longitude": -1,
+       "latitude": -2
+      },
+      {
+       "longitude": 0,
+       "latitude": -2
+      },
+      {
+       "longitude": 1,
+       "latitude": -2
+      },
+      {
+       "longitude": 2,
+       "latitude": -2
+      },
+      {
+       "longitude": 3,
+       "latitude": -2
+      },
+      {
+       "longitude": -3,
+       "latitude": -1
+      },
+      {
+       "longitude": -2,
+       "latitude": -1
+      },
+      {
+       "longitude": 2,
+       "latitude": -1
+      },
+      {
+       "longitude": 3,
+       "latitude": -1
+      },
+      {
+       "longitude": -3,
+       "latitude": 0
+      },
+      {
+       "longitude": -2,
+       "latitude": 0
+      },
+      {
+       "longitude": 2,
+       "latitude": 0
+      },
+      {
+       "longitude": 3,
+       "latitude": 0
+      },
+      {
+       "longitude": -3,
+       "latitude": 1
+      },
+      {
+       "longitude": -2,
+       "latitude": 1
+      },
+      {
+       "longitude": -1,
+       "latitude": 1
+      },
+      {
+       "longitude": 1,
+       "latitude": 1
+      },
+      {
+       "longitude": 2,
+       "latitude": 1
+      },
+      {
+       "longitude": 3,
+       "latitude": 1
+      },
+      {
+       "longitude": -2,
+       "latitude": 2
+      },
+      {
+       "longitude": -1,
+       "latitude": 2
+      },
+      {
+       "longitude": 0,
+       "latitude": 2
+      },
+      {
+       "longitude": 1,
+       "latitude": 2
+      },
+      {
+       "longitude": 2,
+       "latitude": 2
+      },
+      {
+       "longitude": 0,
+       "latitude": 3
+      },
+      {
+       "longitude": -1,
+       "latitude": -1
+      },
+      {
+       "longitude": 0,
+       "latitude": -1
+      },
+      {
+       "longitude": 1,
+       "latitude": -1
+      },
+      {
+       "longitude": -1,
+       "latitude": 0
+      },
+      {
+       "longitude": 1,
+       "latitude": 0
+      },
+      {
+       "longitude": 0,
+       "latitude": 1
+      }
+     ],
+     "randomCount": 1
+    },
+    "injectableInBattle": false
+   }
+  },
+  {
+   "entity": "jutsu",
+   "slot": "edit",
+   "targetId": "nwjETj5gD7gD68KomTmxF",
+   "name": "An Absence: no %target, 5-round summon, cooldown 5",
+   "phase": 20,
+   "data": {
+    "battleDescription": "An Absence settles on the floor nearby. The floor there has stopped making sound.",
+    "cooldown": 5,
+    "effects": [
+     {
+      "aiHp": 800,
+      "aiId": "8GPW--ok-9m9CBUfBucV4",
+      "type": "summon",
+      "power": 40,
+      "rounds": 5,
+      "target": "INHERIT",
+      "appearSfx": "",
+      "direction": "offence",
+      "calculation": "percentage",
+      "description": "placeholder",
+      "disappearSfx": "",
+      "powerPerLevel": 0,
+      "appearAnimation": "v96VmSr85jQEluXJIQwnM",
+      "staticAnimation": "pCzLAQZ_oMkdNqCf-HCq1",
+      "staticAssetPath": "",
+      "playerControlled": false,
+      "disappearAnimation": ""
+     }
+    ],
+    "injectableInBattle": false
+   }
+  },
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "targetId": "fJLcH1mpB1XHHGtNWwvzD",
+   "name": "Sayo, Mother of Echoes: kit back (law 18)",
+   "phase": 30,
+   "data": {
+    "items": [
+     {
+      "ids": [
+       "h-V9uiuxbL7lAWkO6nZWt"
+      ],
+      "number": 0
+     }
+    ],
+    "jutsus": [
+     "-ycht5oRfg137kv1y_LoH",
+     "0g0Iy9PKsIVC6ggG1Exz2",
+     "G_b5yaxm6GMOuQ3eaofKb",
+     "yxP6zO2NmjwqnrnvNXipC",
+     "HIftLq_RQJkIUUqGgBPTE",
+     "qjtaZInyr1nZ5lZmSA_SS",
+     "OTcP-08or5bUKwcMjc54K",
+     "eYzXEQI-Vz3gSIDfP2sX3",
+     "xlmvVot9xaetibexfyc31",
+     "KfXRK6rC3bt4kpdtdJHDb",
+     "IOUn-UrO1gwbi4uJdwYDp",
+     "foDwd-hL5krmhFHsPtQtc",
+     "nwjETj5gD7gD68KomTmxF"
+    ]
+   }
+  },
+  {
+   "entity": "ai",
+   "slot": "edit",
+   "targetId": "IhNR-W1FElTsrWw1KfuQ9",
+   "name": "The Silence: kit back (law 18)",
+   "phase": 30,
+   "data": {
+    "items": [
+     {
+      "ids": [
+       "h-V9uiuxbL7lAWkO6nZWt"
+      ],
+      "number": 0
+     }
+    ],
+    "jutsus": [
+     "WyurLfWSUSGU1pIoBPObD",
+     "G_b5yaxm6GMOuQ3eaofKb",
+     "kfzxZHje97anmOwwph84l",
+     "VqSpJhDUvjxLP5OtjI1mc",
+     "mqko5kLLXqGAVr6MVoKY0",
+     "q0QcFoX4HIhxO0cpYTL2N",
+     "A8c_3evIw6fOfnmKIkTgb",
+     "scGyJW-F0Mqga4FXnj4Jf"
+    ]
+   }
+  }
+ ]
+}

@@ -1,5 +1,5 @@
 {
-  "_note": "Live game jobs, ready or waiting, in run order (RUL-2026-11-07-133). One writer at a time: claim the run lock (node forge/tools/run_lock.mjs claim) before any job, release after. runner: connector = a Claude/Duet session over the game connection (forge/tools/mcp_run.mjs); browser = Forge in a signed-in tab (image uploads). status: ready | waiting | parked | done. Whoever builds, runs or unblocks a job updates its row in the same commit.",
+  "_note": "Live game jobs, ready or waiting, in run order (RUL-2026-11-07-133). One writer at a time: claim the run lock (node forge/tools/run_lock.mjs claim) before any job, release after. runner: connector = a Claude/Duet session over the game connection (forge/tools/mcp_run.mjs); browser = Forge in a signed-in tab (image uploads). status: ready | waiting | parked | done. Whoever builds, runs or unblocks a job updates its row in the same commit. Harvest statuses (2026-11-28): unverified = ran, but its results bundle is INCOMPLETE or failed; unrecorded = branch commits say it ran, no results bundle was found. Ids with a suffix (631-ss, 640-rm, ...) were assigned on branches and collided with main.",
   "jobs": [
     {
       "id": "506",
@@ -62,9 +62,9 @@
       "manifest": null,
       "what": "Live test of the fight on practice quest 469 (visual + mechanics)",
       "runner": "duet-browser",
-      "status": "ready",
+      "status": "superseded",
       "waitsFor": [],
-      "note": "Practice runs on dauntless 2026-11-08 after 529 and 530 (Act 1 won, Act 2 lost; HP carries over between acts by design). Ongoing in the Mother of Echoes thread."
+      "note": "Practice runs on dauntless 2026-11-08 after 529 and 530 (Act 1 won, Act 2 lost; HP carries over between acts by design). Ongoing in the Mother of Echoes thread. Overtaken: Mother of Echoes released 2026-11-14 by 597 (harvests/inbox/tnr_results_1794615376220.json DONE success 16/16). [Repo review W1, 2026-11-28; evidence docs/reviews/REPO_REVIEW_2026-11-27/evidence/lane_b_state.md]"
     },
     {
       "id": "477",
@@ -143,7 +143,7 @@
       "manifest": null,
       "what": "Salvager's thread go-live: unhide boards + Fire quest, rewrite Wreck Sighted (_zp1l7Y9a_77pgonAdsYx) onto the thread",
       "runner": "connector",
-      "status": "waiting",
+      "status": "superseded",
       "waitsFor": [
         "509 results bundle",
         "Duet's Wreck Sighted overworld-NPC change",
@@ -151,7 +151,7 @@
         "director go"
       ],
       "build": "python3 push/skyglass_thread.gen.py golive --from <509 bundle> --live <live read of Wreck Sighted taken AFTER Duet's change>",
-      "note": "Rewrites the whole Wreck Sighted record: build from a read taken after Duet's overworld change so questType and placement carry over (golive copies every field but content.objectives/scene). Also rewrites the Fire quest. The shards topic is held back until the Mother of Echoes is live (RUL-2026-11-09-140). Director 2026-11-09 19:57 (relayed): the Fire stays an Administration Building event (no reward, no daily NPC roll); 510 only adds Wreck Sighted as its prerequisite and unhides it. Wreck Sighted still goes overworld at her NPC. Wreck Sighted's z_chart text now points to the Fire in Events. 2026-11-09 20:21 director go: golive ties every Wreck Sighted dialog step to her placement goagM4WhKWtnVb8oP5euM; the Fire (Admin Building event) stays unbound."
+      "note": "Rewrites the whole Wreck Sighted record: build from a read taken after Duet's overworld change so questType and placement carry over (golive copies every field but content.objectives/scene). Also rewrites the Fire quest. The shards topic is held back until the Mother of Echoes is live (RUL-2026-11-09-140). Director 2026-11-09 19:57 (relayed): the Fire stays an Administration Building event (no reward, no daily NPC roll); 510 only adds Wreck Sighted as its prerequisite and unhides it. Wreck Sighted still goes overworld at her NPC. Wreck Sighted's z_chart text now points to the Fire in Events. 2026-11-09 20:21 director go: golive ties every Wreck Sighted dialog step to her placement goagM4WhKWtnVb8oP5euM; the Fire (Admin Building event) stays unbound. Done inside push/611 on 2026-11-14 (tnr_results_1794614869418 DONE failed 45/47, repaired by 612 DONE success). The Wreck Sighted rewrite part is not separately verified. [Repo review W1, 2026-11-28; evidence docs/reviews/REPO_REVIEW_2026-11-27/evidence/lane_b_state.md]"
     },
     {
       "id": "512",
@@ -247,7 +247,7 @@
         "the director's go on going live"
       ],
       "build": "python3 push/skyglass_journal.gen.py publish --page 4 --from <519 bundle>",
-      "note": "Built from tnr_results_1794160239097.json. Run only once The Mother of Echoes is live, before Fri 2026-11-27 6 PM Central; then set the schedule's page 4 published true."
+      "note": "Built from tnr_results_1794160239097.json. Run only once The Mother of Echoes is live, before Fri 2026-11-27 6 PM Central; then set the schedule's page 4 published true. The 2026-11-27 release window passed unpublished (no go given in time); next window is Friday 2026-12-04. [Repo review W1, 2026-11-28; evidence docs/reviews/REPO_REVIEW_2026-11-27/evidence/lane_b_state.md]"
     },
     {
       "id": "525",
@@ -313,12 +313,12 @@
       "manifest": "(not written)",
       "what": "Go-live for the three new charts: Wreck drop rows, unhide 3 items + 3 quests, Core Rot description update",
       "runner": "mcp",
-      "status": "waiting",
+      "status": "done",
       "waitsFor": [
         "537",
         "dauntless's go on the full Friday Skyglass release"
       ],
-      "note": "Ships inside this week's single Skyglass release (Fri Nov 13, 6 PM CT) with the rest of the larger update, per dauntless Nov 9. Nothing added tonight; all 3 charts and 3 runs stay hidden until his go on the full release."
+      "note": "Ships inside this week's single Skyglass release (Fri Nov 13, 6 PM CT) with the rest of the larger update, per dauntless Nov 9. Nothing added tonight; all 3 charts and 3 runs stay hidden until his go on the full release. Charts unhidden and chart texts set in push/609 (2026-11-13, DONE failed 101/106, repaired by 612). [Repo review W1, 2026-11-28; evidence docs/reviews/REPO_REVIEW_2026-11-27/evidence/lane_b_state.md]"
     },
     {
       "id": "540",
@@ -363,35 +363,35 @@
       "manifest": "push/548_skyglass_thread_fire_text.json",
       "what": "At the Salvager's Fire (hidden): text for the Administration Building version (no reward, no daily NPC roll, meet her first via Wreck Sighted); trade prices line drops 'offers her fire'",
       "runner": "mcp",
-      "status": "ready",
+      "status": "superseded",
       "waitsFor": [
         "run lock"
       ],
-      "note": "Director 2026-11-09 19:57 (relayed): the no-reward Fire stays an event quest at the Administration Building so the tutorial costs no daily NPC roll. Hidden text edit only; stays questType event. Built by skyglass_thread.gen.py firetext --num 548 from the 509 bundle. Gates 0 errors."
+      "note": "Director 2026-11-09 19:57 (relayed): the no-reward Fire stays an event quest at the Administration Building so the tutorial costs no daily NPC roll. Hidden text edit only; stays questType event. Built by skyglass_thread.gen.py firetext --num 548 from the 509 bundle. Gates 0 errors. Fire v6 text shipped in 609; Fire published in 611. [Repo review W1, 2026-11-28; evidence docs/reviews/REPO_REVIEW_2026-11-27/evidence/lane_b_state.md]"
     },
     {
       "id": "549",
       "manifest": "push/549_larry_capture.json",
       "what": "Read-only capture of Larry's Undertow for the dialog binding",
       "runner": "mcp",
-      "status": "ready",
+      "status": "done",
       "waitsFor": [
         "run lock"
       ],
-      "note": "Director go 2026-11-09 20:21 ('fix Larry too')."
+      "note": "Director go 2026-11-09 20:21 ('fix Larry too'). Ran 2026-11-09: harvests/inbox/tnr_results_1794259600259.json DONE success. [Repo review W1, 2026-11-28; evidence docs/reviews/REPO_REVIEW_2026-11-27/evidence/lane_b_state.md]"
     },
     {
       "id": "550",
       "manifest": null,
       "what": "Larry's Undertow (LIVE): tie its 13 dialog steps to Larry's placement so taps show the scenes",
       "runner": "mcp",
-      "status": "waiting",
+      "status": "done",
       "waitsFor": [
         "549 bundle",
         "run lock"
       ],
       "build": "python3 push/larry_bind.gen.py --from <549 bundle>",
-      "note": "Director go 2026-11-09 20:21 ('Tie them and fix Larry too'). Then check live: tap Larry with dauntless by hand."
+      "note": "Director go 2026-11-09 20:21 ('Tie them and fix Larry too'). Then check live: tap Larry with dauntless by hand. Ran 2026-11-09: commit 4914fcb0 \"549/550 done\" + tnr_results_1794259841147 DONE success; that commit lost its run_queue edit. [Repo review W1, 2026-11-28; evidence docs/reviews/REPO_REVIEW_2026-11-27/evidence/lane_b_state.md]"
     },
     {
       "id": "560",
@@ -571,13 +571,13 @@
       "manifest": "push/545_salvager_trade_golive.json",
       "what": "Salvage go-live: Wreck Salvage on every Skyglass win (commons 1 at 25%, crew/new/Haul 1, Epic/tainted 3, Crownhold 10), Skyglass Wreck 3 per clear and Faded 1 at 25% with chart drops halved, 3 per Watch Log order, Wreck Salvage and the four trades unhidden in the quest log (Wreck Sighted prerequisite)",
       "runner": "connector",
-      "status": "waiting",
+      "status": "done",
       "waitsFor": [
         "538 chart go-live (touches the Wreck drop rows and the three new runs)",
         "fresh live reads into DIR, then python3 push/salvager_golive.gen.py --live DIR",
         "director go on the release"
       ],
-      "note": "RUL-2026-11-13-148. Generator dry-run 2026-11-13 on stand-in records: 28 items, shape correct. Build from reads taken after 538 so the halving sees the new chart rows. 543's overworld step is dropped by this ruling; 543 is folded into 545. 2026-11-13: Lantern trade now sells once per record (retryDelay none, maxCompletes 1), director 'one lantern per' weekend; the Sealed trade stays weekly (the Sunday 6 PM week turn lets it sell twice in one event weekend - flagged)."
+      "note": "RUL-2026-11-13-148. Generator dry-run 2026-11-13 on stand-in records: 28 items, shape correct. Build from reads taken after 538 so the halving sees the new chart rows. 543's overworld step is dropped by this ruling; 543 is folded into 545. 2026-11-13: Lantern trade now sells once per record (retryDelay none, maxCompletes 1), director 'one lantern per' weekend; the Sealed trade stays weekly (the Sunday 6 PM week turn lets it sell twice in one event weekend - flagged). Executed inside push/611 (\"545 salvage ladder\"), 2026-11-14. [Repo review W1, 2026-11-28; evidence docs/reviews/REPO_REVIEW_2026-11-27/evidence/lane_b_state.md]"
     },
     {
       "id": "592",
@@ -604,26 +604,26 @@
       "manifest": "push/593_moe_animation_scale.json",
       "what": "Mother of Echoes clips at 2.5x: 56 jutsu by Forge livePatch (effects built from the live record at send time), law 18 on 10 AIs",
       "runner": "browser",
-      "status": "waiting",
+      "status": "done",
       "waitsFor": [
         "director go",
         "Forge browser tab (the connector run is too large)"
       ],
       "build": "python3 push/593_moe_animation_scale.gen.py",
-      "note": "2026-11-13. Inputs read live today with ids-only selects (state/moe_scale/): kits of 11 AIs, animation fields of all 71 equipped jutsu, her 1,102 asset ids (501's 973 + her FX + 54 Refraction lens clips; the six non-slice MoE folders checked live, 71/71). 12 equipped jutsu have no clip; Stolen Form uses only the library shove strip (not hers, stays 1x); Stillness done by 588 (test AI FotHaXVoYS4In_wM-qczO equips only it, so it is untouched). validate.py: 0 errors, 112 law-20/partial-data warnings that do not apply (Forge merges every key from the live read). Run ONLY on a Forge bundle that has livePatch (after the merge and the auto loader pin): an older bundle ignores the key, sends each jutsu back unchanged and would still show it verified. Harmless, but nothing gets scaled. Claude reads back every record after the run either way. 2026-11-13 19:15 UTC: livePatch merged to main (be77af20, director review + go), loader pinned (40477c41). 2026-11-13 20:20 UTC: tried mcp_run --transcript; stopped after item 0 because each AI read is 30-500k chars and the run needs ~150 such calls (too large for one session). Item 0 (Saint off) was undone by hand at once: Saint's 25-jutsu kit re-sent and read back, 25/25 equipped, no jutsu touched. Nothing else sent. Still for the Forge browser tab."
+      "note": "2026-11-13. Inputs read live today with ids-only selects (state/moe_scale/): kits of 11 AIs, animation fields of all 71 equipped jutsu, her 1,102 asset ids (501's 973 + her FX + 54 Refraction lens clips; the six non-slice MoE folders checked live, 71/71). 12 equipped jutsu have no clip; Stolen Form uses only the library shove strip (not hers, stays 1x); Stillness done by 588 (test AI FotHaXVoYS4In_wM-qczO equips only it, so it is untouched). validate.py: 0 errors, 112 law-20/partial-data warnings that do not apply (Forge merges every key from the live read). Run ONLY on a Forge bundle that has livePatch (after the merge and the auto loader pin): an older bundle ignores the key, sends each jutsu back unchanged and would still show it verified. Harmless, but nothing gets scaled. Claude reads back every record after the run either way. 2026-11-13 19:15 UTC: livePatch merged to main (be77af20, director review + go), loader pinned (40477c41). 2026-11-13 20:20 UTC: tried mcp_run --transcript; stopped after item 0 because each AI read is 30-500k chars and the run needs ~150 such calls (too large for one session). Item 0 (Saint off) was undone by hand at once: Saint's 25-jutsu kit re-sent and read back, 25/25 equipped, no jutsu touched. Nothing else sent. Still for the Forge browser tab. Ran 2026-11-13: tnr_results_1794601792898 and _1794604795704 DONE success 76/76. [Repo review W1, 2026-11-28; evidence docs/reviews/REPO_REVIEW_2026-11-27/evidence/lane_b_state.md]"
     },
     {
       "id": "597",
       "manifest": "push/597_moe_release.json",
       "what": "Mother of Echoes release: real quest IBPNwhAzlAJPXoeEnp8gW re-sent whole with hidden false (three act scenes, portraits, 10 objectives, rewards as the practice quest), 15 FX unhides (idempotent)",
       "runner": "connector",
-      "status": "waiting",
+      "status": "done",
       "waitsFor": [
         "596 done and all three acts rerun by hand",
         "593 clip-size pass",
         "release time with the rest of Skyglass (director go 2026-11-13 18:57 UTC)"
       ],
-      "note": "Built from job 477's generator 2026-11-13; check_manifest 0 problems. The practice quest stays hidden for good (its real rewards are the director's Nov 4 setup for his tester)."
+      "note": "Built from job 477's generator 2026-11-13; check_manifest 0 problems. The practice quest stays hidden for good (its real rewards are the director's Nov 4 setup for his tester). Ran 2026-11-14 00:16Z: tnr_results_1794615376220 DONE success 16/16. [Repo review W1, 2026-11-28; evidence docs/reviews/REPO_REVIEW_2026-11-27/evidence/lane_b_state.md]"
     },
     {
       "id": "595",
@@ -638,23 +638,23 @@
       "note": "Director 2026-11-13 '1 lantern per'. First copy is tonight's record MSQJTdZEQK1JWjFiVtQVI (545). The Fire's trade topic (510) must point at the current copy each week."
     },
     {
-      "id": "596",
+      "id": "596b",
       "manifest": null,
       "what": "Crowned Captain cannot be stunned (stunprevent on base effects): fixes the e2e 'stands and does nothing' stall",
       "runner": "connector",
       "status": "done",
       "waitsFor": [],
-      "note": "Director go 2026-11-13 19:02 UTC. Sent and read back 19:06 UTC.",
+      "note": "Director go 2026-11-13 19:02 UTC. Sent and read back 19:06 UTC. Id renumbered 596 -> 596b: two jobs shared 596. [Repo review W1, 2026-11-28; evidence docs/reviews/REPO_REVIEW_2026-11-27/evidence/lane_b_state.md]",
       "result": "state/results/596_597_captain_stunprevent_and_core_rot_grant.md"
     },
     {
-      "id": "597",
+      "id": "597b",
       "manifest": null,
       "what": "Hidden grant quest x5-kg5W6sHoyXM8yJk-M4 pays 1 Core Rot (restock dauntless for the Spoiled Hold test)",
       "runner": "connector",
       "status": "done",
       "waitsFor": [],
-      "note": "Director go 2026-11-13 19:02 UTC. Read back.",
+      "note": "Director go 2026-11-13 19:02 UTC. Read back. Id renumbered 597 -> 597b: two jobs shared 597. [Repo review W1, 2026-11-28; evidence docs/reviews/REPO_REVIEW_2026-11-27/evidence/lane_b_state.md]",
       "result": "state/results/596_597_captain_stunprevent_and_core_rot_grant.md"
     },
     {
@@ -672,13 +672,13 @@
       "manifest": "push/620_variant_text_weapons.json",
       "what": "Unique description + battle text for 21 weapon variants (Hemathorn/Weeping Testament pattern)",
       "runner": "browser or connector",
-      "status": "waiting",
+      "status": "unverified",
       "waitsFor": [
         "director approval of the text (Claude Doc 'Weapon variant text (job 620)')",
         "director go"
       ],
       "build": "python3 push/620_variant_text_weapons.gen.py",
-      "note": "Director 2026-11-15: players want unique text on every variant, faithful to each weapon's own text, premium rewrite. Text source state/variant_text/weapons_20261115.json; parent text and art read live 2026-11-15. check_manifest.mjs: 0 pre-send problems. validate.py reports 'no itemVariant entity' at the pinned contracts (a validator contract gap, same edit shape as push/327)."
+      "note": "Director 2026-11-15: players want unique text on every variant, faithful to each weapon's own text, premium rewrite. Text source state/variant_text/weapons_20261115.json; parent text and art read live 2026-11-15. check_manifest.mjs: 0 pre-send problems. validate.py reports 'no itemVariant entity' at the pinned contracts (a validator contract gap, same edit shape as push/327). Ran 2026-11-17 in the browser: tnr_results_1794936625194 INCOMPLETE (20 match, 1 diff, 1 unresolved); one entry left to finish. [Repo review W1, 2026-11-28; evidence docs/reviews/REPO_REVIEW_2026-11-27/evidence/lane_b_state.md]"
     },
     {
       "id": "621",
@@ -792,14 +792,14 @@
     },
     {
       "id": "631",
-      "manifest": "push/631_gobblefather_art_rewards.zip",
+      "manifest": "push/631_gobblefather_art_rewards_ut.json",
       "what": "The Gobblefather step 3: 11 scene assets, 7 AI avatars, badge Family Business, Golden Feathered Ring, Gobblefather's Cane token + Night's Testament variant, quest scenes and rewards (Single Major Event package)",
-      "runner": "browser",
+      "runner": "connector",
       "status": "done",
       "waitsFor": [],
-      "build": "python3 push/631_gobblefather_art_rewards.gen.py",
-      "note": "Director go 2026-11-26 12:55 CT ('All approved'). Runs in browser Forge (image uploads). Gates 2026-11-26: validate.py --strict 11 build-order diagnostics, all ledgered (state/validate_exceptions/631, RUL-2026-10-31-085 validator bug); check_manifest.mjs 0 pre-send problems. Visible on run: the badge (public /manual/badge) and the Night's Testament variant (owners see 'Need Gobblefather's Cane Token'). After the run: read back every AI's equipped jutsu (law 18 risk on the AI edits), then a connector token edit binding unlockitemvariant.variantId to the new variant id. Ran in Forge 2026-11-26 (bundle not committed); quest reward block came back empty. Go-live 2026-11-27 over the connector: quest cloned to a0HxwG_yOapsv0g_oFvYD with the rewards, unhidden; ring, token and 11 assets unhidden; original goJkx deleted (director yes). AI and their jutsu left hidden (fight fine hidden; see bundle).",
-      "result": "harvests/inbox/tnr_results_gobblefather_golive_20261127.json"
+      "build": "python3 push/631_gobblefather_art_rewards.gen.py && python3 push/631_gobblefather_art_rewards_ut.gen.py",
+      "note": "Director go 2026-11-26 12:55 CT ('All approved'). Runs in browser Forge (image uploads). Gates 2026-11-26: validate.py --strict 11 build-order diagnostics, all ledgered (state/validate_exceptions/631, RUL-2026-10-31-085 validator bug); check_manifest.mjs 0 pre-send problems. Visible on run: the badge (public /manual/badge) and the Night's Testament variant (owners see 'Need Gobblefather's Cane Token'). After the run: read back every AI's equipped jutsu (law 18 risk on the AI edits), then a connector token edit binding unlockitemvariant.variantId to the new variant id. 2026-11-26 19:09Z the director sent the 21 art files ('Use these and run manifest 631'): byte-identical to art/gobblefather. Uploaded to the director's UploadThing by a one-off workflow on claude/project-thread-bkn9aw (sha-checked; state/gobblefather_upload/uploaded.json), so 631 runs over the connector as push/631_gobblefather_art_rewards_ut.json (plan 0 problems, check_manifest 0, validate.py same output as 631, ledgered). 2026-11-26 19:17Z first connector try stopped before any game call: this cloud session keeps no Claude Code transcript (~/.claude/projects is absent), so --transcript auto cannot answer and the 41 KB quest edit cannot be hand-answered safely. Nothing was written to the game; lock released. Run it from a session that has a transcript, or in browser Forge (the zip, or this _ut manifest with no uploads). 2026-11-26 19:42Z run over the connector in this session (answers hand-written to the runner exchange, each AI and quest edit built from a fresh full read): job 631-mwxxum5v DONE, 23 of 23 written and VERIFIED, postflight match 23 diff 0. Read-back: all 7 AI carry their new avatars and still equip every jutsu (29 of 29 equipped:true); quest goJkx-CPJSYvJO71s6CpE has scenes on all 30 objectives and the manifest rewards (10000 exp, 70000 ryo, 480 prestige, 500 tokens, 500 clan points, badge, ring, token), still hidden. 19:45Z follow-up token edit done: Gobblefather's Cane Token 132NSx2JBdxbjxLrQODBS effects[0].variantId = ZW5O_kCG13JL7W2MhPQaU (read back, token still hidden). Gaps: quest card image is still the default; token and variant share one image. [Row taken from claude/project-thread-bkn9aw, 2026-11-28.]",
+      "result": "harvests/inbox/tnr_results_1795722208766.json"
     },
     {
       "id": "632",
@@ -809,6 +809,644 @@
       "status": "done",
       "waitsFor": [],
       "note": "Director go 2026-11-27 10:46 CT ('Clone it and make an easier version for genin that has the enemies scale to their level. Set ours for 30+ and set that one for below 30'). Done 16:58Z: clone baWIzLpcJPnoTdPqjfVzn 'The Gobblefather (Genin)' lvl 1-29, adds dropped, +40%/40% boost each fight; main a0HxwG lvl 30+. Bundle harvests/inbox/tnr_results_gobblefather_genin_632_20261127.json."
+    },
+    {
+      "id": "631-ss",
+      "manifest": "push/631_flooded_stores_stage1.json",
+      "what": "Flooded Stores stage 1: 9 strips + 26 jutsu created hidden",
+      "runner": "connector",
+      "status": "unverified",
+      "waitsFor": [],
+      "note": "Harvested 2026-11-28 from claude/project-thread-hlg3nc (repo review W1). Bundles: harvests/inbox/tnr_results_1795025876815.json (INCOMPLETE/unverified). Id 631 collides with main 631 (Gobblefather); suffixed."
+    },
+    {
+      "id": "632-ss",
+      "manifest": "push/632_flooded_stores_stage2.json",
+      "what": "Flooded Stores stage 2: summoned AIs",
+      "runner": "connector",
+      "status": "unverified",
+      "waitsFor": [],
+      "note": "Harvested 2026-11-28 from claude/project-thread-hlg3nc (repo review W1). Bundles: harvests/inbox/tnr_results_1795026074711.json (INCOMPLETE/unverified). Id 632 collides with main 632; suffixed."
+    },
+    {
+      "id": "633",
+      "manifest": "push/633_flooded_stores_stage3.json",
+      "what": "Flooded Stores stage 3: summon jutsu",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [],
+      "note": "Harvested 2026-11-28 from claude/project-thread-hlg3nc (repo review W1). Bundles: harvests/inbox/tnr_results_1795026134016.json (DONE/success)."
+    },
+    {
+      "id": "634",
+      "manifest": "push/634_flooded_stores_stage4.json",
+      "what": "Flooded Stores stage 4: 6 AIs created hidden",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [],
+      "note": "Harvested 2026-11-28 from claude/project-thread-hlg3nc (repo review W1). Bundles: harvests/inbox/tnr_results_1795026466130.json (DONE/success)."
+    },
+    {
+      "id": "635",
+      "manifest": "push/635_flooded_stores_chart.json",
+      "what": "Flooded Stores chart created hidden",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [],
+      "note": "Harvested 2026-11-28 from claude/project-thread-hlg3nc (repo review W1). Bundles: harvests/inbox/tnr_results_1795026739881.json (DONE/success)."
+    },
+    {
+      "id": "636",
+      "manifest": "push/636_flooded_stores_run.json",
+      "what": "Flooded Stores run created hidden; test grant quest pays the chart",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [],
+      "note": "Harvested 2026-11-28 from claude/project-thread-hlg3nc (repo review W1). Bundles: harvests/inbox/tnr_results_1795026813053.json (DONE/success)."
+    },
+    {
+      "id": "637",
+      "manifest": "push/637_short_rations_create.json",
+      "what": "Short Rations created hidden",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [],
+      "note": "Harvested 2026-11-28 from claude/project-thread-hlg3nc (repo review W1). Bundles: harvests/inbox/tnr_results_1795026954613.json (DONE/success)."
+    },
+    {
+      "id": "638",
+      "manifest": "push/638_short_rations_overworld.json",
+      "what": "Short Rations becomes overworld type, still hidden",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [],
+      "note": "Harvested 2026-11-28 from claude/project-thread-hlg3nc (repo review W1). Bundles: harvests/inbox/tnr_results_1795187853170.json (DONE/success)."
+    },
+    {
+      "id": "639-pool",
+      "manifest": "push/639_salvager_pool_upsert.json",
+      "what": "Salvager pool upsert",
+      "runner": "connector",
+      "status": "unrecorded",
+      "waitsFor": [],
+      "note": "Harvested 2026-11-28 from claude/project-thread-hlg3nc (repo review W1). Bundles: no results bundle found. Two manifests share 639 on that branch; suffixed. 673 go-live note mentions the Salvager pool."
+    },
+    {
+      "id": "639-sr",
+      "manifest": "push/639_short_rations_release.json",
+      "what": "Short Rations release",
+      "runner": "connector",
+      "status": "unrecorded",
+      "waitsFor": [],
+      "note": "Harvested 2026-11-28 from claude/project-thread-hlg3nc (repo review W1). Bundles: no results bundle found. Two manifests share 639 on that branch; suffixed."
+    },
+    {
+      "id": "640-ss",
+      "manifest": "push/640_flooded_stores_isonade_fixed.json",
+      "what": "Isonade fight unscaled at level 100",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [],
+      "note": "Harvested 2026-11-28 from claude/project-thread-hlg3nc (repo review W1). Bundles: harvests/inbox/tnr_results_1795027226420.json (DONE/success). Id 640 collides with 640-rm (project-thread-bxzz52); suffixed."
+    },
+    {
+      "id": "641-ss",
+      "manifest": "push/641_stolen_stores_pages_create.json",
+      "what": "Stolen Stores Watch Log pages: hidden create",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [],
+      "note": "Harvested 2026-11-28 from claude/project-thread-hlg3nc (repo review W1). Bundles: harvests/inbox/tnr_results_1795027885651.json (DONE/success). Id 641 collides with 641-rm; suffixed."
+    },
+    {
+      "id": "642",
+      "manifest": "push/642_stolen_stores_pages_open.json",
+      "what": "Stolen Stores pages: open-all with unreachable kill locations",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [],
+      "note": "Harvested 2026-11-28 from claude/project-thread-hlg3nc (repo review W1). Bundles: harvests/inbox/tnr_results_1795027992029.json (DONE/success)."
+    },
+    {
+      "id": "643",
+      "manifest": "push/643_stolen_stores_pages_release.json",
+      "what": "Stolen Stores pages: Friday release staged",
+      "runner": "connector",
+      "status": "unrecorded",
+      "waitsFor": [],
+      "note": "Harvested 2026-11-28 from claude/project-thread-hlg3nc (repo review W1). Bundles: no results bundle found."
+    },
+    {
+      "id": "644",
+      "manifest": "push/644_deck_charts_flooded_pick.json",
+      "what": "Deck charts: Flooded Stores pick",
+      "runner": "connector",
+      "status": "unrecorded",
+      "waitsFor": [],
+      "note": "Harvested 2026-11-28 from claude/project-thread-hlg3nc (repo review W1). Bundles: no results bundle found."
+    },
+    {
+      "id": "645",
+      "manifest": "push/645_isonade_warnings_tuning.json",
+      "what": "Isonade warnings tuning (hidden, 14/14)",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [],
+      "note": "Harvested 2026-11-28 from claude/project-thread-hlg3nc (repo review W1). Bundles: harvests/inbox/tnr_results_1795032992190.json (DONE/success)."
+    },
+    {
+      "id": "646",
+      "manifest": "push/646_isonade_bitten3_text.json",
+      "what": "Isonade Bitten 3 text (hidden, 3/3)",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [],
+      "note": "Harvested 2026-11-28 from claude/project-thread-hlg3nc (repo review W1). Bundles: harvests/inbox/tnr_results_1795033079235.json (DONE/success)."
+    },
+    {
+      "id": "647",
+      "manifest": "push/647_quartermaster_one_final_stand.json",
+      "what": "Quartermaster: Hand Out a Ration waits for round 2 (hidden)",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [],
+      "note": "Harvested 2026-11-28 from claude/project-thread-hlg3nc (repo review W1). Bundles: harvests/inbox/tnr_results_1795033944848.json (DONE/failed); harvests/inbox/tnr_results_1795033975469.json (DONE/success)."
+    },
+    {
+      "id": "648",
+      "manifest": "push/648_isonade_damage_pools.json",
+      "what": "Isonade slam 360 + brine pool 200 for 3 rounds, no drain (hidden, 8/8)",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [],
+      "note": "Harvested 2026-11-28 from claude/project-thread-hlg3nc (repo review W1). Bundles: harvests/inbox/tnr_results_1795038853279.json (DONE/success)."
+    },
+    {
+      "id": "660",
+      "manifest": "push/660_genin_dungeon_pass_jutsu.json",
+      "what": "Genin dungeon (hidden build): genin dungeon pass jutsu",
+      "runner": "connector",
+      "status": "unverified",
+      "waitsFor": [],
+      "note": "Harvested 2026-11-28 from claude/project-thread-g9d6ix (repo review W1). Bundles: harvests/inbox/tnr_results_1795042700128.json (INCOMPLETE/unverified). Bundle-to-manifest mapping by run order (one commit added all five)."
+    },
+    {
+      "id": "661",
+      "manifest": "push/661_genin_dungeon_rogues.json",
+      "what": "Genin dungeon (hidden build): genin dungeon rogues",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [],
+      "note": "Harvested 2026-11-28 from claude/project-thread-g9d6ix (repo review W1). Bundles: harvests/inbox/tnr_results_1795043035942.json (DONE/success). Bundle-to-manifest mapping by run order (one commit added all five)."
+    },
+    {
+      "id": "662",
+      "manifest": "push/662_genin_dungeon_reinforcements.json",
+      "what": "Genin dungeon (hidden build): genin dungeon reinforcements",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [],
+      "note": "Harvested 2026-11-28 from claude/project-thread-g9d6ix (repo review W1). Bundles: harvests/inbox/tnr_results_1795043087607.json (DONE/success). Bundle-to-manifest mapping by run order (one commit added all five)."
+    },
+    {
+      "id": "663",
+      "manifest": "push/663_genin_dungeon_captain.json",
+      "what": "Genin dungeon (hidden build): genin dungeon captain",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [],
+      "note": "Harvested 2026-11-28 from claude/project-thread-g9d6ix (repo review W1). Bundles: harvests/inbox/tnr_results_1795043161230.json (DONE/success). Bundle-to-manifest mapping by run order (one commit added all five)."
+    },
+    {
+      "id": "664",
+      "manifest": "push/664_genin_dungeon_quest_dungeon.json",
+      "what": "Genin dungeon (hidden build): genin dungeon quest dungeon",
+      "runner": "connector",
+      "status": "unverified",
+      "waitsFor": [],
+      "note": "Harvested 2026-11-28 from claude/project-thread-g9d6ix (repo review W1). Bundles: harvests/inbox/tnr_results_1795043298158.json (INCOMPLETE/unverified). Bundle-to-manifest mapping by run order (one commit added all five)."
+    },
+    {
+      "id": "640-rm",
+      "manifest": "push/640_residual_modifier_fix.json",
+      "what": "Residual modifier fix (zeroInstantResidual livePatch), run live 2026-11-18",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [],
+      "note": "Harvested 2026-11-28 from claude/project-thread-bxzz52 (repo review W1). Bundles: harvests/inbox/tnr_results_1795031980477.json (DONE/success). Ran from unreviewed Forge source on that branch (finding LA-05); the code is held for Lane A review, see docs/reviews/REPO_REVIEW_2026-11-27/livepatch_zeroInstantResidual.diff."
+    },
+    {
+      "id": "641-rm",
+      "manifest": "push/641_residual_modifier_fix_bloodline.json",
+      "what": "Residual modifier fix, bloodline jutsu",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [],
+      "note": "Harvested 2026-11-28 from claude/project-thread-bxzz52 (repo review W1). Bundles: harvests/inbox/tnr_results_1795032609352.json (DONE/success). Same as 640-rm."
+    },
+    {
+      "id": "rc335",
+      "manifest": "push/rc335_A_create_caches_ut.json",
+      "what": "Resource caches 335: caches created (A, A2) and unhidden (B), placed in the war-torn silo",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [],
+      "note": "Harvested 2026-11-28 from claude/project-thread-ua0lgy (repo review W1). Bundles: harvests/inbox/tnr_results_1795225332418.json (DONE/success). Manifests rc335_A_create_caches_ut, rc335_A2_create_caches_ut, rc335_B_unhide."
+    },
+    {
+      "id": "qc-1107",
+      "manifest": null,
+      "what": "Quest cleanup deletes (director yes per record), 2026-11-07",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [],
+      "note": "Harvested 2026-11-28 from claude/quest-cleanup-2026-11-07 (repo review W1). Bundles: harvests/inbox/tnr_results_1794032564463.json (DONE/success)."
+    },
+    {
+      "id": "631-wt",
+      "manifest": "push/631_weapon_effect_targets.json",
+      "what": "Weapon effect-target fix (Gale Fans, Soul Harvester, Flaming Sword, Warden's Bracers)",
+      "runner": "connector",
+      "status": "unrecorded",
+      "waitsFor": [],
+      "note": "Harvested 2026-11-28 from claude/project-thread-f0jjus (repo review W1). Bundles: no results bundle found. Id 631 collides with main 631; suffixed."
+    },
+    {
+      "id": "509-duet",
+      "manifest": "push/509_mother_of_echoes_remainder.json",
+      "what": "Mother of Echoes remainder (506 minus the 351 done; images on the director's UploadThing)",
+      "runner": "connector",
+      "status": "unrecorded",
+      "waitsFor": [],
+      "note": "Harvested 2026-11-28 from duet/moe-uploadthing (repo review W1). Bundles: no results bundle found. Id 509 collides with main 509; suffixed. Its bundles are already on main (same files)."
+    },
+    {
+      "id": "510-duet",
+      "manifest": "push/510_moe_absence_fix.json",
+      "what": "MoE An Absence fix",
+      "runner": "connector",
+      "status": "unrecorded",
+      "waitsFor": [],
+      "note": "Harvested 2026-11-28 from duet/moe-uploadthing (repo review W1). Bundles: no results bundle found. Id 510 collides with main 510; suffixed. Its bundles are already on main (same files)."
+    },
+    {
+      "id": "511-duet",
+      "manifest": "push/511_moe_act1_fixes.json",
+      "what": "MoE act-1 QA fixes",
+      "runner": "connector",
+      "status": "unrecorded",
+      "waitsFor": [],
+      "note": "Harvested 2026-11-28 from duet/moe-uploadthing (repo review W1). Bundles: no results bundle found. Id 511 collides with main 511; suffixed. Its bundles are already on main (same files)."
+    },
+    {
+      "id": "512-duet",
+      "manifest": "push/512_moe_omen_fixes.json",
+      "what": "MoE omen fixes (5/5 verified per commit)",
+      "runner": "connector",
+      "status": "unrecorded",
+      "waitsFor": [],
+      "note": "Harvested 2026-11-28 from duet/moe-uploadthing (repo review W1). Bundles: no results bundle found. Id 512 collides with main 512; suffixed. Its bundles are already on main (same files)."
+    },
+    {
+      "id": "651",
+      "manifest": "push/651_isonade_v4_jutsu.json",
+      "what": "Isonade v4: 14 new jutsu, hidden (names are placeholders)",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [],
+      "build": "python3 push/651_isonade_v4.gen.py",
+      "note": "Ran 2026-11-19 via mcp_run on the director's go ('Yes, build it', 16:16Z): 14 created hidden, verified (server strips statTypes, adds animationScale 1). Bundle harvests/inbox/tnr_results_1795105596336.json. [Harvested 2026-11-28 from claude/project-thread-hlg3nc, repo review W1.]"
+    },
+    {
+      "id": "652",
+      "manifest": "push/652_isonade_v4_kit.json",
+      "what": "Isonade v4: law 18, Arm Lash 45, Grasping Arm Rises 30 AP, 16-jutsu kit, pools x4, 20 rules (hidden)",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [
+        "651"
+      ],
+      "build": "python3 push/651_isonade_v4.gen.py --bundle=harvests/inbox/tnr_results_1795105596336.json",
+      "note": "Ran 2026-11-19 via mcp_run (job 652-mwnrl5pm): 7 of 7 verified. Rollback: push/648 kit + state/stolen_stores_captures/isonade_live_2026-11-19 rules + pools x8.4. Bundle harvests/inbox/tnr_results_1795105902316.json. [Harvested 2026-11-28 from claude/project-thread-hlg3nc, repo review W1.]"
+    },
+    {
+      "id": "653",
+      "manifest": "push/653_isonade_v4_dr_retune.json",
+      "what": "Isonade v4 DR retune (hidden): one generic DR layer (Barnacle Hide) and a 40%/1-round brace (Silt Cloud) before a big hit; law 18 on the 5 edited jutsu; Silt rule moved above the Anchor",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [],
+      "build": "python3 push/653_isonade_v4_dr_retune.gen.py --hide-dr=25",
+      "note": "Director 2026-11-19 17:06Z: 'Yes, lower its damage reduction to one generic 25-30%/2 rounds, and one stronger one it uses in anticipation of a big hit at 40%/1 round'. Ran 2026-11-19 via mcp_run (job 653-mwnt6ebx): 8 of 8 verified; kit 16/16 equipped, 20 rules, Silt at index 7 above the Anchor. Rollback: state/stolen_stores_captures/isonade_v4_live_2026-11-19. Bundle harvests/inbox/tnr_results_1795108564955.json. [Harvested 2026-11-28 from claude/project-thread-hlg3nc, repo review W1.]"
+    },
+    {
+      "id": "654",
+      "manifest": "push/654_isonade_solo_test.json",
+      "what": "Isonade Test: a hidden quest that is only the Isonade fight, for staff testers",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [],
+      "build": "python3 push/654_isonade_solo_test.gen.py",
+      "note": "Director 2026-11-19 19:09Z: 'Just put Isonade on the quest, alone.' The Flooded Stores stays as built. Ran 2026-11-19 19:11Z over the connector: job 654-mwnxdx78, 1/1 VERIFIED, quest nzETMobtvoP_rZnTuIJLH (hidden). Results tnr_results_1795115503042.json. [Harvested 2026-11-28 from claude/project-thread-hlg3nc, repo review W1.]"
+    },
+    {
+      "id": "655",
+      "manifest": "push/655_isonade_v5_jutsu.json",
+      "what": "Isonade v5 (hidden) creates: Brine Brand, Undertow, Swell Rises, Tidal Bore",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [],
+      "build": "python3 push/655_isonade_v5_windows.gen.py",
+      "note": "Ran 2026-11-19 (job 655-mwo4u99d), INCOMPLETE: Brine Brand csR7tJYXd6rkQp2oGi7ai and Swell Rises 0eIhyLEPAN1KsSs7P3Kzd verified; Tidal Bore 5_izyS8vstAh6Yt9RPOwz confirmed (drift only: live strips statTypes, which left the combat tags on main at 19c959c0; formula damage always uses offence vs defence there); Undertow FAILED before any write: the name 'Isonade Undertow' is taken by an unused push/631 jutsu. Re-created as 'Isonade The Undertow' by 657. All hidden. Bundle harvests/inbox/tnr_results_1795128038693.json. [Harvested 2026-11-28 from claude/project-thread-hlg3nc, repo review W1.]"
+    },
+    {
+      "id": "657",
+      "manifest": "push/657_isonade_v5_undertow.json",
+      "what": "Isonade v5 (hidden): create Isonade The Undertow (655's failed item)",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [
+        "655"
+      ],
+      "build": "python3 push/655_isonade_v5_windows.gen.py --bundle=harvests/inbox/tnr_results_1795128038693.json",
+      "note": "Ran 2026-11-19 (job 657-mwo50ee1): 1/1 verified, Isonade The Undertow 49k-zlISWsouayutA7kJr, hidden. Bundle harvests/inbox/tnr_results_1795128277556.json. [Harvested 2026-11-28 from claude/project-thread-hlg3nc, repo review W1.]"
+    },
+    {
+      "id": "656",
+      "manifest": "push/656_isonade_v5_kit.json",
+      "what": "Isonade v5 (hidden): law 18 edits, v5 kit, base DR on the AI, 18 rules with Scour 100 / Silt 90",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [
+        "655",
+        "657"
+      ],
+      "build": "python3 push/655_isonade_v5_windows.gen.py --bundle=harvests/inbox/tnr_results_1795128038693.json --bundle=harvests/inbox/tnr_results_1795128277556.json",
+      "note": "Job 656-mwo548wa DONE, 11/11 verified, bundle tnr_results_1795128638571.json. Read-back: Isonade 18/18 equipped, poolsMultiplier 2.5 (HP 12,625), effects stunprevent + decreasedamagetaken 70 for 99 rounds; AI profile 20 rules, Scour at 100 and Silt Cloud at 90 on the player's increasedamagegiven. All hidden. [Harvested 2026-11-28 from claude/project-thread-hlg3nc, repo review W1.]"
+    },
+    {
+      "id": "658",
+      "manifest": "push/658_isonade_v6_reactions.json",
+      "what": "Isonade v6 (hidden): The Deep's omen to rule 6; Scour and Silt Cloud cooldown placeholder; law 18",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [
+        "656"
+      ],
+      "build": "python3 push/658_isonade_v6_reactions.gen.py --cd=5",
+      "thread": "Isonade (cmsg_01HemWcQ2jhMimRupeBNzcGR5Dz59Px25aKTDx96TrMaPb)",
+      "note": "Job 658-mwo6kr0f DONE, 5/5 verified, bundle tnr_results_1795130995691.json. Read-back: Isonade 18/18 equipped; Scour and Silt Cloud cooldown 5 (placeholder, was 10); AI profile 20 rules with The Deep's omen at rule 6. All hidden. [Harvested 2026-11-28 from claude/project-thread-hlg3nc, repo review W1.]"
+    },
+    {
+      "id": "665",
+      "manifest": "push/665_isonade_v7_brand_key.json",
+      "what": "Isonade v7 Brand key (hidden): Undertow rule reads the Brand on the player, not Isonade's move-lock",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [
+        "658"
+      ],
+      "thread": "Isonade (cmsg_01HemWcQ2jhMimRupeBNzcGR5Dz59Px25aKTDx96TrMaPb)",
+      "note": "660-664 are taken on the genin dungeon branch (claude/project-thread-g9d6ix); 659 skipped to stay clear. Job 665-mwo7y4y7 DONE, 1/1 verified, bundle tnr_results_1795133206619.json. Hidden live test ZRyU4eKYpOyPoKZmzVmAF: root safe, Undertow fired twice (R6, R8). Superseded by 666, which replaced the whole rule list. [Harvested 2026-11-28 from claude/project-thread-hlg3nc, repo review W1.]",
+      "build": "python3 push/665_isonade_v7_brand_key.gen.py"
+    },
+    {
+      "id": "666",
+      "manifest": "push/666_isonade_v7_marker_key.json",
+      "what": "Isonade v7 marker key (hidden): Brine's self marker becomes elementalseal 100; Undertow and Harpoon rekeyed; law 18",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [
+        "665"
+      ],
+      "thread": "Isonade (cmsg_01HemWcQ2jhMimRupeBNzcGR5Dz59Px25aKTDx96TrMaPb)",
+      "build": "python3 push/666_isonade_v7_marker_key.gen.py",
+      "note": "Job 666-mwo87xh5 DONE, 5/5 verified, bundle tnr_results_1795133743259.json. Read-back: Brine marks Isonade elementalseal 100 (2 rds); Undertow needs elementalseal 100; Harpoon needs weakness 100; 18/18 equipped. Hidden live test -WYvnaEBLbzyKj5Wi4-rU: 3 roots, none tripped the Undertow; Undertow fired once (R6). Live now, hidden. [Harvested 2026-11-28 from claude/project-thread-hlg3nc, repo review W1.]"
+    },
+    {
+      "id": "667",
+      "manifest": "push/667_isonade_v8_inert_markers.json",
+      "what": "Isonade v8 inert markers (hidden): the six chain markers become tag types no player effect can put on Isonade (Undertow, Brine, Black Water Floods, Swell Rises and Tidal Bore, Breaker, Tide); law 18",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [
+        "666"
+      ],
+      "thread": "Isonade (cmsg_01HemWcQ2jhMimRupeBNzcGR5Dz59Px25aKTDx96TrMaPb)",
+      "build": "python3 push/667_isonade_v8_inert_markers.gen.py",
+      "note": "The director (2026-11-20 00:25Z relay): \"Key all five\". Job 667-mwo91dcq: phase 10 and five edits VERIFIED (Barnacle Hide, Tide Draws Back, Harpoon Line, Brine Brand, Omen: Black Water). The Swell Builds edit was refused by the jutsu validator (the repair tag needs direction offence); nothing was written for it, the run was stopped there and no bundle was written (journal in /mnt/project-files/tnr/isonade_build/v667_state). Generator fixed; finished by 668. [Harvested 2026-11-28 from claude/project-thread-hlg3nc, repo review W1.]"
+    },
+    {
+      "id": "668",
+      "manifest": "push/668_isonade_v8_finish.json",
+      "what": "Isonade v8 finish (hidden): Swell Builds marker as repair (direction offence), live kit back on, chain rules; finishes 667 after its Swell edit was refused; law 18",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [
+        "667"
+      ],
+      "thread": "Isonade (cmsg_01HemWcQ2jhMimRupeBNzcGR5Dz59Px25aKTDx96TrMaPb)",
+      "build": "python3 push/668_isonade_v8_finish.gen.py",
+      "note": "Job 668-mwo95qgm DONE, 4/4 verified, bundle tnr_results_1795135296365.json. Read-back 2026-11-20: 18/18 equipped; markers Barnacle Hide noncombatgainskill, Tide unlockitemvariant, Harpoon marriageslotincrease, Brine increaseregeneration, Omen: Black Water seal + noncombatincreasereskins, Swell Builds repair (all 100, SELF); 20 rules read them at 100. Live, hidden. [Harvested 2026-11-28 from claude/project-thread-hlg3nc, repo review W1.]"
+    },
+    {
+      "id": "669",
+      "manifest": "push/669_isonade_hull_plating.json",
+      "what": "Isonade stun guard on worn gear (hidden): new hidden ARMOR item with stunprevent 100, equipped on Isonade via the AI edit, so a seal cannot pause it",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [
+        "668"
+      ],
+      "thread": "Isonade (cmsg_01HemWcQ2jhMimRupeBNzcGR5Dz59Px25aKTDx96TrMaPb)",
+      "build": "python3 push/669_isonade_hull_plating.gen.py",
+      "note": "Job 669-mwo9wsjw DONE, 2/2 verified, bundle tnr_results_1795136537887.json. Item ZBfu0h3K6U1g45Q4gTOG7 \"Isonade's Old Hull\" (hidden ARMOR, stunprevent 100, 99 rds) equipped CHEST on Isonade, drop chance 0, durability 100; 18/18 jutsu equipped. Stays hidden (boss gear). Write-up state/flooded_stores_build/isonade_v9_stun_gear.md. [Harvested 2026-11-28 from claude/project-thread-hlg3nc, repo review W1.]"
+    },
+    {
+      "id": "670",
+      "manifest": "push/670_isonade_seal_window.json",
+      "what": "Isonade (hidden): seal immunity for rounds 1-5 (record sealprevent 100, 5 rounds) and Omen: Black Water only after round 5 (rule 15 adds round_greater_than 5)",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [
+        "669"
+      ],
+      "thread": "Isonade (cmsg_01HemWcQ2jhMimRupeBNzcGR5Dz59Px25aKTDx96TrMaPb)",
+      "build": "python3 push/670_isonade_seal_window.gen.py",
+      "note": "Job 670-mwoaabsv DONE, 2/2 verified, bundle tnr_results_1795137158269.json. Read-back 2026-11-20: record effects stunprevent 100/99, hull 70/99, sealprevent 100/5 static; 18/18 jutsu equipped; Old Hull kept (CHEST, drop 0); rule 15 = health_below 75 + round_greater_than 5. Write-up state/flooded_stores_build/isonade_v10_seal_window.md. Not tested live. [Harvested 2026-11-28 from claude/project-thread-hlg3nc, repo review W1.]"
+    },
+    {
+      "id": "671",
+      "manifest": "push/671_isonade_v11.json",
+      "what": "Isonade v11 (hidden): new hidden jutsu The Hold Floods (from round 11), Barnacle cd 6, Harpoon cd 4, Scour/Silt cd 8, churn rule removed, payoffs above reactions, pools 2.1, Arm Lash power 20, Black Water omen visual 2 rounds, Brine Brand text",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [
+        "670"
+      ],
+      "thread": "Isonade (cmsg_01HemWcQ2jhMimRupeBNzcGR5Dz59Px25aKTDx96TrMaPb)",
+      "build": "python3 push/671_isonade_v11.gen.py",
+      "note": "Director's yes 2026-11-20 14:07Z to build v11 hidden and test at full HP. Proposal state/flooded_stores_build/isonade_v11_proposal.md. Stage 1 job 671-mwp2l23r DONE (The Hold Floods 73SVJWf61S_XeacwzNXbt hidden, bundle tnr_results_1795184690564.json). Stage 2 job 671-mwp2nynq DONE, 12/12 verified, bundle tnr_results_1795185186367.json. Read-back 2026-11-20: Isonade 19/19 jutsu equipped, Old Hull kept (CHEST), pools 2.1 = 10,605 HP, cooldowns Barnacle 6 / Harpoon 4 / Scour 8 / Silt 8 (sim used 10), Black Water omen visuals 2 rounds, Brine text reworded; Grasping Arm 1/1 equipped, Arm Lash power 20; 20 rules, churn rule gone, flood rule (round > 10) before end turn. Live test pending. [Harvested 2026-11-28 from claude/project-thread-hlg3nc, repo review W1.]"
+    },
+    {
+      "id": "649",
+      "manifest": "push/649_wreck_sighted_stolen_stores_create.json",
+      "what": "This weekend's two Wreck Sighted copies (hidden): 30-80 fills VRibCq0gip_otYBbWEX4J, 81+ created as tYNgqctjx_5KIKbbOyApH; both pay the Chart of the Flooded Stores and grant this weekend's page",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [],
+      "thread": "Isonade (cmsg_01HemWcQ2jhMimRupeBNzcGR5Dz59Px25aKTDx96TrMaPb)",
+      "build": "python3 push/wreck_sighted_stolen_stores.gen.py create",
+      "note": "Director 2026-11-20 15:16Z: 'Build a master manifest you can run to fix that and build everything' (hidden). Job 649-mwp4jljo DONE 2/2 verified over the connector (full ~74 KB records sent verbatim, transcript answers). Read back: both hidden, event, once, 49 nodes, w_done pays FuQza x1, k_grant Shallows / page 3. Bundle harvests/inbox/tnr_results_1795188256274.json. [Harvested 2026-11-28 from claude/project-thread-hlg3nc, repo review W1.]"
+    },
+    {
+      "id": "672",
+      "manifest": "push/672_wreck_sighted_stolen_stores_textfix.json",
+      "what": "Hidden text fix on both new Wreck Sighted copies: drop the roaming beach crew answer and rates (no placements exist, read 2026-11-20), Short Rations as one of her five dailies at 20% (push/639)",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [
+        "649"
+      ],
+      "thread": "Isonade (cmsg_01HemWcQ2jhMimRupeBNzcGR5Dz59Px25aKTDx96TrMaPb)",
+      "build": "python3 push/wreck_sighted_stolen_stores.gen.py fix --from harvests/inbox/tnr_results_1795188256274.json",
+      "note": "Hidden records only, covered by 'Build everything needed hidden'. Job 672-mwp4x7ib DONE 2/2 verified (2026-11-20 ~16:20Z). Read back: both hidden, 48 nodes, no n_crew, no dangling links, n_week = Quartermaster / Short Rations / What's eating the stores / Back; t_work and t_odds list Short Rations 20%; w_done pays FuQza x1; grants 30-80 qOhvkP3a, 81+ AgGR962c. Bundle harvests/inbox/tnr_results_1795188838733.json. [Harvested 2026-11-28 from claude/project-thread-hlg3nc, repo review W1.]"
+    },
+    {
+      "id": "650",
+      "manifest": "push/650_wreck_sighted_stolen_stores_release.json",
+      "what": "RELEASE ONLY: unhide the new Wreck Sighted copies, hide last weekend's, Fire topics (same text fix as 672)",
+      "runner": "connector",
+      "status": "waiting",
+      "waitsFor": [
+        "672"
+      ],
+      "thread": "Isonade (cmsg_01HemWcQ2jhMimRupeBNzcGR5Dz59Px25aKTDx96TrMaPb)",
+      "build": "python3 push/wreck_sighted_stolen_stores.gen.py release --from harvests/inbox/tnr_results_1795188256274.json",
+      "note": "Folded into push/673. Re-read the Fire before the sitting. 2026-11-20 16:40Z: Fire topic n_eat set to the story v2 line (674 changed it only on the Wreck Sighted copies; 673 would have put v1 back on the live Fire). [Harvested 2026-11-28 from claude/project-thread-hlg3nc, repo review W1.]"
+    },
+    {
+      "id": "673",
+      "manifest": "push/673_stolen_stores_golive_master.json",
+      "what": "RELEASE ONLY go-live master: chart item + 9 Isonade animations + The Flooded Stores + Short Rations unhidden, then 644, 643, 650; then push/639_salvager_pool_upsert.json as a direct call",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [
+        "672"
+      ],
+      "thread": "Isonade (cmsg_01HemWcQ2jhMimRupeBNzcGR5Dz59Px25aKTDx96TrMaPb)",
+      "build": "python3 push/stolen_stores_golive.gen.py",
+      "note": "Waits for the director's go for the release sitting. Map publish separate. Regenerate 643/644/650 from fresh reads first. 2026-11-20 16:1xZ: regenerated with the director's page icons (image only changed). 16:3xZ: page rewards Tide Chart -> Chart of the Flooded Stores (81+ challenge 2, Shallows challenge 3), the director 16:19Z. 2026-11-20 16:40Z: Fire topic n_eat set to the story v2 line (674 changed it only on the Wreck Sighted copies; 673 would have put v1 back on the live Fire). [Harvested 2026-11-28 from claude/project-thread-hlg3nc, repo review W1.]",
+      "result": "2026-11-21 00:00-00:29Z, job 673-mwpn6qqg: 19 verified, 1 failed. Bundle harvests/inbox/tnr_results_1795220819200.json. Failed: The Flooded Stores unhide (server: quest needs main sceneCharacters or every objective's). Fixed by hand under a fresh lock: full-record quests.update with content.sceneCharacters ['1YXbXYW2wz3GETVMb6DT6'] (precedent push/383 chart runs) and hidden false; server diff showed only that. Deviation: items 15 to 19 (Wreck Sighted copies x4, the Fire) were sent with default-valued objective keys omitted and answered by hand-written answer files (exact server text); every server diff showed only the intended change, and the runner's own read-backs verified them. Then 639 Salvager pool upserted and read back (Short Rations 20, Beachcombing 20) and sector 210 map RJl-uOXFYoHlxcgkptJF3 published (PUBLISHED v8, 00:28:42Z)."
+    },
+    {
+      "id": "674",
+      "manifest": "push/674_stolen_stores_story_v2.json",
+      "what": "Stolen Stores story v2 (hidden): The Flooded Stores description, d_below, b4; Wreck Sighted n_eat x2; Grasping Arm Rises -> The Hook Tail Rises, Arm Lash -> Tail Lash, Grasping Arm -> Hook Tail (law 18)",
+      "runner": "connector",
+      "status": "done",
+      "thread": "Isonade (cmsg_01HemWcQ2jhMimRupeBNzcGR5Dz59Px25aKTDx96TrMaPb)",
+      "build": "python3 push/stolen_stores_story_v2.gen.py",
+      "note": "Director approved story v2 and said 'Build now' 2026-11-20 15:39Z. Text only; push/673 unaffected (partial unhides). validate law 4 error on Arm Lash is the known server strip of statTypes, same record as 671. Job 674-mwp5dium DONE 9/9 verified (2026-11-20 ~16:00Z). Read back: Isonade 19 jutsu all equipped, 6w0M back in its slot; Hook Tail (was Grasping Arm) has Tail Lash equipped; jutsu names The Hook Tail Rises and Tail Lash; The Flooded Stores hidden with new description, d_below, b4; both Wreck Sighted copies hidden with new n_eat, nothing else changed. Bundle harvests/inbox/tnr_results_1795190437554.json. Note: push/flooded_stores_run.gen.py and push/wreck_sighted_stolen_stores.gen.py still hold the v1 strings; regenerating their old pushes would revert this text. [Harvested 2026-11-28 from claude/project-thread-hlg3nc, repo review W1.]"
+    },
+    {
+      "id": "675",
+      "manifest": "push/675_stolen_stores_icons.json",
+      "what": "HIDDEN: the director's icons onto the chart item, The Flooded Stores, Short Rations and the Shallows page (image only). 81+ page icon rides 643.",
+      "runner": "connector",
+      "status": "done",
+      "thread": "Isonade (cmsg_01HemWcQ2jhMimRupeBNzcGR5Dz59Px25aKTDx96TrMaPb)",
+      "build": "python3 push/stolen_stores_icons.gen.py",
+      "note": "Coordinator relay 2026-11-20 15:43Z and 15:58Z (the director's icons). 643 and 673 regenerated so release carries both page icons. Job 675-mwp6790k DONE 4/4 verified (harvests/inbox/tnr_results_1795191817667.json). [Harvested 2026-11-28 from claude/project-thread-hlg3nc, repo review W1.]"
+    },
+    {
+      "id": "676",
+      "manifest": "push/676_stolen_stores_pages_stage.json",
+      "what": "HIDDEN: both Watch Log pages take tonight's release data now (81+ record off its old content and level 1+; Flooded Stores chart rewards; new icons), hidden until 643 in 673 unhides at 6 PM",
+      "runner": "connector",
+      "status": "done",
+      "thread": "Isonade (cmsg_01HemWcQ2jhMimRupeBNzcGR5Dz59Px25aKTDx96TrMaPb)",
+      "build": "python3 push/stolen_stores_pages.gen.py stage --from harvests/inbox/tnr_results_1795027885651.json",
+      "note": "Director 16:19Z: 81+ challenge 2 pays the Flooded Stores chart, 'Swap that one too' for Shallows challenge 3. Job 676-mwp6y8wd DONE 2/2 verified (harvests/inbox/tnr_results_1795192455154.json): AgGR level 81-100, Shallows 30-80, both hidden, startsAt 2026-11-21, new icons, Flooded Stores chart rewards. [Harvested 2026-11-28 from claude/project-thread-hlg3nc, repo review W1.]"
+    },
+    {
+      "id": "697",
+      "manifest": "push/697_stolen_stores_pages_stage_crew.json",
+      "what": "HIDDEN: both Watch Log pages re-staged; challenge 1 also counts the shore crew (Galley Mate on 81+, Foraging Deckhand on Shallows) since Short Rations switched to them",
+      "runner": "connector",
+      "status": "done",
+      "thread": "Isonade (cmsg_01HemWcQ2jhMimRupeBNzcGR5Dz59Px25aKTDx96TrMaPb)",
+      "build": "python3 push/stolen_stores_pages.gen.py stage --from harvests/inbox/tnr_results_1795027885651.json",
+      "note": "Coordinator relay 2026-11-20 16:45Z (Discord check found challenge 1 targets no longer in Short Rations). 643 and 673 regenerated with the same change. Number 697 picked clear of 690/691 (shore crew thread). validate.py --strict: same 5 errors as 676 (all-open page, battle nodes at sector 9999), expected. Ran 2026-11-20 16:52Z, 2/2 verified (harvests/inbox/tnr_results_1795193551310.json). [Harvested 2026-11-28 from claude/project-thread-hlg3nc, repo review W1.]"
+    },
+    {
+      "id": "690",
+      "manifest": "push/690_shore_crew.json",
+      "what": "Shore crew for Sector 210 (hidden): Foraging Deckhand (copy of Looting Deckhand, 10% Wreck Salvage) and Galley Mate (copy of Quartermaster's Mate, 30% Wreck Salvage, 3% Flooded Stores chart), 3 Deckhand placements and 1 Mate placement, HOSTILE, inactive",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [],
+      "build": "python3 push/690_shore_crew.gen.py mm3C1bhpSuturfXR1hyPS Ys9d_kNoBoVaAsFfh6_DN; placements per state/shore_crew/placements.json",
+      "note": "Director Nov 20 16:24Z 'Build it for tonight', 16:28Z '1 group is fine... Just have a few wandering the shore'. Clones via profile.cloneAi, edits via profile.updateAi (whole record, jutsu re-equipped), placements via overworldAi.upsertPlacement. GO-LIVE (release sitting): set isActive true on the 4 placements BEFORE Short Rations is unhidden; unhide the chart item before its drop matters. [Harvested 2026-11-28 from claude/project-thread-6ojemy, repo review W1.]",
+      "result": "harvests/inbox/tnr_results_1795193028346.json"
+    },
+    {
+      "id": "691",
+      "manifest": "push/691_short_rations_shore.json",
+      "what": "Short Rations (Gqbnq2LVtIVBlLYlAnam1, hidden) rebuilt on the shore crew: 3 Deckhand steps then the Mate, each a defeat_opponents bound to one 690 placement; same id, reward, level band",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [
+        "690"
+      ],
+      "build": "python3 push/691_short_rations_shore.gen.py state/shore_crew/short_rations_before_691.json",
+      "note": "Director Nov 20 16:35Z 'Switch Short Rations'. quests.update whole record, read back. The bound placements can no longer be deactivated or repointed while the quest binds them. push/639 (unhide + Salvager pool) is unchanged and runs after the 690 placements are active. [Harvested 2026-11-28 from claude/project-thread-6ojemy, repo review W1.]",
+      "result": "harvests/inbox/tnr_results_1795193028346.json"
+    },
+    {
+      "id": "698",
+      "manifest": "(by hand) state/nettle_nova_ship/",
+      "what": "Resort in Need boss rework, Nettle Nova: 11 art files on the director's UploadThing, 11 assets hidden, 3 AI jutsu + 1 hidden stun-proof item, boss gets its own AI profile, kit, stats and DR; quest stays hidden",
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [],
+      "thread": "Resort in Need boss (cmsg_01HemWcQ2jhMimRupeBNzcGR23v2Pk64tnycubXP98G71y)",
+      "build": "python3 state/nettle_nova_ship/gen_ship.py; gen_jutsu.py",
+      "note": "Director 2026-11-21 02:49Z: 'Yes, build it' (latest GIF: red warning tiles, one-picture burst, sealed aura, no residue). Numbers 631-697 are taken on other branches. [Harvested 2026-11-28 from claude/project-thread-gcsyem, repo review W1.]",
+      "result": "state/nettle_nova_ship/results_698.json"
+    },
+    {
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [],
+      "thread": "Isonade style C animations (cmsg_01HemWcQ2jhMimRupeBNzcGR4hGU9jBxCWbMqPsQ5oH5BA)",
+      "id": "683",
+      "manifest": "(by hand) /mnt/project-files/tnr-animation/isonade_styleC/ship/assets.json",
+      "what": "Isonade style C: 266 animation assets created hidden (folder isonadestylec), strips on the director's UploadThing",
+      "build": "python3 /mnt/project-files/tnr-animation/isonade_styleC/ship/gen_ship.py assets",
+      "note": "Director 2026-11-20: 'All of it. Go' (packs A-C) and 'Yes' to wiring tonight. gameAsset.create takes no image over the connector, so create + hidden image update per asset; ledger srcId->id in ship/ledger.json, read back by gameAsset.getAll exactFolder. Ran 2026-11-20 19:31-19:59Z under the run lock (slot agreed with the Stolen Stores release): 266 created + image-updated hidden, read back 266/266, 0 problems. [Harvested 2026-11-28 from claude/project-thread-9c4sh9, repo review W1.]",
+      "result": "state/isonade_c_upload/assets_683.json"
+    },
+    {
+      "runner": "connector",
+      "status": "done",
+      "waitsFor": [],
+      "thread": "Isonade style C animations (cmsg_01HemWcQ2jhMimRupeBNzcGR4hGU9jBxCWbMqPsQ5oH5BA)",
+      "id": "684",
+      "manifest": "(by hand) /mnt/project-files/tnr-animation/isonade_styleC/ship/jutsu/*.json",
+      "what": "Isonade style C wiring: 17 Isonade jutsu art fields (9 board-wide moves as 26-28 visual tags) + 5 description fields, law 18 re-equip on Isonade, unhide the 266 assets",
+      "build": "python3 /mnt/project-files/tnr-animation/isonade_styleC/ship/gen_ship.py jutsu <live jutsu.getAll read>",
+      "note": "Window 22:15-23:10Z agreed with the Stolen Stores release (before its push/673). Mechanics untouched (generator diffs every non-art field against the live read). [Harvested 2026-11-28 from claude/project-thread-9c4sh9, repo review W1.]",
+      "result": "state/isonade_c_upload/result_684.md"
+    },
+    {
+      "id": "627-sg",
+      "manifest": "push/627_skyglass_charts_event_items.json",
+      "what": "Skyglass charts (11) and Ledger Pages (3) become event items (isEventItem true)",
+      "runner": "connector",
+      "status": "done",
+      "result": "harvests/inbox/2026-11-17_push627_skyglass_charts_event_items.json: 14/14 VERIFIED (2026-11-17)",
+      "note": " [Harvested 2026-11-28 from ccr-8d5810e2-036hwx, repo review W1.] Id 627 collides with main 627 (White Tiger); suffixed."
     }
   ]
 }

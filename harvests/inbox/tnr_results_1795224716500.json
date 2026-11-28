@@ -1,0 +1,29 @@
+{
+ "builder": "connector-direct",
+ "at": "2026-11-21T01:31:34Z",
+ "cfg": "connector",
+ "checks": null,
+ "state": "DONE",
+ "outcome": "ok",
+ "_note": "The director's 'Fix it now' (2026-11-21 01:30Z): the four Short Rations fights showed Sector 0, [0, 0] in the Logbook and its link travelled to sector 0. Each bound defeat objective now carries sector 210 and its crew placement's home tile, so the Logbook link lands next to the target. Display only: the engine ignores stored coordinates on placement-bound objectives for completion. Lock held as claude.",
+ "entries": [
+  {
+   "name": "Short Rations: Logbook fight locations",
+   "srcId": null,
+   "entity": "quest",
+   "slot": "edit",
+   "op": "update",
+   "targetId": "Gqbnq2LVtIVBlLYlAnam1",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "Full-record quests.update; server diff and full read-back: only sector/longitude/latitude on b1-b4 changed (b1 210 20,5 = placement N142XR4hbrfHaIEE7Z-BL, b2 210 22,6 = placement v329QMIIE8NCr5ScXwQrj, b3 210 24,7 = placement 1hQvqkHGhNw-XhBRQxREv, b4 210 13,1 = placement W8WZoQ1q7T8-5nnosdDPm); hidden false; placements read back at those home tiles, isActive true",
+   "verdict": "match",
+   "asserted": {
+    "ok": 1,
+    "fail": []
+   },
+   "diffs": []
+  }
+ ]
+}

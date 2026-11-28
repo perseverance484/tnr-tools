@@ -1,0 +1,45 @@
+name: isonade-c-uploadthing
+# One-off: upload the 266 Isonade style C animation strips (packs A-C plus rev c Hold Floods and Silt Cloud) to the director's own UploadThing app
+# (the director 2026-11-20: 'All of it. Go', then 'Yes' to wiring tonight). Runs only on this task branch; results are committed back to it.
+on:
+  push:
+    branches: [claude/project-thread-9c4sh9]
+    paths: ["state/isonade_c_upload/upload_list.json", "state/isonade_c_upload/run.txt", ".github/scripts/ut_upload.mjs", ".github/workflows/isonade_c_upload.yml"]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency: { group: isonade-c-uploadthing, cancel-in-progress: false }
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with: { lfs: false }
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - name: Gate (runs only when state/isonade_c_upload/run.txt says go)
+        id: gate
+        run: grep -qx "go" state/isonade_c_upload/run.txt && echo "go=1" >> "$GITHUB_OUTPUT" || echo "run.txt is not go; nothing uploaded"
+      - if: steps.gate.outputs.go == '1'
+        run: npm install --no-save --no-package-lock uploadthing@7
+        working-directory: /tmp
+      - name: Upload
+        if: steps.gate.outputs.go == '1'
+        env:
+          UPLOADTHING_TOKEN: ${{ secrets.UPLOADTHING_TOKEN }}
+          NODE_PATH: /tmp/node_modules
+          UT_LIST: state/isonade_c_upload/upload_list.json
+          UT_OUT: state/isonade_c_upload/uploaded.json
+        run: |
+          ln -s /tmp/node_modules node_modules
+          node .github/scripts/ut_upload.mjs
+      - name: Commit results
+        if: always() && steps.gate.outputs.go == '1'
+        run: |
+          rm -f node_modules
+          git config user.name "github-actions[bot]"
+          git config user.email "41898729+github-actions[bot]@users.noreply.github.com"
+          git add state/isonade_c_upload/uploaded.json 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "isonade c upload: results [skip ci]"
+          git push origin HEAD:claude/project-thread-9c4sh9 || true

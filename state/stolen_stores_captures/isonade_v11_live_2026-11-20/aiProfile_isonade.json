@@ -1,0 +1,312 @@
+{
+ "id": "3xrmVKb3oAZDQ7YzpGh-S",
+ "userId": "K_lwNvMPJLMsn1sUGXqZm",
+ "jutsuLoadoutId": null,
+ "rules": [
+  {
+   "action": {
+    "type": "use_specific_jutsu",
+    "target": "SELF",
+    "jutsuId": "Kaebmb1nzNi3sMadz0W12",
+    "description": "Select specific jutsu"
+   },
+   "conditions": []
+  },
+  {
+   "action": {
+    "type": "use_specific_jutsu",
+    "target": "SELF",
+    "jutsuId": "ElPPRbYnPihCt4iPT6EmW",
+    "description": "Select specific jutsu"
+   },
+   "conditions": [
+    {
+     "type": "has_effect",
+     "threshold": 1,
+     "effectType": "disarm",
+     "description": "AI is affected by a specific effect"
+    },
+    {
+     "type": "has_effect",
+     "threshold": 1,
+     "effectType": "shield",
+     "description": "AI is affected by a specific effect"
+    }
+   ]
+  },
+  {
+   "action": {
+    "type": "use_specific_jutsu",
+    "target": "SELF",
+    "jutsuId": "UF0ZDasJZjLiCaPzeXxlW",
+    "description": "Select specific jutsu"
+   },
+   "conditions": [
+    {
+     "type": "has_effect",
+     "threshold": 1,
+     "effectType": "disarm",
+     "description": "AI is affected by a specific effect"
+    }
+   ]
+  },
+  {
+   "action": {
+    "type": "use_specific_jutsu",
+    "target": "SELF",
+    "jutsuId": "EclVg14en924oVI7WtZ6M",
+    "description": "Select specific jutsu"
+   },
+   "conditions": [
+    {
+     "type": "has_effect",
+     "threshold": 100,
+     "effectType": "noncombatincreasereskins",
+     "description": "AI is affected by a specific effect"
+    }
+   ]
+  },
+  {
+   "action": {
+    "type": "use_specific_jutsu",
+    "target": "SELF",
+    "jutsuId": "5_izyS8vstAh6Yt9RPOwz",
+    "description": "Select specific jutsu"
+   },
+   "conditions": [
+    {
+     "type": "has_effect",
+     "threshold": 100,
+     "effectType": "repair",
+     "description": "AI is affected by a specific effect"
+    },
+    {
+     "type": "has_effect",
+     "threshold": 1,
+     "effectType": "robprevent",
+     "description": "AI is affected by a specific effect"
+    }
+   ]
+  },
+  {
+   "action": {
+    "type": "use_specific_jutsu",
+    "target": "SELF",
+    "jutsuId": "0eIhyLEPAN1KsSs7P3Kzd",
+    "description": "Select specific jutsu"
+   },
+   "conditions": [
+    {
+     "type": "has_effect",
+     "threshold": 100,
+     "effectType": "repair",
+     "description": "AI is affected by a specific effect"
+    }
+   ]
+  },
+  {
+   "action": {
+    "type": "use_specific_jutsu",
+    "target": "SELF",
+    "jutsuId": "M7TFsshDCNlvyuvOj8JFp",
+    "description": "Select specific jutsu"
+   },
+   "conditions": [
+    {
+     "type": "health_below",
+     "value": 35,
+     "description": "Health below given percentage"
+    }
+   ]
+  },
+  {
+   "action": {
+    "type": "use_specific_jutsu",
+    "target": "SELF",
+    "jutsuId": "rKct7MpftVKwfq6z27DCZ",
+    "description": "Select specific jutsu"
+   },
+   "conditions": [
+    {
+     "type": "target_has_effect",
+     "target": "CLOSEST_OPPONENT",
+     "threshold": 100,
+     "effectType": "increasedamagegiven",
+     "description": "Target is affected by a specific effect"
+    }
+   ]
+  },
+  {
+   "action": {
+    "type": "use_specific_jutsu",
+    "target": "SELF",
+    "jutsuId": "UCnpSa7BTroijfDgkHDQx",
+    "description": "Select specific jutsu"
+   },
+   "conditions": [
+    {
+     "type": "target_has_effect",
+     "target": "CLOSEST_OPPONENT",
+     "threshold": 90,
+     "effectType": "increasedamagegiven",
+     "description": "Target is affected by a specific effect"
+    }
+   ]
+  },
+  {
+   "action": {
+    "type": "use_specific_jutsu",
+    "target": "SELF",
+    "jutsuId": "49k-zlISWsouayutA7kJr",
+    "description": "Select specific jutsu"
+   },
+   "conditions": [
+    {
+     "type": "has_effect",
+     "threshold": 100,
+     "effectType": "increaseregeneration",
+     "description": "AI is affected by a specific effect"
+    }
+   ]
+  },
+  {
+   "action": {
+    "type": "use_specific_jutsu",
+    "target": "SELF",
+    "jutsuId": "csR7tJYXd6rkQp2oGi7ai",
+    "description": "Select specific jutsu"
+   },
+   "conditions": [
+    {
+     "type": "has_effect",
+     "threshold": 100,
+     "effectType": "marriageslotincrease",
+     "description": "AI is affected by a specific effect"
+    }
+   ]
+  },
+  {
+   "action": {
+    "type": "use_specific_jutsu",
+    "target": "SELF",
+    "jutsuId": "CgmXwQ1PoWi0Y5h7lSEUj",
+    "description": "Select specific jutsu"
+   },
+   "conditions": [
+    {
+     "type": "has_effect",
+     "threshold": 100,
+     "effectType": "weakness",
+     "description": "AI is affected by a specific effect"
+    }
+   ]
+  },
+  {
+   "action": {
+    "type": "use_specific_jutsu",
+    "target": "SELF",
+    "jutsuId": "z97QVlWZs8uqYcWBQkk-9",
+    "description": "Select specific jutsu"
+   },
+   "conditions": [
+    {
+     "type": "has_effect",
+     "threshold": 100,
+     "effectType": "unlockitemvariant",
+     "description": "AI is affected by a specific effect"
+    }
+   ]
+  },
+  {
+   "action": {
+    "type": "use_specific_jutsu",
+    "target": "SELF",
+    "jutsuId": "BKfXoZ6Y3YLSoH4WzXvq6",
+    "description": "Select specific jutsu"
+   },
+   "conditions": [
+    {
+     "type": "has_effect",
+     "threshold": 100,
+     "effectType": "noncombatgainskill",
+     "description": "AI is affected by a specific effect"
+    }
+   ]
+  },
+  {
+   "action": {
+    "type": "use_specific_jutsu",
+    "target": "SELF",
+    "jutsuId": "vGtG2yV8WqaRTHh-19nVg",
+    "description": "Select specific jutsu"
+   },
+   "conditions": [
+    {
+     "type": "health_below",
+     "value": 75,
+     "description": "Health below given percentage"
+    },
+    {
+     "type": "round_greater_than",
+     "value": 5,
+     "description": "Current round is greater than specified value"
+    }
+   ]
+  },
+  {
+   "action": {
+    "type": "use_specific_jutsu",
+    "target": "SELF",
+    "jutsuId": "Aj0gB5-yP38_hSIMVnsXO",
+    "description": "Select specific jutsu"
+   },
+   "conditions": [
+    {
+     "type": "health_below",
+     "value": 55,
+     "description": "Health below given percentage"
+    }
+   ]
+  },
+  {
+   "action": {
+    "type": "use_specific_jutsu",
+    "target": "SELF",
+    "jutsuId": "YNaD1O971Ymn0XKNTIynt",
+    "description": "Select specific jutsu"
+   },
+   "conditions": []
+  },
+  {
+   "action": {
+    "type": "use_specific_jutsu",
+    "target": "SELF",
+    "jutsuId": "CgmXwQ1PoWi0Y5h7lSEUj",
+    "description": "Select specific jutsu"
+   },
+   "conditions": []
+  },
+  {
+   "action": {
+    "type": "use_specific_jutsu",
+    "target": "EMPTY_GROUND_CLOSEST_TO_OPPONENT",
+    "jutsuId": "6w0MWbsSIB2j02MADv1nK",
+    "description": "Select specific jutsu"
+   },
+   "conditions": [
+    {
+     "type": "does_not_have_summon",
+     "description": "Does not have a summon active"
+    }
+   ]
+  },
+  {
+   "action": {
+    "type": "end_turn",
+    "description": "End turn"
+   },
+   "conditions": []
+  }
+ ],
+ "includeDefaultRules": false
+}

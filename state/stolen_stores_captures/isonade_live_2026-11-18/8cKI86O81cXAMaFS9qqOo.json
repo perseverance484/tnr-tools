@@ -1,0 +1,232 @@
+{
+ "id": "8cKI86O81cXAMaFS9qqOo",
+ "name": "Isonade Slam II",
+ "description": "The arms slam down on the marked rows and flood them with brine for 3 rounds.",
+ "createdAt": "2026-11-18T18:10:40.238Z",
+ "updatedAt": "2026-11-18T18:10:52.165Z",
+ "extraBaseCost": 0,
+ "effects": [
+  {
+   "type": "damage",
+   "power": 140,
+   "rounds": 0,
+   "target": "INHERIT",
+   "appearSfx": "",
+   "direction": "offence",
+   "calculation": "formula",
+   "description": "Deals damage to target",
+   "dmgModifier": 1,
+   "disappearSfx": "",
+   "friendlyFire": "ENEMIES",
+   "powerPerLevel": 0,
+   "animationScale": 1,
+   "appearAnimation": "izjz7PL-zMiOpIjInnV2w",
+   "staticAnimation": "",
+   "staticAssetPath": "",
+   "residualModifier": 1,
+   "disappearAnimation": "",
+   "allowBloodlineDamageDecrease": true,
+   "allowBloodlineDamageIncrease": true
+  },
+  {
+   "type": "drain",
+   "power": 8,
+   "rounds": 3,
+   "target": "INHERIT",
+   "appearSfx": "",
+   "direction": "offence",
+   "calculation": "percentage",
+   "description": "Brine pool: drains health with every action begun on it",
+   "disappearSfx": "",
+   "friendlyFire": "ENEMIES",
+   "poolsAffected": [
+    "Health"
+   ],
+   "powerPerLevel": 0,
+   "animationScale": 1,
+   "appearAnimation": "",
+   "staticAnimation": "",
+   "staticAssetPath": "",
+   "disappearAnimation": ""
+  },
+  {
+   "type": "visual",
+   "power": 2,
+   "rounds": 3,
+   "target": "INHERIT",
+   "appearSfx": "",
+   "direction": "offence",
+   "calculation": "static",
+   "description": "A battlefield visual effect",
+   "disappearSfx": "",
+   "powerPerLevel": 0,
+   "animationScale": 1,
+   "appearAnimation": "bJy2IjRKmAVYEoXUYmXv5",
+   "staticAnimation": "BexP4ZKBGwv4gjE3yGYLM",
+   "staticAssetPath": "",
+   "disappearAnimation": "k8J4ic-KEz9ewEq1gAszr"
+  },
+  {
+   "type": "disarm",
+   "power": 100,
+   "rounds": 1,
+   "target": "SELF",
+   "appearSfx": "",
+   "direction": "offence",
+   "calculation": "static",
+   "description": "Primed: the set piece lands next turn",
+   "disappearSfx": "",
+   "powerPerLevel": 0,
+   "animationScale": 1,
+   "appearAnimation": "",
+   "staticAnimation": "",
+   "staticAssetPath": "",
+   "disappearAnimation": ""
+  }
+ ],
+ "target": "GROUND",
+ "range": 0,
+ "cooldown": 0,
+ "bloodlineId": "",
+ "requiredLevel": 1,
+ "requiredRank": "STUDENT",
+ "jutsuType": "AI",
+ "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+ "jutsuWeapon": "NONE",
+ "statClassification": "None",
+ "elementClassification": "None",
+ "battleDescription": "The arms crash down. Brine wells up through the boards.",
+ "jutsuRank": "D",
+ "actionCostPerc": 90,
+ "staminaCost": 0.05,
+ "chakraCost": 0.05,
+ "staminaCostReducePerLvl": 0,
+ "chakraCostReducePerLvl": 0,
+ "healthCostReducePerLvl": 0,
+ "healthCost": 0,
+ "villageId": "",
+ "requiredPetSpeciesId": null,
+ "method": "COORDINATES",
+ "coordinateTargeting": {
+  "origin": "BATTLEFIELD",
+  "selection": "ALL",
+  "coordinates": [
+   {
+    "latitude": 3,
+    "longitude": 0
+   },
+   {
+    "latitude": 7,
+    "longitude": 0
+   },
+   {
+    "latitude": 3,
+    "longitude": 1
+   },
+   {
+    "latitude": 7,
+    "longitude": 1
+   },
+   {
+    "latitude": 3,
+    "longitude": 2
+   },
+   {
+    "latitude": 7,
+    "longitude": 2
+   },
+   {
+    "latitude": 3,
+    "longitude": 3
+   },
+   {
+    "latitude": 7,
+    "longitude": 3
+   },
+   {
+    "latitude": 3,
+    "longitude": 4
+   },
+   {
+    "latitude": 7,
+    "longitude": 4
+   },
+   {
+    "latitude": 3,
+    "longitude": 5
+   },
+   {
+    "latitude": 7,
+    "longitude": 5
+   },
+   {
+    "latitude": 3,
+    "longitude": 6
+   },
+   {
+    "latitude": 7,
+    "longitude": 6
+   },
+   {
+    "latitude": 3,
+    "longitude": 7
+   },
+   {
+    "latitude": 7,
+    "longitude": 7
+   },
+   {
+    "latitude": 3,
+    "longitude": 8
+   },
+   {
+    "latitude": 7,
+    "longitude": 8
+   },
+   {
+    "latitude": 3,
+    "longitude": 9
+   },
+   {
+    "latitude": 7,
+    "longitude": 9
+   },
+   {
+    "latitude": 3,
+    "longitude": 10
+   },
+   {
+    "latitude": 7,
+    "longitude": 10
+   },
+   {
+    "latitude": 3,
+    "longitude": 11
+   },
+   {
+    "latitude": 7,
+    "longitude": 11
+   }
+  ],
+  "randomCount": 1
+ },
+ "methodSize": null,
+ "hidden": true,
+ "injectableInBattle": false,
+ "battleUsageType": "BOTH",
+ "reskinParentJutsuId": null,
+ "bloodlineReskinId": null,
+ "parentJutsuId": null,
+ "requiredNinjutsuMastery": null,
+ "requiredGenjutsuMastery": null,
+ "requiredTaijutsuMastery": null,
+ "requiredBukijutsuMastery": null,
+ "requiredBloodlineMastery": null,
+ "requiredSageMastery": null,
+ "requiredStrength": null,
+ "requiredSpeed": null,
+ "requiredIntelligence": null,
+ "requiredWillpower": null,
+ "requiredSkillId": null,
+ "requiredBloodlineItemId": null
+}

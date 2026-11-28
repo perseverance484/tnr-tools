@@ -1,0 +1,141 @@
+{
+ "id": "EMD7BPKzoOhGB-aOb_Rf2",
+ "name": "Isonade Omen: Black Water II",
+ "description": "Everything but the floating crates is marked red. Black water fills the room next turn.",
+ "createdAt": "2026-11-18T18:12:55.721Z",
+ "updatedAt": "2026-11-18T18:13:06.482Z",
+ "extraBaseCost": 0,
+ "effects": [
+  {
+   "type": "visual",
+   "power": 2,
+   "rounds": 1,
+   "target": "INHERIT",
+   "appearSfx": "",
+   "direction": "offence",
+   "calculation": "static",
+   "description": "A battlefield visual effect",
+   "disappearSfx": "",
+   "powerPerLevel": 0,
+   "animationScale": 1,
+   "appearAnimation": "bJy2IjRKmAVYEoXUYmXv5",
+   "staticAnimation": "dL1vh_PNbZQ9m6nYwGnFa",
+   "staticAssetPath": "dGCN9ZaoyXwDK9E3ZuWgU",
+   "disappearAnimation": "k8J4ic-KEz9ewEq1gAszr"
+  },
+  {
+   "type": "visual",
+   "power": 2,
+   "rounds": 1,
+   "target": "COORDINATES",
+   "appearSfx": "",
+   "direction": "offence",
+   "calculation": "static",
+   "description": "A battlefield visual effect",
+   "disappearSfx": "",
+   "powerPerLevel": 0,
+   "animationScale": 1,
+   "appearAnimation": "bJy2IjRKmAVYEoXUYmXv5",
+   "staticAnimation": "v9nA0cPU5NXxBXoONhdLH",
+   "staticAssetPath": "-hIV18piGe0EcC0u6eN8d",
+   "disappearAnimation": "k8J4ic-KEz9ewEq1gAszr",
+   "coordinateTargeting": {
+    "origin": "BATTLEFIELD",
+    "selection": "ALL",
+    "coordinates": [
+     {
+      "latitude": 1,
+      "longitude": 6
+     },
+     {
+      "latitude": 5,
+      "longitude": 4
+     },
+     {
+      "latitude": 9,
+      "longitude": 6
+     }
+    ],
+    "randomCount": 1
+   }
+  },
+  {
+   "type": "fleeprevent",
+   "power": 100,
+   "rounds": 1,
+   "target": "SELF",
+   "appearSfx": "",
+   "direction": "offence",
+   "calculation": "static",
+   "description": "Primed: the set piece lands next turn",
+   "disappearSfx": "",
+   "powerPerLevel": 0,
+   "animationScale": 1,
+   "appearAnimation": "",
+   "staticAnimation": "",
+   "staticAssetPath": "",
+   "disappearAnimation": ""
+  }
+ ],
+ "target": "GROUND",
+ "range": 0,
+ "cooldown": 99,
+ "bloodlineId": "",
+ "requiredLevel": 1,
+ "requiredRank": "STUDENT",
+ "jutsuType": "AI",
+ "image": "https://uploadthing.b-cdn.net/f/630cf6e7-c152-4dea-a3ff-821de76d7f5a_default.webp",
+ "jutsuWeapon": "NONE",
+ "statClassification": "None",
+ "elementClassification": "None",
+ "battleDescription": "The hold darkens again. The crates bob on black water.",
+ "jutsuRank": "D",
+ "actionCostPerc": 40,
+ "staminaCost": 0.05,
+ "chakraCost": 0.05,
+ "staminaCostReducePerLvl": 0,
+ "chakraCostReducePerLvl": 0,
+ "healthCostReducePerLvl": 0,
+ "healthCost": 0,
+ "villageId": "",
+ "requiredPetSpeciesId": null,
+ "method": "COORDINATES",
+ "coordinateTargeting": {
+  "origin": "BATTLEFIELD",
+  "selection": "EXCLUDE",
+  "coordinates": [
+   {
+    "latitude": 1,
+    "longitude": 6
+   },
+   {
+    "latitude": 5,
+    "longitude": 4
+   },
+   {
+    "latitude": 9,
+    "longitude": 6
+   }
+  ],
+  "randomCount": 1
+ },
+ "methodSize": null,
+ "hidden": true,
+ "injectableInBattle": false,
+ "battleUsageType": "BOTH",
+ "reskinParentJutsuId": null,
+ "bloodlineReskinId": null,
+ "parentJutsuId": null,
+ "requiredNinjutsuMastery": null,
+ "requiredGenjutsuMastery": null,
+ "requiredTaijutsuMastery": null,
+ "requiredBukijutsuMastery": null,
+ "requiredBloodlineMastery": null,
+ "requiredSageMastery": null,
+ "requiredStrength": null,
+ "requiredSpeed": null,
+ "requiredIntelligence": null,
+ "requiredWillpower": null,
+ "requiredSkillId": null,
+ "requiredBloodlineItemId": null
+}

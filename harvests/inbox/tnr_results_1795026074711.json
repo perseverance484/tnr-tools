@@ -1,0 +1,328 @@
+{
+ "builder": "forge-mcp",
+ "at": "2026-11-18T18:21:14.711Z",
+ "cfg": "forge",
+ "checks": null,
+ "state": "INCOMPLETE",
+ "outcome": "unverified",
+ "postflight": {
+  "match": 1,
+  "diff": 1,
+  "unverified": 0,
+  "failed": 0,
+  "skipped": 0,
+  "unresolved": 1
+ },
+ "entries": [
+  {
+   "name": "Grasping Arm",
+   "srcId": "fsb_iso-grasping-arm",
+   "entity": "ai",
+   "slot": "create",
+   "op": "create",
+   "state": "ok",
+   "forgeState": "CONFIRMED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "drift",
+   "asserted": {
+    "ok": 27,
+    "fail": [
+     {
+      "k": "strength",
+      "c": "mismatch",
+      "d": [
+       "sent 1391299.95  live 1043475"
+      ]
+     },
+     {
+      "k": "speed",
+      "c": "mismatch",
+      "d": [
+       "sent 1391299.95  live 1043475"
+      ]
+     },
+     {
+      "k": "intelligence",
+      "c": "mismatch",
+      "d": [
+       "sent 1391299.95  live 1043475"
+      ]
+     },
+     {
+      "k": "willpower",
+      "c": "mismatch",
+      "d": [
+       "sent 1391299.95  live 1043475"
+      ]
+     },
+     {
+      "k": "offence",
+      "c": "mismatch",
+      "d": [
+       "sent 1391299.95  live 1043475"
+      ]
+     },
+     {
+      "k": "defence",
+      "c": "mismatch",
+      "d": [
+       "sent 1391299.95  live 1043475"
+      ]
+     }
+    ]
+   },
+   "diffs": [
+    {
+     "key": "strength",
+     "sent": 1391299.95,
+     "live": 1043475
+    },
+    {
+     "key": "speed",
+     "sent": 1391299.95,
+     "live": 1043475
+    },
+    {
+     "key": "intelligence",
+     "sent": 1391299.95,
+     "live": 1043475
+    },
+    {
+     "key": "willpower",
+     "sent": 1391299.95,
+     "live": 1043475
+    },
+    {
+     "key": "offence",
+     "sent": 1391299.95,
+     "live": 1043475
+    },
+    {
+     "key": "defence",
+     "sent": 1391299.95,
+     "live": 1043475
+    }
+   ],
+   "id": "lJAnVI4eBn5YjCgghqBji"
+  },
+  {
+   "name": "Deckhand from the Hold",
+   "srcId": "fsb_fs-looting-deckhand-hold",
+   "entity": "ai",
+   "slot": "create",
+   "op": "create",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 33,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "LxHfxzLOoTyktwRYdW8F6"
+  }
+ ],
+ "captures": [],
+ "idmap": {
+  "fsb_anim_isonade_body_water_v1": "xKgBBZRVs3gxXVCh-zcqD",
+  "fsb_anim_isonade_slam_v1": "izjz7PL-zMiOpIjInnV2w",
+  "fsb_anim_isonade_brine_v1": "BexP4ZKBGwv4gjE3yGYLM",
+  "fsb_anim_isonade_arm_burst_v1": "isRdjcXFqu3n2gFlWWHmK",
+  "fsb_anim_isonade_arm_lash_v1": "vLnK4950XUPvsbRVyfHLl",
+  "fsb_anim_isonade_surge_v1": "5vyAK-S4YUq6iaJic-MzM",
+  "fsb_anim_isonade_eye_v1": "PKF3LhQ9hBFqqUlsw4A0_",
+  "fsb_anim_isonade_bite_v1": "Xba6Lf1BgwZfF__uxH0Q1",
+  "fsb_anim_isonade_rot_drip_v1": "quxGkGewzASdB9QriUEbn",
+  "fsb_iso-it-rises": "Kaebmb1nzNi3sMadz0W12",
+  "fsb_iso-slam-mark-a": "SbfiGJPGdjVmLZcAWQrKl",
+  "fsb_iso-slam-a": "5tqEkTPERX3lkyon_LOKp",
+  "fsb_iso-slam-a-bitten": "5HnvskWG20YUlJciX8gvA",
+  "fsb_iso-slam-mark-b": "SWTtkWhjBsHKAu-OI-CQj",
+  "fsb_iso-slam-b": "8cKI86O81cXAMaFS9qqOo",
+  "fsb_iso-slam-b-bitten": "7wxzJedprikQuUr7nSDrS",
+  "fsb_iso-slam-mark-c": "Qo04-DUTH_cSbnLmPhLEy",
+  "fsb_iso-slam-c": "XY3PFkXuY_bHQGmg33hz1",
+  "fsb_iso-slam-c-bitten": "gUO8uQLCC5AjvfOuETYlN",
+  "fsb_iso-black-water-mark-75": "yFClnbV7Yr4WpvmcrDEMi",
+  "fsb_iso-black-water-mark-50": "EMD7BPKzoOhGB-aOb_Rf2",
+  "fsb_iso-black-water-mark-25": "nngO-MnDwNRUEDdrPw6sI",
+  "fsb_iso-black-water": "VCaNcj9kGc8kaFk6rQdpR",
+  "fsb_iso-bite-of-the-ship": "9QsiAey2OR8hB3UTNhRGh",
+  "fsb_iso-arm-lash": "QMXGlGM34xcBfDLWfJYoB",
+  "fsb_iso-undertow": "hcqL90RPenl24EY73YJr4",
+  "fsb_fs-crate-swing": "8h3LmvAax1p4n3wFF7a6L",
+  "fsb_fs-cutlass-slash": "PCUsc-VREYvBSKcAz4ryK",
+  "fsb_fs-pocket-a-ration": "nLvw_ZErVp9KqK58gUFvW",
+  "fsb_fs-hand-out-a-ration": "I87F3AHWm29RMFAAWn9qE",
+  "fsb_fs-count-out-a-ration": "vKH6yqFcb3Ct2O1z_mOhA",
+  "fsb_fs-eat-a-ration": "qe-RJhLtIJZ9hmw3uXENY",
+  "fsb_fs-count-the-stores": "iGfNxD8GOz-aklC8Yf9VH",
+  "fsb_fs-stack-the-crates": "h_U90LMBMhmOkLj6GcyV1",
+  "fsb_fs-open-the-stores": "8w_O3i4xP39GXh6hB0ITq",
+  "fsb_iso-grasping-arm": "lJAnVI4eBn5YjCgghqBji",
+  "fsb_fs-looting-deckhand-hold": "LxHfxzLOoTyktwRYdW8F6"
+ },
+ "journal": {
+  "v": 1,
+  "jobId": "632-mwmg43mf",
+  "manifestPath": "push/632_flooded_stores_stage2.json",
+  "manifestNumber": 632,
+  "manifestHash": "af1e6ad5",
+  "startedAt": "2026-11-18T18:19:25.914Z",
+  "updatedAt": "2026-11-18T18:21:14.707Z",
+  "state": "INCOMPLETE",
+  "pause": null,
+  "items": [
+   {
+    "idx": 0,
+    "entity": "ai",
+    "op": "create",
+    "name": "Grasping Arm",
+    "srcId": "fsb_iso-grasping-arm",
+    "targetId": null,
+    "payloadHash": "df1c6d66",
+    "state": "CONFIRMED",
+    "phase": "verify",
+    "entityId": "lJAnVI4eBn5YjCgghqBji",
+    "snapshotKey": "tnr_forge_snap_v1:632-mwmg43mf:ai",
+    "sentAt": "2026-11-18T18:20:15.189Z",
+    "createSentAt": "2026-11-18T18:19:34.416Z",
+    "confirmedAt": "2026-11-18T18:20:21.445Z",
+    "verifiedAt": null,
+    "error": null,
+    "attempt": 4,
+    "asserted": [
+     "username",
+     "avatar",
+     "avatarFacing",
+     "gender",
+     "level",
+     "rank",
+     "regeneration",
+     "isSummon",
+     "hidden",
+     "includeDefaultRules",
+     "poolsMultiplier",
+     "statsMultiplier",
+     "preferredGeneral1",
+     "preferredGeneral2",
+     "primaryElement",
+     "secondaryElement",
+     "strength",
+     "speed",
+     "intelligence",
+     "willpower",
+     "offence",
+     "defence",
+     "ninjutsuMastery",
+     "genjutsuMastery",
+     "taijutsuMastery",
+     "bukijutsuMastery",
+     "bloodlineMastery",
+     "sageMastery",
+     "effects",
+     "items",
+     "jutsus",
+     "rules",
+     "inArena"
+    ],
+    "aiProfileId": "AsLvknBA3b5xyKtK-SpFf",
+    "assertedRules": true,
+    "diffs": [
+     {
+      "key": "strength",
+      "sent": 1391299.95,
+      "live": 1043475
+     },
+     {
+      "key": "speed",
+      "sent": 1391299.95,
+      "live": 1043475
+     },
+     {
+      "key": "intelligence",
+      "sent": 1391299.95,
+      "live": 1043475
+     },
+     {
+      "key": "willpower",
+      "sent": 1391299.95,
+      "live": 1043475
+     },
+     {
+      "key": "offence",
+      "sent": 1391299.95,
+      "live": 1043475
+     },
+     {
+      "key": "defence",
+      "sent": 1391299.95,
+      "live": 1043475
+     }
+    ],
+    "verify": "drift"
+   },
+   {
+    "idx": 1,
+    "entity": "ai",
+    "op": "create",
+    "name": "Deckhand from the Hold",
+    "srcId": "fsb_fs-looting-deckhand-hold",
+    "targetId": null,
+    "payloadHash": "b97f0e24",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "LxHfxzLOoTyktwRYdW8F6",
+    "snapshotKey": "tnr_forge_snap_v1:632-mwmg43mf:ai",
+    "sentAt": "2026-11-18T18:20:59.940Z",
+    "createSentAt": "2026-11-18T18:20:28.937Z",
+    "confirmedAt": "2026-11-18T18:21:05.230Z",
+    "verifiedAt": "2026-11-18T18:21:14.706Z",
+    "error": null,
+    "attempt": 4,
+    "asserted": [
+     "username",
+     "avatar",
+     "avatarFacing",
+     "gender",
+     "level",
+     "rank",
+     "regeneration",
+     "isSummon",
+     "inArena",
+     "poolsMultiplier",
+     "statsMultiplier",
+     "preferredGeneral1",
+     "preferredGeneral2",
+     "primaryElement",
+     "secondaryElement",
+     "strength",
+     "speed",
+     "intelligence",
+     "willpower",
+     "offence",
+     "defence",
+     "ninjutsuMastery",
+     "genjutsuMastery",
+     "taijutsuMastery",
+     "bukijutsuMastery",
+     "bloodlineMastery",
+     "sageMastery",
+     "effects",
+     "jutsus",
+     "hidden",
+     "includeDefaultRules",
+     "items",
+     "rules"
+    ],
+    "aiProfileId": "le4rUxCuVW0oOEbPI2lHN",
+    "assertedRules": true,
+    "diffs": [],
+    "verify": "match"
+   }
+  ]
+ }
+}

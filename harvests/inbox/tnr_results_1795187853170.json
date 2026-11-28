@@ -1,0 +1,76 @@
+{
+ "builder": "forge-mcp",
+ "at": "2026-11-20T15:17:33.169Z",
+ "cfg": "forge",
+ "checks": null,
+ "state": "DONE",
+ "outcome": "success",
+ "postflight": {
+  "match": 1,
+  "diff": 0,
+  "unverified": 0,
+  "failed": 0,
+  "skipped": 0,
+  "unresolved": 0
+ },
+ "entries": [
+  {
+   "name": "Short Rations: questType overworld (hidden)",
+   "srcId": null,
+   "entity": "quest",
+   "slot": "edit",
+   "op": "update",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 2,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "Gqbnq2LVtIVBlLYlAnam1"
+  }
+ ],
+ "captures": [],
+ "idmap": {},
+ "journal": {
+  "v": 1,
+  "jobId": "638-mwp4h7hk",
+  "manifestPath": "push/638_short_rations_overworld.json",
+  "manifestNumber": 638,
+  "manifestHash": "c9306d3f",
+  "startedAt": "2026-11-20T15:17:00.585Z",
+  "updatedAt": "2026-11-20T15:17:33.166Z",
+  "state": "DONE",
+  "pause": null,
+  "items": [
+   {
+    "idx": 0,
+    "entity": "quest",
+    "op": "update",
+    "name": "Short Rations: questType overworld (hidden)",
+    "srcId": null,
+    "targetId": "Gqbnq2LVtIVBlLYlAnam1",
+    "payloadHash": "bc3299d5",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "Gqbnq2LVtIVBlLYlAnam1",
+    "snapshotKey": null,
+    "sentAt": "2026-11-20T15:17:06.852Z",
+    "createSentAt": null,
+    "confirmedAt": "2026-11-20T15:17:26.160Z",
+    "verifiedAt": "2026-11-20T15:17:33.165Z",
+    "error": null,
+    "attempt": 1,
+    "asserted": [
+     "questType",
+     "hidden"
+    ],
+    "diffs": [],
+    "verify": "match"
+   }
+  ]
+ }
+}

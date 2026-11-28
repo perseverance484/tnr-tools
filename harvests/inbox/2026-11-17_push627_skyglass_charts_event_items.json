@@ -1,0 +1,291 @@
+{
+ "job": "push/627: Skyglass charts and Ledger Pages become event items (isEventItem true, 14 item edits)",
+ "authorized": "director, 2026-11-17: \"Go\" (on the push/627 go card)",
+ "path": "TNR connector, account dauntless (CONTENT). Run lock NOT claimed: an omission. state/run_lock.json was free for the whole run (released by browser 17:30:28Z, writes 17:32:38Z to 17:34:55Z, no claim in between).",
+ "method": "Per item: item.getItemWithCraftingRequirements (all 14 had no recipe, so a whole-record save cannot wipe one), item.get full record, item.update {id, data} with the same record, isEventItem true, craftingRequirements []. The server's diff answered for every item: Deleted {}, Updated {isEventItem: true}.",
+ "readback": "item.getAll name Chart and name Ledger after the run: all 14 isEventItem true, hidden false, canBeTraded true. Archive Chart Case, Shard of the Ledger and Underworld Ledger unchanged (not in scope).",
+ "outcome": "14/14 VERIFIED",
+ "entries": [
+  {
+   "targetId": "H1s2IwtZ5JqgPEoJ55IVj",
+   "name": "Tide Chart",
+   "sent": {
+    "isEventItem": true
+   },
+   "serverDiff": {
+    "deleted": {},
+    "updated": {
+     "isEventItem": true
+    }
+   },
+   "readBack": {
+    "isEventItem": true,
+    "hidden": false,
+    "canBeTraded": true
+   },
+   "updatedAt": "2026-11-17T17:32:38.748Z",
+   "status": "VERIFIED"
+  },
+  {
+   "targetId": "7tC2tkIuOJpMZ_YkMYDKv",
+   "name": "Chart of the Spoiled Hold",
+   "sent": {
+    "isEventItem": true
+   },
+   "serverDiff": {
+    "deleted": {},
+    "updated": {
+     "isEventItem": true
+    }
+   },
+   "readBack": {
+    "isEventItem": true,
+    "hidden": false,
+    "canBeTraded": true
+   },
+   "updatedAt": "2026-11-17T17:33:04.195Z",
+   "status": "VERIFIED"
+  },
+  {
+   "targetId": "aHFNuo5RkKpDcaOBLIKiu",
+   "name": "Chart of the Captain's Watch",
+   "sent": {
+    "isEventItem": true
+   },
+   "serverDiff": {
+    "deleted": {},
+    "updated": {
+     "isEventItem": true
+    }
+   },
+   "readBack": {
+    "isEventItem": true,
+    "hidden": false,
+    "canBeTraded": true
+   },
+   "updatedAt": "2026-11-17T17:33:09.682Z",
+   "status": "VERIFIED"
+  },
+  {
+   "targetId": "cRZT41zm5vhPTQwwn8vtv",
+   "name": "Chart of the Quarantined Archive",
+   "sent": {
+    "isEventItem": true
+   },
+   "serverDiff": {
+    "deleted": {},
+    "updated": {
+     "isEventItem": true
+    }
+   },
+   "readBack": {
+    "isEventItem": true,
+    "hidden": false,
+    "canBeTraded": true
+   },
+   "updatedAt": "2026-11-17T17:33:21.309Z",
+   "status": "VERIFIED"
+  },
+  {
+   "targetId": "I09yVwwnSQK8YE2vkdl1l",
+   "name": "Chart of the Split Hold",
+   "sent": {
+    "isEventItem": true
+   },
+   "serverDiff": {
+    "deleted": {},
+    "updated": {
+     "isEventItem": true
+    }
+   },
+   "readBack": {
+    "isEventItem": true,
+    "hidden": false,
+    "canBeTraded": true
+   },
+   "updatedAt": "2026-11-17T17:33:27.134Z",
+   "status": "VERIFIED"
+  },
+  {
+   "targetId": "KR5-rVmqtAWeMzpE52aE7",
+   "name": "Chart of the Broken Stern",
+   "sent": {
+    "isEventItem": true
+   },
+   "serverDiff": {
+    "deleted": {},
+    "updated": {
+     "isEventItem": true
+    }
+   },
+   "readBack": {
+    "isEventItem": true,
+    "hidden": false,
+    "canBeTraded": true
+   },
+   "updatedAt": "2026-11-17T17:33:35.523Z",
+   "status": "VERIFIED"
+  },
+  {
+   "targetId": "nbLC37UzBamthKXvZsgQB",
+   "name": "Chart of the Buried Cache",
+   "sent": {
+    "isEventItem": true
+   },
+   "serverDiff": {
+    "deleted": {},
+    "updated": {
+     "isEventItem": true
+    }
+   },
+   "readBack": {
+    "isEventItem": true,
+    "hidden": false,
+    "canBeTraded": true
+   },
+   "updatedAt": "2026-11-17T17:33:44.132Z",
+   "status": "VERIFIED"
+  },
+  {
+   "targetId": "oQcPHpr0sqmWHfaJPR4T_",
+   "name": "Chart of the Drowned Cradle",
+   "sent": {
+    "isEventItem": true
+   },
+   "serverDiff": {
+    "deleted": {},
+    "updated": {
+     "isEventItem": true
+    }
+   },
+   "readBack": {
+    "isEventItem": true,
+    "hidden": false,
+    "canBeTraded": true
+   },
+   "updatedAt": "2026-11-17T17:33:52.922Z",
+   "status": "VERIFIED"
+  },
+  {
+   "targetId": "pY-0O5Gs2n89pf0kYb5J2",
+   "name": "Chart of the Drowned Foundry",
+   "sent": {
+    "isEventItem": true
+   },
+   "serverDiff": {
+    "deleted": {},
+    "updated": {
+     "isEventItem": true
+    }
+   },
+   "readBack": {
+    "isEventItem": true,
+    "hidden": false,
+    "canBeTraded": true
+   },
+   "updatedAt": "2026-11-17T17:34:12.064Z",
+   "status": "VERIFIED"
+  },
+  {
+   "targetId": "rztQVUjxTLRpyEPb3yrr6",
+   "name": "Chart of the Rotted Galley",
+   "sent": {
+    "isEventItem": true
+   },
+   "serverDiff": {
+    "deleted": {},
+    "updated": {
+     "isEventItem": true
+    }
+   },
+   "readBack": {
+    "isEventItem": true,
+    "hidden": false,
+    "canBeTraded": true
+   },
+   "updatedAt": "2026-11-17T17:34:20.709Z",
+   "status": "VERIFIED"
+  },
+  {
+   "targetId": "VuTcs22ieSdQY0cEu8Fyt",
+   "name": "Chart of the Glass Nursery",
+   "sent": {
+    "isEventItem": true
+   },
+   "serverDiff": {
+    "deleted": {},
+    "updated": {
+     "isEventItem": true
+    }
+   },
+   "readBack": {
+    "isEventItem": true,
+    "hidden": false,
+    "canBeTraded": true
+   },
+   "updatedAt": "2026-11-17T17:34:29.217Z",
+   "status": "VERIFIED"
+  },
+  {
+   "targetId": "6QgcnW0v6gZeHY474BjR0",
+   "name": "Ledger Page: The Snare Room",
+   "sent": {
+    "isEventItem": true
+   },
+   "serverDiff": {
+    "deleted": {},
+    "updated": {
+     "isEventItem": true
+    }
+   },
+   "readBack": {
+    "isEventItem": true,
+    "hidden": false,
+    "canBeTraded": true
+   },
+   "updatedAt": "2026-11-17T17:34:37.684Z",
+   "status": "VERIFIED"
+  },
+  {
+   "targetId": "JvrytTOdR1voVCoo3fckK",
+   "name": "Ledger Page: The Trophy Hold",
+   "sent": {
+    "isEventItem": true
+   },
+   "serverDiff": {
+    "deleted": {},
+    "updated": {
+     "isEventItem": true
+    }
+   },
+   "readBack": {
+    "isEventItem": true,
+    "hidden": false,
+    "canBeTraded": true
+   },
+   "updatedAt": "2026-11-17T17:34:46.470Z",
+   "status": "VERIFIED"
+  },
+  {
+   "targetId": "uu6ETQimuBJ69jwr76IIi",
+   "name": "Ledger Page: The Bone Store",
+   "sent": {
+    "isEventItem": true
+   },
+   "serverDiff": {
+    "deleted": {},
+    "updated": {
+     "isEventItem": true
+    }
+   },
+   "readBack": {
+    "isEventItem": true,
+    "hidden": false,
+    "canBeTraded": true
+   },
+   "updatedAt": "2026-11-17T17:34:55.273Z",
+   "status": "VERIFIED"
+  }
+ ],
+ "observed": "Chart of the Drowned Foundry and Chart of the Buried Cache share one image URL (qKeetzpaN_8TBOv_XISiq.webp); pre-existing, untouched."
+}

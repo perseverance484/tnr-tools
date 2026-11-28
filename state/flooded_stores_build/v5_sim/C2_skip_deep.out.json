@@ -1,0 +1,1641 @@
+{
+ "generatedBy": "isonade_v5.ts",
+ "params": {
+  "name": "v5_C2_marks100_90_base60",
+  "poolsMultiplier": 2.5,
+  "statsMultiplier": 5.83,
+  "hideShield": 1500,
+  "hideRounds": 2,
+  "hideDr": 25,
+  "tideDr": 0,
+  "shedDr": 0,
+  "swellDr": 0,
+  "tideBuff": 200,
+  "brand": 30,
+  "breakerPower": 600,
+  "breakerWound": 6,
+  "breakerWindow": 1.5,
+  "harpoonPower": 35,
+  "bw1At": 75,
+  "bw2At": 40,
+  "bw1Power": 900,
+  "bw1Feed": 1.5,
+  "bw2Shield": 4000,
+  "bw2Power": 800,
+  "bw2Feed": 2,
+  "crates": [
+   [
+    6,
+    1
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    6,
+    9
+   ]
+  ],
+  "clearAbsorb": 60,
+  "clearShield": 100,
+  "clearIdg": 100,
+  "cleanseWound": 5,
+  "cleanseIdt": 40,
+  "smokeIdg": 90,
+  "reactCd": 10,
+  "braceDr": 40,
+  "braceRounds": 1,
+  "braceCd": 10,
+  "siltDdg": 0,
+  "braceHigh": true,
+  "anchorPower": 150,
+  "anchorWound": 4,
+  "bitePct": 30,
+  "armHp": 4000,
+  "armPower": 60,
+  "armRounds": 30,
+  "armCooldown": 5,
+  "lashPower": 45,
+  "churnAp": 10,
+  "beatAp": 60,
+  "reactAp": 60,
+  "sideAp": 30,
+  "deepAp": 70,
+  "baseDr": 70,
+  "brandBeat": 200,
+  "undertowPower": 450,
+  "reactions": true,
+  "gearIdg": 60,
+  "brandHealPrevent": 3,
+  "borePower": 900,
+  "boreAt": 55,
+  "deepDr": 80,
+  "deepAt": 35,
+  "lifesteal": true,
+  "playerDg": 120
+ },
+ "dmgConfig": "live (misc.getDmgConfig, 2026-10-28)",
+ "seeds": 12,
+ "reads": {
+  "1": {
+   "summary": {
+    "fights": 12,
+    "winPct": 0,
+    "rounds": {
+     "median": null,
+     "p10": null,
+     "p90": null
+    },
+    "hpLeftWin": {
+     "median": null,
+     "p10": null,
+     "p90": null
+    },
+    "minHpMedian": 0,
+    "bossHpLeftLossMedian": 18.7,
+    "bossMaxHp": 12625,
+    "playerMaxHp": 6250,
+    "breaker": {
+     "all": {
+      "n": 12,
+      "median": 1015
+     },
+     "clearedOrCleansed": {
+      "n": 10,
+      "median": 1015
+     },
+     "unanswered": {
+      "n": 2,
+      "median": 1194
+     },
+     "byState": {
+      "noTide/noBrand/Stance": {
+       "n": 10,
+       "median": 1015
+      },
+      "noTide/noBrand/noStance": {
+       "n": 2,
+       "median": 1194
+      }
+     }
+    },
+    "deep": {
+     "n": 10,
+     "brokePct": 0,
+     "crashDmgMedian": 1691
+    },
+    "boreDmgMedian": 640,
+    "borePerFight": 0.8,
+    "undertowDmgMedian": 1088,
+    "ownTurnHealPerFight": 1023,
+    "bw1DmgMedian": 0,
+    "bw1PerFight": 1,
+    "bossActsPerFight": {
+     "churn": 17.9,
+     "wait": 13.9,
+     "Hide": 2.9,
+     "Harpoon": 2.6,
+     "Silt": 1.8,
+     "Arm": 1.6,
+     "Scour": 1.5,
+     "Tide": 1,
+     "Breaker": 1,
+     "Brand": 1,
+     "Undertow": 1,
+     "BW-I mark": 1,
+     "BW-I land": 1,
+     "Swell": 0.8,
+     "Swell rises": 0.8,
+     "Tidal Bore": 0.8,
+     "Deep sink": 0.8,
+     "Deep crash": 0.8
+    },
+    "playerAnswersPerFight": {
+     "Eclipse Drain": 3,
+     "Defensive Stance ahead of a big hit": 5,
+     "Clear its Tide buffs": 1,
+     "Cleanse the Brand": 1,
+     "Basic Heal": 2,
+     "crate": 1,
+     "Smoke the Tidal Bore": 0.8
+    },
+    "damageToPlayerPerFight": {
+     "Harpoon": 1944,
+     "Deep crash": 1536,
+     "Undertow": 1088,
+     "Breaker": 1045,
+     "Grasping Arm": 816,
+     "Tidal Bore": 534,
+     "ticks on own turn (wounds)": 309
+    },
+    "misreadsPerFight": 0.8
+   },
+   "fights": [
+    {
+     "seed": 1,
+     "read": 1,
+     "outcome": "lost",
+     "rounds": 18,
+     "playerHpPct": 0,
+     "bossHpPct": 34.1,
+     "minHpPct": 0,
+     "bossActs": {
+      "churn": 17,
+      "Scour": 1,
+      "Arm": 1,
+      "Silt": 1,
+      "Hide": 2,
+      "Tide": 1,
+      "wait": 15,
+      "Breaker": 1,
+      "Harpoon": 2,
+      "Brand": 1,
+      "Undertow": 1,
+      "BW-I mark": 1,
+      "BW-I land": 1,
+      "Swell": 1,
+      "Swell rises": 1,
+      "Tidal Bore": 1,
+      "Deep sink": 1,
+      "Deep crash": 1
+     },
+     "dmgBySource": {
+      "Grasping Arm": 892.8900201075792,
+      "Breaker": 1015.3017417184537,
+      "ticks on own turn (wounds)": 304,
+      "Harpoon": 1501.5,
+      "Undertow": 1088.47630628884,
+      "Tidal Bore": 640.2801801699061,
+      "Deep crash": 2276.551751715221
+     },
+     "breakers": [
+      {
+       "r": 4,
+       "dmg": 1015.3017417184537,
+       "answered": [
+        "Clear"
+       ],
+       "tide": false,
+       "stance": true,
+       "brand": false
+      }
+     ],
+     "deep": [
+      {
+       "r": 17,
+       "broke": false,
+       "dmg": 2276.551751715221
+      }
+     ],
+     "bore": [
+      {
+       "r": 15,
+       "dmg": 640.2801801699061
+      }
+     ],
+     "bw1": [
+      {
+       "r": 12,
+       "dmg": 0
+      }
+     ],
+     "playerAnswers": {
+      "Eclipse Drain": 3,
+      "Defensive Stance ahead of a big hit": 4,
+      "Clear its Tide buffs": 1,
+      "Cleanse the Brand": 1,
+      "Basic Heal": 2,
+      "crate": 1,
+      "Smoke the Tidal Bore": 1
+     },
+     "misreads": 1,
+     "beatLog": [
+      "r1:Scour",
+      "r1:Arm",
+      "r2:Silt",
+      "r2:Hide",
+      "r3:Tide",
+      "r3:wait",
+      "r4:Breaker",
+      "r4:wait",
+      "r5:Harpoon",
+      "r5:wait",
+      "r6:Brand",
+      "r6:wait",
+      "r7:Undertow",
+      "r7:wait",
+      "r8:Hide",
+      "r8:wait",
+      "r9:Harpoon",
+      "r9:wait",
+      "r10:wait",
+      "r11:BW-I mark",
+      "r11:wait",
+      "r12:BW-I land",
+      "r12:wait",
+      "r13:Swell",
+      "r13:wait",
+      "r14:Swell rises",
+      "r14:wait",
+      "r15:Tidal Bore",
+      "r15:wait",
+      "r16:Deep sink",
+      "r16:wait",
+      "r17:Deep crash",
+      "r17:wait"
+     ],
+     "bossDmgTotal": 8325.877033193909,
+     "leech": 1469.0000000000002,
+     "undertow": [
+      {
+       "r": 7,
+       "dmg": 1088.47630628884
+      }
+     ],
+     "bossMaxHp": 12625,
+     "playerMaxHp": 6250
+    },
+    {
+     "seed": 2,
+     "read": 1,
+     "outcome": "lost",
+     "rounds": 17,
+     "playerHpPct": 0,
+     "bossHpPct": 11.5,
+     "minHpPct": 0,
+     "bossActs": {
+      "churn": 17,
+      "Hide": 3,
+      "Arm": 2,
+      "Tide": 1,
+      "wait": 12,
+      "Breaker": 1,
+      "Silt": 2,
+      "Harpoon": 2,
+      "Brand": 1,
+      "Undertow": 1,
+      "Scour": 1,
+      "BW-I mark": 1,
+      "BW-I land": 1,
+      "Swell": 1,
+      "Swell rises": 1,
+      "Tidal Bore": 1,
+      "Deep sink": 1,
+      "Deep crash": 1
+     },
+     "dmgBySource": {
+      "Breaker": 1015.3017417184537,
+      "ticks on own turn (wounds)": 304,
+      "Harpoon": 1501.5,
+      "Undertow": 1088.47630628884,
+      "Grasping Arm": 921.5845805769225,
+      "Tidal Bore": 640.2801801699059,
+      "Deep crash": 1553.857191245878
+     },
+     "breakers": [
+      {
+       "r": 3,
+       "dmg": 1015.3017417184537,
+       "answered": [
+        "Clear"
+       ],
+       "tide": false,
+       "stance": true,
+       "brand": false
+      }
+     ],
+     "deep": [
+      {
+       "r": 17,
+       "broke": false,
+       "dmg": 1553.857191245878
+      }
+     ],
+     "bore": [
+      {
+       "r": 14,
+       "dmg": 640.2801801699059
+      }
+     ],
+     "bw1": [
+      {
+       "r": 11,
+       "dmg": 0
+      }
+     ],
+     "playerAnswers": {
+      "Eclipse Drain": 3,
+      "Defensive Stance ahead of a big hit": 5,
+      "Clear its Tide buffs": 1,
+      "Cleanse the Brand": 1,
+      "Basic Heal": 2,
+      "crate": 1,
+      "Smoke the Tidal Bore": 1
+     },
+     "misreads": 1,
+     "beatLog": [
+      "r1:Hide",
+      "r1:Arm",
+      "r2:Tide",
+      "r2:wait",
+      "r3:Breaker",
+      "r3:Silt",
+      "r4:Harpoon",
+      "r4:wait",
+      "r5:Brand",
+      "r5:wait",
+      "r6:Undertow",
+      "r6:Arm",
+      "r7:Hide",
+      "r7:wait",
+      "r8:Scour",
+      "r8:wait",
+      "r9:Harpoon",
+      "r9:wait",
+      "r10:BW-I mark",
+      "r10:wait",
+      "r11:BW-I land",
+      "r11:wait",
+      "r12:Swell",
+      "r12:wait",
+      "r13:Swell rises",
+      "r13:wait",
+      "r14:Tidal Bore",
+      "r14:wait",
+      "r15:Silt",
+      "r15:Hide",
+      "r16:Deep sink",
+      "r16:wait",
+      "r17:Deep crash"
+     ],
+     "bossDmgTotal": 11173.435068274273,
+     "leech": 775.0000000000002,
+     "undertow": [
+      {
+       "r": 6,
+       "dmg": 1088.47630628884
+      }
+     ],
+     "bossMaxHp": 12625,
+     "playerMaxHp": 6250
+    },
+    {
+     "seed": 3,
+     "read": 1,
+     "outcome": "lost",
+     "rounds": 18,
+     "playerHpPct": 0,
+     "bossHpPct": 11.5,
+     "minHpPct": 0,
+     "bossActs": {
+      "churn": 17,
+      "Hide": 3,
+      "Arm": 3,
+      "Tide": 1,
+      "wait": 12,
+      "Breaker": 1,
+      "Silt": 2,
+      "Harpoon": 2,
+      "Brand": 1,
+      "Undertow": 1,
+      "Scour": 1,
+      "BW-I mark": 1,
+      "BW-I land": 1,
+      "Swell": 1,
+      "Swell rises": 1,
+      "Tidal Bore": 1,
+      "Deep sink": 1,
+      "Deep crash": 1
+     },
+     "dmgBySource": {
+      "Breaker": 1015.3017417184537,
+      "ticks on own turn (wounds)": 304,
+      "Harpoon": 1501.5,
+      "Undertow": 1088.47630628884,
+      "Grasping Arm": 540.3727828648623,
+      "Tidal Bore": 640.2801801699061,
+      "Deep crash": 1935.068988957938
+     },
+     "breakers": [
+      {
+       "r": 3,
+       "dmg": 1015.3017417184537,
+       "answered": [
+        "Clear"
+       ],
+       "tide": false,
+       "stance": true,
+       "brand": false
+      }
+     ],
+     "deep": [
+      {
+       "r": 17,
+       "broke": false,
+       "dmg": 1935.068988957938
+      }
+     ],
+     "bore": [
+      {
+       "r": 14,
+       "dmg": 640.2801801699061
+      }
+     ],
+     "bw1": [
+      {
+       "r": 11,
+       "dmg": 0
+      }
+     ],
+     "playerAnswers": {
+      "Eclipse Drain": 3,
+      "Defensive Stance ahead of a big hit": 5,
+      "Clear its Tide buffs": 1,
+      "Cleanse the Brand": 1,
+      "Basic Heal": 2,
+      "crate": 1,
+      "Smoke the Tidal Bore": 1
+     },
+     "misreads": 1,
+     "beatLog": [
+      "r1:Hide",
+      "r1:Arm",
+      "r2:Tide",
+      "r2:wait",
+      "r3:Breaker",
+      "r3:Silt",
+      "r4:Harpoon",
+      "r4:wait",
+      "r5:Brand",
+      "r5:wait",
+      "r6:Undertow",
+      "r6:Arm",
+      "r7:Hide",
+      "r7:wait",
+      "r8:Scour",
+      "r8:wait",
+      "r9:Harpoon",
+      "r9:wait",
+      "r10:BW-I mark",
+      "r10:wait",
+      "r11:BW-I land",
+      "r11:wait",
+      "r12:Swell",
+      "r12:wait",
+      "r13:Swell rises",
+      "r13:wait",
+      "r14:Tidal Bore",
+      "r14:wait",
+      "r15:Silt",
+      "r15:Hide",
+      "r16:Deep sink",
+      "r16:wait",
+      "r17:Deep crash",
+      "r17:Arm"
+     ],
+     "bossDmgTotal": 11173.435068274273,
+     "leech": 775.0000000000002,
+     "undertow": [
+      {
+       "r": 6,
+       "dmg": 1088.47630628884
+      }
+     ],
+     "bossMaxHp": 12625,
+     "playerMaxHp": 6250
+    },
+    {
+     "seed": 4,
+     "read": 1,
+     "outcome": "lost",
+     "rounds": 20,
+     "playerHpPct": 0,
+     "bossHpPct": 4.2,
+     "minHpPct": 0,
+     "bossActs": {
+      "churn": 20,
+      "Scour": 2,
+      "Arm": 1,
+      "Silt": 2,
+      "Hide": 3,
+      "Tide": 1,
+      "wait": 16,
+      "Breaker": 1,
+      "Harpoon": 3,
+      "Brand": 1,
+      "Undertow": 1,
+      "BW-I mark": 1,
+      "BW-I land": 1,
+      "Swell": 1,
+      "Swell rises": 1,
+      "Tidal Bore": 1,
+      "Deep sink": 1,
+      "Deep crash": 1
+     },
+     "dmgBySource": {
+      "Grasping Arm": 69.17223701923103,
+      "Breaker": 1015.3017417184537,
+      "ticks on own turn (wounds)": 304,
+      "Harpoon": 1947.217783088348,
+      "Undertow": 1088.47630628884,
+      "Tidal Bore": 640.2801801699061,
+      "Deep crash": 2276.551751715221
+     },
+     "breakers": [
+      {
+       "r": 4,
+       "dmg": 1015.3017417184537,
+       "answered": [
+        "Clear"
+       ],
+       "tide": false,
+       "stance": true,
+       "brand": false
+      }
+     ],
+     "deep": [
+      {
+       "r": 18,
+       "broke": false,
+       "dmg": 2276.551751715221
+      }
+     ],
+     "bore": [
+      {
+       "r": 15,
+       "dmg": 640.2801801699061
+      }
+     ],
+     "bw1": [
+      {
+       "r": 12,
+       "dmg": 0
+      }
+     ],
+     "playerAnswers": {
+      "Eclipse Drain": 3,
+      "Defensive Stance ahead of a big hit": 5,
+      "Clear its Tide buffs": 1,
+      "Cleanse the Brand": 1,
+      "Basic Heal": 2,
+      "crate": 1,
+      "Smoke the Tidal Bore": 1
+     },
+     "misreads": 1,
+     "beatLog": [
+      "r1:Scour",
+      "r1:Arm",
+      "r2:Silt",
+      "r2:Hide",
+      "r3:Tide",
+      "r3:wait",
+      "r4:Breaker",
+      "r4:wait",
+      "r5:Harpoon",
+      "r5:wait",
+      "r6:Brand",
+      "r6:wait",
+      "r7:Undertow",
+      "r7:wait",
+      "r8:Hide",
+      "r8:wait",
+      "r9:Harpoon",
+      "r9:wait",
+      "r10:wait",
+      "r11:BW-I mark",
+      "r11:wait",
+      "r12:BW-I land",
+      "r12:wait",
+      "r13:Swell",
+      "r13:wait",
+      "r14:Swell rises",
+      "r14:wait",
+      "r15:Tidal Bore",
+      "r15:Silt",
+      "r16:Scour",
+      "r16:wait",
+      "r17:Deep sink",
+      "r17:wait",
+      "r18:Deep crash",
+      "r18:wait",
+      "r19:Hide",
+      "r19:wait",
+      "r20:Harpoon"
+     ],
+     "bossDmgTotal": 12098.606123197429,
+     "leech": 1091,
+     "undertow": [
+      {
+       "r": 7,
+       "dmg": 1088.47630628884
+      }
+     ],
+     "bossMaxHp": 12625,
+     "playerMaxHp": 6250
+    },
+    {
+     "seed": 5,
+     "read": 1,
+     "outcome": "lost",
+     "rounds": 17,
+     "playerHpPct": 0,
+     "bossHpPct": 11.6,
+     "minHpPct": 0,
+     "bossActs": {
+      "churn": 17,
+      "Hide": 3,
+      "Arm": 2,
+      "Tide": 1,
+      "wait": 12,
+      "Breaker": 1,
+      "Silt": 2,
+      "Harpoon": 2,
+      "Brand": 1,
+      "Undertow": 1,
+      "Scour": 1,
+      "BW-I mark": 1,
+      "BW-I land": 1,
+      "Swell": 1,
+      "Swell rises": 1,
+      "Tidal Bore": 1,
+      "Deep sink": 1,
+      "Deep crash": 1
+     },
+     "dmgBySource": {
+      "Breaker": 1015.3017417184537,
+      "ticks on own turn (wounds)": 304,
+      "Harpoon": 1501.5,
+      "Undertow": 1088.47630628884,
+      "Grasping Arm": 921.5845805769225,
+      "Tidal Bore": 640.2801801699059,
+      "Deep crash": 1553.857191245878
+     },
+     "breakers": [
+      {
+       "r": 3,
+       "dmg": 1015.3017417184537,
+       "answered": [
+        "Clear"
+       ],
+       "tide": false,
+       "stance": true,
+       "brand": false
+      }
+     ],
+     "deep": [
+      {
+       "r": 17,
+       "broke": false,
+       "dmg": 1553.857191245878
+      }
+     ],
+     "bore": [
+      {
+       "r": 14,
+       "dmg": 640.2801801699059
+      }
+     ],
+     "bw1": [
+      {
+       "r": 11,
+       "dmg": 0
+      }
+     ],
+     "playerAnswers": {
+      "Eclipse Drain": 3,
+      "Defensive Stance ahead of a big hit": 5,
+      "Clear its Tide buffs": 1,
+      "Cleanse the Brand": 1,
+      "Basic Heal": 2,
+      "crate": 1,
+      "Smoke the Tidal Bore": 1
+     },
+     "misreads": 1,
+     "beatLog": [
+      "r1:Hide",
+      "r1:Arm",
+      "r2:Tide",
+      "r2:wait",
+      "r3:Breaker",
+      "r3:Silt",
+      "r4:Harpoon",
+      "r4:wait",
+      "r5:Brand",
+      "r5:wait",
+      "r6:Undertow",
+      "r6:Arm",
+      "r7:Hide",
+      "r7:wait",
+      "r8:Scour",
+      "r8:wait",
+      "r9:Harpoon",
+      "r9:wait",
+      "r10:BW-I mark",
+      "r10:wait",
+      "r11:BW-I land",
+      "r11:wait",
+      "r12:Swell",
+      "r12:wait",
+      "r13:Swell rises",
+      "r13:wait",
+      "r14:Tidal Bore",
+      "r14:wait",
+      "r15:Silt",
+      "r15:Hide",
+      "r16:Deep sink",
+      "r16:wait",
+      "r17:Deep crash"
+     ],
+     "bossDmgTotal": 11166.750693274273,
+     "leech": 775.0000000000002,
+     "undertow": [
+      {
+       "r": 6,
+       "dmg": 1088.47630628884
+      }
+     ],
+     "bossMaxHp": 12625,
+     "playerMaxHp": 6250
+    },
+    {
+     "seed": 6,
+     "read": 1,
+     "outcome": "lost",
+     "rounds": 17,
+     "playerHpPct": 0,
+     "bossHpPct": 11.5,
+     "minHpPct": 0,
+     "bossActs": {
+      "churn": 17,
+      "Hide": 3,
+      "Arm": 2,
+      "Tide": 1,
+      "wait": 12,
+      "Breaker": 1,
+      "Silt": 2,
+      "Harpoon": 2,
+      "Brand": 1,
+      "Undertow": 1,
+      "Scour": 1,
+      "BW-I mark": 1,
+      "BW-I land": 1,
+      "Swell": 1,
+      "Swell rises": 1,
+      "Tidal Bore": 1,
+      "Deep sink": 1,
+      "Deep crash": 1
+     },
+     "dmgBySource": {
+      "Breaker": 1015.3017417184537,
+      "ticks on own turn (wounds)": 304,
+      "Harpoon": 1501.5,
+      "Undertow": 1088.47630628884,
+      "Grasping Arm": 921.5845805769225,
+      "Tidal Bore": 640.2801801699059,
+      "Deep crash": 1553.857191245878
+     },
+     "breakers": [
+      {
+       "r": 3,
+       "dmg": 1015.3017417184537,
+       "answered": [
+        "Clear"
+       ],
+       "tide": false,
+       "stance": true,
+       "brand": false
+      }
+     ],
+     "deep": [
+      {
+       "r": 17,
+       "broke": false,
+       "dmg": 1553.857191245878
+      }
+     ],
+     "bore": [
+      {
+       "r": 14,
+       "dmg": 640.2801801699059
+      }
+     ],
+     "bw1": [
+      {
+       "r": 11,
+       "dmg": 0
+      }
+     ],
+     "playerAnswers": {
+      "Eclipse Drain": 3,
+      "Defensive Stance ahead of a big hit": 5,
+      "Clear its Tide buffs": 1,
+      "Cleanse the Brand": 1,
+      "Basic Heal": 2,
+      "crate": 1,
+      "Smoke the Tidal Bore": 1
+     },
+     "misreads": 1,
+     "beatLog": [
+      "r1:Hide",
+      "r1:Arm",
+      "r2:Tide",
+      "r2:wait",
+      "r3:Breaker",
+      "r3:Silt",
+      "r4:Harpoon",
+      "r4:wait",
+      "r5:Brand",
+      "r5:wait",
+      "r6:Undertow",
+      "r6:Arm",
+      "r7:Hide",
+      "r7:wait",
+      "r8:Scour",
+      "r8:wait",
+      "r9:Harpoon",
+      "r9:wait",
+      "r10:BW-I mark",
+      "r10:wait",
+      "r11:BW-I land",
+      "r11:wait",
+      "r12:Swell",
+      "r12:wait",
+      "r13:Swell rises",
+      "r13:wait",
+      "r14:Tidal Bore",
+      "r14:wait",
+      "r15:Silt",
+      "r15:Hide",
+      "r16:Deep sink",
+      "r16:wait",
+      "r17:Deep crash"
+     ],
+     "bossDmgTotal": 11173.435068274273,
+     "leech": 775.0000000000002,
+     "undertow": [
+      {
+       "r": 6,
+       "dmg": 1088.47630628884
+      }
+     ],
+     "bossMaxHp": 12625,
+     "playerMaxHp": 6250
+    },
+    {
+     "seed": 7,
+     "read": 1,
+     "outcome": "lost",
+     "rounds": 18,
+     "playerHpPct": 0,
+     "bossHpPct": 55.5,
+     "minHpPct": 0,
+     "bossActs": {
+      "churn": 17,
+      "Hide": 4,
+      "Arm": 2,
+      "Tide": 1,
+      "wait": 14,
+      "Scour": 2,
+      "Breaker": 1,
+      "Harpoon": 4,
+      "Brand": 1,
+      "Undertow": 1,
+      "Silt": 1,
+      "BW-I mark": 1,
+      "BW-I land": 1
+     },
+     "dmgBySource": {
+      "Breaker": 1194.4138137864156,
+      "ticks on own turn (wounds)": 334,
+      "Harpoon": 3269,
+      "Grasping Arm": 964.1098799247443,
+      "Undertow": 1088.47630628884
+     },
+     "breakers": [
+      {
+       "r": 4,
+       "dmg": 1194.4138137864156,
+       "answered": [],
+       "tide": false,
+       "stance": false,
+       "brand": false
+      }
+     ],
+     "deep": [],
+     "bore": [],
+     "bw1": [
+      {
+       "r": 9,
+       "dmg": 0
+      }
+     ],
+     "playerAnswers": {
+      "Eclipse Drain": 3,
+      "Defensive Stance ahead of a big hit": 6,
+      "Clear its Tide buffs": 1,
+      "Cleanse the Brand": 1,
+      "crate": 1,
+      "Basic Heal": 2
+     },
+     "misreads": 0,
+     "beatLog": [
+      "r1:Hide",
+      "r1:Arm",
+      "r2:Tide",
+      "r2:wait",
+      "r3:Scour",
+      "r3:wait",
+      "r4:Breaker",
+      "r4:wait",
+      "r5:Harpoon",
+      "r5:wait",
+      "r6:Brand",
+      "r6:Arm",
+      "r7:Undertow",
+      "r7:wait",
+      "r8:Silt",
+      "r8:BW-I mark",
+      "r9:BW-I land",
+      "r9:wait",
+      "r10:Hide",
+      "r10:wait",
+      "r11:Harpoon",
+      "r11:wait",
+      "r12:wait",
+      "r13:Hide",
+      "r13:wait",
+      "r14:Harpoon",
+      "r14:wait",
+      "r15:Scour",
+      "r15:wait",
+      "r16:Hide",
+      "r16:wait",
+      "r17:Harpoon",
+      "r17:wait"
+     ],
+     "bossDmgTotal": 5614.704338513646,
+     "leech": 600,
+     "undertow": [
+      {
+       "r": 7,
+       "dmg": 1088.47630628884
+      }
+     ],
+     "bossMaxHp": 12625,
+     "playerMaxHp": 6250
+    },
+    {
+     "seed": 8,
+     "read": 1,
+     "outcome": "lost",
+     "rounds": 18,
+     "playerHpPct": 0,
+     "bossHpPct": 55.5,
+     "minHpPct": 0,
+     "bossActs": {
+      "churn": 17,
+      "Hide": 4,
+      "Arm": 2,
+      "Tide": 1,
+      "wait": 14,
+      "Scour": 2,
+      "Breaker": 1,
+      "Harpoon": 4,
+      "Brand": 1,
+      "Undertow": 1,
+      "Silt": 1,
+      "BW-I mark": 1,
+      "BW-I land": 1
+     },
+     "dmgBySource": {
+      "Breaker": 1194.4138137864156,
+      "ticks on own turn (wounds)": 334,
+      "Harpoon": 3269,
+      "Grasping Arm": 964.1098799247443,
+      "Undertow": 1088.47630628884
+     },
+     "breakers": [
+      {
+       "r": 4,
+       "dmg": 1194.4138137864156,
+       "answered": [],
+       "tide": false,
+       "stance": false,
+       "brand": false
+      }
+     ],
+     "deep": [],
+     "bore": [],
+     "bw1": [
+      {
+       "r": 9,
+       "dmg": 0
+      }
+     ],
+     "playerAnswers": {
+      "Eclipse Drain": 3,
+      "Defensive Stance ahead of a big hit": 6,
+      "Clear its Tide buffs": 1,
+      "Cleanse the Brand": 1,
+      "crate": 1,
+      "Basic Heal": 2
+     },
+     "misreads": 0,
+     "beatLog": [
+      "r1:Hide",
+      "r1:Arm",
+      "r2:Tide",
+      "r2:wait",
+      "r3:Scour",
+      "r3:wait",
+      "r4:Breaker",
+      "r4:wait",
+      "r5:Harpoon",
+      "r5:wait",
+      "r6:Brand",
+      "r6:Arm",
+      "r7:Undertow",
+      "r7:wait",
+      "r8:Silt",
+      "r8:BW-I mark",
+      "r9:BW-I land",
+      "r9:wait",
+      "r10:Hide",
+      "r10:wait",
+      "r11:Harpoon",
+      "r11:wait",
+      "r12:wait",
+      "r13:Hide",
+      "r13:wait",
+      "r14:Harpoon",
+      "r14:wait",
+      "r15:Scour",
+      "r15:wait",
+      "r16:Hide",
+      "r16:wait",
+      "r17:Harpoon",
+      "r17:wait"
+     ],
+     "bossDmgTotal": 5621.3887135136465,
+     "leech": 600,
+     "undertow": [
+      {
+       "r": 7,
+       "dmg": 1088.47630628884
+      }
+     ],
+     "bossMaxHp": 12625,
+     "playerMaxHp": 6250
+    },
+    {
+     "seed": 9,
+     "read": 1,
+     "outcome": "lost",
+     "rounds": 20,
+     "playerHpPct": 0,
+     "bossHpPct": 25.7,
+     "minHpPct": 0,
+     "bossActs": {
+      "churn": 20,
+      "Scour": 1,
+      "Arm": 1,
+      "Silt": 2,
+      "Hide": 3,
+      "Tide": 1,
+      "wait": 16,
+      "Breaker": 1,
+      "Harpoon": 3,
+      "Brand": 1,
+      "Undertow": 1,
+      "BW-I mark": 1,
+      "BW-I land": 1,
+      "Swell": 1,
+      "Swell rises": 1,
+      "Tidal Bore": 1,
+      "Deep sink": 1,
+      "Deep crash": 1
+     },
+     "dmgBySource": {
+      "Grasping Arm": 615.1109287740383,
+      "Breaker": 1015.3017417184537,
+      "ticks on own turn (wounds)": 304,
+      "Harpoon": 2385.25,
+      "Undertow": 1088.47630628884,
+      "Tidal Bore": 640.2801801699061,
+      "Deep crash": 1628.5808430487618
+     },
+     "breakers": [
+      {
+       "r": 4,
+       "dmg": 1015.3017417184537,
+       "answered": [
+        "Clear"
+       ],
+       "tide": false,
+       "stance": true,
+       "brand": false
+      }
+     ],
+     "deep": [
+      {
+       "r": 20,
+       "broke": false,
+       "dmg": 1628.5808430487618
+      }
+     ],
+     "bore": [
+      {
+       "r": 15,
+       "dmg": 640.2801801699061
+      }
+     ],
+     "bw1": [
+      {
+       "r": 12,
+       "dmg": 0
+      }
+     ],
+     "playerAnswers": {
+      "Eclipse Drain": 3,
+      "Defensive Stance ahead of a big hit": 6,
+      "Clear its Tide buffs": 1,
+      "Cleanse the Brand": 1,
+      "Basic Heal": 2,
+      "crate": 1,
+      "Smoke the Tidal Bore": 1
+     },
+     "misreads": 1,
+     "beatLog": [
+      "r1:Scour",
+      "r1:Arm",
+      "r2:Silt",
+      "r2:Hide",
+      "r3:Tide",
+      "r3:wait",
+      "r4:Breaker",
+      "r4:wait",
+      "r5:Harpoon",
+      "r5:wait",
+      "r6:Brand",
+      "r6:wait",
+      "r7:Undertow",
+      "r7:wait",
+      "r8:Hide",
+      "r8:wait",
+      "r9:Harpoon",
+      "r9:wait",
+      "r10:wait",
+      "r11:BW-I mark",
+      "r11:wait",
+      "r12:BW-I land",
+      "r12:wait",
+      "r13:Swell",
+      "r13:wait",
+      "r14:Swell rises",
+      "r14:wait",
+      "r15:Tidal Bore",
+      "r15:Silt",
+      "r16:Hide",
+      "r16:wait",
+      "r17:Harpoon",
+      "r17:wait",
+      "r18:wait",
+      "r19:Deep sink",
+      "r19:wait",
+      "r20:Deep crash"
+     ],
+     "bossDmgTotal": 9380.819811825744,
+     "leech": 1427,
+     "undertow": [
+      {
+       "r": 7,
+       "dmg": 1088.47630628884
+      }
+     ],
+     "bossMaxHp": 12625,
+     "playerMaxHp": 6250
+    },
+    {
+     "seed": 10,
+     "read": 1,
+     "outcome": "lost",
+     "rounds": 18,
+     "playerHpPct": 0,
+     "bossHpPct": 32.1,
+     "minHpPct": 0,
+     "bossActs": {
+      "churn": 18,
+      "Scour": 2,
+      "Arm": 1,
+      "Silt": 2,
+      "Hide": 2,
+      "Tide": 1,
+      "wait": 14,
+      "Breaker": 1,
+      "Harpoon": 2,
+      "Brand": 1,
+      "Undertow": 1,
+      "BW-I mark": 1,
+      "BW-I land": 1,
+      "Swell": 1,
+      "Swell rises": 1,
+      "Tidal Bore": 1,
+      "Deep sink": 1,
+      "Deep crash": 1
+     },
+     "dmgBySource": {
+      "Grasping Arm": 1457.764404158654,
+      "Breaker": 1015.3017417184537,
+      "ticks on own turn (wounds)": 304,
+      "Harpoon": 1501.5,
+      "Undertow": 1088.47630628884,
+      "Tidal Bore": 640.2801801699061,
+      "Deep crash": 1690.6773676641465
+     },
+     "breakers": [
+      {
+       "r": 4,
+       "dmg": 1015.3017417184537,
+       "answered": [
+        "Clear"
+       ],
+       "tide": false,
+       "stance": true,
+       "brand": false
+      }
+     ],
+     "deep": [
+      {
+       "r": 18,
+       "broke": false,
+       "dmg": 1690.6773676641465
+      }
+     ],
+     "bore": [
+      {
+       "r": 16,
+       "dmg": 640.2801801699061
+      }
+     ],
+     "bw1": [
+      {
+       "r": 13,
+       "dmg": 0
+      }
+     ],
+     "playerAnswers": {
+      "Eclipse Drain": 3,
+      "Defensive Stance ahead of a big hit": 4,
+      "Clear its Tide buffs": 1,
+      "Cleanse the Brand": 1,
+      "Basic Heal": 2,
+      "crate": 1,
+      "Smoke the Tidal Bore": 1
+     },
+     "misreads": 1,
+     "beatLog": [
+      "r1:Scour",
+      "r1:Arm",
+      "r2:Silt",
+      "r2:Hide",
+      "r3:Tide",
+      "r3:wait",
+      "r4:Breaker",
+      "r4:wait",
+      "r5:Harpoon",
+      "r5:wait",
+      "r6:Brand",
+      "r6:wait",
+      "r7:Undertow",
+      "r7:wait",
+      "r8:Hide",
+      "r8:wait",
+      "r9:Harpoon",
+      "r9:wait",
+      "r10:wait",
+      "r11:Scour",
+      "r11:wait",
+      "r12:BW-I mark",
+      "r12:wait",
+      "r13:BW-I land",
+      "r13:wait",
+      "r14:Swell",
+      "r14:wait",
+      "r15:Swell rises",
+      "r15:Silt",
+      "r16:Tidal Bore",
+      "r16:wait",
+      "r17:Deep sink",
+      "r17:wait",
+      "r18:Deep crash"
+     ],
+     "bossDmgTotal": 8578.433463821722,
+     "leech": 1448.0000000000005,
+     "undertow": [
+      {
+       "r": 7,
+       "dmg": 1088.47630628884
+      }
+     ],
+     "bossMaxHp": 12625,
+     "playerMaxHp": 6250
+    },
+    {
+     "seed": 11,
+     "read": 1,
+     "outcome": "lost",
+     "rounds": 20,
+     "playerHpPct": 0,
+     "bossHpPct": 4.2,
+     "minHpPct": 0,
+     "bossActs": {
+      "churn": 20,
+      "Scour": 2,
+      "Arm": 1,
+      "Silt": 2,
+      "Hide": 3,
+      "Tide": 1,
+      "wait": 16,
+      "Breaker": 1,
+      "Harpoon": 3,
+      "Brand": 1,
+      "Undertow": 1,
+      "BW-I mark": 1,
+      "BW-I land": 1,
+      "Swell": 1,
+      "Swell rises": 1,
+      "Tidal Bore": 1,
+      "Deep sink": 1,
+      "Deep crash": 1
+     },
+     "dmgBySource": {
+      "Grasping Arm": 69.17223701923103,
+      "Breaker": 1015.3017417184537,
+      "ticks on own turn (wounds)": 304,
+      "Harpoon": 1947.217783088348,
+      "Undertow": 1088.47630628884,
+      "Tidal Bore": 640.2801801699061,
+      "Deep crash": 2276.551751715221
+     },
+     "breakers": [
+      {
+       "r": 4,
+       "dmg": 1015.3017417184537,
+       "answered": [
+        "Clear"
+       ],
+       "tide": false,
+       "stance": true,
+       "brand": false
+      }
+     ],
+     "deep": [
+      {
+       "r": 18,
+       "broke": false,
+       "dmg": 2276.551751715221
+      }
+     ],
+     "bore": [
+      {
+       "r": 15,
+       "dmg": 640.2801801699061
+      }
+     ],
+     "bw1": [
+      {
+       "r": 12,
+       "dmg": 0
+      }
+     ],
+     "playerAnswers": {
+      "Eclipse Drain": 3,
+      "Defensive Stance ahead of a big hit": 5,
+      "Clear its Tide buffs": 1,
+      "Cleanse the Brand": 1,
+      "Basic Heal": 2,
+      "crate": 1,
+      "Smoke the Tidal Bore": 1
+     },
+     "misreads": 1,
+     "beatLog": [
+      "r1:Scour",
+      "r1:Arm",
+      "r2:Silt",
+      "r2:Hide",
+      "r3:Tide",
+      "r3:wait",
+      "r4:Breaker",
+      "r4:wait",
+      "r5:Harpoon",
+      "r5:wait",
+      "r6:Brand",
+      "r6:wait",
+      "r7:Undertow",
+      "r7:wait",
+      "r8:Hide",
+      "r8:wait",
+      "r9:Harpoon",
+      "r9:wait",
+      "r10:wait",
+      "r11:BW-I mark",
+      "r11:wait",
+      "r12:BW-I land",
+      "r12:wait",
+      "r13:Swell",
+      "r13:wait",
+      "r14:Swell rises",
+      "r14:wait",
+      "r15:Tidal Bore",
+      "r15:Silt",
+      "r16:Scour",
+      "r16:wait",
+      "r17:Deep sink",
+      "r17:wait",
+      "r18:Deep crash",
+      "r18:wait",
+      "r19:Hide",
+      "r19:wait",
+      "r20:Harpoon"
+     ],
+     "bossDmgTotal": 12098.606123197429,
+     "leech": 1091,
+     "undertow": [
+      {
+       "r": 7,
+       "dmg": 1088.47630628884
+      }
+     ],
+     "bossMaxHp": 12625,
+     "playerMaxHp": 6250
+    },
+    {
+     "seed": 12,
+     "read": 1,
+     "outcome": "lost",
+     "rounds": 18,
+     "playerHpPct": 0,
+     "bossHpPct": 32.1,
+     "minHpPct": 0,
+     "bossActs": {
+      "churn": 18,
+      "Scour": 2,
+      "Arm": 1,
+      "Silt": 2,
+      "Hide": 2,
+      "Tide": 1,
+      "wait": 14,
+      "Breaker": 1,
+      "Harpoon": 2,
+      "Brand": 1,
+      "Undertow": 1,
+      "BW-I mark": 1,
+      "BW-I land": 1,
+      "Swell": 1,
+      "Swell rises": 1,
+      "Tidal Bore": 1,
+      "Deep sink": 1,
+      "Deep crash": 1
+     },
+     "dmgBySource": {
+      "Grasping Arm": 1457.764404158654,
+      "Breaker": 1015.3017417184537,
+      "ticks on own turn (wounds)": 304,
+      "Harpoon": 1501.5,
+      "Undertow": 1088.47630628884,
+      "Tidal Bore": 640.2801801699061,
+      "Deep crash": 1690.6773676641465
+     },
+     "breakers": [
+      {
+       "r": 4,
+       "dmg": 1015.3017417184537,
+       "answered": [
+        "Clear"
+       ],
+       "tide": false,
+       "stance": true,
+       "brand": false
+      }
+     ],
+     "deep": [
+      {
+       "r": 18,
+       "broke": false,
+       "dmg": 1690.6773676641465
+      }
+     ],
+     "bore": [
+      {
+       "r": 16,
+       "dmg": 640.2801801699061
+      }
+     ],
+     "bw1": [
+      {
+       "r": 13,
+       "dmg": 0
+      }
+     ],
+     "playerAnswers": {
+      "Eclipse Drain": 3,
+      "Defensive Stance ahead of a big hit": 4,
+      "Clear its Tide buffs": 1,
+      "Cleanse the Brand": 1,
+      "Basic Heal": 2,
+      "crate": 1,
+      "Smoke the Tidal Bore": 1
+     },
+     "misreads": 1,
+     "beatLog": [
+      "r1:Scour",
+      "r1:Arm",
+      "r2:Silt",
+      "r2:Hide",
+      "r3:Tide",
+      "r3:wait",
+      "r4:Breaker",
+      "r4:wait",
+      "r5:Harpoon",
+      "r5:wait",
+      "r6:Brand",
+      "r6:wait",
+      "r7:Undertow",
+      "r7:wait",
+      "r8:Hide",
+      "r8:wait",
+      "r9:Harpoon",
+      "r9:wait",
+      "r10:wait",
+      "r11:Scour",
+      "r11:wait",
+      "r12:BW-I mark",
+      "r12:wait",
+      "r13:BW-I land",
+      "r13:wait",
+      "r14:Swell",
+      "r14:wait",
+      "r15:Swell rises",
+      "r15:Silt",
+      "r16:Tidal Bore",
+      "r16:wait",
+      "r17:Deep sink",
+      "r17:wait",
+      "r18:Deep crash"
+     ],
+     "bossDmgTotal": 8578.433463821722,
+     "leech": 1448.0000000000005,
+     "undertow": [
+      {
+       "r": 7,
+       "dmg": 1088.47630628884
+      }
+     ],
+     "bossMaxHp": 12625,
+     "playerMaxHp": 6250
+    }
+   ]
+  }
+ }
+}

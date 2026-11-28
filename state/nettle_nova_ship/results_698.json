@@ -1,0 +1,58 @@
+{
+ "push": 698,
+ "title": "Resort in Need boss: Nettle Nova",
+ "ranAt": "2026-11-21T03:20Z",
+ "by": "hand over the connector, run lock held",
+ "assets": {
+  "folder": "resortneednn",
+  "created_hidden_then_unhidden": {
+   "anim_rin_nn_c_nova_burst_cm2_rm1_c": "dfH8fzsmALSoIFRoSDSjg",
+   "anim_rin_nn_c_nova_burst_cm2_rp2_c": "Aq_w8vky7Wa-IvuGgiRsp",
+   "anim_rin_nn_c_nova_burst_cp0_rm1_c": "_D3gg1bPqP-W8ciZW78x4",
+   "anim_rin_nn_c_nova_burst_cp0_rp2_c": "y_-3PyRuzI3FTlb-O9JuJ",
+   "anim_rin_nn_c_nova_burst_cp2_rm1_c": "pjczJYHKEgRDS_pWneX9q",
+   "anim_rin_nn_c_nova_burst_cp2_rp2_c": "QHuO1Yquut94rf0c6qMW5",
+   "anim_rin_nn_c_sealed_aura_c": "eU4QpeNaBYQo0-FO2ot8o",
+   "anim_rin_nn_c_swell_boss_c": "QfxrEeAXA5MwF8B58USBM",
+   "anim_rin_nn_c_swell_mark_appear_c": "MP2eB9jLWPHjS0Aw00C00",
+   "anim_rin_nn_c_swell_mark_loop_c": "LPAd7zQLdKYdHAIcuS6YG",
+   "ground_rin_nn_c_swell_mark_ground_c": "7FxSX7OupveLlm2hpCGgg"
+  }
+ },
+ "jutsu": {
+  "Nettle Swell": "EtzbEzQPsBK_GwJJ9hUCh",
+  "Nettle Nova": "PQaUa3HPjQcqkORe9Mkih",
+  "Stinging Lash": "dXZjK9HlELv32aMd0LBaP"
+ },
+ "item": {
+  "Chakra Beast's Bell": "2b5L5XHHZFbS-hqouYayd",
+  "clonedFrom": "ZBfu0h3K6U1g45Q4gTOG7"
+ },
+ "boss": {
+  "id": "msKodzIJSH2J_BO-1FCIN",
+  "aiProfileId": "CdRthdjV3GmIuSqfbJ-jb (new, own profile; jellyfish keeps ePqWnmBprBeubGI3AZg7r unchanged)",
+  "statsMultiplier": 1,
+  "poolsMultiplier": 1,
+  "effects": "decreasedamagetaken 60 SELF only (seal weakness and 99% DR removed)",
+  "jutsus_equipped": 3,
+  "item": "Chakra Beast's Bell in CHEST",
+  "rules": 8,
+  "includeDefaultRules": false
+ },
+ "readBack": {
+  "assets": "11/11 image, frames, speed match; hidden false",
+  "jutsu": "3/3 match jutsu_records.json",
+  "boss": "equipped:true 3, item CHEST, effects 1",
+  "profile": "8 rules, ids match",
+  "quest": "Resort in Need still hidden"
+ },
+ "deviations": [
+  "poolsMultiplier 1 (live minimum) instead of the design's 0.9; sim at 1: every build wins 100%, rounds within 1 of 0.9"
+ ],
+ "rollback": "state/nettle_nova_ship/boss_before_698.json (old jutsu, effects, multipliers, shared profile id)",
+ "goLive": [
+  "Resort in Need quest stays hidden: the director decides when it opens (unhide is his)",
+  "Open decisions stay his: level floor, maxAttempts, rewards, battle locations, jellyfish stuns, story text",
+  "A test fight only on his ask"
+ ]
+}

@@ -1,0 +1,201 @@
+{
+ "builder": "forge-mcp",
+ "at": "2026-11-20T16:23:37.667Z",
+ "cfg": "forge",
+ "checks": null,
+ "state": "DONE",
+ "outcome": "success",
+ "postflight": {
+  "match": 4,
+  "diff": 0,
+  "unverified": 0,
+  "failed": 0,
+  "skipped": 0,
+  "unresolved": 0
+ },
+ "entries": [
+  {
+   "name": "Chart of the Flooded Stores: the director's icon (hidden)",
+   "srcId": null,
+   "entity": "item",
+   "slot": "edit",
+   "op": "update",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 1,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "FuQzaFNlpyOUGlO5BtjyX"
+  },
+  {
+   "name": "The Flooded Stores: the director's icon (hidden)",
+   "srcId": null,
+   "entity": "quest",
+   "slot": "edit",
+   "op": "update",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 1,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "-_1MdlGp-gxdiWKb6Bf3V"
+  },
+  {
+   "name": "Short Rations: the director's icon (hidden)",
+   "srcId": null,
+   "entity": "quest",
+   "slot": "edit",
+   "op": "update",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 1,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "Gqbnq2LVtIVBlLYlAnam1"
+  },
+  {
+   "name": "The Watch Log: Stolen Stores (Shallows): the director's icon (hidden)",
+   "srcId": null,
+   "entity": "quest",
+   "slot": "edit",
+   "op": "update",
+   "state": "ok",
+   "forgeState": "VERIFIED",
+   "phase": "verify",
+   "detail": "",
+   "verdict": "match",
+   "asserted": {
+    "ok": 1,
+    "fail": []
+   },
+   "diffs": [],
+   "id": "qOhvkP3aPCPH88wI7-IZW"
+  }
+ ],
+ "captures": [],
+ "idmap": {},
+ "journal": {
+  "v": 1,
+  "jobId": "675-mwp6790k",
+  "manifestPath": "push/675_stolen_stores_icons.json",
+  "manifestNumber": 675,
+  "manifestHash": "9c44a737",
+  "startedAt": "2026-11-20T16:05:15.237Z",
+  "updatedAt": "2026-11-20T16:23:37.664Z",
+  "state": "DONE",
+  "pause": null,
+  "items": [
+   {
+    "idx": 0,
+    "entity": "item",
+    "op": "update",
+    "name": "Chart of the Flooded Stores: the director's icon (hidden)",
+    "srcId": null,
+    "targetId": "FuQzaFNlpyOUGlO5BtjyX",
+    "payloadHash": "766a501b",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "FuQzaFNlpyOUGlO5BtjyX",
+    "snapshotKey": null,
+    "sentAt": "2026-11-20T16:06:41.444Z",
+    "createSentAt": null,
+    "confirmedAt": "2026-11-20T16:08:11.958Z",
+    "verifiedAt": "2026-11-20T16:09:41.102Z",
+    "error": null,
+    "attempt": 1,
+    "asserted": [
+     "image"
+    ],
+    "diffs": [],
+    "verify": "match"
+   },
+   {
+    "idx": 1,
+    "entity": "quest",
+    "op": "update",
+    "name": "The Flooded Stores: the director's icon (hidden)",
+    "srcId": null,
+    "targetId": "-_1MdlGp-gxdiWKb6Bf3V",
+    "payloadHash": "37a3066d",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "-_1MdlGp-gxdiWKb6Bf3V",
+    "snapshotKey": null,
+    "sentAt": "2026-11-20T16:11:07.201Z",
+    "createSentAt": null,
+    "confirmedAt": "2026-11-20T16:13:06.657Z",
+    "verifiedAt": "2026-11-20T16:14:32.336Z",
+    "error": null,
+    "attempt": 1,
+    "asserted": [
+     "image"
+    ],
+    "diffs": [],
+    "verify": "match"
+   },
+   {
+    "idx": 2,
+    "entity": "quest",
+    "op": "update",
+    "name": "Short Rations: the director's icon (hidden)",
+    "srcId": null,
+    "targetId": "Gqbnq2LVtIVBlLYlAnam1",
+    "payloadHash": "86f51ced",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "Gqbnq2LVtIVBlLYlAnam1",
+    "snapshotKey": null,
+    "sentAt": "2026-11-20T16:15:58.208Z",
+    "createSentAt": null,
+    "confirmedAt": "2026-11-20T16:17:38.910Z",
+    "verifiedAt": "2026-11-20T16:19:04.314Z",
+    "error": null,
+    "attempt": 1,
+    "asserted": [
+     "image"
+    ],
+    "diffs": [],
+    "verify": "match"
+   },
+   {
+    "idx": 3,
+    "entity": "quest",
+    "op": "update",
+    "name": "The Watch Log: Stolen Stores (Shallows): the director's icon (hidden)",
+    "srcId": null,
+    "targetId": "qOhvkP3aPCPH88wI7-IZW",
+    "payloadHash": "409b52e6",
+    "state": "VERIFIED",
+    "phase": "verify",
+    "entityId": "qOhvkP3aPCPH88wI7-IZW",
+    "snapshotKey": null,
+    "sentAt": "2026-11-20T16:20:31.248Z",
+    "createSentAt": null,
+    "confirmedAt": "2026-11-20T16:22:13.131Z",
+    "verifiedAt": "2026-11-20T16:23:37.663Z",
+    "error": null,
+    "attempt": 1,
+    "asserted": [
+     "image"
+    ],
+    "diffs": [],
+    "verify": "match"
+   }
+  ]
+ }
+}
