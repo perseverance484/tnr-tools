@@ -884,12 +884,12 @@
     },
     {
       "id": "639-pool",
-      "manifest": "push/639_salvager_pool_upsert.json",
+      "manifest": "archive/spent-manifests/push-2026-11/639_salvager_pool_upsert.json",
       "what": "Salvager pool upsert",
       "runner": "connector",
       "status": "unrecorded",
       "waitsFor": [],
-      "note": "Harvested 2026-11-28 from claude/project-thread-hlg3nc (repo review W1). Bundles: no results bundle found. Two manifests share 639 on that branch; suffixed. 673 go-live note mentions the Salvager pool."
+      "note": "Harvested 2026-11-28 from claude/project-thread-hlg3nc (repo review W1). Bundles: no results bundle found. Two manifests share 639 on that branch; suffixed. 673 go-live note mentions the Salvager pool. Manifest archived (already ran; it needs tooling that exists only on its source branch, so the staged-manifest gate on main refuses it)."
     },
     {
       "id": "639-sr",
@@ -1028,21 +1028,21 @@
     },
     {
       "id": "640-rm",
-      "manifest": "push/640_residual_modifier_fix.json",
+      "manifest": "archive/spent-manifests/push-2026-11/640_residual_modifier_fix.json",
       "what": "Residual modifier fix (zeroInstantResidual livePatch), run live 2026-11-18",
       "runner": "connector",
       "status": "done",
       "waitsFor": [],
-      "note": "Harvested 2026-11-28 from claude/project-thread-bxzz52 (repo review W1). Bundles: harvests/inbox/tnr_results_1795031980477.json (DONE/success). Ran from unreviewed Forge source on that branch (finding LA-05); the code is held for Lane A review, see docs/reviews/REPO_REVIEW_2026-11-27/livepatch_zeroInstantResidual.diff."
+      "note": "Harvested 2026-11-28 from claude/project-thread-bxzz52 (repo review W1). Bundles: harvests/inbox/tnr_results_1795031980477.json (DONE/success). Ran from unreviewed Forge source on that branch (finding LA-05); the code is held for Lane A review, see docs/reviews/REPO_REVIEW_2026-11-27/livepatch_zeroInstantResidual.diff. Manifest archived (already ran; it needs tooling that exists only on its source branch, so the staged-manifest gate on main refuses it)."
     },
     {
       "id": "641-rm",
-      "manifest": "push/641_residual_modifier_fix_bloodline.json",
+      "manifest": "archive/spent-manifests/push-2026-11/641_residual_modifier_fix_bloodline.json",
       "what": "Residual modifier fix, bloodline jutsu",
       "runner": "connector",
       "status": "done",
       "waitsFor": [],
-      "note": "Harvested 2026-11-28 from claude/project-thread-bxzz52 (repo review W1). Bundles: harvests/inbox/tnr_results_1795032609352.json (DONE/success). Same as 640-rm."
+      "note": "Harvested 2026-11-28 from claude/project-thread-bxzz52 (repo review W1). Bundles: harvests/inbox/tnr_results_1795032609352.json (DONE/success). Same as 640-rm. Manifest archived (already ran; it needs tooling that exists only on its source branch, so the staged-manifest gate on main refuses it)."
     },
     {
       "id": "rc335",
@@ -1064,12 +1064,12 @@
     },
     {
       "id": "631-wt",
-      "manifest": "push/631_weapon_effect_targets.json",
+      "manifest": "archive/spent-manifests/push-2026-11/631_weapon_effect_targets.json",
       "what": "Weapon effect-target fix (Gale Fans, Soul Harvester, Flaming Sword, Warden's Bracers)",
       "runner": "connector",
       "status": "unrecorded",
       "waitsFor": [],
-      "note": "Harvested 2026-11-28 from claude/project-thread-f0jjus (repo review W1). Bundles: no results bundle found. Id 631 collides with main 631; suffixed."
+      "note": "Harvested 2026-11-28 from claude/project-thread-f0jjus (repo review W1). Bundles: no results bundle found. Id 631 collides with main 631; suffixed. Manifest and generator archived (already ran; the manifest carries animationOffsetY, which current contracts flag in the staged-manifest gate)."
     },
     {
       "id": "509-duet",
