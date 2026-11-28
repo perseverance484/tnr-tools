@@ -1,8 +1,8 @@
 # Repository review and cleanup: implementation brief
 
-**Status:** DRAFT for the director's approval and an independent ChatGPT review. When approved, this file
-is the build contract (CLAUDE.md §11). It changes no law, doctrine or ruling by itself; each decision
-below that changes an operative rule gets its own ruling entry and owner update when it is made.
+**Status:** APPROVED by the director 2026-11-28 with every recommendation in the decision card
+(RUL-2026-11-28-170). D8: other players' usernames are accepted, no redaction. This file is the build contract
+(CLAUDE.md §11); each package is still handed off at an exact SHA for independent review.
 
 **Base:** `perseverance484/tnr-tools` main at `f0b5f0f89` (2026-11-27). **Live requests made by the
 review:** none. **Branch:** this session can push only to `ccr-6a1d8ed7-02ktab`, which stands in for the
