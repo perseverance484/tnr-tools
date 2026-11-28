@@ -1,0 +1,124 @@
+{
+  "reservation": [
+    {
+      "read_after_A": false,
+      "first_admitted": 180000,
+      "before": {
+        "day": "2027-01-15",
+        "ryo": 49820000,
+        "out": [
+          [
+            "fe42a0ff",
+            180000.0
+          ]
+        ]
+      },
+      "after": {
+        "day": "2027-01-15",
+        "ryo": 49820000,
+        "out": [
+          [
+            "fa0681f4",
+            180000.0
+          ]
+        ]
+      },
+      "next_calls": [
+        "item.buy",
+        "item.buy",
+        "item.getUserItems",
+        "profile.getUser"
+      ],
+      "next_admitted": 180000,
+      "old_reservation_remaining": false,
+      "decisions": 0
+    },
+    {
+      "read_after_A": true,
+      "first_admitted": 180000,
+      "before": {
+        "day": "2027-01-15",
+        "ryo": 49820000,
+        "out": [
+          [
+            "4db51097",
+            180000.0
+          ]
+        ]
+      },
+      "after": {
+        "day": "2027-01-15",
+        "ryo": 50000000.0,
+        "out": []
+      },
+      "next_calls": [
+        "bank.toBank",
+        "profile.getUser"
+      ],
+      "next_admitted": 0,
+      "old_reservation_remaining": false,
+      "decisions": 0
+    }
+  ],
+  "selection": [
+    {
+      "read_after_A": false,
+      "old_selection_still_loose": true,
+      "stale": null,
+      "activity": "pvp_hunt",
+      "thrown_in_feed": "yVNeLzxHSFkNpTPnlm7yQ",
+      "calls": [
+        "profile.getUser",
+        "travel.getSectorData",
+        "stealth.useSensory",
+        "profile.getStrongestUsers"
+      ]
+    },
+    {
+      "read_after_A": true,
+      "old_selection_still_loose": false,
+      "stale": null,
+      "activity": "pvp_hunt",
+      "thrown_in_feed": "GMF1JZ0MChUHc7AtnKABw",
+      "calls": [
+        "profile.getUser",
+        "travel.getSectorData",
+        "stealth.useSensory",
+        "profile.getStrongestUsers"
+      ]
+    }
+  ],
+  "banking_off": [
+    {
+      "activity": "training",
+      "calls": [
+        "travel.startGlobalMove",
+        "travel.finishGlobalMove",
+        "profile.getUser"
+      ],
+      "pocket": 9400000,
+      "gate": "allow"
+    },
+    {
+      "activity": "session",
+      "calls": [
+        "travel.startGlobalMove",
+        "travel.finishGlobalMove",
+        "profile.getUser"
+      ],
+      "pocket": 9400000,
+      "gate": "allow"
+    },
+    {
+      "activity": "pvp_hunt",
+      "calls": [
+        "travel.startGlobalMove",
+        "travel.finishGlobalMove",
+        "profile.getUser",
+        "travel.getSectorData"
+      ],
+      "pocket": 9400000,
+      "gate": "allow"
+    }
+  ]
+}

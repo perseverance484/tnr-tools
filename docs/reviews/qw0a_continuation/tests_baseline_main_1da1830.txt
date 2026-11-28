@@ -1,0 +1,407 @@
+test_combat_constants_module (__main__.ArraySpreads.test_combat_constants_module) ... FAIL
+test_constant_spread_resolves_in_source_order (__main__.ArraySpreads.test_constant_spread_resolves_in_source_order) ... FAIL
+test_enum_by_reference_has_real_members (__main__.ArraySpreads.test_enum_by_reference_has_real_members) ... FAIL
+test_non_leading_inline_spread (__main__.ArraySpreads.test_non_leading_inline_spread) ... ERROR
+test_transitive_spread (__main__.ArraySpreads.test_transitive_spread) ... FAIL
+test_two_spreads_in_one_list (__main__.ArraySpreads.test_two_spreads_in_one_list) ... FAIL
+test_validator_local_spread_list (__main__.ArraySpreads.test_validator_local_spread_list) ... FAIL
+test_repeat_runs_are_identical (__main__.Determinism.test_repeat_runs_are_identical) ... ok
+test_false_default_is_kept (__main__.FalsyMetadata.test_false_default_is_kept) ... FAIL
+test_null_default_is_kept (__main__.FalsyMetadata.test_null_default_is_kept) ... FAIL
+test_zero_default_and_bound_are_kept (__main__.FalsyMetadata.test_zero_default_and_bound_are_kept) ... FAIL
+test_constant_default (__main__.Helpers.test_constant_default) ... ERROR
+test_cross_file_helper_bounds_and_omission (__main__.Helpers.test_cross_file_helper_bounds_and_omission) ... ERROR
+test_cross_file_helper_on_single_line_head (__main__.Helpers.test_cross_file_helper_on_single_line_head) ... ERROR
+test_discriminant_is_type_not_inherited_literal (__main__.Helpers.test_discriminant_is_type_not_inherited_literal) ... ok
+test_nullable_is_not_omissible (__main__.Helpers.test_nullable_is_not_omissible) ... ERROR
+test_type_helper (__main__.Helpers.test_type_helper) ... ERROR
+test_multiline_chain_keeps_type_and_bounds (__main__.MultilineAndDelimiters.test_multiline_chain_keeps_type_and_bounds) ... FAIL
+test_multiline_field_is_not_dropped (__main__.MultilineAndDelimiters.test_multiline_field_is_not_dropped) ... ERROR
+test_multiline_schema_head (__main__.MultilineAndDelimiters.test_multiline_schema_head) ... FAIL
+test_nested_item_fields_do_not_leak (__main__.MultilineAndDelimiters.test_nested_item_fields_do_not_leak) ... FAIL
+test_string_with_braces_and_commas (__main__.MultilineAndDelimiters.test_string_with_braces_and_commas) ... ERROR
+test_cyclic_array_spread (__main__.Refusals.test_cyclic_array_spread) ... FAIL
+test_cyclic_object_spread (__main__.Refusals.test_cyclic_object_spread) ... FAIL
+test_gaps_are_reported_not_fatal (__main__.Refusals.test_gaps_are_reported_not_fatal) ... FAIL
+test_unresolved_array_spread (__main__.Refusals.test_unresolved_array_spread) ... FAIL
+test_unresolved_object_spread (__main__.Refusals.test_unresolved_object_spread) ... FAIL
+test_cross_module_object_spread (__main__.SpreadPrecedence.test_cross_module_object_spread) ... ERROR
+test_later_spread_wins (__main__.SpreadPrecedence.test_later_spread_wins) ... FAIL
+test_spread_after_own_field_wins (__main__.SpreadPrecedence.test_spread_after_own_field_wins) ... FAIL
+
+======================================================================
+ERROR: test_non_leading_inline_spread (__main__.ArraySpreads.test_non_leading_inline_spread)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 81, in test_non_leading_inline_spread
+    self.assertEqual(tag("damage")["reward_mastery_stat"]["enum"],
+                     ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'reward_mastery_stat'
+
+======================================================================
+ERROR: test_constant_default (__main__.Helpers.test_constant_default)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 154, in test_constant_default
+    f = item()["maxDelay"]
+        ~~~~^^
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 48, in item
+    return emit("--entities")["entities"]["item"]["fields"]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+KeyError: 'item'
+
+======================================================================
+ERROR: test_cross_file_helper_bounds_and_omission (__main__.Helpers.test_cross_file_helper_bounds_and_omission)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 136, in test_cross_file_helper_bounds_and_omission
+    f = item()["requiredStrength"]
+        ~~~~^^
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 48, in item
+    return emit("--entities")["entities"]["item"]["fields"]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+KeyError: 'item'
+
+======================================================================
+ERROR: test_cross_file_helper_on_single_line_head (__main__.Helpers.test_cross_file_helper_on_single_line_head)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 145, in test_cross_file_helper_on_single_line_head
+    self.assertEqual((f["type"], f["max"], f["optional"], f["nullable"]), ("number", 400000, True, True))
+                      ~^^^^^^^^
+KeyError: 'type'
+
+======================================================================
+ERROR: test_nullable_is_not_omissible (__main__.Helpers.test_nullable_is_not_omissible)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 148, in test_nullable_is_not_omissible
+    f = item()["strictCapped"]
+        ~~~~^^
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 48, in item
+    return emit("--entities")["entities"]["item"]["fields"]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+KeyError: 'item'
+
+======================================================================
+ERROR: test_type_helper (__main__.Helpers.test_type_helper)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 127, in test_type_helper
+    self.assertEqual(tag("override")["direction"],
+                     ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+KeyError: 'direction'
+
+======================================================================
+ERROR: test_multiline_field_is_not_dropped (__main__.MultilineAndDelimiters.test_multiline_field_is_not_dropped)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 87, in test_multiline_field_is_not_dropped
+    f = tag("damage")["statTypes"]
+        ~~~~~~~~~~~~~^^^^^^^^^^^^^
+KeyError: 'statTypes'
+
+======================================================================
+ERROR: test_string_with_braces_and_commas (__main__.MultilineAndDelimiters.test_string_with_braces_and_commas)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 104, in test_string_with_braces_and_commas
+    self.assertEqual(tag("damage")["description"]["default"], "Deals damage, {braces} and, commas")
+                     ~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+KeyError: 'description'
+
+======================================================================
+ERROR: test_cross_module_object_spread (__main__.SpreadPrecedence.test_cross_module_object_spread)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 121, in test_cross_module_object_spread
+    self.assertEqual(fields["reward_money"], {"type": "number", "default": 0, "min": 0})
+                     ~~~~~~^^^^^^^^^^^^^^^^
+KeyError: 'reward_money'
+
+======================================================================
+FAIL: test_combat_constants_module (__main__.ArraySpreads.test_combat_constants_module)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 67, in test_combat_constants_module
+    self.assertEqual(const("allState")["value"], ["avatar", "level", "items"])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: ['...publicState', '...privateState'] != ['avatar', 'level', 'items']
+
+First differing element 0:
+'...publicState'
+'avatar'
+
+Second list contains 1 additional elements.
+First extra element 2:
+'items'
+
+- ['...publicState', '...privateState']
++ ['avatar', 'level', 'items']
+
+======================================================================
+FAIL: test_constant_spread_resolves_in_source_order (__main__.ArraySpreads.test_constant_spread_resolves_in_source_order)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 57, in test_constant_spread_resolves_in_source_order
+    self.assertEqual(const("ElementNames")["value"], ["Fire", "Water", "Ice", "None"])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: ['...BasicElementName', 'Ice', '// a commen[37 chars]one'] != ['Fire', 'Water', 'Ice', 'None']
+
+First differing element 0:
+'...BasicElementName'
+'Fire'
+
+Second list contains 1 additional elements.
+First extra element 3:
+'None'
+
++ ['Fire', 'Water', 'Ice', 'None']
+- ['...BasicElementName',
+-  'Ice',
+-  '// a comment, with a comma and a ] bracket\n  "None']
+
+======================================================================
+FAIL: test_enum_by_reference_has_real_members (__main__.ArraySpreads.test_enum_by_reference_has_real_members)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 72, in test_enum_by_reference_has_real_members
+    self.assertIn("Fire", f["enum"])
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+AssertionError: 'Fire' not found in ['...BasicElementName', '// a comment', 'Ice', 'with a comma and a']
+
+======================================================================
+FAIL: test_transitive_spread (__main__.ArraySpreads.test_transitive_spread)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 60, in test_transitive_spread
+    self.assertEqual(const("NestedNames")["value"], ["Fire", "Water", "Ice", "None", "Extra"])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: ['...ElementNames', 'Extra'] != ['Fire', 'Water', 'Ice', 'None', 'Extra']
+
+First differing element 0:
+'...ElementNames'
+'Fire'
+
+Second list contains 3 additional elements.
+First extra element 2:
+'Ice'
+
+- ['...ElementNames', 'Extra']
++ ['Fire', 'Water', 'Ice', 'None', 'Extra']
+
+======================================================================
+FAIL: test_two_spreads_in_one_list (__main__.ArraySpreads.test_two_spreads_in_one_list)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 63, in test_two_spreads_in_one_list
+    self.assertEqual(const("UserStatNames")["value"],
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                     ["None", "Ninjutsu", "Genjutsu", "ninjutsuMastery", "sageMastery"])
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: ['...StatTypes', '...MasteryNames'] != ['None', 'Ninjutsu', 'Genjutsu', 'ninjutsuMastery', 'sageMastery']
+
+First differing element 0:
+'...StatTypes'
+'None'
+
+Second list contains 3 additional elements.
+First extra element 2:
+'Genjutsu'
+
+- ['...StatTypes', '...MasteryNames']
++ ['None', 'Ninjutsu', 'Genjutsu', 'ninjutsuMastery', 'sageMastery']
+
+======================================================================
+FAIL: test_validator_local_spread_list (__main__.ArraySpreads.test_validator_local_spread_list)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 78, in test_validator_local_spread_list
+    self.assertEqual(sorted(f["enum"]), ["COORDINATES", "INHERIT", "SELF"])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: ['...BaseTargets', 'COORDINATES'] != ['COORDINATES', 'INHERIT', 'SELF']
+
+First differing element 0:
+'...BaseTargets'
+'COORDINATES'
+
+Second list contains 1 additional elements.
+First extra element 2:
+'SELF'
+
+- ['...BaseTargets', 'COORDINATES']
++ ['COORDINATES', 'INHERIT', 'SELF']
+
+======================================================================
+FAIL: test_false_default_is_kept (__main__.FalsyMetadata.test_false_default_is_kept)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 164, in test_false_default_is_kept
+    self.assertEqual(tag("override")["allowFlag"], {"type": "boolean", "default": False})
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'type': 'boolean'} != {'type': 'boolean', 'default': False}
+- {'type': 'boolean'}
++ {'default': False, 'type': 'boolean'}
+
+======================================================================
+FAIL: test_null_default_is_kept (__main__.FalsyMetadata.test_null_default_is_kept)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 167, in test_null_default_is_kept
+    self.assertEqual(tag("override")["nullDefault"], {"type": "string", "default": None, "nullable": True})
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'type': 'string', 'nullable': True} != {'type': 'string', 'default': None, 'nullable': True}
+- {'nullable': True, 'type': 'string'}
++ {'default': None, 'nullable': True, 'type': 'string'}
+?  +++++++++++++++++
+
+
+======================================================================
+FAIL: test_zero_default_and_bound_are_kept (__main__.FalsyMetadata.test_zero_default_and_bound_are_kept)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 160, in test_zero_default_and_bound_are_kept
+    self.assertEqual(tag("damage")["powerPerLevel"],
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                     {"type": "number", "default": 0, "min": -1, "max": 1})
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'type': 'number', 'min': -1, 'max': 1} != {'type': 'number', 'default': 0, 'min': -1, 'max': 1}
+- {'max': 1, 'min': -1, 'type': 'number'}
++ {'default': 0, 'max': 1, 'min': -1, 'type': 'number'}
+?  ++++++++++++++
+
+
+======================================================================
+FAIL: test_multiline_chain_keeps_type_and_bounds (__main__.MultilineAndDelimiters.test_multiline_chain_keeps_type_and_bounds)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 94, in test_multiline_chain_keeps_type_and_bounds
+    self.assertEqual(tag("damage")["rounds"],
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+                     {"type": "number", "default": 3, "min": 0, "max": 3, "int": True})
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'type': 'coerce'} != {'type': 'number', 'default': 3, 'min': 0, 'max': 3, 'int': True}
+- {'type': 'coerce'}
++ {'default': 3, 'int': True, 'max': 3, 'min': 0, 'type': 'number'}
+
+======================================================================
+FAIL: test_multiline_schema_head (__main__.MultilineAndDelimiters.test_multiline_schema_head)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 107, in test_multiline_schema_head
+    self.assertIn("item", emit("--entities")["entities"])
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'item' not found in {'jutsu': {'source': 'app/src/validators/combat.ts', 'schema': 'JutsuValidatorRawSchema', 'superRefine': [], 'fields': {'requiredStrength': {'raw': 'makeCappedNullableNumber(MAX_CAP)', 'coerce': False, 'optional': False, 'nullable': False}}}}
+
+======================================================================
+FAIL: test_nested_item_fields_do_not_leak (__main__.MultilineAndDelimiters.test_nested_item_fields_do_not_leak)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 99, in test_nested_item_fields_do_not_leak
+    self.assertNotIn("text", fields)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+AssertionError: 'text' unexpectedly found in {'type': {'type': 'literal', 'default': 'damage', 'literal': 'damage'}, 'elements': {'type': 'array', 'optional': True, 'enum_ref': 'ElementNames', 'enum': ['...BasicElementName', '// a comment', 'Ice', 'with a comma and a']}, 'rounds': {'type': 'coerce'}, 'text': {'type': 'string'}, 'leaked': {'type': 'string', 'optional': True}, 'power': {'type': 'number', 'default': 1, 'min': -100, 'max': 100}, 'powerPerLevel': {'type': 'number', 'min': -1, 'max': 1}, 'target': {'type': 'enum', 'default': 'INHERIT', 'optional': True, 'enum_ref': 'ActionTargets@validators/combat.ts', 'enum': ['...BaseTargets', 'COORDINATES']}, 'calculation': {'type': 'enum', 'default': 'static', 'enum': ['static']}, 'generalTypes': {'type': 'array', 'optional': True, 'enum_ref': 'GeneralTypes', 'enum': ['Highest', 'Strength']}}
+
+======================================================================
+FAIL: test_cyclic_array_spread (__main__.Refusals.test_cyclic_array_spread)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 181, in test_cyclic_array_spread
+    self.assert_refused("cycle_array", "--constants", "E_CYCLE")
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 173, in assert_refused
+    self.assertEqual(code, 1, err)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: 0 != 1 : 
+
+======================================================================
+FAIL: test_cyclic_object_spread (__main__.Refusals.test_cyclic_object_spread)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 187, in test_cyclic_object_spread
+    self.assert_refused("cycle_object", "--ctors", "E_CYCLE")
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 173, in assert_refused
+    self.assertEqual(code, 1, err)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: 0 != 1 : 
+
+======================================================================
+FAIL: test_gaps_are_reported_not_fatal (__main__.Refusals.test_gaps_are_reported_not_fatal)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 191, in test_gaps_are_reported_not_fatal
+    self.assertEqual(code, 0, err)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: 1 != 0 : Traceback (most recent call last):
+  File "<main@1da1830 schema_extract.py>", line 1147, in <module>
+    report(repo)
+    ~~~~~~^^^^^^
+  File "<main@1da1830 schema_extract.py>", line 995, in report
+    p = emit_procedures(repo)
+  File "<main@1da1830 schema_extract.py>", line 960, in emit_procedures
+    p = extract_procedures(repo)
+  File "<main@1da1830 schema_extract.py>", line 805, in extract_procedures
+    for fn in sorted(os.listdir(rdir)):
+                     ~~~~~~~~~~^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'skills/building-tnr-content/scripts/../data/fixtures/qw0a/positive/app/src/server/api/routers'
+
+
+======================================================================
+FAIL: test_unresolved_array_spread (__main__.Refusals.test_unresolved_array_spread)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 178, in test_unresolved_array_spread
+    self.assert_refused("unresolved_array", "--constants", "E_UNRESOLVED_SPREAD")
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 173, in assert_refused
+    self.assertEqual(code, 1, err)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: 0 != 1 : 
+
+======================================================================
+FAIL: test_unresolved_object_spread (__main__.Refusals.test_unresolved_object_spread)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 184, in test_unresolved_object_spread
+    self.assert_refused("unresolved_object", "--ctors", "E_UNRESOLVED_SPREAD")
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 173, in assert_refused
+    self.assertEqual(code, 1, err)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: 0 != 1 : 
+
+======================================================================
+FAIL: test_later_spread_wins (__main__.SpreadPrecedence.test_later_spread_wins)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 113, in test_later_spread_wins
+    self.assertEqual(tag("damage")["power"], {"type": "number", "default": 1, "min": 0})
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'type': 'number', 'default': 1, 'min': -100, 'max': 100} != {'type': 'number', 'default': 1, 'min': 0}
+- {'default': 1, 'max': 100, 'min': -100, 'type': 'number'}
+?               ------------        ---
+
++ {'default': 1, 'min': 0, 'type': 'number'}
+
+======================================================================
+FAIL: test_spread_after_own_field_wins (__main__.SpreadPrecedence.test_spread_after_own_field_wins)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "skills/building-tnr-content/scripts/test_schema_extract.py", line 117, in test_spread_after_own_field_wins
+    self.assertEqual(tag("override")["calculation"]["enum"], ["static"])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: ['percentage'] != ['static']
+
+First differing element 0:
+'percentage'
+'static'
+
+- ['percentage']
++ ['static']
+
+----------------------------------------------------------------------
+Ran 30 tests in 0.614s
+
+FAILED (failures=19, errors=9)
+exit=1

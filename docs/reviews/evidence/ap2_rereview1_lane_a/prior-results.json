@@ -1,0 +1,241 @@
+{
+  "daily_cap": [
+    {
+      "remaining": 170000,
+      "admitted_ryo": 170000.0,
+      "buys": [
+        {
+          "itemId": "rsc2uO5QuffXzejfhwF_F",
+          "stack": 3,
+          "villageId": "9FZf8b9E7tZJZTaChmhHB"
+        },
+        {
+          "itemId": "tZTvqYWiAc_OrY64nDvIo",
+          "stack": 5,
+          "villageId": "9FZf8b9E7tZJZTaChmhHB"
+        }
+      ],
+      "decisions": 0
+    },
+    {
+      "remaining": 180000,
+      "admitted_ryo": 180000.0,
+      "buys": [
+        {
+          "itemId": "rsc2uO5QuffXzejfhwF_F",
+          "stack": 3,
+          "villageId": "9FZf8b9E7tZJZTaChmhHB"
+        },
+        {
+          "itemId": "tZTvqYWiAc_OrY64nDvIo",
+          "stack": 15,
+          "villageId": "9FZf8b9E7tZJZTaChmhHB"
+        }
+      ],
+      "decisions": 0
+    }
+  ],
+  "cash": [
+    {
+      "energy": 0,
+      "ending": false,
+      "pocket": 9400000,
+      "activity": "bank",
+      "calls": [
+        "bank.toBank",
+        "profile.getUser"
+      ],
+      "bank_available": false
+    },
+    {
+      "energy": 2500,
+      "ending": false,
+      "pocket": 9400000,
+      "activity": "bank",
+      "calls": [
+        "bank.toBank",
+        "profile.getUser"
+      ],
+      "bank_available": false
+    },
+    {
+      "energy": 0,
+      "ending": true,
+      "pocket": 9400000,
+      "activity": "training",
+      "calls": [
+        "jutsu.getTrainingQueue",
+        "jutsu.getUserJutsus",
+        "profile.getUser"
+      ],
+      "bank_available": true
+    }
+  ],
+  "lease": [
+    {
+      "oversleep": 0,
+      "crowded": false,
+      "renew": false,
+      "restart": null,
+      "waits": [
+        0.25,
+        0.25,
+        0.25,
+        0.25,
+        8.0
+      ],
+      "printed_vs_expiry": -56.0,
+      "calls": [],
+      "before_confirmed_cutoff": false,
+      "handle_calls": 1,
+      "tool_calls": [
+        "claim",
+        "heartbeat"
+      ]
+    },
+    {
+      "oversleep": 0,
+      "crowded": true,
+      "renew": false,
+      "restart": null,
+      "waits": [
+        0.25,
+        0.25,
+        0.25,
+        0.25,
+        8.0
+      ],
+      "printed_vs_expiry": -56.0,
+      "calls": [],
+      "before_confirmed_cutoff": false,
+      "handle_calls": 1,
+      "tool_calls": [
+        "claim",
+        "heartbeat"
+      ]
+    },
+    {
+      "oversleep": 150,
+      "crowded": true,
+      "renew": false,
+      "restart": null,
+      "waits": [
+        0.25,
+        0.25,
+        0.25,
+        0.25,
+        8.0
+      ],
+      "printed_vs_expiry": 94.0,
+      "calls": [],
+      "before_confirmed_cutoff": false,
+      "handle_calls": 1,
+      "tool_calls": [
+        "claim",
+        "heartbeat"
+      ]
+    },
+    {
+      "oversleep": 0,
+      "crowded": true,
+      "renew": true,
+      "restart": null,
+      "waits": [
+        0.25,
+        0.25,
+        0.25,
+        0.25,
+        59.5
+      ],
+      "printed_vs_expiry": -4.5,
+      "calls": [
+        "profile.getUser",
+        "travel.getSectorData",
+        "stealth.useSensory"
+      ],
+      "before_confirmed_cutoff": true,
+      "handle_calls": 1,
+      "tool_calls": [
+        "claim",
+        "heartbeat"
+      ]
+    },
+    {
+      "oversleep": 0,
+      "crowded": true,
+      "renew": false,
+      "restart": null,
+      "waits": [
+        0.25,
+        0.25,
+        0.25,
+        0.25,
+        30.0
+      ],
+      "printed_vs_expiry": -29.0,
+      "calls": [],
+      "before_confirmed_cutoff": false,
+      "handle_calls": 1,
+      "tool_calls": [
+        "claim",
+        "claim"
+      ]
+    },
+    {
+      "oversleep": 0,
+      "crowded": true,
+      "renew": false,
+      "restart": "pending",
+      "waits": [
+        0.25,
+        0.25,
+        0.25,
+        0.25,
+        8.0
+      ],
+      "printed_vs_expiry": -51.0,
+      "calls": [],
+      "before_confirmed_cutoff": false,
+      "handle_calls": 1,
+      "tool_calls": [
+        "claim",
+        "heartbeat"
+      ]
+    },
+    {
+      "oversleep": 0,
+      "crowded": true,
+      "renew": false,
+      "restart": "receipt",
+      "waits": [
+        0.25,
+        0.25,
+        0.25,
+        0.25,
+        0.25,
+        0.25,
+        0.25,
+        0.25
+      ],
+      "printed_vs_expiry": 71.0,
+      "calls": [],
+      "before_confirmed_cutoff": false,
+      "handle_calls": 1,
+      "tool_calls": [
+        "claim",
+        "heartbeat"
+      ]
+    }
+  ],
+  "equipment": {
+    "selection_batch": [
+      "jutsu.selectJutsuLoadout",
+      "item.selectItemLoadout",
+      "item.getUserItems",
+      "profile.getUser"
+    ],
+    "after_selection_activity": "watch",
+    "before_item_read": "yVNeLzxHSFkNpTPnlm7yQ",
+    "after_item_read": "GMF1JZ0MChUHc7AtnKABw"
+  }
+}

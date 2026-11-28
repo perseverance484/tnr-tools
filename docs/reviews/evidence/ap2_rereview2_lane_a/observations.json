@@ -1,0 +1,134 @@
+{
+  "reservation": [
+    {
+      "read_after_A": false,
+      "first_admitted": 180000,
+      "before": {
+        "day": "2027-01-15",
+        "ryo": 49820000,
+        "out": [
+          [
+            "9357de97",
+            180000.0
+          ]
+        ]
+      },
+      "after": {
+        "day": "2027-01-15",
+        "ryo": 49820000,
+        "out": [
+          [
+            "9357de97",
+            180000.0,
+            true
+          ]
+        ]
+      },
+      "next_calls": [
+        "bank.toBank",
+        "profile.getUser"
+      ],
+      "next_admitted": 0,
+      "old_reservation_remaining": true,
+      "decisions": 0
+    },
+    {
+      "read_after_A": true,
+      "first_admitted": 180000,
+      "before": {
+        "day": "2027-01-15",
+        "ryo": 49820000,
+        "out": [
+          [
+            "13e34018",
+            180000.0
+          ]
+        ]
+      },
+      "after": {
+        "day": "2027-01-15",
+        "ryo": 50000000.0,
+        "out": [
+          [
+            "13e34018",
+            180000.0,
+            true
+          ]
+        ]
+      },
+      "next_calls": [
+        "bank.toBank",
+        "profile.getUser"
+      ],
+      "next_admitted": 0,
+      "old_reservation_remaining": true,
+      "decisions": 0
+    }
+  ],
+  "selection": [
+    {
+      "read_after_A": false,
+      "old_selection_still_loose": true,
+      "stale": [
+        [
+          "164e6193",
+          null
+        ]
+      ],
+      "activity": "watch",
+      "thrown_in_feed": "yVNeLzxHSFkNpTPnlm7yQ",
+      "calls": [
+        "profile.getUser"
+      ]
+    },
+    {
+      "read_after_A": true,
+      "old_selection_still_loose": false,
+      "stale": [
+        [
+          "7a538869",
+          null,
+          true
+        ]
+      ],
+      "activity": "equipment",
+      "thrown_in_feed": "GMF1JZ0MChUHc7AtnKABw",
+      "calls": [
+        "item.getUserItems",
+        "profile.getUser"
+      ]
+    }
+  ],
+  "banking_off": [
+    {
+      "activity": "pvp_hunt",
+      "calls": [
+        "profile.getUser",
+        "travel.getSectorData",
+        "stealth.useSensory",
+        "profile.getStrongestUsers"
+      ],
+      "pocket": 9400000,
+      "gate": "refuse"
+    },
+    {
+      "activity": "session",
+      "calls": [
+        "profile.getUser"
+      ],
+      "pocket": 9400000,
+      "gate": "refuse"
+    },
+    {
+      "activity": "pvp_hunt",
+      "calls": [
+        "profile.getUser",
+        "travel.getSectorData",
+        "stealth.useSensory",
+        "profile.getStrongestUsers"
+      ],
+      "pocket": 9400000,
+      "gate": "refuse"
+    }
+  ]
+}

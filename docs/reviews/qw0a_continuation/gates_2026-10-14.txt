@@ -1,0 +1,57 @@
+$ python3 skills/building-tnr-content/scripts/test_schema_extract.py
+
+OK
+exit=0
+$ python3 skills/building-tnr-content/scripts/schema_diff.py diff skills/building-tnr-content/data/fixtures/schema_old_sector.json skills/building-tnr-content/data/fixtures/schema_new_sector.json
+
+BREAKING: 1 change(s) - DO NOT ADOPT (exit 1)
+exit=1
+$ python3 skills/building-tnr-content/scripts/schema_diff.py diff skills/building-tnr-content/data/fixtures/schema_old_add.json skills/building-tnr-content/data/fixtures/schema_new_add.json
+
+no breaking changes: 3 addition(s), safe to adopt (exit 0)
+exit=0
+$ python3 skills/building-tnr-content/scripts/schema_diff.py --invariants skills/building-tnr-content/data/fixtures/schema_bad_invariants.json
+I2 AllTags.scorch.pool: enum_ref 'GhostPool' unresolved
+invariants: 1 union(s), 2 variant(s) audited; 3 error(s)
+exit=1
+$ python3 -c import py_compile,tempfile,sys; [py_compile.compile(f, cfile=tempfile.mktemp(suffix='.pyc'), doraise=True) for f in sys.argv[1:]]; print('compiled', len(sys.argv)-1) skills/building-tnr-content/scripts/schema_extract.py skills/building-tnr-content/scripts/test_schema_extract.py docs/reviews/qw0a_continuation/tools/build_inventory.py
+compiled 3
+exit=0
+$ python3 push/90_ghost_ship_skyglass_release.validate_exception.py
+EXCEPTION HOLDS: validate.py '56 errors, 25 warnings' (exit 1) is exactly the ledger approved by RUL-2026-10-12-013 for push/90_ghost_ship_skyglass_release.json sha256 6b72054282be6a904f409333afcdf6b013e8d0c4654977d863d208d64804b0c7
+exit=0
+$ python3 push/93_ghost_ship_guardian_repair.validate_exception.py
+EXCEPTION HOLDS: validate.py '4 errors, 3 warnings' (exit 1) is exactly the ledger approved by RUL-2026-10-12-014 for push/93_ghost_ship_guardian_repair.json sha256 840a80fcae45cc99e4b3f2a84861a366113f53b876eb3532e98a0a9b3c6e2753
+exit=0
+$ python3 push/94_ghost_ship_skyglass_sentinel_repair.validate_exception.py
+EXCEPTION HOLDS: validate.py '4 errors, 3 warnings' (exit 1) is exactly the ledger approved by RUL-2026-10-12-015 for push/94_ghost_ship_skyglass_sentinel_repair.json sha256 a31a588488c48f99c488149bb6b4b5264f0dd43ddd2995b5b242a5a1261b1988
+exit=0
+$ python3 ../scripts/factory.py --selftest
+
+20/20 passed
+exit=0
+$ python3 ../scripts/validate.py --laws
+PASS   law 12 ramp compounds
+laws: 4 asserted, 0 failed
+exit=0
+$ python3 build_packs.py --check
+
+all packs and TOCs current (exit 0)
+exit=0
+$ python3 lawmap.py <repo>
+
+93 laws, 93 matrix rows, 77 citations across 36 files; 0 errors, 5 warnings
+exit=0
+$ python3 doctrinemap.py <repo>
+21 assertion(s), 18 referenced, 16 surface(s) scanned; 0 error(s), 0 warning(s)
+exit=0
+$ python3 render_doctrine.py --check
+
+all projections current (exit 0)
+exit=0
+$ python3 catalog_sync.py --selftest
+catalog_sync selftest OK
+exit=0
+$ python3 skills/building-tnr-content/scripts/schema_diff.py --invariants skills/building-tnr-content/data/45c_DATA_constructors.json --constants skills/building-tnr-content/data/45e_DATA_constants.json
+invariants: 5 union(s), 128 variant(s) audited; 0 error(s)
+exit=0
