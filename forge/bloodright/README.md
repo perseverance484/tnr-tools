@@ -11,7 +11,7 @@ artifact: importing creates skill records and prerequisites, not an SVG on the g
 > alongside them; they target the older pilot design and would rename BEE nodes.
 
 `bee.pilot.json` names the approved 12-node BEE design at tools commit
-`5963810895aae4e2deaa61b72424c203752f50c1`. It explicitly binds:
+`aee9451816af7fa32e8908ad136b747c388c7ca9`. It explicitly binds:
 
 - Bloodline: `ovZIWu28ANn-Cij5TjT8S` (from the design).
 - Folder: `kvxMu9ntHbNcD6FFHKGo3` (existing, remains visible).
@@ -51,7 +51,7 @@ promotes it after the merge. No pilot game write was performed.
   "_note": "Bloodright import",
   "bloodright": {
     "version": 1,
-    "source": {"path": "docs/design/bloodright/examples/blood_enchanted_eyes_structural.json", "ref": "5963810895aae4e2deaa61b72424c203752f50c1"},
+    "source": {"path": "docs/design/bloodright/examples/blood_enchanted_eyes_structural.json", "ref": "aee9451816af7fa32e8908ad136b747c388c7ca9"},
     "hiddenProbeId": "HWq7986PPhl5emkAM3L4a",
     "bindings": {"folderId": "kvxMu9ntHbNcD6FFHKGo3", "nodes": {"p2_t1": "HWq7986PPhl5emkAM3L4a"}},
     "nodes": {"p2_t1": {"seichiSilverCost": 20, "rounds": 99}}

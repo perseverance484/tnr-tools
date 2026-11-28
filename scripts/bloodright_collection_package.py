@@ -45,7 +45,7 @@ def git(*args, binary=False):
 # The exact commit the packages pin. Update it (and rerun) whenever the designs change.
 # Explicit rather than derived from history, so squash/rebase merges and shallow clones
 # cannot silently move it; design_ref() proves the working tree still matches it.
-DESIGN_REF = "be3053ddc9c041040fa4294d93c93d3479bfa83f"
+DESIGN_REF = "8b0e90d2a0680f4d282abe64fbaa6932f4938d75"
 
 
 def design_ref():
