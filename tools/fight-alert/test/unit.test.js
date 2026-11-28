@@ -267,3 +267,32 @@ test("fight alerts and swap notes retry ntfy refusals for up to 15 seconds", asy
     globalThis.setTimeout = realTimeout;
   }
 });
+
+test("an ntfy refusal keeps ntfy's own reply text for the status page", async () => {
+  const { FightWatcher4 } = await import("../src/index.js");
+  const realFetch = globalThis.fetch;
+  const realTimeout = globalThis.setTimeout;
+  globalThis.setTimeout = (fn) => realTimeout(fn, 0);
+  const reply = '{"code":42901,"http":429,"error":"limit reached: too many requests","link":"https://ntfy.sh/docs/publish/#limitations"}';
+  try {
+    globalThis.fetch = async () => new Response(reply + "\n", { status: 429 });
+    const w = new FightWatcher4({ storage: memStorage() }, { WATCH_USER_ID: "me", NTFY_TOPIC: "t" });
+    await w.loadMeta();
+    const r = await w.notify("attacked");
+    assert.equal(r.ok, false);
+    assert.ok(r.error.startsWith(`ntfy 429: ${reply}`));
+    assert.ok(w.meta.lastNotify.error.includes("42901"));
+    assert.ok(w.meta.lastError.includes("too many requests"));
+    assert.deepEqual(
+      { kind: w.meta.lastRefusal.kind, status: w.meta.lastRefusal.status, body: w.meta.lastRefusal.body },
+      { kind: "attacked", status: 429, body: reply },
+    );
+    // A later success does not erase the last refusal.
+    globalThis.fetch = async () => new Response("{}", { status: 200 });
+    assert.equal((await w.notify("own")).ok, true);
+    assert.equal(w.meta.lastRefusal.status, 429);
+  } finally {
+    globalThis.fetch = realFetch;
+    globalThis.setTimeout = realTimeout;
+  }
+});

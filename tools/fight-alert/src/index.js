@@ -180,6 +180,7 @@ export class FightWatcher4 {
         alertsSent: m.alerts,
         lastError: m.lastError,
         lastNotify: m.lastNotify || null,
+        lastRefusal: m.lastRefusal || null,
         swap: {
           enabled: this.swapOn(),
           signedIn: await this.game.signedIn(),
@@ -488,7 +489,13 @@ export class FightWatcher4 {
           await this.saveMeta();
           return { ok: true };
         }
-        lastErr = `ntfy ${res.status}`;
+        // Keep ntfy's own reply: it names the limit that refused it (e.g. code 42901).
+        let body = "";
+        try {
+          body = (await res.text()).replace(/\s+/g, " ").trim().slice(0, 300);
+        } catch {}
+        lastErr = `ntfy ${res.status}${body ? `: ${body}` : ""}`;
+        this.meta.lastRefusal = { kind, status: res.status, body, at: new Date().toISOString() };
         if (res.status !== 429 && res.status < 500) break;
       } catch (err) {
         lastErr = err.message;
