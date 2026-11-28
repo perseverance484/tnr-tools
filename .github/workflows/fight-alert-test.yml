@@ -1,0 +1,22 @@
+name: fight-alert-test
+# Sends ONE test alert to the owner's phone and prints /status. Run only when the owner asks
+# for a test alert (it is not part of deploys).
+on:
+  workflow_dispatch:
+  push:
+    branches: [claude/project-thread-u81n7u]
+    paths:
+      - ".github/workflows/fight-alert-test.yml"
+concurrency: fight-alert-deploy
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send one test alert
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+        run: |
+          curl -sS -w '\nHTTP %{http_code}\n' --get --data-urlencode "key=$NTFY_TOPIC" \
+            https://tnr-fight-alert.perseverance484.workers.dev/test
+      - name: Status
+        run: curl -fsS https://tnr-fight-alert.perseverance484.workers.dev/status
